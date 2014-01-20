@@ -13,11 +13,9 @@ class mail_mail(osv.Model):
         fix_ids = []
         for mail in self.browse(cr, SUPERUSER_ID, ids, context=context):
             if re.search('@%s>?\s*$'%catchall_domain, mail.email_from) is None:
-                print 'fix:', mail.email_from
                 fix_ids.append(mail.id)
 
         email_from = '%s@%s' % (catchall_alias, catchall_domain)
-        print 'new email', email_from
 
         if fix_ids:
             self.write(cr, uid, fix_ids, {'email_from': email_from}, context=context)
