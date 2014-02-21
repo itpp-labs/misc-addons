@@ -12,6 +12,7 @@ class crm_lead(osv.Model):
        except ValueError:
            pass
        if channel_id is not None and \
+              vals.has_key('channel_id') and \
               channel_id == vals['channel_id'] and \
               not vals.has_key('section_id'):
          section_ids = self.pool.get("crm.case.section").search(
