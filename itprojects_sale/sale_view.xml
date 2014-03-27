@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.itprojects</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <data>
+                   <xpath expr="//button[@name='invoice_cancel']" position="after">
+                       <button name="contract_signed" class="oe_highlight" states="contract_draft,contract_sent,contract_scan_received,contract_paused" string="Contract is signed"/>
+                       <button name="contract_sent" states="contract_draft" string="Contract is sent"/>
+                       <button name="contract_scan_received" states="contract_sent" string="Contract scan received"/>
+                       <button name="contract_paused" states="contract_scan_received" string="Contract is paused"/>
+                       <button name="review" class="oe_highlight" states="development" string="Ready to review"/>
+                       <button name="back_to_development" states="review" string="Back to development"/>
+                       <button name="acceptance_act_signed" class="oe_highlight" attrs="{'invisible':['|', ('use_contract', '=', False), ('state', 'not in', ['review','acceptance_act_sent'])]}" string="Acceptance act is signed"/>
+							  <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
+                            type="action" attrs="{'invisible':['|', ('use_contract', '=', False), ('state', 'not in', ['review','acceptance_act_sent','acceptance_act_signed'])]}" class="oe_highlight" groups="base.group_user"/>
+                   </xpath>
+
+                   <xpath expr="//field[@name='project_id']" position="after">                   
+							<field name="use_contract" class="oe_inline"/>
+                   </xpath>
+
+                   <xpath expr="//field[@name='state']" position="replace">
+							  <field  name="state" widget="statusbar" statusbar_visible="draft,sent,development,review,done" statusbar_colors='{"invoice_except":"red","waiting_date":"blue"}'/>
+                   </xpath>
+
+
+					 </data>
+				</field>
+        </record>
+		
+
+    </data>
+</openerp>
