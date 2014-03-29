@@ -38,7 +38,6 @@ class sale_order(osv.Model):
 
     def action_wait2(self, cr, uid, ids, context=None):
         context = context or {}
-        print 'action_wait', ids
         for o in self.browse(cr, uid, ids):
             if not o.order_line:
                 raise osv.except_osv(_('Error!'),_('You cannot confirm a sales order which has no line.'))
@@ -47,7 +46,6 @@ class sale_order(osv.Model):
             #    self.write(cr, uid, [o.id], {'state': 'manual', 'date_confirm': fields.date.context_today(self, cr, uid, context=context)})
             #else:
             #    self.write(cr, uid, [o.id], {'state': 'progress', 'date_confirm': fields.date.context_today(self, cr, uid, context=context)})
-            print 'use_contract', o.id, o.use_contract
             if o.use_contract:
                 self.write(cr, uid, [o.id], {'state': 'contract_draft'})
             else:
@@ -55,3 +53,17 @@ class sale_order(osv.Model):
                 pass
             self.pool.get('sale.order.line').button_confirm(cr, uid, [x.id for x in o.order_line])
         return True
+
+    def _create_pickings_and_procurements(self, cr, uid, order, order_lines, picking_id=False, context=None):
+        new_order_lines = []
+        for line in order_lines:
+            if line.product_id.type != 'service':
+                new_order_lines.append(line)
+        return super(sale_order, self)._create_pickings_and_procurements(cr, uid, order, new_order_lines, picking_id, context)
+    #def action_register_prepayment(self, cr, uid, ids, context=None):
+
+    #def invoice_ids_get(self, cr, uid, ids, *args):
+    #    res = []
+    #    for order in self.browse(cr, uid, ids, context={}):
+    #        res += order.invoice_ids
+    #    return res

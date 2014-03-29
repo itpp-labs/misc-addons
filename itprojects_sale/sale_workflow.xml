@@ -234,10 +234,12 @@
 
 
 
-<!-- Premayment (without contract) -->
+<!-- Prepayment (without contract) -->
         <record id="act_prepayment" model="workflow.activity">
             <field name="wkf_id" ref="sale.wkf_sale"/>
-            <field name="name">wait prepayment</field>
+            <field name="name">wait_prepayment</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'prepayment'})</field>
         </record>
         <record id="act_final_payment" model="workflow.activity">
             <field name="wkf_id" ref="sale.wkf_sale"/>
@@ -258,7 +260,8 @@
         <record id="trans_prepayment_develop" model="workflow.transition">
             <field name="act_from" ref="act_prepayment"/>
             <field name="act_to" ref="act_development"/>
-            <field name="signal">prepayment_paid</field>
+            <field name="condition">True</field>
+            <field name="signal">develop</field>
         </record>
 
         <record id="trans_review_final_payment" model="workflow.transition">
@@ -267,6 +270,6 @@
             <field name="signal">wait_final_payment</field>
 				<field name="condition">not use_contract</field>
         </record>
-<!-- /Premayment -->
+<!-- /Prepayment -->
     </data>
 </openerp>

@@ -8,8 +8,9 @@
     """,
     "depends" : ["sale_stock"],
     "data":[
+        'wizard/sale_make_invoice_advance.xml',
         'sale_workflow.xml',
-        'sale_view.xml'
+        'sale_view.xml',
         ],
     "installable": True
 }
