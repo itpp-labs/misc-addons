@@ -7,8 +7,8 @@
 			 string="Договор"
 			 model="sale.order" 
 			 report_type="qweb-pdf"
-			 file="sale_contract_report_ru.report_salecontract" 
-			 name="sale_contract_report_ru.report_salecontract" 
+			 file="sale_report_ru.report_salecontract" 
+			 name="sale_report_ru.report_salecontract" 
 			 />
 
 		<report 
@@ -16,8 +16,8 @@
 			 string="Акт приема-передачи"
 			 model="sale.order" 
 			 report_type="qweb-pdf"
-			 file="sale_contract_report_ru.report_acceptance_act_template" 
-			 name="sale_contract_report_ru.report_acceptance_act_template" 
+			 file="sale_report_ru.report_acceptance_act_template" 
+			 name="sale_report_ru.report_acceptance_act_template" 
 			 />
 
 		<report 
@@ -25,8 +25,8 @@
 			 string="Коммерческое предложение / Заказ"
 			 model="sale.order" 
 			 report_type="qweb-pdf"
-			 file="sale_order_report_ru.report_saleorder" 
-			 name="sale_order_report_ru.report_saleorder" 
+			 file="sale_report_ru.report_saleorder" 
+			 name="sale_report_ru.report_saleorder" 
 			 />
 
 <template id="contract_layout">
@@ -103,13 +103,13 @@
 <template id="contract_partner_row">
   <div class="row" style="page-break-inside:avoid;">
 	 <div class="col-xs-6">
-		<t t-call="sale_contract_report_ru.contract_partner">
+		<t t-call="sale_report_ru.contract_partner">
 		  <t t-set="partner_role" t-value="'Заказчик'"/>
 		  <t t-set="partner_obj" t-value="o"/>
 		</t>
 	 </div>
 	 <div class="col-xs-6">
-		<t t-call="sale_contract_report_ru.contract_partner">
+		<t t-call="sale_report_ru.contract_partner">
 		  <t t-set="partner_role" t-value="'Исполнитель'"/>
 		  <t t-set="partner_obj" t-value="o.company_id"/>
 		</t>
@@ -122,7 +122,7 @@
   <h1 class="text-right">Приложение <t t-esc="appendix_name"/></h1>
   <h3 class="text-right">к договору № <span t-field="o.name"/> <br/>от <span t-esc="formatLang(o.date_order, date=True)"/></h3>
   <t t-raw="0"/>
-  <t t-call="sale_contract_report_ru.contract_partner_row">
+  <t t-call="sale_report_ru.contract_partner_row">
 	 <t t-set="all_fields" t-value="False"/>
   </t>
 </template>
@@ -192,9 +192,9 @@
 
 
 <template id="contract_appendix_sale_order">
-  <t t-call="sale_contract_report_ru.contract_appendix">
+  <t t-call="sale_report_ru.contract_appendix">
 	 <t t-set="appendix_name" t-value="'№1'"/>
-	 <t t-call="sale_contract_report_ru.sale_order_lines"/>
+	 <t t-call="sale_report_ru.sale_order_lines"/>
 
 	 <p t-field="o.note"/>
 	 <p t-if="o.payment_term">
@@ -205,7 +205,7 @@
 </template>
 
 <template id="contract_appendix_other">
-  <t t-call="sale_contract_report_ru.contract_appendix">
+  <t t-call="sale_report_ru.contract_appendix">
 	 <t t-set="appendix_name" t-value="'№2'"/>
 	 <div class="clauses">
 		<ol>
@@ -220,7 +220,7 @@
 		</ol>
 	 </div>
   </t>
-  <t t-call="sale_contract_report_ru.contract_appendix">
+  <t t-call="sale_report_ru.contract_appendix">
 	 <t t-set="appendix_name" t-value="'№3'"/>
 	 Yet another appendix
   </t>
@@ -229,7 +229,7 @@
 <template id="report_salecontract">
     <t t-call="report.html_container">
         <t t-foreach="docs" t-as="o">
-            <t t-call="sale_contract_report_ru.contract_layout">
+            <t t-call="sale_report_ru.contract_layout">
                 <div class="page">
 						<style type="text/css">
 						  .pagebreak{
@@ -256,7 +256,7 @@
                     <h1 class="text-center">
                         <span>Договор № </span>
                         <span t-field="o.name"/>
-								<span><t t-call="sale_contract_report_ru.contract_name"/></span>
+								<span><t t-call="sale_report_ru.contract_name"/></span>
                     </h1>
                     <h3 class="text-center">
 						  г. <span t-field="o.company_id.city"/> <span t-esc="formatLang(o.date_order, date=True)"/>
@@ -265,16 +265,16 @@
 							 <span t-field="o.company_id.name"/>, именуемое в дальнейшем «Исполнитель», <span t-field="o.company_id.partner_id.represented_by"/> с одной стороны и <span t-field="o.partner_id.name"/>, именуемое(ый)(ая) в дальнейшем «Заказчик», <span t-field="o.company_id.partner_id.represented_by"/> с другой стороны, вместе именуемые «Стороны», заключили настоящий Договор о нижеследующем:
 						  </p>
 						  <div class="clauses">
-							 <t t-call="sale_contract_report_ru.contract_clauses"/>
+							 <t t-call="sale_report_ru.contract_clauses"/>
 						  </div>
-						  <t t-call="sale_contract_report_ru.contract_partner_row">
+						  <t t-call="sale_report_ru.contract_partner_row">
 							 <t t-set="all_fields" t-value="True"/>
 						  </t>
 						  
 						  
 
-						  <t t-call="sale_contract_report_ru.contract_appendix_sale_order"/>
-						  <t t-call="sale_contract_report_ru.contract_appendix_other"/>
+						  <t t-call="sale_report_ru.contract_appendix_sale_order"/>
+						  <t t-call="sale_report_ru.contract_appendix_other"/>
                 </div>
             </t>
         </t>
@@ -284,18 +284,18 @@
 <template id="report_acceptance_act_template">
   <t t-call="report.html_container">
 	 <t t-foreach="docs" t-as="o">
-		<t t-call="sale_contract_report_ru.contract_layout">
+		<t t-call="sale_report_ru.contract_layout">
 		  <div class="page">
 			 <h1>Акт приема-передачи оказанных услуг (выполненных работ)</h1>
 			 <h3>№___ от &amp;laquo;___&amp;raquo;______________ 2014 г.</h3>
 			 <div>Договор № <span t-field="o.name"/> от <span t-esc="formatLang(o.date_order, date=True)"/></div>
 			 <div style="height:30px"></div>
-			 <t t-call="sale_contract_report_ru.sale_order_lines"/>
+			 <t t-call="sale_report_ru.sale_order_lines"/>
 			 <p>Всего оказано услуг (выполнено работ) на сумму: <span t-field="o.amount_total_in_words"/>.</p>
 			 <p>
 			 Вышеперечисленные услуги (работы) оказаны (выполнены) полностью и в срок. Заказчик претензий по объемам, качеству и срокам оказания услуг (выполнения работ) не имеет.
 			 </p>
-			 <t t-call="sale_contract_report_ru.contract_partner_row">
+			 <t t-call="sale_report_ru.contract_partner_row">
 				<t t-set="all_fields" t-value="False"/>
 			 </t>
 		  </div>
