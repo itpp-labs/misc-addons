@@ -5,7 +5,7 @@
     "category" : "Sale",
     "website" : "https://it-projects.info",
     "description": """
-    Добавляет ИНН\КПП, расчетный счет в виджет contact
+    Добавляет ИНН-КПП, расчетный счет в виджет contact
 
     """,
     "depends" : ['website'],
