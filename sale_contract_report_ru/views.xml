@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_partner_form_represented_by" model="ir.ui.view">
+            <field name="name">res.partner.form.represented_by</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+				  <data>
+					 <xpath expr="//field[@name='parent_id']" position="before">
+						<field name="represented_by" attrs="{'invisible': [('is_company','=', False)]}" placeholder="в лице генерального директора Иванова Ивана Ивановича, действующего на основании устава,"/>
+					 </xpath>
+				  </data>
+				</field>
+		  </record>
+	 </data>
+</openerp>
