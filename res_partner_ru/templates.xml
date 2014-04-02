@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<template id="contact_ru" inherit_id="website.contact">
+		  <xpath expr="//span[@itemprop='addressCountry']/.." position="before">
+            <div t-if="inn and kpp and 'inn_kpp' in fields" class='css_editable_mode_hidden'>
+				  ИНН&amp;nbsp;<span itemprop="taxID" t-raw="inn"/> &#47; КПП&amp;nbsp;<span t-raw="kpp"/>
+            </div>
+
+            <div t-if="account and 'account' in fields" class='css_editable_mode_hidden'>
+				  р&#47;с&amp;nbsp;<span t-raw="account.acc_number"/> в&amp;nbsp;<span t-raw="account.bank_name"/> к&#47;с&amp;nbsp;<span t-raw="account.bank_acc_corr"/> БИК&amp;nbsp;<span t-raw="account.bank_bic"/>
+            </div>
+		  </xpath>
+		</template>
+	 </data>
+</openerp>
