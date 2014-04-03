@@ -11,10 +11,20 @@
 			 name="sale_report_ru.report_salecontract" 
 			 />
 
+		<!--
 		<report 
-			 id="report_sale_acceptance_act"
+			 id="report_sale_order_acceptance_act"
 			 string="Акт приема-передачи"
 			 model="sale.order" 
+			 report_type="qweb-pdf"
+			 file="sale_report_ru.report_acceptance_act_template" 
+			 name="sale_report_ru.report_acceptance_act_template" 
+			 />
+		-->
+		<report 
+			 id="report_account_invoice_acceptance_act"
+			 string="Акт приема-передачи"
+			 model="account.invoice" 
 			 report_type="qweb-pdf"
 			 file="sale_report_ru.report_acceptance_act_template" 
 			 name="sale_report_ru.report_acceptance_act_template" 
@@ -28,8 +38,18 @@
 			 file="sale_report_ru.report_saleorder" 
 			 name="sale_report_ru.report_saleorder" 
 			 />
+		<report 
+			 id="account.account_invoices"
+			 string="Счет"
+			 model="account.invoice"
+			 report_type="qweb-pdf"
+			 file="sale_report_ru.report_account_invoice" 
+			 name="sale_report_ru.report_account_invoice" 
+			 attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')"
+			 attachment_use="False"
+			 />
 
-<template id="contract_layout">
+<template id="layout">
     <!-- Multicompany -->
     <t t-if="o and 'company_id' in o">
         <t t-set="company" t-value="o.company_id"></t>
@@ -48,7 +68,7 @@
         </div>
         <div class="row">
 			 <div class="col-xs-8 text-left" style="">
-				Договор № <span t-field="o.name"/> от <span t-esc="formatLang(o.date_order, date=True)"/>
+				<!--Договор № <span t-field="o.name"/> от <span t-esc="formatLang(o.date_order, date=True)"/>-->
 			 </div>
 
 			 <div class="col-xs-4 text-right" style="">
@@ -88,7 +108,7 @@
   <br/>
   <t t-if="all_fields">
 	 <div t-field="partner_obj.partner_id"
-			t-field-options='{"widget": "contact", "fields": ["name", "address", "phone", "inn_kpp", "account"], "no_marker": true}' />
+			t-field-options='{"widget": "contact", "fields": ["name", "address", "phone", "inn_kpp", "bank"], "no_marker": true}' />
   </t>
   <t  t-if="not all_fields">
 	 <div t-field="partner_obj.partner_id"
@@ -127,35 +147,47 @@
   </t>
 </template>
 
-<template id="sale_order_lines">
-	 <table class="table table-condensed">
+<template id="lines">
+  <t t-if="o._name=='sale.order'">
+	 <t t-set="lines" t-value="o.order_line"/>
+	 <t t-set="currency_id" t-value="o.pricelist_id.currency_id"/>
+	 <t t-set="quantity_field" t-value="'product_uom_qty'"/>
+	 <t t-set="uom_field" t-value="'product_uom'"/>
+  </t>
+  <t t-if="o._name=='account.invoice'">
+	 <t t-set="lines" t-value="o.invoice_line"/>
+	 <t t-set="currency_id" t-value="o.currency_id"/>
+	 <t t-set="quantity_field" t-value="'quantity'"/>
+	 <t t-set="uom_field" t-value="'uom_id'"/>
+  </t>
+	 <table class="table table-bordered">
 		<thead>
 		  <tr>
-			 <th>Продукт</th>
-			 <th/>
+			 <th style="border-right:none;">Продукт</th>
+			 <th style="border-left:none;"/>
 			 <th class="text-right">Цена за ед.</th>
 			 <th class="text-right">Колич.</th>
 			 <th class="text-right">Цена</th>
 		  </tr>
 		</thead>
 		<tbody>
-		  <tr t-foreach="o.order_line" t-as="l">
-			 <td>
-				<span t-field="l.product_id.name"/>
+		  <tr t-foreach="lines" t-as="l">
+			 <td style="border-right:none;">
+				<span t-esc="l.product_id and l.product_id.name or l.name"/>
 			 </td>
-			 <td>
+			 <td style="border-left:none;">
 				<span t-if="l.discount">скидка <span t-esc="formatLang(l.discount, digits=0)"/>%</span>
 			 </td>
 			 <td class="text-right">
 				<span t-field="l.price_unit"/>
 			 </td>
-			 <td class="text-right"><span t-field="l.product_uom_qty"/> шт.
+			 <td class="text-right"><span t-esc="l[quantity_field]"/> шт.
 			 <!--
-				  <span groups="product.group_uom" t-field="l.product_uom"/>
+				  <span groups="product.group_uom" t-field="getattr(l, uom_field)"/>
 			 -->
 			 </td>
 			 <td class="text-right">
-				<span t-field="l.price_subtotal" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
+				<span t-field="l.price_subtotal" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;currency_id&quot;}"/>
 			 </td>
 		  </tr>
 		</tbody>
@@ -168,13 +200,13 @@
 				  <strong>Итого без НДС</strong>
 				</td>
 				<td class="text-right">
-				  <span t-field="o.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
+				  <span t-field="o.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;currency_id&quot;}"/>
 				</td>
 			 </tr>
 			 <tr>
 				<td>НДС</td>
 				<td class="text-right">
-				  <span t-field="o.amount_tax" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
+				  <span t-field="o.amount_tax" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;currency_id&quot;}"/>
 				</td>
 			 </tr>
 			 <tr class="border-black">
@@ -182,19 +214,26 @@
 				  <strong>Итого</strong>
 				</td>
 				<td class="text-right">
-				  <span t-field="o.amount_total" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
+				  <span t-field="o.amount_total" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;currency_id&quot;}"/>
 				</td>
 			 </tr>
 		  </table>
 		</div>
 	 </div>
+	 <!--
+	 <p t-field="o.note"/>
+	 <p t-if="o.payment_term">
+		<strong>Payment Term:</strong>
+		<span t-field="o.payment_term"/>
+	 </p>
+	 -->
 </template>
 
 
 <template id="contract_appendix_sale_order">
   <t t-call="sale_report_ru.contract_appendix">
 	 <t t-set="appendix_name" t-value="'№1'"/>
-	 <t t-call="sale_report_ru.sale_order_lines"/>
+	 <t t-call="sale_report_ru.lines"/>
 
 	 <p t-field="o.note"/>
 	 <p t-if="o.payment_term">
@@ -229,7 +268,7 @@
 <template id="report_salecontract">
     <t t-call="report.html_container">
         <t t-foreach="docs" t-as="o">
-            <t t-call="sale_report_ru.contract_layout">
+            <t t-call="sale_report_ru.layout">
                 <div class="page">
 						<style type="text/css">
 						  .pagebreak{
@@ -284,13 +323,13 @@
 <template id="report_acceptance_act_template">
   <t t-call="report.html_container">
 	 <t t-foreach="docs" t-as="o">
-		<t t-call="sale_report_ru.contract_layout">
+		<t t-call="sale_report_ru.layout">
 		  <div class="page">
 			 <h1>Акт приема-передачи оказанных услуг (выполненных работ)</h1>
-			 <h3>№___ от &amp;laquo;___&amp;raquo;______________ 2014 г.</h3>
-			 <div>Договор № <span t-field="o.name"/> от <span t-esc="formatLang(o.date_order, date=True)"/></div>
+			 <h3>№ <span t-field="o.name"/> от <span t-esc="formatLang(o.date_invoice, date=True)"/></h3>
+			 <div>Договор № <span t-field="o.origin"/><t  t-if="o.date_origin"> от <span t-esc="formatLang(o.date_origin, date=True)"/></t></div>
 			 <div style="height:30px"></div>
-			 <t t-call="sale_report_ru.sale_order_lines"/>
+			 <t t-call="sale_report_ru.lines"/>
 			 <p>Всего оказано услуг (выполнено работ) на сумму: <span t-field="o.amount_total_in_words"/>.</p>
 			 <p>
 			 Вышеперечисленные услуги (работы) оказаны (выполнены) полностью и в срок. Заказчик претензий по объемам, качеству и срокам оказания услуг (выполнения работ) не имеет.
@@ -308,7 +347,7 @@
 <template id="report_saleorder">
     <t t-call="report.html_container">
         <t t-foreach="docs" t-as="o">
-            <t t-call="report.external_layout">
+            <t t-call="sale_report_ru.layout">
                 <div class="page">
                     <div class="oe_structure"/>
                     <h2>
@@ -320,72 +359,98 @@
                         <span>Предложение действительно до </span>
                         <span t-esc="formatLang(o.validity_date, date=True)"/>
                     </h3>
-                    <table class="table table-condensed">
-                        <thead>
-                            <tr>
-                                <th>Продукт</th>
-                                <th/>
-                                <th class="text-right">Цена за ед.</th>
-                                <th class="text-right">Колич.</th>
-                                <th class="text-right">Цена</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr t-foreach="o.order_line" t-as="l">
-                                <td>
-                                    <span t-field="l.product_id.name"/>
-                                </td>
-                                <td>
-                                    <span t-if="l.discount">скидка <span t-esc="formatLang(l.discount, digits=0)"/>%</span>
-                                </td>
-                                <td class="text-right">
-                                    <span t-field="l.price_unit"/>
-                                </td>
-                                <td class="text-right"><span t-field="l.product_uom_qty"/> шт.
-<!--
-                                                                        <span groups="product.group_uom" t-field="l.product_uom"/>
--->
-                                                                </td>
-                                <td class="text-right">
-                                    <span t-field="l.price_subtotal" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="row">
-                        <div class="col-xs-4 pull-right">
-                            <table class="table table-condensed">
-                                <tr class="border-black">
-                                    <td>
-                                        <strong>Итого без НДС</strong>
-                                    </td>
-                                    <td class="text-right">
-                                        <span t-field="o.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>НДС</td>
-                                    <td class="text-right">
-                                        <span t-field="o.amount_tax" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
-                                    </td>
-                                </tr>
-                                <tr class="border-black">
-                                    <td>
-                                        <strong>Итого</strong>
-                                    </td>
-                                    <td class="text-right">
-                                        <span t-field="o.amount_total" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    <p t-field="o.note"/>
-                    <p t-if="o.payment_term">
-                        <strong>Payment Term:</strong>
-                        <span t-field="o.payment_term"/>
-                    </p>
-                    <div class="oe_structure"/>
+						  <t t-call="sale_report_ru.lines"/>
+                </div>
+            </t>
+        </t>
+    </t>
+</template>
+
+<template id="payment_order_payee">
+<div>
+  <table class="table table-bordered">
+  <tr>
+    <td>ИНН <span t-field="partner_id.inn"/></td>
+    <td>КПП <span t-field="partner_id.kpp"/></td>
+    <td rowspan="2" style="vertical-align: middle;">Сч. №</td>
+    <td rowspan="2" style="vertical-align: middle;"><span t-field="bank_id.acc_number"/></td>
+  </tr>
+  <tr>
+    <td colspan="2">Получатель<br/><span t-field="partner_id.name"/></td>
+  </tr>
+  <tr>
+    <td colspan="2" rowspan="2">Банк получателя<br/><span t-field="bank_id.bank_name"/></td>
+    <td>БИК</td>
+    <td><span t-field="bank_id.bank_bic"/></td>
+  </tr>
+  <tr>
+    <td>Сч. №</td>
+    <td><span t-field="bank_id.bank_acc_corr"/></td>
+  </tr>
+</table>
+</div>
+
+</template>
+
+<template id="report_account_invoice">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="report.external_layout">
+                <div class="page">
+						<div t-field="o.company_id.partner_id"
+							  t-field-options='{"widget": "contact", "fields": ["name", "address", "phone"], "no_marker": true}' />
+                    <h3>Образец заполнения платежного поручения</h3>
+						  <t t-call="sale_report_ru.payment_order_payee">
+							 <t t-set="partner_id" t-value="o.company_id.partner_id"/>
+							 <t t-set="bank_id" t-value="o.partner_bank_id"/>
+						  </t>
+
+			 <h1>Счет № <span t-field="o.name"/> <t t-if="o.date_invoice">от <span t-esc="formatLang(o.date_invoice, date=True)"/></t></h1>
+			 <div>Заказчик: <span t-field="o.partner_id.name"/></div>
+			 <div>Плательщик: <span t-field="o.partner_id.name"/></div>
+			 <div>Договор № <span t-field="o.origin"/><t  t-if="o.date_origin"> от <span t-esc="formatLang(o.date_origin, date=True)"/></t></div>
+			 <div style="height:30px"></div>
+
+						  <t t-call="sale_report_ru.lines"/>
+
+  <t t-if="o._name=='sale.order'">
+	 <t t-set="lines" t-value="o.order_line"/>
+	 <t t-set="currency_id" t-value="o.pricelist_id.currency_id"/>
+  </t>
+  <t t-if="o._name=='account.invoice'">
+	 <t t-set="lines" t-value="o.invoice_line"/>
+	 <t t-set="currency_id" t-value="o.currency_id"/>
+  </t>
+
+						  <p>Всего наименований <span t-esc="len(lines)"/>, на сумму <span t-field="o.amount_total" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;currency_id&quot;}"/></p>
+						  <style type="text/css">
+							 .sentence:first-letter {
+							     text-transform: uppercase;
+							 }
+						  </style>
+						  <p class="sentence"><span t-field="o.amount_total_in_words"/></p>
+
+						  <div class="row" style="margin-top:20px;">
+							 <div class="col-xs-4  text-right">
+								Руководитель
+							 </div>
+							 <div class="col-xs-4" style="border-bottom:1px solid black;">&amp;nbsp;</div>
+							 <div class="col-xs-4">
+								<span t-field="o.company_id.partner_id.ceo"/>
+							 </div>
+							 
+						  </div>
+
+						  <div class="row" style="margin-top:30px;">
+							 <div class="col-xs-4  text-right">
+								Главный бухгалтер
+							 </div>
+							 <div class="col-xs-4" style="border-bottom:1px solid black;">&amp;nbsp;</div>
+							 <div class="col-xs-4">
+								<span t-field="o.company_id.partner_id.accountant"/>
+							 </div>
+							 
+						  </div>
                 </div>
             </t>
         </t>
