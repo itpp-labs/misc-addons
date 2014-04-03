@@ -36,8 +36,8 @@ class Contact(osv.AbstractModel):
             val.update({'inn':field_browse.inn,
                         'kpp':field_browse.kpp})
 
-        if 'account' in opf:
-            val.update({'account':field_browse.bank_ids[0]})
+        if 'bank' in opf:
+            val.update({'bank':field_browse.bank_ids[0]})
         # /my stuff
 
         html = self.pool["ir.ui.view"].render(cr, uid, "website.contact", val, engine='website.qweb', context=context).decode('utf8')
