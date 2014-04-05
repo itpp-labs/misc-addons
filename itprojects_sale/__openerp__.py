@@ -2,7 +2,7 @@
     "name" : "Sale workflow for It-Projects LLC ",
     "version" : "0.1",
     "author" : "Ivan Yelizariev",
-    "category" : "Website",
+    "category" : "Sale",
     "website" : "https://it-projects.info",
     "description": """
     """,

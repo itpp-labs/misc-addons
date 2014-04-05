@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+
 <!-- Common -->
         <record id="act_wait_contract" model="workflow.activity">
             <field name="wkf_id" ref="sale.wkf_sale"/>
@@ -31,43 +32,6 @@
             <field name="kind">function</field>
             <field name="action">action_wait2()</field>
             <field name="split_mode">OR</field>
-        </record>
-
-
-<!--
-        <record id="sale_stock.trans_router_wait_ship" model="workflow.transition">
-			 <field name="condition">False</field>
-        </record>
--->
-        <record id="sale.trans_router_wait_invoice" model="workflow.transition">
-            <field name="act_from" ref="sale.act_router"/>
-            <field name="act_to" ref="act_wait_contract"/> <!-- it is not act_wait_invoice, beacause we override sale process -->
-				<field name="condition">use_contract</field>
-        </record>
-        <record id="sale.trans_wait_contract_contract" model="workflow.transition">
-            <field name="act_from" ref="act_wait_contract"/>
-            <field name="act_to" ref="act_contract_draft"/>
-        </record>
-
-        <record id="trans_contract_signed_after_contract_router" model="workflow.transition">
-            <field name="act_from" ref="act_contract_signed"/>
-            <field name="act_to" ref="act_after_contract_router"/>
-        </record>
-
-        <record id="trans_contract_after_contract_router_wait_development" model="workflow.transition">
-            <field name="act_from" ref="act_after_contract_router"/>
-            <field name="act_to" ref="act_wait_development"/>
-        </record>
-
-        <record id="trans_wait_development_development" model="workflow.transition">
-            <field name="act_from" ref="act_wait_development"/>
-            <field name="act_to" ref="act_development"/>
-				<field name="condition">True</field> <!-- TODO has_developer -->
-        </record>
-
-        <record id="trans_contract_after_contract_router_invoice" model="workflow.transition">
-            <field name="act_from" ref="act_after_contract_router"/>
-            <field name="act_to" ref="sale.act_wait_invoice"/>
         </record>
 
 <!-- /Common -->
@@ -241,10 +205,11 @@
             <field name="kind">function</field>
             <field name="action">write({'state':'prepayment'})</field>
         </record>
-        <record id="act_final_payment" model="workflow.activity">
-            <field name="wkf_id" ref="sale.wkf_sale"/>
-            <field name="name">final payment</field>
-        </record>
+		  
+        <!-- <record id="act_final_payment" model="workflow.activity"> -->
+        <!--     <field name="wkf_id" ref="sale.wkf_sale"/> -->
+        <!--     <field name="name">final payment</field> -->
+        <!-- </record> -->
 
         <record id="trans_router_prepayment" model="workflow.transition">
             <field name="act_from" ref="sale.act_router"/>
@@ -260,16 +225,69 @@
         <record id="trans_prepayment_develop" model="workflow.transition">
             <field name="act_from" ref="act_prepayment"/>
             <field name="act_to" ref="act_development"/>
-            <field name="condition">True</field>
             <field name="signal">develop</field>
         </record>
 
-        <record id="trans_review_final_payment" model="workflow.transition">
+        <record id="trans_review_invoice" model="workflow.transition">
             <field name="act_from" ref="act_review"/>
-            <field name="act_to" ref="act_final_payment"/>
-            <field name="signal">wait_final_payment</field>
-				<field name="condition">not use_contract</field>
+            <field name="act_to" ref="sale.act_invoice"/>
+            <field name="signal">manual_invoice</field>
+		  		<field name="condition">not use_contract</field>
         </record>
+
+        <!-- <record id="trans_review_final_payment" model="workflow.transition"> -->
+        <!--     <field name="act_from" ref="act_review"/> -->
+        <!--     <field name="act_to" ref="act_final_payment"/> -->
+		  <!-- 		<field name="condition">not use_contract</field> -->
+        <!-- </record> -->
+
+        <!-- <record id="trans_final_payment_review" model="workflow.transition"> -->
+        <!--     <field name="act_from" ref="act_final_payment"/> -->
+        <!--     <field name="act_to" ref="act_review"/> -->
+        <!-- </record> -->
 <!-- /Prepayment -->
+
+<!-- Common -->
+
+<!--
+        <record id="sale_stock.trans_router_wait_ship" model="workflow.transition">
+			 <field name="condition">False</field>
+        </record>
+-->
+        <record id="sale.trans_router_wait_invoice" model="workflow.transition">
+            <field name="act_from" ref="sale.act_router"/>
+            <field name="act_to" ref="act_wait_contract"/> <!-- it is not act_wait_invoice, beacause we override sale process -->
+				<field name="condition">use_contract</field>
+        </record>
+        <record id="sale.trans_wait_contract_contract" model="workflow.transition">
+            <field name="act_from" ref="act_wait_contract"/>
+            <field name="act_to" ref="act_contract_draft"/>
+        </record>
+
+        <record id="trans_contract_signed_after_contract_router" model="workflow.transition">
+            <field name="act_from" ref="act_contract_signed"/>
+            <field name="act_to" ref="act_after_contract_router"/>
+        </record>
+
+        <record id="trans_contract_after_contract_router_wait_development" model="workflow.transition">
+            <field name="act_from" ref="act_after_contract_router"/>
+            <field name="act_to" ref="act_wait_development"/>
+        </record>
+
+        <record id="trans_wait_development_development" model="workflow.transition">
+            <field name="act_from" ref="act_wait_development"/>
+            <field name="act_to" ref="act_development"/>
+				<field name="condition">True</field> <!-- TODO has_developer -->
+        </record>
+
+        <record id="trans_contract_after_contract_router_invoice" model="workflow.transition">
+            <field name="act_from" ref="act_after_contract_router"/>
+            <field name="act_to" ref="sale.act_wait_invoice"/>
+        </record>
+
+<!-- /Common -->
+
+
+
     </data>
 </openerp>

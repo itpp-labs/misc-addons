@@ -5,8 +5,29 @@ from openerp import SUPERUSER_ID
 class sale_order(osv.Model):
     _inherit = "sale.order"
 
+    def _paid_total(self, cursor, user, ids, field_name, arg, context=None):
+        res = {}
+        for sale in self.browse(cursor, user, ids, context=context):
+            paid = 0.0
+            for invoice in sale.invoice_ids:
+                if invoice.state in ('paid'):
+                    paid += invoice.amount_total
+            if paid:
+                res[sale.id] = {
+                    'paid_total':paid,
+                    'paid_total_rate': min(100.0, paid * 100.0 / (sale.amount_total or 1.00)),
+                    }
+            else:
+                res[sale.id] = {
+                    'paid_total':0.0,
+                    'paid_total_rate':0.0,
+                    }
+        return res
+
     _columns = {
-        'use_contract':fields.boolean('Договор', readonly=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}),
+        'use_contract':fields.boolean('Contract', readonly=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}),
+        'paid_total':fields.function(_paid_total, string='Paid total', type='float', multi='paid_total'),
+        'paid_total_rate':fields.function(_paid_total, string='Paid rate', type='float', multi='paid_total'),
         'state': fields.selection([
             ('draft', 'Draft Quotation'),
             ('sent', 'Quotation Sent'),
@@ -67,3 +88,4 @@ class sale_order(osv.Model):
     #    for order in self.browse(cr, uid, ids, context={}):
     #        res += order.invoice_ids
     #    return res
+

@@ -20,6 +20,7 @@
                             type="action" attrs="{'invisible':['|', ('use_contract', '=', False), ('state', 'not in', ['review','acceptance_act_sent','acceptance_act_signed'])]}" class="oe_highlight" groups="base.group_user"/>
                         <!-- <button name="action_register_prepayment" string="Register Prepayment" type="object" class="oe_highlight" states="prepayment" groups="base.group_user"/> -->
 								<button name="%(action_view_sale_advance_payment_inv_prepayment)d" string="Create prepayment invoice" type="action" class="oe_highlight" states="prepayment" groups="base.group_user"/>
+								<button name="%(action_view_sale_advance_payment_inv_final_payment)d" string="Create final invoice" type="action" class="oe_highlight" attrs="{'invisible':['|', ('use_contract', '=', True), ('state', 'not in', ['review'])]}" groups="base.group_user"/>
                        <button name="develop" attrs="{'invisible':['|', ('invoiced', '=', False), ('state', 'not in', ['prepayment'])]}" class="oe_highlight" string="Start develop"/>
                        <button name="develop" attrs="{'invisible':['|', ('invoiced', '=', True), ('state', 'not in', ['prepayment'])]}" string="Start develop without prepayment"/>
 
@@ -32,7 +33,10 @@
                    <xpath expr="//field[@name='state']" position="replace">
 							  <field  name="state" widget="statusbar" statusbar_visible="draft,sent,development,review,done" statusbar_colors='{"invoice_except":"red","waiting_date":"blue"}'/>
                    </xpath>
-
+						 <xpath expr="//field[@name='amount_total']" position="after">
+							<field name="paid_total" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+							<field name="paid_total_rate" widget="progressbar"/>
+						 </xpath>
 
 					 </data>
 				</field>
