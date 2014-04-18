@@ -16,6 +16,7 @@
                        <button name="review" class="oe_highlight" states="development" string="Ready to review"/>
                        <button name="back_to_development" states="review" string="Back to development"/>
                        <button name="acceptance_act_signed" class="oe_highlight" attrs="{'invisible':['|', ('use_contract', '=', False), ('state', 'not in', ['review','acceptance_act_sent'])]}" string="Acceptance act is signed"/>
+                       <button name="acceptance_act_sent" class="oe_highlight" attrs="{'invisible':['|', ('use_contract', '=', False), ('state', 'not in', ['review','development'])]}" string="Acceptance act is sent"/>
 							  <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
                             type="action" attrs="{'invisible':['|', ('use_contract', '=', False), ('state', 'not in', ['review','acceptance_act_sent','acceptance_act_signed'])]}" class="oe_highlight" groups="base.group_user"/>
                         <!-- <button name="action_register_prepayment" string="Register Prepayment" type="object" class="oe_highlight" states="prepayment" groups="base.group_user"/> -->

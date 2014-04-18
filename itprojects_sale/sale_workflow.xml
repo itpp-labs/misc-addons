@@ -151,14 +151,14 @@
         <record id="trans_development_acceptance_act_sent" model="workflow.transition">
             <field name="act_from" ref="act_development"/>
             <field name="act_to" ref="act_acceptance_act_sent"/>
-            <field name="signal">acceptance_act_signed</field>
+            <field name="signal">acceptance_act_sent</field>
 				<field name="condition">use_contract</field>
         </record>
 
         <record id="trans_review_acceptance_act_sent" model="workflow.transition">
             <field name="act_from" ref="act_review"/>
             <field name="act_to" ref="act_acceptance_act_sent"/>
-            <field name="signal">acceptance_act_signed</field>
+            <field name="signal">acceptance_act_sent</field>
 				<field name="condition">use_contract</field>
         </record>
 
