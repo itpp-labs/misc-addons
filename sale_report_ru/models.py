@@ -7,12 +7,12 @@ class res_partner(osv.Model):
     def _get_default_bank_id(self, cr, uid, ids, field_name, arg, context=None):
         res = {}
         for row in self.browse(cr, uid, ids, context):
-            res[row.id] = self.bank_ids and self.bank_ids[0] or None
+            res[row.id] = row.bank_ids and row.bank_ids[0].id or None
         return res
 
     _columns = {
         'represented_by':fields.char('Represented by', size=256, help='String for contracts'),
-        'default_bank_id':fields.function(_get_default_bank_id, type='many2one')
+        'default_bank_id':fields.function(_get_default_bank_id, type='many2one', obj='res.partner.bank')
         }
 
 def _get_amount_in_words(self, cr, uid, ids, field_name, arg, context=None):
@@ -35,7 +35,7 @@ class sale_order(osv.Model):
 
         }
     def _prepare_invoice(self, cr, uid, order, lines, context=None):
-        invoice_vals = super(sale_order, self)._prepare_invoice(self, cr, uid, order, lines, context)
+        invoice_vals = super(sale_order, self)._prepare_invoice(cr, uid, order, lines, context)
         invoice_vals['date_origin'] = order.date_order
 
 class account_invoice(osv.Model):
@@ -43,9 +43,10 @@ class account_invoice(osv.Model):
 
     def _get_partner_bank_id(self, cr, uid, context=None):
         company_id = self.pool.get('res.company')._company_default_get(cr, uid, 'account.invoice', context=context)
-        if not company_id:
+        company_obj = self.pool.get('res.company').browse(cr, uid, company_id, context=context)
+        if not company_obj:
             return None
-        return company_id.partner_id.default_bank_id
+        return company_obj.partner_id.default_bank_id.id
 
     _columns = {
         'amount_total_in_words': fields.function(_get_amount_in_words, string='Amount in words', type='char'),
