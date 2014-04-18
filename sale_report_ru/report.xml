@@ -11,7 +11,6 @@
 			 name="sale_report_ru.report_salecontract" 
 			 />
 
-		<!--
 		<report 
 			 id="report_sale_order_acceptance_act"
 			 string="Акт приема-передачи"
@@ -20,7 +19,7 @@
 			 file="sale_report_ru.report_acceptance_act_template" 
 			 name="sale_report_ru.report_acceptance_act_template" 
 			 />
-		-->
+
 		<report 
 			 id="report_account_invoice_acceptance_act"
 			 string="Акт приема-передачи"
@@ -326,8 +325,23 @@
 		<t t-call="sale_report_ru.layout">
 		  <div class="page">
 			 <h1>Акт приема-передачи оказанных услуг (выполненных работ)</h1>
-			 <h3>№ <span t-field="o.name"/> от <span t-esc="formatLang(o.date_invoice, date=True)"/></h3>
-			 <div>Договор № <span t-field="o.origin"/><t  t-if="o.date_origin"> от <span t-esc="formatLang(o.date_origin, date=True)"/></t></div>
+			 <h3>№ <span t-field="o.name"/> от
+			 <t t-if="o._name=='sale.order' and o.date_acceptance">
+				<span t-esc="formatLang(o.date_acceptance, date=True)"/>
+			 </t>
+			 <t t-if="o._name=='account.invoice'">
+				<span t-esc="formatLang(o.date_invoice, date=True)"/>
+			 </t>
+			 </h3>
+
+			 <div>Договор №
+			 <t t-if="o._name=='sale.order'">
+				<span t-field="o.name"/><t  t-if="o.date_order"> от <span t-esc="formatLang(o.date_order, date=True)"/></t>
+			 </t>
+			 <t t-if="o._name=='account.invoice'">
+				<span t-field="o.origin"/><t  t-if="o.date_origin"> от <span t-esc="formatLang(o.date_origin, date=True)"/></t>
+			 </t>
+			 </div>
 			 <div style="height:30px"></div>
 			 <t t-call="sale_report_ru.lines"/>
 			 <p>Всего оказано услуг (выполнено работ) на сумму: <span t-field="o.amount_total_in_words"/>.</p>
@@ -347,7 +361,7 @@
 <template id="report_saleorder">
     <t t-call="report.html_container">
         <t t-foreach="docs" t-as="o">
-            <t t-call="sale_report_ru.layout">
+            <t t-call="report.external_layout">
                 <div class="page">
                     <div class="oe_structure"/>
                     <h2>

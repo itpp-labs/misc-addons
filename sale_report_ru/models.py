@@ -7,7 +7,7 @@ class res_partner(osv.Model):
     def _get_default_bank_id(self, cr, uid, ids, field_name, arg, context=None):
         res = {}
         for row in self.browse(cr, uid, ids, context):
-            res[row.id] = self.bank_ids && self.bank_ids[0]
+            res[row.id] = self.bank_ids and self.bank_ids[0] or None
         return res
 
     _columns = {
@@ -30,6 +30,7 @@ class sale_order(osv.Model):
     _inherit = 'sale.order'
 
     _columns = {
+        'date_acceptance': fields.date('Acceptance act date', required=False, readonly=False),
         'amount_total_in_words': fields.function(_get_amount_in_words, string='Amount in words', type='char'),
 
         }
