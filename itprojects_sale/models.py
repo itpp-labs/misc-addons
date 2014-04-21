@@ -74,6 +74,13 @@ class sale_order(osv.Model):
                 pass
             self.pool.get('sale.order.line').button_confirm(cr, uid, [x.id for x in o.order_line])
         return True
+    def action_acceptance_act_signed(self, cr, uid, ids, context=None):
+        for o in self.browse(cr, uid, ids):
+            vals = {'state':'acceptance_act_signed'}
+            if not o.date_acceptance:
+                vals.update({'date_acceptance':fields.date.context_today(self, cr, uid, context=context)})
+                self.write(cr, uid, [o.id], vals)
+        return True
 
     def _create_pickings_and_procurements(self, cr, uid, order, order_lines, picking_id=False, context=None):
         new_order_lines = []

@@ -129,7 +129,7 @@
             <field name="wkf_id" ref="sale.wkf_sale"/>
             <field name="name">acceptance_act_signed</field>
             <field name="kind">function</field>
-            <field name="action">write({'state':'acceptance_act_signed'})</field>
+            <field name="action">action_acceptance_act_signed()</field>
         </record>
 
         <record id="trans_development_review" model="workflow.transition">
