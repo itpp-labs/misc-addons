@@ -150,7 +150,10 @@
 <template id="contract_appendix">
   <div class="pagebreak"></div>
   <h1 class="text-right">Приложение <t t-esc="appendix_name"/></h1>
-  <h3 class="text-right">к договору № <span t-field="o.name"/> <br/>от <span t-esc="formatLang(o.date_order, date=True)"/></h3>
+  <h3 class="text-right">к договору № <span t-field="o.name"/> от <span t-esc="formatLang(o.date_order, date=True)"/></h3>
+  <t t-if="appendix_title">
+	 <h2 class="text-center"><t t-esc="appendix_title"/></h2>
+  </t>
   <t t-raw="0"/>
   <t t-call="sale_report_ru.contract_partner_row">
 	 <t t-set="all_fields" t-value="False"/>
@@ -173,7 +176,7 @@
 	 <table class="table table-bordered">
 		<thead>
 		  <tr>
-			 <th style="border-right:none;">Продукт</th>
+			 <th style="border-right:none;">Наименование</th>
 			 <th style="border-left:none;"/>
 			 <th class="text-right">Цена за ед.</th>
 			 <th class="text-right">Колич.</th>
@@ -243,6 +246,7 @@
 <template id="contract_appendix_sale_order">
   <t t-call="sale_report_ru.contract_appendix">
 	 <t t-set="appendix_name" t-value="'№1'"/>
+	 <t t-set="appendix_title" t-value="'Перечень товаров и услуг'"/>
 	 <t t-call="sale_report_ru.lines"/>
 
 	 <p t-field="o.note"/>
@@ -256,6 +260,7 @@
 <template id="contract_appendix_other">
   <t t-call="sale_report_ru.contract_appendix">
 	 <t t-set="appendix_name" t-value="'№2'"/>
+	 <t t-set="appendix_title" t-value="'Название приложения'"/>
 	 <div class="clauses">
 		<ol>
 		  <li>...
@@ -271,7 +276,8 @@
   </t>
   <t t-call="sale_report_ru.contract_appendix">
 	 <t t-set="appendix_name" t-value="'№3'"/>
-	 Yet another appendix
+	 <t t-set="appendix_title" t-value="'Yet another appendix'"/>
+	 Content
   </t>
 </template>
 
