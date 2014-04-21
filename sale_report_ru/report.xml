@@ -88,7 +88,7 @@
 
 <template id="contract_clauses">
   <ol>
-	 <li>Предмет договора
+	 <li>ПРЕДМЕТ ДОГОВОРА
 	 <ol>
 		<li>Заказчик поручает и оплачивает, а Исполнитель принимает на себя
 		обязанности по ...</li>
@@ -98,7 +98,7 @@
 	 </ol>
 	 </li>
 	 <li>...</li>
-	 <li>Реквизиты и подписи Сторон</li>
+	 <li>РЕКВИЗИТЫ И ПОДПИСИ СТОРОН</li>
   </ol>
 </template>
 
@@ -300,7 +300,7 @@
 						  .clauses LI:before { content: counters(item, ".") ". "; counter-increment: item }
 
 						  .clauses>ol>li{
-						  font-size:30px;
+						  font-size:22px;
 						  }
 						  .clauses>ol>li li{
 						  font-size:14px;
