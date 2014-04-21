@@ -6,7 +6,7 @@
     "website" : "https://it-projects.info",
     "description": """
     """,
-    "depends" : ["sale_stock"],
+    "depends" : ["sale_stock", "sale_report_ru"],
     "data":[
         'wizard/sale_make_invoice_advance.xml',
         'sale_workflow.xml',

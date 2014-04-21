@@ -42,9 +42,9 @@ class sale_order(osv.Model):
             ('development', 'Development'),
             ('review', 'Review'),
             ('acceptance_act_sent', 'Acceptance Act Sent'),
-            ('acceptance_act_signed', 'Acceptance Act Sent'),
+            ('acceptance_act_signed', 'Acceptance Act Signed'),
             #('progress', 'Sales Order'),
-            ('progress', 'Invoiced'), # not used?
+            ('progress', 'Invoiced'),
             ('manual', 'Sale to Invoice'), # not used?
             ('shipping_except', 'Shipping Exception'),#sale_stock
             ('invoice_except', 'Invoice Exception'),
