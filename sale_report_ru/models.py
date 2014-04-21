@@ -37,6 +37,7 @@ class sale_order(osv.Model):
     def _prepare_invoice(self, cr, uid, order, lines, context=None):
         invoice_vals = super(sale_order, self)._prepare_invoice(cr, uid, order, lines, context)
         invoice_vals['date_origin'] = order.date_order
+        return invoice_vals
 
 class account_invoice(osv.Model):
     _inherit = 'account.invoice'
