@@ -113,14 +113,16 @@
 	 <div t-field="partner_obj.partner_id"
 			t-field-options='{"widget": "contact", "fields": ["name"], "no_marker": true}' />
   </t>
+</template>
+<template id="contract_partner_sign">
   <div class="text-center" style="border-top:1px solid black; margin-top:80px;">(подпись)</div>
   <div class="text-center" style="border-top:1px solid black; margin-top:40px;">(должность, Ф.И.О.)</div>
   <div class="text-center" style="border-top:1px solid black; margin-top:40px;"></div>
   <div class="text-center" style="margin-top:50px;">М.П.</div>
 </template>
-
 <template id="contract_partner_row">
-  <div class="row" style="page-break-inside:avoid;">
+  <div style="page-break-inside:avoid;">
+  <div class="row">
 	 <div class="col-xs-6">
 		<t t-call="sale_report_ru.contract_partner">
 		  <t t-set="partner_role" t-value="'Заказчик'"/>
@@ -133,6 +135,15 @@
 		  <t t-set="partner_obj" t-value="o.company_id"/>
 		</t>
 	 </div>
+  </div>
+  <div class="row">
+	 <div class="col-xs-6">
+		<t t-call="sale_report_ru.contract_partner_sign"/>
+	 </div>
+	 <div class="col-xs-6">
+		<t t-call="sale_report_ru.contract_partner_sign"/>
+	 </div>
+  </div>
   </div>
 </template>
 
