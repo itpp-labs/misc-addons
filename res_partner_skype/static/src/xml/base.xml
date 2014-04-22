@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates>
 <t t-name="FieldSkype" t-extend="FieldEmail">
+  <t t-jquery="span:first>a">
+    this.attr('target', '_self')
+  </t>
 </t>
 </templates>
