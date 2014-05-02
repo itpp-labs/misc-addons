@@ -23,11 +23,19 @@ class sale_order(osv.Model):
                     'paid_total_rate':0.0,
                     }
         return res
+    def _get_project_alias(self, cursor, user, ids, field_name, arg, context=None):
+        res = {}
+        for sale in self.browse(cursor, user, ids, context=context):
+            res[sale.id] = 'is%s@it-projects.info' % sale.id
+        return res
+    
 
     _columns = {
         'use_contract':fields.boolean('Contract', readonly=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}),
+        'subscription':fields.boolean('Subscription', help='Subscription service'),
         'paid_total':fields.function(_paid_total, string='Paid total', type='float', multi='paid_total'),
         'paid_total_rate':fields.function(_paid_total, string='Paid rate', type='float', multi='paid_total'),
+        'project_alias': fields.function(_get_project_alias, string='Support E-mail', type='char'),
         'state': fields.selection([
             ('draft', 'Draft Quotation'),
             ('sent', 'Quotation Sent'),

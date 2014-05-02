@@ -12,6 +12,7 @@
         'sale_workflow.xml',
         'sale_view.xml',
         'email_template.xml',
+		  'report.xml',
         ],
     "installable": True
 }

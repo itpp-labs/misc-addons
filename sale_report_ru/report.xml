@@ -258,6 +258,7 @@
 </template>
 
 <template id="contract_appendix_other">
+  <div>
   <t t-call="sale_report_ru.contract_appendix">
 	 <t t-set="appendix_name" t-value="'№2'"/>
 	 <t t-set="appendix_title" t-value="'Название приложения'"/>
@@ -279,6 +280,7 @@
 	 <t t-set="appendix_title" t-value="'Yet another appendix'"/>
 	 Content
   </t>
+  </div>
 </template>
 
 <template id="report_salecontract">
@@ -302,7 +304,7 @@
 						  .clauses>ol>li{
 						  font-size:22px;
 						  }
-						  .clauses>ol>li li{
+						  .clauses>ol>li li, ol.normal li{
 						  font-size:14px;
 						  margin-left:0;
 						  }
