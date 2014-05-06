@@ -8,7 +8,8 @@
 			 model="sale.order" 
 			 report_type="qweb-pdf"
 			 file="sale_report_ru.report_salecontract" 
-			 name="sale_report_ru.report_salecontract" 
+			 name="sale_report_ru.report_salecontract"
+			 menu="False"
 			 />
 
 		<report 
@@ -18,6 +19,7 @@
 			 report_type="qweb-pdf"
 			 file="sale_report_ru.report_acceptance_act_template" 
 			 name="sale_report_ru.report_acceptance_act_template" 
+			 menu="False"
 			 />
 
 		<report 
@@ -27,6 +29,7 @@
 			 report_type="qweb-pdf"
 			 file="sale_report_ru.report_acceptance_act_template" 
 			 name="sale_report_ru.report_acceptance_act_template" 
+			 menu="False"
 			 />
 
 		<report 
@@ -36,6 +39,7 @@
 			 report_type="qweb-pdf"
 			 file="sale_report_ru.report_saleorder" 
 			 name="sale_report_ru.report_saleorder" 
+			 menu="False"
 			 />
 		<report 
 			 id="account.account_invoices"
@@ -46,6 +50,7 @@
 			 name="sale_report_ru.report_account_invoice" 
 			 attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')"
 			 attachment_use="False"
+			 menu="False"
 			 />
 
 <template id="layout">
