@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-		<template id="contact_ru" inherit_id="website.contact">
+		<template id="contact_ru" inherit_id="base.contact">
 		  <xpath expr="//span[@itemprop='telephone']/.." position="replace">
 			 <div t-if="phone and 'phone' in fields" class='css_editable_mode_hidden'><i t-if="not options.get('no_marker')" class='fa fa-phone'/><span t-if="options.get('no_marker')">тел.</span> <span itemprop="telephone" t-esc="phone"/></div>
 		  </xpath>
