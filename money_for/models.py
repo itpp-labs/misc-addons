@@ -2,19 +2,19 @@
 from openerp.osv import osv,fields
 from openerp import SUPERUSER_ID
 
-class project_task(osv.Model):
-    _inherit = "project.task"
+class crm_lead(osv.Model):
+    _inherit = "crm.lead"
     def _x_out_amount_get(self, cr, uid, ids, field_names, args, context=None):
         res = {}
-        for task in self.browse(cr, uid, ids, context=context):
-            if not (task.x_currency_in_id and task.x_currency_out_id):
+        for record in self.browse(cr, uid, ids, context=context):
+            if not (record.x_currency_in_id and record.x_currency_out_id):
                 return {}
             
-            cur_in = task.x_currency_in_id.rate
-            cur_out = task.x_currency_out_id.rate
+            cur_in = record.x_currency_in_id.rate
+            cur_out = record.x_currency_out_id.rate
             
-            x_out_amount = task.x_in_amount / cur_in * cur_out
-            res[task.id] = x_out_amount
+            x_out_amount = record.x_in_amount / cur_in * cur_out
+            res[record.id] = x_out_amount
         return res
 
 
@@ -40,7 +40,7 @@ class project_task(osv.Model):
         'x_in_amount':fields.float('Amount IN'), #	Amount	float			Поиск не производится	Пользовательское поле
         'x_out_amount':fields.function(_x_out_amount_get, string='Amount Out',
                                        store = {
-                                           'project.task':(lambda self, cr, uid, ids, c={}: ids, ['x_currency_in_id', 'x_currency_out_id', 'x_in_amount'], 10)
+                                           'crm.lead':(lambda self, cr, uid, ids, c={}: ids, ['x_currency_in_id', 'x_currency_out_id', 'x_in_amount'], 10)
                                        })#	Payment amount	float			Поиск не производится	Пользовательское поле
 
 

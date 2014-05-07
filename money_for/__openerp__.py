@@ -6,7 +6,7 @@
     "website" : "https://it-projects.info",
     "description": """
     """,
-    "depends" : ["project", "account"],
+    "depends" : ["crm", "account"],
     "data":[
 		  'views.xml'
          ],
