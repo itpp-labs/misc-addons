@@ -40,6 +40,6 @@ class Contact(osv.AbstractModel):
             val.update({'bank':field_browse.bank_ids[0]})
         # /my stuff
 
-        html = self.pool["ir.ui.view"].render(cr, uid, "website.contact", val, engine='website.qweb', context=context).decode('utf8')
+        html = self.pool["ir.ui.view"].render(cr, uid, "base.contact", val, engine='website.qweb', context=context).decode('utf8')
 
         return ir_qweb.HTMLSafe(html)
