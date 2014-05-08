@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<template id="calculator_form" inherit_id="website.layout">
+		  <xpath expr="//t[@name='layout_head']" position="after">
+          <script type="text/javascript" src="/money_for/static/src/js/calculator.js"></script>
+		  </xpath>
+		</template>
+<!--
+		<template id="currencies">
+		  <t t-foreach="currencies" t-as="cur">
+			 <option t-att-value="cur.id" t-value="cur.name"></option>
+		  </t>
+		</template>
+-->
+	 </data>
+</openerp>
