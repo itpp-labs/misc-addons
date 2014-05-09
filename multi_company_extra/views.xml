@@ -19,6 +19,25 @@
 					 </data>
 				</field>
         </record>
+
+        <record id="view_account_chart_inherit" model="ir.ui.view">
+            <field name="name">account.voucher.receipt.dialog.form.inherit</field>
+            <field name="name">account.chart.form</field>
+            <field name="model">account.chart</field>
+            <field name="inherit_id" ref="account.view_account_chart"/>
+            <field name="arch" type="xml">
+                <data>
+						<xpath expr="//field[@name='fiscalyear']" position="replace">
+						  <field name="company_id"/>
+						  <field
+								name="fiscalyear"
+								domain="[('company_id', '=', company_id)]"
+								on_change="onchange_fiscalyear(fiscalyear)"
+								class="oe_inline"/>
+						</xpath>
+					 </data>
+				</field>
+        </record>
 		
 
     </data>
