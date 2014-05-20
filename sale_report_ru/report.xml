@@ -194,7 +194,7 @@
 				<span t-esc="l.product_id and l.product_id.name or l.name"/>
 			 </td>
 			 <td style="border-left:none;">
-				<span t-if="l.discount">скидка <span t-esc="time.strftime('%d.%m.%Y', time.strptime(l.discount,'%Y-%m-%d'))"/>%</span>
+				<span t-if="l.discount">скидка <span t-esc="'%.0f' % l.discount"/>%</span>
 			 </td>
 			 <td class="text-right">
 				<span t-field="l.price_unit"/>
@@ -393,7 +393,7 @@
                         <span t-if="o.state in ['draft','sent']">Коммерческое предложение № </span>
                         <span t-field="o.name"/>
                     </h2>
-                    <h3 t-if="o.state in ['draft','sent']" style="color:grey">
+                    <h3 t-if="o.state in ['draft','sent'] and o.validity_date" style="color:grey">
                         <span>Предложение действительно до </span>
                         <span t-esc="time.strftime('%d.%m.%Y', time.strptime(o.validity_date,'%Y-%m-%d'))"/>
                     </h3>
