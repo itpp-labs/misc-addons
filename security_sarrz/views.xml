@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="invoice_form" model="ir.ui.view">
+            <field name="name">account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <data>
+					<xpath expr="//button[@name='invoice_open' and @states='draft']" position="replace">
+						<button name="invoice_open" states="draft" string="Validate" class="oe_highlight" groups="security_sarrz.group_validate_invoice"/>
+					</xpath>
+				</data>
+			</field>
+        </record>
+
+        <record id="view_partner_form" model="ir.ui.view">
+			<field name="name">res.partner.form</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form"/>
+			<field name="arch" type="xml">
+				<data>
+					<xpath expr="//label[@for='street']" position="before">
+						<field name="site_customer"/>
+					</xpath>
+				</data>
+			</field>
+
+		</record>
+
+        <record model="ir.ui.view" id="control_site_customer_form">
+            <field name="name">security_sarrz.control_site_customer.form</field>
+            <field name="model">security_sarrz.control_site_customer</field>
+            <field name="arch" type="xml">
+                <form string="Site" version="7.0">
+                    <button string="Добавить отметку" name="mark" type="object" class="oe_highlight"/>
+                    <button string="Снять отметку" name="unmark" type="object" class="oe_highlight"/>
+					or
+                    <button string="Cancel" class="oe_link" special="cancel" />
+				</form>
+			</field>
+		</record>
+
+        <act_window id="action_control_site_customer"
+					name="Управление полем Сайт"
+					key2="client_action_multi"
+					res_model="security_sarrz.control_site_customer"
+					src_model="res.partner"
+					view_mode="form"
+					multi="True"
+					target="new"
+					/>
+
+
+       <record id="view_res_partner_filter" model="ir.ui.view">
+            <field name="name">res.partner.select</field>
+            <field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+				<data>
+					<xpath expr="//field[@name='name']" position="replace">
+						<field name="name"
+							   filter_domain="['|','|',('name','ilike',self),('parent_id','ilike',self),('ref','=',self)]"
+							   context="{'hacked_global_search':1}"
+							   />
+					</xpath>
+				</data>
+			</field>
+	   </record>
+
+    </data>
+</openerp>
