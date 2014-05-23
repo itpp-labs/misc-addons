@@ -1,5 +1,5 @@
 {
-    "name" : "Account Voucher extension",
+    "name" : "Updates for multi company mode",
     "version" : "0.1",
     "author" : "Ivan Yelizariev",
     "category" : "Sale",
@@ -8,7 +8,7 @@
 
 
     """,
-    "depends" : ['account_voucher'],
+    "depends" : ['account_voucher', 'sale_stock'],
     "data":[
         'views.xml'
         ],
