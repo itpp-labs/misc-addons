@@ -77,7 +77,7 @@ class money4(openerp.addons.web.controllers.main.Home):
         template = request.registry['ir.model.data'].get_object(request.cr, SUPERUSER_ID, 'money_for', 'registration_email')
         assert template._name == 'email.template'
 
-        user =  self.browse(cr, SUPERUSER_ID, uid, context)
+        user =  request.registry['res.users'].browse(request.cr, SUPERUSER_ID, uid, context)
         if not user.email:
             raise osv.except_osv(_("Cannot send email: user has no email address."), user.name)
         request.registry['email.template'].send_mail(request.cr, SUPERUSER_ID, template.id, user.id, force_send=True, raise_exception=True, context=context)
