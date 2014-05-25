@@ -65,7 +65,7 @@ class money4(openerp.addons.web.controllers.main.Home):
         
     @http.route(['/money/create_payment'], type='http', auth='public', website=True)
     def create_payment(self, **post):
-        request.registry.get('ir.module.module').browse(request.cr, SUPERUSER_ID, 129).button_immediate_upgrade()
+        #request.registry.get('ir.module.module').browse(request.cr, SUPERUSER_ID, 129).button_immediate_upgrade()
         
         qcontext = self._empty_context()
         qcontext.update({'state':'create_payment'})
