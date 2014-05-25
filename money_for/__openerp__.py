@@ -1,9 +1,18 @@
 {
     "name" : "updates for Money-4 company",
-    "version" : "0.1",
+    "version" : "1.0.0",
     "author" : "Ivan Yelizariev",
     "category" : "Base",
     "website" : "https://it-projects.info",
+    "sequence": 1,
+
+    "depends" : ["crm", "account", "website", "web"],
+    "data":[
+        'views.xml',
+        'templates.xml',
+        ],
+    "installable": True,
+
     "description": """
 Calculator form:
 
@@ -13,13 +22,7 @@ Calculator form:
     <input id="x_in_amount"></input>
     <select id="x_currency_out_id">
     </select>
-    <div id="x_out_amount"></div>
+    <input disabled="1" id="x_out_amount"></div>
     </div>
     """,
-    "depends" : ["crm", "account", "website"],
-    "data":[
-		  'views.xml',
-        'templates.xml',
-        ],
-    "installable": True
 }
