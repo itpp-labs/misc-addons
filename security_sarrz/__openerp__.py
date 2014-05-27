@@ -3,7 +3,6 @@
     'version' : '1.0.0',
     'author' : 'Ivan Yelizariev',
     'category' : 'Base',
-    'sequence': 1,
     'website' : 'https://it-projects.info',
     'description': """
 Tested for 7.0-20140206-002714
