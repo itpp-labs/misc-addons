@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="stock_inventory_line_tree" model="ir.ui.view">
+            <field name="name">stock.inventory.line.tree</field>
+            <field name="model">stock.inventory.line</field>
+            <field name="inherit_id" ref="stock.stock_inventory_line_tree"/>
+            <field name="arch" type="xml">
+				<data>
+					<xpath expr="//field[@name='product_id']" position="after">
+						<field name="inventoried"/>
+					</xpath>
+				</data>
+			</field>
+		</record>
+        <record id="view_inventory_form" model="ir.ui.view">
+            <field name="name">stock.inventory</field>
+            <field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_form"/>
+            <field name="arch" type="xml">
+				<data>
+					<xpath expr="//field[@name='product_id']" position="after">
+						<field name="inventoried"/>
+					</xpath>
+				</data>
+			</field>
+		</record>
+    </data>
+</openerp>
