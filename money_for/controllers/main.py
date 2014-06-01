@@ -41,7 +41,7 @@ def check_lead_access(func):
     def wrapper(*args, **kwargs):
         user = request.registry['res.users'].browse(request.cr, SUPERUSER_ID, request.uid)
         if  user.login == 'public':
-            return request.redirect('/web/login?%s' % werkzeug.url_encode({'redirect':request.url}))
+            return request.redirect('/web/login?%s' % werkzeug.url_encode({'redirect':request.httprequest.url}))
 
         lead = request.registry['crm.lead'].browse(request.cr, SUPERUSER_ID, kwargs['lead_id'])
         if user.partner_id != lead.partner_id:
