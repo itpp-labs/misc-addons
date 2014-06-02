@@ -33,7 +33,7 @@ class res_partner(osv.Model):
     def read(self, cr, user, ids, fields=None, context=None, load='_classic_read'):
         if context and context.has_key('hacked_global_search'):
             user = SUPERUSER_ID
-            del context['hacked_global_search']
+            #del context['hacked_global_search']
         res = super(res_partner, self).read(cr, user, ids, fields, context, load)
         return res
 

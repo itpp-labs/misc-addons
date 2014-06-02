@@ -8,10 +8,18 @@
 			<field name="menu_access" eval="[(4,ref('base.menu_reporting'))]"/>
         </record>
 
+        <record model="res.groups" id="group_accounting">
+            <field name="name">Меню Учет</field>
+			<field name="menu_access" eval="[(4,ref('account.menu_finance'))]"/>
+        </record>
+
         <record model="res.groups" id="base.group_user">
 			<field name="menu_access" eval="[(3,ref('base.menu_reporting'))]"/>
         </record>
 
+        <record model="res.groups" id="account.group_account_invoice">
+			<field name="menu_access" eval="[(3,ref('account.menu_finance'))]"/>
+        </record>
         <record model="res.groups" id="account.group_account_user">
 			<field name="menu_access" eval="[(3,ref('account.menu_action_account_invoice_report_all')),(3,ref('account.menu_board_account'))]"/>
         </record>
@@ -32,7 +40,7 @@
 
         <record model="res.groups" id="group_sale_manager">
             <field name="name">СарРЗ: Менеджер продаж</field>
-			<field name="implied_ids" eval="[(4, ref('security_sarrz.group_reporting_sales')),(4, ref('security_sarrz.group_reporting')), (4, ref('base.group_user')),(4, ref('base.group_sale_salesman')), (4,ref('security_sarrz.group_validate_invoice')),(4, ref('base.group_partner_manager'))]"/>
+			<field name="implied_ids" eval="[(4, ref('account.group_account_invoice')),(4, ref('security_sarrz.group_reporting_sales')),(4, ref('security_sarrz.group_reporting')), (4, ref('base.group_user')),(4, ref('base.group_sale_salesman')), (4,ref('security_sarrz.group_validate_invoice')),(4, ref('base.group_partner_manager'))]"/>
 			<field name="menu_access" eval="[(4, ref('crm.menu_board_statistics_dash'))]"/>
         </record>
         <record model="res.groups" id="group_sale_manager_chief">
