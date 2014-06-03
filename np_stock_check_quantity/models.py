@@ -9,6 +9,8 @@ class stock_move(osv.Model):
     def onchange_quantity(self, cr, uid, ids, product_id, product_qty, product_uom, product_uos, context=None):
         res = super(stock_move, self).onchange_quantity(cr, uid, ids, product_id, product_qty, product_uom, product_uos)
 
+        if not product_id:
+            return res
         product_obj = self.pool.get('product.product')
         product = product_obj.browse(cr, uid, product_id)
         if product.qty_available < product_qty:
