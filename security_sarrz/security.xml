@@ -122,9 +122,11 @@
 		</record>
 
 		<record model="ir.rule" id="site_customers">
-            <field name="name">res.partner: access site customers</field>
+            <field name="name">res.partner: read access site customers</field>
             <field name="model_id" ref="base.model_res_partner"/>
             <field name="domain_force">[('site_customer', '=', True)]</field>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
             <field name="groups" eval="[(4, ref('group_web_assistant'))]"/>
             <field name="global" eval="False"/>
 		</record>
