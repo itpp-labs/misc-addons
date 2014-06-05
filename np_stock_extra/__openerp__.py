@@ -6,7 +6,7 @@
     'website' : 'https://it-projects.info',
     'description': """
     """,
-    'depends' : ['stock', 'np_stock_check_quantity'],
+    'depends' : ['stock'],
     'data':[
         'views.xml'
         ],
