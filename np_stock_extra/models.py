@@ -27,7 +27,7 @@ class stock_move(osv.Model):
         product_obj = self.pool.get('product.product')
         context = context or {}
         c = context.copy()
-        c.update({ 'states': ('done',), 'what': ('in', 'out') , 'location':location_id})
+        c.update({ 'states': ('done',), 'what': ('in', 'out') , 'location':location_id, 'compute_child':False})
         return product_obj.get_product_available(cr, uid, [product_id], context=c)[product_id]
 
     def _get_qty_shortage(self, cr, uid, ids, field_name, arg, context=None):
