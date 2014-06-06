@@ -16,11 +16,16 @@ class stock_move(osv.Model):
             return res
 
         qty_available = self._get_qty_available(cr, uid, product_id, location_id, context=context)
-        if qty_available < product_qty:
+        shortage = product_qty - qty_available
+        if shortage > 0:
             res['warning'] = {
                 'title':_('Quantity check'),
                 'message':_('There are not enough quantity to move'),
             }
+            if not res.get('value'):
+                res['value']={}
+            res['value'].update({'qty_shortage':shortage})
+
         return res
     def _get_qty_available(self, cr, uid, product_id, location_id, context=None):
         print '_get_qty_available', product_id, location_id, context
