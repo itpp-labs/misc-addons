@@ -5,12 +5,32 @@ from openerp.tools.translate import _
 
 class stock_inventory_line(osv.Model):
     _inherit = "stock.inventory.line"
+
+    def _get_real_qnt_in_location(self, cr, uid, ids, name, arg, context=None):
+        #pdb.set_trace()
+        res={}
+        for id in ids:
+            inv_line_obj=self.browse(cr,uid,id)
+            inventory_state=inv_line_obj.inventory_id.state
+            res[id]='-'
+            if inventory_state=='draft' or inventory_state=='confirm':
+                obj_product=inv_line_obj.product_id
+                amount = self.pool.get('stock.location')._product_get(cr, uid, inv_line_obj.location_id.id, [obj_product.id], {'uom': obj_product.uom_id.id, 'to_date': False,'compute_child': False})[obj_product.id]
+                res[id]=amount
+                return res
+
     _columns = {
         'inventoried': fields.boolean('Inventoried'),
+        'np_stock_real': fields.function(_get_real_qnt_in_location, type='char', string='Real in location'),
+        'location_id': fields.many2one('stock.location', 'Location', required=True),
     }
     _defaults = {
         'inventoried': True
     }
+# stock_inventory_line()
+
+
+
 class stock_fill_inventory(osv.TransientModel):
     _inherit = "stock.fill.inventory"
 
