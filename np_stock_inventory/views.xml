@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-		<!--
         <record id="stock_inventory_line_tree" model="ir.ui.view">
             <field name="name">stock.inventory.line.tree</field>
             <field name="model">stock.inventory.line</field>
@@ -26,31 +25,5 @@
 				</data>
 			</field>
 		</record>
-		-->
-		<record id="my_view_inventory_form" model="ir.ui.view">
-			<field name="name">stock.inventory.form</field>
-			<field name="model">stock.inventory</field>
-			<field name="inherit_id" ref="stock.view_inventory_form"/>
-			<field name="arch" type="xml">
-				<xpath expr="//page[@string='General Information']/field[@name='inventory_line_id']" position="replace">
-					<field name="inventory_line_id">
-						<tree string="Products" editable="bottom">
-                            <field context="{'location':location_id, 'uom':product_uom, 'to_date':parent.date}" name="product_id" on_change="on_change_product_id(location_id,product_id,product_uom,parent.date)"  domain="[('type','&lt;&gt;','service')]"/>
-							<field name="inventoried"/>
-                            <field name="product_qty"/>
-                            <field name="product_uom" groups="product.group_uom"/>
-							<field name="np_stock_real"/>
-                            <field name="prod_lot_id" groups="stock.group_production_lot"/>
-                            <button name="%(stock.action_view_stock_inventory_line_split)d"
-                                    string="Split inventory lines" groups="stock.group_inventory_valuation"
-                                    type="action" icon="gtk-justify-fill" states="draft,confirm"/>
-                            <field name="state" invisible="True"/>
-                            <field domain="[('usage','=','internal')]" name="location_id" groups="stock.group_locations"/>
-                        </tree>
-						
-                    </field>
-				</xpath>
-			</field>
-		</record>	
     </data>
 </openerp>
