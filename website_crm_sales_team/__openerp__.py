@@ -1,5 +1,5 @@
 {
-    "name" : "Add sales team to website leads",
+    "name" : "Add sales team to website leads (OBSOLETE)",
     "version" : "0.1",
     "author" : "Ivan Yelizariev",
     "category" : "Website",
