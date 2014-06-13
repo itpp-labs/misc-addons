@@ -14,6 +14,7 @@
     "depends" : ['web'],
     "data":[
         'views.xml',
+        'data.xml',
         ],
 	 "js":[
 		  'static/src/js/skype.js'
