@@ -116,7 +116,7 @@
 		<record model="ir.rule" id="bnk1_statements">
             <field name="name">account.bank.statement: access BNK1</field>
             <field name="model_id" ref="account.model_account_bank_statement"/>
-            <field name="domain_force">[('journal_id.code', '=', 'BNK1')]</field>
+            <field name="domain_force">['|',('journal_id.code', '=', 'BNK1'),('journal_id.type', '!=', 'cash')]</field>
             <field name="groups" eval="[(4, ref('group_accounter'))]"/>
             <field name="global" eval="False"/>
 		</record>
