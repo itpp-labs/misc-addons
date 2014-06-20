@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+		<!-- website -->
 		<template id="products_quick_add_to_cart" inherit_id="website_sale.products_item" optional="enabled" name="Quick add to Cart">
 			<xpath expr="//div[@itemtype='http://schema.org/Product']" position="inside">
                 <div class="quick_add_to_cart input-group">
@@ -54,12 +55,14 @@
 						<div class="row">
 							<div class="col-md-8 oe_cart">
 								<form action="/shop/checkout" method="post" class="form-horizontal">
+									<!--
 									<div class="form-group ">
 										<label class="col-md-3 col-sm-4 control-label" for="contact_name">Ваше имя</label>
 										<div class="col-md-7 col-sm-8">
 											<input type="text" class="form-control" name="contact_name"/>
 										</div>
 									</div>
+									-->
 									<div name="email_from_container" class="form-group ">
 										<label class="col-md-3 col-sm-4 control-label" for="email_from">Электронная почта</label>
 										<div class="col-md-7 col-sm-8">
@@ -119,6 +122,12 @@
 				</div>
 
 			</t>
+		</template>
+		<!-- POS -->
+        <template id="assets_backend" name="point_of_sale assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/pos_website_sale/static/src/js/pos.js"></script>
+			</xpath>
 		</template>
     </data>
 </openerp>

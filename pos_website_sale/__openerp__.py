@@ -16,6 +16,6 @@
         'templates.xml',
         'email_templates.xml',
         ],
-    'qweb': ['static/src/xml/main.xml'],
+    'qweb': ['static/src/xml/*.xml'],
     'installable': True
 }

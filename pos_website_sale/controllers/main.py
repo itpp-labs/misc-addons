@@ -22,7 +22,7 @@ class pos_website_sale(http.Controller):
     @http.route(['/shop/checkout'], type='http', auth='public', website=True)
     def shop_checkout(self, contact_name=None, email_from=None):
         post = {
-            'contact_name':contact_name,
+            'contact_name':contact_name or email_from,
             'email_from':email_from
             }
 
