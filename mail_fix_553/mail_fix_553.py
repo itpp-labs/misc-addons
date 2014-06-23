@@ -65,8 +65,11 @@ class mail_mail(osv.Model):
                 res = None
                 for email in email_list:
                     email_from = mail.email_from
+                    reply_to = mail.reply_to
                     if re.search(correct_email_from, email_from) is None:
                         email_from = default_email_from
+                    else:
+                        reply_to = email_from
 
                     msg = ir_mail_server.build_email(
                         email_from=email_from,
@@ -75,7 +78,7 @@ class mail_mail(osv.Model):
                         body=email.get('body'),
                         body_alternative=email.get('body_alternative'),
                         email_cc=tools.email_split(mail.email_cc),
-                        reply_to=mail.reply_to,
+                        reply_to=reply_to,
                         attachments=attachments,
                         message_id=mail.message_id,
                         references=mail.references,

@@ -4,7 +4,15 @@
     "author" : "Ivan Yelizariev",
     "category" : "Mail",
     "website" : "https://it-projects.info",
-    "description": """Update 'Reply-to' field to catchall value in order to fix problem like that:
+    "description": """
+Module uses system parameters:
+
+* mail.catchall.alias
+* mail.catchall.domain
+
+Module updates reply-to field if it posible to sender alias
+
+Module updates 'FROM' field to catchall value in order to fix problem like that:
 
     2014-01-18 06:25:56,532 6789 INFO trunk openerp.addons.mail.mail_thread: Routing mail from <user@CUSTOMER.com> to info@MYDOMAIN.com with Message-Id <49131390026345@web16h.yandex.ru>: direct alias match: (u'res.users', 1, {}, 1, browse_record(mail.alias, 1))
 2014-01-18 06:25:57,212 6789 ERROR trunk openerp.addons.base.ir.ir_mail_server: Mail delivery failed via SMTP server 'smtp.yandex.ru'.
