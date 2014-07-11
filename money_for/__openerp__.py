@@ -4,7 +4,6 @@
     "author" : "Ivan Yelizariev",
     "category" : "Base",
     "website" : "https://it-projects.info",
-    "sequence": 1,
 
     "depends" : ["crm", "account", "website", "web"],
     "data":[
