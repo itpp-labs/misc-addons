@@ -33,6 +33,10 @@ class mail_thread(osv.Model):
             return True
 
         for browse_record in self.browse(cr, uid, ids, context=context):
+            p = getattr(browse_record, 'partner_id', None)
+            if p:
+                browse_record._context.update({'lang':p.lang})
+
             initial = initial_values[browse_record.id]
             changes = set()
             tracked_values = {}
