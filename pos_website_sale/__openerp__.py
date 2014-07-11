@@ -2,7 +2,6 @@
     'name' : 'combination of POS and e-commerce',
     'version' : '1.0.0',
     'author' : 'Ivan Yelizariev',
-    'sequence':1, # Tmp
     'category' : 'Sale',
     'website' : 'https://it-projects.info',
     'description': '''

@@ -47,7 +47,7 @@ function pos_website_sale(instance, module){ //module is instance.point_of_sale
             }
             this.show();
             this.order_name = val;
-            $('.website_order button').html('Загрузить заказ '+val);
+            $('.website_order button').html('Загрузить заказ '+val+'*');
         },
         enable_numpad: function(){
             //this.disable_numpad();  //ensure we don't register the callbacks twice
