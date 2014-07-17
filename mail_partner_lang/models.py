@@ -5,7 +5,7 @@ from openerp import SUPERUSER_ID
 class mail_thread(osv.Model):
     _inherit = "mail.thread"
 
-    def message_track(self, cr, uid, ids, tracked_fields, initial_values, context=None):
+    def message_track(self, cr, uid, ids, tracked_fields, initial_values, context={}):
 
         def convert_for_display(value, col_info):
             if not value and col_info['type'] == 'boolean':
@@ -32,6 +32,8 @@ class mail_thread(osv.Model):
         if not tracked_fields:
             return True
 
+        update_fields = [f for f in tracked_fields]
+
         for browse_record in self.browse(cr, uid, ids, context=context):
             p = getattr(browse_record, 'partner_id', None)
             if p:
@@ -40,6 +42,9 @@ class mail_thread(osv.Model):
             initial = initial_values[browse_record.id]
             changes = set()
             tracked_values = {}
+
+            # update translation
+            tracked_fields = self._get_tracked_fields(cr, uid, update_fields, browse_record._context)
 
             # generate tracked_values data structure: {'col_name': {col_info, new_value, old_value}}
             for col_name, col_info in tracked_fields.items():
