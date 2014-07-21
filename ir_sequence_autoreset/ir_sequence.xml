@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="sequence_autoreset_view">
+            <field name="model">ir.sequence</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.sequence_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@string='Sequence']/group" position="after">
+                    <group col="4" string="Auto Reset" attrs="{'invisible': [('implementation','!=', 'standard')]}">
+                        <field name="auto_reset"/>
+                        <newline/>
+                        <field name="reset_period"/>
+                        <field name="reset_init_number"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+ 
+    </data>
+</openerp>
+
