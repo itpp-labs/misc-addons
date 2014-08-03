@@ -7,7 +7,6 @@ _logger = logging.getLogger(__name__)
 import base64
 import tempfile 
 
-from ..mapping import get_mapping
 
 import MySQLdb
 import MySQLdb.cursors
