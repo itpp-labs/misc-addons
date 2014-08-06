@@ -8,6 +8,7 @@
 Depends on:
 
 * http://pandas.pydata.org/
+* http://mysql-python.sourceforge.net/MySQLdb.html
     """,
     'depends' : ['crm', 'project', 'document'],
     'data':[
