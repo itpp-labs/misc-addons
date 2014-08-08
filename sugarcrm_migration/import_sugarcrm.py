@@ -342,23 +342,10 @@ class import_sugarcrm(import_base):
     def get_mapping_contact(self):
         return {
             'name': self.TABLE_CONTACT,
-             'model' : 'crm.lead',
+             'model' : 'res.partner',
             'table': self.table_contact,
-             'dependencies' : [self.TABLE_USER, self.TABLE_ACCOUNT],
+             'dependencies' : [self.TABLE_USER],
              'map' :  {
-                 #'name': concat('first_name', 'last_name'),
-                 #'partner_id/id': ref(self.TABLE_ACCOUNT,'account_id'),
-                 #'phone': 'phone_work',
-                 #'mobile': 'phone_mobile',
-                 #'fax': 'phone_fax',
-                 #'function': 'title',
-                 #'street': 'primary_address_street',
-                 #'zip': 'primary_address_postalcode',
-                 #'city': 'primary_address_city',
-                 #'country_id/id': 'country_id/id',
-                 #'state_id/id': 'state_id/id',
-                 #'email': get_email,
-                 #'type': const('contact')
                 'id': xml_id(self.TABLE_CONTACT, 'id'),
                  'name': concat('first_name', 'last_name'),
                 'create_date': 'date_entered',
@@ -368,10 +355,12 @@ class import_sugarcrm(import_base):
 
                 'phone':first('phone_home', 'phone_work', 'phone_other', 'home_telephone_c', 'business_telephone_c'),
                 'mobile':first('phone_mobile', 'personal_mobile_phone_c'),
-                'email_from':first('email_address', 'personal_email_c', 'business_email_c', 'other_email_c', 'email_c', 'email_2_c'), 
+                'email':first('email_address', 'personal_email_c', 'business_email_c', 'other_email_c', 'email_c', 'email_2_c'), 
 
                 'fax': first('phone_fax', 'company_fax_c'),
-                 'description': ppconcat('description', 'birthdate',
+                 'customer': const('0'),
+                 'supplier': const('1'),
+                 'comment': ppconcat('description', 'birthdate',
 
 
 
