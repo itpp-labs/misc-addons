@@ -151,7 +151,7 @@ class import_sugarcrm(import_base):
                  'ref': 'sic_code',
                  'customer': const('1'),
                  'supplier': const('0'),
-                 'parent_id/id' : xml_id(self.TABLE_ACCOUNT, 'parent_id'),
+                 #'parent_id/id' : xml_id(self.TABLE_ACCOUNT, 'parent_id'),
     
     
                  'comment': ppconcat('description', 'employees', 'ownership', 'annual_revenue', 'rating', 'industry', 'ticker_symbol',
