@@ -757,7 +757,7 @@ class import_sugarcrm(import_base):
     map_to_model = {
         'Accounts': 'res.partner',
         'Cases': 'project.task',
-        'Contacts': 'crm.lead',
+        'Contacts': 'res.partner',
         'Prospects': 'TODO',
         'Emails': 'mail.message',
     }
