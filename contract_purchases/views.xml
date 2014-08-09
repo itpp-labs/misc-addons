@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+        <record id="purchase_order_form" model="ir.ui.view">
+            <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+				<xpath expr="//field[@name='journal_id']" position="after">
+					<field name="account_analytic_id"/>
+				</xpath>
+			</field>
+		</record>
+
+        <record id="account_analytic_account_form_form" model="ir.ui.view">
+            <field name="name">account.analytic.account.invoice.form.inherit</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="account_analytic_analysis.account_analytic_account_form_form"/>
+            <field eval="40" name="priority"/>
+            <field name="arch" type="xml">
+				<xpath expr="//tr[@name='total']" position="before">
+					<tr>
+                        <td class="oe_timesheet_grey">
+                            <label for="supplier_fix_price_invoices"/>
+                            </td><td class="oe_timesheet_grey">
+                            <field name="supplier_fix_price_invoices" class="oe_inline"/>
+                            </td><td>
+                            <field class="oe_inline" name="supplier_amount_max" attrs="{'invisible': [('supplier_fix_price_invoices','=',False)]}"/>
+                            </td><td>
+                            <field class="oe_inline" name="supplier_ca_invoiced" attrs="{'invisible': [('supplier_fix_price_invoices','=',False)]}"/>
+                            </td><td>
+                            <field class="oe_inline" name="supplier_remaining_ca" attrs="{'invisible': [('supplier_fix_price_invoices','=',False)]}"/>
+                            </td><td>
+                            <field class="oe_inline" name="supplier_fix_price_to_invoice" attrs="{'invisible': [('fix_price_invoices','=',False)]}"/>
+                            </td><td attrs="{'invisible': [('supplier_fix_price_invoices','=',False)]}" class="oe_timesheet_action">
+                            <span attrs="{'invisible': [('supplier_fix_price_to_invoice','=',0.0)]}" class="oe_grey">
+                                <button name="supplier_open_sale_order_lines"
+                                        class="oe_link"
+                                        string="⇒ Invoice" type="object"
+                                        context="{'default_partner_id': [partner_id],'default_project_id': active_id,'search_default_uninvoiced': 1,'search_default_project_id': active_id,'search_default_partner_id': [partner_id]}"/>
+                                or view
+                            </span>
+
+                            <span attrs="{'invisible': [('supplier_fix_price_to_invoice','&lt;&gt;',0.0 )]}" class="oe_grey">
+                                No order to invoice, create
+                            </span>
+                            <button name="%(action_purchase_order)d" string="Purchase Orders"
+                                    type="action"
+                                    class="oe_link"
+                                    context="{'search_default_account_analytic_id': [active_id],'default_account_analytic_id': [active_id]}"
+                                    />
+                        </td>
+                    </tr>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

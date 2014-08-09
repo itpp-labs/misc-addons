@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+       <record id="view_request_for_quotation_filter" model="ir.ui.view">
+            <field name="name">request.quotation.select</field>
+            <field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="arch" type="xml">
+				<xpath expr="//field[@name='create_uid']" position="after">
+					<field name="account_analytic_id"/>
+				</xpath>
+			</field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_purchase_order">
+            <field name="name">Purchases Orders</field>
+            <field name="res_model">purchase.order</field>
+            <field name="src_model">account.analytic.account</field>
+            <field name="search_view_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a quotation that can be converted into a purchase
+                order.
+              </p><p>
+                Use purchase orders to track everything that should be invoiced
+                at a fix price on a contract.
+              </p>
+            </field>
+        </record>
+	</data>
+</openerp>
