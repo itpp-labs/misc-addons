@@ -77,12 +77,15 @@ class ppconcat(mapper):
         delimiter is optional and by default is a two line feeds
         
     """
-    def __init__(self, *arg, **delimiter):
+    def __init__(self, *arg, **kwargs):
         self.arg = arg
-        self.delimiter = delimiter and delimiter.get('delimiter', ' ') or '\n\n'
-        
+        self.delimiter = kwargs and kwargs.get('delimiter', ' ') or '\n\n'
+        self.skip_value = kwargs and kwargs.get('skip_value')
+        if not type(self.skip_value) == str:
+            self.skip_value = '^^'
+
     def __call__(self, external_values):
-        return self.delimiter.join(map(lambda x : x + ": " + tools.ustr(external_values.get(x,'')), filter(lambda x: external_values.get(x), self.arg)))
+        return self.delimiter.join(map(lambda x : x + ": " + tools.ustr(external_values.get(x,'')), filter(lambda x: external_values.get(x) and (self.skip_value != external_values.get(x)), self.arg)))
 
 class first(mapper):
     def __init__(self, *arg, **kwargs):

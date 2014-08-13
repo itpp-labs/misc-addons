@@ -174,8 +174,8 @@ class import_sugarcrm(import_base):
     'group_company_c', #                  |             7 |
     'contract_signed_c', #                |             5 |
     'telephone_2_c', #                    |             1 |
-    'preffered_consultant_1_c', #         |          4560 |
-    'preferred_consultant_2_c', #         |          4560 |
+    #'preffered_consultant_1_c', #         |          4560 |
+    #'preferred_consultant_2_c', #         |          4560 |
     'company_phone_c', #                  |          1127 |
     'company_street_c', #                 |          3022 |
     'company_street_2_c', #               |          1586 |
@@ -244,11 +244,11 @@ class import_sugarcrm(import_base):
     'introducer_contract_signed_c', #     |             1 |
     'partnership_terms_c', #              |            45 |
     'introducer_terms_c', #               |             1 |
-    'marketing_campaigns_c', #            |          2705 |
+    #'marketing_campaigns_c', #            |          2705 |
     'client_of_c', #                      |            56 |
-    'marketing_events_c', #               |          1917 |
+    #'marketing_events_c', #               |          1917 |
     'responsive_to_marketing_c', #        |            15 |
-    'media_2_c', #                        |          2586 |
+    #'media_2_c', #                        |          2586 |
     'elite_customer_c', #                 |           114 |
     'public_sector_new_c', #              |          2422 |
     'private_sector_new_c', #             |           965 |
@@ -280,19 +280,19 @@ class import_sugarcrm(import_base):
     'role_type_secondary_c', #            |           127 |
     'role_type_tertiary_c', #             |            58 |
     'role_type_quarternary_c', #          |            35 |
-    'marketing_campaigns_primary_c', #    |          1865 |
-    'marketing_campaigns_secondary_c', #  |            37 |
-    'marketing_campaigns_tertiary_c', #   |            14 |
-    'marketing_campaigns_quarternar_c', # |             5 |
+    #'marketing_campaigns_primary_c', #    |          1865 |
+    #'marketing_campaigns_secondary_c', #  |            37 |
+    #'marketing_campaigns_tertiary_c', #   |            14 |
+    #'marketing_campaigns_quarternar_c', # |             5 |
     'initial_source_of_referral_p_c', #   |           616 |
     'initial_source_of_referral_t_c', #   |           179 |
     'initial_source_of_referral_q_c', #   |           153 |
     'initial_source_of_referral_s_c', #   |           368 |
-    'marketing_events_primary_c', #       |          1743 |
-    'marketing_events_secondary_c', #     |          1729 |
-    'marketing_events_tertiary_c', #      |          1729 |
-    'marketing_events_quarternary_c', #   |          1720 |
-    'shenley_holdings_company_new_c', #   |          3145 |
+    #'marketing_events_primary_c', #       |          1743 |
+    #'marketing_events_secondary_c', #     |          1729 |
+    #'marketing_events_tertiary_c', #      |          1729 |
+    #'marketing_events_quarternary_c', #   |          1720 |
+    #'shenley_holdings_company_new_c', #   |          3145 |
     'hcd_registered_c', #                 |             1 |
     'customer_personal_info_c', #         |            15 |
     'contributor_primary_c', #            |             7 |
@@ -319,9 +319,9 @@ class import_sugarcrm(import_base):
     'account_id3_c', #                    |             8 |
     'first_conversion_process_c', #       |            53 |
     'network_c', #                        |           845 |
-    'ae_services_c', #                    |          1170 |
-    'ae_area_c', #                        |          1170 |
-    'previously_lindsay_c', #             |            68 |
+    #'ae_services_c', #                    |          1170 |
+    #'ae_area_c', #                        |          1170 |
+    #'previously_lindsay_c', #             |            68 |
     'rtw_organisation_type_c', #          |           136 |
     'sales_funnel_c', #                   |            94 |
     )
@@ -553,14 +553,14 @@ class import_sugarcrm(import_base):
 'introducer_c',#                     | tinyint(1)       |             1 |
 'partnership_terms_c',#              | text             |             4 |
 'introducer_terms_c',#               | text             |             3 |
-'marketing_campaigns_c',#            | text             |           716 |
-'marketing_events_c',#               | text             |             4 |
+#'marketing_campaigns_c',#            | text             |           716 |
+#'marketing_events_c',#               | text             |             4 |
 #'contact_id1_c',#                    | char(36)         |            12 |
 #'account_id1_c',#                    | char(36)         |             1 |
 'introduced_c',#                     | tinyint(1)       |             9 |
 'test_c',#                           | varchar(100)     |           100 |
 #'contact_id2_c',#                    | char(36)         |             2 |
-'shenley_holdings_company_c',#       | text             |          1117 |
+#'shenley_holdings_company_c',#       | text             |          1117 |
 'hcd_registered_c',#                 | tinyint(1)       |           270 |
 'contributor_type_c',#               | text             |           430 |
 'contributor_c',#                    | tinyint(1)       |           122 |
