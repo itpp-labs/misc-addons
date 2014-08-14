@@ -26,6 +26,7 @@ class import_sugarcrm(import_base):
     #TABLE_PROJECT_TASK = 'ProjectTask'
     #TABLE_BUG = 'Bugs'
     TABLE_NOTE = 'Notes'
+    TABLE_NOTE_INTERNAL = 'notes_internal'
     TABLE_EMAIL = 'emails'
     #TABLE_COMPAIGN = 'Campaigns'
     #TABLE_DOCUMENT = 'Documents'
@@ -57,7 +58,16 @@ class import_sugarcrm(import_base):
 
 
             cur.close()
-            
+
+    def finalize(self):
+
+        mail_message_obj = self.pool['mail.message']
+        ids = self.pool['ir.attachment'].search(self.cr, self.uid, [('res_model_tmp','=','mail.message')])
+        for a in self.pool['ir.attachment'].read(self.cr, self.uid, ids, ['id', 'res_id_tmp'], context=self.context):
+            if not a['res_id_tmp']:
+                continue
+            mail_message_obj.write(self.cr, self.uid, [a['res_id_tmp']],
+                                   {'attachment_ids':[(4, a['id'])]})
 
 
     def get_data(self, table):
@@ -77,6 +87,7 @@ class import_sugarcrm(import_base):
             self.get_mapping_contact(),
             self.get_mapping_case(),
             self.get_mapping_email(),
+            self.get_mapping_note_internal(),
             self.get_mapping_note(),
         ]
         return res
@@ -860,7 +871,7 @@ class import_sugarcrm(import_base):
         'Contacts': 'res.partner',
         'Prospects': 'TODO',
         'Emails': 'mail.message',
-        'Notes': 'ir.attachment',
+        #'Notes': 'ir.attachment',
     }
     map_to_table = {
         'Accounts': TABLE_ACCOUNT_LEAD,
@@ -868,7 +879,7 @@ class import_sugarcrm(import_base):
         'Contacts': TABLE_CONTACT,
         'Prospects': 'TODO',
         'Emails': TABLE_EMAIL,
-        'Notes': TABLE_NOTE,
+        #'Notes': TABLE_NOTE,
     }
 #mysql> select parent_type, count(*) from notes group by parent_type;
 #+-------------+----------+
@@ -957,7 +968,15 @@ class import_sugarcrm(import_base):
     def table_note(self):
         t = DataFrame(self.get_data('notes'))
         t = self.table_filter_modules(t, 'parent_type')
+        t = t.dropna(subset=['filename'])
         #t = t[:10] # for debug
+        return t
+
+    def table_note_internal(self):
+        t = DataFrame(self.get_data('notes'))
+        t = self.table_filter_modules(t, 'parent_type')
+        t = t[(t['parent_type'] != 'Emails')]
+        #t = t[:100] # for debug
         return t
 
     def get_id_model(self, external_values, field_name='parent_id'):
@@ -973,7 +992,7 @@ class import_sugarcrm(import_base):
             external_values['parent_type'] = 'Contacts'
             id,model = self.get_id_model(external_values, field_name='contact_id')
             if id:
-                print 'note Accounts fixed to Contacts'
+                #print 'note Accounts fixed to Contacts'
                 external_values['res_id'] = id
                 external_values['res_model'] = model
                 return external_values
@@ -981,7 +1000,7 @@ class import_sugarcrm(import_base):
 
         id,model = self.get_id_model(external_values)
         if not id:
-            print 'Note not found', parent_type, external_values.get('parent_id')
+            #print 'Note not found', parent_type, external_values.get('parent_id')
             return None
         else:
             #print 'Note     FOUND', parent_type, external_values.get('parent_id')
@@ -990,33 +1009,55 @@ class import_sugarcrm(import_base):
         external_values['res_model'] = model
         return external_values
 
+    map_note_to_table = {
+        'Emails': TABLE_EMAIL
+        }
     def get_mapping_note(self):
         return {
             'name': self.TABLE_NOTE,
             'table': self.table_note,
             'model': 'ir.attachment',
-            'dependencies' : [self.TABLE_USER,
-                              self.TABLE_ACCOUNT_LEAD,
-                              self.TABLE_CONTACT,
-                              self.TABLE_CASE,
-                              #self.TABLE_LEAD,
-                              #self.TABLE_OPPORTUNITY,
-                              #self.TABLE_MEETING,
-                              #self.TABLE_CALL,
-                              self.TABLE_EMAIL,
+            'dependencies' : [self.TABLE_EMAIL,
+                              self.TABLE_NOTE_INTERNAL,
                           ],
             'hook': self.hook_note,
             'map': {
                 'id': xml_id(self.TABLE_NOTE, 'id'),
-                'name':concat('filename', 'name', 'date_entered', delimiter='*'),
+                'name':'filename',
                 'res_model': 'res_model',
                 'res_id': 'res_id',
+                'res_model_tmp': const('mail.message'),
+                'res_id_tmp': res_id(map_val('parent_type', self.map_note_to_table, default=self.TABLE_NOTE_INTERNAL), 'id'),
+
                 'store_fname': 'filename',
                 'type':const('binary'),
                 'description': 'description',
                 'create_date': 'date_entered',
                 'create_uid/id': xml_id(self.TABLE_USER, 'create_by'),
                 'company_id/id': const('base.main_company'),
+            }
+        }
+    def get_mapping_note_internal(self):
+        return {
+            'name': self.TABLE_NOTE_INTERNAL,
+            'table': self.table_note_internal,
+            'model': 'mail.message',
+            'dependencies' : [self.TABLE_EMAIL,
+                          ],
+            'hook': self.hook_note,
+            'map': {
+                'id': xml_id(self.TABLE_NOTE_INTERNAL, 'id'),
+
+
+                'subject':concat('name', 'filename', 'date_entered', delimiter=' * '),
+                'body': 'description',
+                'model': 'res_model',
+                 'res_id': 'res_id',
+
+                 'type':const('email'),
+                'date': 'date_entered',
+                'author_id/id': user2partner(self.TABLE_USER, 'created_by'),
+                 #'subtype_id/id':const('mail.mt_comment'),
             }
         }
     def get_mapping_history_attachment(self):

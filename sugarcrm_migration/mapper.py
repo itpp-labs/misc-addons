@@ -160,7 +160,7 @@ class map_val(mapper):
         usefull for selection field like state
         to map value 
     """
-    def __init__(self, val, map, default='draft'):
+    def __init__(self, val, map, default=''):
         self.val = value(val)
         self.map = map
         self.default = default

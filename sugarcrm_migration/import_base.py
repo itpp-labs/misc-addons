@@ -34,6 +34,12 @@ class import_base(object):
         """
         pass
 
+    def finalize(self):
+        """
+            init after import
+        """
+        pass
+
     def init_run(self):
         """
             call after intialize run in the thread, not in the main process
@@ -111,6 +117,7 @@ class import_base(object):
         self.mapped = set()
         self.mapping = self.prepare_mapping(self.get_mapping())
         self.resolve_dependencies([k for k in self.mapping])
+        self.finalize()
 
     def _fix_size_limit(self):
         import sys
