@@ -151,13 +151,17 @@ class import_base(object):
 
     def map_data(self, m):
         records = m.get('table')()
+        hook = m.get('hook', self.default_hook)
 
         res = []
 
         map_fields = self._preprocess_mapping(m.get('map'))
         for key, r in records.iterrows():
-            fields, values = self._fields_mapp(r, map_fields)
-            res.append(values)
+            dict_sugar = dict(r)
+            dict_sugar = hook(dict_sugar)
+            if dict_sugar:
+                fields, values = self._fields_mapp(dict_sugar, map_fields)
+                res.append(values)
 
         res = DataFrame(res)
         data_binary = res.to_csv(sep=self.import_options.get('separator'),
@@ -202,7 +206,7 @@ class import_base(object):
         for key,val in openerp_dict.items():
             if key not in fields:
                 fields.append(key)
-                value = val(dict(dict_sugar))
+                value = val(dict_sugar)
                 data_lst.append(value)
         return fields, data_lst
 

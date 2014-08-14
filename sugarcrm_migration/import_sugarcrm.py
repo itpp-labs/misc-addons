@@ -10,6 +10,7 @@ class import_sugarcrm(import_base):
 
     TABLE_USER = 'users'
     TABLE_ACCOUNT = 'accounts'
+    TABLE_ACCOUNT_LEAD = 'accounts_leads'
     TABLE_CONTACT = 'contacts'
     TABLE_CASE = 'cases'
 
@@ -72,6 +73,7 @@ class import_sugarcrm(import_base):
         res = [
             self.get_mapping_user(),
             self.get_mapping_account(),
+            self.get_mapping_account_lead(),
             self.get_mapping_contact(),
             self.get_mapping_case(),
             self.get_mapping_email(),
@@ -79,7 +81,7 @@ class import_sugarcrm(import_base):
         ]
         return res
 
-    def merge_table_email(self, df, id_index='id'):
+    def merge_table_email(self, df, id_on='id'):
 #mysql> select bean_module, count(*) from email_addr_bean_rel group by bean_module;
 #+-------------+----------+
 #| bean_module | count(*) |
@@ -92,14 +94,14 @@ class import_sugarcrm(import_base):
 #4 rows in set (0.21 sec)
         t1 = merge(df,
                    DataFrame(self.get_data('email_addr_bean_rel')),
-                   left_index=id_index,
+                   left_on=id_on,
                    suffixes=('', '_email_addr_bean_rel'),
-                   right_index='bean_id')
+                   right_on='bean_id')
         t2 = merge(t1,
                    DataFrame(self.get_data('email_addresses')),
-                   left_index = 'email_address_id',
+                   left_on = 'email_address_id',
                    suffixes=('', '_email_addresses'),
-                   right_index = 'id')
+                   right_on = 'id')
         return t2
 
     def table_user(self):
@@ -126,8 +128,8 @@ class import_sugarcrm(import_base):
     def table_account(self):
         t1 = merge(DataFrame(self.get_data('accounts')),
                    DataFrame(self.get_data('accounts_cstm')),
-                   left_index='id',
-                   right_index='id_c'
+                   left_on='id',
+                   right_on='id_c'
         )
         #t1 = t1[:10] # for debug
         return t1
@@ -154,7 +156,14 @@ class import_sugarcrm(import_base):
                  #'parent_id/id' : xml_id(self.TABLE_ACCOUNT, 'parent_id'),
     
     
-                 'comment': ppconcat('description', 'employees', 'ownership', 'annual_revenue', 'rating', 'industry', 'ticker_symbol',
+                 'comment': ppconcat(
+                    'description',
+                    'employees',
+                    'ownership',
+                    'annual_revenue',
+                    'rating',
+                    'industry',
+                    'ticker_symbol',
     #'id_c', #                             |          4560 |
     'company_c', #                        |             7 |
     #'website_c', #                        |          2225 |
@@ -328,11 +337,94 @@ class import_sugarcrm(import_base):
              }
         }
 
+
+    map_lead_probability = {
+        'Lost': 0,
+        'Proposal Sent': 50,
+        'Prospect Identified': 1,
+        'Prospect Qualified': 20,
+        'Sales Won': 100,
+        'Scheduled': 150,
+        'Suspect': 0,
+        }
+#mysql> select sales_funnel_c, count(*) from accounts_cstm group by sales_funnel_c;
+#+---------------------+----------+
+#| sales_funnel_c      | count(*) |
+#+---------------------+----------+
+#| NULL                |     4322 |
+#|                     |      144 |
+#| Lost                |        1 |
+#| Proposal Sent       |        3 |
+#| Prospect Identified |        5 |
+#| Prospect Qualified  |       20 |
+#| Sales Won           |        2 |
+#| Scheduled           |        1 |
+#| Suspect             |       62 |
+
+    map_lead_stage = {
+        '':             'crm.stage_lead7', # Lost
+        'Archived':     'crm.stage_lead2', # Dead
+        'Dorment':      'crm.stage_lead4',  # Proposition
+        'Live Contact': 'crm.stage_lead6',  # Won
+        'Pipeline':     'crm.stage_lead5',  # Negotiation
+        'Prospect':     'crm.stage_lead1', # New
+        }
+    map_lead_type = {
+        'Dorment':      'opportunity',
+        'Live Contact': 'opportunity',
+        'Pipeline':     'opportunity',
+        }
+#mysql> select status_c, count(*) from accounts_cstm group by status_c;
+#+---------------+----------+
+#| status_c      | count(*) |
+#+---------------+----------+
+#| NULL          |      210 |
+#|               |      655 |
+#| Archived      |       84 |
+#| Dorment       |      101 |
+#| Live Contract |       73 |
+#| Pipeline      |      390 |
+#| Prospect      |     3047 |
+#+---------------+----------+
+
+    def table_account_lead(self):
+        t1 = merge(DataFrame(self.get_data('accounts')),
+                   DataFrame(self.get_data('accounts_cstm')),
+                   left_on='id',
+                   right_on='id_c'
+        )
+        #t1 = t1[:10] # for debug
+        return t1
+
+    def get_mapping_account_lead(self):
+        return {
+            'name': self.TABLE_ACCOUNT_LEAD,
+            'table': self.table_account_lead,
+             'model' : 'crm.lead',
+             'dependencies' : [self.TABLE_ACCOUNT],
+             'map' : {
+                'id': xml_id(self.TABLE_ACCOUNT_LEAD, 'id'),
+                'partner_id/id': xml_id(self.TABLE_ACCOUNT, 'id'),
+                 'name': concat('name', 'first_name_c', 'last_name_c'),
+                'active': lambda record: not record['deleted'],
+                'user_id/id': xml_id(self.TABLE_USER, 'assigned_user_id'),
+                'phone':first('phone_office', 'telephone_c', 'company_phone_c', 'phone_primary_c'),
+                'mobile':first('mobile_phone_primary_c', 'mobile_phone_other_c'),
+                'email_from':first('email_address', 'email_c', 'email_primary_c', 'email_other_c', lower=True),
+                'fax': first('phone_fax', 'fax_c', 'fax_primary_c'),
+                 'ref': 'sic_code',
+                 'probability': map_val('sales_funnel_c', self.map_lead_probability, 0),
+                'stage_id/id': map_val('status_c', self.map_lead_stage, 'crm.stage_lead1'),
+                'type': map_val('status_c', self.map_lead_type, 'lead'),
+
+                }
+            }
+
     def table_contact(self):
         t1 = merge(DataFrame(self.get_data('contacts')),
                    DataFrame(self.get_data('contacts_cstm')),
-                   left_index='id',
-                   right_index='id_c'
+                   left_on='id',
+                   right_on='id_c'
         )
 
         t2 = self.merge_table_email(t1)
@@ -589,8 +681,8 @@ class import_sugarcrm(import_base):
     def table_case(self):
         t1 = merge(DataFrame(self.get_data('cases')),
                    DataFrame(self.get_data('cases_cstm')),
-                   left_index='id',
-                   right_index='id_c'
+                   left_on='id',
+                   right_on='id_c'
         )
         #t1 = t1[:10] # for debug
         return t1
@@ -741,13 +833,13 @@ class import_sugarcrm(import_base):
     def table_email(self):
         t1 = merge(DataFrame(self.get_data('emails')),
                    DataFrame(self.get_data('emails_text')),
-                   left_index='id',
-                   right_index='email_id'
+                   left_on='id',
+                   right_on='email_id'
         )
         t2 = merge(t1,
                    DataFrame(self.get_data('emails_beans')),
-                   left_index='id',
-                   right_index='email_id',
+                   left_on='id',
+                   right_on='email_id',
                    suffixes = ('', '_emails_beans')
         )
         t3 = self.table_filter_modules(t2)
@@ -755,14 +847,14 @@ class import_sugarcrm(import_base):
         return t3
 
     map_to_model = {
-        'Accounts': 'res.partner',
+        'Accounts': 'crm.lead',
         'Cases': 'project.task',
         'Contacts': 'res.partner',
         'Prospects': 'TODO',
         'Emails': 'mail.message',
     }
     map_to_table = {
-        'Accounts': TABLE_ACCOUNT,
+        'Accounts': TABLE_ACCOUNT_LEAD,
         'Cases': TABLE_CASE,
         'Contacts': TABLE_CONTACT,
         'Prospects': 'TODO',
@@ -854,8 +946,8 @@ class import_sugarcrm(import_base):
     def table_note(self):
         t = merge(DataFrame(self.get_data('notes')),
                    DataFrame(self.get_data('tracker')),
-                   left_index='id',
-                   right_index='item_id'
+                   left_on='id',
+                   right_on='item_id'
         )
         t = self.table_filter_modules(t, 'module_name')
 
@@ -863,6 +955,26 @@ class import_sugarcrm(import_base):
         t = t[:10] # for debug
         return t
 
+    def get_id_model(external_values):
+        return res_id(map_val('parent_type', self.map_to_table), 'parent_id')(external_values), map_val('parent_type', self.map_to_model)(external_values)
+
+    def hook_note(self, external_values):
+        parent_type = external_values.get('parent_type')
+        if parent_type == 'Accounts':
+            external_values['parent_type'] = 'Contacts'
+            id,model = self.get_id_model(external_values)
+            if id:
+                print 'note Accounts fixed to Contacts'
+                external_values['res_id'] = id
+                external_values['res_model'] = model
+                return external_values
+            else:
+                external_values['parent_type'] = parent_type
+
+        id,model = self.get_id_model(external_values)
+        external_values['res_id'] = id
+        external_values['res_model'] = model
+        return external_values
 
     def get_mapping_note(self):
         return {
@@ -878,11 +990,12 @@ class import_sugarcrm(import_base):
                               #self.TABLE_CALL,
                               self.TABLE_EMAIL,
                           ],
+            'hook': self.hook_note,
             'map': {
                 'id': xml_id(self.TABLE_NOTE, 'id'),
                 'name':'filename',
-                'res_model': map_val('parent_type', self.map_to_model),
-                'res_id': res_id(map_val('parent_type', self.map_to_table), 'parent_id'),
+                'res_model': 'res_model',
+                'res_id': 'res_id',
                 'store_fname': 'filename',
                 'type':const('binary'),
                 'description': 'description',  # is it used?
