@@ -735,6 +735,7 @@ class import_sugarcrm(import_base):
                 'active': lambda record: not record['deleted'],
                  'user_id/id': xml_id(self.TABLE_USER, 'assigned_user_id'),
                  'partner_id/id': xml_id(self.TABLE_ACCOUNT, 'account_id'),
+                 #'supplier_id/id': xml_id(self.TABLE_ACCOUNT, 'account_id'),
                  'kanban_state': 'TODO',
                  'priority': map_val('priority', self.case_priority_mapping, '1'),
 
@@ -830,6 +831,7 @@ class import_sugarcrm(import_base):
         newt = t[(t[field_name] == 'Accounts')|
                 (t[field_name] == 'Cases')|
                 (t[field_name] == 'Contacts')|
+                (t[field_name] == 'Notes')|
                 (t[field_name] == 'Emails')
                 ]
         return newt
@@ -858,6 +860,7 @@ class import_sugarcrm(import_base):
         'Contacts': 'res.partner',
         'Prospects': 'TODO',
         'Emails': 'mail.message',
+        'Notes': 'ir.attachment',
     }
     map_to_table = {
         'Accounts': TABLE_ACCOUNT_LEAD,
@@ -865,6 +868,7 @@ class import_sugarcrm(import_base):
         'Contacts': TABLE_CONTACT,
         'Prospects': 'TODO',
         'Emails': TABLE_EMAIL,
+        'Notes': TABLE_NOTE,
     }
 #mysql> select parent_type, count(*) from notes group by parent_type;
 #+-------------+----------+
@@ -951,18 +955,12 @@ class import_sugarcrm(import_base):
                     }
 
     def table_note(self):
-        t = merge(DataFrame(self.get_data('notes')),
-                   DataFrame(self.get_data('tracker')),
-                   how='left',
-                   left_on='id',
-                   right_on='item_id'
-        )
+        t = DataFrame(self.get_data('notes'))
         t = self.table_filter_modules(t, 'parent_type')
-        t = t.dropna(subset=['filename', 'parent_id'], how='any')
         #t = t[:10] # for debug
         return t
 
-    def get_id_model(self, external_values):
+    def get_id_model(self, external_values, field_name='parent_id'):
         id = res_id(map_val('parent_type', self.map_to_table), 'parent_id')
         id.set_parent(self)
         model = map_val('parent_type', self.map_to_model)
@@ -970,9 +968,10 @@ class import_sugarcrm(import_base):
 
     def hook_note(self, external_values):
         parent_type = external_values.get('parent_type')
-        if parent_type == 'Accounts':
+        contact_id = external_values.get('contact_id')
+        if parent_type == 'Accounts' and contact_id:
             external_values['parent_type'] = 'Contacts'
-            id,model = self.get_id_model(external_values)
+            id,model = self.get_id_model(external_values, field_name='contact_id')
             if id:
                 print 'note Accounts fixed to Contacts'
                 external_values['res_id'] = id
@@ -1009,12 +1008,12 @@ class import_sugarcrm(import_base):
             'hook': self.hook_note,
             'map': {
                 'id': xml_id(self.TABLE_NOTE, 'id'),
-                'name':'filename',
+                'name':concat('filename', 'name', 'date_entered', delimiter='*'),
                 'res_model': 'res_model',
                 'res_id': 'res_id',
                 'store_fname': 'filename',
                 'type':const('binary'),
-                'description': 'description',  # is it used?
+                'description': 'description',
                 'create_date': 'date_entered',
                 'create_uid/id': xml_id(self.TABLE_USER, 'create_by'),
                 'company_id/id': const('base.main_company'),
