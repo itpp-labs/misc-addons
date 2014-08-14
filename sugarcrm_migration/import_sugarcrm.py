@@ -94,14 +94,17 @@ class import_sugarcrm(import_base):
 #4 rows in set (0.21 sec)
         t1 = merge(df,
                    DataFrame(self.get_data('email_addr_bean_rel')),
+                   how='left',
                    left_on=id_on,
                    suffixes=('', '_email_addr_bean_rel'),
                    right_on='bean_id')
         t2 = merge(t1,
                    DataFrame(self.get_data('email_addresses')),
+                   how='left',
                    left_on = 'email_address_id',
                    suffixes=('', '_email_addresses'),
                    right_on = 'id')
+
         return t2
 
     def table_user(self):
@@ -344,7 +347,7 @@ class import_sugarcrm(import_base):
         'Prospect Identified': 1,
         'Prospect Qualified': 20,
         'Sales Won': 100,
-        'Scheduled': 150,
+        'Scheduled': 100, #in sugarcrm: 150,
         'Suspect': 0,
         }
 #mysql> select sales_funnel_c, count(*) from accounts_cstm group by sales_funnel_c;
@@ -416,6 +419,7 @@ class import_sugarcrm(import_base):
                  'probability': map_val('sales_funnel_c', self.map_lead_probability, 0),
                 'stage_id/id': map_val('status_c', self.map_lead_stage, 'crm.stage_lead1'),
                 'type': map_val('status_c', self.map_lead_type, 'lead'),
+                'section_id/id': const('sales_team.section_sales_department'),
 
                 }
             }
@@ -833,11 +837,13 @@ class import_sugarcrm(import_base):
     def table_email(self):
         t1 = merge(DataFrame(self.get_data('emails')),
                    DataFrame(self.get_data('emails_text')),
+                   how='left',
                    left_on='id',
                    right_on='email_id'
         )
         t2 = merge(t1,
                    DataFrame(self.get_data('emails_beans')),
+                   how='left',
                    left_on='id',
                    right_on='email_id',
                    suffixes = ('', '_emails_beans')
@@ -946,17 +952,20 @@ class import_sugarcrm(import_base):
     def table_note(self):
         t = merge(DataFrame(self.get_data('notes')),
                    DataFrame(self.get_data('tracker')),
+                   how='left',
                    left_on='id',
                    right_on='item_id'
         )
-        t = self.table_filter_modules(t, 'module_name')
-
+        t = self.table_filter_modules(t, 'parent_type')
         t = t.dropna(subset=['filename', 'parent_id'], how='any')
-        t = t[:10] # for debug
+        #t = t[:10] # for debug
         return t
 
-    def get_id_model(external_values):
-        return res_id(map_val('parent_type', self.map_to_table), 'parent_id')(external_values), map_val('parent_type', self.map_to_model)(external_values)
+    def get_id_model(self, external_values):
+        id = res_id(map_val('parent_type', self.map_to_table), 'parent_id')
+        id.set_parent(self)
+        model = map_val('parent_type', self.map_to_model)
+        return id(external_values), model(external_values)
 
     def hook_note(self, external_values):
         parent_type = external_values.get('parent_type')
@@ -968,10 +977,15 @@ class import_sugarcrm(import_base):
                 external_values['res_id'] = id
                 external_values['res_model'] = model
                 return external_values
-            else:
-                external_values['parent_type'] = parent_type
+            external_values['parent_type'] = parent_type
 
         id,model = self.get_id_model(external_values)
+        if not id:
+            print 'Note not found', parent_type, external_values.get('parent_id')
+            return None
+        else:
+            #print 'Note     FOUND', parent_type, external_values.get('parent_id')
+            pass
         external_values['res_id'] = id
         external_values['res_model'] = model
         return external_values
@@ -982,7 +996,7 @@ class import_sugarcrm(import_base):
             'table': self.table_note,
             'model': 'ir.attachment',
             'dependencies' : [self.TABLE_USER,
-                              self.TABLE_ACCOUNT,
+                              self.TABLE_ACCOUNT_LEAD,
                               self.TABLE_CONTACT,
                               #self.TABLE_LEAD,
                               #self.TABLE_OPPORTUNITY,

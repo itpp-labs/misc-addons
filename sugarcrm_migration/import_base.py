@@ -113,7 +113,25 @@ class import_base(object):
         self.import_list = self.resolve_dependencies([k for k in self.mapping])
         self.do_import(self.import_list)
 
+    def _fix_size_limit(self):
+        import sys
+        import csv
+        maxInt = sys.maxsize
+        decrement = True
+
+        while decrement:
+            # decrease the maxInt value by factor 10 
+            # as long as the OverflowError occurs.
+
+            decrement = False
+            try:
+                csv.field_size_limit(maxInt)
+            except OverflowError:
+                maxInt = int(maxInt/10)
+                decrement = True
+
     def do_import(self, import_list):
+        self._fix_size_limit()
         # import
         import_obj = self.pool['base_import.import']
         for imp in import_list:
@@ -150,18 +168,23 @@ class import_base(object):
         return import_list
 
     def map_data(self, m):
+        _logger.info('read table %s' % m.get('name'))
         records = m.get('table')()
         hook = m.get('hook', self.default_hook)
 
         res = []
 
         map_fields = self._preprocess_mapping(m.get('map'))
+        _logger.info('mapping records of %s: %s' %( m.get('name'), len(records)))
         for key, r in records.iterrows():
             dict_sugar = dict(r)
             dict_sugar = hook(dict_sugar)
             if dict_sugar:
                 fields, values = self._fields_mapp(dict_sugar, map_fields)
                 res.append(values)
+            else:
+                #print 'skipped after hook', dict(r)
+                pass
 
         res = DataFrame(res)
         data_binary = res.to_csv(sep=self.import_options.get('separator'),
