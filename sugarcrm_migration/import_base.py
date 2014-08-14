@@ -110,8 +110,7 @@ class import_base(object):
     def run(self):
         self.mapped = set()
         self.mapping = self.prepare_mapping(self.get_mapping())
-        self.import_list = self.resolve_dependencies([k for k in self.mapping])
-        self.do_import(self.import_list)
+        self.resolve_dependencies([k for k in self.mapping])
 
     def _fix_size_limit(self):
         import sys
@@ -163,9 +162,9 @@ class import_base(object):
             if not m:
                 #continue # only for debug!
                 pass
-            import_list.extend(self.resolve_dependencies(m.get('dependencies', [])))
-            import_list.extend(self.map_data(m))
-        return import_list
+            self.resolve_dependencies(m.get('dependencies', []))
+            import_list = self.map_data(m)
+            self.do_import(import_list)
 
     def map_data(self, m):
         _logger.info('read table %s' % m.get('name'))
