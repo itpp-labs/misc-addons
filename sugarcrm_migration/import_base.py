@@ -151,6 +151,7 @@ class import_base(object):
                 _logger.error(error)
 
                 raise Exception(error)
+        self.cr.commit()
 
     def resolve_dependencies(self, deps):
         import_list = []
