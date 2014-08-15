@@ -917,6 +917,7 @@ class import_sugarcrm(import_base):
             'dependencies' : [
                 self.TABLE_USER,
                 self.TABLE_ACCOUNT,
+                self.TABLE_ACCOUNT_LEAD,
                 self.TABLE_CONTACT,
                 self.TABLE_CASE,
                 #self.TABLE_LEAD,
@@ -980,7 +981,7 @@ class import_sugarcrm(import_base):
         return t
 
     def get_id_model(self, external_values, field_name='parent_id'):
-        id = res_id(map_val('parent_type', self.map_to_table), 'parent_id')
+        id = res_id(map_val('parent_type', self.map_to_table), field_name)
         id.set_parent(self)
         model = map_val('parent_type', self.map_to_model)
         return id(external_values), model(external_values)
