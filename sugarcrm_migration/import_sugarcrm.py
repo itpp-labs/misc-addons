@@ -11,6 +11,7 @@ class import_sugarcrm(import_base):
     TABLE_USER = 'users'
     TABLE_ACCOUNT = 'accounts'
     TABLE_ACCOUNT_LEAD = 'accounts_leads'
+    TABLE_ACCOUNT_TAG = 'accounts_tags_'
     TABLE_CONTACT = 'contacts'
     TABLE_CASE = 'cases'
 
@@ -81,14 +82,13 @@ class import_sugarcrm(import_base):
 
     def get_mapping(self):
         res = [
-            self.get_mapping_user(),
+            #self.get_mapping_user(),
             self.get_mapping_account(),
-            self.get_mapping_account_lead(),
-            self.get_mapping_contact(),
-            self.get_mapping_case(),
-            self.get_mapping_email(),
-            self.get_mapping_note_internal(),
-            self.get_mapping_note(),
+            #self.get_mapping_contact(),
+            #self.get_mapping_case(),
+            #self.get_mapping_email(),
+            #self.get_mapping_note_internal(),
+            #self.get_mapping_note(),
         ]
         return res
 
@@ -147,25 +147,82 @@ class import_sugarcrm(import_base):
                    left_on='id',
                    right_on='id_c'
         )
-        #t1 = t1[:10] # for debug
+        t1 = t1[:100] # for debug
         return t1
-    def hook_account(self, external_values):
-        return external_values
-    def hook_account_finance(self, external_values):
-        f = (external_values.get('finance_first_name_c') or '').strip()
-        l = (external_values.get('finance_last_name_c', '') or '').strip()
-        if f or l:
-            print 'hook_account_finance', f, l
-            return external_values
-        else:
-            return None
+    def hook_ignore_all(self, *args):
+        # for debug
+        return None
+    def hook_ignore_empty(self, *args):
+        def f(external_values):
+            ignore = True
+            for key in args:
+                v = (external_values.get(key) or '').strip()
+                if v:
+                    ignore = False
+                    break
+            if ignore:
+                return None
+            else:
+                return external_values
+        return f
+
     def get_mapping_account(self):
+        def partner(prefix, suffix):
+            return {'model' : 'res.partner',
+                 'hook': self.hook_ignore_empty('%sfirst_name%s'%(prefix, suffix),
+                                                '%slast_name%s'%(prefix, suffix)),
+                 'fields': {
+                     'id': xml_id(self.TABLE_ACCOUNT + '_%s%s'%(prefix, suffix), 'id'),
+                     'name': concat('%sfirst_name%s'%(prefix, suffix), '%slast_name%s'%(prefix, suffix)),
+                     'phone': '%sphone%s'%(prefix, suffix),
+                     'mobile': '%smobile%s'%(prefix, suffix),
+                     'fax': '%sfax%s'%(prefix, suffix),
+                     'email': '%semail%s'%(prefix, suffix),
+                     'parent_id/id': xml_id(self.TABLE_ACCOUNT, 'id'),
+                     'function': '%sjob_title%s'%(prefix, suffix),
+                        'customer': const('1'),
+                        'supplier': const('0'),
+                    },
+                 }
+        partner_list = [
+            partner('finance_', ''),
+            partner('pa_', '_primary_c'),
+            partner('pa_', '_secondary_c'),
+            partner('', '_primary_c'),
+            partner('', '_secondary_c'),
+            partner('', '_quantenary_c'),
+            partner('', '_other_c'),
+            ]
+        def tag(field_name):
+            parent = self.TABLE_ACCOUNT_TAG + field_name
+            return {'model':'res.partner.category',
+                 'hook':self.hook_ignore_empty(field_name),
+                 'fields': {
+                     'id': simple_xml_id(parent, field_name),
+                     'name': field_name,
+                     'parent_id/id':const('sugarcrm_migration.'+parent),
+                     }
+                 }
+        tag_list = [
+            tag('initial_source_of_referral_c'),
+            tag('private_sector_new_c'),
+            tag('rtw_organisation_type_c'),
+            tag('sales_funnel_c'),
+            tag('shenley_holdings_company_new_c'),
+            tag('source_of_referral_c'),
+            tag('status_c'),
+            tag('introduced_by_c'),
+            tag('introduced_by_customer_c'),
+            tag('sister_company_c'),
+            ]
+            
         return {
             'name': self.TABLE_ACCOUNT,
             'table': self.table_account,
              'dependencies' : [self.TABLE_USER],
 
-            'models':[
+            'models': tag_list + [
+                # company
                 {
              'model' : 'res.partner',
              'fields' :
@@ -175,204 +232,44 @@ class import_sugarcrm(import_base):
                 'is_company': const('1'),
                 'date': fixdate('date_entered'),
                 'active': lambda record: not record['deleted'],
-                 'user_id/id': xml_id(self.TABLE_USER, 'assigned_user_id'),
+                 'user_id/.id': user_by_login('account_manager_2_c'),
                  'website': first('website', 'website_c'),
-                'phone':first('phone_office', 'telephone_c', 'company_phone_c', 'phone_primary_c'),
-                'mobile':first('mobile_phone_primary_c', 'mobile_phone_other_c'),
-                'email':first('email_address', 'email_c', 'email_primary_c', 'email_other_c', lower=True),
+                'phone':'company_phone_c',
+                'email':first('email_address', 'email_c', lower=True),
                 'fax': first('phone_fax', 'fax_c', 'fax_primary_c'),
-                 'ref': 'sic_code',
+                 'city': 'company_city_c',
+                 'zip': 'company_post_code_c',
+                 #'state_id': 'company_region_c',
+                 'street': 'company_street_c',
+                 'street2': concat('company_street_2_c','company_street_3_c'),
+                 #'country_id': 'europe_c',
                  'customer': const('1'),
                  'supplier': const('0'),
-                 'comment': ppconcat(
-                    'description',
-                    'employees',
-                    'ownership',
-                    'annual_revenue',
-                    'rating',
-                    'industry',
-                    'ticker_symbol',
-    #'id_c', #                             |          4560 |
-    'company_c', #                        |             7 |
-    #'website_c', #                        |          2225 |
-    'address_c', #                        |             5 |
-    'telephone_c', #                      |            17 |
-    'fax_c', #                            |            18 |
-    'title_c', #                          |             7 |
-    'first_name_c', #                     |            19 |
-    'last_name_c', #                      |            19 |
-    'email_c', #                          |            18 |
-    'department_c', #                     |            18 |
-    'job_title_c', #                      |            15 |
-    'case_history_c', #                   |             2 |
-    'associated_income_c', #              |            47 |
-    'filed_complaints_c', #               |             2 |
-    'meeting_history_c', #                |             1 |
-    'group_company_c', #                  |             7 |
-    'contract_signed_c', #                |             5 |
-    'telephone_2_c', #                    |             1 |
-    #'preffered_consultant_1_c', #         |          4560 |
-    #'preferred_consultant_2_c', #         |          4560 |
-    'company_phone_c', #                  |          1127 |
-    'company_street_c', #                 |          3022 |
-    'company_street_2_c', #               |          1586 |
-    'company_street_3_c', #               |           644 |
-    'company_city_c', #                   |          2635 |
-    'company_post_code_c', #              |          2368 |
-    'title_primary_c', #                  |           358 |
-    'first_name_primary_c', #             |          3608 |
-    'last_name_primary_c', #              |          3235 |
-    'post_nominal_titles_primary_c', #    |             4 |
-    'job_title_primary_c', #              |          2788 |
-    'department_primary_c', #             |           311 |
-    'email_primary_c', #                  |          2953 |
-    'phone_primary_c', #                  |          2111 |
-    'ext_primary_c', #                    |            27 |
-    'mobile_phone_primary_c', #           |           363 |
-    'fax_primary_c', #                    |           185 |
-    'title_secondary_c', #                |           125 |
-    'first_name_secondary_c', #           |          1069 |
-    'last_name_secondary_c', #            |          1057 |
-    'post_nominal_titles_secondary_c', #  |             1 |
-    'job_title_secondary_c', #            |          1026 |
-    'department_secondary_c', #           |           115 |
-    'email_secondary_c', #                |           932 |
-    'phone_secondary_c', #                |           803 |
-    'ext_secondary_c', #                  |            11 |
-    'mobile_phone_secondary_c', #         |            83 |
-    'fax_secondary_c', #                  |            16 |
-    'title_other_c', #                    |            45 |
-    'first_name_other_c', #               |           475 |
-    'last_name_other_c', #                |           471 |
-    'post_nominal_titles_other_c', #      |             3 |
-    'job_title_other_c', #                |           463 |
-    'department_other_c', #               |            72 |
-    'email_other_c', #                    |           404 |
-    'phone_other_c', #                    |           332 |
-    'ext_other_c', #                      |            27 |
-    'mobile_phone_other_c', #             |            49 |
-    'fax_other_c', #                      |            15 |
-    'unsubscribe_c', #                    |           107 |
-    'status_c', #                         |          3695 |
-    'relationship_c', #                   |            18 |
-    'business_sector_c', #                |           101 |
-    'private_sector_c', #                 |            14 |
-    'public_sector_c', #                  |            13 |
-    'notes_c', #                          |           889 |
-    'contract_type_c', #                  |          2045 |
-    'company_region_c', #                 |           688 |
-    'other_email_primary_c', #            |            21 |
-    'europe_c', #                         |          2559 |
-    'company_street_other_c', #           |            17 |
-    'company_street_other_2_c', #         |            15 |
-    'company_street_other_3_c', #         |            52 |
-    'company_city_other_c', #             |            18 |
-    'company_post_code_other_c', #        |            17 |
-    'shenley_holdings_company_c', #       |          1501 |
-    'account_manager_c', #                |           148 |
-    'business_development_manager_c', #   |           407 |
-    'initial_source_of_referral_c', #     |          1367 |
-    'account_manager_2_c', #              |          1853 |
-    'business_development_manager_2_c', # |          1774 |
-    'contract_end_date_c', #              |            10 |
-    'partner_c', #                        |            27 |
-    'introducer_c', #                     |             1 |
-    'partner_contract_signed_c', #        |             4 |
-    'introducer_contract_signed_c', #     |             1 |
-    'partnership_terms_c', #              |            45 |
-    'introducer_terms_c', #               |             1 |
-    #'marketing_campaigns_c', #            |          2705 |
-    'client_of_c', #                      |            56 |
-    #'marketing_events_c', #               |          1917 |
-    'responsive_to_marketing_c', #        |            15 |
-    #'media_2_c', #                        |          2586 |
-    'elite_customer_c', #                 |           114 |
-    'public_sector_new_c', #              |          2422 |
-    'private_sector_new_c', #             |           965 |
-    'specialism_c', #                     |          1729 |
-    'board_private_c', #                  |          1985 |
-    'board_public_c', #                   |          1985 |
-    'specialism_senior_c', #              |           888 |
-    'specialism_middle_c', #              |           377 |
-    'title_quaternary_c', #               |            35 |
-    'first_name_quaternary_c', #          |           222 |
-    'last_name_quaternary_c', #           |           221 |
-    'departmentquaternary_c', #           |            42 |
-    'email_quaternary_c', #               |           191 |
-    'phone_quaternary_c', #               |           178 |
-    'ext_quaternary_c', #                 |             4 |
-    'mobile_phone_quaternary_c', #        |            27 |
-    'contact_id1_c', #                    |            17 |
-    'account_id1_c', #                    |            89 |
-    'introduced_c', #                     |            70 |
-    'specialism_quatenary_c', #           |           199 |
-    'job_title_quatenary_c', #            |           167 |
-    'added_c', #                          |          2511 |
-    'management_level_c', #               |          1169 |
-    'management_level_secondary_c', #     |           556 |
-    'management_level_tertiary_c', #      |           275 |
-    'management_level_quenternary_c', #   |           164 |
-    'account_id2_c', #                    |            27 |
-    'role_type_c', #                      |           633 |
-    'role_type_secondary_c', #            |           127 |
-    'role_type_tertiary_c', #             |            58 |
-    'role_type_quarternary_c', #          |            35 |
-    #'marketing_campaigns_primary_c', #    |          1865 |
-    #'marketing_campaigns_secondary_c', #  |            37 |
-    #'marketing_campaigns_tertiary_c', #   |            14 |
-    #'marketing_campaigns_quarternar_c', # |             5 |
-    'initial_source_of_referral_p_c', #   |           616 |
-    'initial_source_of_referral_t_c', #   |           179 |
-    'initial_source_of_referral_q_c', #   |           153 |
-    'initial_source_of_referral_s_c', #   |           368 |
-    #'marketing_events_primary_c', #       |          1743 |
-    #'marketing_events_secondary_c', #     |          1729 |
-    #'marketing_events_tertiary_c', #      |          1729 |
-    #'marketing_events_quarternary_c', #   |          1720 |
-    #'shenley_holdings_company_new_c', #   |          3145 |
-    'hcd_registered_c', #                 |             1 |
-    'customer_personal_info_c', #         |            15 |
-    'contributor_primary_c', #            |             7 |
-    'contributor_secondary_c', #          |             1 |
-    'contributor_tertiary_c', #           |             1 |
-    'contributor_quarternary_c', #        |             1 |
-    'pa_first_name_primary_c', #          |           145 |
-    'pa_last_name_primary_c', #           |           136 |
-    'pa_phone_primary_c', #               |            69 |
-    'pa_email_primary_c', #               |           125 |
-    'pa_first_name_secondary_c', #        |            78 |
-    'pa_last_name_secondary_c', #         |            72 |
-    'pa_email_secondary_c', #             |            67 |
-    'pa_phone_secondary_c', #             |            31 |
-    'contributor_type_c', #               |             1 |
-    'contributor_type_secondary_c', #     |             2 |
-    'contritbutor_type_quartenary_c', #   |             2 |
-    'finance_first_name_c', #             |            15 |
-    'finance_last_name_c', #              |            12 |
-    'finance_email_c', #                  |            20 |
-    'finance_phone_c', #                  |            17 |
-    'contact_type_c', #                   |             1 |
-    'lead_generator_c', #                 |           595 |
-    'account_id3_c', #                    |             8 |
-    'first_conversion_process_c', #       |            53 |
-    'network_c', #                        |           845 |
-    #'ae_services_c', #                    |          1170 |
-    #'ae_area_c', #                        |          1170 |
-    #'previously_lindsay_c', #             |            68 |
-    'rtw_organisation_type_c', #          |           136 |
-    'sales_funnel_c', #                   |            94 |
-    )
+                 'category_id/id': tags_from_fields(self.TABLE_ACCOUNT_TAG, ['initial_source_of_referral_c', 'private_sector_new_c', 'rtw_organisation_type_c', 'sales_funnel_c', 'shenley_holdings_company_new_c', 'source_of_referral_c', 'status_c', 'introduced_by_c', 'introduced_by_customer_c', 'sister_company_c',]),
+                 'comment': ppconcat('website_c'),
              }},
-                {'model' : 'res.partner',
-                 'hook': self.hook_account_finance,
-                 'fields': {
-                     'id': xml_id(self.TABLE_ACCOUNT + '_finance', 'id'),
-                     'name': concat('finance_first_name_c', 'finance_last_name_c'),
-                     'parent_id/id': xml_id(self.TABLE_ACCOUNT, 'id'),
-                    },
-                 },
-                
-                ]
+                # realted lead
+                {
+                'model' : 'crm.lead',
+'fields': {
+                'id': xml_id(self.TABLE_ACCOUNT_LEAD, 'id'),
+                'partner_id/id': xml_id(self.TABLE_ACCOUNT, 'id'),
+                 'name': concat('name', 'first_name_c', 'last_name_c'),
+                'active': lambda record: not record['deleted'],
+                #'user_id/id': xml_id(self.TABLE_USER, 'assigned_user_id'),
+
+                'phone':first('phone_office', 'telephone_c', 'company_phone_c'),
+                'email_from':first('email_address', 'email_c', lower=True),
+                'fax': first('phone_fax', 'fax_c', 'fax_primary_c'),
+                 'probability': map_val('sales_funnel_c', self.map_lead_probability, 0),
+                'stage_id/id': map_val('status_c', self.map_lead_stage, 'crm.stage_lead1'),
+                'type': map_val('status_c', self.map_lead_type, 'lead'),
+                'section_id/id': const('sales_team.section_sales_department'),
+
+                }
+}
+
+                ] + partner_list # related contacts
             }
 
 
@@ -425,42 +322,42 @@ class import_sugarcrm(import_base):
 #| Prospect      |     3047 |
 #+---------------+----------+
 
-    def table_account_lead(self):
-        t1 = merge(DataFrame(self.get_data('accounts')),
-                   DataFrame(self.get_data('accounts_cstm')),
-                   left_on='id',
-                   right_on='id_c'
-        )
-        #t1 = t1[:10] # for debug
-        return t1
-
-    def get_mapping_account_lead(self):
-        return {
-            'name': self.TABLE_ACCOUNT_LEAD,
-            'table': self.table_account_lead,
-             'dependencies' : [self.TABLE_ACCOUNT],
-             'models':[{
-                'model' : 'crm.lead',
-'fields': {
-                'id': xml_id(self.TABLE_ACCOUNT_LEAD, 'id'),
-                'partner_id/id': xml_id(self.TABLE_ACCOUNT, 'id'),
-                 'name': concat('name', 'first_name_c', 'last_name_c'),
-                'active': lambda record: not record['deleted'],
-                'user_id/id': xml_id(self.TABLE_USER, 'assigned_user_id'),
-                'phone':first('phone_office', 'telephone_c', 'company_phone_c', 'phone_primary_c'),
-                'mobile':first('mobile_phone_primary_c', 'mobile_phone_other_c'),
-                'email_from':first('email_address', 'email_c', 'email_primary_c', 'email_other_c', lower=True),
-                'fax': first('phone_fax', 'fax_c', 'fax_primary_c'),
-                 'ref': 'sic_code',
-                 'probability': map_val('sales_funnel_c', self.map_lead_probability, 0),
-                'stage_id/id': map_val('status_c', self.map_lead_stage, 'crm.stage_lead1'),
-                'type': map_val('status_c', self.map_lead_type, 'lead'),
-                'section_id/id': const('sales_team.section_sales_department'),
-
-                }
-}]
-            }
-
+#    def table_account_lead(self):
+#        t1 = merge(DataFrame(self.get_data('accounts')),
+#                   DataFrame(self.get_data('accounts_cstm')),
+#                   left_on='id',
+#                   right_on='id_c'
+#        )
+#        #t1 = t1[:10] # for debug
+#        return t1
+#    
+#    def get_mapping_account_lead(self):
+#        return {
+#            'name': self.TABLE_ACCOUNT_LEAD,
+#            'table': self.table_account_lead,
+#             'dependencies' : [self.TABLE_ACCOUNT],
+#             'models':[{
+#                'model' : 'crm.lead',
+#'fields': {
+#                'id': xml_id(self.TABLE_ACCOUNT_LEAD, 'id'),
+#                'partner_id/id': xml_id(self.TABLE_ACCOUNT, 'id'),
+#                 'name': concat('name', 'first_name_c', 'last_name_c'),
+#                'active': lambda record: not record['deleted'],
+#                'user_id/id': xml_id(self.TABLE_USER, 'assigned_user_id'),
+#                'phone':first('phone_office', 'telephone_c', 'company_phone_c', 'phone_primary_c'),
+#                'mobile':first('mobile_phone_primary_c', 'mobile_phone_other_c'),
+#                'email_from':first('email_address', 'email_c', 'email_primary_c', 'email_other_c', lower=True),
+#                'fax': first('phone_fax', 'fax_c', 'fax_primary_c'),
+#                 'ref': 'sic_code',
+#                 'probability': map_val('sales_funnel_c', self.map_lead_probability, 0),
+#                'stage_id/id': map_val('status_c', self.map_lead_stage, 'crm.stage_lead1'),
+#                'type': map_val('status_c', self.map_lead_type, 'lead'),
+#                'section_id/id': const('sales_team.section_sales_department'),
+#    
+#                }
+#}]  
+#            }
+#
     def table_contact(self):
         t1 = merge(DataFrame(self.get_data('contacts')),
                    DataFrame(self.get_data('contacts_cstm')),
@@ -946,7 +843,7 @@ class import_sugarcrm(import_base):
             'dependencies' : [
                 self.TABLE_USER,
                 self.TABLE_ACCOUNT,
-                self.TABLE_ACCOUNT_LEAD,
+                #self.TABLE_ACCOUNT_LEAD,
                 self.TABLE_CONTACT,
                 self.TABLE_CASE,
                 #self.TABLE_LEAD,
@@ -1052,9 +949,9 @@ class import_sugarcrm(import_base):
             'dependencies' : [self.TABLE_EMAIL,
                               self.TABLE_NOTE_INTERNAL,
                           ],
-            'hook': self.hook_note,
             'models':[{
                 'model': 'ir.attachment',
+                'hook': self.hook_note,
 'fields': {
                 'id': xml_id(self.TABLE_NOTE, 'id'),
                 'name':'filename',
@@ -1078,9 +975,9 @@ class import_sugarcrm(import_base):
             'table': self.table_note_internal,
             'dependencies' : [self.TABLE_EMAIL,
                           ],
-            'hook': self.hook_note,
             'models':[{
                 'model': 'mail.message',
+                'hook': self.hook_note,
 'fields': {
                 'id': xml_id(self.TABLE_NOTE_INTERNAL, 'id'),
 

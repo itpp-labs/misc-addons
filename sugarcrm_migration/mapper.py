@@ -69,7 +69,21 @@ class concat(mapper):
         
     def __call__(self, external_values):
         return self.delimiter.join(map(lambda x : tools.ustr(external_values.get(x,'')or ''), self.arg))
-    
+
+class tags_from_fields(mapper):
+    def __init__(self, table, field_list):
+        self.table = table
+        self.field_list = field_list
+
+    def __call__(self, external_values):
+        res = []
+        for f in self.field_list:
+            id = simple_xml_id(self.table+f, f)
+            id = id(external_values)
+            if id:
+                res.append(id)
+        return ','.join(res)
+
 class ppconcat(mapper):
     """
         Use : contact('field_name1', 'field_name2', delimiter='_')
@@ -126,6 +140,21 @@ class const(mapper):
     def __call__(self, external_values):
         return self.val 
     
+class simple_xml_id(mapper):
+    def __init__(self, prefix, field_name):
+        self.prefix = prefix
+        self.field_name = field_name
+
+    def __call__(self, external_values):
+        value = external_values.get(self.field_name)
+        value = (value or '').strip()
+        if value:
+            value = re.sub('[\'", ^]','_', value)
+            return self.prefix + value
+        else:
+            return None
+        
+
 class value(mapper):
     """
         Use : value(external_field_name)
@@ -219,6 +248,18 @@ class user2partner(dbmapper):
         id.set_parent(self.parent)
         user_xml_id = id(external_values)
         return user_xml_id+'_res_partner'
+
+class user_by_login(dbmapper):
+    def __init__(self, field_name):
+        self.field_name = field_name
+
+    def __call__(self, external_values):
+        login = external_values.get(self.field_name)
+        id = self.parent.pool['res.users'].search(self.parent.cr, self.parent.uid, [('login', '=', login)], context=self.parent.context)
+        if id:
+            return id[0]
+        else:
+            return ''
 
 class res_id(dbmapper):
     def __init__(self, get_table, field_name):
