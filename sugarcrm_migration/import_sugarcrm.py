@@ -1,6 +1,6 @@
 import MySQLdb
 import MySQLdb.cursors
-from import_base import import_base
+from import_base import import_base, create_childs
 
 from pandas import merge, DataFrame
 from .mapper import *
@@ -126,8 +126,9 @@ class import_sugarcrm(import_base):
         return {
             'name': self.TABLE_USER,
             'table': self.table_user,
-             'model' : 'res.users',
-             'map' : {
+             'models':[{
+                'model' : 'res.users',
+'fields': {
                 'id': xml_id(self.TABLE_USER, 'id'),
                 'active': lambda record: not record['deleted'], # status == 'Active'
                 'name': concat('first_name', 'last_name'),
@@ -137,6 +138,7 @@ class import_sugarcrm(import_base):
                 'alias_name': value('user_name', fallback='last_name', lower=True),
                 'email': 'email_address',
              }
+}]
             }
     
     def table_account(self):
@@ -147,15 +149,30 @@ class import_sugarcrm(import_base):
         )
         #t1 = t1[:10] # for debug
         return t1
+    def hook_account(self, external_values):
+        return external_values
+    def hook_account_finance(self, external_values):
+        f = (external_values.get('finance_first_name_c') or '').strip()
+        l = (external_values.get('finance_last_name_c', '') or '').strip()
+        if f or l:
+            print 'hook_account_finance', f, l
+            return external_values
+        else:
+            return None
     def get_mapping_account(self):
         return {
             'name': self.TABLE_ACCOUNT,
             'table': self.table_account,
-             'model' : 'res.partner',
              'dependencies' : [self.TABLE_USER],
-             'map' : {
+
+            'models':[
+                {
+             'model' : 'res.partner',
+             'fields' :
+                {
                 'id': xml_id(self.TABLE_ACCOUNT, 'id'),
                  'name': concat('name', 'first_name_c', 'last_name_c'),
+                'is_company': const('1'),
                 'date': fixdate('date_entered'),
                 'active': lambda record: not record['deleted'],
                  'user_id/id': xml_id(self.TABLE_USER, 'assigned_user_id'),
@@ -167,9 +184,6 @@ class import_sugarcrm(import_base):
                  'ref': 'sic_code',
                  'customer': const('1'),
                  'supplier': const('0'),
-                 #'parent_id/id' : xml_id(self.TABLE_ACCOUNT, 'parent_id'),
-    
-    
                  'comment': ppconcat(
                     'description',
                     'employees',
@@ -348,8 +362,18 @@ class import_sugarcrm(import_base):
     'rtw_organisation_type_c', #          |           136 |
     'sales_funnel_c', #                   |            94 |
     )
-             }
-        }
+             }},
+                {'model' : 'res.partner',
+                 'hook': self.hook_account_finance,
+                 'fields': {
+                     'id': xml_id(self.TABLE_ACCOUNT + '_finance', 'id'),
+                     'name': concat('finance_first_name_c', 'finance_last_name_c'),
+                     'parent_id/id': xml_id(self.TABLE_ACCOUNT, 'id'),
+                    },
+                 },
+                
+                ]
+            }
 
 
     map_lead_probability = {
@@ -414,9 +438,10 @@ class import_sugarcrm(import_base):
         return {
             'name': self.TABLE_ACCOUNT_LEAD,
             'table': self.table_account_lead,
-             'model' : 'crm.lead',
              'dependencies' : [self.TABLE_ACCOUNT],
-             'map' : {
+             'models':[{
+                'model' : 'crm.lead',
+'fields': {
                 'id': xml_id(self.TABLE_ACCOUNT_LEAD, 'id'),
                 'partner_id/id': xml_id(self.TABLE_ACCOUNT, 'id'),
                  'name': concat('name', 'first_name_c', 'last_name_c'),
@@ -433,6 +458,7 @@ class import_sugarcrm(import_base):
                 'section_id/id': const('sales_team.section_sales_department'),
 
                 }
+}]
             }
 
     def table_contact(self):
@@ -449,10 +475,11 @@ class import_sugarcrm(import_base):
     def get_mapping_contact(self):
         return {
             'name': self.TABLE_CONTACT,
-             'model' : 'res.partner',
             'table': self.table_contact,
              'dependencies' : [self.TABLE_USER],
-             'map' :  {
+             'models':[{
+                'model' : 'res.partner',
+'fields': {
                 'id': xml_id(self.TABLE_CONTACT, 'id'),
                  'name': concat('first_name', 'last_name'),
                 'create_date': 'date_entered',
@@ -692,6 +719,7 @@ class import_sugarcrm(import_base):
 
                                     )
              }
+}]
         }
     def table_case(self):
         t1 = merge(DataFrame(self.get_data('cases')),
@@ -731,7 +759,6 @@ class import_sugarcrm(import_base):
 
         return {
             'name': self.TABLE_CASE,
-             'model' : 'project.task',
             'table': self.table_case,
              'dependencies' : [
                  self.TABLE_USER,
@@ -739,7 +766,9 @@ class import_sugarcrm(import_base):
                  self.TABLE_CONTACT,
                  #self.TABLE_LEAD
              ],
-             'map' : {
+             'models':[{
+                'model' : 'project.task',
+'fields': {
                 'id': xml_id(self.TABLE_CASE, 'id'),
                  'name': concat('case_number','case_number_c', 'name', delimiter='-'),
                  'create_date': 'date_entered',
@@ -836,6 +865,7 @@ class import_sugarcrm(import_base):
 
                                      ),
              }
+}]
                     }
 
     def table_filter_modules(self, t, field_name='bean_module'):
@@ -912,7 +942,6 @@ class import_sugarcrm(import_base):
 # 6 rows in set (0.56 sec)
         return {
             'name': self.TABLE_EMAIL,
-             'model' : 'mail.message',
             'table': self.table_email,
             'dependencies' : [
                 self.TABLE_USER,
@@ -925,7 +954,9 @@ class import_sugarcrm(import_base):
                 #self.TABLE_MEETING,
                 #self.TABLE_CALL
             ],
-             'map' : {
+             'models':[{
+                'model' : 'mail.message',
+'fields': {
                 'id': xml_id(self.TABLE_EMAIL, 'id'),
                  'type':const('email'),
                  #mysql> select type, count(*) from emails group by type;
@@ -964,6 +995,7 @@ class import_sugarcrm(import_base):
                  #'partner_id/.id': 'partner_id/.id',
                  #'user_id/id': ref(self.TABLE_USER, 'assigned_user_id'),
                     }
+}]
                     }
 
     def table_note(self):
@@ -1017,12 +1049,13 @@ class import_sugarcrm(import_base):
         return {
             'name': self.TABLE_NOTE,
             'table': self.table_note,
-            'model': 'ir.attachment',
             'dependencies' : [self.TABLE_EMAIL,
                               self.TABLE_NOTE_INTERNAL,
                           ],
             'hook': self.hook_note,
-            'map': {
+            'models':[{
+                'model': 'ir.attachment',
+'fields': {
                 'id': xml_id(self.TABLE_NOTE, 'id'),
                 'name':'filename',
                 'res_model': 'res_model',
@@ -1037,16 +1070,18 @@ class import_sugarcrm(import_base):
                 'create_uid/id': xml_id(self.TABLE_USER, 'create_by'),
                 'company_id/id': const('base.main_company'),
             }
+}]
         }
     def get_mapping_note_internal(self):
         return {
             'name': self.TABLE_NOTE_INTERNAL,
             'table': self.table_note_internal,
-            'model': 'mail.message',
             'dependencies' : [self.TABLE_EMAIL,
                           ],
             'hook': self.hook_note,
-            'map': {
+            'models':[{
+                'model': 'mail.message',
+'fields': {
                 'id': xml_id(self.TABLE_NOTE_INTERNAL, 'id'),
 
 
@@ -1060,6 +1095,7 @@ class import_sugarcrm(import_base):
                 'author_id/id': user2partner(self.TABLE_USER, 'created_by'),
                  #'subtype_id/id':const('mail.mt_comment'),
             }
+}]
         }
     def get_mapping_history_attachment(self):
         # is not used
@@ -1068,7 +1104,8 @@ class import_sugarcrm(import_base):
              'model' : 'ir.attachment',
              'dependencies' : [self.TABLE_USER, self.TABLE_ACCOUNT, self.TABLE_CONTACT, self.TABLE_LEAD, self.TABLE_OPPORTUNITY, self.TABLE_MEETING, self.TABLE_CALL, self.TABLE_EMAIL],
              'hook' : import_history,
-             'map' : {
+             'models':[{
+'fields': {
                  'name':'name',
                  'user_id/id': ref(self.TABLE_USER, 'created_by'),
                  'description': ppconcat('description', 'description_html'),
@@ -1078,13 +1115,16 @@ class import_sugarcrm(import_base):
                  'datas' : 'datas',
                  'datas_fname' : 'datas_fname'
              }
+}]
                     })
     def get_mapping_bug():
+        # is not used
         return {
             'name': self.TABLE_BUG,
              'model' : 'project.issue',
              'dependencies' : [self.TABLE_USER],
-             'map' : {
+             'models':[{
+'fields': {
                  'name': concat('bug_number', 'name', delimiter='-'),
                  'project_id/id': call(get_bug_project_id, 'sugarcrm_bugs'),
                  'categ_id/id': call(get_category, 'project.issue', value('type')),
@@ -1093,6 +1133,7 @@ class import_sugarcrm(import_base):
                  'state': map_val('status', project_issue_state),
                  'assigned_to/id' : ref(self.TABLE_USER, 'assigned_user_id'),
              }
+}]
             }
     def get_mapping_project(self):
         # is not used
@@ -1101,7 +1142,8 @@ class import_sugarcrm(import_base):
              'model' : 'project.project',
              'dependencies' : [self.TABLE_CONTACT, self.TABLE_ACCOUNT, self.TABLE_USER],
              'hook' : import_project,
-             'map' : {
+             'models':[{
+'fields': {
                  'name': 'name',
                  'date_start': 'estimated_start_date',
                  'date': 'estimated_end_date',
@@ -1110,6 +1152,7 @@ class import_sugarcrm(import_base):
                  'contact_id/.id': 'contact_id/.id',
                  'state': map_val('status', project_state)
              }
+}]
             }
     def get_mapping_project_task(self):
         # is not used
@@ -1117,7 +1160,8 @@ class import_sugarcrm(import_base):
             'name': self.TABLE_PROJECT_TASK,
              'model' : 'project.task',
              'dependencies' : [self.TABLE_USER, self.TABLE_PROJECT],
-             'map' : {
+             'models':[{
+'fields': {
                  'name': 'name',
                  'date_start': 'date_start',
                  'date_end': 'date_finish',
@@ -1130,6 +1174,7 @@ class import_sugarcrm(import_base):
                  'contact_id/id': 'contact_id/id',
                  'state': map_val('status', project_task_state)
              }
+}]
             }
     def get_mapping_task(self):
         # is not used
@@ -1138,7 +1183,8 @@ class import_sugarcrm(import_base):
              'model' : 'crm.meeting',
              'dependencies' : [self.TABLE_CONTACT, self.TABLE_ACCOUNT, self.TABLE_USER],
              'hook' : import_task,
-             'map' : {
+             'models':[{
+'fields': {
                  'name': 'name',
                  'date': 'date',
                  'date_deadline': 'date_deadline',
@@ -1148,6 +1194,7 @@ class import_sugarcrm(import_base):
                  'partner_address_id/id': ref(self.TABLE_CONTACT,'contact_id'),
                  'state': map_val('status', task_state)
              }
+}]
             }
     def get_mapping_call(self):
         # is not used
@@ -1155,7 +1202,8 @@ class import_sugarcrm(import_base):
             'name': self.TABLE_CALL,
              'model' : 'crm.phonecall',
              'dependencies' : [self.TABLE_ACCOUNT, self.TABLE_CONTACT, self.TABLE_OPPORTUNITY, self.TABLE_LEAD],
-             'map' : {
+             'models':[{
+'fields': {
                  'name': 'name',
                  'date': 'date_start',
                  'duration': call(get_float_time, value('duration_hours'), value('duration_minutes')),
@@ -1167,6 +1215,7 @@ class import_sugarcrm(import_base):
                  'description': ppconcat('description'),
                  'state': map_val('status', call_state)
              }
+}]
             }
     def get_mapping_meeting(self):
         # is not used
@@ -1175,7 +1224,8 @@ class import_sugarcrm(import_base):
              'model' : 'crm.meeting',
              'dependencies' : [self.TABLE_CONTACT, self.TABLE_OPPORTUNITY, self.TABLE_LEAD, self.TABLE_TASK],
              'hook': import_meeting,
-             'map' : {
+             'models':[{
+'fields': {
                  'name': 'name',
                  'date': 'date_start',
                  'duration': call(get_float_time, value('duration_hours'), value('duration_minutes')),
@@ -1187,6 +1237,7 @@ class import_sugarcrm(import_base):
                  'partner_address_id/id': related_ref(self.TABLE_CONTACT),
                  'state': map_val('status', meeting_state)
              }
+}]
             }
     def get_mapping_opportunity(self):
         # is not used
@@ -1195,7 +1246,8 @@ class import_sugarcrm(import_base):
              'model' : 'crm.lead',
              'dependencies' : [self.TABLE_USER, self.TABLE_ACCOUNT, self.TABLE_CONTACT,self.TABLE_COMPAIGN],
              'hook' : import_opp,
-             'map' :  {
+             'models':[{
+'fields': {
                  'name': 'name',
                  'probability': 'probability',
                  'partner_id/id': refbyname(self.TABLE_ACCOUNT, 'account_name', 'res.partner'),
@@ -1211,15 +1263,18 @@ class import_sugarcrm(import_base):
                  'state': map_val('status', opp_state),
                  'description' : 'description',
              }
+}]
             }
     def get_mapping_compaign(self):
         # is not used
         return {
             'name': self.TABLE_COMPAIGN,
              'model' : 'crm.case.resource.type',
-             'map' : {
+             'models':[{
+'fields': {
                  'name': 'name',
              }
+}]
             }
     def get_mapping_employee(self):
         # is not used
@@ -1227,7 +1282,8 @@ class import_sugarcrm(import_base):
             'name': self.TABLE_EMPLOYEE,
              'model' : 'hr.employee',
              'dependencies' : [self.TABLE_USER],
-             'map' : {
+             'models':[{
+'fields': {
                  'resource_id/id': get_ressource,
                  'name': concat('first_name', 'last_name'),
                  'work_phone': 'phone_work',
@@ -1239,4 +1295,5 @@ class import_sugarcrm(import_base):
                  'work_email' : 'email1',
                  'coach_id/id_parent' : 'reports_to_id',
              }
+}]
             }

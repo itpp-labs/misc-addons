@@ -4,6 +4,30 @@ from pandas import DataFrame
 import logging
 _logger = logging.getLogger(__name__)
 
+
+class create_childs(object):
+    def __init__(self, childs):
+
+        # extend childs to same set of fields
+
+        # collect fields
+        fields = set()
+        for c in childs:
+            for f in c:
+                fields.add(f)
+
+        # extend childs
+        for c in childs:
+            for f in fields:
+                if f not in c:
+                    c[f] = mapper.const('')
+
+        self.childs = childs
+
+
+    def get_childs(self):
+        return self.childs
+
 class import_base(object):
 
     def __init__(self, pool, cr, uid,
@@ -117,7 +141,9 @@ class import_base(object):
         self.mapped = set()
         self.mapping = self.prepare_mapping(self.get_mapping())
         self.resolve_dependencies([k for k in self.mapping])
+        _logger.info('finalize...')
         self.finalize()
+        _logger.info('finalize done')
 
     def _fix_size_limit(self):
         import sys
@@ -166,33 +192,41 @@ class import_base(object):
             if dname in self.mapped:
                 continue
             self.mapped.add(dname)
-            m = self.mapping.get(dname)
-            if not m:
+            mtable = self.mapping.get(dname)
+            if not mtable:
                 #continue # only for debug!
                 pass
-            self.resolve_dependencies(m.get('dependencies', []))
-            import_list = self.map_data(m)
+            self.resolve_dependencies(mtable.get('dependencies', []))
+            self.map_and_import(mtable)
+
+    def map_and_import(self, mtable):
+        _logger.info('read table %s' % mtable.get('name'))
+        records = mtable.get('table')()
+
+        for mmodel in mtable.get('models'):
+            import_list = self.do_mapping(records, mmodel)
             self.do_import(import_list)
 
-    def map_data(self, m):
-        _logger.info('read table %s' % m.get('name'))
-        records = m.get('table')()
-        hook = m.get('hook', self.default_hook)
+    def do_mapping(self, records, mmodel):
+
+        hook = mmodel.get('hook', self.default_hook)
 
         res = []
 
-        map_fields = self._preprocess_mapping(m.get('map'))
-        _logger.info('mapping records of %s: %s' %( m.get('name'), len(records)))
+        mfields = self._preprocess_mapping(mmodel.get('fields'))
+        _logger.info('mapping records to %s: %s' %( mmodel.get('model'), len(records)))
         for key, r in records.iterrows():
             dict_sugar = dict(r)
             dict_sugar = hook(dict_sugar)
             if dict_sugar:
-                fields, values = self._fields_mapp(dict_sugar, map_fields)
-                res.append(values)
+                fields, values_list = self._fields_mapp(dict_sugar, mfields)
+                res.extend(values_list)
             else:
                 #print 'skipped after hook', dict(r)
                 pass
 
+        if not res:
+            return []
         res = DataFrame(res)
         data_binary = res.to_csv(sep=self.import_options.get('separator'),
                                  quotechar=self.import_options.get('quoting'),
@@ -201,9 +235,9 @@ class import_base(object):
                                  )
 
         id = self.pool['base_import.import'].create(self.cr, self.uid,
-            {'res_model':m.get('model'),
+            {'res_model':mmodel.get('model'),
              'file': data_binary,
-             'file_name': m.get('name'),
+             'file_name': mmodel.get('model'),
              })
         return [{'id':id, 'fields':fields}]
 
@@ -216,29 +250,73 @@ class import_base(object):
             use to allow syntaxical sugar like 'field': 'external_field'
             instead of 'field' : value('external_field')
         """
-        map = dict(mapping)
-        for key, value in map.items():
+        #m = dict(mapping)
+        m = mapping
+        for key, value in m.items():
             if isinstance(value, basestring):
-                map[key] = mapper.value(value)
+                m[key] = mapper.value(value)
             #set parent for instance of dbmapper
             elif isinstance(value, mapper.dbmapper):
                 value.set_parent(self)
-        return map
+            elif isinstance(value, create_childs):
+                # {'child_ids':[{'id':id1, 'name':name1}, {'id':id2, 'name':name2}]}
+                # ->
+                # {'child_ids/id':[id1, id2], 'child_ids/name': [name1, name2]}
+                for c in value.get_childs():
+                    self._preprocess_mapping(c)
+                    for ckey, cvalue in c.items():
+                        new_key = '%s/%s' % (key, ckey)
+                        if new_key not in m:
+                            m[new_key] = []
+                        m[new_key].append(cvalue)
+                del m[key] # delete 'child_ids'
+        return m
 
     def _fields_mapp(self,dict_sugar, openerp_dict):
         """
-            call all the mapper and transform data
-            to be compatible with import_data
+{'name': name0, 'child_ids/id':[id1, id2], 'child_ids/name': [name1, name2]} ->
+
+fields =
+['name', 'child_ids/id', 'child_ids/name']
+res = [
+[name0, '',''], # i=-1
+['', id1, name1] # i=0
+['', id2, name2] # i=1
+]
         """
-        fields=[]
-        data_lst = []
-        #mapping = self._preprocess_mapping(openerp_dict)
-        for key,val in openerp_dict.items():
-            if key not in fields:
-                fields.append(key)
-                value = val(dict_sugar)
-                data_lst.append(value)
-        return fields, data_lst
+        res = []
+        i = -1
+        while True:
+            fields=[]
+            data_lst = []
+            for key,val in openerp_dict.items():
+                if key not in fields:
+                    fields.append(key)
+                    if isinstance(val, list) and len(val)>i and i>=0:
+                        value = val[i](dict_sugar)
+                    elif not isinstance(val, list) and i==-1:
+                        value = val(dict_sugar)
+                    else:
+                        value = ''
+                    data_lst.append(value)
+            if any(data_lst):
+                add = True
+                if i>=0:
+                    print '_fields_mapp', zip(fields, data_lst)
+                    add = False
+                    # ignore empty lines
+                    for pos, val in enumerate(data_lst):
+                        if fields[pos].endswith('/id'):
+                            continue
+                        if val:
+                            add = True
+                            break
+                if add:
+                    res.append(data_lst)
+                i += 1
+            else:
+                break
+        return fields, res
 
     def xml_id_exist(self, table, external_id):
         """
