@@ -82,13 +82,13 @@ class import_sugarcrm(import_base):
 
     def get_mapping(self):
         res = [
-            #self.get_mapping_user(),
+            self.get_mapping_user(),
             self.get_mapping_account(),
-            #self.get_mapping_contact(),
-            #self.get_mapping_case(),
-            #self.get_mapping_email(),
-            #self.get_mapping_note_internal(),
-            #self.get_mapping_note(),
+            self.get_mapping_contact(),
+            self.get_mapping_case(),
+            self.get_mapping_email(),
+            self.get_mapping_note_internal(),
+            self.get_mapping_note(),
         ]
         return res
 
@@ -147,7 +147,7 @@ class import_sugarcrm(import_base):
                    left_on='id',
                    right_on='id_c'
         )
-        t1 = t1[:100] # for debug
+        #t1 = t1[:100] # for debug
         return t1
     def hook_ignore_all(self, *args):
         # for debug
@@ -322,42 +322,6 @@ class import_sugarcrm(import_base):
 #| Prospect      |     3047 |
 #+---------------+----------+
 
-#    def table_account_lead(self):
-#        t1 = merge(DataFrame(self.get_data('accounts')),
-#                   DataFrame(self.get_data('accounts_cstm')),
-#                   left_on='id',
-#                   right_on='id_c'
-#        )
-#        #t1 = t1[:10] # for debug
-#        return t1
-#    
-#    def get_mapping_account_lead(self):
-#        return {
-#            'name': self.TABLE_ACCOUNT_LEAD,
-#            'table': self.table_account_lead,
-#             'dependencies' : [self.TABLE_ACCOUNT],
-#             'models':[{
-#                'model' : 'crm.lead',
-#'fields': {
-#                'id': xml_id(self.TABLE_ACCOUNT_LEAD, 'id'),
-#                'partner_id/id': xml_id(self.TABLE_ACCOUNT, 'id'),
-#                 'name': concat('name', 'first_name_c', 'last_name_c'),
-#                'active': lambda record: not record['deleted'],
-#                'user_id/id': xml_id(self.TABLE_USER, 'assigned_user_id'),
-#                'phone':first('phone_office', 'telephone_c', 'company_phone_c', 'phone_primary_c'),
-#                'mobile':first('mobile_phone_primary_c', 'mobile_phone_other_c'),
-#                'email_from':first('email_address', 'email_c', 'email_primary_c', 'email_other_c', lower=True),
-#                'fax': first('phone_fax', 'fax_c', 'fax_primary_c'),
-#                 'ref': 'sic_code',
-#                 'probability': map_val('sales_funnel_c', self.map_lead_probability, 0),
-#                'stage_id/id': map_val('status_c', self.map_lead_stage, 'crm.stage_lead1'),
-#                'type': map_val('status_c', self.map_lead_type, 'lead'),
-#                'section_id/id': const('sales_team.section_sales_department'),
-#    
-#                }
-#}]  
-#            }
-#
     def table_contact(self):
         t1 = merge(DataFrame(self.get_data('contacts')),
                    DataFrame(self.get_data('contacts_cstm')),
@@ -843,7 +807,6 @@ class import_sugarcrm(import_base):
             'dependencies' : [
                 self.TABLE_USER,
                 self.TABLE_ACCOUNT,
-                #self.TABLE_ACCOUNT_LEAD,
                 self.TABLE_CONTACT,
                 self.TABLE_CASE,
                 #self.TABLE_LEAD,
