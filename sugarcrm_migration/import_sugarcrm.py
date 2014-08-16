@@ -13,6 +13,7 @@ class import_sugarcrm(import_base):
     TABLE_ACCOUNT_LEAD = 'accounts_leads'
     TABLE_ACCOUNT_TAG = 'accounts_tags_'
     TABLE_CONTACT = 'contacts'
+    TABLE_CONTACT_COMPANY = 'contacts_companies_'
     TABLE_CONTACT_TAG = 'contacts_tags_'
     TABLE_CASE = 'cases'
 
@@ -153,7 +154,7 @@ class import_sugarcrm(import_base):
     def hook_ignore_all(self, *args):
         # for debug
         return None
-    def hook_ignore_empty(self, *args):
+    def get_hook_ignore_empty(self, *args):
         def f(external_values):
             ignore = True
             for key in args:
@@ -192,7 +193,7 @@ class import_sugarcrm(import_base):
     def get_mapping_account(self):
         def partner(prefix, suffix):
             return {'model' : 'res.partner',
-                 'hook': self.hook_ignore_empty('%sfirst_name%s'%(prefix, suffix),
+                 'hook': self.get_hook_ignore_empty('%sfirst_name%s'%(prefix, suffix),
                                                 '%slast_name%s'%(prefix, suffix)),
                  'fields': {
                      'id': xml_id(self.TABLE_ACCOUNT + '_%s%s'%(prefix, suffix), 'id'),
@@ -373,23 +374,46 @@ class import_sugarcrm(import_base):
             self.partner_tag(self.TABLE_CONTACT_TAG, 'skill_set_c'),
             ]
 
+        def company(field_name):
+            return {'model':'res.partner',
+                    'hook':self.get_hook_ignore_empty(field_name),
+                    'fields': {
+                        'id': simple_xml_id(self.TABLE_CONTACT_COMPANY, field_name),
+                        'name': field_name,
+                        'is_company': const('1'),
+                        'customer': const('0'),
+                        'supplier': const('1'),
+                        }
+                    }
+ 
+ #TODO 'company_name_c'
+
+
         return {
             'name': self.TABLE_CONTACT,
             'table': self.table_contact,
              'dependencies' : [self.TABLE_USER],
-             'models':tag_list + [{
+             'models':tag_list + [company('company_name_c')] + [{
                 'model' : 'res.partner',
 'fields': {
                 'id': xml_id(self.TABLE_CONTACT, 'id'),
                  'name': concat('title', 'first_name', 'last_name'),
+                 'parent_id/id': simple_xml_id(self.TABLE_CONTACT_COMPANY, 'company_name_c'),
+
                 'create_date': 'date_entered',
                 'write_date': 'date_modified',
                 'active': lambda record: not record['deleted'],
-                 'user_id/id': xml_id(self.TABLE_USER, 'assigned_user_id'),
+                 #'user_id/id': xml_id(self.TABLE_USER, 'assigned_user_id'),
 
-                'phone':first('phone_home', 'phone_work', 'phone_other', 'home_telephone_c', 'business_telephone_c'),
+                'city': 'city_c',
+                 'street': 'company_street_c',
+                 'street2': concat('company_street_2_c','company_street_3_c'),
+                 'zip': 'company_post_code_c',
+
+                'phone':first('company_phone_c', 'home_phone_c', 'phone_home', 'phone_work', 'phone_other', 'home_telephone_c', 'business_telephone_c'),
                 'mobile':first('phone_mobile', 'personal_mobile_phone_c'),
-                'email':first('email_address', 'personal_email_c', 'business_email_c', 'other_email_c', 'email_c', 'email_2_c'), 
+                'email':first('email_c', 'email_address', 'personal_email_c', 'business_email_c', 'other_email_c',  'email_2_c'),
+                 'website': first('website', 'website_c'),
 
                 'fax': first('phone_fax', 'company_fax_c'),
                  'customer': const('0'),
@@ -399,232 +423,33 @@ class import_sugarcrm(import_base):
 
                  'comment': ppconcat(
                         'description',
-
-
-                        'birthdate',
-
-
-
-#contacts
-#'id',#                               | char(36)         |          3957 |
-#'date_entered',#                     | datetime         |          3957 |
-#'date_modified',#                    | datetime         |          3957 |
-#'modified_user_id',#                 | char(36)         |          3957 |
-#'created_by',#                       | char(36)         |          3957 |
-#'description',#                      | text             |           644 |
-#'deleted',#                          | tinyint(1)       |          2843 |
-#'assigned_user_id',#                 | char(36)         |          3577 |
-#'team_id',#                          | char(36)         |           968 |
-#'first_name',#                       | varchar(100)     |          3231 |
-#'last_name',#                        | varchar(100)     |          3948 |
-'title',#                            | varchar(100)     |           113 |
-'department',#                       | varchar(255)     |            32 |
-'phone_home',#                       | varchar(25)      |           107 |
-'phone_mobile',#                     | varchar(25)      |           161 |
-'phone_work',#                       | varchar(25)      |             1 |
-'phone_other',#                      | varchar(25)      |             1 |
-'phone_fax',#                        | varchar(25)      |            24 |
-'birthdate',#                        | date             |            16 |
-#contacts_cstm
-#'id_c',#                             | char(36)         |          3957 |
-'post_nominal_titles_c',#            | varchar(25)      |            30 |
-'personal_email_c',#                 | varchar(30)      |            40 |
-'business_email_c',#                 | varchar(30)      |            88 |
-'other_email_c',#                    | varchar(30)      |             3 |
-'home_telephone_c',#                 | varchar(25)      |            32 |
-'business_telephone_c',#             | varchar(25)      |            64 |
-'personal_mobile_phone_c',#          | varchar(25)      |            92 |
-'personal_address_c',#               | varchar(100)     |            44 |
-'business_address_c',#               | varchar(100)     |            71 |
-'company_c',#                        | varchar(50)      |            92 |
-'website_c',#                        | varchar(60)      |          2157 |
-'job_title_c',#                      | varchar(60)      |           849 |
-'contract_signed_c',#                | tinyint(1)       |             6 |
-'case_history_c',#                   | varchar(25)      |            28 |
-'daily_rate_c',#                     | varchar(25)      |            29 |
-'category_1_c',#                     | varchar(100)     |          3957 |
-'category_2_c',#                     | varchar(100)     |          3957 |
-'category_3_c',#                     | varchar(100)     |          3957 |
-'category_4_c',#                     | varchar(100)     |          3957 |
-'category_5_c',#                     | varchar(100)     |          3957 |
-'group_company_c',#                  | varchar(100)     |            88 |
-'personal_telephone_c',#             | varchar(25)      |            43 |
-'valid_insurance_c',#                | varchar(100)     |           971 |
-'category_6_c',#                     | varchar(100)     |          3957 |
-'referred_business_c',#              | varchar(50)      |             3 |
-'vetted_c',#                         | text             |          3039 |
-'categories_c',#                     | varchar(255)     |            55 |
-'notes_2_c',#                        | varchar(255)     |             2 |
-'test_notes_c',#                     | text             |            75 |
-'consultant_notes_c',#               | text             |             3 |
-'report_writing_skill_c',#           | varchar(100)     |          3957 |
-'status_c',#                         | varchar(100)     |          2560 |
-'role_c',#                           | text             |           532 |
-'consultant_type_c',#                | text             |          1600 |
-'title_c',#                          | varchar(100)     |          2884 |
-'preferred_contact_c',#              | text             |            92 |
-'street_c',#                         | varchar(50)      |           795 |
-'street_2_c',#                       | varchar(50)      |           282 |
-'street_3_c',#                       | varchar(50)      |           140 |
-'city_c',#                           | varchar(30)      |           600 |
-'post_code_c',#                      | varchar(25)      |           561 |
-'county_c',#                         | varchar(100)     |           971 |
-'region_c',#                         | varchar(100)     |          3529 |
-'home_phone_c',#                     | varchar(50)      |           620 |
-'mobile_phone_c',#                   | varchar(50)      |           993 |
-'other_phone_c',#                    | varchar(50)      |            20 |
-'email_c',#                          | varchar(150)     |           958 |
-'email_2_c',#                        | varchar(100)     |           324 |
-'company_status_c',#                 | varchar(100)     |          1052 |
-'company_street_c',#                 | varchar(50)      |           915 |
-'company_street_2_c',#               | varchar(50)      |           159 |
-'company_street_3_c',#               | varchar(50)      |            76 |
-'company_city_c',#                   | varchar(50)      |           214 |
-'company_post_code_c',#              | varchar(25)      |           234 |
-'company_phone_c',#                  | varchar(50)      |           267 |
-'company_mobile_phone_c',#           | varchar(50)      |            43 |
-'company_fax_c',#                    | varchar(25)      |            97 |
-'company_phone_other_c',#            | varchar(50)      |            26 |
-'day_c',#                            | varchar(100)     |          3957 |
-'month_c',#                          | varchar(100)     |          3957 |
-'year_c',#                           | varchar(100)     |           971 |
-'gender_c',#                         | varchar(100)     |          1676 |
-'investigator_c',#                   | text             |           158 |
-'mediator_c',#                       | text             |            76 |
-'known_as_c',#                       | varchar(30)      |            16 |
-'country_c',#                        | varchar(100)     |           971 |
-'england_c',#                        | varchar(100)     |          1749 |
-'scotland_c',#                       | varchar(100)     |           995 |
-'wales_c',#                          | varchar(100)     |           982 |
-'northern_ireland_c',#               | varchar(100)     |          1002 |
-'east_midlands_c',#                  | varchar(100)     |           990 |
-'east_of_england_c',#                | varchar(100)     |          1009 |
-'north_east_england_c',#             | varchar(100)     |           975 |
-'north_west_england_c',#             | varchar(100)     |           981 |
-'south_east_england_c',#             | varchar(100)     |          1086 |
-'south_west_england_c',#             | varchar(100)     |           996 |
-'west_midlands_c',#                  | varchar(100)     |           987 |
-'registered_disabled_c',#            | tinyint(1)       |             1 |
-'nationality_c',#                    | varchar(100)     |          3957 |
-'ethnicity_c',#                      | varchar(100)     |          1074 |
-'white_c',#                          | varchar(100)     |          3957 |
-'asian_or_asian_british_c',#         | varchar(100)     |           971 |
-'chinese_and_other_ethnic_group_c',# | varchar(100)     |          3957 |
-'black_or_black_british_c',#         | varchar(100)     |           971 |
-'first_language_c',#                 | varchar(100)     |          1998 |
-'other_languages_c',#                | text             |            28 |
-'full_driving_licence_held_c',#      | tinyint(1)       |            86 |
-'willing_to_travel_c',#              | varchar(100)     |          1072 |
-'general_hr_c',#                     | text             |           129 |
-'conflict_dispute_resolutions_c',#   | text             |            22 |
-'systems_c',#                        | text             |             2 |
-'performance_management_c',#         | text             |            49 |
-'wellbeing_and_absenteeism_c',#      | text             |            37 |
-'pay_c',#                            | text             |            18 |
-'benefits_c',#                       | text             |           670 |
-'financial_c',#                      | text             |             4 |
-'strategic_c',#                      | text             |            15 |
-'diversity_and_equality_c',#         | text             |           100 |
-'career_and_retention_c',#           | text             |            72 |
-'recruitment_and_assessment_c',#     | text             |            25 |
-'development_c',#                    | text             |            13 |
-'compliance_and_legal_c',#           | text             |            12 |
-'finance_c',#                        | text             |             1 |
-'notes_c',#                          | text             |            95 |
-'specialism_c',#                     | text             |           389 |
-'private_sector_c',#                 | text             |           140 |
-'consultant_type_other_c',#          | text             |            50 |
-'yorkshire_and_humber_c',#           | varchar(100)     |           979 |
-'public_sector_c',#                  | text             |           360 |
-'voluntary_sector_c',#               | text             |             3 |
-'status_live_c',#                    | text             |          1384 |
-'trainer_type_c',#                   | text             |            90 |
-'independent_consultant_c',#         | tinyint(1)       |            49 |
-'company_name_c',#                   | varchar(60)      |           918 |
-'company_email_c',#                  | varchar(40)      |            43 |
-'genral_hr_capabilities_c',#         | text             |             3 |
-'systems_capabilities_c',#           | text             |             1 |
-'performance_management_capabil_c',# | text             |            22 |
-'conflict_dispute_resolutions_1_c',# | text             |            42 |
-'wellbeing_and_absenteeism2_c',#     | text             |            14 |
-'financial1_c',#                     | text             |             1 |
-'strategic1_c',#                     | text             |            14 |
-'diversity_and_equality1_c',#        | text             |            17 |
-'recruitment_and_assessment1_c',#    | text             |             2 |
-'development_1_c',#                  | text             |            18 |
-'compliance_and_legal1_c',#          | text             |             7 |
-'finance1_c',#                       | text             |             2 |
-'disabilities_c',#                   | text             |          1291 |
-'cpd_c',#                            | text             |           461 |
-'qualifications_accreditations_c',#  | text             |           131 |
-'psychometric_specialism_c',#        | text             |            13 |
-'all_all_c',#                        | tinyint(1)       |            49 |
-'religion_c',#                       | varchar(100)     |            46 |
-'original_contract_signed_c',#       | varchar(100)     |            42 |
-'new_contract_signed_c',#            | varchar(100)     |             9 |
-'contract_issued_c',#                | date             |             1 |
-'history_c',#                        | text             |             4 |
-'minumum_daily_rate_c',#             | varchar(100)     |          1013 |
-'unsubscribe_c',#                    | tinyint(1)       |             7 |
-'title_2_c',#                        | varchar(100)     |           256 |
-'company_1_c',#                      | tinyint(1)       |            26 |
-'languages_c',#                      | tinyint(1)       |            27 |
-'continent_c',#                      | varchar(100)     |          2693 |
-'europe_c',#                         | varchar(100)     |          2693 |
-'prg_email_issued_c',#               | varchar(100)     |             8 |
-'email_address_permanent_c',#        | varchar(100)     |             7 |
-'prg_email_c',#                      | varchar(50)      |            23 |
-'prg_business_cards_issued_c',#      | varchar(100)     |             5 |
-'status_new_c',#                     | varchar(100)     |           556 |
-'status_new1_c',#                    | varchar(100)     |           658 |
-'status_live_new_c',#                | varchar(100)     |           310 |
-'wellbeing_c',#                      | text             |           687 |
-'wellbeing_capabilities_c',#         | text             |             4 |
-'united_states_c',#                  | varchar(100)     |          3100 |
-'united_states_2_c',#                | varchar(100)     |             3 |
-'specialist_c',#                     | tinyint(1)       |             4 |
-'ambassador_c',#                     | tinyint(1)       |             4 |
-'added_as_candidate_c',#             | date             |           851 |
-'went_live_c',#                      | date             |            12 |
-'specialist_area_c',#                | varchar(100)     |             6 |
-'internal_colleague_c',#             | tinyint(1)       |             5 |
-'amabassador_activity_c',#           | text             |           459 |
-'specialist_activity_c',#            | text             |           525 |
-'partner_c',#                        | tinyint(1)       |             1 |
-'introducer_c',#                     | tinyint(1)       |             1 |
-'partnership_terms_c',#              | text             |             4 |
-'introducer_terms_c',#               | text             |             3 |
-#'marketing_campaigns_c',#            | text             |           716 |
-#'marketing_events_c',#               | text             |             4 |
-#'contact_id1_c',#                    | char(36)         |            12 |
-#'account_id1_c',#                    | char(36)         |             1 |
-'introduced_c',#                     | tinyint(1)       |             9 |
-'test_c',#                           | varchar(100)     |           100 |
-#'contact_id2_c',#                    | char(36)         |             2 |
-#'shenley_holdings_company_c',#       | text             |          1117 |
-'hcd_registered_c',#                 | tinyint(1)       |           270 |
-'contributor_type_c',#               | text             |           430 |
-'contributor_c',#                    | tinyint(1)       |           122 |
-'afp_member_c',#                     | text             |           324 |
-'contact_type_c',#                   | text             |          1043 |
-'brief_summary_c',#                  | text             |           220 |
-'primary_relationship_holder_c',#    | varchar(100)     |           189 |
-'devision_c',#                       | varchar(100)     |           165 |
-'management_level_c',#               | varchar(100)     |            57 |
-'role_type_c',#                      | varchar(100)     |            44 |
-'source_of_referral_c',#             | varchar(100)     |             5 |
-'skill_set_c',#                      | text             |           302 |
-'other_c',#                          | text             |            49 |
-#'account_id2_c',#                    | char(36)         |             3 |
-'cjsm_email_address_c',#             | varchar(50)      |             5 |
-'cjsm_user_name_c',#                 | varchar(50)      |             5 |
-'prl_training_required_c',#          | tinyint(1)       |            35 |
-'network_c',#                        | text             |             5 |
-'training_experience_c',#            | text             |             2 |
-
-
-
-                                    )
+                        'phone_home',
+                        'phone_mobile',
+                        'phone_work',
+                        'phone_other',
+                        'phone_fax',
+                        'personal_email_c',
+                        'business_email_c',
+                        'other_email_c',
+                        'home_telephone_c',
+                        'business_telephone_c',
+                        'personal_mobile_phone_c',
+                        'personal_telephone_c',
+                        'home_phone_c',
+                        'mobile_phone_c',
+                        'other_phone_c',
+                        'email_c',
+                        'email_2_c',
+                        'company_phone_c',
+                        'company_mobile_phone_c',
+                        'company_fax_c',
+                        'company_phone_other_c',
+                        'company_email_c',
+                        'prg_email_issued_c',
+                        'email_address_permanent_c',
+                        'prg_email_c',
+                        'cjsm_email_address_c',
+                            )
              }
 }]
         }
