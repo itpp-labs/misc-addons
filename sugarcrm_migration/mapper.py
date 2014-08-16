@@ -269,8 +269,30 @@ class user_by_login(dbmapper):
 
     def __call__(self, external_values):
         login = external_values.get(self.field_name)
+        if not login:
+            return ''
         id = self.parent.pool['res.users'].search(self.parent.cr, self.parent.uid, [('login', '=', login)], context=self.parent.context)
         if id:
+            return id[0]
+        else:
+            return ''
+
+FIX_COUNTRY = {
+    'UK': 'United Kingdom'
+    }
+class country_by_name(dbmapper):
+    def __init__(self, field_name):
+        self.field_name = field_name
+
+    def __call__(self, external_values):
+        value = external_values.get(self.field_name)
+        if not value:
+            return ''
+        value = FIX_COUNTRY.get(value, value)
+        id = self.parent.pool['res.country'].search(self.parent.cr, self.parent.uid,
+                                                    [('name', '=', value)], context=self.parent.context)
+        if id:
+            print 'country found', value
             return id[0]
         else:
             return ''

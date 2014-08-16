@@ -256,7 +256,7 @@ class import_sugarcrm(import_base):
                  #'state_id': 'company_region_c',
                  'street': 'company_street_c',
                  'street2': concat('company_street_2_c','company_street_3_c'),
-                 #'country_id': 'europe_c',
+                 'country_id/.id': country_by_name('europe_c'),
                  'opt_out': mapper_int('unsubscribe_c'),
                  'customer': const('1'),
                  'supplier': const('0'),
