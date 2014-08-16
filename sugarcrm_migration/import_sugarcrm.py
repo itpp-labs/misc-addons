@@ -13,6 +13,7 @@ class import_sugarcrm(import_base):
     TABLE_ACCOUNT_LEAD = 'accounts_leads'
     TABLE_ACCOUNT_TAG = 'accounts_tags_'
     TABLE_CONTACT = 'contacts'
+    TABLE_CONTACT_TAG = 'contacts_tags_'
     TABLE_CASE = 'cases'
 
     #TABLE_EMPLOYEE = 'Employees'
@@ -166,6 +167,28 @@ class import_sugarcrm(import_base):
                 return external_values
         return f
 
+    def get_hook_tag(self, field_name):
+        def f(external_values):
+            res = []
+            value = external_values.get(field_name)
+            value = value or ''
+            for v in value.split(','):
+                v = do_clean_sugar(v)
+                if v:
+                    res.append({field_name:v})
+            return res
+        return f
+
+    def partner_tag(self, xml_id_prefix, field_name):
+        parent = xml_id_prefix + field_name
+        return {'model':'res.partner.category',
+                'hook':self.get_hook_tag(field_name),
+                 'fields': {
+                    'id': simple_xml_id(parent, field_name),
+                    'name': field_name,
+                     'parent_id/id':const('sugarcrm_migration.'+parent),
+                    }
+                }
     def get_mapping_account(self):
         def partner(prefix, suffix):
             return {'model' : 'res.partner',
@@ -193,27 +216,17 @@ class import_sugarcrm(import_base):
             partner('', '_quantenary_c'),
             partner('', '_other_c'),
             ]
-        def tag(field_name):
-            parent = self.TABLE_ACCOUNT_TAG + field_name
-            return {'model':'res.partner.category',
-                 'hook':self.hook_ignore_empty(field_name),
-                 'fields': {
-                     'id': simple_xml_id(parent, field_name),
-                     'name': field_name,
-                     'parent_id/id':const('sugarcrm_migration.'+parent),
-                     }
-                 }
         tag_list = [
-            tag('initial_source_of_referral_c'),
-            tag('private_sector_new_c'),
-            tag('rtw_organisation_type_c'),
-            tag('sales_funnel_c'),
-            tag('shenley_holdings_company_new_c'),
-            tag('source_of_referral_c'),
-            tag('status_c'),
-            tag('introduced_by_c'),
-            tag('introduced_by_customer_c'),
-            tag('sister_company_c'),
+            self.partner_tag(self.TABLE_ACCOUNT_TAG, 'initial_source_of_referral_c'),
+            self.partner_tag(self.TABLE_ACCOUNT_TAG, 'private_sector_new_c'),
+            self.partner_tag(self.TABLE_ACCOUNT_TAG, 'rtw_organisation_type_c'),
+            self.partner_tag(self.TABLE_ACCOUNT_TAG, 'sales_funnel_c'),
+            self.partner_tag(self.TABLE_ACCOUNT_TAG, 'shenley_holdings_company_new_c'),
+            self.partner_tag(self.TABLE_ACCOUNT_TAG, 'source_of_referral_c'),
+            self.partner_tag(self.TABLE_ACCOUNT_TAG, 'status_c'),
+            self.partner_tag(self.TABLE_ACCOUNT_TAG, 'introduced_by_c'),
+            self.partner_tag(self.TABLE_ACCOUNT_TAG, 'introduced_by_customer_c'),
+            self.partner_tag(self.TABLE_ACCOUNT_TAG, 'sister_company_c'),
             ]
             
         return {
@@ -243,6 +256,7 @@ class import_sugarcrm(import_base):
                  'street': 'company_street_c',
                  'street2': concat('company_street_2_c','company_street_3_c'),
                  #'country_id': 'europe_c',
+                 'opt_out': mapper_int('unsubscribe_c'),
                  'customer': const('1'),
                  'supplier': const('0'),
                  'category_id/id': tags_from_fields(self.TABLE_ACCOUNT_TAG, ['initial_source_of_referral_c', 'private_sector_new_c', 'rtw_organisation_type_c', 'sales_funnel_c', 'shenley_holdings_company_new_c', 'source_of_referral_c', 'status_c', 'introduced_by_c', 'introduced_by_customer_c', 'sister_company_c',]),
@@ -333,16 +347,41 @@ class import_sugarcrm(import_base):
         #t2 = t2[:10] # for debug
         return t2
 
+
     def get_mapping_contact(self):
+        tag_list = [
+            self.partner_tag(self.TABLE_CONTACT_TAG, 'agreed_commission_c'),
+            self.partner_tag(self.TABLE_CONTACT_TAG, 'agreed_introducer_commission_c'),
+            self.partner_tag(self.TABLE_CONTACT_TAG, 'ambassador_c'),
+            self.partner_tag(self.TABLE_CONTACT_TAG, 'consultant_type_c'),
+            self.partner_tag(self.TABLE_CONTACT_TAG, 'consultant_type_other_c'),
+            self.partner_tag(self.TABLE_CONTACT_TAG, 'england_c'),
+            self.partner_tag(self.TABLE_CONTACT_TAG, 'ethnicity_c'),
+            self.partner_tag(self.TABLE_CONTACT_TAG, 'europe_c'),
+            self.partner_tag(self.TABLE_CONTACT_TAG, 'first_language_c'),
+            self.partner_tag(self.TABLE_CONTACT_TAG, 'gender_c'),
+            self.partner_tag(self.TABLE_CONTACT_TAG, 'other_languages_c'),
+            self.partner_tag(self.TABLE_CONTACT_TAG, 'religion_c'),
+            self.partner_tag(self.TABLE_CONTACT_TAG, 'role_c'),
+            self.partner_tag(self.TABLE_CONTACT_TAG, 'role_type_c'),
+            self.partner_tag(self.TABLE_CONTACT_TAG, 'specialism_c'),
+            self.partner_tag(self.TABLE_CONTACT_TAG, 'status_live_c'),
+            self.partner_tag(self.TABLE_CONTACT_TAG, 'status_live_new_c'),
+            self.partner_tag(self.TABLE_CONTACT_TAG, 'trainer_type_c'),
+            self.partner_tag(self.TABLE_CONTACT_TAG, 'training_experience_c'),
+            self.partner_tag(self.TABLE_CONTACT_TAG, 'willing_to_travel_c'),
+            self.partner_tag(self.TABLE_CONTACT_TAG, 'skill_set_c'),
+            ]
+
         return {
             'name': self.TABLE_CONTACT,
             'table': self.table_contact,
              'dependencies' : [self.TABLE_USER],
-             'models':[{
+             'models':tag_list + [{
                 'model' : 'res.partner',
 'fields': {
                 'id': xml_id(self.TABLE_CONTACT, 'id'),
-                 'name': concat('first_name', 'last_name'),
+                 'name': concat('title', 'first_name', 'last_name'),
                 'create_date': 'date_entered',
                 'write_date': 'date_modified',
                 'active': lambda record: not record['deleted'],
@@ -355,7 +394,14 @@ class import_sugarcrm(import_base):
                 'fax': first('phone_fax', 'company_fax_c'),
                  'customer': const('0'),
                  'supplier': const('1'),
-                 'comment': ppconcat('description', 'birthdate',
+
+                  'category_id/id': tags_from_fields(self.TABLE_CONTACT_TAG, ['agreed_commission_c', 'agreed_introducer_commission_c', 'ambassador_c', 'consultant_type_c', 'consultant_type_other_c', 'england_c', 'ethnicity_c', 'europe_c', 'first_language_c', 'gender_c', 'other_languages_c', 'religion_c', 'role_c', 'role_type_c', 'skill_set_c', 'specialism_c', 'status_live_c', 'status_live_new_c', 'trainer_type_c', 'training_experience_c', 'willing_to_travel_c', ]),
+
+                 'comment': ppconcat(
+                        'description',
+
+
+                        'birthdate',
 
 
 

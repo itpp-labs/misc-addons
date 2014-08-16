@@ -216,14 +216,14 @@ class import_base(object):
         mfields = self._preprocess_mapping(mmodel.get('fields'))
         _logger.info('mapping records to %s: %s' %( mmodel.get('model'), len(records)))
         for key, r in records.iterrows():
-            dict_sugar = dict(r)
-            dict_sugar = hook(dict_sugar)
-            if dict_sugar:
-                fields, values_list = self._fields_mapp(dict_sugar, mfields)
-                res.extend(values_list)
-            else:
-                #print 'skipped after hook', dict(r)
-                pass
+            hooked = hook(dict(r))
+            if not isinstance(hooked, list):
+                hooked = [hooked]
+
+            for dict_sugar in hooked:
+                if dict_sugar:
+                    fields, values_list = self._fields_mapp(dict_sugar, mfields)
+                    res.extend(values_list)
 
         if not res:
             return []

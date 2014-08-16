@@ -78,10 +78,14 @@ class tags_from_fields(mapper):
     def __call__(self, external_values):
         res = []
         for f in self.field_list:
-            id = simple_xml_id(self.table+f, f)
-            id = id(external_values)
-            if id:
-                res.append(id)
+            value = external_values.get(f)
+            value = value or ''
+            for v in value.split(','):
+                v = do_clean_sugar(v)
+                v = do_clean_xml_id(v)
+                if v:
+                    id = self.table + f + v
+                    res.append(id)
         return ','.join(res)
 
 class ppconcat(mapper):
@@ -140,6 +144,9 @@ class const(mapper):
     def __call__(self, external_values):
         return self.val 
     
+def do_clean_xml_id(value):
+    return re.sub('[\'", ^]','_', (value or ''))
+
 class simple_xml_id(mapper):
     def __init__(self, prefix, field_name):
         self.prefix = prefix
@@ -147,13 +154,11 @@ class simple_xml_id(mapper):
 
     def __call__(self, external_values):
         value = external_values.get(self.field_name)
-        value = (value or '').strip()
+        value = do_clean_xml_id(value)
         if value:
-            value = re.sub('[\'", ^]','_', value)
             return self.prefix + value
         else:
             return None
-        
 
 class value(mapper):
     """
@@ -178,6 +183,27 @@ class value(mapper):
         if self.lower:
             val = (str(val) or '').lower()
         return val 
+
+class mapper_int(mapper):
+    def __init__(self, val, default=0):
+        self.val = val
+        self.default = default
+
+    def __call__(self, external_values):
+        val = external_values.get(self.val, self.default) 
+        return val and int(val) or 0
+    
+def do_clean_sugar(v):
+    return (v or '').replace('^','').strip()
+
+class clean_sugar(mapper):
+    def __init__(self, val, default=0):
+        self.val = val
+        self.default = default
+
+    def __call__(self, external_values):
+        val = external_values.get(self.val, self.default)
+        return do_clean_sugar(val)
     
     
 class map_val(mapper):
