@@ -70,7 +70,7 @@ class concat(mapper):
     def __call__(self, external_values):
         return self.delimiter.join(map(lambda x : tools.ustr(external_values.get(x,'')or ''), self.arg))
 
-class tags_from_fields(mapper):
+class tags_from_fields(dbmapper):
     def __init__(self, table, field_list):
         self.table = table
         self.field_list = field_list
@@ -84,7 +84,7 @@ class tags_from_fields(mapper):
                 v = do_clean_sugar(v)
                 v = do_clean_xml_id(v)
                 if v:
-                    id = self.table + f + v
+                    id = self.parent._generate_xml_id(v, self.table + f)
                     res.append(id)
         return ','.join(res)
 
@@ -146,19 +146,6 @@ class const(mapper):
     
 def do_clean_xml_id(value):
     return re.sub('[\'", ^]','_', (value or ''))
-
-class simple_xml_id(mapper):
-    def __init__(self, prefix, field_name):
-        self.prefix = prefix
-        self.field_name = field_name
-
-    def __call__(self, external_values):
-        value = external_values.get(self.field_name)
-        value = do_clean_xml_id(value)
-        if value:
-            return self.prefix + value
-        else:
-            return None
 
 class value(mapper):
     """
@@ -259,6 +246,7 @@ class xml_id(dbmapper):
         
     def __call__(self, external_values):
         field_value = external_values.get(self.field_name)
+        field_value = do_clean_xml_id(field_value)
         if not field_value:
             return ''
         return self.parent._generate_xml_id(field_value, self.table)

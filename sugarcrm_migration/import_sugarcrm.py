@@ -185,7 +185,7 @@ class import_sugarcrm(import_base):
         return {'model':'res.partner.category',
                 'hook':self.get_hook_tag(field_name),
                  'fields': {
-                    'id': simple_xml_id(parent, field_name),
+                    'id': xml_id(parent, field_name),
                     'name': field_name,
                      'parent_id/id':const('sugarcrm_migration.'+parent),
                     }
@@ -378,7 +378,7 @@ class import_sugarcrm(import_base):
             return {'model':'res.partner',
                     'hook':self.get_hook_ignore_empty(field_name),
                     'fields': {
-                        'id': simple_xml_id(self.TABLE_CONTACT_COMPANY, field_name),
+                        'id': xml_id(self.TABLE_CONTACT_COMPANY, field_name),
                         'name': field_name,
                         'is_company': const('1'),
                         'customer': const('0'),
@@ -398,7 +398,7 @@ class import_sugarcrm(import_base):
 'fields': {
                 'id': xml_id(self.TABLE_CONTACT, 'id'),
                  'name': concat('title', 'first_name', 'last_name'),
-                 'parent_id/id': simple_xml_id(self.TABLE_CONTACT_COMPANY, 'company_name_c'),
+                 'parent_id/id': xml_id(self.TABLE_CONTACT_COMPANY, 'company_name_c'),
 
                 'create_date': 'date_entered',
                 'write_date': 'date_modified',
