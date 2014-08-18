@@ -95,6 +95,7 @@ class import_kashflow(import_base):
         if file_name:
             file_name = file_name[0]
         else:
+            _logger.info('file not found', '%s.csv' % table)
             return []
 
         with open(file_name, 'rb') as csvfile:
@@ -172,7 +173,7 @@ class import_kashflow(import_base):
             return {
                 'name': table,
                 'table': self.get_table(company, self.TABLE_CUSTOMER if customer else self.TABLE_SUPPLIER),
-                'dependencies' : [],
+                'dependencies' : [self.TABLE_COMPANY],
                 'models':[
                     {'model' : 'res.partner',
                      'fields': {
@@ -233,7 +234,7 @@ class import_kashflow(import_base):
         return {
             'name': table,
             'table': self.get_table(company, self.TABLE_NOMINAL_CODES),
-            'dependencies' : [],
+            'dependencies' : [self.TABLE_COMPANY],
             'models':[{
                 'model' : 'account.account',
                  'context': self.get_context_company(company),
@@ -319,7 +320,7 @@ class import_kashflow(import_base):
         return {
             'name': journal,
             'table': self.table_journal,
-            'dependencies' : [],
+            'dependencies' : [self.TABLE_COMPANY],
             'models':[
 
                 {'model' : 'account.journal',
@@ -354,7 +355,10 @@ class import_kashflow(import_base):
         return {
             'name': table,
             'table': self.get_table(company, self.TABLE_TRANSACTION),
-            'dependencies' : [],
+            'dependencies' : [company + self.TABLE_JOURNAL,
+                              company + self.TABLE_NOMINAL_CODES,
+                              company + self.TABLE_PARTNER
+                              ],
             'models':[
                 # TODO COL_TR_DEPARTMENT
                 # TODO VAT
