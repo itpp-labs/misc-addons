@@ -14,6 +14,7 @@ import MySQLdb.cursors
 from pandas import DataFrame
 
 from ..import_sugarcrm import import_sugarcrm
+from ..import_kashflow import import_kashflow
 
 import tarfile
 import shutil
@@ -50,8 +51,8 @@ class sugarcrm_migration_upload(osv.TransientModel):
 
         record = self.browse(cr, uid, ids[0])
 
+        self.kashflow(record, cr, uid)
         self.sugarcrm(record, cr, uid)
-        #self.kashflow(record, cr, uid)
 
         return True
 
@@ -89,13 +90,14 @@ class sugarcrm_migration_upload(osv.TransientModel):
             return
 
         # unzip files
-        tmp,files = self.unzip_file(record.kashflow_file, pattern='*.txt')
+        tmp,files = self.unzip_file(record.kashflow_file, pattern='*.csv')
+        _logger.info('kashflow files: %s'%files)
 
         # map data and save to base_import.import
         instance = import_kashflow(self.pool, cr, uid,
                                    'kashflow', #instance_name
                                    'sugarcrm_migration', #module_name
-                                   context = {'cvs_files': files,
+                                   context = {'csv_files': files,
                                               'sugarcrm_instance_name':'sugarcrm'
                                               }
                                    )
