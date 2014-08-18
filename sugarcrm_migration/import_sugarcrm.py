@@ -174,11 +174,15 @@ class import_sugarcrm(import_base):
                      'parent_id/id':const('sugarcrm_migration.'+parent),
                     }
                 }
+    def context_partner(self):
+        # you have to modify create and write functions in openerp/addons/base/res/res_partner.py for import optimization
+        return {"skip_addr_sync":True}
     def get_mapping_account(self):
         def partner(prefix, suffix):
             return {'model' : 'res.partner',
                  'hook': self.get_hook_ignore_empty('%sfirst_name%s'%(prefix, suffix),
                                                 '%slast_name%s'%(prefix, suffix)),
+                    'context':self.context_partner,
                  'fields': {
                      'id': xml_id(self.TABLE_ACCOUNT + '_%s%s'%(prefix, suffix), 'id'),
                      'name': concat('%sfirst_name%s'%(prefix, suffix), '%slast_name%s'%(prefix, suffix)),
@@ -223,6 +227,7 @@ class import_sugarcrm(import_base):
                 # company
                 {
              'model' : 'res.partner',
+             'context':self.context_partner,
              'fields' :
                 {
                 'id': xml_id(self.TABLE_ACCOUNT, 'id'),
