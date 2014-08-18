@@ -158,7 +158,9 @@ class import_sugarcrm(import_base):
             res = []
             value = external_values.get(field_name)
             value = value or ''
-            for v in str(value).split(','):
+            if not isinstance(value, basestring):
+                value = str(value)
+            for v in value.split(','):
                 v = do_clean_sugar(v)
                 if v:
                     res.append({field_name:v})
