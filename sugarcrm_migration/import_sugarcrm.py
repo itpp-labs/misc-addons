@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import MySQLdb
 import MySQLdb.cursors
 from import_base import import_base, create_childs

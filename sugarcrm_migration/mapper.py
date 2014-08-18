@@ -292,7 +292,6 @@ class country_by_name(dbmapper):
         id = self.parent.pool['res.country'].search(self.parent.cr, self.parent.uid,
                                                     [('name', '=', value)], context=self.parent.context)
         if id:
-            print 'country found', value
             return id[0]
         else:
             return ''

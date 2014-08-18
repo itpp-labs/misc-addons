@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import logging
 _logger = logging.getLogger(__name__)
 from openerp.exceptions import except_orm

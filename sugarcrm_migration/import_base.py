@@ -1,4 +1,4 @@
-import logging
+# -*- coding: utf-8 -*-
 import mapper
 from pandas import DataFrame
 import logging
