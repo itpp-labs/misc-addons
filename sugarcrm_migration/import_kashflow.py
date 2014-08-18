@@ -1,3 +1,5 @@
+import logging
+_logger = logging.getLogger(__name__)
 from openerp.exceptions import except_orm
 import MySQLdb
 import MySQLdb.cursors
@@ -93,6 +95,7 @@ class import_kashflow(import_base):
     def get_data(self, table):
         file_name = filter(lambda f: f.endswith('/%s.csv' % table), self.csv_files)
         if file_name:
+            _logger.info('read file "%s"' % ( '%s.csv' % table))
             file_name = file_name[0]
         else:
             _logger.info('file not found', '%s.csv' % table)
@@ -170,9 +173,10 @@ class import_kashflow(import_base):
     def get_mapping_partners(self, company):
         table = company + self.TABLE_PARTNER
         def f(customer=False, supplier=False):
+            table_cus_or_sup = self.TABLE_CUSTOMER if customer else self.TABLE_SUPPLIER
             return {
-                'name': table,
-                'table': self.get_table(company, self.TABLE_CUSTOMER if customer else self.TABLE_SUPPLIER),
+                'name': company + table_cus_or_sup,
+                'table': self.get_table(company, table_cus_or_sup),
                 'dependencies' : [self.TABLE_COMPANY],
                 'models':[
                     {'model' : 'res.partner',
@@ -357,7 +361,8 @@ class import_kashflow(import_base):
             'table': self.get_table(company, self.TABLE_TRANSACTION),
             'dependencies' : [company + self.TABLE_JOURNAL,
                               company + self.TABLE_NOMINAL_CODES,
-                              company + self.TABLE_PARTNER
+                              company + self.TABLE_CUSTOMER,
+                              company + self.TABLE_SUPPLIER,
                               ],
             'models':[
                 # TODO COL_TR_DEPARTMENT
@@ -379,7 +384,7 @@ class import_kashflow(import_base):
                  'fields': {
                      'id': xml_id(move_line, self.COL_ID_CUSTOM),
                      'company_id/id': self.company_id(company),
-                     'name': self.COL_TR_COMMENT,
+                     'name': value(self.COL_TR_COMMENT, fallback=self.COL_TR_DATE, default='NONAME'),
                      'ref': self.COL_TR_TRANSACTION,
                      'date': fix_kashflow_date(self.COL_TR_DATE),
                      'move_id/id': xml_id(move, self.COL_LINE_NUM),
