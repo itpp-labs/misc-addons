@@ -211,8 +211,8 @@ class import_base(object):
             self.mapped.add(dname)
             mtable = self.mapping.get(dname)
             if not mtable:
-                #continue # only for debug!
-                pass
+                _logger.error('no mapping found for %s' % dname)
+                continue
             self.resolve_dependencies(mtable.get('dependencies', []))
             self.map_and_import(mtable)
 
