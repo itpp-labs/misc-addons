@@ -151,22 +151,6 @@ class import_sugarcrm(import_base):
         )
         #t1 = t1[:100] # for debug
         return t1
-    def hook_ignore_all(self, *args):
-        # for debug
-        return None
-    def get_hook_ignore_empty(self, *args):
-        def f(external_values):
-            ignore = True
-            for key in args:
-                v = (external_values.get(key) or '').strip()
-                if v:
-                    ignore = False
-                    break
-            if ignore:
-                return None
-            else:
-                return external_values
-        return f
 
     def get_hook_tag(self, field_name):
         def f(external_values):
@@ -385,10 +369,6 @@ class import_sugarcrm(import_base):
                         'supplier': const('1'),
                         }
                     }
- 
- #TODO 'company_name_c'
-
-
         return {
             'name': self.TABLE_CONTACT,
             'table': self.table_contact,

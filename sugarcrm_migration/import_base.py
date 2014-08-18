@@ -131,6 +131,23 @@ class import_base(object):
         """
         return val
 
+    def hook_ignore_all(self, *args):
+        # for debug
+        return None
+    def get_hook_ignore_empty(self, *args):
+        def f(external_values):
+            ignore = True
+            for key in args:
+                v = (external_values.get(key) or '').strip()
+                if v:
+                    ignore = False
+                    break
+            if ignore:
+                return None
+            else:
+                return external_values
+        return f
+
     def prepare_mapping(self, mapping):
         res = {}
         for m in mapping:
@@ -162,7 +179,7 @@ class import_base(object):
                 maxInt = int(maxInt/10)
                 decrement = True
 
-    def do_import(self, import_list):
+    def do_import(self, import_list, context):
         self._fix_size_limit()
         # import
         import_obj = self.pool['base_import.import']
@@ -170,7 +187,7 @@ class import_base(object):
             try:
                 messages = import_obj.do(self.cr, self.uid,
                                          imp.get('id'), imp.get('fields'),
-                                         self.import_options)
+                                         self.import_options, context=context)
                 _logger.info('import_result:\n%s'%messages)
             except Exception as e:
 
@@ -184,7 +201,7 @@ class import_base(object):
                 _logger.error(error)
 
                 raise Exception(error)
-        self.cr.commit()
+            self.cr.commit()
 
     def resolve_dependencies(self, deps):
         import_list = []
@@ -205,7 +222,12 @@ class import_base(object):
 
         for mmodel in mtable.get('models'):
             import_list = self.do_mapping(records, mmodel)
-            self.do_import(import_list)
+            context = mmodel.get('context')
+            if context:
+                context = context()
+            self.do_import(import_list, context)
+            finalize = mmodel.get('finalize')
+            finalize and finalize()
 
     def do_mapping(self, records, mmodel):
 
@@ -226,6 +248,7 @@ class import_base(object):
                     res.extend(values_list)
 
         if not res:
+            _logger.info("no records to import")
             return []
         res = DataFrame(res)
         data_binary = res.to_csv(sep=self.import_options.get('separator'),
@@ -239,6 +262,10 @@ class import_base(object):
              'file': data_binary,
              'file_name': mmodel.get('model'),
              })
+        # for debug
+        with open('/tmp/'+mmodel.get('model')+'-import.csv', 'w') as f:
+            f.write(','.join(fields)+'\n')
+            f.write(data_binary)
         return [{'id':id, 'fields':fields}]
 
     def _preprocess_mapping(self, mapping):
