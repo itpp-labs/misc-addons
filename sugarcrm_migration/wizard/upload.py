@@ -64,7 +64,7 @@ class sugarcrm_migration_upload(osv.TransientModel):
         files = []
         tmp_dir = None
         if record.sugarcrm_file:
-            tmp_dir,files = self.unzip_file(record.sugarcrm_file)
+            tmp_dir,files = self.unzip_file(record.sugarcrm_file.strip())
 
         instance = import_sugarcrm(self.pool, cr, uid,
                                    'sugarcrm', #instance_name
@@ -90,7 +90,7 @@ class sugarcrm_migration_upload(osv.TransientModel):
             return
 
         # unzip files
-        tmp,files = self.unzip_file(record.kashflow_file, pattern='*.csv')
+        tmp,files = self.unzip_file(record.kashflow_file.strip(), pattern='*.csv')
         _logger.info('kashflow files: %s'%files)
 
         # map data and save to base_import.import
