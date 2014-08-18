@@ -80,6 +80,8 @@ class tags_from_fields(dbmapper):
         for f in self.field_list:
             value = external_values.get(f)
             value = value or ''
+            if not isinstance(value, basestring):
+                value = str(value)
             for v in value.split(','):
                 v = do_clean_sugar(v)
                 v = do_clean_xml_id(v)
