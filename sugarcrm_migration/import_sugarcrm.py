@@ -368,6 +368,7 @@ class import_sugarcrm(import_base):
 
         def company(field_name):
             return {'model':'res.partner',
+                    'context':self.context_partner,
                     'hook':self.get_hook_ignore_empty(field_name),
                     'fields': {
                         'id': xml_id(self.TABLE_CONTACT_COMPANY, field_name),
@@ -383,6 +384,7 @@ class import_sugarcrm(import_base):
              'dependencies' : [self.TABLE_USER],
              'models':tag_list + [company('company_name_c')] + [{
                 'model' : 'res.partner',
+                 'context':self.context_partner,
 'fields': {
                 'id': xml_id(self.TABLE_CONTACT, 'id'),
                  'name': concat('title', 'first_name', 'last_name'),
