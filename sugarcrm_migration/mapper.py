@@ -299,9 +299,10 @@ class country_by_name(dbmapper):
             return ''
 
 class res_id(dbmapper):
-    def __init__(self, get_table, field_name):
+    def __init__(self, get_table, field_name, default='0'):
         self.get_table = get_table
         self.field_name = field_name
+        self.default = default
 
     def __call__(self, external_values):
         id = xml_id(self.get_table(external_values), self.field_name)
@@ -310,7 +311,7 @@ class res_id(dbmapper):
         res_id = self.parent.pool['ir.model.data'].xmlid_to_res_id(self.parent.cr,
                                                                  self.parent.uid,
                                                                  '.'+xmlid)
-        return res_id or 0
+        return res_id and str(res_id) or self.default
 
 
 class emails2partners(dbmapper):

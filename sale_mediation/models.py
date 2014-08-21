@@ -2,6 +2,16 @@
 from openerp.osv import osv,fields
 from openerp import SUPERUSER_ID
 
+class contract_category(osv.Model):
+    _inherit = 'res.partner.category'
+    _name = 'contract.category'
+
+    _columns = {
+        'parent_id': fields.many2one('contract.category', 'Parent Category', select=True, ondelete='cascade'),
+
+        'partner_ids': fields.many2many('account.analytic.account', id1='category_id', id2='partner_id', string='Contracts'), # wrong name due to inherit
+    }
+
 class crm_lead(osv.Model):
     _inherit = 'crm.lead'
 
@@ -38,12 +48,41 @@ class project_project(osv.Model):
         return super(project_project, self).create(cr, uid, vals, context=context)
 
 
+class project_task(osv.Model):
+    _inherit = 'project.task'
+
+    def _get_default_supplier(self, cr, uid, context=None):
+        project_id = self._get_default_project_id(cr, uid, context)
+        if project_id:
+            project = self.pool.get('project.project').browse(cr, uid, project_id, context=context)
+            supplier_ids = project and project.supplier_ids
+            if supplier_ids:
+                return supplier_ids[0].id
+        return False
+
+    _columns = {
+        #'supplier_id': fields.many2one('res.partner', 'Supplier')
+    }
+
+    _defaults = {
+        #'supplier_id': _get_default_supplier
+    }
+
+
 class account_analytic_account(osv.Model):
     _inherit = 'account.analytic.account'
+
+    def _get_project_id(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for a in self.browse(cr, uid, ids, context=context):
+            res[a.id] = a.project_ids and a.project_ids[0] or None
+        return res
 
     _columns = {
         'lead_ids': fields.one2many('crm.lead', 'account_analytic_id', 'Leads'),
         'project_ids': fields.one2many('project.project', 'analytic_account_id', 'Projects'),
+        'project_id': fields.function(_get_project_id, type='many2one', obj='project.project', string='Project'),
+        'category_id': fields.many2many('contract.category', id1='partner_id', id2='category_id', string='Tags'),
     }
 
     _defaults = {

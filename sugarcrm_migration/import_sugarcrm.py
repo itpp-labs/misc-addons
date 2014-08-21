@@ -17,6 +17,7 @@ class import_sugarcrm(import_base):
     TABLE_CONTACT_COMPANY = 'contacts_companies_'
     TABLE_CONTACT_TAG = 'contacts_tags_'
     TABLE_CASE = 'cases'
+    TABLE_CASE_TAG = 'cases_tags_'
 
     #TABLE_EMPLOYEE = 'Employees'
     #TABLE_OPPORTUNITY = 'Opportunities'
@@ -167,9 +168,9 @@ class import_sugarcrm(import_base):
             return res
         return f
 
-    def partner_tag(self, xml_id_prefix, field_name):
+    def tag(self, model, xml_id_prefix, field_name):
         parent = xml_id_prefix + field_name
-        return {'model':'res.partner.category',
+        return {'model':model,
                 'hook':self.get_hook_tag(field_name),
                  'fields': {
                     'id': xml_id(parent, field_name),
@@ -177,6 +178,7 @@ class import_sugarcrm(import_base):
                      'parent_id/id':const('sugarcrm_migration.'+parent),
                     }
                 }
+
     def context_partner(self):
         # you have to modify create and write functions in openerp/addons/base/res/res_partner.py for import optimization
         return {"skip_addr_sync":True}
@@ -209,16 +211,16 @@ class import_sugarcrm(import_base):
             partner('', '_other_c'),
             ]
         tag_list = [
-            self.partner_tag(self.TABLE_ACCOUNT_TAG, 'initial_source_of_referral_c'),
-            self.partner_tag(self.TABLE_ACCOUNT_TAG, 'private_sector_new_c'),
-            self.partner_tag(self.TABLE_ACCOUNT_TAG, 'rtw_organisation_type_c'),
-            self.partner_tag(self.TABLE_ACCOUNT_TAG, 'sales_funnel_c'),
-            self.partner_tag(self.TABLE_ACCOUNT_TAG, 'shenley_holdings_company_new_c'),
-            self.partner_tag(self.TABLE_ACCOUNT_TAG, 'source_of_referral_c'),
-            self.partner_tag(self.TABLE_ACCOUNT_TAG, 'status_c'),
-            self.partner_tag(self.TABLE_ACCOUNT_TAG, 'introduced_by_c'),
-            self.partner_tag(self.TABLE_ACCOUNT_TAG, 'introduced_by_customer_c'),
-            self.partner_tag(self.TABLE_ACCOUNT_TAG, 'sister_company_c'),
+            self.tag('res.partner.category', self.TABLE_ACCOUNT_TAG, 'initial_source_of_referral_c'),
+            self.tag('res.partner.category', self.TABLE_ACCOUNT_TAG, 'private_sector_new_c'),
+            self.tag('res.partner.category', self.TABLE_ACCOUNT_TAG, 'rtw_organisation_type_c'),
+            self.tag('res.partner.category', self.TABLE_ACCOUNT_TAG, 'sales_funnel_c'),
+            self.tag('res.partner.category', self.TABLE_ACCOUNT_TAG, 'shenley_holdings_company_new_c'),
+            self.tag('res.partner.category', self.TABLE_ACCOUNT_TAG, 'source_of_referral_c'),
+            self.tag('res.partner.category', self.TABLE_ACCOUNT_TAG, 'status_c'),
+            self.tag('res.partner.category', self.TABLE_ACCOUNT_TAG, 'introduced_by_c'),
+            self.tag('res.partner.category', self.TABLE_ACCOUNT_TAG, 'introduced_by_customer_c'),
+            self.tag('res.partner.category', self.TABLE_ACCOUNT_TAG, 'sister_company_c'),
             ]
             
         return {
@@ -343,27 +345,27 @@ class import_sugarcrm(import_base):
 
     def get_mapping_contact(self):
         tag_list = [
-            self.partner_tag(self.TABLE_CONTACT_TAG, 'agreed_commission_c'),
-            self.partner_tag(self.TABLE_CONTACT_TAG, 'agreed_introducer_commission_c'),
-            self.partner_tag(self.TABLE_CONTACT_TAG, 'ambassador_c'),
-            self.partner_tag(self.TABLE_CONTACT_TAG, 'consultant_type_c'),
-            self.partner_tag(self.TABLE_CONTACT_TAG, 'consultant_type_other_c'),
-            self.partner_tag(self.TABLE_CONTACT_TAG, 'england_c'),
-            self.partner_tag(self.TABLE_CONTACT_TAG, 'ethnicity_c'),
-            self.partner_tag(self.TABLE_CONTACT_TAG, 'europe_c'),
-            self.partner_tag(self.TABLE_CONTACT_TAG, 'first_language_c'),
-            self.partner_tag(self.TABLE_CONTACT_TAG, 'gender_c'),
-            self.partner_tag(self.TABLE_CONTACT_TAG, 'other_languages_c'),
-            self.partner_tag(self.TABLE_CONTACT_TAG, 'religion_c'),
-            self.partner_tag(self.TABLE_CONTACT_TAG, 'role_c'),
-            self.partner_tag(self.TABLE_CONTACT_TAG, 'role_type_c'),
-            self.partner_tag(self.TABLE_CONTACT_TAG, 'specialism_c'),
-            self.partner_tag(self.TABLE_CONTACT_TAG, 'status_live_c'),
-            self.partner_tag(self.TABLE_CONTACT_TAG, 'status_live_new_c'),
-            self.partner_tag(self.TABLE_CONTACT_TAG, 'trainer_type_c'),
-            self.partner_tag(self.TABLE_CONTACT_TAG, 'training_experience_c'),
-            self.partner_tag(self.TABLE_CONTACT_TAG, 'willing_to_travel_c'),
-            self.partner_tag(self.TABLE_CONTACT_TAG, 'skill_set_c'),
+            self.tag('res.partner.category', self.TABLE_CONTACT_TAG, 'agreed_commission_c'),
+            self.tag('res.partner.category', self.TABLE_CONTACT_TAG, 'agreed_introducer_commission_c'),
+            self.tag('res.partner.category', self.TABLE_CONTACT_TAG, 'ambassador_c'),
+            self.tag('res.partner.category', self.TABLE_CONTACT_TAG, 'consultant_type_c'),
+            self.tag('res.partner.category', self.TABLE_CONTACT_TAG, 'consultant_type_other_c'),
+            self.tag('res.partner.category', self.TABLE_CONTACT_TAG, 'england_c'),
+            self.tag('res.partner.category', self.TABLE_CONTACT_TAG, 'ethnicity_c'),
+            self.tag('res.partner.category', self.TABLE_CONTACT_TAG, 'europe_c'),
+            self.tag('res.partner.category', self.TABLE_CONTACT_TAG, 'first_language_c'),
+            self.tag('res.partner.category', self.TABLE_CONTACT_TAG, 'gender_c'),
+            self.tag('res.partner.category', self.TABLE_CONTACT_TAG, 'other_languages_c'),
+            self.tag('res.partner.category', self.TABLE_CONTACT_TAG, 'religion_c'),
+            self.tag('res.partner.category', self.TABLE_CONTACT_TAG, 'role_c'),
+            self.tag('res.partner.category', self.TABLE_CONTACT_TAG, 'role_type_c'),
+            self.tag('res.partner.category', self.TABLE_CONTACT_TAG, 'specialism_c'),
+            self.tag('res.partner.category', self.TABLE_CONTACT_TAG, 'status_live_c'),
+            self.tag('res.partner.category', self.TABLE_CONTACT_TAG, 'status_live_new_c'),
+            self.tag('res.partner.category', self.TABLE_CONTACT_TAG, 'trainer_type_c'),
+            self.tag('res.partner.category', self.TABLE_CONTACT_TAG, 'training_experience_c'),
+            self.tag('res.partner.category', self.TABLE_CONTACT_TAG, 'willing_to_travel_c'),
+            self.tag('res.partner.category', self.TABLE_CONTACT_TAG, 'skill_set_c'),
             ]
 
         def company(field_name):
@@ -458,6 +460,22 @@ class import_sugarcrm(import_base):
                 'P2': '1',
                 'P3': '2'
         }
+    case_state_mapping = {
+        'Awaiting Payment':'awaiting_payment',
+        'Cancelled':'cancelled',
+        'Completed':'close',
+        'Deferred':'pending',
+        'Live':'open',
+        'Lost':'lost',
+        'Pipeline':'pipeline_reactive',
+        'Pipeline - Proactive':'pipeline_proactive',
+        'Provisional':'draft',
+        'To be Invoiced':'to_be_invoiced',
+        }
+    def field_estimated_close_date_c(self, external_values):
+        estimated_close_date_c = external_values.get('estimated_close_date_c')
+        date = external_values.get('end_date_c')
+        return ''
 
     def get_mapping_case(self):
 #mysql> select case_status_c, count(*) from cases_cstm group by case_status_c;
@@ -479,6 +497,57 @@ class import_sugarcrm(import_base):
 #+----------------------+----------+
 
 
+        def partner_participant(prefix, suffix):
+            return {'model' : 'res.partner',
+                 'hook': self.get_hook_ignore_empty('%scase_participant%s'%(prefix, suffix)),
+                 'context':self.context_partner,
+                 'fields': {
+                     'id': xml_id(self.TABLE_CASE + '_%s%s'%(prefix, suffix), 'id'),
+                     'name': '%scase_participant%s'%(prefix, suffix),
+                     'phone': '%sparticipant_phone%s'%(prefix, suffix),
+                     'function': '%sparticipant_role%s'%(prefix, suffix),
+                     'participate_in_contract_ids/id': xml_id(self.TABLE_CASE, 'id'),
+                     'customer': const('0'),
+                     'supplier': const('0'),
+                    },
+                 }
+
+        def partner(prefix, suffix):
+            return {'model' : 'res.partner',
+                 'hook': self.get_hook_ignore_empty('%scontact%s'%(prefix, suffix)),
+                 'context':self.context_partner,
+                 'fields': {
+                     'id': xml_id(self.TABLE_CASE + '_%s%s'%(prefix, suffix), 'id'),
+                     'name': '%scontact%s'%(prefix, suffix),
+                     'phone': '%sphone%s'%(prefix, suffix),
+                     'mobile': '%smobile%s'%(prefix, suffix),
+                     'function': '%srole%s'%(prefix, suffix),
+                     'customer': const('0'),
+                     'supplier': const('0'),
+                    },
+                 }
+        partner_participant_list = [
+            partner_participant('', '_c'),
+            partner_participant('', '_2_c'),
+            partner_participant('', '_3_c'),
+            ]
+        partner_list = [
+            partner('primary_', '_c'),
+            partner('secondary_', '_c'),
+        ]
+
+        tag_list = [
+            self.tag('contract.category', self.TABLE_CASE_TAG, 'business_type_c'),
+            self.tag('contract.category', self.TABLE_CASE_TAG, 'probability_of_closing_c'),
+            self.tag('contract.category', self.TABLE_CASE_TAG, 'production_funnel_c'),
+            self.tag('contract.category', self.TABLE_CASE_TAG, 'product_area_c'),
+            self.tag('contract.category', self.TABLE_CASE_TAG, 'product_type_c'),
+            self.tag('contract.category', self.TABLE_CASE_TAG, 'reason_lost_c'),
+            self.tag('contract.category', self.TABLE_CASE_TAG, 'source_of_referral_c'),
+        ]
+
+
+
         return {
             'name': self.TABLE_CASE,
             'table': self.table_case,
@@ -488,106 +557,37 @@ class import_sugarcrm(import_base):
                  self.TABLE_CONTACT,
                  #self.TABLE_LEAD
              ],
-             'models':[{
-                'model' : 'project.task',
+             'models': []+
+            tag_list+
+            partner_list+
+            [{
+                'model' : 'account.analytic.account',
+                'context': lambda : {'active_test':False},
 'fields': {
                 'id': xml_id(self.TABLE_CASE, 'id'),
-                 'name': concat('case_number','case_number_c', 'name', delimiter='-'),
+                 'name': concat('case_number_c', 'case_number', 'name', delimiter=' * '),
+                 'project_ids/user_id/.id': user_by_login('case_manager_c'),
+                 'support_manager_id/.id': user_by_login('support_case_manager_c'),
+
+                 'notetaker_id/.id':             res_id(const(self.TABLE_CONTACT), 'contact_id4_c', default=None),
+                 'proof_reader_id/.id':          res_id(const(self.TABLE_CONTACT), 'contact_id2_c', default=None),
+                 'consultant_id/.id':            res_id(const(self.TABLE_CONTACT), 'contact_id_c', default=None),
+                 'business_manager_id/.id':      res_id(const(self.TABLE_CASE + '_%s%s'%('primary_', '_c')), 'id', default=None),
+                 'commissioning_manager_id/.id': res_id(const(self.TABLE_CASE + '_%s%s'%('secondary_', '_c')), 'id', default=None),
+
                  'create_date': 'date_entered',
-                'active': lambda record: not record['deleted'],
-                 'user_id/id': xml_id(self.TABLE_USER, 'assigned_user_id'),
-                 'partner_id/id': xml_id(self.TABLE_ACCOUNT, 'account_id'),
-                 #'supplier_id/id': xml_id(self.TABLE_ACCOUNT, 'account_id'),
-                 'kanban_state': 'TODO',
-                 'priority': map_val('priority', self.case_priority_mapping, '1'),
+                 'state': map_val('case_status_c', self.case_state_mapping, 'draft'),
+                 'partner_id/id': xml_id(self.TABLE_ACCOUNT, 'customer_c'),
+                 'date_start':'end_date_c',
+                 'date':call(self.field_estimated_close_date_c),
+
 
                  'description': ppconcat(
-                     'description',
-
-#'id',#                               | char(36)         |          1284 |
-#'name',#                             | varchar(255)     |          1273 |
-#'date_entered',#                     | datetime         |          1284 |
-#'date_modified',#                    | datetime         |          1284 |
-#'modified_user_id',#                 | char(36)         |          1284 |
-#'created_by',#                       | char(36)         |          1284 |
-#'description',#                      | text             |            23 |
-#'deleted',#                          | tinyint(1)       |            56 |
-#'assigned_user_id',#                 | char(36)         |           161 |
-'case_number',#                      | int(11)          |          1284 |
-'type',#                             | varchar(255)     |            24 |
-'status',#                           | varchar(25)      |            28 |
-'priority',#                         | varchar(25)      |            28 |
-#'account_id',#                       | char(36)         |          1222 |
-#'id_c',#                             | char(36)         |          1284 |
-'case_number_c',#                    | varchar(50)      |           164 |
-'product_area_c',#                   | varchar(100)     |          1204 |
-'product_type_c',#                   | varchar(100)     |          1100 |
-'start_date_c',#                     | date             |           395 |
-'end_date_c',#                       | date             |           295 |
-'high_level_requirement_c',#         | text             |          1013 |
-'special_notes_c',#                  | text             |           704 |
-#'account_id_c',#                     | char(36)         |          1252 |
-#'contact_id_c',#                     | char(36)         |           437 |
-#'contact_id1_c',#                    | char(36)         |            32 |
-'other_consultant_c',#               | varchar(100)     |            27 |
-'primary_contact_c',#                | varchar(100)     |          1076 |
-'secondary_contact_c',#              | varchar(100)     |           163 |
-'contact_other_1_c',#                | varchar(100)     |             2 |
-'contact_other_2_c',#                | varchar(100)     |             1 |
-'contact_other_3_c',#                | varchar(100)     |             1 |
-'primary_role_c',#                   | varchar(100)     |           696 |
-'secondary_role_c',#                 | varchar(100)     |            65 |
-'primary_email_c',#                  | varchar(100)     |           803 |
-'secondary_email_c',#                | varchar(100)     |           102 |
-'secondary_mobile_c',#               | varchar(50)      |            27 |
-'primary_mobile_c',#                 | varchar(50)      |           150 |
-'primary_phone_c',#                  | varchar(50)      |           611 |
-'secondary_phone_c',#                | varchar(100)     |            81 |
-'notes_c',#                          | text             |            10 |
-'role_1_c',#                         | varchar(100)     |             1 |
-'case_status_c',#                    | varchar(100)     |          1242 |
-'source_of_referral_c',#             | varchar(100)     |          1014 |
-'case_manager_c',#                   | varchar(100)     |          1138 |
-'probability_of_closing_c',#         | varchar(100)     |          1284 |
-'potential_value_of_contract_c',#    | varchar(100)     |            21 |
-'involvement_with_case_c',#          | varchar(200)     |            97 |
-'case_participant_c',#               | varchar(50)      |           132 |
-'participant_email_c',#              | varchar(50)      |            50 |
-'participant_phone_c',#              | varchar(25)      |            41 |
-'contact_directly_c',#               | tinyint(1)       |            14 |
-'case_participant_2_c',#             | varchar(100)     |           101 |
-'participant_phone_2_c',#            | varchar(100)     |            31 |
-'participant_email_2_c',#            | varchar(100)     |            41 |
-'participant_role_c',#               | varchar(200)     |            65 |
-'participant_role_2_c',#             | varchar(200)     |            50 |
-'contact_directly_2_c',#             | tinyint(1)       |            11 |
-'case_participant_3_c',#             | varchar(100)     |            44 |
-'participant_phone_3_c',#            | varchar(100)     |             5 |
-'participant_email_3_c',#            | varchar(100)     |             9 |
-'participant_role_3_c',#             | varchar(200)     |            11 |
-'contact_directly_3_c',#             | tinyint(1)       |             2 |
-'parent_type',#                      | varchar(100)     |          1263 |
-'parent_id',#                        | varchar(36)      |            51 |
-'value_of_case_c',#                  | varchar(100)     |           718 |
-'contact_id2_c',#                    | char(36)         |            39 |
-'contact_id3_c',#                    | char(36)         |            16 |
-'internal_proof_reader_c',#          | varchar(100)     |            12 |
-'primary_date_c',#                   | date             |             6 |
-'secondary_date_c',#                 | date             |             4 |
-'internal_date_c',#                  | date             |             2 |
-'reason_lost_c',#                    | varchar(100)     |           233 |
-'invoiced_value_of_case_c',#         | varchar(25)      |           328 |
-'business_type_c',#                  | varchar(100)     |          1140 |
-'support_case_manager_c',#           | varchar(100)     |           522 |
-'case_manager_2_c',#                 | varchar(100)     |           247 |
-'probability_of_closing_2_c',#       | varchar(100)     |          1052 |
-'contact_id4_c',#                    | char(36)         |            22 |
-'estimated_close_date_c',#           | varchar(100)     |          1284 |
-'production_funnel_c',#              | varchar(100)     |            34 |
-
-                                     ),
+                        'invoiced_value_of_case_c',
+                        ),
              }
-}]
+}] +
+partner_participant_list
                     }
 
     def table_filter_modules(self, t, field_name='bean_module'):
@@ -619,7 +619,7 @@ class import_sugarcrm(import_base):
 
     map_to_model = {
         'Accounts': 'crm.lead',
-        'Cases': 'project.task',
+        'Cases': 'project.project',
         'Contacts': 'res.partner',
         'Prospects': 'TODO',
         'Emails': 'mail.message',
@@ -775,6 +775,7 @@ class import_sugarcrm(import_base):
                           ],
             'models':[{
                 'model': 'ir.attachment',
+                'context': lambda : {'active_test':False},
                 'hook': self.hook_note,
 'fields': {
                 'id': xml_id(self.TABLE_NOTE, 'id'),

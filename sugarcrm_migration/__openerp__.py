@@ -10,7 +10,7 @@ Depends on:
 * http://pandas.pydata.org/
 * http://mysql-python.sourceforge.net/MySQLdb.html
     """,
-    'depends' : ['crm', 'project', 'sale_mediation', 'multi_company'],
+    'depends' : ['crm', 'project', 'sale_mediation_custom', 'multi_company'],
     'data':[
         'wizard/upload.xml',
         'data.xml',

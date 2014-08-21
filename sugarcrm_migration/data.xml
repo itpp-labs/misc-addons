@@ -107,5 +107,30 @@
             <field name="name">Willing to travel</field>
         </record>
 
+		<!-- contract tags -->
+		<record id="cases_tags_business_type_c" model="contract.category">
+            <field name="name">Business Type</field>
+        </record>
+		<record id="cases_tags_probability_of_closing_c" model="contract.category">
+            <field name="name">Probability of closing</field>
+        </record>
+		<record id="cases_tags_production_funnel_c" model="contract.category">
+            <field name="name">Production funnel</field>
+        </record>
+		<record id="cases_tags_product_area_c" model="contract.category">
+            <field name="name">Product area</field>
+        </record>
+		<record id="cases_tags_product_type_c" model="contract.category">
+            <field name="name">Product type</field>
+        </record>
+		<record id="cases_tags_reason_lost_c" model="contract.category">
+            <field name="name">Reason lost</field>
+        </record>
+		<record id="cases_tags_source_of_referral_c" model="contract.category">
+            <field name="name">Source of referral</field>
+        </record>
+
+
+
     </data>
 </openerp>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+        <record id="account_analytic_account_form_form" model="ir.ui.view">
+            <field name="name">account.analytic.account.invoice.form.inherit</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="account_analytic_analysis.account_analytic_account_form_form"/>
+            <field name="arch" type="xml">
+				<xpath expr="//field[@name='state']" position="replace">
+					<field name="state" readonly="0" widget="statusbar"
+                           statusbar_visible="pipeline_proactive,pipeline_reactive,open,to_be_invoiced,awaiting_payment,close" statusbar_colors='{"pending":"red", "template":"blue"}'/>
+				</xpath>
+				<xpath expr="//field[@name='manager_id']" position="after">
+					<field name="support_manager_id"/>
+					<field name="commissioning_manager_id"/>
+					<field name="business_manager_id"/>
+					<field name="consultant_id"/>
+					<field name="notetaker_id"/>
+					<field name="proof_reader_id"/>
+				</xpath>
+				<xpath expr="//notebook" position="inside">
+					<page string="Participants">
+						<field name="participant_ids"/>
+					</page>
+				</xpath>
+			</field>
+		</record>
+
+
+	</data>
+</openerp>
