@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="account_analytic_analysis.account_analytic_account_form_form"/>
             <field name="arch" type="xml">
 				<xpath expr="//field[@name='state']" position="replace">
-					<field name="state" readonly="0" widget="statusbar"
+					<field name="state" clickable="True" widget="statusbar"
                            statusbar_visible="pipeline_proactive,pipeline_reactive,open,to_be_invoiced,awaiting_payment,close" statusbar_colors='{"pending":"red", "template":"blue"}'/>
 				</xpath>
 				<xpath expr="//field[@name='manager_id']" position="after">

@@ -30,7 +30,7 @@ class account_analytic_account(osv.Model):
             ('lost', 'Lost'), # new
             ('cancelled', 'Cancelled'), # odoo
             ('close','Completed'), # odoo renamed from 'Close'
-        ]),
+        ], 'Status', required=True),
     }
 
 class res_partner(osv.Model):
