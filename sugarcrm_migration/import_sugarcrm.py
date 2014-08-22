@@ -575,9 +575,10 @@ class import_sugarcrm(import_base):
                  'business_manager_id/.id':      res_id(const(self.TABLE_CASE + '_%s%s'%('primary_', '_c')), 'id', default=None),
                  'commissioning_manager_id/.id': res_id(const(self.TABLE_CASE + '_%s%s'%('secondary_', '_c')), 'id', default=None),
 
+                  'category_id/id': tags_from_fields(self.TABLE_CASE_TAG, ['business_type_c', 'probability_of_closing_c', 'production_funnel_c', 'product_area_c', 'product_type_c', 'reason_lost_c', 'source_of_referral_c',]),
                  'create_date': 'date_entered',
                  'state': map_val('case_status_c', self.case_state_mapping, 'draft'),
-                 'partner_id/id': xml_id(self.TABLE_ACCOUNT, 'customer_c'),
+                 'partner_id/id': xml_id(self.TABLE_ACCOUNT, 'account_id'),
                  'date_start':'end_date_c',
                  'date':call(self.field_estimated_close_date_c),
 
