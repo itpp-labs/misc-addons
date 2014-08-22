@@ -572,8 +572,8 @@ class import_sugarcrm(import_base):
                  'notetaker_id/.id':             res_id(const(self.TABLE_CONTACT), 'contact_id4_c', default=None),
                  'proof_reader_id/.id':          res_id(const(self.TABLE_CONTACT), 'contact_id2_c', default=None),
                  'consultant_id/.id':            res_id(const(self.TABLE_CONTACT), 'contact_id_c', default=None),
-                 'business_manager_id/.id':      res_id(const(self.TABLE_CASE + '_%s%s'%('primary_', '_c')), 'id', default=None),
-                 'commissioning_manager_id/.id': res_id(const(self.TABLE_CASE + '_%s%s'%('secondary_', '_c')), 'id', default=None),
+                 'business_manager_id/.id':      res_id(const(self.TABLE_CASE + '_%s%s'%('secondary_', '_c')), 'id', default=None),
+                 'commissioning_manager_id/.id': res_id(const(self.TABLE_CASE + '_%s%s'%('primary_', '_c')), 'id', default=None),
 
                   'category_id/id': tags_from_fields(self.TABLE_CASE_TAG, ['business_type_c', 'probability_of_closing_c', 'production_funnel_c', 'product_area_c', 'product_type_c', 'reason_lost_c', 'source_of_referral_c',]),
                  'create_date': 'date_entered',
