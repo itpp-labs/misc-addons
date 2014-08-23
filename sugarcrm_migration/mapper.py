@@ -166,9 +166,10 @@ class value(mapper):
         self.lower = lower
         
     def __call__(self, external_values):
-        val = external_values.get(self.val, self.default) 
-        if self.fallback and (not val or val == self.default):
-            val = external_values.get(self.fallback, self.default)
+        val = external_values.get(self.val) 
+        if self.fallback and not val:
+            val = external_values.get(self.fallback)
+        val = val or self.default
         if self.lower:
             val = (str(val) or '').lower()
         return val 
