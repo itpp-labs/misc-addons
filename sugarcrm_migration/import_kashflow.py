@@ -347,8 +347,8 @@ class import_kashflow(import_base):
             return None
 
         journal_type = external_values.get(self.COL_TR_TYPE)
-        external_values['debit'] = 0
-        external_values['credit'] = 0
+        external_values['debit'] = '0'
+        external_values['credit'] = '0'
         external_values[self.COL_ID_CUSTOM] = external_values[self.COL_LINE_NUM]
 
         bank = external_values.get(self.COL_TR_BANK)
@@ -395,11 +395,11 @@ class import_kashflow(import_base):
         journal_type = external_values.get(self.COL_TR_TYPE)
         amount = external_values.get(self.COL_TR_AMOUNT)
         if journal_type in ['JC', 'SC', 'PC']:
-            external_values['debit']=0
+            external_values['debit']='0'
             external_values['credit']=amount
         else:
             external_values['debit']=amount
-            external_values['credit']=0
+            external_values['credit']='0'
 
         bank = external_values.get(self.COL_TR_BANK)
         partner_id = ''
