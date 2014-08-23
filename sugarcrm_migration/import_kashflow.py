@@ -12,6 +12,7 @@ from .mapper import *
 import re
 
 import time
+import datetime as DT
 
 try:
     from cStringIO import StringIO
@@ -32,6 +33,23 @@ class fix_kashflow_date(mapper):
             return ''
         d,m,y = str(s).split('/')
         return '%s-%s-%s' % (y,m,d)
+
+
+class date_to_period(fix_kashflow_date, dbmapper):
+    def __init__(self, field_name, context):
+        super(date_to_period, self).__init__(field_name)
+        self.context = context()
+
+    def __call__(self, external_values):
+        s = super(date_to_period, self).__call__(external_values)
+
+        dt = DT.datetime.strptime(s, tools.DEFAULT_SERVER_DATE_FORMAT)
+        period_ids = self.parent.pool.get('account.period').find(self.parent.cr, self.parent.uid, dt=dt, context=self.context)
+        if not period_ids:
+            print 'period_ids not found', s
+        return period_ids and str(period_ids[0]) or ''
+
+
 
 
 class import_kashflow(import_base):
@@ -452,6 +470,7 @@ class import_kashflow(import_base):
                      'company_id/id': self.company_id(company),
                      'ref': self.COL_TR_TRANSACTION,
                      'journal_id/id': xml_id(journal, self.COL_TR_TYPE),
+                     'period_id/.id': date_to_period(self.COL_TR_DATE, self.get_context_company(company)),
                      'date': fix_kashflow_date(self.COL_TR_DATE),
                      'narration': self.COL_TR_COMMENT,
                      }
@@ -482,6 +501,7 @@ class import_kashflow(import_base):
                      'company_id/id': self.company_id(company),
                      'ref': self.COL_TR_TRANSACTION,
                      'journal_id/id': xml_id(journal, self.COL_TR_TYPE),
+                     'period_id/.id': date_to_period(self.COL_TR_DATE, self.get_context_company(company)),
                      'date': fix_kashflow_date(self.COL_TR_DATE),
                      'narration': self.COL_TR_COMMENT,
                      }
