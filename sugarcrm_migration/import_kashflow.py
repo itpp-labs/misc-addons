@@ -140,7 +140,7 @@ class import_kashflow(import_base):
                 if existed:
                     continue
                 year_id = self.pool.get('account.fiscalyear').create(self.cr, self.uid, {
-                    'name':str(year),
+                    'name':'%s (%s)' % (str(year), c.get('name')),
                     'code':str(year),
                     'date_start': time.strftime('%s-04-01' % year),
                     'date_stop': time.strftime('%s-03-31' % (year+1)),
