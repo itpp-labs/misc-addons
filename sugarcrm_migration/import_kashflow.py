@@ -4,10 +4,10 @@ _logger = logging.getLogger(__name__)
 from openerp.exceptions import except_orm
 import MySQLdb
 import MySQLdb.cursors
-from import_base import import_base
+from openerp.addons.import_framework.import_base import import_base
 
 from pandas import merge, DataFrame
-from .mapper import *
+from openerp.addons.import_framework.mapper import *
 
 import re
 

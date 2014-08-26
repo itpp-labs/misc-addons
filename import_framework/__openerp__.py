@@ -1,5 +1,5 @@
 {
-    'name' : 'import SugarCRM + kashflow data to odoo ',
+    'name' : 'Import framework ',
     'version' : '1.0.0',
     'author' : 'Ivan Yelizariev',
     'category' : 'Base',
@@ -8,12 +8,9 @@
 Depends on:
 
 * http://pandas.pydata.org/
-* http://mysql-python.sourceforge.net/MySQLdb.html
     """,
-    'depends' : ['import_framework', 'crm', 'project', 'sale_mediation_custom', 'multi_company'],
+    'depends' : ['crm', 'project', 'sale_mediation_custom', 'multi_company'],
     'data':[
-        'wizard/upload.xml',
-        'data.xml',
         ],
     'installable': True,
     'auto_install': False,

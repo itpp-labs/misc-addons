@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import MySQLdb
 import MySQLdb.cursors
-from import_base import import_base, create_childs
+from openerp.addons.import_framework.import_base import import_base, create_childs
 
 from pandas import merge, DataFrame
-from .mapper import *
+from openerp.addons.import_framework.mapper import *
 import subprocess
 
 class import_sugarcrm(import_base):
