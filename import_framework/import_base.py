@@ -34,6 +34,8 @@ class import_base(object):
                  instance_name,
                  module_name,
                  email_to_notify=False,
+                 import_dir = '/tmp/', # path to save *.csv files for debug or manual upload
+                 run_import = True,
                  context=None):
         #Thread.__init__(self)
         self.import_options = {'quoting':'"', 'separator':',', 'headers':True}
@@ -48,6 +50,9 @@ class import_base(object):
         self.table_list = []
         #self.logger = logging.getLogger(module_name)
         self.cache = {}
+        self.import_dir = import_dir
+        self.run_import = run_import
+        self.import_num = 1
         self.initialize()
 
 
@@ -254,18 +259,28 @@ class import_base(object):
         data_binary = res.to_csv(sep=self.import_options.get('separator'),
                                  quotechar=self.import_options.get('quoting'),
                                  index=False,
+                                 header = fields,
                                  encoding='utf-8'
                                  )
 
+        if self.import_dir:
+            file_name = '%s/import-%03d-%s.csv' % (
+                self.import_dir,
+                self.import_num,
+                mmodel.get('model'),
+                )
+            with open(file_name, 'w') as f:
+                f.write(data_binary)
+
+            self.import_num += 1
+
+        if not self.run_import:
+            return []
         id = self.pool['base_import.import'].create(self.cr, self.uid,
             {'res_model':mmodel.get('model'),
              'file': data_binary,
              'file_name': mmodel.get('model'),
              })
-        # for debug
-        with open('/tmp/'+mmodel.get('model')+'-import.csv', 'w') as f:
-            f.write(','.join(fields)+'\n')
-            f.write(data_binary)
         return [{'id':id, 'fields':fields}]
 
     def _preprocess_mapping(self, mapping):
