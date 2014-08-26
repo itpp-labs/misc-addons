@@ -9,7 +9,7 @@ Depends on:
 
 * http://pandas.pydata.org/
     """,
-    'depends' : ['crm', 'project', 'sale_mediation_custom', 'multi_company'],
+    'depends' : ['base'],
     'data':[
         ],
     'installable': True,
