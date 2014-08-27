@@ -11,7 +11,7 @@
                            statusbar_visible="pipeline_proactive,pipeline_reactive,open,to_be_invoiced,awaiting_payment,close" statusbar_colors='{"pending":"red", "template":"blue"}'/>
 				</xpath>
 				<xpath expr="//field[@name='manager_id']" position="after">
-					<field name="support_manager_id"/>
+					<!-- <field name="support_manager_id"/> -->
 					<field name="commissioning_manager_id"/>
 					<field name="business_manager_id"/>
 					<field name="consultant_id"/>

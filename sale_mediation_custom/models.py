@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from openerp.osv import osv,fields
 from openerp import SUPERUSER_ID
+from openerp.tools.translate import _
 
 class account_analytic_account(osv.Model):
     _inherit = 'account.analytic.account'
@@ -13,7 +14,7 @@ class account_analytic_account(osv.Model):
         'commissioning_manager_id': fields.many2one('res.partner', 'Commissioning Manager', select=True),
         'business_manager_id': fields.many2one('res.partner', 'HR/Business Manager', select=True),
 
-        'participant_ids': fields.many2many('res.partner', id1='contract_id', id2='partner_id', string='Case participants'),
+        'participant_ids': fields.many2many('res.partner', id1='contract_id', id2='partner_id', string='Participants'),
 
         'state': fields.selection([
             ('template', 'Template'), # odoo
@@ -39,6 +40,16 @@ class res_partner(osv.Model):
     _columns = {
         'participate_in_contract_ids': fields.many2many('account.analytic.account', id2='contract_id', id1='partner_id', string='Participate in contracts'),
     }
+
+class sale_order(osv.Model):
+    _inherit = 'sale.order'
+    def action_button_confirm(self, cr, uid, ids, context=None):
+        for order in self.browse(cr, uid, ids, context):
+            if not order.project_id:
+                raise osv.except_osv(
+                    _('Cannot confirm sale order!'),
+                    _('You have to define Contract/Analytic value before confirm sale order'))
+        return super(sale_order, self).action_button_confirm(cr, uid, ids, context)
 
 class crm_lead(osv.Model):
     _inherit = 'crm.lead'
