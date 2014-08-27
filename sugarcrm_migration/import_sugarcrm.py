@@ -776,7 +776,7 @@ partner_participant_list
                           ],
             'models':[{
                 'model': 'ir.attachment',
-                'context': lambda : {'active_test':False, 'quick_import'},
+                'context': lambda : {'active_test':False, 'quick_import':True},
                 'hook': self.hook_note,
 'fields': {
                 'id': xml_id(self.TABLE_NOTE, 'id'),
