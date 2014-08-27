@@ -781,12 +781,14 @@ partner_participant_list
 'fields': {
                 'id': xml_id(self.TABLE_NOTE, 'id'),
                 'name':'filename',
+                'datas_fname':'filename',
                 'res_model': 'res_model',
                 'res_id': 'res_id',
                 'res_model_tmp': const('mail.message'),
                 'res_id_tmp': res_id(map_val('parent_type', self.map_note_to_table, default=self.TABLE_NOTE_INTERNAL), 'id'),
 
-                'store_fname': 'filename',
+                'store_fname': call(lambda external_values, id_value: 'sugarcrm_files/' + id_value,
+                                    value('id')),
                 'type':const('binary'),
                 'description': 'description',
                 'create_date': 'date_entered',
