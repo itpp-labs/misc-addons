@@ -7,6 +7,9 @@ from pandas import merge, DataFrame
 from openerp.addons.import_framework.mapper import *
 import subprocess
 
+def fix_email(text):
+    return text.replace('\\r', '<br>')
+
 class import_sugarcrm(import_base):
 
     TABLE_USER = 'users'
@@ -52,7 +55,7 @@ class import_sugarcrm(import_base):
         if db_dump_fies:
             cur = self.db.cursor()
             for f in db_dump_fies:
-                print 'load dump', f
+                _logger.info('load dump %s' % f)
                 fd = open(f, 'r')
                 subprocess.Popen(['mysql',
                                   '-u', self.context.get('db_user'),
@@ -705,7 +708,8 @@ partner_participant_list
                  'subject':'name',
                  'date':'date_sent',
                  'message_id': 'message_id',
-                 'body': first('description_html', 'description'),
+                 'body': call(lambda vals, html, txt: fix_email(html or txt or ''),
+                              value('description_html'), value('description')),
                  'subtype_id/id':const('mail.mt_comment'),
                 'notified_partner_ids/.id': emails2partners('to_addrs'),
 
@@ -813,7 +817,8 @@ partner_participant_list
 
 
                 'subject':concat('name', 'filename', 'date_entered', delimiter=' * '),
-                'body': 'description',
+                'body': call(lambda vals, body: fix_email(body or ''),
+                             value('description')),
                 'model': 'res_model',
                  'res_id': 'res_id',
 
