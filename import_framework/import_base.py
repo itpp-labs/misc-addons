@@ -232,6 +232,7 @@ class import_base(object):
             else:
                 i=0
                 while True:
+                    _logger.info('importing batch # %s' % i)
                     rr = records[i*split:(i+1)*split]
                     if len(rr):
                         self.map_and_import_batch(mmodel, rr)

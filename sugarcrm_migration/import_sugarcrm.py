@@ -778,7 +778,7 @@ partner_participant_list
                 'model': 'ir.attachment',
                 'context': lambda : {'active_test':False, 'quick_import':True},
                 'hook': self.hook_note,
-                'split': 500,
+                'split': 100,
 'fields': {
                 'id': xml_id(self.TABLE_NOTE, 'id'),
                 'name':'filename',
@@ -791,7 +791,8 @@ partner_participant_list
                 'store_fname': call(lambda external_values, id_value: 'sugarcrm_files/' + id_value,
                                     value('id')),
                 'type':const('binary'),
-                'description': 'description',
+                #'description': 'description',
+                'description': const(''),
                 'create_date': 'date_entered',
                 'create_uid/id': xml_id(self.TABLE_USER, 'create_by'),
                 'company_id/id': const('base.main_company'),
