@@ -226,13 +226,27 @@ class import_base(object):
         records = mtable.get('table')()
 
         for mmodel in mtable.get('models'):
+            split = mmodel.get('split')
+            if not split:
+                self.map_and_import_batch(mmodel, records)
+            else:
+                i=0
+                while True:
+                    rr = records[i*split:(i+1)*split]
+                    if len(rr):
+                        self.map_and_import_batch(mmodel, rr)
+                        i += 1
+                    else:
+                        break
+            finalize = mmodel.get('finalize')
+            finalize and finalize()
+
+    def map_and_import_batch(self, mmodel, records):
             import_list = self.do_mapping(records, mmodel)
             context = mmodel.get('context')
             if context:
                 context = context()
             self.do_import(import_list, context)
-            finalize = mmodel.get('finalize')
-            finalize and finalize()
 
     def do_mapping(self, records, mmodel):
 

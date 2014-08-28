@@ -778,6 +778,7 @@ partner_participant_list
                 'model': 'ir.attachment',
                 'context': lambda : {'active_test':False, 'quick_import':True},
                 'hook': self.hook_note,
+                'split': 500,
 'fields': {
                 'id': xml_id(self.TABLE_NOTE, 'id'),
                 'name':'filename',
