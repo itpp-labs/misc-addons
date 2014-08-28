@@ -8,7 +8,7 @@ from openerp.addons.import_framework.mapper import *
 import subprocess
 
 def fix_email(text):
-    return text.replace('\\r', '<br>')
+    return text.replace('\r', '<br>')
 
 class import_sugarcrm(import_base):
 
