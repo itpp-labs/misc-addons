@@ -46,6 +46,7 @@ class import_custom_upload(osv.TransientModel):
                                    'yelizariev', #instance_name
                                    'import_custom', # module_name
                                     run_import=False,
+                                 import_dir = '/home/tmp/',
                                   context={'csv_files': files},
                                    )
 
