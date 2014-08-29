@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
+import os
 _logger = logging.getLogger(__name__)
 import MySQLdb
 import MySQLdb.cursors
@@ -43,9 +44,23 @@ class image(mapper):
     def __call__(self, external_values):
         val = external_values.get(self.val)
         files = glob.glob('/home/tmp/thumbs/%s_*' % val)
-        if not files:
+
+        max_file = None
+        max_size = 0
+        for f in files:
+            size = os.path.getsize(f)
+            if size > 93000:
+                continue
+
+            if size < max_size:
+                continue
+
+            max_size = size
+            max_file = f
+
+        if not max_file:
             return None
-        with open(files[0], 'r') as f:
+        with open(max_file, 'r') as f:
             b = f.read()
 
         val = sanitize_binary_value(b)
@@ -95,7 +110,7 @@ class import_custom(import_base):
     def get_table(self, table):
         def f():
             t = DataFrame(self.get_data(table))
-            t = t[:10] # for debug
+            #t = t[:10] # for debug
             return t
         return f
 
@@ -215,7 +230,7 @@ class import_custom(import_base):
         #          suffixes=('', '_thumbs'),
         #          right_on='ecom_items_ref_id')
 
-        #t = t[:10] # for debug
+        #t = t[:500] # for debug
         return t
 
     def get_mapping_products(self):
@@ -232,6 +247,7 @@ class import_custom(import_base):
                 },
 
                 {'model' : 'product.product',
+                 'split' : 1000,
                  'fields': {
                      'id': xml_id(self.TABLE_PRODUCT, 'ID'),
                      'categ_id/id': xml_id(self.TABLE_PRODUCT + '_brand', 'Brand'),
