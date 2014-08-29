@@ -20,6 +20,7 @@
 ##############################################################################
 from openerp import tools
 import re
+import math
 
 class mapper(object):
     """
@@ -147,7 +148,7 @@ class const(mapper):
         return self.val 
     
 def do_clean_xml_id(value):
-    return re.sub('[\'", ^]','_', (value or ''))
+    return re.sub('[\'", ^]','_', (value and str(value) or ''))
 
 class value(mapper):
     """
@@ -249,6 +250,8 @@ class xml_id(dbmapper):
         
     def __call__(self, external_values):
         field_value = external_values.get(self.field_name)
+        if isinstance(field_value, float) and math.isnan(field_value):
+            return ''
         field_value = do_clean_xml_id(field_value)
         if not field_value:
             return ''
