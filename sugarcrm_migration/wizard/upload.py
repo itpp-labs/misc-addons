@@ -52,7 +52,7 @@ class sugarcrm_migration_upload(osv.TransientModel):
         record = self.browse(cr, uid, ids[0])
 
         self.kashflow(record, cr, uid)
-        self.sugarcrm(record, cr, uid)
+        #self.sugarcrm(record, cr, uid)
 
         return True
 

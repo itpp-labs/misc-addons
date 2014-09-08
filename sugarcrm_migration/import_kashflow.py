@@ -198,6 +198,43 @@ class import_kashflow(import_base):
             t = DataFrame(self.get_data(company + table))
             return t
         return f
+    def get_partner_by_name(self, name):
+        id = self.pool['res.partner'].search(self.cr, self.uid, [('name','=', name)])
+        if isinstance(id, list):
+            if len(id)!=1:
+                return None
+            id = id[0]
+        return id
+
+    def get_hook_check_existed_partners(self, xml_id_mapper, field_name, another_hook=None):
+        def f(external_values):
+            if another_hook:
+                external_values = another_hook(external_values)
+                if not external_values:
+                    return None
+            name = external_values.get(field_name)
+            if not name:
+                return None
+            id = self.get_partner_by_name(name)
+            if id:
+                # create new reference to existed record
+                xml_id_mapper.set_parent(self)
+                data_name = xml_id_mapper(external_values)
+
+                if self.pool.get('ir.model.data').search(self.cr, self.uid, [('name', '=', data_name)]):
+                    # already created
+                    return None
+
+                vals = {'name': data_name,
+                        'model': 'res.partner',
+                        #'module': self.module_name,
+                        'module': '',
+                        'res_id': id,
+                    }
+                self.pool.get('ir.model.data').create(self.cr, self.uid, vals, context=self.context)
+                return None
+            return external_values # create new partner
+        return f
 
     def get_mapping_partners(self, company):
         table = company + self.TABLE_PARTNER
@@ -209,6 +246,7 @@ class import_kashflow(import_base):
                 'dependencies' : [self.TABLE_COMPANY],
                 'models':[
                     {'model' : 'res.partner',
+                     'hook': self.get_hook_check_existed_partners(xml_id(table, self.COL_P_CODE), self.COL_P_NAME),
                      'fields': {
                          'id': xml_id(table, self.COL_P_CODE),
                          'company_id/id': self.company_id(company),
@@ -225,7 +263,7 @@ class import_kashflow(import_base):
                          }
                      },
                     {'model' : 'res.partner',
-                     'hook': self.get_hook_ignore_empty(self.COL_P_MOBILE, self.COL_P_FULL_NAME),
+                     'hook': self.get_hook_check_existed_partners(xml_id(table+'_child', self.COL_P_CODE), self.COL_P_FULL_NAME, self.get_hook_ignore_empty(self.COL_P_MOBILE, self.COL_P_FULL_NAME)),
                      'fields': {
                          'id': xml_id(table+'_child', self.COL_P_CODE),
                          'company_id/id': self.company_id(company),
