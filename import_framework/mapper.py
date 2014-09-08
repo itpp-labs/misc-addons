@@ -148,7 +148,7 @@ class const(mapper):
         return self.val 
     
 def do_clean_xml_id(value):
-    return re.sub('[\'", ^]','_', (value and str(value) or ''))
+    return re.sub('[\'", ^]','_', (value and unicode(value) or ''))
 
 class value(mapper):
     """

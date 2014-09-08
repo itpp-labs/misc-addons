@@ -240,7 +240,10 @@ class import_base(object):
                     else:
                         break
             finalize = mmodel.get('finalize')
-            finalize and finalize()
+            if finalize:
+                _logger.info('finalize model...')
+                finalize()
+                _logger.info('finalize model done')
 
     def map_and_import_batch(self, mmodel, records):
             import_list = self.do_mapping(records, mmodel)
