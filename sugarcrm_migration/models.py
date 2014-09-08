@@ -10,3 +10,8 @@ class ir_attachment(osv.Model):
         'res_id_tmp': fields.integer('Resource ID (TMP)', readonly=True, help="The record id this is attached to"),
     }
 
+class account_analytic_account(osv.Model):
+    _inherit = 'account.analytic.account'
+    _columns = {
+        'user_id_tmp': fields.many2one('res.users', 'Case manager (TMP)'),
+    }

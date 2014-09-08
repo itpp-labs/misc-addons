@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+import logging
+_logger = logging.getLogger(__name__)
+
 import MySQLdb
 import MySQLdb.cursors
 from openerp.addons.import_framework.import_base import import_base, create_childs
@@ -68,7 +71,9 @@ class import_sugarcrm(import_base):
             cur.close()
 
     def finalize(self):
+        pass
 
+    def finalize_note(self):
         mail_message_obj = self.pool['mail.message']
         ids = self.pool['ir.attachment'].search(self.cr, self.uid, [('res_model_tmp','=','mail.message')])
         for a in self.pool['ir.attachment'].read(self.cr, self.uid, ids, ['id', 'res_id_tmp'], context=self.context):
@@ -183,7 +188,7 @@ class import_sugarcrm(import_base):
                 }
 
     def context_partner(self):
-        # you have to modify create and write functions in openerp/addons/base/res/res_partner.py for import optimization
+        # see module description
         return {"skip_addr_sync":True}
     def get_mapping_account(self):
         def partner(prefix, suffix):
@@ -480,6 +485,12 @@ class import_sugarcrm(import_base):
         date = external_values.get('end_date_c')
         return ''
 
+    def finalize_case(self):
+        ids = self.pool['account.analytic.account'].search(self.cr, self.uid, [('user_id_tmp', '!=', False)])
+        for r in self.pool['account.analytic.account'].read(self.cr, self.uid, ids, ['id', 'user_id_tmp']):
+            project_id = self.pool['project.project'].search(self.cr, self.uid, [('analytic_account_id','=', int(r['id']))], context=self.context)
+            self.pool['project.project'].write(self.cr, self.uid, project_id, {'user_id':r['user_id_tmp'][0]}, context=self.context)
+
     def get_mapping_case(self):
 #mysql> select case_status_c, count(*) from cases_cstm group by case_status_c;
 #+----------------------+----------+
@@ -566,10 +577,13 @@ class import_sugarcrm(import_base):
             [{
                 'model' : 'account.analytic.account',
                 'context': lambda : {'active_test':False},
+                'finalize': self.finalize_case,
 'fields': {
                 'id': xml_id(self.TABLE_CASE, 'id'),
                  'name': concat('case_number_c', 'case_number', 'name', delimiter=' * '),
-                 'project_ids/user_id/.id': user_by_login('case_manager_c'),
+                 'type': const('contract'),
+                 'use_tasks': const('1'), 
+                 'user_id_tmp/.id': user_by_login('case_manager_c'),
                  'support_manager_id/.id': user_by_login('support_case_manager_c'),
 
                  'notetaker_id/.id':             res_id(const(self.TABLE_CONTACT), 'contact_id4_c', default=None),
@@ -622,7 +636,7 @@ partner_participant_list
         return t3
 
     map_to_model = {
-        'Accounts': 'crm.lead',
+        'Accounts': 'res.partner',
         'Cases': 'project.project',
         'Contacts': 'res.partner',
         'Prospects': 'TODO',
@@ -630,7 +644,7 @@ partner_participant_list
         #'Notes': 'ir.attachment',
     }
     map_to_table = {
-        'Accounts': TABLE_ACCOUNT_LEAD,
+        'Accounts': TABLE_ACCOUNT,
         'Cases': TABLE_CASE,
         'Contacts': TABLE_CONTACT,
         'Prospects': 'TODO',
@@ -681,6 +695,7 @@ partner_participant_list
             ],
              'models':[{
                 'model' : 'mail.message',
+                 'hook': self.hook_email,
 'fields': {
                 'id': xml_id(self.TABLE_EMAIL, 'id'),
                  'type':const('email'),
@@ -702,8 +717,8 @@ partner_participant_list
                  #'partner_ids' #many2many
                  #attachment_ids' #many2many
                  #'parent_id': 'TODO',
-                 'model': map_val('bean_module', self.map_to_model),
-                 'res_id': res_id(map_val('bean_module', self.map_to_table), 'bean_id'),
+                 'model': 'model',
+                 'res_id': 'res_id',
                  #record_name
                  'subject':'name',
                  'date':'date_sent',
@@ -738,11 +753,24 @@ partner_participant_list
         #t = t[:100] # for debug
         return t
 
-    def get_id_model(self, external_values, field_name='parent_id'):
-        id = res_id(map_val('parent_type', self.map_to_table), field_name)
+    def get_id_model(self, external_values, field_name='parent_id', parent_field_name='parent_type'):
+        id = res_id(map_val(parent_field_name, self.map_to_table), field_name)
         id.set_parent(self)
-        model = map_val('parent_type', self.map_to_model)
-        return id(external_values), model(external_values)
+        id = id(external_values)
+        model = map_val(parent_field_name, self.map_to_model)
+        model = model(external_values)
+        if model=='project.project':
+            id = self.pool['project.project'].search(self.cr, self.uid, [('analytic_account_id','=', int(id))], context=self.context)
+            if isinstance(id, list):
+                id=id[0]
+        return str(id),model
+
+    def hook_email(self, external_values):
+        id,model = self.get_id_model(external_values, field_name='bean_id', parent_field_name='bean_module')
+        external_values['res_id']=id
+        external_values['model']=model
+        return external_values
+
 
     def hook_note(self, external_values):
         parent_type = external_values.get('parent_type')
@@ -782,6 +810,7 @@ partner_participant_list
                 'model': 'ir.attachment',
                 'context': lambda : {'active_test':False, 'quick_import':True},
                 'hook': self.hook_note,
+                'finalize': self.finalize_note,
 'fields': {
                 'id': xml_id(self.TABLE_NOTE, 'id'),
                 'name':'filename',
