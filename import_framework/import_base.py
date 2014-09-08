@@ -228,6 +228,7 @@ class import_base(object):
         for mmodel in mtable.get('models'):
             split = mmodel.get('split')
             if not split:
+                _logger.info('map and import: import-%s' % self.import_num)
                 self.map_and_import_batch(mmodel, records)
             else:
                 i=0
