@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<openerp>
+    <data>
+		<template id="report_proposal">
+			<t t-call="report.html_container">
+				<t t-foreach="docs" t-as="o">
+					<div class="header" t-field="o.page_header"/>
+					<div class="page">
+						<div t-field="o.website_description"/>
+						<div class="clearfix">
+							<img class="pull-right" t-attf-src="data:image/png;base64,#{o.sign}"/>
+						</div>
+						<div class="clearfix">
+							<div class="pull-right" t-field="o.signer"/>
+						</div>
+					</div>
+					<div class="footer" t-field="o.page_footer"/>
+				</t>
+			</t>
+		</template>
+
+        <report
+            id="action_report_proposal"
+            string="Proposal"
+            model="website_proposal.proposal"
+            report_type="qweb-pdf"
+            name="website_proposal.report_proposal"
+            file="website_proposal.report_proposal"
+        />
+
+		<!--
+        <record id="action_report_proposal" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="point_of_sale.paperformat_posreceipt"/>
+        </record>
+		-->
+	</data>
+</openerp>
