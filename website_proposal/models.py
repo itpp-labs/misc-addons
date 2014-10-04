@@ -12,9 +12,10 @@ class website_proposal_template(osv.osv):
     _columns = {
         'name': fields.char('Proposal Template', required=True),
 
-        'page_header': fields.html('Page header'),
+        'head': fields.text('Html head'),
+        'page_header': fields.text('Page header'),
         'website_description': fields.html('Description'),
-        'page_footer': fields.html('Page footer'),
+        'page_footer': fields.text('Page footer'),
 
         'res_model': fields.char('Model', help="The database object this template will be applied to"),
     }
@@ -35,6 +36,7 @@ class website_proposal_template(osv.osv):
         template = self.pool.get('website_proposal.template').browse(cr, uid, template_id, context=context)
 
         vals = {'template_id': template_id,
+                'head': template.head,
                 'page_header': template.page_header,
                 'website_description': template.website_description,
                 'page_footer': template.page_footer,
@@ -58,9 +60,10 @@ class website_proposal(osv.osv):
     _columns = {
         'access_token': fields.char('Security Token', required=True, copy=False),
         'template_id': fields.many2one('website_proposal.template', 'Quote Template', readonly=True),
-        'page_header': fields.html('Page header'),
+        'head': fields.text('Html head'),
+        'page_header': fields.text('Page header'),
         'website_description': fields.html('Description'),
-        'page_footer': fields.html('Page footer'),
+        'page_footer': fields.text('Page footer'),
 
         'res_model': fields.char('Model', readonly=True, help="The database object this is attached to"),
         'res_id': fields.integer('Resource ID', readonly=True, help="The record id this is attached to", select=True),
