@@ -55,7 +55,7 @@ class website_proposal(http.Controller):
         values = {
             'proposal': proposal,
             'message': message and int(message) or False,
-            'object': record,
+            'record': record,
             'order_valid': True,
         }
         return request.website.render('website_proposal.proposal', values)

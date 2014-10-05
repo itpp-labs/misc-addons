@@ -3,8 +3,11 @@ from openerp.osv import osv, fields
 import uuid
 import time
 import datetime
+from openerp import tools
 
 import openerp.addons.decimal_precision as dp
+
+from openerp.addons.email_template.email_template import mako_template_env
 
 class website_proposal_template(osv.osv):
     _name = "website_proposal.template"
@@ -43,6 +46,7 @@ class website_proposal_template(osv.osv):
                 'res_id': res_id,
                 'res_model': template.res_model,
                 }
+
         proposal_id = self.pool.get('website_proposal.proposal').create(cr, uid, vals, context)
         return proposal_id
 
@@ -87,3 +91,12 @@ class website_proposal(osv.osv):
             'target': 'self',
             'url': '/website_proposal/%s' % (ids[0])
         }
+    def create(self, cr, uid, vals, context=None):
+        record = self.pool.get(vals.get('res_model')).browse(cr, uid, vals.get('res_id'))
+
+        mako = mako_template_env.from_string(tools.ustr(vals.get('website_description')))
+        website_description = mako.render({'record':record})
+
+        vals['website_description'] = website_description
+        new_id = super(website_proposal, self).create(cr, uid, vals, context=context)
+        return new_id

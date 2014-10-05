@@ -4,7 +4,7 @@
   <template id="chatter">
       <h1 class="page-header hidden-print">History</h1>
       <ul class="media-list hidden-print" id="comments-list">
-          <t t-foreach="object.message_ids" t-as="message">
+          <t t-foreach="record.message_ids" t-as="message">
               <li class="media" t-if="message.type &lt;&gt; 'comment' or message.subtype_id">
                   <div class="media-body">
                       <img class="media-object pull-left" t-att-src="'/website/image?model=res.partner&amp;field=image_small&amp;id='+str(message.author_id.id)" style="width: 50px; margin-right: 10px;"/>
@@ -50,7 +50,7 @@
       </div>
   </template>
 
-  <template id="proposal" name="Product Quotation">
+  <template id="proposal" name="Proposal">
       <t t-call="website.layout">
         <t t-set="head">
             <script type="text/javascript" src="/website_proposal/static/src/js/website_proposal.js"></script>
