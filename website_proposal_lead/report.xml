@@ -2,6 +2,11 @@
 <openerp>
     <data>
 		<template id="report_proposal">
+            <t t-set="head">
+				<t t-foreach="docs" t-as="o">
+					<t t-raw="o.head"/>
+				</t>
+            </t>
 			<t t-call="report.html_container">
 				<t t-foreach="docs" t-as="o">
 					<div class="header" t-field="o.proposal_id.page_header"/>

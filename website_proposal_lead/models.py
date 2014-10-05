@@ -6,7 +6,7 @@ class crm_lead(osv.Model):
         res = {}
         for r in self.browse(cr, uid, ids, context=context):
             proposal_id = self.pool['website_proposal.proposal'].search(cr, uid, [('res_id', '=', r.id), ('res_model', '=', self._name)], context=context)
-            res[r.id] = proposal_id[0]
+            res[r.id] = proposal_id and proposal_id[0]
         return res
 
     _columns = {

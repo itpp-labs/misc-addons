@@ -56,6 +56,7 @@
             <script type="text/javascript" src="/website_proposal/static/src/js/website_proposal.js"></script>
             <script type="text/javascript" src="/website_proposal/static/lib/jSignature/jSignature.min.js"></script>
             <link rel='stylesheet' href='/website_proposal/static/src/css/website_proposal.css'/>
+			<t t-raw="proposal.head"/>
             <t t-raw="head or ''"/>
         </t>
         <body data-spy="scroll" data-target=".navspy">
@@ -271,7 +272,7 @@
   <template id="navigation_menu">
     <div class="hidden-print navspy" t-ignore="true" role="complementary">
         <ul class="nav bs-sidenav" data-id="quote_sidebar">
-            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#introduction">Proposal</a></li>
         </ul>
     </div>
   </template>
