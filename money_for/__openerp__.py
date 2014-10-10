@@ -5,7 +5,7 @@
     "category" : "Base",
     "website" : "https://it-projects.info",
 
-    "depends" : ["crm", "account", "website", "web"],
+    "depends" : ["crm", "account", "website", "web", "crm_partner_assign"],
     "data":[
         'views.xml',
         'templates.xml',
@@ -13,6 +13,8 @@
     "installable": True,
 
     "description": """
+Module depends on some website pages, which are not presented on this module.
+
 Calculator form:
 
     <div id="calculator">

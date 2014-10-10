@@ -173,5 +173,16 @@ ${object.company_id.phone or ''}
 				<h1>Payment sent out<!--<t t-esc="lead.stage_id.name"/>--></h1>
 			</t>
 		</template>
+
+		<template id="send" name="Send Money (JS)" inherit_id="website.send">
+			<xpath expr="//t[@t-call='website.layout']" position="inside">
+				<t t-set="head">
+					<script type="text/javascript" src="/money_for/static/src/js/send.js"></script>
+					<script type="text/javascript" src="/money_for/static/lib/parsley/parsley.js"></script>
+					<t t-raw="head or ''"/>
+				</t>
+				
+			</xpath>
+		</template>
 	</data>
 </openerp>

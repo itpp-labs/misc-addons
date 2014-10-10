@@ -10,6 +10,10 @@ from functools import wraps
 
 from openerp.tools.translate import _
 
+import logging
+_logger = logging.getLogger(__name__)
+
+
 class SignupError(Exception):
     pass
 
@@ -80,13 +84,16 @@ class money4(openerp.addons.web.controllers.main.Home):
         user =  request.registry['res.users'].browse(request.cr, SUPERUSER_ID, uid, context)
         if not user.email:
             raise osv.except_osv(_("Cannot send email: user has no email address."), user.name)
-        request.registry['email.template'].send_mail(request.cr, SUPERUSER_ID, template.id, user.id, force_send=True, raise_exception=True, context=context)
+        try:
+            request.registry['email.template'].send_mail(request.cr, SUPERUSER_ID, template.id, user.id, force_send=True, raise_exception=True, context=context)
+        except Exception:
+            _logger.exception(Exception)
 
-    def _signup(self, values):
-        if request.uid:
-            user = request.registry['res.users'].browse(request.cr, SUPERUSER_ID, request.uid)
-            if user.login != 'public':
-                return user.partner_id.id
+    def _signup(self, values, partner_values={}):
+        #if request.uid:
+        #    user = request.registry['res.users'].browse(request.cr, SUPERUSER_ID, request.uid)
+        #    if user.login != 'public':
+        #        return user.partner_id.id
         partner_obj = request.registry['res.partner']
 
         partner_id = partner_obj.search(request.cr, SUPERUSER_ID, [('email', '=', values['email'])])
@@ -98,9 +105,8 @@ class money4(openerp.addons.web.controllers.main.Home):
                     partner_id = partner_id[0]
             return partner_id
 
-        partner_id = partner_obj.create(request.cr, SUPERUSER_ID,
-                                        {'name':values['name'],
-                                         'email':values['email']})
+        partner_values.update({'name':values['name'], 'email':values['email']})
+        partner_id = partner_obj.create(request.cr, SUPERUSER_ID, partner_values)
 
         partner = partner_obj.browse(request.cr, SUPERUSER_ID, partner_id)
         partner.signup_prepare()
@@ -156,4 +162,80 @@ class money4(openerp.addons.web.controllers.main.Home):
         context = {'state':'payment_sent_out',
                    'lead':lead}
         return request.render('money_for.status', context)
-        
+
+
+    def _country_by_code(self, name):
+        id = request.registry['res.country'].search(request.cr, request.uid,
+                                                    [('code', '=', name)])
+        return id
+
+    @http.route(['/money/send'], type='http', auth="public", website=True)
+    def send(self, **kwargs):
+        qcontext = kwargs
+
+        ### customer (sender)
+        pwd =  uuid.uuid4().hex[:16]
+        signup_values = {'login':qcontext.get('email'),
+                         'email':qcontext.get('email'),
+                         'name':'%s %s' % (qcontext.get('first-name-1'),
+                                           qcontext.get('second-name-1')
+                                       ),
+                         'password':pwd,
+        }
+        partner_values = {
+            'customer': 1,
+            'phone': '%s%s' % (qcontext.get('phone-code'),
+                               qcontext.get('phone')),
+            'birthdate': '%s-%s-%s' % (
+                qcontext.get('birth-year'),
+                qcontext.get('birth-month'),
+                qcontext.get('birth-day'),
+            ),
+            'street': qcontext.get('address'),
+            'zip': qcontext.get('zip'),
+            'city': qcontext.get('city'),
+            'country_id': self._country_by_code(qcontext.get('country')),
+            'street': qcontext.get('address'),
+
+        }
+        sender_id = self._signup(signup_values, partner_values)
+        sender = request.registry['res.partner'].browse(request.cr, SUPERUSER_ID, sender_id)
+
+
+        ### supplier (receiver)
+        pwd =  uuid.uuid4().hex[:16]
+        signup_values = {'login':qcontext.get('recipient-email'),
+                         'email':qcontext.get('recipient-email'),
+                         'name': qcontext.get('recipient-name'),
+                         'password':pwd,
+        }
+        description = ''
+        for k,v in {
+            'recipient_iban': qcontext.get('recipient-iban'),
+            'recipient_bic': qcontext.get('recipient-bic'),
+            'recipient_details': qcontext.get('recipient-details'),
+        }.items():
+            description += '%s: %s\n' % (k,v)
+        partner_values = {
+            'contact_name': qcontext.get('recipient-name'),
+            'description': description,
+        }
+        receiver_id = self._signup(signup_values, partner_values)
+        receiver = request.registry['res.partner'].browse(request.cr, SUPERUSER_ID, receiver_id)
+
+        ### lead
+        lead_obj = request.registry['crm.lead']
+        lead_id = lead_obj.create(request.cr, SUPERUSER_ID,
+                                      {'name': receiver.email,
+                                       'partner_id':receiver_id,
+                                       'partner_assigned_id':sender_id,
+                                       #'x_currency_in_id':int(post.get('x_currency_in_id')),
+                                       #'x_currency_out_id':int(post.get('x_currency_out_id')),
+                                       #'x_in_amount':float(post.get('x_in_amount')),
+                                       #'x_out_amount':float(post.get('x_out_amount')),
+                                   })
+        lead = lead_obj.browse(request.cr, SUPERUSER_ID, lead_id)
+        vals = lead_obj._convert_opportunity_data(request.cr, SUPERUSER_ID, lead, receiver)
+        lead.write(vals)
+
+        return request.website.render("website.send-completion")
