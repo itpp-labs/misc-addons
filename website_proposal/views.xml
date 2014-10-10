@@ -21,7 +21,7 @@
   </template>
 
   <!-- Options:Quotation Chatter: user can reply -->
-  <template id="opt_quotation_chatter_post_complete_comment" name="Allow Comments" optional="enabled" inherit_id="website_proposal.chatter">
+  <template id="opt_quotation_chatter_post_complete_comment" name="Allow Comments" customize_show="True" inherit_id="website_proposal.chatter">
       <xpath expr="//h1" position="after">
           <section class="mb32 css_editable_mode_hidden hidden-print">
               <form id="comment" t-attf-action="/website_proposal/#{proposal.id}/#{proposal.access_token}/post" method="POST">
@@ -278,7 +278,7 @@
   </template>
 
   <!-- Options:Quotation Signature -->
-  <template id="opt_quotation_signature" name="Ask Signature" optional="enabled" inherit_id="website_proposal.proposal">
+  <template id="opt_quotation_signature" name="Ask Signature" customize_show="True" inherit_id="website_proposal.proposal">
       <xpath expr="//div[@id='sign-dialog']" position="inside">
         <div class="panel panel-default mt16 mb0" id="drawsign">
             <div class="panel-heading">
