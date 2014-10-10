@@ -35,8 +35,8 @@ class crm_lead(osv.Model):
         return {'value':val}
         
     _columns = {
-        'x_currency_in_id': fields.many2one('res.currency', 'Money IN', required=True),  #	Money IN	many2one			Поиск не производится	Пользовательское поле
-        'x_currency_out_id': fields.many2one('res.currency', 'Money OUT', required=True), #	Money OUT	many2one			Поиск не производится	Пользовательское поле
+        'x_currency_in_id': fields.many2one('res.currency', 'Money IN'),  #	Money IN	many2one			Поиск не производится	Пользовательское поле
+        'x_currency_out_id': fields.many2one('res.currency', 'Money OUT'), #	Money OUT	many2one			Поиск не производится	Пользовательское поле
         'x_in_amount':fields.float('Amount IN'), #	Amount	float			Поиск не производится	Пользовательское поле
         'x_out_amount':fields.function(_x_out_amount_get, string='Amount Out',
                                        store = {
@@ -52,4 +52,3 @@ class crm_lead(osv.Model):
         #'x_pay_details_benef_city'#	City	char			Поиск не производится	Пользовательское поле
         #'x_x_pay_details_benef_swift'#	SWIFT	char			Поиск не производится	Пользовательское поле
     }
-
