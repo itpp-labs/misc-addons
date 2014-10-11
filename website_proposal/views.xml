@@ -53,11 +53,8 @@
   <template id="proposal" name="Proposal">
       <t t-call="website.layout">
         <t t-set="head">
-            <script type="text/javascript" src="/website_proposal/static/src/js/website_proposal.js"></script>
-            <script type="text/javascript" src="/website_proposal/static/lib/jSignature/jSignature.min.js"></script>
-            <link rel='stylesheet' href='/website_proposal/static/src/css/website_proposal.css'/>
-			<t t-raw="proposal.head"/>
             <t t-raw="head or ''"/>
+			<t t-raw="proposal.head"/>
         </t>
         <body data-spy="scroll" data-target=".navspy">
             <div class="container">
@@ -293,10 +290,18 @@
   </template>
 
 
+  <template id="assets_frontend" name="proposal assets" inherit_id="website.assets_frontend">
+      <xpath expr="." position="inside">
+          <link rel='stylesheet' href='/website_proposal/static/src/css/website_proposal.css'/>
+          <script type="text/javascript" src="/website_proposal/static/src/js/website_proposal.js"></script>
+          <script type="text/javascript" src="/website_proposal/static/lib/jSignature/jSignature.min.js"></script>
+      </xpath>
+  </template>
+
+
   <template id="template" name="SO Template">
     <t t-call="website.layout">
         <t t-set="head">
-            <script type="text/javascript" src="/website_proposal/static/src/js/website_proposal.js"></script>
             <link rel='stylesheet' href='/website_proposal/static/src/css/website_proposal.css'/>
             <t t-raw="head or ''"/>
         </t>

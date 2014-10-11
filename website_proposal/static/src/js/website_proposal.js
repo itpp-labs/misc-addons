@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    if (!$('#modelaccept'))
+        return;
     $('a.js_update_line_json').on('click', function (ev) {
         ev.preventDefault();
         var $link = $(ev.currentTarget);
