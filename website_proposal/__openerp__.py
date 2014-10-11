@@ -13,6 +13,7 @@ Also module allows convert proposal to pdf.
     'data':[
         'views.xml',
         'report.xml',
+        'security/ir.model.access.csv',
         ],
     'installable': True,
     'auto_install': False,

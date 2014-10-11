@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_website_proposal_template,website_proposal.template,model_access_website_proposal_template,,1,1,1,1
+access_website_proposal_proposal,website_proposal.proposal,model_access_website_proposal_proposal,,1,1,1,1
