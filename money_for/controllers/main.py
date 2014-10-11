@@ -218,7 +218,7 @@ class money4(openerp.addons.web.controllers.main.Home):
             description += '%s: %s\n' % (k,v)
         partner_values = {
             'contact_name': qcontext.get('recipient-name'),
-            'description': description,
+            'comment': description,
         }
         receiver_id = self._signup(signup_values, partner_values)
         receiver = request.registry['res.partner'].browse(request.cr, SUPERUSER_ID, receiver_id)
