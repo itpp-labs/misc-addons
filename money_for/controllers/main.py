@@ -89,7 +89,7 @@ class money4(openerp.addons.web.controllers.main.Home):
         except Exception:
             _logger.exception(Exception)
 
-    def _signup(self, values, partner_values={}):
+    def _signup(self, values, partner_values={}, authenticate=True):
         #if request.uid:
         #    user = request.registry['res.users'].browse(request.cr, SUPERUSER_ID, request.uid)
         #    if user.login != 'public':
@@ -114,7 +114,8 @@ class money4(openerp.addons.web.controllers.main.Home):
 
         db, login, password = request.registry['res.users'].signup(request.cr, openerp.SUPERUSER_ID, values, partner.signup_token)
         request.cr.commit()     # as authenticate will use its own cursor we need to commit the current transaction
-        uid = request.session.authenticate(db, login, password)
+        if authenticate:
+            uid = request.session.authenticate(db, login, password)
         self._send_registration_email(uid)
         return partner_id
     @http.route(['/money/confirm_payment'], type='http', auth='public', website=True)
@@ -220,7 +221,7 @@ class money4(openerp.addons.web.controllers.main.Home):
             'contact_name': qcontext.get('recipient-name'),
             'comment': description,
         }
-        receiver_id = self._signup(signup_values, partner_values)
+        receiver_id = self._signup(signup_values, partner_values, authenticate=False)
         receiver = request.registry['res.partner'].browse(request.cr, SUPERUSER_ID, receiver_id)
 
         ### lead
