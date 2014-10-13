@@ -1,13 +1,4 @@
 $(document).ready(function(){
-    /*
-    var validated;
-    $('#send_money_form').submit(function(event){
-        event.preventDefault();
-        validated = true;
-        console.log('validated');
-    });
-*/
-
     $('.m-multilist__item-header').on('click', function(event){
         var index = 1 + $(this).parent().index();
         if (index==1)
@@ -22,5 +13,9 @@ $(document).ready(function(){
 
         p.validate();
         event.stopImmediatePropagation()
+    })
+
+    $('#is-company').on('click', function(event){
+        $('#company-name').parent().parent().parent().toggle(this.checked)
     })
 })
