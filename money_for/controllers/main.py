@@ -178,18 +178,24 @@ class money4(openerp.addons.web.controllers.main.Home):
         qcontext = kwargs
 
         ### customer (sender)
+
+        is_company = qcontext.get('is-company')
+        if is_company:
+            name = qcontext.get('company-name')
+        else:
+            name =  '%s %s' % (qcontext.get('first-name-1'),
+                               qcontext.get('second-name-1'))
         pwd =  uuid.uuid4().hex[:16]
         signup_values = {'login':qcontext.get('email'),
                          'email':qcontext.get('email'),
-                         'name':'%s %s' % (qcontext.get('first-name-1'),
-                                           qcontext.get('second-name-1')
-                                       ),
+                         'name':name,
                          'password':pwd,
         }
         partner_values = {
             'customer': 1,
             'phone': '%s%s' % (qcontext.get('phone-code'),
                                qcontext.get('phone')),
+            'is_company': is_company,
             'birthdate': '%s-%s-%s' % (
                 qcontext.get('birth-year'),
                 qcontext.get('birth-month'),
