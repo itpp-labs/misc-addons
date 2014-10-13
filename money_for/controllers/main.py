@@ -116,6 +116,9 @@ class money4(openerp.addons.web.controllers.main.Home):
         request.cr.commit()     # as authenticate will use its own cursor we need to commit the current transaction
         if authenticate:
             uid = request.session.authenticate(db, login, password)
+        else:
+            ids = request.registry['res.users'].search(request.cr, SUPERUSER_ID, [('login','=',login)])
+            uid = ids[0]
         self._send_registration_email(uid)
         return partner_id
     @http.route(['/money/confirm_payment'], type='http', auth='public', website=True)
