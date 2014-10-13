@@ -33,6 +33,18 @@
 				</field>
         </record>
 		
+        <record id="menu_tree" model="ir.ui.view">
+            <field name="name">website.menu.tree</field>
+            <field name="model">website.menu</field>
+            <field name="inherit_id" ref="website.menu_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                   <xpath expr="//field[@name='url']" position="after">
+					   <field name="public"/>
+				   </xpath>
+				</data>
+			</field>
+		</record>
 
     </data>
 </openerp>

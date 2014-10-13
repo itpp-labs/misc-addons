@@ -2,6 +2,15 @@
 from openerp.osv import osv,fields
 from openerp import SUPERUSER_ID
 
+class website_menu(osv.Model):
+    _inherit = "website.menu"
+    _columns = {
+        'public': fields.boolean('Public')
+    }
+    _defaults = {
+        'public': True,
+    }
+
 class crm_lead(osv.Model):
     _inherit = "crm.lead"
     def _x_out_amount_get(self, cr, uid, ids, field_names, args, context=None):
