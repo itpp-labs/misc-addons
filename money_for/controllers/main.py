@@ -178,35 +178,40 @@ class money4(openerp.addons.web.controllers.main.Home):
         qcontext = kwargs
 
         ### customer (sender)
-
-        is_company = qcontext.get('is-company')
-        if is_company:
-            name = qcontext.get('company-name')
-        else:
-            name =  '%s %s' % (qcontext.get('first-name-1'),
-                               qcontext.get('second-name-1'))
-        pwd =  uuid.uuid4().hex[:16]
-        signup_values = {'login':qcontext.get('email'),
-                         'email':qcontext.get('email'),
-                         'name':name,
-                         'password':pwd,
-        }
         partner_values = {
             'customer': 1,
             'phone': '%s%s' % (qcontext.get('phone-code'),
                                qcontext.get('phone')),
-            'is_company': is_company,
-            'birthdate': '%s-%s-%s' % (
-                qcontext.get('birth-year'),
-                qcontext.get('birth-month'),
-                qcontext.get('birth-day'),
-            ),
             'street': qcontext.get('address'),
             'zip': qcontext.get('zip'),
             'city': qcontext.get('city'),
             'country_id': self._country_by_code(qcontext.get('country')),
             'street': qcontext.get('address'),
 
+        }
+
+        name = '%s %s' % (qcontext.get('first-name-1'),
+                                qcontext.get('second-name-1'))
+
+        if qcontext.get('is-company'):
+            partner_values.update({
+                'is_company':1,
+                'name': qcontext.get('company-name'),
+            })
+            company_id = request.registry['res.partner'].create(request.cr, SUPERUSER_ID, partner_values)
+            partner_values = {'parent_id': company_id, 'customer':1}
+            print 'send: company_id', company_id
+
+        partner_values.update({'birthdate':
+                               '%s-%s-%s' % (qcontext.get('birth-year'),
+                                             qcontext.get('birth-month'),
+                                             qcontext.get('birth-day'),
+                                         )})
+        pwd =  uuid.uuid4().hex[:16]
+        signup_values = {'login':qcontext.get('email'),
+                         'email':qcontext.get('email'),
+                         'name':name,
+                         'password':pwd,
         }
         sender_id = self._signup(signup_values, partner_values)
         sender = request.registry['res.partner'].browse(request.cr, SUPERUSER_ID, sender_id)
@@ -248,4 +253,4 @@ class money4(openerp.addons.web.controllers.main.Home):
         vals = lead_obj._convert_opportunity_data(request.cr, SUPERUSER_ID, lead, receiver)
         lead.write(vals)
 
-        return request.website.render("website.send-completion")
+        return request.redirect("/page/website.settings")
