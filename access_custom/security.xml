@@ -2,7 +2,7 @@
 <openerp>
     <data>
         <record model="ir.module.category" id="module_category_custom">
-            <field name="name">Custom Access Rights</field>
+            <field name="name">Custom Access Rights (Levels)</field>
             <field name="sequence">-2</field>
         </record>
         <record model="ir.module.category" id="module_category_custom_extra">
@@ -35,12 +35,13 @@
 		</record>
 
         <record model="res.groups" id="group_legal_contracts_full_rights">
-            <field name="name">legal_contracts_full_rights (TODO)</field>
+            <field name="name">legal_contracts_full_rights</field>
             <field name="category_id" ref="module_category_custom"/>
+			<field name="menu_access" eval="[(4,ref('base.menu_base_partner'))]"/>
 		</record>
 
         <record model="res.groups" id="group_view_legal_contracts">
-            <field name="name">view_legal_contracts (TODO)</field>
+            <field name="name">view_legal_contracts (not implemented)</field>
             <field name="category_id" ref="module_category_custom"/>
 		</record>
 

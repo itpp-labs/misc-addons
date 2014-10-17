@@ -8,7 +8,7 @@
     Tested on 8.0 ab7b5d7.
 
     """,
-    'depends' : ['access_base', 'res_users_clear_access_rights', 'base', 'account', 'sale', 'crm', 'hr_payroll', 'project', 'purchase', 'hr_recruitment', 'hr_holidays', 'hr_evaluation', 'board', 'marketing'],
+    'depends' : ['access_base', 'res_users_clear_access_rights', 'base', 'account', 'sale', 'crm', 'hr_payroll', 'project', 'purchase', 'hr_recruitment', 'hr_holidays', 'hr_evaluation', 'board', 'marketing', 'account_analytic_analysis'],
     'data':[
         'views.xml',
         'security.xml',
