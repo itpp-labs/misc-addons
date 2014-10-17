@@ -22,6 +22,7 @@ class WebsiteResPartner(osv.Model):
             'Website Partner Full Description',
             translate=True,
         ),
+    }
 
 class sale_order_line(osv.osv):
     _inherit = "sale.order.line"
