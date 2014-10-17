@@ -9,7 +9,7 @@ class product_template(osv.Model):
         'website_description': fields.html('Description for the website', translate=True),
     }
 
-class delivery_carrier(orm.Model):
+class delivery_carrier(osv.Model):
     _inherit = 'delivery.carrier'
     _columns = {
         'website_description': fields.text('Description for the website', translate=True),
