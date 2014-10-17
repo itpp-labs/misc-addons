@@ -8,13 +8,6 @@
 
     """,
     'depends' : ['website_partner','website_sale_delivery', 'website_sale', 'website_quote'],
-    'data':[
-        'views.xml',
-        'security.xml',
-        'ir.model.access.csv',
-        ],
-    'demo':[
-        'demo.xml'
-    ],
+    'data':[],
     'installable': True
 }
