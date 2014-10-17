@@ -18,15 +18,27 @@ class SignupError(Exception):
     pass
 
 class calculator(http.Controller):
+    def _check_currency(self, code):
+        try:
+            return int(code)
+        except:
+            pass
+        currency_obj = request.registry.get('res.currency')
+        ids = currency_obj.search(request.cr, SUPERUSER_ID, [('name', '=', code)])
+        return ids[0]
+
     @http.route(['/calculator/calc'], type='json', auth='public', website=True)
     def calc(self, **post):
-        x_currency_in_id = int(post.get('x_currency_in_id'))
-        x_currency_out_id = int(post.get('x_currency_out_id'))
-        x_in_amount = int(post.get('x_in_amount'))
+        x_currency_in_id = self._check_currency(post.get('x_currency_in_id'))
+        x_currency_out_id = self._check_currency(post.get('x_currency_out_id'))
+        x_in_amount = float(post.get('x_in_amount') or 0)
+        x_out_amount = float(post.get('x_out_amount') or 0)
 
         currency_obj = request.registry.get('res.currency')
 
-        val = {'x_out_amount': currency_obj.compute(request.cr, SUPERUSER_ID, x_currency_in_id, x_currency_out_id, x_in_amount)}
+        val = {'x_out_amount': currency_obj.compute(request.cr, SUPERUSER_ID, x_currency_in_id, x_currency_out_id, x_in_amount),
+               'x_in_amount': currency_obj.compute(request.cr, SUPERUSER_ID, x_currency_out_id, x_currency_in_id, x_out_amount),
+        }
 
         return val
 
