@@ -7,7 +7,7 @@
     'description': """
 Web-based proposals for leads
     """,
-    'depends' : ['website_proposal', 'crm'],
+    'depends' : ['website_proposal', 'crm', 'sale_crm', 'sale',],
     'data':[
         'views.xml',
         'report.xml',

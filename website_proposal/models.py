@@ -44,7 +44,7 @@ class website_proposal_template(osv.osv):
                 'website_description': template.website_description,
                 'page_footer': template.page_footer,
                 'res_id': res_id,
-                'res_model': template.res_model,
+                'res_model': context.get('force_res_model') or template.res_model,
                 }
 
         proposal_id = self.pool.get('website_proposal.proposal').create(cr, uid, vals, context)

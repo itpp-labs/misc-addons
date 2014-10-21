@@ -19,6 +19,40 @@
 			</field>
 		</record>
 
+        <!-- CRM Lead Form View  -->
+        <record model="ir.ui.view" id="crm_case_form_view_oppor">
+			<field name="name">Opportunity</field>
+			<field name="model">crm.lead</field>
+			<field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='user_id']" position="after">
+					<field name="proposal_template_id" domain="[('res_model', '=', 'crm.lead')]"/>
+				</xpath>
+				<xpath expr="//header" position="inside">
+					<field name="proposal_id" invisible="1"/>
+					<button name="create_proposal" string="Create proposal" attrs="{'invisible':['|',('proposal_id', '!=', False),('proposal_template_id', '=', False)]}" type="object"/>
+					<button name="open_proposal" string="Open proposal" attrs="{'invisible':[('proposal_id', '=', False)]}" type="object"/>
+				</xpath>
+			</field>
+		</record>
+
+        <!-- Sale Order Form View  -->
+        <record model="ir.ui.view" id="view_order_form">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='user_id']" position="after">
+					<field name="proposal_template_id" domain="[('res_model', '=', 'crm.lead')]"/>
+				</xpath>
+				<xpath expr="//header" position="inside">
+					<field name="proposal_id" invisible="1"/>
+					<button name="create_proposal" string="Create proposal" attrs="{'invisible':['|',('proposal_id', '!=', False),('proposal_template_id', '=', False)]}" type="object"/>
+					<button name="open_proposal" string="Open proposal" attrs="{'invisible':[('proposal_id', '=', False)]}" type="object"/>
+				</xpath>
+			</field>
+		</record>
+
 		
 	</data>
 </openerp>
