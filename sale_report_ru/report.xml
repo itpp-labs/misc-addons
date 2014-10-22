@@ -155,7 +155,7 @@
 <template id="contract_appendix">
   <div class="pagebreak"></div>
   <h1 class="text-right">Приложение <t t-esc="appendix_name"/></h1>
-  <h3 class="text-right">к договору № <span t-field="o.name"/> от <span t-esc="time.strftime('%d.%m.%Y', time.strptime(o.date_order,'%Y-%m-%d'))"/></h3>
+  <h3 class="text-right">к договору № <span t-field="o.name"/> от <span t-field="o.date_order" t-field-options='{"format": "dd.MM.yyyy"}'/></h3>
   <t t-if="appendix_title">
 	 <h2 class="text-center"><t t-esc="appendix_title"/></h2>
   </t>
@@ -321,7 +321,7 @@
 								<span><t t-call="sale_report_ru.contract_name"/></span>
                     </h1>
                     <h3 class="text-center">
-						  г. <span t-field="o.company_id.city"/> <span t-esc="time.strftime('%d.%m.%Y', time.strptime(o.date_order,'%Y-%m-%d'))"/>
+						  г. <span t-field="o.company_id.city"/> <span t-field="o.date_order" t-field-options='{"format": "dd.MM.yyyy"}'/>
 						  </h3>
 						  <p>
 							 <span t-field="o.company_id.name"/>, именуемое в дальнейшем «Исполнитель», <span t-field="o.company_id.partner_id.represented_by"/> с одной стороны и <span t-field="o.partner_id.name"/>, именуемое(ый)(ая) в дальнейшем «Заказчик», <span t-field="o.company_id.partner_id.represented_by"/> с другой стороны, вместе именуемые «Стороны», заключили настоящий Договор о нижеследующем:
@@ -351,19 +351,19 @@
 			 <h1>Акт приема-передачи оказанных услуг (выполненных работ)</h1>
 			 <h3>№ <span t-field="o.name"/> от
 			 <t t-if="o._name=='sale.order' and o.date_acceptance">
-				<span t-esc="time.strftime('%d.%m.%Y', time.strptime(o.date_acceptance,'%Y-%m-%d'))"/>
+				<span t-field="o.date_acceptance" t-field-options='{"format": "dd.MM.yyyy"}'/>
 			 </t>
 			 <t t-if="o._name=='account.invoice'">
-				<span t-esc="time.strftime('%d.%m.%Y', time.strptime(o.date_invoice,'%Y-%m-%d'))"/>
+				<span t-field="o.date_invoice" t-field-options='{"format": "dd.MM.yyyy"}'/>
 			 </t>
 			 </h3>
 
 			 <div>Договор №
 			 <t t-if="o._name=='sale.order'">
-				<span t-field="o.name"/><t  t-if="o.date_order"> от <span t-esc="time.strftime('%d.%m.%Y', time.strptime(o.date_order,'%Y-%m-%d'))"/></t>
+				<span t-field="o.name"/><t  t-if="o.date_order"> от <span t-field="o.date_order" t-field-options='{"format": "dd.MM.yyyy"}'/></t>
 			 </t>
 			 <t t-if="o._name=='account.invoice'">
-				<span t-field="o.origin"/><t  t-if="o.date_origin"> от <span t-esc="time.strftime('%d.%m.%Y', time.strptime(o.date_origin,'%Y-%m-%d'))"/></t>
+				<span t-field="o.origin"/><t  t-if="o.date_origin"> от <span t-field="o.date_origin" t-field-options='{"format": "dd.MM.yyyy"}'/></t>
 			 </t>
 			 </div>
 			 <div style="height:30px"></div>
@@ -395,7 +395,7 @@
                     </h2>
                     <h3 t-if="o.state in ['draft','sent'] and o.validity_date" style="color:grey">
                         <span>Предложение действительно до </span>
-                        <span t-esc="time.strftime('%d.%m.%Y', time.strptime(o.validity_date,'%Y-%m-%d'))"/>
+                        <span t-field="o.validity_date" t-field-options='{"format": "dd.MM.yyyy"}'/>
                     </h3>
 						  <t t-call="sale_report_ru.lines"/>
                 </div>
@@ -443,10 +443,10 @@
 							 <t t-set="bank_id" t-value="o.partner_bank_id"/>
 						  </t>
 
-			 <h1>Счет № <span t-field="o.name"/> <t t-if="o.date_invoice">от <span t-esc="time.strftime('%d.%m.%Y', time.strptime(o.date_invoice,'%Y-%m-%d'))"/></t></h1>
+			 <h1>Счет № <span t-field="o.name"/> <t t-if="o.date_invoice">от <span t-field="o.date_invoice" t-field-options='{"format": "dd.MM.yyyy"}'/></t></h1>
 			 <div>Заказчик: <span t-field="o.partner_id.name"/></div>
 			 <div>Плательщик: <span t-field="o.partner_id.name"/></div>
-			 <div>Договор № <span t-field="o.origin"/><t  t-if="o.date_origin"> от <span t-esc="time.strftime('%d.%m.%Y', time.strptime(o.date_origin,'%Y-%m-%d'))"/></t></div>
+			 <div>Договор № <span t-field="o.origin"/><t  t-if="o.date_origin"> от <span t-field="o.date_origin" t-field-options='{"format": "dd.MM.yyyy"}'/></t></div>
 			 <div style="height:30px"></div>
 
 						  <t t-call="sale_report_ru.lines"/>

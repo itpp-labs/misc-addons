@@ -8,7 +8,7 @@
     Добавляет ИНН-КПП, расчетный счет в виджет contact
 
     """,
-    "depends" : ['website'],
+    "depends" : ['website', 'l10n_ru'],
     "data":[
         'templates.xml'
         ],
