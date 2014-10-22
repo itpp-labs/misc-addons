@@ -192,7 +192,7 @@ class money4(openerp.addons.web.controllers.main.Home):
         ### customer (sender)
         partner_values = {
             'customer': 1,
-            'phone': '%s%s' % (qcontext.get('phone-code'),
+            'phone': '%s %s' % (qcontext.get('phone-code'),
                                qcontext.get('phone')),
             'street': qcontext.get('address'),
             'zip': qcontext.get('zip'),
@@ -266,3 +266,58 @@ class money4(openerp.addons.web.controllers.main.Home):
         lead.write(vals)
 
         return request.redirect("/page/website.settings")
+
+    def _page_send_values(self, kwargs):
+        values = {}
+
+        #for field in ['description', 'partner_name', 'phone', 'contact_name', 'email_from', 'name']:
+        #    if kwargs.get(field):
+        #        values[field] = kwargs.pop(field)
+        #values.update(kwargs=kwargs.items())
+
+        user = request.registry['res.users'].browse(request.cr, SUPERUSER_ID, request.uid)
+        if user.id == request.website.user_id.id:
+            # public user
+            return values
+
+        partner = user.partner_id
+        if partner.name and partner.name != '--NO-NAME--':
+            a = partner.name.split(' ')
+            values.update({
+                'first_name_1': a.pop(),
+                'second_name_1': ' '.join(a)
+            })
+        if partner.birthdate:
+            a = partner.birthdate.split('-')
+            if len(a)==3:
+                values.update({
+                    'birth_year':a[0],
+                    'birth_month':a[1],
+                    'birth_day':a[2],
+                })
+        if partner.phone:
+            a = partner.phone.split(' ')
+            if len(a)>1:
+                values.update({
+                    'phone_code':a.pop(),
+                    'phone':''.join(a)
+                })
+            else:
+                values.update({
+                    'phone':a[0]
+                })
+        values['email'] = partner.email
+        values['address'] = partner.street
+        values['zip'] = getattr(partner, 'zip')
+        values['city'] = partner.city
+        values['country'] = partner.country and partner.country.code
+        values['is_company'] = partner.is_company and 1 or 0
+
+        return values
+
+    @http.route(['/page/website.send', '/page/send'], type='http', auth="public", website=True)
+    def contact(self, **kwargs):
+
+        values = self._page_send_values(kwargs)
+
+        return request.website.render("website.send", values)
