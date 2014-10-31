@@ -16,7 +16,7 @@ class crm_lead(osv.Model):
     _inherit = 'crm.lead'
 
     _columns = {
-        'account_analytic_id': fields.many2one('account.analytic.account', 'Contract')
+        'contract_ids': fields.one2many('account.analytic.account', 'lead_id', 'Contracts')
     }
 
 class project_project(osv.Model):
@@ -79,14 +79,13 @@ class account_analytic_account(osv.Model):
         return res
 
     _columns = {
-        'lead_ids': fields.one2many('crm.lead', 'account_analytic_id', 'Leads'),
+        'lead_id': fields.many2one('crm.lead', 'Lead \ Opportunity'),
         'project_ids': fields.one2many('project.project', 'analytic_account_id', 'Projects'),
         'project_id': fields.function(_get_project_id, type='many2one', obj='project.project', string='Project'),
         'category_id': fields.many2many('contract.category', id1='partner_id', id2='category_id', string='Tags'),
     }
 
     _defaults = {
-        'use_tasks': True,
         'fix_price_invoices': True,
         'supplier_fix_price_invoices': True,
     }

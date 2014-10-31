@@ -7,8 +7,10 @@
     'description': """
 
     """,
-    'depends' : ['sale_mediation', 'sale', 'crm', 'project', 'contract_purchases'],
+    'depends' : ['sale_mediation', 'sale', 'crm', 'project', 'contract_purchases', 'account_analytic_analysis', 'access_custom', 'website_proposal'],
     'data':[
+        'report.xml',
+        'wizard/sale_case.xml',
         'views.xml',
         #'data.xml',
         ],

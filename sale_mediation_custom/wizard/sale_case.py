@@ -1,0 +1,121 @@
+from openerp import api,models,fields
+
+from openerp.osv import fields as old_fields
+from openerp.osv import osv
+from openerp.tools.translate import _
+
+def _get_active_id(self):
+    return self._context.get('active_id')
+
+
+class sale_case_administration(models.TransientModel):
+    _name = 'sale_mediation_custom.sale_case_administration'
+
+
+    sale_case_id = fields.Many2one('account.analytic.account', default=_get_active_id)
+
+    state = fields.Selection(related='sale_case_id.state')
+
+    @api.one
+    def action_apply(self):
+        pass
+
+
+class create_proposal(models.TransientModel):
+    _name = 'sale_mediation_custom.create_proposal'
+    sale_case_id = fields.Many2one('account.analytic.account', default=_get_active_id)
+    proposal_template_id = fields.Many2one('website_proposal.template')
+
+    @api.v7
+    def action_apply(self, cr, uid, ids, context=None):
+        assert len(ids) == 1, 'This option should only be used for a single id at a time.'
+
+        ## CREATE OPPORTUNITY (from addons/sale_crm/wizard/crm_make_sale.py)
+        context = dict(context or {})
+        context.pop('default_state', False)
+
+        case_obj = self.pool.get('crm.lead')
+        sale_obj = self.pool.get('sale.order')
+        partner_obj = self.pool.get('res.partner')
+        data = context and context.get('active_ids', []) or []
+
+        for make in self.browse(cr, uid, ids, context=context):
+            #partner = make.partner_id
+            partner = make.sale_case_id.lead_id.partner_id
+            partner_addr = partner_obj.address_get(cr, uid, [partner.id],
+                    ['default', 'invoice', 'delivery', 'contact'])
+            pricelist = partner.property_product_pricelist.id
+            fpos = partner.property_account_position and partner.property_account_position.id or False
+            payment_term = partner.property_payment_term and partner.property_payment_term.id or False
+            new_ids = []
+            #for case in case_obj.browse(cr, uid, data, context=context):
+            if True: # in order to save original indent
+                case = make.sale_case_id.lead_id
+                if not partner and case.partner_id:
+                    partner = case.partner_id
+                    fpos = partner.property_account_position and partner.property_account_position.id or False
+                    payment_term = partner.property_payment_term and partner.property_payment_term.id or False
+                    partner_addr = partner_obj.address_get(cr, uid, [partner.id],
+                            ['default', 'invoice', 'delivery', 'contact'])
+                    pricelist = partner.property_product_pricelist.id
+                if False in partner_addr.values():
+                    raise osv.except_osv(_('Insufficient Data!'), _('No address(es) defined for this customer.'))
+
+                vals = {
+                    'origin': _('Opportunity: %s') % str(case.id),
+                    'section_id': case.section_id and case.section_id.id or False,
+                    'categ_ids': [(6, 0, [categ_id.id for categ_id in case.categ_ids])],
+                    'partner_id': partner.id,
+                    'pricelist_id': pricelist,
+                    'partner_invoice_id': partner_addr['invoice'],
+                    'partner_shipping_id': partner_addr['delivery'],
+                    'date_order': old_fields.date.context_today(self,cr,uid,context=context),
+                    'fiscal_position': fpos,
+                    'payment_term':payment_term,
+                }
+                if partner.id:
+                    vals['user_id'] = partner.user_id and partner.user_id.id or uid
+                new_id = sale_obj.create(cr, uid, vals, context=context)
+                sale_order = sale_obj.browse(cr, uid, new_id, context=context)
+                case_obj.write(cr, uid, [case.id], {'ref': 'sale.order,%s' % new_id})
+                new_ids.append(new_id)
+                message = _("Opportunity has been <b>converted</b> to the quotation <em>%s</em>.") % (sale_order.name)
+                case.message_post(body=message)
+
+                ## CREATE proposal
+                proposal_id = self.pool.get('website_proposal.template').create_proposal(cr, uid, make.proposal_template_id.id, new_id, context=context)
+
+                ## SAVE new status and sale_order
+                make.sale_case_id.write({'state': 'quot_proposal_preparation',
+                                         'sale_order_id':sale_order.id,
+                                     })
+
+
+            #if make.close:
+            #    case_obj.case_mark_won(cr, uid, data, context=context)
+            #if not new_ids:
+            #    return {'type': 'ir.actions.act_window_close'}
+            #if len(new_ids)<=1:
+            #    value = {
+            #        'domain': str([('id', 'in', new_ids)]),
+            #        'view_type': 'form',
+            #        'view_mode': 'form',
+            #        'res_model': 'sale.order',
+            #        'view_id': False,
+            #        'type': 'ir.actions.act_window',
+            #        'name' : _('Quotation'),
+            #        'res_id': new_ids and new_ids[0]
+            #    }
+            #else:
+            #    value = {
+            #        'domain': str([('id', 'in', new_ids)]),
+            #        'view_type': 'form',
+            #        'view_mode': 'tree,form',
+            #        'res_model': 'sale.order',
+            #        'view_id': False,
+            #        'type': 'ir.actions.act_window',
+            #        'name' : _('Quotation'),
+            #        'res_id': new_ids
+            #    }
+            #return value
+
