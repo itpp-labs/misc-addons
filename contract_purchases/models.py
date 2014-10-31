@@ -17,7 +17,7 @@ class account_analytic_account(osv.Model):
         res = {}
         for account in self.browse(cr, uid, ids, context=context):
             res[account.id] = 0.0
-            purchase_ids = purc_obj.search(cr, uid, [('account_analytic_id','=', account.id), ('invoiced', '=', False)], context=context)
+            purchase_ids = purc_obj.search(cr, uid, [('contract_id','=', account.id), ('invoiced', '=', False)], context=context)
             for purchase in purc_obj.browse(cr, uid, purchase_ids, context=context):
                 res[account.id] += purchase.amount_untaxed
                 for invoice in purchase.invoice_ids:
@@ -108,7 +108,7 @@ class account_analytic_account(osv.Model):
         res = {}
         for account in self.browse(cr, uid, ids, context=context):
             res[account.id] = []
-            purchase_ids = purc_obj.search(cr, uid, [('account_analytic_id','=', account.id)], context=context)
+            purchase_ids = purc_obj.search(cr, uid, [('contract_id','=', account.id)], context=context)
             for p in purc_obj.browse(cr, uid, purchase_ids, context=context):
                 res[account.id].append(p.partner_id.id)
         return res
@@ -147,7 +147,7 @@ class account_analytic_account(osv.Model):
 class purchase_order(osv.Model):
     _inherit = "purchase.order"
     _columns = {
-        'account_analytic_id': fields.many2one('account.analytic.account', 'Analytic Account'),
+        'contract_id': fields.many2one('account.analytic.account', 'Analytic Account'),
 
     }
 
@@ -160,8 +160,8 @@ class purchase_order_line(osv.Model):
     def create(self, cr, uid, vals, context=None):
         if vals.get('order_id'):
             order = self.pool.get('purchase.order').browse(cr, uid, vals.get('order_id'))
-            if order and order.account_analytic_id and not vals.get('account_analytic_id'):
-                vals['account_analytic_id'] = order.account_analytic_id.id
+            if order and order.contract_id and not vals.get('account_analytic_id'):
+                vals['account_analytic_id'] = order.contract_id.id
         order =  super(purchase_order_line, self).create(cr, uid, vals, context=context)
         return order
 

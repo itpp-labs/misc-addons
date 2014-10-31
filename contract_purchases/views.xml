@@ -7,7 +7,7 @@
 			<field name="inherit_id" ref="purchase.purchase_order_form"/>
             <field name="arch" type="xml">
 				<xpath expr="//field[@name='journal_id']" position="after">
-					<field name="account_analytic_id"/>
+					<field name="contract_id"/>
 				</xpath>
 			</field>
 		</record>
@@ -47,7 +47,7 @@
                             <button name="%(action_purchase_order)d" string="Purchase Orders"
                                     type="action"
                                     class="oe_link"
-                                    context="{'search_default_account_analytic_id': [active_id],'default_account_analytic_id': [active_id]}"
+                                    context="{'search_default_contract_id': [active_id],'default_contract_id': [active_id]}"
                                     />
                         </td>
                     </tr>

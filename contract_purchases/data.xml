@@ -7,7 +7,7 @@
 			<field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
             <field name="arch" type="xml">
 				<xpath expr="//field[@name='create_uid']" position="after">
-					<field name="account_analytic_id"/>
+					<field name="contract_id"/>
 				</xpath>
 			</field>
         </record>
