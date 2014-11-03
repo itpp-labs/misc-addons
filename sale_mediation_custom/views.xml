@@ -99,7 +99,7 @@
             <field name="name">Contract (sale case) - Kanban view</field>
             <field name="model">account.analytic.account</field>
             <field name="arch" type="xml">
-                <kanban default_group_by="state">
+                <kanban default_group_by="state" quick_create="false" edit="false">
                     <field name="name"/>
                     <field name="color"/>
                     <templates>
