@@ -45,36 +45,69 @@ class account_analytic_account(models.Model):
     #create_date = fields.Date(default=fields.Date.context_today)
     color = fields.Integer('Color index')
 
+    STATE_SELECTION = [
+        ('draft','New'), # odoo
+
+        ('lead','Lead'),
+
+        ('opp_identified', 'Prospect identified'),
+        ('opp_qualified', 'Prospect qualified'),
+        ('quot_proposal_preparation', 'Proposal preparation'),
+        ('quot_proposal_sent', 'Proposal Sent'),
+
+        ('quot_contract_preparation', 'Contract preparation'),
+        ('quot_contract_sent', 'Contract sent'),
+
+        ('sale_confirmation', 'Sale confirmation'),
+        ('sale_won', 'Sale won'),
+
+        ('to_be_invoiced', 'To be Invoiced'),
+        ('awaiting_payment', 'Awaiting Payment'),
+
+        ('lost', 'Lost'),
+        ('cancelled', 'Cancelled'), # odoo
+        ('close','Close'), # odoo renamed from 'Close'
+        ('template', 'Template'), # odoo
+    ]
     _columns = {
-        'state': old_fields.selection(selection=[
-            ('template', 'Template'), # odoo
-            ('draft','New'), # odoo
-
-            ('lead','Lead'),
-
-            ('opp_identified', 'Prospect identified'),
-            ('opp_qualified', 'Prospect qualified'),
-            ('quot_proposal_preparation', 'Proposal preparation'),
-            ('quot_proposal_sent', 'Proposal Sent'),
-
-            ('quot_contract_preparation', 'Contract preparation'),
-            ('quot_contract_sent', 'Contract sent'),
-
-            ('sale_confirmation', 'Sale confirmation'),
-            ('sale_won', 'Sale won'),
-
-            ('to_be_invoiced', 'To be Invoiced'),
-            ('awaiting_payment', 'Awaiting Payment'),
-
-            ('lost', 'Lost'),
-            ('cancelled', 'Cancelled'), # odoo
-            ('close','Completed'), # odoo renamed from 'Close'
-        ], string='Status', required=True),
+        'state': old_fields.selection(selection=STATE_SELECTION, string='Status', required=True),
     }
     _defaults = {
         'state': 'lead',
         'name': _get_new_code,
     }
+
+    @api.v7
+    def read_group(self, cr, uid, domain, fields, groupby, offset=0, limit=None, context=None, orderby=False, lazy=True):
+        """ Override read_group to always display all states. """
+        if groupby and groupby[0] == "state":
+            # Default result structure
+            # states = self._get_state_list(cr, uid, context=context)
+
+            STATE_TO_DELETE = ['template', 'draft', 'to_be_invoiced', 'awaiting_payment', 'lost', 'cancelled', 'close']
+            states = self.STATE_SELECTION
+
+            read_group_all_states = [{
+                '__context': {'group_by': groupby[1:]},
+                '__domain': domain + [('state', '=', state_value)],
+                'state': state_value,
+                'state_count': 0,
+            } for state_value, state_name in states]
+            # Get standard results
+            read_group_res = super(account_analytic_account, self).read_group(cr, uid, domain, fields, groupby, offset=offset, limit=limit, context=context, orderby=orderby)
+            # Update standard results with default results
+            result = []
+            for state_value, state_name in states:
+                res = filter(lambda x: x['state'] == state_value, read_group_res)
+                if not res:
+                    if state_value in STATE_TO_DELETE:
+                        continue
+                    res = filter(lambda x: x['state'] == state_value, read_group_all_states)
+                res[0]['state'] = [state_value, state_name]
+                result.append(res[0])
+            return result
+        else:
+            return super(account_analytic_account, self).read_group(cr, uid, domain, fields, groupby, offset=offset, limit=limit, context=context, orderby=orderby)
 
     @api.one
     def action_set_state_opp_identified(self):
