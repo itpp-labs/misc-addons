@@ -15,14 +15,32 @@ class res_partner(osv.Model):
         'default_bank_id':fields.function(_get_default_bank_id, type='many2one', obj='res.partner.bank')
         }
 
+CURRENCY_RU = {
+    'USD': (u"доллар", u"доллара", u"долларов"),
+    'KZT': (u"тенге", u"тенге", u"тенге"),
+    'RUB': (u"рубль", u"рубля", u"рублей"),
+}
+
+CURRENCY_CENTS_RU = {
+    'USD': (u"цент", u"цента", u"центов"),
+    'RUB': (u"копейка", u"копейки", u"копеек"),
+}
 def _get_amount_in_words(self, cr, uid, ids, field_name, arg, context=None):
     res = {}
 
     for row in self.browse(cr, uid, ids, context):
-        rubles = numeral.rubles(int(row.amount_total))
+        code = row.currency_id.name
+        if code not in CURRENCY_RU:
+            code = 'RUB'
+        #rubles = numeral.rubles(int(row.amount_total))
+        rubles_num_in_words = numeral.in_words(int(row.amount_total))
+        rubles = numeral.choose_plural(int(row.amount_total), CURRENCY_RU[code])
         copek_num = round(row.amount_total - int(row.amount_total))
-        copek = numeral.choose_plural(int(copek_num), (u"копейка", u"копейки", u"копеек"))
-        res[row.id] = ("%s %02d %s")%(rubles, copek_num, copek)
+        copek = numeral.choose_plural(int(copek_num), CURRENCY_CENTS_RU[code]) if code in CURRENCY_CENTS_RU else ''
+        if copek:
+            res[row.id] = ("%s %s %02d %s")%(rubles_num_in_words, rubles, copek_num, copek)
+        else:
+            res[row.id] = ("%s %s")%(rubles_num_in_words, rubles)
 
     return res
 
