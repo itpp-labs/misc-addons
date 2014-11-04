@@ -27,8 +27,8 @@
 			 string="Акт приема-передачи"
 			 model="account.invoice" 
 			 report_type="qweb-pdf"
-			 file="sale_report_ru.report_acceptance_act_template" 
-			 name="sale_report_ru.report_acceptance_act_template" 
+			 file="sale_report_ru.report_acceptance_act_template_invoice" 
+			 name="sale_report_ru.report_acceptance_act_template_invoice" 
 			 menu="True"
 			 />
 
@@ -349,7 +349,7 @@
 		<t t-call="sale_report_ru.layout">
 		  <div class="page">
 			 <h1>Акт приема-передачи оказанных услуг (выполненных работ)</h1>
-			 <h3>№ <span t-field="o.name"/> от
+			 <h3>№ <span t-esc="o._name=='sale.order' and o.name or o.number"/> от
 			 <t t-if="o._name=='sale.order' and o.date_acceptance">
 				<span t-field="o.date_acceptance" t-field-options='{"format": "dd.MM.yyyy"}'/>
 			 </t>
@@ -380,7 +380,10 @@
 	 </t>
   </t>
 </template>
-
+<template id="report_acceptance_act_template_invoice">
+	<t t-call="sale_report_ru.report_acceptance_act_template">
+	</t>
+</template>
 
 <template id="report_saleorder">
     <t t-call="report.html_container">
