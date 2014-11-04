@@ -37,7 +37,7 @@ class account_analytic_account(models.Model):
 
     participant_ids = fields.Many2many('res.partner', id1='contract_id', id2='partner_id', string='Participants')
 
-    lead_id = fields.Many2one('crm.lead', 'Lead \ Opportunity', required=True, readonly=True)
+    lead_id = fields.Many2one('crm.lead', 'Lead \ Opportunity', required=False, readonly=True)
     sale_order_id = fields.Many2one('sale.order', 'Quotation \ Sale Order', readonly=True)
     sale_order_lines = fields.One2many('sale.order.line', 'Order lines', related='sale_order_id.order_line')
     proposal_id = fields.Many2one('website_proposal.proposal', 'Proposal', related='sale_order_id.proposal_id', readonly=True)
@@ -76,6 +76,18 @@ class account_analytic_account(models.Model):
         'state': 'lead',
         'name': _get_new_code,
     }
+
+    @api.v7
+    def create(self, cr, uid, vals, context=None):
+        if 'lead_id' not in vals:
+            name = vals.get('name') or self._get_new_code(cr, uid, vals, context=context)
+            lead_id = self.pool['crm.lead'].create(cr, uid, {
+                'partner_id': vals.get('partner_id'),
+                'name': '%s Lead' % name,
+            })
+            vals['lead_id'] = lead_id
+            vals['name'] = name
+        return super(account_analytic_account, self).create(cr, uid, vals, context=context)
 
     @api.v7
     def read_group(self, cr, uid, domain, fields, groupby, offset=0, limit=None, context=None, orderby=False, lazy=True):

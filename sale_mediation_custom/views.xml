@@ -146,7 +146,7 @@
 
         <!-- Action Sales/Sales/Contracts -->
         <record id="action_account_analytic_overdue_all" model="ir.actions.act_window">
-            <field name="name">Contracts</field>
+            <field name="name">Sales funnel</field>
             <field name="res_model">account.analytic.account</field>
             <field name="view_type">form</field>
             <field name="view_mode">kanban,tree,form</field>
