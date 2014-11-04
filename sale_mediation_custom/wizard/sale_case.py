@@ -62,6 +62,7 @@ class create_proposal(models.TransientModel):
                     raise osv.except_osv(_('Insufficient Data!'), _('No address(es) defined for this customer.'))
 
                 vals = {
+                    'name': '%s SO' % make.sale_case_id.name,
                     'origin': _('Opportunity: %s') % str(case.id),
                     'section_id': case.section_id and case.section_id.id or False,
                     'categ_ids': [(6, 0, [categ_id.id for categ_id in case.categ_ids])],
