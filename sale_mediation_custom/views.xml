@@ -43,12 +43,13 @@
 					<button type="object" name="action_set_state_sale_confirmation" class="oe_highlight" string="Contract signed" states="quot_contract_sent"/>
 					<button type="object" name="action_set_state_sale_won" class="oe_highlight" string="Confirm sale &amp; create project" states="sale_confirmation"/>
 
-					<button type="action" string="Administration" name="%(action_sale_case_administration)d"/>
+					<button type="action" string="Administration" name="%(action_sale_case_administration)d" groups="access_custom.group_sales_full_rights"/>
 
 
 				</xpath>
 				<xpath expr="//field[@name='manager_id']" position="after">
 					<!-- <field name="support_manager_id"/> -->
+					<field name="section_id"/>
 					<field name="commissioning_manager_id"/>
 					<field name="business_manager_id"/>
 					<field name="consultant_id"/>
@@ -65,14 +66,26 @@
 				<xpath expr="//notebook" position="inside">
 					<page string="Lead \ Opportunity">
 						<group>
-							<field name="lead_id"/>
+							<field name="lead_id" context="{'form_view_ref':'crm.crm_case_form_view_oppor'}" attrs="{'invisible':[('lead_id_type', '=', 'lead')]}" readonly="1"/>
+							<field name="lead_id2" context="{'form_view_ref':'crm.crm_case_form_view_leads'}" attrs="{'invisible':[('lead_id_type', '!=', 'lead')]}" readonly="1"/>
+							<field name="lead_id_type" readonly="1"/>
+							<field name="lead_id_priority" widget="priority"/>
+
+                            <label for="lead_id_planned_revenue"/>
+                            <h2>
+                                <field name="company_currency" invisible="1"/>
+                                <field name="lead_id_planned_revenue" class="oe_inline" widget='monetary' options="{'currency_field': 'company_currency'}"/>
+                                <span class="oe_grey"> at </span>
+                                <field name="lead_id_probability" class="oe_inline" widget="integer"/>%%
+                            </h2>
+
 						</group>
 					</page>
 				</xpath>
 				<xpath expr="//notebook" position="inside">
 					<page string="Quotation \ Sale Order">
 						<group>
-							<field name="sale_order_id"/>
+							<field name="sale_order_id" readonly="True"/>
 							<field name="proposal_id" invisible="True"/>
 
 							<label for="open_proposal" string="Proposal"/>
@@ -82,6 +95,7 @@
 							<label for="open_contract" string="Contract"/>
 							<button name="open_contract" string="Open contract" attrs="{'invisible':[('contract_id', '=', False)]}" type="object"/>
 							-->
+							<field name="sale_order_state"/>
 						</group>
 						<field name="sale_order_lines"/>
 					</page>
@@ -200,6 +214,33 @@
 				</xpath>
 			</field>
 		</record>
+
+        <record id="action_create_sale_case" model="ir.actions.server">
+            <field name="name">Create sales funnel (from lead)</field>
+            <field name="model_id" ref="model_crm_lead"/>
+            <field name="state">code</field>
+            <field name="code">
+                if context.get('active_model') == 'crm.lead' and context.get('active_ids'):
+                    self.action_create_sale_case(cr, uid, context['active_ids'], context=context)
+            </field>
+        </record>
+
+        <record id="ir_mark_as_lost" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'crm.lead'" name="model"/>
+            <field name="name">Create sale case</field>
+            <field eval="'ir.actions.server,%d'%action_create_sale_case" name="value"/>
+        </record>
+
+        <act_window id="action_create_sale_case_from_opportunity"
+					name="Create sales funnel (from opportunity)"
+					key2="client_action_multi"
+					res_model="sale_mediation_custom.opportunity_to_sale_case"
+					src_model="crm.lead"
+					view_mode="form"
+					multi="True"
+					target="new"
+					/>
 
 	</data>
 

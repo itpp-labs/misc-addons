@@ -37,9 +37,18 @@ class account_analytic_account(models.Model):
 
     participant_ids = fields.Many2many('res.partner', id1='contract_id', id2='partner_id', string='Participants')
 
-    lead_id = fields.Many2one('crm.lead', 'Lead \ Opportunity', required=False, readonly=True)
-    sale_order_id = fields.Many2one('sale.order', 'Quotation \ Sale Order', readonly=True)
+    lead_id = fields.Many2one('crm.lead', 'Lead \ Opportunity', required=False)
+    lead_id2 = fields.Many2one('crm.lead', 'Lead \ Opportunity', related='lead_id', readonly=True)
+    lead_id_type = fields.Selection(string='Lead or Opportunity', related='lead_id.type')
+    lead_id_priority = fields.Selection(string='Priority', related='lead_id.priority')
+    lead_id_probability = fields.Float(string='Opportunity probability', related='lead_id.probability')
+    lead_id_planned_revenue = fields.Float(string='Expected revenue', related='lead_id.planned_revenue')
+
+    sale_order_id = fields.Many2one('sale.order', 'Quotation \ Sale Order')
+    section_id = fields.Many2one('crm.case.section', 'Sales team')
     sale_order_lines = fields.One2many('sale.order.line', 'Order lines', related='sale_order_id.order_line')
+    sale_order_state = fields.Selection('Sale order status', related='sale_order_id.state')
+    company_currency = fields.Many2one('res.currency', related='company_id.currency_id')
     proposal_id = fields.Many2one('website_proposal.proposal', 'Proposal', related='sale_order_id.proposal_id', readonly=True)
 
     #create_date = fields.Date(default=fields.Date.context_today)
@@ -66,7 +75,7 @@ class account_analytic_account(models.Model):
 
         ('lost', 'Lost'),
         ('cancelled', 'Cancelled'), # odoo
-        ('close','Close'), # odoo renamed from 'Close'
+        ('close','Close'),
         ('template', 'Template'), # odoo
     ]
     _columns = {
@@ -79,7 +88,7 @@ class account_analytic_account(models.Model):
 
     @api.v7
     def create(self, cr, uid, vals, context=None):
-        if 'lead_id' not in vals:
+        if not vals.get('lead_id'):
             name = vals.get('name') or self._get_new_code(cr, uid, vals, context=context)
             lead_id = self.pool['crm.lead'].create(cr, uid, {
                 'partner_id': vals.get('partner_id'),
@@ -121,17 +130,23 @@ class account_analytic_account(models.Model):
         else:
             return super(account_analytic_account, self).read_group(cr, uid, domain, fields, groupby, offset=offset, limit=limit, context=context, orderby=orderby)
 
+    def lead_to_opportunity(self):
+        self.lead_id_type = 'opportunity'
+
     @api.one
     def action_set_state_opp_identified(self):
         self.state = 'opp_identified'
+        self.lead_to_opportunity()
 
     @api.one
     def action_set_state_opp_qualified(self):
         self.state = 'opp_qualified'
+        self.lead_to_opportunity()
 
     @api.one
     def action_set_state_quot_proposal_preparation(self):
         self.state = 'quot_proposal_preparation'
+        self.lead_to_opportunity()
 
     @api.one
     def action_set_state_quot_proposal_sent(self):
@@ -190,13 +205,13 @@ class account_analytic_account(models.Model):
     def action_set_state_sale_won(self, cr, uid, ids, context=None):
         assert len(ids) == 1, 'This option should only be used for a single id at a time.'
         r = self.browse(cr, uid, ids, context=context)[0]
+        r.sale_order_id.action_button_confirm()
+
         m = re.match('SE(\d*)(.*)', r.name)
 
         name = r.name
-        print 'name', name, m
         if m:
             name = 'PE%s (SE)%s'% (m.group(1), m.group(2))
-        print 'name', name
         vals = {
             'name': name,
             'type': 'contract',
@@ -210,7 +225,6 @@ class account_analytic_account(models.Model):
         data_obj = self.pool.get('ir.model.data')
         form_view_id = data_obj._get_id(cr, uid, 'project', 'edit_project')
         form_view = data_obj.read(cr, uid, form_view_id, ['res_id'])
-        print 'project_id', project_id
 
         return {
             'name': _('Project'),
@@ -267,13 +281,21 @@ class crm_lead(models.Model):
 
     @api.multi
     def action_create_sale_case(self):
-        assert len(self) == 1, 'This option should only be used for a single id at a time.'
-        vals = {'lead_id': self.id,
-                'partner_id': self.partner_id.id,
-                'type': 'contract',
-                'state':'lead'}
-        sale_case_id = self.env['account.analytic.account'].create(vals)
-        self.type = 'opportunity'
+        #assert len(self) == 1, 'This option should only be used for a single id at a time.'
+        sale_case_id = None
+        for r in self:
+            if r.contract_ids or not r.partner_id or r.type!='lead':
+                continue
+            vals = {'lead_id': r.id,
+                    'partner_id': r.partner_id.id,
+                    'section_id': r.section_id and r.section_id.id or False,
+                    'type': 'contract',
+                    'state':'lead'}
+            sale_case_id = self.env['account.analytic.account'].create(vals)
+            #r.type = 'opportunity'
+
+        if len(self)>1 or not sale_case_id:
+            return True
 
         form = self.env.ref('account_analytic_analysis.account_analytic_account_form_form', False)
 
@@ -282,7 +304,7 @@ class crm_lead(models.Model):
             'view_type': 'form',
             'view_mode': 'tree, form, kanban',
             'res_model': 'account.analytic.account',
-            'res_id': int(sale_case_id),
+            'res_id': sale_case_id and int(sale_case_id),
             #'view_id': False,
             'views': [(form.id, 'form')],
             'type': 'ir.actions.act_window',

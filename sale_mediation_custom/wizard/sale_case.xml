@@ -18,6 +18,25 @@
                 <form>
                     <group>
                         <field name="state"/>
+                        <field name="lead_id"/>
+                        <field name="sale_order_id"/>
+                    </group>
+                    <footer>
+                        <button name="action_apply" string="Apply" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="view_opportunity_to_sale_case" model="ir.ui.view">
+            <field name="name">opportunity_to_sale_case</field>
+            <field name="model">sale_mediation_custom.opportunity_to_sale_case</field>
+            <field name="arch" type="xml">
+                <form>
+					<p>Click apply to create sale funnel from selected opportunity</p>
+                    <group>
+						<field name="state"/>
                     </group>
                     <footer>
                         <button name="action_apply" string="Apply" type="object" class="oe_highlight"/>

@@ -7,6 +7,10 @@ from openerp.tools.translate import _
 def _get_active_id(self):
     return self._context.get('active_id')
 
+def _get_active_ids(self):
+    return self._context.get('active_ids')
+
+from ..models import account_analytic_account as aaa
 
 class sale_case_administration(models.TransientModel):
     _name = 'sale_mediation_custom.sale_case_administration'
@@ -15,11 +19,31 @@ class sale_case_administration(models.TransientModel):
     sale_case_id = fields.Many2one('account.analytic.account', default=_get_active_id)
 
     state = fields.Selection(related='sale_case_id.state')
+    lead_id = fields.Many2one('crm.lead', related='sale_case_id.lead_id')
+    sale_order_id = fields.Many2one('sale.order', related='sale_case_id.sale_order_id')
 
     @api.one
     def action_apply(self):
         pass
 
+class opportunity_to_sale_case(models.TransientModel):
+    _name = 'sale_mediation_custom.opportunity_to_sale_case'
+
+    opportunity_ids = fields.Many2many('crm.lead', default=_get_active_ids)
+    state = fields.Selection(string='State for sales funnel', selection=aaa.STATE_SELECTION)
+
+    @api.one
+    def action_apply(self):
+        for r in self.opportunity_ids:
+            if r.contract_ids or not r.partner_id or r.type!='opportunity':
+                continue
+            vals = {'lead_id': r.id,
+                    'partner_id': r.partner_id.id,
+                    'section_id': r.section_id and r.section_id.id or False,
+                    'type': 'contract',
+                    'state':self.state}
+            sale_case_id = self.env['account.analytic.account'].create(vals)
+        pass
 
 class create_proposal(models.TransientModel):
     _name = 'sale_mediation_custom.create_proposal'
@@ -73,6 +97,7 @@ class create_proposal(models.TransientModel):
                     'date_order': old_fields.date.context_today(self,cr,uid,context=context),
                     'fiscal_position': fpos,
                     'payment_term':payment_term,
+                    'project_id': make.sale_case_id.id,
                 }
                 if partner.id:
                     vals['user_id'] = partner.user_id and partner.user_id.id or uid
@@ -87,9 +112,10 @@ class create_proposal(models.TransientModel):
                 proposal_id = self.pool.get('website_proposal.template').create_proposal(cr, uid, make.proposal_template_id.id, new_id, context=context)
 
                 ## SAVE new status and sale_order
-                make.sale_case_id.write({'state': 'quot_proposal_preparation',
+                make.sale_case_id.write({#'state': 'quot_proposal_preparation',
                                          'sale_order_id':sale_order.id,
                                      })
+                make.sale_case_id.action_set_state_quot_proposal_preparation()
 
 
             #if make.close:
