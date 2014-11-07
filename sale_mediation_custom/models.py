@@ -88,7 +88,8 @@ class account_analytic_account(models.Model):
 
     @api.v7
     def create(self, cr, uid, vals, context=None):
-        if not vals.get('lead_id'):
+        is_project = vals.get('project_ids')
+        if not vals.get('lead_id') and not is_project:
             name = vals.get('name') or self._get_new_code(cr, uid, vals, context=context)
             lead_id = self.pool['crm.lead'].create(cr, uid, {
                 'partner_id': vals.get('partner_id'),
@@ -318,7 +319,7 @@ class project_project(models.Model):
         'name': old_fields.char('Project Name', required=True),
     }
     _defaults = {
-        'name': '_'
+        #'name': '_'
     }
 
 class project_task(models.Model):
