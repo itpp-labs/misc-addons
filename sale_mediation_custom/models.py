@@ -292,6 +292,7 @@ class crm_lead(models.Model):
                     'type': 'contract',
                     'state':'lead'}
             sale_case_id = self.env['account.analytic.account'].create(vals)
+            sale_case_id.write({'name': '%s %s' % (sale_case_id.name, r.name)})
             #r.type = 'opportunity'
 
         if len(self)>1 or not sale_case_id:

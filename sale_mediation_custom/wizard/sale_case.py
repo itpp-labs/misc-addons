@@ -43,7 +43,7 @@ class opportunity_to_sale_case(models.TransientModel):
                     'type': 'contract',
                     'state':self.state}
             sale_case_id = self.env['account.analytic.account'].create(vals)
-        pass
+            sale_case_id.write({'name': '%s %s' % (sale_case_id.name, r.name)})
 
 class create_proposal(models.TransientModel):
     _name = 'sale_mediation_custom.create_proposal'
