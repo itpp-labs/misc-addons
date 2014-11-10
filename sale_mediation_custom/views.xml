@@ -183,10 +183,12 @@
 
 
 
+<!--
 		<delete id="crm.menu_crm_opportunities" model="ir.ui.menu"/>
 		<delete id="crm.menu_crm_leads" model="ir.ui.menu"/>
 		<delete id="sale.menu_sale_quotations" model="ir.ui.menu"/>
 		<delete id="sale.menu_sale_order" model="ir.ui.menu"/>
+-->
 
 
         <!-- Sale Order Form View  -->
