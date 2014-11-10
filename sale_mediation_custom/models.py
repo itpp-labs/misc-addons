@@ -48,7 +48,6 @@ class account_analytic_account(models.Model):
     section_id = fields.Many2one('crm.case.section', 'Sales team')
     sale_order_lines = fields.One2many('sale.order.line', 'Order lines', related='sale_order_id.order_line')
     sale_order_state = fields.Selection('Sale order status', related='sale_order_id.state')
-    company_currency = fields.Many2one('res.currency', related='company_id.currency_id')
     proposal_id = fields.Many2one('website_proposal.proposal', 'Proposal', related='sale_order_id.proposal_id', readonly=True)
 
     #create_date = fields.Date(default=fields.Date.context_today)
