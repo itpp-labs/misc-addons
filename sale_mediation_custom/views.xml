@@ -34,7 +34,7 @@
 				<xpath expr="//field[@name='state']" position="replace">
 					<field name="state" widget="statusbar"
                            statusbar_visible="lead,opp_identified,opp_qualified,quot_proposal_preparation,quot_proposal_sent,quot_contract_preparation,quot_contract_sent,sale_confirmation,sale_won" statusbar_colors='{"pending":"red", "template":"blue"}'/>
-					<button type="object" name="action_set_state_lead" class="oe_highlight" string="Lead" states="draft"/>
+					<button type="object" name="action_set_state_lead" class="oe_highlight" string="Convert to Lead" states="draft"/>
 					<button type="object" name="action_set_state_opp_identified" class="oe_highlight" string="Prospect identified" states="lead"/>
 					<button type="object" name="action_set_state_opp_qualified" class="oe_highlight" string="Prospect qualified" states="lead,opp_identified"/>
 					<button type="action" name="%(action_create_proposal)d" class="oe_highlight" string="Create proposal" states="lead,opp_identified,opp_qualified"/>
