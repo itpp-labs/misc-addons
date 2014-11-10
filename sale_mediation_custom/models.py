@@ -134,6 +134,10 @@ class account_analytic_account(models.Model):
         self.lead_id_type = 'opportunity'
 
     @api.one
+    def action_set_state_lead(self):
+        self.state = 'lead'
+
+    @api.one
     def action_set_state_opp_identified(self):
         self.state = 'opp_identified'
         self.lead_to_opportunity()
