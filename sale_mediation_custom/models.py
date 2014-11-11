@@ -54,19 +54,11 @@ class account_analytic_account(models.Model):
     color = fields.Integer('Color index')
 
     STATE_SELECTION = [
-        ('draft','New'), # odoo
-
         ('lead','Lead'),
-
-        ('opp_identified', 'Prospect identified'),
-        ('opp_qualified', 'Prospect qualified'),
-        ('quot_proposal_preparation', 'Proposal preparation'),
-        ('quot_proposal_sent', 'Proposal Sent'),
-
-        ('quot_contract_preparation', 'Contract preparation'),
-        ('quot_contract_sent', 'Contract sent'),
-
-        ('sale_confirmation', 'Sale confirmation'),
+        ('new','New'),
+        ('qualified', 'Qualified'),
+        ('quotation', 'Quotation'),
+        ('negotiation', 'Negotiation'),
         ('sale_won', 'Sale won'),
 
         ('to_be_invoiced', 'To be Invoiced'),
@@ -105,7 +97,7 @@ class account_analytic_account(models.Model):
             # Default result structure
             # states = self._get_state_list(cr, uid, context=context)
 
-            STATE_TO_DELETE = ['template', 'draft', 'to_be_invoiced', 'awaiting_payment', 'lost', 'cancelled', 'close']
+            STATE_TO_DELETE = ['template', 'to_be_invoiced', 'awaiting_payment', 'lost', 'cancelled', 'close']
             states = self.STATE_SELECTION
 
             read_group_all_states = [{
@@ -134,27 +126,23 @@ class account_analytic_account(models.Model):
         self.lead_id_type = 'opportunity'
 
     @api.one
-    def action_set_state_lead(self):
-        self.state = 'lead'
-
-    @api.one
-    def action_set_state_opp_identified(self):
-        self.state = 'opp_identified'
+    def action_set_state_new(self):
+        self.state = 'new'
         self.lead_to_opportunity()
 
     @api.one
-    def action_set_state_opp_qualified(self):
-        self.state = 'opp_qualified'
+    def action_set_state_qualified(self):
+        self.state = 'qualified'
         self.lead_to_opportunity()
 
     @api.one
-    def action_set_state_quot_proposal_preparation(self):
-        self.state = 'quot_proposal_preparation'
+    def action_set_state_quotation(self):
+        self.state = 'quotation'
         self.lead_to_opportunity()
 
     @api.one
-    def action_set_state_quot_proposal_sent(self):
-        self.state = 'quot_proposal_sent'
+    def action_set_state_negotiation(self):
+        self.state = 'negotiation'
 
     @api.v7
     def action_send_proposal(self, cr, uid, ids, context = None):

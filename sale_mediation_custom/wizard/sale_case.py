@@ -112,10 +112,8 @@ class create_proposal(models.TransientModel):
                 proposal_id = self.pool.get('website_proposal.template').create_proposal(cr, uid, make.proposal_template_id.id, new_id, context=context)
 
                 ## SAVE new status and sale_order
-                make.sale_case_id.write({#'state': 'quot_proposal_preparation',
-                                         'sale_order_id':sale_order.id,
-                                     })
-                make.sale_case_id.action_set_state_quot_proposal_preparation()
+                make.sale_case_id.write({'sale_order_id':sale_order.id})
+                make.sale_case_id.action_set_state_quotation()
 
 
             #if make.close:
