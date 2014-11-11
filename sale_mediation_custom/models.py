@@ -183,7 +183,12 @@ class account_analytic_account(models.Model):
     #@api.v7 # workflow handler doesn't work with this decorator
     def action_set_state_sale_won(self, cr, uid, ids, context=None):
         assert len(ids) == 1, 'This option should only be used for a single id at a time.'
+
         r = self.browse(cr, uid, ids, context=context)[0]
+        if r.project_id:
+            r.write({'state':'sale_won'})
+            return True
+
         r.sale_order_id.action_button_confirm()
 
         m = re.match('SE(\d*)(.*)', r.name)

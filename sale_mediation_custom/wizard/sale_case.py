@@ -21,10 +21,25 @@ class sale_case_administration(models.TransientModel):
     state = fields.Selection(related='sale_case_id.state')
     lead_id = fields.Many2one('crm.lead', related='sale_case_id.lead_id')
     sale_order_id = fields.Many2one('sale.order', related='sale_case_id.sale_order_id')
+    SIGNAL_SELECTION = [
+        ('new', 'new'),
+        ('qualified', 'qualified'),
+        ('proposal_created', 'proposal_created'),
+        ('proposal_sent', 'proposal_sent'),
+        ('proposal_confirmed', 'proposal_confirmed'),
+    ]
+    signal = fields.Selection(selection=SIGNAL_SELECTION, string='Fix workflow')
 
     @api.one
     def action_apply(self):
-        pass
+        if self.signal:
+            self.sale_case_id.delete_workflow()
+            self.sale_case_id.create_workflow()
+            for signal,label in self.SIGNAL_SELECTION:
+                self.sale_case_id.signal_workflow(signal)
+                if signal == self.signal:
+                    break
+
 
 class opportunity_to_sale_case(models.TransientModel):
     _name = 'sale_mediation_custom.opportunity_to_sale_case'
