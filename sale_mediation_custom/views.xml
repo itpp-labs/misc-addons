@@ -32,18 +32,17 @@
 				<xpath expr="//button[@name='set_cancel']" position="replace">
 				</xpath>
 				<xpath expr="//field[@name='state']" position="replace">
-					<field name="state" widget="statusbar"
-                           statusbar_visible="lead,new,qualified,quotation,negotiation,sale_won" statusbar_colors='{"pending":"red", "template":"blue"}'/>
-					<button type="object" name="action_set_state_new" class="oe_highlight" string="move to New" states="lead"/>
-					<button type="object" name="action_set_state_qualified" class="oe_highlight" string="move to Qualified" states="lead,new"/>
+					<button name="new" class="oe_highlight" string="move to New" states="lead"/>
+					<button name="qualified" class="oe_highlight" string="move to Qualified" states="lead,new"/>
 					<button type="action" name="%(action_create_proposal)d" class="oe_highlight" string="move to Quotation" states="lead,new,qualified"/>
-					<button type="object" name="action_set_state_negotiation" class="oe_highlight" string="move to Negotiation" states="quotation"/>
-					<button type="object" name="action_send_proposal" class="oe_highlight" string="Send proposal" states="negotiation"/>
-					<button type="object" name="action_set_state_sale_won" class="oe_highlight" string="move to Sale won" states="sale_confirmation"/>
+					<button name="edit_proposal" string="Edit proposal" attrs="{'invisible':['|',('state', '!=', 'quotation'),('proposal_id', '=', False)]}" type="object"/>
+					<button name="open_proposal" string="Open proposal" attrs="{'invisible':['|',('state', '!=', 'negotiation'),('proposal_id', '=', False)]}" type="object"/>
+					<button type="object" name="action_send_proposal" class="oe_highlight" string="Send proposal" states="quotation"/>
+					<!--<button type="object" name="action_set_state_negotiation" class="oe_highlight" string="move to Negotiation" states="quotation"/>-->
 
 					<button type="action" string="Administration" name="%(action_sale_case_administration)d" groups="access_custom.group_sales_full_rights"/>
-
-
+					<field name="state" widget="statusbar"
+                           statusbar_visible="lead,new,qualified,quotation,negotiation,sale_won" statusbar_colors='{"pending":"red", "template":"blue"}'/>
 				</xpath>
 				<xpath expr="//field[@name='manager_id']" position="after">
 					<!-- <field name="support_manager_id"/> -->
@@ -86,12 +85,9 @@
 							<field name="sale_order_id" readonly="True"/>
 							<field name="proposal_id" invisible="True"/>
 
+							<!--
 							<label for="open_proposal" string="Proposal"/>
 							<button name="open_proposal" string="Open proposal" attrs="{'invisible':[('proposal_id', '=', False)]}" type="object"/>
-
-							<!--
-							<label for="open_contract" string="Contract"/>
-							<button name="open_contract" string="Open contract" attrs="{'invisible':[('contract_id', '=', False)]}" type="object"/>
 							-->
 							<field name="sale_order_state"/>
 						</group>
@@ -250,15 +246,17 @@
             <!--<field name="email_from">${(object.user_id.email or '')|safe}</field>-->
             <field name="subject">${object.company_id.name|safe} Proposal (Ref ${object.name or 'n/a' })</field>
             <field name="partner_to">${object.partner_id.id}</field>
-            <field name="model_id" ref="sale.model_sale_order"/>
-            <!--<field name="model_id" ref="account_analytic_analysis.model_account_analytic_analysis"/>-->
+            <!--<field name="model_id" ref="sale.model_sale_order"/>-->
+            <field name="model_id" ref="account_analytic_analysis.model_account_analytic_analysis"/>
             <field name="auto_delete" eval="True"/>
             <field name="report_template" ref="action_report_proposal"/>
             <field name="report_name">${object.name.replace('/','')}-proposal</field>
             <field name="lang">${object.partner_id.lang}</field>
             <field name="body_html"><![CDATA[
 
-    <p>Hello ${object.partner_id.name},</p>
+    <p>Hello ${object.partner_id.name}, please check attached document.</p>
+
+	<p>To sign document you can use our online tool: <a href="/website_proposal/${object.proposal_id.id}/${object.proposal_id.access_token}">open document ${object.name}</a>
 
 ]]></field>
 		</record>

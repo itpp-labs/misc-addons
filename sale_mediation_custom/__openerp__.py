@@ -13,7 +13,7 @@
         'report.xml',
         'wizard/sale_case.xml',
         'views.xml',
-        #'data.xml',
+        'workflow.xml',
         ],
     'installable': True,
 }

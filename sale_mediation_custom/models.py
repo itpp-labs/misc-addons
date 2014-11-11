@@ -48,7 +48,6 @@ class account_analytic_account(models.Model):
     section_id = fields.Many2one('crm.case.section', 'Sales team')
     sale_order_lines = fields.One2many('sale.order.line', 'Order lines', related='sale_order_id.order_line')
     sale_order_state = fields.Selection('Sale order status', related='sale_order_id.state')
-    proposal_id = fields.Many2one('website_proposal.proposal', 'Proposal', related='sale_order_id.proposal_id', readonly=True)
 
     #create_date = fields.Date(default=fields.Date.context_today)
     color = fields.Integer('Color index')
@@ -71,6 +70,7 @@ class account_analytic_account(models.Model):
     ]
     _columns = {
         'state': old_fields.selection(selection=STATE_SELECTION, string='Status', required=True),
+        'proposal_id': old_fields.function(_get_proposal_id, type='many2one', obj='website_proposal.proposal', string='Proposal'),
     }
     _defaults = {
         'state': 'lead',
@@ -148,6 +148,7 @@ class account_analytic_account(models.Model):
     def action_send_proposal(self, cr, uid, ids, context = None):
         assert len(ids) == 1, 'This option should only be used for a single id at a time.'
         sale_case = self.browse(cr, uid, ids, context=context)[0]
+        assert sale_case.sale_order_id.order_line, 'You have to specify order lines'
 
         ir_model_data = self.pool.get('ir.model.data')
         try:
@@ -160,12 +161,11 @@ class account_analytic_account(models.Model):
             compose_form_id = False 
         ctx = dict()
         ctx.update({
-            'default_model': 'sale.order',
-            'default_res_id': sale_case.sale_order_id.id,
+            'default_model': 'account.analytic.account',
+            'default_res_id': sale_case.id,
             'default_use_template': bool(template_id),
             'default_template_id': template_id,
             'default_composition_mode': 'comment',
-            #'mark_so_as_sent': True,
             'sale_case_id': sale_case.id,
             'mark_proposal_as_sent': True
         })
@@ -180,20 +180,7 @@ class account_analytic_account(models.Model):
             'context': ctx,
         }
 
-
-    @api.one
-    def action_set_state_quot_contract_preparation(self):
-        self.state = 'quot_contract_preparation'
-
-    @api.one
-    def action_set_state_quot_contract_sent(self):
-        self.state = 'quot_contract_sent'
-
-    @api.one
-    def action_set_state_sale_confirmation(self):
-        self.state = 'sale_confirmation'
-
-    @api.v7
+    #@api.v7 # workflow handler doesn't work with this decorator
     def action_set_state_sale_won(self, cr, uid, ids, context=None):
         assert len(ids) == 1, 'This option should only be used for a single id at a time.'
         r = self.browse(cr, uid, ids, context=context)[0]
@@ -230,6 +217,11 @@ class account_analytic_account(models.Model):
         }
 
     @api.v7
+    def edit_proposal(self, cr, uid, ids, context=None):
+        r = self.browse(cr, uid, ids[0], context)
+        return self.pool['website_proposal.proposal'].edit_proposal(cr, uid, [r.proposal_id.id], context=context)
+
+    @api.v7
     def open_proposal(self, cr, uid, ids, context=None):
         r = self.browse(cr, uid, ids[0], context)
         return self.pool['website_proposal.proposal'].open_proposal(cr, uid, [r.proposal_id.id], context=context)
@@ -240,9 +232,9 @@ class mail_compose_message(osv.Model):
 
     def send_mail(self, cr, uid, ids, context=None):
         context = context or {}
-        if context.get('default_model') == 'sale.order' and context.get('mark_proposal_as_sent') and context.get('sale_case_id'):
+        if context.get('default_model') == 'account.analytic.account' and context.get('mark_proposal_as_sent') and context.get('sale_case_id'):
             context = dict(context, mail_post_autofollow=True)
-            self.pool.get('account.analytic.account').browse(cr, uid, context['sale_case_id'], context=context).action_set_state_quot_proposal_sent()
+            self.pool.get('account.analytic.account').browse(cr, uid, context['sale_case_id'], context=context).signal_workflow('proposal_sent')
         return super(mail_compose_message, self).send_mail(cr, uid, ids, context=context)
 
 class res_partner(models.Model):
@@ -254,7 +246,7 @@ class sale_order(osv.Model):
     _inherit = 'sale.order'
     _columns = {
         #'proposal_id': fields.many2one('website_proposal.proposal', 'Proposal'),
-        'proposal_id': old_fields.function(_get_proposal_id, type='many2one', obj='website_proposal.proposal', string='Proposal'),
+        'proposal_id': old_fields.function(_get_proposal_id, type='many2one', obj='website_proposal.proposal', string='Proposal'), # to delete
 
     }
 

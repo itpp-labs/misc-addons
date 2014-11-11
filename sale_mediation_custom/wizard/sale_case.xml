@@ -62,9 +62,7 @@
             <field name="arch" type="xml">
                 <form>
                     <group>
-						<group>
-							<field name="proposal_template_id" domain="[('res_model', '=', 'sale.order')]"/>
-						</group>
+						<field name="proposal_template_id" domain="[('res_model', '=', 'account.analytic.account')]" widget="radio"/>
                     </group>
                     <footer>
                         <button name="action_apply" string="Create proposal" type="object" class="oe_highlight"/>

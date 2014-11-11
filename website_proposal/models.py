@@ -91,6 +91,12 @@ class website_proposal(osv.osv):
             'target': 'self',
             'url': '/website_proposal/%s' % (ids[0])
         }
+    def edit_proposal(self, cr, uid, ids, context=None):
+        return {
+            'type': 'ir.actions.act_url',
+            'target': 'self',
+            'url': '/website_proposal/%s?enable_editor' % (ids[0])
+        }
     def create(self, cr, uid, vals, context=None):
         record = self.pool.get(vals.get('res_model')).browse(cr, uid, vals.get('res_id'))
 

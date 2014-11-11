@@ -74,6 +74,7 @@ class create_proposal(models.TransientModel):
             new_ids = []
             #for case in case_obj.browse(cr, uid, data, context=context):
             if True: # in order to save original indent
+                assert make.proposal_template_id, 'You have to specify template'
                 case = make.sale_case_id.lead_id
                 if not partner and case.partner_id:
                     partner = case.partner_id
@@ -109,12 +110,11 @@ class create_proposal(models.TransientModel):
                 case.message_post(body=message)
 
                 ## CREATE proposal
-                proposal_id = self.pool.get('website_proposal.template').create_proposal(cr, uid, make.proposal_template_id.id, new_id, context=context)
+                proposal_id = self.pool.get('website_proposal.template').create_proposal(cr, uid, make.proposal_template_id.id, make.sale_case_id.id, context=context)
 
                 ## SAVE new status and sale_order
                 make.sale_case_id.write({'sale_order_id':sale_order.id})
-                make.sale_case_id.action_set_state_quotation()
-
+                make.sale_case_id.signal_workflow('proposal_created')
 
             #if make.close:
             #    case_obj.case_mark_won(cr, uid, data, context=context)

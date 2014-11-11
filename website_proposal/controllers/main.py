@@ -78,7 +78,9 @@ class website_proposal(http.Controller):
             pdf = request.registry.get('report').get_pdf(request.cr, SUPERUSER_ID, [proposal_id], report_name)
             attachments = [('proposal-%s.pdf' % proposal_id, pdf)]
 
-        #request.registry.get(proposal.res_model).signal_workflow(request.cr, SUPERUSER_ID, [proposal_id], 'proposal_confirm', context=request.context)
+        #request.registry.get(proposal.res_model).signal_workflow(request.cr, SUPERUSER_ID, [proposal.res_id], 'proposal_confirmed', context=request.context)
+        record = request.registry.get(proposal.res_model).browse(request.cr, SUPERUSER_ID, proposal.res_id, context=request.context)
+        record.signal_workflow('proposal_confirmed')
         message = _('Proposal signed by %s') % (signer,)
         self.__message_post(message, proposal, type='comment', subtype='mt_comment', attachments=attachments)
         return True

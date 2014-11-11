@@ -25,7 +25,7 @@
         <report
             id="action_report_proposal"
             string="Proposal"
-            model="sale.order"
+            model="account.analytic.account"
             report_type="qweb-pdf"
             name="sale_mediation_custom.report_proposal"
             file="sale_mediation_custom.report_proposal"
