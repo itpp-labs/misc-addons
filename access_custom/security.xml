@@ -9,11 +9,6 @@
             <field name="name">Custom Access Rights (Extra)</field>
             <field name="sequence">-1</field>
         </record>
-
-        <record model="ir.module.category" id="module_category_custom_named">
-            <field name="name">Custom Groups</field>
-            <field name="sequence">-10</field>
-        </record>
 		
 
 		<!--  access groups -->
@@ -242,74 +237,6 @@
 
 
 
-		<!-- Named groups -->
-		<record model="res.groups" id="group_administrator">
-            <field name="name">Administrator</field>
-			<field name="custom" eval="True"/>
-            <field name="category_id" ref="module_category_custom_named"/>
-			<field name="implied_ids" eval="[(4,ref('access_custom.group_authorize_salaries')),(4,ref('access_custom.group_view_salaries')),(4,ref('access_custom.group_legal_contracts_full_rights')),(4,ref('access_custom.group_financials_full_authrisation')),(4,ref('access_custom.group_invoicing')),(4,ref('access_custom.group_view_financials')),(4,ref('access_custom.group_sales_full_rights')),(4,ref('access_custom.group_view_sales_each_sales_person')),(4,ref('access_custom.group_view_full_sales_funnel')),(4,ref('access_custom.group_projects_full_authorisation')),(4,ref('access_custom.group_create_projects')),(4,ref('access_custom.group_view_projects')),(4,ref('access_custom.group_contracts_renew')),(4,ref('access_custom.group_authorise_time_sheets')),(4,ref('access_custom.group_view_time_sheet')),(4,ref('access_custom.group_purchases_full_rights')),(4,ref('access_custom.group_view_purchases')),(4,ref('access_custom.group_request_purchases')),(4,ref('access_custom.group_request_for_quotation')),(4,ref('access_custom.group_creating_products')),(4,ref('access_custom.group_viewing_products')),(4,ref('access_custom.group_recruitment_full_rights')),(4,ref('access_custom.group_view_recruitment')),(4,ref('access_custom.group_leaves_full_rights')),(4,ref('access_custom.group_view_leaves')),(4,ref('access_custom.group_employees_full_rights')),(4,ref('access_custom.group_view_employees')),(4,ref('access_custom.group_edit_employees_each_employee')),(4,ref('access_custom.group_appraisals_full_rights')),(4,ref('access_custom.group_appraisals_view_each_person')),(4,ref('access_custom.group_knowledge')),(4,ref('access_custom.group_access_documents')),(4,ref('access_custom.group_access_specific_documents')),(4,ref('access_custom.group_reporting_full_rights')),(4,ref('access_custom.group_view_reporting')),(4,ref('access_custom.group_all_settings_and_configurations')),]"/>
-        </record>
-		<record model="res.groups" id="group_managing_director">
-            <field name="name">Managing_Director</field>
-			<field name="custom" eval="True"/>
-            <field name="category_id" ref="module_category_custom_named"/>
-			<field name="implied_ids" eval="[(4,ref('access_custom.group_authorize_salaries')),(4,ref('access_custom.group_view_salaries')),(4,ref('access_custom.group_legal_contracts_full_rights')),(4,ref('access_custom.group_financials_full_authrisation')),(4,ref('access_custom.group_invoicing')),(4,ref('access_custom.group_view_financials')),(4,ref('access_custom.group_sales_full_rights')),(4,ref('access_custom.group_view_sales_each_sales_person')),(4,ref('access_custom.group_view_full_sales_funnel')),(4,ref('access_custom.group_projects_full_authorisation')),(4,ref('access_custom.group_create_projects')),(4,ref('access_custom.group_view_projects')),(4,ref('access_custom.group_contracts_renew')),(4,ref('access_custom.group_authorise_time_sheets')),(4,ref('access_custom.group_view_time_sheet')),(4,ref('access_custom.group_purchases_full_rights')),(4,ref('access_custom.group_view_purchases')),(4,ref('access_custom.group_request_purchases')),(4,ref('access_custom.group_request_for_quotation')),(4,ref('access_custom.group_creating_products')),(4,ref('access_custom.group_viewing_products')),(4,ref('access_custom.group_recruitment_full_rights')),(4,ref('access_custom.group_view_recruitment')),(4,ref('access_custom.group_leaves_full_rights')),(4,ref('access_custom.group_view_leaves')),(4,ref('access_custom.group_employees_full_rights')),(4,ref('access_custom.group_view_employees')),(4,ref('access_custom.group_edit_employees_each_employee')),(4,ref('access_custom.group_appraisals_full_rights')),(4,ref('access_custom.group_appraisals_view_each_person')),(4,ref('access_custom.group_knowledge')),(4,ref('access_custom.group_access_documents')),(4,ref('access_custom.group_access_specific_documents')),(4,ref('access_custom.group_reporting_full_rights')),(4,ref('access_custom.group_view_reporting')),(4,ref('access_custom.group_all_settings_and_configurations')),]"/>
-        </record>
-
-		<record model="res.groups" id="group_finance1">
-            <field name="name">Finance1</field>
-			<field name="custom" eval="True"/>
-            <field name="category_id" ref="module_category_custom_named"/>
-			<field name="implied_ids" eval="[(4,ref('access_custom.group_authorize_salaries')),(4,ref('access_custom.group_view_salaries')),(4,ref('access_custom.group_legal_contracts_full_rights')),(4,ref('access_custom.group_financials_full_authrisation')),(4,ref('access_custom.group_invoicing')),(4,ref('access_custom.group_view_financials')),(4,ref('access_custom.group_sales_full_rights')),(4,ref('access_custom.group_view_sales_each_sales_person')),(4,ref('access_custom.group_view_full_sales_funnel')),(4,ref('access_custom.group_projects_full_authorisation')),(4,ref('access_custom.group_create_projects')),(4,ref('access_custom.group_view_projects')),(4,ref('access_custom.group_contracts_renew')),(4,ref('access_custom.group_authorise_time_sheets')),(4,ref('access_custom.group_view_time_sheet')),(4,ref('access_custom.group_purchases_full_rights')),(4,ref('access_custom.group_view_purchases')),(4,ref('access_custom.group_request_purchases')),(4,ref('access_custom.group_request_for_quotation')),(4,ref('access_custom.group_creating_products')),(4,ref('access_custom.group_viewing_products')),(4,ref('access_custom.group_recruitment_full_rights')),(4,ref('access_custom.group_view_recruitment')),(4,ref('access_custom.group_leaves_full_rights')),(4,ref('access_custom.group_view_leaves')),(4,ref('access_custom.group_employees_full_rights')),(4,ref('access_custom.group_view_employees')),(4,ref('access_custom.group_edit_employees_each_employee')),(4,ref('access_custom.group_appraisals_full_rights')),(4,ref('access_custom.group_appraisals_view_each_person')),(4,ref('access_custom.group_knowledge')),(4,ref('access_custom.group_access_documents')),(4,ref('access_custom.group_access_specific_documents')),(4,ref('access_custom.group_reporting_full_rights')),(4,ref('access_custom.group_view_reporting')),(4,ref('access_custom.group_all_settings_and_configurations')),]"/>
-        </record>
-		<record model="res.groups" id="group_admin1">
-            <field name="name">Admin1</field>
-			<field name="custom" eval="True"/>
-            <field name="category_id" ref="module_category_custom_named"/>
-			<field name="implied_ids" eval="[(4,ref('access_custom.group_authorize_salaries')),(4,ref('access_custom.group_view_salaries')),(4,ref('access_custom.group_legal_contracts_full_rights')),(4,ref('access_custom.group_financials_full_authrisation')),(4,ref('access_custom.group_invoicing')),(4,ref('access_custom.group_view_financials')),(4,ref('access_custom.group_sales_full_rights')),(4,ref('access_custom.group_view_sales_each_sales_person')),(4,ref('access_custom.group_view_full_sales_funnel')),(4,ref('access_custom.group_projects_full_authorisation')),(4,ref('access_custom.group_create_projects')),(4,ref('access_custom.group_view_projects')),(4,ref('access_custom.group_contracts_renew')),(4,ref('access_custom.group_authorise_time_sheets')),(4,ref('access_custom.group_view_time_sheet')),(4,ref('access_custom.group_purchases_full_rights')),(4,ref('access_custom.group_view_purchases')),(4,ref('access_custom.group_request_purchases')),(4,ref('access_custom.group_request_for_quotation')),(4,ref('access_custom.group_creating_products')),(4,ref('access_custom.group_viewing_products')),(4,ref('access_custom.group_recruitment_full_rights')),(4,ref('access_custom.group_view_recruitment')),(4,ref('access_custom.group_leaves_full_rights')),(4,ref('access_custom.group_view_leaves')),(4,ref('access_custom.group_employees_full_rights')),(4,ref('access_custom.group_view_employees')),(4,ref('access_custom.group_edit_employees_each_employee')),(4,ref('access_custom.group_appraisals_full_rights')),(4,ref('access_custom.group_appraisals_view_each_person')),(4,ref('access_custom.group_knowledge')),(4,ref('access_custom.group_access_documents')),(4,ref('access_custom.group_access_specific_documents')),(4,ref('access_custom.group_reporting_full_rights')),(4,ref('access_custom.group_view_reporting')),(4,ref('access_custom.group_all_settings_and_configurations')),]"/>
-        </record>
-		<record model="res.groups" id="group_finance2">
-            <field name="name">Finance2</field>
-			<field name="custom" eval="True"/>
-            <field name="category_id" ref="module_category_custom_named"/>
-			<field name="implied_ids" eval="[(4,ref('access_custom.group_invoicing')),(4,ref('access_custom.group_view_financials')),(4,ref('access_custom.group_view_sales_each_sales_person')),(4,ref('access_custom.group_view_full_sales_funnel')),(4,ref('access_custom.group_create_projects')),(4,ref('access_custom.group_view_projects')),(4,ref('access_custom.group_view_time_sheet')),(4,ref('access_custom.group_view_purchases')),(4,ref('access_custom.group_request_purchases')),(4,ref('access_custom.group_creating_products')),(4,ref('access_custom.group_viewing_products')),(4,ref('access_custom.group_view_leaves')),(4,ref('access_custom.group_view_employees')),(4,ref('access_custom.group_edit_employees_each_employee')),(4,ref('access_custom.group_appraisals_view_each_person')),(4,ref('access_custom.group_access_documents')),(4,ref('access_custom.group_access_specific_documents')),	]"/>
-        </record>
-		<record model="res.groups" id="group_admin2">
-            <field name="name">Admin2</field>
-			<field name="custom" eval="True"/>
-            <field name="category_id" ref="module_category_custom_named"/>
-			<field name="implied_ids" eval="[(4,ref('access_custom.group_invoicing')),(4,ref('access_custom.group_view_financials')),(4,ref('access_custom.group_view_sales_each_sales_person')),(4,ref('access_custom.group_view_full_sales_funnel')),(4,ref('access_custom.group_create_projects')),(4,ref('access_custom.group_view_projects')),(4,ref('access_custom.group_view_time_sheet')),(4,ref('access_custom.group_view_purchases')),(4,ref('access_custom.group_request_purchases')),(4,ref('access_custom.group_creating_products')),(4,ref('access_custom.group_viewing_products')),(4,ref('access_custom.group_view_leaves')),(4,ref('access_custom.group_view_employees')),(4,ref('access_custom.group_edit_employees_each_employee')),(4,ref('access_custom.group_appraisals_view_each_person')),(4,ref('access_custom.group_access_documents')),(4,ref('access_custom.group_access_specific_documents')),	]"/>
-        </record>
-		<record model="res.groups" id="group_director">
-            <field name="name">Director</field>
-			<field name="custom" eval="True"/>
-            <field name="category_id" ref="module_category_custom_named"/>
-			<field name="implied_ids" eval="[(4,ref('access_custom.group_legal_contracts_full_rights')),(4,ref('access_custom.group_invoicing')),(4,ref('access_custom.group_projects_full_authorisation')),(4,ref('access_custom.group_create_projects')),(4,ref('access_custom.group_view_projects')),(4,ref('access_custom.group_contracts_renew')),(4,ref('access_custom.group_authorise_time_sheets')),(4,ref('access_custom.group_view_time_sheet')),(4,ref('access_custom.group_purchases_full_rights')),(4,ref('access_custom.group_view_purchases')),(4,ref('access_custom.group_request_purchases')),(4,ref('access_custom.group_request_for_quotation')),(4,ref('access_custom.group_creating_products')),(4,ref('access_custom.group_viewing_products')),(4,ref('access_custom.group_recruitment_full_rights')),(4,ref('access_custom.group_view_recruitment')),(4,ref('access_custom.group_leaves_full_rights')),(4,ref('access_custom.group_view_leaves')),(4,ref('access_custom.group_employees_full_rights')),(4,ref('access_custom.group_view_employees')),(4,ref('access_custom.group_edit_employees_each_employee')),(4,ref('access_custom.group_appraisals_full_rights')),(4,ref('access_custom.group_appraisals_view_each_person')),(4,ref('access_custom.group_access_documents')),(4,ref('access_custom.group_access_specific_documents')),(4,ref('access_custom.group_reporting_full_rights')),(4,ref('access_custom.group_view_reporting')),(4,ref('access_custom.group_all_settings_and_configurations')),]"/>
-        </record>
-		<record model="res.groups" id="group_senior_manager">
-            <field name="name">Senior_Manager</field>
-			<field name="custom" eval="True"/>
-            <field name="category_id" ref="module_category_custom_named"/>
-			<field name="implied_ids" eval="[(4,ref('access_custom.group_invoicing')),(4,ref('access_custom.group_projects_full_authorisation')),(4,ref('access_custom.group_create_projects')),(4,ref('access_custom.group_view_projects')),(4,ref('access_custom.group_authorise_time_sheets')),(4,ref('access_custom.group_view_time_sheet')),(4,ref('access_custom.group_request_purchases')),(4,ref('access_custom.group_request_for_quotation')),(4,ref('access_custom.group_creating_products')),(4,ref('access_custom.group_viewing_products')),(4,ref('access_custom.group_employees_full_rights')),(4,ref('access_custom.group_view_employees')),(4,ref('access_custom.group_edit_employees_each_employee')),(4,ref('access_custom.group_access_specific_documents')),	]"/>
-        </record>
-		<record model="res.groups" id="group_manager">
-            <field name="name">Manager</field>
-			<field name="custom" eval="True"/>
-            <field name="category_id" ref="module_category_custom_named"/>
-			<field name="implied_ids" eval="[(4,ref('access_custom.group_invoicing')),(4,ref('access_custom.group_view_projects')),(4,ref('access_custom.group_authorise_time_sheets')),(4,ref('access_custom.group_request_purchases')),(4,ref('access_custom.group_request_for_quotation')),(4,ref('access_custom.group_creating_products')),(4,ref('access_custom.group_viewing_products')),(4,ref('access_custom.group_view_employees')),(4,ref('access_custom.group_edit_employees_each_employee')),(4,ref('access_custom.group_access_specific_documents')),	]"/>
-        </record>
-		<record model="res.groups" id="group_consultant_internal">
-            <field name="name">Consultant_internal</field>
-			<field name="custom" eval="True"/>
-            <field name="category_id" ref="module_category_custom_named"/>
-			<field name="implied_ids" eval="[(4, ref('base.group_user')),(4,ref('access_custom.group_view_employees')),(4,ref('access_custom.group_edit_employees_each_employee')),(4,ref('access_custom.group_access_specific_documents')),	]"/>
-        </record>
-		<record model="res.groups" id="group_consultant_external">
-            <field name="name">Consultant_external</field>
-			<field name="custom" eval="True"/>
-            <field name="category_id" ref="module_category_custom_named"/>
-			<field name="implied_ids" eval="[(4, ref('base.group_user')),(4,ref('access_custom.group_view_employees')),(4,ref('access_custom.group_edit_employees_each_employee')),(4,ref('access_custom.group_access_specific_documents')),	]"/>
-        </record>
 
 		<!-- Rules -->
 		<record model="ir.rule" id="rule_hr_employee_edit_myself">
@@ -375,4 +302,74 @@
 
 
     </data>
+	<data noupdate="1">
+		<!-- Named groups -->
+		<record model="res.groups" id="group_administrator">
+            <field name="name">Administrator</field>
+			<field name="custom" eval="True"/>
+            <field name="category_id" ref="access_base.module_category_custom"/>
+			<field name="implied_ids" eval="[(4,ref('access_custom.group_authorize_salaries')),(4,ref('access_custom.group_view_salaries')),(4,ref('access_custom.group_legal_contracts_full_rights')),(4,ref('access_custom.group_financials_full_authrisation')),(4,ref('access_custom.group_invoicing')),(4,ref('access_custom.group_view_financials')),(4,ref('access_custom.group_sales_full_rights')),(4,ref('access_custom.group_view_sales_each_sales_person')),(4,ref('access_custom.group_view_full_sales_funnel')),(4,ref('access_custom.group_projects_full_authorisation')),(4,ref('access_custom.group_create_projects')),(4,ref('access_custom.group_view_projects')),(4,ref('access_custom.group_contracts_renew')),(4,ref('access_custom.group_authorise_time_sheets')),(4,ref('access_custom.group_view_time_sheet')),(4,ref('access_custom.group_purchases_full_rights')),(4,ref('access_custom.group_view_purchases')),(4,ref('access_custom.group_request_purchases')),(4,ref('access_custom.group_request_for_quotation')),(4,ref('access_custom.group_creating_products')),(4,ref('access_custom.group_viewing_products')),(4,ref('access_custom.group_recruitment_full_rights')),(4,ref('access_custom.group_view_recruitment')),(4,ref('access_custom.group_leaves_full_rights')),(4,ref('access_custom.group_view_leaves')),(4,ref('access_custom.group_employees_full_rights')),(4,ref('access_custom.group_view_employees')),(4,ref('access_custom.group_edit_employees_each_employee')),(4,ref('access_custom.group_appraisals_full_rights')),(4,ref('access_custom.group_appraisals_view_each_person')),(4,ref('access_custom.group_knowledge')),(4,ref('access_custom.group_access_documents')),(4,ref('access_custom.group_access_specific_documents')),(4,ref('access_custom.group_reporting_full_rights')),(4,ref('access_custom.group_view_reporting')),(4,ref('access_custom.group_all_settings_and_configurations')),]"/>
+        </record>
+		<record model="res.groups" id="group_managing_director">
+            <field name="name">Managing_Director</field>
+			<field name="custom" eval="True"/>
+            <field name="category_id" ref="access_base.module_category_custom"/>
+			<field name="implied_ids" eval="[(4,ref('access_custom.group_authorize_salaries')),(4,ref('access_custom.group_view_salaries')),(4,ref('access_custom.group_legal_contracts_full_rights')),(4,ref('access_custom.group_financials_full_authrisation')),(4,ref('access_custom.group_invoicing')),(4,ref('access_custom.group_view_financials')),(4,ref('access_custom.group_sales_full_rights')),(4,ref('access_custom.group_view_sales_each_sales_person')),(4,ref('access_custom.group_view_full_sales_funnel')),(4,ref('access_custom.group_projects_full_authorisation')),(4,ref('access_custom.group_create_projects')),(4,ref('access_custom.group_view_projects')),(4,ref('access_custom.group_contracts_renew')),(4,ref('access_custom.group_authorise_time_sheets')),(4,ref('access_custom.group_view_time_sheet')),(4,ref('access_custom.group_purchases_full_rights')),(4,ref('access_custom.group_view_purchases')),(4,ref('access_custom.group_request_purchases')),(4,ref('access_custom.group_request_for_quotation')),(4,ref('access_custom.group_creating_products')),(4,ref('access_custom.group_viewing_products')),(4,ref('access_custom.group_recruitment_full_rights')),(4,ref('access_custom.group_view_recruitment')),(4,ref('access_custom.group_leaves_full_rights')),(4,ref('access_custom.group_view_leaves')),(4,ref('access_custom.group_employees_full_rights')),(4,ref('access_custom.group_view_employees')),(4,ref('access_custom.group_edit_employees_each_employee')),(4,ref('access_custom.group_appraisals_full_rights')),(4,ref('access_custom.group_appraisals_view_each_person')),(4,ref('access_custom.group_knowledge')),(4,ref('access_custom.group_access_documents')),(4,ref('access_custom.group_access_specific_documents')),(4,ref('access_custom.group_reporting_full_rights')),(4,ref('access_custom.group_view_reporting')),(4,ref('access_custom.group_all_settings_and_configurations')),]"/>
+        </record>
+
+		<record model="res.groups" id="group_finance1">
+            <field name="name">Finance1</field>
+			<field name="custom" eval="True"/>
+            <field name="category_id" ref="access_base.module_category_custom"/>
+			<field name="implied_ids" eval="[(4,ref('access_custom.group_authorize_salaries')),(4,ref('access_custom.group_view_salaries')),(4,ref('access_custom.group_legal_contracts_full_rights')),(4,ref('access_custom.group_financials_full_authrisation')),(4,ref('access_custom.group_invoicing')),(4,ref('access_custom.group_view_financials')),(4,ref('access_custom.group_sales_full_rights')),(4,ref('access_custom.group_view_sales_each_sales_person')),(4,ref('access_custom.group_view_full_sales_funnel')),(4,ref('access_custom.group_projects_full_authorisation')),(4,ref('access_custom.group_create_projects')),(4,ref('access_custom.group_view_projects')),(4,ref('access_custom.group_contracts_renew')),(4,ref('access_custom.group_authorise_time_sheets')),(4,ref('access_custom.group_view_time_sheet')),(4,ref('access_custom.group_purchases_full_rights')),(4,ref('access_custom.group_view_purchases')),(4,ref('access_custom.group_request_purchases')),(4,ref('access_custom.group_request_for_quotation')),(4,ref('access_custom.group_creating_products')),(4,ref('access_custom.group_viewing_products')),(4,ref('access_custom.group_recruitment_full_rights')),(4,ref('access_custom.group_view_recruitment')),(4,ref('access_custom.group_leaves_full_rights')),(4,ref('access_custom.group_view_leaves')),(4,ref('access_custom.group_employees_full_rights')),(4,ref('access_custom.group_view_employees')),(4,ref('access_custom.group_edit_employees_each_employee')),(4,ref('access_custom.group_appraisals_full_rights')),(4,ref('access_custom.group_appraisals_view_each_person')),(4,ref('access_custom.group_knowledge')),(4,ref('access_custom.group_access_documents')),(4,ref('access_custom.group_access_specific_documents')),(4,ref('access_custom.group_reporting_full_rights')),(4,ref('access_custom.group_view_reporting')),(4,ref('access_custom.group_all_settings_and_configurations')),]"/>
+        </record>
+		<record model="res.groups" id="group_admin1">
+            <field name="name">Admin1</field>
+			<field name="custom" eval="True"/>
+            <field name="category_id" ref="access_base.module_category_custom"/>
+			<field name="implied_ids" eval="[(4,ref('access_custom.group_authorize_salaries')),(4,ref('access_custom.group_view_salaries')),(4,ref('access_custom.group_legal_contracts_full_rights')),(4,ref('access_custom.group_financials_full_authrisation')),(4,ref('access_custom.group_invoicing')),(4,ref('access_custom.group_view_financials')),(4,ref('access_custom.group_sales_full_rights')),(4,ref('access_custom.group_view_sales_each_sales_person')),(4,ref('access_custom.group_view_full_sales_funnel')),(4,ref('access_custom.group_projects_full_authorisation')),(4,ref('access_custom.group_create_projects')),(4,ref('access_custom.group_view_projects')),(4,ref('access_custom.group_contracts_renew')),(4,ref('access_custom.group_authorise_time_sheets')),(4,ref('access_custom.group_view_time_sheet')),(4,ref('access_custom.group_purchases_full_rights')),(4,ref('access_custom.group_view_purchases')),(4,ref('access_custom.group_request_purchases')),(4,ref('access_custom.group_request_for_quotation')),(4,ref('access_custom.group_creating_products')),(4,ref('access_custom.group_viewing_products')),(4,ref('access_custom.group_recruitment_full_rights')),(4,ref('access_custom.group_view_recruitment')),(4,ref('access_custom.group_leaves_full_rights')),(4,ref('access_custom.group_view_leaves')),(4,ref('access_custom.group_employees_full_rights')),(4,ref('access_custom.group_view_employees')),(4,ref('access_custom.group_edit_employees_each_employee')),(4,ref('access_custom.group_appraisals_full_rights')),(4,ref('access_custom.group_appraisals_view_each_person')),(4,ref('access_custom.group_knowledge')),(4,ref('access_custom.group_access_documents')),(4,ref('access_custom.group_access_specific_documents')),(4,ref('access_custom.group_reporting_full_rights')),(4,ref('access_custom.group_view_reporting')),(4,ref('access_custom.group_all_settings_and_configurations')),]"/>
+        </record>
+		<record model="res.groups" id="group_finance2">
+            <field name="name">Finance2</field>
+			<field name="custom" eval="True"/>
+            <field name="category_id" ref="access_base.module_category_custom"/>
+			<field name="implied_ids" eval="[(4,ref('access_custom.group_invoicing')),(4,ref('access_custom.group_view_financials')),(4,ref('access_custom.group_view_sales_each_sales_person')),(4,ref('access_custom.group_view_full_sales_funnel')),(4,ref('access_custom.group_create_projects')),(4,ref('access_custom.group_view_projects')),(4,ref('access_custom.group_view_time_sheet')),(4,ref('access_custom.group_view_purchases')),(4,ref('access_custom.group_request_purchases')),(4,ref('access_custom.group_creating_products')),(4,ref('access_custom.group_viewing_products')),(4,ref('access_custom.group_view_leaves')),(4,ref('access_custom.group_view_employees')),(4,ref('access_custom.group_edit_employees_each_employee')),(4,ref('access_custom.group_appraisals_view_each_person')),(4,ref('access_custom.group_access_documents')),(4,ref('access_custom.group_access_specific_documents')),	]"/>
+        </record>
+		<record model="res.groups" id="group_admin2">
+            <field name="name">Admin2</field>
+			<field name="custom" eval="True"/>
+            <field name="category_id" ref="access_base.module_category_custom"/>
+			<field name="implied_ids" eval="[(4,ref('access_custom.group_invoicing')),(4,ref('access_custom.group_view_financials')),(4,ref('access_custom.group_view_sales_each_sales_person')),(4,ref('access_custom.group_view_full_sales_funnel')),(4,ref('access_custom.group_create_projects')),(4,ref('access_custom.group_view_projects')),(4,ref('access_custom.group_view_time_sheet')),(4,ref('access_custom.group_view_purchases')),(4,ref('access_custom.group_request_purchases')),(4,ref('access_custom.group_creating_products')),(4,ref('access_custom.group_viewing_products')),(4,ref('access_custom.group_view_leaves')),(4,ref('access_custom.group_view_employees')),(4,ref('access_custom.group_edit_employees_each_employee')),(4,ref('access_custom.group_appraisals_view_each_person')),(4,ref('access_custom.group_access_documents')),(4,ref('access_custom.group_access_specific_documents')),	]"/>
+        </record>
+		<record model="res.groups" id="group_director">
+            <field name="name">Director</field>
+			<field name="custom" eval="True"/>
+            <field name="category_id" ref="access_base.module_category_custom"/>
+			<field name="implied_ids" eval="[(4,ref('access_custom.group_legal_contracts_full_rights')),(4,ref('access_custom.group_invoicing')),(4,ref('access_custom.group_projects_full_authorisation')),(4,ref('access_custom.group_create_projects')),(4,ref('access_custom.group_view_projects')),(4,ref('access_custom.group_contracts_renew')),(4,ref('access_custom.group_authorise_time_sheets')),(4,ref('access_custom.group_view_time_sheet')),(4,ref('access_custom.group_purchases_full_rights')),(4,ref('access_custom.group_view_purchases')),(4,ref('access_custom.group_request_purchases')),(4,ref('access_custom.group_request_for_quotation')),(4,ref('access_custom.group_creating_products')),(4,ref('access_custom.group_viewing_products')),(4,ref('access_custom.group_recruitment_full_rights')),(4,ref('access_custom.group_view_recruitment')),(4,ref('access_custom.group_leaves_full_rights')),(4,ref('access_custom.group_view_leaves')),(4,ref('access_custom.group_employees_full_rights')),(4,ref('access_custom.group_view_employees')),(4,ref('access_custom.group_edit_employees_each_employee')),(4,ref('access_custom.group_appraisals_full_rights')),(4,ref('access_custom.group_appraisals_view_each_person')),(4,ref('access_custom.group_access_documents')),(4,ref('access_custom.group_access_specific_documents')),(4,ref('access_custom.group_reporting_full_rights')),(4,ref('access_custom.group_view_reporting')),(4,ref('access_custom.group_all_settings_and_configurations')),]"/>
+        </record>
+		<record model="res.groups" id="group_senior_manager">
+            <field name="name">Senior_Manager</field>
+			<field name="custom" eval="True"/>
+            <field name="category_id" ref="access_base.module_category_custom"/>
+			<field name="implied_ids" eval="[(4,ref('access_custom.group_invoicing')),(4,ref('access_custom.group_projects_full_authorisation')),(4,ref('access_custom.group_create_projects')),(4,ref('access_custom.group_view_projects')),(4,ref('access_custom.group_authorise_time_sheets')),(4,ref('access_custom.group_view_time_sheet')),(4,ref('access_custom.group_request_purchases')),(4,ref('access_custom.group_request_for_quotation')),(4,ref('access_custom.group_creating_products')),(4,ref('access_custom.group_viewing_products')),(4,ref('access_custom.group_employees_full_rights')),(4,ref('access_custom.group_view_employees')),(4,ref('access_custom.group_edit_employees_each_employee')),(4,ref('access_custom.group_access_specific_documents')),	]"/>
+        </record>
+		<record model="res.groups" id="group_manager">
+            <field name="name">Manager</field>
+			<field name="custom" eval="True"/>
+            <field name="category_id" ref="access_base.module_category_custom"/>
+			<field name="implied_ids" eval="[(4,ref('access_custom.group_invoicing')),(4,ref('access_custom.group_view_projects')),(4,ref('access_custom.group_authorise_time_sheets')),(4,ref('access_custom.group_request_purchases')),(4,ref('access_custom.group_request_for_quotation')),(4,ref('access_custom.group_creating_products')),(4,ref('access_custom.group_viewing_products')),(4,ref('access_custom.group_view_employees')),(4,ref('access_custom.group_edit_employees_each_employee')),(4,ref('access_custom.group_access_specific_documents')),	]"/>
+        </record>
+		<record model="res.groups" id="group_consultant_internal">
+            <field name="name">Consultant_internal</field>
+			<field name="custom" eval="True"/>
+            <field name="category_id" ref="access_base.module_category_custom"/>
+			<field name="implied_ids" eval="[(4, ref('base.group_user')),(4,ref('access_custom.group_view_employees')),(4,ref('access_custom.group_edit_employees_each_employee')),(4,ref('access_custom.group_access_specific_documents')),	]"/>
+        </record>
+		<record model="res.groups" id="group_consultant_external">
+            <field name="name">Consultant_external</field>
+			<field name="custom" eval="True"/>
+            <field name="category_id" ref="access_base.module_category_custom"/>
+			<field name="implied_ids" eval="[(4, ref('base.group_user')),(4,ref('access_custom.group_view_employees')),(4,ref('access_custom.group_edit_employees_each_employee')),(4,ref('access_custom.group_access_specific_documents')),	]"/>
+        </record>
+	</data>
 </openerp>

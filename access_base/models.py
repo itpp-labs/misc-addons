@@ -8,12 +8,6 @@ from openerp.addons.base.res.res_users import name_boolean_group, name_selection
 class groups_view(osv.osv):
     _inherit = 'res.groups'
 
-    _columns = {
-        'custom': fields.boolean('Custom group')
-    }
-    _defaults = {
-        'custom': False,
-    }
     def update_user_groups_view(self, cr, uid, context=None):
         view = self.pool['ir.model.data'].xmlid_to_object(cr, SUPERUSER_ID, 'base.user_groups_view', context=context)
         if view and view.exists() and view._name == 'ir.ui.view':
@@ -25,10 +19,11 @@ class groups_view(osv.osv):
             xml3.append(E.separator(string=_('Custom Access Rights'), colspan="4"))
 
 
+            custom_group_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'access_base', 'module_category_custom')[1]
             for app, kind, gs in self.get_groups_by_application(cr, uid, context):
                 xml = None
                 custom = False
-                if type == 'selection' and any([g.custom for g in gs]) or all([g.custom for g in gs]):
+                if type == 'selection' and any([g.category_id.id == custom_group_id for g in gs]) or all([g.category_id.id == custom_group_id for g in gs]):
                     xml = xml3
                     custom = True
 

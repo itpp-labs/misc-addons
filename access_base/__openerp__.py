@@ -9,7 +9,6 @@
 
     """,
     'depends' : ['base'],
-    'data':[
-        ],
+    'data':['data.xml'],
     'installable': True
 }
