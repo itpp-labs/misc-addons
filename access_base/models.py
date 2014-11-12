@@ -16,7 +16,7 @@ class groups_view(osv.osv):
 
 
             xml3 = []
-            xml3.append(E.separator(string=_('Custom Access Rights'), colspan="4"))
+            xml3.append(E.separator(string=_('Custom User Groups'), colspan="4"))
 
 
             custom_group_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'access_base', 'module_category_custom')[1]
