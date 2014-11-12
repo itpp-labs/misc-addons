@@ -50,7 +50,7 @@ class account_analytic_account(models.Model):
     sale_order_state = fields.Selection('Sale order status', related='sale_order_id.state')
 
     #create_date = fields.Date(default=fields.Date.context_today)
-    color = fields.Integer('Color index')
+    color = fields.Integer('Color index', related='section_id.color')
 
     STATE_SELECTION = [
         ('lead','Lead'),
