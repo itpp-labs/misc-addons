@@ -240,6 +240,17 @@
 					target="new"
 					/>
 
+        <act_window id="action_sale_case_administration_multi"
+					name="Administration"
+					key2="client_action_multi"
+					res_model="sale_mediation_custom.sale_case_administration_multi"
+					src_model="account.analytic.account"
+					groups="access_custom.group_sales_full_rights"
+					view_mode="form"
+					multi="True"
+					target="new"
+					/>
+
 	</data>
 
 	<data noupdate="1">

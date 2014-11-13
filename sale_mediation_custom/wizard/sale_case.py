@@ -12,6 +12,23 @@ def _get_active_ids(self):
 
 from ..models import account_analytic_account as aaa
 
+SIGNAL_SELECTION = [
+    ('new', 'new'),
+    ('qualified', 'qualified'),
+    ('proposal_created', 'proposal_created'),
+    ('proposal_sent', 'proposal_sent'),
+    ('proposal_confirmed', 'proposal_confirmed'),
+]
+
+def fix_sale_case_workflow(sale_case, new_signal):
+    print 'fix_sale_case_workflow', sale_case, new_signal
+    sale_case.delete_workflow()
+    sale_case.create_workflow()
+    for signal,label in SIGNAL_SELECTION:
+        sale_case.signal_workflow(signal)
+        if signal == new_signal:
+            break
+
 class sale_case_administration(models.TransientModel):
     _name = 'sale_mediation_custom.sale_case_administration'
 
@@ -21,24 +38,31 @@ class sale_case_administration(models.TransientModel):
     state = fields.Selection(related='sale_case_id.state')
     lead_id = fields.Many2one('crm.lead', related='sale_case_id.lead_id')
     sale_order_id = fields.Many2one('sale.order', related='sale_case_id.sale_order_id')
-    SIGNAL_SELECTION = [
-        ('new', 'new'),
-        ('qualified', 'qualified'),
-        ('proposal_created', 'proposal_created'),
-        ('proposal_sent', 'proposal_sent'),
-        ('proposal_confirmed', 'proposal_confirmed'),
-    ]
     signal = fields.Selection(selection=SIGNAL_SELECTION, string='Fix workflow')
 
     @api.one
     def action_apply(self):
         if self.signal:
-            self.sale_case_id.delete_workflow()
-            self.sale_case_id.create_workflow()
-            for signal,label in self.SIGNAL_SELECTION:
-                self.sale_case_id.signal_workflow(signal)
-                if signal == self.signal:
-                    break
+            fix_sale_case_workflow(self.sale_case_id, self.signal)
+
+class sale_case_administration_multi(models.TransientModel):
+    _name = 'sale_mediation_custom.sale_case_administration_multi'
+
+
+    sale_case_ids = fields.Many2many('account.analytic.account', default=_get_active_ids, relation='sale_mediation_custom_sale_case_admin_multi')
+
+    state = fields.Selection(selection=aaa.STATE_SELECTION)
+
+    signal = fields.Selection(selection=SIGNAL_SELECTION, string='Fix workflow')
+
+    @api.one
+    def action_apply(self):
+        if self.state:
+            self.sale_case_ids.state = self.state
+
+        if self.signal:
+            for r in self.sale_case_ids:
+                fix_sale_case_workflow(r, self.signal)
 
 
 class opportunity_to_sale_case(models.TransientModel):

@@ -30,6 +30,24 @@
                 </form>
             </field>
         </record>
+        <record id="view_sale_case_administration_multi" model="ir.ui.view">
+            <field name="name">sale_case_administration_multi</field>
+            <field name="model">sale_mediation_custom.sale_case_administration_multi</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="state"/>
+                        <field name="signal"/>
+                    </group>
+                    <footer>
+                        <button name="action_apply" string="Apply" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
         <record id="view_opportunity_to_sale_case" model="ir.ui.view">
             <field name="name">opportunity_to_sale_case</field>
             <field name="model">sale_mediation_custom.opportunity_to_sale_case</field>
