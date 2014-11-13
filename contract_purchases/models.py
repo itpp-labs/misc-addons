@@ -14,9 +14,8 @@ class account_analytic_account(osv.Model):
 
     def _supplier_fix_price_to_invoice_calc(self, cr, uid, ids, name, arg, context=None):
         purc_obj = self.pool.get('purchase.order')
-        res = {}
+        res = dict( ( (id, 0.0) for id in ids) )
         for account in self.browse(cr, uid, ids, context=context):
-            res[account.id] = 0.0
             purchase_ids = purc_obj.search(cr, uid, [('contract_id','=', account.id), ('invoiced', '=', False)], context=context)
             for purchase in purc_obj.browse(cr, uid, purchase_ids, context=context):
                 res[account.id] += purchase.amount_untaxed
