@@ -13,6 +13,7 @@ def _get_active_ids(self):
 from ..models import account_analytic_account as aaa
 
 SIGNAL_SELECTION = [
+    ('fake_lead_signal', 'lead'),
     ('new', 'new'),
     ('qualified', 'qualified'),
     ('proposal_created', 'proposal_created'),
