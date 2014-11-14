@@ -25,6 +25,16 @@ CURRENCY_CENTS_RU = {
     'USD': (u"цент", u"цента", u"центов"),
     'RUB': (u"копейка", u"копейки", u"копеек"),
 }
+def money_to_words(amount, code):
+    rubles_num_in_words = numeral.in_words(amount)
+    rubles = numeral.choose_plural(amount, CURRENCY_RU[code])
+    copek_num = round(amount - amount)
+    copek = numeral.choose_plural(int(copek_num), CURRENCY_CENTS_RU[code]) if code in CURRENCY_CENTS_RU else ''
+    if copek:
+        return ("%s %s %02d %s")%(rubles_num_in_words, rubles, copek_num, copek)
+    else:
+        return ("%s %s")%(rubles_num_in_words, rubles)
+
 def _get_amount_in_words(self, cr, uid, ids, field_name, arg, context=None):
     res = {}
 
@@ -32,15 +42,7 @@ def _get_amount_in_words(self, cr, uid, ids, field_name, arg, context=None):
         code = row.currency_id.name
         if code not in CURRENCY_RU:
             code = 'RUB'
-        #rubles = numeral.rubles(int(row.amount_total))
-        rubles_num_in_words = numeral.in_words(int(row.amount_total))
-        rubles = numeral.choose_plural(int(row.amount_total), CURRENCY_RU[code])
-        copek_num = round(row.amount_total - int(row.amount_total))
-        copek = numeral.choose_plural(int(copek_num), CURRENCY_CENTS_RU[code]) if code in CURRENCY_CENTS_RU else ''
-        if copek:
-            res[row.id] = ("%s %s %02d %s")%(rubles_num_in_words, rubles, copek_num, copek)
-        else:
-            res[row.id] = ("%s %s")%(rubles_num_in_words, rubles)
+        res[row.id] = money_to_words(row.amount_total, code)
 
     return res
 
