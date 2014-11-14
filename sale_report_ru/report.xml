@@ -176,7 +176,7 @@
 	 <t t-set="lines" t-value="o.invoice_line"/>
 	 <t t-set="currency_id" t-value="o.currency_id"/>
 	 <t t-set="quantity_field" t-value="'quantity'"/>
-	 <t t-set="uom_field" t-value="'uom_id'"/>
+	 <t t-set="uom_field" t-value="'uos_id'"/>
   </t>
 	 <table class="table table-bordered">
 		<thead>
@@ -199,10 +199,7 @@
 			 <td class="text-right">
 				<span t-field="l.price_unit"/>
 			 </td>
-			 <td class="text-right"><span t-esc="l[quantity_field]"/> шт.
-			 <!--
-				  <span groups="product.group_uom" t-field="getattr(l, uom_field)"/>
-			 -->
+			 <td class="text-right"><span t-esc="l[quantity_field]"/> <span t-esc="l[uom_field].name"/>
 			 </td>
 			 <td class="text-right">
 				<span t-field="l.price_subtotal" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;currency_id&quot;}"/>
