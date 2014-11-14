@@ -63,9 +63,66 @@ border:none;
 .table1 td{
 padding:1em 1em 0 0;
 }
+.table2{
+border-collapse:collapse;
+}
+.table2 td{
+border:1px solid black;
+padding:0 0.5em;
+}
+
+table.counter{
+    counter-reset: rowNumber;
+}
+tr.counter{
+    counter-increment: rowNumber;
+}
+td.counter::before{
+content:counter(rowNumber);
+min-width: 1em;
+}
+
+
 </style>
 
+<div class="clearfix">
+	<div style="float:right;text-align:center;width:16em;">
+		Приложение 26<br/>
+		к приказу Министра финансов<br/>
+		Республики Казахстан<br/>
+		от 20 декабря 2012 года №562
+	</div>
+</div>
+<div class="clearfix">
+	<div style="float:right">
+		Форма 3-2
+	</div>
+</div>
 
+<div class="clearfix">
+	<div style="float:left;">
+		Организация (индивидуальный предприниматель) <span style="text-decoration:underline;" t-field="o.company_id.partner_id.name_official"/>
+	</div>
+	<div style="float:right;">
+		ИНН/БИН
+		<div style="display:inline-block;padding:0 2em;border:1px solid black;" t-field="o.company_id.partner_id.inn"/>
+	</div>
+</div>
+
+<div class="clearfix">
+	<div style="float:right;padding:1em 0;">
+		<table class="table2 counter">
+			<tr>
+				<td>Номер<br/>документа</td>
+				<td>Дата<br/>сотавления</td>
+			</tr>
+			<tr>
+				<td><span t-field="o.name"/></td>
+				<td><span t-field="o.date" t-field-options='{"format": "dd.MM.yyyy"}'/></td>
+			</tr>
+		</table>
+	</div>
+</div>
 
 	<h1 style="text-align:center;">НАКЛАДНАЯ НА ОТПУСК ЗАПАСОВ НА СТОРОНУ</h1>
 	<table class="table table-bordered">
@@ -114,8 +171,8 @@ padding:1em 1em 0 0;
 			<td>9</td>
 		</tr>
 		-->
-		<tr t-foreach="o.move_lines" t-as="l">
-			<td>TODO #</td><!--Номер по порядку-->
+		<tr class="counter" t-foreach="o.move_lines" t-as="l">
+			<td class="counter"></td><!--Номер по порядку-->
 			<td><span t-field="l.product_id"/></td><!--Наименование, характеристика-->
 			<td></td><!--Номенклатурный номер-->
 			<td><span t-field="l.product_uom"/></td><!--Единица измерения-->
@@ -163,18 +220,25 @@ padding:1em 1em 0 0;
 	</div>
 
 	<div style="width:50%; border-left:1px solid black; padding-left:1em;position:absolute; right:0;top:0;bottom:1em; padding-top;1em;">
-<p>
-	По доверенности <span style="text-decoration:underline;">123 TODO</span>
-</p>
-<p>
-	выданное <span style="text-decoration:underline;">123 TODO</span>
-</p>
-
+<table class="table1">
+	<tr>
+		<td>По доверенности</td>
+		<td><span class="text_line_hint" style="width:32em;"/></td>
+	</tr>
+	<tr>
+		<td>выданной</td>
+		<td><span class="text_line_hint" style="width:32em;"/></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><span class="text_line_hint" style="width:32em;"/></td>
+	</tr>
+</table>
 
 <table style="position:absolute;bottom:0;">
 			<tr>
 				<td>Запасы получил</td>
-				<td>
+				<td style="padding-left:1em;">
 					<div class="text_line_hint" style="width:8em;"><span class="hint">подпись</span></div> / <div class="text_line_hint" style="width:16em;"><span class="hint">расшифровка подписи</span></div>
 				</td>
 			</tr>
