@@ -5,17 +5,17 @@
             <field name="name">Custom Access Rights (Levels)</field>
             <field name="sequence">-2</field>
         </record>
-        <record model="ir.module.category" id="module_category_custom_extra">
-            <field name="name">Custom Access Rights (Extra)</field>
-            <field name="sequence">-1</field>
-        </record>
-		
 
 		<!--  access groups -->
+        <record model="res.groups" id="group_employee_information">
+            <field name="name">employee_information</field>
+            <field name="category_id" ref="module_category_custom"/>
+		</record>
+
         <record model="res.groups" id="group_view_marketing_menu">
             <field name="name">view_marketing_menu</field>
 			<field name="menu_access" eval="[(4,ref('base.marketing_menu'))]"/>
-            <field name="category_id" ref="module_category_custom_extra"/>
+            <field name="category_id" ref="module_category_custom"/>
 		</record>
 
         <record model="res.groups" id="group_authorize_salaries">
