@@ -27,6 +27,8 @@ class hr_employee(models.Model):
     }
 
     def _get_access_to_employee_information(self):
-        self.access_to_employee_information = (self.user_id.id == self.env.uid) or (self.env.ref('access_custom.group_employee_information').id in self.env.user.groups_id.ids)
+        access_by_group = self.env.ref('access_custom.group_employee_information').id in self.env.user.groups_id.ids
+        for r in self:
+            r.access_to_employee_information = access_by_group or (r.user_id.id == self.env.uid)
 
     access_to_employee_information = fields.Boolean('Access to employee information', compute=_get_access_to_employee_information, store=False)
