@@ -32,3 +32,15 @@ class hr_employee(models.Model):
             r.access_to_employee_information = access_by_group or (r.user_id.id == self.env.uid)
 
     access_to_employee_information = fields.Boolean('Access to employee information', compute=_get_access_to_employee_information, store=False)
+
+
+class res_partner(models.Model):
+    _inherit = 'res.partner'
+
+    def _get_access_to_private_information(self):
+        access_by_group = self.env.ref('access_custom.group_private_partner_information').id in self.env.user.groups_id.ids
+        allowed_ids = self.env.user.employee_ids.address_home_id.ids
+        for r in self:
+            r.access_to_private_information = access_by_group or (r.id in allowed_ids)
+
+    access_to_private_information = fields.Boolean('Access to private information', compute=_get_access_to_private_information, store=False)
