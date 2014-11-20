@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
+        <record id="edit_project" model="ir.ui.view">
+            <field name="name">project.project.form</field>
+            <field name="model">project.project</field>
+			<field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+				<xpath expr="//field[@name='user_id']" position="after">
+                    <newline/>
+					<field name="sale_case_id"/>
+				</xpath>
+			</field>
+		</record>
+
+
         <record model="ir.ui.view" id="crm_case_form_view_leads">
 			<field name="name">CRM - Leads Form</field>
 			<field name="model">crm.lead</field>
@@ -32,6 +45,7 @@
 				<xpath expr="//button[@name='set_cancel']" position="replace">
 				</xpath>
 				<xpath expr="//field[@name='state']" position="replace">
+					<field name="proposal_id" invisible="True"/>
 					<button name="new" class="oe_highlight" string="move to New" states="lead"/>
 					<button name="qualified" class="oe_highlight" string="move to Qualified" states="lead,new"/>
 					<button type="action" name="%(action_create_proposal)d" class="oe_highlight" string="move to Quotation" states="lead,new,qualified"/>
@@ -187,6 +201,18 @@
 -->
 
 
+        <!-- CRM Stage Form View -->
+        <record model="ir.ui.view" id="crm_case_stage_form">
+            <field name="name">crm.case.stage.form</field>
+            <field name="model">crm.case.stage</field>
+			<field name="inherit_id" ref="crm.crm_case_stage_form"/>
+            <field name="arch" type="xml">
+				<xpath expr="//field[@name='type']" position="after">
+					<field name="sales_funnel_type"/>
+				</xpath>
+			</field>
+		</record>
+
         <!-- Sale Order Form View  -->
         <record model="ir.ui.view" id="view_order_form">
             <field name="name">sale.order.form</field>
@@ -206,10 +232,47 @@
 			<field name="model">crm.lead</field>
 			<field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
 			<field name="arch" type="xml">
-				<!-- delete stuff of default workflow -->
-				<xpath expr="//header" position="attributes">
+				<xpath expr="//button[@name='case_mark_won']" position="attributes">
 					<attribute name="invisible">1</attribute>
 				</xpath>
+				<xpath expr="//button[@name='case_mark_lost']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//button[@string='Create Quotation']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//button[@string='Convert to Quotation']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//button[@name='case_mark_won']" position="before">
+					<field name="proposal_id" invisible="True"/>
+					<field name="id" invisible="1"/>
+					<field name="sales_funnel_type" invisible="1"/>
+					<button type="action" name="%(action_create_proposal_lead)d" class="oe_highlight" string="Create proposal" attrs="{'invisible':['|', ('sales_funnel_type','!=', 'lead'), ('proposal_id','!=', False)]}" context="{'lead_id': id}"/>
+					<button name="edit_proposal" string="Edit proposal" attrs="{'invisible':['|',('sales_funnel_type', '!=', 'quotation'),('proposal_id', '=', False)]}" type="object"/>
+					<button name="open_proposal" string="Open proposal" attrs="{'invisible':[('proposal_id', '=', False)]}" type="object"/>
+					<button type="object" name="action_send_proposal" class="oe_highlight" string="Send proposal" attrs="{'invisible': [('sales_funnel_type', '!=', 'quotation')]}"/>
+					
+				</xpath>
+
+				<xpath expr="//field[@name='user_id']" position="after">
+					<field name="project_id" readonly="1"/>
+				</xpath>
+				<xpath expr="//notebook" position="inside">
+					<page string="Quotation \ Sale Order">
+						<group>
+							<field name="sale_order_id" readonly="True"/>
+
+							<!--
+							<label for="open_proposal" string="Proposal"/>
+							<button name="open_proposal" string="Open proposal" attrs="{'invisible':[('proposal_id', '=', False)]}" type="object"/>
+							-->
+							<field name="sale_order_state"/>
+						</group>
+                            <field name="sale_order_lines"/>
+					</page>
+				</xpath>
+
 			</field>
 		</record>
 
@@ -272,6 +335,26 @@
 	<p>To sign document you can use our online tool: <a href="/website_proposal/${object.proposal_id.id}/${object.proposal_id.access_token}">open document ${object.name}</a>
 
 ]]></field>
+		</record>
+
+        <record id="email_template_proposal_lead" model="email.template">
+            <field name="name">Send Proposal</field>
+            <!--<field name="email_from">${(object.user_id.email or '')|safe}</field>-->
+            <field name="subject">${object.company_id.name|safe} Proposal (Ref ${object.name or 'n/a' })</field>
+            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_template" ref="action_report_proposal_lead"/>
+            <field name="report_name">${object.name.replace('/','')}-proposal</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="body_html"><![CDATA[
+
+    <p>Hello ${object.partner_id.name}, please check attached document.</p>
+
+	<p>To sign document you can use our online tool: <a href="/website_proposal/${object.proposal_id.id}/${object.proposal_id.access_token}">open document ${object.name}</a>
+
+]]></field>
+
 		</record>
 	</data>
 

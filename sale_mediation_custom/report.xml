@@ -30,5 +30,14 @@
             name="sale_mediation_custom.report_proposal"
             file="sale_mediation_custom.report_proposal"
         />
+
+        <report
+            id="action_report_proposal_lead"
+            string="Proposal"
+            model="crm.lead"
+            report_type="qweb-pdf"
+            name="sale_mediation_custom.report_proposal"
+            file="sale_mediation_custom.report_proposal"
+        />
 	</data>
 </openerp>
