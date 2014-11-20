@@ -10,11 +10,13 @@
         <record model="res.groups" id="group_employee_information">
             <field name="name">employee_information</field>
             <field name="category_id" ref="module_category_custom"/>
+			<field name="comment">Allows to view "Personal information" and "HR Settings" tabs in employee form</field>
 		</record>
 
         <record model="res.groups" id="group_private_partner_information">
             <field name="name">private_partner_information</field>
             <field name="category_id" ref="module_category_custom"/>
+			<field name="comment">Allows to view and edit addresess. Without this tick employee has access only to own addresess.</field>
 		</record>
 
         <record model="res.groups" id="group_view_marketing_menu">
@@ -184,6 +186,7 @@
         <record model="res.groups" id="group_edit_employees_each_employee">
             <field name="name">edit_employees_each_employee</field>
             <field name="category_id" ref="module_category_custom"/>
+			<field name="comment">Allows to employee edit own form</field>
 		</record>
 
         <record model="res.groups" id="group_appraisals_full_rights">
