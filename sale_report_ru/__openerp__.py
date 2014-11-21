@@ -18,7 +18,7 @@
     * предложение (заменяет встроенный отчет)
 
     """,
-    "depends" : ["sale", "account", "res_partner_ru"],
+    "depends" : ["sale", "account", "res_partner_ru", "res_partner_bank_swift"],
     "data":[
         'report.xml',
         'views.xml',

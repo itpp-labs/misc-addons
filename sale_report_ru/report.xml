@@ -194,7 +194,7 @@
 				<span t-esc="l.product_id and l.product_id.name or l.name"/>
 			 </td>
 			 <td style="border-left:none;">
-				<span t-if="l.discount">скидка <span t-esc="'%.0f' % l.discount"/>%</span>
+				<span t-if="l.discount"><span>скидка</span> <span t-esc="'%.0f' % l.discount"/>%</span>
 			 </td>
 			 <td class="text-right">
 				<span t-field="l.price_unit"/>
@@ -219,7 +219,7 @@
 				</td>
 			 </tr>
 			 <tr>
-				<td>НДС</td>
+				<td><span>НДС</span></td>
 				<td class="text-right">
 				  <span t-field="o.amount_tax" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;currency_id&quot;}"/>
 				</td>
@@ -408,21 +408,25 @@
 <div>
   <table class="table table-bordered">
   <tr>
-    <td>ИНН <span t-field="partner_id.inn"/></td>
-    <td>КПП <span t-field="partner_id.kpp"/></td>
-    <td rowspan="2" style="vertical-align: middle;">Сч. №</td>
+    <td><span>ИНН</span> <span t-field="partner_id.inn"/></td>
+    <td><span>КПП</span> <span t-field="partner_id.kpp"/></td>
+    <td rowspan="2" style="vertical-align: middle;"><span>Сч. №</span></td>
     <td rowspan="2" style="vertical-align: middle;"><span t-field="bank_id.acc_number"/></td>
   </tr>
   <tr>
-    <td colspan="2">Получатель<br/><span t-field="partner_id.name"/></td>
+    <td colspan="2"><span>Получатель</span><br/><span t-field="partner_id.name"/></td>
   </tr>
   <tr>
-    <td colspan="2" rowspan="2">Банк получателя<br/><span t-field="bank_id.bank_name"/></td>
-    <td>БИК</td>
+    <td colspan="2" t-att-rowspan="lang=='ru_RU' and 2 or 3"><span>Банк получателя</span><br/><span t-field="bank_id.bank_name"/></td>
+    <td><span>БИК</span></td>
     <td><span t-field="bank_id.bank_bic"/></td>
   </tr>
+  <tr t-if="lang!='ru_RU'">
+    <td><span>SWIFT</span></td>
+    <td><span t-field="bank_id.bank_swift"/></td>
+  </tr>
   <tr>
-    <td>Сч. №</td>
+    <td><span>Сч. №</span></td>
     <td><span t-field="bank_id.bank_acc_corr"/></td>
   </tr>
 </table>
@@ -432,7 +436,14 @@
 
 <template id="report_account_invoice">
     <t t-call="report.html_container">
-        <t t-foreach="docs" t-as="o">
+        <t t-foreach="doc_ids" t-as="doc_id">
+            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'sale_report_ru.report_account_invoice_document')"/>
+		</t>
+	</t>
+</template>
+
+<template id="report_account_invoice_document">
+			<t t-set="lang" t-value="o.partner_id.lang or 'ru_RU'"/>
             <t t-call="report.external_layout">
                 <div class="page">
 						<div t-field="o.company_id.partner_id"
@@ -443,10 +454,10 @@
 							 <t t-set="bank_id" t-value="o.partner_bank_id"/>
 						  </t>
 
-			 <h1>Счет № <span t-field="o.name"/> <t t-if="o.date_invoice">от <span t-field="o.date_invoice" t-field-options='{"format": "dd.MM.yyyy"}'/></t></h1>
-			 <div>Заказчик: <span t-field="o.partner_id.name"/></div>
-			 <div>Плательщик: <span t-field="o.partner_id.name"/></div>
-			 <div>Договор № <span t-field="o.origin"/><t  t-if="o.date_origin"> от <span t-field="o.date_origin" t-field-options='{"format": "dd.MM.yyyy"}'/></t></div>
+			 <h1><span>Счет №</span> <span t-field="o.number"/> <t t-if="o.date_invoice"><span>от</span> <span t-field="o.date_invoice" t-field-options='{"format": "dd.MM.yyyy"}'/></t></h1>
+			 <div><span>Заказчик:</span> <span t-field="o.partner_id.name"/></div>
+			 <div><span>Плательщик:</span> <span t-field="o.partner_id.name"/></div>
+			 <div><span>Договор №</span> <span t-field="o.origin"/><t  t-if="o.date_origin"> <span>от</span> <span t-field="o.date_origin" t-field-options='{"format": "dd.MM.yyyy"}'/></t></div>
 			 <div style="height:30px"></div>
 
 						  <t t-call="sale_report_ru.lines"/>
@@ -460,17 +471,17 @@
 	 <t t-set="currency_id" t-value="o.currency_id"/>
   </t>
 
-						  <p>Всего наименований <span t-esc="len(lines)"/>, на сумму <span t-field="o.amount_total" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;currency_id&quot;}"/></p>
+						  <p t-if="lang=='ru_RU'">Всего наименований <span t-esc="len(lines)"/>, на сумму <span t-field="o.amount_total" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;currency_id&quot;}"/></p>
 						  <style type="text/css">
 							 .sentence:first-letter {
 							     text-transform: uppercase;
 							 }
 						  </style>
-						  <p class="sentence"><span t-field="o.amount_total_in_words"/></p>
+						  <p t-if="lang=='ru_RU'" class="sentence"><span t-field="o.amount_total_in_words"/></p>
 
-						  <div class="row" style="margin-top:20px;">
+						  <div t-if="lang=='ru_RU'" class="row" style="margin-top:20px;">
 							 <div class="col-xs-4  text-right">
-								Руководитель
+								<span>Руководитель</span>
 							 </div>
 							 <div class="col-xs-4" style="border-bottom:1px solid black;">&amp;nbsp;</div>
 							 <div class="col-xs-4">
@@ -479,9 +490,9 @@
 							 
 						  </div>
 
-						  <div class="row" style="margin-top:30px;">
+						  <div t-if="lang=='ru_RU'" class="row" style="margin-top:30px;">
 							 <div class="col-xs-4  text-right">
-								Главный бухгалтер
+								<span>Главный бухгалтер</span>
 							 </div>
 							 <div class="col-xs-4" style="border-bottom:1px solid black;">&amp;nbsp;</div>
 							 <div class="col-xs-4">
@@ -491,8 +502,6 @@
 						  </div>
                 </div>
             </t>
-        </t>
-    </t>
 </template>
 
 
