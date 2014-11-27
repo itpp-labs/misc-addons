@@ -281,7 +281,7 @@
             <field name="model">crm.case.section</field>
             <field name="inherit_id" ref="crm.crm_case_section_salesteams_view_kanban"/>
             <field name="arch" type="xml">
-				<xpath expr="//a[text()='Leads']" position="replace">
+				<xpath expr="//div[@class='oe_salesteams_leads']" position="replace">
 				</xpath>
 			</field>
 		</record>
