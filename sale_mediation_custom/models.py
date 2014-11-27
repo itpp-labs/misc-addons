@@ -457,7 +457,7 @@ class crm_lead(models.Model):
             #if old!='negotiation':
             #    return {'warning': 'You have to pass Negotiation stages before move sale case to Won'}
             if not self.is_proposal_confirmed:
-                return {'warning': 'Proposal is not confirmed by customer'}
+                return {'warning': 'Quotation is not confirmed by customer'}
 
         return {}
 

@@ -248,10 +248,10 @@
 					<field name="proposal_id" invisible="True"/>
 					<field name="id" invisible="1"/>
 					<field name="sales_funnel_type" invisible="1"/>
-					<button type="action" name="%(action_create_proposal_lead)d" class="oe_highlight" string="Create proposal" attrs="{'invisible':['|', ('sales_funnel_type','!=', 'lead'), ('proposal_id','!=', False)]}" context="{'lead_id': id}"/>
-					<button name="edit_proposal" string="Edit proposal" attrs="{'invisible':['|',('sales_funnel_type', '!=', 'quotation'),('proposal_id', '=', False)]}" type="object"/>
-					<button name="open_proposal" string="Open proposal" attrs="{'invisible':[('proposal_id', '=', False)]}" type="object"/>
-					<button type="object" name="action_send_proposal" class="oe_highlight" string="Send proposal" attrs="{'invisible': [('sales_funnel_type', '!=', 'quotation')]}"/>
+					<button type="action" name="%(action_create_proposal_lead)d" class="oe_highlight" string="Create quotation" attrs="{'invisible':['|', ('sales_funnel_type','!=', 'lead'), ('proposal_id','!=', False)]}" context="{'lead_id': id}"/>
+					<button name="edit_proposal" string="Edit quotation" attrs="{'invisible':['|',('sales_funnel_type', '!=', 'quotation'),('proposal_id', '=', False)]}" type="object"/>
+					<button name="open_proposal" string="Open quotation" attrs="{'invisible':[('proposal_id', '=', False)]}" type="object"/>
+					<button type="object" name="action_send_proposal" class="oe_highlight" string="Send quotation" attrs="{'invisible': [('sales_funnel_type', '!=', 'quotation')]}"/>
 					
 				</xpath>
 
@@ -265,7 +265,7 @@
 
 							<!--
 							<label for="open_proposal" string="Proposal"/>
-							<button name="open_proposal" string="Open proposal" attrs="{'invisible':[('proposal_id', '=', False)]}" type="object"/>
+							<button name="open_proposal" string="Open quotation" attrs="{'invisible':[('proposal_id', '=', False)]}" type="object"/>
 							-->
 							<field name="sale_order_state"/>
 						</group>
@@ -273,6 +273,16 @@
 					</page>
 				</xpath>
 
+			</field>
+		</record>
+
+        <record model="ir.ui.view" id="crm_case_section_salesteams_view_kanban">
+            <field name="name">crm.case.section.kanban</field>
+            <field name="model">crm.case.section</field>
+            <field name="inherit_id" ref="crm.crm_case_section_salesteams_view_kanban"/>
+            <field name="arch" type="xml">
+				<xpath expr="//a[text()='Leads']" position="replace">
+				</xpath>
 			</field>
 		</record>
 
@@ -318,9 +328,9 @@
 
 	<data noupdate="1">
         <record id="email_template_proposal" model="email.template">
-            <field name="name">Send Proposal</field>
+            <field name="name">Send Quotation</field>
             <!--<field name="email_from">${(object.user_id.email or '')|safe}</field>-->
-            <field name="subject">${object.company_id.name|safe} Proposal (Ref ${object.name or 'n/a' })</field>
+            <field name="subject">${object.company_id.name|safe} Quotation (Ref ${object.name or 'n/a' })</field>
             <field name="partner_to">${object.partner_id.id}</field>
             <!--<field name="model_id" ref="sale.model_sale_order"/>-->
             <field name="model_id" ref="account_analytic_analysis.model_account_analytic_analysis"/>
@@ -338,14 +348,14 @@
 		</record>
 
         <record id="email_template_proposal_lead" model="email.template">
-            <field name="name">Send Proposal</field>
+            <field name="name">Send Quotation</field>
             <!--<field name="email_from">${(object.user_id.email or '')|safe}</field>-->
-            <field name="subject">${object.company_id.name|safe} Proposal (Ref ${object.name or 'n/a' })</field>
+            <field name="subject">${object.company_id.name|safe} Quotation (Ref ${object.name or 'n/a' })</field>
             <field name="partner_to">${object.partner_id.id}</field>
             <field name="model_id" ref="crm.model_crm_lead"/>
             <field name="auto_delete" eval="True"/>
             <field name="report_template" ref="action_report_proposal_lead"/>
-            <field name="report_name">${object.name.replace('/','')}-proposal</field>
+            <field name="report_name">${object.name.replace('/','')}-quotation</field>
             <field name="lang">${object.partner_id.lang}</field>
             <field name="body_html"><![CDATA[
 

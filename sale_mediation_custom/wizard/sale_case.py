@@ -189,7 +189,7 @@ class create_proposal_lead(models.TransientModel):
     _name = 'sale_mediation_custom.create_proposal_lead'
     #sale_case_id = fields.Many2one('account.analytic.account', default=_get_active_id)
     sale_case_id = fields.Many2one('crm.lead', default=_get_active_id)
-    proposal_template_id = fields.Many2one('website_proposal.template')
+    proposal_template_id = fields.Many2one('website_proposal.template', string='Quotation template')
 
     @api.v7
     def action_apply(self, cr, uid, ids, context=None):

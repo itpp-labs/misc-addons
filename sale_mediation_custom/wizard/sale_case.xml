@@ -67,7 +67,7 @@
         </record>
 
         <record id="action_create_proposal" model="ir.actions.act_window">
-            <field name="name">create proposal</field>
+            <field name="name">Create quotation</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">sale_mediation_custom.create_proposal</field>
             <field name="view_type">form</field>
@@ -76,7 +76,7 @@
         </record>
 
         <record id="view_create_proposal" model="ir.ui.view">
-            <field name="name">Create proposal</field>
+            <field name="name">Create quotation</field>
             <field name="model">sale_mediation_custom.create_proposal</field>
             <field name="arch" type="xml">
                 <form>
@@ -94,7 +94,7 @@
 
 
         <record id="action_create_proposal_lead" model="ir.actions.act_window">
-            <field name="name">create proposal</field>
+            <field name="name">Create quotation</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">sale_mediation_custom.create_proposal_lead</field>
             <field name="view_type">form</field>
@@ -103,7 +103,7 @@
         </record>
 
         <record id="view_create_proposal_lead" model="ir.ui.view">
-            <field name="name">Create proposal</field>
+            <field name="name">Create quotation</field>
             <field name="model">sale_mediation_custom.create_proposal_lead</field>
             <field name="arch" type="xml">
                 <form>
