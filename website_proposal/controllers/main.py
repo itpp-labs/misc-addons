@@ -91,7 +91,12 @@ class website_proposal(http.Controller):
         proposal = proposal_obj.browse(request.cr, SUPERUSER_ID, proposal_id)
         if token != proposal.access_token:
             return request.website.render('website.404')
+        proposal.write({
+            'state':'rejected',
+        })
         #request.registry.get(proposal.res_model).action_cancel(request.cr, SUPERUSER_ID, [proposal_id])
+        record = request.registry.get(proposal.res_model).browse(request.cr, SUPERUSER_ID, proposal.res_id, context=request.context)
+        record.signal_workflow('proposal_rejected')
         message = post.get('decline_message')
         if message:
             self.__message_post(message, proposal, type='comment', subtype='mt_comment')

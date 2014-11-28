@@ -3,7 +3,7 @@ from openerp.osv import osv, fields
 import uuid
 import time
 import datetime
-from openerp import tools
+from openerp import tools, SUPERUSER_ID
 
 import openerp.addons.decimal_precision as dp
 
@@ -75,6 +75,7 @@ class website_proposal(osv.osv):
         'signer': fields.binary('Signer'),
         'state': fields.selection([
             ('draft', 'Draft'),
+            ('rejected', 'Rejected'),
             ('done', 'Signed'),
         ]),
         'company_id': fields.many2one('res.company', 'Company'),
@@ -106,3 +107,18 @@ class website_proposal(osv.osv):
         vals['website_description'] = website_description
         new_id = super(website_proposal, self).create(cr, uid, vals, context=context)
         return new_id
+
+
+class res_users(osv.osv):
+    _name = 'res.users'
+    _inherit = 'res.users'
+
+    def _get_is_employee(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for r in self.browse(cr, SUPERUSER_ID, ids, context=context):
+            res[r.id] = bool(r.employee_ids)
+        return res
+
+    _columns = {
+        'is_employee': fields.function(_get_is_employee, string='Is employee', type='boolean'),
+    }

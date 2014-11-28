@@ -161,7 +161,7 @@
                               </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" t-attf-class="btn btn-primary">Sign Proposal</button> or
+                                <button t-att-type="not user_id.is_employee and 'submit' or ''" t-attf-class="btn btn-primary" t-att-onclick="user_id.is_employee and 'alert(\'Employee cannot sign proposal\'); return false;' or ''">Sign Proposal</button> or
                                 <button type="button" class="btn btn-link" data-dismiss="modal" style="padding: 0">Cancel</button>
                             </div>
                           </form>
@@ -187,7 +187,7 @@
                               <textarea rows="4" name="decline_message" placeholder="Your feedback....." class="form-control"/>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" t-att-id="proposal.id" class="btn btn-primary">Reject</button> or
+                                <button t-att-type="not user_id.is_employee and 'submit' or ''" t-att-id="proposal.id" class="btn btn-primary" t-att-onclick="user_id.is_employee and 'alert(\'Employee cannot reject proposal\'); return false;' or ''">Reject</button> or
                                 <button type="button" class="btn btn-link" data-dismiss="modal" style="padding: 0">Cancel</button>
                             </div>
                           </form>
