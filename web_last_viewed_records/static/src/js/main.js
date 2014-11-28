@@ -55,7 +55,9 @@ openerp.web_last_viewed_records = function(instance){
                 var selected = false;//item.action.id == this.inner_action.id && item.action.res_id == this.inner_action.res_id;
                 var view_type = item.view_type;
                 var url = $.param(item.url);
-                titles.push(_.str.sprintf('<a href="#%s" class="oe_last_viewed_item %s"><span class="oe_e %s"/>&nbsp;</span>%s</a>',
+                var title = item.url.model;
+                titles.push(_.str.sprintf('<a title="%s" href="#%s" class="oe_last_viewed_item %s"><span class="oe_e %s"/>&nbsp;</span>%s</a>',
+                                          title,
                                           url,
                                           selected && 'selected' || '',
                                           view_type,
@@ -70,6 +72,10 @@ openerp.web_last_viewed_records = function(instance){
             var view = this.views[view_type];
             var act = view.options.action;
             if (!act.type)
+                return false;
+
+            if (act.target == 'new')
+                //skip widgets and popup forms
                 return false;
 
             var url = {
@@ -116,7 +122,8 @@ openerp.web_last_viewed_records = function(instance){
         },
         set_title: function(){
             this._super.apply(this, arguments);
-            this.update_last_viewed_title();
+            if (this.action.target!='new')
+                this.update_last_viewed_title();
         }
 
     })
