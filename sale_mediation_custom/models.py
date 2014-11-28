@@ -283,13 +283,21 @@ class crm_lead(models.Model):
 
     sales_funnel_type = fields.Selection(related='stage_id.sales_funnel_type')
     sale_order_id = fields.Many2one('sale.order', 'Quotation \ Sale Order')
-    sale_order_lines = fields.One2many('sale.order.line', 'Order lines', related='sale_order_id.order_line')
+    sale_order_lines = fields.One2many('sale.order.line', 'order_id', string='Order lines', related='sale_order_id.order_line', readonly=False)
+    pricelist_id = fields.Many2one('product.pricelist', 'Pricelist', related='sale_order_id.pricelist_id', readonly=False)
+    date_order = fields.Datetime(string='Date order', related='sale_order_id.date_order', readonly=False)
+    fiscal_position = fields.Many2one('account.fiscal.position', string='Fiscal Position', related='sale_order_id.fiscal_position', readonly=False)
+
     sale_order_state = fields.Selection('Sale order status', related='sale_order_id.state')
     color = fields.Integer('Color index', related='section_id.color')
     is_proposal_sent = fields.Boolean('Proposal sent', default=False)
     is_proposal_confirmed = fields.Boolean('Proposal confirmed', default=False)
     project_id = fields.Many2one('project.project', 'Project')
 
+    @api.one
+    def action_create_sale_order(self):
+        # TODO
+        pass
 
     @api.multi
     def action_create_sale_case(self): # OLD
