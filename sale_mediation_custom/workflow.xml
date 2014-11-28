@@ -61,6 +61,12 @@
             <field name="signal">proposal_confirmed</field>
         </record>
 
+        <record id="trans_lead_negotiation_sale_lost" model="workflow.transition">
+            <field name="act_from" ref="act_lead_negotiation"/>
+            <field name="act_to" ref="act_lead_sale_lost"/>
+            <field name="signal">proposal_rejected</field>
+        </record>
+
 
 
 
