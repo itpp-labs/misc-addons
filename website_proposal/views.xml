@@ -130,7 +130,7 @@
                       <a id="introduction"/>
                       <h1 class="page-header mt16">
 						  <span>Proposal</span>
-                          <em t-esc="proposal.id"/>
+                          <em t-esc="proposal.res_name"/>
                           <div groups="base.group_website_publisher" t-ignore="true" class="pull-right css_editable_mode_hidden">
                               <!-- <a class="btn btn-info hidden-print" t-att-href="'/web#return_label=Website&amp;model=%s&amp;id=%s' % (proposal._name, proposal.id)">Update Quote</a> -->
                           </div>

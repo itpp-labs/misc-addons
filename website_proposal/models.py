@@ -61,7 +61,15 @@ class website_proposal(osv.osv):
             raise osv.except_osv(_('Error!'), _('There is no default company for the current user!'))
         return company_id
 
+    def _get_res_name(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for r in self.browse(cr, uid, ids, context=context):
+            record = self.pool[r.res_model].browse(cr, uid, r.res_id, context=context)
+            res[r.id] = record.name
+        return res
+
     _columns = {
+        'res_name': fields.function(_get_res_name, string='Name', type='char'),
         'access_token': fields.char('Security Token', required=True, copy=False),
         'template_id': fields.many2one('website_proposal.template', 'Quote Template', readonly=True),
         'head': fields.text('Html head'),
