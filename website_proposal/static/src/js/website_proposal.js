@@ -35,9 +35,11 @@ $(document).ready(function () {
         $("#signature").jSignature('reset');
     });
 
-
+    var sending = false;
     $('form.js_accept_json').submit(function(ev){
         ev.preventDefault();
+        if (sending)
+            return;
         var $link = $(ev.currentTarget);
         var href = $link.attr("action");
         var proposal_id = href.match(/accept\/([0-9]+)/);
@@ -54,12 +56,14 @@ $(document).ready(function () {
         if (is_empty || ! signer_name)
             return false;
 
+        sending=true;
         openerp.jsonRpc("/website_proposal/accept", 'call', {
             'proposal_id': parseInt(proposal_id[1]),
             'token': token,
             'signer': signer_name,
             'sign': sign?JSON.stringify(sign[1]):false,
         }).then(function (data) {
+            sending = false;
             $('#modelaccept').modal('hide');
             window.location.href = '/website_proposal/'+proposal_id[1]+'/'+token+'?message=3';
         });
