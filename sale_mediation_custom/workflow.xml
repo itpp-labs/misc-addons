@@ -41,7 +41,7 @@
             <field name="wkf_id" ref="wkf_sales_funnel_lead"/>
             <field name="name">sale_lost</field>
             <field name="kind">function</field>
-            <field name="action">action_set_state_sale_lost()</field>
+            <field name="action">action_set_state_sales_lost()</field>
         </record>
         <!-- Transistion -->
 
