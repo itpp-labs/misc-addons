@@ -18,15 +18,6 @@ def _get_proposal_id(self, cr, uid, ids, name, args, context=None):
 class account_analytic_account(models.Model):
     _inherit = 'account.analytic.account'
 
-    def _get_new_code(self, cr, uid, context=None):
-        today = old_fields.date.context_today(self, cr, uid, context=context)
-        d = fields.Date.from_string(today)
-        name = d.strftime('SE%y%m%d')
-        ids = self.search(cr, uid, [('create_date', '>=', d.strftime(DEFAULT_SERVER_DATE_FORMAT))], context=context)
-        if len(ids)>0:
-            name = name + ('%02i'% (len(ids) + 1))
-        return name
-
     support_manager_id = fields.Many2one('res.users', 'Support manager', select=True)
     notetaker_id = fields.Many2one('res.partner', 'Notetaker', select=True)
     proof_reader_id = fields.Many2one('res.partner', 'Proof reader', select=True)
@@ -52,184 +43,13 @@ class account_analytic_account(models.Model):
     #create_date = fields.Date(default=fields.Date.context_today)
     color = fields.Integer('Color index', related='section_id.color')
 
-    STATE_SELECTION = [
-        ('lead','Lead'),
-        ('new','New'),
-        ('qualified', 'Qualified'),
-        ('quotation', 'Quotation'),
-        ('negotiation', 'Negotiation'),
-        ('sale_won', 'Sale won'),
-
-        ('to_be_invoiced', 'To be Invoiced'),
-        ('awaiting_payment', 'Awaiting Payment'),
-
-        ('lost', 'Lost'),
-        ('cancelled', 'Cancelled'), # odoo
-        ('close','Close'),
-        ('template', 'Template'), # odoo
-    ]
     _columns = {
-        'state': old_fields.selection(selection=STATE_SELECTION, string='Status', required=True),
         'proposal_id': old_fields.function(_get_proposal_id, type='many2one', obj='website_proposal.proposal', string='Proposal'),
     }
+
     _defaults = {
-        'state': 'lead',
-        'name': lambda self, cr, uid, context=None: context.get('project_name') or self._get_new_code(cr, uid, context=context),
+        'name': lambda self, cr, uid, context=None: context.get('project_name') or 'NONAME'
     }
-
-    @api.v7
-    def create(self, cr, uid, vals, context=None):
-        is_project = vals.get('project_ids')
-        if not vals.get('lead_id') and not is_project:
-            name = vals.get('name') or self._get_new_code(cr, uid, context=context)
-            lead_id = self.pool['crm.lead'].create(cr, uid, {
-                'partner_id': vals.get('partner_id'),
-                'name': '%s Lead' % name,
-            })
-            vals['lead_id'] = lead_id
-            vals['name'] = name
-        return super(account_analytic_account, self).create(cr, uid, vals, context=context)
-
-    @api.v7
-    def read_group(self, cr, uid, domain, fields, groupby, offset=0, limit=None, context=None, orderby=False, lazy=True):
-        """ Override read_group to always display all states. """
-        if groupby and groupby[0] == "state":
-            # Default result structure
-            # states = self._get_state_list(cr, uid, context=context)
-
-            STATE_TO_DELETE = ['template', 'to_be_invoiced', 'awaiting_payment', 'lost', 'cancelled', 'close']
-            states = self.STATE_SELECTION
-
-            read_group_all_states = [{
-                '__context': {'group_by': groupby[1:]},
-                '__domain': domain + [('state', '=', state_value)],
-                'state': state_value,
-                'state_count': 0,
-            } for state_value, state_name in states]
-            # Get standard results
-            read_group_res = super(account_analytic_account, self).read_group(cr, uid, domain, fields, groupby, offset=offset, limit=limit, context=context, orderby=orderby)
-            # Update standard results with default results
-            result = []
-            for state_value, state_name in states:
-                res = filter(lambda x: x['state'] == state_value, read_group_res)
-                if not res:
-                    if state_value in STATE_TO_DELETE:
-                        continue
-                    res = filter(lambda x: x['state'] == state_value, read_group_all_states)
-                res[0]['state'] = [state_value, state_name]
-                result.append(res[0])
-            return result
-        else:
-            return super(account_analytic_account, self).read_group(cr, uid, domain, fields, groupby, offset=offset, limit=limit, context=context, orderby=orderby)
-
-    def lead_to_opportunity(self):
-        self.lead_id_type = 'opportunity'
-
-    @api.one
-    def action_set_state_new(self):
-        self.state = 'new'
-        self.lead_to_opportunity()
-
-    @api.one
-    def action_set_state_qualified(self):
-        self.state = 'qualified'
-        self.lead_to_opportunity()
-
-    @api.one
-    def action_set_state_quotation(self):
-        self.state = 'quotation'
-        self.lead_to_opportunity()
-
-    @api.one
-    def action_set_state_negotiation(self):
-        self.state = 'negotiation'
-
-    @api.v7
-    def action_send_proposal(self, cr, uid, ids, context = None):
-        assert len(ids) == 1, 'This option should only be used for a single id at a time.'
-        sale_case = self.browse(cr, uid, ids, context=context)[0]
-        assert sale_case.sale_order_id.order_line, 'You have to specify order lines'
-
-        ir_model_data = self.pool.get('ir.model.data')
-        try:
-            template_id = ir_model_data.get_object_reference(cr, uid, 'sale_mediation_custom', 'email_template_proposal')[1]
-        except ValueError:
-            template_id = False
-        try:
-            compose_form_id = ir_model_data.get_object_reference(cr, uid, 'mail', 'email_compose_message_wizard_form')[1]
-        except ValueError:
-            compose_form_id = False 
-        ctx = dict()
-        ctx.update({
-            'default_model': 'account.analytic.account',
-            'default_res_id': sale_case.id,
-            'default_use_template': bool(template_id),
-            'default_template_id': template_id,
-            'default_composition_mode': 'comment',
-            'sale_case_id': sale_case.id,
-            'mark_proposal_as_sent': True
-        })
-        return {
-            'type': 'ir.actions.act_window',
-            'view_type': 'form',
-            'view_mode': 'form',
-            'res_model': 'mail.compose.message',
-            'views': [(compose_form_id, 'form')],
-            'view_id': compose_form_id,
-            'target': 'new',
-            'context': ctx,
-        }
-
-    #@api.v7 # workflow handler doesn't work with this decorator
-    def action_set_state_sale_won(self, cr, uid, ids, context=None):
-        assert len(ids) == 1, 'This option should only be used for a single id at a time.'
-
-        r = self.browse(cr, uid, ids, context=context)[0]
-        if r.project_id:
-            r.write({'state':'sale_won'})
-            return True
-
-        r.sale_order_id.action_button_confirm()
-
-        m = re.match('SE(\d*)(.*)', r.name)
-
-        name = r.name
-        if m:
-            name = 'PE%s (SE)%s'% (m.group(1), m.group(2))
-        vals = {
-            'name': name,
-            'type': 'contract',
-            'analytic_account_id': r.id,
-            'use_tasks': True,
-        }
-        project_id = self.project_create(cr, uid, r.id, vals, context=context)
-        r.write({'use_tasks': True,
-                 'state':'sale_won'})
-
-        data_obj = self.pool.get('ir.model.data')
-        form_view_id = data_obj._get_id(cr, uid, 'project', 'edit_project')
-        form_view = data_obj.read(cr, uid, form_view_id, ['res_id'])
-
-        return {
-            'name': _('Project'),
-            'view_type': 'form',
-            'view_mode': 'kanban, tree, form',
-            'res_model': 'project.project',
-            'res_id': int(project_id),
-            #'view_id': False,
-            'views': [(form_view['res_id'],'form')],
-            'type': 'ir.actions.act_window',
-        }
-
-    @api.v7
-    def edit_proposal(self, cr, uid, ids, context=None):
-        r = self.browse(cr, uid, ids[0], context)
-        return self.pool['website_proposal.proposal'].edit_proposal(cr, uid, [r.proposal_id.id], context=context)
-
-    @api.v7
-    def open_proposal(self, cr, uid, ids, context=None):
-        r = self.browse(cr, uid, ids[0], context)
-        return self.pool['website_proposal.proposal'].open_proposal(cr, uid, [r.proposal_id.id], context=context)
 
 
 class mail_compose_message(osv.Model):
@@ -237,9 +57,6 @@ class mail_compose_message(osv.Model):
 
     def send_mail(self, cr, uid, ids, context=None):
         context = context or {}
-        if context.get('default_model') == 'account.analytic.account' and context.get('mark_proposal_as_sent') and context.get('sale_case_id'):
-            context = dict(context, mail_post_autofollow=True)
-            self.pool.get('account.analytic.account').browse(cr, uid, context['sale_case_id'], context=context).signal_workflow('proposal_sent')
         if context.get('default_model') == 'crm.lead' and context.get('mark_proposal_as_sent') and context.get('sale_case_id'):
             context = dict(context, mail_post_autofollow=True)
             self.pool.get('crm.lead').browse(cr, uid, context['sale_case_id'], context=context).signal_workflow('proposal_sent')
@@ -389,7 +206,7 @@ class crm_lead(models.Model):
         }
 
     #@api.v7 # workflow handler doesn't work with this decorator
-    def action_set_state_sale_won(self, cr, uid, ids, context=None):
+    def action_set_state_sale_won(self, cr, uid, ids, context={}):
         assert len(ids) == 1, 'This option should only be used for a single id at a time.'
 
         r = self.browse(cr, uid, ids, context=context)[0]
@@ -406,13 +223,11 @@ class crm_lead(models.Model):
         name = r.name
         if m:
             name = 'PE%s (SE)%s'% (m.group(1), m.group(2))
-        ctx = context.copy()
-        ctx['project_name'] = name
         vals = {
             'name':name,
             'sale_case_id': r.id,
         }
-        project_id = self.pool['project.project'].create(cr, uid, vals, context=ctx)
+        project_id = self.pool['project.project'].create(cr, uid, vals, context=context.copy())
         r.write({'project_id':project_id})
         r.set_sales_funnel('won')
 
@@ -497,6 +312,12 @@ class project_project(models.Model):
     _defaults = {
         #'name': '_'
     }
+
+    @api.v7
+    def create(self, cr, uid, vals, context={}):
+        if 'project_name' not in context:
+            context['project_name'] = vals.get('name')
+        return super(project_project, self).create(cr, uid, vals, context=context)
 
 class project_task(models.Model):
     _inherit = 'project.task'

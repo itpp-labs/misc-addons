@@ -36,6 +36,7 @@
             <field name="model">account.analytic.account</field>
             <field name="inherit_id" ref="account_analytic_analysis.account_analytic_account_form_form"/>
             <field name="arch" type="xml">
+				<!--
 				<xpath expr="//button[@name='set_pending']" position="replace">
 				</xpath>
 				<xpath expr="//button[@name='set_close']" position="replace">
@@ -44,20 +45,7 @@
 				</xpath>
 				<xpath expr="//button[@name='set_cancel']" position="replace">
 				</xpath>
-				<xpath expr="//field[@name='state']" position="replace">
-					<field name="proposal_id" invisible="True"/>
-					<button name="new" class="oe_highlight" string="move to New" states="lead"/>
-					<button name="qualified" class="oe_highlight" string="move to Qualified" states="lead,new"/>
-					<button type="action" name="%(action_create_proposal)d" class="oe_highlight" string="move to Quotation" states="lead,new,qualified"/>
-					<button name="edit_proposal" string="Edit proposal" attrs="{'invisible':['|',('state', '!=', 'quotation'),('proposal_id', '=', False)]}" type="object"/>
-					<button name="open_proposal" string="Open proposal" attrs="{'invisible':['|',('state', '!=', 'negotiation'),('proposal_id', '=', False)]}" type="object"/>
-					<button type="object" name="action_send_proposal" class="oe_highlight" string="Send proposal" states="quotation"/>
-					<!--<button type="object" name="action_set_state_negotiation" class="oe_highlight" string="move to Negotiation" states="quotation"/>-->
-
-					<button type="action" string="Administration" name="%(action_sale_case_administration)d" groups="access_custom.group_sales_full_rights"/>
-					<field name="state" widget="statusbar"
-                           statusbar_visible="lead,new,qualified,quotation,negotiation,sale_won" statusbar_colors='{"pending":"red", "template":"blue"}'/>
-				</xpath>
+				-->
 				<xpath expr="//field[@name='manager_id']" position="after">
 					<!-- <field name="support_manager_id"/> -->
 					<field name="section_id"/>
@@ -74,46 +62,6 @@
 						<field name="participant_ids"/>
 					</page>
 				</xpath>
-				<xpath expr="//notebook" position="inside">
-					<page string="Lead \ Opportunity">
-						<group>
-							<field name="lead_id" context="{'form_view_ref':'crm.crm_case_form_view_oppor'}" attrs="{'invisible':[('lead_id_type', '=', 'lead')]}" readonly="1"/>
-							<field name="lead_id2" context="{'form_view_ref':'crm.crm_case_form_view_leads'}" attrs="{'invisible':[('lead_id_type', '!=', 'lead')]}" readonly="1"/>
-							<field name="lead_id_type" readonly="1"/>
-							<field name="lead_id_priority" widget="priority"/>
-
-                            <label for="lead_id_planned_revenue"/>
-                            <h2>
-                                <field name="currency_id" invisible="1"/>
-                                <field name="lead_id_planned_revenue" class="oe_inline" widget='monetary' options="{'currency_field': 'currency_id'}"/>
-                                <span class="oe_grey"> at </span>
-                                <field name="lead_id_probability" class="oe_inline" widget="integer"/>%%
-                            </h2>
-
-						</group>
-					</page>
-				</xpath>
-				<xpath expr="//notebook" position="inside">
-					<page string="Quotation \ Sale Order">
-						<group>
-							<field name="sale_order_id" readonly="True"/>
-							<field name="proposal_id" invisible="True"/>
-
-							<!--
-							<label for="open_proposal" string="Proposal"/>
-							<button name="open_proposal" string="Open proposal" attrs="{'invisible':[('proposal_id', '=', False)]}" type="object"/>
-							-->
-							<field name="sale_order_state"/>
-						</group>
-						<field name="sale_order_lines"/>
-					</page>
-				</xpath>
-				<!--
-				<xpath expr="//notebook" position="inside">
-					<page string="Administration" groups="access_custom.group_sales_full_rights">
-					</page>
-				</xpath>
-				-->
 			</field>
 		</record>
 
@@ -170,7 +118,7 @@
 
         <!-- Action Sales/Sales/Contracts -->
         <record id="action_account_analytic_overdue_all" model="ir.actions.act_window">
-            <field name="name">Sales funnel</field>
+            <field name="name">Contracts</field>
             <field name="res_model">account.analytic.account</field>
             <field name="view_type">form</field>
             <field name="view_mode">kanban,tree,form</field>
