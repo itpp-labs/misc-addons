@@ -339,26 +339,6 @@
             <field eval="'ir.actions.server,%d'%action_create_sale_case" name="value"/>
         </record>
 
-        <act_window id="action_create_sale_case_from_opportunity"
-					name="Create sales funnel (from opportunity)"
-					key2="client_action_multi"
-					res_model="sale_mediation_custom.opportunity_to_sale_case"
-					src_model="crm.lead"
-					view_mode="form"
-					multi="True"
-					target="new"
-					/>
-
-        <act_window id="action_sale_case_administration_multi"
-					name="Administration"
-					key2="client_action_multi"
-					res_model="sale_mediation_custom.sale_case_administration_multi"
-					src_model="account.analytic.account"
-					groups="access_custom.group_sales_full_rights"
-					view_mode="form"
-					multi="True"
-					target="new"
-					/>
 
 	</data>
 
