@@ -304,6 +304,7 @@
         <t t-set="head">
             <link rel='stylesheet' href='/website_proposal/static/src/css/website_proposal.css'/>
             <t t-raw="head or ''"/>
+			<t t-raw="template.head"/>
         </t>
         <body data-spy="scroll" data-target=".navspy">
             <div class="container">
@@ -377,6 +378,22 @@
                           <field name="res_model"/> 
                       </group>
                   </group>
+				  <notebook>
+					  <page string="Body">
+						  <p>Note, that this view doesn't include "Head (technical)" value. Use "Edit Template" button to edit (or see) final version.</p>
+						  <separator string="Body"/>
+						  <field name="website_description"/>
+					  </page>
+					  <page string="Header">
+						  <field name="page_header"/>
+					  </page>
+					  <page string="Footer">
+						  <field name="page_footer"/>
+					  </page>
+					  <page string="Head (technical)">
+						  <field name="head"/>
+					  </page>
+				  </notebook>
 			  </sheet>
 		  </form>
 	  </field>

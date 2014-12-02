@@ -16,9 +16,9 @@ class website_proposal_template(osv.osv):
         'name': fields.char('Proposal Template', required=True),
 
         'head': fields.text('Html head'),
-        'page_header': fields.text('Page header'),
+        'page_header': fields.html('Page header'),
         'website_description': fields.html('Description'),
-        'page_footer': fields.text('Page footer'),
+        'page_footer': fields.html('Page footer'),
 
         'res_model': fields.char('Model', help="The database object this template will be applied to"),
     }
