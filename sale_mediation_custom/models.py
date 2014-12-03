@@ -218,6 +218,16 @@ class crm_lead(models.Model):
 
         r.sale_order_id.action_button_confirm()
 
+        sale_order_name = r.sale_order_id.name
+        if not sale_order_name.endswith(' SO'):
+            m = re.match('SE(\d*)(.*)', sale_order_name)
+
+            if m:
+                sale_order_name = '%s SO%s' % (m.group(1), m.group(2))
+            else:
+                sale_order_name = '%s SO' % sale_order_name
+            r.sale_order_id.write({'name': sale_order_name})
+
         m = re.match('SE(\d*)(.*)', r.name)
 
         name = r.name
