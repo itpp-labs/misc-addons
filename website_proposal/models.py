@@ -111,6 +111,7 @@ class website_proposal(osv.osv):
 
         mako = mako_template_env.from_string(tools.ustr(vals.get('website_description')))
         website_description = mako.render({'record':record})
+        website_description = website_description.replace('template-only-', '')
 
         vals['website_description'] = website_description
         new_id = super(website_proposal, self).create(cr, uid, vals, context=context)

@@ -57,3 +57,14 @@
         padding : 0 !important;
     }
 }
+
+
+.oe_editable [forced-contenteditable="false"] {
+	border: 2px dashed red;
+}
+.oe_editable [forced-contenteditable="false"]:before {
+	content: "(Readonly)";
+	position: relative;
+	top: -1.5em;
+	color: red;
+}

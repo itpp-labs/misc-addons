@@ -298,11 +298,17 @@
       </xpath>
   </template>
 
+  <template id="assets_editor" name="proposal assets editor" inherit_id="website.assets_editor">
+      <xpath expr="." position="inside">
+          <script type="text/javascript" src="/website_proposal/static/src/js/website_proposal.editor.js"></script>
+      </xpath>
+  </template>
+
 
   <template id="template" name="SO Template">
     <t t-call="website.layout">
         <t t-set="head">
-            <link rel='stylesheet' href='/website_proposal/static/src/css/website_proposal.css'/>
+            <link rel='stylesheet' href='/website_proposal/static/src/css/website_proposal_template.css'/>
             <t t-raw="head or ''"/>
 			<t t-raw="template.head"/>
         </t>

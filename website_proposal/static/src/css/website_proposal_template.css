@@ -9,3 +9,12 @@
 	background-color: white;
 	left: 30px;
 }
+[template-only-forced-contenteditable="false"] {
+	border: 2px dashed red;
+}
+[template-only-forced-contenteditable="false"]:before {
+	content: "(Readonly in instances)";
+	position: relative;
+	top: -1.5em;
+	color: red;
+}
