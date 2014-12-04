@@ -343,25 +343,6 @@
 	</data>
 
 	<data noupdate="1">
-        <record id="email_template_proposal" model="email.template">
-            <field name="name">Send Quotation</field>
-            <!--<field name="email_from">${(object.user_id.email or '')|safe}</field>-->
-            <field name="subject">${object.company_id.name|safe} Quotation (Ref ${object.name or 'n/a' })</field>
-            <field name="partner_to">${object.partner_id.id}</field>
-            <!--<field name="model_id" ref="sale.model_sale_order"/>-->
-            <field name="model_id" ref="account_analytic_analysis.model_account_analytic_analysis"/>
-            <field name="auto_delete" eval="True"/>
-            <field name="report_template" ref="action_report_proposal"/>
-            <field name="report_name">${object.name.replace('/','')}-proposal</field>
-            <field name="lang">${object.partner_id.lang}</field>
-            <field name="body_html"><![CDATA[
-
-    <p>Hello ${object.partner_id.name}, please check attached document.</p>
-
-	<p>To sign document you can use our online tool: <a href="/website_proposal/${object.proposal_id.id}/${object.proposal_id.access_token}">open document ${object.name}</a>
-
-]]></field>
-		</record>
 
         <record id="email_template_proposal_lead" model="email.template">
             <field name="name">Send Quotation</field>
