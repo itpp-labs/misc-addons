@@ -161,6 +161,7 @@
                               </div>
                             </div>
                             <div class="modal-footer">
+								<span class="status_label" style="color:grey; margin-right:1em; display:none;">Loading... </span>
                                 <button t-att-type="not user_id.is_employee and 'submit' or ''" t-attf-class="btn btn-primary" t-att-onclick="user_id.is_employee and 'alert(\'Employee cannot sign proposal\'); return false;' or ''">Sign Proposal</button> or
                                 <button type="button" class="btn btn-link" data-dismiss="modal" style="padding: 0">Cancel</button>
                             </div>

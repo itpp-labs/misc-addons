@@ -57,6 +57,7 @@ $(document).ready(function () {
             return false;
 
         sending=true;
+        $('#modelaccept .status_label').show();
         openerp.jsonRpc("/website_proposal/accept", 'call', {
             'proposal_id': parseInt(proposal_id[1]),
             'token': token,
@@ -64,6 +65,7 @@ $(document).ready(function () {
             'sign': sign?JSON.stringify(sign[1]):false,
         }).then(function (data) {
             sending = false;
+            $('#modelaccept .status_label').hide();
             $('#modelaccept').modal('hide');
             window.location.href = '/website_proposal/'+proposal_id[1]+'/'+token+'?message=3';
         });
