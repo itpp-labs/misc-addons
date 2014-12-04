@@ -80,6 +80,7 @@ class website_proposal(osv.osv):
         'res_model': fields.char('Model', readonly=True, help="The database object this is attached to"),
         'res_id': fields.integer('Resource ID', readonly=True, help="The record id this is attached to", select=True),
         'sign': fields.binary('Singature'),
+        'sign_date': fields.datetime('Signing Date'),
         'signer': fields.binary('Signer'),
         'state': fields.selection([
             ('draft', 'Draft'),

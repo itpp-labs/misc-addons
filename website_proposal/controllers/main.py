@@ -19,7 +19,7 @@
 #
 ##############################################################################
 
-from openerp import SUPERUSER_ID
+from openerp import SUPERUSER_ID, fields
 from openerp.addons.web import http
 from openerp.addons.web.http import request
 import werkzeug
@@ -29,6 +29,17 @@ import time
 from openerp.tools.translate import _
 
 class website_proposal(http.Controller):
+    def request_info(self):
+        wsgienv = request.httprequest.environ
+        return '<em>IP: {REMOTE_ADDR}</em>'.format(**wsgienv)
+
+    def post_request_info(self, proposal, message=None):
+        body = ('%s<br/>%s') % (message or _('Request info'),
+                             self.request_info())
+        self.__message_post(body, proposal, type='comment', subtype=False)
+
+
+
     @http.route([
         "/website_proposal/<int:proposal_id>",
         "/website_proposal/<int:proposal_id>/<token>"
@@ -45,7 +56,8 @@ class website_proposal(http.Controller):
             # Log only once a day
             if request.session.get('view_quote',False)!=now:
                 request.session['view_quote'] = now
-                body=_('Proposal viewed by customer')
+                body= ('%s<br/>%s') % (_('Proposal viewed by customer'),
+                                       self.request_info())
                 self.__message_post(body, proposal, type='comment')
 
         return self._render_proposal(uid, proposal, message)
@@ -71,6 +83,7 @@ class website_proposal(http.Controller):
             'state':'done',
             'sign':sign,
             'signer': signer,
+            'sign_date': fields.Datetime.now()
         })
         #attachments=sign and [('signature.png', sign.decode('base64'))] or []
         attachments = []
@@ -81,6 +94,7 @@ class website_proposal(http.Controller):
 
         #request.registry.get(proposal.res_model).signal_workflow(request.cr, SUPERUSER_ID, [proposal.res_id], 'proposal_confirmed', context=request.context)
         record = request.registry.get(proposal.res_model).browse(request.cr, SUPERUSER_ID, proposal.res_id, context=request.context)
+        self.post_request_info(proposal, _('Confirmation request info'))
         record.signal_workflow('proposal_confirmed')
         message = _('Document signed by %s') % (signer,)
         self.__message_post(message, proposal, type='comment', subtype='mt_comment', attachments=attachments)
@@ -96,6 +110,7 @@ class website_proposal(http.Controller):
             'state':'rejected',
         })
         #request.registry.get(proposal.res_model).action_cancel(request.cr, SUPERUSER_ID, [proposal_id])
+        self.post_request_info(proposal, _('Declining request info'))
         record = request.registry.get(proposal.res_model).browse(request.cr, SUPERUSER_ID, proposal.res_id, context=request.context)
         record.signal_workflow('proposal_rejected')
         message = post.get('decline_message')
@@ -112,6 +127,7 @@ class website_proposal(http.Controller):
         if token != proposal.access_token:
             return request.website.render('website.404')
         if message:
+            self.post_request_info(proposal, _('Declining request info'))
             self.__message_post(message, proposal, type='comment', subtype='mt_comment')
         return werkzeug.utils.redirect("/website_proposal/%s/%s?message=1" % (proposal_id, token))
 

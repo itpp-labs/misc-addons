@@ -20,6 +20,9 @@
 						<div class="clearfix">
 							<div class="pull-right" t-field="o.signer"/>
 						</div>
+						<div class="clearfix">
+							<div class="pull-right" t-field="o.sign_date"/>
+						</div>
 					</div>
 					<div class="footer">
 						<t t-raw="o.page_footer"/>
