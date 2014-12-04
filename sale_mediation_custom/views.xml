@@ -173,9 +173,9 @@
 				<xpath expr="//button[@name='print_quotation' and @states!='draft']" position="attributes"><attribute name="invisible">1</attribute></xpath>
 				<xpath expr="//button[@name='action_button_confirm' and @states='draft']" position="attributes"><attribute name="invisible">1</attribute></xpath>
 				<xpath expr="//button[@name='action_button_confirm' and @states='sent']" position="attributes"><attribute name="invisible">1</attribute></xpath>
-				<xpath expr="//button[@name='cancel']" position="attributes"><attribute name="invisible">1</attribute></xpath>
+				<!--<xpath expr="//button[@name='cancel']" position="attributes"><attribute name="invisible">1</attribute></xpath>-->
 				<xpath expr="//button[@name='copy_quotation']" position="attributes"><attribute name="invisible">1</attribute></xpath>
-				<xpath expr="//button[@name='action_cancel']" position="attributes"><attribute name="invisible">1</attribute></xpath>
+				<!--<xpath expr="//button[@name='action_cancel']" position="attributes"><attribute name="invisible">1</attribute></xpath>-->
 
 				<xpath expr="//field[@name='state']" position="attributes">
 					<attribute name="statusbar_visible">draft,progress,done</attribute>
