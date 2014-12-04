@@ -13,7 +13,7 @@ def _get_proposal_id(self, cr, uid, ids, name, args, context=None):
     for r in self.browse(cr, uid, ids, context=context):
         proposal_id = self.pool['website_proposal.proposal'].search(cr, uid, [('res_id', '=', r.id), ('res_model', '=', self._name)], context=context)
         res[r.id] = proposal_id and proposal_id[0]
-        return res
+    return res
 
 class account_analytic_account(models.Model):
     _inherit = 'account.analytic.account'
@@ -265,6 +265,16 @@ class crm_lead(models.Model):
     def open_proposal(self, cr, uid, ids, context=None):
         r = self.browse(cr, uid, ids[0], context)
         return self.pool['website_proposal.proposal'].open_proposal(cr, uid, [r.proposal_id.id], context=context)
+
+    @api.one
+    def copy(self, default=None):
+        default = dict(default or {})
+        default['name'] = _('%s (copy)') % self.name
+        new_id = super(crm_lead, self).copy(default)
+        if self.proposal_id:
+            proposal_default = {'res_id':new_id}
+            new_proposal_id = self.proposal_id.copy(proposal_default)
+        return new_id
 
 
     @api.one
