@@ -39,5 +39,26 @@
 			</field>
 		</record>
 
+        <record model="ir.ui.view" id="res_partner_kanban_view">
+            <field name="name">res.partner.kanban</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+            <field name="arch" type="xml">
+				<xpath expr="//templates" position="before">
+					<field name="access_to_private_information" invisible="1"/>
+				</xpath>
+                <xpath expr="//li[@t-if='record.city.raw_value and !record.country_id.raw_value']" position="attributes">
+					<attribute name="attrs">{'invisible':[('access_to_private_information', '=', False)]}</attribute>
+				</xpath>
+                <xpath expr="//li[@t-if='!record.city.raw_value and record.country_id.raw_value']" position="attributes">
+					<attribute name="attrs">{'invisible':[('access_to_private_information', '=', False)]}</attribute>
+				</xpath>
+                <xpath expr="//li[@t-if='record.city.raw_value and record.country_id.raw_value']" position="attributes">
+					<attribute name="attrs">{'invisible':[('access_to_private_information', '=', False)]}</attribute>
+				</xpath>
+			</field>
+		</record>
+
+
     </data>
 </openerp>

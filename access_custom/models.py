@@ -27,7 +27,7 @@ class hr_employee(models.Model):
     }
 
     def _get_access_to_employee_information(self):
-        access_by_group = self.env.ref('access_custom.group_employee_information').id in self.env.user.groups_id.ids
+        access_by_group = self.env.ref('access_custom.group_employee_private_information').id in self.env.user.groups_id.ids
         for r in self:
             r.access_to_employee_information = access_by_group or (r.user_id.id == self.env.uid)
 
@@ -37,10 +37,19 @@ class hr_employee(models.Model):
 class res_partner(models.Model):
     _inherit = 'res.partner'
 
+    @api.multi
+    def read(self, fields=None, load='_classic_read'):
+        result = super(res_partner, self).read(fields=fields, load=load)
+        for res in result:
+            if not res.get('access_to_private_information', True):
+                for k in ['street', 'street2', 'zip', 'city', 'state_id', 'country_id']:
+                    res[k] = False
+        return result
+
+    @api.multi
     def _get_access_to_private_information(self):
-        access_by_group = self.env.ref('access_custom.group_private_partner_information').id in self.env.user.groups_id.ids
-        allowed_ids = self.env.user.employee_ids.address_home_id.ids
+        access_by_group = self.env.ref('access_custom.group_employee_private_information').id in self.env.user.groups_id.ids
         for r in self:
-            r.access_to_private_information = access_by_group or (r.id in allowed_ids)
+            r.access_to_private_information = not r.is_employee or access_by_group or (self.env.user.id in r.user_ids.ids)
 
     access_to_private_information = fields.Boolean('Access to private information', compute=_get_access_to_private_information, store=False)
