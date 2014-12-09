@@ -47,6 +47,24 @@ openerp.web_last_viewed_records = function(instance){
         save_last_viewed_history: function(data){
             localStorage[this.last_viewed_history_var] = JSON.stringify(data);
         },
+        // icon map: http://bistro.convergencecms.co/entypo
+        _model2icon: {
+            'res.partner':'+',
+            'crm.lead':'4',
+            'sale.order':'l',
+            'account.analytic.account':'7',
+            'crm.phonecall':'!',
+            'hr.employee':'.',
+            'hr.applicant':'-',
+            'project.project':'t',
+            'project.task':'W',
+            'account.invoice':'h',
+            'ir.module.module':'Z',
+            'hr_timesheet_sheet.sheet': 'N',
+            'res.groups': ',',
+            'res.company': '_',
+            'res.user': 'ó',
+        },
         get_last_viewed_title: function(){
             var titles = [];
             for (var i = 0; i < this.last_viewed.length; i += 1) {
@@ -55,13 +73,22 @@ openerp.web_last_viewed_records = function(instance){
                 var selected = false;//item.action.id == this.inner_action.id && item.action.res_id == this.inner_action.res_id;
                 var view_type = item.view_type;
                 var url = $.param(item.url);
-                var title = item.url.model;
-                titles.push(_.str.sprintf('<a title="%s" href="#%s" class="oe_last_viewed_item %s"><span class="oe_e %s"/>&nbsp;</span>%s</a>',
+                var model = item.url.model;
+                var title = model;
+
+                var icon = this._model2icon[model];
+                if (!icon && /\.settings/.test(model))
+                    icon = 'c';
+                if (icon)
+                    icon = _.str.sprintf('<span class="oe_last_viewed_icon">%s</span>', icon);
+                titles.push(_.str.sprintf('<a title="%s" href="#%s" class="oe_last_viewed_item %s">%s&nbsp;%s&nbsp;<span class="oe_e %s"/></a>',
                                           title,
                                           url,
                                           selected && 'selected' || '',
-                                          view_type,
-                                          label));
+                                          icon || '',
+                                          label,
+                                          view_type != 'form' && view_type || ''
+                                         ));
             }
             return titles.join(' <span class="oe_fade">|</span>&nbsp;');
         },
