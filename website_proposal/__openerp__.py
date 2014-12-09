@@ -9,7 +9,14 @@ Technical module to create web-based proposals for accepting (signing) by partne
 
 Also module allows convert proposal to pdf.
     """,
-    'depends' : ['website', 'report', 'email_template', 'hr', 'web_logo', 'web'],
+    'depends' : ['website',
+                 'report',
+                 'email_template',
+                 'hr',
+                 'web_logo',
+                 'web',
+                 'is_employee',
+             ],
     'data':[
         'views.xml',
         'report.xml',

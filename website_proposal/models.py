@@ -118,17 +118,3 @@ class website_proposal(osv.osv):
         new_id = super(website_proposal, self).create(cr, uid, vals, context=context)
         return new_id
 
-
-class res_users(osv.osv):
-    _name = 'res.users'
-    _inherit = 'res.users'
-
-    def _get_is_employee(self, cr, uid, ids, name, args, context=None):
-        res = {}
-        for r in self.browse(cr, SUPERUSER_ID, ids, context=context):
-            res[r.id] = bool(r.employee_ids)
-        return res
-
-    _columns = {
-        'is_employee': fields.function(_get_is_employee, string='Is employee', type='boolean'),
-    }
