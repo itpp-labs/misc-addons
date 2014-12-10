@@ -6,7 +6,9 @@ from openerp.tools.translate import _
 import time
 import re
 
+from datetime import datetime
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 def _get_proposal_id(self, cr, uid, ids, name, args, context=None):
     res = {}
@@ -110,6 +112,16 @@ class crm_lead(models.Model):
     is_proposal_sent = fields.Boolean('Proposal sent', default=False)
     is_proposal_confirmed = fields.Boolean('Proposal confirmed', default=False)
     project_id = fields.Many2one('project.project', 'Project')
+
+    @api.one
+    @api.depends('date_closed')
+    def _get_deal_time(self):
+        res = None
+        if self.date_closed:
+            d = datetime.strptime(self.date_closed, DEFAULT_SERVER_DATETIME_FORMAT) - datetime.strptime(self.create_date, DEFAULT_SERVER_DATETIME_FORMAT)
+            res = d.days + 1
+        self.deal_time = res
+    deal_time = fields.Integer(string='Deal time', compute=_get_deal_time, store=True)
 
     @api.one
     def action_create_sale_order(self):

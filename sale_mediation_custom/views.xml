@@ -183,6 +183,22 @@
 			</field>
 		</record>
 
+        <!-- CRM Lead Kanban View  -->
+        <record model="ir.ui.view" id="crm_case_kanban_view_leads">
+            <field name="name">CRM - Leads Kanban</field>
+            <field name="model">crm.lead</field>
+			<field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+			<field name="arch" type="xml">
+				<xpath expr="//templates" position="before">
+					<field name="deal_time"/>
+				</xpath>
+				<xpath expr="//field[@name='title_action']" position="after">
+                    <div t-if="record.deal_time.raw_value" style="padding-left: 0.5em">
+						<span t-esc="record.deal_time.raw_value"/> <span t-esc="record.deal_time > 1 and 'days' or 'day'"/>
+					</div>
+				</xpath>
+			</field>
+		</record>
         <!-- CRM Lead Form View  -->
         <record model="ir.ui.view" id="crm_case_form_view_oppor">
 			<field name="name">Opportunity</field>
