@@ -64,6 +64,8 @@ openerp.web_last_viewed_records = function(instance){
             'res.groups': ',',
             'res.company': '_',
             'res.user': 'ó',
+            'gamification.challenge':'è',
+            'gamification.badge':'8',
         },
         get_last_viewed_title: function(){
             var titles = [];
@@ -136,9 +138,15 @@ openerp.web_last_viewed_records = function(instance){
             var res = this._super.apply(this, arguments);
 
             var view = this.views[view_type];
-            view.controller.on('change:title', this, function(){
-                if (self.active_view == view_type && self.try_add_last_viewed(view_type))
+
+            var exec = function(){
+                if (self.active_view == view_type && self.try_add_last_viewed(view_type)){
                     self.update_last_viewed_title()
+                }
+            }
+            exec();
+            view.controller.on('change:title', this, function(){
+                exec()
             })
 
             return res;
