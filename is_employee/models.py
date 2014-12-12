@@ -10,6 +10,12 @@ class res_partner(models.Model):
 
     is_employee = fields.Boolean('Is Employee', compute=_get_is_employee, store=True)
 
+    @api.one
+    def _get_employee_id(self):
+        self.employee_id = self.user_ids.employee_ids.ids and self.user_ids.employee_ids.ids[0] or None
+
+    employee_id = fields.Many2one('hr.employee', string='Related employee', compute=_get_employee_id)
+
 class res_users(models.Model):
     _inherit = 'res.users'
 
