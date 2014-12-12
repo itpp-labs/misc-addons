@@ -114,14 +114,14 @@ class crm_lead(models.Model):
     project_id = fields.Many2one('project.project', 'Project')
 
     @api.one
-    @api.depends('date_closed')
+    #@api.depends('date_closed')
     def _get_deal_time(self):
         res = None
-        if self.date_closed:
-            d = datetime.strptime(self.date_closed, DEFAULT_SERVER_DATETIME_FORMAT) - datetime.strptime(self.create_date, DEFAULT_SERVER_DATETIME_FORMAT)
-            res = d.days + 1
+        end_date = self.date_closed or old_fields.datetime.now()
+        d = datetime.strptime(end_date, DEFAULT_SERVER_DATETIME_FORMAT) - datetime.strptime(self.create_date, DEFAULT_SERVER_DATETIME_FORMAT)
+        res = d.days + 1
         self.deal_time = res
-    deal_time = fields.Integer(string='Deal time', compute=_get_deal_time, store=True)
+    deal_time = fields.Integer(string='Deal time', compute=_get_deal_time)
 
     @api.one
     def action_create_sale_order(self):
