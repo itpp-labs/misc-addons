@@ -1,3 +1,4 @@
+from openerp.osv import fields as old_fields
 from openerp import api,models,fields,tools
 from openerp.addons.email_template.email_template import mako_template_env
 
@@ -5,7 +6,9 @@ class res_users(models.Model):
     _inherit = 'res.users'
 
     signature_id = fields.Many2one('res.users.signature', string='Signature template', help='Keep empty to edit signature manually')
-
+    _columns = {
+        'signature': old_fields.html('Signature', sanitize=False)
+    }
 
 
     @api.one
@@ -17,13 +20,21 @@ class res_users(models.Model):
         html = mako.render({'user':self})
         self.signature = html
 
+    @api.one
+    def write(self, vals):
+        res = super(res_users, self).write(vals)
+        if any([k in vals for k in ['company_id']]):
+            self.render_signature_id()
+        return res
+
+
 
 class res_users_signature(models.Model):
     _name = 'res.users.signature'
 
     name = fields.Char('Name')
     comment = fields.Text('Internal note')
-    template = fields.Html('Template', help='''You can use variables:
+    template = fields.Html('Template', sanitize=False, help='''You can use variables:
 * ${user.name}
 * ${user.function} (job position)
 * ${user.partner_id.company_id.name} (company in a partner form)

@@ -21,6 +21,8 @@ Allows create signature templates for users. For example,
 
     ${user.email}</p>
 
+    <p><img src="data:image/png;base64,${user.company_id.logo_web}"/></p>
+
 Will be converted to 
 
     ---
@@ -28,6 +30,8 @@ Will be converted to
     <p>Bob, sale manager of You Company</p>
 
     <p>+123456789, sales@example.com</p>
+
+    <p><img src="data:image/png;base64,ABCDE....12345="/></p>
 
 Tested on 8.0 ab7b5d7
     """,
