@@ -11,7 +11,6 @@ class res_users(models.Model):
     @api.one
     @api.onchange('signature_id')
     def render_signature_id(self):
-        print '#####################render_signature_id', self.partner_id, self
         if not self.signature_id:
             return
         mako = mako_template_env.from_string(tools.ustr(self.signature_id.template))
