@@ -18,7 +18,8 @@ class res_users(models.Model):
             return
         mako = mako_template_env.from_string(tools.ustr(self.signature_id.template))
         html = mako.render({'user':self})
-        self.signature = html
+        if html != self.signature:
+            self.signature = html
 
     @api.one
     def write(self, vals):
