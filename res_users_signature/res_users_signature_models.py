@@ -45,8 +45,12 @@ You can use control structures:
     @api.one
     def write(self, vals):
         res = super(res_users_signature, self).write(vals)
-        self.user_ids.render_signature_id()
+        self.action_update_signature()
         return res
+
+    @api.one
+    def action_update_signature(self):
+        self.user_ids.render_signature_id()
 
 class res_partner(models.Model):
     _inherit = 'res.partner'

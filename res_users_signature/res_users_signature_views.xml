@@ -45,6 +45,9 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Signature">
+                    <header>
+						<button name="action_update_signature" string="Update signatures" type="object"/>
+					</header>
 					<group>
 						<field name="name" class="oe_inline"/>
 						<field name="comment" class="oe_inline"/>
@@ -54,6 +57,23 @@
 				</form>
 			</field>
 		</record>
+
+
+        <record id="action_update_signature_multi" model="ir.actions.server">
+            <field name="name">Update signatures</field>
+            <field name="model_id" ref="model_res_users_signature"/>
+            <field name="state">code</field>
+            <field name="code">
+                self.action_update_signature(cr, uid, context['active_ids'], context=context)
+            </field>
+        </record>
+
+        <record id="ir_update_signature_multi" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'res.users.signature'" name="model"/>
+            <field name="name">Update signatures</field>
+            <field eval="'ir.actions.server,%d'%action_update_signature_multi" name="value"/>
+        </record>
 
         <record id="action_res_users_signature" model="ir.actions.act_window">
             <field name="name">Signatures</field>
