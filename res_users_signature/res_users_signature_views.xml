@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_users_form" model="ir.ui.view">
+            <field name="name">res.users.form</field>
+            <field name="model">res.users</field>
+			<field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+				<xpath expr="//field[@name='signature']" position="replace">
+					<field name="signature_id"/>
+                    <field name="signature" attrs="{'readonly':[('signature_id', '!=', False)]}"/>
+				</xpath>
+			</field>
+		</record>
+
+        <record id="view_users_form_simple_modif" model="ir.ui.view">
+            <field name="name">res.users.preferences.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='signature']" position="replace">
+					<field name="partner_id" invisible="1"/>
+					<field name="signature_id"/>
+                    <field name="signature" attrs="{'readonly':[('signature_id', '!=', False)]}"/>
+				</xpath>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_res_users_signature_tree">
+			<field name="name">res.users.signature.tree</field>
+			<field name="model">res.users.signature</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Signatures">
+					<field name="name"/>
+					<field name="comment"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_res_users_signature">
+			<field name="name">res.users.signature.form</field>
+			<field name="model">res.users.signature</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Signature">
+					<group>
+						<field name="name" class="oe_inline"/>
+						<field name="comment" class="oe_inline"/>
+						<field name="user_ids" widget="many2many_tags" class="oe_inline"/>
+					</group>
+					<field name="template" />
+				</form>
+			</field>
+		</record>
+
+        <record id="action_res_users_signature" model="ir.actions.act_window">
+            <field name="name">Signatures</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.users.signature</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_res_users_signature_tree"/>
+            <field name="help">Create and manage signature templates</field>
+        </record>
+
+        <menuitem action="action_res_users_signature" id="menu_action_res_users_signature" parent="base.menu_users"/>
+
+	</data>
+</openerp>

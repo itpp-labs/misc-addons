@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_res_users_signature_read,access_res_users_signature_read,model_res_users_signature,,1,0,0,0
+access_res_users_signature_administrator,access_res_users_signature_read,model_res_users_signature,res_users_signature.administrator,1,1,1,1
