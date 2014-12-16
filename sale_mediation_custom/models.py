@@ -100,7 +100,7 @@ class crm_lead(models.Model):
         return name
 
 
-    sales_funnel_type = fields.Selection(related='stage_id.sales_funnel_type')
+    sales_funnel_type = fields.Selection(related='stage_id.sales_funnel_type', readonly=True)
     sale_order_id = fields.Many2one('sale.order', 'Quotation \ Sale Order')
     sale_order_lines = fields.One2many('sale.order.line', 'order_id', string='Order lines', related='sale_order_id.order_line', readonly=False)
     pricelist_id = fields.Many2one('product.pricelist', 'Pricelist', related='sale_order_id.pricelist_id', readonly=False)
