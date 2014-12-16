@@ -1,0 +1,1 @@
+import mail_delete_odoo_footer_models
