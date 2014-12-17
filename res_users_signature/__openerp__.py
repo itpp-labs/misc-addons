@@ -35,7 +35,7 @@ Will be converted to
 
 Tested on 8.0 ab7b5d7
     """,
-    'depends' : ['base'],
+    'depends' : ['base', 'hr'],
     'data':[
         'res_users_signature_views.xml',
         'security/res_users_signature_security.xml',
