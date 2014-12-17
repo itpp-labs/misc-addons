@@ -118,3 +118,11 @@ class website_proposal(osv.osv):
         new_id = super(website_proposal, self).create(cr, uid, vals, context=context)
         return new_id
 
+class mail_message_subtype(osv.osv):
+    _inherit = 'mail.message.subtype'
+    _columns = {
+        'internal': fields.boolean('Internal', help="don't publish these messages")
+    }
+    _defaults = {
+        'internal': False
+    }

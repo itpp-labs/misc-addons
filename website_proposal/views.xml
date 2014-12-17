@@ -5,7 +5,7 @@
       <h1 class="page-header hidden-print">History</h1>
       <ul class="media-list hidden-print" id="comments-list">
           <t t-foreach="record.message_ids" t-as="message">
-              <li class="media" t-if="message.type &lt;&gt; 'comment' or message.subtype_id">
+              <li class="media" t-if="message.subtype_id and  message.subtype_id.internal==False">
                   <div class="media-body">
                       <img class="media-object pull-left" t-att-src="'/website/image?model=res.partner&amp;field=image_small&amp;id='+str(message.author_id.id)" style="width: 50px; margin-right: 10px;"/>
                       <div class="media-body">
@@ -428,6 +428,17 @@
 
 
   <menuitem action="action_website_proposal_template" id="menu_website_proposal_template" parent="base.menu_base_config" sequence="6" groups="base.group_sale_salesman,base.group_sale_manager"/>
+
+  <record model="ir.ui.view" id="view_mail_message_subtype_form">
+      <field name="name">mail.message.subtype.form</field>
+      <field name="model">mail.message.subtype</field>
+      <field name="inherit_id" ref="mail.view_mail_message_subtype_form"/>
+      <field name="arch" type="xml">
+		  <xpath expr="//field[@name='hidden']" position="after">
+			  <field name="internal"/>
+		  </xpath>
+	  </field>
+  </record>
 
 </data>
 </openerp>
