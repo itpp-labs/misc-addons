@@ -366,3 +366,10 @@ class crm_case_stage(models.Model):
         ('won', 'Sales won'),
         ('lost', 'Lost'),
     ], string='Sales funnel', help='Type of stage. When you move sale case between stages of different types there will be some extra checks and actions.')
+
+class website_proposal_template(osv.osv):
+    _inherit = 'website_proposal.template'
+
+    _defaults = {
+        'res_model': 'crm.lead',
+    }
