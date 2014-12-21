@@ -14,6 +14,15 @@
 					<attribute name="groups"></attribute>
 					<attribute name="attrs">{'invisible':[('access_to_employee_information', '=', False)]}</attribute>
 				</xpath>
+				<xpath expr="//field[@name='identification_id']" position="attributes">
+					<attribute name="groups"></attribute>
+				</xpath>
+				<xpath expr="//field[@name='passport_id']" position="attributes">
+					<attribute name="groups"></attribute>
+				</xpath>
+				<xpath expr="//field[@name='otherid']" position="attributes">
+					<attribute name="groups"></attribute>
+				</xpath>
 				<xpath expr="//page[@string='HR Settings']" position="attributes">
 					<attribute name="groups"></attribute>
 					<attribute name="attrs">{'invisible':[('access_to_employee_information', '=', False)]}</attribute>
