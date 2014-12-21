@@ -13,6 +13,18 @@
 			<field name="comment">Allows to view "Personal information" and "HR Settings" tabs in employee form</field>
 		</record>
 
+        <record model="res.groups" id="group_hr_timesheet_all">
+            <field name="name">hr_timesheet_all</field>
+            <field name="category_id" ref="module_category_custom"/>
+			<field name="comment">Access to timesheets of all employees</field>
+		</record>
+
+        <record model="res.groups" id="group_hr_expenses_all">
+            <field name="name">hr_expenses_all</field>
+            <field name="category_id" ref="module_category_custom"/>
+			<field name="comment">Access to expenses of all employees</field>
+		</record>
+
         <record model="res.groups" id="group_view_marketing_menu">
             <field name="name">view_marketing_menu</field>
 			<field name="menu_access" eval="[(4,ref('base.marketing_menu'))]"/>
@@ -295,7 +307,21 @@
             <field name="global" eval="False"/>
 		</record>
 
+		<delete model="ir.rule" id="hr_expense.property_rule_expense_manager"/>
+		<delete model="ir.rule" id="hr_timesheet.property_rule_timesheet_manager"/>
+        <record id="property_rule_expense_manager" model="ir.rule">
+            <field name="name">Manager Expense (custom)</field>
+            <field name="model_id" ref="hr_expense.model_hr_expense_expense"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4,ref('access_custom.group_hr_expenses_all'))]"/>
+        </record>
 
+        <record id="property_rule_timesheet_manager" model="ir.rule">
+            <field name="name">Manager HR Analytic Timesheet (custom)</field>
+            <field name="model_id" ref="hr_timesheet.model_hr_analytic_timesheet"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4,ref('access_custom.group_hr_timesheet_all'))]"/>
+        </record>
 
     </data>
 	<data noupdate="1">

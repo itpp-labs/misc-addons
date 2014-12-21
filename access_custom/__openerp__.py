@@ -15,6 +15,8 @@
                  'sale',
                  'crm',
                  'hr_payroll',
+                 'hr_expense',
+                 'hr_timesheet',
                  'project',
                  'purchase',
                  'hr_recruitment',
