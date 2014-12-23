@@ -50,8 +50,30 @@
       </div>
   </template>
 
+  <template id="website.editor_head" inherit_id="website.layout" name="Editor" groups="base.group_website_publisher,base.group_website_designer,base.group_sale_salesman">
+      <xpath expr='//t[@t-call-assets="website.assets_frontend"][@t-js]' position="after">
+          <t t-call-assets="website.assets_editor" t-js="false"/>
+      </xpath>
+      <xpath expr='//t[@t-call-assets="website.assets_frontend"][@t-css]' position="after">
+          <t t-call-assets="website.assets_editor" t-css="false"/>
+      </xpath>
+  </template>
+
+
+  <template id="layout" inherit_id="website.user_navbar" groups="base.group_user">
+	  <xpath expr="//ul[@id='oe_editzone']" position="replace">
+          <ul t-if="not is_proposal" id="oe_editzone" class="nav navbar-nav hidden-xs" style="padding-left: 20px; display: none;" groups="base.group_website_publisher">
+              <li><button type="button" data-action="edit" class="btn btn-primary btn-xs">Edit</button></li>
+          </ul>
+          <ul t-if="is_proposal" id="oe_editzone" class="nav navbar-nav hidden-xs" style="padding-left: 20px; display: none;" groups="base.group_sale_salesman">
+              <li><button type="button" data-action="edit" class="btn btn-primary btn-xs">Edit</button></li>
+          </ul>
+	  </xpath>
+  </template>
+
   <template id="proposal" name="Proposal">
       <t t-call="website.layout">
+		<t t-set="is_proposal" t-value="True"/>
         <t t-set="head">
             <t t-raw="head or ''"/>
 			<t t-raw="proposal.head"/>
