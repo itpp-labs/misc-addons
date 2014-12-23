@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_website_proposal_template,website_proposal.template,model_website_proposal_template,,1,1,1,1
 access_website_proposal_proposal,website_proposal.proposal,model_website_proposal_proposal,,1,1,1,1
+access_website_proposal_ir_ui_view,access_website_proposal_ir_ui_view,base.model_ir_ui_view,base.group_sale_salesman,1,1,1,1
