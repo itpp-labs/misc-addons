@@ -11,8 +11,7 @@ This module doesn't affect on server performance, because it uses browser's loca
 
 FIXME: doesn't work in a res.config view
 
-Tested on 8.0 ab7b5d7.
-
+Tested on 8.0 ab7b5d7732a7c222a0aea45bd173742acd47242d.
     """,
     'depends' : ['web', 'mail'],
     'data':[

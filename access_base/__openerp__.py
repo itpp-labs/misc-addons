@@ -5,8 +5,6 @@
     'category' : 'Base',
     'website' : 'https://it-projects.info',
     'description': """
-Tested on 8.0 ab7b5d7.
-
 See access_custom module as example of usage.
 
 How to create or edit custom groups:
@@ -27,6 +25,7 @@ How to apply groups for some users:
 
 Please note, that if you make changes in custom groups, then you have to repeat process of applying groups for each related users.
 
+Tested on 8.0 ab7b5d7732a7c222a0aea45bd173742acd47242d.
     """,
     'depends' : ['base'],
     'data':['data.xml'],

@@ -33,7 +33,7 @@ Will be converted to
 
     <p><img src="data:image/png;base64,ABCDE....12345="/></p>
 
-Tested on 8.0 ab7b5d7
+Tested on 8.0 ab7b5d7732a7c222a0aea45bd173742acd47242d
     """,
     'depends' : ['base', 'hr'],
     'data':[
