@@ -4,14 +4,17 @@ $(document).ready(function () {
         return;
     if (page_product_id && ! $('#add_to_cart').attr('quick-add-to-cart'))
         return;
+    var update_json = $.Deferred();
+    update_json.resolve();
     $(".oe_website_sale input.js_quantity").change(function () {
         var $input = $(this);
-        var value = parseInt($input.val(), 10);
-        if (isNaN(value)) value = 0;
-        openerp.jsonRpc("/shop/cart/update_json", 'call', {
-            'line_id': parseInt($input.data('line-id'),10),
-            'product_id': parseInt($input.data('product-id') || $('input.product_id').val(),10),
-            'set_qty': value})
+        update_json = update_json.then(function(){
+            var value = parseInt($input.val(), 10);
+            if (isNaN(value)) value = 0;
+            return openerp.jsonRpc("/shop/cart/update_json", 'call', {
+                'line_id': parseInt($input.data('line-id'),10),
+                'product_id': parseInt($input.data('product-id') || $('input.product_id').val(),10),
+                'set_qty': value})
             .then(function (data) {
                 if (!data.quantity) {
                     location.reload();
@@ -20,9 +23,10 @@ $(document).ready(function () {
                 var $q = $(".my_cart_quantity");
                 $q.parent().parent().removeClass("hidden", !data.quantity);
                 $q.html(data.cart_quantity).hide().fadeIn(600);
-                $input.val(data.quantity);
+                //$input.val(data.quantity);
                 $("#cart_total").replaceWith(data['website_sale.total']);
-            });
+            })
+        })
     });
     /*
     $('.oe_website_sale .oe_product_cart .oe_product_image a').on('click', function (ev) {
