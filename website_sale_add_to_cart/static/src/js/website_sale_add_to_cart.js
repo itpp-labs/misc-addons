@@ -1,5 +1,8 @@
 $(document).ready(function () {
-    if (!$('input.product_id') || !$('#products_grid_before'))
+    var page_product_id = $('input.product_id').val();//for page of a product
+    if (!page_product_id || !$('#products_grid_before'))
+        return;
+    if (page_product_id && ! $('#add_to_cart').attr('quick-add-to-cart'))
         return;
     $(".oe_website_sale input.js_quantity").change(function () {
         var $input = $(this);
@@ -35,7 +38,6 @@ $(document).ready(function () {
     openerp.jsonRpc("/shop/get_order_numbers", 'call').then(function(data){
         if (!data)
             return;
-        var page_product_id = $('input.product_id').val();//for page of a product
         $.each(data, function(product_id, num){
             if (page_product_id){
                 if (page_product_id == product_id){

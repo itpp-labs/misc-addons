@@ -32,6 +32,7 @@
 		<template id="product" inherit_id="website_sale.product" customize_show="True" active="True" name="Quick add to Cart (product page)">
 			<xpath expr="//a[@id='add_to_cart']" position="attributes">
 				<attribute name="style">display:none</attribute>
+				<attribute name="quick-add-to-cart">1</attribute>
 			</xpath>
 		</template>
 	</data>
