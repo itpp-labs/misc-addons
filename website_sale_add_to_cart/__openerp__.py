@@ -6,6 +6,8 @@
     'website' : 'https://it-projects.info',
     'description': """
 
+TODO don't ignore multivariant products
+
 Tested on Odoo 8.0 f8d5a6727d3e8d428d9bef93da7ba6b11f344284
     """,
     'depends' : ['website_sale'],
