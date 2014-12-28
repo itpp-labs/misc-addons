@@ -1,6 +1,6 @@
 $(document).ready(function () {
     var page_product_id = $('input.product_id').val();//for page of a product
-    if (!page_product_id || !$('#products_grid_before'))
+    if (!page_product_id && !$('#products_grid_before'))
         return;
     if (page_product_id && ! $('#add_to_cart').attr('quick-add-to-cart'))
         return;
