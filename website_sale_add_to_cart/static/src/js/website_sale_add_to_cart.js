@@ -39,6 +39,8 @@ $(document).ready(function () {
     });
     */
 
+    if (page_product_id)
+        $('input.js_quantity').val(0);
     openerp.jsonRpc("/shop/get_order_numbers", 'call').then(function(data){
         if (!data)
             return;
