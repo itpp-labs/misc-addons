@@ -12,6 +12,7 @@ class pos_website_sale(http.Controller):
     def get_order_numbers(self):
         res = {}
         order = request.website.sale_get_order()
-        for line in order.website_order_line:
-            res[line.product_id.id] = line.product_uom_qty
+        if order:
+            for line in order.website_order_line:
+                res[line.product_id.id] = line.product_uom_qty
         return res
