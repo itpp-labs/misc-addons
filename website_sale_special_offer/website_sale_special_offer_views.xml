@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp><data>
+
+	<menuitem id="menu_special_offer_main" name="Special offers" parent="base.menu_base_partner" sequence="10" groups="base.group_sale_manager"/>
+
+	<template id="assets_frontend" inherit_id="website.assets_frontend" name="Shop">
+		<xpath expr="." position="inside">
+			<script type="text/javascript" src="/website_sale_special_offer/static/src/js/website_sale_special_offer.js"></script>
+			<link rel='stylesheet' href='/website_sale_special_offer/static/src/css/website_sale_special_offer.css'/>
+		</xpath>
+	</template>
+
+
+	<template id="cart" inherit_id="website_sale.cart">
+		<xpath expr="//div[@class='container oe_website_sale']" position="before">
+			<t t-if="special_offer">
+				<div t-field="special_offer.page_content0"/>
+			</t>
+		</xpath>
+		<xpath expr="//h1[text()='Shopping Cart']" position="replace">
+			<h1 t-if="not special_offer" class="mb32">Shopping Cart</h1>
+			<t t-if="special_offer">
+				<h1 class="mb32" t-esc="special_offer.title"></h1>
+				<div t-field="special_offer.page_content1"/>
+			</t>
+		</xpath>
+		<xpath expr="//a[@href='/shop/checkout']/following-sibling::div[1]" position="replace">
+			<div t-if="not special_offer" class="oe_structure"/>
+			<t t-if="special_offer">
+				<div t-field="special_offer.page_content2"/>
+			</t>
+		</xpath>
+		<xpath expr="//div[@id='wrap']/div[@class='oe_structure']" position="replace">
+			<div t-if="not special_offer" class="oe_structure"/>
+			<t t-if="special_offer">
+				<div t-field="special_offer.page_content3"/>
+			</t>
+		</xpath>
+		<xpath expr="//div[@t-field='line.name']" position="after">
+			<t t-if="special_offer">
+				<div class="special-offer-line-description" t-field="line.special_offer_line_id.rule_id.description"/>
+			</t>
+			
+		</xpath>
+		<xpath expr="//table[@id='cart_products']//thead/tr" position="inside">
+            <th  t-if="special_offer" width="100">Total</th>
+		</xpath>
+		<xpath expr="//t[@t-as='line']/tr" position="inside">
+            <td  t-if="special_offer" class="text-right" name="price_total">
+				<t t-call="website_sale_special_offer.line_price_subtotal"/>
+            </td>
+		</xpath>
+		<xpath expr="//input[@class='js_quantity form-control']" position="attributes">
+			<attribute name="t-att-value">int(line.product_uom_qty) or '0'</attribute>
+			
+		</xpath>
+	</template>
+
+	<template id="line_price_subtotal">
+		<!-- TODO
+             <t t-if="line.discount">
+             <del class="text-danger" style="white-space: nowrap;"
+             t-field="line.product_id.lst_price" t-field-options='{
+			 "widget": "monetary",
+			 "from_currency": "website.currency_id",
+			 "display_currency": "user_id.partner_id.property_product_pricelist.currency_id"
+			 }'/>&amp;nbsp;
+             </t>
+		-->
+        <span t-field="line.price_subtotal" style="white-space: nowrap;" t-field-options='{
+																						  "widget": "monetary",
+																						  "display_currency": "user_id.partner_id.property_product_pricelist.currency_id"
+																						  }'/>
+	</template>
+
+
+	<!-- Special Offer --> 
+	<record model="ir.ui.view" id="view_special_offer_form">
+		<field name="name">website_sale_special_offer.special_offer.form</field>
+		<field name="model">website_sale_special_offer.special_offer</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Special offer">
+				<sheet>
+					<group>
+						<group>
+							<field name="name"/>
+							<field name="title"/>
+							<field name="active"/>
+						</group>
+					</group>
+					<notebook>
+						<page string="Lines">
+							<field name="line_ids">
+								<tree string="Special offer line" editable="bottom">
+									<field name="product_id"/>
+									<field name="price_unit"/>
+									<field name="product_uom_qty"/>
+									<field name="rule_id"/>
+									<field name="rule_quantity"/>
+									<field name="mandatory"/>
+								</tree>
+								
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+			</form>
+		</field>
+	</record>
+	<record model="ir.ui.view" id="view_special_offer_tree">
+		<field name="name">website_sale_special_offer.special_offer.tree</field>
+		<field name="model">website_sale_special_offer.special_offer</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<tree string="Special offer">
+				<field name="name"/>
+				<field name="title"/>
+				<field name="active"/>
+			</tree>
+		</field>
+	</record>
+
+	<record  model="ir.actions.act_window" id="action_special_offer">
+		<field name="name">Special offers</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">website_sale_special_offer.special_offer</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+	
+	<menuitem id="menu_special_offer" name="Special offers" parent="menu_special_offer_main" sequence="1" groups="base.group_sale_manager" action="action_special_offer"/>
+
+	<!-- Rule -->
+	<record model="ir.ui.view" id="view_rule_form">
+		<field name="name">website_sale_special_offer.special_offer.line.rule.form</field>
+		<field name="model">website_sale_special_offer.special_offer.line.rule</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Rule">
+				<sheet>
+					<group>
+						<group>
+							<field name="name"/>
+							<field name="description"/>
+						</group>
+						<group>
+							<field name="type"/>
+							<field name="value"/>
+						</group>
+					</group>
+					<notebook>
+						<page string="Products">
+							<field name="product_ids">
+								<tree string="Products" editable="bottom">
+									<field name="product_id"/>
+									<field name="product_uom_qty"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+			</form>
+		</field>
+	</record>
+	<record model="ir.ui.view" id="view_rule_tree">
+		<field name="name">website_sale_special_offer.special_offer.line.rule.tree</field>
+		<field name="model">website_sale_special_offer.special_offer.line.rule</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<tree string="Special offer">
+				<field name="name"/>
+				<field name="description"/>
+				<field name="type"/>
+			</tree>
+		</field>
+	</record>
+
+	<record  model="ir.actions.act_window" id="action_rule">
+		<field name="name">Special offers</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">website_sale_special_offer.special_offer.line.rule</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+	
+	<menuitem id="menu_rule" name="Rules" parent="menu_special_offer_main" sequence="1" groups="base.group_sale_manager" action="action_rule"/>
+
+
+</data></openerp>
