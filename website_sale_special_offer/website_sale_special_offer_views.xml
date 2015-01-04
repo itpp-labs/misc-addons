@@ -43,7 +43,7 @@
 			
 		</xpath>
 		<xpath expr="//table[@id='cart_products']//thead/tr" position="inside">
-            <th  t-if="special_offer" width="100">Total</th>
+            <th  t-if="special_offer" width="100">Subtotal</th>
 		</xpath>
 		<xpath expr="//t[@t-as='line']/tr" position="inside">
             <td  t-if="special_offer" class="text-right" name="price_total">
