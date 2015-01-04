@@ -10,7 +10,7 @@ $('.oe_website_sale').each(function () {
             }).then(function (data){
                 $.each(data, function(key, line){
                     var $tr = $('.js_quantity[data-line-id='+line.id+']').parent().parent().parent()
-                    $tr.find("[name='price_total']").html(line.price_subtotal)
+                    $tr.find("[name='price_total']").html(line.price_total)
                 })
             })
         }, 1000)

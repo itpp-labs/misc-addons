@@ -51,6 +51,6 @@ class website_sale_special_offer(http.Controller):
         for line in order.order_line:
             result.append({
                 'id':line.id,
-                'price_subtotal':request.website._render("website_sale_special_offer.line_price_subtotal", {'line':line, 'user_id':request.website.user_id})
+                'price_total':request.website._render("website_sale_special_offer.line_price_total", {'line':line, 'user_id':request.website.user_id})
             })
         return result
