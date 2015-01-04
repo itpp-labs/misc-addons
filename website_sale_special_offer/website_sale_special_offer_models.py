@@ -9,7 +9,7 @@ class sale_order_line(models.Model):
 class sale_order(models.Model):
     _inherit = "sale.order"
 
-    def _cart_update(self, cr, uid, ids, product_id=None, line_id=None, add_qty=0, set_qty=0, context=None,
+    def _cart_update(self, cr, uid, ids, product_id=None, line_id=None, add_qty=None, set_qty=None, context=None,
                      # new stuff:
                      update_existed=True,
                      special_offer_line=None,
@@ -18,8 +18,8 @@ class sale_order(models.Model):
         (based on addons/website_sale/models/sale_order.py::_cart_update)
  """
         sol = self.pool.get('sale.order.line')
-        quantity = 0
         for so in self.browse(cr, uid, ids, context=context):
+            quantity = 0
             line = None
             if line_id != False:
                 line_ids = so._cart_find_product_line(product_id, line_id, context=context, **kwargs)
@@ -40,7 +40,7 @@ class sale_order(models.Model):
                     add_qty -= 1
             sline = special_offer_line or line.special_offer_line_id
             # compute new quantity
-            if set_qty:
+            if set_qty or set_qty != None and sline:
                 quantity = set_qty
             elif add_qty != None:
                 quantity = sol.browse(cr, SUPERUSER_ID, line_id, context=context).product_uom_qty + (add_qty or 0)
@@ -85,12 +85,10 @@ class sale_order(models.Model):
                 discount_total = free_quantity * sline.price_unit
                 if amount_total -  discount_total < rule.value:
                     free_quantity = 0
-                print 'free_when_over', amount_total, discount_total, rule.value
             elif rule.type == 'free_when_others_ordered':
                 for r in rule.product_ids:
                     id = r.product_id.id
                     if id not in items or items[id] < r.product_uom_qty:
-                        print 'id=%s, need quantity=%s current items=%s' % (id, r.product_uom_qty, items)
                         free_quantity = 0
                         break
 
