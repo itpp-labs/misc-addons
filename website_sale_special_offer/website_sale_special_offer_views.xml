@@ -43,11 +43,11 @@
 			
 		</xpath>
 		<xpath expr="//table[@id='cart_products']//thead/tr" position="inside">
-            <th  t-if="special_offer" width="100">Subtotal</th>
+            <th  t-if="special_offer" width="100">Total</th>
 		</xpath>
 		<xpath expr="//t[@t-as='line']/tr" position="inside">
             <td  t-if="special_offer" class="text-right" name="price_total">
-				<t t-call="website_sale_special_offer.line_price_subtotal"/>
+				<t t-call="website_sale_special_offer.line_price_total"/>
             </td>
 		</xpath>
 		<xpath expr="//input[@class='js_quantity form-control']" position="attributes">
@@ -56,7 +56,7 @@
 		</xpath>
 	</template>
 
-	<template id="line_price_subtotal">
+	<template id="line_price_total">
 		<!-- TODO
              <t t-if="line.discount">
              <del class="text-danger" style="white-space: nowrap;"
@@ -67,7 +67,7 @@
 			 }'/>&amp;nbsp;
              </t>
 		-->
-        <span t-field="line.price_subtotal" style="white-space: nowrap;" t-field-options='{
+        <span t-field="line.price_total" style="white-space: nowrap;" t-field-options='{
 																						  "widget": "monetary",
 																						  "display_currency": "user_id.partner_id.property_product_pricelist.currency_id"
 																						  }'/>

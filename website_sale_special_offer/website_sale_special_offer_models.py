@@ -1,10 +1,28 @@
 from openerp import api,models,fields,SUPERUSER_ID
-from openerp.osv import osv
+import openerp.addons.decimal_precision as dp
+from openerp.osv import osv, fields as old_fields
 
 class sale_order_line(models.Model):
     _inherit = "sale.order.line"
 
     special_offer_line_id = fields.Many2one('website_sale_special_offer.special_offer.line', string='Special offer Line')
+
+    def _get_price_total(self, cr, uid, ids, field_name, arg, context=None):
+        tax_obj = self.pool.get('account.tax')
+        cur_obj = self.pool.get('res.currency')
+        res = {}
+        if context is None:
+            context = {}
+        for line in self.browse(cr, uid, ids, context=context):
+            price = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
+            taxes = tax_obj.compute_all(cr, uid, line.tax_id, price, line.product_uom_qty, line.product_id, line.order_id.partner_id)
+            cur = line.order_id.pricelist_id.currency_id
+            res[line.id] = cur_obj.round(cr, uid, cur, taxes['total_included'])
+        return res
+
+    _columns = {
+        'price_total': old_fields.function(_get_price_total, string='Total', digits_compute= dp.get_precision('Account')),
+    }
 
 class sale_order(models.Model):
     _inherit = "sale.order"
