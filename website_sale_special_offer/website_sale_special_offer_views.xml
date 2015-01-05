@@ -200,4 +200,11 @@
         </field>
     </record>
 
+	<template id="clear_cart" inherit_id="website_sale_clear_cart.clear_cart" name="Hide clear cart button from special offer">
+		<xpath expr="//a[@id='clear_cart_button']" position="attributes">
+			<attribute name="t-if">not special_offer</attribute>
+		</xpath>
+	</template>
+
+
 </data></openerp>
