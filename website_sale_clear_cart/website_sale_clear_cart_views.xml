@@ -3,7 +3,9 @@
     <data>
 		<template id="clear_cart" inherit_id="website_sale.continue_shopping" customize_show="True" name="Clear Cart Button">
 			<xpath expr="//a[@href='/shop']" position="after">
-				<a href="" id="clear_cart_button" class="btn btn-default mb32"><span class="fa fa-trash-o"/> Clear Cart</a>
+				<t t-if="website_sale_order and website_sale_order.website_order_line">
+					<a href="" id="clear_cart_button" class="btn btn-default mb32"><span class="fa fa-trash-o"/> Clear Cart</a>
+				</t>
 			</xpath>
 		</template>
 
