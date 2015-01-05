@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<template id="clear_cart" inherit_id="website_sale.continue_shopping" customize_show="True" name="Clear Cart Button">
+			<xpath expr="//a[@href='/shop']" position="after">
+				<a href="" id="clear_cart_button" class="btn btn-default mb32"><span class="fa fa-trash-o"/> Clear Cart</a>
+			</xpath>
+		</template>
+
+		<template id="assets_frontend" inherit_id="website.assets_frontend" name="Shop">
+			<xpath expr="." position="inside">
+				<script type="text/javascript" src="/website_sale_clear_cart/static/src/js/website_sale_clear_cart.js"></script>
+				<!--<link rel='stylesheet' href='/website_sale_clear_cart/static/src/css/website_sale_clear_cart.css'/>-->
+			</xpath>
+		</template>
+	</data>
+</openerp>
