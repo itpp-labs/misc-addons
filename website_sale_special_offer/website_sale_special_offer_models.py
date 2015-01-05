@@ -1,6 +1,6 @@
 from openerp import api,models,fields,SUPERUSER_ID
 import openerp.addons.decimal_precision as dp
-from openerp.osv import osv, fields as old_fields
+from openerp.osv import osv, orm, fields as old_fields
 
 class sale_order_line(models.Model):
     _inherit = "sale.order.line"
@@ -165,3 +165,19 @@ class website_sale_special_offer_line_rule_p(models.Model):
     product_id = fields.Many2one('product.product', string='Product')
     product_uom_qty = fields.Integer('Quantaty', help='Init value for product')
 
+
+class Website(orm.Model):
+    _inherit = 'website'
+
+    def sale_product_domain(self, cr, uid, ids, context=None):
+        return ['&'] + super(Website, self).sale_product_domain(cr, uid, ids, context=context) + [('special_offer_ok', '=', False)]
+
+
+class product_template(osv.osv):
+    _inherit = 'product.template'
+    _columns = {
+        'special_offer_ok': old_fields.boolean('Special offer only', help='Hide product from /shop directory.'),
+    }
+    _defaults = {
+        'special_offer_ok': False,
+    }
