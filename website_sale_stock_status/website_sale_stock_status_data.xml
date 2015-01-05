@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="website_sale.ribbon_new" model="product.style">
+            <field name="name">Ribbon New</field>
+            <field name="html_class">oe_ribbon_new</field>
+        </record>
+        <record id="website_sale.ribbon_backordered" model="product.style">
+            <field name="name">Ribbon Backordered</field>
+            <field name="html_class">oe_ribbon_backordered</field>
+			<field name="auto" eval="True"/>
+        </record>
+        <record id="website_sale.ribbon_discontinued" model="product.style">
+            <field name="name">Ribbon Discontinued</field>
+            <field name="html_class">oe_ribbon_discontinued</field>
+			<field name="auto" eval="True"/>
+        </record>
+	</data>
+</openerp>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<template id="assets_frontend" inherit_id="website.assets_frontend" name="Shop">
+			<xpath expr="." position="inside">
+				<!--<script type="text/javascript" src="/website_sale_stock_status/static/src/js/website_sale_stock_status.js"></script>-->
+				<link rel='stylesheet' href='/website_sale_stock_status/static/src/css/website_sale_stock_status.css'/>
+			</xpath>
+		</template>
+
+		<template id="products_item" inherit_id="website_sale.products_item" name="Product item">
+			<xpath expr="//div[@class='ribbon-wrapper']" position="after">
+				<div class="ribbon-wrapper-custom ribbon-new">
+					<div class="ribbon btn btn-danger">New</div>
+				</div>
+				<div class="ribbon-wrapper-custom-big ribbon-backordered">
+					<div class="ribbon btn btn-danger">Backordered</div>
+				</div>
+				<div class="ribbon-wrapper-custom-big ribbon-discontinued">
+					<div class="ribbon btn btn-danger">Discontinued</div>
+				</div>
+			</xpath>
+		</template>
+		<template id="products" inherit_id="website_sale.products" name="Products">
+			<xpath expr="//t[@t-foreach='styles']/li" position="attributes">
+				<attribute name="t-if">not style.auto</attribute>
+			</xpath>
+		</template>
+	</data>
+</openerp>
