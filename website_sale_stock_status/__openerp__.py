@@ -14,7 +14,7 @@ Adds automatic ribbons:
 
 Tested on Odoo 8.0 f8d5a6727d3e8d428d9bef93da7ba6b11f344284.
     """,
-    'depends' : ['website_sale'],
+    'depends' : ['website_sale', 'stock'],
     'data':[
         'website_sale_stock_status_views.xml',
         'website_sale_stock_status_data.xml',

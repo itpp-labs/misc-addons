@@ -1,19 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <record id="website_sale.ribbon_new" model="product.style">
+        <record id="website_sale_stock_status.ribbon_new" model="product.style">
             <field name="name">Ribbon New</field>
             <field name="html_class">oe_ribbon_new</field>
         </record>
-        <record id="website_sale.ribbon_backordered" model="product.style">
+        <record id="website_sale_stock_status.ribbon_backordered" model="product.style">
             <field name="name">Ribbon Backordered</field>
             <field name="html_class">oe_ribbon_backordered</field>
 			<field name="auto" eval="True"/>
         </record>
-        <record id="website_sale.ribbon_discontinued" model="product.style">
+        <record id="website_sale_stock_status.ribbon_discontinued" model="product.style">
             <field name="name">Ribbon Discontinued</field>
             <field name="html_class">oe_ribbon_discontinued</field>
 			<field name="auto" eval="True"/>
+        </record>
+	</data>
+	<data noupdate="1">
+        <record id="ir_cron_update_ribbons" model="ir.cron">
+            <field name="name">Update product stock status</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'product.template'" name="model"/>
+            <field eval="'update_stock_status_all'" name="function"/>
+            <field eval="'()'" name="args"/>
         </record>
 	</data>
 </openerp>
