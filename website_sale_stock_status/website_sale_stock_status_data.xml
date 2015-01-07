@@ -2,18 +2,24 @@
 <openerp>
     <data>
         <record id="website_sale_stock_status.ribbon_new" model="product.style">
-            <field name="name">Ribbon New</field>
+            <field name="name">New</field>
             <field name="html_class">oe_ribbon_new</field>
         </record>
         <record id="website_sale_stock_status.ribbon_backordered" model="product.style">
-            <field name="name">Ribbon Backordered</field>
+            <field name="name">Backordered</field>
             <field name="html_class">oe_ribbon_backordered</field>
 			<field name="auto" eval="True"/>
         </record>
         <record id="website_sale_stock_status.ribbon_discontinued" model="product.style">
-            <field name="name">Ribbon Discontinued</field>
+            <field name="name">Discontinued</field>
             <field name="html_class">oe_ribbon_discontinued</field>
 			<field name="auto" eval="True"/>
+			<field name="can_be_ordered" eval="False"/>
+        </record>
+        <delete id="website_sale.image_promo" model="product.style"/> <!-- we have to delete it first, because it marked as noupdate -->
+        <record id="website_sale.image_promo" model="product.style">
+            <field name="name">Sale</field>
+            <field name="html_class">oe_ribbon_promo</field>
         </record>
 	</data>
 	<data noupdate="1">

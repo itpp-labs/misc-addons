@@ -3,7 +3,9 @@ from openerp import api,models,fields
 class product_style(models.Model):
     _inherit = "product.style"
 
+    name = fields.Char(translate=True)
     auto = fields.Boolean('Auto style', default=False)
+    can_be_ordered = fields.Boolean('Can be ordered', default=True)
 
 class product_template(models.Model):
     _inherit = 'product.template'
