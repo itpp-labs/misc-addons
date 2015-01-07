@@ -1,5 +1,5 @@
 {
-    'name' : 'Quick add items to shopping cart',
+    'name' : 'Quick add items to shopping cart + stock status',
     'version' : '1.0.0',
     'author' : 'Ivan Yelizariev',
     'category' : 'Sale',
