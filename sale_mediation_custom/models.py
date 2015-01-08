@@ -67,25 +67,17 @@ class mail_compose_message(osv.Model):
 class res_partner(models.Model):
     _inherit = 'res.partner'
 
-    participate_in_contract_ids = fields.Many2many('account.analytic.account', id2='contract_id', id1='partner_id', string='Participate in contracts'),
+    participate_in_contract_ids = fields.Many2many('account.analytic.account', id2='contract_id', id1='partner_id', string='Participate in contracts')
 
-class sale_order(osv.Model):
+class sale_order(models.Model):
     _inherit = 'sale.order'
-    _columns = {
-        #'proposal_id': fields.many2one('website_proposal.proposal', 'Proposal'),
-        'proposal_id': old_fields.function(_get_proposal_id, type='many2one', obj='website_proposal.proposal', string='Proposal'), # to delete
 
-    }
+    @api.one
+    @api.depends('invoice_ids.deal_time')
+    def _get_invoice_deal_time(self):
+        self.invoice_deal_time = max([0] + [inv.deal_time or 0 for inv in self.invoice_ids])
 
-#class sale_order(models.Model):
-#    _inherit = 'sale.order'
-#    def action_button_confirm(self, cr, uid, ids, context=None):
-#        for order in self.browse(cr, uid, ids, context):
-#            if not order.project_id:
-#                raise osv.except_osv(
-#                    _('Cannot confirm sale order!'),
-#                    _('You have to define Contract/Analytic value before confirm sale order'))
-#        return super(sale_order, self).action_button_confirm(cr, uid, ids, context)
+    invoice_deal_time = fields.Integer(string='Invoice deal time', compute=_get_invoice_deal_time, store=True)
 
 class crm_lead(models.Model):
     _inherit = 'crm.lead'
@@ -113,15 +105,21 @@ class crm_lead(models.Model):
     is_proposal_confirmed = fields.Boolean('Proposal confirmed', default=False)
     project_id = fields.Many2one('project.project', 'Project')
 
+    stage_closed_id = fields.Many2one('crm.case.stage', 'Last stage', help='Stage before close case')
+
+    date_closed = fields.Datetime(string='Date closed')
+
     @api.one
-    #@api.depends('date_closed')
+    @api.depends('date_closed')
     def _get_deal_time(self):
+        # TODO update field by cron if date_closed= None
         res = None
+        start_date = self.create_date or old_fields.datetime.now()
         end_date = self.date_closed or old_fields.datetime.now()
-        d = datetime.strptime(end_date, DEFAULT_SERVER_DATETIME_FORMAT) - datetime.strptime(self.create_date, DEFAULT_SERVER_DATETIME_FORMAT)
+        d = datetime.strptime(end_date, DEFAULT_SERVER_DATETIME_FORMAT) - datetime.strptime(start_date, DEFAULT_SERVER_DATETIME_FORMAT)
         res = d.days + 1
         self.deal_time = res
-    deal_time = fields.Integer(string='Deal time', compute=_get_deal_time)
+    deal_time = fields.Integer(string='Deal time', compute=_get_deal_time, store=True)
 
     @api.one
     def action_create_sale_order(self):
@@ -319,11 +317,14 @@ class crm_lead(models.Model):
     @api.multi
     def write(self, vals):
         if 'stage_id' in vals:
-            new_stage_id = self.env['crm.case.stage'].browse(vals['stage_id'])
+            new_stage = self.env['crm.case.stage'].browse(vals['stage_id'])
             for r in self:
-                res = r.try_update_stage(new_stage_id)[0]
+                res = r.try_update_stage(new_stage)[0]
                 if res.get('warning'):
                     raise exceptions.Warning(res.get('warning'))
+                if new_stage.sales_funnel_type in ['won', 'lost']:
+                    vals['stage_closed_id'] = r.stage_id.id
+                    vals['date_closed'] = fields.datetime.now()
         result = super(crm_lead, self).write(vals)
         return result
 
@@ -373,3 +374,24 @@ class website_proposal_template(osv.osv):
     _defaults = {
         'res_model': 'crm.lead',
     }
+
+class account_invoice(models.Model):
+    _inherit = 'account.invoice'
+
+    date_invoice_end = fields.Date(string='Invoice End Date')
+
+    @api.one
+    @api.depends('date_invoice_end', 'date_invoice')
+    def _get_deal_time(self):
+        res = None
+        start_date = self.date_invoice or fields.Date.today()
+        end_date = self.date_invoice_end or fields.Date.today()
+        d = datetime.strptime(end_date, DEFAULT_SERVER_DATE_FORMAT) - datetime.strptime(start_date, DEFAULT_SERVER_DATE_FORMAT)
+        res = d.days + 1
+        self.deal_time = res
+    deal_time = fields.Integer(string='Deal time', compute=_get_deal_time, store=True)
+
+    @api.multi
+    def confirm_paid(self):
+        self.write({'date_invoice_end': fields.Date.today()})
+        return super(account_invoice, self).confirm_paid()

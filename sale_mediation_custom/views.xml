@@ -191,10 +191,14 @@
 			<field name="arch" type="xml">
 				<xpath expr="//templates" position="before">
 					<field name="deal_time"/>
+					<field name="stage_closed_id"/>
 				</xpath>
 				<xpath expr="//field[@name='title_action']" position="after">
                     <div t-if="record.deal_time.raw_value" style="padding-left: 0.5em">
 						<span t-esc="record.deal_time.raw_value"/> <span t-esc="record.deal_time > 1 and 'days' or 'day'"/>
+						<t t-if="record.stage_closed_id.raw_value">
+							<br/><span>Closed on: </span><field name="stage_closed_id"/>
+						</t>
 					</div>
 				</xpath>
 			</field>
