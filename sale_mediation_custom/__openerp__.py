@@ -11,6 +11,7 @@
     'depends' : ['sale_mediation',
                  'sale',
                  'crm',
+                 'account',
                  'project',
                  'contract_purchases',
                  'account_analytic_analysis',
