@@ -126,7 +126,7 @@ class gamification_goal(models.Model):
                                 )
                                 ids = obj.search(cr, uid, domain, context=context, order=orderby, limit=1)
                                 res = obj.read(cr, uid, ids, [field_name], context=context)
-                                new_value = res[0][field_name]
+                                new_value = len(res) and res[0][field_name] or 0
                             except ValueError:
                                 ids = obj.search(cr, uid, domain, context=context)
                                 res = obj.read(cr, uid, ids, [field_name], context=context)
