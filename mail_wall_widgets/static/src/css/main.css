@@ -1,0 +1,23 @@
+.openerp .oe_mail_wall .oe_mail_wall_aside .oe_mail_wall_widgets{
+	background-color: #ededf6;
+}
+.oe_open_record:hover, .oe_open_record_list:hover{
+	cursor:pointer;
+}
+.oe_goal_outer_box .more{
+	text-align:center;
+}
+
+.openerp .oe_mail_wall .oe_goal .oe_goals_list.funnel .oe_cell.oe_goal_current {
+  font-size: 150%;
+  font-weight: bold;
+  min-width: 65px;
+  padding: 0 5px;
+}
+.openerp .oe_mail_wall .oe_goal .oe_goals_list .oe_cell.oe_goal_current span.small {
+	font-weight: normal;
+	font-size: 70%;
+}
+.oe_open_record:hover, .oe_open_record_list_funnel:hover{
+	cursor:pointer;
+}
