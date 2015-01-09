@@ -8,7 +8,7 @@
         <div class="oe_goal">
             <div>
                 <a class="oe_update_challenge oe_e" rol="button" t-attf-id="{info.id}" t-attf-model="{info.model}">e</a>
-                <h4><t t-esc="info.data.name" /></h4>
+                <h4><t t-esc="info.data.name" /><t t-if="info.data.total_count or info.data.total_count==0"> (<t t-esc="info.data.total_count"/>)</t></h4>
             </div>
 
             <t t-if="info.model=='mail.wall.widgets.widget' and info.data.type == 'list'">

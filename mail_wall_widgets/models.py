@@ -78,8 +78,10 @@ Slice - use "domain" for total and "won_domain" for target
         }
         obj = self.env[self.model_id.model]
         if self.type == 'list':
+            total_count = obj.search_count(domain)
             res.update({
-                'more': self.limit and self.limit < obj.search_count(domain),
+                'more': self.limit and self.limit < total_count,
+                'total_count': total_count,
                 'lines': [],
             })
             for r in obj.search(domain, limit=self.limit, order=self.order):
