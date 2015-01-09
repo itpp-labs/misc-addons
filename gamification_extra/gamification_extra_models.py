@@ -126,12 +126,12 @@ class gamification_goal(models.Model):
                                 )
                                 ids = obj.search(cr, uid, domain, context=context, order=orderby, limit=1)
                                 res = obj.read(cr, uid, ids, [field_name], context=context)
-                                new_value = len(res) and res[0][field_name] or 0
+                                new_value = res and res[0][field_name] or 0.0
                             except ValueError:
                                 ids = obj.search(cr, uid, domain, context=context)
                                 res = obj.read(cr, uid, ids, [field_name], context=context)
                                 res = sorted(res, key=lambda r: r[field_name], reverse=definition.computation_mode == 'max')
-                                new_value = res[0][field_name]
+                                new_value = res and res[0][field_name] or 0.0
 
                         # avoid useless write if the new value is the same as the old one
                         if new_value != goal.current:
