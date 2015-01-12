@@ -1,0 +1,6 @@
+-
+  !python {model: res.users}: |
+    ids = self.search(cr, uid, [])
+    for r in self.browse(cr, uid, ids):
+      if not r.display_suggestions_hidden:
+        r.write({'display_groups_suggestions':False, 'display_employees_suggestions': False, 'display_suggestions_hidden':True})
