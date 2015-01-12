@@ -9,7 +9,6 @@ class res_partner(models.Model):
         name = self.name
         if not self.is_company and self.parent_id:
             name = self.parent_id.name
-        print '_get_company_name', name
         self.company_name = name
 
     company_name = fields.Char('Company name', compute=_get_company_name)
