@@ -171,8 +171,8 @@
 				<xpath expr="//button[@name='action_quotation_send' and @states='sent,progress,manual']" position="attributes"><attribute name="invisible">1</attribute></xpath>
 				<xpath expr="//button[@name='print_quotation' and @states='draft']" position="attributes"><attribute name="invisible">1</attribute></xpath>
 				<xpath expr="//button[@name='print_quotation' and @states!='draft']" position="attributes"><attribute name="invisible">1</attribute></xpath>
-				<xpath expr="//button[@name='action_button_confirm' and @states='draft']" position="attributes"><attribute name="invisible">1</attribute></xpath>
-				<xpath expr="//button[@name='action_button_confirm' and @states='sent']" position="attributes"><attribute name="invisible">1</attribute></xpath>
+				<xpath expr="//button[@name='action_button_confirm' and @states='draft']" position="attributes"><attribute name="groups">access_custom.group_show_built_in_sale_buttons</attribute></xpath>
+				<xpath expr="//button[@name='action_button_confirm' and @states='sent']" position="attributes"><attribute name="groups">access_custom.group_show_built_in_sale_buttons</attribute></xpath>
 				<!--<xpath expr="//button[@name='cancel']" position="attributes"><attribute name="invisible">1</attribute></xpath>-->
 				<xpath expr="//button[@name='copy_quotation']" position="attributes"><attribute name="invisible">1</attribute></xpath>
 				<!--<xpath expr="//button[@name='action_cancel']" position="attributes"><attribute name="invisible">1</attribute></xpath>-->

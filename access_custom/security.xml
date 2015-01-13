@@ -25,6 +25,11 @@
 			<field name="comment">Access to expenses of all employees</field>
 		</record>
 
+        <record model="res.groups" id="group_show_built_in_sale_buttons">
+            <field name="name">show_built_in_sale_buttons</field>
+            <field name="category_id" ref="module_category_custom"/>
+		</record>
+
         <record model="res.groups" id="group_view_marketing_menu">
             <field name="name">view_marketing_menu</field>
 			<field name="menu_access" eval="[(4,ref('base.marketing_menu'))]"/>
