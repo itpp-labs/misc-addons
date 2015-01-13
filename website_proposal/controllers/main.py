@@ -127,7 +127,7 @@ class website_proposal(http.Controller):
         if token != proposal.access_token:
             return request.website.render('website.404')
         if message:
-            self.post_request_info(proposal, _('Declining request info'))
+            self.post_request_info(proposal, _('Comment info'))
             self.__message_post(message, proposal, type='comment', subtype='mt_comment')
         return werkzeug.utils.redirect("/website_proposal/%s/%s?message=1" % (proposal_id, token))
 
