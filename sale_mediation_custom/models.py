@@ -91,7 +91,7 @@ class crm_lead(models.Model):
             name = name + ('%02i'% (len(ids) + 1))
         return name
 
-
+    company_id_edit = fields.Many2one('res.company', string='Company', related='company_id', help='Special field to edit company field. It is shown only to users with multi_company_custom access')
     sales_funnel_type = fields.Selection(related='stage_id.sales_funnel_type', readonly=True)
     sale_order_id = fields.Many2one('sale.order', 'Quotation \ Sale Order')
     sale_order_lines = fields.One2many('sale.order.line', 'order_id', string='Order lines', related='sale_order_id.order_line', readonly=False)

@@ -233,6 +233,8 @@
 				</xpath>
 
 				<xpath expr="//field[@name='user_id']" position="after">
+					<field name="company_id_edit" groups="access_custom.group_multi_company_custom"/>
+					<field name="company_id" readonly="1"/>
 					<field name="project_id" readonly="1"/>
 				</xpath>
 				<xpath expr="//notebook" position="inside">

@@ -30,6 +30,12 @@
             <field name="category_id" ref="module_category_custom"/>
 		</record>
 
+        <record model="res.groups" id="group_multi_company_custom">
+            <field name="name">multi_company_custom</field>
+            <field name="category_id" ref="module_category_custom"/>
+			<field name="comment">Allows edit Company field in some records</field>
+		</record>
+
         <record model="res.groups" id="group_view_marketing_menu">
             <field name="name">view_marketing_menu</field>
 			<field name="menu_access" eval="[(4,ref('base.marketing_menu'))]"/>
