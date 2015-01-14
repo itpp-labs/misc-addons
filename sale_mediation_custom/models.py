@@ -325,6 +325,10 @@ class crm_lead(models.Model):
                 if new_stage.sales_funnel_type in ['won', 'lost']:
                     vals['stage_closed_id'] = r.stage_id.id
                     vals['date_closed'] = fields.datetime.now()
+        if 'user_id' in vals:
+            for r in self:
+                if r.sale_order_id and ( not r.sale_order_id.user_id or r.sale_order_id.user_id.id != vals['user_id']):
+                    r.sale_order_id.user_id = vals['user_id']
         result = super(crm_lead, self).write(vals)
         return result
 
