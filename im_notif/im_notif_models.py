@@ -74,7 +74,7 @@ class mail_notification(models.Model):
             )
         author = message.author_id and message.author_id.name_get()
         author = author and author[0][1] or message.email_from
-        body = html2plaintext(message.body)[:100] or ''
+        #body = html2plaintext(message.body)[:100] or ''
         mtype = {'email': _('Email'),
                  'comment': _('Comment'),
                  'notification': _('System notification'),
@@ -84,9 +84,9 @@ class mail_notification(models.Model):
             '_____________________',
             '_____________________',
             '%s [FROM] %s' % (message.type, author),
-            '[ABOUT] %s: %s' % (message.record_name or '', url)
+            '[ABOUT] %s: %s' % (message.subject or message.record_name or '', url)
         ]
-        im_text = im_text + body.split('\n')
+        #im_text = im_text + body.split('\n')
         return im_text
 
 
