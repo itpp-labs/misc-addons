@@ -83,8 +83,8 @@ class mail_notification(models.Model):
         im_text = [
             '_____________________',
             '_____________________',
-            '%s FROM %s' % (message.type, author),
-            'ABOUT %s: %s' % (message.record_name or '', url)
+            '%s [FROM] %s' % (message.type, author),
+            '[ABOUT] %s: %s' % (message.record_name or '', url)
         ]
         im_text = im_text + body.split('\n')
         return im_text
