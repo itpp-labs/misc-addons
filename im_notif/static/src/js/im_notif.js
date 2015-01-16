@@ -9,7 +9,7 @@
      openerp.im_chat.Conversation.include({
         escape_keep_url: function(str){
             //var url_regex = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/gi;
-            var url_regex  = /((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?|ODOO_REF#[\w#!:.?+=&%@!\-\/]+)/gi;
+            var url_regex  = /((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?|(<a)[^>]*href="([^"]*)"[^>]*>([^<]*)<\/a>)/gi;
             var last = 0;
             var txt = "";
             while (true) {
@@ -18,11 +18,24 @@
                     break;
                 txt += _.escape(str.slice(last, result.index));
                 last = url_regex.lastIndex;
-                var is_odoo_ref = result[0].match(/^ODOO_REF/)
-                var url = _.escape(result[0].replace(/^ODOO_REF/, ''));
-                if (is_odoo_ref)
-                    url += '&rnd='+parseInt(Math.random()*1000);
-                txt += '<a href="' + url + '"' + (is_odoo_ref?'':' target="_blank"')+'>' + url + '</a>';
+                var href = '';
+                var content = '';
+                var is_odoo_ref = false;
+                if (result[8]=='<a'){
+                    href = result[9];
+                    if (href[0]=='#'){
+                        href += '&rnd='+parseInt(Math.random()*1000);
+                        content = result[10];
+                        is_odoo_ref = true;
+                    } else {
+                        //only internal urls are allowed
+                        href = '';
+                    }
+                }else{
+                    href = _.escape(result[0]);
+                    content = href;
+                }
+                txt += '<a href="' + href + '"' + (is_odoo_ref?'':' target="_blank"')+'>' + content + '</a>';
             }
             txt += _.escape(str.slice(last, str.length));
             return txt;

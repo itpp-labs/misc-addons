@@ -67,10 +67,14 @@ class mail_notification(models.Model):
 
         return email_pids, im_uids
 
-    def _message2im(self, message):
-        url = 'ODOO_REF#id=%s&model=%s&view_type=form' % (
-            message.res_id,
-            message.model
+    def _message2im(self, cr, uid, message):
+        inbox_action = self.pool['ir.model.data'].xmlid_to_res_id(cr, SUPERUSER_ID, 'mail.action_mail_inbox_feeds')
+        inbox_url = '#action=%s' % inbox_action
+        url = None
+        if message.res_id:
+            url = '#id=%s&model=%s&view_type=form' % (
+                message.res_id,
+                message.model
             )
         author = message.author_id and message.author_id.name_get()
         author = author and author[0][1] or message.email_from
@@ -80,11 +84,15 @@ class mail_notification(models.Model):
                  'notification': _('System notification'),
         }.get(message.type, '')
 
+        about = message.subject or message.record_name or 'UNDEFINED'
+        about = '[ABOUT] %s' % about
+        if url:
+            about =  '<a href="%s">%s</a>' % (url, about)
         im_text = [
-            '_____________________',
-            '_____________________',
             '%s [FROM] %s' % (message.type, author),
-            '[ABOUT] %s: %s' % (message.subject or message.record_name or '', url)
+            about,
+            '_____________________',
+            '<a href="%s">_____[open_inbox]_____</a>' % inbox_url,
         ]
         #im_text = im_text + body.split('\n')
         return im_text
@@ -106,7 +114,7 @@ class mail_notification(models.Model):
         return True
 
     def _do_notify_im(self, cr, uid, im_uids, message, context=None):
-        im_text = self._message2im(message)
+        im_text = self._message2im(cr, uid, message)
 
         user_from = self.pool['ir.model.data'].xmlid_to_res_id(cr, SUPERUSER_ID, 'im_notif.notif_user')
 
