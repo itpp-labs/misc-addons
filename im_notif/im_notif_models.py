@@ -80,9 +80,12 @@ class mail_notification(models.Model):
                  'notification': _('System notification'),
         }.get(message.type, '')
 
-        im_text = ['NEW %s FROM %s' % (message.type, author),
-                   'OPEN %s: %s' % (message.record_name or '', url)
-                   ]
+        im_text = [
+            '_____________________',
+            '_____________________',
+            '%s FROM %s' % (message.type, author),
+            'ABOUT %s: %s' % (message.record_name or '', url)
+        ]
         im_text = im_text + body.split('\n')
         return im_text
 
