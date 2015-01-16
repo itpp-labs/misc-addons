@@ -68,8 +68,8 @@ class mail_notification(models.Model):
         return email_pids, im_uids
 
     def _message2im(self, cr, uid, message):
-        inbox_action = self.pool['ir.model.data'].xmlid_to_res_id(cr, SUPERUSER_ID, 'mail.action_mail_inbox_feeds')
-        inbox_url = '#action=%s' % inbox_action
+        inbox_action = self.pool['ir.model.data'].xmlid_to_res_id(cr, SUPERUSER_ID, 'mail.mail_inboxfeeds')
+        inbox_url = '#menu_id=%s' % inbox_action
         url = None
         if message.res_id:
             url = '#id=%s&model=%s&view_type=form' % (
