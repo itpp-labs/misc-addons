@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="assets_backend" name="im_notif assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <!--<link rel="stylesheet" href="/im_notif/static/src/css/im_notif.css"/>-->
+                <script type="text/javascript" src="/im_notif/static/src/js/im_notif.js"></script>
+            </xpath>
+        </template>
+
+	</data>
+</openerp>
