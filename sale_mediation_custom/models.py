@@ -31,7 +31,6 @@ class account_analytic_account(models.Model):
     participant_ids = fields.Many2many('res.partner', id1='contract_id', id2='partner_id', string='Participants')
 
     lead_id = fields.Many2one('crm.lead', 'Lead \ Opportunity', required=False)
-    lead_id2 = fields.Many2one('crm.lead', 'Lead \ Opportunity', related='lead_id', readonly=True)
     lead_id_type = fields.Selection(string='Lead or Opportunity', related='lead_id.type')
     lead_id_priority = fields.Selection(string='Priority', related='lead_id.priority')
     lead_id_probability = fields.Float(string='Opportunity probability', related='lead_id.probability')
@@ -91,7 +90,6 @@ class crm_lead(models.Model):
             name = name + ('%02i'% (len(ids) + 1))
         return name
 
-    company_id_edit = fields.Many2one('res.company', string='Company', related='company_id', help='Special field to edit company field. It is shown only to users with multi_company_custom access')
     sales_funnel_type = fields.Selection(related='stage_id.sales_funnel_type', readonly=True)
     sale_order_id = fields.Many2one('sale.order', 'Quotation \ Sale Order')
     sale_order_lines = fields.One2many('sale.order.line', 'order_id', string='Order lines', related='sale_order_id.order_line', readonly=False)
@@ -104,6 +102,7 @@ class crm_lead(models.Model):
     is_proposal_sent = fields.Boolean('Proposal sent', default=False)
     is_proposal_confirmed = fields.Boolean('Proposal confirmed', default=False)
     project_id = fields.Many2one('project.project', 'Project')
+    contract_id = fields.Many2one('account.analytic.account', 'Contract', related='project_id.analytic_account_id')
 
     stage_closed_id = fields.Many2one('crm.case.stage', 'Last stage', help='Stage before close case')
 

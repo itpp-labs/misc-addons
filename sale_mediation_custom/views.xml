@@ -233,9 +233,9 @@
 				</xpath>
 
 				<xpath expr="//field[@name='user_id']" position="after">
-					<field name="company_id_edit" groups="access_custom.group_multi_company_custom"/>
 					<field name="company_id" readonly="1"/>
 					<field name="project_id" readonly="1"/>
+					<field name="contract_id" readonly="1"/>
 				</xpath>
 				<xpath expr="//notebook" position="inside">
 					<page string="Quotation \ Sale Order">
@@ -331,6 +331,22 @@
 					</page>
 				</xpath>
 
+			</field>
+		</record>
+
+        <record model="ir.ui.view" id="crm_case_form_view_oppor_sale_manager">
+			<field name="name">Opportunity</field>
+			<field name="model">crm.lead</field>
+			<field name="inherit_id" ref="sale_mediation_custom.crm_case_form_view_oppor"/>
+			<field name="groups_id" eval="[(6, 0, [ref('base.group_sale_manager') ])]"/>
+
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='company_id']" position="attributes">
+					<attribute name="readonly">0</attribute>
+				</xpath>
+				<xpath expr="//field[@name='project_id']" position="attributes">
+					<attribute name="readonly">0</attribute>
+				</xpath>
 			</field>
 		</record>
 
