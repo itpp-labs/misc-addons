@@ -89,10 +89,10 @@ class mail_notification(models.Model):
         if url:
             about =  '<a href="%s">%s</a>' % (url, about)
         im_text = [
-            '%s [FROM] %s' % (message.type, author),
-            about,
             '_____________________',
             '<a href="%s">_____[open_inbox]_____</a>' % inbox_url,
+            '%s [FROM] %s' % (message.type, author),
+            about,
         ]
         #im_text = im_text + body.split('\n')
         return im_text
