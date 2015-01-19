@@ -1,6 +1,8 @@
 from openerp.osv import fields as old_fields
 from openerp import api,models,fields,tools
 from openerp.addons.email_template.email_template import mako_template_env
+import re
+import base64
 
 class res_users(models.Model):
     _inherit = 'res.users'
@@ -82,3 +84,36 @@ class hr_employee(models.Model):
         res = super(hr_employee, self).write(vals)
         self.user_id.render_signature_id()
         return res
+
+class ir_mail_server(models.Model):
+    _inherit = "ir.mail_server"
+
+    def build_email(self, email_from, email_to, subject, body, email_cc=None, email_bcc=None, reply_to=False,
+               attachments=None, message_id=None, references=None, object_id=False, subtype='plain', headers=None,
+               body_alternative=None, subtype_alternative='plain'):
+        ftemplate = '__attachment__%s'
+        fcounter = 0
+        attachments = attachments or []
+
+        pattern = re.compile(r'"data:image/png;base64,[^"]*"')
+        pos = 0
+        new_body = ''
+        while True:
+            match = pattern.search(body, pos)
+            if not match:
+                break
+            s = match.start()
+            e = match.end()
+            data = body[s+len('"data:image/png;base64,'):e-1]
+            new_body += body[pos:s]
+
+            fname = ftemplate % fcounter
+            fcounter += 1
+            attachments.append( (fname, base64.b64decode(data)) )
+
+            new_body += '"cid:%s"' % fname
+            pos = e
+
+        new_body += body[pos:]
+
+        return super(ir_mail_server, self).build_email(email_from, email_to, subject, new_body, email_cc, email_bcc, reply_to, attachments, message_id, references, object_id, subtype, headers, body_alternative, subtype_alternative)
