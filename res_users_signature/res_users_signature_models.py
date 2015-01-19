@@ -91,7 +91,9 @@ class ir_mail_server(models.Model):
     def build_email(self, email_from, email_to, subject, body, email_cc=None, email_bcc=None, reply_to=False,
                attachments=None, message_id=None, references=None, object_id=False, subtype='plain', headers=None,
                body_alternative=None, subtype_alternative='plain'):
-        ftemplate = '__attachment__%s'
+        """ copy-pasted from openerp/addons/base/ir/ir_mail_server.py::build_email """
+
+        ftemplate = '__image-%s__'
         fcounter = 0
         attachments = attachments or []
 
@@ -115,5 +117,83 @@ class ir_mail_server(models.Model):
             pos = e
 
         new_body += body[pos:]
+        body = new_body
 
-        return super(ir_mail_server, self).build_email(email_from, email_to, subject, new_body, email_cc, email_bcc, reply_to, attachments, message_id, references, object_id, subtype, headers, body_alternative, subtype_alternative)
+
+
+        email_from = email_from or tools.config.get('email_from')
+        assert email_from, "You must either provide a sender address explicitly or configure "\
+                           "a global sender address in the server configuration or with the "\
+                           "--email-from startup parameter."
+
+        # Note: we must force all strings to to 8-bit utf-8 when crafting message,
+        #       or use encode_header() for headers, which does it automatically.
+
+        headers = headers or {} # need valid dict later
+
+        if not email_cc: email_cc = []
+        if not email_bcc: email_bcc = []
+        if not body: body = u''
+
+        email_body_utf8 = ustr(body).encode('utf-8')
+        email_text_part = MIMEText(email_body_utf8, _subtype=subtype, _charset='utf-8')
+        msg = MIMEMultipart()
+
+        if not message_id:
+            if object_id:
+                message_id = tools.generate_tracking_message_id(object_id)
+            else:
+                message_id = make_msgid()
+        msg['Message-Id'] = encode_header(message_id)
+        if references:
+            msg['references'] = encode_header(references)
+        msg['Subject'] = encode_header(subject)
+        msg['From'] = encode_rfc2822_address_header(email_from)
+        del msg['Reply-To']
+        if reply_to:
+            msg['Reply-To'] = encode_rfc2822_address_header(reply_to)
+        else:
+            msg['Reply-To'] = msg['From']
+        msg['To'] = encode_rfc2822_address_header(COMMASPACE.join(email_to))
+        if email_cc:
+            msg['Cc'] = encode_rfc2822_address_header(COMMASPACE.join(email_cc))
+        if email_bcc:
+            msg['Bcc'] = encode_rfc2822_address_header(COMMASPACE.join(email_bcc))
+        msg['Date'] = formatdate()
+        # Custom headers may override normal headers or provide additional ones
+        for key, value in headers.iteritems():
+            msg[ustr(key).encode('utf-8')] = encode_header(value)
+
+        if subtype == 'html' and not body_alternative and html2text:
+            # Always provide alternative text body ourselves if possible.
+            text_utf8 = tools.html2text(email_body_utf8.decode('utf-8')).encode('utf-8')
+            alternative_part = MIMEMultipart(_subtype="alternative")
+            alternative_part.attach(MIMEText(text_utf8, _charset='utf-8', _subtype='plain'))
+            alternative_part.attach(email_text_part)
+            msg.attach(alternative_part)
+        elif body_alternative:
+            # Include both alternatives, as specified, within a multipart/alternative part
+            alternative_part = MIMEMultipart(_subtype="alternative")
+            body_alternative_utf8 = ustr(body_alternative).encode('utf-8')
+            alternative_body_part = MIMEText(body_alternative_utf8, _subtype=subtype_alternative, _charset='utf-8')
+            alternative_part.attach(alternative_body_part)
+            alternative_part.attach(email_text_part)
+            msg.attach(alternative_part)
+        else:
+            msg.attach(email_text_part)
+
+        if attachments:
+            for (fname, fcontent) in attachments:
+                filename_rfc2047 = encode_header_param(fname)
+                part = MIMEBase('application', "octet-stream")
+
+                # The default RFC2231 encoding of Message.add_header() works in Thunderbird but not GMail
+                # so we fix it by using RFC2047 encoding for the filename instead.
+                part.set_param('name', filename_rfc2047)
+                part.add_header('Content-Disposition', 'attachment', filename=filename_rfc2047)
+                part.add_header('Content-ID', '<%s>' % filename_rfc2047) # NEW STUFF
+
+                part.set_payload(fcontent)
+                Encoders.encode_base64(part)
+                msg.attach(part)
+        return msg
