@@ -1,8 +1,24 @@
 from openerp.osv import fields as old_fields
 from openerp import api,models,fields,tools
 from openerp.addons.email_template.email_template import mako_template_env
+
+from openerp.loglevels import ustr
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+from email.charset import Charset
+from email.header import Header
+from email.utils import formatdate, make_msgid, COMMASPACE, parseaddr
+from email import Encoders
+import openerp.tools as tools
+from openerp.tools.translate import _
+from openerp.tools import html2text
+import openerp.tools as tools
+
 import re
 import base64
+
+from openerp.addons.base.ir.ir_mail_server import encode_rfc2822_address_header, encode_header, encode_header_param
 
 class res_users(models.Model):
     _inherit = 'res.users'
