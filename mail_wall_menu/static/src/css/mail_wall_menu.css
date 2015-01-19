@@ -2,6 +2,10 @@
 	display:none;
 }
 
+.openerp .oe_mail_wall .oe_mail_wall_aside{
+	display:none;
+}
+
 .openerp .oe_mail_wall .dashboard_only .oe_mail_wall_aside{
 	margin:0;
     padding: 16px;

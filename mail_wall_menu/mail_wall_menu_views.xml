@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-		<template id="assets_backend" name="assets" inherit_id="web.assets_backend">
+		<template id="assets_backend" name="assets" inherit_id="mail.assets_backend">
 			<xpath expr="." position="inside">
 				<link rel="stylesheet" href="/mail_wall_menu/static/src/css/mail_wall_menu.css"/>
 				<script type="text/javascript" src="/mail_wall_menu/static/src/js/mail_wall_menu.js"></script>
