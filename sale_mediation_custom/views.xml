@@ -137,7 +137,7 @@
         </record>
 
 
-        <menuitem action="action_account_analytic_overdue_all" id="account_analytic_analysis.menu_action_account_analytic_overdue_all" sequence="8" parent="base.menu_sales" name="Sales funnel"/>
+        <menuitem action="action_account_analytic_overdue_all" id="account_analytic_analysis.menu_action_account_analytic_overdue_all" sequence="8" parent="base.menu_sales" name="Contracts"/>
 
 
 

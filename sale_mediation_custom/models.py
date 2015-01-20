@@ -244,6 +244,7 @@ class crm_lead(models.Model):
             name = 'PE%s (SE)%s'% (m.group(1), m.group(2))
         vals = {
             'name':name,
+            'partner_id': r.partner_id.id,
             'sale_case_id': r.id,
         }
         project_id = self.pool['project.project'].create(cr, uid, vals, context=context.copy())
