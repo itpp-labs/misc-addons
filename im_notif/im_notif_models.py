@@ -20,7 +20,7 @@ class res_partner(models.Model):
     }
 
     _defaults = {
-        'notify_email': lambda *args: 'always'
+        'notify_email': lambda *args: 'im_and_email'
     }
 
 class mail_notification(models.Model):
