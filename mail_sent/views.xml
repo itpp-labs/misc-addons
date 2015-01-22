@@ -13,6 +13,7 @@
             <field name="params" eval="&quot;{
                 'domain': [
                     ('author_id.user_ids', 'in', [uid]),
+                    ('sent', '=', True),
                 ],
                 'view_mailbox': True,
                 'show_compose_message': False
