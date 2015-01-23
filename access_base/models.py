@@ -19,7 +19,11 @@ class groups_view(osv.osv):
             xml3.append(E.separator(string=_('Custom User Groups'), colspan="4"))
 
 
-            custom_group_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'access_base', 'module_category_custom')[1]
+            custom_group_id = None
+            try:
+                custom_group_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'access_base', 'module_category_custom')[1]
+            except:
+                pass
             for app, kind, gs in self.get_groups_by_application(cr, uid, context):
                 xml = None
                 custom = False
