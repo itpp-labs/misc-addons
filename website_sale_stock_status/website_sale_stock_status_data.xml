@@ -9,6 +9,10 @@
             <field name="name">NEW RELEASE</field>
             <field name="html_class">oe_ribbon_new_release</field>
         </record>
+        <record id="website_sale_stock_status.ribbon_pre_order_now" model="product.style">
+            <field name="name">Pre order now!</field>
+            <field name="html_class">oe_ribbon_pre_order_now</field>
+        </record>
         <record id="website_sale_stock_status.ribbon_backordered" model="product.style">
             <field name="name">Backordered</field>
             <field name="html_class">oe_ribbon_backordered</field>

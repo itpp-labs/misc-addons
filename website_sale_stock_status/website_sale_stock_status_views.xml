@@ -22,6 +22,9 @@
 				<div class="ribbon-wrapper-custom-big ribbon-discontinued">
 					<div class="ribbon btn btn-danger">Discontinued</div>
 				</div>
+				<div class="ribbon-wrapper-custom-big ribbon-pre-order-now">
+					<div class="ribbon btn btn-danger">Pre order now!</div>
+				</div>
 			</xpath>
 		</template>
 		<template id="products" inherit_id="website_sale.products" name="Products">

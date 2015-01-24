@@ -68,6 +68,9 @@
 .oe_product.oe_ribbon_new_release .ribbon-new-release {
   display: block;
 }
+.oe_product.oe_ribbon_pre_order_now .ribbon-pre-order-now {
+  display: block;
+}
 .oe_product.oe_ribbon_backordered .ribbon-backordered {
   display: block;
 }
