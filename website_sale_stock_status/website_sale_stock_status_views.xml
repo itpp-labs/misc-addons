@@ -13,6 +13,9 @@
 				<div class="ribbon-wrapper-custom ribbon-new">
 					<div class="ribbon btn btn-danger">New</div>
 				</div>
+				<div class="ribbon-wrapper-custom-big ribbon-new-release">
+					<div class="ribbon btn btn-danger">NEW RELEASE</div>
+				</div>
 				<div class="ribbon-wrapper-custom-big ribbon-backordered">
 					<div class="ribbon btn btn-danger">Backordered</div>
 				</div>

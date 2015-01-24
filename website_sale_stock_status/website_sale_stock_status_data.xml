@@ -5,6 +5,10 @@
             <field name="name">New</field>
             <field name="html_class">oe_ribbon_new</field>
         </record>
+        <record id="website_sale_stock_status.ribbon_new_release" model="product.style">
+            <field name="name">NEW RELEASE</field>
+            <field name="html_class">oe_ribbon_new_release</field>
+        </record>
         <record id="website_sale_stock_status.ribbon_backordered" model="product.style">
             <field name="name">Backordered</field>
             <field name="html_class">oe_ribbon_backordered</field>
