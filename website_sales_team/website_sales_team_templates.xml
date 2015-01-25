@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp><data>
+
+<template id="website.editor_head" inherit_id="website.layout" name="Editor" groups="base.group_website_publisher,base.group_website_designer,website_sales_team.group_team_manager">
+	<xpath expr='//t[@t-call-assets="website.assets_frontend"][@t-js]' position="after">
+		<t t-call-assets="website.assets_editor" t-js="false"/>
+	</xpath>
+	<xpath expr='//t[@t-call-assets="website.assets_frontend"][@t-css]' position="after">
+		<t t-call-assets="website.assets_editor" t-css="false"/>
+	</xpath>
+</template>
+
+<template id="product" inherit_id="website_sale.product">
+	<xpath expr="//hr[@t-if='product.description_sale']" position="before">
+		<t t-if="product.section_id">
+			<hr/>
+			<div>
+				<p><span>Seller:</span> <a t-attf-href="/seller/#{slug(product.section_id)}" t-field="product.section_id"/></p>
+				<!--<p><span>Rating:</span> ...</p>-->
+				<p><span>Seller's shop:</span> <a t-attf-href="/shop/#{slug(product.section_id)}"><span t-esc="len(product.section_id.product_ids)"/> items</a></p>
+			</div>
+		</t>
+	</xpath>
+</template>
+
+<template id="seller" name="Seller">
+  <t t-call="website.layout">
+      <t t-set="additional_title" t-value="seller.name"/>
+      <div id="wrap">
+        <div class="container oe_website_sale">
+			<h1 t-field="seller.name"/>
+			<div t-field="seller.website_description" class="oe_structure mt16" id="seller_description"/>
+		</div>
+	  </div>
+  </t>
+</template>
+
+</data></openerp>

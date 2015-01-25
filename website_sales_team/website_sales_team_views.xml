@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp><data>
+
+<record id="product_template_form_view_website_sale" model="ir.ui.view">
+    <field name="model">product.template</field>
+	<field name="inherit_id" ref="website_sale.product_template_form_view"/>
+    <field name="arch" type="xml">
+		<xpath expr=".">
+			<field name="section_public_categ_ids" invisible="1"/>
+		</xpath>
+		<xpath expr="//field[@name='public_categ_ids']" position="attributes">
+			<attribute name="domain">[('id', 'child_of', section_public_categ_ids[0][2])]</attribute><!-- get ids from [[6, false, [ids]]] -->
+		</xpath>
+	</field>
+</record>
+
+<record id="product_template_form_view_website_sale_admin" model="ir.ui.view">
+    <field name="model">product.template</field>
+	<field name="inherit_id" ref="website_sale.product_template_form_view"/>
+	<field name="groups_id" eval="[(4, ref('website_sales_team.group_admin'), 0)]"/>
+    <field name="arch" type="xml">
+		<xpath expr="//field[@name='public_categ_ids']" position="attributes">
+			<attribute name="domain">[]</attribute>
+		</xpath>
+	</field>
+</record>
+
+
+<record id="product_template_form_view" model="ir.ui.view">
+    <field name="model">product.template</field>
+	<field name="inherit_id" ref="product.product_template_form_view"/>
+    <field name="arch" type="xml">
+		<xpath expr="//field[@name='active']" position="before">
+			<field name="section_id" readonly="1"/>
+		</xpath>
+	</field>
+</record>
+
+<record id="product_template_form_view_admin" model="ir.ui.view">
+    <field name="model">product.template</field>
+	<field name="inherit_id" ref="website_sales_team.product_template_form_view"/>
+	<field name="groups_id" eval="[(4, ref('website_sales_team.group_admin'), 0)]"/>
+    <field name="arch" type="xml">
+		<xpath expr="//field[@name='section_id']" position="attributes">
+			<attribute name="readonly">0</attribute>
+		</xpath>
+	</field>
+</record>
+
+<record id="crm_case_section_view_form" model="ir.ui.view">
+    <field name="name">crm.case.section.form</field>
+    <field name="model">crm.case.section</field>
+	<field name="inherit_id" ref="sales_team.crm_case_section_view_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='user_id']" position="after">
+			<field name="public_categ_ids" widget="many2many_tags"/>
+		</xpath>
+	</field>
+</record>
+
+<record id="product_template_search_view" model="ir.ui.view">
+    <field name="model">product.template</field>
+	<field name="inherit_id" ref="product.product_template_search_view"/>
+    <field name="arch" type="xml">
+		<xpath expr="//filter[@name='filter_to_sell']" position="before">
+            <filter string="My" name="filter_my" icon="terp-accessories-archiver-minus" domain="[('section_member_ids','in',[uid])]"/>
+		</xpath>
+	</field>
+</record>
+
+
+<record id="product.product_template_action" model="ir.actions.act_window">
+    <field name="context">{"search_default_filter_my":1}</field>
+</record>
+
+<record id="product.product_normal_action_sell" model="ir.actions.act_window">
+    <field name="context">{"search_default_filter_my":1}</field>
+</record>
+
+</data></openerp>
