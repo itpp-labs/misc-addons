@@ -27,4 +27,5 @@ access_product_attribute_sale_manager,product.attribute manager,product.model_pr
 access_product_attribute_value_sale_manager,product.attribute manager value,product.model_product_attribute_value,group_team_manager,1,1,1,1
 access_product_attribute_price_sale_manager,product.attribute manager price,product.model_product_attribute_price,group_team_manager,1,1,1,1
 access_product_attribute_line_sale_manager,product.attribute manager line,product.model_product_attribute_line,group_team_manager,1,1,1,1
+access_crm_case_section_read,Sales team read,sales_team.model_crm_case_section,,1,0,0,0
 access_crm_case_section_edit,Sales team edit,sales_team.model_crm_case_section,group_team_owner,1,1,0,0
