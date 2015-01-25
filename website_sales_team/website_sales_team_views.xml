@@ -47,10 +47,11 @@
 	</field>
 </record>
 
-<record id="crm_case_section_view_form" model="ir.ui.view">
+<record id="crm_case_section_view_form_admin" model="ir.ui.view">
     <field name="name">crm.case.section.form</field>
     <field name="model">crm.case.section</field>
 	<field name="inherit_id" ref="sales_team.crm_case_section_view_form"/>
+	<field name="groups_id" eval="[(4, ref('website_sales_team.group_admin'), 0)]"/>
     <field name="arch" type="xml">
         <xpath expr="//field[@name='user_id']" position="after">
 			<field name="public_categ_ids" widget="many2many_tags"/>
@@ -76,5 +77,10 @@
 <record id="product.product_normal_action_sell" model="ir.actions.act_window">
     <field name="context">{"search_default_filter_my":1}</field>
 </record>
+
+<record id="sales_team.crm_case_section_salesteams_act" model="ir.actions.act_window">
+	<field name="context">{"search_default_personal":1}</field>
+</record>
+
 
 </data></openerp>

@@ -34,10 +34,10 @@
 		</record>
 
 		<!-- rules -->
-		<record model="ir.rule" id="rule_section_my_read">
-            <field name="name">section:  read my</field>
+		<record model="ir.rule" id="rule_section_all_read">
+            <field name="name">Sales team:  read all</field>
             <field name="model_id" ref="sales_team.model_crm_case_section"/>
-            <field name="domain_force">[('member_ids', 'in', [user.id])]</field>
+            <field name="domain_force">[(1,'=',1)]</field>
             <field name="groups" eval="[(4, ref('group_team_user'))]"/>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="False"/>
@@ -46,7 +46,7 @@
             <field name="global" eval="False"/>
 		</record>
 		<record model="ir.rule" id="rule_section_my_edit">
-            <field name="name">section:  edit my</field>
+            <field name="name">Sales team:  edit my</field>
             <field name="model_id" ref="sales_team.model_crm_case_section"/>
             <field name="domain_force">[('member_ids', 'in', [user.id])]</field>
             <field name="groups" eval="[(4, ref('group_team_owner'))]"/>
