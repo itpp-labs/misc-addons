@@ -92,6 +92,18 @@
             <field name="global" eval="False"/>
 		</record>
 
+		<record model="ir.rule" id="rule_product_template_all_edit">
+            <field name="name">product.template:  edit all</field>
+            <field name="model_id" ref="product.model_product_template"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_admin'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+            <field name="global" eval="False"/>
+		</record>
+
 		
 		<record model="ir.rule" id="rule_product_product_all_read">
             <field name="name">product.product:  read all</field>
@@ -110,6 +122,18 @@
             <field name="model_id" ref="product.model_product_product"/>
             <field name="domain_force">[('section_id.member_ids', 'in', [user.id])]</field>
             <field name="groups" eval="[(4, ref('group_team_manager'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+            <field name="global" eval="False"/>
+		</record>
+
+		<record model="ir.rule" id="rule_product_product_all_edit">
+            <field name="name">product.product:  edit all</field>
+            <field name="model_id" ref="product.model_product_product"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_admin'))]"/>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="True"/>
             <field name="perm_create" eval="True"/>
