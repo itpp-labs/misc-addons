@@ -1,0 +1,123 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_sales_team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-25 16:19+0000\n"
+"PO-Revision-Date: 2015-01-25 18:25+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sales_team
+#: model:res.groups,comment:website_sales_team.group_team_owner
+msgid "Allows appoint salespersons and managers"
+msgstr "Allows appoint salespersons and managers"
+
+#. module: website_sales_team
+#: model:res.groups,comment:website_sales_team.group_team_manager
+msgid "Allows edit products"
+msgstr "Allows edit products"
+
+#. module: website_sales_team
+#: model:res.groups,comment:website_sales_team.group_team_user
+msgid "Allows make sales"
+msgstr "Allows make sales"
+
+#. module: website_sales_team
+#: field:crm.case.section,website_description:0
+msgid "Description for the website"
+msgstr "Description for the website"
+
+#. module: website_sales_team
+#: model:res.groups,comment:website_sales_team.group_admin
+msgid "Gets access to all sales team"
+msgstr "Gets access to all sales team"
+
+#. module: website_sales_team
+#: model:res.groups,name:website_sales_team.group_admin
+msgid "Global administrator"
+msgstr "Global administrator"
+
+#. module: website_sales_team
+#: model:ir.model,name:website_sales_team.model_product_template
+msgid "Product Template"
+msgstr "Product Template"
+
+#. module: website_sales_team
+#: field:crm.case.section,product_ids:0
+msgid "Products"
+msgstr "Products"
+
+#. module: website_sales_team
+#: model:ir.model,name:website_sales_team.model_product_public_category
+msgid "Public Category"
+msgstr "Public Category"
+
+#. module: website_sales_team
+#: field:product.template,section_id:0
+#: field:res.users,section_ids:0
+msgid "Sales Team"
+msgstr "Sales Team"
+
+#. module: website_sales_team
+#: model:ir.model,name:website_sales_team.model_crm_case_section
+msgid "Sales Teams"
+msgstr "Sales Teams"
+
+#. module: website_sales_team
+#: model:res.groups,name:website_sales_team.group_team_manager
+msgid "Sales manager"
+msgstr "Sales manager"
+
+#. module: website_sales_team
+#: model:res.groups,name:website_sales_team.group_team_owner
+msgid "Sales team owner"
+msgstr "Sales team owner"
+
+#. module: website_sales_team
+#: field:product.public.category,section_ids:0
+msgid "Sales teams"
+msgstr "Sales teams"
+
+#. module: website_sales_team
+#: model:res.groups,name:website_sales_team.group_team_user
+msgid "Salesperson"
+msgstr "Salesperson"
+
+#. module: website_sales_team
+#: view:website:website_sale.product
+msgid "Seller's shop:"
+msgstr "Другие товары:"
+
+#. module: website_sales_team
+#: view:website:website_sale.product
+msgid "Seller:"
+msgstr "Продавец:"
+
+#. module: website_sales_team
+#: model:ir.model,name:website_sales_team.model_res_users
+msgid "Users"
+msgstr "Пользователи"
+
+#. module: website_sales_team
+#: model:ir.module.category,name:website_sales_team.module_category
+msgid "Website Sales Team"
+msgstr "Website Sales Team"
+
+#. module: website_sales_team
+#: view:product.template:website_sales_team.product_template_form_view_website_sale
+msgid "[('id', 'child_of', section_public_categ_ids[0][2])]"
+msgstr "[('id', 'child_of', section_public_categ_ids[0][2])]"
+
+#. module: website_sales_team
+#: view:website:website_sale.product
+msgid "items"
+msgstr "позиций"
+
