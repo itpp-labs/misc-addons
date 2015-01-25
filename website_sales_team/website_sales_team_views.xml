@@ -4,6 +4,7 @@
 <record id="product_template_form_view_website_sale" model="ir.ui.view">
     <field name="model">product.template</field>
 	<field name="inherit_id" ref="website_sale.product_template_form_view"/>
+	<field name="priority" eval="10"/>
     <field name="arch" type="xml">
 		<xpath expr=".">
 			<field name="section_public_categ_ids" invisible="1"/>
@@ -18,6 +19,7 @@
     <field name="model">product.template</field>
 	<field name="inherit_id" ref="website_sale.product_template_form_view"/>
 	<field name="groups_id" eval="[(4, ref('website_sales_team.group_admin'), 0)]"/>
+	<field name="priority" eval="20"/>
     <field name="arch" type="xml">
 		<xpath expr="//field[@name='public_categ_ids']" position="attributes">
 			<attribute name="domain">[]</attribute>
