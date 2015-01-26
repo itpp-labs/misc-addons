@@ -5,6 +5,7 @@ import functools
 from openerp.http import request, serialize_exception as _serialize_exception
 from openerp.modules import get_module_resource
 from cStringIO import StringIO
+db_monodb = http.db_monodb
 
 
 @http.route([
