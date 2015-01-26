@@ -12,6 +12,15 @@
 		</record>
 
 
+		<record model="ir.actions.act_window" id="action_phonecall">
+			<field name="name">Phone Calls</field>
+			<field name="res_model">crm.phonecall</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,calendar,form</field>
+			<field name="view_id" ref="crm.crm_case_phone_tree_view"/>
+			<field name="search_view_id" ref="crm.view_crm_case_phonecalls_filter"/>
+		</record>
+
         <record id="edit_project" model="ir.ui.view">
             <field name="name">project.project.form</field>
             <field name="model">project.project</field>
@@ -20,6 +29,11 @@
 				<xpath expr="//field[@name='user_id']" position="after">
                     <newline/>
 					<field name="sale_case_id"/>
+				</xpath>
+				<xpath expr="//div[@name='buttons']" position="inside">
+                    <button  class="oe_inline oe_stat_button" name="action_phonecall_count"  type="object" icon="fa-phone">
+                        <field string="Calls" name="phonecall_count" widget="statinfo"/>
+                    </button>
 				</xpath>
 			</field>
 		</record>

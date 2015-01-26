@@ -342,6 +342,8 @@ class crm_lead(models.Model):
 class project_project(models.Model):
     _inherit = 'project.project'
     sale_case_id = fields.Many2one('crm.lead', 'Sale case')
+    sale_case_ids = fields.One2many('crm.lead', 'project_id', string='Sale case')
+    phonecall_count = fields.Integer('Phonecalls', compute='_get_phonecall_count')
     _columns = {
         # use own name, instead of account.analytic.account name
         'name': old_fields.char('Project Name', required=True),# TO DELETE
@@ -349,6 +351,20 @@ class project_project(models.Model):
     _defaults = {
         #'name': '_'
     }
+
+    @api.multi
+    def action_phonecall_count(self):
+        lead_ids = (self.sale_case_ids.ids or []) + (self.sale_case_id and [self.sale_case_id.id] or [])
+
+        res = self.pool.get('ir.actions.act_window').for_xml_id(self._cr, self.env.user.id, 'sale_mediation_custom', 'action_phonecall')
+
+        res['domain'] = [('opportunity_id', 'in', lead_ids)]
+        return res
+
+    @api.one
+    def _get_phonecall_count(self):
+        lead_ids = (self.sale_case_ids.ids or []) + (self.sale_case_id and [self.sale_case_id.id] or [])
+        self.phonecall_count = self.env['crm.phonecall'].search_count([('opportunity_id', 'in', lead_ids)])
 
     @api.v7
     def create(self, cr, uid, vals, context={}):
