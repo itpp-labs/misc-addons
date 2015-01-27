@@ -344,6 +344,11 @@ class project_project(models.Model):
     sale_case_id = fields.Many2one('crm.lead', 'Sale case')
     sale_case_ids = fields.One2many('crm.lead', 'project_id', string='Sale case')
     phonecall_count = fields.Integer('Phonecalls', compute='_get_phonecall_count')
+    xtype = fields.Selection(selection=[
+        ('external', 'External'),
+        ('internal', 'Internal'),
+    ], string="Project type", default='external')
+
     _columns = {
         # use own name, instead of account.analytic.account name
         'name': old_fields.char('Project Name', required=True),# TO DELETE

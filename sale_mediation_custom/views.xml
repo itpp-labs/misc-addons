@@ -26,6 +26,9 @@
             <field name="model">project.project</field>
 			<field name="inherit_id" ref="project.edit_project"/>
             <field name="arch" type="xml">
+				<xpath expr="//field[@name='user_id']" position="before">
+					<field name="xtype" widget="radio"/>
+				</xpath>
 				<xpath expr="//field[@name='user_id']" position="after">
                     <newline/>
 					<field name="sale_case_id"/>
@@ -37,6 +40,47 @@
 				</xpath>
 			</field>
 		</record>
+
+        <record id="view_project_project_filter" model="ir.ui.view">
+            <field name="model">project.project</field>
+			<field name="inherit_id" ref="project.view_project_project_filter"/>
+            <field name="arch" type="xml">
+				<xpath expr="//filter[@string='Member']" position="before">
+                    <filter name="external" string="External" domain="[('xtype', '=', 'external')]"/>
+                    <filter name="internal" string="Internal" domain="[('xtype', '=', 'internal')]"/>
+                    <separator/>
+
+				</xpath>
+			</field>
+		</record>
+        <record id="project.open_view_project_all" model="ir.actions.act_window">
+			<field name="context">{'search_default_Current':1, 'search_default_external':1, 'default_xtype':'external'}</field>
+		</record>
+
+        <record id="open_view_project_internal" model="ir.actions.act_window">
+            <field name="name">Projects</field>
+            <field name="res_model">project.project</field>
+            <field name="view_type">form</field>
+            <field name="domain">[]</field>
+            <field name="view_mode">kanban,tree,form,gantt</field>
+            <field name="view_id" ref="project.view_project_kanban"/>
+            <field name="search_view_id" ref="view_project_project_filter"/>
+            <field name="context">{'search_default_Current': 1, 'search_default_internal':1, 'default_xtype':'internal'}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                  Click to start a new project.
+                </p><p>
+                  Projects are used to organize your activities; plan
+                  tasks, track issues, invoice timesheets. You can define
+                  internal projects (R&amp;D, Improve Sales Process),
+                  private projects (My Todos) or customer ones.
+                </p><p>
+                  You will be able collaborate with internal users on
+                  projects or invite customers to share your activities.
+                </p>
+            </field>
+        </record>
+        <menuitem action="open_view_project_internal" id="menu_projects_internal" name="Projects Internal" parent="project.menu_project_management" sequence="1"/>
 
 
         <record model="ir.ui.view" id="crm_case_form_view_leads">
