@@ -53,3 +53,20 @@ class res_partner(models.Model):
             r.access_to_private_information = not r.is_employee or access_by_group or (self.env.user.id in r.user_ids.ids)
 
     access_to_private_information = fields.Boolean('Access to private information', compute=_get_access_to_private_information, store=False)
+
+class crm_lead(models.Model):
+    _inherit = 'crm.lead'
+
+    archived = fields.Boolean('Archived', help='Only users with special rights have access to archived records. Untick "Active" field to hide record', default=False)
+
+
+class project_project(models.Model):
+    _inherit = 'project.project'
+
+    archived = fields.Boolean('Archived', help='Only users with special rights have access to archived records. Untick "Active" field to hide record', default=False)
+
+class project_task(models.Model):
+    _inherit = 'project.task'
+
+    archived = fields.Boolean('Archived', help='Only users with special rights have access to archived records. Untick "Active" field to hide record', related='project_id.archived')
+

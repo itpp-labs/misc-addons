@@ -26,8 +26,12 @@
             <field name="model">project.project</field>
 			<field name="inherit_id" ref="project.edit_project"/>
             <field name="arch" type="xml">
+				<xpath expr="//field[@name='active']" position="after">
+					<field name="archived"/>
+				</xpath>
 				<xpath expr="//field[@name='user_id']" position="before">
 					<field name="xtype" widget="radio"/>
+                    <newline/>
 				</xpath>
 				<xpath expr="//field[@name='user_id']" position="after">
                     <newline/>
@@ -278,6 +282,9 @@
 			<field name="model">crm.lead</field>
 			<field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
 			<field name="arch" type="xml">
+				<xpath expr="//field[@name='active']" position="after">
+					<field name="archived"/>
+				</xpath>
 				<xpath expr="//button[@name='case_mark_won']" position="attributes">
 					<attribute name="invisible">1</attribute>
 				</xpath>
