@@ -183,6 +183,7 @@ else:
 			<field name="model_id" ref="sale.model_sale_order"/>
 			<field name="domain">[('user_id', '=', user.id),('state', 'in', ['progress', 'manual'])]</field>
 			<field name="value_field_id" ref="sale.field_sale_order_amount_total"/>
+			<field name="value_field_monetary" eval="True"/>
 			<field name="content"><![CDATA[${record.name} - <b>${record.partner_id.name}</b>, ${record.date_order}]]></field>
 			<field name="group_ids" eval="[(4, ref('mail_wall_custom.group_dashboard_sales_person'), 0)]"/>
 			<field name="type">list</field>
@@ -195,6 +196,7 @@ else:
 			<field name="model_id" ref="sale.model_sale_order"/>
 			<field name="domain">[('state', 'in', ['progress', 'manual'])]</field>
 			<field name="value_field_id" ref="sale.field_sale_order_amount_total"/>
+			<field name="value_field_monetary" eval="True"/>
 			<field name="content"><![CDATA[${record.name} - <b>${record.partner_id.name}</b>, ${record.date_order}]]></field>
 			<field name="group_ids" eval="[(4, ref('mail_wall_custom.group_dashboard_sales_management'), 0),(4, ref('mail_wall_custom.group_dashboard_accountant'), 0)]"/>
 			<field name="type">list</field>
@@ -207,6 +209,7 @@ else:
 			<field name="model_id" ref="account.model_account_invoice"/>
 			<field name="domain">[('type', 'in', ['out_invoice']),('state','in',['open'])]</field>
 			<field name="value_field_id" ref="account.field_account_invoice_amount_total"/>
+			<field name="value_field_monetary" eval="True"/>
 			<field name="content"><![CDATA[${record.name} - <b>${record.partner_id.name}</b>, ${record.date_invoice}]]></field>
 			<field name="group_ids" eval="[(4, ref('mail_wall_custom.group_dashboard_accountant'), 0)]"/>
 			<field name="type">list</field>
@@ -219,6 +222,7 @@ else:
 			<field name="model_id" ref="account.model_account_invoice"/>
 			<field name="domain">[('type', 'in', ['in_invoice']),('state','in',['open'])]</field>
 			<field name="value_field_id" ref="account.field_account_invoice_amount_total"/>
+			<field name="value_field_monetary" eval="True"/>
 			<field name="content"><![CDATA[${record.name} - <b>${record.partner_id.name}</b>, ${record.date_invoice}]]></field>
 			<field name="group_ids" eval="[(4, ref('mail_wall_custom.group_dashboard_accountant'), 0)]"/>
 			<field name="type">list</field>
@@ -280,6 +284,7 @@ else:
 			<field name="group_ids" eval="[(4, ref('mail_wall_custom.group_dashboard_sales_person'), 0)]"/>
 			<field name="type">funnel</field>
 			<field name="value_field_id" ref="crm.field_crm_lead_planned_revenue"/>
+			<field name="value_field_monetary" eval="True"/>
 			<field name="stage_field_id" ref="sale_mediation_custom.field_crm_lead_stage_closed_id"/>
 			<field name="won_domain">[('sales_funnel_type', 'in', ['won'])]</field>
 			<field name="active" eval="True"/>
@@ -291,6 +296,7 @@ else:
 			<field name="group_ids" eval="[(4, ref('mail_wall_custom.group_dashboard_sales_management'), 0)]"/>
 			<field name="type">funnel</field>
 			<field name="value_field_id" ref="crm.field_crm_lead_planned_revenue"/>
+			<field name="value_field_monetary" eval="True"/>
 			<field name="stage_field_id" ref="sale_mediation_custom.field_crm_lead_stage_closed_id"/>
 			<field name="won_domain">[('sales_funnel_type', 'in', ['won'])]</field>
 			<field name="active" eval="True"/>

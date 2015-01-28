@@ -17,7 +17,7 @@
                             <t t-if="line.display_mode == 'progress'">
                                 <div class="oe_goal_progress_background"></div>
                                 <div class="oe_goal_progress" t-attf-style="#{line.display_mode == 'progress' ? 'width: '+line.completeness+'%;' : 'width:0;'}"></div>
-                                <div class="oe_cell oe_goal_current"><t t-esc="line.current" /></div>
+                                <div class="oe_cell oe_goal_current" ><span t-attf-class="#{line.monetary ? 'oe_goal_field_monetary' : ''}" t-attf-data-id="#{line.monetary ? info.currency : ''}"><t t-esc="line.current" /></span></div>
                             </t>
                             <div class="oe_cell">
                                 <span t-att-title="line.description"><t t-raw="line.name" /></span>

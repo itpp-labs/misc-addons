@@ -14,6 +14,15 @@
   min-width: 65px;
   padding: 0 5px;
 }
+.openerp .oe_mail_wall .oe_goal .oe_goals_list .oe_cell.oe_goal_current .oe_form_field_monetary{
+	font-weight: normal;
+	font-size: 70%;
+}
+.openerp .oe_mail_wall .oe_goal .oe_goals_list .oe_cell.oe_goal_current .oe_form_field_monetary .oe_form_char_content {
+  font-weight: bold;
+  font-size: 142%; /* 1/.7 */
+}
+
 .openerp .oe_mail_wall .oe_goal .oe_goals_list .oe_cell.oe_goal_current span.small {
 	font-weight: normal;
 	font-size: 70%;

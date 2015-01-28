@@ -99,6 +99,8 @@ Slice - use "domain" for total and "won_domain" for target
                 }
                 if self.value_field_id:
                     r_json['current'] = getattr(r, self.value_field_id.name)
+                    if self.value_field_monetary:
+                        r_json['monetary'] = 1
                 res['lines'].append(r_json)
         elif self.type == 'funnel':
             stage_ids = [] # [key]
