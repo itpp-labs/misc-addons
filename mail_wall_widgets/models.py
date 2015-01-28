@@ -51,6 +51,7 @@ Slice - use "domain" for total and "won_domain" for target
         'active': old_fields.boolean('Active'),
         'sequence': old_fields.integer('Sequence', help='Sequence number for ordering'),
     }
+    precision = fields.Float('Precision', help='round(Value/precision) * precision.  E.g. 12345,333333 will be rounded to 12345,33 for precision=0.01, and to 12000 for precision=1000', default=0.01)
     _defaults = {
         'active': True,
         'cache': False,
@@ -137,7 +138,7 @@ Slice - use "domain" for total and "won_domain" for target
                 cur += stage['closed_value']
                 stage['abs_value'] = cur
             total_value = stages[0]['abs_value']
-            precision = 0.1
+            precision = self.precision
             for s in stages:
                 s['rel_value'] = round(100*s['abs_value']/total_value/precision)*precision if total_value else 100
                 # dummy fields
@@ -156,7 +157,7 @@ Slice - use "domain" for total and "won_domain" for target
             res['domain'] = str(domain)
             res['won_domain'] = str(won_domain)
 
-            precision = 10
+            precision = self.precision
             total_value = res['total']
             res['slice'] = round(100*res['won']/res['total']/precision)*precision if res['total'] else 100
             # dummy fields
