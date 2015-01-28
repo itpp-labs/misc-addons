@@ -6,6 +6,7 @@
 }
 .oe_goal_outer_box .more{
 	text-align:center;
+	padding: 10px 5px;
 }
 
 .openerp .oe_mail_wall .oe_goal .oe_goals_list.funnel .oe_cell.oe_goal_current {
