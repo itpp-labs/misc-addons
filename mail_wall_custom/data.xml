@@ -186,6 +186,7 @@ else:
 			<field name="content"><![CDATA[${record.name} - <b>${record.partner_id.name}</b>, ${record.date_order}]]></field>
 			<field name="group_ids" eval="[(4, ref('mail_wall_custom.group_dashboard_sales_person'), 0)]"/>
 			<field name="type">list</field>
+			<field name="limit">10</field>
 			<field name="active" eval="True"/>
 		</record>
 
@@ -197,6 +198,7 @@ else:
 			<field name="content"><![CDATA[${record.name} - <b>${record.partner_id.name}</b>, ${record.date_order}]]></field>
 			<field name="group_ids" eval="[(4, ref('mail_wall_custom.group_dashboard_sales_management'), 0),(4, ref('mail_wall_custom.group_dashboard_accountant'), 0)]"/>
 			<field name="type">list</field>
+			<field name="limit">10</field>
 			<field name="active" eval="True"/>
 		</record>
 
@@ -208,6 +210,7 @@ else:
 			<field name="content"><![CDATA[${record.name} - <b>${record.partner_id.name}</b>, ${record.date_invoice}]]></field>
 			<field name="group_ids" eval="[(4, ref('mail_wall_custom.group_dashboard_accountant'), 0)]"/>
 			<field name="type">list</field>
+			<field name="limit">10</field>
 			<field name="active" eval="True"/>
 		</record>
 
@@ -219,6 +222,7 @@ else:
 			<field name="content"><![CDATA[${record.name} - <b>${record.partner_id.name}</b>, ${record.date_invoice}]]></field>
 			<field name="group_ids" eval="[(4, ref('mail_wall_custom.group_dashboard_accountant'), 0)]"/>
 			<field name="type">list</field>
+			<field name="limit">10</field>
 			<field name="active" eval="True"/>
 		</record>
 
