@@ -244,7 +244,7 @@ else:
 		<record id="widget_calls_all" model="mail.wall.widgets.widget">
 			<field name="name">Calls [ALL]</field>
 			<field name="model_id" ref="crm.model_crm_phonecall"/>
-			<field name="domain">[('user_id', '=', user.id),('state', 'not in', ['cancel'])]</field>
+			<field name="domain">[('state', 'not in', ['cancel'])]</field>
 			<field name="content"><![CDATA[${record.name} - <b>${record.partner_id.name}</b>, ${record.date}]]></field>
 			<field name="group_ids" eval="[(4, ref('mail_wall_custom.group_dashboard_management'), 0)]"/>
 			<field name="type">list</field>
@@ -268,7 +268,7 @@ else:
 		<record id="widget_meetings_all" model="mail.wall.widgets.widget">
 			<field name="name">Meetings [ALL]</field>
 			<field name="model_id" ref="calendar.model_calendar_event"/>
-			<field name="domain">[('partner_ids', 'in', [user.partner_id.id])]</field>
+			<field name="domain">[]</field>
 			<field name="content"><![CDATA[${record.name} - ${record.start_datetime}]]></field>
 			<field name="group_ids" eval="[(4, ref('mail_wall_custom.group_dashboard_management'), 0)]"/>
 			<field name="type">list</field>
