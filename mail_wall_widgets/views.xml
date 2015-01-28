@@ -69,6 +69,7 @@
 								<field name="stage_field_id" attrs="{'invisible':[('type', 'not in', ['funnel'])]}"/>
                                 <field name="value_field_id" class="oe_inline"/>
                                 <field name="value_field_monetary" class="oe_inline"/>
+                                <field name="precision" class="oe_inline"/>
 								<field name="content" attrs="{'invisible':[('type', 'not in', ['list'])]}"/>
                                 <field name="limit" attrs="{'invisible':[('type', 'not in', ['list'])]}" class="oe_inline"/>
                                 <field name="order" attrs="{'invisible':[('type', 'not in', ['list'])]}" class="oe_inline"/>

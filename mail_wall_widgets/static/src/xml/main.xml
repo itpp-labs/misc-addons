@@ -17,7 +17,7 @@
                             <t t-if="line.display_mode == 'progress'">
                                 <div class="oe_goal_progress_background"></div>
                                 <div class="oe_goal_progress" t-attf-style="#{line.display_mode == 'progress' ? 'width: '+line.completeness+'%;' : 'width:0;'}"></div>
-                                <div class="oe_cell oe_goal_current" ><span t-attf-class="#{line.monetary ? 'oe_goal_field_monetary' : ''}" t-attf-data-id="#{line.monetary ? info.currency : ''}"><t t-esc="line.current" /></span></div>
+                                <div class="oe_cell oe_goal_current" ><span t-attf-class="#{line.monetary ? 'oe_goal_field_monetary' : 'oe_goal_field_float'}" t-attf-data-id="#{line.monetary ? info.currency : ''}" t-attf-data-precision="#{info.data.precision or ''}"><t t-esc="line.current" /></span></div>
                             </t>
                             <div class="oe_cell">
                                 <span t-att-title="line.description"><t t-raw="line.name" /></span>
@@ -37,10 +37,10 @@
                             <t t-if="line.display_mode == 'progress'">
                                 <div class="oe_goal_progress_background"></div>
                                 <div class="oe_goal_progress" t-attf-style="#{line.display_mode == 'progress' ? 'width: '+line.rel_value+'%;' : 'width:0;'}"></div>
-                                <div class="oe_cell oe_goal_current"><t t-esc="line.rel_value" /><span class="small">%</span></div>
+                                <div class="oe_cell oe_goal_current"><span class="oe_goal_field_float" t-attf-data-precision="#{info.data.precision or ''}"><t t-esc="line.rel_value" /></span><span class="small">%</span></div>
                             </t>
                             <div class="oe_cell">
-                                <span t-att-title="line.description"><b><t t-raw="line.name" /></b></span> - <span t-attf-class="#{line.monetary ? 'oe_goal_field_monetary' : ''}" t-attf-data-id="#{line.monetary ? info.currency : ''}"><t t-esc="line.abs_value" /></span><t t-if="line.suffix"> <t t-esc="line.suffix"/></t>
+                                <span t-att-title="line.description"><b><t t-raw="line.name" /></b></span> - <span t-attf-class="#{line.monetary ? 'oe_goal_field_monetary' : 'oe_goal_field_float'}" t-attf-data-id="#{line.monetary ? info.currency : ''}" t-attf-data-precision="#{info.data.precision or ''}"><t t-esc="line.abs_value" /></span><t t-if="line.suffix"> <t t-esc="line.suffix"/></t>
 
                             </div>
                     </div>
@@ -56,7 +56,7 @@
                                 <div class="oe_cell oe_goal_current"><t t-esc="line.slice" /><span class="small">%</span></div>
                             </t>
                             <div class="oe_cell">
-                                <span t-att-title="line.description"><b><span t-attf-class="#{line.monetary ? 'oe_goal_field_monetary' : ''}" t-attf-data-id="#{line.monetary ? info.currency : ''}"><t t-esc="line.won" /></span></b></span> from <span t-attf-class="#{line.monetary ? 'oe_goal_field_monetary' : ''}" t-attf-data-id="#{line.monetary ? info.currency : ''}"><t t-esc="line.total" /></span><t t-if="line.suffix"> <t t-esc="line.suffix"/></t>
+                                <span t-att-title="line.description"><b><span t-attf-class="#{line.monetary ? 'oe_goal_field_monetary' : ''}" t-attf-data-id="#{line.monetary ? info.currency : ''}"><t t-esc="line.won" /></span></b></span> from <span t-attf-class="#{line.monetary ? 'oe_goal_field_monetary' : 'oe_goal_field_float'}" t-attf-data-id="#{line.monetary ? info.currency : ''}" t-attf-data-precision="#{info.data.precision or ''}"><t t-esc="line.total" /></span><t t-if="line.suffix"> <t t-esc="line.suffix"/></t>
 
                             </div>
                     </div>

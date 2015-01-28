@@ -64,6 +64,7 @@ openerp.mail_wall_widgets = function(instance) {
                     _.each(result, function(item){
                         var $item = $(QWeb.render(self.widget_templates[item.model], {info: item}));
                         self.render_money_fields($item);
+                        self.render_float_fields($item);
                         //self.render_user_avatars($item);
                         self.$el.find('.oe_mail_wall_widgets').append($item);
                     });
@@ -76,15 +77,36 @@ openerp.mail_wall_widgets = function(instance) {
             // Generate a FieldMonetary for each .oe_goal_field_monetary
             item.find(".oe_goal_field_monetary").each(function() {
                 var currency_id = parseInt( $(this).attr('data-id'), 10);
-                money_field = new instance.web.form.FieldMonetary(self.dfm, {
+                var precision = parseFloat( $(this).attr('data-precision') , 10) || 1;
+                var digits = [69,0];
+                if (precision && precision<1)
+                    digits[1] = ($(this).attr('data-precision') || '0.01').slice(2).indexOf('1')+1;
+                var money_field = new instance.web.form.FieldMonetary(self.dfm, {
                     attrs: {
-                        modifiers: '{"readonly": true}'
+                        'modifiers': '{"readonly": true}',
+                        'digits': digits
                     }
                 });
                 money_field.set('currency', currency_id);
                 money_field.get_currency_info();
-                money_field.set('value', parseInt($(this).text(), 10));
+                money_field.set('value', parseInt(parseFloat($(this).text(), 10)/precision)*precision);
                 money_field.replace($(this));
+            });
+        },
+        render_float_fields: function(item) {
+            var self = this;
+            // Generate a FieldMonetary for each .oe_goal_field_monetary
+            item.find(".oe_goal_field_float").each(function() {
+                var value = $(this).text();
+                if (!value)
+                    return;
+                var precision = parseFloat( $(this).attr('data-precision'), 10) || 1;
+                var digits = [69,0];
+                if (precision && precision<1)
+                    digits[1] = ($(this).attr('data-precision') || '0.01').slice(2).indexOf('1')+1;
+
+                value = instance.web.format_value(parseFloat(value), {type: "float", digits: digits}, '')
+                $(this).text(value)
             });
         },
         render_user_avatars: function(item) {

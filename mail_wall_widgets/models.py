@@ -76,6 +76,7 @@ Slice - use "domain" for total and "won_domain" for target
             'type': self.type,
             'model': self.model_id.model,
             'domain': str(domain),
+            'precision': self.precision,
         }
         obj = self.env[self.model_id.model]
         if self.type == 'list':

@@ -17,6 +17,7 @@
 .openerp .oe_mail_wall .oe_goal .oe_goals_list .oe_cell.oe_goal_current .oe_form_field_monetary{
 	font-weight: normal;
 	font-size: 70%;
+	white-space: nowrap;
 }
 .openerp .oe_mail_wall .oe_goal .oe_goals_list .oe_cell.oe_goal_current .oe_form_field_monetary .oe_form_char_content {
   font-weight: bold;
