@@ -4,7 +4,7 @@ class mail_message(models.Model):
     _inherit = 'mail.message'
 
     @api.one
-    @api.depends('author_id', 'notification_ids')
+    @api.depends('author_id', 'notified_partner_ids')
     def _get_sent(self):
         self.sent = len(self.notified_partner_ids) > 1 or len(self.notified_partner_ids)==1 and self.notified_partner_ids[0].id != self.author_id.id
 
