@@ -115,7 +115,7 @@ Slice - use "domain" for total and "won_domain" for target
                     {
                         'label': _('Later'),
                         'class': 'later',
-                        'test': lambda r: r2date(r) == later,
+                        'test': lambda r: r2date(r) > tomorrow,
                         'mandatory': False,
                     },
                 ]
