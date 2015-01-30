@@ -277,6 +277,9 @@
 			</field>
 		</record>
         <!-- CRM Lead Form View  -->
+        <record model="ir.ui.view" id="crm.crm_case_form_view_oppor">
+			<field name="priority" eval="10"/>
+		</record>
         <record model="ir.ui.view" id="crm_case_form_view_oppor">
 			<field name="name">Opportunity</field>
 			<field name="model">crm.lead</field>
