@@ -32,3 +32,27 @@
 .oe_open_record:hover, .oe_open_record_list_funnel:hover{
 	cursor:pointer;
 }
+
+.openerp .oe_mail_wall .list_group{
+	margin-bottom:0.6em;
+}
+.openerp .oe_mail_wall .list_group .group_label{
+	padding: 0 0 0.1em 1em;
+	font-size:120%;
+}
+.openerp .oe_mail_wall .list_group.overdue .group_label{
+	color:red;
+}
+.openerp .oe_mail_wall .list_group.today .group_label{
+	font-weight:bold;
+}
+.openerp .oe_mail_wall .list_group.later .group_label{
+	color:grey;
+}
+
+.openerp .oe_mail_wall .list_group .empty_list{
+	background-color:white;
+	padding:10px 0;
+	color:grey;
+	text-align:center;
+}

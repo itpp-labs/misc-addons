@@ -58,7 +58,7 @@
                                 <field name="model_id" class="oe_inline"/>
                                 <field name="domain" />
                                 <field name="won_domain" attrs="{'invisible':[('type', 'not in', ['funnel','slice'])]}" />
-								<field name="field_date_id"/>
+								<field name="field_date_id" attrs="{'required':[('agenda','=',True)]}"/>
 								<field name="start_date"/>
 								<field name="end_date"/>
                             </group>
@@ -73,6 +73,7 @@
 								<field name="content" attrs="{'invisible':[('type', 'not in', ['list'])]}"/>
                                 <field name="limit" attrs="{'invisible':[('type', 'not in', ['list'])]}" class="oe_inline"/>
                                 <field name="order" attrs="{'invisible':[('type', 'not in', ['list'])]}" class="oe_inline"/>
+								<field name="agenda" attrs="{'invisible':[('type', 'not in', ['list'])]}" class="oe_inline"/>
                             </group>
 							<group string="Other">
                                 <field name="sequence" class="oe_inline"/>

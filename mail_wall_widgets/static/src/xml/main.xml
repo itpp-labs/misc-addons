@@ -13,7 +13,11 @@
 
             <t t-if="info.model=='mail.wall.widgets.widget' and info.data.type == 'list'">
                 <div class="oe_table oe_goals_list" t-att-data-model="info.data.model" t-att-data-domain="info.data.domain">
-                    <div t-foreach="info.data.lines" t-as="line" t-attf-class="oe_row oe_goal_outer_box oe_open_record record #{line.state == 'reached' ? 'oe_goal_reached' : ''} #{line.display_mode != 'progress' ? 'oe_no_progress' : ''}" t-att-data-id="line.id" >
+					<div t-foreach="info.data.groups" t-as="group" t-if="group.lines.length or group.mandatory" t-attf-class="list_group #{group.class or ''}">
+					<div t-if="group.label" class="group_label">
+						<t t-esc="group.label"/>
+					</div>
+                    <div t-foreach="group.lines" t-as="line" t-attf-class="oe_row oe_goal_outer_box oe_open_record record #{line.state == 'reached' ? 'oe_goal_reached' : ''} #{line.display_mode != 'progress' ? 'oe_no_progress' : ''}" t-att-data-id="line.id" >
                             <t t-if="line.display_mode == 'progress'">
                                 <div class="oe_goal_progress_background"></div>
                                 <div class="oe_goal_progress" t-attf-style="#{line.display_mode == 'progress' ? 'width: '+line.completeness+'%;' : 'width:0;'}"></div>
@@ -23,6 +27,11 @@
                                 <span t-att-title="line.description"><t t-raw="line.name" /></span>
                             </div>
                     </div>
+					<t t-if="!group.lines.length">
+						<div class="empty_list">No records</div>
+					</t>
+					</div>
+
 					<div t-if="info.data.more" class="oe_row oe_goal_outer_box oe_open_record_list">
                         <div class="oe_goal_progress_background"></div>
 						<div class="more">

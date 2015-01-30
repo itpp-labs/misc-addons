@@ -230,12 +230,46 @@ else:
 			<field name="active" eval="True"/>
 		</record>
 
+
+		<record id="widget_next_action" model="mail.wall.widgets.widget">
+			<field name="name">Next action</field>
+			<field name="model_id" ref="crm.model_crm_lead"/>
+			<field name="domain">[('user_id', '=', user.id), '|',('date_action','!=',False),('title_action', '!=', False)]</field>
+			<field name="content"><![CDATA[${record.name}: <b>${record.date_action}</b> - ${record.title_action}]]></field>
+			<field name="group_ids" eval="[(4, ref('mail_wall_custom.group_dashboard_sales_person'), 0)]"/>
+			<field name="agenda" eval="True"/>
+			<field name="field_date_id" ref="crm.field_crm_lead_date_action"/>
+			<field name="value_field_id" ref="crm.field_crm_lead_planned_revenue"/>
+			<field name="value_field_monetary" eval="True"/>
+			<field name="type">list</field>
+			<field name="limit">10</field>
+			<field name="order">priority DESC,probability DESC,planned_revenue DESC</field>
+			<field name="active" eval="True"/>
+		</record>
+		<record id="widget_next_action_all" model="mail.wall.widgets.widget">
+			<field name="name">Next action [ALL]</field>
+			<field name="model_id" ref="crm.model_crm_lead"/>
+			<field name="domain">['|',('date_action','!=',False),('title_action', '!=', False)]</field>
+			<field name="content"><![CDATA[${record.name}: <b>${record.date_action}</b> - ${record.title_action}]]></field>
+			<field name="group_ids" eval="[(4, ref('mail_wall_custom.group_dashboard_sales_management'), 0)]"/>
+			<field name="agenda" eval="True"/>
+			<field name="field_date_id" ref="crm.field_crm_lead_date_action"/>
+			<field name="value_field_id" ref="crm.field_crm_lead_planned_revenue"/>
+			<field name="value_field_monetary" eval="True"/>
+			<field name="type">list</field>
+			<field name="limit">10</field>
+			<field name="order">priority DESC,probability DESC,planned_revenue DESC</field>
+			<field name="active" eval="True"/>
+		</record>
+
 		<record id="widget_calls" model="mail.wall.widgets.widget">
 			<field name="name">Calls</field>
 			<field name="model_id" ref="crm.model_crm_phonecall"/>
 			<field name="domain">[('user_id', '=', user.id),('state', 'not in', ['cancel'])]</field>
 			<field name="content"><![CDATA[${record.name} - <b>${record.partner_id.name}</b>, ${record.date}]]></field>
 			<field name="group_ids" eval="[(4, ref('mail_wall_custom.group_dashboard_sales_person'), 0),(4, ref('mail_wall_custom.group_dashboard_sales_management'), 0),(4, ref('mail_wall_custom.group_dashboard_admin'), 0),(4, ref('mail_wall_custom.group_dashboard_accountant'), 0)]"/>
+			<field name="agenda" eval="True"/>
+			<field name="field_date_id" ref="crm.field_crm_phonecall_date"/>
 			<field name="type">list</field>
 			<field name="limit">10</field>
 			<field name="order">date DESC</field>
@@ -247,6 +281,8 @@ else:
 			<field name="domain">[('state', 'not in', ['cancel'])]</field>
 			<field name="content"><![CDATA[${record.name} - <b>${record.partner_id.name}</b>, ${record.date}]]></field>
 			<field name="group_ids" eval="[(4, ref('mail_wall_custom.group_dashboard_management'), 0)]"/>
+			<field name="agenda" eval="True"/>
+			<field name="field_date_id" ref="crm.field_crm_phonecall_date"/>
 			<field name="type">list</field>
 			<field name="limit">10</field>
 			<field name="order">date DESC</field>
@@ -259,6 +295,8 @@ else:
 			<field name="domain">[('partner_ids', 'in', [user.partner_id.id])]</field>
 			<field name="content"><![CDATA[${record.name} - ${record.start_datetime}]]></field>
 			<field name="group_ids" eval="[(4, ref('mail_wall_custom.group_dashboard_sales_person'), 0),(4, ref('mail_wall_custom.group_dashboard_sales_management'), 0),(4, ref('mail_wall_custom.group_dashboard_admin'), 0),(4, ref('mail_wall_custom.group_dashboard_accountant'), 0)]"/>
+			<field name="agenda" eval="True"/>
+			<field name="field_date_id" ref="calendar.field_calendar_event_start_datetime"/>
 			<field name="type">list</field>
 			<field name="limit">10</field>
 			<field name="order">start_datetime DESC</field>
@@ -271,6 +309,10 @@ else:
 			<field name="domain">[]</field>
 			<field name="content"><![CDATA[${record.name} - ${record.start_datetime}]]></field>
 			<field name="group_ids" eval="[(4, ref('mail_wall_custom.group_dashboard_management'), 0)]"/>
+			<field name="agenda" eval="True"/>
+			<field name="field_date_id" ref="crm.field_crm_phonecall_date"/>
+			<field name="agenda" eval="True"/>
+			<field name="field_date_id" ref="calendar.field_calendar_event_start_datetime"/>
 			<field name="type">list</field>
 			<field name="limit">10</field>
 			<field name="order">start_datetime DESC</field>

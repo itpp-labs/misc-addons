@@ -19,11 +19,11 @@ openerp.mail_wall_widgets = function(instance) {
                 this.do_action({
                     'name': _t('Details'),
                     'type': 'ir.actions.act_window',
-                    'res_model': $t.parent().attr('data-model'),
+                    'res_model': $t.parent().parent().attr('data-model'),
                     'res_id': parseInt($t.attr('data-id')),
                     'target': 'current',
                     'views': [[false, 'form'],[false, 'list']],
-                    'domain':  $t.parent().attr('data-domain'),
+                    'domain':  $t.parent().parent().attr('data-domain'),
                 })
             },
             'click .oe_open_record_list': function(event){

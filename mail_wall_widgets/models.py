@@ -4,6 +4,9 @@ from openerp.tools.safe_eval import safe_eval
 from openerp.addons.email_template.email_template import mako_template_env
 import copy
 from openerp.tools.translate import _
+from datetime import date, datetime, timedelta
+from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 class mail_wall_widgets_widget(models.Model):
     _name = 'mail.wall.widgets.widget'
@@ -22,7 +25,6 @@ class mail_wall_widgets_widget(models.Model):
         ], help='''
 Slice - use "domain" for total and "won_domain" for target
         '''),
-
         'description': old_fields.text('Description', translate=True),
         'group_ids': old_fields.many2many('res.groups', relation='mail_wall_widgets_widget_group', column1='widget_id', column2='group_id', string='Groups', help="User groups to show widget"),
         'model_id': old_fields.many2one('ir.model', string='Model', help='The model object for the field to evaluate'),
@@ -52,6 +54,7 @@ Slice - use "domain" for total and "won_domain" for target
         'sequence': old_fields.integer('Sequence', help='Sequence number for ordering'),
     }
     precision = fields.Float('Precision', help='round(Value/precision) * precision.  E.g. 12345,333333 will be rounded to 12345,33 for precision=0.01, and to 12000 for precision=1000', default=0.01)
+    agenda = fields.Boolean('Agenda', help='Split records by date: overdue, today, tomorrow, later')
     _defaults = {
         'active': True,
         'cache': False,
@@ -81,10 +84,49 @@ Slice - use "domain" for total and "won_domain" for target
         obj = self.env[self.model_id.model]
         if self.type == 'list':
             total_count = obj.search_count(domain)
+            groups = [{'test': lambda r: True}]
+            if self.agenda:
+                today = date.today()
+                tomorrow = today + timedelta(days=1)
+                def r2date(r):
+                    d = getattr(r, field_date_name)
+                    d = datetime.strptime(d, self.field_date_id.ttype=='date' and DEFAULT_SERVER_DATE_FORMAT or DEFAULT_SERVER_DATETIME_FORMAT)
+                    d = d.date()
+                    return d
+                groups = [
+                    {
+                        'label': _('Overdue'),
+                        'class': 'overdue',
+                        'test': lambda r: r2date(r) < today,
+                        'mandatory': False,
+                    },
+                    {
+                        'label': _('Today'),
+                        'class': 'today',
+                        'test': lambda r: r2date(r) == today,
+                        'mandatory': True,
+                    },
+                    {
+                        'label': _('Tomorrow'),
+                        'class': 'tomorrow',
+                        'test': lambda r: r2date(r) == tomorrow,
+                        'mandatory': False,
+                    },
+                    {
+                        'label': _('Later'),
+                        'class': 'later',
+                        'test': lambda r: r2date(r) == later,
+                        'mandatory': False,
+                    },
+                ]
+            for g in groups:
+                g['lines'] = []
+
             res.update({
                 'more': self.limit and self.limit < total_count,
                 'total_count': total_count,
-                'lines': [],
+                'agenda': self.agenda,
+                'groups': groups,
             })
             for r in obj.search(domain, limit=self.limit, order=self.order):
                 mako = mako_template_env.from_string(tools.ustr(self.content))
@@ -102,7 +144,12 @@ Slice - use "domain" for total and "won_domain" for target
                     r_json['current'] = getattr(r, self.value_field_id.name)
                     if self.value_field_monetary:
                         r_json['monetary'] = 1
-                res['lines'].append(r_json)
+                for g in groups:
+                    if g['test'](r):
+                        g['lines'].append(r_json)
+                        break
+            for g in groups:
+                del g['test']
         elif self.type == 'funnel':
             stage_ids = [] # [key]
             for group in obj.read_group(domain, [], [self.stage_field_id.name]):
