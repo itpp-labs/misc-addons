@@ -13,7 +13,7 @@ openerp.mail_wall_menu = function(instance){
                     transitionDuration: 0
                 });
                 var update = -10;
-                setInterval(function(){
+                this.msnry_interval = setInterval(function(){
                     update++;
                     if (update > 0 && update % 5 != 0)
                         return;
@@ -27,6 +27,10 @@ openerp.mail_wall_menu = function(instance){
                 return;
             }
             this._super.apply(this, arguments)
+        },
+        destroy: function(){
+            clearInterval(this.msnry_interval);
+            this._super.apply(this, arguments);
         }
     })
 }
