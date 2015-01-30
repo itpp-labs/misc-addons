@@ -4,6 +4,7 @@
 		<template id="assets_backend" name="assets" inherit_id="mail.assets_backend">
 			<xpath expr="." position="inside">
 				<link rel="stylesheet" href="/mail_wall_menu/static/src/css/mail_wall_menu.css"/>
+				<script type="text/javascript" src="/mail_wall_menu/static/lib/masonry.pkgd.min.js"></script>
 				<script type="text/javascript" src="/mail_wall_menu/static/src/js/mail_wall_menu.js"></script>
 			</xpath>
 		</template>

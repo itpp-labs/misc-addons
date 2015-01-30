@@ -20,6 +20,8 @@
 .openerp .oe_mail_wall .dashboard_only .oe_goal{
 	background-color: #ededf6;
 	width:280px;
-	float:left;
 	margin:5px;
+
+	position:absolute;
+	left:-300px; 
 }
