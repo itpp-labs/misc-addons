@@ -33,6 +33,9 @@
 			<field name="comment">Gets access to all sales team</field>
 		</record>
 
+        <record model="ir.model.access" id="crm.access_res_partner">
+			<field name="active" eval="False"/>
+		</record>
 		<!-- rules -->
 		<record model="ir.rule" id="rule_section_all_read">
             <field name="name">Sales team:  read all</field>
@@ -141,5 +144,51 @@
             <field name="global" eval="False"/>
 		</record>
 
+		<record model="ir.rule" id="rule_sale_order_my_edit">
+            <field name="name">sale.order:  edit my</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="domain_force">[('section_id.member_ids', 'in', [user.id])]</field>
+            <field name="groups" eval="[(4, ref('group_team_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+            <field name="global" eval="False"/>
+		</record>
+
+		<record model="ir.rule" id="rule_res_partner_view_my">
+            <field name="name">res.partner:  view my</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="domain_force">[('sale_order_ids.section_id.member_ids', 'in', [user.id])]</field>
+            <field name="groups" eval="[(4, ref('group_team_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+            <field name="global" eval="False"/>
+		</record>
+
+		<record model="ir.rule" id="rule_res_partner_edit_myself">
+            <field name="name">res.partner:  edit myself</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="domain_force">[('id', 'in', [user.partner_id.id])]</field>
+            <field name="groups" eval="[(4, ref('group_team_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+            <field name="global" eval="False"/>
+		</record>
+		<record model="ir.rule" id="rule_res_partner_edit_all">
+            <field name="name">res.partner:  edit all</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_admin'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+            <field name="global" eval="False"/>
+		</record>
 	</data>
 </openerp>

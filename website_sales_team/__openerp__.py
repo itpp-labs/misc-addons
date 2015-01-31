@@ -12,6 +12,7 @@ Tested on Odoo 8.0 d023c079ed86468436f25da613bf486a4a17d625
     'depends' : [
         'sales_team',
         'website_sale',
+        'website_sale_order',
     ],
     'data':[
         'security/website_sales_team_security.xml',

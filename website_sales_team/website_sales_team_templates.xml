@@ -35,4 +35,38 @@
   </t>
 </template>
 
+<record id="email_template_checkout" model="email.template">
+    <field name="name">Send order number (sales team)</field>
+    <field name="email_from">${(object.user_id.email or '')|safe}</field>
+    <field name="subject">Order details ${object.date_order}</field>
+    <field name="partner_to">${object.partner_id.id}</field>
+    <field name="model_id" ref="sale.model_sale_order"/>
+    <field name="auto_delete" eval="True"/>
+    <!--<field name="report_template" ref="report_sale_order"/>-->
+    <!--<field name="report_name">${(object.name or '').replace('/','_')}_${object.state == 'draft' and 'draft' or ''}</field>-->
+    <field name="lang">${object.partner_id.lang}</field>
+    <field name="body_html"><![CDATA[
+	<p>Your order is accepted!</p>
+
+	<p>You specified contact information as follows:</p>
+	<p>Name: ${object.partner_id.name != object.partner_id.email and object.partner_id.name or ''}</p>
+	<p>Email: ${object.partner_id.email or ''}</p>
+	<p>Phone: ${object.partner_id.phone or ''}</p>
+
+	
+% for order in object.child_ids:
+<br/>------------------------------
+<br/> <b>Seller:</b> ${order.section_id.name}
+<br/> <b>Order number:</b> ${order.name}
+<br/> <b>Total:</b> ${order.amount_total} ${order.currency_id.name}
+<br/> <b>Information from seller:</b> ${order.sale_description}
+<br/> <b>Product list:</b> 
+ % for line in order.order_line:
+  <br/> ${line.name}: ${line.product_uom_qty} * ${line.price_unit} ${order.currency_id.name}
+ % endfor 
+% endfor	
+
+    ]]></field>
+</record>
+
 </data></openerp>
