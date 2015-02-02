@@ -90,8 +90,11 @@ Slice - use "domain" for total and "won_domain" for target
                 tomorrow = today + timedelta(days=1)
                 def r2date(r):
                     d = getattr(r, field_date_name)
-                    d = datetime.strptime(d, self.field_date_id.ttype=='date' and DEFAULT_SERVER_DATE_FORMAT or DEFAULT_SERVER_DATETIME_FORMAT)
-                    d = d.date()
+                    if d:
+                        d = datetime.strptime(d, self.field_date_id.ttype=='date' and DEFAULT_SERVER_DATE_FORMAT or DEFAULT_SERVER_DATETIME_FORMAT)
+                        d = d.date()
+                    else:
+                        d = date.today()
                     return d
                 groups = [
                     {

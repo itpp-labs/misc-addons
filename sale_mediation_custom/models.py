@@ -106,19 +106,41 @@ class crm_lead(models.Model):
 
     stage_closed_id = fields.Many2one('crm.case.stage', 'Last stage', help='Stage before close case')
 
-    date_closed = fields.Datetime(string='Date closed')
+    date_closed_custom = fields.Datetime(string='Date closed (custom)')
 
     @api.one
-    @api.depends('date_closed')
+    @api.depends('date_closed_custom')
     def _get_deal_time(self):
-        # TODO update field by cron if date_closed= None
         res = None
         start_date = self.create_date or old_fields.datetime.now()
-        end_date = self.date_closed or old_fields.datetime.now()
+        end_date = self.date_closed_custom or old_fields.datetime.now()
         d = datetime.strptime(end_date, DEFAULT_SERVER_DATETIME_FORMAT) - datetime.strptime(start_date, DEFAULT_SERVER_DATETIME_FORMAT)
         res = d.days + 1
         self.deal_time = res
     deal_time = fields.Integer(string='Deal time', compute=_get_deal_time, store=True)
+
+    @api.model
+    def update_deal_time(self):
+        self.search([('date_closed_custom','=', False)])._get_deal_time()
+
+
+    @api.one
+    @api.depends('date_action', 'date_last_stage_update')
+    def _get_last_action_time(self):
+        res = None
+        start_date = self.date_action or self.date_last_stage_update or old_fields.datetime.now()
+        try:
+            start_date = datetime.strptime(start_date, DEFAULT_SERVER_DATETIME_FORMAT)
+        except:
+            start_date = datetime.strptime(start_date, DEFAULT_SERVER_DATE_FORMAT)
+        end_date = old_fields.datetime.now()
+        end_date = datetime.strptime(end_date, DEFAULT_SERVER_DATETIME_FORMAT)
+
+        d = end_date - start_date
+        res = d.days
+        self.last_action_time = res
+
+    last_action_time = fields.Integer(string='Last Action', compute=_get_last_action_time, store=True)
 
     @api.one
     def action_create_sale_order(self):
@@ -324,7 +346,7 @@ class crm_lead(models.Model):
                     raise exceptions.Warning(res.get('warning'))
                 if new_stage.sales_funnel_type in ['won', 'lost']:
                     vals['stage_closed_id'] = r.stage_id.id
-                    vals['date_closed'] = fields.datetime.now()
+                    vals['date_closed_custom'] = fields.datetime.now()
         if 'user_id' in vals:
             for r in self:
                 if r.sale_order_id and ( not r.sale_order_id.user_id or r.sale_order_id.user_id.id != vals['user_id']):

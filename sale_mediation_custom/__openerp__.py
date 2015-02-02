@@ -24,6 +24,7 @@
         'wizard/sale_case.xml',
         'views.xml',
         'workflow.xml',
+        'data.xml',
         ],
     'installable': True,
 }

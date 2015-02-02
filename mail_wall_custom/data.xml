@@ -63,7 +63,7 @@
 			<field name="condition">lower</field>
 			<field name="domain">[('user_id','=', user.id), ('sales_funnel_type', '=', 'lead')]</field>
 			<field name="model_id" ref="crm.model_crm_lead"/>
-			<field name="field_id" ref="sale_mediation_custom.field_crm_lead_deal_time"/>
+			<field name="field_id" ref="sale_mediation_custom.field_crm_lead_last_action_time"/>
 		</record>
         <record id="goal_oldest_lead_all" model="gamification.goal.definition">
 			<field name="name">Oldest lead [ALL]</field>
@@ -75,7 +75,7 @@
 			<field name="condition">lower</field>
 			<field name="domain">[('sales_funnel_type', '=', 'lead')]</field>
 			<field name="model_id" ref="crm.model_crm_lead"/>
-			<field name="field_id" ref="sale_mediation_custom.field_crm_lead_deal_time"/>
+			<field name="field_id" ref="sale_mediation_custom.field_crm_lead_last_action_time"/>
 		</record>
         <record id="goal_oldest_opp" model="gamification.goal.definition">
 			<field name="name">Oldest Opportunity</field>
@@ -87,7 +87,7 @@
 			<field name="condition">lower</field>
 			<field name="domain">[('user_id','=', user.id), '|', ('sales_funnel_type', '=', 'quotation'),('sales_funnel_type', '=', 'negotiation')]</field>
 			<field name="model_id" ref="crm.model_crm_lead"/>
-			<field name="field_id" ref="sale_mediation_custom.field_crm_lead_deal_time"/>
+			<field name="field_id" ref="sale_mediation_custom.field_crm_lead_last_action_time"/>
 		</record>
         <record id="goal_oldest_opp_all" model="gamification.goal.definition">
 			<field name="name">Oldest Opportunity [ALL]</field>
@@ -99,7 +99,7 @@
 			<field name="condition">lower</field>
 			<field name="domain">['|', ('sales_funnel_type', '=', 'quotation'),('sales_funnel_type', '=', 'negotiation')]</field>
 			<field name="model_id" ref="crm.model_crm_lead"/>
-			<field name="field_id" ref="sale_mediation_custom.field_crm_lead_deal_time"/>
+			<field name="field_id" ref="sale_mediation_custom.field_crm_lead_last_action_time"/>
 		</record>
 
         <record id="goal_personal_comission" model="gamification.goal.definition">
@@ -395,7 +395,7 @@ else:
 			<field name="condition">higher</field>
 			<field name="domain"></field>
 			<field name="model_id" ref="crm.model_crm_lead"/>
-			<field name="field_id" ref="sale_mediation_custom.field_crm_lead_deal_time"/>
+			<field name="field_id" ref="sale_mediation_custom.field_crm_lead_last_action_time"/>
 		</record>
 -->		
 	</data>
