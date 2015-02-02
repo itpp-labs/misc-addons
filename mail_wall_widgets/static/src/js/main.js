@@ -8,6 +8,9 @@ openerp.mail_wall_widgets = function(instance) {
             var self = this;
             this._super(parent, action);
             this.deferred = $.Deferred();
+            self.money_df = $.Deferred()
+            self.money_df.resolve();
+            self.money_cache = {}
             //$(document).off('keydown.klistener');
             this.widget_templates = {
                 'mail.wall.widgets.widget': "mail_wall_widgets.Widget"
@@ -56,6 +59,7 @@ openerp.mail_wall_widgets = function(instance) {
         },
         get_widgets_info: function() {
             var self = this;
+            self.dfm = new instance.web.form.DefaultFieldManager(self);
             new instance.web.Model('res.users').call('get_serialised_mail_wall_widgets_summary', []).then(function(result) {
                 if (result.length === 0) {
                     self.$el.find(".oe_mail_wall_widgets").hide();
@@ -73,7 +77,6 @@ openerp.mail_wall_widgets = function(instance) {
         },
         render_money_fields: function(item) {
             var self = this;
-            self.dfm = new instance.web.form.DefaultFieldManager(self);
             // Generate a FieldMonetary for each .oe_goal_field_monetary
             item.find(".oe_goal_field_monetary").each(function() {
                 var currency_id = parseInt( $(this).attr('data-id'), 10);
@@ -88,9 +91,24 @@ openerp.mail_wall_widgets = function(instance) {
                     }
                 });
                 money_field.set('currency', currency_id);
-                money_field.get_currency_info();
                 money_field.set('value', parseInt(parseFloat($(this).text(), 10)/precision)*precision);
                 money_field.replace($(this));
+
+                self.money_df =
+                    self.money_df.then(function(){
+                        var callback = function(){
+                            money_field.set({'currency_info': self.money_cache[currency_id]})
+                        }
+                        if (self.money_cache[currency_id]){
+                            callback();
+                            return;
+                        }
+                        var req = new instance.web.Model("res.currency").query(["symbol", "position"]).filter([["id", "=", currency_id]]).first()
+                        return req.then(function(res){
+                                   self.money_cache[currency_id] = res;
+                                   callback();
+                               })
+                    })
             });
         },
         render_float_fields: function(item) {
