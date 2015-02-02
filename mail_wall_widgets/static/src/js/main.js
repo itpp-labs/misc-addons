@@ -90,7 +90,7 @@ openerp.mail_wall_widgets = function(instance) {
                         'digits': digits
                     }
                 });
-                money_field.set('currency', currency_id);
+                //money_field.set('currency', currency_id);
                 money_field.set('value', parseInt(parseFloat($(this).text(), 10)/precision)*precision);
                 money_field.replace($(this));
 
