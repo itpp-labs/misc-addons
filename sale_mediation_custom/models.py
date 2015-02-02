@@ -121,7 +121,8 @@ class crm_lead(models.Model):
 
     @api.model
     def update_deal_time(self):
-        self.search([('date_closed_custom','=', False)])._get_deal_time()
+        self.search([('sales_funnel_type','not in', ['won', 'lost'])])._get_deal_time()
+        self.search([('sales_funnel_type','not in', ['won', 'lost'])])._get_last_action_time()
 
 
     @api.one
