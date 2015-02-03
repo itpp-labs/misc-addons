@@ -28,15 +28,32 @@ class wizard(models.TransientModel):
 
         self.record_url = '/web#id=%s&model=%s' % (self.res_id, self.model_id.model)
 
+    @api.one
+    def check_access(self):
+        cr = self._cr
+        uid = self.env.user.id
+        operation = 'write'
+        context = self._context
+
+        if not ( self.model_id and self.res_id ):
+            return True
+        model_obj = self.pool[self.model_id.model]
+        mids = model_obj.exists(cr, uid, [self.res_id])
+        if hasattr(model_obj, 'check_mail_message_access'):
+            model_obj.check_mail_message_access(cr, uid, mids, operation, context=context)
+        else:
+            self.pool['mail.thread'].check_mail_message_access(cr, uid, mids, operation, model_obj=model_obj, context=context)
+
     @api.multi
     def move(self):
         for r in self:
+            r.check_access()
             if r.parent_id:
                 if not (r.parent_id.model == r.model_id.model and
                         r.parent_id.res_id == r.res_id):
                     r.parent_id = None
 
-            r.message_id.write({'parent_id': r.parent_id.id, 'res_id': r.res_id, 'model': r.model_id.model})
+            r.message_id.sudo().write({'parent_id': r.parent_id.id, 'res_id': r.res_id, 'model': r.model_id.model})
         if not ( r.model_id and r.res_id ):
             obj = self.pool.get('ir.model.data').get_object_reference(self._cr, SUPERUSER_ID, 'mail', 'mail_archivesfeeds')[1]
             return {
