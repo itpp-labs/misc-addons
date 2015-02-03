@@ -52,8 +52,16 @@ class wizard(models.TransientModel):
                 if not (r.parent_id.model == r.model_id.model and
                         r.parent_id.res_id == r.res_id):
                     r.parent_id = None
-
-            r.message_id.sudo().write({'parent_id': r.parent_id.id, 'res_id': r.res_id, 'model': r.model_id.model})
+            ids = [r.message_id.id]
+            while True:
+                new_ids = self.env['mail.message'].search([('parent_id', 'in', ids), ('id', 'not in', ids)]).ids
+                if new_ids:
+                    ids = ids + new_ids
+                    continue
+                break
+            r.message_id.sudo().write({'parent_id': r.parent_id.id})
+            self.env['mail.message'].sudo().search([('id', 'in', ids)]).write({'res_id': r.res_id, 'model': r.model_id.model})
+            
         if not ( r.model_id and r.res_id ):
             obj = self.pool.get('ir.model.data').get_object_reference(self._cr, SUPERUSER_ID, 'mail', 'mail_archivesfeeds')[1]
             return {
