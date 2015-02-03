@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp><data>
+
+<template id="assets_backend" name="custom bar assets" inherit_id="web.assets_backend">
+    <xpath expr="." position="inside">
+        <link rel="stylesheet" href="/mail_move_message/static/src/css/mail_move_message.css"/>
+        <script type="text/javascript" src="/mail_move_message/static/src/js/mail_move_message.js"></script>
+    </xpath>
+</template>
+
+<record id="view_wizard" model="ir.ui.view">
+    <field name="name">mail_move_message.wizard.view</field>
+    <field name="model">mail_move_message.wizard</field>
+    <field name="arch" type="xml">
+        <form string="Move Message">
+			<group>
+				<field name="parent_id" domain="[('parent_id','=', False)]" context="{'extended_name':1}"/>
+				<field name="model_id" class="oe_inline"/>
+				<field name="res_id" class="oe_inline"/>
+				<field name="record_url" class="oe_inline" widget="url"/>
+			</group>
+			<separator string="Message to move"/>
+			<div style="height:200px;overflow-y:auto;">
+				<field name="message_body"/>
+			</div>
+            <footer>
+                <button name="move" string="Move" type="object" class="oe_highlight"/>
+                or
+                <button string="Cancel" class="oe_link" special="cancel" />
+            </footer>
+		</form>
+	</field>
+</record>
+
+    </data>
+</openerp>
+
