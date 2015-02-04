@@ -171,7 +171,7 @@ class website_sale(controller):
 
         order_ids = []
         for section_id, lines in section_ids.iteritems():
-            order_id = order.copy({'parent_id': order.id, 'section_id': section_id})
+            order_id = order.copy({'parent_id': order.id, 'section_id': section_id, 'order_line': [(5, 0, 0)]})
             for line in lines:
                 line.copy({'order_id':order_id.id})
         request.registry.get('sale.order').signal_workflow(cr, SUPERUSER_ID, order_ids, 'quotation_sent')

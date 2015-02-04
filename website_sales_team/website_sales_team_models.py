@@ -59,3 +59,7 @@ class sale_order(models.Model):
 
     parent_id = fields.Many2one('sale.order', 'Parent')
     child_ids = fields.One2many('sale.order', 'parent_id', 'Child orders')
+
+    _track = {
+        'state': {'website_sales_team.mt_order_created': lambda self, cr, uid, obj, ctx=None: obj.state in ['draft']}
+    }

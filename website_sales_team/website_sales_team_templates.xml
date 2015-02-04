@@ -62,7 +62,7 @@
 <br/> <b>Information from seller:</b> ${order.sale_description}
 <br/> <b>Product list:</b> 
  % for line in order.order_line:
-  <br/> ${line.name}: ${line.product_uom_qty} * ${line.price_unit} ${order.currency_id.name}
+  <br/> ${line.product_id.name}: ${line.product_uom_qty} * ${line.price_unit} ${order.currency_id.name}
  % endfor 
 % endfor	
 
