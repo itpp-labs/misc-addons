@@ -1,4 +1,4 @@
-from openerp import api,models,fields,SUPERUSER_ID
+from openerp import api,models,fields,SUPERUSER_ID,exceptions
 import openerp.addons.decimal_precision as dp
 from openerp.osv import osv, orm, fields as old_fields
 from openerp.addons.web.http import request
@@ -134,6 +134,22 @@ class website_sale_special_offer(models.Model):
     page_content3 = fields.Html("Content 3")
     line_ids = fields.One2many('website_sale_special_offer.special_offer.line', 'special_offer_id', string='Lines')
     active = fields.Boolean('Active')
+
+    @api.model
+    def check_urls(self, vals):
+        NOT_ALLOWED_URLS = ['web', 'shop', 'page']
+        if 'url' in vals and vals['url'] in NOT_ALLOWED_URLS:
+            raise exceptions.Warning('You cannot use these urls: %s' % ', '.join(NOT_ALLOWED_URLS))
+
+    @api.multi
+    def write(self, vals):
+        self.check_urls(vals)
+        return super(website_sale_special_offer, self).write(vals)
+
+    @api.model
+    def create(self, vals):
+        self.check_urls(vals)
+        return super(website_sale_special_offer, self).create(vals)
 
 class website_sale_special_offer_line(models.Model):
     _name = 'website_sale_special_offer.special_offer.line'
