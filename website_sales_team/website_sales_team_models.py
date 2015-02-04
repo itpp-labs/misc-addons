@@ -1,4 +1,4 @@
-from openerp import api,models,fields
+from openerp import api,models,fields,SUPERUSER_ID
 from openerp.osv import fields as old_fields
 
 class product_template(models.Model):
