@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-02-04 19:33+0000\n"
-"PO-Revision-Date: 2015-02-04 21:37+0200\n"
+"PO-Revision-Date: 2015-02-04 21:40+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -111,7 +111,7 @@ msgstr "Ваше имя"
 #. module: website_sale_order
 #: view:website:website_sale_order.ready
 msgid "Your order is accepted!"
-msgstr "Ваш заказ принят"
+msgstr "Ваш заказ принят!"
 
 #. module: website_sale_order
 #: view:website:website_sale.checkout
