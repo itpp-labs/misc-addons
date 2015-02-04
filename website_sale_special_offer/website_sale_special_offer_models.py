@@ -137,7 +137,7 @@ class website_sale_special_offer(models.Model):
 
     @api.model
     def check_urls(self, vals):
-        NOT_ALLOWED_URLS = ['web', 'shop', 'page']
+        NOT_ALLOWED_URLS = ['web']
         if 'url' in vals:
             if vals['url']:
                 vals['url'] = vals['url'].strip()
