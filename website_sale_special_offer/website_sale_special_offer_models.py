@@ -138,8 +138,11 @@ class website_sale_special_offer(models.Model):
     @api.model
     def check_urls(self, vals):
         NOT_ALLOWED_URLS = ['web', 'shop', 'page']
-        if 'url' in vals and vals['url'] in NOT_ALLOWED_URLS:
-            raise exceptions.Warning('You cannot use these urls: %s' % ', '.join(NOT_ALLOWED_URLS))
+        if 'url' in vals:
+            if vals['url']:
+                vals['url'] = vals['url'].strip()
+            if vals['url'] in NOT_ALLOWED_URLS:
+                raise exceptions.Warning('You cannot use these urls: %s' % ', '.join(NOT_ALLOWED_URLS))
 
     @api.multi
     def write(self, vals):

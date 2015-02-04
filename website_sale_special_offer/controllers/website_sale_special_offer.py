@@ -7,7 +7,7 @@ from openerp.addons.website.controllers.main import Website as website_controlle
 
 class Website(website_controller):
     @http.route('/<string:url>', type='http', auth="public", website=True)
-    def index(self, **kw):
+    def top_path(self, **kw):
         url = kw.get('url')
         if url:
             special_offer_obj = request.registry.get('website_sale_special_offer.special_offer')
@@ -15,8 +15,7 @@ class Website(website_controller):
             if ids:
                 special_offer = special_offer_obj.browse(request.cr, SUPERUSER_ID, ids[0])
                 return self._render_special_offer(special_offer, **kw)
-            return request.registry['ir.http']._handle_exception(Exception('Page not found'), 404)
-        return super(Website, self).index(**kw)
+        return request.registry['ir.http']._handle_exception(Exception('Page not found'), 404)
 
     @http.route(["/special-offer/<int:id>"], type='http', auth="public", website=True)
     def special_offer(self, id, **post):
