@@ -174,8 +174,8 @@ class website_sale(controller):
             order_id = order.copy({'parent_id': order.id, 'section_id': section_id})
             for line in lines:
                 line.copy({'order_id':order_id.id})
-        request.registry.get('sale.order').signal_workflow(cr, uid, order_ids, 'quotation_sent')
-        request.registry.get('sale.order').signal_workflow(cr, uid, [order.id], 'cancel')
+        request.registry.get('sale.order').signal_workflow(cr, SUPERUSER_ID, order_ids, 'quotation_sent')
+        request.registry.get('sale.order').signal_workflow(cr, SUPERUSER_ID, [order.id], 'cancel')
         ## send email
         ir_model_data = request.registry['ir.model.data']
         template_id = ir_model_data.get_object_reference(cr, uid, 'website_sales_team', 'email_template_checkout')[1]
