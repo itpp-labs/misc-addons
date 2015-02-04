@@ -11,6 +11,35 @@
 	</template>
 
 
+	<template id="payment" inherit_id="website_sale.payment">
+		<xpath expr="//tr[@t-foreach='website_sale_order.website_order_line']" position="replace">
+			<t t-foreach="website_sale_order.website_order_line" t-as="line">
+                      <tr t-if="int(line.product_uom_qty)">
+
+                          <td colspan="2" t-if="not line.product_id.product_tmpl_id"></td>
+                          <td t-if="line.product_id.product_tmpl_id">
+                              <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
+                                  <span t-field="line.product_id.image_small"
+                                        t-field-options='{"widget": "image", "class": "img-rounded"}'/>
+                              </a>
+                          </td>
+                          <td t-if="line.product_id.product_tmpl_id">
+                             <strong t-field="line.product_id.name"/>
+                          </td>
+                          <td class="text-center">
+                             <span t-field="line.price_unit" style="white-space: nowrap;" t-field-options='{
+                                 "widget": "monetary",
+                                 "display_currency": "user_id.partner_id.property_product_pricelist.currency_id"
+                             }'/>
+                          </td>
+                          <td>
+                             <div t-esc="line.product_uom_qty"/>
+                          </td>
+                      </tr>
+			</t>
+		</xpath>
+	</template>
+
 	<template id="cart" inherit_id="website_sale.cart">
 		<xpath expr="//div[@class='container oe_website_sale']" position="before">
 			<t t-if="special_offer">
@@ -53,6 +82,9 @@
 		<xpath expr="//input[@class='js_quantity form-control']" position="attributes">
 			<attribute name="t-att-value">int(line.product_uom_qty) or '0'</attribute>
 			
+		</xpath>
+		<xpath expr="//t[@t-foreach='website_sale_order.website_order_line']/tr" position="attributes">
+			<attribute name="t-if">special_offer or int(line.product_uom_qty)</attribute>
 		</xpath>
 	</template>
 

@@ -1,6 +1,7 @@
 from openerp import api,models,fields,SUPERUSER_ID
 import openerp.addons.decimal_precision as dp
 from openerp.osv import osv, orm, fields as old_fields
+from openerp.addons.web.http import request
 
 class sale_order_line(models.Model):
     _inherit = "sale.order.line"
@@ -181,3 +182,16 @@ class product_template(osv.osv):
     _defaults = {
         'special_offer_ok': False,
     }
+
+
+
+class website(orm.Model):
+    _inherit = 'website'
+
+    def sale_reset(self, cr, uid, ids, context=None):
+        order = request.website.sale_get_order()
+        if order:
+            for line in order.website_order_line:
+                if not line.product_uom_qty:
+                    line.unlink()
+        return super(website, self).sale_reset(cr, uid, ids, context=context)
