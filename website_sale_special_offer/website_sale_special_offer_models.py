@@ -127,6 +127,7 @@ class website_sale_special_offer(models.Model):
 
     name = fields.Char('Name')
     title = fields.Char('Title', help="Title to show at website", default="Special offer")
+    url = fields.Char('URL', help="e.g. kits")
     page_content0 = fields.Html("Content 0")
     page_content1 = fields.Html("Content 1")
     page_content2 = fields.Html("Content 2")

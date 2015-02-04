@@ -1,5 +1,5 @@
 {
-    'name' : 'Special offer in eCommerce (custom)',
+    'name' : 'Special offer in eCommerce (custom) OBSOLETE',
     'version' : '1.0.0',
     'author' : 'Ivan Yelizariev',
     'category' : 'Sale',

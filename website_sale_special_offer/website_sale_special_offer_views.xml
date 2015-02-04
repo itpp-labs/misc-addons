@@ -118,6 +118,7 @@
 						<group>
 							<field name="name"/>
 							<field name="title"/>
+							<field name="url"/>
 							<field name="active"/>
 						</group>
 					</group>
