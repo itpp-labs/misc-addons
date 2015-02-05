@@ -315,7 +315,7 @@
 					<button name="open_proposal" string="Open quotation" attrs="{'invisible':[('proposal_id', '=', False)]}" type="object"/>
 					<button type="object" name="action_send_proposal" string="Edit mail &amp; Send" attrs="{'invisible': ['|', ('sale_order_lines','=', []), ('sales_funnel_type', '!=', 'quotation')]}"/>
 					<button type="object" name="action_send_proposal_quick" class="oe_highlight" string="Send" attrs="{'invisible': ['|', ('sale_order_lines','=', []), ('sales_funnel_type', '!=', 'quotation')]}"/>
-					<button name="proposal_confirmed" class="oe_highlight" string="Customer approved" attrs="{'invisible':[('is_proposal_sent', '=', False)]}"/>
+					<button name="proposal_confirmed" class="oe_highlight" string="Customer approved" attrs="{'invisible':['|',('sales_funnel_type','not in', ['negotiation']),('is_proposal_sent', '=', False)]}"/>
 					
 				</xpath>
 
