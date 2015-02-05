@@ -339,7 +339,7 @@ class crm_lead(models.Model):
             #if old!='quotation':
             #    return {'warning': 'You can move to negotiation only after quotation'}
             if not self.is_proposal_sent:
-                return {'warning': 'You have to sent proposal to client'}
+                return {'warning': 'You have to send proposal to client'}
         if new=='won':
             #if old!='negotiation':
             #    return {'warning': 'You have to pass Negotiation stages before move sale case to Won'}

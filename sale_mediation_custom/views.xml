@@ -310,7 +310,7 @@
 					<field name="sales_funnel_type" invisible="1"/>
 					<field name="is_proposal_sent" invisible="1"/>
 					<button name="create_sale_order" string="Create sale order" attrs="{'invisible':[('sale_order_id', '!=', False)]}" type="object"/>
-					<button type="action" name="%(action_create_proposal_lead)d" class="oe_highlight" string="Create quotation" attrs="{'invisible':['|', ('sales_funnel_type','!=', 'lead'), ('proposal_id','!=', False)]}" context="{'lead_id': id}"/>
+					<button type="action" name="%(action_create_proposal_lead)d" class="oe_highlight" string="Create quotation" attrs="{'invisible':['|','|',('sale_order_lines','=', []),('sales_funnel_type','!=', 'lead'), ('proposal_id','!=', False)]}" context="{'lead_id': id}"/>
 					<button name="edit_proposal" string="Edit quotation" attrs="{'invisible':['|',('sales_funnel_type', '!=', 'quotation'),('proposal_id', '=', False)]}" type="object"/>
 					<button name="open_proposal" string="Open quotation" attrs="{'invisible':[('proposal_id', '=', False)]}" type="object"/>
 					<button type="object" name="action_send_proposal" string="Edit mail &amp; Send" attrs="{'invisible': ['|', ('sale_order_lines','=', []), ('sales_funnel_type', '!=', 'quotation')]}"/>
@@ -324,17 +324,21 @@
 					<field name="project_id" readonly="1"/>
 					<field name="contract_id" readonly="1"/>
 				</xpath>
-				<xpath expr="//notebook" position="inside">
-					<page string="Quotation \ Sale Order">
+				<xpath expr="//notebook/page[@string='Internal Notes']" position="replace">
+					<page string="Details">
 						<!-- <button t-if="not sale_order_id" type="object" name="action_create_sale_order"/> -->
 						<group>
-							<field name="sale_order_id" readonly="True"/>
-
+							
+							<group>
+								<field name="sale_order_id" readonly="True"/>
+							</group>
 							<!--
 							<label for="open_proposal" string="Proposal"/>
 							<button name="open_proposal" string="Open quotation" attrs="{'invisible':[('proposal_id', '=', False)]}" type="object"/>
 							-->
-							<field name="sale_order_state"/>
+							<group>
+								<field name="sale_order_state"/>
+							</group>
 						</group>
 
 						<field name="pricelist_id" invisible="1"/>
@@ -413,6 +417,8 @@
                                 </tree>
                             </field>
 
+							<separator string="Internal note" class="oe_edit_only"/>
+							<field name="description"/>
 
 
 					</page>
