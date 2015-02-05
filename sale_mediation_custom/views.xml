@@ -345,7 +345,7 @@
 						<field name="fiscal_position" invisible="1"/>
 						<field name="date_order" invisible="1"/>
 
-
+						<p class="text-center" style="color:red" attrs="{'invisible': [('sale_order_lines','!=', [])]}">No Lines:</p>
                             <field name="sale_order_lines" attrs="{'readonly':[('sale_order_state', 'not in', ['draft', 'sent'])]}">
                                 <form string="Sales Order Lines">
                                     <header groups="base.group_user">
