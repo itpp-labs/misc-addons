@@ -104,7 +104,6 @@ class mail_notification(models.Model):
 
         # compute partners
         email_pids, im_uids = self.get_recipients(cr, uid, ids, message, context=None)
-        print 'recipients', email_pids, im_uids
         if email_pids:
             self._do_notify_email(cr, uid, email_pids, message, force_send, user_signature, context)
 

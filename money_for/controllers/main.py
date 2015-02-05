@@ -212,7 +212,6 @@ class money4(openerp.addons.web.controllers.main.Home):
             })
             company_id = request.registry['res.partner'].create(request.cr, SUPERUSER_ID, partner_values)
             partner_values = {'parent_id': company_id, 'customer':1}
-            print 'send: company_id', company_id
 
         partner_values.update({'birthdate':
                                '%s-%s-%s' % (qcontext.get('birth-year'),

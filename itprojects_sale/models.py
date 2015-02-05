@@ -127,7 +127,6 @@ class sale_order(osv.Model):
             'default_composition_mode': 'comment',
             'mark_so_as_sent': False
         })
-        print 'action_contract_send', ctx
         return {
             'type': 'ir.actions.act_window',
             'view_type': 'form',

@@ -14,7 +14,6 @@ db_monodb = http.db_monodb
     '/logo.png',
 ], type='http', auth="none")
 def company_logo(self, dbname=None, company_id=None, **kw):
-    print 'company_id', company_id
     imgname = 'logo.png'
     placeholder = functools.partial(get_module_resource, 'web', 'static', 'src', 'img')
     uid = None
