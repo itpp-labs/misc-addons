@@ -184,6 +184,10 @@ class crm_lead(models.Model):
     def set_sales_funnel(self, sales_funnel_type):
         stage_ids = self.env['crm.case.stage'].search([('sales_funnel_type', '=', sales_funnel_type), ('section_ids', '=', self.section_id.id), '|', ('type', '=', self.type), ('type', '=', 'both')])
         stage_ids = sorted(stage_ids, key=lambda x: x.sequence)
+        if not stage_ids:
+            if not self.section_id:
+                raise exceptions.Warning('You have to specify sales team')
+            raise exceptions.Warning('There is no stage of type %s. Please contact your administrator' % sales_funnel_type)
         self.stage_id = stage_ids[0]
 
     @api.one
@@ -236,6 +240,13 @@ class crm_lead(models.Model):
             'target': 'new',
             'context': ctx,
         }
+
+    @api.v7
+    def action_send_proposal_quick(self, cr, uid, ids, context = None):
+        res = self.pool['crm.lead'].action_send_proposal(cr, uid, ids, context=context)
+        compose_ctx = res.get('context')
+        compose_id = self.pool['mail.compose.message'].create(cr, uid, {}, context=compose_ctx)
+        self.pool['mail.compose.message'].send_mail(cr, uid, [compose_id], context=compose_ctx)
 
     #@api.v7 # workflow handler doesn't work with this decorator
     def action_set_state_sale_won(self, cr, uid, ids, context={}):
@@ -353,6 +364,14 @@ class crm_lead(models.Model):
                 if r.sale_order_id and ( not r.sale_order_id.user_id or r.sale_order_id.user_id.id != vals['user_id']):
                     r.sale_order_id.user_id = vals['user_id']
         result = super(crm_lead, self).write(vals)
+        if 'sale_order_id' not in vals:
+            self.create_sale_order(raise_error=False)
+        return result
+
+    @api.model
+    def create(self, vals):
+        result = super(crm_lead, self).create(vals)
+        sale_order = result.create_sale_order(raise_error=False)
         return result
 
     _columns = {
@@ -361,6 +380,51 @@ class crm_lead(models.Model):
     _defaults = {
         'name': _get_new_code,
     }
+
+    @api.one
+    def create_sale_order(self, raise_error=True):
+        if self.sale_order_id:
+            return self.sale_order_id
+
+        partner = self.partner_id
+        if not partner:
+            if raise_error:
+                raise exceptions.Warning('You have to specify Customer')
+            else:
+                return None
+
+        pricelist = partner.property_product_pricelist.id
+        partner_addr = partner.address_get(['default', 'invoice', 'delivery', 'contact'])
+        if False in partner_addr.values():
+            if raise_error:
+                raise osv.except_osv(_('Insufficient Data!'), _('No address(es) defined for this customer.'))
+            else:
+                return None
+
+        fpos = partner.property_account_position and partner.property_account_position.id or False
+        payment_term = partner.property_payment_term and partner.property_payment_term.id or False
+
+        vals = {
+            'name': '%s' % self.name,
+            'origin': _('Opportunity: %s') % str(self.id),
+            'section_id': self.section_id and self.section_id.id or False,
+            'categ_ids': [(6, 0, [categ_id.id for categ_id in self.categ_ids])],
+            'partner_id': partner.id,
+            'user_id': self.user_id.id,
+            'pricelist_id': pricelist,
+            'partner_invoice_id': partner_addr['invoice'],
+            'partner_shipping_id': partner_addr['delivery'],
+            'date_order': old_fields.datetime.now(),
+            'fiscal_position': fpos,
+            'payment_term':payment_term,
+        }
+        sale_order = self.env['sale.order'].create(vals)
+        self.write({'sale_order_id': sale_order.id,
+                    'ref': 'sale.order,%s' % sale_order.id,
+                })
+
+        return sale_order
+
 
 class project_project(models.Model):
     _inherit = 'project.project'

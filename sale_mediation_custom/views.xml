@@ -308,10 +308,14 @@
 					<field name="proposal_id" invisible="True"/>
 					<field name="id" invisible="1"/>
 					<field name="sales_funnel_type" invisible="1"/>
+					<field name="is_proposal_sent" invisible="1"/>
+					<button name="create_sale_order" string="Create sale order" attrs="{'invisible':[('sale_order_id', '!=', False)]}" type="object"/>
 					<button type="action" name="%(action_create_proposal_lead)d" class="oe_highlight" string="Create quotation" attrs="{'invisible':['|', ('sales_funnel_type','!=', 'lead'), ('proposal_id','!=', False)]}" context="{'lead_id': id}"/>
 					<button name="edit_proposal" string="Edit quotation" attrs="{'invisible':['|',('sales_funnel_type', '!=', 'quotation'),('proposal_id', '=', False)]}" type="object"/>
 					<button name="open_proposal" string="Open quotation" attrs="{'invisible':[('proposal_id', '=', False)]}" type="object"/>
-					<button type="object" name="action_send_proposal" class="oe_highlight" string="Send quotation" attrs="{'invisible': [('sales_funnel_type', '!=', 'quotation')]}"/>
+					<button type="object" name="action_send_proposal" string="Edit mail &amp; Send" attrs="{'invisible': ['|', ('sale_order_lines','=', []), ('sales_funnel_type', '!=', 'quotation')]}"/>
+					<button type="object" name="action_send_proposal_quick" class="oe_highlight" string="Send" attrs="{'invisible': ['|', ('sale_order_lines','=', []), ('sales_funnel_type', '!=', 'quotation')]}"/>
+					<button name="proposal_confirmed" class="oe_highlight" string="Customer approved" attrs="{'invisible':[('is_proposal_sent', '=', False)]}"/>
 					
 				</xpath>
 
