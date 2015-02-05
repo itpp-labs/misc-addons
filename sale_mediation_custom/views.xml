@@ -309,7 +309,6 @@
 					<field name="id" invisible="1"/>
 					<field name="sales_funnel_type" invisible="1"/>
 					<field name="is_proposal_sent" invisible="1"/>
-					<button name="create_sale_order" string="Create sale order" attrs="{'invisible':[('sale_order_id', '!=', False)]}" type="object"/>
 					<button type="action" name="%(action_create_proposal_lead)d" class="oe_highlight" string="Create quotation" attrs="{'invisible':['|','|',('sale_order_lines','=', []),('sales_funnel_type','!=', 'lead'), ('proposal_id','!=', False)]}" context="{'lead_id': id}"/>
 					<button name="edit_proposal" string="Edit quotation" attrs="{'invisible':['|',('sales_funnel_type', '!=', 'quotation'),('proposal_id', '=', False)]}" type="object"/>
 					<button name="open_proposal" string="Open quotation" attrs="{'invisible':[('proposal_id', '=', False)]}" type="object"/>
@@ -345,6 +344,7 @@
 						<field name="fiscal_position" invisible="1"/>
 						<field name="date_order" invisible="1"/>
 
+						<div class="text-center" attrs="{'invisible': [('sale_order_id','!=', False)]}"><button name="create_sale_order" string="Create sale order" type="object"/></div>
 						<p class="text-center" style="color:red" attrs="{'invisible': [('sale_order_lines','!=', [])]}">No Lines:</p>
                             <field name="sale_order_lines" attrs="{'readonly':[('sale_order_state', 'not in', ['draft', 'sent'])]}">
                                 <form string="Sales Order Lines">

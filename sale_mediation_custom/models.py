@@ -381,48 +381,50 @@ class crm_lead(models.Model):
         'name': _get_new_code,
     }
 
-    @api.one
+    @api.multi
     def create_sale_order(self, raise_error=True):
-        if self.sale_order_id:
-            return self.sale_order_id
+        sale_order = None
+        for r in self:
+            if r.sale_order_id:
+                sale_order = r.sale_order_id
+                continue
 
-        partner = self.partner_id
-        if not partner:
-            if raise_error:
-                raise exceptions.Warning('You have to specify Customer')
-            else:
-                return None
+            partner = r.partner_id
+            if not partner:
+                if raise_error:
+                    raise exceptions.Warning('You have to specify Customer')
+                else:
+                    continue
 
-        pricelist = partner.property_product_pricelist.id
-        partner_addr = partner.address_get(['default', 'invoice', 'delivery', 'contact'])
-        if False in partner_addr.values():
-            if raise_error:
-                raise osv.except_osv(_('Insufficient Data!'), _('No address(es) defined for this customer.'))
-            else:
-                return None
+            pricelist = partner.property_product_pricelist.id
+            partner_addr = partner.address_get(['default', 'invoice', 'delivery', 'contact'])
+            if False in partner_addr.values():
+                if raise_error:
+                    raise osv.except_osv(_('Insufficient Data!'), _('No address(es) defined for this customer.'))
+                else:
+                    continue
 
-        fpos = partner.property_account_position and partner.property_account_position.id or False
-        payment_term = partner.property_payment_term and partner.property_payment_term.id or False
+            fpos = partner.property_account_position and partner.property_account_position.id or False
+            payment_term = partner.property_payment_term and partner.property_payment_term.id or False
 
-        vals = {
-            'name': '%s' % self.name,
-            'origin': _('Opportunity: %s') % str(self.id),
-            'section_id': self.section_id and self.section_id.id or False,
-            'categ_ids': [(6, 0, [categ_id.id for categ_id in self.categ_ids])],
-            'partner_id': partner.id,
-            'user_id': self.user_id.id,
-            'pricelist_id': pricelist,
-            'partner_invoice_id': partner_addr['invoice'],
-            'partner_shipping_id': partner_addr['delivery'],
-            'date_order': old_fields.datetime.now(),
-            'fiscal_position': fpos,
-            'payment_term':payment_term,
-        }
-        sale_order = self.env['sale.order'].create(vals)
-        self.write({'sale_order_id': sale_order.id,
-                    'ref': 'sale.order,%s' % sale_order.id,
-                })
-
+            vals = {
+                'name': '%s' % r.name,
+                'origin': _('Opportunity: %s') % str(r.id),
+                'section_id': r.section_id and r.section_id.id or False,
+                'categ_ids': [(6, 0, [categ_id.id for categ_id in r.categ_ids])],
+                'partner_id': partner.id,
+                'user_id': r.user_id.id,
+                'pricelist_id': pricelist,
+                'partner_invoice_id': partner_addr['invoice'],
+                'partner_shipping_id': partner_addr['delivery'],
+                'date_order': old_fields.datetime.now(),
+                'fiscal_position': fpos,
+                'payment_term':payment_term,
+            }
+            sale_order = self.env['sale.order'].create(vals)
+            r.write({'sale_order_id': sale_order.id,
+                        'ref': 'sale.order,%s' % sale_order.id,
+                    })
         return sale_order
 
 
