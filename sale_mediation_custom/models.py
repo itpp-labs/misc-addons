@@ -281,6 +281,9 @@ class crm_lead(models.Model):
             r.set_sales_funnel('won')
             return True
 
+        if not r.project_start_date or not r.project_end_date:
+            raise exceptions.Warning('You have to specify project interval')
+
         r.sale_order_id.action_button_confirm()
 
         sale_order_name = r.sale_order_id.name
