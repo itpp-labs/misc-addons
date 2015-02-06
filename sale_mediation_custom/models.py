@@ -67,6 +67,14 @@ class res_partner(models.Model):
     _inherit = 'res.partner'
 
     participate_in_contract_ids = fields.Many2many('account.analytic.account', id2='contract_id', id1='partner_id', string='Participate in contracts')
+    _columns = {
+        'email': old_fields.char('Email', track_visibility='onchange'),
+        'phone': old_fields.char('Phone', track_visibility='onchange'),
+        'name': old_fields.char('Name', required=True, select=True, track_visibility='onchange'),
+        'fax': old_fields.char('Fax', track_visibility='onchange'),
+        'mobile': old_fields.char('Mobile', track_visibility='onchange'),
+        'website': old_fields.char('Website', help="Website of Partner or Company", track_visibility='onchange'),
+    }
 
 class sale_order(models.Model):
     _inherit = 'sale.order'
@@ -107,6 +115,20 @@ class crm_lead(models.Model):
     stage_closed_id = fields.Many2one('crm.case.stage', 'Last stage', help='Stage before close case')
 
     date_closed_custom = fields.Datetime(string='Date closed (custom)')
+
+    project_start_date = fields.Date('Project start date')
+    project_end_date = fields.Date('Project end date')
+
+    def _check_dates(self, cr, uid, ids, context=None):
+        for leave in self.read(cr, uid, ids, ['project_start_date', 'project_end_date'], context=context):
+            if leave['project_start_date'] and leave['project_end_date']:
+                if leave['project_start_date'] > leave['project_end_date']:
+                    return False
+        return True
+
+    _constraints = [
+        (_check_dates, 'Error! project start-date must be lower then project end-date.', ['project_start_date', 'project_end_date'])
+    ]
 
     @api.one
     @api.depends('date_closed_custom')
@@ -280,6 +302,8 @@ class crm_lead(models.Model):
             'name':name,
             'partner_id': r.partner_id.id,
             'sale_case_id': r.id,
+            'date_start': r.project_start_date,
+            'date': r.project_end_date,
         }
         project_id = self.pool['project.project'].create(cr, uid, vals, context=context.copy())
         r.write({'project_id':project_id})

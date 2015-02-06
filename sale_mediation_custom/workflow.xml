@@ -58,7 +58,7 @@
         <record id="trans_lead_negotiation_sale_won" model="workflow.transition">
             <field name="act_from" ref="act_lead_negotiation"/>
             <field name="act_to" ref="act_lead_sale_won"/>
-            <field name="signal">proposal_confirmed</field>
+            <field name="signal">proposal_confirmed_backend</field>
         </record>
 
         <record id="trans_lead_negotiation_sale_lost" model="workflow.transition">

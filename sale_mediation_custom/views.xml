@@ -314,14 +314,23 @@
 					<button name="open_proposal" string="Open quotation" attrs="{'invisible':[('proposal_id', '=', False)]}" type="object"/>
 					<button type="object" name="action_send_proposal" string="Edit mail &amp; Send" attrs="{'invisible': ['|', ('sale_order_lines','=', []), ('sales_funnel_type', '!=', 'quotation')]}"/>
 					<button type="object" name="action_send_proposal_quick" class="oe_highlight" string="Send" attrs="{'invisible': ['|', ('sale_order_lines','=', []), ('sales_funnel_type', '!=', 'quotation')]}"/>
-					<button name="proposal_confirmed" class="oe_highlight" string="Customer approved" attrs="{'invisible':['|',('sales_funnel_type','not in', ['negotiation']),('is_proposal_sent', '=', False)]}"/>
+					<button name="proposal_confirmed_backend" class="oe_highlight" string="Won" attrs="{'invisible':['|','|','|',('project_start_date','=',False),('project_end_date','=',False),('sales_funnel_type','not in', ['negotiation']),('is_proposal_sent', '=', False)]}"/>
 					
 				</xpath>
 
-				<xpath expr="//field[@name='user_id']" position="after">
+				<xpath expr="//field[@name='section_id']" position="after">
 					<field name="company_id" readonly="1"/>
-					<field name="project_id" readonly="1"/>
-					<field name="contract_id" readonly="1"/>
+				</xpath>
+				<xpath expr="//field[@name='categ_ids']/.." position="before">
+					<group>
+						<field name="contract_id" readonly="1"/>
+						<field name="project_id" readonly="1"/>
+						<label for="project_start_date" string="Project time interval"/>
+						<div>
+							<field name="project_start_date" nolabel="1"/> - <field  name="project_end_date"/>
+							<span attrs="{'invisible': ['|',('sales_funnel_type','!=', 'negotiation'),'&amp;',('project_end_date','!=',False),('project_start_date','!=',False)]}" style="color:red"><b>No interval</b></span>
+						</div>
+					</group>
 				</xpath>
 				<xpath expr="//notebook/page[@string='Internal Notes']" position="replace">
 					<page string="Details">
