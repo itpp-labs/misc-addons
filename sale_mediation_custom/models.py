@@ -361,12 +361,12 @@ class crm_lead(models.Model):
             if not self.partner_id:
                 return {'warning': 'You have to specify Customer'}
             if not self.proposal_id:
-                return {'warning': 'You have to create proposal'}
+                return {'warning': 'You have to create a quotation'}
         if new=='negotiation':
             #if old!='quotation':
             #    return {'warning': 'You can move to negotiation only after quotation'}
             if not self.is_proposal_sent:
-                return {'warning': 'You have to send proposal to client'}
+                return {'warning': 'You have to send quotation to customer'}
         if new=='won':
             #if old!='negotiation':
             #    return {'warning': 'You have to pass Negotiation stages before move sale case to Won'}
