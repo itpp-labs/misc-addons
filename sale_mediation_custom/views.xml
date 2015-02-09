@@ -480,6 +480,48 @@
         </record>
 
 
+		<!-- PHONE CALLS MENUS -->
+
+		<!-- Logged Calls -->
+		<record model="ir.actions.act_window" id="crm.crm_case_categ_phone_incoming0">
+			<field name="context">{"search_default_user_id":uid, 'default_state':'done'}</field>
+			<field name="domain">[('state','in', ['done','cancel'])]</field>
+			<field name="view_id" ref="crm.crm_case_phone_tree_view"/>
+		</record>
+		<record model="ir.actions.act_window.view" id="crm.action_crm_tag_tree_phone_incoming0">
+			<field name="sequence" eval="1"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="crm.crm_case_phone_tree_view"/>
+			<field name="act_window_id" ref="crm.crm_case_categ_phone_incoming0"/>
+		</record>
+		<record model="ir.ui.view" id="crm_case_phone_tree_view">
+			<field name="model">crm.phonecall</field>
+			<field name="inherit_id" ref="crm.crm_case_phone_tree_view"/>
+			<field name="arch" type="xml">
+				<xpath expr="//tree" position="attributes">
+					<attribute name="colors">gray:state in ('cancel',);blue:state in ('pending',)</attribute>
+				</xpath>
+				<xpath expr="//button[@name='action_make_meeting']" position="before">
+					<button string="Schedule Other Call"
+							icon="terp-call-start"
+							name="%(crm.phonecall_to_phonecall_act)d"
+							type="action"/>
+				</xpath>
+				<xpath expr="//button[@name='action_make_meeting']" position="attributes">
+					<attribute name="states"></attribute>
+				</xpath>
+				<xpath expr="//button[@name='action_button_convert2opportunity']" position="attributes">
+					<attribute name="states"></attribute>
+				</xpath>
+			</field>
+		</record>
+
+		<!-- Scheduled Calls -->
+		<record model="ir.actions.act_window" id="crm.crm_case_categ_phone_outgoing0">
+			<field name="domain">[('state','not in', ['done','cancel'])]</field>
+			<field name="context">{"search_default_user_id":uid}</field>
+		</record>
+
 	</data>
 
 	<data noupdate="1">
