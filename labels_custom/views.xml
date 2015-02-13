@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <report
+            id="report_address_label"
+            string="Delivery addresses"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            name="labels_custom.report_address_label_template"
+            file="labels_custom.report_address_label_template"/>
+
+        <record id="report_address_label" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="labels.paperformat_a4_avery_8_portrait"/>
+        </record>
+	</data>
+</openerp>
