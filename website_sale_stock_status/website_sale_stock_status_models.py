@@ -12,23 +12,9 @@ class product_template(models.Model):
 
     @api.model
     def update_stock_status_all(self):
-        self.search([]).update_stock_status()
-
-    @api.one
-    def update_stock_status(self):
-        website_style_ids = []
-        stock = self.qty_available
-        state = self.state
         ribbon_backordered = self.env.ref("website_sale_stock_status.ribbon_backordered").id
         ribbon_discontinued = self.env.ref("website_sale_stock_status.ribbon_discontinued").id
         # 3 - unlink, 4 - link
-        if stock > 0:
-            website_style_ids.append( (3, ribbon_backordered, 0) )
-            website_style_ids.append( (3, ribbon_discontinued, 0) )
-        elif state in ['end', 'obsolete']:
-            website_style_ids.append( (3, ribbon_backordered, 0) )
-            website_style_ids.append( (4, ribbon_discontinued, 0) )
-        else:
-            website_style_ids.append( (4, ribbon_backordered, 0) )
-            website_style_ids.append( (3, ribbon_discontinued, 0) )
-        self.website_style_ids =  website_style_ids
+        self.search([('qty_available', '>', 0)]).write({'website_style_ids':[(3, ribbon_backordered, 0), (3, ribbon_discontinued, 0)]})
+        self.search([('qty_available', '=', 0), ('state', 'in', ['end', 'obsolete'])]).write({'website_style_ids':[(3, ribbon_backordered, 0), (4, ribbon_discontinued, 0)]})
+        self.search([('qty_available', '=', 0), ('state', 'not in', ['end', 'obsolete'])]).write({'website_style_ids':[(4, ribbon_backordered, 0), (3, ribbon_discontinued, 0)]})
