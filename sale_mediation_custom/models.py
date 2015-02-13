@@ -438,7 +438,13 @@ class crm_lead(models.Model):
             if self.env['sale.order'].search([('name', '=', name)]):
                 d = date.today()
                 ids = self.env['sale.order'].search([('create_date', '>=', d.strftime(DEFAULT_SERVER_DATE_FORMAT))])
-                name = name + (' %02i'% (len(ids) + 1))
+                date_str = d.strftime('%y%m%d')
+
+                name = '%s %s%02i' % (
+                    name,
+                    date_str,
+                    (len(ids) + 1)
+                )
 
             vals = {
                 'name': '%s' % name,
