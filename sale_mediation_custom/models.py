@@ -6,7 +6,7 @@ from openerp.tools.translate import _
 import time
 import re
 
-from datetime import datetime
+from datetime import date, datetime, timedelta
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
@@ -434,8 +434,14 @@ class crm_lead(models.Model):
             fpos = partner.property_account_position and partner.property_account_position.id or False
             payment_term = partner.property_payment_term and partner.property_payment_term.id or False
 
+            name = r.name
+            if self.env['sale.order'].search([('name', '=', name)]):
+                d = date.today()
+                ids = self.env['sale.order'].search([('create_date', '>=', d.strftime(DEFAULT_SERVER_DATE_FORMAT))])
+                name = name + (' %02i'% (len(ids) + 1))
+
             vals = {
-                'name': '%s' % r.name,
+                'name': '%s' % name,
                 'origin': _('Opportunity: %s') % str(r.id),
                 'section_id': r.section_id and r.section_id.id or False,
                 'categ_ids': [(6, 0, [categ_id.id for categ_id in r.categ_ids])],
