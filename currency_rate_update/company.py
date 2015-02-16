@@ -44,11 +44,12 @@ class res_company(orm.Model):
         try:
             currency_updater_obj.run_currency_update(cr, uid)
         except Exception, e:
+            raise e
             return False
         return True
 
 
-    def on_change_auto_currency_up(self, cr, uid, id, value):
+    def write(self, cr, uid, ids, vals, context=None):
         """handle the activation of the currecny update on compagnies.
         There are two ways of implementing multi_company currency,
         the currency is shared or not. The module take care of the two
@@ -57,70 +58,45 @@ class res_company(orm.Model):
         object running.
         If yours currency are not share you will be able to activate the
         auto update on each separated company"""
+        save_cron = {}
+        for company in self.browse(cr, uid, ids, context=context):
+            if 'auto_currency_up' in vals:
+                enable = company.multi_company_currency_enable
+                compagnies =  self.search(cr, uid, [])
+                activate_cron = 'f'
+                value = vals.get('auto_currency_up')
+                if not value :
+                    for comp in compagnies :
+                        if self.browse(cr, uid, comp).auto_currency_up:
+                            activate_cron = 't'
+                            break
+                    save_cron.update({'active':activate_cron})
+                else :
+                    do_next = True
+                    for comp in compagnies :
+                        if comp != company.id and not enable:
+                            if self.browse(cr, uid, comp).multi_company_currency_enable:
+                                raise Exception('Yon can not activate auto currency '+\
+                                                'update on more thant one company with this '+
+                                                'multi company configuration')
+                    for comp in compagnies :
+                        if self.browse(cr, uid, comp).auto_currency_up:
+                            activate_cron = 't'
+                            break
+                    save_cron.update({'active':activate_cron})
 
-        if len(id) :
-            id = id[0]
-        else :
-            return {}
-        enable = self.browse(cr, uid, id).multi_company_currency_enable
-        compagnies =  self.search(cr, uid, [])
-        activate_cron = 'f'
-        if not value :
-            # this statement is here beacaus we do no want to save in case of error
-            self.write(cr, uid, id,{'auto_currency_up':value})
-            for comp in compagnies :
-                if self.browse(cr, uid, comp).auto_currency_up:
-                    activate_cron = 't'
-                    break
+        if 'interval_type' in vals:
+            save_cron.update({'interval_type':vals.get('interval_type')})
+        if save_cron:
             self.pool.get('currency.rate.update').save_cron(
-                                                            cr,
-                                                            uid,
-                                                            {'active':activate_cron}
-                                                        )
-            return {}
-        else :
-            for comp in compagnies :
-                if comp != id and not enable:
-                    if self.browse(cr, uid, comp).multi_company_currency_enable:
-                        #we ensure taht we did not have write a true value
-                        self.write(cr, uid, id,{'auto_currency_up':False})
-                        return {
-                                'value':{
-                                            'auto_currency_up':False
-                                        },
+                cr,
+                uid,
+                save_cron
+            )
 
-                                'warning':{
-                                            'title':"Warning",
-                                            'message': 'Yon can not activate auto currency '+\
-                                            'update on more thant one company with this '+
-                                            'multi company configuration'
-                                            }
-                                }
-            self.write(cr, uid, id,{'auto_currency_up':value})
-            for comp in compagnies :
-                if self.browse(cr, uid, comp).auto_currency_up:
-                    activate_cron = 't'
-                self.pool.get('currency.rate.update').save_cron(
-                                                            cr,
-                                                            uid,
-                                                            {'active':activate_cron}
-                                                        )
-                break
-            return {}
+        return super(res_company, self).write(cr, uid, ids, vals, context=context)
 
 
-    def on_change_intervall(self, cr, uid, id, interval) :
-        ###Function that will update the cron
-        ###freqeuence
-        self.pool.get('currency.rate.update').save_cron(
-                                                            cr,
-                                                            uid,
-                                                            {'interval_type':interval}
-                                                        )
-        compagnies =  self.search(cr, uid, [])
-        for comp in compagnies :
-            self.write(cr, uid, comp,{'interval_type':interval})
-        return {}
 
     _inherit = "res.company"
     _columns = {

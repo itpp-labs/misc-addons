@@ -75,6 +75,8 @@ If in multi-company mode, the base currency will be the first company's currency
 found in database.
 
 Thanks to main contributors: Grzegorz Grzelak, Alexis de Lattre
+
+Tested by Ivan Yelizariev on Odoo 8.0 d023c079ed86468436f25da613bf486a4a17d625
 """,
     "depends" : [
         "base",
