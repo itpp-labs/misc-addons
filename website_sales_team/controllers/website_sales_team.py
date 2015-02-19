@@ -7,7 +7,7 @@ from openerp.tools.translate import _
 from openerp.addons.website.models.website import slug
 from openerp.addons.web.controllers.main import login_redirect
 
-from openerp.addons.website_sale.controllers.main import QueryURL, table_compute, get_pricelist, PPG, PPR, website_sale as controller
+from openerp.addons.website_sale.controllers.main import QueryURL, table_compute, PPG, PPR, website_sale as controller
 
 class website_sale(controller):
     @http.route([
