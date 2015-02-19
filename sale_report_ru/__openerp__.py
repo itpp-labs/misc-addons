@@ -3,7 +3,7 @@
     "version" : "0.1",
     "author" : "Ivan Yelizariev",
     "category" : "Sale",
-    "website" : "https://it-projects.info",
+    "website" : "https://yelizariev.github.io",
     "description": """
     depends on https://github.com/j2a/pytils
 

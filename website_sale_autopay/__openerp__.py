@@ -3,7 +3,7 @@
     'version' : '1.0.0',
     'author' : 'Ivan Yelizariev',
     'category' : 'Custom',
-    'website' : 'https://it-projects.info',
+    'website' : 'https://yelizariev.github.io',
     'description': """
 After customer make an online payment (e.g. via paypal), new invoice is created and validated.
 

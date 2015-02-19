@@ -3,7 +3,7 @@
     "version" : "0.3",
     "author" : "Ivan Yelizariev",
     "category" : "Mail",
-    "website" : "https://it-projects.info",
+    "website" : "https://yelizariev.github.io",
     "description": """
     """,
     "depends" : ["base"],

@@ -3,7 +3,7 @@
     'version' : '1.0.0',
     'author' : 'Ivan Yelizariev',
     'category' : 'Custom',
-    'website' : 'https://it-projects.info',
+    'website' : 'https://yelizariev.github.io',
     'description': """
 Module allows move message to any thread. For example, customer send message to salesperson's alias. Then salesperson is able to move such private message to lead thread.
 

@@ -3,7 +3,7 @@
     "version" : "0.1",
     "author" : "Ivan Yelizariev",
     "category" : "Base",
-    "website" : "https://it-projects.info",
+    "website" : "https://yelizariev.github.io",
     "description": """
 * Add skype field to partner info.
 * Add widget skype

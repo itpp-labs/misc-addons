@@ -3,7 +3,7 @@
     "version" : "1.0.0",
     "author" : "Ivan Yelizariev",
     "category" : "Base",
-    "website" : "https://it-projects.info",
+    "website" : "https://yelizariev.github.io",
 
     "depends" : ["crm", "account", "website", "web", "crm_partner_assign"],
     "data":[
