@@ -15,6 +15,6 @@ class product_template(models.Model):
         ribbon_backordered = self.env.ref("website_sale_stock_status.ribbon_backordered").id
         ribbon_discontinued = self.env.ref("website_sale_stock_status.ribbon_discontinued").id
         # 3 - unlink, 4 - link
-        self.search([('qty_available', '>', 0)]).write({'website_style_ids':[(3, ribbon_backordered, 0), (3, ribbon_discontinued, 0)]})
-        self.search([('qty_available', '=', 0), ('state', 'in', ['end', 'obsolete'])]).write({'website_style_ids':[(3, ribbon_backordered, 0), (4, ribbon_discontinued, 0)]})
-        self.search([('qty_available', '=', 0), ('state', 'not in', ['end', 'obsolete'])]).write({'website_style_ids':[(4, ribbon_backordered, 0), (3, ribbon_discontinued, 0)]})
+        self.search([('type','=','product'),('qty_available', '>', 0)]).write({'website_style_ids':[(3, ribbon_backordered, 0), (3, ribbon_discontinued, 0)]})
+        self.search([('type','=','product'),('qty_available', '=', 0), ('state', 'in', ['end', 'obsolete'])]).write({'website_style_ids':[(3, ribbon_backordered, 0), (4, ribbon_discontinued, 0)]})
+        self.search([('type','=','product'),('qty_available', '=', 0), ('state', 'not in', ['end', 'obsolete'])]).write({'website_style_ids':[(4, ribbon_backordered, 0), (3, ribbon_discontinued, 0)]})
