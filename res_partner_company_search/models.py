@@ -10,7 +10,7 @@ class res_partner(models.Model):
     p_fax = fields.Char  (related='parent_id.fax', string='Parent Fax')
 
     def search(self, cr, user, args, offset=0, limit=None, order=None, context=None, count=False):
-        if context and context.get('parent_search'):
+        if not (context and context.get('parent_search_applied')):
             # update search domain:
             # [..., ('category_id', OPERATOR, VALUE), ...] ->
             # [..., '|', ('p_category_id', OPERATOR, VALUE), ('category_id', OPERATOR, VALUE), ...]
@@ -23,6 +23,7 @@ class res_partner(models.Model):
                     parent_args.append(new_a)
                 parent_args.append(a)
             args = parent_args
-            del context['parent_search']
+            context = (context or {}).copy()
+            context['parent_search_applied'] = 1
 
         return super(res_partner, self).search(cr, user, args, offset=offset, limit=limit, order=order, context=context, count=count)

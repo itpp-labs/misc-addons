@@ -1,8 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp><data>
-
-<record id="base.action_partner_form" model="ir.actions.act_window">
-    <field name="context">{"search_default_customer":1,"parent_search":1}</field>
-</record>
-
 </data></openerp>
