@@ -7,6 +7,9 @@
     'summary': 'Check WARNING before installing \ uninstalling!',
     'description': """
 
+This module uses ir.attachment table to handle product images. It
+allows store product images on a disk instead of a database.
+
 WARNING
 =======
 
