@@ -25,6 +25,8 @@ WARNING
     module. This cause updating of all dependent modules.
 
 Tested on Odoo 8.0 935141582f5245f7cf5512285d3d91dfe58cb570
+
+Further information and discussion: http://yelizariev.github.io/odoo/module/2015/03/06/product-image-filestore.html
     """,
     'depends' : ['product'],
     'data':[],
