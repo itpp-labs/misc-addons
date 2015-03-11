@@ -6,6 +6,9 @@
     'website' : 'https://yelizariev.github.io',
     'description': """
 
+* Adds field "Repair Order" to phonecall
+* Adds smart button "Phonecalls" to Repair Order form.
+
 Tested on Odoo 8.0 ea60fed97af1c139e4647890bf8f68224ea1665b
     """,
     'depends' : ['crm', 'mrp_repair'],
