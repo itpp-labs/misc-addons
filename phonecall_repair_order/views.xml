@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+<record model="ir.ui.view" id="crm_case_phone_form_view">
+    <field name="model">crm.phonecall</field>
+	<field name="inherit_id" ref="crm.crm_case_phone_form_view"/>
+    <field name="arch" type="xml">
+		<xpath expr="//field[@name='opportunity_id']" position="after">
+			<field name="repair_id"/>
+		</xpath>
+	</field>
+</record>
+
+<record id="view_crm_case_phonecalls_filter" model="ir.ui.view">
+    <field name="model">crm.phonecall</field>
+	<field name="inherit_id" ref="crm.view_crm_case_phonecalls_filter"/>
+    <field name="arch" type="xml">
+		<xpath expr="//field[@name='opportunity_id']" position="after">
+			<field name="repair_id"/>
+		</xpath>
+	</field>
+
+</record>
+
+<record model="ir.actions.act_window" id="phonecalls">
+    <field name="name">Phonecalls</field>
+    <field name="res_model">crm.phonecall</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form,calendar</field>
+    <field name="view_id" ref="crm.crm_case_inbound_phone_tree_view"/>
+    <field name="domain">[]</field>
+    <field name="context">{'default_state': 'done'}</field>
+    <field name="search_view_id" ref="crm.view_crm_case_phonecalls_filter"/>
+    <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+            Click to log the summary of a phone call. 
+			</p><p>
+            Odoo allows you to log inbound calls on the fly to track the
+            history of the communication with a customer or to inform another
+            team member.
+			</p><p>
+            In order to follow up on the call, you can trigger a request for
+            another call, a meeting or an opportunity.
+        </p>
+    </field>
+</record>
+
+
+<record id="view_repair_order_form" model="ir.ui.view">
+    <field name="model">mrp.repair</field>
+	<field name="inherit_id" ref="mrp_repair.view_repair_order_form"/>
+    <field name="arch" type="xml">
+		<xpath expr="//sheet/*[1]" position="before">
+
+            <div class="oe_right oe_button_box">
+                <button class="oe_inline oe_stat_button" type="action"
+                        name="%(phonecall_repair_order.phonecalls)d" icon="fa-phone"
+                        context="{'default_repair_id': active_id, 'search_default_repair_id': active_id, 'default_partner_id': partner_id, 'default_duration': 1.0}">
+                    <field string="Phonecalls" name="phonecall_count" widget="statinfo"/>
+                </button>
+            </div>
+
+		</xpath>
+	</field>
+</record>
+
+	</data>
+</openerp>
