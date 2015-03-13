@@ -7,7 +7,7 @@
 	<field name="inherit_id" ref="crm.crm_case_phone_form_view"/>
     <field name="arch" type="xml">
 		<xpath expr="//field[@name='opportunity_id']" position="after">
-			<field name="repair_id"/>
+			<field name="repair_id" domain="[('state', 'not in', ['cancel', 'done'])]" context="{'mrp_repair_extended_name':1}"/>
 		</xpath>
 	</field>
 </record>
