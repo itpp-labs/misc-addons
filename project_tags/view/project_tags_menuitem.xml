@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#
+#    Project Tags
+#    Copyright (C) 2013 Sistemas ADHOC
+#    No email
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+
+-->
+<openerp>
+    <data>
+        <record id="action_project_tags_project_tag_project_tags" model="ir.actions.act_window">
+            <field name="name">Project Tags</field>
+            <field name="res_model">project_tags.project_tag</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_project_tags_project_tag_tree"/>
+            <field name="search_view_id" ref="view_project_tags_project_tag_filter"/>
+            <field name="domain">[]</field>
+        </record>
+
+        <menuitem
+            name="Project Tags"
+            id="menu_project_tags"
+            sequence="15"
+            action="action_project_tags_project_tag_project_tags"
+            parent="base.menu_definitions"
+            />
+
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4
+     -->
