@@ -8,10 +8,11 @@
         <xpath expr="//field[@name='doc_count']" position="after">
             <field name="partner_id"/>
             <field name="partner_country_image"/>
+            <field name="partner_country_name"/>
         </xpath>
         <xpath expr="//h4" position="after">
-            <div class="text-center oe_kanban_alias" t-if="record.partner_id.value">
-                <a type="object" style="margin-right: 10px">
+            <div class="text-center oe_kanban_alias" t-if="record.partner_id.raw_value">
+                <a t-attf-title="#{record.partner_country_name.raw_value or ''}" style="margin-right: 10px">
                     <t t-if="record.partner_country_image.raw_value">
                         <img t-attf-src="data:image/png;base64,#{record.partner_country_image.raw_value}" style="width:2em;"/>
                     </t>
