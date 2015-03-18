@@ -31,6 +31,13 @@ class website_sale(controller):
         partner_id = partner_obj.search(request.cr, SUPERUSER_ID, [('email', '=', values['email_from'])])
         if partner_id:
             partner_id = partner_id[0]
+            partner = partner_obj.browse(request.cr, SUPERUSER_ID, partner_id)
+            values = {}
+            for pk, k in [('name', 'contact_name'), ('phone','phone')]:
+                if post[k]:
+                    values[pk] = post[k]
+            if values:
+                partner.write(values)
         else:
             partner_id = partner_obj.create(request.cr, SUPERUSER_ID,
                                             {'name':values['contact_name'],
