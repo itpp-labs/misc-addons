@@ -42,13 +42,6 @@ class res_users(models.Model):
     }
 
 
-class res_partner(models.Model):
-    _inherit = 'res.partner'
-    _columns = {
-        'name': old_fields.char('Name', required=True, select=True, track_visibility='onchange'),
-        'phone': old_fields.char('Phone', track_visibility='onchange'),
-    }
-
 class product_public_category(models.Model):
     _inherit = "product.public.category"
 

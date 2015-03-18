@@ -126,7 +126,7 @@
 
 <data noupdate="1">
     <record id="email_template_checkout" model="email.template">
-		<field name="name">Send order number</field>
+        <field name="name">Send order number</field>
         <field name="email_from">${(object.user_id.email or '')|safe}</field>
         <field name="subject">${object.company_id.name} ${object.state in ('draft', 'sent') and 'Quotation' or 'Order'} (Ref ${object.name or 'n/a' })</field>
         <field name="partner_to">${object.partner_invoice_id.id}</field>
@@ -136,12 +136,18 @@
         <!--<field name="report_name">${(object.name or '').replace('/','_')}_${object.state == 'draft' and 'draft' or ''}</field>-->
         <field name="lang">${object.partner_id.lang}</field>
         <field name="body_html"><![CDATA[
-		Your order is accepted!
+        Your order is accepted!
 
-		<p>Your order number is ${object.name}. </p>
-
+        <p>Your order number is ${object.name}. </p>
+        <p>Product list:</p>
+        <p>
+% for line in object.order_line:
+        <br/> ${line.product_id.name}: ${line.product_uom_qty} * ${line.price_unit} ${object.currency_id.name}
+% endfor
+<br/>
+<br/> <b>Total:</b> ${object.amount_total} ${object.currency_id.name}
+        </p>
         ]]></field>
     </record>
 </data>
-	
 </openerp>

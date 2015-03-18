@@ -11,10 +11,11 @@ from openerp.addons.website_sale.controllers.main import website_sale as control
 
 class website_sale(controller):
     @http.route(['/shop/checkout'], type='http', auth='public', website=True)
-    def checkout(self, contact_name=None, email_from=None):
+    def checkout(self, contact_name=None, email_from=None, phone=None):
         post = {
             'contact_name':contact_name or email_from,
-            'email_from':email_from
+            'email_from':email_from,
+            'phone': phone,
             }
 
         error = set(field for field in ['email_from']
@@ -33,7 +34,9 @@ class website_sale(controller):
         else:
             partner_id = partner_obj.create(request.cr, SUPERUSER_ID,
                                             {'name':values['contact_name'],
-                                             'email':values['email_from']})
+                                             'email':values['email_from'],
+                                             'phone': values['phone'],
+                                         })
 
         order = request.website.sale_get_order()
         #order_obj = request.registry.get('sale.order')
