@@ -62,6 +62,11 @@ class mail_notification(models.Model):
                     im_uids.append(user.id)
                     if n == 'im_and_email':
                         send_email = True
+
+            if not len(partner.user_ids):
+                # send notification to partner, that doesn't have odoo account, but has "im*" value in notify_email
+                send_email = True
+
             if send_email:
                 email_pids.append(partner.id)
 
