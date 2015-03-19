@@ -20,5 +20,5 @@ class mail_mail(osv.osv):
         for mail in self.browse(cr, SUPERUSER_ID, ids, context=context):
             email_from = mail.email_from
             if not email_from or re.search(correct_email_from, email_from) is None:
-                mail.email_from = default_email_from
+                mail.write({'email_from': default_email_from})
         return super(mail_mail, self).send(cr, uid, ids, context=context, **kwargs)
