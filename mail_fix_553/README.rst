@@ -14,6 +14,20 @@ E.g:
 
 if you mail service provider, e.g. pdd.yandex.ru, doesn't allow emails with a FROM value differ from ...@MYDOMAIN.COM, then you get 553. This is why you need to update FROM value to portal@MYDOMAIN.COM
 
+Configuration
+=============
+
 You can configure default alias at Settings -> System Parameters -> mail.catchall.alias_from
+
+Known issues / Roadmap
+======================
+
+The module is consist of redefined send function from mail.mail
+model. So it is just copy pasted source code with some
+modification. This function is changed very rarely, but sometime it
+can happens and the module should be updated. You can check commits
+for mail_mail.py here:
+https://github.com/odoo/odoo/commits/8.0/addons/mail/mail_mail.py
+
 
 Tested on Odoo 8.0 d023c079ed86468436f25da613bf486a4a17d625
