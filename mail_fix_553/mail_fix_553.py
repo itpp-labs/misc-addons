@@ -14,6 +14,8 @@ from openerp.tools.translate import _
 
 _logger = logging.getLogger(__name__)
 
+import re
+
 class mail_mail(osv.Model):
     _inherit = "mail.mail"
 
@@ -160,10 +162,3 @@ class mail_mail(osv.Model):
             if auto_commit is True:
                 cr.commit()
         return True
-
-
-        for mail in self.browse(cr, SUPERUSER_ID, ids, context=context):
-            email_from = mail.email_from
-            if not email_from or re.search(correct_email_from, email_from) is None:
-                mail.write({'email_from': default_email_from})
-        return super(mail_mail, self).send(cr, uid, ids, context=context, **kwargs)
