@@ -1,5 +1,5 @@
 {
-    'name': 'Project\'s customer at kanban view ',
+    'name': 'Show project\'s name with partner\'s name ',
     'version': '1.0.0',
     'author': 'Ivan Yelizariev',
     'category': 'Custom',
