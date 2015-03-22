@@ -93,7 +93,7 @@ class mail_message(models.Model):
         reads = self.read(cr, uid, ids, ['record_name','model', 'res_id'], context=context)
         res = []
         for record in reads:
-            name = record['record_name']
+            name = record['record_name'] or ''
             extended_name = '   [%s] ID %s' % (record.get('model', 'UNDEF'), record.get('res_id', 'UNDEF'))
             res.append((record['id'], name + extended_name))
         return res
