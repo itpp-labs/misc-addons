@@ -20,3 +20,14 @@ class project_project(models.Model):
                 name = '%s (%s)' % (name, partner[1])
             res.append((record['id'], name))
         return res
+
+    def name_search(self, cr, uid, name, args=None, operator='ilike', context=None, limit=100):
+        if not args:
+            args = []
+        if not context:
+            context = {}
+        if name:
+            ids = self.search(cr, uid, ['|', ('partner_id', operator, name), ('name', operator, name)] + args, limit=limit, context=context)
+        else:
+            ids = self.search(cr, uid, args, limit=limit, context=context)
+        return self.name_get(cr, uid, ids, context)
