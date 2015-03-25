@@ -181,3 +181,8 @@ class mail_message(models.Model):
             extended_name = '   [%s] ID %s' % (record.get('model', 'UNDEF'), record.get('res_id', 'UNDEF'))
             res.append((record['id'], name + extended_name))
         return res
+
+    def _message_read_dict(self, cr, uid, message, parent_id=False, context=None):
+        res = super(mail_message, self)._message_read_dict(cr, uid, message, parent_id, context)
+        res['is_moved'] = bool(message.moved_by_user_id)
+        return res

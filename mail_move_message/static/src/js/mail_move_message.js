@@ -26,4 +26,11 @@ openerp.mail_move_message = function (session) {
             this.do_action(action);
         }
     })
+
+    mail.MessageCommon.include({
+        init: function (parent, datasets, options) {
+            this._super(parent, datasets, options);
+            this.is_moved = datasets.is_moved ||  false;
+        }
+    })
 }
