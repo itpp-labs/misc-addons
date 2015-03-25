@@ -21,26 +21,25 @@
                 <field name="message_moved_by_user_id"/>
                 <button name="open_moved_by_message_id" string="Open message" type="object" class="oe_highlight"/>
             </group>
-			<group attrs="{'invisible':[('can_move', '=', False)]}">
-				<field name="parent_id" domain="[('parent_id','=', False)]" context="{'extended_name':1}" />
-				<field name="move_back" attrs="{'invisible':[('message_moved_by_user_id','=',False)]}"/>
-				<field name="model_id" class="oe_inline" />
-				<field name="res_id" class="oe_inline" />
-				<field name="record_url" class="oe_inline" widget="url"/>
-			</group>
-			<separator string="Message"/>
-			<div style="height:200px;overflow-y:auto;">
-				<field name="message_id" invisible="1"/>
-				<field name="message_body"/>
-			</div>
+            <group attrs="{'invisible':[('can_move', '=', False)]}">
+                <field name="parent_id" domain="[('parent_id','=', False)]" context="{'extended_name':1}" />
+                <field name="move_back" attrs="{'invisible':[('message_moved_by_user_id','=',False)]}"/>
+                <field name="model_id" class="oe_inline" />
+                <field name="res_id" class="oe_inline" />
+                <field name="record_url" class="oe_inline" widget="url"/>
+            </group>
+            <separator string="Message"/>
+            <div style="height:200px;overflow-y:auto;">
+                <field name="message_id" invisible="1"/>
+                <field name="message_body"/>
+            </div>
             <footer>
                 <button name="move" string="Move" type="object" class="oe_highlight" attrs="{'invisible':[('can_move', '=', False)]}"/>
                 <button string="Cancel" class="" special="cancel" />
             </footer>
-		</form>
-	</field>
+        </form>
+    </field>
 </record>
 
     </data>
 </openerp>
-
