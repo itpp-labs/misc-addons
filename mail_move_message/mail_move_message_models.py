@@ -140,8 +140,7 @@ class mail_message(models.Model):
         moved_by_message_id = self.id
         moved_by_user_id = self.env.user.id
         first_move = not self.moved_by_user_id
-        vals = {'parent_id': parent_id,
-                'moved_by_user_id': moved_by_user_id}
+        vals = {'parent_id': parent_id}
         if first_move:
             # moved_from_* variables contain not last, but original
             # reference

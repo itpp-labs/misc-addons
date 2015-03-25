@@ -23,7 +23,7 @@
             </group>
 			<group attrs="{'invisible':[('can_move', '=', False)]}">
 				<field name="parent_id" domain="[('parent_id','=', False)]" context="{'extended_name':1}" />
-				<field name="move_back" attrs="{'invisible':[('message_moved_by_message_id','=',False)]}"/>
+				<field name="move_back" attrs="{'invisible':[('message_moved_by_user_id','=',False)]}"/>
 				<field name="model_id" class="oe_inline" />
 				<field name="res_id" class="oe_inline" />
 				<field name="record_url" class="oe_inline" widget="url"/>
