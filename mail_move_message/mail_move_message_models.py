@@ -149,7 +149,7 @@ class mail_message(models.Model):
             # clear moved_from_* variabls if we move everything back
             vals['moved_from_parent_id'] = None
 
-        self.write(vals)
+        self.sudo().write(vals)
         for r in self.all_child_ids:
             vals = {'res_id': res_id,
                     'model': model,
@@ -165,7 +165,7 @@ class mail_message(models.Model):
             elif move_back:
                 vals['moved_from_res_id'] = None
                 vals['moved_from_model'] = None
-            r.write(vals)
+            r.sudo().write(vals)
 
     def name_get(self, cr, uid, ids, context=None):
         if not (context or {}).get('extended_name'):
