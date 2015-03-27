@@ -1,5 +1,5 @@
 {
-    'name' : 'Moving mails to another thread',
+    'name' : 'Mail relocation',
     'version' : '1.0.0',
     'author' : 'Ivan Yelizariev',
     'category' : 'Social Network',

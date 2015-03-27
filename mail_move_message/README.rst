@@ -1,5 +1,5 @@
-Moving mails to another thread
-==============================
+Mail relocation
+===============
 
 Description: https://www.odoo.com/apps/modules/8.0/mail_move_message/
 
