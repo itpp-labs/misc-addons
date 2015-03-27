@@ -2,7 +2,7 @@
     'name' : 'Clear cart button',
     'version' : '1.0.0',
     'author' : 'Ivan Yelizariev',
-    'category' : 'Sale',
+    'category' : 'Website',
     'website' : 'https://yelizariev.github.io',
     'price': 9.00,
     'currency': 'EUR',
