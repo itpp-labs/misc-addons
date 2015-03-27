@@ -4,10 +4,8 @@
     'author' : 'Ivan Yelizariev',
     'category' : 'Sale',
     'website' : 'https://yelizariev.github.io',
-    'description': """
-
-Tested on Odoo 8.0 f8d5a6727d3e8d428d9bef93da7ba6b11f344284.
-    """,
+    'price': 9.00,
+    'currency': 'EUR',
     'depends' : ['website_sale'],
     'data':[
         'website_sale_clear_cart_views.xml',
