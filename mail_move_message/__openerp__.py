@@ -1,20 +1,18 @@
 {
-    'name' : 'Move message to thread',
+    'name' : 'Moving mails to another thread',
     'version' : '1.0.0',
     'author' : 'Ivan Yelizariev',
-    'category' : 'Custom',
+    'category' : 'Social Network',
     'website' : 'https://yelizariev.github.io',
-    'description': """
-Module allows move message to any thread. For example, customer send message to salesperson's alias. Then salesperson is able to move such private message to lead thread.
-
-Tested on Odoo 8.0 ab7b5d7732a7c222a0aea45bd173742acd47242d
-    """,
+    'price': 9.00,
+    'currency': 'EUR',
     'depends' : ['mail'],
+    'images': ['images/inbox.png'],
     'data':[
         'mail_move_message_views.xml',
         ],
     'qweb': [
-        'static/src/xml/*.xml',
+        'static/src/xml/mail_move_message_main.xml',
     ],
     'installable': True
 }
