@@ -4,6 +4,8 @@
     'author' : 'Ivan Yelizariev',
     'category' : 'Tools',
     'website' : 'https://yelizariev.github.io',
+    'price': 9.00,
+    'currency': 'EUR',
     'depends' : ['im_chat', 'mail'],
     'images': ['images/my-pref.png'],
     'data':[
