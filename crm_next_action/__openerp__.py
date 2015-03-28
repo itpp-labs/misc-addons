@@ -7,6 +7,7 @@
     'price': 9.00,
     'currency': 'EUR',
     'depends' : ['crm'],
+    'images': ['images/lead.png'],
     'data':['data.xml'],
     'installable': True
 }
