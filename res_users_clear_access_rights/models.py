@@ -15,7 +15,6 @@ class res_users(osv.Model):
             self.pool.get('ir.model.data').get_object_reference(cr, uid, 'base', 'group_erp_manager')[1],
             self.pool.get('ir.model.data').get_object_reference(cr, uid, 'base', 'group_system')[1]
         ]
-            
 
         groups_id = []
         for g in user.groups_id:
