@@ -1,17 +1,13 @@
 {
-    "name" : "Add skype field to partner info",
-    "version" : "0.1",
+    "name" : "Skype field in partner form",
+    "version" : "1.0.0",
     "author" : "Ivan Yelizariev",
     "category" : "Base",
     "website" : "https://yelizariev.github.io",
-    "description": """
-* Add skype field to partner info.
-* Add widget skype
-
-    <field name="skype" widget="skype" options="{'type':'call', 'video':0}"/>
-	 
-    """,
+    'price': 9.00,
+    'currency': 'EUR',
     "depends" : ['web'],
+    "images": ['images/partner.png'],
     "data":[
         'views.xml',
         'data.xml',
