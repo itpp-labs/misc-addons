@@ -5,7 +5,7 @@
     'category' : 'Base',
     'website' : 'https://yelizariev.github.io',
     'description': """
-*This is a freezed version. The module is moved to OCA's repo. Check out newest version here:*  https://github.com/OCA/web/tree/8.0/web_last_viewed_records
+*This is a frozen version. The module is moved to OCA's repo. Check out newest version here:*  https://github.com/OCA/web/tree/8.0/web_last_viewed_records
 
 The idea is taken from SugarCRM's "Last viewed" feature.
 
