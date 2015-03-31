@@ -1,3 +1,5 @@
+*Supported version of this module is available here:* https://github.com/OCA/account-financial-tools/tree/8.0/currency_rate_update
+
 The module is able to use 4 different sources:
 
 1. Admin.ch
