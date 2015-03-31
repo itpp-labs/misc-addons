@@ -29,5 +29,10 @@ can happens and the module should be updated. You can check commits
 for mail_mail.py here:
 https://github.com/odoo/odoo/commits/8.0/addons/mail/mail_mail.py
 
-
 Tested on Odoo 8.0 d023c079ed86468436f25da613bf486a4a17d625
+
+Status
+======
+
+Related issue at odoo's tracker: https://github.com/odoo/odoo/issues/5864
+
