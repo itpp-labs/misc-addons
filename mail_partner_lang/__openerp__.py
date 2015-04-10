@@ -8,6 +8,4 @@
     'depends' : ['mail'],
     'data':[],
     'installable': True,
-    'description': '''
-    ''',
 }
