@@ -4,8 +4,6 @@
     "author" : "Ivan Yelizariev",
     "category" : "Website",
     "website" : "https://yelizariev.github.io",
-    "description": """
-    """,
     "depends" : ["website_crm"],
     #"init_xml" : [],
     #"update_xml" : [],
