@@ -4,7 +4,7 @@
     'author': 'Ivan Yelizariev',
     'category': 'Custom',
     'website': 'https://yelizariev.github.io',
-    'images': ['images/parent.png', 'images/child.png'],
+    'images': ['images/child.png', 'images/parent.png'],
     'depends': ['mail'],
     'data': [
         'views.xml',
