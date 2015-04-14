@@ -8,6 +8,19 @@
     <field name="arch" type="xml">
         <xpath expr="//field[@name='child_ids']/form" position="replace">
         </xpath>
+        <xpath expr="//field[@name='child_ids']/kanban/templates" position="before">
+            <field name="record_url"/>
+        </xpath>
+        <!--
+        <xpath expr="//field[@name='child_ids']/kanban/templates/t/div/div/a[@type='open']" position="attributes">
+            <attribute name="type"></attribute>
+            <attribute name="t-att-href">record.record_url.raw_value</attribute>
+        </xpath>
+        -->
+        <xpath expr="//field[@name='child_ids']/kanban/templates//h4/a[@type='open']" position="attributes">
+            <attribute name="type"></attribute>
+            <attribute name="t-att-href">record.record_url.raw_value</attribute>
+        </xpath>
     </field>
 </record>
 
