@@ -15,7 +15,7 @@ How to apply groups for some users:
 
 * open Settings\Users\Users
 * select user you need
-* click "clear access rights" (module res_users_clear_access_rights should be installed) or untick all rights manually
+* click "clear access rights" (module **res_users_clear_access_rights** should be installed) or untick all rights manually
 * tick access groups you need. In the main, you have to use only ones from "Custom User Groups" sector, because all inherited tick boxes will be ticked automatically, after you click save.
 * click save
 
