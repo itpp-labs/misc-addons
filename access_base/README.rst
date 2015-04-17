@@ -5,7 +5,7 @@ The module creates special category "Custom User Groups" and puts access groups 
 
 How to create or edit custom groups:
 
-* open Settings\Users\Groups
+* open Settings->Users->Groups
 * select some group "Custom User Groups / ..." or create new one and set value "Custom User Groups" for  "Application" field
 * click "edit"
 * add or delete inherited groups in "Inherited" tab
@@ -13,7 +13,7 @@ How to create or edit custom groups:
 
 How to apply groups for some users:
 
-* open Settings\Users\Users
+* open Settings->Users->Users
 * select user you need
 * click "clear access rights"
 * tick access groups you need. In the main, you have to use only ones from "Custom User Groups" sector, because all inherited tick boxes will be ticked automatically, after you click save.
