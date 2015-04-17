@@ -1,7 +1,10 @@
 Basic module for custom security stuff
 ======================================
 
-See access_custom module as example of usage.
+The module creates special category "Custom User Groups" and puts access groups of that category to the top of "Access Rights" tab of user form. It helps to manage user roles via creating custom group that is collection of a technical groups.
+
+
+/See access_custom module as example of usage./
 
 How to create or edit custom groups:
 
@@ -15,7 +18,7 @@ How to apply groups for some users:
 
 * open Settings\Users\Users
 * select user you need
-* click "clear access rights" (module **res_users_clear_access_rights** should be installed) or untick all rights manually
+* click "clear access rights"
 * tick access groups you need. In the main, you have to use only ones from "Custom User Groups" sector, because all inherited tick boxes will be ticked automatically, after you click save.
 * click save
 
