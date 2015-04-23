@@ -26,6 +26,11 @@
 					<div class="ribbon btn btn-danger">Pre order now!</div>
 				</div>
 			</xpath>
+            <xpath expr="//form[@action='/shop/cart/update']" position="attributes">
+                <attribute name="t-attf-class">
+                    #{'disable_to_order' if any([not s.can_be_ordered for s in product.website_style_ids]) else ''}
+                </attribute>
+            </xpath>
 		</template>
 		<template id="products" inherit_id="website_sale.products" name="Products">
 			<xpath expr="//t[@t-foreach='styles']/li" position="attributes">
