@@ -33,7 +33,6 @@ class ir_http(models.AbstractModel):
         if www == 'www':
             host = h
         path = request.httprequest.path
-        print 'path', path
         redirect_ids = self.pool['website.redirect'].search(request.cr, SUPERUSER_ID, [])
         for redirect in self.pool['website.redirect'].browse(request.cr, SUPERUSER_ID, redirect_ids):
             if redirect.domain and redirect.domain != host:
