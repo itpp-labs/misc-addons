@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp><data>
+
+<record model="ir.ui.view" id="view_website_redirect_form">
+    <field name="name">website.redirect.form</field>
+    <field name="model">website.redirect</field>
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+        <form string="Redirection">
+            <sheet>
+                <div class="oe_title">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                </div>
+                <group>
+                    <field name="domain"/>
+                    <field name="active"/>
+                </group>
+                <notebook>
+                    <page string="Rules">
+                        <field name="rule_ids">
+                            <tree editable="bottom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="pattern"/>
+                                <field name="target"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<record id="view_website_redirect_tree" model="ir.ui.view">
+    <field name="name">website.redirect.tree</field>
+    <field name="model">website.redirect</field>
+    <field name="arch" type="xml">
+        <tree string="Redirections">
+            <field name="sequence" widget="handle"/>
+            <field name="name"/>
+            <field name="domain"/>
+        </tree>
+    </field>
+</record>
+
+<record id="action_website_redirect" model="ir.actions.act_window">
+    <field name="name">Redirections</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">website.redirect</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+
+<menuitem id="menu_website_redirect" parent="base.menu_config"
+          sequence="90" action="action_website_redirect"/>
+
+
+</data></openerp>
