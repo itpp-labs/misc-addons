@@ -1,6 +1,6 @@
 {
     'name' : 'Product status at website shop',
-    'version' : '1.0.0',
+    'version' : '1.0.1',
     'author' : 'Ivan Yelizariev',
     'category' : 'Sale',
     'website' : 'https://yelizariev.github.io',
