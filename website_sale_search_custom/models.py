@@ -25,7 +25,10 @@ class QueryURL(object):
     def __call__(self, path=None, **kw):
         if not path:
             path = self.path
+        is_category = path.startswith('/shop/category/')
         for k,v in self.args.items():
+            if is_category and k=='search':
+                continue
             kw.setdefault(k,v)
         l = []
         for k,v in kw.items():
@@ -37,4 +40,5 @@ class QueryURL(object):
         if l:
             path += '?' + '&'.join(l)
         return path
+
 main_file.QueryURL = QueryURL
