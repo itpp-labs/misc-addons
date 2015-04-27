@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp><data>
+
+<record id="replace_rule-view" model="ir.ui.view">
+    <field name="name">base_replace_ref.rule.form</field>
+    <field name="model">base_replace_ref.rule</field>
+    <field name="arch" type="xml">
+        <form string="Replace Rule">
+            <header>
+                <button name="apply" string="Apply (DANGEROUS)" type="object" class="oe_highlight"/>
+            </header>
+            <sheet>
+                <div class="oe_title">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                </div>
+
+                <group>
+                    <field name="draft"/>
+                    <field name="model_id"/>
+                </group>
+
+                <separator string="Value lines (what to replace)"/>
+                <field name="value_line_ids">
+                    <tree editable="bottom">
+                        <field name="src"/>
+                        <field name="dst"/>
+                    </tree>
+                </field>
+
+                <separator string="Field lines (where to replace)"/>
+                <button name="find_fields" string="Find all fields" type="object"/>
+                <button name="clear_fields" string="Clear all fields" type="object"/>
+                <field name="field_line_ids">
+                    <tree editable="bottom">
+                        <field name="model_id"/>
+                        <field name="field_id" domain="[('model_id', '=', model_id)]"/>
+                    </tree>
+                </field>
+
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<record id="replace_rule_tree-view" model="ir.ui.view">
+    <field name="name">base_replace_ref.rule.form</field>
+    <field name="model">base_replace_ref.rule</field>
+    <field name="arch" type="xml">
+        <tree string="Request Link">
+            <field name="name"/>
+            <field name="model_id"/>
+        </tree>
+    </field>
+</record>
+
+<record id="replace_rule-act" model="ir.actions.act_window">
+    <field name="name">Replace rules</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">base_replace_ref.rule</field>
+    <field name="view_type">form</field>
+    <field name="view_id" eval="False"/>
+</record>
+
+<menuitem action="replace_rule-act" id="menu_replace_rule_act" parent="base.next_id_9"/>
+
+</data></openerp>
