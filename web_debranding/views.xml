@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp><data>
+
+<template id="menu_secondary" inherit_id="web.menu_secondary">
+    <xpath expr="//div[@class='oe_footer']" position="replace">
+    </xpath>
+</template>
+
+</data></openerp>

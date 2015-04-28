@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp><data>
+
+<template id="layout_footer_copyright" inherit_id="website.layout_footer_copyright">
+    <xpath expr="//div[@t-ignore='true']" position="replace">
+    </xpath>
+</template>
+
+</data></openerp>
