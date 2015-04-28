@@ -4,7 +4,7 @@
     'author': 'Ivan Yelizariev',
     'category': 'Custom',
     'website': 'https://yelizariev.github.io',
-    'depends': [],
+    'depends': ['website'],
     'data': [
         'views.xml',
         ],
