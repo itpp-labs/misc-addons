@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp><data>
+
+<template id="assets_editor" inherit_id="website.assets_editor" name="website_files editor assets">
+    <xpath expr="." position="inside">
+        <script type="text/javascript" src="/website_files/static/src/js/website_files.editor.js"></script>
+        <link rel="stylesheet" href="/website_files/static/src/css/website_files.css"/>
+    </xpath>
+</template>
+
+<record id="view_attachment_form" model="ir.ui.view">
+    <field name="model">ir.attachment</field>
+    <field name="inherit_id" ref="base.view_attachment_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='company_id']" position="after">
+            <field name="website_file"/>
+            <field name="website_file_count" attrs="{'invisible':[('website_file', '=', False)]}"/>
+        </xpath>
+    </field>
+</record>
+
+</data></openerp>

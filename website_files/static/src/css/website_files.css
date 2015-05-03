@@ -1,0 +1,8 @@
+.existing-attachments-files {
+	max-height: 300px;
+	overflow: auto;
+}
+
+.existing-attachments-files tr.file.media_selected > td, .existing-attachments-files tr.file.media_selected > th{
+	background-color: #8aacca;
+}

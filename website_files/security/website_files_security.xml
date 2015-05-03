@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<openerp><data>
+
+<record model="ir.rule" id="ir_attachment_website">
+    <field name="name">ir.attachment: read access to website files</field>
+    <field name="model_id" ref="base.model_ir_attachment"/>
+    <field name="domain_force">[('website_file', '=', True)]</field>
+    <field name="groups" eval="[(4, ref('base.group_user')), (4, ref('base.group_portal')), (4, ref('base.group_public'))]"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+    <field name="perm_write" eval="False"/>
+</record>
+
+
+</data></openerp>

@@ -1,0 +1,97 @@
+<templates id="template" xml:space="preserve">
+
+<t t-extend="website.editor.dialog.media">
+    <t t-jquery='li:has(a[href="#editor-media-video"])' t-operation="after">
+        <li><a href="#editor-media-file" data-toggle="tab">File</a></li>
+    </t>
+    <t t-jquery="#editor-media-video" t-operation="after">
+        <div class="tab-pane fade" id="editor-media-file"></div>
+    </t>
+</t>
+
+<t t-extend="website.editor.dialog.link">
+    <t t-jquery="ul.list-group" t-operation="append">
+        <li class="list-group-item form-group">
+            <h4 class="list-group-item-heading">
+                <label for="link-file" class="control-label">
+                    File
+                </label>
+            </h4>
+            <input class="page form-control url-source"
+                   id="link-file" type="hidden"/>
+        </li>
+    </t>
+</t>
+
+<t t-name="website.editor.dialog.file">
+    <div>
+        <form method="POST"
+              action="/website/attach_file"
+              enctype="multipart/form-data"
+              target="fileframe"
+              class="form-inline">
+            <div class="well">
+                <div class="form-group" style="margin-right:16px;">
+                    <input type="file" name="upload" style="position: absolute; opacity: 0; width: 1px; height: 1px;"/>
+                    <button type="button" class="btn btn-primary filepicker">Upload new file</button>
+                    <button type="button" class="btn hidden wait" disabled="disabled">Uploading...</button>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="overwrite"/> Overwrite existing file
+                    </label>
+                </div>
+            </div>
+            <input type="hidden" name="func"/>
+            <div class="help-block"/>
+            <div class="existing-attachments-files"/>
+        </form>
+    </div>
+    <iframe src="about:blank" name="fileframe" class="hidden"/>
+</t>
+
+
+<t t-name="website.editor.dialog.file.existing.content">
+    <div class="existing-attachments-files">
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-left">Filename</th>
+                    <th class="text-right">Size</th>
+                    <th class="text-right">Upload</th>
+                    <th class="text-center">Used</th>
+                    <th class="text-center">Preview</th>
+                    <th class="text-center">Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr class="file" t-foreach="cur_records" t-as="r">
+                  <td class="text-left"><t t-esc="r.datas_fname"/></td>
+                  <td class="text-right"><t t-esc="r.file_size"/></td>
+                  <td class="text-right"><t t-esc="r.write_date"/></td>
+                  <td class="text-center"><t t-esc="r.website_file_count and r.website_file_count + 'x' or '-'"/></td>
+                  <td class="text-center"><a class="download" t-att-href="r.website_file_url" t-att-title="r.datas_fname"><div><i class="fa fa-arrow-circle-down"></i></div></a></td>
+                  <td class="text-center"><a href="#"><i class="fa fa-trash existing-attachment-file-remove" t-att-data-id="r.id"></i></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</t>
+<t t-name="website.editor.dialog.file.existing.error">
+    <div class="help-block">
+        <p>The file could not be deleted because it is used in the
+           following pages or views:</p>
+        <ul t-foreach="views" t-as="view">
+            <li>
+                <a t-attf-href="/web#model=ir.ui.view&amp;id=#{view.id}">
+                    <t t-esc="view.name"/>
+                </a>
+            </li>
+        </ul>
+    </div>
+</t>
+
+
+</templates>
