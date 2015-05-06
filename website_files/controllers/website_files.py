@@ -32,7 +32,7 @@ class WebsiteFile(openerp.addons.website.controllers.main.Website):
 
     @http.route('/website/attach_file', type='http', auth='user',
                 methods=['POST'], website=True)
-    def attach(self, func, upload=None, overwrite=False):
+    def attach_file(self, func, upload=None, overwrite=False):
         filename = website_file_url = message = None
         try:
             file_data = upload.read().encode('base64')
