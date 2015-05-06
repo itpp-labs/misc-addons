@@ -92,14 +92,6 @@ class res_partner(models.Model):
             self.user_ids.render_signature_id()
         return res
 
-class hr_employee(models.Model):
-    _inherit = 'hr.employee'
-
-    @api.one
-    def write(self, vals):
-        res = super(hr_employee, self).write(vals)
-        self.user_id.render_signature_id()
-        return res
 
 class ir_mail_server(models.Model):
     _inherit = "ir.mail_server"

@@ -4,7 +4,7 @@
     'author' : 'Ivan Yelizariev',
     'category' : 'Sale',
     'website' : 'https://yelizariev.github.io',
-    'depends' : ['base', 'hr'],
+    'depends' : ['base'],
     'data':[
         'res_users_signature_views.xml',
         'security/res_users_signature_security.xml',
