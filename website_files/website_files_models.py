@@ -56,6 +56,15 @@ class ir_attachment(models.Model):
             self.unlink(cr, uid, attachments_to_remove, context=context)
         return removal_blocked_by
 
+    def check(self, cr, uid, ids, mode, context=None, values=None):
+        if ids:
+            if isinstance(ids, (int, long)):
+                ids = [ids]
+            cr.execute('SELECT website_file FROM ir_attachment WHERE id = ANY (%s)', (ids,))
+            for website_file in cr.fetchall():
+                if not website_file:
+                    return super(ir_attachment, self).check(cr, uid, ids, mode, context, values)
+
 
 class website(models.Model):
     _inherit = 'website'

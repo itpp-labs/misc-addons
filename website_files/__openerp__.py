@@ -7,6 +7,8 @@
     'depends': ['website'],
     'data': [
         'website_files_views.xml',
+        'security/website_files_security.xml',
+        'security/ir.model.access.csv',
         ],
     'installable': True
 }
