@@ -5,10 +5,26 @@
     <field name="model">calendar.event</field>
     <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
     <field name="arch" type="xml">
-        <xpath expr="//label[@for='description']" position="before">
-            <button string="Open Related Record" name="open_reminder_object" type="object"/>
+        <xpath expr="//label[@for='description']" position="after">
+            <field name="reminder_res_id" invisible="1"/>
+            <button string="Open Related Record" name="open_reminder_object" type="object" attrs="{'invisible':[('reminder_res_id', '=', 0)]}"/>
         </xpath>
     </field>
 </record>
+
+<record model="ir.ui.view" id="view_calendar_event_form_popup">
+    <field name="model">calendar.event</field>
+    <field name="inherit_id" ref="calendar.view_calendar_event_form_popup"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='name']" position="after">
+            <field name="reminder_res_id" invisible="1"/>
+            <div attrs="{'invisible':[('reminder_res_id', '=', 0)]}">
+            <label for="open_reminder_object"/>
+            <button string="Open Related Record" name="open_reminder_object" type="object"/>
+            </div>
+        </xpath>
+    </field>
+</record>
+
 
 </data></openerp>

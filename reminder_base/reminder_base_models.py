@@ -43,7 +43,6 @@ class reminder(models.Model):
     @api.one
     def _update_reminder(self, vals):
         if not self._check_update_reminder(vals):
-            print 'no _update_reminder', vals
             return
 
         vals = {'name': self._get_reminder_event_name()[0]}
@@ -54,6 +53,9 @@ class reminder(models.Model):
 
         fdate = self._fields[self._reminder_date_field]
         fdate_value = getattr(self, self._reminder_date_field)
+        if not fdate_value:
+            event.unlink()
+            return
         if fdate.type == 'date':
             vals.update({
                 'allday': True,
@@ -101,3 +103,17 @@ class calendar_event(models.Model):
 
     reminder_res_model = fields.Char('Related Document Model for reminding')
     reminder_res_id = fields.Integer('Related Document ID for reminding')
+
+    @api.multi
+    def open_reminder_object(self):
+        r = self[0]
+        target = self._context.get('target', 'current')
+        return {
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': r.reminder_res_model,
+            'res_id': r.reminder_res_id,
+            'views': [(False, 'form')],
+            'target': target,
+        }
