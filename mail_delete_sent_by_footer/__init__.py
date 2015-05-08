@@ -1,0 +1,1 @@
+import mail_delete_sent_by_footer
