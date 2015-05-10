@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_res_partner_strip_email_res_partner_strip_email,res_partner_strip_email.res_partner_strip_email,model_res_partner_strip_email_res_partner_strip_email,,1,0,0,0
