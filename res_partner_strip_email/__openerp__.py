@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Strip email in partner form",
-    'summary': """Trim email's field""",
-    'description': """Email will be trim when create/save""",
+    'name': "Trim email's field",
+    'summary': """""",
+    'description': """""",
     'author': "It-Projects LLC",
     'website': "https://www.it-projects.info/",
 
@@ -16,5 +16,5 @@
     'depends': ['base'],
 
     # always loaded
-    'data': [ ],
+    'data': [],
 }
