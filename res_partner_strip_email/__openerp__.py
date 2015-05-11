@@ -3,8 +3,8 @@
     'name': "Trim email's field",
     'summary': """""",
     'description': """""",
-    'author': "It-Projects LLC",
-    'website': "https://www.it-projects.info/",
+    'author': "Ivan Yelizariev",
+    'website': "https://yelizariev.github.io",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml
