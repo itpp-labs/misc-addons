@@ -8,14 +8,16 @@ class res_partner_strip_email(models.Model):
 
     @api.one
     def write(self, vals):
-        if 'email' in vals and type(vals['email']) is not bool:
-            vals['email'] = vals['email'].strip()
-        res = super(res_partner_strip_email, self).write(vals)
-        return res
+        vals = self._check_email_field(vals)
+        return super(res_partner_strip_email, self).write(vals)
 
     @api.model
     def create(self, vals):
-        if vals['email']:
+        vals = self._check_email_field(vals)
+        return super(res_partner_strip_email, self).create(vals)
+
+    def _check_email_field(self, vals):
+        if not isinstance(vals['email'], bool) and 'email' in vals or \
+                isinstance(vals['email'], bool) and vals['email']:
             vals['email'] = vals['email'].strip()
-        res = super(res_partner_strip_email, self).create(vals)
-        return res
+        return vals
