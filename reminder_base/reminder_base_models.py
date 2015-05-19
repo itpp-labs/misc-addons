@@ -1,7 +1,7 @@
 from openerp import api, models, fields, SUPERUSER_ID
 
 
-class reminder(models.Model):
+class reminder(models.AbstractModel):
     _name = 'reminder'
 
     _reminder_date_field = 'date'
@@ -40,14 +40,26 @@ class reminder(models.Model):
             return False
         return True
 
+    @api.model
+    def _init_reminder(self):
+        domain = [(self._reminder_date_field, '!=', False)]
+        self.search(domain)._do_update_reminder()
+
     @api.one
     def _update_reminder(self, vals):
         if not self._check_update_reminder(vals):
             return
+        self._do_update_reminder()
 
+    @api.one
+    def _do_update_reminder(self):
         vals = {'name': self._get_reminder_event_name()[0]}
 
         event = self.reminder_event_id
+        if not event:
+            event = self._create_reminder_event()
+            self.reminder_event_id = event.id
+
         if not event.reminder_res_id:
             vals['reminder_res_id'] = self.id
 
@@ -117,3 +129,36 @@ class calendar_event(models.Model):
             'views': [(False, 'form')],
             'target': target,
         }
+
+
+class reminder_admin_wizard(models.TransientModel):
+    _name = 'reminder.admin'
+
+    model = fields.Selection(string='Model', selection='_get_model_list', required=True)
+    events_count = fields.Integer(string='Count of calendar records', compute='_get_events_count')
+    action = fields.Selection(string='Action', selection=[('create', 'Create Calendar Records'), ('delete', 'Delete Calendar Records')],
+                              required=True, default='create',)
+
+    def _get_model_list(self):
+        res = []
+        for r in self.env['ir.model.fields'].search([('name', '=', 'reminder_event_id')]):
+            if r.model_id.model == 'reminder':
+                # ignore abstract class
+                continue
+            res.append( (r.model_id.model, r.model_id.name) )
+        return res
+
+    @api.onchange('model')
+    @api.one
+    def _get_events_count(self):
+        count = 0
+        if self.model:
+            count = self.env['calendar.event'].search_count([('reminder_res_model', '=', self.model)])
+        self.events_count = count
+
+    @api.one
+    def action_execute(self):
+        if self.action == 'delete':
+            self.env['calendar.event'].search([('reminder_res_model', '=', self.model)]).unlink()
+        elif self.action == 'create':
+            self.env[self.model]._init_reminder()
