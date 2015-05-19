@@ -1,5 +1,5 @@
 {
-    'name': "Reminders for Opportunities",
+    'name': "Reminders and Agenda for Opportunities",
     'version': '1.0.0',
     'author': 'Ivan Yelizariev',
     'category': 'Custom',

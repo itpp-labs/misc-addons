@@ -1,5 +1,5 @@
 {
-    'name': "Reminders for phonecalls",
+    'name': "Reminders and Agenda for phonecalls",
     'version': '1.0.0',
     'author': 'Ivan Yelizariev',
     'category': 'Custom',

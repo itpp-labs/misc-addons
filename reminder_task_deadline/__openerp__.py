@@ -1,5 +1,5 @@
 {
-    'name': "Reminders for tasks",
+    'name': "Reminders and Agenda for tasks",
     'version': '1.0.0',
     'author': 'Ivan Yelizariev',
     'category': 'Custom',

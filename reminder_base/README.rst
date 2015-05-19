@@ -1,5 +1,5 @@
-Reminders (technical core)
-==========================
+Reminders and Agenda (technical core)
+=====================================
 
 Module allows attach Reminders field (the same as in Meetings).
 
