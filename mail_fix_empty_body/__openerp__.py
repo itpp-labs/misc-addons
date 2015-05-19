@@ -1,13 +1,11 @@
 {
-    'name' : 'Fix "False" in empty email',
+    'name' : 'Fix "False" in empty email body',
     'version' : '1.0.0',
     'author' : 'Ivan Yelizariev',
-    'category' : 'Sale',
+    'category': 'Social Network',
     'website' : 'https://yelizariev.github.io',
-    'description': """
-
-Tested on Odoo 8.0 ab7b5d7732a7c222a0aea45bd173742acd47242d
-    """,
+    'price': 9.00,
+    'currency': 'EUR',
     'depends' : ['mail'],
     'data':[
         ],
