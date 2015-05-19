@@ -1,8 +1,10 @@
 Odoo addons
 ===========
 
-Different modules for Odoo v8. 
+Different modules for Odoo.
 
-See */\_\_openerp__.py files for description
+Other repositories:
+-------------------
 
-Some modules are described on the website https://yelizariev.github.io
+* https://github.com/yelizariev/pos-addons
+* https://github.com/yelizariev/website-addons
