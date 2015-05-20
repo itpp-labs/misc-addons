@@ -8,11 +8,10 @@
           <field name="arch" type="xml">
 				<data>
 				  <xpath expr="//field[@name='website']" position="after">
-					 <field name="vk"/>
+					 <field name="vk" widget="vk"/>
 				  </xpath>
 				</data>
 			 </field>
-
 		  </record>
 	 </data>
 </openerp>
