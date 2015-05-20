@@ -10,16 +10,14 @@ instance.web.form.FieldVK = instance.web.form.FieldChar.extend({
     render_value: function() {
         if (!this.get("effective_readonly")) {
             this._super();
-        } else {
+        } 
+        else {
+            value = this.get('value');
             this.$el.find('a')
-                    .attr('href', this.vk_uri())
-                    .text(this.get('value') || '');
+                    .attr('href', value)
+                    .text(value || '');
         }
     },
-	vk_uri:function(){
-		//https://vk.com/user
-		return this.get('value');
-	},
 });
 
 instance.web.form.widgets.add('vk', 'instance.web.form.FieldVK');

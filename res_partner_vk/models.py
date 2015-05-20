@@ -22,8 +22,8 @@ class res_partner(models.Model):
     def _check_vk_field(self, vals):
         if vals.get('vk'):
             vk = vals['vk'].strip()
-            regex_1 = r'^\w+$'
-            if re.findall(regex_1, vk):
+            regex = r'^\w+$'
+            if re.findall(regex, vk):
                 vk = "https://vk.com/"+vk
             else:
                 vk = re.sub("^(http|https)://(vkontakte|vk).(ru|com)",
@@ -33,8 +33,8 @@ class res_partner(models.Model):
 
     @api.one
     @api.constrains('vk')
-    def _check_something(self):
+    def _validate_vk(self):
         regex = r'^https://vk.com/\w+$'
         if not re.findall(regex, self.vk):
-            raise ValidationError("VK address %s is not valid.\n The address \
-                must be in the format: https://vk.com/id" % self.vk)
+            raise ValidationError("VK address %s is not valid.\n For example, \
+                the address can be https://vk.com/durov" % self.vk)
