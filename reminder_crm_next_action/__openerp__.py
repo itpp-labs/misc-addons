@@ -4,7 +4,7 @@
     'author': 'Ivan Yelizariev',
     'category': 'Custom',
     'website': 'https://yelizariev.github.io',
-    'price': 9.00,
+    'price': 6.00,
     'currency': 'EUR',
     'depends': ['reminder_base', 'crm'],
     'data': [
