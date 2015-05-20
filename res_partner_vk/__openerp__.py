@@ -10,10 +10,6 @@
     # always loaded
     'data': [
         'views.xml',
-        'data.xml',
-    ],
-    "qweb" : [
-        'static/src/xml/base.xml',
     ],
     "installable": True
 }
