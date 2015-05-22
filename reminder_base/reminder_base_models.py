@@ -26,7 +26,7 @@ class reminder(models.AbstractModel):
             'start_date': fields.Date.today(),
             'stop_date': fields.Date.today(),
         }
-        event = self.env['calendar.event'].create(vals)
+        event = self.env['calendar.event'].with_context({}).create(vals)
         return event
 
     @api.one
