@@ -7,6 +7,9 @@ class reminder(models.AbstractModel):
     _reminder_date_field = 'date'
     _reminder_description_field = 'description'
 
+    # res.users or res.partner fields
+    _reminder_attendees_fields = ['user_id']
+
     reminder_event_id = fields.Many2one('calendar.event',
                                         string='Reminder Calendar Event')
     reminder_alarm_ids = fields.Many2many('calendar.alarm', string='Reminders',
@@ -47,6 +50,9 @@ class reminder(models.AbstractModel):
 
     @api.one
     def _update_reminder(self, vals):
+        if self._context.get('do_not_update_reminder'):
+            # ignore own calling of write function
+            return
         if not self._check_update_reminder(vals):
             return
         self._do_update_reminder()
@@ -58,7 +64,7 @@ class reminder(models.AbstractModel):
         event = self.reminder_event_id
         if not event:
             event = self._create_reminder_event()
-            self.reminder_event_id = event.id
+            self.with_context(do_not_update_reminder=True).write({'reminder_event_id': event.id})
 
         if not event.reminder_res_id:
             vals['reminder_res_id'] = self.id
@@ -82,6 +88,24 @@ class reminder(models.AbstractModel):
             })
         if self._reminder_description_field:
             vals['description'] = getattr(self, self._reminder_description_field)
+
+        if self._reminder_attendees_fields:
+            partner_ids = []
+            for field_name in self._reminder_attendees_fields:
+                field = self._columns[field_name]
+                partner = getattr(self, field_name)
+                print 'field', field
+                model = None
+                try:
+                    model = field.comodel_name
+                except AttributeError:
+                    model = field._obj  # v7
+
+                if model == 'res.users':
+                    partner = partner.partner_id
+                partner_ids.append(partner.id)
+            vals['partner_ids'] = [(6, 0, partner_ids)]
+
         event.write(vals)
 
     @api.model
