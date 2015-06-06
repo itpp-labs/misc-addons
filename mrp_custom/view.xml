@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="mrp_custom_jobs_tree_view">
+            <field name="name">mrp_custom.jobs.tree</field>
+            <field name="model">mrp_custom.jobs</field>
+            <field name="arch" type="xml">
+                <tree string="Jobs tree">
+                     <field name="job_name"/>
+                     <field name="create_date"/>
+                </tree>
+            </field>
+        </record>
+            
+        <record model="ir.ui.view" id="mrp_custom_jobs_form_view">
+            <field name="name">mrp_custom.jobs.form</field>
+            <field name="model">mrp_custom.jobs</field>
+            <field name="arch" type="xml">
+                <form string="Course Form">
+                    <sheet>
+                      <h1><strong><field name="job_name"/></strong></h1>
+                      <group colspan="2">
+                        <group>
+                            <field name="customer_po"/>
+                            <field name="order_date"/>
+                            <field name="requested_date"/>
+                            <field name="shipped_date"/>
+                            <field name="status"/>
+                            <field name="ship_via"/>
+                            <field name="shipTo_street1"/>
+                            <field name="shipTo_country"/>
+                        </group>
+                        <group>
+                            <field name="promised_date"/>
+                            <field name="sales_rep"/>
+                            <field name="sales_code"/>
+                            <field name="terms"/>
+                            <field name="invoice_date"/>
+                        </group>
+                      </group>
+                      <group colspan="2" string="Part">
+                        <group>
+                            <field name="part_number"/>
+                            <field name="description"/>
+                            <field name="shipped_quantity"/>
+                        </group>
+                        <group>
+                            <field name="order_quantity"/>
+                            <field name="unit_price"/>
+                            <field name="total_price"/>
+                        </group>
+                        <group col="2">
+                            <field name="ext_description"/>  
+                        </group>
+                      </group>
+                      <notebook colspan="4">
+                          <page string="Description">
+                               <field name="comment"/>
+                          </page>
+                          <page string="Routing">
+                               <field name="routing_ids"/>
+                          </page>
+                          <page string="Materials">
+                               <field name="material_ids"/>
+                          </page>
+                          <page string="Cases">
+                          </page>
+                      </notebook>
+                    </sheet>            
+                </form>
+            </field>
+        </record>
+      
+        <!-- Action windows-->
+        <record model="ir.actions.act_window" id="mrp_custom_jobs_form_action">
+            <field name="name">Jobs</field>
+            <field name="res_model">mrp_custom.jobs</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create the first job  </p>
+            </field>
+        </record>
+
+        <menuitem id="jobs_menu" name="Jobs"
+                  parent="mrp.menu_mrp_manufacturing"
+                  action="mrp_custom_jobs_form_action"/>
+   </data>
+
+</openerp>
