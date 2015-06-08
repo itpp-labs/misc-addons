@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "mrp_custom",
+    'name': "Custom models for MRP",
     'author': "Ivan Yelizariev",
     'website' : "https://yelizariev.github.io",
-    'category': 'Uncategorized',
-    'version': '0.1',
+    'category': 'Manufacturing',
+    'version': '1.0.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['mrp'],
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         'view.xml',
     ],
     "installable": True

@@ -5,11 +5,10 @@ from openerp import models, fields, api
 
 class mrp_custom_jobs(models.Model):
     _name = 'mrp_custom.jobs'
-
     job_number = fields.Integer(string="Job Number")
     job_name = fields.Char(compute='_get_name')
     routing_ids = fields.One2many(
-        'mrp_custom.routing', 'job_id', string="Routings")
+        'mrp_custom.routing', 'job_id', string="Routing")
     material_ids = fields.One2many(
         'mrp_custom.material', 'job_id', string="Material")
     contacts_id = fields.Many2one(
@@ -45,21 +44,9 @@ class mrp_custom_jobs(models.Model):
 
     comment = fields.Text(string='Comment')
 
-    """
-    @api.model
-    def create(self, vals):
-        job_env = self.env['mrp_custom.jobs']
-        records = job_env.search([])
-        if records:
-            number = records[len(records) - 1].job_number + 1
-        else:
-            number = 1
-        return super(mrp_custom_jobs, self).create({'job_number': number})
-    """
-
     @api.one
     def _get_name(self):
-        self.name = "Job " + str(self.job_number)
+        self.job_name = "Job " + str(self.job_number)
 
 
 class mrp_custom_routing(models.Model):
@@ -80,15 +67,15 @@ class mrp_custom_material(models.Model):
     material = fields.Char(string='Material')
     description = fields.Char(string='Description')
     vendor_ref = fields.Char(string='Vendor ref')
-    vendor = fields.Char(string='Vendor name')
+    vendor = fields.Char(string='Vendor')
     unit_cost = fields.Char(string='Unit cost')
     required_quantity = fields.Char(string='Req quantity')
-    act_total_cost = fields.Char(string='Actual total cost')
+    act_total_cost = fields.Char(string='Act total cost')
 
 
 class mrp_custom_contacts(models.Model):
     _name = 'mrp_custom.contacts'
-    name = fields.Char(string="Contact Name")
+    contact_name = fields.Char(string="Contact Name")
     contact_street_address = fields.Char(string="Contact street address")
     contact_street_address_2 = fields.Char(string="Contact street address 2")
     contact_cell_phone = fields.Char(string="Contact cell phone")

@@ -1,2 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_mrp_custom_mrp_custom,mrp_custom.mrp_custom,model_mrp_custom_mrp_custom,,1,0,0,0
+access_mrp_custom_jobs,mrp_custom.job,model_mrp_custom_jobs,,1,0,0,0
+access_mrp_custom_routing,mrp_custom.routing,model_mrp_custom_routing,,1,0,0,0
+access_mrp_custom_material,mrp_custom.job,model_mrp_custom_material,,1,0,0,0
+access_mrp_custom_contacts,mrp_custom.job,model_mrp_custom_contacts,,1,0,0,0
