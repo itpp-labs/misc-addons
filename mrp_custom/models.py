@@ -6,39 +6,46 @@ from openerp import models, fields, api
 class mrp_custom_jobs(models.Model):
     _name = 'mrp_custom.jobs'
 
-    job_number = fields.Integer(readonly=True, required=True)
+    job_number = fields.Integer(string="Job Number")
     job_name = fields.Char(compute='_get_name')
     routing_ids = fields.One2many(
         'mrp_custom.routing', 'job_id', string="Routings")
     material_ids = fields.One2many(
-        'mrp_custom.routing', 'job_id', string="Material")
+        'mrp_custom.material', 'job_id', string="Material")
+    contacts_id = fields.Many2one(
+        'mrp_custom.contacts',
+        ondelete='cascade',
+        required=True,
+        string="Contact",
+        delegate=True)
 
     customer_po = fields.Char(string='Customer PO')
-    order_date = fields.Date(string='Order Date')
-    requested_date = fields.Date(string='Requested Date')
-    shipped_date = fields.Date(string='Snipped Date')
+    order_date = fields.Char(string='Order Date')
+    requested_date = fields.Char(string='Requested Date')
+    shipped_date = fields.Char(string='Shipped Date')
     status = fields.Char(string='Status')
     ship_via = fields.Char(string='Ship Via')
-    shipTo_street1 = fields.Char(string='Ship to')
-    shipTo_street2 = fields.Char()
-    shipTo_country = fields.Char(string='Country')
+    shipTo_street1 = fields.Char(string='Ship to street1')
+    shipTo_street2 = fields.Char(string='Ship to street2')
+    shipTo_country = fields.Char(string='Ship to Country')
 
-    promised_date = fields.Date(string='Promised Date')
+    promised_date = fields.Char(string='Promised Date')
     sales_rep = fields.Char(string='Sales rep')
     sales_code = fields.Char(string='Sales Code')
     terms = fields.Char(string='Terms')
-    invoice_date = fields.Date(string='Invoice Date')
+    invoice_date = fields.Char(string='Invoice Date')
 
     part_number = fields.Char(string='Part number')
-    description = fields.Char(string='Part description')
-    shipped_quantity = fields.Integer(string='Quantity snipped')
-    order_quantity = fields.Integer(string='Quantity')
+    description = fields.Char(string='Description')
+    shipped_quantity = fields.Integer(string='Shipped Quantity')
+    order_quantity = fields.Integer(string='Order Quantity')
     unit_price = fields.Integer(string='Unit price')
-    total_price = fields.Integer(string='Total price')
-    ext_description = fields.Char(string='Part Ext Description')
+    total_price = fields.Char(string='Total price')
+    ext_description = fields.Char(string='Ext Description')
 
-    comment = fields.Text()
+    comment = fields.Text(string='Comment')
 
+    """
     @api.model
     def create(self, vals):
         job_env = self.env['mrp_custom.jobs']
@@ -48,10 +55,11 @@ class mrp_custom_jobs(models.Model):
         else:
             number = 1
         return super(mrp_custom_jobs, self).create({'job_number': number})
-    
-    @api.one 
+    """
+
+    @api.one
     def _get_name(self):
-        self.job_name = "Job " + str(self.job_number)
+        self.name = "Job " + str(self.job_number)
 
 
 class mrp_custom_routing(models.Model):
@@ -60,19 +68,46 @@ class mrp_custom_routing(models.Model):
         'mrp_custom.jobs', ondelete='cascade', string="Job", required=True)
     work_center = fields.Char(string='Work Center')
     status = fields.Char(string='Status')
-    run_pct_complete = fields.Integer(string='Run Pct Complete')
-    est_run_hrs = fields.Integer(string='Est Hours')
-    act_run_hrs = fields.Float(string='Actual Hours')
+    run_pct_complete = fields.Integer(string='Run pct complete')
+    est_run_hrs = fields.Char(string='Est run hours')
+    act_run_hrs = fields.Char(string='Actual run hours')
 
 
-class mrp_custom_materials(models.Model):
-    _name = 'mrp_custom.materials'
+class mrp_custom_material(models.Model):
+    _name = 'mrp_custom.material'
     job_id = fields.Many2one(
         'mrp_custom.jobs', ondelete='cascade', string="Job", required=True)
     material = fields.Char(string='Material')
     description = fields.Char(string='Description')
-    vendor_ref = fields.Char(string='Vendor Ref')
-    vendor = fields.Char(string='Vendor Name')
-    unit_cost = fields.Float(string='Unit Cost')
-    required_quantity = fields.Integer(string='Req Quantity')
-    act_total_cost = fields.Char(string='Total_Cost')
+    vendor_ref = fields.Char(string='Vendor ref')
+    vendor = fields.Char(string='Vendor name')
+    unit_cost = fields.Char(string='Unit cost')
+    required_quantity = fields.Char(string='Req quantity')
+    act_total_cost = fields.Char(string='Actual total cost')
+
+
+class mrp_custom_contacts(models.Model):
+    _name = 'mrp_custom.contacts'
+    name = fields.Char(string="Contact Name")
+    contact_street_address = fields.Char(string="Contact street address")
+    contact_street_address_2 = fields.Char(string="Contact street address 2")
+    contact_cell_phone = fields.Char(string="Contact cell phone")
+    contact_city = fields.Char(string="Contact city")
+    contact_country = fields.Char(string="Contact country")
+    contact_fax = fields.Char(string="Contact fax")
+    contact_phone = fields.Char(string="Contact phone")
+    contact_state = fields.Char(string="Contact state")
+    contact_zip = fields.Char(string="Contact zip")
+    email_address = fields.Char(string="Email address")
+    fax = fields.Char(string="Fax")
+    note_text = fields.Char(string="Note text")
+    phone = fields.Char(string="Phone")
+    shipto_cell_phone = fields.Char(string="Ship to cell phone")
+    shipto_city = fields.Char(string="Shipto city")
+    shipto_company_name = fields.Char(string="Ship to company name")
+    shipto_fax = fields.Char(string="Ship to fax")
+    shipto_name = fields.Char(string="Ship to name")
+    shipto_phone = fields.Char(string="Ship to phone")
+    shipto_state = fields.Char(string="Ship to state")
+    shipto_zip = fields.Char(string="Ship to zip")
+    shiptto_customer = fields.Char(string="Ship to customer")

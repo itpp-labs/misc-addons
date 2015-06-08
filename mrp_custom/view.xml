@@ -11,12 +11,52 @@
                 </tree>
             </field>
         </record>
+
+        <record model="ir.ui.view" id="mrp_custom_contacts_tree_view">
+            <field name="name">mrp_custom.contacts.tree</field>
+            <field name="model">mrp_custom.contacts</field>
+            <field name="arch" type="xml">
+                <tree string="Contacts tree">
+                     <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="mrp_custom_material_tree_view">
+            <field name="name">mrp_custom.material.tree</field>
+            <field name="model">mrp_custom.material</field>
+            <field name="arch" type="xml">
+                <tree string="Materials tree">
+                     <field name="material"/>
+                     <field name="description"/>
+                     <field name="vendor_ref"/>
+                     <field name="vendor"/>
+                     <field name="unit_cost"/>
+                     <field name="required_quantity"/>
+                     <field name="act_total_cost"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="mrp_custom_routing_tree_view">
+            <field name="name">mrp_custom.routing.tree</field>
+            <field name="model">mrp_custom.routing</field>
+            <field name="arch" type="xml">
+                <tree string="Routing tree">
+                     <field name="work_center"/>
+                     <field name="status"/>
+                     <field name="run_pct_complete"/>
+                     <field name="est_run_hrs"/>
+                     <field name="act_run_hrs"/>
+                </tree>
+            </field>
+        </record>
             
         <record model="ir.ui.view" id="mrp_custom_jobs_form_view">
             <field name="name">mrp_custom.jobs.form</field>
             <field name="model">mrp_custom.jobs</field>
             <field name="arch" type="xml">
-                <form string="Course Form">
+                <form string="Jobs Form">
                     <sheet>
                       <h1><strong><field name="job_name"/></strong></h1>
                       <group colspan="2">
@@ -31,6 +71,7 @@
                             <field name="shipTo_country"/>
                         </group>
                         <group>
+                            <field name="contacts_id"/>
                             <field name="promised_date"/>
                             <field name="sales_rep"/>
                             <field name="sales_code"/>
@@ -70,6 +111,53 @@
                 </form>
             </field>
         </record>
+
+        <record model="ir.ui.view" id="mrp_custom_contacts_form_view">
+            <field name="name">mrp_custom.contacts.form</field>
+            <field name="model">mrp_custom.contacts</field>
+            <field name="arch" type="xml">
+                <form string="Contacts Form">
+                    <sheet>
+                      <h1><strong><field name="name"
+                      placeholder="Contact Name"/></strong></h1>
+                      <group colspan="2">
+                        <group>
+                            <field name="contact_street_address"/>
+                            <field name="contact_street_address_2"/>
+                            <field name="contact_cell_phone"/>
+                            <field name="contact_city"/>
+                            <field name="contact_country"/>
+                            <field name="contact_fax"/>
+                        </group>
+                        <group>
+                            <field name="contact_phone"/>
+                            <field name="contact_state"/>
+                            <field name="contact_zip"/>
+                            <field name="fax"/>
+                            <field name="note_text"/>
+                            <field name="email_address"/>
+                            <field name="phone"/>
+                        </group>
+                      </group>
+                      <group colspan="2" string="Ship to">
+                        <group>
+                            <field name="shipto_cell_phone"/>
+                            <field name="shipto_city"/>
+                            <field name="shipto_company_name"/>
+                            <field name="shipto_fax"/>
+                            <field name="shipto_name"/>
+                        </group>
+                        <group>
+                            <field name="shipto_phone"/>
+                            <field name="shipto_state"/>
+                            <field name="shipto_zip"/>
+                            <field name="shiptto_customer"/>
+                        </group>
+                      </group>
+                    </sheet>            
+                </form>
+            </field>
+        </record>
       
         <!-- Action windows-->
         <record model="ir.actions.act_window" id="mrp_custom_jobs_form_action">
@@ -81,6 +169,17 @@
                 <p class="oe_view_nocontent_create">Create the first job  </p>
             </field>
         </record>
+
+        <record model="ir.actions.act_window" id="mrp_custom_contacts_form_action">
+            <field name="name">Contacts</field>
+            <field name="res_model">mrp_custom.contacts</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="contact_menu" name="Contacts"
+                  parent="mrp.menu_mrp_manufacturing"
+                  action="mrp_custom_contacts_form_action"/>
 
         <menuitem id="jobs_menu" name="Jobs"
                   parent="mrp.menu_mrp_manufacturing"
