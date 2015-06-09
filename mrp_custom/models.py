@@ -75,7 +75,8 @@ class mrp_custom_material(models.Model):
 
 class mrp_custom_contacts(models.Model):
     _name = 'mrp_custom.contacts'
-    name = fields.Char(string="Contact Name")
+    contact_name = fields.Char(string="Contact Name")
+    _rec_name = 'contact_name'
     contact_street_address = fields.Char(string="Contact street address")
     contact_street_address_2 = fields.Char(string="Contact street address 2")
     contact_cell_phone = fields.Char(string="Contact cell phone")

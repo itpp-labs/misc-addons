@@ -109,7 +109,7 @@
             <field name="arch" type="xml">
                 <form string="Contacts Form">
                     <sheet>
-                      <h1><strong><field name="name"
+                      <h1><strong><field name="contact_name"
                       placeholder="Contact Name"/></strong></h1>
                       <group colspan="2">
                         <group>
