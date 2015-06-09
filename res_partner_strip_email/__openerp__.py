@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Trim email's field",
+    'name': "Trim partner's email",
     'summary': "",
     'author': "Ivan Yelizariev",
     'website': "https://yelizariev.github.io",
