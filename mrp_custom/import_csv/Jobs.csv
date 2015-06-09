@@ -1,0 +1,164 @@
+﻿Ext ID;Job Number;Comment;Sales_Rep;Terms;Part_Number;Ext_Description;Description;Order_Quantity;Shipped_Quantity;Note_Text;Customer_PO;Unit_Price;Total_Price;Order_Date;Status;Ship_Via;Sales_Code;Promised_Date;Requested_Date;Shipped_Date;Invoice_Date;Contact_Name;Phone;Fax;Email_Address;Contact Street Address;Contact Street Address 2;Contact_City;Contact_State;Contact_Zip;Contact_Country;Contact_Phone;Contact_Fax;Contact_Cell_Phone;ShipTo_Name;ShiptTo_Customer;ShipTo_Street1;ShipTo_Street2;ShipTo_City;ShipTo_State;ShipTo_Zip;ShipTo_Company_Name;ShipTo_Country;ShipTo_Phone;ShipTo_Fax;ShipTo_Cell_Phone
+9475;9475;"Working Volume: 1 Cubic Ft.
+Inside Working Dimensions: 13”H x 12”W x 11”D
+Overall Dimensions: 31”H x 22”W x 20”D
+Power Requirements: 208 Volts, 1 Phase, 60 Hz, Approx 25 FLA
+Refrigeration System: CO2 Cooled (1000psig) & LN2 Valve for LN2 use Red Hat #8262H114LT 208/60
+Temperature Range: -100°F to +500°F
+Temperature Stability: +/- ?°C +/-1°F (at sensor)
+Ramp Rate: 18°F per minute average rate of change with 15 lbs. Alum Block Load
+Chamber will have 4” thick walls
+(1) 2” Access Port & Plug on Left Side Wall, and (1) 2” Access Port Plug on Right Side Wall centered in working volume - Two (2) Total
+Watlow PM High/Low Temperature Safety
+CO2 Scrubber With Replaceable Cartridge
+Watlow F4 Programmable Controller with RS232
+Door will be able to be hinged on either side
+Test Data For Approval before unit Ships
+The Temperature uniformity will be maximum error of +/- 3° F with the Five (5) thermocouple method of reading the temperature (Per customers configuration) There will be two (2) LN2 Solenoid Valves one will be a control valve, the other the safety Shut-off Valve for low temperature shut off. The Control LN2 Solenoid Valve is to be wired to the F4 Controller. A low temperature cutoff LN2 Valve is to be entered into the limit controller. During normal operation, the safety LN2 Solenoid Valve is supposed to be energized (open). If the control LN2 Valve was to fail open and LN2 began pouring into the chamber, a low temperature condition would eventually be reached. At this point, the safety LN2 Valve would close (de-energized) cutting off the LN2 entering the chamber and protecting the test area and product in the chamber.";JOHN;Net 30 days;ZBD-101;;Liquid Cooled Chamber ZBD-101;1;1;;174647;7152;$7 152,00 ;2013-05-08 00:00:00;Complete;Freight Collect;Sales - Chamber;2013-08-28 00:00:00;2013-08-28 00:00:00;2013-08-28 00:00:00;;Carl Palme;;978-988-4525;carl.palme@ametek.com;Shared Service Center;215 Keith Valley Road;Horsham;PA;19044;US;215-674-1234;;;Kulite Semiconductor Products;KULITE;One Willow Tree Rd.;;Leonia;NJ;07605;Kulite Semiconductor Products;;(201) 461-0900;(201) 461-0990;
+9476;9476;"Specifications:
+Working Volume: 10 cu. ft.
+Inside Working Dimensions: 30”H x 24”W x 24”D
+Overall Dimensions: 52”H x 36”W x 37”D
+Power Requirements: 120 Volts, 1 Phase, 60 Hz
+Temperature Range: -20°C to +94°C
+Relative Humidity Range: 20% to 98% +/-2% RH at sensor limited by +4°C dew point
+Temperature Stability: +/- ?°C +/-1°F (at sensor after stability)
+Interior: All stainless steel type 304
+Exterior: Heavy gauge cold rolled steel with Powder Coat paint
+2” Access Port & Plug on Left Side Wall
+Fully Adjustable Shelf
+
+********OPTIONS*************
+Self Contained Recirculating System
+Watlow F4 Programmable Controller with USB*
+Extended Temperature Range to -20C
+12"" x 12"" Heated Viewing Window 
+Internal light w/ external switch";DAN;Net 30 days;LH-10 / -20C;;Humidity Chamber Model LH-10;1;1;;DEKA 80185;12970;$12 970,00 ;2013-05-13 00:00:00;Complete;Prepaid & Add;Sales - Chamber;2013-06-10 00:00:00;2013-06-10 00:00:00;2013-06-26 00:00:00;2013-06-26 00:00:00;Steve Loisate;;;;Attn:  Steve Loisate;16399 North Frankline Rd.;Nampa;ID;83687;;208-898-2663;;;Deka R&D;DEKARD;324 Commercial St;;Manchester;NH;03101;DEKA Research & Development;US;603-669-5139;;
+9477;9477;"Specifications:
+Working Volume: 10 cu. ft.
+Inside Working Dimensions: 30”H x 24”W x 24”D
+Overall Dimensions: 52”H x 36”W x 37”D
+Power Requirements: 120 Volts, 1 Phase, 60 Hz
+Temperature Range: -20°C to +94°C
+Relative Humidity Range: 20% to 98% +/-2% RH at sensor limited by +4°C dew point
+Temperature Stability: +/- ?°C +/-1°F (at sensor after stability)
+Interior: All stainless steel type 304
+Exterior: Heavy gauge cold rolled steel with Powder Coat paint
+2” Access Port & Plug on Left Side Wall
+Fully Adjustable Shelf
+
+********OPTIONS*************
+Self Contained Recirculating System
+Watlow F4 Programmable Controller with USB*
+Extended Temperature Range to -20C
+12"" x 12"" Heated Viewing Window 
+Internal light w/ external switch";DAN;Net 30 days;LH-10/ -20C;;Humidity Chamber Model LH-10;1;1;;DEKA 80185;12970;$12 970,00 ;2013-05-13 00:00:00;Complete;Prepaid & Add;Sales - Chamber;2013-06-10 00:00:00;2013-06-10 00:00:00;2013-06-26 00:00:00;;Steve Loisate;;;;Attn:  Steve Loisate;16399 North Frankline Rd.;Nampa;ID;83687;;208-898-2663;;;Deka R&D;DEKARD;324 Commercial St;;Manchester;NH;03101;DEKA Research & Development;US;603-669-5139;;
+9478;9478;"Walk-in Room Model WR-468
+A) ROOM DESIGN: Shall be made up of prefabricated metal sectional panels of tongue and groove type construction. The panels are lightweight for easy handling; average weight of largest panel is 84 lbs. Door panel, door hardware, all in one piece, slightly heavier. Each panel is 100% insulated, and incorporates alignment pins to fit together accurately. Cam actuated locks insure tight fit and accommodates constant assembly/disassembly for relocating or enlarging the room. Each panel incorporates steel straps connecting locking arms with locking pins on opposite sides of panels. The assembled room has continuous steel perimeters within the insulation to hold panels tightly in place. The insulation is 4” of Foamed-In-Place Urethane which is equivalent to 8 ?” of Fiberglas. This insulation has a U.L. 25 low flame spread rating and conforms to ASTM Test E-84-76.
+• Interior will be Stainless Steel.
+• Exterior will be Embossed White
+• Floor Interior will be Stainless Steel.
+• Floor Weight Accommodation: 600 lbs. psf.
+B) DOOR: The door is the same construction and finish as the wall panels. All doors incorporate an internal safety release latch; personnel can gain immediate release if accidentally locked inside. It incorporates self-closing hinges; spring pressure against the magnetic door gasket insures a tight seal. Easy opening is insured with standard “Floating Door.” Latch is spring loaded. Heater wires are provided around the door to prevent condensation on low temperature models. Door can be left or right - hand hinged. A multi-pane window is supplied in the door; standard size is 14.5”W x 23”H. On low temperature, models this window incorporates defrost heaters to prevent frosting and condensation.
+• Door Size: 36” x 76”
+C) LIGHTING: Incandescent lighting will be provided.
+D) TEMPERATURE RANGE: -35°C to +85°C +/- 1°F at Sensor after Stabilization (Defrost Cycle Required)
+E) HUMIDITY RANGE: 20% to 95% +/- 5%RH at Sensor after Stabilization Limited by a +4°C dew point temperature (see Walk-in Humidity Chart)
+F) HUMIDITY SYSTEM: All steam is created within a plenum outside the chamber area. Our Steam Generator System utilizes an external self-contained steam generator with all safety controls, water level controls, etc…, to provide humidities to saturation within the room.
+G) HEATING SYSTEMS: The heating system is all-electric. The air is passed over fast response low watt density resistance heaters with a ceramic core. The combination of airflow, instrument response and these fast reacting heaters give very accurate and straight-line control of temperatures. These heaters insure a long reliable life with no down time while giving very accurate air control. Independent control of these heaters provide the right amount of heat for the application.
+H CIRCULATION SYSTEM: All rooms incorporate forced air circulation. The air is recirculated utilizing external heavy-duty motors of the finest quality with internal cooling fans, protectors and stainless steel shafts. Stainless steel squirrel cage blowers circulate the air; all mixing is accomplished within a plenum external to the room working area. Adjustable Air Flow. (3 Motors Approximately 1800 CFM Max and 600 CFM Min) w/ Air Proving Switch and Special Baffling System with Ducts and Adjustable Air Flow (Drawing will be Provided for Customer Approval at Placement of Order)
+I) INTERNAL WORKING DIMENSIONS: 6’ x 7’ x 7’10”H
+J) REFRIGERATION SYSTEM: The correct refrigeration package is supplied to meet the load demands of the room. All systems are supplied with the highest quality components, compressors are Copeland semi hermetic or equal, controls are Penn or equal. All piping, rating, etc., are in accordance with ASHRAE guidelines. The systems are completely assembled and tested at the factory. All components are labeled, identified, and located in easy accessible areas
+for maintenance. Complete piping diagrams, schematics, and charging data is provided. 10 x 10 Cascade HP Remote Condenser. (Quiet Pack for Module)
+K) SAFETY: Watlow PM High/Low Limit Controller
+L) INSTRUMENTATION: Watlow F4 Programmable Controller with RS-232
+M) TEMPERATURE RATE OF CHANGE: 2°C per Minute Average Rate of Change (Empty Chamber)
+N) POWER REQUIREMENTS: 220V, 3 phase, 60Hz.
+P) INSTALLATION: Included
+Q) WARRANTY: Standard
+R) ADDITIONAL EQUIPMENT: Fresh air makeup by Air Dryer, This System Does Induce Fresh Air. Oxygen Sensor (Readout only - Digital Read Out for % of Oxygen with Alarm for Oxygen %).";LRTECH;1/3, 1/3 & 1/3;WR-468;;Walk In Room WR-468;1;1;;M3918;111980;$111 980,00 ;2013-05-13 00:00:00;Complete;Padded Van;Sales - WI Room;2013-08-13 00:00:00;2013-05-13 00:00:00;2013-09-06 00:00:00;;Robert Maraden;;;;14520 Delta Lane #101;;Huntington Beach ;CA;92647;US;;;;Gentherm;GENTHERM;5462 N. Irwindale Avenue;;Irwindale;CA;91706-2058;Gentherm Inc.;US;626-208-3464;;
+9479;9479;"Specifications:
+Working Volume: 3 Cubic Ft.
+Inside Working Dimensions: 16”H x 20”W x 18”D
+Overall Dimensions: 28”H x 49”W x 28”D
+Power Requirements: 220 Volts, 1 Phase, 60 Hz
+Refrigeration System: Single Stage, Air Cooled
+Temperature Range: -17°C to +200°C (0°F to +392°F)
+Relative Humidity Range: 20% to 98% +/-2% RH at sensor limited by +4°C dew point
+Temperature Stability: +/- ?°C +/-1°F (at sensor after stability)
+Temperature Rise Time: Ambient to upper limit in approximately 20 minutes
+Temperature Pull Down Time: Ambient to lower limit in approximately 25 minutes
+Interior: All stainless steel type 304
+Exterior: Heavy gauge cold rolled steel with Powder Coat paint
+2” Access Port & Plug on Right Side Wall
+Digital Set - Digital Indicating High Temperature Safety
+Watlow F4 Programmable Controller with RS232 Communications
+8” x 8” Multipane Viewing Window in Door
+Internal Light with External Switch
+
+**********OPTIONS*************
+Air Dryer
+Water Demineralizer";DAN;Net 30 days;BHD-403;Test Chamber Model BHD-403;Temperature Humidity ;1;1;;4550610036;14781;$14 781,00 ;2013-05-14 00:00:00;Complete;Freight Collect;Sales - Chamber;2013-06-11 00:00:00;2013-06-11 00:00:00;2013-06-28 00:00:00;2013-06-28 00:00:00;Barbara Jackson;;;;PO BOX 94440;;Lubbock;TX;79493-4440;US;52-444-500-0239 x239;;;Novozymes BioAg Inc.;NOVOZYMES;12320 Cutten Road;;Houston;TX;77066;Novozymes BioAg Inc;US;414-410-7360;;
+9480;9480;"CHAMBER CONFIGURATION
+Basic Model Number ZBD-104
+Inside Working Dimensions: 20""H x 20""W x 18""D
+Outside Working Dimensions: 35""H x 26""W x 24.422""D
+4 Heating Units Four (4) heavy duty 1300 watt nichrome heaters on ceramic cores
+5 Thermal chamber power 208VAC, single phase, 50/60Hz power, amperage 30A or Less
+6 LN2 Cooling LN2 at 12 to 40 PSIG
+7 LN2 location and connection Connection must be within the region shown. Connection size to be determined and specified on approval print
+8 LN2 Exhaust Port must be within the region shown. Port size to be determined and specified on approval print.
+9 LN2 Valves Chamber to be supplied with two LN2 solenoid valves in line (Redundant)
+10 Watlow RM Controller with TCP/IP and ModbusR (RS-485), P/Ns RMC1ZRZ5LACAAAA and RMA-A3AB-AAAA
+11 Temperature Safety Limit Controller Integrated into the Watlow RM Controller
+12 Interior surface material Stainless steel welded interior
+13 Exterior surface material Heavy gauge steel
+14 Wall thickness (nominal) 3 inches
+15 Insulation Fiberglass
+16 Access Ports Location and size as shown. Plugs must be supplied.
+17 Air Circulation Forced air circulation from ball bearing fan motors mounted in upper portion of thermal chamber approximately as shown, with output shafts through roof of chamber. Fan blades mounted on stainless steel shafts inside upper plenum.
+18 Frame 2"" x 2"" x .25 Angle steel frame welded in entire perimeter bottom of chamber
+19 Finish Chamber supplied unpainted and without logos
+20 Customer cutout Located as shown. Must pass thru both inner and outer skin of door. No sleeve required.
+21 Inner and outer skin holes Inner and outer skin holes must be clocked the same
+22 Customer cutouts Located as shown. Must pass thru inner and outer skin of wall. Stainless steel sleeve.
+23 Chamber Support Chamber supplied without feet
+24 Watlow RS-485 Modbus® communications RS-485 Communications wired to 9-pin D-Sub Female connector (CE to pins 5 & 9, CD to pins 4 & 8) as noted on print.
+25 Watlow TCP/IP (Ethernet) Modbus® communications
+TCP/IP communications wired to 8-pin R-J45 modular jack. Location as noted on print.
+26 Chamber Interface Connector Electrical connections to the Watlow RM wired to 15 Pin D-Sub Female. Located as noted on print
+Pins 1,2,9 wired to Watlow RM thermal input channel #3 (#2 (T2 to pin 1, S2 to pin 2, R2 to pin 9))
+Pins 3, 4, 11 to Watlow RM Digital Inputs (D7 to pin 3, D8 to pin 4, B7 to Pin 11)
+Pins 5, 6, 13, 14 to Watlow RM SSR Outputs K4 to pin 5, K3 to pin 6, L4 to pin 13, L3 to pin 14)
+Pins 7, 8, 15 to Door Switch, Pin 7 - Normally Open, Pin 8 - Normally Closed, Pin 5 - Common. (When Door is closed)
+27 Door switch One set of contacts wired to Customer Interface Connector, the second set of contacts wired to the RM controller D9. Located approximately where shown. Exact location to be determined and specified on approval print. Not Supplied
+28 Temperature Sensors Two 100 Ohm platinum 3-wire RTD's (GIC-THERMODYNAMICS PNRB13S4188100PT1723AA or equivalent) to be mounted adjacent to each other in thermal chamber. Primary RTD is connected to Watlow RM for thermal chamber control. Secondary
+RTD is connected to Watlow RM Limit controller.
+29 Snubbers LN2 solenoids and all electromechanical relays to be fitted with an appropriate snubber to suppress electrical noise generated by switching. Ac relays warrant a r-c snubber, dc relay a fly back diode.
+30 Control Relays Heating/cooling control relays to be solid state, for AC applications the additional requirement is that they be ""zero cross"" style.
+31 Chamber Indicators Power, Heating, and Cooling. Located as noted on print.
+32 Hinges and Latches No hinges required. Four latches to be located as shown.
+33A Power Cord Six (6) ft, with L6-30P connector
+PERFORMANCE SPECIFICATIONS
+34 Temperature Range -73 TO +220° C
+35 Temperature Stability ±0.5° C
+36 Rate of Temperature Change (Heating) 20 °C/min from -65 to 150°C operating @60Hz with a payload of 40 lbs of aluminum. To be determined and specified on approval print.
+37 Rate of Temperature Change (Cooling) 20 °C/min from +150° to -65° C operating @60Hz with a payload of 40 lbs of aluminum. To be determined and specified on approval print. 
+Two (2) Fan Motors top of unit towards back of chamber; Return in front of chamber towards door (Per Drawing #20020-27)
+*Delete Cutout, Tapping Plate and Sleeve on Left Side of Chamber.
+*Delete Cutout, Tapping Plate and Sleeve on Right Side of Chamber.
+*Add Cutout and Sleeve per View Shown on Drawing.
+*A Hinged Door is required to Seal/Insulate Cutout Shown of Drawing 1.5 Inch Thick";JOHN;Net 30 days;ZBD-104;ZBD-104-20020-27;ZBD-104;1;1;;47040;10343;$10 343,00 ;2013-05-15 00:00:00;Complete;Freight Collect;Sales - Chamber;2013-06-07 00:00:00;2013-05-15 00:00:00;2013-06-13 00:00:00;2013-06-14 00:00:00;Briannan Bintz;401-861-9770;401-861-9777;bbintz@gmail.com;4 Richmond Square, 5th Floor;;Providence;RI;02906;;401-861-9770;401-861-9777;;Ideal Aerosmith, Inc.;IDEALA;1510 Gateway Drive NE;;East Grand Forks;MN;56721;Ideal Aerosmith, Inc.;;218-773-2455;218-773-7665;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
