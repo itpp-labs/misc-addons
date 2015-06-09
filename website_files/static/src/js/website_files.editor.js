@@ -51,7 +51,11 @@
             $('a[data-toggle="tab"]').on('shown.bs.tab', function (event) {
                 if ($(event.target).is('[href="#editor-media-file"]')) {
                     self.active = self.fileDialog;
-                    self.$('li.search, li.previous, li.next').removeClass("hidden");
+                    self.$('li.search-file, li.previous-file, li.next-file').removeClass("hidden");
+                    self.$('li.search:has(form)').removeClass("hidden");
+                    self.$('li.previous, li.next').addClass("hidden");
+                } else {
+                    self.$('li.search-file, li.previous-file, li.next-file').addClass("hidden");
                 }
             });
             if (this.media) {
@@ -101,13 +105,13 @@
             Object.preventExtensions(o);
             this.trigger('start', o);
 
-            this.parent.$(".pager > li").click(function (e) {
+            this.parent.$(".search-file>.pager > li").click(function (e) {
                 e.preventDefault();
                 var $target = $(e.currentTarget);
                 if ($target.hasClass('disabled')) {
                     return;
                 }
-                self.page += $target.hasClass('previous') ? -1 : 1;
+                self.page += $target.hasClass('previous-file') ? -1 : 1;
                 self.display_attachments();
             });
 
@@ -239,8 +243,8 @@
                 openerp.qweb.render(
                     'website.editor.dialog.file.existing.content', {cur_records: cur_records}));
             this.parent.$('.pager')
-                .find('li.previous').toggleClass('disabled', (from === 0)).end()
-                .find('li.next').toggleClass('disabled', (from + per_screen >= records.length));
+                .find('li.previous-file').toggleClass('disabled', (from === 0)).end()
+                .find('li.next-file').toggleClass('disabled', (from + per_screen >= records.length));
         },
         select_existing: function (e) {
             var download = $(e.currentTarget).find('.download');

@@ -7,6 +7,15 @@
     <t t-jquery="#editor-media-video" t-operation="after">
         <div class="tab-pane fade" id="editor-media-file"></div>
     </t>
+    <t t-jquery="li.search:has(.pager)" t-operation="after">
+        <li class="search-file hidden" style="float: right;">
+            <ul class="pager mb0 mt0">
+                <li class="previous-file disabled"><a href="#">← Previous</a></li>
+                <li class="next-file disabled"><a href="#">Next →</a></li>
+            </ul>
+        </li>
+
+    </t>
 </t>
 
 <t t-extend="website.editor.dialog.link">
