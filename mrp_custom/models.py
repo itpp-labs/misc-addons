@@ -17,7 +17,7 @@ class mrp_custom_jobs(models.Model):
         required=True,
         string="Contact",
         delegate=True)
-    
+
     customer_po = fields.Char(string='Customer PO')
     order_date = fields.Char(string='Order Date')
     requested_date = fields.Char(string='Requested Date')
