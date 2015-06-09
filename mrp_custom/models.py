@@ -11,6 +11,8 @@ class mrp_custom_jobs(models.Model):
         'mrp_custom.routing', 'job_id', string="Routing")
     material_ids = fields.One2many(
         'mrp_custom.material', 'job_id', string="Material")
+    cases_ids = fields.One2many(
+        'mrp_custom.cases', 'job_id', string="Cases")
     contacts_id = fields.Many2one(
         'mrp_custom.contacts',
         ondelete='cascade',
@@ -71,6 +73,18 @@ class mrp_custom_material(models.Model):
     unit_cost = fields.Char(string='Unit cost')
     required_quantity = fields.Char(string='Req quantity')
     act_total_cost = fields.Char(string='Act total cost')
+
+
+class mrp_custom_cases(models.Model):
+    _name = 'mrp_custom.cases'
+    job_id = fields.Many2one(
+        'mrp_custom.jobs', ondelete='cascade', string="Job", required=True)
+    num = fields.Integer(string='Num.')
+    subject = fields.Char(string='Subject')
+    account_name = fields.Char(string='Account Name')
+    status = fields.Char(string='Status')
+    date_created = fields.Char(string='Date Created')
+    assigned_user = fields.Char(string='Assigned User')
 
 
 class mrp_custom_contacts(models.Model):

@@ -41,6 +41,21 @@
                 </tree>
             </field>
         </record>
+
+        <record model="ir.ui.view" id="mrp_custom_cases_tree_view">
+            <field name="name">mrp_custom.cases.tree</field>
+            <field name="model">mrp_custom.cases</field>
+            <field name="arch" type="xml">
+                <tree string="Cases tree">
+                     <field name="num"/>
+                     <field name="subject"/>
+                     <field name="account_name"/>
+                     <field name="status"/>
+                     <field name="date_created"/>
+                     <field name="assigned_user"/>
+                </tree>
+            </field>
+        </record>
             
         <record model="ir.ui.view" id="mrp_custom_jobs_form_view">
             <field name="name">mrp_custom.jobs.form</field>
@@ -95,6 +110,7 @@
                                <field name="material_ids"/>
                           </page>
                           <page string="Cases">
+                               <field name="cases_ids"/>
                           </page>
                       </notebook>
                     </sheet>            
