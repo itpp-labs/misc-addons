@@ -61,7 +61,7 @@
                             <field name="shipTo_country"/>
                         </group>
                         <group>
-                            <field name="contacts_id"/>
+                            <field name="contacts_id"/>                          
                             <field name="promised_date"/>
                             <field name="sales_rep"/>
                             <field name="sales_code"/>
@@ -109,7 +109,7 @@
             <field name="arch" type="xml">
                 <form string="Contacts Form">
                     <sheet>
-                      <h1><strong><field name="contact_name"
+                      <h1><strong><field name="name"
                       placeholder="Contact Name"/></strong></h1>
                       <group colspan="2">
                         <group>

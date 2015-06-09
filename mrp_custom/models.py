@@ -17,7 +17,7 @@ class mrp_custom_jobs(models.Model):
         required=True,
         string="Contact",
         delegate=True)
-
+    
     customer_po = fields.Char(string='Customer PO')
     order_date = fields.Char(string='Order Date')
     requested_date = fields.Char(string='Requested Date')
@@ -75,7 +75,7 @@ class mrp_custom_material(models.Model):
 
 class mrp_custom_contacts(models.Model):
     _name = 'mrp_custom.contacts'
-    contact_name = fields.Char(string="Contact Name")
+    name = fields.Char(string="Contact Name")
     contact_street_address = fields.Char(string="Contact street address")
     contact_street_address_2 = fields.Char(string="Contact street address 2")
     contact_cell_phone = fields.Char(string="Contact cell phone")
