@@ -7,6 +7,7 @@ class mrp_custom_jobs(models.Model):
     _name = 'mrp_custom.jobs'
     job_number = fields.Integer(string="Job Number")
     job_name = fields.Char(compute='_get_name')
+    _rec_name = 'job_name'
     routing_ids = fields.One2many(
         'mrp_custom.routing', 'job_id', string="Routing")
     material_ids = fields.One2many(
