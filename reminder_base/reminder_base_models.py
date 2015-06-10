@@ -94,7 +94,6 @@ class reminder(models.AbstractModel):
             for field_name in self._reminder_attendees_fields:
                 field = self._columns[field_name]
                 partner = getattr(self, field_name)
-                print 'field', field
                 model = None
                 try:
                     model = field.comodel_name
@@ -103,7 +102,8 @@ class reminder(models.AbstractModel):
 
                 if model == 'res.users':
                     partner = partner.partner_id
-                partner_ids.append(partner.id)
+                if partner.id not in partner_ids:
+                    partner_ids.append(partner.id)
             vals['partner_ids'] = [(6, 0, partner_ids)]
 
         event.write(vals)
