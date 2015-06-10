@@ -2,7 +2,7 @@
 <openerp>
 <data noupdate="0">
 <record id="group_access_to_project_description" model="res.groups">
-    <field name="name">Access to description</field>
+    <field name="name">Access to project description</field>
     <field name="implied_ids" eval="[(4, ref('project.group_project_user'))]"/>
 </record>
 </data>
