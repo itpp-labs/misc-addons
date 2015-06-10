@@ -33,9 +33,7 @@
     "update_xml": [
         "project_view.xml", 
     ],
-    "data": ["security/project_description_security.xml",
-             "security/ir.model.access.csv"],
-
+    "data": ["security/project_description_security.xml"],
 
     'demo_xml': [],
     'installable': True,

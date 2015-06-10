@@ -28,12 +28,9 @@ class project_project(orm.Model):
     _columns = {
         #restricted field. Allowed group members only.
         'description': fields.text('description', groups="project_description.group_access_to_project_description"),
-
-        #  'description': fields.text('description'),
     }
 
 
-    
 class account_analytic_account(orm.Model):
     _inherit = 'account.analytic.account'
     
