@@ -33,6 +33,8 @@
     "update_xml": [
         "project_view.xml", 
     ],
+    "data": ["security/project_description_security.xml"],
+
     'demo_xml': [],
     'installable': True,
     'active': False,
