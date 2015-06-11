@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- Autostaging fields -->
+        <record id="autostaging_data" model="project_task_auto_staging.autostaging">
+            <field name="testing_stage">Testing</field>
+            <field name="done_stage">Done</field>
+            <field name="cancell_stage">Cancelled</field>
+            <field name="delay_done">7</field>
+            <field name="delay_cancell">20</field>
+        </record>
+    </data>
+</openerp>
