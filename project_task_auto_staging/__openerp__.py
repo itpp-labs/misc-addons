@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "project_task_auto_staging",
+    'name': "Automatically move tasks",
     'author': "Ivan Yelizariev",
     'website': "https://yelizariev.github.io",
-    'category': 'Uncategorized',
+    'category': 'Project',
     'version': '1.0.0',
     'depends': ['project'],
     'data': [
+        'security/ir.model.access.csv',
         'js.xml',
         'views.xml',
         'data.xml',

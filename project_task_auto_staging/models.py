@@ -22,70 +22,62 @@ class autostaging(models.Model):
 
 class project_task_auto_staging(models.Model):
     _inherit = 'project.task'
-    allow = fields.Boolean(compute='_get_allow' )
+    allow = fields.Boolean(compute='_get_allow')
     delay = fields.Integer(
         string='Delay', compute='_get_delay_done')
     to_stage = fields.Char(
         string='To stage', compute='_get_stage')
-    when_date = fields.Date(compute='_get_when_date')
+    when_date = fields.Date(
+        string='When', compute='_get_when_date')
 
-
-    def create_message(self):
+    def _create_msg_and_notify(self, task, recipients):
+        body = "<strong>Autostaging:</strong> Task {0} of project {1}\
+            moved in {2} stage".format(
+            task.name, task.project_id.name, task.stage_id.name)
         message_vals = {
-                        'body': 'TEST MSG',
-                        'date': datetime.datetime.now(),
-                        'res_id': 1,
-                        'record_name': 'icking_name',
-                        'model': 'project.task',
-                        'type': 'comment',
-                        }
-        self.env['mail.message'].sudo().create(message_vals)
-        print "\n\n MSG \n\n"
-        for r in self.env['mail.message']: print r
-   
+            'body': body,
+            'date': datetime.datetime.now(),
+            'res_id': task.id,
+            'record_name': 'Autostaging task',
+            'model': 'project.task',
+            'type': 'notification',
+            'notified_partner_ids': recipients,
+        }
+        mail_message = self.env['mail.message']
+        msg = mail_message.sudo().create(message_vals)
 
-    def move_to_stage(self, task):
-            print "\n MOVE_TO_STAGE \n"
-            self.create_message()
+    def _move_to_stage(self, task):
             ptt_env = self.env['project.task.type']
             stage = ptt_env.search([['name', '=', task.to_stage]])
-            #task.write({'stage_id': stage.id});
+            task.write({'stage_id': stage.id})
+
+    def _get_notify_users(self):
+        rg_env = self.env['res.groups']
+        records = rg_env.search(
+            [('name', '=', 'Manager'), ('category_id.name', '=', 'Project')])
+        record = records.ensure_one()
+        users = [(4, u.partner_id.id) for u in record.users]
+        return users
 
     @api.model
-    def move_tasks(self):
+    def _cron_move_tasks(self):
         today = fields.Date.context_today(self)
         pt_env = self.env['project.task']
         tasks = pt_env.search([])
+        notify_users = self._get_notify_users()
+        print "IR_CRON: project_task_auto_staging start"
         for task in tasks:
-            print "\n MOVE_TASK \n"
-            if task.allow and today == task.when_date or True:
-                self.move_to_stage(task)
+            if task.allow and today == task.when_date:
+                self._move_to_stage(task)
+                self._create_msg_and_notify(task, notify_users)
 
-   
-
-    """
-    @api.cr_uid_ids_context
-    def my_test(self, cr, uid, ids, context):
-        recipient_partners = []
-        recipient_partners.append(1)
-        post_vars = {'subject': "notification about order",
-            'body': "Yes inform me as i belong to manfacture group",
-            'partner_ids': recipient_partners,} 
-        thread_pool = self.pool.get('mail.thread')
-        thread_pool.message_post(
-            cr, uid, False,
-            type="notification",
-            subtype="mt_comment",
-            context=context,
-            **post_vars)
-
-    """
-
+    @api.one
     def _get_when_date(self):
         delta = datetime.timedelta(days=self.delay)
         self.when_date = datetime.datetime.strptime(
             self.write_date, DEFAULT_SERVER_DATETIME_FORMAT) + delta
 
+    @api.one
     def _get_allow(self):
         as_env = self.env['project_task_auto_staging.autostaging']
         records = as_env.search([])
@@ -96,6 +88,7 @@ class project_task_auto_staging(models.Model):
         else:
             self.allow = True
 
+    @api.one
     def _get_delay_done(self):
         as_env = self.env['project_task_auto_staging.autostaging']
         records = as_env.search([])
@@ -104,6 +97,7 @@ class project_task_auto_staging(models.Model):
         else:
             self.delay = records[0].delay_cancell
 
+    @api.one
     def _get_stage(self):
         as_env = self.env['project_task_auto_staging.autostaging']
         records = as_env.search([])
@@ -113,25 +107,9 @@ class project_task_auto_staging(models.Model):
             self.to_stage = records[0].cancell_stage
 
     @api.model
-    def get_current_stage(self, stageID):
-        return self.stage_id.browse([stageID]).name
-
-
-"""
-class task(models.Model):
-    _inherit = 'project.task'
-    automove_stage = fields.Char(
-        readonly=True, compute='_compute_automove_fields')
-    automove_delay = fields.Integer(
-        string='automove delay', readonly=True,
-        compute='_compute_automove_fields')
-
-    @api.one
-    def _compute_automove_fields(self):
-        if self.stage_id.name == 'Testing':
-            self.automove_stage = 'Done'
-            self.automove_delay = 7
-        elif (self.stage_id.name not in ('Cancell', 'Done')):
-            self.automove_stage = 'Cancell'
-            self.automove_delay = 20
-"""
+    def get_rest_day(self, write_date):
+        today = datetime.datetime.now()
+        last_date = datetime.datetime.strptime(
+            write_date, DEFAULT_SERVER_DATETIME_FORMAT)
+        delta = today - last_date
+        return delta.days
