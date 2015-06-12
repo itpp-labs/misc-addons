@@ -2,8 +2,6 @@ openerp.mail_check_immediately = function(instance, local) {
 
     instance.mail.Wall.include({
         start: function() {
-            var _this = this;
-
             this._super();
             this.get_last_update_time();
             this.get_time_loop()

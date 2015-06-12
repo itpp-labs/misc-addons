@@ -1,12 +1,12 @@
 {
     'name' : 'Check mail immediately',
-    'version' : '0.1',
+    'version' : '1.0',
     'author' : 'Ivan Yelizariev',
     'category' : 'Base',
     'website' : 'https://yelizariev.github.io',
     'depends' : ['base', 'web', 'fetchmail', 'mail'],
     'data': [
-        'views.xml',
+        'views.xml', 'security/ir.model.access.csv'
         ],
     'qweb': [
         "static/src/xml/main.xml",

@@ -5,9 +5,9 @@
             <td t-att-colspan="colspan or '3'">
                 <div class="oe_view_manager_fetch_mail_imm">
                     <span>Last</span>
-                    <a href="#" class="oe_fetch_new_mails"
-                            name="get_fetchmail_obj" type="object">update:</a>
-                    <span class="oe_view_manager_fetch_mail_imm_field">N</span><span> min ago</span>
+                    <a href="#" class="oe_fetch_new_mails">update:</a>
+                    <span class="oe_view_manager_fetch_mail_imm_field">0</span>
+                    <span> minutes ago</span>
                 </div>
             </td>
             <td></td>

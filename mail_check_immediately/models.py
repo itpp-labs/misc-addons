@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
+import math
+import datetime
 import psycopg2
+
+from openerp.osv import orm
+from openerp.tools.translate import _
 
 from openerp.tools.safe_eval import safe_eval
 from openerp import models, fields, api
@@ -11,19 +16,28 @@ class FetchMailServer(models.Model):
 
     _last_updated = None
 
-    run_time = fields.Datetime(string="Launch time", compute='_run_time')
+    run_time = fields.Char(string="Launch time", compute='_run_time')
 
     @classmethod
     def _update_time(cls):
-        cls._last_updated = fields.Datetime.now()
+        cls._last_updated = datetime.datetime.now()
 
     @api.one
     def _run_time(self):
-        self.run_time = self._last_updated
+        if self._last_updated:
+            self.run_time = str(int((datetime.datetime.now() - self._last_updated).total_seconds() / 60))
+        else:
+            self._last_updated = datetime.datetime.now()
+            self.run_time = '0'
 
     @api.model
     def _fetch_mails(self):
+
         super(FetchMailServer, self)._fetch_mails()
+
+        if self._last_updated and (datetime.datetime.now() - self._last_updated) < datetime.timedelta(0,5):
+            raise orm.except_orm( _('Error'), _('Task can be started no earlier than 5 seconds.'))
+
         self._update_time()
 
 
@@ -50,7 +64,6 @@ class FetchMailImmediately(models.Model):
                 (fetchmail_task_id,), log_exceptions=False)
 
             # Got the lock on the job row, run its code
-
             fetchmail_model._fetch_mails()
 
         except psycopg2.OperationalError as e:
