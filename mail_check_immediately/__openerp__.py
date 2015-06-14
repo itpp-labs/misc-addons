@@ -6,7 +6,7 @@
     'website' : 'https://yelizariev.github.io',
     'depends' : ['base', 'web', 'fetchmail', 'mail'],
     'data': [
-        'views.xml', 'security/ir.model.access.csv'
+        'views.xml',
         ],
     'qweb': [
         "static/src/xml/main.xml",

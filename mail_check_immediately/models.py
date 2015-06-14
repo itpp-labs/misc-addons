@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-import math
 import datetime
 import psycopg2
 
 from openerp.osv import orm
 from openerp.tools.translate import _
+
+from openerp import exceptions
 
 from openerp.tools.safe_eval import safe_eval
 from openerp import models, fields, api
@@ -16,7 +17,7 @@ class FetchMailServer(models.Model):
 
     _last_updated = None
 
-    run_time = fields.Char(string="Launch time", compute='_run_time')
+    run_time = fields.Char(string="Launch time", compute='_run_time', store=False)
 
     @classmethod
     def _update_time(cls):
@@ -33,44 +34,28 @@ class FetchMailServer(models.Model):
     @api.model
     def _fetch_mails(self):
 
+        if self._context.get('run_fetchmail_manually'):
+            if self._last_updated and (datetime.datetime.now() - self._last_updated) < datetime.timedelta(0,5):
+                raise exceptions.Warning( _('Error'), _('Task can be started no earlier than 5 seconds.'))
+
         super(FetchMailServer, self)._fetch_mails()
-
-        if self._last_updated and (datetime.datetime.now() - self._last_updated) < datetime.timedelta(0,5):
-            raise orm.except_orm( _('Error'), _('Task can be started no earlier than 5 seconds.'))
-
         self._update_time()
 
 
-class FetchMailImmediately(models.Model):
+class FetchMailImmediately(models.AbstractModel):
 
     _name = 'fetch_mail.imm'
 
     @api.model
+    def get_last_update_time(self):
+        return self.env['fetchmail.server'].sudo().search([]).run_time
+
+    @api.model
     def run_fetchmail_manually(self):
 
-        fetchmail_task = self.env['ir.cron'].search([['model', '=', 'fetchmail.server']])
+        fetchmail_task = self.env.ref('fetchmail.ir_cron_mail_gateway_action')
         fetchmail_task_id = fetchmail_task.id
-        fetchmail_model = self.env['fetchmail.server']
-        cr = self.env.cr
+        fetchmail_model = self.env['fetchmail.server'].sudo()
 
-        try:
-            # Try to grab an exclusive lock on the job row
-            # until the end of the transaction
-            cr.execute(
-                """SELECT *
-                   FROM ir_cron
-                   WHERE id=%s
-                   FOR UPDATE NOWAIT""",
-                (fetchmail_task_id,), log_exceptions=False)
-
-            # Got the lock on the job row, run its code
-            fetchmail_model._fetch_mails()
-
-        except psycopg2.OperationalError as e:
-            # User friendly error if the lock could not be claimed
-            if e.pgcode == '55P03':
-                raise orm.except_orm(
-                    _('Error'),
-                    _('Another process/thread is already busy '
-                      'executing this job'))
-            raise
+        fetchmail_task._try_lock()
+        fetchmail_model.with_context(run_fetchmail_manually=True)._fetch_mails()
