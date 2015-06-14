@@ -1,13 +1,9 @@
 # -*- coding: utf-8 -*-
 import datetime
-import psycopg2
 
-from openerp.osv import orm
 from openerp.tools.translate import _
 
 from openerp import exceptions
-
-from openerp.tools.safe_eval import safe_eval
 from openerp import models, fields, api
 
 
