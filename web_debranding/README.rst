@@ -1,6 +1,9 @@
 Backend debranding
 ==================
 
-Removes references to odoo.com
+Removes references to odoo.com:
+1. Replace menu footer
+2. Change the title
+3. Change help message
 
-Tested on Odoo 8.0 75f0c7df4dc016b5e0ace4db5b6487fc5a21632a
+Tested on Odoo 8.0 eeedd2d9f52d46d8193059854e7430ca0c1fd6c0
