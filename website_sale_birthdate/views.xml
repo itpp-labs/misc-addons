@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+        <template id="website_sale_partner_birthdate_assets" inherit_id="website.assets_frontend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/website_sale_birthdate/static/src/js/jquery.pickmeup.min.js"></script>
+                <script type="text/javascript"
+                        src="/website_sale_birthdate/static/src/js/jquery.pickmeup.twitter-bootstrap.min.js"></script>
+                <script type="text/javascript" src="/website_sale_birthdate/static/src/js/main.js"></script>
+            </xpath>
+        </template>
+
         <template id="website_sale_partner_birthdate" name="Person's birth date checkout form" inherit_id="website_sale.checkout">
             <xpath expr="//t[1]/t[1]/div[1]/div[1]/form[1]/div[1]/div[1]/div[1]/div[5]" position="after">
                 <div t-attf-class="form-group #{error.get('birthdate') and 'has-error' or ''} col-lg-6">
