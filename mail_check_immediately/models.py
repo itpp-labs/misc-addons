@@ -2,6 +2,7 @@
 import datetime
 
 from openerp.tools.translate import _
+from openerp import tools
 
 from openerp import exceptions
 from openerp import models, fields, api
@@ -13,26 +14,34 @@ class FetchMailServer(models.Model):
 
     _last_updated = None
 
-    run_time = fields.Char(string="Launch time", compute='_run_time', store=False)
+    run_time = fields.Datetime(string="Launch time", compute='_run_time', store=False)
 
     @classmethod
     def _update_time(cls):
-        cls._last_updated = datetime.datetime.now()
+
+        cls._last_updated = tools.datetime.now()
 
     @api.one
     def _run_time(self):
-        if self._last_updated:
-            self.run_time = str(int((datetime.datetime.now() - self._last_updated).total_seconds() / 60))
-        else:
-            self._last_updated = datetime.datetime.now()
-            self.run_time = '0'
+        if not self._last_updated:
+
+            self._last_updated = tools.datetime.now()
+
+        src_tstamp_str = self._last_updated.strftime(tools.misc.DEFAULT_SERVER_DATETIME_FORMAT)
+        src_format = tools.misc.DEFAULT_SERVER_DATETIME_FORMAT
+        dst_format = "%Y-%m-%d %H:%M:%S"
+        dst_tz_name = self.env.user.tz
+        _now = tools.misc.server_to_local_timestamp(src_tstamp_str, src_format, dst_format, dst_tz_name)
+
+        self.run_time = _now
 
     @api.model
     def _fetch_mails(self):
 
         if self._context.get('run_fetchmail_manually'):
-            if self._last_updated and (datetime.datetime.now() - self._last_updated) < datetime.timedelta(0,5):
-                raise exceptions.Warning( _('Error'), _('Task can be started no earlier than 5 seconds.'))
+            # if interval less than 5 seconds
+            if self._last_updated and (datetime.datetime.now() - self._last_updated) < datetime.timedelta(0, 5):
+                raise exceptions.Warning(_('Error'), _('Task can be started no earlier than 5 seconds.'))
 
         super(FetchMailServer, self)._fetch_mails()
         self._update_time()
