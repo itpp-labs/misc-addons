@@ -29,7 +29,7 @@ class FetchMailServer(models.Model):
 
         src_tstamp_str = self._last_updated.strftime(tools.misc.DEFAULT_SERVER_DATETIME_FORMAT)
         src_format = tools.misc.DEFAULT_SERVER_DATETIME_FORMAT
-        dst_format = "%Y-%m-%d %H:%M:%S"
+        dst_format = tools.misc.DEFAULT_SERVER_DATETIME_FORMAT
         dst_tz_name = self.env.user.tz
         _now = tools.misc.server_to_local_timestamp(src_tstamp_str, src_format, dst_format, dst_tz_name)
 
