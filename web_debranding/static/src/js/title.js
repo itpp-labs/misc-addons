@@ -9,8 +9,8 @@ var QWeb = instance.web.qweb,
  instance.web.WebClient.include({
     init: function(parent, client_options) {
         this._super(parent, client_options);
-        this.get_title_part();
         this.set('title_part', {"zopenerp": ''});
+        this.get_title_part();
     },
     get_title_part: function(){
         var self = this;
