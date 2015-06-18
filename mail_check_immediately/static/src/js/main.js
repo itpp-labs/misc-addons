@@ -31,18 +31,16 @@ openerp.mail_check_immediately = function(instance, local) {
             var _this = this;
 
             this.imm_model.call('run_fetchmail_manually', {context: new instance.web.CompoundContext()}).then(function(){
-                _this.get_last_fetched_time('updateFromDOM')
+                _this.get_last_fetched_time()
             })
         },
 
-        get_last_fetched_time: function(action){
+        get_last_fetched_time: function(){
             var _this = this;
             this.imm_model.call('get_last_update_time', {context: new instance.web.CompoundContext()}).then(function(res){
-                _this.$el.find('span.oe_view_manager_fetch_mail_imm_field')
-                    .livestamp(new Date(res))
-
+//                using jQuery timeago library
+                _this.$el.find('span.oe_view_manager_fetch_mail_imm_field').html($.timeago(res));
             })
-
         },
 
         destroy: function(){
