@@ -18,9 +18,7 @@
         <field name="key">web_debranding.new_name</field>
         <field name="value">Software</field>
     </record>
- </data>
 
- <data noupdate="1">
     <record id="web_debranding.custom_title" model="ir.config_parameter">
         <field name="key">web_debranding.new_title</field>
         <field name="value">Software</field>

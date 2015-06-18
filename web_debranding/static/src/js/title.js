@@ -1,10 +1,7 @@
-(function() {
+openerp.web_debranding = function(instance) {
 
-var instance = openerp;
-openerp.web.chrome = {};
-
-var QWeb = instance.web.qweb,
-    _t = instance.web._t;
+ var QWeb = instance.web.qweb;
+ var _t = instance.web._t;
 
  instance.web.WebClient.include({
     init: function(parent, client_options) {
@@ -27,4 +24,4 @@ var QWeb = instance.web.qweb,
     },
  }); 
 
-})();
+};
