@@ -7,6 +7,7 @@
     'depends': ['web'],
     'data': [
         'views.xml',
+        'js.xml',
         ],
     'installable': True
 }
