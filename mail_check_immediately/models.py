@@ -53,7 +53,12 @@ class FetchMailImmediately(models.AbstractModel):
 
     @api.model
     def get_last_update_time(self):
-        return self.env['fetchmail.server'].sudo().search([]).run_time
+        res = self.env['fetchmail.server'].sudo().search([('state', '=', 'done')])
+        array = [r.run_time for r in res]
+        if array:
+            return array[0]
+        else:
+            return None
 
     @api.model
     def run_fetchmail_manually(self):

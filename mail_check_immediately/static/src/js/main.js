@@ -38,8 +38,11 @@ openerp.mail_check_immediately = function(instance, local) {
         get_last_fetched_time: function(){
             var _this = this;
             this.imm_model.call('get_last_update_time', {context: new instance.web.CompoundContext()}).then(function(res){
-//                using jQuery timeago library
-                _this.$el.find('span.oe_view_manager_fetch_mail_imm_field').html($.timeago(res));
+                var value;
+                if (res)
+                    value = $.timeago(res);
+                value = value || 'undefined';
+                _this.$el.find('span.oe_view_manager_fetch_mail_imm_field').html(value);
             })
         },
 
