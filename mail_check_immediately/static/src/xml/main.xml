@@ -6,7 +6,7 @@
                 <div class="oe_view_manager_fetch_mail_imm">
                     <em>
                     <span>Mails fetched:</span>
-                    <a href="#" class="oe_fetch_new_mails">
+                    <a href="#" class="oe_fetch_new_mails" title="Click to fetch mails now">
                     <span class="oe_view_manager_fetch_mail_imm_field"></span>
                     </a>
                     </em>
