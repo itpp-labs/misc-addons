@@ -1,20 +1,14 @@
 # -*- coding: utf-8 -*-
-from openerp import http
+import datetime
 
-# class WebsiteSaleBirthdate(http.Controller):
-#     @http.route('/website_sale_birthdate/website_sale_birthdate/', auth='public')
-#     def index(self, **kw):
-#         return "Hello, world"
+import openerp.addons.website_sale.controllers.main as main
 
-#     @http.route('/website_sale_birthdate/website_sale_birthdate/objects/', auth='public')
-#     def list(self, **kw):
-#         return http.request.render('website_sale_birthdate.listing', {
-#             'root': '/website_sale_birthdate/website_sale_birthdate',
-#             'objects': http.request.env['website_sale_birthdate.website_sale_birthdate'].search([]),
-#         })
 
-#     @http.route('/website_sale_birthdate/website_sale_birthdate/objects/<model("website_sale_birthdate.website_sale_birthdate"):obj>/', auth='public')
-#     def object(self, obj, **kw):
-#         return http.request.render('website_sale_birthdate.object', {
-#             'object': obj
-#         })
+class WebsiteSaleBirthdate(main.website_sale):
+
+    def checkout_values(self, data=None):
+
+        values = super(WebsiteSaleBirthdate, self).checkout_values(data=None)
+        values['checkout']['birthdate'] = datetime.date.today()
+
+        return values
