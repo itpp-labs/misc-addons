@@ -9,14 +9,22 @@ class WebsiteSaleBirthdate(main.website_sale):
 
     def checkout_values(self, data=None):
 
-        values = super(WebsiteSaleBirthdate, self).checkout_values(data=None)
+        values = super(WebsiteSaleBirthdate, self).checkout_values(data)
 
         current_user = request.env.user
-        print '##################'
-        print current_user.id
-        print request.website.user_id.id
-        orm_partner = request.env['res.partner']
-        print orm_partner.browse(request.website.user_id.id).birthdate
-        values['checkout']['birthdate'] = datetime.date.today()
+
+        public = request.env.ref('base.public_partner')
+        orm_partner = request.env['res.partner'].sudo(public)
+
+        # if user is activated
+        if current_user.active:
+            partner_id = current_user.partner_id
+
+            partner_birthdate = orm_partner.browse(int(partner_id)).birthdate
+
+            if partner_birthdate:
+                values['checkout']['birthdate'] = partner_birthdate
 
         return values
+
+    main.website_sale.mandatory_billing_fields.append('birthdate')
