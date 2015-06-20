@@ -7,11 +7,8 @@
     'version': '1.0.0',
     'depends': ['project'],
     'data': [
-        'security/ir.model.access.csv',
         'js.xml',
         'views.xml',
-        'data.xml',
-        'wizard.xml',
     ],
     "installable": True
 }

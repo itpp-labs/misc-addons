@@ -3,32 +3,66 @@
 from openerp import models, fields, api
 import datetime
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from openerp.exceptions import ValidationError
 
 
 class project_project_auto_staging(models.Model):
     _inherit = 'project.project'
-    allow_automove = fields.Boolean('Allow automove', default=False)
+    allow_automove = fields.Boolean('Allow auto move', default=False)
 
 
-class autostaging(models.Model):
-    _name = 'project_task_auto_staging.autostaging'
+class project_task_type_auto_staging(models.Model):
+    _inherit = 'project.task.type'
 
-    testing_stage = fields.Char(string='Testing Stage')
-    done_stage = fields.Char(string='Done Stage')
-    cancell_stage = fields.Char(string='Cancell Stage')
-    delay_done = fields.Integer(string='Delay Done Stage')
-    delay_cancell = fields.Integer(string='Delay Cancel Stage')
+    to_stage_id = fields.Many2one('project.task.type')
+    delay = fields.Integer(default=12)
+    active_move = fields.Boolean('Enable auto move', default=False)
+
+    @api.one
+    @api.constrains('delay')
+    def _check_delay(self):
+        if self.delay <= 0:
+            raise ValidationError(
+                "Value of 'Delay' field  must be greater than 0")
 
 
 class project_task_auto_staging(models.Model):
     _inherit = 'project.task'
     allow = fields.Boolean(compute='_get_allow')
     delay = fields.Integer(
-        string='Delay', compute='_get_delay_done')
+        string='Delay', compute='_get_delay')
     to_stage = fields.Char(
         string='To stage', compute='_get_stage')
     when_date = fields.Date(
         string='When', compute='_get_when_date')
+
+    @api.one
+    def _get_allow(self):
+        self.allow = self.project_id.use_tasks and \
+            self.project_id.allow_automove and \
+            self.stage_id.active_move and self.stage_id.to_stage_id
+
+    @api.one
+    def _get_delay(self):
+        self.delay = self.stage_id.delay
+
+    @api.one
+    def _get_stage(self):
+        self.to_stage = self.stage_id.to_stage_id.name
+
+    @api.one
+    def _get_when_date(self):
+        delta = datetime.timedelta(days=self.delay)
+        self.when_date = datetime.datetime.strptime(
+            self.write_date, DEFAULT_SERVER_DATETIME_FORMAT) + delta
+
+    @api.model
+    def get_rest_day(self, write_date):
+        today = datetime.datetime.now()
+        last_date = datetime.datetime.strptime(
+            write_date, DEFAULT_SERVER_DATETIME_FORMAT)
+        delta = today - last_date
+        return delta.days
 
     def _create_msg_and_notify(self, task, recipients):
         body = "<strong>Autostaging:</strong> Task {0} of project {1}\
@@ -70,46 +104,4 @@ class project_task_auto_staging(models.Model):
             if task.allow and today == task.when_date:
                 self._move_to_stage(task)
                 self._create_msg_and_notify(task, notify_users)
-
-    @api.one
-    def _get_when_date(self):
-        delta = datetime.timedelta(days=self.delay)
-        self.when_date = datetime.datetime.strptime(
-            self.write_date, DEFAULT_SERVER_DATETIME_FORMAT) + delta
-
-    @api.one
-    def _get_allow(self):
-        as_env = self.env['project_task_auto_staging.autostaging']
-        records = as_env.search([])
-        if not self.project_id.allow_automove or \
-           self.stage_id.name == records[0].done_stage or \
-           self.stage_id.name == records[0].cancell_stage:
-            self.alow = False
-        else:
-            self.allow = True
-
-    @api.one
-    def _get_delay_done(self):
-        as_env = self.env['project_task_auto_staging.autostaging']
-        records = as_env.search([])
-        if self.stage_id.name == records[0].testing_stage:
-            self.delay = records[0].delay_done
-        else:
-            self.delay = records[0].delay_cancell
-
-    @api.one
-    def _get_stage(self):
-        as_env = self.env['project_task_auto_staging.autostaging']
-        records = as_env.search([])
-        if self.stage_id.name == records[0].testing_stage:
-            self.to_stage = records[0].done_stage
-        else:
-            self.to_stage = records[0].cancell_stage
-
-    @api.model
-    def get_rest_day(self, write_date):
-        today = datetime.datetime.now()
-        last_date = datetime.datetime.strptime(
-            write_date, DEFAULT_SERVER_DATETIME_FORMAT)
-        delta = today - last_date
-        return delta.days
+        print "IR_CRON: project_task_auto_staging done"

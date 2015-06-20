@@ -32,6 +32,6 @@ openerp.project_task_auto_staging = function(instance) {
         },
  
     });
-    instance.web.form.widgets.add('days', 'instance.project_task_auto_staging.Days');
+    instance.web.form.widgets.add('autostaging_days', 'instance.project_task_auto_staging.Days');
 
 };

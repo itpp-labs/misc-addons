@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+
         <!-- Cron job for automatically move -->
         <record forcecreate="True" id="ir_cron_autostaging"
                 model="ir.cron">
@@ -23,16 +24,33 @@
           <field name="arch" type="xml">
 				<data>
 				  <xpath expr="//div[@name='options_active']" position="inside">
-					 <field name="allow_automove" attrs="{'readonly': [('use_tasks', '=', False)]}"/>
-                     <label for="allow_automove"/>
+					 <field name="allow_automove" attrs="{'invisible': [('use_tasks', '=', False)]}"/>
+                     <label for="allow_automove" attrs="{'invisible': [('use_tasks', '=', False)]}"/>
 				  </xpath>
 				</data>
 			 </field>
 		  </record>
 
+         <record id="view_project_task_type_form_autostaging" model="ir.ui.view">
+          <field name="name">project.task.type.form.autostaging</field>
+          <field name="model">project.task.type</field>
+          <field name="inherit_id" ref="project.task_type_edit"/>
+          <field name="arch" type="xml">
+				<data>
+				  <xpath expr="//field[@name='sequence']" position="after">
+       	    	     <field name="active_move"/>
+                     <group  colspan="2" col="2" string="Autostaging" 
+                             attrs="{'invisible':[('active_move', '=', False)]}">
+			    		 <field name="to_stage_id" string="To stage"/>
+        	    	     <field name="delay"> <span>days</span> </field>
+                     </group>
+				  </xpath>
+				</data>
+			 </field>
+		  </record>
 
-        <record id="view_task_form_automove" model="ir.ui.view">
-          <field name="name">project.task.form.automove</field>
+        <record id="view_project_task_form_autostaging" model="ir.ui.view">
+          <field name="name">project.task.form.autostaging</field>
           <field name="model">project.task</field>
           <field name="inherit_id" ref="project.view_task_form2"/>
           <field name="arch" type="xml">
@@ -40,14 +58,15 @@
 				  <xpath expr="//field[@name='reviewer_id']" position="after">
                      <group  colspan="2" col="2" string="Autostaging" attrs="{'invisible':[('allow','=',False)]}">
 			    		 <field name="to_stage" string="To stage"/> 
-        	    	     <field name="when_date"  widget="days"/> 
+        	    	     <field name="when_date"  widget="autostaging_days"/> 
         	    	     <field name="allow" invisible="1"/> 
         	    	     <field name="write_date" invisible="1"/> 
         	    	     <field name="delay" invisible="1"/> 
                      </group>
 				  </xpath>
-				</data>
+			 	</data>
 			 </field>
-		  </record> 
+		  </record>
+
 	 </data>
 </openerp>
