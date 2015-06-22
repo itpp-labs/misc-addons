@@ -19,7 +19,7 @@ How to apply groups for some users:
 * tick access groups you need. In the main, you have to use only ones from "Custom User Groups" sector, because all inherited tick boxes will be ticked automatically, after you click save.
 * click save
 
-Please note, that if you make changes in custom groups, then you have to repeat process of applying groups for each related users. E.g. If you delete some technical group from custom group, then that group would be kept in related users, because there is no way to figure out is it was added by inheritance or manually as a extra access to that user.
+Please note, that if you delete some technical group from custom group, then you have to repeat process of applying groups for each related users. If you don't repeat applying process then removed group would be kept in related users, because there is no way to figure out is it was added by inheritance or manually as a extra access to that user.
 
 *See access_custom module as example of usage.*
 
