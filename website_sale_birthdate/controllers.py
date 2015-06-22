@@ -12,9 +12,7 @@ class WebsiteSaleBirthdate(main.website_sale):
         values = super(WebsiteSaleBirthdate, self).checkout_values(data)
 
         current_user = request.env.user
-
-        public = request.env.ref('base.public_partner')
-        orm_partner = request.env['res.partner'].sudo(public)
+        orm_partner = request.env['res.partner']
 
         # if user is activated
         if current_user.active:
@@ -27,4 +25,11 @@ class WebsiteSaleBirthdate(main.website_sale):
 
         return values
 
-    main.website_sale.mandatory_billing_fields.append('birthdate')
+    def checkout_parse(self, address_type, data, remove_prefix=False):
+
+        val = super(WebsiteSaleBirthdate, self).checkout_parse(address_type, data, remove_prefix)
+
+        if address_type == 'billing':
+            val['birthdate'] = data['birthdate']
+
+        return val
