@@ -32,7 +32,7 @@ class reminder(models.AbstractModel):
         event = self.env['calendar.event'].with_context({}).create(vals)
         return event
 
-    @api.one
+    @api.model
     def _check_update_reminder(self, vals):
         if not vals:
             return False
@@ -55,10 +55,10 @@ class reminder(models.AbstractModel):
             return
         if not self._check_update_reminder(vals):
             return
-        self._do_update_reminder()
+        self._do_update_reminder(update_date=vals.get(self._reminder_date_field))
 
     @api.one
-    def _do_update_reminder(self):
+    def _do_update_reminder(self, update_date=True):
         vals = {'name': self._get_reminder_event_name()[0]}
 
         event = self.reminder_event_id
@@ -69,23 +69,24 @@ class reminder(models.AbstractModel):
         if not event.reminder_res_id:
             vals['reminder_res_id'] = self.id
 
-        fdate = self._fields[self._reminder_date_field]
-        fdate_value = getattr(self, self._reminder_date_field)
-        if not fdate_value:
-            event.unlink()
-            return
-        if fdate.type == 'date':
-            vals.update({
-                'allday': True,
-                'start_date': fdate_value,
-                'stop_date': fdate_value,
-            })
-        elif fdate.type == 'datetime':
-            vals.update({
-                'allday': False,
-                'start_datetime': fdate_value,
-                'stop_datetime': fdate_value,
-            })
+        if update_date:
+            fdate = self._fields[self._reminder_date_field]
+            fdate_value = getattr(self, self._reminder_date_field)
+            if not fdate_value:
+                event.unlink()
+                return
+            if fdate.type == 'date':
+                vals.update({
+                    'allday': True,
+                    'start_date': fdate_value,
+                    'stop_date': fdate_value,
+                })
+            elif fdate.type == 'datetime':
+                vals.update({
+                    'allday': False,
+                    'start_datetime': fdate_value,
+                    'stop_datetime': fdate_value,
+                })
         if self._reminder_description_field:
             vals['description'] = getattr(self, self._reminder_description_field)
 
