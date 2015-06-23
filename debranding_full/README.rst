@@ -3,6 +3,8 @@ Full Debranding
 
 Removes references to odoo.
 
+Note, that this module will install website module. If you don't need one, consider to install only some of modules from dependencies.
+
 disable_openerp_online
 ----------------------
 
