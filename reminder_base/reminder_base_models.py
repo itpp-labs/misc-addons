@@ -55,7 +55,7 @@ class reminder(models.AbstractModel):
             return
         if not self._check_update_reminder(vals):
             return
-        self._do_update_reminder(update_date=vals.get(self._reminder_date_field))
+        self._do_update_reminder(update_date=self._reminder_date_field in vals)
 
     @api.one
     def _do_update_reminder(self, update_date=True):
