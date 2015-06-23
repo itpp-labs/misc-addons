@@ -14,6 +14,7 @@ openerp.mail_move_message = function (session) {
                 'default_message_id': this.id
             }
             var action = {
+                name: _t('Relocate Message'),
                 type: 'ir.actions.act_window',
                 res_model: 'mail_move_message.wizard',
                 view_mode: 'form',
