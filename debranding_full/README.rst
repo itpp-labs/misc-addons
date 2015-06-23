@@ -8,6 +8,11 @@ disable_openerp_online
 
 The module depends on *disable_openerp_online* module from that repository: https://github.com/OCA/server-tools
 
+website_debranding
+------------------
+
+The module depends on *website_debranding* module from that repository: https://github.com/yelizariev/website-addons
+
 im_odoo_support
 ---------------
 
