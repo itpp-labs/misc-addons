@@ -5,9 +5,11 @@
     <template id="menu_secondary" inherit_id="web.menu_secondary">
        <xpath expr="//div[@class='oe_footer']" position="replace"></xpath>
     </template>
-  </data>
 
-  <data>
+    <template id="login_layout" inherit_id="web.login_layout">
+       <xpath expr="//div[@class='oe_single_form_footer']" position="replace"></xpath>
+    </template>
+
     <template id="web_debranding.web_layout" inherit_id="web.layout">
        <xpath expr="//title" position="replace"></xpath>
     </template>
