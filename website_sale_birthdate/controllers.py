@@ -33,3 +33,12 @@ class WebsiteSaleBirthdate(main.website_sale):
             val['birthdate'] = data['birthdate']
 
         return val
+
+    def checkout_form_validate(self, data):
+
+        error = super(WebsiteSaleBirthdate, self).checkout_form_validate(data)
+
+        if not data.get('birthdate'):
+            error['birthdate'] = 'missing'
+
+        return error
