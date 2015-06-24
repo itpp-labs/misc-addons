@@ -8,12 +8,13 @@ class wizard(models.TransientModel):
     message_body = fields.Html(related='message_id.body', string='Message to move', readonly=True)
     message_moved_by_message_id = fields.Many2one('mail.message', related='message_id.moved_by_message_id', string='Moved with', readonly=True)
     message_moved_by_user_id = fields.Many2one('res.users', related='message_id.moved_by_user_id', string='Moved by', readonly=True)
+    message_is_moved = fields.Boolean(string='Is Moved', related='message_id.is_moved', readonly=True)
     parent_id = fields.Many2one('mail.message', string='Search by name')
     model_id = fields.Many2one('ir.model', string='Record type')
     res_id = fields.Integer('Record ID')
     record_url = fields.Char('Link to record', readonly=True)
     can_move = fields.Boolean('Can move', compute='get_can_move')
-    move_back = fields.Boolean('Move to origin')
+    move_back = fields.Boolean('Move to origin', help='Move  message and submessages to original place')
 
     @api.depends('message_id')
     @api.one
@@ -115,6 +116,7 @@ class wizard(models.TransientModel):
 class mail_message(models.Model):
     _inherit = 'mail.message'
 
+    is_moved = fields.Boolean('Is moved')
     moved_from_res_id = fields.Integer('Related Document ID (Original)')
     moved_from_model = fields.Char('Related Document Model (Original)')
     moved_from_parent_id = fields.Many2one('mail.message', 'Parent Message (Original)', ondelete='set null')
@@ -133,36 +135,43 @@ class mail_message(models.Model):
                 ids = ids + new_ids
                 continue
             break
-        self.all_child_ids = ids
+        moved_childs = self.search([('moved_by_message_id', '=', self.id)]).ids
+        self.all_child_ids = ids + moved_childs
 
     @api.one
     def move(self, parent_id, res_id, model, move_back):
-        moved_by_message_id = self.id
-        moved_by_user_id = self.env.user.id
-        first_move = not self.moved_by_user_id
-        vals = {'parent_id': parent_id,
-                'res_id': res_id,
-                'model': model,
-                'moved_by_user_id': moved_by_user_id,
-                'moved_by_message_id': moved_by_message_id}
-        if first_move:
-            # moved_from_* variables contain not last, but original
-            # reference
-            vals['moved_from_parent_id'] = self.parent_id.id
-        elif move_back:
-            # clear moved_from_* variabls if we move everything back
-            vals['moved_from_parent_id'] = None
+        vals = {}
+        if move_back:
+            # clear variables if we move everything back
+            vals['is_moved'] = False
             vals['moved_by_user_id'] = None
             vals['moved_by_message_id'] = None
 
+            vals['moved_from_res_id'] = None
+            vals['moved_from_model'] = None
+            vals['moved_from_parent_id'] = None
+        else:
+            vals['parent_id'] = parent_id
+            vals['res_id'] = res_id
+            vals['model'] = model
+
+            vals['is_moved'] = True
+            vals['moved_by_user_id'] = self.env.user.id
+            vals['moved_by_message_id'] = self.id
+
         for r in self.all_child_ids:
             r_vals = vals.copy()
-            if not r.moved_by_user_id or r.id == self.id and first_move:
+            if not r.is_moved:
+                # moved_from_* variables contain not last, but original
+                # reference
+                r_vals['moved_from_parent_id'] = r.parent_id.id
                 r_vals['moved_from_res_id'] = r.res_id
                 r_vals['moved_from_model'] = r.model
             elif move_back:
-                r_vals['moved_from_res_id'] = None
-                r_vals['moved_from_model'] = None
+                r_vals['parent_id'] = r.moved_from_parent_id.id
+                r_vals['res_id'] = r.moved_from_res_id
+                r_vals['model'] = r.moved_from_model
+            print 'update message', r, r_vals
             r.sudo().write(r_vals)
 
     def name_get(self, cr, uid, ids, context=None):
@@ -182,5 +191,5 @@ class mail_message(models.Model):
 
     def _message_read_dict(self, cr, uid, message, parent_id=False, context=None):
         res = super(mail_message, self)._message_read_dict(cr, uid, message, parent_id, context)
-        res['is_moved'] = bool(message.moved_by_user_id)
+        res['is_moved'] = message.is_moved
         return res
