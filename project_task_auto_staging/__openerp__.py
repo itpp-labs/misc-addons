@@ -9,6 +9,7 @@
     'data': [
         'js.xml',
         'views.xml',
+        'data.xml',
     ],
     "installable": True
 }
