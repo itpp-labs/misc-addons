@@ -140,7 +140,11 @@ class mail_message(models.Model):
         moved_by_message_id = self.id
         moved_by_user_id = self.env.user.id
         first_move = not self.moved_by_user_id
-        vals = {'parent_id': parent_id}
+        vals = {'parent_id': parent_id,
+                'res_id': res_id,
+                'model': model,
+                'moved_by_user_id': moved_by_user_id,
+                'moved_by_message_id': moved_by_message_id}
         if first_move:
             # moved_from_* variables contain not last, but original
             # reference
@@ -148,24 +152,18 @@ class mail_message(models.Model):
         elif move_back:
             # clear moved_from_* variabls if we move everything back
             vals['moved_from_parent_id'] = None
+            vals['moved_by_user_id'] = None
+            vals['moved_by_message_id'] = None
 
-        self.sudo().write(vals)
         for r in self.all_child_ids:
-            vals = {'res_id': res_id,
-                    'model': model,
-                    'moved_by_user_id': moved_by_user_id,
-                    'moved_by_message_id': moved_by_message_id}
-            if move_back:
-                vals['moved_by_user_id'] = None
-                vals['moved_by_message_id'] = None
-
+            r_vals = vals.copy()
             if not r.moved_by_user_id or r.id == self.id and first_move:
-                vals['moved_from_res_id'] = r.res_id
-                vals['moved_from_model'] = r.model
+                r_vals['moved_from_res_id'] = r.res_id
+                r_vals['moved_from_model'] = r.model
             elif move_back:
-                vals['moved_from_res_id'] = None
-                vals['moved_from_model'] = None
-            r.sudo().write(vals)
+                r_vals['moved_from_res_id'] = None
+                r_vals['moved_from_model'] = None
+            r.sudo().write(r_vals)
 
     def name_get(self, cr, uid, ids, context=None):
         if not (context or {}).get('extended_name'):
