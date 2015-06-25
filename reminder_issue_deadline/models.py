@@ -6,4 +6,4 @@ class task(models.Model):
     _inherit = ['project.issue', 'reminder']
 
     _reminder_date_field = 'date_deadline'
-    _reminder_attendees_fields = ['user_id', 'reviewer_id']
+    _reminder_attendees_fields = ['user_id']
