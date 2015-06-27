@@ -13,7 +13,7 @@
             <field name="groups_id" eval="[(6,0,[ref('base.group_user')])]"/>
             <!--<field name="image" type="base64" file="base/static/img/public_user-image.png"/>-->
             <field name="partner_id" ref="notif_partner"/>
-            <field name="active" eval="False"/>
+            <field name="active" eval="True"/>
         </record>
 	</data>
 </openerp>
