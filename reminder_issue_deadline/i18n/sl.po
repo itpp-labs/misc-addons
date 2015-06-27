@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-26 12:58+0000\n"
-"PO-Revision-Date: 2015-06-26 15:00+0100\n"
+"POT-Creation-Date: 2015-06-27 05:10+0000\n"
+"PO-Revision-Date: 2015-06-27 07:12+0100\n"
 "Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>\n"
 "Language-Team: Slovenian <translate@matmoz.si>\n"
 "MIME-Version: 1.0\n"
@@ -27,5 +27,10 @@ msgstr "Projektna zadeva"
 #: field:project.issue,reminder_event_id:0
 msgid "Reminder Calendar Event"
 msgstr "Opomnik koledarskega dogodka"
+
+#. module: reminder_issue_deadline
+#: view:project.issue:reminder_issue_deadline.project_issue_form_view_sdesk
+msgid "Reminders"
+msgstr "Opomniki"
 
 

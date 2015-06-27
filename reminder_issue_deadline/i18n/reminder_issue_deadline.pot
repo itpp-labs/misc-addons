@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-26 12:58+0000\n"
-"PO-Revision-Date: 2015-06-26 12:58+0000\n"
+"POT-Creation-Date: 2015-06-27 05:10+0000\n"
+"PO-Revision-Date: 2015-06-27 05:10+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,5 +23,10 @@ msgstr ""
 #. module: reminder_issue_deadline
 #: field:project.issue,reminder_event_id:0
 msgid "Reminder Calendar Event"
+msgstr ""
+
+#. module: reminder_issue_deadline
+#: view:project.issue:reminder_issue_deadline.project_issue_form_view_sdesk
+msgid "Reminders"
 msgstr ""
 
