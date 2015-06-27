@@ -2,7 +2,7 @@
     'name': "Reminders and Agenda (technical core)",
     'version': '1.0.2',
     'author': 'Ivan Yelizariev',
-    'category': 'Custom',
+    'category': 'Reminders and Agenda',
     'website': 'https://yelizariev.github.io',
     'price': 9.00,
     'currency': 'EUR',
