@@ -6,7 +6,7 @@
     <field name="inherit_id" ref="crm.crm_case_phone_form_view"/>
     <field name="arch" type="xml">
         <xpath expr="//field[@name='date']" position="after">
-            <field name="reminder_alarm_ids" widget="many2many_tags"/>
+            <field name="reminder_alarm_ids" widget="many2many_tags" string="Reminders"/>
         </xpath>
     </field>
 </record>
