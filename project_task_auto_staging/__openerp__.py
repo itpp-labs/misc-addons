@@ -7,7 +7,6 @@
     'version': '1.0.0',
     'depends': ['project'],
     'data': [
-        'js.xml',
         'views.xml',
         'data.xml',
     ],
