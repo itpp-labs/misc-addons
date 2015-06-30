@@ -23,7 +23,7 @@ class project_task_type_auto_staging(models.Model):
         if not self.active_move:
             self.delay_automove = 0
         else:
-            self.delay_automove = 12
+            self.delay_automove = 30
 
     @api.one
     @api.constrains('delay_automove')
@@ -68,11 +68,14 @@ class project_task_auto_staging(models.Model):
 
     @api.one
     def _get_days_to_automove(self):
-        today = datetime.datetime.now()
-        date_modifications = datetime.datetime.strptime(
-            self.write_date, DEFAULT_SERVER_DATETIME_FORMAT)
-        delta = today - date_modifications
-        self.days_to_automove = self.delay_automove - delta.days
+        if self.allow_automove:
+            today = datetime.datetime.now()
+            date_modifications = datetime.datetime.strptime(
+                self.write_date, DEFAULT_SERVER_DATETIME_FORMAT)
+            delta = today - date_modifications
+            self.days_to_automove = self.delay_automove - delta.days
+        else:
+            self.days_to_automove = -1
 
     @api.model
     def _cron_move_tasks(self):

@@ -72,7 +72,6 @@
 				  <xpath expr="//field[@name='reviewer_id']" position="after">
                      <group  colspan="2" col="2" string="Autostaging" attrs="{'invisible':[('allow_automove','=',False)]}">
                          <field name="automove_to_stage_id" string='To stage'/>
-        	    	     <field name="when_date_automove"/>
         	    	     <field name="days_to_automove"/>
         	    	     <field name="allow_automove" invisible="1"/>
                      </group>
