@@ -44,7 +44,7 @@ class project_task_auto_staging(models.Model):
     when_date_automove = fields.Date(
         string='When', compute='_get_when_date_automove')
     days_to_automove = fields.Integer(
-        string='Days to automove:', compute='_get_days_to_automove',
+        string='Days to automove', compute='_get_days_to_automove',
         track_visibility='always')
     _track = {
         'stage_id': {
