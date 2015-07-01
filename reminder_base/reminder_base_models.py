@@ -33,17 +33,6 @@ class reminder(models.AbstractModel):
         return event
 
     @api.model
-    def _check_update_reminder(self, vals):
-        if not vals:
-            return False
-        fields = ['reminder_alarm_ids',
-                  self._reminder_date_field,
-                  self._reminder_description_field]
-        if not any([k in vals for k in fields if k]):
-            return False
-        return True
-
-    @api.model
     def _init_reminder(self):
         domain = [(self._reminder_date_field, '!=', False)]
         self.search(domain)._do_update_reminder()
@@ -53,10 +42,15 @@ class reminder(models.AbstractModel):
         if self._context.get('do_not_update_reminder'):
             # ignore own calling of write function
             return
-        if not self._check_update_reminder(vals):
+        if not vals:
             return
         if not self.reminder_event_id and self._reminder_date_field not in vals:
-            # don't create reminder if date is not set
+            # don't allow to create reminder if date is not set
+            return
+        fields = ['reminder_alarm_ids',
+                  self._reminder_date_field,
+                  self._reminder_description_field]
+        if not any([k in vals for k in fields if k]):
             return
         self._do_update_reminder(update_date=self._reminder_date_field in vals)
 
@@ -113,7 +107,7 @@ class reminder(models.AbstractModel):
         event.write(vals)
 
     @api.model
-    def _check_reminder_event(self, vals):
+    def _check_and_create_reminder_event(self, vals):
         fields = [self._reminder_date_field]
 
         if any([k in vals for k in fields]):
@@ -123,7 +117,7 @@ class reminder(models.AbstractModel):
 
     @api.model
     def create(self, vals):
-        vals = self._check_reminder_event(vals)
+        vals = self._check_and_create_reminder_event(vals)
         res = super(reminder, self).create(vals)
         res._update_reminder(vals)
         return res
@@ -131,7 +125,7 @@ class reminder(models.AbstractModel):
     @api.one
     def write(self, vals):
         if not self.reminder_event_id:
-            vals = self._check_reminder_event(vals)
+            vals = self._check_and_create_reminder_event(vals)
         res = super(reminder, self).write(vals)
         self._update_reminder(vals)
         return res
