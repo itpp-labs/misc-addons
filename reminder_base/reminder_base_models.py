@@ -55,6 +55,9 @@ class reminder(models.AbstractModel):
             return
         if not self._check_update_reminder(vals):
             return
+        if not self.reminder_event_id and self._reminder_date_field not in vals:
+            # don't create reminder if date is not set
+            return
         self._do_update_reminder(update_date=self._reminder_date_field in vals)
 
     @api.one
@@ -111,8 +114,7 @@ class reminder(models.AbstractModel):
 
     @api.model
     def _check_reminder_event(self, vals):
-        fields = ['reminder_alarm_ids',
-                  self._reminder_date_field]
+        fields = [self._reminder_date_field]
 
         if any([k in vals for k in fields]):
             event = self._create_reminder_event()
