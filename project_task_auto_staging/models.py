@@ -2,6 +2,7 @@
 
 from openerp import models, fields, api
 import datetime
+import time
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from openerp.exceptions import ValidationError
 
@@ -35,14 +36,15 @@ class project_task_type_auto_staging(models.Model):
 
 class project_task_auto_staging(models.Model):
     _inherit = 'project.task'
-    allow_automove = fields.Boolean(compute='_get_allow_automove')
+    allow_automove = fields.Boolean(
+        compute='_get_allow_automove', search='_search_allow_automove')
     delay_automove = fields.Integer(
         string='Delay', related='stage_id.delay_automove', readonly=True)
     automove_to_stage_id = fields.Many2one(
         'project.task.type', readonly=True,
         related='stage_id.to_stage_automove_id')
     when_date_automove = fields.Date(
-        string='When', compute='_get_when_date_automove')
+        string='When', compute='_get_when_date_automove', store=True)
     days_to_automove = fields.Integer(
         string='Days to automove', compute='_get_days_to_automove',
         track_visibility='always')
@@ -54,6 +56,13 @@ class project_task_auto_staging(models.Model):
         }
     }
 
+    def _search_allow_automove(self, operator, value):
+        if operator == '=' and value is True:
+            return ['&', '&', '&', ('project_id.use_tasks', '=', True),
+                    ('project_id.allow_automove', '=', True),
+                    ('stage_id.active_move', '=', True),
+                    ('stage_id.to_stage_automove_id', '!=', False)]
+
     @api.one
     def _get_allow_automove(self):
         self.allow_automove = self.project_id.use_tasks and \
@@ -61,6 +70,7 @@ class project_task_auto_staging(models.Model):
             self.stage_id.active_move and self.stage_id.to_stage_automove_id
 
     @api.one
+    @api.depends('write_date', 'delay_automove')
     def _get_when_date_automove(self):
         delta = datetime.timedelta(days=self.delay_automove)
         self.when_date_automove = datetime.datetime.strptime(
@@ -79,10 +89,9 @@ class project_task_auto_staging(models.Model):
 
     @api.model
     def _cron_move_tasks(self):
-        today = fields.Date.context_today(self)
-        pt_env = self.env['project.task']
-        tasks = pt_env.search([])
+        tasks = self.env['project.task'].search([
+            ('allow_automove', '=', True),
+            ('when_date_automove', '<=', time.strftime('%Y-%m-%d'))])
         for task in tasks:
-            if task.allow_automove and today == task.when_date_automove:
-                task.with_context(auto_staging=True).write(
-                    {'stage_id':  task.automove_to_stage_id.id})
+            task.with_context(auto_staging=True).write(
+                {'stage_id':  task.automove_to_stage_id.id})
