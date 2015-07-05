@@ -22,10 +22,9 @@
             <field name="inherit_id" ref="project.edit_project"/>
             <field name="arch" type="xml">
                 <data>
-                    <xpath expr="//div[@name='options_active']" position="inside">
+                    <xpath expr="//group[@name='misc']" position="inside">
                         <field name="allow_automove" attrs="{'invisible': [('use_tasks', '=', False)]}"/>
-                        <label for="allow_automove" attrs="{'invisible': [('use_tasks', '=', False)]}"/>
-                    </xpath>
+                     </xpath>
                 </data>
             </field>
         </record>
