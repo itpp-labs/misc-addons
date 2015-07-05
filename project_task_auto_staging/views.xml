@@ -51,7 +51,7 @@
             <field name="inherit_id" ref="project.view_task_form2"/>
             <field name="arch" type="xml">
                 <data>
-                    <xpath expr="//field[@name='reviewer_id']" position="after">
+                    <xpath expr="//page[@string='Extra Info']" position="inside">
                         <group  colspan="2" col="2" string="Autostaging" attrs="{'invisible':[('allow_automove','=',False)]}">
                             <field name="automove_to_stage_id" string='To stage'/>
                             <field name="days_to_automove"/>
