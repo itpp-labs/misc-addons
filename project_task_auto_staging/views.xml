@@ -4,7 +4,7 @@
         <!-- Cron job for automatically move -->
         <record forcecreate="True" id="ir_cron_autostaging"
                 model="ir.cron">
-            <field name="name">Autostaging</field>
+            <field name="name">Automove tasks</field>
             <field eval="True" name="active" />
             <field name="user_id" ref="base.user_root" />
             <field name="interval_number">1</field>
