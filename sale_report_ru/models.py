@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 from openerp.osv import osv,fields
-from pytils import numeral
+
+try:
+    from pytils import numeral
+except ImportError:
+    pass
 
 class res_partner(osv.Model):
     _inherit = "res.partner"

@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 import mapper
-from pandas import DataFrame
+try:
+    from pandas import DataFrame
+except ImportError:
+    pass
 import logging
 _logger = logging.getLogger(__name__)
 

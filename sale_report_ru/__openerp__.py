@@ -18,6 +18,9 @@
     * предложение (заменяет встроенный отчет)
 
     """,
+    "external_dependencies": {
+        'python': ['pytils']
+    },
     "depends" : ["sale", "account", "res_partner_ru", "res_partner_bank_swift"],
     "data":[
         'report.xml',

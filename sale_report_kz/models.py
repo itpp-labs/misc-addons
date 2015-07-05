@@ -1,6 +1,9 @@
 from openerp import fields, models
 from openerp.addons.sale_report_ru.models import money_to_words
-from pytils import numeral
+try:
+    from pytils import numeral
+except ImportError:
+    pass
 
 class sale_order_line(models.Model):
     _inherit = 'sale.order.line'

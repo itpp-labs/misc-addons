@@ -9,6 +9,9 @@ Depends on:
 
 * http://pandas.pydata.org/
     """,
+    "external_dependencies": {
+        'python': ['pandas']
+    },
     'depends' : ['base'],
     'data':[
         ],

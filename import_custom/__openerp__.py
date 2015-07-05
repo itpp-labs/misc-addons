@@ -7,6 +7,9 @@
     'description': """
     Prepare some data for import
     """,
+    "external_dependencies": {
+        'python': ['MySQLdb', 'pandas']
+    },
     'depends' : ['import_framework', 'product', 'contacts', 'website_sale'],
     'data':[
         'wizard/upload.xml',
