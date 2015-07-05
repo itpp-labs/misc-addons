@@ -8,10 +8,13 @@ import base64
 import tempfile 
 
 
-import MySQLdb
-import MySQLdb.cursors
+try:
+    import MySQLdb
+    import MySQLdb.cursors
 
-from pandas import DataFrame
+    from pandas import DataFrame
+except ImportError:
+    pass
 
 from ..import_sugarcrm import import_sugarcrm
 from ..import_kashflow import import_kashflow

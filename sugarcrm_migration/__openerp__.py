@@ -16,6 +16,9 @@ Odoo optimisation:
 * remove website module in order to optimise importing data in ir.attachment table
 
     """,
+    "external_dependencies": {
+        'python': ['MySQLdb', 'pandas']
+    },
     'depends' : ['import_framework', 'crm', 'project', 'sale_mediation_custom', 'multi_company'],
     'data':[
         'wizard/upload.xml',
