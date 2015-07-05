@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="mt_auto_move" model="mail.message.subtype">
+            <field name="name">Autostaging task</field>
+            <field name="res_model">project.task</field>
+            <field name="default" eval="False"/>
+            <field name="description">Autostaging task</field>
+        </record>
+	</data>
+</openerp>
