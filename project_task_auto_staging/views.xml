@@ -37,11 +37,10 @@
             <field name="arch" type="xml">
                 <data>
                     <xpath expr="//field[@name='sequence']" position="after">
-                        <field name="active_move"/>
-                        <group  colspan="2" col="2" string="Autostaging"
-                                attrs="{'invisible':[('active_move', '=', False)]}">
-                            <field name="to_stage_automove_id" string="To stage" attrs="{'required': [('active_move','=',True)]}"/>
-                            <field name="delay_automove" attrs="{'required': [('active_move','=',True)]}"> <span>days</span> </field>
+                        <group  colspan="2" col="2" string="Autostaging">
+                            <field name="active_move"/>
+                            <field name="to_stage_automove_id" string="To stage" attrs="{'required': [('active_move','=',True)], 'readonly':[('active_move', '=', False)]}"/>
+                            <field name="delay_automove" attrs="{'required': [('active_move','=',True)], 'readonly':[('active_move', '=', False)]}"> <span>days</span> </field>
                         </group>
                     </xpath>
                 </data>
