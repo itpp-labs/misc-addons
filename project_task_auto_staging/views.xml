@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-
         <!-- Cron job for automatically move -->
         <record forcecreate="True" id="ir_cron_autostaging"
                 model="ir.cron">
@@ -17,68 +16,68 @@
             <field eval="'()'" name="args" />
         </record>
 
-         <record id="view_project_form_allow_automove" model="ir.ui.view">
-          <field name="name">project.form.allow.automove</field>
-          <field name="model">project.project</field>
-          <field name="inherit_id" ref="project.edit_project"/>
-          <field name="arch" type="xml">
-				<data>
-				  <xpath expr="//div[@name='options_active']" position="inside">
-					 <field name="allow_automove" attrs="{'invisible': [('use_tasks', '=', False)]}"/>
-                     <label for="allow_automove" attrs="{'invisible': [('use_tasks', '=', False)]}"/>
-				  </xpath>
-				</data>
-			 </field>
-		  </record>
+        <record id="view_project_form_allow_automove" model="ir.ui.view">
+            <field name="name">project.form.allow.automove</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//div[@name='options_active']" position="inside">
+                        <field name="allow_automove" attrs="{'invisible': [('use_tasks', '=', False)]}"/>
+                        <label for="allow_automove" attrs="{'invisible': [('use_tasks', '=', False)]}"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
 
-         <record id="view_project_task_type_form_autostaging" model="ir.ui.view">
-          <field name="name">project.task.type.form.autostaging</field>
-          <field name="model">project.task.type</field>
-          <field name="inherit_id" ref="project.task_type_edit"/>
-          <field name="arch" type="xml">
-				<data>
-				  <xpath expr="//field[@name='sequence']" position="after">
-       	    	     <field name="active_move"/>
-                     <group  colspan="2" col="2" string="Autostaging" 
-                             attrs="{'invisible':[('active_move', '=', False)]}">
-			    		 <field name="to_stage_automove_id" string="To stage" attrs="{'required': [('active_move','=',True)]}"/>
-        	    	     <field name="delay_automove" attrs="{'required': [('active_move','=',True)]}"> <span>days</span> </field>
-                     </group>
-				  </xpath>
-				</data>
-			 </field>
-		  </record>
+        <record id="view_project_task_type_form_autostaging" model="ir.ui.view">
+            <field name="name">project.task.type.form.autostaging</field>
+            <field name="model">project.task.type</field>
+            <field name="inherit_id" ref="project.task_type_edit"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='sequence']" position="after">
+                        <field name="active_move"/>
+                        <group  colspan="2" col="2" string="Autostaging"
+                                attrs="{'invisible':[('active_move', '=', False)]}">
+                            <field name="to_stage_automove_id" string="To stage" attrs="{'required': [('active_move','=',True)]}"/>
+                            <field name="delay_automove" attrs="{'required': [('active_move','=',True)]}"> <span>days</span> </field>
+                        </group>
+                    </xpath>
+                </data>
+            </field>
+        </record>
 
 
-         <record id="view_project_task_type_tree_autostaging" model="ir.ui.view">
-          <field name="name">project.task.type.tree.autostaging</field>
-          <field name="model">project.task.type</field>
-          <field name="inherit_id" ref="project.task_type_tree"/>
-          <field name="arch" type="xml">
-				<data>
-				  <xpath expr="//field[@name='fold']" position="after">
-     	              <field name="active_move" string="Enable auto move"/>
-				  </xpath>
-				</data>
-			 </field>
-		  </record> 
+        <record id="view_project_task_type_tree_autostaging" model="ir.ui.view">
+            <field name="name">project.task.type.tree.autostaging</field>
+            <field name="model">project.task.type</field>
+            <field name="inherit_id" ref="project.task_type_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='fold']" position="after">
+                        <field name="active_move" string="Enable auto move"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
 
         <record id="view_project_task_form_autostaging" model="ir.ui.view">
-          <field name="name">project.task.form.autostaging</field>
-          <field name="model">project.task</field>
-          <field name="inherit_id" ref="project.view_task_form2"/>
-          <field name="arch" type="xml">
-				<data>
-				  <xpath expr="//field[@name='reviewer_id']" position="after">
-                     <group  colspan="2" col="2" string="Autostaging" attrs="{'invisible':[('allow_automove','=',False)]}">
-                         <field name="automove_to_stage_id" string='To stage'/>
-        	    	     <field name="days_to_automove"/>
-        	    	     <field name="allow_automove" invisible="1"/>
-                     </group>
-				  </xpath>
-			 	</data>
-			 </field>
-		  </record>
+            <field name="name">project.task.form.autostaging</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='reviewer_id']" position="after">
+                        <group  colspan="2" col="2" string="Autostaging" attrs="{'invisible':[('allow_automove','=',False)]}">
+                            <field name="automove_to_stage_id" string='To stage'/>
+                            <field name="days_to_automove"/>
+                            <field name="allow_automove" invisible="1"/>
+                        </group>
+                    </xpath>
+                </data>
+            </field>
+        </record>
 
-	 </data>
+    </data>
 </openerp>

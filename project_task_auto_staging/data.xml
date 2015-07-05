@@ -7,5 +7,5 @@
             <field name="default" eval="False"/>
             <field name="description">Autostaging task</field>
         </record>
-	</data>
+    </data>
 </openerp>
