@@ -5,11 +5,11 @@ from openerp.exceptions import except_orm
 try:
     import MySQLdb
     import MySQLdb.cursors
+    from pandas import merge, DataFrame
 except ImportError:
     pass
 from openerp.addons.import_framework.import_base import import_base
 
-from pandas import merge, DataFrame
 from openerp.addons.import_framework.mapper import *
 
 import re
