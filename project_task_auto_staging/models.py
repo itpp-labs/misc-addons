@@ -19,12 +19,11 @@ class project_task_type_auto_staging(models.Model):
     delay_automove = fields.Integer()
     active_move = fields.Boolean('Enable auto move', default=False)
 
-    @api.onchange('active_move')
-    def _onchange_active_move(self):
-        if not self.active_move:
-            self.delay_automove = 0
-        else:
-            self.delay_automove = 30
+    @api.one
+    def write(self, vals):
+        if not vals.get('active_move', True):
+            vals['delay_automove'] = 0
+        return super(project_task_type_auto_staging, self).write(vals)
 
     @api.one
     @api.constrains('delay_automove')
