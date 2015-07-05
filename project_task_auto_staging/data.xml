@@ -15,5 +15,20 @@
             <field name="parent_id" eval="ref('mt_auto_move_task')"/>
             <field name="relation_field">project_id</field>
         </record>
+
+        <!-- Cron job for automatically move -->
+        <record forcecreate="True" id="ir_cron_autostaging"
+                model="ir.cron">
+            <field name="name">Automove tasks</field>
+            <field eval="True" name="active" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+            <field eval="'project.task'" name="model" />
+            <field eval="'_cron_move_tasks'" name="function" />
+            <field eval="'()'" name="args" />
+        </record>
     </data>
 </openerp>
