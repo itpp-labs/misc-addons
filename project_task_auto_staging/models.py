@@ -9,7 +9,7 @@ from openerp.exceptions import ValidationError
 
 class project_project_auto_staging(models.Model):
     _inherit = 'project.project'
-    allow_automove = fields.Boolean('Allow auto move', default=False)
+    allow_automove = fields.Boolean('Allow auto move tasks', default=False, help='Allows move tasks to another stages according to Autostaging settings')
 
 
 class project_task_type_auto_staging(models.Model):
