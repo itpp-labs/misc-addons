@@ -2,7 +2,7 @@
     'name' : "User's default company",
     'version' : '1.0.0',
     'author' : 'Ivan Yelizariev',
-    'category' : 'Sale',
+    'category' : 'Tools',
     'website' : 'https://yelizariev.github.io',
     'description': """
 Adds field "default company". It can be used, for example, in Setting\Technical\Parameters\Company defaults.

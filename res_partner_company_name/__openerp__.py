@@ -2,7 +2,7 @@
     'name' : 'Quick access to company name',
     'version' : '1.0.0',
     'author' : 'Ivan Yelizariev',
-    'category' : 'Sale',
+    'category' : 'Tools',
     'website' : 'https://yelizariev.github.io',
     'description': """
 

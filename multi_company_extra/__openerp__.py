@@ -2,7 +2,7 @@
     "name" : "Updates for multi company mode",
     "version" : "0.1",
     "author" : "Ivan Yelizariev",
-    "category" : "Sale",
+    "category" : "Tools",
     "website" : "https://yelizariev.github.io",
     "description": """
 

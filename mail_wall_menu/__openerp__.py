@@ -2,7 +2,7 @@
     'name' : 'Menu for widgets at Messaging section',
     'version' : '1.0.0',
     'author' : 'Ivan Yelizariev',
-    'category' : 'Sale',
+    'category' : 'Social Network',
     'website' : 'https://yelizariev.github.io',
     'description': """
 Module creates special menu at Messaging section to show only gamification-like blocks there.

@@ -2,7 +2,7 @@
     'name' : 'Updated char_domain widget',
     'version' : '1.0.0',
     'author' : 'Ivan Yelizariev',
-    'category' : 'Sale',
+    'category' : 'Tools',
     'website' : 'https://yelizariev.github.io',
     'description': """
 Shows domain value at char_domain widget, e.g.

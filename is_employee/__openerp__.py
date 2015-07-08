@@ -2,7 +2,7 @@
     'name' : 'is_employee field',
     'version' : '1.0.0',
     'author' : 'Ivan Yelizariev',
-    'category' : 'Sale',
+    'category' : 'Tools',
     'website' : 'https://yelizariev.github.io',
     'description': """
 Adds is_employee to res.users and res.partner

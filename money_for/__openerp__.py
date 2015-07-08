@@ -2,7 +2,7 @@
     "name" : "updates for Money-4 company",
     "version" : "1.0.0",
     "author" : "Ivan Yelizariev",
-    "category" : "Base",
+    "category" : "Custom",
     "website" : "https://yelizariev.github.io",
 
     "depends" : ["crm", "account", "website", "web", "crm_partner_assign"],

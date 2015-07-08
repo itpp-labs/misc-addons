@@ -2,7 +2,7 @@
     'name' : 'Gamification extra',
     'version' : '1.0.0',
     'author' : 'Ivan Yelizariev',
-    'category' : 'Sale',
+    'category' : 'Human Resources',
     'website' : 'https://yelizariev.github.io',
     'description': """
 Improvements for gamification module:

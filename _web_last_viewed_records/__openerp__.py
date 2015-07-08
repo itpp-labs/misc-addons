@@ -2,7 +2,7 @@
     'name' : 'Last viewed records (OBSOLETE)',
     'version' : '1.0.0',
     'author' : 'Ivan Yelizariev',
-    'category' : 'Base',
+    'category' : 'Tools',
     'website' : 'https://yelizariev.github.io',
     'description': """
 *This is a frozen version. The module is moved to OCA's repo. Check out newest version here:*  https://github.com/OCA/web/tree/8.0/web_last_viewed_records

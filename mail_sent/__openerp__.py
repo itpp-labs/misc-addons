@@ -2,7 +2,7 @@
     'name' : 'Sent mails menu',
     'version' : '1.0.0',
     'author' : 'Ivan Yelizariev',
-    'category' : 'Sale',
+    'category' : 'Social Network',
     'website' : 'https://yelizariev.github.io',
     'depends' : ['mail'],
     'data':[

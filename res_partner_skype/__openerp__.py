@@ -2,7 +2,7 @@
     "name" : "Skype field in partner form",
     "version" : "1.0.0",
     "author" : "Ivan Yelizariev",
-    "category" : "Base",
+    "category" : "Tools",
     "website" : "https://yelizariev.github.io",
     'price': 9.00,
     'currency': 'EUR',

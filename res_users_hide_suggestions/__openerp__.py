@@ -2,7 +2,7 @@
     'name' : 'Hide suggestions',
     'version' : '1.0.0',
     'author' : 'Ivan Yelizariev',
-    'category' : 'Sale',
+    'category' : 'Social Network',
     'website' : 'https://yelizariev.github.io',
     'description': """
 Set False as default value for display_employees_suggestions and display_groups_suggestions.

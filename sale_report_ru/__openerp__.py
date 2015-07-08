@@ -2,7 +2,7 @@
     "name" : "Sale reports in russian ",
     "version" : "0.1",
     "author" : "Ivan Yelizariev",
-    "category" : "Sale",
+    "category" : "Sales Management",
     "website" : "https://yelizariev.github.io",
     "description": """
     depends on https://github.com/j2a/pytils

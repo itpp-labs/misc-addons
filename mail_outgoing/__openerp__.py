@@ -2,7 +2,7 @@
     'name' : 'Outgoing mails menu',
     'version' : '1.0.0',
     'author' : 'Ivan Yelizariev',
-    'category' : 'Sale',
+    'category' : 'Social Network',
     'website' : 'https://yelizariev.github.io',
     'description': """
 Allows to check outgoing mails, i.e. failed or delayed.
