@@ -7,6 +7,7 @@ Removes references to odoo.com:
 2. Replaces "Odoo" in page title
 3. Replaces "Odoo" in help message for empty list
 4. Deletes Odoo link (as well as "Manage databases" link) from login page
+5. Deletes About Odoo link
 
 By default the modules replaces "Odoo" to "Software". To configure
 this open Settings\\System Parameters and modify
