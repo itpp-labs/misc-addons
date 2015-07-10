@@ -24,5 +24,5 @@ Further information and discussion: https://yelizariev.github.io/odoo/module/201
     'qweb' : [
         "static/src/xml/*.xml",
     ],
-    'installable': False
+    'installable': True
 }
