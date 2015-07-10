@@ -2,7 +2,7 @@
     "name" : "Website updates for It-Projects LLC ",
     "version" : "0.1",
     "author" : "Ivan Yelizariev",
-    "category" : "Website",
+    "category" : "Hidden",
     "website" : "https://yelizariev.github.io",
     "description": """
     """,
