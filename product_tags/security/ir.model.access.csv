@@ -1,0 +1,4 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_product_tag_all","product_tag_all","model_product_tag",,1,0,0,0
+"access_product_tag_user","product_tag_user","model_product_tag","base.group_user",1,1,1,0
+"access_product_tag_product_manager","product_tag_product_manager","model_product_tag","product.group_mrp_properties",1,1,1,1
