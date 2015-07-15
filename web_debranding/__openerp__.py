@@ -6,6 +6,7 @@
     'website': 'https://yelizariev.github.io',
     'depends': ['web'],
     'data': [
+        'data.xml',
         'views.xml',
         'js.xml',
         ],
