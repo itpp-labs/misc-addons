@@ -9,6 +9,7 @@ Removes references to odoo.com:
 4. Deletes Odoo link (as well as "Manage databases" link) from login page
 5. Deletes About Odoo link
 6. Replaces default log to empty image
+7. Deletes Odoo label in Dialog Box
 
 By default the modules replaces "Odoo" to "Software". To configure
 this open Settings\\System Parameters and modify

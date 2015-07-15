@@ -9,6 +9,8 @@
                 <script type="text/javascript"
                         src="/web_debranding/static/src/js/about.js"></script>
                 <script type="text/javascript"
+                        src="/web_debranding/static/src/js/dialog.js"></script>
+                <script type="text/javascript"
                         src="/web_debranding/static/src/js/main.js"></script>
             </xpath>
         </template>
