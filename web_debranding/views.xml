@@ -14,6 +14,12 @@
 
     <template id="web_debranding.web_layout" inherit_id="web.layout">
        <xpath expr="//title" position="replace"></xpath>
+       <xpath expr="//link[@rel='shortcut icon']" position="replace">
+           <t t-set="favicon" t-value="request.env['ir.config_parameter'].get_param('web_debranding.favicon_url', '').strip()"/>
+           <t t-if="favicon">
+               <link rel="shortcut icon" t-att-href="favicon" type="image/x-icon"/>
+           </t>
+       </xpath>
     </template>
   </data>
 
@@ -26,6 +32,11 @@
     <record id="web_debranding.custom_title" model="ir.config_parameter">
         <field name="key">web_debranding.new_title</field>
         <field name="value">Software</field>
+    </record>
+
+    <record id="web_debranding.custom_title" model="ir.config_parameter">
+        <field name="key">web_debranding.favicon_url</field>
+        <field name="value"> </field>
     </record>
  </data>
 
