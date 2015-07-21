@@ -8,7 +8,7 @@ Removes references to odoo.com:
 3. Replaces "Odoo" in help message for empty list
 4. Deletes Odoo link (as well as "Manage databases" link) from login page
 5. Deletes About Odoo link
-6. Replaces default log to empty image
+6. Replaces default logo by empty image
 7. Replaces "Odoo" in Dialog Box
 8. Replaces "Odoo" in strings marked for translation.
 
