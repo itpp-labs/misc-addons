@@ -9,6 +9,7 @@
         'data.xml',
         'views.xml',
         'js.xml',
+        'pre_install.yml',
         ],
     'installable': True
 }

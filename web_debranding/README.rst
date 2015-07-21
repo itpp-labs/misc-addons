@@ -10,6 +10,7 @@ Removes references to odoo.com:
 5. Deletes About Odoo link
 6. Replaces default log to empty image
 7. Replaces "Odoo" in Dialog Box
+8. Replaces "Odoo" in strings marked for translation.
 
 By default the modules replaces "Odoo" to "Software". To configure
 this open Settings\\System Parameters and modify
