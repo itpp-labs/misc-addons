@@ -1,6 +1,12 @@
 from openerp.osv import fields as old_fields
 from openerp import api,models,fields,tools
-from openerp.addons.email_template.email_template import mako_template_env
+try:
+    from openerp.addons.email_template.email_template import mako_template_env
+except ImportError:
+    try:
+        from openerp.addons.mail.mail_template import mako_template_env
+    except ImportError:
+        pass
 
 from openerp.loglevels import ustr
 from email.mime.text import MIMEText
