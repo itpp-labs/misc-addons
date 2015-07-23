@@ -26,7 +26,7 @@ module open Settings\\System Parameters and modify
 Further debranding
 ==================
 
-* install **website_debranding** module if you have installed "Website Builder" module.
+* install **website_debranding** module if module "Website Builder" in your system is installed.
 * uninstall im_odoo_support module.
   
 
