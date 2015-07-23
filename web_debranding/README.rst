@@ -23,4 +23,11 @@ module open Settings\\System Parameters and modify
 * web_debranding.new_name
 * web_debranding.favicon_url
 
+Further debranding
+==================
+
+* install **website_debranding** module if you have installed "Website Builder" module.
+* uninstall im_odoo_support module.
+  
+
 Tested on Odoo 8.0 eeedd2d9f52d46d8193059854e7430ca0c1fd6c0
