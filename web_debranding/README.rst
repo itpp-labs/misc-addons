@@ -26,8 +26,8 @@ module open Settings\\System Parameters and modify
 Further debranding
 ==================
 
-* install **website_debranding** module if module "Website Builder" in your system is installed.
+* install **website_debranding** module if module "Website Builder" is installed. in your system
 * uninstall im_odoo_support module.
-  
+* delete "Odoo.com Accounts" record at Settings\\Users\\OAuth Providers if module "OAuth2 Authentication" is installed. in your system
 
 Tested on Odoo 8.0 eeedd2d9f52d46d8193059854e7430ca0c1fd6c0
