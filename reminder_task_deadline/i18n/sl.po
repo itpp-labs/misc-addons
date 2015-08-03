@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* reminder_task_deadline
+# 	* reminder_task_deadline
 #
 # Matjaž Mozetič <m.mozetic@matmoz.si>, 2015.
 msgid ""
@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-06-27 05:18+0000\n"
-"PO-Revision-Date: 2015-06-27 07:19+0100\n"
+"PO-Revision-Date: 2015-08-03 13:09+0200\n"
 "Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>\n"
 "Language-Team: Slovenian <translate@matmoz.si>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: sl\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Poedit 1.8.2\n"
 
 #. module: reminder_task_deadline
 #: field:project.task,reminder_event_id:0
@@ -32,5 +32,3 @@ msgstr "Opomniki"
 #: model:ir.model,name:reminder_task_deadline.model_project_task
 msgid "Task"
 msgstr "Opravilo"
-
-
