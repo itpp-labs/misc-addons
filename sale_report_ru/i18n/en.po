@@ -1,19 +1,21 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* sale_report_ru
+# 	* sale_report_ru
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-20 20:41+0000\n"
-"PO-Revision-Date: 2014-11-20 20:41+0000\n"
+"PO-Revision-Date: 2015-08-03 13:09+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"Language: en\n"
+"X-Generator: Poedit 1.8.2\n"
 
 #. module: sale_report_ru
 #: view:website:sale_report_ru.report_account_invoice_document
@@ -176,10 +178,12 @@ msgstr "Заказ №"
 
 #. module: sale_report_ru
 #: view:website:sale_report_ru.contract_clauses
-msgid "Заказчик поручает и оплачивает, а Исполнитель принимает на себя\n"
-"		обязанности по ..."
-msgstr "Заказчик поручает и оплачивает, а Исполнитель принимает на себя\n"
-"		обязанности по ..."
+msgid ""
+"Заказчик поручает и оплачивает, а Исполнитель принимает на себя\n"
+"\t\tобязанности по ..."
+msgstr ""
+"Заказчик поручает и оплачивает, а Исполнитель принимает на себя\n"
+"\t\tобязанности по ..."
 
 #. module: sale_report_ru
 #: view:website:sale_report_ru.report_account_invoice_document
@@ -218,10 +222,12 @@ msgstr "Коммерческое предложение №"
 
 #. module: sale_report_ru
 #: view:website:sale_report_ru.contract_clauses
-msgid "Конкретное описание, объем и стоимость услуг определяются\n"
-"		Сторонами в соответствующих Приложениях к настоящему Договору."
-msgstr "Конкретное описание, объем и стоимость услуг определяются\n"
-"		Сторонами в соответствующих Приложениях к настоящему Договору."
+msgid ""
+"Конкретное описание, объем и стоимость услуг определяются\n"
+"\t\tСторонами в соответствующих Приложениях к настоящему Договору."
+msgstr ""
+"Конкретное описание, объем и стоимость услуг определяются\n"
+"\t\tСторонами в соответствующих Приложениях к настоящему Договору."
 
 #. module: sale_report_ru
 #: view:website:sale_report_ru.lines
@@ -312,4 +318,3 @@ msgstr "с одной стороны и"
 #: view:website:sale_report_ru.lines
 msgid "скидка"
 msgstr "скидка"
-

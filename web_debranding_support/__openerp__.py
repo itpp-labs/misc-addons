@@ -1,12 +1,13 @@
 {
-    'name': "Full Debranding",
+    'name': "Backend debranding + Support branding",
     'version': '1.0.0',
     'author': 'Ivan Yelizariev',
     'category': 'Debranding',
     'website': 'https://yelizariev.github.io',
-    'depends': ['mail_delete_sent_by_footer', 'disable_openerp_online', 'web_debranding', 'website_debranding'],
+    'depends': ['support_branding', 'web_debranding'],
     'data': [
         'views.xml',
         ],
-    'installable': True
+    'installable': True,
+    'auto_install': True,
 }

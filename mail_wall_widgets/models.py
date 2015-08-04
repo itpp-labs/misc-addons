@@ -1,7 +1,14 @@
 from openerp.osv import osv,fields as old_fields
 from openerp import api, models, fields, tools
 from openerp.tools.safe_eval import safe_eval
-from openerp.addons.email_template.email_template import mako_template_env
+try:
+    from openerp.addons.email_template.email_template import mako_template_env
+except ImportError:
+    try:
+        from openerp.addons.mail.mail_template import mako_template_env
+    except ImportError:
+        pass
+
 import copy
 from openerp.tools.translate import _
 from datetime import date, datetime, timedelta
