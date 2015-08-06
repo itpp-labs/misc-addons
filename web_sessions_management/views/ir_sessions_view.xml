@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <record id="view_sesssions_tree" model="ir.ui.view">
+            <field name="name">ir.sessions.tree</field>
+            <field name="model">ir.sessions</field>
+            <field name="arch" type="xml">
+                <tree edit="false" create="false" delete="false">
+                    <field name="logged_in"/>
+                    <field name="user_id"/>
+                    <field name="date_login"/>
+                    <field name="expiration_date"/>
+                    <field name="date_logout"/>
+                    <field name="logout_type"/>
+                    <button name="action_close_session" string="Close Session" type="object"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_sesssions_form" model="ir.ui.view">
+            <field name="name">ir.sessions.form</field>
+            <field name="model">ir.sessions</field>
+            <field name="arch" type="xml">
+                <form edit="false" create="false" delete="false">
+                    <group col="4">
+                        <field name="logged_in"/>
+                        <field name="user_id"/>
+                        <field name="date_login"/>
+                        <field name="expiration_date"/>
+                        <field name="date_logout"/>
+                        <field name="logout_type"/>
+                    </group>
+                    <button name="action_close_session" string="Close Session" type="object"/>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_sesssions_search" model="ir.ui.view">
+            <field name="name">ir.sessions.search</field>
+            <field name="model">ir.sessions</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="logged_in"/>
+                    <field name="user_id"/>
+                    <field name="date_login"/>
+                    <field name="expiration_date"/>
+                    <field name="date_logout"/>
+                    <field name="logout_type"/>
+                    <group expand="0" string="Filter by Login State">
+                        <filter string="Logged" domain="[('logged','=',True)]" help="Logged"/>
+                        <filter string="Not Logged" domain="[('logged','=',False)]" help="Not Logged"/>
+                    </group>
+                    <group expand="0" string="Group By">
+                       <filter string="User" domain="[]" context="{'group_by' : 'user_id'}" />
+                       <filter string="Logget In" domain="[]" context="{'group_by' : 'logged_in'}" />
+                       <filter string="Logout Type" domain="[]" context="{'group_by' : 'logout_type'}" />
+                       <filter string="Login Date" domain="[]" context="{'group_by' : 'date_login'}" />
+                       <filter string="Logout Date" domain="[]" context="{'group_by' : 'date_logout'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="view_sesssions_graph" model="ir.ui.view">
+            <field name="name">ir.sessions.graph</field>
+            <field name="model">ir.sessions</field>
+            <field name="arch" type="xml">
+                 <graph string="Sessions" type="pivot">
+                    <field name="date_login" interval="month" type="row"/>
+                    <field name="user_id" type="row"/>
+                 </graph>
+            </field>
+        </record>
+
+        <record id="ir_session_action" model="ir.actions.act_window">
+            <field name="name">Sessions</field>
+            <field name="res_model">ir.sessions</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+        </record>
+
+        <menuitem id="ir_session_menu" action="ir_session_action"
+            parent="base.menu_security" />
+
+    </data>
+</openerp>
