@@ -13,7 +13,7 @@
                     <field name="expiration_date"/>
                     <field name="date_logout"/>
                     <field name="logout_type"/>
-                    <button name="action_close_session" string="Close Session" type="object"/>
+                    <button name="action_close_session" string="Close Session" type="object" attrs="{'invisible': [('logged_in', '=', False)]}"/>
                 </tree>
             </field>
         </record>
@@ -31,7 +31,7 @@
                         <field name="date_logout"/>
                         <field name="logout_type"/>
                     </group>
-                    <button name="action_close_session" string="Close Session" type="object"/>
+                    <button name="action_close_session" string="Close Session" type="object" attrs="{'invisible': [('logged_in', '=', False)]}"/>
                 </form>
             </field>
         </record>

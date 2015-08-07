@@ -48,9 +48,10 @@ One can do following:\n
 2. Users can close related active session;\n
 3. Users can choose to close all sessions except current one.\n
 NOTE: Admin has no restrictions""",
-    'author': 'ThinkOpen Solutions Brasil',
+    'author': 'ThinkOpen Solutions Brasil, Ivan Yelizariev',
     'website': 'http://www.tkobr.com',
     'depends': [
+                'share',
                 'base',
                 'resource',
                 'web',

@@ -24,12 +24,14 @@
 
 import logging
 import openerp
+from openerp import api
 from openerp.osv import fields, osv, orm
 from datetime import date, datetime, time, timedelta
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from openerp import SUPERUSER_ID
 from openerp.http import request
 from openerp.http import Response
+from openerp.http import root
 from openerp import http
 from openerp.tools.translate import _
 import werkzeug.contrib.sessions
@@ -73,22 +75,31 @@ class ir_sessions(osv.osv):
             [('expiration_date', '<=', fields.datetime.now()),
              ('logged_in', '=', True)])
         if ids:
-            session_ids = self.browse(cr, SUPERUSER_ID, ids)
-            for session in session_ids:
-                session_ids = self.browse(cr, SUPERUSER_ID, ids)
-                self.write(cr, uid, session.id,
-                   {'logged_in': False,
-                    'date_logout': fields.datetime.now(),
-                    'logout_type': 'to'}, context=context)
+            self.browse(cr, SUPERUSER_ID, ids)._close_session(logout_type='to')
         return True
-    
-    def action_close_session(self, cr, uid, ids, context):
-        session_ids = self.browse(cr, SUPERUSER_ID, ids)
-        for session_id in session_ids:
-            response = werkzeug.BaseResponse()
-            response.delete_cookie(session_id.session_id)
-            #openerp.http.Root.session_store .SessionStore() .delete(session_id.session_id)
-#             openerp.http.werkzeug.contrib.sessions.SessionStore(session_class=openerp.http.OpenERPSession).delete(session_id.session_id)
-        return werkzeug.utils.redirect('/web/login?db=%s' % cr.dbname, 303)
-                
-                
+
+    @api.multi
+    def action_close_session(self):
+        redirect = self._close_session()
+
+        if redirect:
+            return werkzeug.utils.redirect('/web/login?db=%s' % cr.dbname, 303)
+
+    @api.multi
+    def _close_session(self, logout_type=None):
+        redirect = False
+        for r in self:
+            if r.user_id.id == self.env.user.id:
+                redirect = True
+            session = root.session_store.get(r.session_id)
+            session.logout(logout_type=logout_type, env=self.env)
+            root.session_store.delete(session)
+        return redirect
+
+    @api.multi
+    def _on_session_logout(self, logout_type=None):
+        print '_on_session_logout', self
+        self.write({'logged_in': False,
+                    'date_logout': fields.datetime.now(),
+                    'logout_type': logout_type,
+                })

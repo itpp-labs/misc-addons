@@ -44,8 +44,30 @@ from openerp.tools.func import lazy_property
 _logger = logging.getLogger(__name__)
 
 
+class OpenERPSession(openerp.http.OpenERPSession):
+
+    def logout(self, keep_db=False, logout_type=None, env=None):
+        try:
+            env = env or request.env
+        except:
+            pass
+
+        if env and env.registry.get('ir.sessions'):
+           session = env['ir.sessions'].sudo().search([('session_id', '=', self.sid)])
+           if session:
+               session._on_session_logout(logout_type)
+        return super(OpenERPSession, self).logout(keep_db=keep_db)
+
+
 class Root_tkobr(openerp.http.Root):
-       
+
+    @lazy_property
+    def session_store(self):
+        # Setup http sessions
+        path = openerp.tools.config.session_dir
+        _logger.debug('HTTP sessions stored in: %s', path)
+        return werkzeug.contrib.sessions.FilesystemSessionStore(path, session_class=OpenERPSession)
+
     def get_response(self, httprequest, result, explicit_session):
         if isinstance(result, Response) and result.is_qweb:
             try:
@@ -80,7 +102,8 @@ class Root_tkobr(openerp.http.Root):
             response.set_cookie('session_id', httprequest.session.sid, max_age=90*24*60*60) #seconds)
            
         return response
-       
+
 root = Root_tkobr()
-openerp.http.Root.get_response = root.get_response
+#openerp.http.root.get_response = root.get_response
+openerp.http.root.session_store = root.session_store
 
