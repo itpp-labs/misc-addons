@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp><data>
+
+<record id="view_order_form" model="ir.ui.view">
+    <field name="name">sale.order.form.inherit</field>
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale.view_order_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//button[@name='action_quotation_send' and @states='draft']" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//button[@name='action_quotation_send' and @states='sent,progress,manual']" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name='state']" position="attributes">
+            <attribute name="statusbar_visible">draft,progress,done</attribute>
+        </xpath>
+    </field>
+</record>
+
+</data></openerp>
