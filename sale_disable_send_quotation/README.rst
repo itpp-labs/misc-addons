@@ -1,5 +1,5 @@
-Disable sending quotations on sales
-===================================
+Disable sending quotations
+==========================
 
 Deactivates sending quotations completely. It works in eCommerce too.
 

@@ -1,5 +1,5 @@
 {
-    'name': "Disable sending quotations on sales",
+    'name': "Disable sending quotations",
     'version': '1.0.0',
     'author': 'Ivan Yelizariev',
     'category': 'Sales Management',
