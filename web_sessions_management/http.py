@@ -52,7 +52,7 @@ class OpenERPSession(openerp.http.OpenERPSession):
         except:
             pass
 
-        if env and env.registry.get('ir.sessions'):
+        if env and hasattr(env, 'registry') and env.registry.get('ir.sessions'):
            session = env['ir.sessions'].sudo().search([('session_id', '=', self.sid)])
            if session:
                session._on_session_logout(logout_type)
