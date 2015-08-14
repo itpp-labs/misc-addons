@@ -1,0 +1,30 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* res_partner_company_stat
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-11 09:11+0000\n"
+"PO-Revision-Date: 2015-08-11 11:11+0200\n"
+"Last-Translator: Matjaz Mozetic <m.mozetic@matmoz.si>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: sl\n"
+"X-Generator: Poedit 1.8.2\n"
+
+#. module: res_partner_company_stat
+#: model:ir.model,name:res_partner_company_stat.model_res_partner
+msgid "Partner"
+msgstr "Partner"
+
+#. module: res_partner_company_stat
+#: view:account.move.line:res_partner_company_stat.view_account_move_line_filter
+#: view:calendar.event:res_partner_company_stat.view_calendar_event_search
+#: view:project.task:res_partner_company_stat.view_task_search_form
+msgid "child_of"
+msgstr "child_of"
