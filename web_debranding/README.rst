@@ -12,7 +12,7 @@ Removes references to odoo.com:
 7. Replaces "Odoo" in Dialog Box
 8. Replaces "Odoo" in strings marked for translation.
 9. Replaces default favicon to a custom one
-10. Hide Modules menu (to do it tick "Show Settings Menu" and untick "Show Modules Menu" in user's access rights tab)
+10. **Hides Modules menu** (by default, only admin user see Modules menu. You could change it via tick "Show Modules Menu" in user's access rights tab)
 11. Removes odoo.com bindings (via disable_openerp_online module)
 12. Deletes "Sent by ... using OpenERP" footer in email (via mail_delete_sent_by_footer module)
 
