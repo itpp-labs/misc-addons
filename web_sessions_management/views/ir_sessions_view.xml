@@ -10,6 +10,7 @@
                     <field name="logged_in"/>
                     <field name="user_id"/>
                     <field name="date_login"/>
+                    <field name="date_last_activity"/>
                     <field name="expiration_date"/>
                     <field name="date_logout"/>
                     <field name="logout_type"/>
@@ -27,6 +28,7 @@
                         <field name="logged_in"/>
                         <field name="user_id"/>
                         <field name="date_login"/>
+                        <field name="date_last_activity"/>
                         <field name="expiration_date"/>
                         <field name="date_logout"/>
                         <field name="logout_type"/>

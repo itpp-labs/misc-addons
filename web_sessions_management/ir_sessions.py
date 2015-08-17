@@ -24,8 +24,7 @@
 
 import logging
 import openerp
-from openerp import api
-from openerp.osv import fields, osv, orm
+from openerp import api, models, fields
 from datetime import date, datetime, time, timedelta
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from openerp import SUPERUSER_ID
@@ -49,34 +48,43 @@ LOGOUT_TYPES = [('ur', 'User Request'),
                 ('to', 'Timeout'),
                 ('re', 'Rule enforcing')]
 
-class ir_sessions(osv.osv):
+class ir_sessions(models.Model):
     _name = 'ir.sessions'
     _description = "Sessions"
-    
-    _columns = { 
-        'user_id' : fields.many2one('res.users', 'User', ondelete='cascade',
-            required=True),
-        'logged_in': fields.boolean('Logged in', required=True, index=True),
-        'session_id' : fields.char('Session ID', size=100, required=True),
-        'date_login': fields.datetime('Login', required=True),
-        'expiration_date' : fields.datetime('Expiration Date', required=True,
-            index=True),
-        'date_logout': fields.datetime('Logout'),
-        'logout_type': fields.selection(LOGOUT_TYPES, 'Logout Type'),
-        'session_lenght': fields.datetime('Session Duration'),
-        # Add other fields about the sessions like Source IPs etc...
-        }
-    
+
+    user_id = fields.Many2one('res.users', 'User', ondelete='cascade', required=True)
+    logged_in = fields.Boolean('Logged in', required=True, index=True)
+    session_id = fields.Char('Session ID', size=100, required=True)
+    date_login = fields.Datetime('Login', required=True)
+    date_last_activity = fields.Datetime('Last Activity Date')
+    expiration_seconds = fields.Integer('Seconds to Expire', index=True)
+    expiration_date = fields.Datetime('Expiration date', compute='_compute_expiration_date', store=True, index=True)
+    date_logout = fields.Datetime('Logout')
+    logout_type = fields.Selection(LOGOUT_TYPES, 'Logout Type')
+    session_lenght = fields.Datetime('Session Duration')
+    # Add other fields about the sessions like Source IPs etc...
+
     _order = 'date_logout desc'
     
     # scheduler function to validate users session
-    def validate_sessions(self, cr, uid, context=None):
-        ids = self.search(cr, SUPERUSER_ID,
-            [('expiration_date', '<=', fields.datetime.now()),
-             ('logged_in', '=', True)])
-        if ids:
-            self.browse(cr, SUPERUSER_ID, ids)._close_session(logout_type='to')
+    @api.model
+    def validate_sessions(self):
+        res = self.search([('logged_in', '=', True),
+                           ('expiration_date', '!=', False),
+                           ('expiration_date', '<=', fields.datetime.now()),
+                           ])
+        res._close_session(logout_type='to')
         return True
+
+    @api.one
+    @api.depends('date_last_activity', 'expiration_seconds')
+    def _compute_expiration_date(self):
+        if not self.expiration_seconds:
+            self.expiration_date = None
+            return
+        date_last_activity = datetime.strptime(self.date_last_activity, DEFAULT_SERVER_DATETIME_FORMAT)
+        expiration_date = date_last_activity + timedelta(seconds=self.expiration_seconds)
+        self.expiration_date = datetime.strftime(expiration_date, DEFAULT_SERVER_DATETIME_FORMAT)
 
     @api.multi
     def action_close_session(self):

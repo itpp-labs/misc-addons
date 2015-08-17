@@ -83,8 +83,9 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
              uid, context)
         return session_obj.create(cr, request.uid, {'user_id': uid,
             'session_id': sid,
-            'expiration_date': u_exp_date,
+            'expiration_seconds': seconds,
             'date_login': fields.datetime.now(),
+            'date_last_activity': fields.datetime.now(),
             'logged_in': True},
             context=context)
 
