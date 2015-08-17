@@ -83,7 +83,13 @@ class ir_sessions(osv.osv):
         redirect = self._close_session()
 
         if redirect:
-            return werkzeug.utils.redirect('/web/login?db=%s' % cr.dbname, 303)
+            url = '/web/login?db=%s' % self.env.cr.dbname
+            return {
+                'type': 'ir.actions.act_url',
+                'target': 'self',
+                'name': 'Session closed',
+                'url': url
+            }
 
     @api.multi
     def _close_session(self, logout_type=None):
