@@ -80,7 +80,6 @@ class ir_sessions(models.Model):
     def update_last_activity(self, sid):
         res = self.sudo().search([('logged_in', '=', True), ('session_id', '=', sid)])
         res.write({'date_last_activity': fields.Datetime.now()})
-        self.env.cr.commit()
 
     @api.one
     @api.depends('date_last_activity', 'expiration_seconds')

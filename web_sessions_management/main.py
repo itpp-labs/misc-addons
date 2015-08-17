@@ -81,7 +81,7 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
         user_obj = request.registry.get('res.users')
         u_exp_date, seconds = user_obj.get_expiring_date(cr, request.uid,
              uid, context)
-        return session_obj.create(cr, request.uid, {'user_id': uid,
+        return session_obj.create(cr, SUPERUSER_ID, {'user_id': uid,
             'session_id': sid,
             'expiration_seconds': seconds,
             'date_login': fields.datetime.now(),

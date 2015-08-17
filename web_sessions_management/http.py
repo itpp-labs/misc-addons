@@ -23,6 +23,7 @@
 ##############################################################################
 
 import logging
+import random
 import openerp
 from openerp.osv import fields, osv, orm
 from datetime import date, datetime, time, timedelta
@@ -68,42 +69,6 @@ class Root_tkobr(openerp.http.Root):
         _logger.debug('HTTP sessions stored in: %s', path)
         return werkzeug.contrib.sessions.FilesystemSessionStore(path, session_class=OpenERPSession)
 
-    def get_response(self, httprequest, result, explicit_session):
-        if isinstance(result, Response) and result.is_qweb:
-            try:
-                result.flatten()
-            except(Exception), e:
-                if request.db:
-                    result = request.registry['ir.http']._handle_exception(e)
-                else:
-                    raise
-           
-        if isinstance(result, basestring):
-            response = Response(result, mimetype='text/html')
-        else:
-            response = result
-           
-        if httprequest.session.should_save:
-            self.session_store.save(httprequest.session)
-#          We must not set the cookie if the session id was specified using a http header or a GET parameter.
-#          There are two reasons to this:
-#          - When using one of those two means we consider that we are overriding the cookie, which means creating a new
-#            session on top of an already existing session and we don't want to create a mess with the 'normal' session
-#            (the one using the cookie). That is a special feature of the Session Javascript class.
-#          - It could allow session fixation attacks.
-        if not explicit_session and hasattr(response, 'set_cookie'):
-            if not request.uid:
-                request.uid = openerp.SUPERUSER_ID
-            seconds = 90 * 24 * 60 * 60
-            if httprequest.session.uid:
-                user_obj = request.registry.get('res.users')
-#                 expiring_date, seconds = user_obj.get_expiring_date(request.cr,
-#                     request.uid, httprequest.session.uid, request.context)
-            response.set_cookie('session_id', httprequest.session.sid, max_age=90*24*60*60) #seconds)
-           
-        return response
-
 root = Root_tkobr()
-#openerp.http.root.get_response = root.get_response
 openerp.http.root.session_store = root.session_store
 

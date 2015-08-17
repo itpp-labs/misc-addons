@@ -1,5 +1,6 @@
 import random
-from openerp import models
+import openerp
+from openerp import api, models, SUPERUSER_ID
 from openerp.http import request
 
 class ir_http(models.AbstractModel):
@@ -8,4 +9,8 @@ class ir_http(models.AbstractModel):
     def _auth_method_user(self):
         super(ir_http, self)._auth_method_user()
         if random.random() < 0.01:
-            request.env['ir.sessions'].update_last_activity(request.session.sid)
+            with openerp.registry(request.cr.dbname).cursor() as cr:
+                cr.autocommit(True)
+                env = api.Environment(cr, request.uid, request.context)
+                env['ir.sessions'].update_last_activity(request.session.sid)
+                cr.commit()
