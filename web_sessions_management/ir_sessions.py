@@ -54,7 +54,7 @@ class ir_sessions(models.Model):
 
     user_id = fields.Many2one('res.users', 'User', ondelete='cascade', required=True)
     logged_in = fields.Boolean('Logged in', required=True, index=True)
-    session_id = fields.Char('Session ID', size=100, required=True)
+    session_id = fields.Char('Session ID', size=100, required=True, index=True)
     date_login = fields.Datetime('Login', required=True)
     date_last_activity = fields.Datetime('Last Activity Date')
     expiration_seconds = fields.Integer('Seconds to Expire', index=True)
@@ -71,10 +71,16 @@ class ir_sessions(models.Model):
     def validate_sessions(self):
         res = self.search([('logged_in', '=', True),
                            ('expiration_date', '!=', False),
-                           ('expiration_date', '<=', fields.datetime.now()),
+                           ('expiration_date', '<=', fields.Datetime.now()),
                            ])
         res._close_session(logout_type='to')
         return True
+
+    @api.model
+    def update_last_activity(self, sid):
+        res = self.sudo().search([('logged_in', '=', True), ('session_id', '=', sid)])
+        res.write({'date_last_activity': fields.Datetime.now()})
+        self.env.cr.commit()
 
     @api.one
     @api.depends('date_last_activity', 'expiration_seconds')
@@ -112,7 +118,6 @@ class ir_sessions(models.Model):
 
     @api.multi
     def _on_session_logout(self, logout_type=None):
-        print '_on_session_logout', self
         self.write({'logged_in': False,
                     'date_logout': fields.datetime.now(),
                     'logout_type': logout_type,
