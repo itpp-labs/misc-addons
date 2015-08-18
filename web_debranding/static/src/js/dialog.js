@@ -22,11 +22,15 @@ function web_debranding_dialog(instance) {
     instance.web.Dialog.include({
         init: function (parent, options, content) {
             if (parent && parent.debranding_new_name){
-                var content_html = content.html().replace(/Odoo/ig, parent.debranding_new_name);
-                var title = options['title'].replace(/Odoo/ig, parent.debranding_new_name);
-                if (content)
+                options = options || {};
+                if (options['title']){
+                    var title = options['title'].replace(/Odoo/ig, parent.debranding_new_name);
+                    options['title'] = title;
+                }
+                if (content){
+                    var content_html = content.html().replace(/Odoo/ig, parent.debranding_new_name);
                     content.html(content_html);
-                options['title'] = title;
+                }
             }
             this._super(parent, options, content);
         },
