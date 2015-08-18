@@ -28,7 +28,11 @@ function web_debranding_dialog(instance) {
                     options['title'] = title;
                 }
                 if (content){
-                    var content_html = content.html().replace(/Odoo/ig, parent.debranding_new_name);
+                    if (typeof content == "string") {
+                        var content_html = content.replace(/Odoo/ig, parent.debranding_new_name);
+                    } else {
+                        var content_html = content.html().replace(/Odoo/ig, parent.debranding_new_name);
+                    }
                     content.html(content_html);
                 }
             }
