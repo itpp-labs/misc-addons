@@ -11,7 +11,7 @@ class sale_order_line(models.Model):
         for r in self.browse(cr, uid, ids, context=context):
             line = r
             val = line.tax_id.compute_all(
-                line.price_unit * (1-(line.discount or 0.0)/100.0),
+                line.price_unit,
                 1,
                 line.product_id,
                 line.order_id.partner_id)
@@ -30,7 +30,7 @@ class account_invoice_line(models.Model):
         for r in self.browse(cr, uid, ids, context=context):
             line = r
             val = line.invoice_line_tax_id.compute_all(
-                line.price_unit * (1-(line.discount or 0.0)/100.0),
+                line.price_unit,
                 1,
                 line.product_id,
                 line.invoice_id.partner_id)
