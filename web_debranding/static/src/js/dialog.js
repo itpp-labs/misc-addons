@@ -28,6 +28,7 @@ function web_debranding_dialog(instance) {
                     options['title'] = title;
                 }
                 if (content){
+                    content = (content instanceof $) ? content : $(content)
                     var content_html = content.html().replace(/Odoo/ig, parent.debranding_new_name);
                     content.html(content_html);
                 }
