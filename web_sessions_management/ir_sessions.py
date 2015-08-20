@@ -111,8 +111,17 @@ class ir_sessions(models.Model):
             if r.user_id.id == self.env.user.id:
                 redirect = True
             session = root.session_store.get(r.session_id)
-            session.logout(logout_type=logout_type, env=self.env)
+            session.logout(keep_db=True, logout_type=logout_type, env=self.env)
+            # we have to call delete function so user would not able
+            # to continue use session
             root.session_store.delete(session)
+            # we have to create new session with the same sid, so the
+            # system will know which database user is trying to
+            # use. In that case system shows Session Expired warning
+            # instead of Not Found error.
+            new_session = root.session_store.get(session.sid)
+            new_session.db = session.db
+            root.session_store.save(session)
         return redirect
 
     @api.multi
