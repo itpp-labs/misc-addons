@@ -8,6 +8,8 @@ openerp.web_debranding.load_title = function(instance) {
         this.get_title_part();
     },
     get_title_part: function(){
+        if (!openerp.session.db)
+            return;
         var self = this;
         var model = new openerp.Model("ir.config_parameter");
 

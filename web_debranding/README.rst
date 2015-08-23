@@ -26,8 +26,33 @@ module open Settings\\System Parameters and modify
 Further debranding
 ==================
 
-* install **website_debranding** module if module "Website Builder" is installed. in your system
+* install **website_debranding** module if module "Website Builder" is installed in your system
 * uninstall im_odoo_support module.
 * delete "Odoo.com Accounts" record at Settings\\Users\\OAuth Providers if module "OAuth2 Authentication" is installed. in your system
+* to debrand **/web/database/manager**:
+
+  * add web_debranding to server wide modules, e.g.
+
+	./odoo.py --load=web,web_kanban,web_debranding
+
+  * edit addons/web/views/database_manager.html file:
+
+    * delete or modify <title> tag
+    * delete or modify favicon
+    * right after script tag with src="/web/static/src/js/boot.js" add code below:
+    
+          <!-- debranding -->
+    
+          <script type="text/javascript" src="/web_debranding/static/src/js/main.js"></script>
+    
+          <script type="text/javascript" src="/web_debranding/static/src/js/title.js"></script>
+    
+          <script type="text/javascript" src="/web_debranding/static/src/js/about.js"></script>
+    
+          <script type="text/javascript" src="/web_debranding/static/src/js/dialog.js"></script>
+    
+          <link href="/web_debranding/static/src/css/database_manager.css" rel="stylesheet"/>
+
+  
 
 Tested on Odoo 8.0 eeedd2d9f52d46d8193059854e7430ca0c1fd6c0

@@ -8,6 +8,8 @@ openerp.web_debranding.load_dialog = function(instance) {
             var self = this;
             var model = new openerp.Model("ir.config_parameter");
             self.debranding_new_name = _t('Software');
+            if (!openerp.session.db)
+                return;
             var r = model.query(['value'])
                 .filter([['key', '=', 'web_debranding.new_name']])
                 .limit(1)
