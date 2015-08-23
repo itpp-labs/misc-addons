@@ -14,5 +14,8 @@
         'js.xml',
         'pre_install.yml',
         ],
+    'qweb': [
+        'static/src/xml/database_manager.xml',
+    ],
     'installable': True
 }
