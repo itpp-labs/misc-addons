@@ -5,13 +5,13 @@
                   inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
                 <script type="text/javascript"
+                        src="/web_debranding/static/src/js/main.js"></script>
+                <script type="text/javascript"
                         src="/web_debranding/static/src/js/title.js"></script>
                 <script type="text/javascript"
                         src="/web_debranding/static/src/js/about.js"></script>
                 <script type="text/javascript"
                         src="/web_debranding/static/src/js/dialog.js"></script>
-                <script type="text/javascript"
-                        src="/web_debranding/static/src/js/main.js"></script>
             </xpath>
         </template>
     </data>

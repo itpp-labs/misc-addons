@@ -1,4 +1,4 @@
-function web_debranding_title(instance) {
+openerp.web_debranding.load_title = function(instance) {
  var QWeb = instance.web.qweb;
  var _t = instance.web._t;
  instance.web.WebClient.include({

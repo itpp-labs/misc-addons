@@ -1,4 +1,4 @@
-function web_debranding_dialog(instance) {
+openerp.web_debranding.load_dialog = function(instance) {
     var QWeb = instance.web.qweb;
     var _t = instance.web._t;
 
