@@ -11,10 +11,11 @@ class wizard(models.TransientModel):
     message_is_moved = fields.Boolean(string='Is Moved', related='message_id.is_moved', readonly=True)
     parent_id = fields.Many2one('mail.message', string='Search by name')
     model_id = fields.Many2one('ir.model', string='Model')
-    res_id = fields.Integer('Record ID')
+    res_id = fields.Many2one('ir.model', string='Record ID')
     record_url = fields.Char('Link to record', readonly=True)
     can_move = fields.Boolean('Can move', compute='get_can_move')
     move_back = fields.Boolean('Move to origin', help='Move  message and submessages to original place')
+    model = fields.Char('Model', related='model_id.model')
 
     @api.depends('message_id')
     @api.one
@@ -51,6 +52,7 @@ class wizard(models.TransientModel):
     def on_change_res(self):
         if not ( self.model_id and self.res_id ):
             self.record_url = ''
+
             return
 
         self.record_url = '/web#id=%s&model=%s' % (self.res_id, self.model_id.model)

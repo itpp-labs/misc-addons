@@ -15,6 +15,7 @@
         <form string="Move Message">
             <field name="can_move" invisible="1"/>
             <field name="message_is_moved" invisible="1"/>
+            <field name="model" widget="polymorphic" polymorphic="res_id" invisible="1"/>
 
             <p  attrs="{'invisible':[('can_move', '!=', False)]}">You cannot move this message. It was already moved with a message bellow. Open one and apply changes there.</p>
             <group attrs="{'invisible':[('can_move', '!=', False)]}">
@@ -25,8 +26,8 @@
             <group attrs="{'invisible':[('can_move', '=', False)]}" col="4">
                 <field name="move_back" attrs="{'invisible':[('message_is_moved','=',False)]}" colspan="4"/>
                 <field name="parent_id" domain="[('parent_id','=', False)]" context="{'extended_name':1}" colspan="4"/>
-                <field name="model_id" colspan="2" />
-                <field name="res_id" colspan="2"/>
+                <field name="model_id" colspan="2"/>
+                <field name="res_id" colspan="2" context="{'extended_name_with_contact':1}"/>
                 <field name="record_url" colspan="4" widget="url"/>
             </group>
                 <button name="move" string="Move" type="object" class="oe_highlight" attrs="{'invisible':[('can_move', '=', False)]}"/>
