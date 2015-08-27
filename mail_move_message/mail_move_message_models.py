@@ -10,7 +10,7 @@ class wizard(models.TransientModel):
     message_moved_by_user_id = fields.Many2one('res.users', related='message_id.moved_by_user_id', string='Moved by', readonly=True)
     message_is_moved = fields.Boolean(string='Is Moved', related='message_id.is_moved', readonly=True)
     parent_id = fields.Many2one('mail.message', string='Search by name')
-    model_id = fields.Many2one('ir.model', string='Record type')
+    model_id = fields.Many2one('ir.model', string='Model')
     res_id = fields.Integer('Record ID')
     record_url = fields.Char('Link to record', readonly=True)
     can_move = fields.Boolean('Can move', compute='get_can_move')
@@ -112,6 +112,17 @@ class wizard(models.TransientModel):
             'views': [(False, 'form')],
             'type': 'ir.actions.act_window',
         }
+
+    @api.model
+    def fields_get(self, fields=None, write_access=True, attributes=None):
+        config_parameters = self.env['ir.config_parameter']
+        res =  super(wizard, self).fields_get(fields, write_access=write_access, attributes=attributes)
+        if 'model_id' in res:
+            model_names = config_parameters.get_param('mail_relocation_models')
+            if model_names:
+                model_names = model_names.split(',')
+                res['model_id']['domain'] = [('model', 'in', model_names)]
+        return res
 
 class mail_message(models.Model):
     _inherit = 'mail.message'

@@ -157,3 +157,7 @@ msgstr ""
 msgid "You cannot move this message. It was already moved with a message bellow. Open one and apply changes there."
 msgstr ""
 
+#. module: mail_move_message
+#: help:mail_move_message.wizard,model_id:0
+msgid "List available Models is configured at Settings\Technical\Emails\Mail Relocation. Empty for unassigned email"
+msgstr ""
