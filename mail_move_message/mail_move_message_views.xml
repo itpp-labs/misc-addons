@@ -69,7 +69,7 @@
         </record>
 
         <!-- Add menu entry in Settings/Email -->
-        <menuitem name="Mail Relocation" id="menu_mail_move_message" parent="base.menu_email" sequence="20" action="action_mail_move_message_config"/>
+        <menuitem name="Mail Relocation" id="menu_mail_move_message" parent="base.menu_email" sequence="99" action="action_mail_move_message_config"/>
 
     </data>
 </openerp>
