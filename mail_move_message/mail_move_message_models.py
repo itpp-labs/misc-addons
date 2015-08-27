@@ -212,15 +212,16 @@ class mail_move_message_configuration(models.TransientModel):
 
     model_ids = fields.Many2many(comodel_name='ir.model', string='Models')
 
-    def get_default_model_ids(self, cr, uid, fields, context=None):
-        config_parameters = self.pool.get('ir.config_parameter')
-        model_obj = self.pool.get('ir.model')
-        model_names = config_parameters.get_param(cr, uid, 'mail_relocation_models', context=context)
+    @api.model
+    def get_default_model_ids(self, fields):
+        config_parameters = self.env['ir.config_parameter']
+        model_obj = self.env['ir.model']
+        model_names = config_parameters.get_param('mail_relocation_models')
         if not model_names:
             return {}
         model_names = model_names.split(',')
-        model_ids = model_obj.search(cr, uid, [('model', 'in', model_names)], context=context)
-        return {'model_ids': model_ids}
+        model_ids = model_obj.search([('model', 'in', model_names)])
+        return {'model_ids': [m.id for m in model_ids]}
 
     @api.multi
     def set_model_ids(self):
