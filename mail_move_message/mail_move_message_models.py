@@ -193,3 +193,28 @@ class mail_message(models.Model):
         res = super(mail_message, self)._message_read_dict(cr, uid, message, parent_id, context)
         res['is_moved'] = message.is_moved
         return res
+
+
+class mail_move_message_configuration(models.TransientModel):
+    _name = 'mail_move_message.config.settings'
+    _inherit = 'res.config.settings'
+
+    model_ids = fields.Many2many(comodel_name='ir.model', string='Models')
+
+    def get_default_model_ids(self, cr, uid, fields, context=None):
+        config_parameters = self.pool.get('ir.config_parameter')
+        model_obj = self.pool.get('ir.model')
+        model_names = config_parameters.get_param(cr, uid, 'mail_relocation_models', context=context)
+        if not model_names:
+            return {}
+        model_names = model_names.split(',')
+        model_ids = model_obj.search(cr, uid, [('model', 'in', model_names)], context=context)
+        return {'model_ids': model_ids}
+
+    @api.multi
+    def set_model_ids(self):
+        config_parameters = self.env['ir.config_parameter']
+        model_names = ''
+        for record in self:
+            model_names = ','.join([m.model for m in record.model_ids])
+            config_parameters.set_param('mail_relocation_models', model_names)
