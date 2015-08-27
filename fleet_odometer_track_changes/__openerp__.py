@@ -2,13 +2,9 @@
 {
     'name': 'Fleet with odometer track changes',
     'version': '0.1',
-    'author': 'no name',
+    'author': 'Ivan Yelizariev',
     'category': 'Managing vehicles and contracts',
-    'website': 'https://www.odoo.com',
-    'summary': 'Vehicle, leasing, insurances, costs',
-    'description': """
-
-    """,
+    'website': 'https://yelizariev.github.io',
     'depends': ['fleet'],
     'data': [],
     'demo': [],
