@@ -6,7 +6,7 @@ class DataSetCustom(DataSet):
 
     def _call_kw(self, model, method, args, kwargs):
         res = super(DataSetCustom, self)._call_kw(model, method, args, kwargs)
-        if 'context' in kwargs and kwargs['context'].get('extended_name_with_contact') and res:
+        if method == 'name_search' and 'context' in kwargs and kwargs['context'].get('extended_name_with_contact') and res:
             model = request.session.model(model)
             fields = model.fields_get(False, request.context)
             contact_field = False
@@ -16,6 +16,7 @@ class DataSetCustom(DataSet):
                     break
             partner_info = {}
             if contact_field:
+                print res
                 partner_info = model.read([r[0] for r in res], [contact_field])
                 partner_info = dict([(p['id'], p[contact_field]) for p in partner_info])
             final_res = []

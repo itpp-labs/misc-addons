@@ -4,18 +4,27 @@ from openerp.tools.translate import _
 class wizard(models.TransientModel):
     _name = 'mail_move_message.wizard'
 
+    @api.model
+    def _model_selection(self):
+        selection = []
+        config_parameters = self.env['ir.config_parameter']
+        model_names = config_parameters.get_param('mail_relocation_models')
+        if model_names:
+            model_names = model_names.split(',')
+            selection = [(m.model, m.display_name) for m in self.env['ir.model'].search([('model', 'in', model_names)])]
+        return selection
+
     message_id = fields.Many2one('mail.message', string='Message')
     message_body = fields.Html(related='message_id.body', string='Message to move', readonly=True)
     message_moved_by_message_id = fields.Many2one('mail.message', related='message_id.moved_by_message_id', string='Moved with', readonly=True)
     message_moved_by_user_id = fields.Many2one('res.users', related='message_id.moved_by_user_id', string='Moved by', readonly=True)
     message_is_moved = fields.Boolean(string='Is Moved', related='message_id.is_moved', readonly=True)
     parent_id = fields.Many2one('mail.message', string='Search by name')
-    model_id = fields.Many2one('ir.model', string='Model')
-    res_id = fields.Many2one('ir.model', string='Record ID')
+    res_id = fields.Integer(string='Record ID')
     record_url = fields.Char('Link to record', readonly=True)
     can_move = fields.Boolean('Can move', compute='get_can_move')
     move_back = fields.Boolean('Move to origin', help='Move  message and submessages to original place')
-    model = fields.Char('Model', related='model_id.model')
+    model = fields.Selection(_model_selection, string='Model')
     partner_id = fields.Many2one('res.partner', string='Author')
     filter_by_partner = fields.Boolean('Filter Records by partner')
 
@@ -31,33 +40,32 @@ class wizard(models.TransientModel):
             return
         self.parent_id = self.message_id.moved_from_parent_id
         self.res_id = self.message_id.moved_from_res_id
-        model = self.message_id.moved_from_model
-        self.model_id = model and self.env['ir.model'].search([('model','=', model)])
-    @api.onchange('parent_id', 'res_id', 'model_id')
+        self.model = self.message_id.moved_from_model
+
+    @api.onchange('parent_id', 'res_id', 'model')
     def update_move_back(self):
         model = self.message_id.moved_from_model
-        model_id = model and self.env['ir.model'].search([('model','=', model)])
         self.move_back = self.parent_id == self.message_id.moved_from_parent_id \
                          and self.res_id == self.message_id.moved_from_res_id \
-                         and (self.model_id == model_id or (not self.model_id and not model_id))
+                         and (self.model == model or (not self.model and not model))
 
     @api.onchange('parent_id')
     def on_change_parent_id(self):
         if self.parent_id and self.parent_id.model:
-            self.model_id = self.env['ir.model'].search([('model', '=', self.parent_id.model)])[0]
+            self.model = self.parent_id.model
             self.res_id = self.parent_id.res_id
         else:
-            self.model_id = None
+            self.model = None
             self.res_id = None
 
-    @api.onchange('model_id', 'res_id')
+    @api.onchange('model', 'res_id')
     def on_change_res(self):
-        if not ( self.model_id and self.res_id ):
+        if not ( self.model and self.res_id ):
             self.record_url = ''
 
             return
 
-        self.record_url = '/web#id=%s&model=%s' % (self.res_id, self.model_id.model)
+        self.record_url = '/web#id=%s&model=%s' % (self.res_id, self.model)
 
     @api.onchange('filter_by_partner', 'partner_id')
     def on_change_partner(self):
@@ -80,9 +88,9 @@ class wizard(models.TransientModel):
         operation = 'write'
         context = self._context
 
-        if not ( self.model_id and self.res_id ):
+        if not ( self.model and self.res_id ):
             return True
-        model_obj = self.pool[self.model_id.model]
+        model_obj = self.pool[self.model]
         mids = model_obj.exists(cr, uid, [self.res_id])
         if hasattr(model_obj, 'check_mail_message_access'):
             model_obj.check_mail_message_access(cr, uid, mids, operation, context=context)
@@ -108,12 +116,12 @@ class wizard(models.TransientModel):
         for r in self:
             r.check_access()
             if r.parent_id:
-                if not (r.parent_id.model == r.model_id.model and
+                if not (r.parent_id.model == r.model and
                         r.parent_id.res_id == r.res_id):
                     r.parent_id = None
-            r.message_id.move(r.parent_id.id, r.res_id, r.model_id.model, r.move_back)
+            r.message_id.move(r.parent_id.id, r.res_id, r.model, r.move_back)
 
-        if not ( r.model_id and r.res_id ):
+        if not ( r.model and r.res_id ):
             obj = self.pool.get('ir.model.data').get_object_reference(self._cr, SUPERUSER_ID, 'mail', 'mail_archivesfeeds')[1]
             return {
                 'type' : 'ir.actions.client',
@@ -125,22 +133,26 @@ class wizard(models.TransientModel):
             'name': _('Record'),
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': r.model_id.model,
+            'res_model': r.model,
             'res_id': r.res_id,
             'views': [(False, 'form')],
             'type': 'ir.actions.act_window',
         }
 
-    @api.model
-    def fields_get(self, fields=None, write_access=True, attributes=None):
-        config_parameters = self.env['ir.config_parameter']
-        res =  super(wizard, self).fields_get(fields, write_access=write_access, attributes=attributes)
-        if 'model_id' in res:
-            model_names = config_parameters.get_param('mail_relocation_models')
-            if model_names:
-                model_names = model_names.split(',')
-                res['model_id']['domain'] = [('model', 'in', model_names)]
-        return res
+
+
+    # @api.model
+    # def fields_get(self, fields=None, write_access=True, attributes=None):
+    #     config_parameters = self.env['ir.config_parameter']
+    #     res =  super(wizard, self).fields_get(fields, write_access=write_access, attributes=attributes)
+    #     print res['res_id']
+    #     print res['partner_id']
+    #     if 'res_id' in res:
+    #         res['res_id'].update({
+    #             'type': 'many2one',
+    #         })
+
+    #     return res
 
 class mail_message(models.Model):
     _inherit = 'mail.message'
