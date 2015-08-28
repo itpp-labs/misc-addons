@@ -140,20 +140,6 @@ class wizard(models.TransientModel):
         }
 
 
-
-    # @api.model
-    # def fields_get(self, fields=None, write_access=True, attributes=None):
-    #     config_parameters = self.env['ir.config_parameter']
-    #     res =  super(wizard, self).fields_get(fields, write_access=write_access, attributes=attributes)
-    #     print res['res_id']
-    #     print res['partner_id']
-    #     if 'res_id' in res:
-    #         res['res_id'].update({
-    #             'type': 'many2one',
-    #         })
-
-    #     return res
-
 class mail_message(models.Model):
     _inherit = 'mail.message'
 
