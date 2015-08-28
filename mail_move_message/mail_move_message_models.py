@@ -16,6 +16,8 @@ class wizard(models.TransientModel):
     can_move = fields.Boolean('Can move', compute='get_can_move')
     move_back = fields.Boolean('Move to origin', help='Move  message and submessages to original place')
     model = fields.Char('Model', related='model_id.model')
+    partner_id = fields.Many2one('res.partner', string='Author')
+    filter_by_partner = fields.Boolean('Filter Records by partner')
 
     @api.depends('message_id')
     @api.one
@@ -56,6 +58,20 @@ class wizard(models.TransientModel):
             return
 
         self.record_url = '/web#id=%s&model=%s' % (self.res_id, self.model_id.model)
+
+    @api.onchange('filter_by_partner', 'partner_id')
+    def on_change_partner(self):
+        domain = {'res_id': []}
+        if self.filter_by_partner and self.partner_id:
+            fields = self.env[self.model].fields_get(False)
+            contact_field = False
+            for n, f in fields.iteritems():
+                if f['type'] == 'many2one' and f['relation'] == 'res.partner':
+                    contact_field = n
+                    break
+            if contact_field:
+                domain['res_id'] = [(contact_field, '=', self.partner_id.id)]
+        return {'domain': domain}
 
     @api.one
     def check_access(self):

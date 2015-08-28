@@ -25,8 +25,9 @@
             </group>
             <group attrs="{'invisible':[('can_move', '=', False)]}" col="4">
                 <field name="move_back" attrs="{'invisible':[('message_is_moved','=',False)]}" colspan="4"/>
-                <field name="parent_id" domain="[('parent_id','=', False)]" context="{'extended_name':1}" colspan="4"/>
-                <field name="model_id" colspan="2"/>
+                <field name="model_id" class="oe_inline"/>
+                <field name="filter_by_partner"/>
+                <field name="partner_id"/>
                 <field name="res_id" colspan="2" context="{'extended_name_with_contact':1}"/>
                 <field name="record_url" colspan="4" widget="url"/>
             </group>
