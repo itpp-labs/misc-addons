@@ -13,6 +13,7 @@
     <field name="model">mail_move_message.wizard</field>
     <field name="arch" type="xml">
         <form string="Move Message">
+
             <field name="can_move" invisible="1"/>
             <field name="message_is_moved" invisible="1"/>
 
@@ -22,16 +23,28 @@
                 <field name="message_moved_by_user_id"/>
                 <button name="open_moved_by_message_id" string="Open message" type="object" class="oe_highlight"/>
             </group>
-            <group attrs="{'invisible':[('can_move', '=', False)]}" col="4">
-                <field name="move_back" attrs="{'invisible':[('message_is_moved','=',False)]}" colspan="4"/>
-                <field name="model" class="oe_inline" widget="polymorphic" polymorphic="res_id"/>
-                <field name="filter_by_partner"/>
-                <field name="partner_id"/>
-                <field name="res_id" colspan="2" context="{'extended_name_with_contact':1}" widget="many2one" attrs="{'readonly': [('model','=',False)]}"/>
-                <field name="record_url" colspan="4" widget="url"/>
+
+            <group attrs="{'invisible':[('can_move', '=', False)]}" colspan="2">
+                <label for="model"/>
+                <div>
+                    <field name="model" widget="polymorphic" polymorphic="res_id" style="width:100%"/>
+                </div>
+                <label for="filter_by_partner"/>
+                <div>
+                    <field name="filter_by_partner"/>
+                    <field name="partner_id" style="width:50%"/>
+                    <button name="create_partner" type="object" string="Create Partner" attrs="{'invisible':[('partner_id','!=',False)]}"/>
+                </div>
+                <label for="res_id"/>
+                <div>
+                    <field name="res_id" context="{'extended_name_with_contact':1}" widget="many2one" attrs="{'readonly': [('model','=',False)]}" class="oe_inline"/>
+                    <field name="record_url" widget="url" class="oe_inline"/>
+                </div>
             </group>
-                <button name="move" string="Move" type="object" class="oe_highlight" attrs="{'invisible':[('can_move', '=', False)]}"/>
-                <button string="Cancel" class="" special="cancel" />
+                
+            <field name="move_back" attrs="{'invisible':[('message_is_moved','=',False)]}" colspan="4"/>
+            <button name="move" string="Move" type="object" class="oe_highlight" attrs="{'invisible':[('can_move', '=', False)]}"/>
+            <button string="Cancel" class="" special="cancel" />
             <separator string="Message"/>
             <div>
                 <field name="message_id" invisible="1"/>

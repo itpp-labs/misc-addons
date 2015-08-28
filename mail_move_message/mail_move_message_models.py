@@ -67,10 +67,10 @@ class wizard(models.TransientModel):
 
         self.record_url = '/web#id=%s&model=%s' % (self.res_id, self.model)
 
-    @api.onchange('filter_by_partner', 'partner_id')
+    @api.onchange('model', 'filter_by_partner', 'partner_id')
     def on_change_partner(self):
         domain = {'res_id': []}
-        if self.filter_by_partner and self.partner_id:
+        if self.model and self.filter_by_partner and self.partner_id:
             fields = self.env[self.model].fields_get(False)
             contact_field = False
             for n, f in fields.iteritems():

@@ -16,7 +16,6 @@ class DataSetCustom(DataSet):
                     break
             partner_info = {}
             if contact_field:
-                print res
                 partner_info = model.read([r[0] for r in res], [contact_field])
                 partner_info = dict([(p['id'], p[contact_field]) for p in partner_info])
             final_res = []
