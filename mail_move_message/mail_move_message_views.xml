@@ -33,23 +33,27 @@
                 <div>
                     <field name="filter_by_partner"/>
                     <field name="partner_id" style="width:50%"/>
-                    <button name="create_partner" type="object" string="Create Partner" attrs="{'invisible':[('partner_id','!=',False)]}"/>
+                    <button name="create_partner" type="object" string="Create Partner" attrs="{'invisible':[('partner_id','!=',False)]}" class="oe_highlight"/>
                 </div>
                 <label for="res_id"/>
                 <div>
-                    <field name="res_id" context="{'extended_name_with_contact':1}" widget="many2one" attrs="{'readonly': [('model','=',False)]}" class="oe_inline"/>
-                    <field name="record_url" widget="url" class="oe_inline"/>
+                    <field name="res_id" context="{'extended_name_with_contact':1}" widget="many2one" attrs="{'readonly': [('model','=',False)]}" style="width:50%"/>
+                    <field name="record_url" widget="url" class="oe_inline" text="Open in new tab"/>
+                    <button string="Create new record" name="create_record" type="object" class="oe_highlight" attrs="{'invisible':['|',('model','=',False),('res_id','!=',False)]}"/>
                 </div>
             </group>
                 
-            <field name="move_back" attrs="{'invisible':[('message_is_moved','=',False)]}" colspan="4"/>
+            <field name="move_back" attrs="{'invisible':[('message_is_moved','=',False)]}"/>
             <button name="move" string="Move" type="object" class="oe_highlight" attrs="{'invisible':[('can_move', '=', False)]}"/>
-            <button string="Cancel" class="" special="cancel" />
+            <button string="Close" class="" special="cancel" />
+            <button name="read_close" string="Mark as read and Close" type="object" class="oe_highlight"/>
             <separator string="Message"/>
             <div>
                 <field name="message_id" invisible="1"/>
                 <field name="message_body"/>
             </div>
+            <separator/>
+            <button name="delete" string="Delete message" type="object" class="oe_highlight"/>
         </form>
     </field>
 </record>
