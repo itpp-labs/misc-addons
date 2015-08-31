@@ -53,7 +53,7 @@
                 <field name="message_body"/>
             </div>
             <separator/>
-            <button name="delete" string="Delete message" type="object" class="oe_highlight"/>
+            <button name="delete" string="Delete message" type="object" class="oe_highlight" confirm="Do you really want to delete this message?"/>
         </form>
     </field>
 </record>

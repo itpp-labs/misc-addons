@@ -10,6 +10,7 @@ openerp.mail_move_message = function (session) {
             this.$('.oe_move').on('click', this.on_move_message)
         },
         on_move_message: function(event){
+            var self = this;
             var context = {
                 'default_message_id': this.id
             }
@@ -24,7 +25,11 @@ openerp.mail_move_message = function (session) {
                 context: context,
             };
 
-            this.do_action(action);
+            self.do_action(action, {
+                'on_close': function(){
+                    self.check_for_rerender();
+                }
+            });
         }
     })
 
