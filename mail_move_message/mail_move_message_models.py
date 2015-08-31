@@ -17,17 +17,22 @@ class wizard(models.TransientModel):
         model_fields = self.fields_get()
         return model_fields['model']['selection'] and model_fields['model']['selection'][0][0]
 
+    def _default_res(self):
+        model = self._default_model()
+        res = self.env[model].search([], order='id desc', limit=1)
+        return res and res[0].id
+
     message_id = fields.Many2one('mail.message', string='Message')
     message_body = fields.Html(related='message_id.body', string='Message to move', readonly=True)
     message_moved_by_message_id = fields.Many2one('mail.message', related='message_id.moved_by_message_id', string='Moved with', readonly=True)
     message_moved_by_user_id = fields.Many2one('res.users', related='message_id.moved_by_user_id', string='Moved by', readonly=True)
     message_is_moved = fields.Boolean(string='Is Moved', related='message_id.is_moved', readonly=True)
     parent_id = fields.Many2one('mail.message', string='Search by name')
-    res_id = fields.Integer(string='Record ID')
+    model = fields.Selection(_model_selection, string='Model', default=_default_model)
+    res_id = fields.Integer(string='Record ID', default=_default_res)
     record_url = fields.Char('Link to record', readonly=True)
     can_move = fields.Boolean('Can move', compute='get_can_move')
     move_back = fields.Boolean('Move to origin', help='Move  message and submessages to original place')
-    model = fields.Selection(_model_selection, string='Model', default=_default_model)
     partner_id = fields.Many2one('res.partner', string='Author')
     filter_by_partner = fields.Boolean('Filter Records by partner')
 
