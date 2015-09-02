@@ -36,6 +36,8 @@ class wizard(models.TransientModel):
             res['message_name_from'] = name
             res['message_email_from'] = email
 
+        res['uid'] = self.env.uid
+
         return res
 
     message_id = fields.Many2one('mail.message', string='Message')
@@ -53,6 +55,7 @@ class wizard(models.TransientModel):
     message_email_from = fields.Char()
     message_name_from = fields.Char()
     message_to_read = fields.Boolean(related='message_id.to_read')
+    uid = fields.Integer()
 
     @api.depends('message_id')
     @api.one
@@ -192,18 +195,6 @@ class wizard(models.TransientModel):
     def read_close(self):
         self.message_id.set_message_read(True)
         return {'type': 'ir.actions.act_window_close'}
-
-    @api.model
-    def fields_view_get(self, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
-        res = super(wizard, self).fields_view_get(view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=False)
-        doc = etree.XML(res['arch'])
-        nodes = doc.xpath("//button[@name='delete']")
-        for node in nodes:
-            if self.env.uid != 1:
-                node.set('invisible', "1")
-        res['arch'] = etree.tostring(doc)
-        return res
-
 
 
 class mail_message(models.Model):
