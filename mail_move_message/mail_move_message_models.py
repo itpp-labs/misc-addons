@@ -199,7 +199,7 @@ class wizard(models.TransientModel):
         doc = etree.XML(res['arch'])
         nodes = doc.xpath("//button[@name='delete']")
         for node in nodes:
-            if self.env.uid == 1:
+            if self.env.uid != 1:
                 node.set('invisible', "1")
         res['arch'] = etree.tostring(doc)
         return res
