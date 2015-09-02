@@ -25,15 +25,16 @@ class wizard(models.TransientModel):
         res_id = self.env[res['model']].search([], order='id desc', limit=1)
         res['res_id'] = res_id and res_id[0].id
 
-        email_from = self.env['mail.message'].browse(res['message_id']).email_from
-        parts = email_split(email_from.replace(' ',','))
-        if parts:
-            email = parts[0]
-            name = email_from[:email_from.index(email)].replace('"', '').replace('<', '').strip() or email_from
-        else:
-            name, email = email_from
-        res['message_name_from'] = name
-        res['message_email_from'] = email
+        if 'message_id' in res:
+            email_from = self.env['mail.message'].browse(res['message_id']).email_from
+            parts = email_split(email_from.replace(' ',','))
+            if parts:
+                email = parts[0]
+                name = email_from[:email_from.index(email)].replace('"', '').replace('<', '').strip() or email_from
+            else:
+                name, email = email_from
+            res['message_name_from'] = name
+            res['message_email_from'] = email
 
         return res
 
@@ -45,7 +46,6 @@ class wizard(models.TransientModel):
     parent_id = fields.Many2one('mail.message', string='Search by name', )
     model = fields.Selection(_model_selection, string='Model')
     res_id = fields.Integer(string='Record ID')
-    record_url = fields.Char('Link to record', readonly=True)
     can_move = fields.Boolean('Can move', compute='get_can_move')
     move_back = fields.Boolean('Move to origin', help='Move  message and submessages to original place')
     partner_id = fields.Many2one('res.partner', string='Author', related='message_id.author_id')
@@ -82,15 +82,6 @@ class wizard(models.TransientModel):
         else:
             self.model = None
             self.res_id = None
-
-    @api.onchange('model', 'res_id')
-    def on_change_res(self):
-        if not ( self.model and self.res_id ):
-            self.record_url = ''
-
-            return
-
-        self.record_url = '/web#id=%s&model=%s' % (self.res_id, self.model)
 
     @api.onchange('model', 'filter_by_partner', 'partner_id')
     def on_change_partner(self):
@@ -193,6 +184,11 @@ class wizard(models.TransientModel):
         if contact_field:
             context.update({'default_%s' % contact_field: partner_id})
         return context
+
+    @api.one
+    def read_close(self):
+        self.message_id.set_message_read(True)
+        return {'type': 'ir.actions.act_window_close'}
 
 
 class mail_message(models.Model):

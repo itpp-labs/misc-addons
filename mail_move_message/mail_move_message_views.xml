@@ -29,7 +29,7 @@
             <group attrs="{'invisible':[('can_move', '=', False)]}" colspan="2">
                 <label for="model"/>
                 <div>
-                    <field name="model" widget="polymorphic" polymorphic="res_id" style="width:100%"/>
+                    <field name="model" widget="polymorphic" polymorphic="res_id" class="oe_inline"/>
                 </div>
                 <label for="filter_by_partner"/>
                 <div>
@@ -40,7 +40,6 @@
                 <label for="res_id"/>
                 <div>
                     <field name="res_id" context="{'extended_name_with_contact':1}" widget="many2one" attrs="{'readonly': [('model','=',False)]}" style="width:50%"/>
-                    <field name="record_url" widget="url" class="oe_inline" text="Open in new tab"/>
                     <button string="Create new record" name="create_record" type="object" class="oe_highlight" attrs="{'invisible':['|',('model','=',False),('res_id','!=',False)]}" special="quick_create" field="res_id" use_for_mail_move_message="True"/>
                 </div>
             </group>
