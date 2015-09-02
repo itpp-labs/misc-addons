@@ -1,4 +1,4 @@
-import json
+from lxml import etree
 from openerp import api, models, fields, SUPERUSER_ID
 from openerp.tools import email_split
 from openerp.tools.translate import _
@@ -44,14 +44,15 @@ class wizard(models.TransientModel):
     message_moved_by_user_id = fields.Many2one('res.users', related='message_id.moved_by_user_id', string='Moved by', readonly=True)
     message_is_moved = fields.Boolean(string='Is Moved', related='message_id.is_moved', readonly=True)
     parent_id = fields.Many2one('mail.message', string='Search by name', )
-    model = fields.Selection(_model_selection, string='Model')
-    res_id = fields.Integer(string='Record ID')
+    model = fields.Selection(_model_selection, string='Model', required=True)
+    res_id = fields.Integer(string='Record ID', required=True)
     can_move = fields.Boolean('Can move', compute='get_can_move')
     move_back = fields.Boolean('Move to origin', help='Move  message and submessages to original place')
     partner_id = fields.Many2one('res.partner', string='Author', related='message_id.author_id')
     filter_by_partner = fields.Boolean('Filter Records by partner')
     message_email_from = fields.Char()
     message_name_from = fields.Char()
+    message_to_read = fields.Boolean(related='message_id.to_read')
 
     @api.depends('message_id')
     @api.one
@@ -64,8 +65,10 @@ class wizard(models.TransientModel):
         if not self.move_back:
             return
         self.parent_id = self.message_id.moved_from_parent_id
-        self.res_id = self.message_id.moved_from_res_id
-        self.model = self.message_id.moved_from_model
+        model = self.message_id.moved_from_model
+        if model in [s[0] for s in self._model_selection()]:
+            self.model = model
+            self.res_id = self.message_id.moved_from_res_id
 
     @api.onchange('parent_id', 'res_id', 'model')
     def update_move_back(self):
@@ -189,6 +192,18 @@ class wizard(models.TransientModel):
     def read_close(self):
         self.message_id.set_message_read(True)
         return {'type': 'ir.actions.act_window_close'}
+
+    @api.model
+    def fields_view_get(self, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
+        res = super(wizard, self).fields_view_get(view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=False)
+        doc = etree.XML(res['arch'])
+        nodes = doc.xpath("//button[@name='delete']")
+        for node in nodes:
+            if self.env.uid == 1:
+                node.set('invisible', "1")
+        res['arch'] = etree.tostring(doc)
+        return res
+
 
 
 class mail_message(models.Model):
