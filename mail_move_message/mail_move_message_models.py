@@ -1,4 +1,6 @@
+import json
 from openerp import api, models, fields, SUPERUSER_ID
+from openerp.tools import email_split
 from openerp.tools.translate import _
 
 class wizard(models.TransientModel):
@@ -13,14 +15,27 @@ class wizard(models.TransientModel):
             selection = [(m.model, m.display_name) for m in self.env['ir.model'].search([('model', 'in', model_names)])]
         return selection
 
-    def _default_model(self):
-        model_fields = self.fields_get()
-        return model_fields['model']['selection'] and model_fields['model']['selection'][0][0]
+    @api.model
+    def default_get(self, fields_list):
+        res = super(wizard, self).default_get(fields_list)
 
-    def _default_res(self):
-        model = self._default_model()
-        res = self.env[model].search([], order='id desc', limit=1)
-        return res and res[0].id
+        model_fields = self.fields_get()
+        res['model'] = model_fields['model']['selection'] and model_fields['model']['selection'][0][0]
+
+        res_id = self.env[res['model']].search([], order='id desc', limit=1)
+        res['res_id'] = res_id and res_id[0].id
+
+        email_from = self.env['mail.message'].browse(res['message_id']).email_from
+        parts = email_split(email_from.replace(' ',','))
+        if parts:
+            email = parts[0]
+            name = email_from[:email_from.index(email)].replace('"', '').replace('<', '').strip() or email_from
+        else:
+            name, email = email_from
+        res['message_name_from'] = name
+        res['message_email_from'] = email
+
+        return res
 
     message_id = fields.Many2one('mail.message', string='Message')
     message_body = fields.Html(related='message_id.body', string='Message to move', readonly=True)
@@ -28,13 +43,15 @@ class wizard(models.TransientModel):
     message_moved_by_user_id = fields.Many2one('res.users', related='message_id.moved_by_user_id', string='Moved by', readonly=True)
     message_is_moved = fields.Boolean(string='Is Moved', related='message_id.is_moved', readonly=True)
     parent_id = fields.Many2one('mail.message', string='Search by name', )
-    model = fields.Selection(_model_selection, string='Model', default=_default_model)
-    res_id = fields.Integer(string='Record ID', default=_default_res)
+    model = fields.Selection(_model_selection, string='Model')
+    res_id = fields.Integer(string='Record ID')
     record_url = fields.Char('Link to record', readonly=True)
     can_move = fields.Boolean('Can move', compute='get_can_move')
     move_back = fields.Boolean('Move to origin', help='Move  message and submessages to original place')
     partner_id = fields.Many2one('res.partner', string='Author', related='message_id.author_id')
     filter_by_partner = fields.Boolean('Filter Records by partner')
+    message_email_from = fields.Char()
+    message_name_from = fields.Char()
 
     @api.depends('message_id')
     @api.one
@@ -152,6 +169,30 @@ class wizard(models.TransientModel):
     def delete(self):
         self.message_id.unlink()
         return {}
+
+    @api.model
+    def create_partner(self, message_id, relation, partner_id, message_name_from, message_email_from):
+        model = self.env[relation]
+        message = self.env['mail.message'].browse(message_id)
+        if not partner_id and message_name_from:
+            partner_id = self.env['res.partner'].create({
+                'name': message_name_from,
+                'email': message_email_from
+            }).id
+            message.write({'author_id': partner_id})
+        context = {'partner_id': partner_id}
+        if model._rec_name:
+            context.update({'default_%s' % model._rec_name: message.subject})
+
+        fields = model.fields_get()
+        contact_field = False
+        for n, f in fields.iteritems():
+            if f['type'] == 'many2one' and f['relation'] == 'res.partner':
+                contact_field = n
+                break
+        if contact_field:
+            context.update({'default_%s' % contact_field: partner_id})
+        return context
 
 
 class mail_message(models.Model):
