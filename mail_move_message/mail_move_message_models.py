@@ -10,9 +10,17 @@ class wizard(models.TransientModel):
         selection = []
         config_parameters = self.env['ir.config_parameter']
         model_names = config_parameters.get_param('mail_relocation_models')
+        model_names = model_names.split(',') if model_names else []
+
+        if 'default_message_id' in self.env.context:
+            message = self.env['mail.message'].browse(self.env.context['default_message_id'])
+            if message.model and message.model not in model_names:
+                model_names.append(message.model)
+            if message.moved_from_model and message.moved_from_model not in model_names:
+                model_names.append(message.moved_from_model)
         if model_names:
-            model_names = model_names.split(',')
             selection = [(m.model, m.display_name) for m in self.env['ir.model'].search([('model', 'in', model_names)])]
+
         return selection
 
     @api.model
@@ -20,10 +28,11 @@ class wizard(models.TransientModel):
         res = super(wizard, self).default_get(fields_list)
 
         model_fields = self.fields_get()
-        res['model'] = model_fields['model']['selection'] and model_fields['model']['selection'][0][0]
+        if model_fields['model']['selection']:
+            res['model'] = model_fields['model']['selection'] and model_fields['model']['selection'][0][0]
 
-        res_id = self.env[res['model']].search([], order='id desc', limit=1)
-        res['res_id'] = res_id and res_id[0].id
+            res_id = self.env[res['model']].search([], order='id desc', limit=1)
+            res['res_id'] = res_id and res_id[0].id
 
         if 'message_id' in res:
             email_from = self.env['mail.message'].browse(res['message_id']).email_from
@@ -46,8 +55,8 @@ class wizard(models.TransientModel):
     message_moved_by_user_id = fields.Many2one('res.users', related='message_id.moved_by_user_id', string='Moved by', readonly=True)
     message_is_moved = fields.Boolean(string='Is Moved', related='message_id.is_moved', readonly=True)
     parent_id = fields.Many2one('mail.message', string='Search by name', )
-    model = fields.Selection(_model_selection, string='Model', required=True)
-    res_id = fields.Integer(string='Record ID', required=True)
+    model = fields.Selection(_model_selection, string='Model')
+    res_id = fields.Integer(string='Record ID')
     can_move = fields.Boolean('Can move', compute='get_can_move')
     move_back = fields.Boolean('Move to origin', help='Move  message and submessages to original place')
     partner_id = fields.Many2one('res.partner', string='Author', related='message_id.author_id')
