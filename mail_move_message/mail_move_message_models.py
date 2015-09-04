@@ -35,7 +35,8 @@ class wizard(models.TransientModel):
             res['res_id'] = res_id and res_id[0].id
 
         if 'message_id' in res:
-            email_from = self.env['mail.message'].browse(res['message_id']).email_from
+            message = self.env['mail.message'].browse(res['message_id'])
+            email_from = message.email_from
             parts = email_split(email_from.replace(' ',','))
             if parts:
                 email = parts[0]
@@ -44,6 +45,9 @@ class wizard(models.TransientModel):
                 name, email = email_from
             res['message_name_from'] = name
             res['message_email_from'] = email
+
+            if message.author_id and self.env.uid not in [u.id for u in message.author_id.user_ids]:
+                res['filter_by_partner'] = True
 
         res['uid'] = self.env.uid
 
@@ -102,7 +106,6 @@ class wizard(models.TransientModel):
     def on_change_partner(self):
         domain = {'res_id': []}
         if self.model and self.filter_by_partner and self.partner_id:
-            self.res_id = None
             fields = self.env[self.model].fields_get(False)
             contact_field = False
             for n, f in fields.iteritems():
@@ -111,6 +114,11 @@ class wizard(models.TransientModel):
                     break
             if contact_field:
                 domain['res_id'] = [(contact_field, '=', self.partner_id.id)]
+        if self.model:
+            res_id = self.env[self.model].search(domain['res_id'], order='id desc', limit=1)
+            self.res_id = res_id and res_id[0].id
+        else:
+            self.res_id = None
         return {'domain': domain}
 
     @api.one
