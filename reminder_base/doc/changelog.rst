@@ -3,6 +3,11 @@
 Changelog
 =========
 
+`1.0.3`
+-------
+
+- Fix: check that partner record exists before add one to attendees
+
 `1.0.2`
 -------
 

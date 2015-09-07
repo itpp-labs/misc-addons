@@ -100,7 +100,7 @@ class reminder(models.AbstractModel):
 
                 if model == 'res.users':
                     partner = partner.partner_id
-                if partner.id not in partner_ids:
+                if partner and partner.id not in partner_ids:
                     partner_ids.append(partner.id)
             vals['partner_ids'] = [(6, 0, partner_ids)]
 
