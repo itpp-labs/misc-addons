@@ -8,8 +8,9 @@ class res_partner_country_code(models.Model):
         email = self.env.context.get('default_email', False)
         if email:
             top_level_domain = email.split(".")[-1]
-            country_name = self.env['res.country'].search([('code', '=', top_level_domain.upper())])[0]
-            return country_name
+            if len(top_level_domain) == 2:
+                country_name = self.env['res.country'].search([('code', '=', top_level_domain.upper())])[0]
+                return country_name
 
-    country_id = fields.Many2one('res.country', 'Country', ondelete='restrict', default=get_country_name)
+    country_id = fields.Many2one(default=get_country_name)
 
