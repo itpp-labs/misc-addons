@@ -2,6 +2,7 @@ Auto-fill partner's country by top-lever domain of email address
 ================================================================
 
 The module:
+
 * auto-fill country field for a new partner
 * adds country field to short partner form
 

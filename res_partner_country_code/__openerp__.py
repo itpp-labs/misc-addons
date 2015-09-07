@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Country selection by email address top-lever domain",
+    'name': "Auto-fill partner's country by top-lever domain of email address",
     'version': '1.0',
     'author': "Ivan Yelizariev",
     'website': "https://yelizariev.github.io",
