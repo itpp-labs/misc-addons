@@ -1,5 +1,13 @@
-The module adds country selection by email address top-lever domain in simple partner form.
+Auto-fill partner's country by top-lever domain of email address
+================================================================
 
-Notice: raise unknown error from "Search more" button in country dropdown list
+The module:
+* auto-fill country field for a new partner
+* adds country field to short partner form
+
+Known issues
+------------
+
+* raise unknown error from "Search more" button in country dropdown list
 
 Tested on Odoo 8.0 c345d294b12f3ac3e3c8b549e0633686d017d0fe
