@@ -342,5 +342,5 @@ class res_partner(models.Model):
                                 ('author_id', '=', False)
                             ])
             if messages:
-                messages.write({'author_id': res.id})
+                messages.sudo().write({'author_id': res.id})
         return res
