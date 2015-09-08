@@ -31,9 +31,6 @@ class wizard(models.TransientModel):
         if model_fields['model']['selection']:
             res['model'] = model_fields['model']['selection'] and model_fields['model']['selection'][0][0]
 
-            res_id = self.env[res['model']].search([], order='id desc', limit=1)
-            res['res_id'] = res_id and res_id[0].id
-
         if 'message_id' in res:
             message = self.env['mail.message'].browse(res['message_id'])
             email_from = message.email_from
@@ -48,6 +45,9 @@ class wizard(models.TransientModel):
 
             if message.author_id and self.env.uid not in [u.id for u in message.author_id.user_ids]:
                 res['filter_by_partner'] = True
+            if message.author_id and res.get('model'):
+                res_id = self.env[res['model']].search([], order='id desc', limit=1)
+                res['res_id'] = res_id and res_id[0].id
 
         res['uid'] = self.env.uid
 
@@ -60,13 +60,14 @@ class wizard(models.TransientModel):
     message_is_moved = fields.Boolean(string='Is Moved', related='message_id.is_moved', readonly=True)
     parent_id = fields.Many2one('mail.message', string='Search by name', )
     model = fields.Selection(_model_selection, string='Model')
-    res_id = fields.Integer(string='Record ID')
+    res_id = fields.Integer(string='Record')
     can_move = fields.Boolean('Can move', compute='get_can_move')
-    move_back = fields.Boolean('Move to origin', help='Move  message and submessages to original place')
+    move_back = fields.Boolean('MOVE TO ORIGIN', help='Move  message and submessages to original place')
     partner_id = fields.Many2one('res.partner', string='Author', related='message_id.author_id')
     filter_by_partner = fields.Boolean('Filter Records by partner')
     message_email_from = fields.Char()
     message_name_from = fields.Char()
+    # FIXME message_to_read should be True even if current message or any his childs are unread
     message_to_read = fields.Boolean(related='message_id.to_read')
     uid = fields.Integer()
 
@@ -82,7 +83,7 @@ class wizard(models.TransientModel):
             return
         self.parent_id = self.message_id.moved_from_parent_id
         model = self.message_id.moved_from_model
-        if model in [s[0] for s in self._model_selection()]:
+        if self.message_id.is_moved:
             self.model = model
             self.res_id = self.message_id.moved_from_res_id
 
@@ -114,7 +115,7 @@ class wizard(models.TransientModel):
                     break
             if contact_field:
                 domain['res_id'] = [(contact_field, '=', self.partner_id.id)]
-        if self.model:
+        if self.model and self.partner_id:
             res_id = self.env[self.model].search(domain['res_id'], order='id desc', limit=1)
             self.res_id = res_id and res_id[0].id
         else:
@@ -211,6 +212,7 @@ class wizard(models.TransientModel):
     @api.one
     def read_close(self):
         self.message_id.set_message_read(True)
+        self.message_id.child_ids.set_message_read(True)
         return {'type': 'ir.actions.act_window_close'}
 
 
