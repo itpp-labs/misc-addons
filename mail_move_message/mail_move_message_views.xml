@@ -37,7 +37,7 @@
                 <div>
                     <field name="filter_by_partner"/>
                     <field name="partner_id" style="width:50%"/>
-                    <button string="Create Partner" attrs="{'invisible':[('partner_id','!=',False)]}" class="oe_highlight" special="quick_create" field="partner_id" context="{'force_email':True,'default_email':message_email_from,'default_name':message_name_from}"/>
+                    <button string="Create Partner" attrs="{'invisible':[('partner_id','!=',False)]}" class="oe_highlight" special="quick_create" field="partner_id" context="{'force_email':True,'default_email':message_email_from,'default_name':message_name_from, 'update_message_author':True}"/>
                 </div>
                 <label for="res_id"/>
                 <div>
