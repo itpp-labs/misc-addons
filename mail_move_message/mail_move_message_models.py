@@ -1,20 +1,74 @@
+from lxml import etree
 from openerp import api, models, fields, SUPERUSER_ID
+from openerp.tools import email_split
 from openerp.tools.translate import _
 
 class wizard(models.TransientModel):
     _name = 'mail_move_message.wizard'
+
+    def _model_selection(self):
+        selection = []
+        config_parameters = self.env['ir.config_parameter']
+        model_names = config_parameters.get_param('mail_relocation_models')
+        model_names = model_names.split(',') if model_names else []
+
+        if 'default_message_id' in self.env.context:
+            message = self.env['mail.message'].browse(self.env.context['default_message_id'])
+            if message.model and message.model not in model_names:
+                model_names.append(message.model)
+            if message.moved_from_model and message.moved_from_model not in model_names:
+                model_names.append(message.moved_from_model)
+        if model_names:
+            selection = [(m.model, m.display_name) for m in self.env['ir.model'].search([('model', 'in', model_names)])]
+
+        return selection
+
+    @api.model
+    def default_get(self, fields_list):
+        res = super(wizard, self).default_get(fields_list)
+
+        model_fields = self.fields_get()
+        if model_fields['model']['selection']:
+            res['model'] = model_fields['model']['selection'] and model_fields['model']['selection'][0][0]
+
+            res_id = self.env[res['model']].search([], order='id desc', limit=1)
+            res['res_id'] = res_id and res_id[0].id
+
+        if 'message_id' in res:
+            message = self.env['mail.message'].browse(res['message_id'])
+            email_from = message.email_from
+            parts = email_split(email_from.replace(' ',','))
+            if parts:
+                email = parts[0]
+                name = email_from[:email_from.index(email)].replace('"', '').replace('<', '').strip() or email_from
+            else:
+                name, email = email_from
+            res['message_name_from'] = name
+            res['message_email_from'] = email
+
+            if message.author_id and self.env.uid not in [u.id for u in message.author_id.user_ids]:
+                res['filter_by_partner'] = True
+
+        res['uid'] = self.env.uid
+
+        return res
 
     message_id = fields.Many2one('mail.message', string='Message')
     message_body = fields.Html(related='message_id.body', string='Message to move', readonly=True)
     message_moved_by_message_id = fields.Many2one('mail.message', related='message_id.moved_by_message_id', string='Moved with', readonly=True)
     message_moved_by_user_id = fields.Many2one('res.users', related='message_id.moved_by_user_id', string='Moved by', readonly=True)
     message_is_moved = fields.Boolean(string='Is Moved', related='message_id.is_moved', readonly=True)
-    parent_id = fields.Many2one('mail.message', string='Search by name')
-    model_id = fields.Many2one('ir.model', string='Record type')
-    res_id = fields.Integer('Record ID')
-    record_url = fields.Char('Link to record', readonly=True)
+    parent_id = fields.Many2one('mail.message', string='Search by name', )
+    model = fields.Selection(_model_selection, string='Model')
+    res_id = fields.Integer(string='Record ID')
     can_move = fields.Boolean('Can move', compute='get_can_move')
     move_back = fields.Boolean('Move to origin', help='Move  message and submessages to original place')
+    partner_id = fields.Many2one('res.partner', string='Author', related='message_id.author_id')
+    filter_by_partner = fields.Boolean('Filter Records by partner')
+    message_email_from = fields.Char()
+    message_name_from = fields.Char()
+    message_to_read = fields.Boolean(related='message_id.to_read')
+    uid = fields.Integer()
 
     @api.depends('message_id')
     @api.one
@@ -27,33 +81,45 @@ class wizard(models.TransientModel):
         if not self.move_back:
             return
         self.parent_id = self.message_id.moved_from_parent_id
-        self.res_id = self.message_id.moved_from_res_id
         model = self.message_id.moved_from_model
-        self.model_id = model and self.env['ir.model'].search([('model','=', model)])
-    @api.onchange('parent_id', 'res_id', 'model_id')
+        if model in [s[0] for s in self._model_selection()]:
+            self.model = model
+            self.res_id = self.message_id.moved_from_res_id
+
+    @api.onchange('parent_id', 'res_id', 'model')
     def update_move_back(self):
         model = self.message_id.moved_from_model
-        model_id = model and self.env['ir.model'].search([('model','=', model)])
         self.move_back = self.parent_id == self.message_id.moved_from_parent_id \
                          and self.res_id == self.message_id.moved_from_res_id \
-                         and (self.model_id == model_id or (not self.model_id and not model_id))
+                         and (self.model == model or (not self.model and not model))
 
     @api.onchange('parent_id')
     def on_change_parent_id(self):
         if self.parent_id and self.parent_id.model:
-            self.model_id = self.env['ir.model'].search([('model', '=', self.parent_id.model)])[0]
+            self.model = self.parent_id.model
             self.res_id = self.parent_id.res_id
         else:
-            self.model_id = None
+            self.model = None
             self.res_id = None
 
-    @api.onchange('model_id', 'res_id')
-    def on_change_res(self):
-        if not ( self.model_id and self.res_id ):
-            self.record_url = ''
-            return
-
-        self.record_url = '/web#id=%s&model=%s' % (self.res_id, self.model_id.model)
+    @api.onchange('model', 'filter_by_partner', 'partner_id')
+    def on_change_partner(self):
+        domain = {'res_id': []}
+        if self.model and self.filter_by_partner and self.partner_id:
+            fields = self.env[self.model].fields_get(False)
+            contact_field = False
+            for n, f in fields.iteritems():
+                if f['type'] == 'many2one' and f['relation'] == 'res.partner':
+                    contact_field = n
+                    break
+            if contact_field:
+                domain['res_id'] = [(contact_field, '=', self.partner_id.id)]
+        if self.model:
+            res_id = self.env[self.model].search(domain['res_id'], order='id desc', limit=1)
+            self.res_id = res_id and res_id[0].id
+        else:
+            self.res_id = None
+        return {'domain': domain}
 
     @api.one
     def check_access(self):
@@ -62,9 +128,9 @@ class wizard(models.TransientModel):
         operation = 'write'
         context = self._context
 
-        if not ( self.model_id and self.res_id ):
+        if not ( self.model and self.res_id ):
             return True
-        model_obj = self.pool[self.model_id.model]
+        model_obj = self.pool[self.model]
         mids = model_obj.exists(cr, uid, [self.res_id])
         if hasattr(model_obj, 'check_mail_message_access'):
             model_obj.check_mail_message_access(cr, uid, mids, operation, context=context)
@@ -90,12 +156,12 @@ class wizard(models.TransientModel):
         for r in self:
             r.check_access()
             if r.parent_id:
-                if not (r.parent_id.model == r.model_id.model and
+                if not (r.parent_id.model == r.model and
                         r.parent_id.res_id == r.res_id):
                     r.parent_id = None
-            r.message_id.move(r.parent_id.id, r.res_id, r.model_id.model, r.move_back)
+            r.message_id.move(r.parent_id.id, r.res_id, r.model, r.move_back)
 
-        if not ( r.model_id and r.res_id ):
+        if not ( r.model and r.res_id ):
             obj = self.pool.get('ir.model.data').get_object_reference(self._cr, SUPERUSER_ID, 'mail', 'mail_archivesfeeds')[1]
             return {
                 'type' : 'ir.actions.client',
@@ -107,11 +173,46 @@ class wizard(models.TransientModel):
             'name': _('Record'),
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': r.model_id.model,
+            'res_model': r.model,
             'res_id': r.res_id,
             'views': [(False, 'form')],
             'type': 'ir.actions.act_window',
         }
+
+    @api.one
+    def delete(self):
+        self.message_id.unlink()
+        return {}
+
+    @api.model
+    def create_partner(self, message_id, relation, partner_id, message_name_from, message_email_from):
+        model = self.env[relation]
+        message = self.env['mail.message'].browse(message_id)
+        if not partner_id and message_name_from:
+            partner_id = self.env['res.partner'].create({
+                'name': message_name_from,
+                'email': message_email_from
+            }).id
+            message.write({'author_id': partner_id})
+        context = {'partner_id': partner_id}
+        if model._rec_name:
+            context.update({'default_%s' % model._rec_name: message.subject})
+
+        fields = model.fields_get()
+        contact_field = False
+        for n, f in fields.iteritems():
+            if f['type'] == 'many2one' and f['relation'] == 'res.partner':
+                contact_field = n
+                break
+        if contact_field:
+            context.update({'default_%s' % contact_field: partner_id})
+        return context
+
+    @api.one
+    def read_close(self):
+        self.message_id.set_message_read(True)
+        return {'type': 'ir.actions.act_window_close'}
+
 
 class mail_message(models.Model):
     _inherit = 'mail.message'
@@ -193,3 +294,29 @@ class mail_message(models.Model):
         res = super(mail_message, self)._message_read_dict(cr, uid, message, parent_id, context)
         res['is_moved'] = message.is_moved
         return res
+
+
+class mail_move_message_configuration(models.TransientModel):
+    _name = 'mail_move_message.config.settings'
+    _inherit = 'res.config.settings'
+
+    model_ids = fields.Many2many(comodel_name='ir.model', string='Models')
+
+    @api.model
+    def get_default_model_ids(self, fields):
+        config_parameters = self.env['ir.config_parameter']
+        model_obj = self.env['ir.model']
+        model_names = config_parameters.get_param('mail_relocation_models')
+        if not model_names:
+            return {}
+        model_names = model_names.split(',')
+        model_ids = model_obj.search([('model', 'in', model_names)])
+        return {'model_ids': [m.id for m in model_ids]}
+
+    @api.multi
+    def set_model_ids(self):
+        config_parameters = self.env['ir.config_parameter']
+        model_names = ''
+        for record in self:
+            model_names = ','.join([m.model for m in record.model_ids])
+            config_parameters.set_param('mail_relocation_models', model_names)
