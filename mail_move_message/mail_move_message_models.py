@@ -189,11 +189,11 @@ class wizard(models.TransientModel):
         model = self.env[relation]
         message = self.env['mail.message'].browse(message_id)
         if not partner_id and message_name_from:
-            partner_id = self.env['res.partner'].create({
+            partner_id = self.env['res.partner'].with_context({'update_message_author': True}).create({
                 'name': message_name_from,
                 'email': message_email_from
             }).id
-            message.write({'author_id': partner_id})
+
         context = {'partner_id': partner_id}
         if model._rec_name:
             context.update({'default_%s' % model._rec_name: message.subject})
@@ -320,3 +320,25 @@ class mail_move_message_configuration(models.TransientModel):
         for record in self:
             model_names = ','.join([m.model for m in record.model_ids])
             config_parameters.set_param('mail_relocation_models', model_names)
+
+
+class res_partner(models.Model):
+    _inherit = 'res.partner'
+
+    @api.model
+    def create(self, vals):
+        res = super(res_partner, self).create(vals)
+        if 'update_message_author' in self.env.context and 'email' in vals:
+            mail_message_obj = self.env['mail.message']
+            # Escape special SQL characters in email_address to avoid invalid matches
+            email_address = (vals['email'].replace('\\', '\\\\').replace('%', '\\%').replace('_', '\\_'))
+            email_brackets = "<%s>" % email_address
+            messages = mail_message_obj.search([
+                                '|',
+                                ('email_from', '=ilike', email_address),
+                                ('email_from', 'ilike', email_brackets),
+                                ('author_id', '=', False)
+                            ])
+            if messages:
+                messages.write({'author_id': res.id})
+        return res
