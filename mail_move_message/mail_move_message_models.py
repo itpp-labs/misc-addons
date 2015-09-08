@@ -43,6 +43,7 @@ class wizard(models.TransientModel):
             res['message_name_from'] = name
             res['message_email_from'] = email
 
+            res['partner_id'] = message.author_id.id
             if message.author_id and self.env.uid not in [u.id for u in message.author_id.user_ids]:
                 res['filter_by_partner'] = True
             if message.author_id and res.get('model'):
@@ -63,7 +64,7 @@ class wizard(models.TransientModel):
     res_id = fields.Integer(string='Record')
     can_move = fields.Boolean('Can move', compute='get_can_move')
     move_back = fields.Boolean('MOVE TO ORIGIN', help='Move  message and submessages to original place')
-    partner_id = fields.Many2one('res.partner', string='Author', related='message_id.author_id')
+    partner_id = fields.Many2one('res.partner', string='Author')
     filter_by_partner = fields.Boolean('Filter Records by partner')
     message_email_from = fields.Char()
     message_name_from = fields.Char()
