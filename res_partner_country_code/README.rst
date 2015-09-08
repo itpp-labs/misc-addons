@@ -9,6 +9,6 @@ The module:
 Known issues
 ------------
 
-* raise unknown error from "Search more" button in country dropdown list
+* raise unknown error from "Search more" button in country dropdown list (see https://github.com/odoo/odoo/pull/8425 )
 
 Tested on Odoo 8.0 c345d294b12f3ac3e3c8b549e0633686d017d0fe
