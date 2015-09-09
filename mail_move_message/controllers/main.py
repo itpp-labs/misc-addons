@@ -21,7 +21,7 @@ class DataSetCustom(DataSet):
         res = []
         for r in records:
             if partner_info.get(r[0]):
-                res.append((r[0], _('%s [partner: %s] ID %s') % (r[1], partner_info.get(r[0])[1], r[0])))
+                res.append((r[0], _('%s [%s] ID %s') % (r[1], partner_info.get(r[0])[1], r[0])))
             else:
                 res.append((r[0], _('%s ID %s') % (r[1], r[0])))
         return res
