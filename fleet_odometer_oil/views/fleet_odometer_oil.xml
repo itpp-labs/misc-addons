@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="fleet_odometer_oil_view">
+            <field name="name">fleet.vehicle.oil_km</field>
+            <field name="model">fleet</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_model_form"/>
+            <field name="arch" type="xml">
+                <form string="Vehicle">
+                    <sheet>
+                        <group col="2" string="General Properties">
+                            <group>
+                                <field name="oil_km"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>
+                
+                
+                
