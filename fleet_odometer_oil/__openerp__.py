@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "fleet_odometer_oil",
+    'name': "Oil odometer field on Vehicle form",
 
     'summary': """add Last oil change field""",
 
