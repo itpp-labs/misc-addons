@@ -117,7 +117,7 @@ class wizard(models.TransientModel):
                     break
             if contact_field:
                 domain['res_id'] = [(contact_field, '=', self.partner_id.id)]
-        if self.model and self.partner_id:
+        if self.model:
             res_id = self.env[self.model].search(domain['res_id'], order='id desc', limit=1)
             self.res_id = res_id and res_id[0].id
         else:
