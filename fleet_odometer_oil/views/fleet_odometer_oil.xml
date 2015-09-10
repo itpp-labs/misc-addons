@@ -2,19 +2,13 @@
 <openerp>
     <data>
         <record model="ir.ui.view" id="fleet_odometer_oil_view">
-            <field name="name">fleet.vehicle.oil_km</field>
-            <field name="model">fleet</field>
-            <field name="inherit_id" ref="fleet.fleet_vehicle_model_form"/>
+            <field name="name">fleet.vehicle.oil_change_odometer</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_form"/>
             <field name="arch" type="xml">
-                <form string="Vehicle">
-                    <sheet>
-                        <group col="2" string="General Properties">
-                            <group>
-                                <field name="oil_km"/>
-                            </group>
-                        </group>
-                    </sheet>
-                </form>
+                <xpath expr="//field[@name='car_value']" position="after">
+                    <field name="oil_change_odometer"/>
+                </xpath>
             </field>
         </record>
     </data>

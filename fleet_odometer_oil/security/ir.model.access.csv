@@ -1,2 +1,1 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_fleet_odometer_oil_fleet_odometer_oil,fleet_odometer_oil.fleet_odometer_oil,model_fleet_odometer_oil_fleet_odometer_oil,,1,0,0,0
