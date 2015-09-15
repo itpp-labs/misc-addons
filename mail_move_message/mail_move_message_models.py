@@ -154,14 +154,17 @@ class wizard(models.TransientModel):
             'target': 'new',
             'context': {'default_message_id': message_id},
         }
+
     @api.multi
     def move(self):
         for r in self:
             r.check_access()
-            if r.parent_id:
-                if not (r.parent_id.model == r.model and
-                        r.parent_id.res_id == r.res_id):
-                    r.parent_id = None
+            if not r.parent_id or not (r.parent_id.model == r.model and
+                r.parent_id.res_id == r.res_id):
+                #link with the first message of record
+                parent = self.env['mail.message'].search([('model','=',r.model), ('res_id','=',r.res_id)], order='id', limit=1)
+                r.parent_id = parent.id or None
+
             r.message_id.move(r.parent_id.id, r.res_id, r.model, r.move_back)
 
         if not ( r.model and r.res_id ):
