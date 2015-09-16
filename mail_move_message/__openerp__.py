@@ -1,6 +1,6 @@
 {
     'name' : 'Mail relocation',
-    'version' : '1.0.1',
+    'version' : '1.0.2',
     'author' : 'Ivan Yelizariev',
     'category' : 'Social Network',
     'website' : 'https://yelizariev.github.io',
