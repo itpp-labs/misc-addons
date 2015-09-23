@@ -76,6 +76,9 @@ openerp.mail_move_message = function (session) {
                     });
                     pop.on('create_completed', self, function(id) {
                         related_field.set_value(id);
+                        if(self.field_manager.fields['filter_by_partner']) {
+                            self.field_manager.fields['filter_by_partner'].set_value(true);
+                        }
                     });
                 });
             }

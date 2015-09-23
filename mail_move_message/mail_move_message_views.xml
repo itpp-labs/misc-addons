@@ -56,7 +56,7 @@
                 <field name="message_from"/>
                 <field name="message_id" invisible="1"/>
             </group>
-            <div class="openerp">
+            <div class="openerp mail_move_message">
                 <div class="oe_mail">
                     <div class="oe_msg">
                         <div class="oe_msg_content">

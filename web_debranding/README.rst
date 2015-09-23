@@ -53,6 +53,15 @@ Further debranding
     
           <link href="/web_debranding/static/src/css/database_manager.css" rel="stylesheet"/>
 
+Auto-debrand new databases
+==========================
+To automatically install this module for every new databases set **'auto_install': True** in __openerp__.py files of following modules:
+
+* web_debranding
+* disable_openerp_online
+* mail_delete_sent_by_footer
+* mail
+* base_setup
   
 
 Tested on Odoo 8.0 eeedd2d9f52d46d8193059854e7430ca0c1fd6c0

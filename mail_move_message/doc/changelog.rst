@@ -3,6 +3,11 @@
 Changelog
 =========
 
+`1.0.2`
+-------
+
+- big improvements in interface
+
 `1.0.1`
 -------
 
