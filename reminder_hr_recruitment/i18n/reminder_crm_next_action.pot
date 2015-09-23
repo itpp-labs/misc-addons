@@ -1,0 +1,32 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* reminder_crm_next_action
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-06-27 05:13+0000\n"
+"PO-Revision-Date: 2015-06-27 05:13+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: reminder_crm_next_action
+#: model:ir.model,name:reminder_crm_next_action.model_crm_lead
+msgid "Lead/Opportunity"
+msgstr ""
+
+#. module: reminder_crm_next_action
+#: field:crm.lead,reminder_event_id:0
+msgid "Reminder Calendar Event"
+msgstr ""
+
+#. module: reminder_crm_next_action
+#: view:crm.lead:reminder_crm_next_action.crm_case_form_view_oppor
+msgid "Reminders"
+msgstr ""
+
