@@ -1,7 +1,7 @@
 {
     'name' : 'IM Notifications',
     'version': '1.0.1',
-    'author' : 'Ivan Yelizariev',
+    'author' : 'IT-Projects LLC, Ivan Yelizariev',
     'category' : 'Tools',
     'website' : 'https://yelizariev.github.io',
     'price': 9.00,

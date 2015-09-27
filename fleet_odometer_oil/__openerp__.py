@@ -5,7 +5,7 @@
     'summary': """add Last oil change field""",
 
 
-    'author': "Ivan Yelizariev",
+    'author': "IT-Projects LLC, Ivan Yelizariev",
     'website': "https://yelizariev.github.io",
 
     'category': 'Managing vehicles',

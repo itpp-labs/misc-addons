@@ -1,7 +1,7 @@
 {
     'name' : 'Delete "Sent by..." footer in email',
     'version' : '1.0.0',
-    'author' : 'Ivan Yelizariev',
+    'author' : 'IT-Projects LLC, Ivan Yelizariev',
     'category' : 'Debranding',
     'website' : 'https://yelizariev.github.io',
     'price': 9.00,

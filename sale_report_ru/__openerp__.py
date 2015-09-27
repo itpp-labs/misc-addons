@@ -1,7 +1,7 @@
 {
     "name" : "Sale reports in russian ",
     "version" : "0.1",
-    "author" : "Ivan Yelizariev",
+    "author" : "IT-Projects LLC, Ivan Yelizariev",
     "category" : "Sales Management",
     "website" : "https://yelizariev.github.io",
     "description": """

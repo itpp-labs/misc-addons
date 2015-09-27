@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Custom models for MRP",
-    'author': "Ivan Yelizariev",
+    'author': "IT-Projects LLC, Ivan Yelizariev",
     'website' : "https://yelizariev.github.io",
     'category': 'Manufacturing',
     'version': '1.0.0',

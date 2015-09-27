@@ -1,7 +1,7 @@
 {
     'name' : 'Purchases in contract',
     'version' : '1.0.0',
-    'author' : 'Ivan Yelizariev',
+    'author' : 'IT-Projects LLC, Ivan Yelizariev',
     'category' : 'Sales',
     'website' : 'https://yelizariev.github.io',
     'description': """

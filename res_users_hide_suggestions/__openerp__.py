@@ -1,7 +1,7 @@
 {
     'name' : 'Hide suggestions',
     'version' : '1.0.0',
-    'author' : 'Ivan Yelizariev',
+    'author' : 'IT-Projects LLC, Ivan Yelizariev',
     'category' : 'Social Network',
     'website' : 'https://yelizariev.github.io',
     'description': """

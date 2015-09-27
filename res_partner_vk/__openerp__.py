@@ -2,7 +2,7 @@
 {
     'name': "res_partner_vk",
     'summary': "vk field in partner form",
-    'author': "Ivan Yelizariev",
+    'author': "IT-Projects LLC, Ivan Yelizariev",
     'website' : "https://yelizariev.github.io",
     'category': 'base',
     'version': '1.0.0',
