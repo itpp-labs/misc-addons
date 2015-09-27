@@ -13,8 +13,13 @@
     <field name="model">mail_move_message.wizard</field>
     <field name="arch" type="xml">
         <form string="Move Message">
+
             <field name="can_move" invisible="1"/>
             <field name="message_is_moved" invisible="1"/>
+            <field name="message_name_from" invisible="1"/>
+            <field name="message_email_from" invisible="1"/>
+            <field name="message_to_read" invisible="1"/>
+            <field name="uid" invisible="1"/>
 
             <p  attrs="{'invisible':[('can_move', '!=', False)]}">You cannot move this message. It was already moved with a message bellow. Open one and apply changes there.</p>
             <group attrs="{'invisible':[('can_move', '!=', False)]}">
@@ -22,23 +27,88 @@
                 <field name="message_moved_by_user_id"/>
                 <button name="open_moved_by_message_id" string="Open message" type="object" class="oe_highlight"/>
             </group>
-            <group attrs="{'invisible':[('can_move', '=', False)]}" col="4">
-                <field name="move_back" attrs="{'invisible':[('message_is_moved','=',False)]}" colspan="4"/>
-                <field name="parent_id" domain="[('parent_id','=', False)]" context="{'extended_name':1}" colspan="4"/>
-                <field name="model_id" colspan="2" />
-                <field name="res_id" colspan="2"/>
-                <field name="record_url" colspan="4" widget="url"/>
+
+            <group attrs="{'invisible':[('can_move', '=', False)]}" colspan="2">
+                <label for="model"/>
+                <div>
+                    <field name="model" widget="polymorphic" polymorphic="res_id" class="oe_inline"/>
+                </div>
+                <label for="filter_by_partner"/>
+                <div>
+                    <field name="filter_by_partner"/>
+                    <field name="partner_id" style="width:50%"/>
+                    <button string="Create Partner" attrs="{'invisible':[('partner_id','!=',False)]}" class="oe_highlight" special="quick_create" field="partner_id" context="{'force_email':True,'default_email':message_email_from,'default_name':message_name_from, 'update_message_author':True}"/>
+                </div>
+                <label for="res_id"/>
+                <div>
+                    <field name="res_id" context="{'extended_name_with_contact':1}" widget="many2one" attrs="{'readonly': [('model','=',False)]}" style="width:50%"/>
+                    <button string="Create new record" name="create_record" type="object" class="oe_highlight" attrs="{'invisible':['|',('model','=',False)]}" special="quick_create" field="res_id" use_for_mail_move_message="True"/>
+                </div>
+                <label for="move_back" attrs="{'invisible':[('message_is_moved','=',False)]}"/>
+                <div attrs="{'invisible':[('message_is_moved','=',False)]}">
+                    <field name="move_back"/>
+                </div>
             </group>
-                <button name="move" string="Move" type="object" class="oe_highlight" attrs="{'invisible':[('can_move', '=', False)]}"/>
-                <button string="Cancel" class="" special="cancel" />
+            <button name="move" string="Move" type="object" class="oe_highlight" attrs="{'invisible':[('can_move', '=', False)]}"/>
+            <button string="Close" class="" special="cancel" />
             <separator string="Message"/>
-            <div>
+            <group>
+                <field name="message_from"/>
                 <field name="message_id" invisible="1"/>
-                <field name="message_body"/>
+            </group>
+            <div class="openerp mail_move_message">
+                <div class="oe_mail">
+                    <div class="oe_msg">
+                        <div class="oe_msg_content">
+                            <div class="oe_msg_body">
+                                <!-- use built-in css for messages -->
+                                <field name="message_body"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <footer>
+                <button name="read_close" string="Mark as read and Close" type="object" class="oe_highlight"/> or
+                <button special="cancel" string="Close" class="oe_link"/>
+
+
+                <button name="delete" string="Delete message" type="object" class="oe_highlight oe_right" confirm="Do you really want to delete this message?" attrs="{'invisible':[('uid','!=',1)]}"/>
+            </footer>
         </form>
     </field>
 </record>
+
+        <!-- Relocation config wizard -->
+        <record id="view_mail_move_message_config_settings" model="ir.ui.view">
+            <field name="name">relocation settings</field>
+            <field name="model">mail_move_message.config.settings</field>
+            <field name="arch" type="xml">
+                <form string="Configure Mail Relocation" class="oe_form_configuration">
+                    <header>
+                        <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" type="object" name="cancel" class="oe_link"/>
+                    </header>
+                    <div name="general">
+                        <separator string="Models"/>
+                        <field name="model_ids" widget="many2many_tags"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_mail_move_message_config" model="ir.actions.act_window">
+            <field name="name">Mail Relocation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mail_move_message.config.settings</field>
+            <field name="view_id" ref="view_mail_move_message_config_settings"/>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+        <!-- Add menu entry in Settings/Email -->
+        <menuitem name="Mail Relocation" id="menu_mail_move_message" parent="base.menu_email" sequence="99" action="action_mail_move_message_config"/>
 
     </data>
 </openerp>

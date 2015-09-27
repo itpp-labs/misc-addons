@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ir_sessions_user,access_ir_sessions,model_ir_sessions,web_sessions_management.group_sessions_user,1,0,0,0
+access_ir_sessions_manager,access_ir_sessions,model_ir_sessions,web_sessions_management.group_sessions_manager,1,0,0,0
+access_resource_calendar,access_resource_calendar,resource.model_resource_calendar,,1,0,0,0

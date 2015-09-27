@@ -1,6 +1,6 @@
 {
     'name': "Reminders and Agenda (technical core)",
-    'version': '1.0.2',
+    'version': '1.0.3',
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'category': 'Reminders and Agenda',
     'website': 'https://yelizariev.github.io',

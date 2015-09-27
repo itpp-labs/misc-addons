@@ -1,5 +1,5 @@
 openerp.web_debranding = function(instance) {
-    web_debranding_title(instance);
-    web_debranding_about(instance);
-    web_debranding_dialog(instance);
+    openerp.web_debranding.load_title(instance);
+    openerp.web_debranding.load_about(instance);
+    openerp.web_debranding.load_dialog(instance);
 };

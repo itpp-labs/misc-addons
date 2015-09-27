@@ -4,6 +4,8 @@
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'category': 'Debranding',
     'website': 'https://yelizariev.github.io',
+    'price': 81.00,
+    'currency': 'EUR',
     'depends': ['web', 'share', 'disable_openerp_online', 'mail_delete_sent_by_footer'],
     'data': [
         'security/web_debranding_security.xml',
@@ -12,5 +14,9 @@
         'js.xml',
         'pre_install.yml',
         ],
+    'qweb': [
+        'static/src/xml/database_manager.xml',
+    ],
+    'auto_install': False,
     'installable': True
 }

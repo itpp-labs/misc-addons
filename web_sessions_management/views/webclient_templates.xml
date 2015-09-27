@@ -1,0 +1,19 @@
+<openerp>
+    <data>
+
+        <template id="web_login" inherit_id="web.login">
+            <xpath expr="//p[@t-if='error']" position="replace">
+                <p class="alert alert-danger" t-if="error">
+                    <t t-esc="error" />
+                    <br />
+                    <t t-esc="reason1" />
+                    <br />
+                    <t t-esc="reason2" />
+                    <br />
+                    <t t-esc="reason3" />
+                </p>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>

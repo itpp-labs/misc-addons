@@ -1,4 +1,4 @@
-function web_debranding_about(instance) {
+openerp.web_debranding.load_about = function(instance) {
     var QWeb = instance.web.qweb;
     var _t = instance.web._t;
     instance.web.UserMenu.include({
