@@ -2,7 +2,7 @@
 {
     'name': "Trim partner's name",
     'summary': "",
-    'author': "Ivan Yelizariev",
+    'author': "IT-Projects LLC, Ivan Yelizariev",
     'website': "https://yelizariev.github.io",
 
     # Categories can be used to filter modules in modules listing

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Automatically move tasks",
-    'author': "Ivan Yelizariev",
+    'author': "IT-Projects LLC, Ivan Yelizariev",
     'website': "https://yelizariev.github.io",
     'category': 'Project',
     'version': '1.0.0',
