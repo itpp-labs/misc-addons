@@ -4,68 +4,6 @@ openerp.booking_calendar = function (session) {
     var QWeb = session.web.qweb;
     var bookings = new Array();
     
-    session.web.form.BookingCalendarButton = session.web.form.AbstractField.extend({
-        template: 'BookingCalendarButton',
-        bookings: [],
-        init: function(field_manager, node) {
-            this._super.apply(this, arguments);
-            if (!this.$iframe) {
-                this.$iframe = $(QWeb.render('BookingCalendarIFrame', {'url': '/booking/calendar'}))[0];
-                this.view.$el.append(this.$iframe);
-            }
-        },
-        start: function() {
-            this._super.apply(this, arguments);
-            this.set_button();
-        },
-        set_button: function() {
-            var self = this;
-            if (this.$button) {
-                this.$button.remove();
-            }
-            this.string = '';
-            this.node.attrs.icon = '/booking_calendar/static/src/img/icons/calendar.png';
-            this.$button = $(QWeb.render('WidgetButton', {'widget': this}));
-            this.$button.addClass('oe_link').css({'padding':'4px'});
-            this.$el.html(this.$button);
-            this.$button.on('click', self.on_click);
-        },
-        on_click: function(ev) {
-
-            var dialog = new session.web.Dialog(this, {
-                // dialogClass: 'oe_act_window',
-                size: 'large',
-                title: _t('Booking Calendar'),
-                destroy_on_close: false,
-            }, this.$iframe).open();
-
-            this.$iframe.onload = function(){
-                this.contentWindow.init_backend(true, bookings);         
-            }       
-
-            dialog.on('closing', this, function (e){
-                var val = [];
-                _.each(this.$iframe.contentWindow.bookings, function(b){
-                    bookings.push(b);
-                    val.push([0, false, {
-                        'resource_id': b.resourceId,
-                        'date_start': b.start.format("YYYY-MM-DD HH:mm:ss"),
-                        'date_end': b.start.add(1, 'hours').format("YYYY-MM-DD HH:mm:ss"),
-                    }]);
-                });
-                this.set('value', val);
-            });
-            
-        },
-        set_value: function(value_) {
-            var self = this;
-            this.set_button();
-        }
-            
-    });
-    
-
-
     session.web.form.One2ManyListView.include({
         do_button_action: function (name, id, callback) {
             var self = this;
@@ -142,7 +80,6 @@ openerp.booking_calendar = function (session) {
     });
 
 
-    session.web.form.widgets.add('booking_calendar_button', 'session.web.form.BookingCalendarButton');
     session.web.list.columns.add('calbutton', 'session.web.list.CalButton');
 
 }
