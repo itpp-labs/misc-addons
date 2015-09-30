@@ -1,0 +1,3 @@
+.openerp .oe_list.oe_list_editable.oe_editing .oe_edition .oe_list_field_cell .oe_button_calendar, .openerp .oe_list.oe_list_editable.oe_editing .oe_edition .oe_list_field_cell .oe_button_calendar * {
+  visibility: visible;
+}
