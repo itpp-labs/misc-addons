@@ -11,15 +11,18 @@ class ProjectProjectAutostaging(models.Model):
 class ProjectTaskTypeAutostaging(models.Model):
     _name = 'project.task.type'
     _inherit = ['project.task.type', 'autostaging.stage']
-
+    _card_model = 'project.task'
+    _card_stage_id = 'stage_id'
     next_stage = fields.Many2one('project.task.type', string='Next stage')
 
 
 class ProjectTaskAutostaging(models.Model):
     _name = 'project.task'
-    _inherit = ['project.task', 'autostaging.task']
+    _inherit = ['project.task', 'autostaging.card']
+    _field_folder_id = 'project_id'
+    _field_stage_id = 'stage_id'
 
-    next_stage = fields.Many2one('project.task.type', string='Next stage', related='stage_id.next_stage')
+    next_stage_related = fields.Many2one('project.task.type', string='Next stage', related='stage_id.next_stage')
     # _track = {
     #     'stage_id': {
     #         'project_task_auto_staging.mt_auto_move_task':

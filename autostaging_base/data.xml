@@ -26,8 +26,8 @@
             <field name="interval_type">days</field>
             <field name="numbercall">-1</field>
             <field eval="False" name="doall" />
-            <field eval="'autostaging.task'" name="model" />
-            <field eval="'_cron_move_tasks'" name="function" />
+            <field eval="'autostaging.card'" name="model" />
+            <field eval="'_cron_move_cards'" name="function" />
             <field eval="'()'" name="args" />
         </record>
     </data>
