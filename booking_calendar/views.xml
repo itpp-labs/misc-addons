@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="assets_backend" name="custom bar assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/booking_calendar/static/src/js/booking_calendar.js"></script>
+                <link rel='stylesheet' href='/booking_calendar/static/src/css/booking_calendar.css'/>
+            </xpath>
+        </template>
+        
+        <record id="resource_resource_form" model="ir.ui.view">
+            <field name="model">resource.resource</field>
+            <field name="inherit_id" ref="resource.resource_resource_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//form/group" position="inside">
+                    <group>
+                       <field name="to_calendar" icon="calendar"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
