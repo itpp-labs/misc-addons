@@ -7,6 +7,14 @@ openerp.booking_calendar = function (session) {
     session.web.form.One2ManyListView.include({
         do_button_action: function (name, id, callback) {
             var self = this;
+            // if (this.view.editable() &&  this.view.is_action_enabled('edit')) {
+            //     return this._super.apply(this, arguments);
+            // }
+            // var record_id = $(event.currentTarget).data('id');
+            // return this.view.start_edition(
+            //     record_id ? this.records.get(record_id) : null, {
+            //     focus_field: $(event.target).data('field')
+            // });
             if (name == 'open_calendar') {
                var $iframe = $(QWeb.render('BookingCalendarIFrame', {'url': session.session.prefix + '/booking/calendar'}))[0];
                 var c_dialog = new session.web.Dialog(this, {
@@ -21,18 +29,16 @@ openerp.booking_calendar = function (session) {
                 }       
 
                 c_dialog.on('closing', this, function (e){
-                    var val = [];
+                    var record = self.records.get(id);
                     _.each($iframe.contentWindow.bookings, function(b){
-                        var record = self.records.get(id);
-                        if (record) {
-                            record.set('booking_start', b.start.format("YYYY-MM-DD HH:mm:ss"));
-                            record.set('booking_end', b.start.add(1, 'hours').format("YYYY-MM-DD HH:mm:ss"));
-                        }
+                        self.dataset.write(id, {
+                            'booking_start': b.start.format("YYYY-MM-DD HH:mm:ss"),
+                            'booking_end': b.start.add(1, 'hours').format("YYYY-MM-DD HH:mm:ss")
+                            }).then(function(r) {
+                                callback(id);
+                            });
+                        });
                     });
-                    self.o2m.trigger_on_change();
-                    callback(id);
-                });
-                
             } else {
                 this._super(name, id, callback);    
             }
@@ -48,14 +54,14 @@ openerp.booking_calendar = function (session) {
                 var $target = $(e.currentTarget),
                        $row = $target.closest('tr'),
                   record_id = self.row_id($row);
-                
                 if ($target.attr('disabled')) {
                     return;
                 }
                 $target.attr('disabled', 'disabled');
-
+                
                 $(self).trigger('action', ['open_calendar', record_id, function (id) {
                     $target.removeAttr('disabled');
+                    return self.reload_record(self.records.get(id));
                 }]);
             });
 
