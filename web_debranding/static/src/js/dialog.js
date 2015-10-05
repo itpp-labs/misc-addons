@@ -25,20 +25,24 @@ odoo.define('web_debranding.dialog', function(require) {
 
     var Dialog = require('web.Dialog')
     Dialog.include({
-        init: function (parent, options, content) {
+        init: function (parent, options) {
+            var debranding_new_name = ' ';
+            // TODO find another way to get debranding_new_name
             if (parent && parent.debranding_new_name){
-                options = options || {};
-                if (options['title']){
-                    var title = options['title'].replace(/Odoo/ig, parent.debranding_new_name);
-                    options['title'] = title;
-                }
-                if (content){
-                    content = (content instanceof $) ? content : $(content)
-                    var content_html = content.html().replace(/Odoo/ig, parent.debranding_new_name);
-                    content.html(content_html);
-                }
+                debranding_new_name = parent.debranding_new_name;
             }
-            this._super(parent, options, content);
+            options = options || {};
+            if (options['title']){
+                var title = options['title'].replace(/Odoo/ig, debranding_new_name);
+                options['title'] = title;
+            } else {
+                options['title'] = debranding_new_name;
+            }
+            if (options.$content){
+                var content_html = options.$content.html().replace(/Odoo/ig, debranding_new_name);
+                options.$content.html(content_html);
+            }
+            this._super(parent, options);
         },
     });
 });
