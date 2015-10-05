@@ -7,7 +7,7 @@
     'description': """
 
     """,
-    'depends' : ['booking_calendar'],
+    'depends' : ['booking_calendar', 'account'],
     'data':[
         'views.xml'
         ],

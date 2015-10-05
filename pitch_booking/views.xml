@@ -71,5 +71,19 @@
             </field>
         </record>
 
+        <record id="invoice_form" model="ir.ui.view">
+            <field name="name">account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line']/tree/field[@name='name']" position="after">
+                    <field name="venue_id"/>
+                    <field name="pitch_id"/>
+                    <field name="booking_start"/>
+                    <field name="booking_end"/>
+                </xpath>
+            </field>
+        </record>
+
     </data>
 </openerp>

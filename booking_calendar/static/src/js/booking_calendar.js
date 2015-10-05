@@ -3,20 +3,18 @@ openerp.booking_calendar = function (session) {
        _lt = session.web._lt;
     var QWeb = session.web.qweb;
     var bookings = new Array();
+
+    function record_to_event(record) {
+        // return {
+        //     'reso': 
+        // }
+    }
     
     session.web.form.One2ManyListView.include({
         do_button_action: function (name, id, callback) {
             var self = this;
-            // if (this.view.editable() &&  this.view.is_action_enabled('edit')) {
-            //     return this._super.apply(this, arguments);
-            // }
-            // var record_id = $(event.currentTarget).data('id');
-            // return this.view.start_edition(
-            //     record_id ? this.records.get(record_id) : null, {
-            //     focus_field: $(event.target).data('field')
-            // });
             if (name == 'open_calendar') {
-               var $iframe = $(QWeb.render('BookingCalendarIFrame', {'url': session.session.prefix + '/booking/calendar'}))[0];
+                var $iframe = $(QWeb.render('BookingCalendarIFrame', {'url': session.session.prefix + '/booking/calendar'}))[0];
                 var c_dialog = new session.web.Dialog(this, {
                     // dialogClass: 'oe_act_window',
                     size: 'large',
@@ -29,16 +27,16 @@ openerp.booking_calendar = function (session) {
                 }       
 
                 c_dialog.on('closing', this, function (e){
-                    var record = self.records.get(id);
+                    self.start_edition(self.records.get(id), {});
                     _.each($iframe.contentWindow.bookings, function(b){
-                        self.dataset.write(id, {
-                            'booking_start': b.start.format("YYYY-MM-DD HH:mm:ss"),
-                            'booking_end': b.start.add(1, 'hours').format("YYYY-MM-DD HH:mm:ss")
-                            }).then(function(r) {
-                                callback(id);
-                            });
-                        });
+                        self.editor.form.fields.resource_id.set({'value': b.resourceId});
+                        self.editor.form.fields.booking_start.set({'value': b.start.format("YYYY-MM-DD HH:mm:ss")});
+                        self.editor.form.fields.booking_end.set({'value': b.start.add(1, 'hours').format("YYYY-MM-DD HH:mm:ss")});
                     });
+                    this.ensure_saved().then(function (done) {
+                        callback(id);
+                    });
+                });
             } else {
                 this._super(name, id, callback);    
             }
@@ -52,8 +50,8 @@ openerp.booking_calendar = function (session) {
             this.$current.delegate('.oe_button_calendar', 'click', function (e) {
                 e.stopPropagation();
                 var $target = $(e.currentTarget),
-                       $row = $target.closest('tr'),
-                  record_id = self.row_id($row);
+                    $row = $target.closest('tr'),
+                    record_id = self.row_id($row);
                 if ($target.attr('disabled')) {
                     return;
                 }

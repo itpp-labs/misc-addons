@@ -16,7 +16,7 @@ class pitch_booking_pitch(models.Model):
     }
 
     venue_id = fields.Many2one('pitch_booking.venue', required=True)
-    resource_id = fields.Many2one('resource.resource')
+    resource_id = fields.Many2one('resource.resource', ondelete='cascade')
 
 
 class sale_order_line(models.Model):
@@ -24,9 +24,37 @@ class sale_order_line(models.Model):
 
     venue_id = fields.Many2one('pitch_booking.venue', string='Venue')
     pitch_id = fields.Many2one('pitch_booking.pitch', string='Pitch')
-    resource_id = fields.Many2one('resource.resource', related='pitch_id.resource_id', ondelete='cascade')
-    start_time = fields.Datetime('Start time')
-    end_time = fields.Datetime('End time')
+    resource_id = fields.Many2one('resource.resource', related='pitch_id.resource_id')
+
+
+    @api.onchange('resource_id')
+    def on_change_resource(self):
+        if self.resource_id:
+            pitch = self.env['pitch_booking.pitch'].search([('resource_id','=',self.resource_id.id)])
+            if pitch:
+                self.pitch_id = pitch[0].id
+
+    @api.model
+    def _prepare_order_line_invoice_line(self, line, account_id=False):
+        res = super(sale_order_line, self)._prepare_order_line_invoice_line(line, account_id)
+        res.update({
+            'venue_id': line.venue_id.id,
+            'pitch_id': line.pitch_id.id,
+            'booking_start': line.booking_start,
+            'booking_end': line.booking_end    
+        })
+        return res
+
+
+class account_invoice_line(models.Model):
+    _inherit = 'account.invoice.line'
+
+    venue_id = fields.Many2one('pitch_booking.venue', string='Venue')
+    pitch_id = fields.Many2one('pitch_booking.pitch', string='Pitch')
+    booking_start = fields.Datetime(string="Date start")
+    booking_end = fields.Datetime(string="Date end")
+
+
 
 
 
