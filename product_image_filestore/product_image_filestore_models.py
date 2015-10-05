@@ -1,9 +1,57 @@
 from openerp.osv import osv, fields
 from openerp import SUPERUSER_ID, tools
 
+import logging
+import sys
+
+_logger = logging.getLogger(__name__)
+
 
 class product_template(osv.Model):
     _inherit = "product.template"
+
+    def _auto_init(self, cr, context=None):
+        # Check that we have an image column
+        cr.execute("select COUNT(*) from information_schema.columns where table_name='product_template' AND column_name='image';")
+        res = cr.dictfetchone()
+        if res.get('count'):
+            _logger.info('Starting conversion for product_template: saving data for further processing.')
+            # Rename image column so we don't lose images upon module install
+            cr.execute("ALTER TABLE product_template RENAME COLUMN image TO image_old")
+            cr.commit()
+        else:
+            _logger.info('No image field found in product_template; no data to save.')
+        return super(product_template, self)._auto_init(cr, context=context)
+
+    def _auto_end(self, cr, context=None):
+        super(product_template, self)._auto_end(cr, context=context)
+        # Only proceed if we have the appropriate _old field
+        cr.execute("select COUNT(*) from information_schema.columns where table_name='product_template' AND column_name='image_old';")
+        res = cr.dictfetchone()
+        if res.get('count'):
+            _logger.info('Starting rewrite of product_template, saving images to filestore.')
+            # Rewrite all records to store the images on the filestore
+            for template_id in self.pool.get('product.template').search(cr, SUPERUSER_ID, [], context=context):
+                wvals = {}
+                cr.execute("SELECT image_old FROM product_template WHERE id = %s", (template_id, ))
+                res = cr.dictfetchone()
+                datas = res.get('image_old')
+                if datas:
+                    wvals.update({'image': datas[:]})
+                    try:
+                        self.pool.get('product.template').write(cr, SUPERUSER_ID, template_id, wvals)
+                        cr.execute("UPDATE product_template SET image_old = null WHERE id=%s", (template_id, ))
+                    except:
+                        filename = '/tmp/product_template_image_%d.b64' % (template_id, )
+                        with open(filename, 'wb') as f:
+                            f.write(datas)
+                        _logger.error('Failed to convert image for product template %d - raw base-64 encoded data stored in %s' % (template_id, filename))
+                        _logger.error('The error was: %s' % sys.exc_info()[0])
+            # Finally, rename to _bkp so we won't run this every time we upgrade the module.
+            cr.execute("ALTER TABLE product_template RENAME COLUMN image_old TO image_bkp")
+            cr.commit()
+        else:
+            _logger.info('No image_old field present in product_template; assuming data is already saved in the filestore.')
 
     def _get_image(self, cr, uid, ids, name, args, context=None):
         attachment_field = 'image_attachment_id' if name=='image' else 'image_medium_attachment_id'
@@ -22,7 +70,7 @@ class product_template(osv.Model):
         image_small_id = obj.image_small_attachment_id.id
         image_medium_id = obj.image_medium_attachment_id.id
         if not value:
-            ids = [id for id in [image_id, image_small_id, image_medium_id] if id]
+            ids = [attach_id for attach_id in [image_id, image_small_id, image_medium_id] if attach_id]
             if ids:
                 self.pool['ir.attachment'].unlink(cr, uid, ids, context=context)
             return True
@@ -50,7 +98,7 @@ class product_template(osv.Model):
         'image': fields.function(_get_image, fnct_inv=_set_image, string="Image", multi='_get_image', type='binary',
             help="This field holds the image used as image for the product, limited to 1024x1024px."),
         'image_medium': fields.function(_get_image, fnct_inv=_set_image,
-            string="Medium-sized image", type="binary", multi="_get_image", 
+            string="Medium-sized image", type="binary", multi="_get_image",
             help="Medium-sized image of the product. It is automatically "\
                  "resized as a 128x128px image, with aspect ratio preserved, "\
                  "only when the image exceeds one of those sizes. Use this field in form views or some kanban views."),
@@ -64,6 +112,49 @@ class product_template(osv.Model):
 
 class product_product(osv.Model):
     _inherit = "product.product"
+
+    def _auto_init(self, cr, context=None):
+        # Check that we have an image_variant column
+        cr.execute("select COUNT(*) from information_schema.columns where table_name='product_product' AND column_name='image_variant';")
+        res = cr.dictfetchone()
+        if res.get('count'):
+            _logger.info('Starting conversion for product_product: saving data for further processing.')
+            # Rename image column so we don't lose images upon module install
+            cr.execute("ALTER TABLE product_product RENAME COLUMN image_variant TO image_variant_old")
+            cr.commit()
+        else:
+            _logger.info('No image_variant field found in product_product; no data to save.')
+        return super(product_product, self)._auto_init(cr, context=context)
+
+    def _auto_end(self, cr, context=None):
+        super(product_product, self)._auto_end(cr, context=context)
+        # Only proceed if we have the appropriate _old field
+        cr.execute("select COUNT(*) from information_schema.columns where table_name='product_product' AND column_name='image_variant_old';")
+        res = cr.dictfetchone()
+        if res.get('count'):
+            _logger.info('Starting rewrite of product_product, saving images to filestore.')
+            # Rewrite all records to store the images on the filestore
+            for product_id in self.pool.get('product.product').search(cr, SUPERUSER_ID, [], context=context):
+                wvals = {}
+                cr.execute("SELECT image_variant_old FROM product_product WHERE id = %s", (product_id, ))
+                res = cr.dictfetchone()
+                datas = res.get('image_variant_old')
+                if datas:
+                    wvals.update({'image_variant': datas[:]})
+                    try:
+                        self.pool.get('product.product').write(cr, SUPERUSER_ID, product_id, wvals)
+                        cr.execute("UPDATE product_product SET image_variant_old = null WHERE id=%s", (product_id, ))
+                    except:
+                        filename = '/tmp/product_product_image_%d.b64' % (product_id, )
+                        with open(filename, 'wb') as f:
+                            f.write(datas)
+                        _logger.error('Failed to convert image for product variant %d - raw base-64 encoded data stored in %s' % (product_id, filename))
+                        _logger.error('The error was: %s' % sys.exc_info()[0])
+            # Finally, rename to _bkp so we won't run this every time we upgrade the module.
+            cr.execute("ALTER TABLE product_product RENAME COLUMN image_variant_old TO image_variant_bkp")
+            cr.commit()
+        else:
+            _logger.info('No image_variant_old field present in product_product; assuming data is already saved in the filestore.')
 
     def _get_image_variant(self, cr, uid, ids, name, args, context=None):
         result = dict.fromkeys(ids, False)
