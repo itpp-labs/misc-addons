@@ -45,7 +45,6 @@ class BinaryCustom(Binary):
                                """, (uid,))
                     row = cr.fetchone()
                     if row and row[0]:
-                        print 'row'
                         image_data = StringIO(str(row[0]).decode('base64'))
                         response = http.send_file(image_data, filename=imgname, mtime=row[1])
                     else:

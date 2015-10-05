@@ -25,7 +25,8 @@ module open Settings\\System Parameters and modify
 Further debranding
 ==================
 
-* Edit Email template "Notification Email" -- delete "using Odoo"
+* open openerp/addons/base/base_data.xml and delete field image in main_partner
+* open addons/mail/data/mail_data.xml and edit Template "Notification Email" -- delete "using Odoo"
 * install **website_debranding** module if module "Website Builder" is installed in your system
 * uninstall im_odoo_support module.
 * delete "Odoo.com Accounts" record at Settings\\Users\\OAuth Providers if module "OAuth2 Authentication" is installed. in your system

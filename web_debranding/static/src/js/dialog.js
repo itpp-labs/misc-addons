@@ -1,8 +1,10 @@
-openerp.web_debranding.load_dialog = function(instance) {
-    var QWeb = instance.web.qweb;
-    var _t = instance.web._t;
+odoo.define('web_debranding.dialog', function(require) {
+    var core = require('web.core');
+    var QWeb = core.qweb;
+    var _t = core._t;
 
-    instance.web.CrashManager.include({
+    var CrashManager = require('web.CrashManager')
+    CrashManager.include({
         init: function () {
             this._super();
             var self = this;
@@ -21,7 +23,8 @@ openerp.web_debranding.load_dialog = function(instance) {
         },
     });
 
-    instance.web.Dialog.include({
+    var Dialog = require('web.Dialog')
+    Dialog.include({
         init: function (parent, options, content) {
             if (parent && parent.debranding_new_name){
                 options = options || {};
@@ -38,4 +41,4 @@ openerp.web_debranding.load_dialog = function(instance) {
             this._super(parent, options, content);
         },
     });
-};
+});
