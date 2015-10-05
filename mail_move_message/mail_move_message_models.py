@@ -57,6 +57,7 @@ class wizard(models.TransientModel):
     message_id = fields.Many2one('mail.message', string='Message')
     message_body = fields.Html(related='message_id.body', string='Message to move', readonly=True)
     message_from = fields.Char(related='message_id.email_from', string='From', readonly=True)
+    message_subject = fields.Char(related='message_id.subject', string='Subject', readonly=True)
     message_moved_by_message_id = fields.Many2one('mail.message', related='message_id.moved_by_message_id', string='Moved with', readonly=True)
     message_moved_by_user_id = fields.Many2one('res.users', related='message_id.moved_by_user_id', string='Moved by', readonly=True)
     message_is_moved = fields.Boolean(string='Is Moved', related='message_id.is_moved', readonly=True)

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_pitch" model="ir.ui.view">
+            <field name="name">pitch.form</field>
+            <field name="model">pitch_booking.pitch</field>
+            <field name="arch" type="xml">
+                <form string="Pitch">
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="venue_id"/>
+                        </group>
+                        <group>
+                            <field name="calendar_id"/>
+                            <field name="company_id"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+
+        </record>
+
+        <record id="action_pitch_booking_venues" model="ir.actions.act_window">
+            <field name="name">Venues</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pitch_booking.venue</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem action="action_pitch_booking_venues" id="menu_pitch_booking_venues" parent="base.menu_base_config" sequence="90" groups="base.group_sale_salesman,base.group_sale_manager"/>
+
+
+        <record id="action_pitch_booking_pitches" model="ir.actions.act_window">
+            <field name="name">Pitches</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pitch_booking.pitch</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem action="action_pitch_booking_pitches" id="menu_pitch_booking_pitches" parent="base.menu_base_config" sequence="90" groups="base.group_sale_salesman,base.group_sale_manager"/>
+
+        <record id="view_order_form" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
+                    <field name="venue_id"/>
+                    <field name="pitch_id"/>
+                    <field name="booking_start"/>
+                    <field name="booking_end"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree" position="inside">
+                    <calbutton/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

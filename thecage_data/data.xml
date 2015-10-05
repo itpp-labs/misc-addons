@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <!--                      Partner                        -->
+        <record id="res_partner_bt" model="res.partner">
+            <field name="name">The Cage Sports Park Pte Ltd</field>
+            <field name="country_id" ref="base.sg"/>
+            <field name="is_company" eval="1" />
+        </record>
+        <record id="res_partner_kl" model="res.partner">
+            <field name="name">We Wanted To Be Footballers Pte Ltd</field>
+            <field name="country_id" ref="base.sg"/>
+            <field name="is_company" eval="1" />
+        </record>
+
+        <!--                      Company                        -->
+        <record id="res_company_bt" model="res.company">
+            <field name="partner_id" ref="res_partner_bt"/>
+            <field name="parent_id" ref="base.main_company"/>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="name">The Cage Sports Park Pte Ltd</field>
+        </record>
+
+        <record id="res_company_kl" model="res.company">
+            <field name="partner_id" ref="res_partner_kl"/>
+            <field name="parent_id" ref="base.main_company"/>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="name">We Wanted To Be Footballers Pte Ltd</field>
+        </record>
+
+        <!--                      User                        -->
+        <record id="base.user_root" model="res.users">
+            <field name="company_ids" eval="[(4, ref('res_company_bt')),(4, ref('res_company_kl')),]"/>
+        </record>
+
+    </data>
+</openerp>

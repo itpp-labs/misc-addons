@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+    <t t-name="BookingCalendarButton">
+        <span class="oe_form_field">
+        </span>
+    </t>
+    <t t-name="BookingCalendarIFrame">
+        <iframe t-att-src="url" width="850" height="600" id="bc_frame" frameborder="0" style="display:none;"></iframe>
+    </t>
+
+    <a t-name="ListView.row.calendar.button" href="#"
+        t-att-title="widget.string" t-att-disabled="disabled || undefined"
+        t-att-class="disabled ? 'oe_list_button_disabled' : 'oe_button_calendar'" special="booking_calendar"
+        ><img t-attf-src="#{prefix}/booking_calendar/static/src/img/icons/calendar.png"
+        t-att-alt="widget.string"/></a>
+</template>
