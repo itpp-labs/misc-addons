@@ -14,7 +14,6 @@ Removes references to odoo.com:
 9. Replaces default favicon to a custom one
 10. **Hides Modules menu** (by default, only admin user see Modules menu. You could change it via tick "Show Modules Menu" in user's access rights tab)
 11. Removes odoo.com bindings (via disable_openerp_online module)
-12. Deletes "Sent by ... using OpenERP" footer in email (via mail_delete_sent_by_footer module)
 
 By default the module replaces "Odoo" to "Software". To configure
 module open Settings\\System Parameters and modify
@@ -26,6 +25,7 @@ module open Settings\\System Parameters and modify
 Further debranding
 ==================
 
+* Edit Email template "Notification Email" -- delete "using Odoo"
 * install **website_debranding** module if module "Website Builder" is installed in your system
 * uninstall im_odoo_support module.
 * delete "Odoo.com Accounts" record at Settings\\Users\\OAuth Providers if module "OAuth2 Authentication" is installed. in your system
