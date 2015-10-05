@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Autostaging (technical core)",
+    'name': "Autostaging project task",
     'author': "IT-Projects LLC, Ildar Nasyrov",
     'website': "https://twitter.com/nasyrov_ildar",
-    'category': 'Autostaging',
+    'category': 'Project',
     'version': '1.0.0',
+    'depends': ['project', 'autostaging_base'],
     'data': [
-        'data.xml',
+        'views.xml',
     ],
     "installable": True
 }

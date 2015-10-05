@@ -9,39 +9,38 @@ from openerp.exceptions import ValidationError
 
 class AutostagingFolder(models.AbstractModel):
     _name = 'autostaging.folder'
-    autostaging_enabled = fields.Boolean('Autostaging enabled', default=True,
-                                         help='Define if your project will support the autostaging functionality')
+    autostaging_enabled = fields.Boolean('Autostaging enabled', default=True)
 
 
 class AutostagingStage(models.AbstractModel):
     _name = 'autostaging.stage'
-    _card_model = 'project.task'
-    _card_stage_id = 'stage_id'
-    autostaging_days_limit = fields.Integer('Days limit')
-    autostaging_enabled = fields.Boolean('Enable', default=False)
+    _card_model = 'define_some_card_model'
+    _card_stage_id = 'define_some_card_stage_id'
+    idle_timeout = fields.Integer('Idle timeout')
+    autostaging_enabled = fields.Boolean('Autostagint enabled', default=False)
 
     @api.one
     def write(self, vals):
         result = super(AutostagingStage, self).write(vals)
         if not vals.get('autostaging_enabled', True):
-            vals['autostaging_days_limit'] = 0
+            vals['idle_timeout'] = 0
         else:
             domain = [(self._card_stage_id, '=', self.id)]
             self.env[self._card_model].search(domain)._update_autostaging_date()
         return result
 
     @api.one
-    @api.constrains('autostaging_days_limit')
-    def _check_autostaging_days_limit(self):
-        if self.autostaging_enabled and self.autostaging_days_limit <= 0:
+    @api.constrains('idle_timeout')
+    def _check_idle_timeout(self):
+        if self.autostaging_enabled and self.idle_timeout <= 0:
             raise ValidationError(
                 "Days limit field value must be greater than 0")
 
 
 class AutostagingTask(models.AbstractModel):
     _name = 'autostaging.card'
-    _field_folder_id = 'project_id'
-    _field_stage_id = 'stage_id'
+    _field_folder_id = 'define_some_field_folder_id'
+    _field_stage_id = 'define_some_field_stage_id'
 
     autostaging_date = fields.Date(string='Autostaging date', readonly=True)
     autostaging_days_left = fields.Integer(string='Days left', compute='_get_autostaging_days_left')
@@ -56,7 +55,7 @@ class AutostagingTask(models.AbstractModel):
 
     @api.one
     def _get_autostaging_date(self):
-        delta = datetime.timedelta(days=getattr(self, self._field_stage_id).autostaging_days_limit)
+        delta = datetime.timedelta(days=getattr(self, self._field_stage_id).idle_timeout)
         return (datetime.datetime.strptime(
             self.write_date, DEFAULT_SERVER_DATETIME_FORMAT) + delta).strftime(DEFAULT_SERVER_DATETIME_FORMAT)
 
@@ -82,7 +81,7 @@ class AutostagingTask(models.AbstractModel):
         today = datetime.datetime.now()
         date_modifications = datetime.datetime.strptime(self.write_date, DEFAULT_SERVER_DATETIME_FORMAT)
         delta = today - date_modifications
-        self.autostaging_days_left = getattr(self, self._field_stage_id).autostaging_days_limit - delta.days
+        self.autostaging_days_left = getattr(self, self._field_stage_id).idle_timeout - delta.days
 
     def _get_model_list(self):
         res = []
