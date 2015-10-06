@@ -9,7 +9,7 @@ from openerp.exceptions import ValidationError
 
 class AutostagingFolder(models.AbstractModel):
     _name = 'autostaging.folder'
-    autostaging_support = fields.Boolean('Autostaging support', default=True,
+    autostaging_enabled = fields.Boolean('Autostaging enabled', default=True,
                                          help='Define if your project will support the autostaging functionality')
 
 
@@ -45,6 +45,14 @@ class AutostagingTask(models.AbstractModel):
 
     autostaging_date = fields.Date(string='Autostaging date', readonly=True)
     autostaging_days_left = fields.Integer(string='Days left', compute='_get_autostaging_days_left')
+    autostaging_enabled = fields.Boolean(compute='_compute_enabled')
+
+    @api.one
+    def _compute_enabled(self):
+        if getattr(self, self._field_stage_id).autostaging_enabled and (
+                not getattr(self, self._field_folder_id) or
+                getattr(self, self._field_folder_id).autostaging_enabled):
+            self.autostaging_enabled = True
 
     @api.one
     def _get_autostaging_date(self):
@@ -66,7 +74,7 @@ class AutostagingTask(models.AbstractModel):
     @api.model
     def create(self, vals):
         result = super(AutostagingTask, self).create(vals)
-        self._update_autostaging_date()
+        result._update_autostaging_date()
         return result
 
     @api.one
@@ -89,11 +97,14 @@ class AutostagingTask(models.AbstractModel):
 
     @api.model
     def _move_cards(self):
-        tasks = self.search([
-            ((self._field_folder_id + '.autostaging_support'), '=', True),
-            ((self._field_stage_id + '.autostaging_enabled'), '=', True),
-            ((self._field_stage_id + '.next_stage'), '!=', False),
-            ('autostaging_date', '<=', time.strftime('%Y-%m-%d'))])
+        domain = ['&', '|',
+                  ((self._field_folder_id + '.autostaging_enabled'), '=', True),
+                  (self._field_folder_id, '=', False),
+                  '&', '&',
+                  ((self._field_stage_id + '.autostaging_enabled'), '=', True),
+                  ((self._field_stage_id + '.next_stage'), '!=', False),
+                  ('autostaging_date', '<=', time.strftime('%Y-%m-%d'))]
+        tasks = self.search(domain)
         for task in tasks:
-            task.with_context(auto_staging=True).write(
+            task.with_context(autostaging=True).write(
                 {self._field_stage_id:  getattr(task, self._field_stage_id).next_stage.id})

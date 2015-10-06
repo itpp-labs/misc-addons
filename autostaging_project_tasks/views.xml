@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
   <data>
-        <record id="view_project_form_autostaging_support" model="ir.ui.view">
+        <record id="mt_autostaging" model="mail.message.subtype">
+            <field name="name">Autostaging</field>
+            <field name="res_model">project.task</field>
+            <field name="default" eval="False"/>
+            <field name="description">Autostaging</field>
+        </record>
+
+        <record id="mt_autostaging_project" model="mail.message.subtype">
+            <field name="name">Autostaging</field>
+            <field name="res_model">project.project</field>
+            <field name="default" eval="True"/>
+            <field name="parent_id" eval="ref('mt_autostaging')"/>
+            <field name="relation_field">project_id</field>
+        </record>
+
+        <record id="view_project_form_autostaging_enabled" model="ir.ui.view">
             <field name="name">project.form.allow.automove</field>
             <field name="model">project.project</field>
             <field name="inherit_id" ref="project.edit_project"/>
             <field name="arch" type="xml">
                 <data>
                     <xpath expr="//group[@name='misc']" position="inside">
-                        <field name="autostaging_support"/>
+                        <field name="autostaging_enabled"/>
                      </xpath>
                 </data>
             </field>
@@ -52,10 +67,11 @@
             <field name="arch" type="xml">
                 <data>
                     <xpath expr="//page[@string='Extra Info']" position="inside">
-                        <group  colspan="2" col="2" string="Autostaging">
+                        <group  colspan="2" col="2" string="Autostaging" attrs="{'invisible':[('autostaging_enabled','=',False)]}">
                             <field name="next_stage_related" />
                             <field name="autostaging_days_left"/>
                             <field name="autostaging_date"/>
+                            <field name="autostaging_enabled"/>
                         </group>
                     </xpath>
                 </data>

@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-<!--        <record id="mt_auto_move_task" model="mail.message.subtype">
-            <field name="name">Task auto moved</field>
-            <field name="res_model">project.task</field>
-            <field name="default" eval="False"/>
-            <field name="description">Task auto moved</field>
-        </record>
-
-        <record id="mt_auto_move_task_project" model="mail.message.subtype">
-            <field name="name">Task auto moved</field>
-            <field name="res_model">project.project</field>
-            <field name="default" eval="True"/>
-            <field name="parent_id" eval="ref('mt_auto_move_task')"/>
-            <field name="relation_field">project_id</field>
-        </record>-->
-
         <!-- Cron job for automatically move -->
         <record forcecreate="True" id="ir_cron_autostaging"
                 model="ir.cron">

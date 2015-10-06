@@ -23,10 +23,10 @@ class ProjectTaskAutostaging(models.Model):
     _field_stage_id = 'stage_id'
 
     next_stage_related = fields.Many2one('project.task.type', string='Next stage', related='stage_id.next_stage')
-    # _track = {
-    #     'stage_id': {
-    #         'project_task_auto_staging.mt_auto_move_task':
-    #         lambda self, cr, uid, obj, ctx=None:
-    #             ctx and ctx.get('auto_staging')
-    #     }
-    # }
+    _track = {
+        'stage_id': {
+            'ProjectTaskAutostaging.mt_autostaging':
+            lambda self, cr, uid, obj, ctx=None:
+                ctx and ctx.get('autostaging')
+        }
+    }

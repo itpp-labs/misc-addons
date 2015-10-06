@@ -1,5 +1,5 @@
-Automatically move tasks
-=========================
+Autostaging functionality for modules with stages e.g. project or crm
+=====================================================================
 
 Move tasks from one stage to another after some days of non-use.
 
