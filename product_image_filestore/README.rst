@@ -51,7 +51,10 @@ Export/Import:
     field limit (131072)". A solution for this error can be found at the
     link below.
 
-    After uninstalling this module you also have to update the "product"
+Deinstalling:
+-------------
+
+    After deinstalling this module you also have to update the "product"
     module. This causes an update of all dependent modules. This operation
     is destructive in the sense that it will remove all product images.
     If you wish to retain them, see Export/Import above.
