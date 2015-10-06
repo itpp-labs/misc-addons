@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="invoice_report_lithuania" inherit_id="account.report_invoice_document">
+
+            <xpath expr="(//div[@class='page']/table/thead/tr/th)[last()-1]" position="replace" />
+            <xpath expr="(//div[@class='page']/table/tbody/tr/td)[last()-1]" position="replace" />
+
+            <xpath expr="(//div[@class='page']/div[@class='row'])[last()]" position="replace" />
+
+        </template>
+
+	 </data>
+</openerp>
