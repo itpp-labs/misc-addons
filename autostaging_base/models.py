@@ -39,7 +39,7 @@ class AutostagingStage(models.AbstractModel):
                 "Days limit field value must be greater than 0")
 
 
-class AutostagingTask(models.AbstractModel):
+class AutostagingCard(models.AbstractModel):
     _name = 'autostaging.card'
     _field_folder_id = 'define_some_field_folder_id'
     _field_stage_id = 'define_some_field_stage_id'
@@ -71,13 +71,13 @@ class AutostagingTask(models.AbstractModel):
 
     @api.one
     def write(self, vals):
-        result = super(AutostagingTask, self).write(vals)
+        result = super(AutostagingCard, self).write(vals)
         self._update_autostaging_date()
         return result
 
     @api.model
     def create(self, vals):
-        result = super(AutostagingTask, self).create(vals)
+        result = super(AutostagingCard, self).create(vals)
         result._update_autostaging_date()
         return result
 
@@ -108,7 +108,7 @@ class AutostagingTask(models.AbstractModel):
                   ((self._field_stage_id + '.autostaging_enabled'), '=', True),
                   ((self._field_stage_id + '.next_stage'), '!=', False),
                   ('autostaging_date', '<=', time.strftime('%Y-%m-%d'))]
-        tasks = self.search(domain)
-        for task in tasks:
-            task.with_context(autostaging=True).write(
-                {self._field_stage_id:  getattr(task, self._field_stage_id).next_stage.id})
+        cards = self.search(domain)
+        for card in cards:
+            card.with_context(autostaging=True).write(
+                {self._field_stage_id:  getattr(card, self._field_stage_id).next_stage.id})
