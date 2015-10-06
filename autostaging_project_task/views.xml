@@ -38,8 +38,8 @@
                     <xpath expr="//field[@name='sequence']" position="after">
                         <group  colspan="2" col="2" string="Autostaging">
                             <field name="autostaging_enabled"/>
-                            <field name="next_stage" attrs="{'required': [('autostaging_enabled','=',True)], 'readonly':[('autostaging_enabled', '=', False)]}"/>
-                            <field name="idle_timeout" attrs="{'required': [('autostaging_enabled','=',True)], 'readonly':[('autostaging_enabled', '=', False)]}"> <span>days</span> </field>
+                            <field name="autostaging_next_stage" attrs="{'required': [('autostaging_enabled','=',True)], 'readonly':[('autostaging_enabled', '=', False)]}"/>
+                            <field name="autostaging_idle_timeout" attrs="{'required': [('autostaging_enabled','=',True)], 'readonly':[('autostaging_enabled', '=', False)]}"> <span>days</span> </field>
                         </group>
                     </xpath>
                 </data>
@@ -68,7 +68,7 @@
                 <data>
                     <xpath expr="//page[@string='Extra Info']" position="inside">
                         <group  colspan="2" col="2" string="Autostaging" attrs="{'invisible':[('autostaging_enabled','=',False)]}">
-                            <field name="next_stage_related" />
+                            <field name="related_autostaging_next_stage" />
                             <field name="autostaging_days_left"/>
                             <field name="autostaging_date"/>
                             <field name="autostaging_enabled"/>

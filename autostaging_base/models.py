@@ -16,23 +16,25 @@ class AutostagingStage(models.AbstractModel):
     _name = 'autostaging.stage'
     _card_model = 'define_some_card_model'
     _card_stage_id = 'define_some_card_stage_id'
-    idle_timeout = fields.Integer('Idle timeout')
-    autostaging_enabled = fields.Boolean('Autostagint enabled', default=False)
+    autostaging_idle_timeout = fields.Integer('Autostagint idle timeout')
+    autostaging_enabled = fields.Boolean('Autostaging enabled', default=False)
+    # should be defined on inherired model:
+    # autostaging_next_stage = fields.Many2one('project.task.type')
 
     @api.one
     def write(self, vals):
         result = super(AutostagingStage, self).write(vals)
         if not vals.get('autostaging_enabled', True):
-            vals['idle_timeout'] = 0
+            vals['autostaging_idle_timeout'] = 0
         else:
             domain = [(self._card_stage_id, '=', self.id)]
             self.env[self._card_model].search(domain)._update_autostaging_date()
         return result
 
     @api.one
-    @api.constrains('idle_timeout')
-    def _check_idle_timeout(self):
-        if self.autostaging_enabled and self.idle_timeout <= 0:
+    @api.constrains('autostaging_idle_timeout')
+    def _check_autostaging_idle_timeout(self):
+        if self.autostaging_enabled and self.autostaging_idle_timeout <= 0:
             raise ValidationError(
                 "Days limit field value must be greater than 0")
 
@@ -43,8 +45,11 @@ class AutostagingTask(models.AbstractModel):
     _field_stage_id = 'define_some_field_stage_id'
 
     autostaging_date = fields.Date(string='Autostaging date', readonly=True)
-    autostaging_days_left = fields.Integer(string='Days left', compute='_get_autostaging_days_left')
+    autostaging_days_left = fields.Integer(string='Days left', compute='_compute_autostaging_days_left')
     autostaging_enabled = fields.Boolean(compute='_compute_enabled')
+    # should be defined on inherired model:
+    # relaed_autostaging_next_stage = fields.Many2one('project.task.type', related="stage_id.autostaging_next_stage')
+
 
     @api.one
     def _compute_enabled(self):
@@ -55,7 +60,7 @@ class AutostagingTask(models.AbstractModel):
 
     @api.one
     def _get_autostaging_date(self):
-        delta = datetime.timedelta(days=getattr(self, self._field_stage_id).idle_timeout)
+        delta = datetime.timedelta(days=getattr(self, self._field_stage_id).autostaging_idle_timeout)
         return (datetime.datetime.strptime(
             self.write_date, DEFAULT_SERVER_DATETIME_FORMAT) + delta).strftime(DEFAULT_SERVER_DATETIME_FORMAT)
 
@@ -77,11 +82,11 @@ class AutostagingTask(models.AbstractModel):
         return result
 
     @api.one
-    def _get_autostaging_days_left(self):
+    def _compute_autostaging_days_left(self):
         today = datetime.datetime.now()
         date_modifications = datetime.datetime.strptime(self.write_date, DEFAULT_SERVER_DATETIME_FORMAT)
         delta = today - date_modifications
-        self.autostaging_days_left = getattr(self, self._field_stage_id).idle_timeout - delta.days
+        self.autostaging_days_left = getattr(self, self._field_stage_id).autostaging_idle_timeout - delta.days
 
     def _get_model_list(self):
         res = []
