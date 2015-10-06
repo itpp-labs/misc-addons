@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Automatically move tasks",
+    'name': "Autostaging",
     'author': "Ivan Yelizariev",
     'website': "https://yelizariev.github.io",
     'category': 'Project',
