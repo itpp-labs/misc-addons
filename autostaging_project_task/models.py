@@ -22,7 +22,7 @@ class ProjectTaskAutostaging(models.Model):
     _field_folder_id = 'project_id'
     _field_stage_id = 'stage_id'
 
-    related_autostaging_next_stage = fields.Many2one('project.task.type', string='Autostaging next stage', related='stage_id.autostaging_next_stage')
+    autostaging_next_stage = fields.Many2one('project.task.type', string='Autostaging next stage', related='stage_id.autostaging_next_stage')
     _track = {
         'stage_id': {
             'ProjectTaskAutostaging.mt_autostaging':

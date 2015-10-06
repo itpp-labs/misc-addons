@@ -68,7 +68,7 @@
                 <data>
                     <xpath expr="//page[@string='Extra Info']" position="inside">
                         <group  colspan="2" col="2" string="Autostaging" attrs="{'invisible':[('autostaging_enabled','=',False)]}">
-                            <field name="related_autostaging_next_stage" />
+                            <field name="autostaging_next_stage" />
                             <field name="autostaging_days_left"/>
                             <field name="autostaging_date"/>
                             <field name="autostaging_enabled"/>

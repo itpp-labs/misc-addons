@@ -48,7 +48,7 @@ class AutostagingCard(models.AbstractModel):
     autostaging_days_left = fields.Integer(string='Days left', compute='_compute_autostaging_days_left')
     autostaging_enabled = fields.Boolean(compute='_compute_enabled')
     # should be defined on inherired model:
-    # related_autostaging_next_stage = fields.Many2one('some_card_model', related='some_card_model')
+    # autostaging_next_stage = fields.Many2one('STAGE_MODEL', related='_FIELD_STAGE_ID.autostaging_next_stage')
 
 
     @api.one
