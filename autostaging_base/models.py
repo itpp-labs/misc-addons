@@ -19,7 +19,7 @@ class AutostagingStage(models.AbstractModel):
     autostaging_idle_timeout = fields.Integer('Autostagint idle timeout')
     autostaging_enabled = fields.Boolean('Autostaging enabled', default=False)
     # should be defined on inherired model:
-    # autostaging_next_stage = fields.Many2one('project.task.type')
+    # autostaging_next_stage = fields.Many2one('define_some_card_model')
 
     @api.one
     def write(self, vals):
@@ -48,7 +48,7 @@ class AutostagingTask(models.AbstractModel):
     autostaging_days_left = fields.Integer(string='Days left', compute='_compute_autostaging_days_left')
     autostaging_enabled = fields.Boolean(compute='_compute_enabled')
     # should be defined on inherired model:
-    # relaed_autostaging_next_stage = fields.Many2one('project.task.type', related="stage_id.autostaging_next_stage')
+    # related_autostaging_next_stage = fields.Many2one('some_card_model', related='some_card_model')
 
 
     @api.one
