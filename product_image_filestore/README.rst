@@ -1,5 +1,5 @@
-Description
-===========
+Store product images in filestore
+=================================
 
 This module stores the product images in the filestore instead of the database.
 It achieves this by storing them as attachments, rather than binary fields on
