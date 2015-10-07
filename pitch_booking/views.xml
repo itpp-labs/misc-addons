@@ -2,6 +2,12 @@
 <openerp>
     <data>
 
+        <template id="assets_backend" name="custom booking calendar assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/pitch_booking/static/src/js/pitch_booking.js"></script>
+            </xpath>
+        </template>
+
         <record id="view_pitch" model="ir.ui.view">
             <field name="name">pitch.form</field>
             <field name="model">pitch_booking.pitch</field>
@@ -19,7 +25,40 @@
                     </group>
                 </form>
             </field>
+        </record>
 
+        <record id="view_pitch_tree" model="ir.ui.view">
+            <field name="name">pitch.tree</field>
+            <field name="model">pitch_booking.pitch</field>
+            <field name="arch" type="xml">
+                <tree string="Pitches">
+                    <field name="name"/>
+                    <field name="venue_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_venue" model="ir.ui.view">
+            <field name="name">venue.form</field>
+            <field name="model">pitch_booking.venue</field>
+            <field name="arch" type="xml">
+                <form string="Venue">
+                    <group>
+                        <field name="name"/>
+                        <field name="company_id"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_venue_tree" model="ir.ui.view">
+            <field name="name">venue.tree</field>
+            <field name="model">pitch_booking.venue</field>
+            <field name="arch" type="xml">
+                <tree string="Venues">
+                    <field name="name"/>
+                </tree>
+            </field>
         </record>
 
         <record id="action_pitch_booking_venues" model="ir.actions.act_window">
@@ -61,7 +100,7 @@
                 </xpath>
                 <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
                     <field name="venue_id"/>
-                    <field name="pitch_id"/>
+                    <field name="pitch_id" domain="[('venue_id','=',venue_id)]"/>
                     <field name="booking_start"/>
                     <field name="booking_end"/>
                 </xpath>
@@ -70,6 +109,32 @@
                 </xpath>
             </field>
         </record>
+
+        <record id="invoice_form" model="ir.ui.view">
+            <field name="name">account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line']/tree/field[@name='name']" position="after">
+                    <field name="venue_id"/>
+                    <field name="pitch_id"/>
+                    <field name="booking_start"/>
+                    <field name="booking_end"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <template id="calendar" inherit_id="website_booking_calendar.index">
+            <xpath expr="//t[@t-call='website_booking_calendar.resources']" position="before">
+                <!-- Nav tabs -->
+                <ul class="nav nav-pills nav-stacked">
+                    <t t-foreach="venues" t-as="venue">
+                        <li t-att-class="'active' if venue.id == active_venue else ''"><a t-att-href="'/booking/calendar?venue=%s' % venue.id"><t t-esc="venue.name"/></a></li>
+                    </t>
+                </ul>
+            </xpath>
+        </template>
 
     </data>
 </openerp>
