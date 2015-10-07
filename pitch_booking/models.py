@@ -16,7 +16,7 @@ class pitch_booking_pitch(models.Model):
     }
 
     venue_id = fields.Many2one('pitch_booking.venue', required=True)
-    resource_id = fields.Many2one('resource.resource', ondelete='cascade')
+    resource_id = fields.Many2one('resource.resource', ondelete='cascade', required=True)
 
 
 class sale_order_line(models.Model):

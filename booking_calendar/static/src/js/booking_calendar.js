@@ -1,20 +1,31 @@
 openerp.booking_calendar = function (session) {
-    var _t = session.web._t,
-       _lt = session.web._lt;
+    var _t = session.web._t;
     var QWeb = session.web.qweb;
-    var bookings = new Array();
+    var bookings = [];
 
     function record_to_event(record) {
-        // return {
-        //     'reso': 
-        // }
     }
     
     session.web.form.One2ManyListView.include({
+
+        create_booking_calendar_iframe: function(record) {
+            var venue = record.attributes.venue_id;
+            var pitch = record.attributes.pitch_id;
+            return $(QWeb.render('BookingCalendarIFrame', {
+                        'url': this.session.url('/booking/calendar', {
+                            'venue': venue && venue[0] || '',
+                            'pitch': pitch && pitch[0] || '',
+                            'backend': 1
+                        })
+                    }))[0];
+        },
+
         do_button_action: function (name, id, callback) {
             var self = this;
+            var record = self.records.get(id);
+            var venue = record.attributes.venue_id;
             if (name == 'open_calendar') {
-                var $iframe = $(QWeb.render('BookingCalendarIFrame', {'url': session.session.prefix + '/booking/calendar'}))[0];
+                var $iframe = self.create_booking_calendar_iframe(record);
                 var c_dialog = new session.web.Dialog(this, {
                     // dialogClass: 'oe_act_window',
                     size: 'large',
@@ -23,12 +34,12 @@ openerp.booking_calendar = function (session) {
                 }, $iframe).open();
 
                 $iframe.onload = function(){
-                    this.contentWindow.init_backend(true, bookings);         
+                    this.contentWindow.booking_calendar.initBackend(true, bookings);         
                 }       
 
                 c_dialog.on('closing', this, function (e){
-                    self.start_edition(self.records.get(id), {});
-                    _.each($iframe.contentWindow.bookings, function(b){
+                    self.start_edition(record, {});
+                    _.each($iframe.contentWindow.booking_calendar.bookings, function(b){
                         self.editor.form.fields.resource_id.set({'value': b.resourceId});
                         self.editor.form.fields.booking_start.set({'value': b.start.format("YYYY-MM-DD HH:mm:ss")});
                         self.editor.form.fields.booking_end.set({'value': b.start.add(1, 'hours').format("YYYY-MM-DD HH:mm:ss")});

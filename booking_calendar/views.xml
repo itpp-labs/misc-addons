@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <template id="assets_backend" name="custom bar assets" inherit_id="web.assets_backend">
+        <template id="assets_backend" name="custom booking calendar assets" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
                 <script type="text/javascript" src="/booking_calendar/static/src/js/booking_calendar.js"></script>
                 <link rel='stylesheet' href='/booking_calendar/static/src/css/booking_calendar.css'/>
@@ -30,6 +30,12 @@
                 </xpath>
             </field>
         </record>
+
+        <template id="assets" inherit_id="website_booking_calendar.assets" name="Booking Calendar Assets Include">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/booking_calendar/static/src/js/website_booking_calendar.js"></script>
+            </xpath>
+        </template>
 
     </data>
 </openerp>
