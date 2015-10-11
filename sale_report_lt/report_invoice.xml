@@ -69,11 +69,15 @@
             </xpath>
 
             <xpath expr="(//div[@class='page']/table/thead/tr/th)[3]" position="replace" >
-                <th>Unit Price<br/>Vnt. Kaina</th>
+                <th class="text-right">Unit Price<br/>Vnt. Kaina</th>
+            </xpath>
+
+            <xpath expr="(//div[@class='page']/table/thead/tr/th)[4]" position="replace" >
+                <th class="text-right" groups="sale.group_discount_per_so_line">Discount (%)<br/>Nuolaida (%)</th>
             </xpath>
 
             <xpath expr="(//div[@class='page']/table/thead/tr/th)[last()]" position="replace" >
-                <th>Amount<br/>Viso</th>
+                <th class="text-right">Amount<br/>Viso</th>
             </xpath>
 
             <!-- delete taxes column -->
