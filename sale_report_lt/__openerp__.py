@@ -4,9 +4,6 @@
     "author" : "IT-Projects LLC, Ivan Yelizariev",
     "category" : "Accounting",
     "website" : "https://twitter.com/yelizariev",
-    "description": """
-        Sale Reports - Lithuania
-    """,
     "depends": ["account"],
     "data": [
         'report_invoice.xml',

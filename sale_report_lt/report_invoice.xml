@@ -41,10 +41,67 @@
 
 
         <template id="invoice_report_lithuania" inherit_id="account.report_invoice_document">
+            <xpath expr="(//div[@class='page']/table/thead/tr/th)[1]" position="replace" >
+                <th>Description<br/>Aprašymas</th>
+            </xpath>
+
+            <xpath expr="(//div[@class='page']/table/thead/tr/th)[2]" position="replace" >
+                <th>Quantity<br/>Kiekis</th>
+            </xpath>
+
+            <xpath expr="(//div[@class='page']/table/thead/tr/th)[3]" position="replace" >
+                <th>Unit Price<br/>Vnt. Kaina</th>
+            </xpath>
+
+            <xpath expr="(//div[@class='page']/table/thead/tr/th)[last()]" position="replace" >
+                <th>Amount<br/>Viso</th>
+            </xpath>
+
+            <!-- delete taxes column -->
             <xpath expr="(//div[@class='page']/table/thead/tr/th)[last()-1]" position="replace" />
             <xpath expr="(//div[@class='page']/table/tbody/tr/td)[last()-1]" position="replace" />
 
+            <xpath expr="(//div[@class='page']//table/tr)[1]/td[1]" position="replace" >
+                <td><strong>Total Without Taxes<br/>Viso be PVM</strong></td>
+            </xpath>
+
+            <xpath expr="(//div[@class='page']//table/tr)[2]/td[1]" position="replace" >
+                <td><strong>Taxes<br/>PVM</strong></td>
+            </xpath>
+
+            <xpath expr="(//div[@class='page']//table/tr)[3]/td[1]" position="replace" >
+                <td><strong>Total<br/>VISO</strong></td>
+            </xpath>
+
+            <!-- delete taxes table -->
             <xpath expr="(//div[@class='page']/div[@class='row'])[last()]" position="replace" />
+
+            <xpath expr="//div[@class='page']" position="inside" >
+
+<div style="font-size:70%">
+    <t t-if="o.partner_id.country_id">
+        <t t-set="is_euro" t-value="o.partner_id.country_id.currency_id.name == 'EUR'"/>
+        <t t-if="is_euro">
+            <p>Goods accords to paragraph 49 point 1 of VAT law Lithuanian Republic and article 2006/112/EB 138 (1) of European Council direktive.</p>
+            <p>Prekių tiekimas atitinka PVM įstatymo 49 str.1dalies nuostatas arba ES direktyvos 2006/112/EB 138 (1) straipsnio.</p>
+        </t>
+
+        <t t-if="not is_euro">
+            <p>Goods accords to paragraph 41 point 1 of VAT law Lithuanian Republic and article 2006/112/EB 146 (1) of European Council direktive.</p>
+            <p>Prekių tiekimas atitinka PVM įstatymo 41 str.1dalies nuostatas arba ES direktyvos 2006/112/EB 146 (1) straipsnio.</p>
+        </t>
+
+    </t>
+    <p>Elektroninis PVM sąskaitos faktūros dokumentas yra PVM sąskaitos faktūros ORIGINALAS<br/>
+    Ši elektroninė PVM sąskaita faktūra surašyta ir išsiųsta vadovaujantis LR pridėtinės vertės mokesčio Įstatymo<br/>
+    79 str. 11 d., taip pat pagal Europos Sąjungos Tarybos direktyvų Nr. 2006/112/EB ir 2010/45/ES nuostatomis.</p>
+
+    <p>The exporter of the products covered by this document, declares that except where otherwise clearly indicated, these products are of EU preferential origin.<br/>
+    Made in Lithuania
+    </p>
+</div>
+
+            </xpath>
 
         </template>
 
