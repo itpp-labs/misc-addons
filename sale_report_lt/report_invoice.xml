@@ -1,9 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+        <template id="contact" inherit_id="base.contact">
+            <xpath expr="//address" position="inside">
+                <div>
+                    <div t-if="object.company_id.company_registry and 'company_registry' in fields" class='css_editable_mode_hidden'>
+                        <i t-if="not options.get('no_marker')" class='fa fa-map-marker'/>
+                        Company ID: <span t-raw="object.company_id.company_registry"/>
+                    </div>
+                    <div t-if="object.vat and 'vat' in fields" class='css_editable_mode_hidden'>
+                        <i t-if="not options.get('no_marker')" class='fa fa-map-marker'/>
+                        VAT: <span t-raw="object.vat"/>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="external_layout_header_lithuania" inherit_id="report.external_layout_header">
+            <xpath expr="//div[@class='header']/div[last()]" position="replace">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div t-field="company.partner_id"
+                             t-field-options='{"widget": "contact", "fields": ["address", "name", "vat", "company_registry"], "no_marker": true}'
+                             style="border-bottom: 1px solid black;"/>
+                        <!-- <span t-if="o.company_id.company_registry">Company ID: <span t-field="o.company_id.company_registry"/></span> -->
+                        <!-- <span t-if="o.partner_id.vat">VAT: <span t-field="o.partner_id.vat"/></span> -->
+                        <t t-if="o.partner_bank_id">
+                            <br/>
+                            <span t-if="o.partner_bank_id.bank_name">Bank name: <span t-field="o.partner_bank_id.bank_name"/></span><br/>
+                            <span t-if="o.partner_bank_id.bank_bic">Swift: <span t-field="o.partner_bank_id.bank_bic"/></span><br/>
+                            <span t-if="o.partner_bank_id.acc_number">IBAN: <span t-field="o.partner_bank_id.acc_number"/></span>
+                        </t>
+
+                    </div>
+                </div>
+
+
+            </xpath>
+        </template>
+
 
         <template id="invoice_report_lithuania" inherit_id="account.report_invoice_document">
-
             <xpath expr="(//div[@class='page']/table/thead/tr/th)[last()-1]" position="replace" />
             <xpath expr="(//div[@class='page']/table/tbody/tr/td)[last()-1]" position="replace" />
 

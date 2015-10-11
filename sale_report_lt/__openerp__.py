@@ -1,13 +1,15 @@
 {
-    "name" : "Sale Report - Lithuania",
+    "name" : "Sale Reports - Lithuania",
     "version" : "0.1",
-    "author" : "Cesar Lage",
+    "author" : "IT-Projects LLC, Ivan Yelizariev",
     "category" : "Accounting",
-    "website" : "https://yelizariev.github.io",
+    "website" : "https://twitter.com/yelizariev",
     "description": """
-        Sale Report - Lithuania
+        Sale Reports - Lithuania
     """,
     "depends": ["account"],
-    "data": ['report_invoice.xml',],
+    "data": [
+        'report_invoice.xml',
+    ],
     "installable": True
 }
