@@ -41,6 +41,25 @@
 
 
         <template id="invoice_report_lithuania" inherit_id="account.report_invoice_document">
+            <xpath expr="//h2" position="after">
+                <h2>
+                    <span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">PVM Sąskaita-faktūra</span>
+                    <span t-if="o.type == 'out_invoice' and o.state == 'proforma2'">PRO-FORMA</span>
+                    <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Sąskaita projektas</span>
+                    <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Atšauktas Sąskaita</span>
+                    <span t-if="o.type == 'out_refund'">Grąžinimas</span>
+                    <span t-if="o.type == 'in_refund'">Tiekėjas tiekiantis grąžinimas</span>
+                    <span t-if="o.type == 'in_invoice'">Tiekėjas tiekiantis Sąskaita</span>
+                    <span t-field="o.number"/>
+                </h2>
+            </xpath>
+
+            <xpath expr="//div[@t-if='o.date_invoice']" position="inside">
+                <strong>Sąskaitos data:</strong>
+                <p t-field="o.date_invoice"/>
+            </xpath>
+
+
             <xpath expr="(//div[@class='page']/table/thead/tr/th)[1]" position="replace" >
                 <th>Description<br/>Aprašymas</th>
             </xpath>
@@ -75,6 +94,15 @@
 
             <!-- delete taxes table -->
             <xpath expr="(//div[@class='page']/div[@class='row'])[last()]" position="replace" />
+
+            <xpath expr="//p[@t-if='o.payment_term.note']" position="replace">
+                <p t-if="o.payment_term.note">
+                    <strong>Payment Term / Mokėjimo sąlygos:</strong>
+                    <span t-field="o.payment_term.note"/>
+                </p>
+            </xpath>
+
+
 
             <xpath expr="//div[@class='page']" position="inside" >
 
