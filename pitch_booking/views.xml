@@ -124,6 +124,19 @@
             </field>
         </record>
 
+        <record id="product_template_form_view" model="ir.ui.view">
+            <field name="name">product.template.common.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='description_sale']" position="after">
+                    <group>
+                        <field name="venue_id"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
 
         <template id="calendar" inherit_id="website_booking_calendar.index">
             <xpath expr="//t[@t-call='website_booking_calendar.resources']" position="before">

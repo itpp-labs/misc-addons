@@ -1,7 +1,10 @@
 from openerp import http
 from openerp.http import request
 
-from openerp.addons.website_booking_calendar.controllers.main import website_booking_calendar as controller
+try:
+    from openerp.addons.website_booking_calendar.controllers.main import website_booking_calendar as controller
+except ImportError:
+    pass
 
 
 class website_booking_calendar(controller):

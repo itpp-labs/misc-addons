@@ -3,6 +3,8 @@ openerp.booking_calendar = function (session) {
     var QWeb = session.web.qweb;
     var bookings = [];
 
+    var is_calendar_closed = false;
+
     function record_to_event(record) {
     }
     
@@ -26,6 +28,7 @@ openerp.booking_calendar = function (session) {
             var venue = record.attributes.venue_id;
             if (name == 'open_calendar') {
                 var $iframe = self.create_booking_calendar_iframe(record);
+                is_calendar_closed = false;
                 var c_dialog = new session.web.Dialog(this, {
                     // dialogClass: 'oe_act_window',
                     size: 'large',
@@ -33,18 +36,23 @@ openerp.booking_calendar = function (session) {
                     destroy_on_close: false,
                 }, $iframe).open();
 
+                var work_calendar = record.attributes.calendar_id;
                 $iframe.onload = function(){
-                    this.contentWindow.booking_calendar.initBackend(true, bookings);         
+                    this.contentWindow.booking_calendar.initBackend(true, bookings, work_calendar);
                 }       
 
                 c_dialog.on('closing', this, function (e){
+                    if (is_calendar_closed) {
+                        return; // to avoid call on dialog destroying (not closing)
+                    }
                     self.start_edition(record, {});
                     _.each($iframe.contentWindow.booking_calendar.bookings, function(b){
                         self.editor.form.fields.resource_id.set({'value': b.resourceId});
                         self.editor.form.fields.booking_start.set({'value': b.start.format("YYYY-MM-DD HH:mm:ss")});
                         self.editor.form.fields.booking_end.set({'value': b.start.add(1, 'hours').format("YYYY-MM-DD HH:mm:ss")});
                     });
-                    this.ensure_saved().then(function (done) {
+                    self.ensure_saved().then(function (done) {
+                        is_calendar_closed = true;
                         callback(id);
                     });
                 });

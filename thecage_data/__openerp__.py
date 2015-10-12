@@ -1,9 +1,9 @@
 {
     'name' : 'Initialization data',
     'version' : '1.0.0',
-    'author' : 'Ivan Yelizariev',
+    'author' : 'IT-Projects LLC, Veronika Kotovich',
+    'website' : 'https://twitter.com/vkotovi4',
     'category' : 'Other',
-    'website' : 'https://yelizariev.github.io',
     'description': """
 
     """,

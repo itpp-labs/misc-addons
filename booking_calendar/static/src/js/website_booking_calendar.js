@@ -1,13 +1,13 @@
 (function (self, $) {
     
     self.bookings = [];
-    self.isBackend = false;
 
-    self.initBackend = function(isBackend, bookings) {
+    self.initBackend = function(isBackend, bookings, workCalendar) {
         self.isBackend = isBackend;
         self.$calendar.fullCalendar({
             events: bookings
         });
+        self.workCalendar = workCalendar;
     };
 
     self.storeEvent =  function(event) {

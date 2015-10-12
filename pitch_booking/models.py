@@ -22,13 +22,12 @@ class pitch_booking_pitch(models.Model):
 class sale_order_line(models.Model):
     _inherit = 'sale.order.line'
 
-    venue_id = fields.Many2one('pitch_booking.venue', string='Venue')
+    venue_id = fields.Many2one('pitch_booking.venue', string='Venue', related='product_id.venue_id')
     pitch_id = fields.Many2one('pitch_booking.pitch', string='Pitch')
-    resource_id = fields.Many2one('resource.resource', related='pitch_id.resource_id')
-
+    resource_id = fields.Many2one('resource.resource', 'Resource', related='pitch_id.resource_id', store=True)
 
     @api.onchange('resource_id')
-    def on_change_resource(self):
+    def _on_change_resource(self):
         if self.resource_id:
             pitch = self.env['pitch_booking.pitch'].search([('resource_id','=',self.resource_id.id)])
             if pitch:
@@ -55,7 +54,9 @@ class account_invoice_line(models.Model):
     booking_end = fields.Datetime(string="Date end")
 
 
+class product_template(models.Model):
+    _inherit = 'product.template'
 
-
+    venue_id = fields.Many2one('pitch_booking.venue', string='Venue')
 
 
