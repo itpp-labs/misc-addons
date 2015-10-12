@@ -4,8 +4,8 @@ from openerp.http import request
 try:
     from openerp.addons.website_booking_calendar.controllers.main import website_booking_calendar as controller
 except ImportError:
-    pass
-
+    class controller(object):
+        pass
 
 class website_booking_calendar(controller):
 
