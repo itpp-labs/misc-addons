@@ -15,6 +15,11 @@ class website_booking_calendar(controller):
         else:
             return super(website_booking_calendar, self)._get_template(params)
 
+    @http.route(['/booking/calendar/validate'], type='json', auth='public', website=True)
+    def validate(self, start, end, calendar_id):
+        pass
+        
+
 
         
 
