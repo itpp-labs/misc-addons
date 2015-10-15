@@ -39,6 +39,9 @@ odoo.define('web_debranding.dialog', function(require) {
                 options['title'] = debranding_new_name;
             }
             if (options.$content){
+                if (!(options.$content instanceof $)){
+                    options.$content = $(options.$content)
+                }
                 var content_html = options.$content.html().replace(/Odoo/ig, debranding_new_name);
                 options.$content.html(content_html);
             }
