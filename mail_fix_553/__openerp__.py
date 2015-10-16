@@ -6,5 +6,5 @@
     "website" : "https://yelizariev.github.io",
     "depends" : ["base", "mail"],
     "data": ["data.xml"],
-    "installable": True
+    'installable': False
 }

@@ -26,5 +26,5 @@
         'report.xml',
         'views.xml',
         ],
-    "installable": True
+    'installable': False
 }

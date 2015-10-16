@@ -8,5 +8,5 @@
     'depends': ['base'],
     'data': ['views.xml'],
     'demo': [],
-    'installable': True,
+    'installable': False,
 }

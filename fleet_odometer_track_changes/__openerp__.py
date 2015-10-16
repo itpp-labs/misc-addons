@@ -8,5 +8,5 @@
     'depends': ['fleet'],
     'data': [],
     'demo': [],
-    'installable': True,
+    'installable': False,
 }

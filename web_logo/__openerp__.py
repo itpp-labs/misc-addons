@@ -17,7 +17,7 @@ Module adds "?company_id=123" to logo url in order to:
     'data':[
         'views.xml',
         ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
     'application': False,
 }

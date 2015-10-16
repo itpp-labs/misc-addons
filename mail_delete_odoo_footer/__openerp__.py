@@ -7,5 +7,5 @@
     'depends' : [],
     'data':[
         ],
-    'installable': True
+    'installable': False
 }

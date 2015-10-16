@@ -10,5 +10,5 @@
         'security/res_users_signature_security.xml',
         'security/ir.model.access.csv',
     ],
-    'installable': True
+    'installable': False
 }

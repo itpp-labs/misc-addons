@@ -8,5 +8,5 @@
     'data': [
         'web_iframe_pages_views.xml',
         ],
-    'installable': True
+    'installable': False
 }

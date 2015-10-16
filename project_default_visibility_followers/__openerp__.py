@@ -6,6 +6,6 @@
     'category': 'Project',
     'version': '1.0.0',
     'depends': ['project'],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
 }

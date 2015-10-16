@@ -10,5 +10,5 @@
     'data': [
         'reminder_base_views.xml',
         ],
-    'installable': True,
+    'installable': False,
 }

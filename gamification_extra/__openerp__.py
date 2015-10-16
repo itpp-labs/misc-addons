@@ -19,5 +19,5 @@ Tested on 8.0 ab7b5d7
         'gamification_extra_views.xml',
         ],
     'qweb': ['static/src/xml/gamification_extra.xml'],
-    'installable': True
+    'installable': False
 }

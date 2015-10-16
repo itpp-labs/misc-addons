@@ -7,5 +7,5 @@
     'summary': 'Check WARNING before installing \ uninstalling!',
     'depends' : ['product'],
     'data':[],
-    'installable': True
+    'installable': False
 }

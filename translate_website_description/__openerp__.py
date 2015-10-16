@@ -9,5 +9,5 @@
     """,
     'depends' : ['website_partner','website_sale_delivery', 'website_sale', 'website_quote'],
     'data':[],
-    'installable': True
+    'installable': False
 }
