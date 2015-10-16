@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-    <data>
+  <data>
         <record id="view_project_form_allow_automove" model="ir.ui.view">
             <field name="name">project.form.allow.automove</field>
             <field name="model">project.project</field>
@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <data>
                     <xpath expr="//group[@name='misc']" position="inside">
-                        <field name="allow_automove" attrs="{'invisible': [('use_tasks', '=', False)]}"/>
+                        <field name="allow_automove"/>
                      </xpath>
                 </data>
             </field>
@@ -23,7 +23,7 @@
                     <xpath expr="//field[@name='sequence']" position="after">
                         <group  colspan="2" col="2" string="Autostaging">
                             <field name="active_move"/>
-                            <field name="to_stage_automove_id" string="To stage" attrs="{'required': [('active_move','=',True)], 'readonly':[('active_move', '=', False)]}"/>
+                            <field name="next_stage" attrs="{'required': [('active_move','=',True)], 'readonly':[('active_move', '=', False)]}"/>
                             <field name="delay_automove" attrs="{'required': [('active_move','=',True)], 'readonly':[('active_move', '=', False)]}"> <span>days</span> </field>
                         </group>
                     </xpath>
@@ -52,10 +52,10 @@
             <field name="arch" type="xml">
                 <data>
                     <xpath expr="//page[@string='Extra Info']" position="inside">
-                        <group  colspan="2" col="2" string="Autostaging" attrs="{'invisible':[('allow_automove','=',False)]}">
-                            <field name="automove_to_stage_id" string='To stage'/>
+                        <group  colspan="2" col="2" string="Autostaging">
+                            <field name="next_stage" />
                             <field name="days_to_automove"/>
-                            <field name="allow_automove" invisible="1"/>
+                            <field name="when_date_automove"/>
                         </group>
                     </xpath>
                 </data>

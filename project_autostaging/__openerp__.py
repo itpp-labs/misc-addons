@@ -5,8 +5,9 @@
     'website': "https://yelizariev.github.io",
     'category': 'Project',
     'version': '1.0.0',
+    'depends': ['project', 'autostaging_base'],
     'data': [
-        'data.xml',
+        'views.xml',
     ],
     "installable": True
 }
