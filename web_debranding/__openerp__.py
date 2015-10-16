@@ -18,5 +18,5 @@
         'static/src/xml/database_manager.xml',
     ],
     'auto_install': False,
-    'installable': False
+    'installable': True
 }
