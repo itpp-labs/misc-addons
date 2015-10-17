@@ -12,5 +12,5 @@
         'im_notif_data.xml',
         'im_notif_views.xml',
         ],
-    'installable': True
+    'installable': False
 }

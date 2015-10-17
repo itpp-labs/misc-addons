@@ -8,5 +8,5 @@
     'depends': ['mail'],
     'data': ['mail_todo_custom.xml'],
     'demo': [],
-    'installable': True,
+    'installable': False,
 }

@@ -12,5 +12,5 @@ Tested on Odoo 8.0 935141582f5245f7cf5512285d3d91dfe58cb570
     'data':[
         'views.xml',
         ],
-    'installable': True
+    'installable': False
 }

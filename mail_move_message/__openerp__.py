@@ -15,5 +15,5 @@
     'qweb': [
         'static/src/xml/mail_move_message_main.xml',
     ],
-    'installable': True
+    'installable': False
 }

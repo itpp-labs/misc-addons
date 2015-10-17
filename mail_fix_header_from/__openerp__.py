@@ -11,5 +11,5 @@ Obsolete in odoo 8.0 since Sep 10, 2014 https://github.com/odoo/odoo/commit/f2cf
     #"init_xml" : [],
     #"update_xml" : [],
     #"active": True,
-    "installable": True
+    'installable': False
 }

@@ -8,7 +8,7 @@
     """,
     'depends' : ['crm'],
     'data':['data.xml'],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
     'application': False,
 }

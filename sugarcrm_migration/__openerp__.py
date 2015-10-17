@@ -24,6 +24,6 @@ Odoo optimisation:
         'wizard/upload.xml',
         'data.xml',
         ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
 }

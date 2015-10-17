@@ -11,5 +11,5 @@
     'qweb': [
         'static/src/xml/booking_calendar.xml',
     ],
-    'installable': True
+    'installable': False
 }

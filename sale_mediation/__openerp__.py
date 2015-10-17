@@ -12,5 +12,5 @@
         'views.xml',
         #'data.xml',
         ],
-    'installable': True,
+    'installable': False,
 }
