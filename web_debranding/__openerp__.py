@@ -6,7 +6,7 @@
     'website': 'https://yelizariev.github.io',
     'price': 81.00,
     'currency': 'EUR',
-    'depends': ['web', 'disable_openerp_online'],
+    'depends': ['web', 'mail'],
     'data': [
         'security/web_debranding_security.xml',
         'security/ir.model.access.csv',
@@ -16,6 +16,7 @@
         'pre_install.yml',
         ],
     'qweb': [
+        'static/src/xml/web.xml',
         'static/src/xml/database_manager.xml',
     ],
     'auto_install': False,

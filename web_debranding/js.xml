@@ -9,6 +9,8 @@
                         src="/web_debranding/static/src/js/title.js"></script>
                 <script type="text/javascript"
                         src="/web_debranding/static/src/js/dialog.js"></script>
+                <script type="text/javascript"
+                        src="/web_debranding/static/src/js/announcement.js"></script>
             </xpath>
         </template>
     </data>

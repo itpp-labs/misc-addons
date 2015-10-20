@@ -13,7 +13,8 @@ Removes references to odoo.com:
 8. Replaces "Odoo" in strings marked for translation.
 9. Replaces default favicon to a custom one
 10. **Hides Apps menu** (by default, only admin user see Apps menu. You could change it via tick "Show Modules Menu" in user's access rights tab)
-11. Removes odoo.com bindings (via disable_openerp_online module)
+11. Disables server requests to odoo.com (publisher_warranty_url)
+12. Deletes "My odoo.com account" button
 
 By default the module replaces "Odoo" to "Software". To configure
 module open Settings\\System Parameters and modify
@@ -27,7 +28,7 @@ Further debranding
 
 * open addons/mail/data/mail_data.xml and edit Template "Notification Email" -- delete "using Odoo"
 * install **website_debranding** module if module "Website Builder" is installed in your system
-* uninstall im_odoo_support module.
+* install **pos_debranding** module if module "POS" is installed in your system
 * delete "Odoo.com Accounts" record at Settings\\Users\\OAuth Providers if module "OAuth2 Authentication" is installed. in your system
 * to debrand **/web/database/manager**:
 
