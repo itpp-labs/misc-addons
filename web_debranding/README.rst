@@ -41,29 +41,18 @@ Further debranding
     * delete or modify <title> tag
     * delete or modify favicon
 	* delete or modify <img> tag with logo2.png
-    * right after script tag with src="/web/static/src/js/boot.js" add code below:
-    
-          <!-- debranding -->
-    
-          <script type="text/javascript" src="/web_debranding/static/src/js/main.js"></script>
-    
-          <script type="text/javascript" src="/web_debranding/static/src/js/title.js"></script>
-    
-          <script type="text/javascript" src="/web_debranding/static/src/js/about.js"></script>
-    
-          <script type="text/javascript" src="/web_debranding/static/src/js/dialog.js"></script>
-    
-          <link href="/web_debranding/static/src/css/database_manager.css" rel="stylesheet"/>
+	* delete or modify paragraph <p>Fill in this form to create an Odoo database...</p>
+	* delete or modify warning <div class="alert alert-warning">Warning, your Odoo database ...</div>
 
 Auto-debrand new databases
 ==========================
 To automatically install this module for every new databases set **'auto_install': True** in __openerp__.py files of following modules:
 
 * web_debranding
-* disable_openerp_online
-* mail_delete_sent_by_footer
-* mail
-* base_setup
+* mail (built-in)
+* base_setup (built-in)
+* bus (built-in)
   
 
-Tested on Odoo 8.0 eeedd2d9f52d46d8193059854e7430ca0c1fd6c0
+Tested on Odoo 9.0 04c6ee54d86013bc2995778f62074115c1bd9ed3
+
