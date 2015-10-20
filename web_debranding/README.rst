@@ -12,7 +12,7 @@ Removes references to odoo.com:
 7. Replaces "Odoo" in Dialog Box
 8. Replaces "Odoo" in strings marked for translation.
 9. Replaces default favicon to a custom one
-10. **Hides Modules menu** (by default, only admin user see Modules menu. You could change it via tick "Show Modules Menu" in user's access rights tab)
+10. **Hides Apps menu** (by default, only admin user see Apps menu. You could change it via tick "Show Modules Menu" in user's access rights tab)
 11. Removes odoo.com bindings (via disable_openerp_online module)
 
 By default the module replaces "Odoo" to "Software". To configure
@@ -25,7 +25,6 @@ module open Settings\\System Parameters and modify
 Further debranding
 ==================
 
-* open openerp/addons/base/base_data.xml and delete field image in main_partner
 * open addons/mail/data/mail_data.xml and edit Template "Notification Email" -- delete "using Odoo"
 * install **website_debranding** module if module "Website Builder" is installed in your system
 * uninstall im_odoo_support module.

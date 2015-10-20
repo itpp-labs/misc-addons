@@ -5,5 +5,10 @@
             <field name="key">web_debranding.default_logo_module</field>
             <field name="value">web_debranding</field>
         </record>
+        <record id="base.main_partner" model="res.partner">
+            <field name="image"></field>
+        </record>
+
+
     </data>
 </openerp>
