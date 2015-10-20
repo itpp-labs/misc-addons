@@ -6,7 +6,7 @@ Removes references to odoo.com:
 1. Deletes Odoo label in footer
 2. Replaces "Odoo" in page title
 3. Replaces "Odoo" in help message for empty list
-4. 
+4. . 
 5. Deletes Documentation, Support, About links
 6. Replaces default logo by empty image
 7. Replaces "Odoo" in Dialog Box
