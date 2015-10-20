@@ -18,7 +18,7 @@ class ir_translation(models.Model):
         if not source or not re.search(r'\bodoo\b', source, re.IGNORECASE):
             return source
 
-        new_name = self.pool['ir.config_parameter'].get_param(cr, SUPERUSER_ID, 'web_debranding.new_name', False)
+        new_name = self.pool['ir.config_parameter'].get_debranding_parameters(cr, uid).get('web_debranding.new_name')
 
         if not new_name:
             return source

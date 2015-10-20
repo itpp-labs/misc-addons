@@ -17,7 +17,6 @@
         ],
     'qweb': [
         'static/src/xml/web.xml',
-        'static/src/xml/database_manager.xml',
     ],
     'auto_install': False,
     'installable': True

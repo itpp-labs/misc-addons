@@ -1,4 +1,4 @@
-odoo.define('mail.announcement', function (require) {
+odoo.define('web_debranding.announcement', function (require) {
 "use strict";
 
     require('mail.announcement');
@@ -6,4 +6,4 @@ odoo.define('mail.announcement', function (require) {
     WebClient.include({
         show_annoucement_bar: function() {}
     });
-};
+});
