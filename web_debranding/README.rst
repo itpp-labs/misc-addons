@@ -34,15 +34,15 @@ Further debranding
 
   * add web_debranding to server wide modules, e.g.
 
-	./odoo.py --load=web,web_kanban,web_debranding
+    ./odoo.py --load=web,web_kanban,web_debranding
 
   * edit addons/web/views/database_manager.html file:
 
     * delete or modify <title> tag
     * delete or modify favicon
-	* delete or modify <img> tag with logo2.png
-	* delete or modify paragraph <p>Fill in this form to create an Odoo database...</p>
-	* delete or modify warning <div class="alert alert-warning">Warning, your Odoo database ...</div>
+    * delete or modify <img> tag with logo2.png
+    * delete or modify paragraph <p>Fill in this form to create an Odoo database...</p>
+    * delete or modify warning <div class="alert alert-warning">Warning, your Odoo database ...</div>
 
 Auto-debrand new databases
 ==========================
@@ -52,7 +52,6 @@ To automatically install this module for every new databases set **'auto_install
 * mail (built-in)
 * base_setup (built-in)
 * bus (built-in)
-  
+
 
 Tested on Odoo 9.0 04c6ee54d86013bc2995778f62074115c1bd9ed3
-
