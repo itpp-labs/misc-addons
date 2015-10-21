@@ -45,8 +45,8 @@
                 <h2>
                     <span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">PVM Sąskaita-faktūra</span>
                     <span t-if="o.type == 'out_invoice' and o.state == 'proforma2'">PRO-FORMA</span>
-                    <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Sąskaita projektas</span>
-                    <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Atšauktas Sąskaita</span>
+                    <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Sąskaitos projektas</span>
+                    <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Atšaukta Sąskaita</span>
                     <span t-if="o.type == 'out_refund'">Grąžinimas</span>
                     <span t-if="o.type == 'in_refund'">Tiekėjas tiekiantis grąžinimas</span>
                     <span t-if="o.type == 'in_invoice'">Tiekėjas tiekiantis Sąskaita</span>
