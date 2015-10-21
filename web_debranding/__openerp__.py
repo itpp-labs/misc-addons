@@ -4,7 +4,7 @@
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'category': 'Debranding',
     'website': 'https://yelizariev.github.io',
-    'price': 81.00,
+    'price': 90.00,
     'currency': 'EUR',
     'depends': ['web', 'share', 'disable_openerp_online', 'mail_delete_sent_by_footer'],
     'data': [
