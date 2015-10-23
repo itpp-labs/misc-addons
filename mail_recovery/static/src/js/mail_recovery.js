@@ -2,10 +2,6 @@ openerp.mail_recovery = function (session) {
     var mail = session.mail;
 
     mail.ThreadComposeMessage = mail.ThreadComposeMessage.extend({
-        init: function (parent, datasets, options) {
-            console.log("privet");
-            return this._super(parent, datasets, options);
-        },
         bind_events: function () {
             var self = this;
             this.$('textarea').on('focus', self.on_focus_textarea);
