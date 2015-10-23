@@ -3,7 +3,7 @@
     <data>
       <template id="assets_backend" name="message storage" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
-          <script type="text/javascript" src="/message_storage/static/src/js/mail_recovery.js"></script>
+          <script type="text/javascript" src="/mail_recovery/static/src/js/mail_recovery.js"></script>
         </xpath>
       </template>
     </data>
