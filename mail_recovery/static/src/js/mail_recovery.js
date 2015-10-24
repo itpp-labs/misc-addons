@@ -10,7 +10,7 @@ openerp.mail_recovery = function (session) {
         },
         on_focus_textarea: function(event) {
             var $input = $(event.target);
-            if ($input.val() == false) {
+            if (!$input.val()) {
                 $input.val(window.localStorage['message_storage']);
             }
         },
