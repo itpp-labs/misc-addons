@@ -8,18 +8,6 @@
             </xpath>
         </template>
         
-        <record id="resource_resource_form" model="ir.ui.view">
-            <field name="model">resource.resource</field>
-            <field name="inherit_id" ref="resource.resource_resource_form" />
-            <field name="arch" type="xml">
-                <xpath expr="//form/group" position="inside">
-                    <group>
-                       <field name="to_calendar" icon="calendar"/>
-                    </group>
-                </xpath>
-            </field>
-        </record>
-
         <record id="view_order_form" model="ir.ui.view">
             <field name="name">sale.order.form</field>
             <field name="model">sale.order</field>
@@ -28,19 +16,6 @@
                 <xpath expr="//field[@name='order_line']/tree" position="inside">
                     <field name="resource_id" invisible="1"/>
                     <field name="calendar_id" invisible="1"/>
-                </xpath>
-            </field>
-        </record>
-
-        <record id="product_template_form_view" model="ir.ui.view">
-            <field name="name">product.template.common.form</field>
-            <field name="model">product.template</field>
-            <field name="inherit_id" ref="product.product_template_form_view"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='description_sale']" position="after">
-                    <group>
-                        <field name="calendar_id"/>
-                    </group>
                 </xpath>
             </field>
         </record>

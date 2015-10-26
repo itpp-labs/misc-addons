@@ -46,10 +46,10 @@ openerp.booking_calendar = function (session) {
                         return; // to avoid call on dialog destroying (not closing)
                     }
                     self.start_edition(record, {});
-                    _.each($iframe.contentWindow.booking_calendar.bookings, function(b){
-                        self.editor.form.fields.resource_id.set({'value': b.resourceId});
-                        self.editor.form.fields.booking_start.set({'value': b.start.format("YYYY-MM-DD HH:mm:ss")});
-                        self.editor.form.fields.booking_end.set({'value': b.start.add(1, 'hours').format("YYYY-MM-DD HH:mm:ss")});
+                    _.each($iframe.contentWindow.booking_calendar.getBookingsInfo(true), function(b){
+                        self.editor.form.fields.resource_id.set_value(b.resourceId);
+                        self.editor.form.fields.booking_start.set_value(b.start);
+                        self.editor.form.fields.booking_end.set_value(b.end);
                     });
                     self.ensure_saved().then(function (done) {
                         is_calendar_closed = true;

@@ -1,4 +1,6 @@
-from openerp import api,models,fields,tools
+import traceback
+
+from openerp import api, models, fields, tools, SUPERUSER_ID
 
 
 class pitch_booking_venue(models.Model):
@@ -60,3 +62,20 @@ class product_template(models.Model):
     venue_id = fields.Many2one('pitch_booking.venue', string='Venue')
 
 
+class sale_order(models.Model):
+    _inherit = 'sale.order'
+
+    @api.multi
+    def _add_booking_line(self, product_id, resource, start, end):
+        if resource:
+            for rec in self:
+                line = super(sale_order, rec)._add_booking_line(product_id, resource, start, end)
+                sol = rec.env['sale.order.line'].sudo()
+                pitch_obj = rec.env['pitch_booking.pitch'].sudo()
+                pitchs = pitch_obj.search([('resource_id','=',resource)], limit=1)
+                if pitchs:
+                    line.write({
+                        'pitch_id': pitchs[0].id,
+                        'venue_id': pitchs[0].venue_id.id
+                    })
+        return line
