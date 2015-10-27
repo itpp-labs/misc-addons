@@ -9,5 +9,7 @@ class SaleOrderWithSms(models.Model):
     def write(self, vals):
         result = super(SaleOrderWithSms, self).write(vals)
         if vals.get('state') == 'sent':
-            self.env['sms_sg.sendandlog'].send_sms('9177825074', 'Hello, World!')
+            msg = 'Sale Order #' + self.name + ' is confirmed'
+            phone = self.partner_id.mobile
+            self.env['sms_sg.sendandlog'].send_sms(phone, msg)
         return result
