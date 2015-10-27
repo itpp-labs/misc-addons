@@ -9,5 +9,5 @@ class SaleOrderWithSms(models.Model):
     def write(self, vals):
         result = super(SaleOrderWithSms, self).write(vals)
         if vals.get('state') == 'sent':
-            self.env['sms_sg.sndandlog'].send_sms('9177825074', 'Hello, World!')
+            self.env['sms_sg.sendandlog'].send_sms('9177825074', 'Hello, World!')
         return result

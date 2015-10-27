@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+       <!-- override the automatically generated list view for sendandlog -->
+       <record model="ir.ui.view" id="course_tree_view">
+         <field name="name">sendandlog.tree</field>
+         <field name="model">sms_sg.sendandlog</field>
+         <field name="arch" type="xml">
+                <tree string="Course Tree">
+                    <field name="msg"/>
+                    <field name="phone"/>
+                    <field name="response_content"/>
+                </tree>
+            </field>
+        </record>
+
+      <record id="action_view_smslog" model="ir.actions.act_window">
+        <field name="name">Sms log</field>
+        <field name="res_model">sms_sg.sendandlog</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+      </record>
+
+      <menuitem name="Sms" id="menu_sms"
+            parent="base.menu_custom"
+            action="action_view_smslog"/>
+
+    </data>
+</openerp>

@@ -4,12 +4,12 @@ from openerp import models, fields, api
 import requests
 
 
-class SndAndLog(models.Model):
-    _name = 'sms_sg.sndandlog'
+class SendAndLog(models.Model):
+    _name = 'sms_sg.sendandlog'
 
     msg = fields.Char()
     phone = fields.Char()
-    request_content = fields.Char()
+    response_content = fields.Char()
 
     @api.model
     def send_sms(self, phone, msg):
@@ -20,4 +20,4 @@ class SndAndLog(models.Model):
                    'user': user,
                    'option': 'send'}
         r = requests.get('http://www.sms.sg/http/sendmsg', params=payload)
-        self.create({'msg': msg, 'phone': phone, 'request_content': r.content})
+        self.create({'msg': msg, 'phone': phone, 'response_content': r.content})
