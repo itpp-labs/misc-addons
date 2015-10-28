@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Sale order with tax information hided",
+    'name': "Sale order with tax information hidden",
     'author': "IT-Projects LLC, Ildar Nasyrov",
     'website': "https://twitter.com/nasyrov_ildar",
     'category': 'Uncategorized',

@@ -1,5 +1,5 @@
-Sale Order with tax information hided
-=====================================
+Sale Order with tax information hidden
+======================================
 
 Description: Hides tax information from Sale Order view.
 
