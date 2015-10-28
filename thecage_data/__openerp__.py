@@ -7,7 +7,7 @@
     'description': """
 
     """,
-    'depends' : ['l10n_sg', 'pitch_booking', 'sms_sg'],
+    'depends' : ['l10n_sg', 'pitch_booking', 'sms_sg', 'sale_order_hide_tax'],
     'data':[
         'data.xml',
         'views/view.xml',
