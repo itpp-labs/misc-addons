@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record id="show_taxes_column_in_sale_orders" model="res.groups">
+      <field name="name">Sales / See taxes</field>
+    </record>
+  </data>
+</openerp>
