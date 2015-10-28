@@ -10,6 +10,7 @@
     'depends' : ['l10n_sg', 'pitch_booking', 'sms_sg'],
     'data':[
         'data.xml',
+        'views/view.xml',
         ],
     'installable': True,
     'auto_install': False,
