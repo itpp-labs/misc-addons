@@ -20,7 +20,7 @@ class SaleOrderWithSms(models.Model):
 class SaleOrderLineReminder(models.Model):
     _inherit = 'sale.order.line'
 
-    reminded = fields.Boolean(default=False)
+    reminded = fields.Boolean(default=False, select=True)
 
     @api.model
     def _cron_reminder(self):
