@@ -7,7 +7,7 @@
     'description': """
 
     """,
-    'depends' : ['booking_calendar', 'account'],
+    'depends' : ['account', 'website_booking_calendar'],
     'data':[
         'views.xml',
         'security/ir.model.access.csv'

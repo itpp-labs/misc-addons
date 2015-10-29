@@ -13,4 +13,18 @@
         t-att-class="disabled ? 'oe_list_button_disabled' : 'oe_button_calendar'" special="booking_calendar"
         ><img t-attf-src="#{prefix}/booking_calendar/static/src/img/icons/calendar.png"
         t-att-alt="widget.string"/></a>
+
+    <t t-name="BookingCalendar">
+        <div class="booking-calendar">
+            <div id="external-events">
+            </div>
+            <div id="calendar"></div>
+        </div>
+    </t>
+    <t t-name="BookingCalendar.resources">
+        <h4>Book resources</h4>
+        <t t-foreach="resources" t-as="r">
+            <div class="fc-event" t-att-data-resource="r.id" t-att-data-color="r.color"><t t-esc="r.name"/></div>
+        </t>
+    </t>
 </template>

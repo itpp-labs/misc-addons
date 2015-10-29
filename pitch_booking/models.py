@@ -46,6 +46,24 @@ class sale_order_line(models.Model):
         })
         return res
 
+    @api.model
+    def get_resources(self, venue_id, pitch_id):
+        pitch_obj = self.env['pitch_booking.pitch'].sudo()
+        venue_obj = self.env['pitch_booking.venue'].sudo()
+        if not venue_id:
+            venues = venue_obj.search([])
+            venue_id = venues[0].id if venues else None
+        resources = []
+        if pitch_id:
+            resources = [pitch_obj.browse(int(pitch_id)).resource_id]
+        elif venue_id:
+            resources = [p.resource_id for p in pitch_obj.search([('venue_id','=',int(venue_id))])]
+        return [{
+            'name': r.name,
+            'id': r.id,
+            'color': r.color
+        } for r in resources]
+
 
 class account_invoice_line(models.Model):
     _inherit = 'account.invoice.line'
