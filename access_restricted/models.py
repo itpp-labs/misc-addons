@@ -1,4 +1,4 @@
-from openerp import models, fields, api
+from openerp import models, api, exceptions, SUPERUSER_ID
 
 IR_CONFIG_NAME = 'access_restricted.fields_view_get_uid'
 
@@ -20,3 +20,25 @@ class ResUsers(models.Model):
         uid = self.pool['ir.config_parameter'].get_param(cr, uid, IR_CONFIG_NAME, context=context)
         uid = int(uid)
         return super(ResUsers, self).fields_get(cr, uid, allfields=None, context=None, write_access=True, attributes=None)
+
+class IRRule(models.Model):
+    _inherit = 'ir.rule'
+
+    @api.multi
+    def check_restricted(self):
+        if self.env.user.id == SUPERUSER_ID:
+            return
+        g = self.env.ref('access_restricted.res_groups_restricted')
+        for r in self:
+            if r.id == g.id:
+                raise exceptions.Warning("You don't have access for this operation")
+
+    @api.multi
+    def write(self, vals):
+        self.check_restricted()
+        return super(IRRule, self).write(vals)
+
+    @api.multi
+    def unlink(self):
+        self.check_restricted()
+        return super(IRRule, self).unlink()
