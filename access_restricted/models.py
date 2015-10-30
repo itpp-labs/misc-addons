@@ -10,7 +10,6 @@ class ResUsers(models.Model):
         if view_type == 'form':
             last_uid = self.pool['ir.config_parameter'].get_param(cr, uid, IR_CONFIG_NAME, context=context)
             if int(last_uid) != uid:
-                self.pool['ir.config_parameter'].set_param(cr, uid, IR_CONFIG_NAME, uid, context=context)
                 self.pool['res.groups'].update_user_groups_view(cr, uid, context=context)
 
         return super(ResUsers, self).fields_view_get(cr, uid, view_id, view_type, context, toolbar, submenu)
@@ -20,3 +19,11 @@ class ResUsers(models.Model):
         uid = self.pool['ir.config_parameter'].get_param(cr, uid, IR_CONFIG_NAME, context=context)
         uid = int(uid)
         return super(ResUsers, self).fields_get(cr, uid, allfields=None, context=None, write_access=True, attributes=None)
+
+
+class ResGroups(models.Model):
+    _inherit = 'res.groups'
+
+    def update_user_groups_view(self, cr, uid, context=None):
+        self.pool['ir.config_parameter'].set_param(cr, uid, IR_CONFIG_NAME, uid, context=context)
+        return super(ResGroups, self).update_user_groups_view(cr, uid, context=context)
