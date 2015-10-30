@@ -5,13 +5,14 @@ from openerp import models, fields, api
 class ProductTemplateSlots(models.Model):
     _inherit = 'product.template'
 
-    slots = fields.Integer(default=0, help='type -1 if you want to indicate one usage of contract service by confirming sale order for this product. Leave zero otherwise')
+    slots = fields.Integer(default=0, help="""Type -1 if you want to indicate one usage of bulk service by confirming sale order for this product.\n
+    Type number of slots to sell if you want to indicate selling your service in bulk by confirming sale order for this product. Leave zero otherwise""")
 
 
 class AccountAnalyticAccountSlots(models.Model):
     _inherit = 'account.analytic.account'
 
-    available_slots = fields.Integer(compute='_compute_available_slots', readonly=True, help='remaining number of slots left per contract')
+    available_slots = fields.Integer(compute='_compute_available_slots', readonly=True, help='remaining number of slots left in this contract')
 
     @api.one
     def _compute_available_slots(self):
@@ -26,4 +27,4 @@ class AccountAnalyticAccountSlots(models.Model):
 class SaleOrderSlots(models.Model):
     _inherit = 'sale.order'
 
-    available_slots = fields.Integer(related='project_id.available_slots', readonly=True, help='remaining number of slots left per contract')
+    available_slots = fields.Integer(related='project_id.available_slots', readonly=True, help='remaining number of slots left in this contract')
