@@ -5,8 +5,9 @@ from openerp import models, fields, api
 class ProductTemplateSlots(models.Model):
     _inherit = 'product.template'
 
-    slots = fields.Integer(default=0, help="""Type -1 if you want to indicate one usage of bulk service by this product.\n
-    Type number of slots if you want to indicate selling your service in bulk by this product. Leave zero otherwise""")
+    slots = fields.Integer(default=0, help="""Slot number to sale in bulk.
+    Can be negative to account slots usage (usually used for zero priced dummy products).
+    Leave zero if you don't use slots.""")
 
 
 class AccountAnalyticAccountSlots(models.Model):
