@@ -5,7 +5,7 @@ from openerp import models, fields, api
 class ProductTemplateSlots(models.Model):
     _inherit = 'product.template'
 
-    slots = fields.Integer(default=0, help="""Slot number to sale in bulk.
+    slots = fields.Integer(default=0, help="""Number of slots to sale in bulk.
     Can be negative to account slots usage (usually used for zero priced dummy products).
     Leave zero if you don't use slots.""")
 
