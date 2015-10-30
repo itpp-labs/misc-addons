@@ -17,7 +17,7 @@
             <field name="name">res.groups.restricted</field>
             <field name="model_id" ref="base.model_res_groups"/>
             <field name="domain_force">[('users','in', [user.id])]</field>
-            <field name="perm_read" eval="True"/>
+            <field name="perm_read" eval="False"/>
             <field name="perm_write" eval="True"/>
             <field name="perm_create" eval="False"/>
             <field name="perm_unlink" eval="True"/>
