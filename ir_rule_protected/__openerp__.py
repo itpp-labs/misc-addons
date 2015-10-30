@@ -6,7 +6,7 @@
     'website': 'https://twitter.com/yelizariev',
     'depends': [],
     'data': [
-        'views.xml'
+        'views.xml',
     ],
     'installable': True
 }
