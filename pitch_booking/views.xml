@@ -17,6 +17,7 @@
                         <group>
                             <field name="name"/>
                             <field name="venue_id"/>
+                            <field name="color" widget="color"/>
                         </group>
                         <group>
                             <field name="calendar_id"/>
