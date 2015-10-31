@@ -6,13 +6,13 @@ Removes references to odoo.com:
 1. Deletes Odoo label in footer
 2. Replaces "Odoo" in page title
 3. Replaces "Odoo" in help message for empty list
-4. . 
+4. .
 5. Deletes Documentation, Support, About links
 6. Replaces default logo by empty image
 7. Replaces "Odoo" in Dialog Box
 8. Replaces "Odoo" in strings marked for translation.
 9. Replaces default favicon to a custom one
-10. **Hides Apps menu** (by default, only admin user see Apps menu. You could change it via tick "Show Modules Menu" in user's access rights tab)
+10. **Hides Apps menu** (by default, only admin (superuser) can see Apps menu. You could change it via tick "Show Modules Menu" in user's access rights tab)
 11. Disables server requests to odoo.com (publisher_warranty_url)
 12. Deletes "My odoo.com account" button
 13. Delete Apps and other blocks from Settings/Dashboard
@@ -50,6 +50,10 @@ Auto-debrand new databases
 To automatically install this module for every new databases set **'auto_install': True** in __openerp__.py files of following modules:
 
 * web_debranding
+* ir_rule_protected
+* access_restricted
+* access_apps
+* access_settings_menu
 * mail (built-in)
 * base_setup (built-in)
 * bus (built-in)

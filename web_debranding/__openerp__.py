@@ -9,9 +9,9 @@
     'depends': [
         'web',
         'mail',
-        'web_settings_dashboard',
         'web_planner',
-        'access_restricted',
+        'access_apps',
+        'access_settings_menu',
     ],
     'data': [
         'security/web_debranding_security.xml',
