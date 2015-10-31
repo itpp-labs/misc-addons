@@ -1,4 +1,5 @@
 from openerp import models, api, exceptions, SUPERUSER_ID
+from openerp.addons.base.res.res_users import is_reified_group
 
 IR_CONFIG_NAME = 'access_restricted.fields_view_get_uid'
 
@@ -23,6 +24,13 @@ class ResUsers(models.Model):
         ctx = (context or {}).copy()
         ctx['access_restricted'] = 1
         return super(ResUsers, self).fields_get(cr, uid, allfields=allfields, context=ctx, write_access=write_access, attributes=attributes)
+
+    def write(self, vals):
+        for key in vals:
+            if is_reified_group(key):
+                self.env['ir.config_parameter'].set_param(IR_CONFIG_NAME, '0')
+                break
+        return super(ResUsers, self).write(vals)
 
 
 class ResGroups(models.Model):
