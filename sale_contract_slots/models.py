@@ -15,7 +15,7 @@ class AccountAnalyticAccountSlots(models.Model):
 
     available_slots = fields.Integer(compute='_compute_available_slots', readonly=True, help='remaining number of slots left in this contract')
 
-    @api.model
+    @api.one
     def _compute_available_slots(self):
         lines = self.env['sale.order.line'].search(['&', '&', ('order_id.project_id', '=', self.id),
                                                     ('order_id.state', 'in', ['manual', 'done']),
