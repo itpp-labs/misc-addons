@@ -3,23 +3,13 @@
     <data>
         <template id="assets_backend" name="custom booking calendar assets" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
+                <script type="text/javascript" src="/booking_calendar/static/src/js/moment.js"></script>
+                <script type="text/javascript" src="/booking_calendar/static/src/js/fullcalendar.js"></script>
                 <script type="text/javascript" src="/booking_calendar/static/src/js/booking_calendar.js"></script>
                 <link rel='stylesheet' href='/booking_calendar/static/src/css/booking_calendar.css'/>
             </xpath>
         </template>
         
-        <record id="resource_resource_form" model="ir.ui.view">
-            <field name="model">resource.resource</field>
-            <field name="inherit_id" ref="resource.resource_resource_form" />
-            <field name="arch" type="xml">
-                <xpath expr="//form/group" position="inside">
-                    <group>
-                       <field name="to_calendar" icon="calendar"/>
-                    </group>
-                </xpath>
-            </field>
-        </record>
-
         <record id="view_order_form" model="ir.ui.view">
             <field name="name">sale.order.form</field>
             <field name="model">sale.order</field>
@@ -28,6 +18,19 @@
                 <xpath expr="//field[@name='order_line']/tree" position="inside">
                     <field name="resource_id" invisible="1"/>
                     <field name="calendar_id" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="resource_resource_form" model="ir.ui.view">
+            <field name="model">resource.resource</field>
+            <field name="inherit_id" ref="resource.resource_resource_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//form/group" position="inside">
+                    <group>
+                       <field name="to_calendar" icon="calendar"/>
+                       <field name="color" widget="color"/>
+                    </group>
                 </xpath>
             </field>
         </record>
@@ -44,12 +47,5 @@
                 </xpath>
             </field>
         </record>
-
-        <template id="assets" inherit_id="website_booking_calendar.assets" name="Booking Calendar Assets Include">
-            <xpath expr="." position="inside">
-                <script type="text/javascript" src="/booking_calendar/static/src/js/website_booking_calendar.js"></script>
-            </xpath>
-        </template>
-
     </data>
 </openerp>
