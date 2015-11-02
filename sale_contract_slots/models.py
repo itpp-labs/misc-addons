@@ -22,7 +22,7 @@ class AccountAnalyticAccountSlots(models.Model):
                                                     '|',
                                                     ('price_unit', '=', '0'),
                                                     ('product_id.slots', '!=', '0')])
-        self.available_slots = sum(lines.mapped(lambda r: r.product_id.slots))
+        self.available_slots = sum(lines.mapped(lambda r: r.product_id.slots * r.product_uom_qty))
 
 
 class SaleOrderSlots(models.Model):

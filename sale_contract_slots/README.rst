@@ -1,9 +1,9 @@
 Service selling in bulk
 =======================
 
-This module provides an opportunity for your company to sell a service (e.g swimming pool attendance) in bulk.
+This module provides an opportunity for your company to sell a service (e.g. swimming pool attendance) in bulk.
 You may sell any number (slots) of the services at one go. One usage of your service by client is equal to one slot in the contract.
-To sell in bulk you should create a bulk product in odoo (e.g. 'Six swimming pool attendance') and create a contract, using account analytical module.
+To sell in bulk you should create a bulk product in odoo (e.g. 'Six swimming pool attendance') and create a contract using account analytical module.
 
 Available slots will be counted per contract. Therefore in the sale order for bulk product you should choose the contract.
 
