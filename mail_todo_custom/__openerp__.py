@@ -2,7 +2,8 @@
 {
     'name': "Mark unstarred email as read, remove filter in 'To-do' folder",
     'version': '1.0',
-    'author': "Ivan Yelizariev",
+    'author': 'IT-Projects LLC',
+    'license': 'LGPL-3',
     'website': "https://yelizariev.github.io",
     'category': 'Tools',
     'depends': ['mail'],

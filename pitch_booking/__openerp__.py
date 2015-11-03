@@ -1,15 +1,17 @@
 {
     'name' : 'Football pitches booking functionality',
     'version' : '1.0.0',
-    'author' : 'Ivan Yelizariev',
+    'author' : 'IT-Projects LLC, Veronika Kotovich',
+    'license': 'LGPL-3',
+    'website' : 'https://twitter.com/vkotovi4',
     'category' : 'Other',
-    'website' : 'https://yelizariev.github.io',
     'description': """
 
     """,
-    'depends' : ['booking_calendar'],
+    'depends' : ['account', 'website_booking_calendar'],
     'data':[
-        'views.xml'
+        'views.xml',
+        'security/ir.model.access.csv'
         ],
     'installable': False,
     'auto_install': False,

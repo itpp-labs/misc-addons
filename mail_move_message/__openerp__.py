@@ -2,6 +2,7 @@
     'name' : 'Mail relocation',
     'version' : '1.0.2',
     'author' : 'IT-Projects LLC, Ivan Yelizariev',
+    'license': 'LGPL-3',
     'category' : 'Social Network',
     'website' : 'https://yelizariev.github.io',
     'price': 9.00,

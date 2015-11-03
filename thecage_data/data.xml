@@ -34,5 +34,19 @@
             <field name="company_ids" eval="[(4, ref('res_company_bt')),(4, ref('res_company_kl')),]"/>
         </record>
 
+
+        <!--                      Cron                       -->
+        <record forcecreate="True" id="ir_cron_sms_reminder" model="ir.cron">
+            <field name="name">Booking sms reminder</field>
+            <field eval="True" name="active" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'sale.order.line'"/>
+            <field name="function" eval="'_cron_reminder'"/>
+            <field name="args" eval="'()'"/>
+        </record>
     </data>
 </openerp>

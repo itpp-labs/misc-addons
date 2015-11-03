@@ -1,10 +1,11 @@
 {
     'name': "Resource booking calendar backend",
     'version': '1.0.0',
-    'author': 'Ivan Yelizariev',
+    'author' : 'IT-Projects LLC, Veronika Kotovich',
+    'license': 'LGPL-3',
+    'website' : 'https://twitter.com/vkotovi4',
     'category': 'Sale',
-    'website': 'https://yelizariev.github.io',
-    'depends': ['website_booking_calendar'],
+    'depends': ['resource', 'sale', 'web_widget_color'],
     'data': [
         'views.xml',
         ],

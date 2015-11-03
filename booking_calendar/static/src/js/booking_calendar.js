@@ -1,44 +1,154 @@
 openerp.booking_calendar = function (session) {
-    var _t = session.web._t,
-       _lt = session.web._lt;
+    var _t = session.web._t;
     var QWeb = session.web.qweb;
-    var bookings = new Array();
-    
+    var DTF = 'YYYY-MM-DD HH:mm:ss';
+    var MIN_TIME_SLOT = 1; //hours
+
+    session.web.BookingCalendar = session.web.Dialog.extend({
+        template: "BookingCalendar",
+        bookings: [],
+        init: function (parent, options, content) {
+            this._super(parent, options);
+            this.view = options.view;
+            this.bookings = [];
+            this.resources = [];
+        },
+        start: function() {
+            this.$calendar = this.$('#calendar');
+            this.init_calendar();
+        },
+        set_record: function(id) {
+            var self = this;
+            this.record_id = id;
+            var model = new session.web.Model("resource.resource");
+            model.query(['id', 'name'])
+                .filter([['to_calendar', '=', true]])
+                .all().then(function (resources) {
+                    self.$('#external-events').html(QWeb.render("BookingCalendar.resources", { resources : resources }));
+                    self.init_ext_events();
+                    self.$calendar.fullCalendar24('refetchEvents');
+                });
+        },
+        init_calendar: function() {
+            var self = this;
+            this.$calendar.fullCalendar24({
+                header: {
+                  left: 'prev,next today',
+                  center: 'title',
+                  right: 'month,agendaWeek,agendaDay'
+                },
+                dropAccept: '.fc-event',
+                handleWindowResize: true,
+                height: 'auto',
+                editable: true,
+                droppable: true, // this allows things to be dropped onto the calendar
+                eventResourceField: 'resourceId',
+                slotDuration: '01:00:00',
+                allDayDefault: false,
+                allDaySlot: false,
+                defaultTimedEventDuration: '01:00:00',
+                displayEventTime: false,
+                firstDay: 1,
+                defaultView: 'agendaWeek',
+                timezone: 'local',
+                events: self.load_events,
+                eventReceive: self.event_receive,
+                eventOverlap: self.event_overlap,
+                eventDrop: self.event_drop,
+                eventResize: self.event_drop,
+                dialog: self
+            });
+        },
+        init_ext_events: function() {
+            var self = this;
+            this.resources = [];
+            this.$('#external-events .fc-event').each(function() {
+                self.resources.push($(this).data('resource'));
+                $(this).data('event', {
+                    title: $.trim($(this).text()), // use the element's text as the event title
+                    stick: true, // maintain when user navigates (see docs on the renderEvent method)
+                    resourceId: $(this).data('resource'),
+                    borderColor: 'red',
+                    color: $(this).data('color'),
+                });
+                // make the event draggable using jQuery UI
+                $(this).draggable({
+                    zIndex: 999,
+                    revert: true,      // will cause the event to go back to its
+                    revertDuration: 0  //  original position after the drag
+                })
+                .css('background-color', $(this).data('color'))
+                .css('border-color', $(this).data('color'));
+            });
+        },
+        load_events: function(start, end, timezone, callback) {
+            var self = this;
+            var model = new session.web.Model("sale.order.line");
+            model.call('get_bookings', [start.format(DTF), end.format(DTF), self.options.dialog.resources])
+                .then(function (events) {
+                    for(var i = events.length - 1; i >= 0; i--) {
+                        var dialog = self.options.dialog;
+                        if(dialog.$calendar.fullCalendar24('clientEvents', events[i].id).length) {
+                            events.splice(i, 1);
+                        }
+                    }
+                    callback(events);
+                });
+        },
+        update_record: function(event) {
+            var start = event.start.clone();
+            var end = event.end ? event.end.clone() : start.clone().add(MIN_TIME_SLOT, 'hours');
+            var record = this.view.records.get(this.record_id);
+            this.view.start_edition(record, {});
+            this.view.editor.form.fields.resource_id.set_value(event.resourceId);
+            this.view.editor.form.fields.booking_start.set_value(start.utc().format(DTF));
+            this.view.editor.form.fields.booking_end.set_value(end.utc().format(DTF));
+        },
+        event_receive: function(event, allDay, jsEvent, ui) {
+            var dialog = this.opt('dialog');
+            dialog.$calendar.fullCalendar24('removeEvents', [this.record_id]);
+            dialog.update_record(event);
+            event._id = dialog.record_id;
+            dialog.$calendar.fullCalendar24('updateEvent', event);
+        },
+        event_drop: function(event, delta, revertFunc, jsEvent, ui, view){
+            var dialog = view.options.dialog;
+            dialog.update_record(event);
+        },
+        event_overlap: function(stillEvent, movingEvent) {
+            return stillEvent.resourceId != movingEvent.resourceId;
+        },
+        open: function(id) {
+            if (this.dialog_inited) {
+                var dialog_inited = true;
+            }
+            var res = this._super();
+            this.set_record(id);
+            if (dialog_inited) {
+                this.$dialog_box.modal('show');
+            }
+            return res;
+        }
+    });
+
+
     session.web.form.One2ManyListView.include({
         do_button_action: function (name, id, callback) {
             var self = this;
-            // if (this.view.editable() &&  this.view.is_action_enabled('edit')) {
-            //     return this._super.apply(this, arguments);
-            // }
-            // var record_id = $(event.currentTarget).data('id');
-            // return this.view.start_edition(
-            //     record_id ? this.records.get(record_id) : null, {
-            //     focus_field: $(event.target).data('field')
-            // });
             if (name == 'open_calendar') {
-               var $iframe = $(QWeb.render('BookingCalendarIFrame', {'url': session.session.prefix + '/booking/calendar'}))[0];
-                var c_dialog = new session.web.Dialog(this, {
-                    // dialogClass: 'oe_act_window',
-                    size: 'large',
-                    title: _t('Booking Calendar'),
-                    destroy_on_close: false,
-                }, $iframe).open();
-
-                $iframe.onload = function(){
-                    this.contentWindow.init_backend(true, bookings);         
-                }       
-
-                c_dialog.on('closing', this, function (e){
-                    var record = self.records.get(id);
-                    _.each($iframe.contentWindow.bookings, function(b){
-                        self.dataset.write(id, {
-                            'booking_start': b.start.format("YYYY-MM-DD HH:mm:ss"),
-                            'booking_end': b.start.add(1, 'hours').format("YYYY-MM-DD HH:mm:ss")
-                            }).then(function(r) {
-                                callback(id);
-                            });
-                        });
+                if (!self.o2m.bc || self.o2m.bc.isDestroyed()) {
+                    self.o2m.bc = new session.web.BookingCalendar(this, {
+                        // dialogClass: 'oe_act_window',
+                        size: 'large',
+                        title: _t('Booking Calendar'),
+                        destroy_on_close: false,
+                        record_id: id,
+                        view: self
                     });
+                }
+                self.o2m.bc.open(id).on('closing', this, function (e){
+                    callback(id);
+                });
             } else {
                 this._super(name, id, callback);    
             }
@@ -52,8 +162,8 @@ openerp.booking_calendar = function (session) {
             this.$current.delegate('.oe_button_calendar', 'click', function (e) {
                 e.stopPropagation();
                 var $target = $(e.currentTarget),
-                       $row = $target.closest('tr'),
-                  record_id = self.row_id($row);
+                    $row = $target.closest('tr'),
+                    record_id = self.row_id($row);
                 if ($target.attr('disabled')) {
                     return;
                 }
@@ -61,14 +171,13 @@ openerp.booking_calendar = function (session) {
                 
                 $(self).trigger('action', ['open_calendar', record_id, function (id) {
                     $target.removeAttr('disabled');
-                    return self.reload_record(self.records.get(id));
+                    // return self.reload_record(self.records.get(id));
                 }]);
             });
 
     }});
 
     session.web.list.CalButton = session.web.list.Column.extend({
-        
         format: function (row_data, options) {
             options = options || {};
             var attrs = {};
@@ -85,7 +194,5 @@ openerp.booking_calendar = function (session) {
         }
     });
 
-
     session.web.list.columns.add('calbutton', 'session.web.list.CalButton');
-
 }
