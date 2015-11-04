@@ -9,9 +9,11 @@
           <xpath expr="//tree/field[@name='tax_id']" position="attributes">
             <attribute name="groups">sale_order_hide_tax.show_taxes_column_in_sale_orders</attribute>
           </xpath>
+          <!--
           <xpath expr="//field[@name='amount_tax']" position="attributes">
             <attribute name="groups">sale_order_hide_tax.show_taxes_column_in_sale_orders</attribute>
           </xpath>
+          -->
         </field>
       </record>
     </data>
