@@ -106,7 +106,7 @@ openerp.booking_calendar = function (session) {
         },
         event_receive: function(event, allDay, jsEvent, ui) {
             var dialog = this.opt('dialog');
-            dialog.$calendar.fullCalendar24('removeEvents', [this.record_id]);
+            dialog.$calendar.fullCalendar24('removeEvents', [dialog.record_id]);
             dialog.update_record(event);
             event._id = dialog.record_id;
             dialog.$calendar.fullCalendar24('updateEvent', event);

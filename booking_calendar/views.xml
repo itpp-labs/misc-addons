@@ -17,7 +17,6 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='order_line']/tree" position="inside">
                     <field name="resource_id" invisible="1"/>
-                    <field name="calendar_id" invisible="1"/>
                 </xpath>
             </field>
         </record>
