@@ -21,37 +21,45 @@ class sale_order_line(models.Model):
     booking_end = fields.Datetime(string="Date end")
     calendar_id = fields.Many2one('resource.calendar', related='product_id.calendar_id')
 
-    @api.one
+    @api.multi
     @api.constrains('resource_id', 'booking_start', 'booking_end')
     def _check_date_overlap(self):
-        if self.resource_id and self.booking_start and self.booking_end:
-            overlaps = self.search_count(['&','|','&',('booking_start', '>', self.booking_start), ('booking_start', '<', self.booking_end),
-                                          '&',('booking_end', '>', self.booking_start), ('booking_end', '<', self.booking_end),
-                                          ('id', '!=', self.id),
-                                          ('resource_id', '!=', False),
-                                          ('resource_id', '=', self.resource_id.id)
-            ])
-            overlaps += self.search_count([('id', '!=', self.id),
-                                           ('booking_start', '=', self.booking_start),
-                                           ('booking_end', '=', self.booking_end),
-                                           ('resource_id', '=', self.resource_id.id)])
-            if overlaps:
-                raise ValidationError('There already is booking at that time.')
+        for line in self:
+            if line.state == 'cancel':
+                continue
+            if line.resource_id and line.booking_start and line.booking_end:
+                overlaps = line.search_count(['&','|','&',('booking_start', '>', line.booking_start), ('booking_start', '<', line.booking_end),
+                                              '&',('booking_end', '>', line.booking_start), ('booking_end', '<', line.booking_end),
+                                              ('id', '!=', line.id),
+                                              ('resource_id', '!=', False),
+                                              ('resource_id', '=', line.resource_id.id),
+                                              ('state', '!=', 'cancel')
+                ])
+                overlaps += line.search_count([('id', '!=', line.id),
+                                               ('booking_start', '=', line.booking_start),
+                                               ('booking_end', '=', line.booking_end),
+                                               ('resource_id', '=', line.resource_id.id),
+                                               ('state', '!=', 'cancel')
+                ])
+                if overlaps:
+                    raise ValidationError('There already is booking at that time.')
 
     @api.multi
     @api.constrains('calendar_id', 'booking_start', 'booking_end')
     def _check_date_fit_product_calendar(self):
-        for record in self:
-            if record.calendar_id and record.booking_start and record.booking_end:
-                is_valid = self.validate_time_limits(record.calendar_id.id, record.booking_start, record.booking_end)
+        for line in self.sudo():
+            if line.state == 'cancel':
+                continue
+            if line.calendar_id and line.booking_start and line.booking_end:
+                is_valid = line.validate_time_limits(line.calendar_id.id, line.booking_start, line.booking_end)
                 if not is_valid:
-                    raise ValidationError('Not valid interval of booking for the product %s.' % self.product_id.name)
+                    raise ValidationError('Not valid interval of booking for the product %s.' % line.product_id.name)
 
     @api.model
     def validate_time_limits(self, calendar_id, booking_start, booking_end):
         calendar_obj = self.env['resource.calendar']
         leave_obj = self.env['resource.calendar.leaves']
-        user_tz = pytz.timezone(self.env.context.get('tz', 'UTC'))
+        user_tz = pytz.timezone(self.env.context.get('tz') or 'UTC')
         start_dt = pytz.utc.localize(fields.Datetime.from_string(booking_start)).astimezone(user_tz)
         end_dt = pytz.utc.localize(fields.Datetime.from_string(booking_end)).astimezone(user_tz)
         hours = calendar_obj.browse(calendar_id).get_working_hours(start_dt, end_dt)
@@ -81,6 +89,7 @@ class sale_order_line(models.Model):
             ('booking_start', '>=', start),
             ('booking_end', '<=', end),
             ('booking_start', '>=', fields.Datetime.now()),
+            ('state', '!=', 'cancel')
             ]
         if resource_ids:
             domain.append(('resource_id', 'in', resource_ids))
@@ -94,6 +103,13 @@ class sale_order_line(models.Model):
             'editable': False,
             'color': b.resource_id.color
         } for b in bookings]
+
+    @api.onchange('booking_start', 'booking_end')
+    def _on_change_booking_time(self):
+        if self.booking_start and self.booking_end:
+            start = datetime.strptime(self.booking_start, DTF)
+            end = datetime.strptime(self.booking_end, DTF)
+            self.product_uom_qty = (end - start).seconds/3600
 
 
 class product_template(models.Model):
