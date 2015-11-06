@@ -51,6 +51,7 @@ openerp.booking_calendar = function (session) {
                 firstDay: 1,
                 defaultView: 'agendaWeek',
                 timezone: 'local',
+                slotEventOverlap: false,
                 events: self.load_events,
                 eventReceive: self.event_receive,
                 eventOverlap: self.event_overlap,
