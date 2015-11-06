@@ -1,9 +1,12 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import pytz
 
 from openerp import api, models, fields
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
+from openerp.tools.translate import _
 from openerp.exceptions import ValidationError
+
+SLOT_START_DELAY_MINS = 15
 
 
 class resource_resource(models.Model):
@@ -51,9 +54,17 @@ class sale_order_line(models.Model):
             if line.state == 'cancel':
                 continue
             if line.calendar_id and line.booking_start and line.booking_end:
-                is_valid = line.validate_time_limits(line.calendar_id.id, line.booking_start, line.booking_end)
-                if not is_valid:
-                    raise ValidationError('Not valid interval of booking for the product %s.' % line.product_id.name)
+                if not line.validate_time_limits(line.calendar_id.id, line.booking_start, line.booking_end):
+                    raise ValidationError(_('Not valid interval of booking for the product %s.') % line.product_id.name)
+
+    @api.multi
+    @api.constrains('booking_start')
+    def _check_booking_start(self):
+        for line in self:
+            if not line.booking_start:
+                continue
+            if datetime.strptime(line.booking_start, DTF) - timedelta(minutes=SLOT_START_DELAY_MINS) < datetime.now():
+                raise ValidationError(_('Please book at least in %s minutes from now.') % SLOT_START_DELAY_MINS)
 
     @api.model
     def validate_time_limits(self, calendar_id, booking_start, booking_end):
