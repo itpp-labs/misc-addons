@@ -1,7 +1,8 @@
 {
     "name" : "Website updates for It-Projects LLC ",
     "version" : "0.1",
-    "author" : "Ivan Yelizariev",
+    "author" : "IT-Projects LLC, Ivan Yelizariev",
+    'license': 'GPL-3',
     "category" : "Hidden",
     "website" : "https://yelizariev.github.io",
     "description": """

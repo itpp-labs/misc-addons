@@ -96,9 +96,6 @@
                 <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
-                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
                 <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
                     <field name="venue_id"/>
                     <field name="pitch_id" domain="[('venue_id','=',venue_id)]"/>

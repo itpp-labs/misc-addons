@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--                      ir.config_parameter                        -->
+        <record id="ir_cfg_param_smssg_user" model="ir.config_parameter">
+            <field name="key">smssg_user</field>
+            <field name="value">testuser </field>
+        </record>
+        <record id="ir_cfg_param_smssg_pwd" model="ir.config_parameter">
+            <field name="key">smssg_pwd</field>
+            <field name="value">testpwd </field>
+        </record>
+    </data>
+</openerp>

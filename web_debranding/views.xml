@@ -15,7 +15,7 @@
     <template id="web_debranding.web_layout" inherit_id="web.layout">
        <xpath expr="//title" position="replace"></xpath>
        <xpath expr="//link[@rel='shortcut icon']" position="replace">
-           <t t-set="favicon" t-value="request.env['ir.config_parameter'].get_param('web_debranding.favicon_url', '').strip()"/>
+           <t t-set="favicon" t-value="request and request.env['ir.config_parameter'].get_param('web_debranding.favicon_url', '').strip() or ''"/>
            <t t-if="favicon">
                <link rel="shortcut icon" t-att-href="favicon" type="image/x-icon"/>
            </t>

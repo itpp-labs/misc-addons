@@ -1,10 +1,11 @@
 {
     'name': "Backend debranding",
     'version': '1.0.0',
-    'author': 'Ivan Yelizariev',
+    'author': 'IT-Projects LLC, Ivan Yelizariev',
+    'license': 'GPL-3',
     'category': 'Debranding',
     'website': 'https://yelizariev.github.io',
-    'price': 81.00,
+    'price': 90.00,
     'currency': 'EUR',
     'depends': ['web', 'share', 'disable_openerp_online', 'mail_delete_sent_by_footer'],
     'data': [
@@ -17,5 +18,6 @@
     'qweb': [
         'static/src/xml/database_manager.xml',
     ],
+    'auto_install': False,
     'installable': True
 }

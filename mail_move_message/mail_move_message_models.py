@@ -57,6 +57,7 @@ class wizard(models.TransientModel):
     message_id = fields.Many2one('mail.message', string='Message')
     message_body = fields.Html(related='message_id.body', string='Message to move', readonly=True)
     message_from = fields.Char(related='message_id.email_from', string='From', readonly=True)
+    message_subject = fields.Char(related='message_id.subject', string='Subject', readonly=True)
     message_moved_by_message_id = fields.Many2one('mail.message', related='message_id.moved_by_message_id', string='Moved with', readonly=True)
     message_moved_by_user_id = fields.Many2one('res.users', related='message_id.moved_by_user_id', string='Moved by', readonly=True)
     message_is_moved = fields.Boolean(string='Is Moved', related='message_id.is_moved', readonly=True)
@@ -154,14 +155,17 @@ class wizard(models.TransientModel):
             'target': 'new',
             'context': {'default_message_id': message_id},
         }
+
     @api.multi
     def move(self):
         for r in self:
             r.check_access()
-            if r.parent_id:
-                if not (r.parent_id.model == r.model and
-                        r.parent_id.res_id == r.res_id):
-                    r.parent_id = None
+            if not r.parent_id or not (r.parent_id.model == r.model and
+                r.parent_id.res_id == r.res_id):
+                #link with the first message of record
+                parent = self.env['mail.message'].search([('model','=',r.model), ('res_id','=',r.res_id)], order='id', limit=1)
+                r.parent_id = parent.id or None
+
             r.message_id.move(r.parent_id.id, r.res_id, r.model, r.move_back)
 
         if not ( r.model and r.res_id ):

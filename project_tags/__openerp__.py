@@ -31,7 +31,7 @@ Project Tags
 
 Tested on Odoo 8.0 d023c079ed86468436f25da613bf486a4a17d625
     """,
-    'author':  'Sistemas ADHOC, Ivan Yelizariev',
+    'author':  'Sistemas ADHOC, IT-Projects LLC, Ivan Yelizariev',
     'website': 'www.sistemasadhoc.com.ar',
     'images': [
     ],
