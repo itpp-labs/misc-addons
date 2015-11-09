@@ -2,7 +2,7 @@
     "name" : "Partner info extension",
     "version" : "0.1",
     "author" : "IT-Projects LLC, Ivan Yelizariev",
-    'license': 'GPL-3',
+    'license': 'LGPL-3',
     "category" : "Sales Management",
     "website" : "https://yelizariev.github.io",
     "description": """
