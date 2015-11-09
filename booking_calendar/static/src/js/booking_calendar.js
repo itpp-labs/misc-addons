@@ -3,6 +3,7 @@ openerp.booking_calendar = function (session) {
     var QWeb = session.web.qweb;
     var DTF = 'YYYY-MM-DD HH:mm:ss';
     var MIN_TIME_SLOT = 1; //hours
+    var SLOT_START_DELAY_MINS = 15; // mins
 
     session.web.BookingCalendar = session.web.Dialog.extend({
         template: "BookingCalendar",
@@ -105,8 +106,20 @@ openerp.booking_calendar = function (session) {
             this.view.editor.form.fields.booking_start.set_value(start.utc().format(DTF));
             this.view.editor.form.fields.booking_end.set_value(end.utc().format(DTF));
         },
+        warn: function(text) {
+            new session.web.Dialog(this, {
+                    title: _t("Warning"), size: 'medium',
+                },
+                $("<div />").text(text)
+            ).open();
+        },
         event_receive: function(event, allDay, jsEvent, ui) {
             var dialog = this.opt('dialog');
+            if (event.start < moment().add(-SLOT_START_DELAY_MINS, 'minutes')){
+                dialog.warn(_t('Please book on time in ' + SLOT_START_DELAY_MINS + ' minutes from now.'));
+                dialog.$calendar.fullCalendar24('removeEvents', [event._id]);
+                return false;
+            }
             dialog.$calendar.fullCalendar24('removeEvents', [dialog.record_id]);
             dialog.update_record(event);
             event._id = dialog.record_id;
@@ -114,6 +127,11 @@ openerp.booking_calendar = function (session) {
         },
         event_drop: function(event, delta, revertFunc, jsEvent, ui, view){
             var dialog = view.options.dialog;
+            if (event.start < moment().add(-SLOT_START_DELAY_MINS, 'minutes')){
+                dialog.warn(_t('Please book on time in ' + SLOT_START_DELAY_MINS + ' minutes from now.'));
+                revertFunc(event);
+                return false;
+            }
             dialog.update_record(event);
         },
         event_overlap: function(stillEvent, movingEvent) {
