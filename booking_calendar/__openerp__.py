@@ -2,7 +2,7 @@
     'name': "Resource booking calendar backend",
     'version': '1.0.0',
     'author' : 'IT-Projects LLC, Veronika Kotovich',
-    'license': 'LGPL-3',
+    'license': 'GPL-3',
     'website' : 'https://twitter.com/vkotovi4',
     'category': 'Sale',
     'depends': ['resource', 'sale', 'web_widget_color'],

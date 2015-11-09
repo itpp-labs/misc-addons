@@ -2,7 +2,7 @@
 {
     'name': "Autostaging project task",
     'author': "IT-Projects LLC, Ildar Nasyrov",
-    'license': 'LGPL-3',
+    'license': 'GPL-3',
     'website': "https://twitter.com/nasyrov_ildar",
     'category': 'Project',
     'version': '1.0.0',

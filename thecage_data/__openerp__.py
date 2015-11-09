@@ -2,7 +2,7 @@
     'name' : 'Initialization data',
     'version' : '1.0.0',
     'author' : 'IT-Projects LLC, Veronika Kotovich',
-    'license': 'LGPL-3',
+    'license': 'GPL-3',
     'website' : 'https://twitter.com/vkotovi4',
     'category' : 'Other',
     'description': """
