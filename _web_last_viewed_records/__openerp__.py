@@ -2,6 +2,7 @@
     'name' : 'Last viewed records (OBSOLETE)',
     'version' : '1.0.0',
     'author' : 'IT-Projects LLC, Ivan Yelizariev',
+    'license': 'GPL-3',
     'category' : 'Hidden',
     'website' : 'https://yelizariev.github.io',
     'description': """

@@ -2,6 +2,7 @@
     'name': 'Custom security groups 2',
     'version': '1.0.0',
     'author': 'Cesar Lage',
+    'license': 'GPL-3',
     'category': 'Tools',
     'website': 'https://yelizariev.github.io',
     'description': """

@@ -2,6 +2,7 @@
     "name" : "Sale reports in russian ",
     "version" : "0.1",
     "author" : "IT-Projects LLC, Ivan Yelizariev",
+    'license': 'GPL-3',
     "category" : "Sales Management",
     "website" : "https://yelizariev.github.io",
     "description": """

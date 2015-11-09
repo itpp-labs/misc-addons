@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
 from openerp import models, fields
 
+
 class res_partner_country_code(models.Model):
     _inherit = 'res.partner'
 
-    def get_country_name(self):
+    def default_country_id(self):
         email = self.env.context.get('default_email', False)
         if email:
             top_level_domain = email.split(".")[-1]
             if len(top_level_domain) == 2:
-                country_name = self.env['res.country'].search([('code', '=', top_level_domain.upper())])[0]
-                return country_name
+                if top_level_domain == 'uk':
+                    top_level_domain = 'GB'
+                country = self.env['res.country'].search([('code', '=', top_level_domain.upper())])
+                if country:
+                    return country.id
 
-    country_id = fields.Many2one(default=get_country_name)
-
+    country_id = fields.Many2one(default=default_country_id)

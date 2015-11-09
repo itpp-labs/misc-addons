@@ -2,6 +2,7 @@
     "name" : "updates for Money-4 company",
     "version" : "1.0.0",
     "author" : "IT-Projects LLC, Ivan Yelizariev",
+    'license': 'GPL-3',
     "category" : "Hidden",
     "website" : "https://yelizariev.github.io",
 

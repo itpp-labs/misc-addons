@@ -3,6 +3,7 @@
     'name': "Trim partner's name",
     'summary': "",
     'author': "IT-Projects LLC, Ivan Yelizariev",
+    'license': 'GPL-3',
     'website': "https://yelizariev.github.io",
 
     # Categories can be used to filter modules in modules listing
