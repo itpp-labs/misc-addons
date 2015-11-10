@@ -12,7 +12,9 @@
                  'pitch_booking',
                  'sms_sg',
                  'sale_order_hide_tax',
-                 'sale_contract_slots'],
+                 'sale_contract_slots',
+                 'res_partner_phone',
+             ],
     'data':[
         'data.xml',
         'views/view.xml',

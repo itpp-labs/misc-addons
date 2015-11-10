@@ -46,5 +46,47 @@
                 </xpath>
             </field>
         </record>
+
+
+        <record model="ir.ui.view" id="view_booking_order_line_tree">
+            <field name="name">sale.order.line.tree</field>
+            <field name="model">sale.order.line</field>
+            <field name="arch" type="xml">
+                <tree string="Booking Tree">
+                    <field name="product_id"/>
+                    <field name="name"/>
+                    <field name="order_partner_id"/>
+                    <field name="booking_start"/>
+                    <field name="booking_end"/>
+                    <field name="price_unit"/>
+                    <field name="price_subtotal"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="booking_search_view">
+          <field name="name">booking.date.search</field>
+          <field name="model">sale.order.line</field>
+          <field name="arch" type="xml">
+            <search>
+              <group expand="0" string="Group By">
+                <filter string="Booking Month" domain="[]" context="{'group_by':'booking_start'}"/>
+                <filter string="Booking Day" domain="[]" context="{'group_by':'booking_start:day'}"/>
+              </group>
+            </search>
+          </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="booking_orders_lines_list_action">
+          <field name="name">Booking Lines</field>
+          <field name="res_model">sale.order.line</field>
+          <field name="view_id" ref="view_booking_order_line_tree"/>
+          <field name="view_type">form</field>
+          <field name="view_mode">tree,form</field>
+          <field name="search_view_id" ref="booking_search_view"/>
+        </record>
+
+        <menuitem action="booking_orders_lines_list_action" id="menu_sale_order_line" parent="base.menu_sales" sequence="6" groups="base.group_sale_salesman,base.group_sale_manager"/>
     </data>
 </openerp>
