@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+      <template id="booking_calendar_report_saleorder_document" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//table[@class='table table-condensed']/thead/tr/th[1]" position="replace">
+          <th>Product</th>
+        </xpath>
+        <xpath expr="//table[@class='table table-condensed']/thead/tr/th[2]" position="replace">
+          <th>Description</th>
+        </xpath>
+        <xpath expr="//table[@class='table table-condensed']/thead/tr/th[3]" position="replace">
+          <th>Date start</th>
+        </xpath>
+        <xpath expr="//table[@class='table table-condensed']/thead/tr/th[4]" position="replace">
+          <th>Date end</th>
+        </xpath>
+        <xpath expr="//table[@class='table table-condensed']/thead/tr/th[5]" position="replace">
+          <th class="text-right">Unit Price</th>
+        </xpath>
+        <xpath expr="//table[@class='table table-condensed']/thead/tr/th[6]" position="replace">
+          <th class="text-right">Price</th>
+        </xpath>
+
+        <xpath expr="//tbody[@class='sale_tbody']/tr/td[1]" position="replace">
+          <td>
+            <span t-field="l.product_id"/>
+          </td>
+        </xpath>
+        <xpath expr="//tbody[@class='sale_tbody']/tr/td[2]" position="replace">
+          <td>
+            <span t-field="l.name"/>
+          </td>
+        </xpath>
+        <xpath expr="//tbody[@class='sale_tbody']/tr/td[3]" position="replace">
+          <td>
+            <span t-field="l.booking_start"/>
+          </td>
+        </xpath>
+        <xpath expr="//tbody[@class='sale_tbody']/tr/td[4]" position="replace">
+          <td>
+            <span t-field="l.booking_end"/>
+          </td>
+        </xpath>
+        <xpath expr="//tbody[@class='sale_tbody']/tr/td[5]" position="replace">
+          <td class="text-right">
+            <span t-field="l.price_unit"/>
+          </td>
+        </xpath>
+        <xpath expr="//tbody[@class='sale_tbody']/tr/td[6]" position="replace">
+          <td class="text-right">
+            <span t-field="l.price_subtotal"
+                  t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
+          </td>
+        </xpath>
+
+      </template>
+    </data>
+</openerp>
