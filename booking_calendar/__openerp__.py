@@ -8,6 +8,7 @@
     'depends': ['resource', 'sale', 'web_widget_color'],
     'data': [
         'views.xml',
+        'report_saleorder.xml',
         ],
     'qweb': [
         'static/src/xml/booking_calendar.xml',
