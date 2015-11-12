@@ -17,5 +17,17 @@
       <record id="sale.action_orders" model="ir.actions.act_window">
         <field name="name">Booking Orders</field>
       </record>
+
+      <record id="account_analytic_account_used_slots" model="ir.ui.view">
+        <field name="name">analytic.account.used.slots</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+        <field name="arch" type="xml">
+          <xpath expr="//field[@name='partner_id']" position="after">
+            <field name="used_slots"/>
+          </xpath>
+        </field>
+      </record>
+
     </data>
 </openerp>
