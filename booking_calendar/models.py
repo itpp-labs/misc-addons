@@ -1,9 +1,15 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import pytz
+from dateutil import rrule
 
 from openerp import api, models, fields
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
+from openerp.tools.translate import _
 from openerp.exceptions import ValidationError
+
+from openerp.addons.resource.resource import seconds
+
+SLOT_START_DELAY_MINS = 15
 
 
 class resource_resource(models.Model):
@@ -11,6 +17,78 @@ class resource_resource(models.Model):
 
     to_calendar = fields.Boolean('Display on calendar')
     color = fields.Char('Color')
+
+
+class resource_calendar(models.Model):
+    _inherit = 'resource.calendar'
+
+    @api.multi
+    def get_working_accurate_hours(self, start_dt=None, end_dt=None):
+        """
+            Replacement of resource calendar method get_working_hours
+            Allows to handle hour_to = 00:00
+            Takes in account minutes
+            Adds public holidays time (resource leaves with reason = PH)
+        """
+        leave_obj = self.env['resource.calendar.leaves']
+        for calendar in self:
+            id = calendar.id
+            hours = timedelta()
+            for day in rrule.rrule(rrule.DAILY, dtstart=start_dt,
+                                   until=end_dt,
+                                   byweekday=calendar.get_weekdays()[0]):
+                day_start_dt = day.replace(hour=0, minute=0, second=0)
+                if start_dt and day.date() == start_dt.date():
+                    day_start_dt = start_dt
+                day_end_dt = day.replace(hour=23, minute=59, second=59)
+                if end_dt and day.date() == end_dt.date():
+                    day_end_dt = end_dt
+                work_limits = []
+                work_limits.append((day_start_dt.replace(hour=0, minute=0, second=0), day_start_dt))
+                work_limits.append((day_end_dt, day_end_dt.replace(hour=23, minute=59, second=59)))
+
+                intervals = []
+                work_dt = day_start_dt.replace(hour=0, minute=0, second=0)
+                working_intervals = []
+                for calendar_working_day in calendar.get_attendances_for_weekdays([day_start_dt.weekday()])[0   ]:
+                    min_from = int((calendar_working_day.hour_from - int(calendar_working_day.hour_from)) * 60)
+                    min_to = int((calendar_working_day.hour_to - int(calendar_working_day.hour_to)) * 60)
+                    x = work_dt.replace(hour=int(calendar_working_day.hour_from), minute=min_from)
+                    if calendar_working_day.hour_to == 0:
+                        y = work_dt.replace(hour=0, minute=0)+timedelta(days=1)
+                    else:
+                        y = work_dt.replace(hour=int(calendar_working_day.hour_to), minute=min_to)
+                    working_interval = (x, y)
+                    working_intervals += calendar.interval_remove_leaves(working_interval, work_limits)
+
+                for interval in working_intervals:
+                    hours += interval[1] - interval[0]
+
+            #Add public holidays
+            leaves = leave_obj.search([('name', '=', 'PH'), ('calendar_id', '=', calendar.id)])
+            leave_intervals = []
+            for l in leaves:
+                leave_intervals.append((datetime.strptime(l.date_from, DTF),
+                                        datetime.strptime(l.date_to, DTF)
+                ))
+            clean_intervals = calendar.interval_remove_leaves((start_dt, end_dt), leave_intervals)
+            for interval in clean_intervals:
+                hours += (end_dt - start_dt) - (interval[1] - interval[0])
+
+        return seconds(hours) / 3600.0
+
+    @api.multi
+    def validate_time_limits(self, booking_start, booking_end):
+        #localize UTC dates to be able to compare with hours in Working Time
+        user_tz = pytz.timezone(self.env.context.get('tz') or 'UTC')
+        start_dt = pytz.utc.localize(fields.Datetime.from_string(booking_start)).astimezone(user_tz)
+        end_dt = pytz.utc.localize(fields.Datetime.from_string(booking_end)).astimezone(user_tz)
+        for calendar in self:
+            hours = calendar.get_working_accurate_hours(start_dt, end_dt)
+            duration = seconds(end_dt - start_dt) / 3600
+            if hours != duration:
+                    return False
+        return True
 
 
 class sale_order_line(models.Model):
@@ -51,37 +129,17 @@ class sale_order_line(models.Model):
             if line.state == 'cancel':
                 continue
             if line.calendar_id and line.booking_start and line.booking_end:
-                is_valid = line.validate_time_limits(line.calendar_id.id, line.booking_start, line.booking_end)
-                if not is_valid:
-                    raise ValidationError('Not valid interval of booking for the product %s.' % line.product_id.name)
+                if not line.calendar_id.validate_time_limits(line.booking_start, line.booking_end):
+                    raise ValidationError(_('Not valid interval of booking for the product %s.') % line.product_id.name)
 
-    @api.model
-    def validate_time_limits(self, calendar_id, booking_start, booking_end):
-        calendar_obj = self.env['resource.calendar']
-        leave_obj = self.env['resource.calendar.leaves']
-        user_tz = pytz.timezone(self.env.context.get('tz') or 'UTC')
-        start_dt = pytz.utc.localize(fields.Datetime.from_string(booking_start)).astimezone(user_tz)
-        end_dt = pytz.utc.localize(fields.Datetime.from_string(booking_end)).astimezone(user_tz)
-        hours = calendar_obj.browse(calendar_id).get_working_hours(start_dt, end_dt)
-        if not hours:
-            return False
-        else:
-            hours = hours[0]
-        duration = (end_dt - start_dt).seconds/3600
-        if hours != duration:
-            leaves = leave_obj.search([('name','=','PH'), ('calendar_id','=',calendar_id)])
-            leave_intervals = []
-            for l in leaves:
-                leave_intervals.append((datetime.strptime(l.date_from, DTF),
-                                        datetime.strptime(l.date_to, DTF)
-                ))
-            clean_intervals = calendar_obj.interval_remove_leaves((start_dt, end_dt), leave_intervals)
-            hours += duration
-            for interval in clean_intervals:
-                hours -= (interval[1] - interval[0]).seconds/3600
-            if hours != duration:
-                return False
-        return True
+    @api.multi
+    @api.constrains('booking_start')
+    def _check_booking_start(self):
+        for line in self:
+            if not line.booking_start:
+                continue
+            if datetime.strptime(line.booking_start, DTF) - timedelta(minutes=SLOT_START_DELAY_MINS) < datetime.now():
+                raise ValidationError(_('Please book on time in %s minutes from now.') % SLOT_START_DELAY_MINS)
 
     @api.model
     def get_bookings(self, start, end, resource_ids):
