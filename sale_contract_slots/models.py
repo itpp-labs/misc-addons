@@ -13,16 +13,27 @@ class ProductTemplateSlots(models.Model):
 class AccountAnalyticAccountSlots(models.Model):
     _inherit = 'account.analytic.account'
 
-    available_slots = fields.Integer(compute='_compute_available_slots', readonly=True, help='remaining number of slots left in this contract')
+    available_slots = fields.Integer(compute='_compute_available_slots', readonly=True, help='remaining number of slots left in this contract', store=True)
+    paid_slots = fields.Integer(compute='_compute_paid_slots', readonly=True, help='paid slots in this contract', store=True)
 
     @api.one
     def _compute_available_slots(self):
-        lines = self.env['sale.order.line'].search(['&', '&', ('order_id.project_id', '=', self.id),
+        lines = self.env['sale.order.line'].search(['&', ('order_id.project_id', '=', self.id),
+                                                    '|', '&',
                                                     ('order_id.state', 'in', ['manual', 'done']),
-                                                    '|',
                                                     ('price_unit', '=', '0'),
-                                                    ('product_id.slots', '!=', '0')])
+                                                    '&',
+                                                    ('order_id.state', '=', 'done'),
+                                                    ('product_id.slots', '>', '0')])
+
         self.available_slots = sum(lines.mapped(lambda r: r.product_id.slots * r.product_uom_qty))
+
+    @api.one
+    def _compute_paid_slots(self):
+        lines = self.env['sale.order.line'].search(['&', '&', ('order_id.project_id', '=', self.id),
+                                                    ('order_id.state', '=', 'done'),
+                                                    ('product_id.slots', '>', '0')])
+        self.paid_slots = sum(lines.mapped(lambda r: r.product_id.slots))
 
 
 class SaleOrderSlots(models.Model):

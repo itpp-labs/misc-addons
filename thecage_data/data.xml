@@ -348,8 +348,8 @@
         </record>
 
         <!--                      Cron                       -->
-        <record forcecreate="True" id="ir_cron_sms_reminder" model="ir.cron">
-            <field name="name">Booking sms reminder</field>
+        <record forcecreate="True" id="ir_cron_booking_reminder" model="ir.cron">
+            <field name="name">Booking reminder</field>
             <field eval="True" name="active" />
             <field name="user_id" ref="base.user_root" />
             <field name="interval_number">1</field>
@@ -357,8 +357,46 @@
             <field name="numbercall">-1</field>
             <field name="doall" eval="False"/>
             <field name="model" eval="'sale.order.line'"/>
-            <field name="function" eval="'_cron_reminder'"/>
+            <field name="function" eval="'_cron_booking_reminder'"/>
             <field name="args" eval="'()'"/>
         </record>
+        <record forcecreate="True" id="ir_cron_expiring_reminder" model="ir.cron">
+            <field name="name">Booking contract expiring reminder</field>
+            <field eval="True" name="active" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'sale.order'"/>
+            <field name="function" eval="'_cron_expiring_reminder'"/>
+            <field name="args" eval="'()'"/>
+        </record>
+        <record forcecreate="True" id="ir_cron_used_slots" model="ir.cron">
+            <field name="name">Booking contract compute used slots</field>
+            <field eval="True" name="active" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'account.analytic.account'"/>
+            <field name="function" eval="'_cron_compute_used_slots'"/>
+            <field name="args" eval="'()'"/>
+        </record>
+
+
+        <!--                      Product                       -->
+        <record id="product_template_powerofsix" model="product.template">
+            <field name="name">Power of six</field>
+            <field name="slots">6</field>
+            <field name="list_price">428</field>
+        </record>
+        <record id="product_template_dirtydozen" model="product.template">
+            <field name="name">Dirty Dozen</field>
+            <field name="slots">12</field>
+            <field name="list_price">856</field>
+        </record>
+
     </data>
 </openerp>
