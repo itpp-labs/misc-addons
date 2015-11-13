@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="booking_contract_search_view">
+          <field name="name">booking.contract.search</field>
+          <field name="model">sale.order.line</field>
+          <field name="inherit_id" ref="booking_calendar.booking_search_view" />
+          <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+              <filter string="Booking contract" domain="[]" context="{'group_by':'contract_id'}"/>
+            </xpath>
+          </field>
+        </record>
+
+        <record id="account_analytic_account_form_booking_list_button" model="ir.ui.view">
+          <field name="name">analytic.account.form.bookingbutton</field>
+          <field name="model">account.analytic.account</field>
+          <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+          <field name="arch" type="xml">
+            <xpath expr='//div[@name="buttons"]' position='inside'>
+                <button name="open_booking_order_lines"
+                        class="oe_inline oe_stat_button"
+                        string="Booking Lines" type="object"
+                        icon="fa-list"
+                        context="{'search_default_project_id': active_id}"/>
+            </xpath>
+          </field>
+        </record>
+    </data>
+</openerp>
