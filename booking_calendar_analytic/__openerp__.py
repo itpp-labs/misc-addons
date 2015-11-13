@@ -6,7 +6,7 @@
     'website': "https://twitter.com/nasyrov_ildar",
     'category': 'Sale',
     'version': '1.0.0',
-    'depends': ['booking_calendar', 'sale_contract_slots', 'pitch_booking'],
+    'depends': ['booking_calendar', 'account_analytic_analysis'],
     'data': [
         'views.xml',
     ],

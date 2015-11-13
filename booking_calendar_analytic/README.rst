@@ -1,7 +1,7 @@
 Booking Calendar Analytic
 =========================
 
-This module provides an opportunity for grouping booking lines by contract. Additional button "Booking List"
+With this module you can group booking lines by contract. Additional button "Booking List"
 will appear in Contract form, when you install this module.
 
 
