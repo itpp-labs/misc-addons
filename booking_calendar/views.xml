@@ -52,16 +52,17 @@
             <field name="name">sale.order.line.tree</field>
             <field name="model">sale.order.line</field>
             <field name="arch" type="xml">
-                <tree string="Booking Tree">
-                    <field name="product_id"/>
-                    <field name="name"/>
-                    <field name="order_partner_id"/>
-                    <field name="booking_start"/>
-                    <field name="booking_end"/>
-                    <field name="price_unit"/>
-                    <field name="price_subtotal"/>
-                    <field name="state"/>
-                </tree>
+              <tree string="Booking Tree">
+                <field name="order_id"/>
+                <field name="product_id"/>
+                <field name="name"/>
+                <field name="order_partner_id"/>
+                <field name="booking_start"/>
+                <field name="booking_end"/>
+                <field name="price_unit"/>
+                <field name="price_subtotal"/>
+                <field name="state"/>
+              </tree>
             </field>
         </record>
 
@@ -88,5 +89,19 @@
         </record>
 
         <menuitem action="booking_orders_lines_list_action" id="menu_sale_order_line" parent="base.menu_sales" sequence="6" groups="base.group_sale_salesman,base.group_sale_manager"/>
+
+        <record id="view_order_line_booking_form" model="ir.ui.view">
+            <field name="name">sale.order.line.form2.booking</field>
+            <field name="model">sale.order.line</field>
+            <field name="inherit_id" ref="sale.view_order_line_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group" position="inside">
+                    <group name="booking">
+                      <field name="booking_start"/>
+                      <field name="booking_end"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
     </data>
 </openerp>

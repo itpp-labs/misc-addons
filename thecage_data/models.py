@@ -8,6 +8,7 @@ class AccountAnalyticAccountUsedSlots(models.Model):
     _inherit = 'account.analytic.account'
 
     used_slots = fields.Integer(default=0, help='number of used slots', readonly=True)
+    remind_on_slots = fields.Integer(help='configure when to remind a customer about remaining slots', string='Remind on (slots)', default=2)
 
     @api.model
     def _cron_compute_used_slots(self):
@@ -60,3 +61,10 @@ class SaleOrderLineReminder(models.Model):
             msg = 'Sale Order #' + line.order_id.name + ' is confirmed'
             phone = line.order_id.partner_id.mobile
             self.env['sms_sg.sendandlog'].send_sms(phone, msg)
+
+
+class ResPartnerReminderConfig(models.Model):
+    _inherit = 'res.partner'
+
+    reminder_sms = fields.Boolean(default=True, string='Booking sms reminder enabled')
+    reminder_email = fields.Boolean(default=True, string='Booking email reminder enabled')

@@ -21,13 +21,29 @@
       <record id="account_analytic_account_used_slots" model="ir.ui.view">
         <field name="name">analytic.account.used.slots</field>
         <field name="model">account.analytic.account</field>
-        <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+        <field name="inherit_id" ref="sale_contract_slots.account_analytic_account_form_slots"/>
         <field name="arch" type="xml">
-          <xpath expr="//field[@name='partner_id']" position="after">
+          <xpath expr="//group[@name='slots']" position="inside">
             <field name="used_slots"/>
+            <field name="remind_on_slots"/>
           </xpath>
         </field>
       </record>
+
+      <record id="view_partner_form_reminder" model="ir.ui.view">
+        <field name="name">view.partner.form.reminder</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+          <xpath expr="//group" positionf="inside">
+            <group name="reminder configuration">
+              <field name="reminder_sms"/>
+              <field name="reminder_email"/>
+            </group>
+          </xpath>
+        </field>
+      </record>
+
 
     </data>
 </openerp>
