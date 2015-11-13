@@ -52,12 +52,15 @@ openerp.booking_calendar = function (session) {
                 firstDay: 1,
                 defaultView: 'agendaWeek',
                 timezone: 'local',
+                weekNumbers: true,
                 slotEventOverlap: false,
                 events: self.load_events,
                 eventReceive: self.event_receive,
                 eventOverlap: self.event_overlap,
                 eventDrop: self.event_drop,
                 eventResize: self.event_drop,
+                dayClick: self.day_click,
+                viewRender: self.view_render,
                 dialog: self
             });
         },
@@ -136,6 +139,48 @@ openerp.booking_calendar = function (session) {
         },
         event_overlap: function(stillEvent, movingEvent) {
             return stillEvent.resourceId != movingEvent.resourceId;
+        },
+        day_click: function(date, jsEvent, view) {
+            if (view.name == 'month' && $(jsEvent.target).hasClass('fc-day-number')) {
+                view.calendar.changeView('agendaDay');
+                view.calendar.gotoDate(date);
+            }
+        },
+        view_render: function(view, element) {
+            // make week names clickable for quick navigation
+            if (view.name == 'month') {
+                var $td = $(element).find('td.fc-week-number');
+                $td.each(function () {
+                    var week = parseInt($(this).find('span').text());
+                    if (week) {
+                        $(this).data('week', week)
+                            .css({'cursor': 'pointer'})
+                            .find('span').html('&rarr;');
+                    }
+                });
+                $td.click(function(){
+                    var week = $(this).data('week');
+                    if (week) {
+                        var m = moment();
+                        m.week(week);
+                        if (week < view.start.week()) {
+                            m.year(view.end.year());
+                        }
+                        view.calendar.changeView('agendaWeek');
+                        view.calendar.gotoDate(m);
+                    }
+               });
+            } else if (view.name == 'agendaWeek') {
+                $(element).find('th.fc-day-header').css({'cursor': 'pointer'})
+                    .click(function(){
+                        var m = moment($(this).text(), view.calendar.option('dayOfMonthFormat'));
+                        if (m < view.start) {
+                            m.year(view.end.year());
+                        }
+                        view.calendar.changeView('agendaDay');
+                        view.calendar.gotoDate(m);
+                    });
+            }
         },
         open: function(id) {
             if (this.dialog_inited) {
