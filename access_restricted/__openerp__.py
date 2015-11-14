@@ -6,7 +6,7 @@
     'website': 'https://twitter.com/yelizariev',
     'price': 30.00,
     'currency': 'EUR',
-    'depends': ['ir_rule_protected'],
+    'depends': ['ir_rule_protected', 'share'],
     'data': [
         'security.xml',
     ],
