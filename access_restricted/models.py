@@ -25,6 +25,7 @@ class ResUsers(models.Model):
         ctx['access_restricted'] = 1
         return super(ResUsers, self).fields_get(cr, uid, allfields=allfields, context=ctx, write_access=write_access, attributes=attributes)
 
+    @api.multi
     def write(self, vals):
         for key in vals:
             if is_reified_group(key):
