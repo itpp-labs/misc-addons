@@ -34,5 +34,8 @@ Tested on Odoo 8.0 d023c079ed86468436f25da613bf486a4a17d625
 Status
 ======
 
-Related issue at odoo's tracker: https://github.com/odoo/odoo/issues/5864
+Related issues at odoo's tracker: 
+* https://github.com/odoo/odoo/issues/5864
+* https://github.com/odoo/odoo/issues/3347
 
+Fix: https://github.com/odoo-dev/odoo/commit/a4597fe34fcfa8dae28b156410080346bb33af33
