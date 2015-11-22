@@ -259,4 +259,87 @@ openerp.booking_calendar = function (session) {
     });
 
     session.web.list.columns.add('calbutton', 'session.web.list.CalButton');
+
+    session.web_calendar.CalendarView.include({
+        init: function (parent, dataset, view_id, options) {
+            this._super(parent, dataset, view_id, options);
+            this.color_code_map = {};
+        },
+        event_data_transform: function(evt) {
+            var res = this._super(evt);
+            var self = this;
+            if (this.read_color) {
+                var color_key = evt[this.color_field];
+                if (typeof color_key === "object") {
+                    color_key = color_key[0];
+                }
+                
+                this.read_resource_color(color_key).done(function(color){
+                    if (color) {
+                        res.color = color;
+                        var event_objs = self.$calendar.fullCalendar('clientEvents', res.id);
+                        if (event_objs.length == 1) { // Already existing obj to update
+                            var event_obj = event_objs[0];
+                            // update event_obj
+                            event_obj.color = color;
+                            self.$calendar.fullCalendar('updateEvent', event_obj);
+                        }
+                    }
+                });
+            }
+            return res;
+            
+        },
+        read_resource_color: function(key) {
+            var self = this;
+            var def = $.Deferred();
+            if (this.color_code_map[key]) {
+                def.resolve(this.color_code_map[key]);
+            }
+            else {            
+                new session.web.Model(this.model).call('read_color', [key]).then(function(result) {
+                    if (result) {
+                        self.color_code_map[key] = result;
+                    }
+                    def.resolve(result);
+                });
+            }
+            return def;
+        },
+        
+        view_loading: function (fv) {
+            var res =  this._super(fv);
+            var attrs = fv.arch.attrs;
+            this.read_color = false;
+            if (attrs.read_color) {
+                this.read_color = attrs.read_color;
+            }
+            return res
+        },
+        get_fc_init_options: function() {
+            var res = this._super();
+            res.slotEventOverlap = false;
+            return res;
+        },
+        remove_event: function(id) {
+            var id = parseInt(id);
+            return this._super(id);
+        }
+    });
+
+    session.web_calendar.SidebarFilter.include({
+        set_filters: function() {
+            this._super();
+            if (this.view.read_color) {
+                var self = this;
+                _.forEach(self.view.all_filters, function(o) {
+                    if (_.contains(self.view.now_filter_ids, o.value)) {
+                        self.view.read_resource_color(o.value).done(function (color) {
+                            self.$('div.oe_calendar_responsible span.underline_color_' + o.color).css('border-color', color);
+                        });
+                    }
+                });
+            }
+        },
+    });
 }

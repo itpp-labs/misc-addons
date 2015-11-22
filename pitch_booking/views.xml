@@ -172,8 +172,23 @@
           </field>
         </record>
 
+        <record model="ir.ui.view" id="view_booking_order_line_form">
+          <field name="name">venue.pitch.from</field>
+          <field name="model">sale.order.line</field>
+          <field name="inherit_id" ref="booking_calendar.view_booking_order_line_form" />
+          <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="venue_id"/>
+                <field name="pitch_id"/>
+            </xpath>
+            <field name="resource_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+          </field>
+        </record>
+
         <record model="ir.actions.act_window" id="booking_calendar.booking_orders_lines_list_action">
-          <field name="context" eval="{'search_default_pitch_booking': 1}"/>
+          <field name="context" eval="{'search_default_pitch_booking': 1, 'search_default_active_bookings': 1}"/>
         </record>
 
     </data>
