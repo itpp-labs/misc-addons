@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from openerp import models, fields, api
 from datetime import datetime, date, timedelta
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
+from openerp.exceptions import ValidationError
+from openerp.tools.translate import _
 
 
 class AccountAnalyticAccountUsedSlots(models.Model):
@@ -16,7 +18,7 @@ class AccountAnalyticAccountUsedSlots(models.Model):
             lines = self.env['sale.order.line'].search([
                 ('order_id.project_id', '=', record.id),
                 ('booking_end', '!=', False),
-                ('booking_end', '<=', datetime.now().strftime(DEFAULT_SERVER_DATETIME_FORMAT)),
+                ('booking_end', '<=', datetime.now().strftime(DTF)),
                 ('order_id.state', 'in', ['manual', 'done']),
                 ('price_unit', '=', '0'),
             ])
@@ -58,7 +60,7 @@ class SaleOrderLineReminder(models.Model):
     def _cron_booking_reminder(self):
         lines = self.search(['&', '&', '&', ('booking_reminder', '=', False),
                              ('booking_start', '!=', False),
-                             ('booking_start', '<=', (datetime.now() + timedelta(hours=48)).strftime(DEFAULT_SERVER_DATETIME_FORMAT)),
+                             ('booking_start', '<=', (datetime.now() + timedelta(hours=48)).strftime(DTF)),
                              '|',
                              ('order_id.state', '=', 'done'),
                              ('price_unit', '=', '0'),
@@ -68,6 +70,14 @@ class SaleOrderLineReminder(models.Model):
             msg = 'Sale Order #' + line.order_id.name + ' is confirmed'
             phone = line.order_id.partner_id.mobile
             self.env['sms_sg.sendandlog'].send_sms(phone, msg)
+
+    @api.multi
+    def write(self, values):
+        for line in self:
+            if 'booking_start' in values:
+                if datetime.strptime(values['booking_start'], DTF) < datetime.strptime(line.booking_start, DTF):
+                    raise ValidationError(_('You can move booking forward only.'))
+        return super(sale_order_line, self).write(values)
 
 
 class ResPartnerReminderConfig(models.Model):
@@ -111,15 +121,15 @@ class GenerateBookingWizard(models.TransientModel):
     @api.one
     @api.depends('booking_start')
     def _compute_day_of_week(self):
-        dt = datetime.strptime(self.booking_start, DEFAULT_SERVER_DATETIME_FORMAT)
+        dt = datetime.strptime(self.booking_start, DTF)
         self.day_of_week = date(dt.year, dt.month, dt.day).weekday()
 
     @api.multi
     def generate_booking_lines(self):
         active_id = self.env.context and self.env.context.get('active_id', False)
         active_order = self.env['sale.order'].browse(active_id)
-        booking_start = datetime.strptime(self.booking_start, DEFAULT_SERVER_DATETIME_FORMAT)
-        booking_end = datetime.strptime(self.booking_end, DEFAULT_SERVER_DATETIME_FORMAT)
+        booking_start = datetime.strptime(self.booking_start, DTF)
+        booking_end = datetime.strptime(self.booking_end, DTF)
 
         for line in range(0, self[0].quantity):
             booking_start = booking_start + timedelta(days=7)

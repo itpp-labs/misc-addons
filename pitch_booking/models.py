@@ -1,9 +1,5 @@
 import traceback
-from datetime import datetime, timedelta
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 from openerp import api, models, fields, tools, SUPERUSER_ID
-from openerp.exceptions import ValidationError
-from openerp.tools.translate import _
 
 
 class pitch_booking_venue(models.Model):
@@ -66,14 +62,6 @@ class sale_order_line(models.Model):
             'id': r.id,
             'color': r.color
         } for r in resources]
-
-    @api.multi
-    def write(self, values):
-        for line in self:
-            if 'booking_start' in values:
-                if datetime.strptime(values['booking_start'], DTF) < datetime.strptime(line.booking_start, DTF):
-                    raise ValidationError(_('You can move booking forward only.'))
-        return super(sale_order_line, self).write(values)
 
 
 class account_invoice_line(models.Model):
