@@ -16,6 +16,9 @@ class AccountAnalyticAccountSlots(models.Model):
     available_slots = fields.Integer(compute='_compute_available_slots', readonly=True, help='remaining number of slots left in this contract', store=True)
     paid_slots = fields.Integer(compute='_compute_paid_slots', readonly=True, help='paid slots in this contract', store=True)
 
+    order_ids = fields.One2many('sale.order', 'project_id')
+
+    @api.depends('order_ids.state')
     @api.one
     def _compute_available_slots(self):
         lines = self.env['sale.order.line'].search(['&', ('order_id.project_id', '=', self.id),
@@ -28,6 +31,7 @@ class AccountAnalyticAccountSlots(models.Model):
 
         self.available_slots = sum(lines.mapped(lambda r: r.product_id.slots * r.product_uom_qty))
 
+    @api.depends('order_ids.state')
     @api.one
     def _compute_paid_slots(self):
         lines = self.env['sale.order.line'].search(['&', '&', ('order_id.project_id', '=', self.id),
@@ -40,3 +44,4 @@ class SaleOrderSlots(models.Model):
     _inherit = 'sale.order'
 
     available_slots = fields.Integer(related='project_id.available_slots', readonly=True, help='remaining number of slots left in this contract')
+    paid_slots = fields.Integer(related='project_id.paid_slots', readonly=True, help='paid slots in this contract')

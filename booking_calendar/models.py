@@ -100,6 +100,8 @@ class sale_order_line(models.Model):
     calendar_id = fields.Many2one('resource.calendar', related='product_id.calendar_id')
     project_id = fields.Many2one('account.analytic.account', compute='_compute_dependent_fields', store=False, string='Contract')
     partner_id = fields.Many2one('res.partner', compute='_compute_dependent_fields', store=False, string='Customer')
+    overlap = fields.Boolean(compute='_check_date_overlap', default=False, store=True)
+    automatic = fields.Boolean(default=False, store=True, help='automatically generated booking lines')
 
     @api.multi
     def _compute_dependent_fields(self):
@@ -108,27 +110,27 @@ class sale_order_line(models.Model):
             line.project_id = line.order_id.project_id
 
     @api.multi
-    @api.constrains('resource_id', 'booking_start', 'booking_end')
+    @api.depends('resource_id', 'booking_start', 'booking_end')
     def _check_date_overlap(self):
         for line in self:
             if line.state == 'cancel':
                 continue
+            overlaps = 0
             if line.resource_id and line.booking_start and line.booking_end:
-                overlaps = line.search_count(['&','|','&',('booking_start', '>', line.booking_start), ('booking_start', '<', line.booking_end),
-                                              '&',('booking_end', '>', line.booking_start), ('booking_end', '<', line.booking_end),
-                                              ('id', '!=', line.id),
+                ids = getattr(self, '_origin', False) and self._origin.ids or bool(line.id) and [line.id] or []
+                overlaps = line.search_count(['&', '|', '&', ('booking_start', '>', line.booking_start), ('booking_start', '<', line.booking_end),
+                                              '&', ('booking_end', '>', line.booking_start), ('booking_end', '<', line.booking_end),
                                               ('resource_id', '!=', False),
+                                              ('id', 'not in', ids),
                                               ('resource_id', '=', line.resource_id.id),
-                                              ('state', '!=', 'cancel')
-                ])
-                overlaps += line.search_count([('id', '!=', line.id),
+                                              ('state', '!=', 'cancel')])
+                overlaps += line.search_count([('id', 'not in', ids),
                                                ('booking_start', '=', line.booking_start),
                                                ('booking_end', '=', line.booking_end),
                                                ('resource_id', '=', line.resource_id.id),
-                                               ('state', '!=', 'cancel')
-                ])
-                if overlaps:
-                    raise ValidationError('There already is booking at that time.')
+                                               ('state', '!=', 'cancel')])
+
+            line.overlap = bool(overlaps)
 
     @api.multi
     @api.constrains('calendar_id', 'booking_start', 'booking_end')
@@ -169,14 +171,6 @@ class sale_order_line(models.Model):
             'editable': False,
             'color': b.resource_id.color
         } for b in bookings]
-
-    @api.multi
-    def write(self, values):
-        for line in self:
-            if 'booking_start' in values:
-                if datetime.strptime(values['booking_start'], DTF) < datetime.strptime(line.booking_start, DTF):
-                    raise ValidationError(_('You can move booking forward only.'))
-        return super(sale_order_line, self).write(values)
 
     @api.multi
     def unlink(self):
@@ -248,3 +242,14 @@ class product_template(models.Model):
     _inherit = 'product.template'
 
     calendar_id = fields.Many2one('resource.calendar', string='Working time')
+
+
+class SaleOrder(models.Model):
+    _inherit = 'sale.order'
+
+    @api.multi
+    @api.constrains('state')
+    def _check_state(self):
+        if self.search_count([('state', 'not in', ['draft'])]) and \
+           self.env['sale.order.line'].search_count([('order_id', '=', self.id), ('overlap', '=', 'True')]):
+            raise ValidationError(_('There are lines with overlap in this order. Please move overlapping lines to another time or resource'))
