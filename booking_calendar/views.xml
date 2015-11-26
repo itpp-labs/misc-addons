@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+        <record id="view_order_overlap_in_lines_form" model="ir.ui.view">
+            <field name="name">sale.order.overlap.lines.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree" position="inside">
+                    <field name="overlap"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree" position="attributes">
+                    <attribute name="colors">red:overlap</attribute>
+                </xpath>
+            </field>
+        </record>
+
         <template id="assets_backend" name="custom booking calendar assets" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
                 <script type="text/javascript" src="/booking_calendar/static/src/js/moment.js"></script>
@@ -52,7 +66,7 @@
             <field name="name">sale.order.line.tree</field>
             <field name="model">sale.order.line</field>
             <field name="arch" type="xml">
-              <tree string="Booking Tree">
+              <tree string="Booking Tree" colors="red:overlap">
                 <field name="order_id"/>
                 <field name="product_id"/>
                 <field name="name"/>
@@ -62,6 +76,7 @@
                 <field name="price_unit"/>
                 <field name="price_subtotal"/>
                 <field name="state"/>
+                <field name="overlap" invisible="1"/>
               </tree>
             </field>
         </record>
