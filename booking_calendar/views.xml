@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='order_line']/tree" position="inside">
-                    <field name="overlap"/>
+                    <field name="overlap" invisible="1"/>
                 </xpath>
                 <xpath expr="//field[@name='order_line']/tree" position="attributes">
                     <attribute name="colors">red:overlap</attribute>

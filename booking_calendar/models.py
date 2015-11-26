@@ -252,4 +252,4 @@ class SaleOrder(models.Model):
     def _check_state(self):
         if self.search_count([('state', 'not in', ['draft'])]) and \
            self.env['sale.order.line'].search_count([('order_id', '=', self.id), ('overlap', '=', 'True')]):
-            raise ValidationError(_('There are lines with overlap in this order. Please move overlapping lines to another time or pitch'))
+            raise ValidationError(_('There are lines with overlap in this order. Please move overlapping lines to another time or resource'))
