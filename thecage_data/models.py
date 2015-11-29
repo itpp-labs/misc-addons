@@ -51,7 +51,7 @@ class SaleOrderTheCage(models.Model):
         records.unlink()
 
 
-class SaleOrderLineReminder(models.Model):
+class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     booking_reminder = fields.Boolean(default=False, select=True)
@@ -77,7 +77,7 @@ class SaleOrderLineReminder(models.Model):
             if 'booking_start' in values:
                 if datetime.strptime(values['booking_start'], DTF) < datetime.strptime(line.booking_start, DTF):
                     raise ValidationError(_('You can move booking forward only.'))
-        return super(sale_order_line, self).write(values)
+        return super(SaleOrderLine, self).write(values)
 
 
 class ResPartnerReminderConfig(models.Model):
