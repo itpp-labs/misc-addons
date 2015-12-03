@@ -85,9 +85,9 @@ class resource_calendar(models.Model):
         end_dt = pytz.utc.localize(fields.Datetime.from_string(booking_end)).astimezone(user_tz)
         for calendar in self:
             hours = calendar.get_working_accurate_hours(start_dt, end_dt)
-            duration = seconds(end_dt - start_dt) / 3600
-            if hours != duration:
-                    return False
+            duration = seconds(end_dt - start_dt) / 3600.0
+            if round(hours, 2) != round(duration, 2):
+                return False
         return True
 
 
@@ -98,29 +98,39 @@ class sale_order_line(models.Model):
     booking_start = fields.Datetime(string="Date start")
     booking_end = fields.Datetime(string="Date end")
     calendar_id = fields.Many2one('resource.calendar', related='product_id.calendar_id')
+    project_id = fields.Many2one('account.analytic.account', compute='_compute_dependent_fields', store=False, string='Contract')
+    partner_id = fields.Many2one('res.partner', compute='_compute_dependent_fields', store=False, string='Customer')
+    overlap = fields.Boolean(compute='_check_date_overlap', default=False, store=True)
+    automatic = fields.Boolean(default=False, store=True, help='automatically generated booking lines')
 
     @api.multi
-    @api.constrains('resource_id', 'booking_start', 'booking_end')
+    def _compute_dependent_fields(self):
+        for line in self:
+            line.partner_id = line.order_id.partner_id
+            line.project_id = line.order_id.project_id
+
+    @api.multi
+    @api.depends('resource_id', 'booking_start', 'booking_end')
     def _check_date_overlap(self):
         for line in self:
             if line.state == 'cancel':
                 continue
+            overlaps = 0
             if line.resource_id and line.booking_start and line.booking_end:
-                overlaps = line.search_count(['&','|','&',('booking_start', '>', line.booking_start), ('booking_start', '<', line.booking_end),
-                                              '&',('booking_end', '>', line.booking_start), ('booking_end', '<', line.booking_end),
-                                              ('id', '!=', line.id),
+                ids = getattr(self, '_origin', False) and self._origin.ids or bool(line.id) and [line.id] or []
+                overlaps = line.search_count(['&', '|', '&', ('booking_start', '>', line.booking_start), ('booking_start', '<', line.booking_end),
+                                              '&', ('booking_end', '>', line.booking_start), ('booking_end', '<', line.booking_end),
                                               ('resource_id', '!=', False),
+                                              ('id', 'not in', ids),
                                               ('resource_id', '=', line.resource_id.id),
-                                              ('state', '!=', 'cancel')
-                ])
-                overlaps += line.search_count([('id', '!=', line.id),
+                                              ('state', '!=', 'cancel')])
+                overlaps += line.search_count([('id', 'not in', ids),
                                                ('booking_start', '=', line.booking_start),
                                                ('booking_end', '=', line.booking_end),
                                                ('resource_id', '=', line.resource_id.id),
-                                               ('state', '!=', 'cancel')
-                ])
-                if overlaps:
-                    raise ValidationError('There already is booking at that time.')
+                                               ('state', '!=', 'cancel')])
+
+            line.overlap = bool(overlaps)
 
     @api.multi
     @api.constrains('calendar_id', 'booking_start', 'booking_end')
@@ -162,15 +172,84 @@ class sale_order_line(models.Model):
             'color': b.resource_id.color
         } for b in bookings]
 
+    @api.multi
+    def unlink(self):
+        cancelled = self.filtered(lambda line: line.state == 'cancel')
+        (self - cancelled).button_cancel()
+        super(sale_order_line, cancelled).unlink()
+
     @api.onchange('booking_start', 'booking_end')
     def _on_change_booking_time(self):
         if self.booking_start and self.booking_end:
             start = datetime.strptime(self.booking_start, DTF)
             end = datetime.strptime(self.booking_end, DTF)
             self.product_uom_qty = (end - start).seconds/3600
+            booking_products = self.env['product.product'].search([('calendar_id', '!=', False)])
+            domain_products = [p.id for p in booking_products 
+                if p.calendar_id.validate_time_limits(self.booking_start, self.booking_end)]
+            if domain_products:
+                return {'domain': {'product_id': [('id', 'in', domain_products)]}}
+        return {'domain': {'product_id': []}}
 
+
+    @api.onchange('partner_id', 'project_id')
+    def _on_change_partner(self):
+        if self.order_id and self.order_id.partner_id != self.partner_id:
+            self.order_id = None
+        if self.order_id and self.order_id.project_id != self.project_id:
+            self.order_id = None
+
+    @api.onchange('order_id')
+    def _on_change_order(self):
+        if self.order_id:
+            self.partner_id = self.order_id.partner_id
+            self.project_id = self.order_id.project_id
+
+    @api.model
+    def read_color(self, color_field):
+        return self.env['resource.resource'].browse(color_field).color
+
+    @api.model
+    def create(self, values):
+        if not values.get('order_id') and  values.get('partner_id'):
+            order_obj = self.env['sale.order']
+            order_vals = order_obj.onchange_partner_id(values.get('partner_id'))['value']
+            order_vals.update({'partner_id': values.get('partner_id')})
+            order = order_obj.create(order_vals)
+            values.update({'order_id': order.id})
+        return super(sale_order_line, self).create(values)
+
+    @api.onchange('product_id')
+    def _on_change_product_id(self):
+        if self.product_id:
+            name = self.product_id.name_get()[0][1]
+            if self.product_id.description_sale:
+                name += '\n' + self.product_id.description_sale
+            self.name = name
+
+    @api.onchange('product_id', 'partner_id')
+    def _on_change_product_partner_id(self):
+        if self.product_id and self.partner_id:
+            pricelist = self.partner_id.property_product_pricelist
+            if pricelist:
+                data = self.product_id_change(pricelist.id, self.product_id.id, 
+                    qty=self.product_uom_qty, partner_id=self.partner_id.id)
+                for k in data['value']:
+                    if not k in ['name']:
+                        setattr(self, k, data['value'][k])
 
 class product_template(models.Model):
     _inherit = 'product.template'
 
     calendar_id = fields.Many2one('resource.calendar', string='Working time')
+
+
+class SaleOrder(models.Model):
+    _inherit = 'sale.order'
+
+    @api.multi
+    @api.constrains('state')
+    def _check_state(self):
+        if self.search_count([('state', 'not in', ['draft'])]) and \
+           self.env['sale.order.line'].search_count([('order_id', '=', self.id), ('overlap', '=', 'True')]):
+            raise ValidationError(_('There are lines with overlap in this order. Please move overlapping lines to another time or resource'))
