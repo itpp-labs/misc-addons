@@ -14,4 +14,5 @@
         'im_notif_views.xml',
         ],
     'installable': True
+    'uninstall_hook': 'pre_uninstall',
 }
