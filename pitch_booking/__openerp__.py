@@ -11,7 +11,8 @@
     'depends' : ['account', 'website_booking_calendar'],
     'data':[
         'views.xml',
-        'security/ir.model.access.csv'
+        'security/ir.model.access.csv',
+        'report_saleorder.xml',
         ],
     'installable': False,
     'auto_install': False,

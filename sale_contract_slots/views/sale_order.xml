@@ -8,6 +8,7 @@
         <field name="arch" type="xml">
           <xpath expr="//field[@name='project_id']" position="after">
             <field name="available_slots" attrs="{'invisible':[('project_id','=',False)]}"/>
+            <field name="paid_slots" attrs="{'invisible':[('project_id','=',False)]}"/>
           </xpath>
         </field>
       </record>

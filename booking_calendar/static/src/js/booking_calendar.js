@@ -3,6 +3,7 @@ openerp.booking_calendar = function (session) {
     var QWeb = session.web.qweb;
     var DTF = 'YYYY-MM-DD HH:mm:ss';
     var MIN_TIME_SLOT = 1; //hours
+    var SLOT_START_DELAY_MINS = 15; // mins
 
     session.web.BookingCalendar = session.web.Dialog.extend({
         template: "BookingCalendar",
@@ -49,13 +50,17 @@ openerp.booking_calendar = function (session) {
                 defaultTimedEventDuration: '01:00:00',
                 displayEventTime: false,
                 firstDay: 1,
-                defaultView: 'agendaWeek',
+                defaultView: 'month',
                 timezone: 'local',
+                weekNumbers: true,
+                slotEventOverlap: false,
                 events: self.load_events,
                 eventReceive: self.event_receive,
                 eventOverlap: self.event_overlap,
                 eventDrop: self.event_drop,
                 eventResize: self.event_drop,
+                dayClick: self.day_click,
+                viewRender: self.view_render,
                 dialog: self
             });
         },
@@ -104,8 +109,20 @@ openerp.booking_calendar = function (session) {
             this.view.editor.form.fields.booking_start.set_value(start.utc().format(DTF));
             this.view.editor.form.fields.booking_end.set_value(end.utc().format(DTF));
         },
+        warn: function(text) {
+            new session.web.Dialog(this, {
+                    title: _t("Warning"), size: 'medium',
+                },
+                $("<div />").text(text)
+            ).open();
+        },
         event_receive: function(event, allDay, jsEvent, ui) {
             var dialog = this.opt('dialog');
+            if (event.start < moment().add(-SLOT_START_DELAY_MINS, 'minutes')){
+                dialog.warn(_t('Please book on time in ' + SLOT_START_DELAY_MINS + ' minutes from now.'));
+                dialog.$calendar.fullCalendar24('removeEvents', [event._id]);
+                return false;
+            }
             dialog.$calendar.fullCalendar24('removeEvents', [dialog.record_id]);
             dialog.update_record(event);
             event._id = dialog.record_id;
@@ -113,10 +130,57 @@ openerp.booking_calendar = function (session) {
         },
         event_drop: function(event, delta, revertFunc, jsEvent, ui, view){
             var dialog = view.options.dialog;
+            if (event.start < moment().add(-SLOT_START_DELAY_MINS, 'minutes')){
+                dialog.warn(_t('Please book on time in ' + SLOT_START_DELAY_MINS + ' minutes from now.'));
+                revertFunc(event);
+                return false;
+            }
             dialog.update_record(event);
         },
         event_overlap: function(stillEvent, movingEvent) {
             return stillEvent.resourceId != movingEvent.resourceId;
+        },
+        day_click: function(date, jsEvent, view) {
+            if (view.name == 'month' && $(jsEvent.target).hasClass('fc-day-number')) {
+                view.calendar.changeView('agendaDay');
+                view.calendar.gotoDate(date);
+            }
+        },
+        view_render: function(view, element) {
+            // make week names clickable for quick navigation
+            if (view.name == 'month') {
+                var $td = $(element).find('td.fc-week-number');
+                $td.each(function () {
+                    var week = parseInt($(this).find('span').text());
+                    if (week) {
+                        $(this).data('week', week)
+                            .css({'cursor': 'pointer'})
+                            .find('span').html('&rarr;');
+                    }
+                });
+                $td.click(function(){
+                    var week = $(this).data('week');
+                    if (week) {
+                        var m = moment();
+                        m.week(week);
+                        if (week < view.start.week()) {
+                            m.year(view.end.year());
+                        }
+                        view.calendar.changeView('agendaWeek');
+                        view.calendar.gotoDate(m);
+                    }
+               });
+            } else if (view.name == 'agendaWeek') {
+                $(element).find('th.fc-day-header').css({'cursor': 'pointer'})
+                    .click(function(){
+                        var m = moment($(this).text(), view.calendar.option('dayOfMonthFormat'));
+                        if (m < view.start) {
+                            m.year(view.end.year());
+                        }
+                        view.calendar.changeView('agendaDay');
+                        view.calendar.gotoDate(m);
+                    });
+            }
         },
         open: function(id) {
             if (this.dialog_inited) {
@@ -195,4 +259,87 @@ openerp.booking_calendar = function (session) {
     });
 
     session.web.list.columns.add('calbutton', 'session.web.list.CalButton');
+
+    session.web_calendar.CalendarView.include({
+        init: function (parent, dataset, view_id, options) {
+            this._super(parent, dataset, view_id, options);
+            this.color_code_map = {};
+        },
+        event_data_transform: function(evt) {
+            var res = this._super(evt);
+            var self = this;
+            if (this.read_color) {
+                var color_key = evt[this.color_field];
+                if (typeof color_key === "object") {
+                    color_key = color_key[0];
+                }
+                
+                this.read_resource_color(color_key).done(function(color){
+                    if (color) {
+                        res.color = color;
+                        var event_objs = self.$calendar.fullCalendar('clientEvents', res.id);
+                        if (event_objs.length == 1) { // Already existing obj to update
+                            var event_obj = event_objs[0];
+                            // update event_obj
+                            event_obj.color = color;
+                            self.$calendar.fullCalendar('updateEvent', event_obj);
+                        }
+                    }
+                });
+            }
+            return res;
+            
+        },
+        read_resource_color: function(key) {
+            var self = this;
+            var def = $.Deferred();
+            if (this.color_code_map[key]) {
+                def.resolve(this.color_code_map[key]);
+            }
+            else {            
+                new session.web.Model(this.model).call('read_color', [key]).then(function(result) {
+                    if (result) {
+                        self.color_code_map[key] = result;
+                    }
+                    def.resolve(result);
+                });
+            }
+            return def;
+        },
+        
+        view_loading: function (fv) {
+            var res =  this._super(fv);
+            var attrs = fv.arch.attrs;
+            this.read_color = false;
+            if (attrs.read_color) {
+                this.read_color = attrs.read_color;
+            }
+            return res
+        },
+        get_fc_init_options: function() {
+            var res = this._super();
+            res.slotEventOverlap = false;
+            return res;
+        },
+        remove_event: function(id) {
+            var id = parseInt(id);
+            return this._super(id);
+        }
+    });
+
+    session.web_calendar.SidebarFilter.include({
+        set_filters: function() {
+            this._super();
+            if (this.view.read_color) {
+                var self = this;
+                _.forEach(self.view.all_filters, function(o) {
+                    if (_.contains(self.view.now_filter_ids, o.value)) {
+                        self.view.read_resource_color(o.value).done(function (color) {
+                            self.$('div.oe_calendar_responsible span.underline_color_' + o.color).css('border-color', color);
+                        });
+                    }
+                });
+            }
+        },
+    });
 }
