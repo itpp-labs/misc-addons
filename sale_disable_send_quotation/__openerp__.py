@@ -4,7 +4,7 @@
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'GPL-3',
     'category': 'Sales Management',
-    'website': 'https://yelizariev.github.io',
+    'website': 'https://twitter.com/yelizariev',
     'price': 9.00,
     'currency': 'EUR',
     'depends': ['sale'],
