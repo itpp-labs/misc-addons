@@ -1,8 +1,8 @@
 import openerp
-from openerp import http, SUPERUSER_ID
+from openerp import http
 from openerp.addons.web.controllers.main import Binary
 import functools
-from openerp.http import request, serialize_exception as _serialize_exception
+from openerp.http import request
 from openerp.modules import get_module_resource
 from cStringIO import StringIO
 db_monodb = http.db_monodb
@@ -45,7 +45,6 @@ class BinaryCustom(Binary):
                                """, (uid,))
                     row = cr.fetchone()
                     if row and row[0]:
-                        print 'row'
                         image_data = StringIO(str(row[0]).decode('base64'))
                         response = http.send_file(image_data, filename=imgname, mtime=row[1])
                     else:

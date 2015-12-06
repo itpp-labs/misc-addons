@@ -2,7 +2,7 @@
     "name" : "Fix non-ascii header 'from' (OBSOLETE)",
     "version" : "0.3",
     "author" : "IT-Projects LLC, Ivan Yelizariev",
-    'license': 'GPL-3',
+    'license': 'LGPL-3',
     "category" : "Social Network",
     "website" : "https://yelizariev.github.io",
     "description": """
@@ -12,5 +12,5 @@ Obsolete in odoo 8.0 since Sep 10, 2014 https://github.com/odoo/odoo/commit/f2cf
     #"init_xml" : [],
     #"update_xml" : [],
     #"active": True,
-    "installable": True
+    'installable': False
 }

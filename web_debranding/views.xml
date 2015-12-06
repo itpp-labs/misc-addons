@@ -9,7 +9,7 @@
     </template>
 
     <template id="login_layout" inherit_id="web.login_layout" priority="8">
-       <xpath expr="//div[@class='oe_single_form_footer']" position="replace"></xpath>
+       <xpath expr="//div[@t-if='not disable_footer']" position="replace"></xpath>
     </template>
 
     <template id="web_debranding.web_layout" inherit_id="web.layout">

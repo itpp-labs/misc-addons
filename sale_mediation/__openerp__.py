@@ -2,7 +2,7 @@
     'name' : 'Sales in mediation company ',
     'version' : '1.0.0',
     'author' : 'IT-Projects LLC, Ivan Yelizariev',
-    'license': 'GPL-3',
+    'license': 'LGPL-3',
     'category' : 'Workflow',
     'website' : 'https://yelizariev.github.io',
     'description': """
@@ -13,5 +13,5 @@
         'views.xml',
         #'data.xml',
         ],
-    'installable': True,
+    'installable': False,
 }

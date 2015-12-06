@@ -16,8 +16,12 @@
 *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *
 ******************************************************************************/
-openerp.web_polymorphic_field = function (instance) {
-    instance.web.form.FieldPolymorphic = instance.web.form.FieldSelection.extend( {
+odoo.define('web_polymorphic_field.FieldPolymorphic', function (require) {
+    var core = require('web.core');
+    var common = require('web.form_common');
+
+    var FieldSelection = core.form_widget_registry.get('selection')
+    var FieldPolymorphic = FieldSelection.extend( {
         template: "FieldSelection",
         events: {
             'change select': 'store_dom_value'
@@ -41,5 +45,5 @@ openerp.web_polymorphic_field = function (instance) {
             this.add_polymorphism(); 
         }
     });
-    instance.web.form.widgets.add('polymorphic', 'instance.web.form.FieldPolymorphic')
-};
+    core.form_widget_registry.add('polymorphic', 'instance.web.form.FieldPolymorphic')
+});
