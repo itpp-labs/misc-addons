@@ -1,5 +1,4 @@
 import traceback
-
 from openerp import api, models, fields, tools, SUPERUSER_ID
 
 
