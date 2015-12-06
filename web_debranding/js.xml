@@ -4,14 +4,15 @@
         <template id="debranding_title_js" name="Debranding title JS"
                   inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
-                <script type="text/javascript"
-                        src="/web_debranding/static/src/js/main.js"></script>
+                <link rel="stylesheet" href="/web_debranding/static/src/css/web.css"/>
                 <script type="text/javascript"
                         src="/web_debranding/static/src/js/title.js"></script>
                 <script type="text/javascript"
-                        src="/web_debranding/static/src/js/about.js"></script>
-                <script type="text/javascript"
                         src="/web_debranding/static/src/js/dialog.js"></script>
+                <script type="text/javascript"
+                        src="/web_debranding/static/src/js/announcement.js"></script>
+                <script type="text/javascript"
+                        src="/web_debranding/static/src/js/dashboard.js"></script>
             </xpath>
         </template>
     </data>

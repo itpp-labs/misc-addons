@@ -2,7 +2,7 @@
     'name' : 'Logo improvements for multicompany',
     'version' : '1.0.0',
     'author' : 'IT-Projects LLC, Ivan Yelizariev',
-    'license': 'GPL-3',
+    'license': 'LGPL-3',
     'category' : 'Tools',
     'website' : 'https://yelizariev.github.io',
     'description': """
@@ -18,7 +18,7 @@ Module adds "?company_id=123" to logo url in order to:
     'data':[
         'views.xml',
         ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
     'application': False,
 }

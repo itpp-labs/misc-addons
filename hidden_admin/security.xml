@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="admin_user_hidden" model="ir.rule">
+            <field name="name">Only admin can see admin user</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field name="global" eval="1" />
+            <field name="domain_force">[('id', '!=', 1)]</field>
+            <field name="perm_read" eval="True" />
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="protected" eval="True" />
+        </record>
+
+        <record id="admin_partner_hidden" model="ir.rule">
+            <field name="name">Only admin can see admin partner</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="global" eval="1" />
+            <field name="domain_force">[('user_ids', 'not in', [1])]</field>
+            <field name="perm_read" eval="True" />
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="protected" eval="True" />
+        </record>
+    </data>
+</openerp>

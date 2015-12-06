@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-extend="UserMenu">
+        <t t-jquery="a[data-menu='account']" t-operation="replace"></t>
+    </t>
+    <t t-extend="PlannerLauncher">
+        <t t-jquery="li.o_planner_systray" t-operation="replace"></t>
+        <t t-jquery="li.o_planner_help" t-operation="replace"></t>
+    </t>
+
+</templates>

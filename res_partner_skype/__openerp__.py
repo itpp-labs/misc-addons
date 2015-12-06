@@ -2,7 +2,7 @@
     "name" : "Skype field in partner form",
     "version" : "1.0.0",
     "author" : "IT-Projects LLC, Ivan Yelizariev",
-    'license': 'GPL-3',
+    'license': 'LGPL-3',
     "category" : "Tools",
     "website" : "https://twitter.com/yelizariev",
     'price': 9.00,
@@ -19,5 +19,5 @@
     "qweb" : [
         'static/src/xml/base.xml',
     ],
-    "installable": True
+    'installable': True
 }
