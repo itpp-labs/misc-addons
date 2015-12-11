@@ -166,8 +166,6 @@
             <xpath expr="//group" position="before">
                 <field name="venue_id"/>
                 <field name="pitch_id"/>
-                <filter name="pitch_booking" string="Pitch booking"
-                        domain="[('venue_id', '!=', False), ('venue_id', '!=', False)]"/>
             </xpath>
           </field>
         </record>
@@ -188,7 +186,8 @@
         </record>
 
         <record model="ir.actions.act_window" id="booking_calendar.booking_orders_lines_list_action">
-          <field name="context" eval="{'search_default_pitch_booking': 1, 'search_default_active_bookings': 1}"/>
+          <field name="context" eval="{'search_default_active_bookings': 1}"/>
+          <field name="domain">[('venue_id','!=','False'), ('pitch_id','!=',False)]</field>
         </record>
 
         <record id="view_order_line_booking_form_venue_pitch" model="ir.ui.view">

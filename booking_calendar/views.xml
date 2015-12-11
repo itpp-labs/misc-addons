@@ -18,9 +18,14 @@
         <template id="assets_backend" name="custom booking calendar assets" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
                 <script type="text/javascript" src="/booking_calendar/static/src/js/moment.js"></script>
-                <script type="text/javascript" src="/booking_calendar/static/src/js/fullcalendar.js"></script>
+                <script type="text/javascript" src="/booking_calendar/static/src/js/fullcalendar.2.4.0.js"></script>
                 <script type="text/javascript" src="/booking_calendar/static/src/js/booking_calendar.js"></script>
                 <link rel='stylesheet' href='/booking_calendar/static/src/css/booking_calendar.css'/>
+            </xpath>
+        </template>
+        <template id="assests_fullcalendar" name="fullcalendar replacement" inherit_id="web_calendar.assets_backend">
+            <xpath expr="//script[@src='/web_calendar/static/lib/fullcalendar/js/fullcalendar.js']" position="replace">
+                <script type="text/javascript" src="/booking_calendar/static/src/js/fullcalendar.1.6.7.js"></script>
             </xpath>
         </template>
         
@@ -124,7 +129,7 @@
             <field name="name">sale.order.line.calendar</field>
             <field name="model">sale.order.line</field>
             <field name="arch" type="xml">
-                <calendar string="Booking Lines" date_start="booking_start" date_stop="booking_end" color="resource_id" event_open_popup="%(booking_calendar.view_booking_order_line_form)s" quick_add="0" quick_create_instance="web_calendar_repeat_form.QuickCreateRepeated" read_color="1">
+                <calendar string="Booking Lines" date_start="booking_start" date_stop="booking_end" color="resource_id" event_open_popup="%(booking_calendar.view_booking_order_line_form)s" quick_add="0" quick_create_instance="web_calendar_repeat_form.QuickCreateRepeated" read_color="1" free_slots="1">
                     <field name="resource_id"/>
                 </calendar>
             </field>

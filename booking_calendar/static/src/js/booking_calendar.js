@@ -264,6 +264,7 @@ openerp.booking_calendar = function (session) {
         init: function (parent, dataset, view_id, options) {
             this._super(parent, dataset, view_id, options);
             this.color_code_map = {};
+            this.last_domain = {};
         },
         event_data_transform: function(evt) {
             var res = this._super(evt);
@@ -288,7 +289,112 @@ openerp.booking_calendar = function (session) {
                 });
             }
             return res;
-            
+        },
+        do_search: function(domain, context, _group_by) {
+            this.last_domain = domain;
+            this._super(domain, context, _group_by);
+            this.set_free_slot_source(this.$calendar.fullCalendar('getView'), domain);
+        },
+        set_free_slot_source: function(view, domain) {
+            var self = this;
+            view.calendar.removeEvents(function(ev){return ev.className.indexOf('free_slot') >= 0});
+            if (view.name == 'month'){
+                return;
+            }
+            var event_source = function(start, end, callback) {
+                var model = new session.web.Model("sale.order.line");
+                model.call('read_resources', [domain || []])
+                    .then(function (resources) {
+                        view.calendar.removeEvents(function(ev){return ev.className.indexOf('free_slot') >= 0});
+                        var slot_duration = view.calendar.option('slotMinutes')*1000*60;
+                        var events = [];
+                        var d_start = new Date();
+                        var d_end = new Date();
+                        var client_events = self.$calendar.fullCalendar('clientEvents', function(ev){
+                            if (ev.start >= view.start && ev.start < view.end) {
+                                return true;
+                            }
+                            if (ev.end <= view.end && ev.end > view.start) {
+                                return true;
+                            }
+                        });
+
+                        for(var d=Math.max(view.start.getTime(), d_start.getTime()); d<view.end.getTime(); d+=slot_duration) {
+                            d_start.setTime(d);
+                            d_end.setTime(d+slot_duration);
+                            for(var i=0; i<resources.length; i++) {
+                                var to_add = true;
+                                for(var e=0; e<client_events.length; e++) {
+                                    var ev = client_events[e];
+                                    if (ev.title == resources[i].label) {
+                                        if (ev.start >= d_start && ev.start < d_end) {
+                                            to_add = false;
+                                            break;
+                                        } else if (ev.end <= d_end && ev.end > d_start) {
+                                            to_add = false;
+                                            break;
+                                        } else if (ev.start < d_start && ev.end > d_end) {
+                                            to_add = false;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (to_add) {
+                                    events.push({
+                                        'start': d_start.toString('yyyy-MM-dd HH:mm:ss'),
+                                        'end': d_end.toString('yyyy-MM-dd HH:mm:ss'),
+                                        'title': resources[i].label,
+                                        'color': resources[i].color,
+                                        'className': 'free_slot resource_'+resources[i].value,
+                                        'editable': false
+                                    });
+                                }
+                            }
+                        }
+                        callback(events);
+                    });
+            }
+            view.calendar.addEventSource({events: event_source, allDayDefault:false});
+        },
+        free_slot_click_data: function(event) {
+            var self = this;
+            var patt = /resource_(\d+)/;
+            var data_template = self.get_event_data({
+                start: event.start,
+                end: event.end,
+                allDay: false,
+            });
+            _.each(event.className, function(n){
+                var r = patt.exec(n);
+                if (r) {
+                    data_template[self.color_field] = parseInt(r[1]);
+                }
+            });
+            return data_template;
+        },
+        get_fc_init_options: function() {
+            var res = this._super();
+            var self = this;
+            if (self.free_slots) {
+                res.viewRender = function(view, element) {
+                    self.view_render(self, view, element);
+                    self.set_free_slot_source(view, self.last_domain);
+                };
+                res.eventClick = function (event) {
+                    if (event.className.indexOf('free_slot') >= 0) {
+                        self.open_quick_create(self.free_slot_click_data(event));
+                    } else {
+                        self.open_event(event._id,event.title);
+                    }
+                },
+                res.timeFormat = {
+                    'agenda': '',
+                    '': ''
+                };
+                res.slotMinutes = 60;
+            }
+            res.slotEventOverlap = false;
+            return res;
         },
         read_resource_color: function(key) {
             var self = this;
@@ -311,15 +417,14 @@ openerp.booking_calendar = function (session) {
             var res =  this._super(fv);
             var attrs = fv.arch.attrs;
             this.read_color = false;
+            this.free_slots;
             if (attrs.read_color) {
                 this.read_color = attrs.read_color;
             }
+            if (attrs.free_slots) {
+                this.free_slots = attrs.free_slots;
+            }
             return res
-        },
-        get_fc_init_options: function() {
-            var res = this._super();
-            res.slotEventOverlap = false;
-            return res;
         },
         remove_event: function(id) {
             var id = parseInt(id);
