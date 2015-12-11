@@ -1126,3 +1126,10 @@ be a descendant of the grid when it is being dragged.
 .booking-calendar .fc-basic-view .fc-day-number {
     cursor: pointer;
 }
+
+.openerp .oe_calendar_table .fc-event-container .cal_opacity {
+    opacity: 0.2;
+}
+.openerp .oe_calendar_table .cal_opacity:hover {
+    opacity: 1;
+}

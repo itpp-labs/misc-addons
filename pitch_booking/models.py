@@ -34,6 +34,11 @@ class sale_order_line(models.Model):
             if pitch:
                 self.pitch_id = pitch[0].id
 
+    @api.onchange('pitch_id')
+    def _on_change_pitch(self):
+        if self.pitch_id:
+            self.venue_id = self.pitch_id.venue_id.id
+
     @api.model
     def _prepare_order_line_invoice_line(self, line, account_id=False):
         res = super(sale_order_line, self)._prepare_order_line_invoice_line(line, account_id)
@@ -62,6 +67,24 @@ class sale_order_line(models.Model):
             'id': r.id,
             'color': r.color
         } for r in resources]
+
+    @api.model
+    def read_resources(self, domain):
+        pitch_domain = [];
+        for cond in domain:
+            if type(cond) in (tuple, list):
+                if cond[0] == 'venue_id':
+                    pitch_domain.append(tuple(cond));
+                elif cond[0] == 'pitch_id':
+                    pitch_domain.append(('name',cond[1], cond[2]));
+
+        pitch_domain.append(('to_calendar','=',True));
+        return [{
+            'color': r.color,
+            'value': r.id,
+            'label': r.name,
+            'is_checked': True
+        } for r in self.env['pitch_booking.pitch'].search(pitch_domain)]
 
 
 class account_invoice_line(models.Model):
