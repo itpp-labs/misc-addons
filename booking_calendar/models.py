@@ -238,6 +238,16 @@ class sale_order_line(models.Model):
                     if not k in ['name']:
                         setattr(self, k, data['value'][k])
 
+    @api.model
+    def read_resources(self, domain):
+        return [{
+            'color': r.color,
+            'value': r.id,
+            'label': r.name,
+            'is_checked': True
+        } for r in self.env['resource.resource'].search([('to_calendar','=',True)])]
+
+
 class product_template(models.Model):
     _inherit = 'product.template'
 
