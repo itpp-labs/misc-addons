@@ -15,8 +15,5 @@
         'security/access_apps_security.xml',
         'security/ir.model.access.csv',
     ],
-    'qweb': [
-        'static/src/xml/dashboard.xml',
-    ],
     'installable': True
 }
