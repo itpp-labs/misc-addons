@@ -1,18 +1,16 @@
 from openerp import http
 from openerp.http import request
 from openerp.addons.web_settings_dashboard.controllers.main import WebSettingsDashboard
+from openerp import SUPERUSER_ID
 
 
 class WebSettingsDashboardCustom(WebSettingsDashboard):
     @http.route('/web_settings_dashboard/data', type='json', auth='user')
     def web_settings_dashboard_data(self, **kw):
-        active_users = request.env['res.users'].search_count([('active', '=', True), ('log_ids', '!=', False)])
-        pending_users = request.env['res.users'].search([('log_ids', '=', False)], order="create_date desc")
-
-        return {
-            'users_info': {
-                'active_users': active_users,
-                'pending_users': zip(pending_users.mapped('id'), pending_users.mapped('login')),
-                'user_form_view_id': request.env['ir.model.data'].xmlid_to_res_id("base.view_users_form"),
-            },
-        }
+        has_access_to_apps = request.registry['res.users'].has_group(request.cr, request.uid, 'access_apps.group_show_modules_menu')
+        # issue: due to unknown reason has_group is always invoked with superuser as uid param in new API
+        # has_access_to_apps = request.env.user.has_group('access_apps.group_show_modules_menu')
+        request.env = request.env(user=SUPERUSER_ID)
+        res = super(WebSettingsDashboardCustom, self).web_settings_dashboard_data(**kw)
+        res['has_access_to_apps'] = has_access_to_apps
+        return res
