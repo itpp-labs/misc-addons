@@ -1122,3 +1122,7 @@ be a descendant of the grid when it is being dragged.
     display: inline;
     width: 45%;
 }
+
+.booking-calendar .fc-basic-view .fc-day-number {
+    cursor: pointer;
+}

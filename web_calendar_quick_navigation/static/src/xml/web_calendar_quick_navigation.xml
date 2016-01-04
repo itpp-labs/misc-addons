@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="CalendarView.quick_navigation.panel.monthes">
+        <div class="quick_monthes">
+            <t t-foreach="monthes" t-as="month">
+                <t t-if="month.current">
+                    [
+                </t>
+                <a href="#" t-att-data-month="month.month" t-att-data-year="month.year"><t t-esc="month.name"/></a>
+                <t t-if="month.current">
+                    ]
+                </t>
+            </t>
+        </div>
+    </t>
+    <t t-name="CalendarView.quick_navigation.panel.weeks">
+        <div class="quick_weeks">
+            <t t-foreach="weeks" t-as="week">
+                <t t-if="week.current">
+                    [
+                </t>
+                <a href="#" t-att-data-date="week.date"><t t-esc="week.name"/></a>
+                <t t-if="week.current">
+                    ]
+                </t>
+            </t>
+        </div>
+    </t>
+</templates>
