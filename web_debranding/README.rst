@@ -59,4 +59,4 @@ To automatically install this module for every new databases set **'auto_install
 * bus (built-in)
 
 
-Tested on Odoo 9.0 04c6ee54d86013bc2995778f62074115c1bd9ed3
+Tested on Odoo 9.0 eaed775ee2ef601ffac8dbbeeb5d15f9763a083e

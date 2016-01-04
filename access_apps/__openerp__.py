@@ -1,6 +1,6 @@
 {
     'name': 'Control access to Apps',
-    'version': '1.0.0',
+    'version': '1.0.1',
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'category': 'Tools',
     'website': 'https://twitter.com/yelizariev',
@@ -11,11 +11,9 @@
         'access_restricted'
     ],
     'data': [
+        'views/access_apps.xml',
         'security/access_apps_security.xml',
         'security/ir.model.access.csv',
-    ],
-    'qweb': [
-        'static/src/xml/dashboard.xml',
     ],
     'installable': True
 }
