@@ -96,5 +96,21 @@
         </field>
       </record>
 
+      <record model="ir.ui.view" id="venue_pitch_search_view">
+          <field name="name">venue.pitch.search</field>
+          <field name="model">sale.order.line</field>
+          <field name="inherit_id" ref="pitch_booking.venue_pitch_search_view" />
+          <field name="arch" type="xml">
+              <xpath expr="//group" position="before">
+                  <filter name="venue_kallang" string="Kallang" domain="[('venue_id', 'ilike', 'Kallang')]"/>
+                  <filter name="venue_bukit" string="Bukit Timah" domain="[('venue_id', 'ilike', 'Bukit Timah')]"/>
+              </xpath>
+          </field>
+      </record>
+
+      <record model="ir.actions.act_window" id="booking_calendar.booking_orders_lines_list_action">
+          <field name="context" eval="{'search_default_active_bookings': 1, 'search_default_venue_kallang':1}"/>
+        </record>
+
     </data>
 </openerp>
