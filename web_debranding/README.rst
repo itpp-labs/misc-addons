@@ -65,3 +65,11 @@ To automatically install this module for every new databases set **'auto_install
   
 
 Tested on Odoo 8.0 eeedd2d9f52d46d8193059854e7430ca0c1fd6c0
+
+Need our service?
+=================
+
+Contact us by `email <mailto:it@it-projects.info>`_ or fill out `request form <https://www.it-projects.info/page/website.contactus>`_:
+
+* it@it-projects.info
+* https://www.it-projects.info/page/website.contactus
