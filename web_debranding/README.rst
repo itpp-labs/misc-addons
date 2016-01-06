@@ -15,7 +15,7 @@ Removes references to odoo.com:
 10. **Hides Apps menu** (by default, only admin (superuser) can see Apps menu. You could change it via tick "Show Modules Menu" in user's access rights tab)
 11. Disables server requests to odoo.com (publisher_warranty_url)
 12. Deletes "My odoo.com account" button
-13. Delete Apps and other blocks from Settings/Dashboard
+13. Deletes Apps and other blocks from Settings/Dashboard
 
 By default the module replaces "Odoo" to "Software". To configure
 module open Settings\\System Parameters and modify
