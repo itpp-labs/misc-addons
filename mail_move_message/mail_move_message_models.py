@@ -37,7 +37,7 @@ class wizard(models.TransientModel):
             parts = email_split(email_from.replace(' ',','))
             if parts:
                 email = parts[0]
-                name = email_from[:email_from.index(email)].replace('"', '').replace('<', '').strip() or email_from
+                name = email_from.find(email) != -1 and email_from[:email_from.index(email)].replace('"', '').replace('<', '').strip() or email_from
             else:
                 name, email = email_from
             res['message_name_from'] = name
