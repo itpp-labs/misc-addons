@@ -110,19 +110,20 @@ class GenerateBookingWizard(models.TransientModel):
         result = super(GenerateBookingWizard, self).default_get(cr, uid, fields, context=context)
         active_id = context and context.get('active_id', False)
         active_order = self.pool['sale.order'].browse(cr, uid, active_id, context=context)
-        result.update({
-            'product_id': active_order.order_line[0].product_id.id,
-            'pitch_id': active_order.order_line[0].pitch_id.id,
-            'booking_start': active_order.order_line[0].booking_start,
-            'booking_end': active_order.order_line[0].booking_end
-        })
+        if len(active_order.order_line) > 0:
+            result.update({
+                'product_id': active_order.order_line[0].product_id.id,
+                'pitch_id': active_order.order_line[0].pitch_id.id,
+                'booking_start': active_order.order_line[0].booking_start,
+                'booking_end': active_order.order_line[0].booking_end
+            })
         return result
 
     @api.one
     @api.depends('booking_start')
     def _compute_day_of_week(self):
-        dt = datetime.strptime(self.booking_start, DTF)
-        self.day_of_week = date(dt.year, dt.month, dt.day).weekday()
+        dt = self.booking_start and datetime.strptime(self.booking_start, DTF)
+        self.day_of_week = dt and date(dt.year, dt.month, dt.day).weekday()
 
     @api.multi
     def generate_booking_lines(self):
