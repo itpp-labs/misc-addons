@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+<!-- Show Settings Menu -->
+<record id="group_show_settings_menu" model="res.groups">
+    <field name="name">Show Settings Menu</field>
+    <field name="users" eval="[(4, ref('base.user_root'))]"/>
+</record>
+
+<record model="ir.ui.menu" id="base.menu_administration">
+    <field name="groups_id" eval="[(6,0, [ref('access_settings_menu.group_show_settings_menu')])]"/>
+</record>
+
+<record model="res.groups" id="base.group_erp_manager">
+    <field name="implied_ids" eval="[(4, ref('access_settings_menu.group_show_settings_menu'))]"/>
+</record>
+    </data>
+</openerp>

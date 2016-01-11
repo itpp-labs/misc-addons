@@ -7,7 +7,7 @@ openerp.web_calendar_quick_navigation = function (session) {
             var currentM = view.start.getMonth();
             var len = monthes.length;
             var monthPeriod = [];
-            for (var i=currentM-6; i<=currentM+5; i++) {
+            for (var i=currentM-6-6; i<=currentM+5+6; i++) {
                 var item = {
                     current: i == currentM,
                     month: i,
@@ -49,8 +49,8 @@ openerp.web_calendar_quick_navigation = function (session) {
                 weekPeriod.push({
                     current: i == ts,
                     date: i,
-                    name: view.calendar.formatDate(d, 'dd/MM') + '-'
-                        + view.calendar.formatDate(dE, 'dd/MM')
+                    name: view.calendar.formatDate(d, 'ddMMM') + '-'
+                        + view.calendar.formatDate(dE, 'ddMMM')
                 })
             }
             if ($(element).find('div.quick_weeks').length) {
