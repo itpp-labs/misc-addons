@@ -103,9 +103,15 @@
                         <field name="booking_start"/>
                         <field name="booking_end"/>
                         <field name="price_unit"/>
-                        <field name="price_subtotal"/>
+                        <field name="price_subtotal" invisible="1"/>
+                        <field name="product_uom_qty" invisible="1"/>
                     </group>
                     <field name="state" widget="statusbar"/>
+                    <group>
+                        <button type="object"
+                                name="action_open_sale_order"
+                                string="Save and open Sale Order"/>
+                    </group>
                 </form>
             </field>
         </record>
