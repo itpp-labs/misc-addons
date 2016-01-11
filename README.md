@@ -7,7 +7,7 @@ Different modules for Odoo.
 
 Warninig:
 ---------
-the modules
+the modules:
  - access_base
  - access_custom
  - access_custom2
@@ -16,6 +16,7 @@ the modules
  - hidden_admin
  - access_apps
  - access_settings_menu
+
 are about to move to new repo https://github.com/yelizariev/access-addons
 
 
