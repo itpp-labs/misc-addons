@@ -1,7 +1,24 @@
 Odoo addons
 ===========
 
+
+
 Different modules for Odoo.
+
+Warninig:
+---------
+the modules
+ - access_base
+ - access_custom
+ - access_custom2
+ - ir_rule_protected
+ - access_restricted
+ - hidden_admin
+ - access_apps
+ - access_settings_menu
+are about to move to new repo https://github.com/yelizariev/access-addons
+
+
 
 List of repositories:
 ---------------------
