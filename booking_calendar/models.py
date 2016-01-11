@@ -10,6 +10,7 @@ from openerp.exceptions import ValidationError
 from openerp.addons.resource.resource import seconds
 
 SLOT_START_DELAY_MINS = 15
+SLOT_DURATION_MINS = 60
 
 
 class resource_resource(models.Model):
@@ -152,16 +153,28 @@ class sale_order_line(models.Model):
                 raise ValidationError(_('Please book on time in %s minutes from now.') % SLOT_START_DELAY_MINS)
 
     @api.model
-    def get_bookings(self, start, end, resource_ids):
-        domain  = [
-            ('booking_start', '>=', start),
-            ('booking_end', '<=', end),
-            ('booking_start', '>=', fields.Datetime.now()),
-            ('state', '!=', 'cancel')
-            ]
+    def search_booking_lines(self, start, end, domain):
+        domain.append(('state', '!=', 'cancel'))
+        domain.append(('booking_start', '>=', fields.Datetime.now()))
+        domain.append('|')
+        domain.append('|')
+        domain.append('&')
+        domain.append(('booking_start', '>=', start))
+        domain.append(('booking_start', '<', end))
+        domain.append('&')
+        domain.append(('booking_end', '>', start))
+        domain.append(('booking_end', '<=', end))
+        domain.append('&')
+        domain.append(('booking_start', '<=', start))
+        domain.append(('booking_end', '>=', end))
+        return self.search(domain)
+
+    @api.model
+    def get_bookings(self, start, end, resources):
+        domain = []
         if resource_ids:
             domain.append(('resource_id', 'in', resource_ids))
-        bookings = self.sudo().search(domain)
+        bookings = self.sudo().search_booking_lines(start, end, domain)
         return [{
             'id': b.id,
             'title': b.resource_id.name,
@@ -239,13 +252,48 @@ class sale_order_line(models.Model):
                         setattr(self, k, data['value'][k])
 
     @api.model
-    def read_resources(self, domain):
-        return [{
-            'color': r.color,
-            'value': r.id,
-            'label': r.name,
-            'is_checked': True
-        } for r in self.env['resource.resource'].search([('to_calendar','=',True)])]
+    def get_free_slots(self, start, end, offset, domain):
+        start_dt = datetime.strptime(start, '%Y-%m-%d %H:%M:%S') - timedelta(minutes=offset)
+        fixed_start_dt = start_dt
+        end_dt = datetime.strptime(end, '%Y-%m-%d %H:%M:%S') - timedelta(minutes=offset)
+        resources = self.env['resource.resource'].search([('to_calendar','=',True)])
+        slots = {}
+        now = datetime.now() + timedelta(minutes=SLOT_START_DELAY_MINS) - timedelta(minutes=offset)
+        while start_dt < end_dt:
+            if start_dt < now:
+                start_dt += timedelta(minutes=SLOT_DURATION_MINS)
+                continue
+            for r in resources:
+                if not r.id in slots:
+                    slots[r.id] = {}
+                slots[r.id][start_dt.strftime('%Y-%m-%d %H:%M:%S')] = {
+                    'start': start_dt.strftime('%Y-%m-%d %H:%M:%S'),
+                    'end': (start_dt + timedelta(minutes=SLOT_DURATION_MINS)).strftime('%Y-%m-%d %H:%M:%S'),
+                    'title': r.name,
+                    'color': r.color,
+                    'className': 'free_slot resource_%s' % r.id,
+                    'editable': False
+                }
+            start_dt += timedelta(minutes=SLOT_DURATION_MINS)
+        lines = self.search_booking_lines(start, end, [('resource_id', 'in', [r['id'] for r in resources])])
+        for l in lines:
+            line_start_dt = datetime.strptime(l.booking_start, '%Y-%m-%d %H:%M:00') - timedelta(minutes=offset)
+            line_start_dt -= timedelta(minutes=divmod(line_start_dt.minute, SLOT_DURATION_MINS)[1])
+            line_end_dt = datetime.strptime(l.booking_end, '%Y-%m-%d %H:%M:%S') - timedelta(minutes=offset)
+            while line_start_dt < line_end_dt:
+                if line_start_dt >= end_dt:
+                    break
+                elif line_start_dt < fixed_start_dt:
+                    line_start_dt += timedelta(minutes=SLOT_DURATION_MINS)
+                    continue
+                del slots[l.resource_id.id][line_start_dt.strftime('%Y-%m-%d %H:%M:%S')]
+                line_start_dt += timedelta(minutes=SLOT_DURATION_MINS)
+
+        res = []
+        for slot in slots.values():
+            for resource in slot.values():
+                res.append(resource)
+        return res
 
     @api.multi
     def action_open_sale_order(self):
