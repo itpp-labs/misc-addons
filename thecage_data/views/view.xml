@@ -58,6 +58,7 @@
                         <field name="booking_start" class="oe_inline"/>
                         <field name="booking_end" class="oe_inline"/>
                         <field name="day_of_week" class="oe_inline"/>
+                        <field name="product_uom_qty" invisible="1"/>
                     </group>
                     <footer>
                         <button name="generate_booking_lines" string="Generate" type="object" class="oe_highlight"/>

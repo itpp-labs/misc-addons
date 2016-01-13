@@ -96,6 +96,7 @@ class GenerateBookingWizard(models.TransientModel):
     pitch_id = fields.Many2one('pitch_booking.pitch', string='Pitch')
     booking_start = fields.Datetime(string='Booking start')
     booking_end = fields.Datetime(string='Booking end')
+    product_uom_qty = fields.Integer()
 
     day_of_week = fields.Selection([(0, 'Monday'),
                                     (1, 'Tuesday'),
@@ -119,6 +120,13 @@ class GenerateBookingWizard(models.TransientModel):
             })
         return result
 
+    @api.onchange('booking_start', 'booking_end')
+    def _on_change_booking_time(self):
+        if self.booking_start and self.booking_end:
+            start = datetime.strptime(self.booking_start, DTF)
+            end = datetime.strptime(self.booking_end, DTF)
+            self.product_uom_qty = (end - start).seconds/3600
+
     @api.one
     @api.depends('booking_start')
     def _compute_day_of_week(self):
@@ -140,7 +148,7 @@ class GenerateBookingWizard(models.TransientModel):
                                                 'product_id': self[0].product_id.id,
                                                 'venue_id': self[0].venue_id.id,
                                                 'pitch_id': self[0].pitch_id.id,
-                                                'product_uom_qty': active_order.order_line[0].product_uom_qty,
+                                                'product_uom_qty': self[0].product_uom_qty,
                                                 'booking_start': booking_start,
                                                 'booking_end': booking_end,
                                                 'automatic': True,
