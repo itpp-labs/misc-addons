@@ -26,7 +26,7 @@ the modules:
  - res_partner_ru
  - res_partner_vk
 
-are to the https://github.com/yelizariev/l10n-addons repo and will be deleted from this repository soon
+are moved to the https://github.com/yelizariev/l10n-addons repo and will be deleted from this repository soon
 
 
 List of repositories:
