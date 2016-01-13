@@ -17,8 +17,16 @@ the modules:
  - access_apps
  - access_settings_menu
 
-are about to move to new repo https://github.com/yelizariev/access-addons
+are moved to the https://github.com/yelizariev/access-addons repo and will be deleted from this repository soon
 
+the modules:
+ - sale_report_kz
+ - sale_report_lt
+ - sale_report_ru
+ - res_partner_ru
+ - res_partner_vk
+
+are moved to the https://github.com/yelizariev/l10n-addons repo and will be deleted from this repository soon
 
 
 List of repositories:
