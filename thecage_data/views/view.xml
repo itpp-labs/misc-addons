@@ -84,7 +84,7 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='order_line']" position="before">
-                <header attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}">
+                <header class="oe_edit_only" attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}">
                     <button type="action"
                             name="%(thecage_generate_booking_action)d"
                             string="Generate Booking Lines"/>
