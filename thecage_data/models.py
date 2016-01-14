@@ -90,12 +90,13 @@ class ResPartnerReminderConfig(models.Model):
 class GenerateBookingWizard(models.TransientModel):
     _name = 'thecage_data.generate_booking_wizard'
 
-    quantity = fields.Integer(string='Number of bookings to generate', default=52)
+    quantity = fields.Integer(string='Number of bookings to generate', default=51)
     product_id = fields.Many2one('product.product', string='Product')
     venue_id = fields.Many2one('pitch_booking.venue', string='Venue', related='product_id.venue_id')
     pitch_id = fields.Many2one('pitch_booking.pitch', string='Pitch')
     booking_start = fields.Datetime(string='Booking start')
     booking_end = fields.Datetime(string='Booking end')
+    product_uom_qty = fields.Integer()
 
     day_of_week = fields.Selection([(0, 'Monday'),
                                     (1, 'Tuesday'),
@@ -115,9 +116,16 @@ class GenerateBookingWizard(models.TransientModel):
                 'product_id': active_order.order_line[0].product_id.id,
                 'pitch_id': active_order.order_line[0].pitch_id.id,
                 'booking_start': active_order.order_line[0].booking_start,
-                'booking_end': active_order.order_line[0].booking_end
+                'booking_end': active_order.order_line[0].booking_end,
             })
         return result
+
+    @api.onchange('booking_start', 'booking_end')
+    def _on_change_booking_time(self):
+        if self.booking_start and self.booking_end:
+            start = datetime.strptime(self.booking_start, DTF)
+            end = datetime.strptime(self.booking_end, DTF)
+            self.product_uom_qty = (end - start).seconds/3600
 
     @api.one
     @api.depends('booking_start')
@@ -140,6 +148,7 @@ class GenerateBookingWizard(models.TransientModel):
                                                 'product_id': self[0].product_id.id,
                                                 'venue_id': self[0].venue_id.id,
                                                 'pitch_id': self[0].pitch_id.id,
+                                                'product_uom_qty': self[0].product_uom_qty,
                                                 'booking_start': booking_start,
                                                 'booking_end': booking_end,
                                                 'automatic': True,
