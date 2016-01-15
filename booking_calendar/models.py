@@ -103,6 +103,7 @@ class sale_order_line(models.Model):
     partner_id = fields.Many2one('res.partner', compute='_compute_dependent_fields', store=False, string='Customer')
     overlap = fields.Boolean(compute='_check_date_overlap', default=False, store=True)
     automatic = fields.Boolean(default=False, store=True, help='automatically generated booking lines')
+    active = fields.Boolean(default=True)
 
     @api.multi
     def _compute_dependent_fields(self):
@@ -188,6 +189,7 @@ class sale_order_line(models.Model):
     @api.multi
     def unlink(self):
         cancelled = self.filtered(lambda line: line.state == 'cancel')
+        self.write({'active': False})
         (self - cancelled).button_cancel()
         super(sale_order_line, cancelled).unlink()
 
