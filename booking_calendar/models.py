@@ -8,6 +8,8 @@ from openerp.tools.translate import _
 from openerp.exceptions import ValidationError
 
 from openerp.addons.resource.resource import seconds
+import openerp.addons.decimal_precision as dp
+from openerp.osv import fields as old_api_fields, osv
 
 SLOT_START_DELAY_MINS = 15
 SLOT_DURATION_MINS = 60
@@ -317,6 +319,28 @@ class product_template(models.Model):
     _inherit = 'product.template'
 
     calendar_id = fields.Many2one('resource.calendar', string='Working time')
+
+
+class SaleOrderAmountTotal(osv.osv):
+    _inherit = 'sale.order'
+
+    def _amount_all_wrapper(self, cr, uid, ids, field_name, arg, context=None):
+        return super(SaleOrderAmountTotal, self)._amount_all_wrapper(cr, uid, ids, field_name, arg, context=None)
+
+    def _get_order(self, cr, uid, ids, context=None):
+        result = {}
+        for line in self.pool.get('sale.order.line').browse(cr, uid, ids, context=context):
+            result[line.order_id.id] = True
+        return result.keys()
+
+    _columns = {
+        'amount_total': old_api_fields.function(_amount_all_wrapper, digits_compute=dp.get_precision('Account'), string='Total',
+                                                store={
+                                                    'sale.order': (lambda self, cr, uid, ids, c={}: ids, ['order_line'], 10),
+                                                    'sale.order.line': (_get_order, ['price_unit', 'tax_id', 'discount', 'product_uom_qty', 'state'], 10),
+                                                },
+                                                multi='sums', help="The total amount."),
+    }
 
 
 class SaleOrder(models.Model):
