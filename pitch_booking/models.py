@@ -1,8 +1,10 @@
 from datetime import datetime, timedelta
+import logging
 import traceback
 from openerp import api, models, fields, tools, SUPERUSER_ID
-SLOT_START_DELAY_MINS = 15
-SLOT_DURATION_MINS = 60
+from openerp.addons.booking_calendar.models import SLOT_START_DELAY_MINS, SLOT_DURATION_MINS
+
+_logger = logging.getLogger(__name__)
 
 
 class pitch_booking_venue(models.Model):
@@ -87,7 +89,7 @@ class sale_order_line(models.Model):
         pitch_domain.append(('to_calendar','=',True));
         resources = self.env['pitch_booking.pitch'].search(pitch_domain)
         slots = {}
-        now = datetime.now() + timedelta(minutes=SLOT_START_DELAY_MINS) - timedelta(minutes=offset)
+        now = datetime.now() - timedelta(minutes=SLOT_START_DELAY_MINS) - timedelta(minutes=offset)
         while start_dt < end_dt:
             if start_dt < now:
                 start_dt += timedelta(minutes=SLOT_DURATION_MINS)
@@ -112,10 +114,16 @@ class sale_order_line(models.Model):
             while line_start_dt < line_end_dt:
                 if line_start_dt >= end_dt:
                     break
-                elif line_start_dt < fixed_start_dt:
+                elif line_start_dt < fixed_start_dt or line_start_dt < now:
                     line_start_dt += timedelta(minutes=SLOT_DURATION_MINS)
                     continue
-                del slots[l.pitch_id.id][line_start_dt.strftime('%Y-%m-%d %H:%M:%S')]
+                try:
+                    del slots[l.pitch_id.id][line_start_dt.strftime('%Y-%m-%d %H:%M:%S')]
+                except:
+                    _logger.warning('cannot free slot %s %s' % (
+                        l.pitch_id.id,
+                        line_start_dt.strftime('%Y-%m-%d %H:%M:%S')
+                    ))
                 line_start_dt += timedelta(minutes=SLOT_DURATION_MINS)
 
         res = []
