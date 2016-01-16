@@ -103,7 +103,7 @@ class sale_order_line(models.Model):
     calendar_id = fields.Many2one('resource.calendar', related='product_id.calendar_id')
     project_id = fields.Many2one('account.analytic.account', compute='_compute_dependent_fields', store=False, string='Contract')
     partner_id = fields.Many2one('res.partner', compute='_compute_dependent_fields', store=False, string='Customer')
-    overlap = fields.Boolean(compute='_check_date_overlap', default=False, store=True)
+    overlap = fields.Boolean(compute='_compute_date_overlap', default=False, store=True)
     automatic = fields.Boolean(default=False, store=True, help='automatically generated booking lines')
     active = fields.Boolean(default=True)
 
@@ -115,7 +115,7 @@ class sale_order_line(models.Model):
 
     @api.multi
     @api.depends('resource_id', 'booking_start', 'booking_end')
-    def _check_date_overlap(self):
+    def _compute_date_overlap(self):
         for line in self:
             if line.state == 'cancel':
                 continue
@@ -135,6 +135,13 @@ class sale_order_line(models.Model):
                                                ('state', '!=', 'cancel')])
 
             line.overlap = bool(overlaps)
+
+    @api.multi
+    @api.constrains('overlap')
+    def _check_overlap(self):
+        for record in self:
+            if record.overlap:
+                raise ValidationError('There already is booking at that time.')
 
     @api.multi
     @api.constrains('calendar_id', 'booking_start', 'booking_end')
