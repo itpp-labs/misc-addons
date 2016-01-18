@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 import pytz
 from dateutil import rrule
+import logging
 
 from openerp import api, models, fields
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
@@ -8,6 +9,8 @@ from openerp.tools.translate import _
 from openerp.exceptions import ValidationError
 
 from openerp.addons.resource.resource import seconds
+
+_logger = logging.getLogger(__name__)
 
 SLOT_START_DELAY_MINS = 15
 SLOT_DURATION_MINS = 60
@@ -36,7 +39,7 @@ class resource_calendar(models.Model):
             id = calendar.id
             hours = timedelta()
             for day in rrule.rrule(rrule.DAILY, dtstart=start_dt,
-                                   until=end_dt,
+                                   until=end_dt.replace(hour=23, minute=59, second=59),
                                    byweekday=calendar.get_weekdays()[0]):
                 day_start_dt = day.replace(hour=0, minute=0, second=0)
                 if start_dt and day.date() == start_dt.date():
@@ -51,7 +54,7 @@ class resource_calendar(models.Model):
                 intervals = []
                 work_dt = day_start_dt.replace(hour=0, minute=0, second=0)
                 working_intervals = []
-                for calendar_working_day in calendar.get_attendances_for_weekdays([day_start_dt.weekday()])[0   ]:
+                for calendar_working_day in calendar.get_attendances_for_weekdays([day_start_dt.weekday()])[0]:
                     min_from = int((calendar_working_day.hour_from - int(calendar_working_day.hour_from)) * 60)
                     min_to = int((calendar_working_day.hour_to - int(calendar_working_day.hour_to)) * 60)
                     x = work_dt.replace(hour=int(calendar_working_day.hour_from), minute=min_from)
@@ -61,7 +64,6 @@ class resource_calendar(models.Model):
                         y = work_dt.replace(hour=int(calendar_working_day.hour_to), minute=min_to)
                     working_interval = (x, y)
                     working_intervals += calendar.interval_remove_leaves(working_interval, work_limits)
-
                 for interval in working_intervals:
                     hours += interval[1] - interval[0]
 
@@ -73,6 +75,7 @@ class resource_calendar(models.Model):
                                         datetime.strptime(l.date_to, DTF)
                 ))
             clean_intervals = calendar.interval_remove_leaves((start_dt, end_dt), leave_intervals)
+
             for interval in clean_intervals:
                 hours += (end_dt - start_dt) - (interval[1] - interval[0])
 
@@ -149,13 +152,13 @@ class sale_order_line(models.Model):
         for line in self:
             if not line.booking_start:
                 continue
-            if datetime.strptime(line.booking_start, DTF) - timedelta(minutes=SLOT_START_DELAY_MINS) < datetime.now():
+            if datetime.strptime(line.booking_start, DTF) + timedelta(minutes=SLOT_START_DELAY_MINS) < datetime.now():
                 raise ValidationError(_('Please book on time in %s minutes from now.') % SLOT_START_DELAY_MINS)
 
     @api.model
     def search_booking_lines(self, start, end, domain):
         domain.append(('state', '!=', 'cancel'))
-        domain.append(('booking_start', '>=', fields.Datetime.now()))
+        domain.append(('booking_end', '>=', fields.Datetime.now()))
         domain.append('|')
         domain.append('|')
         domain.append('&')
@@ -198,6 +201,7 @@ class sale_order_line(models.Model):
             end = datetime.strptime(self.booking_end, DTF)
             self.product_uom_qty = (end - start).seconds/3600
             booking_products = self.env['product.product'].search([('calendar_id', '!=', False)])
+            domain_products = []
             domain_products = [p.id for p in booking_products 
                 if p.calendar_id.validate_time_limits(self.booking_start, self.booking_end)]
             if domain_products:
@@ -258,7 +262,7 @@ class sale_order_line(models.Model):
         end_dt = datetime.strptime(end, '%Y-%m-%d %H:%M:%S') - timedelta(minutes=offset)
         resources = self.env['resource.resource'].search([('to_calendar','=',True)])
         slots = {}
-        now = datetime.now() + timedelta(minutes=SLOT_START_DELAY_MINS) - timedelta(minutes=offset)
+        now = datetime.now() - timedelta(minutes=SLOT_START_DELAY_MINS) - timedelta(minutes=offset)
         while start_dt < end_dt:
             if start_dt < now:
                 start_dt += timedelta(minutes=SLOT_DURATION_MINS)
@@ -283,10 +287,16 @@ class sale_order_line(models.Model):
             while line_start_dt < line_end_dt:
                 if line_start_dt >= end_dt:
                     break
-                elif line_start_dt < fixed_start_dt:
+                elif line_start_dt < fixed_start_dt or line_start_dt < now:
                     line_start_dt += timedelta(minutes=SLOT_DURATION_MINS)
                     continue
-                del slots[l.resource_id.id][line_start_dt.strftime('%Y-%m-%d %H:%M:%S')]
+                try:
+                    del slots[l.resource_id.id][line_start_dt.strftime('%Y-%m-%d %H:%M:%S')]
+                except:
+                    _logger.warning('cannot free slot %s %s' % (
+                        l.resource_id.id,
+                        line_start_dt.strftime('%Y-%m-%d %H:%M:%S')
+                    ))
                 line_start_dt += timedelta(minutes=SLOT_DURATION_MINS)
 
         res = []
