@@ -124,7 +124,7 @@ openerp.booking_calendar = function (session) {
         },
         event_receive: function(event, allDay, jsEvent, ui) {
             var dialog = this.opt('dialog');
-            if (event.start < moment().add(-SLOT_START_DELAY_MINS, 'minutes')){
+            if (event.start < moment().add(SLOT_START_DELAY_MINS, 'minutes')){
                 dialog.warn(_t('Please book on time in ' + SLOT_START_DELAY_MINS + ' minutes from now.'));
                 dialog.$calendar.fullCalendar24('removeEvents', [event._id]);
                 return false;
@@ -136,7 +136,7 @@ openerp.booking_calendar = function (session) {
         },
         event_drop: function(event, delta, revertFunc, jsEvent, ui, view){
             var dialog = view.options.dialog;
-            if (event.start < moment().add(-SLOT_START_DELAY_MINS, 'minutes')){
+            if (event.start < moment().add(SLOT_START_DELAY_MINS, 'minutes')){
                 dialog.warn(_t('Please book on time in ' + SLOT_START_DELAY_MINS + ' minutes from now.'));
                 revertFunc(event);
                 return false;
@@ -357,7 +357,7 @@ openerp.booking_calendar = function (session) {
                 res.eventClick = function (event) {
                     if (event.className.indexOf('free_slot') >= 0) {
                         var d = new Date();
-                        d.setTime(d.getTime() + SLOT_START_DELAY_MINS*60000);
+                        d.setTime(d.getTime() - SLOT_START_DELAY_MINS*60000);
                         if (event.start < d) {
                             return;
                         }
@@ -393,7 +393,7 @@ openerp.booking_calendar = function (session) {
                 return;
             }
             var d = new Date();
-            d.setTime(d.getTime() + SLOT_START_DELAY_MINS*60000);
+            d.setTime(d.getTime() - SLOT_START_DELAY_MINS*60000);
             if (start_date < d) {
                 self.$calendar.fullCalendar('unselect');
                 return;
@@ -439,7 +439,7 @@ openerp.booking_calendar = function (session) {
         remove_event: function(id) {
             var id = parseInt(id);
             return this._super(id);
-        }
+        },
     });
 
     session.web_calendar.SidebarFilter.include({
