@@ -18,3 +18,10 @@ class mail_notification(models.Model):
     def _notify(self, cr, uid, message_id, **kwargs):
         super(mail_notification, self)._notify(cr, uid, message_id, **kwargs)
         self.pool['mail.message'].browse(cr, uid, message_id)._get_sent()
+
+
+class mail_compose_message(models.TransientModel):
+
+    _inherit = 'mail.compose.message'
+    sent = fields.Boolean('Sent', help='dummy field to fix inherit error')
+
