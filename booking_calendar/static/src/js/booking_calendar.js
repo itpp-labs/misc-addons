@@ -440,6 +440,24 @@ openerp.booking_calendar = function (session) {
             var id = parseInt(id);
             return this._super(id);
         },
+        open_quick_create: function(data_template) {
+            if (this.free_slots) {
+                var defaults = {};
+                _.each(data_template, function(val, field_name) {
+                    defaults['default_' + field_name] = val;
+                })
+                this.do_action({
+                    'name': _t('Booking Line'),
+                    'type': 'ir.actions.act_window',
+                    'res_model': this.dataset.model,
+                    'target': 'current',
+                    'views': [[false, 'form'], [false, 'list']],
+                    'context': this.dataset.get_context(defaults)
+                });
+            } else {
+                return this._super(data_template);
+            }
+        }
     });
 
     session.web_calendar.SidebarFilter.include({
