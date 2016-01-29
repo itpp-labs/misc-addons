@@ -309,6 +309,7 @@ openerp.booking_calendar = function (session) {
             this.set_free_slot_source(domain);
         },
         set_free_slot_source: function(domain) {
+            var self = this;
             if (! _.isUndefined(this.free_slot_source)) {
                 this.$calendar.fullCalendar('removeEventSource', this.free_slot_source);
             }
@@ -321,6 +322,34 @@ openerp.booking_calendar = function (session) {
                     var model = new session.web.Model("sale.order.line");
                     model.call('get_free_slots', [start, end, d.getTimezoneOffset(), domain || []])
                         .then(function (slots) {
+                            self.now_filter_ids = [];
+                            var color_field = self.fields[self.color_field];
+                            _.each(slots, function (e) {
+                                var key = e[self.color_field];
+                                if (!self.all_filters[key]) {
+                                    filter_item = {
+                                        value: key,
+                                        label: e['title'],
+                                        color: self.get_color(key),
+                                        is_checked: true
+                                    };
+                                    self.all_filters[key] = filter_item;
+                                }
+                                if (! _.contains(self.now_filter_ids, key)) {
+                                    self.now_filter_ids.push(key);
+                                }
+                            });
+                            if (self.sidebar) {
+                                self.sidebar.filter.events_loaded();
+                                self.sidebar.filter.set_filters();
+                                slots = $.map(slots, function (e) {
+                                    var key = e[self.color_field];
+                                    if (_.contains(self.now_filter_ids, key) &&  self.all_filters[key].is_checked) {
+                                        return e;
+                                    }
+                                    return null;
+                                });
+                            }
                             callback(slots);
                         });
                 },

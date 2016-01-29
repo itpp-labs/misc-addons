@@ -183,7 +183,7 @@ class sale_order_line(models.Model):
         return self.search(domain)
 
     @api.model
-    def get_bookings(self, start, end, resources):
+    def get_bookings(self, start, end, resource_ids):
         domain = []
         if resource_ids:
             domain.append(('resource_id', 'in', resource_ids))
@@ -287,7 +287,8 @@ class sale_order_line(models.Model):
                     'title': r.name,
                     'color': r.color,
                     'className': 'free_slot resource_%s' % r.id,
-                    'editable': False
+                    'editable': False,
+                    'resource_id': r.id
                 }
             start_dt += timedelta(minutes=SLOT_DURATION_MINS)
         lines = self.search_booking_lines(start, end, [('resource_id', 'in', [r['id'] for r in resources])])
