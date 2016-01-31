@@ -9,6 +9,8 @@ from openerp.tools.translate import _
 from openerp.exceptions import ValidationError
 
 from openerp.addons.resource.resource import seconds
+import openerp.addons.decimal_precision as dp
+from openerp.osv import fields as old_api_fields, osv
 
 _logger = logging.getLogger(__name__)
 
@@ -104,8 +106,9 @@ class sale_order_line(models.Model):
     calendar_id = fields.Many2one('resource.calendar', related='product_id.calendar_id')
     project_id = fields.Many2one('account.analytic.account', compute='_compute_dependent_fields', store=False, string='Contract')
     partner_id = fields.Many2one('res.partner', compute='_compute_dependent_fields', store=False, string='Customer')
-    overlap = fields.Boolean(compute='_check_date_overlap', default=False, store=True)
+    overlap = fields.Boolean(compute='_compute_date_overlap', default=False, store=True)
     automatic = fields.Boolean(default=False, store=True, help='automatically generated booking lines')
+    active = fields.Boolean(default=True)
 
     @api.multi
     def _compute_dependent_fields(self):
@@ -115,7 +118,7 @@ class sale_order_line(models.Model):
 
     @api.multi
     @api.depends('resource_id', 'booking_start', 'booking_end')
-    def _check_date_overlap(self):
+    def _compute_date_overlap(self):
         for line in self:
             if line.state == 'cancel':
                 continue
@@ -135,6 +138,13 @@ class sale_order_line(models.Model):
                                                ('state', '!=', 'cancel')])
 
             line.overlap = bool(overlaps)
+
+    @api.multi
+    @api.constrains('overlap')
+    def _check_overlap(self):
+        for record in self:
+            if record.overlap:
+                raise ValidationError('There already is booking at that time.')
 
     @api.multi
     @api.constrains('calendar_id', 'booking_start', 'booking_end')
@@ -173,7 +183,7 @@ class sale_order_line(models.Model):
         return self.search(domain)
 
     @api.model
-    def get_bookings(self, start, end, resources):
+    def get_bookings(self, start, end, resource_ids):
         domain = []
         if resource_ids:
             domain.append(('resource_id', 'in', resource_ids))
@@ -191,6 +201,7 @@ class sale_order_line(models.Model):
     @api.multi
     def unlink(self):
         cancelled = self.filtered(lambda line: line.state == 'cancel')
+        self.write({'active': False})
         (self - cancelled).button_cancel()
         super(sale_order_line, cancelled).unlink()
 
@@ -276,7 +287,8 @@ class sale_order_line(models.Model):
                     'title': r.name,
                     'color': r.color,
                     'className': 'free_slot resource_%s' % r.id,
-                    'editable': False
+                    'editable': False,
+                    'resource_id': r.id
                 }
             start_dt += timedelta(minutes=SLOT_DURATION_MINS)
         lines = self.search_booking_lines(start, end, [('resource_id', 'in', [r['id'] for r in resources])])
@@ -305,11 +317,48 @@ class sale_order_line(models.Model):
                 res.append(resource)
         return res
 
+    @api.multi
+    def action_open_sale_order(self):
+        view_id = self.env.ref('sale.view_order_form')
+        order_obj = self.env['sale.order'].search([('id', '=', self.order_id.id)])
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Booking',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'view_id': view_id.id,
+            'res_id': order_obj.id,
+            'res_model': 'sale.order',
+            'target': 'current',
+        }
+
 
 class product_template(models.Model):
     _inherit = 'product.template'
 
     calendar_id = fields.Many2one('resource.calendar', string='Working time')
+
+
+class SaleOrderAmountTotal(osv.osv):
+    _inherit = 'sale.order'
+
+    def _amount_all_wrapper(self, cr, uid, ids, field_name, arg, context=None):
+        return super(SaleOrderAmountTotal, self)._amount_all_wrapper(cr, uid, ids, field_name, arg, context=None)
+
+    def _get_order(self, cr, uid, ids, context=None):
+        result = {}
+        for line in self.pool.get('sale.order.line').browse(cr, uid, ids, context=context):
+            result[line.order_id.id] = True
+        return result.keys()
+
+    _columns = {
+        'amount_total': old_api_fields.function(_amount_all_wrapper, digits_compute=dp.get_precision('Account'), string='Total',
+                                                store={
+                                                    'sale.order': (lambda self, cr, uid, ids, c={}: ids, ['order_line'], 10),
+                                                    'sale.order.line': (_get_order, ['price_unit', 'tax_id', 'discount', 'product_uom_qty', 'state'], 10),
+                                                },
+                                                multi='sums', help="The total amount."),
+    }
 
 
 class SaleOrder(models.Model):

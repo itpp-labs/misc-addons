@@ -3,6 +3,11 @@
 Changelog
 =========
 
+`1.0.3`
+-------
+
+- FIX email_from parsing. There was an error with specific email_from value (e.g. '"name @ example" <name@example.com>')
+
 `1.0.2`
 -------
 
