@@ -25,9 +25,6 @@ openerp.web_calendar_repeat_form = function (session) {
     });
 
     session.web_calendar_repeat_form.QuickCreateRepeated = session.web_calendar.QuickCreate.extend({
-        // build_pop: function() {
-
-        // }
         slow_create: function(data) {
             this.prev_data = {};
             var self = this;
