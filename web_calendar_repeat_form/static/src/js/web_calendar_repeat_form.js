@@ -25,6 +25,9 @@ openerp.web_calendar_repeat_form = function (session) {
     });
 
     session.web_calendar_repeat_form.QuickCreateRepeated = session.web_calendar.QuickCreate.extend({
+        // build_pop: function() {
+
+        // }
         slow_create: function(data) {
             this.prev_data = {};
             var self = this;
@@ -37,9 +40,9 @@ openerp.web_calendar_repeat_form = function (session) {
             });
                         
             var pop_infos = self.get_form_popup_infos();
-            var pop = new session.web.form.FormOpenPopup(this);
+            this.pop = new session.web.form.FormOpenPopup(this);
             var context = new session.web.CompoundContext(this.dataset.context, defaults);
-            pop.show_element(this.dataset.model, null, this.dataset.get_context(defaults), {
+            this.pop.show_element(this.dataset.model, null, this.dataset.get_context(defaults), {
                 title: this.get_title(),
                 disable_multiple_selection: true,
                 view_id: pop_infos.view_id,
@@ -61,12 +64,12 @@ openerp.web_calendar_repeat_form = function (session) {
                     });
                 },
             });
-            pop.on('closed', self, function() {
+            this.pop.on('closed', self, function() {
                 if (def.state() === "pending") {
                     def.resolve();
                 }
             });
-            pop.on('create_completed', self, function(id) {
+            this.pop.on('create_completed', self, function(id) {
                 created = true;
                 self.trigger('slowadded', self.prev_data);
             });
