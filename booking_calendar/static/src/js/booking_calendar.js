@@ -470,23 +470,35 @@ openerp.booking_calendar = function (session) {
             return this._super(id);
         },
         open_quick_create: function(data_template) {
+            this._super(data_template);
             if (this.free_slots) {
-                var defaults = {};
-                _.each(data_template, function(val, field_name) {
-                    defaults['default_' + field_name] = val;
-                })
-                this.do_action({
-                    'name': _t('Booking Line'),
-                    'type': 'ir.actions.act_window',
-                    'res_model': this.dataset.model,
-                    'target': 'current',
-                    'views': [[false, 'form'], [false, 'list']],
-                    'context': this.dataset.get_context(defaults)
+                var self = this;
+                var pop = this.quick.pop;
+                pop.view_form.on("form_view_loaded", pop, function() {
+                    var $sbutton = this.$buttonpane.find(".oe_abstractformpopup-form-save");
+                    var $sobutton = $(_t("<button>Save & Open SO</button>"));
+                    $sbutton.after($sobutton);
+                    $sobutton.click(function() {
+                        $.when(pop.view_form.save()).done(function(line_id) {
+                            pop.view_form.reload_mutex.exec(function() {
+                                pop.check_exit();
+                                self.dataset.read_slice(['order_id'], {domain:[['id', '=', line_id]]})
+                                    .then(function(records){
+                                        self.do_action({
+                                            'type': 'ir.actions.act_window',
+                                            'res_model': 'sale.order',
+                                            'res_id': records[0]['order_id'][0],
+                                            'target': 'current',
+                                            'views': [[false, 'form'], [false, 'list']],
+                                            'context': {}
+                                        });
+                                    });
+                            });
+                        });
+                    });
                 });
-            } else {
-                return this._super(data_template);
             }
-        }
+        },
     });
 
     session.web_calendar.SidebarFilter.include({
