@@ -107,11 +107,6 @@
                         <field name="product_uom_qty" invisible="1"/>
                     </group>
                     <field name="state" widget="statusbar"/>
-                    <group>
-                        <button type="object"
-                                name="action_open_sale_order"
-                                string="Save and open Sale Order"/>
-                    </group>
                 </form>
             </field>
         </record>
