@@ -40,8 +40,8 @@
     </record>
 
     <record id="web_debranding.custom_person" model="ir.config_parameter">
-        <field name="key">web_debranding.new_person</field>
-        <field name="value">Software founder</field>
+        <field name="key">web_debranding.planner_footer</field>
+        <field name="value"> </field>
     </record>
  </data>
 
