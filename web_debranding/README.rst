@@ -23,6 +23,7 @@ module open Settings\\System Parameters and modify
 * web_debranding.new_title (put space in value if you don't need Brand in Title)
 * web_debranding.new_name
 * web_debranding.favicon_url
+* web_debranding.new_person
 
 Further debranding
 ==================
@@ -58,7 +59,7 @@ To automatically install this module for every new databases set **'auto_install
 * base_setup (built-in)
 * bus (built-in)
 
-Tested on Odoo 9.0 eaed775ee2ef601ffac8dbbeeb5d15f9763a083e
+Tested on Odoo 9.0 2ec9a9c99294761e56382bdcd766e90b8bc1bb38
 
 Need our service?
 =================
