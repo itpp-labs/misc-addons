@@ -1,6 +1,11 @@
 from openerp import models, api, tools, SUPERUSER_ID
 
-PARAMS = ['web_debranding.new_name', 'web_debranding.new_title_key', 'web_debranding.favicon_url']
+PARAMS = [
+    'web_debranding.new_name',
+    'web_debranding.new_title_key',
+    'web_debranding.favicon_url',
+    'web_debranding.planner_footer'
+]
 
 class IrConfigParameter(models.Model):
     _inherit = 'ir.config_parameter'

@@ -38,6 +38,11 @@
         <field name="key">web_debranding.favicon_url</field>
         <field name="value"> </field>
     </record>
+
+    <record id="web_debranding.custom_person" model="ir.config_parameter">
+        <field name="key">web_debranding.planner_footer</field>
+        <field name="value"> </field>
+    </record>
  </data>
 
 </openerp>
