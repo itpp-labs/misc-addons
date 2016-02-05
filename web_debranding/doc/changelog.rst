@@ -3,6 +3,12 @@
 Changelog
 =========
 
+`1.0.2`
+-------
+
+- ADD: debrand Planner
+- FIX: updates for recent odoo 9.0
+
 `1.0.1`
 -------
 
