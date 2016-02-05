@@ -107,11 +107,6 @@
                         <field name="product_uom_qty" invisible="1"/>
                     </group>
                     <field name="state" widget="statusbar"/>
-                    <group>
-                        <button type="object"
-                                name="action_open_sale_order"
-                                string="Save and open Sale Order"/>
-                    </group>
                 </form>
             </field>
         </record>
@@ -122,7 +117,7 @@
             <field name="arch" type="xml">
                 <search>
                     <filter name="active_bookings" string="Active Bookings"
-                        domain="[('state', '!=', False), ('booking_start', '&gt;=', time.strftime('%Y-%m-%d %H:%M:%S'))]"/>
+                        domain="[('state', '!=', False), ('booking_end', '&gt;=', time.strftime('%Y-%m-%d %H:%M:%S'))]"/>
                     <group expand="0" string="Group By">
                         <filter string="Booking Month" domain="[]" context="{'group_by':'booking_start'}"/>
                         <filter string="Booking Day" domain="[]" context="{'group_by':'booking_start:day'}"/>

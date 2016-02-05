@@ -3,6 +3,11 @@
 Changelog
 =========
 
+`1.0.4`
+-------
+
+- Fix: don't send mail to attendees after record creation or after date changing
+
 `1.0.3`
 -------
 
