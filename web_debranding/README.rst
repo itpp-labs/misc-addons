@@ -17,8 +17,9 @@ Removes references to odoo.com:
 12. Deletes "My odoo.com account" button
 13. Deletes Apps and other blocks from Settings/Dashboard
 14. Replaces "Odoo" in planner
-15. Replace footer in planner to a custom one.
+15. Replaces footer in planner to a custom one.
 16. Deletes "Odoo" in a request message for permission desktop notifications
+17. [ENTERPRISE] Deletes odoo logo in application switcher
 
 By default the module replaces "Odoo" to "Software". To configure
 module open Settings\\System Parameters and modify

@@ -4,6 +4,7 @@
         <template id="debranding_title_js" name="Debranding title JS"
                   inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/web_debranding/static/src/css/web.css"/>
                 <script type="text/javascript"
                         src="/web_debranding/static/src/js/title.js"></script>
                 <script type="text/javascript"
