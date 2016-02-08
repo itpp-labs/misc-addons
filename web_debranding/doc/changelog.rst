@@ -3,6 +3,12 @@
 Changelog
 =========
 
+`1.0.3`
+-------
+
+- ADD: 16. Deletes "Odoo" in a request message for permission desktop notifications
+
+
 `1.0.2`
 -------
 
