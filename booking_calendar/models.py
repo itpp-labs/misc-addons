@@ -229,6 +229,7 @@ class sale_order_line(models.Model):
             self.order_id = None
         if self.order_id and self.order_id.project_id != self.project_id:
             self.order_id = None
+        return self.env['sale.order'].onchange_partner_id(self.partner_id.id)
 
     @api.onchange('order_id')
     def _on_change_order(self):
@@ -257,6 +258,16 @@ class sale_order_line(models.Model):
             if self.product_id.description_sale:
                 name += '\n' + self.product_id.description_sale
             self.name = name
+            warning = {}
+            if self.product_id.sale_line_warn != 'no-message':
+                title = _("Warning for %s") % self.product_id.name
+                message = self.product_id.sale_line_warn_msg
+                warning['title'] = title
+                warning['message'] = message
+                if self.product_id.sale_line_warn == 'block':
+                    return {'value': {'product_id': False}, 'warning': warning}
+                else:
+                    return {'warning': warning}
 
     @api.onchange('product_id', 'partner_id')
     def _on_change_product_partner_id(self):
