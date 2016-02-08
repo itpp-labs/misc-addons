@@ -207,6 +207,9 @@ class sale_order_line(models.Model):
 
     @api.onchange('booking_start', 'booking_end')
     def _on_change_booking_time(self):
+        domain = {'product_id': []}
+        if self.venue_id:
+            domain['product_id'].append(('venue_id', '=', self.venue_id.id))
         if self.booking_start and self.booking_end:
             start = datetime.strptime(self.booking_start, DTF)
             end = datetime.strptime(self.booking_end, DTF)
@@ -216,8 +219,8 @@ class sale_order_line(models.Model):
             domain_products = [p.id for p in booking_products 
                 if p.calendar_id.validate_time_limits(self.booking_start, self.booking_end)]
             if domain_products:
-                return {'domain': {'product_id': [('id', 'in', domain_products)]}}
-        return {'domain': {'product_id': []}}
+                domain['product_id'].append(('id', 'in', domain_products))
+        return {'domain': domain}
 
 
     @api.onchange('partner_id', 'project_id')
