@@ -102,9 +102,6 @@
                     <field name="booking_start"/>
                     <field name="booking_end"/>
                 </xpath>
-                <xpath expr="//field[@name='order_line']/tree" position="inside">
-                    <calbutton/>
-                </xpath>
             </field>
         </record>
 
