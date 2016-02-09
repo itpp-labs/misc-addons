@@ -6,6 +6,7 @@ Changelog
 `1.0.3`
 -------
 
+- ADD: support Enterprise release
 - ADD: 16. Deletes "Odoo" in a request message for permission desktop notifications
 - ADD: 17. [ENTERPRISE] Deletes odoo logo in application switcher
 
