@@ -3,10 +3,10 @@
     <data>
         <template id="index">
             <t t-call="website.layout">
-                <t t-set="title">New page</t>
+                <t t-set="title">Thank you for registration!</t>
                     <div class="oe_structure">
                         <div class="container">
-                            <h2>Thank you for register!</h2>
+                            <h2>Thank you for registration!</h2>
                             <h3>We send an email to you with registration link. Please open that link in your browser to complete registration.</h3>
                         </div>
                     </div>

@@ -25,6 +25,7 @@ class AuthConfirm(AuthSignupHome):
 
     @http.route('/web/signup', type='http', auth='public', website=True)
     def web_auth_signup(self, *args, **kw):
+        # super call without exception when user login with token. Its happends when user created via backend.
         try:
             return super(AuthConfirm, self).web_auth_signup(*args, **kw)
         except SignupDenied:
@@ -33,8 +34,10 @@ class AuthConfirm(AuthSignupHome):
 
     @http.route('/web/signup/confirm', type='http', auth='public', website=True)
     def singnup_using_generated_link(self, *args, **kw):
-        partner = request.env['res.partner'].sudo().search([('signup_token', '=', kw['token'])])
-        user = request.env['res.users'].sudo().with_context(active_test=False).search([('partner_id', '=', partner.id)])
+        # partner = request.env['res.partner'].sudo().search([('signup_token', '=', kw['token'])])
+        # user = request.env['res.users'].sudo().with_context(active_test=False).search([('partner_id', '=', partner.id)])
+        user = request.env['res.users'].sudo().with_context(active_test=False).search([
+            ('partner_id.signup_token', '=', kw['token'])])
         if user.active:
             pass
         else:
@@ -60,9 +63,7 @@ class AuthConfirm(AuthSignupHome):
             'active': False,
             'password': kw['password']
         })
-        new_partner.user_ids = [new_user.id]
-        kw['partner_id'] = new_partner.id
-        kw['user_id'] = new_user.id
+        new_user.partner_id = new_partner.id
         # send email
         template = request.env.ref('auth_signup_confirmation.email_registration')
         email_ctx = {
@@ -75,4 +76,3 @@ class AuthConfirm(AuthSignupHome):
         }
         composer = request.env['mail.compose.message'].with_context(email_ctx).sudo().create({})
         composer.sudo().send_mail()
-        return kw
