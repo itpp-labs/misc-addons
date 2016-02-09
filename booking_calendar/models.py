@@ -207,6 +207,9 @@ class sale_order_line(models.Model):
 
     @api.onchange('booking_start', 'booking_end')
     def _on_change_booking_time(self):
+        domain = {'product_id': []}
+        if self.venue_id:
+            domain['product_id'].append(('venue_id', '=', self.venue_id.id))
         if self.booking_start and self.booking_end:
             start = datetime.strptime(self.booking_start, DTF)
             end = datetime.strptime(self.booking_end, DTF)
@@ -216,8 +219,8 @@ class sale_order_line(models.Model):
             domain_products = [p.id for p in booking_products 
                 if p.calendar_id.validate_time_limits(self.booking_start, self.booking_end)]
             if domain_products:
-                return {'domain': {'product_id': [('id', 'in', domain_products)]}}
-        return {'domain': {'product_id': []}}
+                domain['product_id'].append(('id', 'in', domain_products))
+        return {'domain': domain}
 
 
     @api.onchange('partner_id', 'project_id')
@@ -226,6 +229,7 @@ class sale_order_line(models.Model):
             self.order_id = None
         if self.order_id and self.order_id.project_id != self.project_id:
             self.order_id = None
+        return self.env['sale.order'].onchange_partner_id(self.partner_id.id)
 
     @api.onchange('order_id')
     def _on_change_order(self):
@@ -254,6 +258,16 @@ class sale_order_line(models.Model):
             if self.product_id.description_sale:
                 name += '\n' + self.product_id.description_sale
             self.name = name
+            warning = {}
+            if self.product_id.sale_line_warn != 'no-message':
+                title = _("Warning for %s") % self.product_id.name
+                message = self.product_id.sale_line_warn_msg
+                warning['title'] = title
+                warning['message'] = message
+                if self.product_id.sale_line_warn == 'block':
+                    return {'value': {'product_id': False}, 'warning': warning}
+                else:
+                    return {'warning': warning}
 
     @api.onchange('product_id', 'partner_id')
     def _on_change_product_partner_id(self):

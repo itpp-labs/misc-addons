@@ -5,7 +5,7 @@
     'license': 'GPL-3',
     'website' : 'https://twitter.com/vkotovi4',
     'category': 'Sale',
-    'depends': ['resource', 'sale', 'web_widget_color', 'web_calendar_repeat_form', 'web_calendar_quick_navigation'],
+    'depends': ['resource', 'sale', 'web_widget_color', 'web_calendar_repeat_form', 'web_calendar_quick_navigation', 'warning'],
     'data': [
         'views.xml',
         'report_saleorder.xml',
