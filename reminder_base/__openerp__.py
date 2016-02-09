@@ -1,6 +1,6 @@
 {
     'name': "Reminders and Agenda (technical core)",
-    'version': '1.0.3',
+    'version': '1.0.4',
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'LGPL-3',
     'category': 'Reminders and Agenda',
