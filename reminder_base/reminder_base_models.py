@@ -29,7 +29,7 @@ class reminder(models.AbstractModel):
             'start_date': fields.Date.today(),
             'stop_date': fields.Date.today(),
         }
-        event = self.env['calendar.event'].with_context(no_mail_to_attendees=True).create(vals)
+        event = self.env['calendar.event'].with_context({no_mail_to_attendees=True}).create(vals)
         return event
 
     @api.model
