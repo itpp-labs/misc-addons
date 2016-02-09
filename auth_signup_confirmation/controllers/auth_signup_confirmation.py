@@ -66,13 +66,4 @@ class AuthConfirm(AuthSignupHome):
         new_user.partner_id = new_partner.id
         # send email
         template = request.env.ref('auth_signup_confirmation.email_registration')
-        email_ctx = {
-            'default_model': 'res.partner',
-            'default_res_id': new_partner.id,
-            'default_use_template': bool(template),
-            'default_template_id': template.id,
-            'default_composition_mode': 'comment',
-            'link': signup_url,
-        }
-        composer = request.env['mail.compose.message'].with_context(email_ctx).sudo().create({})
-        composer.sudo().send_mail()
+        new_partner.with_context(link=signup_url).message_post_with_template(template.id, composition_mode='comment')
