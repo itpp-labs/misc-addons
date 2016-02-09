@@ -1,3 +1,7 @@
 -
   !python {model: ir.translation}: |
     self.clear_caches()
+
+-
+  !python {model: ir.ui.view}: |
+    self._create_debranding_views(cr, uid)
