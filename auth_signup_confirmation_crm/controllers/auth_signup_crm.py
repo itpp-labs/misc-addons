@@ -5,20 +5,17 @@ from openerp.http import request
 import werkzeug
 
 class AuthLead(AuthConfirm):
-    @http.route('/web/signup/confirm', type='http', auth='public', website=True)
+    @http.route('/web/signup/confirm', type='http', auth='public')
     def singnup_using_generated_link(self, *args, **kw):
-        partner = request.env['res.partner'].sudo().search([('signup_token', '=', kw['token'])])
-        user = request.env['res.users'].sudo().with_context(active_test=False).search([('partner_id', '=', partner.id)])
-        if user.active:
-            pass
-        else:
-            user.active = True
-        new_lead = request.env['crm.lead'].sudo().create(
-             {
-                'name': partner.name,
-                'partner_id': partner.id,
-                'contact_name': partner.name,
-                'user_id': user.id,
-             }
-        )
-        return werkzeug.utils.redirect(kw.get('redirect') or '/web/login')
+        user_state_before = request.env['res.users'].sudo().search([('partner_id.signup_token', '=', kw['token'])]).active
+        res = super(AuthLead, self).singnup_using_generated_link(*args, **kw)
+        user = request.env['res.users'].sudo().search([('partner_id.signup_token', '=', kw['token'])])
+        if user.active and not user_state_before:
+            new_lead = request.env['crm.lead'].sudo().create(
+                 {
+                    'name': user.partner_id.name,
+                    'partner_id': user.partner_id.id,
+                    'contact_name': user.partner_id.name,
+                 }
+            )
+        return res
