@@ -7,6 +7,7 @@
     'license': 'GPL-3',
     'depends': [
         'auth_signup_confirmation',
+        'crm',
     ],
     'installable': True,
 }
