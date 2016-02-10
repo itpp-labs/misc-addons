@@ -5,7 +5,7 @@ from openerp.http import request
 import werkzeug
 
 class AuthLead(AuthConfirm):
-    @http.route('/web/signup/confirm', type='http', auth='public', website=True)
+    @http.route('/web/signup/confirm', type='http', auth='public')
     def singnup_using_generated_link(self, *args, **kw):
         res = super(AuthLead, self).singnup_using_generated_link(*args, **kw)
         user = request.env['res.users'].sudo().search([('partner_id.signup_token', '=', kw['token'])])
