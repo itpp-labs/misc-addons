@@ -120,23 +120,24 @@ class sale_order_line(models.Model):
     @api.depends('resource_id', 'booking_start', 'booking_end')
     def _compute_date_overlap(self):
         for line in self:
-            if line.state == 'cancel':
+            if line.state == 'cancel' or not line.active:
                 continue
             overlaps = 0
             if line.resource_id and line.booking_start and line.booking_end:
                 ids = getattr(self, '_origin', False) and self._origin.ids or bool(line.id) and [line.id] or []
-                overlaps = line.search_count(['&', '|', '&', ('booking_start', '>', line.booking_start), ('booking_start', '<', line.booking_end),
+                overlaps = line.search_count([('active', '=', True),
+                                              '&', '|', '&', ('booking_start', '>', line.booking_start), ('booking_start', '<', line.booking_end),
                                               '&', ('booking_end', '>', line.booking_start), ('booking_end', '<', line.booking_end),
                                               ('resource_id', '!=', False),
                                               ('id', 'not in', ids),
                                               ('resource_id', '=', line.resource_id.id),
                                               ('state', '!=', 'cancel')])
-                overlaps += line.search_count([('id', 'not in', ids),
+                overlaps += line.search_count([('active', '=', True),
+                                               ('id', 'not in', ids),
                                                ('booking_start', '=', line.booking_start),
                                                ('booking_end', '=', line.booking_end),
                                                ('resource_id', '=', line.resource_id.id),
                                                ('state', '!=', 'cancel')])
-
             line.overlap = bool(overlaps)
 
     @api.multi
