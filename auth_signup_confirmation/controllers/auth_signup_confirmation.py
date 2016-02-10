@@ -34,8 +34,6 @@ class AuthConfirm(AuthSignupHome):
 
     @http.route('/web/signup/confirm', type='http', auth='public', website=True)
     def singnup_using_generated_link(self, *args, **kw):
-        # partner = request.env['res.partner'].sudo().search([('signup_token', '=', kw['token'])])
-        # user = request.env['res.users'].sudo().with_context(active_test=False).search([('partner_id', '=', partner.id)])
         user = request.env['res.users'].sudo().with_context(active_test=False).search([
             ('partner_id.signup_token', '=', kw['token'])])
         if user.active:
@@ -56,14 +54,18 @@ class AuthConfirm(AuthSignupHome):
         signup_url = new_partner._get_signup_url(SUPERUSER_ID, [new_partner.id])[new_partner.id]
         if redirect_url != 'redirect=':
             signup_url += '&%s' % redirect_url
+        old_user = request.env['res.users'].sudo().search([('login', '=', kw['login'])])
+        if old_user:
+            qcontext = {'error': "A user with this email address is already registered"}
+            return request.render('auth_signup.signup', qcontext)
         new_user = request.env["res.users"].sudo().with_context(no_reset_password=True).create({
             'name': kw['name'],
             'login': kw['login'],
             'alias_name': kw['name'],
             'active': False,
-            'password': kw['password']
+            'password': kw['password'],
+            'partner_id': new_partner.id,
         })
-        new_user.partner_id = new_partner.id
         # send email
         template = request.env.ref('auth_signup_confirmation.email_registration')
         email_ctx = {
