@@ -22,12 +22,12 @@ class AuthConfirm(AuthSignupHome):
         else:
             raise SignupDenied('Authentification Denied.')
 
-    @http.route('/web/signup/thankyou/', type='http', auth='public', website=True)
+    @http.route('/web/signup/thankyou/', type='http', auth='public')
     def thankyou(self, *args):
         # Show how to complete registration
         return http.request.render('auth_signup_confirmation.index')
 
-    @http.route('/web/signup', type='http', auth='public', website=True)
+    @http.route('/web/signup', type='http', auth='public')
     def web_auth_signup(self, *args, **kw):
         # super call without exception when user login with token. Its happends when user created via backend.
         try:
@@ -43,7 +43,7 @@ class AuthConfirm(AuthSignupHome):
         qcontext['error'] = 'A user with this email address is already registered'
         return request.render('auth_signup.signup', qcontext)
 
-    @http.route('/web/signup/confirm', type='http', auth='public', website=True)
+    @http.route('/web/signup/confirm', type='http', auth='public')
     def singnup_using_generated_link(self, *args, **kw):
         user = request.env['res.users'].sudo().with_context(active_test=False).search([
             ('partner_id.signup_token', '=', kw['token'])])
