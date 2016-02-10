@@ -5,10 +5,14 @@ from openerp import SUPERUSER_ID
 from openerp.addons.auth_signup.controllers.main import AuthSignupHome
 from openerp import http
 from openerp.http import request
-
+from openerp.tools.translate import _
+1
 _logger = logging.getLogger(__name__)
 
 class SignupDenied(Exception):
+    pass
+
+class UserExists(Exception):
     pass
 
 class AuthConfirm(AuthSignupHome):
@@ -29,8 +33,15 @@ class AuthConfirm(AuthSignupHome):
         try:
             return super(AuthConfirm, self).web_auth_signup(*args, **kw)
         except SignupDenied:
-            self._send_email(*args, **kw)
+            pass
+        try:
+            res = self._send_email(*args, **kw)
             return werkzeug.utils.redirect('/web/signup/thankyou/')
+        except UserExists:
+            pass
+        qcontext = self.get_auth_signup_qcontext()
+        qcontext['error'] = 'A user with this email address is already registered'
+        return request.render('auth_signup.signup', qcontext)
 
     @http.route('/web/signup/confirm', type='http', auth='public', website=True)
     def singnup_using_generated_link(self, *args, **kw):
@@ -54,18 +65,22 @@ class AuthConfirm(AuthSignupHome):
         signup_url = new_partner._get_signup_url(SUPERUSER_ID, [new_partner.id])[new_partner.id]
         if redirect_url != 'redirect=':
             signup_url += '&%s' % redirect_url
-        old_user = request.env['res.users'].sudo().search([('login', '=', kw['login'])])
-        if old_user:
-            qcontext = {'error': "A user with this email address is already registered"}
-            return request.render('auth_signup.signup', qcontext)
-        new_user = request.env["res.users"].sudo().with_context(no_reset_password=True).create({
-            'name': kw['name'],
-            'login': kw['login'],
-            'alias_name': kw['name'],
-            'active': False,
-            'password': kw['password'],
-            'partner_id': new_partner.id,
-        })
+        old_active_user = request.env['res.users'].sudo().search([('login', '=', kw['login'])])
+        if old_active_user:
+            raise UserExists("A user with this email address is already registered")
+        old_not_active_user = request.env['res.users'].sudo().with_context(active_test=False).search([
+            ('login', '=', kw['login'])])
+        if old_not_active_user:
+            new_user = old_not_active_user
+        else:
+            new_user = request.env["res.users"].sudo().with_context(no_reset_password=True).create({
+                'name': kw['name'],
+                'login': kw['login'],
+                'alias_name': kw['name'],
+                'active': False,
+                'password': kw['password'],
+                'partner_id': new_partner.id,
+            })
         # send email
         template = request.env.ref('auth_signup_confirmation.email_registration')
         email_ctx = {
