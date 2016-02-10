@@ -72,6 +72,7 @@ class AuthConfirm(AuthSignupHome):
             ('login', '=', kw['login'])])
         if old_not_active_user:
             new_user = old_not_active_user
+            new_user.password = kw['password']
         else:
             new_user = request.env["res.users"].sudo().with_context(no_reset_password=True).create({
                 'name': kw['name'],
