@@ -2,7 +2,6 @@
     <data noupdate="1">
         <record id="email_registration" model="mail.template">
             <field name="name">email for registation</field>
-            <field name="email_from">${ctx["email_from"]}</field>
             <field name="subject">Confirm registration</field>
             <field name="partner_to">${object.id}</field>
             <field name="email_to">${ctx["email_to"]}</field>
