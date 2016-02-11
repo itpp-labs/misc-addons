@@ -54,17 +54,6 @@ class AuthConfirm(AuthSignupHome):
         return werkzeug.utils.redirect(kw.get('redirect') or '/web/login')
 
     def _send_email(self, *args, **kw):
-        new_partner = request.env['res.partner'].sudo().with_context(signup_force_type_in_url='signup/confirm',
-                                                                     signup_valid=True).create(
-             {
-                'name': kw['name'],
-                'lang': 'en_US',
-             }
-        )
-        redirect_url = werkzeug.url_encode({'redirect': kw['redirect']})
-        signup_url = new_partner._get_signup_url(SUPERUSER_ID, [new_partner.id])[new_partner.id]
-        if redirect_url != 'redirect=':
-            signup_url += '&%s' % redirect_url
         old_active_user = request.env['res.users'].sudo().search([('login', '=', kw['login'])])
         if old_active_user:
             raise UserExists("A user with this email address is already registered")
@@ -73,7 +62,16 @@ class AuthConfirm(AuthSignupHome):
         if old_not_active_user:
             new_user = old_not_active_user
             new_user.password = kw['password']
+            new_partner = new_user.partner_id
+            new_partner.email = kw['login']
         else:
+            new_partner = request.env['res.partner'].sudo().with_context(signup_force_type_in_url='signup/confirm',
+                                                                         signup_valid=True).create(
+                {
+                    'name': kw['name'],
+                    'email': kw['login'],
+                }
+            )
             new_user = request.env["res.users"].sudo().with_context(no_reset_password=True).create({
                 'name': kw['name'],
                 'login': kw['login'],
@@ -82,6 +80,11 @@ class AuthConfirm(AuthSignupHome):
                 'password': kw['password'],
                 'partner_id': new_partner.id,
             })
+        redirect_url = werkzeug.url_encode({'redirect': kw['redirect']})
+        signup_url = new_partner.with_context(signup_force_type_in_url='signup/confirm',
+            signup_valid=True)._get_signup_url(SUPERUSER_ID, [new_partner.id])[new_partner.id]
+        if redirect_url != 'redirect=':
+            signup_url += '&%s' % redirect_url
         # send email
         template = request.env.ref('auth_signup_confirmation.email_registration')
         email_ctx = {
