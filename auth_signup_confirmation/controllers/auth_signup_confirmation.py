@@ -1,13 +1,9 @@
 # -*- coding: utf-8 -*-
-import logging
 import werkzeug
 from openerp import SUPERUSER_ID
 from openerp.addons.auth_signup.controllers.main import AuthSignupHome
 from openerp import http
 from openerp.http import request
-from openerp.tools.translate import _
-1
-_logger = logging.getLogger(__name__)
 
 class SignupDenied(Exception):
     pass
@@ -35,7 +31,7 @@ class AuthConfirm(AuthSignupHome):
         except SignupDenied:
             pass
         try:
-            res = self._send_email(*args, **kw)
+            res = self._singup_with_confirmation(*args, **kw)
             return werkzeug.utils.redirect('/web/signup/thankyou/')
         except UserExists:
             pass
@@ -53,7 +49,7 @@ class AuthConfirm(AuthSignupHome):
             user.active = True
         return werkzeug.utils.redirect(kw.get('redirect') or '/web/login')
 
-    def _send_email(self, *args, **kw):
+    def _singup_with_confirmation(self, *args, **kw):
         old_active_user = request.env['res.users'].sudo().search([('login', '=', kw['login'])])
         if old_active_user:
             raise UserExists("A user with this email address is already registered")
@@ -72,14 +68,14 @@ class AuthConfirm(AuthSignupHome):
                     'email': kw['login'],
                 }
             )
-            new_user = request.env["res.users"].sudo().with_context(no_reset_password=True).create({
-                'name': kw['name'],
-                'login': kw['login'],
-                'alias_name': kw['name'],
-                'active': False,
-                'password': kw['password'],
-                'partner_id': new_partner.id,
-            })
+            ru = request.env['res.users']
+            values = {'partner_id': new_partner.id, 'login': kw['login']}
+            new_user_id = ru.sudo()._signup_create_user(values)
+            new_user = request.env['res.users'].sudo().search([('id', '=', new_user_id)])
+            new_user.name = kw['name']
+            new_user.alias_name = kw['name']
+            new_user.active = False
+            new_user.password = kw['password']
         redirect_url = werkzeug.url_encode({'redirect': kw['redirect']})
         signup_url = new_partner.with_context(signup_force_type_in_url='signup/confirm',
             signup_valid=True)._get_signup_url(SUPERUSER_ID, [new_partner.id])[new_partner.id]
