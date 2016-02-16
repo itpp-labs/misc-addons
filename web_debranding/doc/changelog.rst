@@ -3,6 +3,11 @@
 Changelog
 =========
 
+`1.0.4`
+-------
+
+- ADD: hide Enterprise features in Settings
+
 `1.0.3`
 -------
 
