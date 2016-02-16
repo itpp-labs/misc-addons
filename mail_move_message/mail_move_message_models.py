@@ -282,6 +282,10 @@ class mail_message(models.Model):
                 r_vals['model'] = r.moved_from_model
             print 'update message', r, r_vals
             r.sudo().write(r_vals)
+            r.attachment_ids.sudo().write({
+                'res_id': r_vals.get('res_id'),
+                'res_model': r_vals.get('model')
+            })
 
     def name_get(self, cr, uid, ids, context=None):
         if not (context or {}).get('extended_name'):
