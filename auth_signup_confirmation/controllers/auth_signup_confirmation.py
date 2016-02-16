@@ -35,7 +35,7 @@ class AuthConfirm(AuthSignupHome):
             message =  request.env['mail.message'].sudo().search([('res_id', '=', res['partner_id']),
                                                                   ('subject', '=', 'Confirm registration')])
             request.registry['mail.message'].set_message_read(request.cr, res['user_id'], [message.id], read=True, context=request.context)
-            registration_redirect_url = request.registry['ir.config_parameter'].get_param(request.cr, SUPERUSER_ID, 'registration_redirect_url')
+            registration_redirect_url = request.registry['ir.config_parameter'].get_param(request.cr, SUPERUSER_ID, 'auth_signup_confirmation.url_singup_thankyou')
             return werkzeug.utils.redirect(registration_redirect_url)
         except UserExists:
             pass
@@ -66,7 +66,7 @@ class AuthConfirm(AuthSignupHome):
             new_partner.email = kw['login']
         else:
             new_partner = request.env['res.partner'].sudo().with_context(signup_force_type_in_url='signup/confirm',
-                                                                         signup_valid=True, default_starred=True).create(
+                                                                         signup_valid=True).create(
                 {
                     'name': kw['name'],
                     'email': kw['login'],

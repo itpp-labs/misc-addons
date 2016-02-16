@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="1">
+
+    <record id="auth_signup_confirmation.url_singup_thankyou" model="ir.config_parameter">
+        <field name="key">auth_signup_confirmation.url_singup_thankyou</field>
+        <field name="value">/web/signup/thankyou/</field>
+    </record>
+
+</data>
+</openerp>
