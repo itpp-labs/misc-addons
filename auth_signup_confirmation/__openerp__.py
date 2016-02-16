@@ -8,7 +8,7 @@
     'depends': [
         'auth_signup',
     ],
-    'data':['views/thankyou.xml','data/email.xml'],
+    'data':['data/config.xml', 'views/thankyou.xml','data/email.xml'],
     'installable': True,
     'post_init_hook': 'init_auth',
 }
