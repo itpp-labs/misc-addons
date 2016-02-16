@@ -66,7 +66,7 @@ class AuthConfirm(AuthSignupHome):
             new_partner.email = kw['login']
         else:
             new_partner = request.env['res.partner'].sudo().with_context(signup_force_type_in_url='signup/confirm',
-                                                                         signup_valid=True, default_starred=True).create(
+                                                                         signup_valid=True).create(
                 {
                     'name': kw['name'],
                     'email': kw['login'],
