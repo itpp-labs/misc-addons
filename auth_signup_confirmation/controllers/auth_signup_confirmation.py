@@ -89,3 +89,4 @@ class AuthConfirm(AuthSignupHome):
         # send email
         template = request.env.ref('auth_signup_confirmation.email_registration')
         new_partner.with_context(link=signup_url).message_post_with_template(template.id, composition_mode='comment')
+        return {'partner_id': new_partner.id, 'user_id': new_user.id}
