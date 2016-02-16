@@ -8,3 +8,4 @@ def init_auth(cr, registry):
     icp = registry['ir.config_parameter']
     icp.set_param(cr, SUPERUSER_ID, 'auth_signup.allow_uninvited', True)
     icp.set_param(cr, SUPERUSER_ID, 'registration_redirect_url', '/web/signup/thankyou/')
+    
