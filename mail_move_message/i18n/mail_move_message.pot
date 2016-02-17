@@ -166,3 +166,9 @@ msgstr ""
 #: help:mail_move_message.wizard,filter_by_partner:0
 msgid "Show only records with the same partner as email author"
 msgstr ""
+
+#. module: mail_move_message
+#: help:mail_move_message.wizard,move_followers:0
+msgid "Add followers of current record to a new record. You must use this option, if new record has restricted access. \n You can change default value for this option at Settings/System Parameters
+Add a line note"
+msgstr ""
