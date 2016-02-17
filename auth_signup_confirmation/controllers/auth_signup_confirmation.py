@@ -34,7 +34,6 @@ class AuthConfirm(AuthSignupHome):
             res = self._singup_with_confirmation(*args, **kw)
             message =  request.env['mail.message'].sudo().search([('res_id', '=', res['partner_id']),
                                                                   ('subject', '=', 'Confirm registration')])
-            # request.registry['mail.message'].set_message_read(request.cr, res['user_id'], [message.id], read=True, context=request.context)
             message.sudo(res['user_id']).set_message_done([res['partner_id']])
             registration_redirect_url = request.registry['ir.config_parameter'].get_param(request.cr, SUPERUSER_ID, 'auth_signup_confirmation.url_singup_thankyou')
             return werkzeug.utils.redirect(registration_redirect_url)
