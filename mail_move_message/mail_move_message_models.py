@@ -33,7 +33,6 @@ class wizard(models.TransientModel):
 
         if 'message_id' in res:
             message = self.env['mail.message'].browse(res['message_id'])
-            res['model'] = message.model
             email_from = message.email_from
             parts = email_split(email_from.replace(' ',','))
             if parts:
