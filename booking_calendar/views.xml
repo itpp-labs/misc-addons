@@ -103,8 +103,7 @@
                         <field name="booking_start"/>
                         <field name="booking_end"/>
                         <field name="price_unit"/>
-                        <field name="price_subtotal" invisible="1"/>
-                        <field name="product_uom_qty" invisible="1"/>
+                        <field name="price_subtotal"/>
                     </group>
                     <field name="state" widget="statusbar"/>
                 </form>

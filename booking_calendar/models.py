@@ -317,21 +317,6 @@ class sale_order_line(models.Model):
                 res.append(resource)
         return res
 
-    @api.multi
-    def action_open_sale_order(self):
-        view_id = self.env.ref('sale.view_order_form')
-        order_obj = self.env['sale.order'].search([('id', '=', self.order_id.id)])
-        return {
-            'type': 'ir.actions.act_window',
-            'name': 'Booking',
-            'view_type': 'form',
-            'view_mode': 'form',
-            'view_id': view_id.id,
-            'res_id': order_obj.id,
-            'res_model': 'sale.order',
-            'target': 'current',
-        }
-
 
 class product_template(models.Model):
     _inherit = 'product.template'

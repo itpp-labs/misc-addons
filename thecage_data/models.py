@@ -152,6 +152,7 @@ class GenerateBookingWizard(models.TransientModel):
                 'booking_start': active_order.order_line[0].booking_start,
                 'booking_end': active_order.order_line[0].booking_end,
             })
+
         return result
 
     @api.onchange('booking_start', 'booking_end')
@@ -164,8 +165,8 @@ class GenerateBookingWizard(models.TransientModel):
     @api.one
     @api.depends('booking_start')
     def _compute_day_of_week(self):
-        dt = self.booking_start and datetime.strptime(self.booking_start, DTF)
-        self.day_of_week = dt and date(dt.year, dt.month, dt.day).weekday()
+        dt = datetime.strptime(self.booking_start, DTF)
+        self.day_of_week = date(dt.year, dt.month, dt.day).weekday()
 
     @api.multi
     def clear_booking_lines(self):
