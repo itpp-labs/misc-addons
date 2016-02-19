@@ -6,4 +6,4 @@ Changelog
 `1.0.1`
 -------
 
-- FIX: updated time bug
+- FIX: incorrectly displayed last updated time when multiple threads (--workers)
