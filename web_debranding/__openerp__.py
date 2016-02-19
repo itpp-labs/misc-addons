@@ -1,6 +1,6 @@
 {
     'name': "Backend debranding",
-    'version': '1.0.1',
+    'version': '1.0.4',
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'LGPL-3',
     'category': 'Debranding',
@@ -26,5 +26,6 @@
         'static/src/xml/web.xml',
     ],
     'auto_install': False,
+    'uninstall_hook': 'uninstall_hook',
     'installable': True
 }

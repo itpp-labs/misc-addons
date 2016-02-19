@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates>
-    <t t-extend="UserMenu">
-        <t t-jquery="a[data-menu='account']" t-operation="replace"></t>
-    </t>
-    <t t-extend="PlannerLauncher">
-        <t t-jquery="li.o_planner_systray" t-operation="replace"></t>
-        <t t-jquery="li.o_planner_help" t-operation="replace"></t>
+
+    <t t-extend="mail.client_action">
+      <t t-jquery=".o_mail_request_permission" t-operation="inner">
+        Your permission is required to <a href="#"> enable desktop notifications</a>.
+      </t>
     </t>
 
+    <t t-extend="UserMenu">
+      <!-- It supports versions before and after this commit https://github.com/odoo/odoo/commit/bcca4a44c79d94db320ffe6f8311fcbb7ff81421 -->
+        <t t-jquery="a[data-menu='documentation']" t-operation="replace"></t>
+        <t t-jquery="a[data-menu='support']" t-operation="replace"></t>
+        <t t-jquery="a[data-menu='about']" t-operation="replace"></t>
+        <t t-jquery="a[data-menu='account']" t-operation="replace"></t>
+        <t t-jquery="li.divider" t-operation="replace"></t>
+    </t>
 </templates>

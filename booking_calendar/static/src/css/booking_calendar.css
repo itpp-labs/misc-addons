@@ -1133,3 +1133,6 @@ be a descendant of the grid when it is being dragged.
 .openerp .oe_calendar_table .cal_opacity:hover {
     opacity: 1;
 }
+/*.fc-view-month .free_slot {
+    display: none;
+}*/
