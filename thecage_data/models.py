@@ -55,6 +55,12 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     booking_reminder = fields.Boolean(default=False, select=True)
+    booking_state = fields.Selection([('in_progress', 'In Progress'),
+                                      ('consumed', 'Consumed'),
+                                      ('no_show', 'No Show'),
+                                      ('rain_check', 'Rain Check'),
+                                      ('emergency', 'Emergency')],
+                                     default='in_progress', required='True')
 
     @api.model
     def _cron_booking_reminder(self):
@@ -223,3 +229,22 @@ class GenerateBookingWizard(models.TransientModel):
                                                 'booking_end': line.booking_end,
                                                 'automatic': True,
                                                 'state': 'draft'})
+
+
+class AccountInvoice(models.Model):
+    _inherit = "account.invoice"
+
+    @api.multi
+    @api.returns('self')
+    def refund(self, date=None, period_id=None, description=None, journal_id=None):
+        res = super(AccountInvoice, self).refund(date=date, period_id=period_id, description=description, journal_id=journal_id)
+        for invoice in self:
+            order_obj = self.env['sale.order'].search([('name', '=', invoice.origin)])
+            # we have overrided sale.order.line unlink() method such as it at first set state=canceled, active=False
+            # second call of unlink() on calnceled lines will actually deletes them
+            for line in order_obj.order_line:
+                line.active = False
+            # order_obj.order_line.unlink()
+        return res
+
+
