@@ -1,4 +1,0 @@
-"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
-"access_ir_module_category_group_user","ir_module_category group_user","base.model_ir_module_category","group_show_modules_menu",1,0,0,0
-"access_ir_module_module_group_user","ir_module_module group_user","base.model_ir_module_module","group_show_modules_menu",1,1,1,1
-"access_ir_module_module_dependency_group_show_modules_menu","ir_module_module_dependency group_show_modules_menu","base.model_ir_module_module_dependency","group_show_modules_menu",1,1,1,1

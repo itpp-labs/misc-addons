@@ -1,6 +1,6 @@
 {
     'name' : 'Check mail immediately',
-    'version' : '1.0.0',
+    'version' : '1.0.1',
     'author' : 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'LGPL-3',
     'category' : 'Social Network',
