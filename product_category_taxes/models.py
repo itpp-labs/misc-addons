@@ -6,7 +6,6 @@ class ProductTemplate(models.Model):
 
     @api.model
     def _get_new_taxes(self, categ_id):
-        print 'categ_id', categ_id
         new_category = self.env['product.category'].browse(categ_id)
         new_taxes = {
             'taxes_id': [(6, 0, new_category.taxes_id.ids)],
