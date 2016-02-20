@@ -7,6 +7,17 @@ Different modules for Odoo.
 
 Warninig:
 ---------
+the modules:
+ - access_base
+ - access_custom
+ - access_custom2
+ - ir_rule_protected
+ - access_restricted
+ - hidden_admin
+ - access_apps
+ - access_settings_menu
+
+are moved to the https://github.com/yelizariev/access-addons repo and will be deleted from this repository soon
 
 the modules:
  - sale_report_kz

@@ -120,24 +120,23 @@ class sale_order_line(models.Model):
     @api.depends('resource_id', 'booking_start', 'booking_end')
     def _compute_date_overlap(self):
         for line in self:
-            if line.state == 'cancel' or not line.active:
+            if line.state == 'cancel':
                 continue
             overlaps = 0
             if line.resource_id and line.booking_start and line.booking_end:
                 ids = getattr(self, '_origin', False) and self._origin.ids or bool(line.id) and [line.id] or []
-                overlaps = line.search_count([('active', '=', True),
-                                              '&', '|', '&', ('booking_start', '>', line.booking_start), ('booking_start', '<', line.booking_end),
+                overlaps = line.search_count(['&', '|', '&', ('booking_start', '>', line.booking_start), ('booking_start', '<', line.booking_end),
                                               '&', ('booking_end', '>', line.booking_start), ('booking_end', '<', line.booking_end),
                                               ('resource_id', '!=', False),
                                               ('id', 'not in', ids),
                                               ('resource_id', '=', line.resource_id.id),
                                               ('state', '!=', 'cancel')])
-                overlaps += line.search_count([('active', '=', True),
-                                               ('id', 'not in', ids),
+                overlaps += line.search_count([('id', 'not in', ids),
                                                ('booking_start', '=', line.booking_start),
                                                ('booking_end', '=', line.booking_end),
                                                ('resource_id', '=', line.resource_id.id),
                                                ('state', '!=', 'cancel')])
+
             line.overlap = bool(overlaps)
 
     @api.multi
@@ -208,9 +207,6 @@ class sale_order_line(models.Model):
 
     @api.onchange('booking_start', 'booking_end')
     def _on_change_booking_time(self):
-        domain = {'product_id': []}
-        if self.venue_id:
-            domain['product_id'].append(('venue_id', '=', self.venue_id.id))
         if self.booking_start and self.booking_end:
             start = datetime.strptime(self.booking_start, DTF)
             end = datetime.strptime(self.booking_end, DTF)
@@ -220,8 +216,8 @@ class sale_order_line(models.Model):
             domain_products = [p.id for p in booking_products 
                 if p.calendar_id.validate_time_limits(self.booking_start, self.booking_end)]
             if domain_products:
-                domain['product_id'].append(('id', 'in', domain_products))
-        return {'domain': domain}
+                return {'domain': {'product_id': [('id', 'in', domain_products)]}}
+        return {'domain': {'product_id': []}}
 
 
     @api.onchange('partner_id', 'project_id')
@@ -230,7 +226,6 @@ class sale_order_line(models.Model):
             self.order_id = None
         if self.order_id and self.order_id.project_id != self.project_id:
             self.order_id = None
-        return self.env['sale.order'].onchange_partner_id(self.partner_id.id)
 
     @api.onchange('order_id')
     def _on_change_order(self):
@@ -259,16 +254,6 @@ class sale_order_line(models.Model):
             if self.product_id.description_sale:
                 name += '\n' + self.product_id.description_sale
             self.name = name
-            warning = {}
-            if self.product_id.sale_line_warn != 'no-message':
-                title = _("Warning for %s") % self.product_id.name
-                message = self.product_id.sale_line_warn_msg
-                warning['title'] = title
-                warning['message'] = message
-                if self.product_id.sale_line_warn == 'block':
-                    return {'value': {'product_id': False}, 'warning': warning}
-                else:
-                    return {'warning': warning}
 
     @api.onchange('product_id', 'partner_id')
     def _on_change_product_partner_id(self):

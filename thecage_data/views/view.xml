@@ -129,40 +129,7 @@
 
       <record model="ir.actions.act_window" id="booking_calendar.booking_orders_lines_list_action">
           <field name="context" eval="{'search_default_active_bookings': 1, 'search_default_venue_kallang':1}"/>
-      </record>
-      
-      <record id="thecage_view_booking_order_line_tree" model="ir.ui.view">
-        <field name="name">sale.order.line.tree</field>
-        <field name="model">sale.order.line</field>
-        <field name="inherit_id" ref="booking_calendar.view_booking_order_line_tree"/>
-        <field name="arch" type="xml">
-          <xpath expr="//field[@name='state']" position="after">
-            <field name="booking_state"/>
-          </xpath>
-        </field>
-      </record>
+        </record>
 
-      <record id="thecage_view_booking_order_line_form" model="ir.ui.view">
-        <field name="name">thecage.booking.order.line</field>
-        <field name="model">sale.order.line</field>
-        <field name="inherit_id" ref="booking_calendar.view_booking_order_line_form"/>
-        <field name="arch" type="xml">
-          <xpath expr="//field[@name='price_unit']" position="after">
-            <field name="booking_state"/>
-          </xpath>
-        </field>
-      </record>
-
-      <record id="thecage_view_order_form" model="ir.ui.view">
-        <field name="name">sale.order.form</field>
-        <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale.view_order_form"/>
-        <field name="arch" type="xml">
-          <xpath expr="//field[@name='order_line']/tree" position="inside">
-            <field name="booking_state"/>
-          </xpath>
-        </field>
-      </record>
-      
     </data>
 </openerp>

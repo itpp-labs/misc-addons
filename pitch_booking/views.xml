@@ -102,6 +102,9 @@
                     <field name="booking_start"/>
                     <field name="booking_end"/>
                 </xpath>
+                <xpath expr="//field[@name='order_line']/tree" position="inside">
+                    <calbutton/>
+                </xpath>
             </field>
         </record>
 
@@ -197,9 +200,6 @@
                       <field name="venue_id"/>
                       <field name="pitch_id"/>
                     </group>
-                </xpath>
-                <xpath expr="//field[@name='product_id']" position="attributes">
-                    <attribute name="domain">[('venue_id','=',venue_id)]</attribute>
                 </xpath>
             </field>
         </record>
