@@ -34,7 +34,7 @@ class AuthConfirm(AuthSignupHome):
             res = self._singup_with_confirmation(*args, **kw)
             message =  request.env['mail.message'].sudo().search([('res_id', '=', res['partner_id']),
                                                                   ('subject', '=', 'Confirm registration')])
-            request.registry['mail.message'].set_message_read(request.cr, res['user_id'], [message.id], read=True, context=request.context)
+            message.sudo(res['user_id']).set_message_done([res['partner_id']])
             registration_redirect_url = request.registry['ir.config_parameter'].get_param(request.cr, SUPERUSER_ID, 'auth_signup_confirmation.url_singup_thankyou')
             return werkzeug.utils.redirect(registration_redirect_url)
         except UserExists:
@@ -76,7 +76,7 @@ class AuthConfirm(AuthSignupHome):
             values = {'partner_id': new_partner.id,
                       'login': kw['login'],
                       'password': kw['password'],
-                      'name': kw['name'] ,
+                      'name': kw['name'],
                       'alias_name': kw['name']}
             new_user_id = res_users.sudo()._signup_create_user(values)
             new_user = request.env['res.users'].sudo().search([('id', '=', new_user_id)])
@@ -89,3 +89,4 @@ class AuthConfirm(AuthSignupHome):
         # send email
         template = request.env.ref('auth_signup_confirmation.email_registration')
         new_partner.with_context(link=signup_url).message_post_with_template(template.id, composition_mode='comment')
+        return {'partner_id': new_partner.id, 'user_id': new_user.id}
