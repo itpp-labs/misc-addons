@@ -29,7 +29,9 @@ class reminder(models.AbstractModel):
             'start_date': fields.Date.today(),
             'stop_date': fields.Date.today(),
         }
-        event = self.env['calendar.event'].with_context({}).create(vals)
+        event = self.env['calendar.event'].with_context({
+            'no_mail_to_attendees': True
+        }).create(vals)
         return event
 
     @api.model
@@ -104,7 +106,7 @@ class reminder(models.AbstractModel):
                     partner_ids.append(partner.id)
             vals['partner_ids'] = [(6, 0, partner_ids)]
 
-        event.write(vals)
+        event.with_context(no_mail_to_attendees=True).write(vals)
 
     @api.model
     def _check_and_create_reminder_event(self, vals):

@@ -55,6 +55,12 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     booking_reminder = fields.Boolean(default=False, select=True)
+    booking_state = fields.Selection([('in_progress', 'In Progress'),
+                                      ('consumed', 'Consumed'),
+                                      ('no_show', 'No Show'),
+                                      ('rain_check', 'Rain Check'),
+                                      ('emergency', 'Emergency')],
+                                     default='in_progress', required='True')
 
     @api.model
     def _cron_booking_reminder(self):
@@ -87,15 +93,49 @@ class ResPartnerReminderConfig(models.Model):
     reminder_email = fields.Boolean(default=True, string='Booking email reminder enabled')
 
 
+class LinesWizard(models.TransientModel):
+    _name = 'thecage_data.lines_wizard'
+
+    booking_start = fields.Datetime(string='Booking start')
+    booking_end = fields.Datetime(string='Booking end')
+    pitch_id = fields.Many2one('pitch_booking.pitch', string='Pitch')
+    booking_id = fields.Many2one('thecage_data.generate_booking_wizard')
+    overlap = fields.Boolean(default=False)
+
+    @api.multi
+    def find_overlaps(self, pitch_id, booking_start, booking_end):
+        overlaps = 0
+        overlaps = self.env['sale.order.line'].search_count(['&', '|', '&', ('booking_start', '>', booking_start), ('booking_start', '<', booking_end),
+                                                             '&', ('booking_end', '>', booking_start), ('booking_end', '<', booking_end),
+                                                             ('pitch_id', '!=', False),
+                                                             ('pitch_id', '=', pitch_id)])
+        overlaps += self.env['sale.order.line'].search_count([('booking_start', '=', booking_start),
+                                                              ('booking_end', '=', booking_end),
+                                                              ('pitch_id', '=', pitch_id)])
+        return overlaps
+
+    @api.multi
+    @api.onchange('pitch_id', 'booking_start', 'booking_end')
+    def _on_change_overlap(self):
+        for line in self:
+            overlaps = 0
+            if line.pitch_id and line.booking_start and line.booking_end:
+                overlaps = self.find_overlaps(pitch_id=line.pitch_id.id, booking_start=line.booking_start, booking_end=line.booking_end)
+            line.overlap = bool(overlaps)
+
+
 class GenerateBookingWizard(models.TransientModel):
     _name = 'thecage_data.generate_booking_wizard'
 
-    quantity = fields.Integer(string='Number of bookings to generate', default=52)
+    quantity = fields.Integer(string='Number of bookings to generate', default=51)
     product_id = fields.Many2one('product.product', string='Product')
     venue_id = fields.Many2one('pitch_booking.venue', string='Venue', related='product_id.venue_id')
     pitch_id = fields.Many2one('pitch_booking.pitch', string='Pitch')
     booking_start = fields.Datetime(string='Booking start')
     booking_end = fields.Datetime(string='Booking end')
+    product_uom_qty = fields.Integer()
+    order_id = fields.Integer()
+    line_ids = fields.One2many('thecage_data.lines_wizard', 'booking_id')
 
     day_of_week = fields.Selection([(0, 'Monday'),
                                     (1, 'Tuesday'),
@@ -112,12 +152,20 @@ class GenerateBookingWizard(models.TransientModel):
         active_order = self.pool['sale.order'].browse(cr, uid, active_id, context=context)
         if len(active_order.order_line) > 0:
             result.update({
+                'order_id': active_order.id,
                 'product_id': active_order.order_line[0].product_id.id,
                 'pitch_id': active_order.order_line[0].pitch_id.id,
                 'booking_start': active_order.order_line[0].booking_start,
-                'booking_end': active_order.order_line[0].booking_end
+                'booking_end': active_order.order_line[0].booking_end,
             })
         return result
+
+    @api.onchange('booking_start', 'booking_end')
+    def _on_change_booking_time(self):
+        if self.booking_start and self.booking_end:
+            start = datetime.strptime(self.booking_start, DTF)
+            end = datetime.strptime(self.booking_end, DTF)
+            self.product_uom_qty = (end - start).seconds/3600
 
     @api.one
     @api.depends('booking_start')
@@ -126,21 +174,77 @@ class GenerateBookingWizard(models.TransientModel):
         self.day_of_week = dt and date(dt.year, dt.month, dt.day).weekday()
 
     @api.multi
+    def clear_booking_lines(self):
+        self.write({'line_ids': [(5, 0, 0)]})
+        return {
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'thecage_data.generate_booking_wizard',
+            'res_id': self[0].id,
+            'target': 'new'
+        }
+
+    @api.multi
     def generate_booking_lines(self):
-        active_id = self.env.context and self.env.context.get('active_id', False)
-        active_order = self.env['sale.order'].browse(active_id)
         booking_start = datetime.strptime(self.booking_start, DTF)
         booking_end = datetime.strptime(self.booking_end, DTF)
 
         for line in range(0, self[0].quantity):
             booking_start = booking_start + timedelta(days=7)
             booking_end = booking_end + timedelta(days=7)
+            overlap = bool(self.env['thecage_data.lines_wizard'].find_overlaps(
+                pitch_id=self[0].pitch_id.id,
+                booking_start=booking_start.strftime(DTF),
+                booking_end=booking_end.strftime(DTF)))
 
-            self.env['sale.order.line'].create({'order_id': active_order.id,
+            self.write({
+                'line_ids': [(0, 0, {'booking_start': booking_start,
+                                     'booking_end': booking_end,
+                                     'pitch_id': self[0].pitch_id.id,
+                                     'overlap': overlap})]})
+
+        return {
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'thecage_data.generate_booking_wizard',
+            'res_id': self[0].id,
+            'target': 'new'
+        }
+
+    @api.multi
+    def add_booking_lines(self):
+        for line in self[0].line_ids:
+            if line.overlap:
+                raise ValidationError('There are bookings with overlapping time')
+
+        for line in self[0].line_ids:
+            self.env['sale.order.line'].create({'order_id': self[0].order_id,
                                                 'product_id': self[0].product_id.id,
                                                 'venue_id': self[0].venue_id.id,
-                                                'pitch_id': self[0].pitch_id.id,
-                                                'booking_start': booking_start,
-                                                'booking_end': booking_end,
+                                                'pitch_id': line.pitch_id.id,
+                                                'product_uom_qty': self[0].product_uom_qty,
+                                                'booking_start': line.booking_start,
+                                                'booking_end': line.booking_end,
                                                 'automatic': True,
                                                 'state': 'draft'})
+
+
+class AccountInvoice(models.Model):
+    _inherit = "account.invoice"
+
+    @api.multi
+    @api.returns('self')
+    def refund(self, date=None, period_id=None, description=None, journal_id=None):
+        res = super(AccountInvoice, self).refund(date=date, period_id=period_id, description=description, journal_id=journal_id)
+        for invoice in self:
+            order_obj = self.env['sale.order'].search([('name', '=', invoice.origin)])
+            # we have overrided sale.order.line unlink() method such as it at first set state=canceled, active=False
+            # second call of unlink() on calnceled lines will actually deletes them
+            for line in order_obj.order_line:
+                line.active = False
+            # order_obj.order_line.unlink()
+        return res
+
+

@@ -124,7 +124,7 @@ openerp.booking_calendar = function (session) {
         },
         event_receive: function(event, allDay, jsEvent, ui) {
             var dialog = this.opt('dialog');
-            if (event.start < moment().add(-SLOT_START_DELAY_MINS, 'minutes')){
+            if (event.start < moment().add(SLOT_START_DELAY_MINS, 'minutes')){
                 dialog.warn(_t('Please book on time in ' + SLOT_START_DELAY_MINS + ' minutes from now.'));
                 dialog.$calendar.fullCalendar24('removeEvents', [event._id]);
                 return false;
@@ -136,7 +136,7 @@ openerp.booking_calendar = function (session) {
         },
         event_drop: function(event, delta, revertFunc, jsEvent, ui, view){
             var dialog = view.options.dialog;
-            if (event.start < moment().add(-SLOT_START_DELAY_MINS, 'minutes')){
+            if (event.start < moment().add(SLOT_START_DELAY_MINS, 'minutes')){
                 dialog.warn(_t('Please book on time in ' + SLOT_START_DELAY_MINS + ' minutes from now.'));
                 revertFunc(event);
                 return false;
@@ -309,6 +309,7 @@ openerp.booking_calendar = function (session) {
             this.set_free_slot_source(domain);
         },
         set_free_slot_source: function(domain) {
+            var self = this;
             if (! _.isUndefined(this.free_slot_source)) {
                 this.$calendar.fullCalendar('removeEventSource', this.free_slot_source);
             }
@@ -321,6 +322,34 @@ openerp.booking_calendar = function (session) {
                     var model = new session.web.Model("sale.order.line");
                     model.call('get_free_slots', [start, end, d.getTimezoneOffset(), domain || []])
                         .then(function (slots) {
+                            self.now_filter_ids = [];
+                            var color_field = self.fields[self.color_field];
+                            _.each(slots, function (e) {
+                                var key = e[self.color_field];
+                                if (!self.all_filters[key]) {
+                                    filter_item = {
+                                        value: key,
+                                        label: e['title'],
+                                        color: self.get_color(key),
+                                        is_checked: true
+                                    };
+                                    self.all_filters[key] = filter_item;
+                                }
+                                if (! _.contains(self.now_filter_ids, key)) {
+                                    self.now_filter_ids.push(key);
+                                }
+                            });
+                            if (self.sidebar) {
+                                self.sidebar.filter.events_loaded();
+                                self.sidebar.filter.set_filters();
+                                slots = $.map(slots, function (e) {
+                                    var key = e[self.color_field];
+                                    if (_.contains(self.now_filter_ids, key) &&  self.all_filters[key].is_checked) {
+                                        return e;
+                                    }
+                                    return null;
+                                });
+                            }
                             callback(slots);
                         });
                 },
@@ -357,7 +386,7 @@ openerp.booking_calendar = function (session) {
                 res.eventClick = function (event) {
                     if (event.className.indexOf('free_slot') >= 0) {
                         var d = new Date();
-                        d.setTime(d.getTime() + SLOT_START_DELAY_MINS*60000);
+                        d.setTime(d.getTime() - SLOT_START_DELAY_MINS*60000);
                         if (event.start < d) {
                             return;
                         }
@@ -393,7 +422,7 @@ openerp.booking_calendar = function (session) {
                 return;
             }
             var d = new Date();
-            d.setTime(d.getTime() + SLOT_START_DELAY_MINS*60000);
+            d.setTime(d.getTime() - SLOT_START_DELAY_MINS*60000);
             if (start_date < d) {
                 self.$calendar.fullCalendar('unselect');
                 return;
@@ -439,7 +468,37 @@ openerp.booking_calendar = function (session) {
         remove_event: function(id) {
             var id = parseInt(id);
             return this._super(id);
-        }
+        },
+        open_quick_create: function(data_template) {
+            this._super(data_template);
+            if (this.free_slots) {
+                var self = this;
+                var pop = this.quick.pop;
+                pop.view_form.on("form_view_loaded", pop, function() {
+                    var $sbutton = this.$buttonpane.find(".oe_abstractformpopup-form-save");
+                    var $sobutton = $(_t("<button>Save & Open SO</button>"));
+                    $sbutton.after($sobutton);
+                    $sobutton.click(function() {
+                        $.when(pop.view_form.save()).done(function(line_id) {
+                            pop.view_form.reload_mutex.exec(function() {
+                                pop.check_exit();
+                                self.dataset.read_slice(['order_id'], {domain:[['id', '=', line_id]]})
+                                    .then(function(records){
+                                        self.do_action({
+                                            'type': 'ir.actions.act_window',
+                                            'res_model': 'sale.order',
+                                            'res_id': records[0]['order_id'][0],
+                                            'target': 'current',
+                                            'views': [[false, 'form'], [false, 'list']],
+                                            'context': {}
+                                        });
+                                    });
+                            });
+                        });
+                    });
+                });
+            }
+        },
     });
 
     session.web_calendar.SidebarFilter.include({

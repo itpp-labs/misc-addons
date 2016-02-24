@@ -14,17 +14,10 @@ class FetchMailServer(models.Model):
 
     _last_updated = None
 
-    run_time = fields.Datetime(string="Launch time", compute='_run_time', store=False)
+    run_time = fields.Datetime(string="Launch time")
 
-    @classmethod
-    def _update_time(cls):
-
-        cls._last_updated = tools.datetime.now()
-
-    @api.one
     def _run_time(self):
         if not self._last_updated:
-
             self._last_updated = tools.datetime.now()
 
         src_tstamp_str = self._last_updated.strftime(tools.misc.DEFAULT_SERVER_DATETIME_FORMAT)
@@ -33,7 +26,7 @@ class FetchMailServer(models.Model):
         dst_tz_name = self._context.get('tz') or self.env.user.tz
         _now = tools.misc.server_to_local_timestamp(src_tstamp_str, src_format, dst_format, dst_tz_name)
 
-        self.run_time = _now
+        return _now
 
     @api.model
     def _fetch_mails(self):
@@ -44,7 +37,10 @@ class FetchMailServer(models.Model):
                 raise exceptions.Warning(_('Error'), _('Task can be started no earlier than 5 seconds.'))
 
         super(FetchMailServer, self)._fetch_mails()
-        self._update_time()
+
+        res = self.env['fetchmail.server'].sudo().with_context(tz=self.env.user.tz).search([('state', '=', 'done')])
+        if res:
+            res[0].run_time = self._run_time()
 
 
 class FetchMailImmediately(models.AbstractModel):
