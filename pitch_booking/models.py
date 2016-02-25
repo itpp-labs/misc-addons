@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 import logging
 import traceback
 from openerp import api, models, fields, tools, SUPERUSER_ID
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 from openerp.addons.booking_calendar.models import SLOT_START_DELAY_MINS, SLOT_DURATION_MINS
 
 _logger = logging.getLogger(__name__)
@@ -74,10 +75,43 @@ class sale_order_line(models.Model):
         } for r in resources]
 
     @api.model
-    def get_free_slots(self, start, end, offset, domain):
-        start_dt = datetime.strptime(start, '%Y-%m-%d %H:%M:%S') - timedelta(minutes=offset)
-        fixed_start_dt = start_dt
-        end_dt = datetime.strptime(end, '%Y-%m-%d %H:%M:%S') - timedelta(minutes=offset)
+    def generate_slot(self, r, start_dt, end_dt):
+        return {
+            'start': start_dt.strftime(DTF),
+            'end': end_dt.strftime(DTF),
+            'title': r.name,
+            'color': r.color,
+            'className': 'free_slot resource_%s' % r.id,
+            'editable': False,
+            'resource_id': r.resource_id.id
+        }
+
+    @api.model
+    def del_booked_slots(self, slots, start, end, resources, offset, fixed_start_dt, end_dt):
+        now = datetime.now() - timedelta(minutes=SLOT_START_DELAY_MINS) - timedelta(minutes=offset)
+        lines = self.search_booking_lines(start, end, [('pitch_id', 'in', [r['id'] for r in resources])])
+        for l in lines:
+            line_start_dt = datetime.strptime(l.booking_start, '%Y-%m-%d %H:%M:00') - timedelta(minutes=offset)
+            line_start_dt -= timedelta(minutes=divmod(line_start_dt.minute, SLOT_DURATION_MINS)[1])
+            line_end_dt = datetime.strptime(l.booking_end, DTF) - timedelta(minutes=offset)
+            while line_start_dt < line_end_dt:
+                if line_start_dt >= end_dt:
+                    break
+                elif line_start_dt < fixed_start_dt or line_start_dt < now:
+                    line_start_dt += timedelta(minutes=SLOT_DURATION_MINS)
+                    continue
+                try:
+                    del slots[l.pitch_id.id][line_start_dt.strftime(DTF)]
+                except:
+                    _logger.warning('cannot free slot %s %s' % (
+                        l.pitch_id.id,
+                        line_start_dt.strftime(DTF)
+                    ))
+                line_start_dt += timedelta(minutes=SLOT_DURATION_MINS)
+        return slots
+
+    @api.model
+    def get_free_slots_resources(self, domain):
         pitch_domain = []
         for cond in domain:
             if type(cond) in (tuple, list):
@@ -88,50 +122,7 @@ class sale_order_line(models.Model):
 
         pitch_domain.append(('to_calendar','=',True));
         resources = self.env['pitch_booking.pitch'].search(pitch_domain)
-        slots = {}
-        now = datetime.now() - timedelta(minutes=SLOT_START_DELAY_MINS) - timedelta(minutes=offset)
-        while start_dt < end_dt:
-            if start_dt < now:
-                start_dt += timedelta(minutes=SLOT_DURATION_MINS)
-                continue
-            for r in resources:
-                if not r.id in slots:
-                    slots[r.id] = {}
-                slots[r.id][start_dt.strftime('%Y-%m-%d %H:%M:%S')] = {
-                    'start': start_dt.strftime('%Y-%m-%d %H:%M:%S'),
-                    'end': (start_dt + timedelta(minutes=SLOT_DURATION_MINS)).strftime('%Y-%m-%d %H:%M:%S'),
-                    'title': r.name,
-                    'color': r.color,
-                    'className': 'free_slot resource_%s' % r.id,
-                    'editable': False,
-                    'resource_id': r.resource_id.id
-                }
-            start_dt += timedelta(minutes=SLOT_DURATION_MINS)
-        lines = self.search_booking_lines(start, end, [('pitch_id', 'in', [r['id'] for r in resources])])
-        for l in lines:
-            line_start_dt = datetime.strptime(l.booking_start, '%Y-%m-%d %H:%M:00') - timedelta(minutes=offset)
-            line_start_dt -= timedelta(minutes=divmod(line_start_dt.minute, SLOT_DURATION_MINS)[1])
-            line_end_dt = datetime.strptime(l.booking_end, '%Y-%m-%d %H:%M:%S') - timedelta(minutes=offset)
-            while line_start_dt < line_end_dt:
-                if line_start_dt >= end_dt:
-                    break
-                elif line_start_dt < fixed_start_dt or line_start_dt < now:
-                    line_start_dt += timedelta(minutes=SLOT_DURATION_MINS)
-                    continue
-                try:
-                    del slots[l.pitch_id.id][line_start_dt.strftime('%Y-%m-%d %H:%M:%S')]
-                except:
-                    _logger.warning('cannot free slot %s %s' % (
-                        l.pitch_id.id,
-                        line_start_dt.strftime('%Y-%m-%d %H:%M:%S')
-                    ))
-                line_start_dt += timedelta(minutes=SLOT_DURATION_MINS)
-
-        res = []
-        for slot in slots.values():
-            for pitch in slot.values():
-                res.append(pitch)
-        return res
+        return resources
 
 
 class account_invoice_line(models.Model):
