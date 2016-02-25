@@ -258,7 +258,10 @@ class sale_order_line(models.Model):
         if not values.get('order_id') and  values.get('partner_id'):
             order_obj = self.env['sale.order']
             order_vals = order_obj.onchange_partner_id(values.get('partner_id'))['value']
-            order_vals.update({'partner_id': values.get('partner_id')})
+            order_vals.update({
+                'partner_id': values.get('partner_id'),
+                'project_id': values.get('project_id')
+            })
             order = order_obj.create(order_vals)
             values.update({'order_id': order.id})
         return super(sale_order_line, self).create(values)
