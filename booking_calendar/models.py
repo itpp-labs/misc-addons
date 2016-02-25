@@ -377,30 +377,30 @@ class sale_order_line(models.Model):
                             y = start_dt.replace(hour=0, minute=0)+timedelta(days=1)
                         else:
                             y = start_dt.replace(hour=int(calendar_working_day.hour_to), minute=min_to)
-                        if r.has_slot_calendar and x >= start_dt and y <= end_dt:
+                        if r.has_slot_calendar and x >= now and x >= start_dt and y <= end_dt:
                             slots[r.id][x.strftime(DTF)] = self.generate_slot(r, x, y)
-                        else:
+                        elif not r.has_slot_calendar:
                             while x < y:
-                                slots[r.id][x.strftime(DTF)] = self.generate_slot(r, x, x+timedelta(minutes=SLOT_DURATION_MINS))
+                                if x >= now:
+                                    slots[r.id][x.strftime(DTF)] = self.generate_slot(r, x, x+timedelta(minutes=SLOT_DURATION_MINS))
                                 x += timedelta(minutes=SLOT_DURATION_MINS)
+                    start_dt += timedelta(days=1)
+                    start_dt = start_dt.replace(hour=0, minute=0, second=0)
                 else:
                     slots[r.id][start_dt.strftime(DTF)] = self.generate_slot(r, start_dt, start_dt+timedelta(minutes=SLOT_DURATION_MINS))
                     start_dt += timedelta(minutes=SLOT_DURATION_MINS)
                     continue
-                start_dt += timedelta(days=1)
-
             leaves = leave_obj.search([('name', '=', 'PH'), ('calendar_id', '=', r.calendar_id.id)])
             for leave in leaves:
-                print leave.date_from
-                print leave.date_to
                 from_dt = datetime.strptime(leave.date_from, '%Y-%m-%d %H:%M:00') - timedelta(minutes=offset)
                 to_dt = datetime.strptime(leave.date_to, '%Y-%m-%d %H:%M:00') - timedelta(minutes=offset)
                 if r.has_slot_calendar:
-                    if from_dt >= start_dt and to_dt <= end_dt:
+                    if from_dt >= now and from_dt >= start_dt and to_dt <= end_dt:
                         slots[r.id][from_dt.strftime(DTF)] = self.generate_slot(r, from_dt, end_dt)
                     else:
                         continue
                 else:
+                    from_dt = max(now, from_dt)
                     while from_dt < to_dt:
                         slots[r.id][from_dt.strftime(DTF)] = self.generate_slot(r, from_dt, from_dt+timedelta(minutes=SLOT_DURATION_MINS))
                         from_dt += timedelta(minutes=SLOT_DURATION_MINS)
