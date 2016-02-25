@@ -21,6 +21,7 @@
                         </group>
                         <group>
                             <field name="calendar_id"/>
+                            <field name="has_slot_calendar"/>
                             <field name="company_id"/>
                         </group>
                     </group>
