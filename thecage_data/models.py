@@ -6,27 +6,22 @@ from openerp.exceptions import ValidationError
 from openerp.tools.translate import _
 
 
-class AccountAnalyticAccountUsedSlots(models.Model):
+class AccountAnalyticAccount(models.Model):
     _inherit = 'account.analytic.account'
 
-    used_slots = fields.Integer(default=0, help='number of used slots', readonly=True)
+
     remind_on_slots = fields.Integer(help='configure when to remind a customer about remaining slots', string='Remind on (slots)', default=2)
+    contract_slots = fields.Integer(string='Contract slots left', compute='_compute_contract_slots', readonly=True, help='remaining paid slots in contract')
+    order_ids = fields.One2many('sale.order', 'project_id')
 
-    @api.model
-    def _cron_compute_used_slots(self):
-        for record in self.search([]):
-            lines = self.env['sale.order.line'].search([
-                ('order_id.project_id', '=', record.id),
-                ('booking_end', '!=', False),
-                ('booking_end', '<=', datetime.now().strftime(DTF)),
-                ('order_id.state', 'in', ['manual', 'done']),
-                ('price_unit', '=', '0'),
-            ])
-            uslots = 0
-            for line in lines:
-                uslots += line.product_uom_qty
+    @api.one
+    def _compute_contract_slots(self):
 
-            record.used_slots = uslots
+        lines = self.env['sale.order.line'].search([('order_id', 'in', self.order_ids.ids)])
+        slots = 0
+        for line in lines:
+            slots += line.available_for_contract
+        self.contract_slots = slots
 
 
 class SaleOrderTheCage(models.Model):
@@ -59,8 +54,19 @@ class SaleOrderLine(models.Model):
                                       ('consumed', 'Consumed'),
                                       ('no_show', 'No Show'),
                                       ('rain_check', 'Rain Check'),
-                                      ('emergency', 'Emergency')],
+                                      ('emergency', 'Emergency'),
+                                      ('cancelled', 'Cancelled')],
                                      default='in_progress', required='True')
+
+    available_for_contract = fields.Integer(compute='_compute_available')
+
+    @api.one
+    def _compute_available(self):
+        self.available_for_contract = self.order_id.project_id and self.invoiced and\
+                                      self.invoice_lines[0].invoice_id.state == 'paid' and self.booking_state == 'in_progress' and 1 or 0
+        # self.invoice_lines[0] the [0] is here  because we don't think that our line would be paid by more than one invoice line
+        # thus we don't work with partial payments, can only pay one sale order by several invoices. Can't pay one order line by many invoices
+
 
     @api.model
     def _cron_booking_reminder(self):
@@ -238,13 +244,6 @@ class AccountInvoice(models.Model):
     @api.returns('self')
     def refund(self, date=None, period_id=None, description=None, journal_id=None):
         res = super(AccountInvoice, self).refund(date=date, period_id=period_id, description=description, journal_id=journal_id)
-        for invoice in self:
-            order_obj = self.env['sale.order'].search([('name', '=', invoice.origin)])
-            # we have overrided sale.order.line unlink() method such as it at first set state=canceled, active=False
-            # second call of unlink() on calnceled lines will actually deletes them
-            for line in order_obj.order_line:
-                line.active = False
-            # order_obj.order_line.unlink()
+        order_obj = self.env['sale.order'].search([('invoice_ids', 'in', self.ids)])
+        # TODO don't finish there. Do not know how to check that refund is not only created but paid also
         return res
-
-

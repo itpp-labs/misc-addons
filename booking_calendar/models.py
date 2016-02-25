@@ -270,7 +270,7 @@ class sale_order_line(models.Model):
                 else:
                     return {'warning': warning}
 
-    @api.onchange('product_id', 'partner_id')
+    @api.onchange('product_id', 'partner_id', 'product_uom_qty')
     def _on_change_product_partner_id(self):
         if self.product_id and self.partner_id:
             pricelist = self.partner_id.property_product_pricelist

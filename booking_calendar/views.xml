@@ -104,7 +104,7 @@
                         <field name="booking_end"/>
                         <field name="price_unit"/>
                         <field name="price_subtotal" invisible="1"/>
-                        <field name="product_uom_qty" invisible="1"/>
+                        <field name="product_uom_qty" />
                     </group>
                     <field name="state" widget="statusbar"/>
                 </form>
