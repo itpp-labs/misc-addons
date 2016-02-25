@@ -3,11 +3,12 @@ from openerp import http
 from openerp.addons.web.controllers.main import Binary
 from openerp.addons.web.controllers.main import WebClient
 from openerp.addons.web.controllers import main as controllers_main
-import functools, re
+import functools
 from openerp.http import request
 from openerp.modules import get_module_resource
 from cStringIO import StringIO
 db_monodb = http.db_monodb
+import re
 
 
 class BinaryCustom(Binary):
