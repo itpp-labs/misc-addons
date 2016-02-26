@@ -76,7 +76,11 @@ class wizard(models.TransientModel):
     # FIXME message_to_read should be True even if current message or any his childs are unread
     message_to_read = fields.Boolean(related='message_id.to_read')
     uid = fields.Integer()
-    move_followers = fields.Boolean('Move Followers')
+    move_followers = fields.Boolean(
+        'Move Followers',
+        help="Add followers of current record to a new record.\n"
+             "You must use this option, if new record has restricted access.\n"
+             "You can change default value for this option at Settings/System Parameters")
 
     @api.depends('message_id')
     @api.one

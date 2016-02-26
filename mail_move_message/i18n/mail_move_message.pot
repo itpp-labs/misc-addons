@@ -169,6 +169,5 @@ msgstr ""
 
 #. module: mail_move_message
 #: help:mail_move_message.wizard,move_followers:0
-msgid "Add followers of current record to a new record. You must use this option, if new record has restricted access. \n You can change default value for this option at Settings/System Parameters
-Add a line note"
+msgid "Add followers of current record to a new record.\nYou must use this option, if new record has restricted access.\nYou can change default value for this option at Settings/System Parameters"
 msgstr ""
