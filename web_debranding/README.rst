@@ -23,7 +23,6 @@ Removes references to odoo.com:
 18. Hides Enterprise features in Settings
 19. Replaces "Odoo" in all backend qweb templates (e.g. FAQ in import tool)
 
-
 By default the module replaces "Odoo" to "Software". To configure
 module open Settings\\System Parameters and modify
 
