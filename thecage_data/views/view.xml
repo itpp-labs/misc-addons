@@ -18,14 +18,16 @@
         <field name="name">Booking Orders</field>
       </record>
 
-      <record id="account_analytic_account_used_slots" model="ir.ui.view">
-        <field name="name">analytic.account.used.slots</field>
+      <record id="account_analytic_account_thecage_form" model="ir.ui.view">
+        <field name="name">analytic.analytic.account.thecage.form</field>
         <field name="model">account.analytic.account</field>
-        <field name="inherit_id" ref="sale_contract_slots.account_analytic_account_form_slots"/>
+        <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
         <field name="arch" type="xml">
-          <xpath expr="//group[@name='slots']" position="inside">
-            <field name="used_slots"/>
-            <field name="remind_on_slots"/>
+          <xpath expr="//group[@name='main']" position="inside">
+            <group name="slots">
+              <field name="contract_slots"/>
+              <field name="remind_on_slots"/>
+            </group>
           </xpath>
         </field>
       </record>
@@ -138,6 +140,7 @@
         <field name="arch" type="xml">
           <xpath expr="//field[@name='state']" position="after">
             <field name="booking_state"/>
+            <field name="available_for_contract"/>
           </xpath>
         </field>
       </record>
@@ -163,6 +166,6 @@
           </xpath>
         </field>
       </record>
-      
+
     </data>
 </openerp>

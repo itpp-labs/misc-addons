@@ -17,8 +17,6 @@
 
         <template id="assets_backend" name="custom booking calendar assets" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
-                <script type="text/javascript" src="/booking_calendar/static/src/js/moment.js"></script>
-                <script type="text/javascript" src="/booking_calendar/static/src/js/fullcalendar.2.4.0.js"></script>
                 <script type="text/javascript" src="/booking_calendar/static/src/js/booking_calendar.js"></script>
                 <link rel='stylesheet' href='/booking_calendar/static/src/css/booking_calendar.css'/>
             </xpath>
@@ -49,6 +47,9 @@
                        <field name="to_calendar" icon="calendar"/>
                        <field name="color" widget="color"/>
                     </group>
+                </xpath>
+                <xpath expr="//field[@name='calendar_id']" position="after">
+                    <field name="has_slot_calendar"/>
                 </xpath>
             </field>
         </record>
@@ -104,7 +105,7 @@
                         <field name="booking_end"/>
                         <field name="price_unit"/>
                         <field name="price_subtotal" invisible="1"/>
-                        <field name="product_uom_qty" invisible="1"/>
+                        <field name="product_uom_qty" />
                     </group>
                     <field name="state" widget="statusbar"/>
                 </form>
