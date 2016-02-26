@@ -1,6 +1,6 @@
 {
     'name' : 'Mail relocation',
-    'version' : '1.0.3',
+    'version' : '1.0.4',
     'author' : 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'GPL-3',
     'category' : 'Social Network',
