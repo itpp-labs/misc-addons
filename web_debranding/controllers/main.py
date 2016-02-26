@@ -71,9 +71,8 @@ class WebClientCustom(WebClient):
 
         content, checksum = controllers_main.concat_xml(files)
         if request.context['lang'] == 'en_US':
-            new_company = request.env['ir.config_parameter'].get_param('web_debranding.new_name')
             content = content.decode('utf-8')
-            content = re.sub(r'[Oo]doo', new_company, content)
+            content = self._debrand(content)
 
         return controllers_main.make_conditional(
             request.make_response(content, [('Content-Type', 'text/xml')]),
@@ -82,9 +81,12 @@ class WebClientCustom(WebClient):
     @http.route('/web/webclient/translations', type='json', auth="none")
     def translations(self, mods=None, lang=None):
         res = super(WebClientCustom, self).translations(mods, lang)
-        new_company = request.env['ir.config_parameter'].get_param('web_debranding.new_name')
         for module_key, module_vals in res['modules'].iteritems():
             for message in module_vals['messages']:
-                message['id'] = re.sub(r'[Oo]doo', new_company, message['id'])
-                message['string'] = re.sub(r'[Oo]doo', new_company, message['string'])
+                message['id'] = self._debrand(message['id'])
+                message['string'] = self._debrand(message['string'])
         return res
+
+    def _debrand(self, string):
+        new_company = request.env['ir.config_parameter'].get_param('web_debranding.new_name')
+        return re.sub(r'[Oo]doo', new_company, string)
