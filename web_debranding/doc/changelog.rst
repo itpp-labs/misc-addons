@@ -3,6 +3,11 @@
 Changelog
 =========
 
+`1.0.5`
+-------
+
+- ADD: Replaces "Odoo" in all backend qweb templates (e.g. FAQ in import tool)
+
 `1.0.4`
 -------
 
@@ -27,6 +32,8 @@ Changelog
 
 - FIX: updates for recent odoo 9.0
 - REF: compatible with other Dashboard modules
+
+=======
 
 `1.0.0`
 -------
