@@ -3,6 +3,12 @@
 Changelog
 =========
 
+`1.0.4`
+-------
+
+- FIX: don't allow to relocate message to itself as it cause infinitive loop
+- ADD: 'Move Followers' option -- Add followers of current record to a new record.
+
 `1.0.3`
 -------
 

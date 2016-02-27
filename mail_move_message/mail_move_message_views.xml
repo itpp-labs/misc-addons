@@ -48,6 +48,10 @@
                 <div attrs="{'invisible':[('message_is_moved','=',False)]}">
                     <field name="move_back"/>
                 </div>
+                <label for="move_followers"/>
+                <div>
+                    <field name="move_followers"/>
+                </div>
             </group>
             <button name="move" string="Move" type="object" class="oe_highlight" attrs="{'invisible':[('can_move', '=', False)]}"/>
             <button string="Close" class="" special="cancel" />
@@ -94,6 +98,9 @@
                     <div name="general">
                         <separator string="Models"/>
                         <field name="model_ids" widget="many2many_tags"/>
+                        <separator string="Options"/>
+                        <label for="move_followers"/>
+                        <field name="move_followers"/>
                     </div>
                 </form>
             </field>
