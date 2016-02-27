@@ -45,3 +45,7 @@ class SaleOrderSlots(models.Model):
 
     available_slots = fields.Integer(related='project_id.available_slots', readonly=True, help='remaining number of slots left in this contract')
     paid_slots = fields.Integer(related='project_id.paid_slots', readonly=True, help='paid slots in this contract')
+
+
+class SaleOrderLine(models.Model):
+    _inherit = 'sale.order.line'

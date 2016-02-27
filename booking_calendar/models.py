@@ -258,7 +258,10 @@ class sale_order_line(models.Model):
         if not values.get('order_id') and  values.get('partner_id'):
             order_obj = self.env['sale.order']
             order_vals = order_obj.onchange_partner_id(values.get('partner_id'))['value']
-            order_vals.update({'partner_id': values.get('partner_id')})
+            order_vals.update({
+                'partner_id': values.get('partner_id'),
+                'project_id': values.get('project_id')
+            })
             order = order_obj.create(order_vals)
             values.update({'order_id': order.id})
         return super(sale_order_line, self).create(values)
@@ -281,7 +284,7 @@ class sale_order_line(models.Model):
                 else:
                     return {'warning': warning}
 
-    @api.onchange('product_id', 'partner_id')
+    @api.onchange('product_id', 'partner_id', 'product_uom_qty')
     def _on_change_product_partner_id(self):
         if self.product_id and self.partner_id:
             pricelist = self.partner_id.property_product_pricelist
@@ -377,30 +380,30 @@ class sale_order_line(models.Model):
                             y = start_dt.replace(hour=0, minute=0)+timedelta(days=1)
                         else:
                             y = start_dt.replace(hour=int(calendar_working_day.hour_to), minute=min_to)
-                        if r.has_slot_calendar and x >= start_dt and y <= end_dt:
+                        if r.has_slot_calendar and x >= now and x >= start_dt and y <= end_dt:
                             slots[r.id][x.strftime(DTF)] = self.generate_slot(r, x, y)
-                        else:
+                        elif not r.has_slot_calendar:
                             while x < y:
-                                slots[r.id][x.strftime(DTF)] = self.generate_slot(r, x, x+timedelta(minutes=SLOT_DURATION_MINS))
+                                if x >= now:
+                                    slots[r.id][x.strftime(DTF)] = self.generate_slot(r, x, x+timedelta(minutes=SLOT_DURATION_MINS))
                                 x += timedelta(minutes=SLOT_DURATION_MINS)
+                    start_dt += timedelta(days=1)
+                    start_dt = start_dt.replace(hour=0, minute=0, second=0)
                 else:
                     slots[r.id][start_dt.strftime(DTF)] = self.generate_slot(r, start_dt, start_dt+timedelta(minutes=SLOT_DURATION_MINS))
                     start_dt += timedelta(minutes=SLOT_DURATION_MINS)
                     continue
-                start_dt += timedelta(days=1)
-
             leaves = leave_obj.search([('name', '=', 'PH'), ('calendar_id', '=', r.calendar_id.id)])
             for leave in leaves:
-                print leave.date_from
-                print leave.date_to
                 from_dt = datetime.strptime(leave.date_from, '%Y-%m-%d %H:%M:00') - timedelta(minutes=offset)
                 to_dt = datetime.strptime(leave.date_to, '%Y-%m-%d %H:%M:00') - timedelta(minutes=offset)
                 if r.has_slot_calendar:
-                    if from_dt >= start_dt and to_dt <= end_dt:
+                    if from_dt >= now and from_dt >= start_dt and to_dt <= end_dt:
                         slots[r.id][from_dt.strftime(DTF)] = self.generate_slot(r, from_dt, end_dt)
                     else:
                         continue
                 else:
+                    from_dt = max(now, from_dt)
                     while from_dt < to_dt:
                         slots[r.id][from_dt.strftime(DTF)] = self.generate_slot(r, from_dt, from_dt+timedelta(minutes=SLOT_DURATION_MINS))
                         from_dt += timedelta(minutes=SLOT_DURATION_MINS)

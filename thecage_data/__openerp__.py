@@ -12,8 +12,9 @@
                  'pitch_booking',
                  'sms_sg',
                  'sale_order_hide_tax',
-                 'sale_contract_slots',
                  'res_partner_phone',
+                 'account_analytic_analysis',
+                 'booking_calendar_analytic',
              ],
     'data':[
         'data.xml',
