@@ -6,7 +6,7 @@
       <field name="inherit_id" ref="project.view_task_search_form"/>
       <field name="arch" type="xml">
         <xpath expr="//search/field[@name='name']" position="attributes">
-         <attribute name="filter_domain">['|', '|', ('name', 'ilike', self), ('description', 'ilike', self), ('user_id', 'ilike', self)]</attribute>
+         <attribute name="filter_domain">['|', '|', ('name', 'ilike', self), ('description', 'ilike', self), ('message_ids.body', 'ilike', self)]</attribute>
         </xpath>
       </field>
     </record>
