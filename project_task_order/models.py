@@ -18,5 +18,4 @@ class project_task_order(models.Model):
             else:
                 r.kanban_state_num = 2
 
-    _order = 'kanban_state_num, priority desc'
-
+    _order = 'kanban_state_num, priority desc, sequence, date_start, name, id'
