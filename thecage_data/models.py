@@ -32,6 +32,10 @@ class AccountAnalyticAccount(models.Model):
         contract_slots -= len(self.order_line_ids.filtered(lambda r: r.booking_state in ['consumed', 'no_show']))
         self.contract_slots = contract_slots
 
+    def _cron_expiring_reminder(self):
+        # TODO: send email and sms if contract_slots are less than remind_on_slots. send sms only. send email only
+        pass
+
 
 class SaleOrderTheCage(models.Model):
     _inherit = 'sale.order'

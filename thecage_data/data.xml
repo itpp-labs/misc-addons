@@ -368,7 +368,7 @@
             <field name="interval_type">days</field>
             <field name="numbercall">-1</field>
             <field name="doall" eval="False"/>
-            <field name="model" eval="'sale.order'"/>
+            <field name="model" eval="'account.analytic.account"/>
             <field name="function" eval="'_cron_expiring_reminder'"/>
             <field name="args" eval="'()'"/>
         </record>
