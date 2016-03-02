@@ -11,17 +11,26 @@ class AccountAnalyticAccount(models.Model):
 
 
     remind_on_slots = fields.Integer(help='configure when to remind a customer about remaining slots', string='Remind on (slots)', default=2)
-    contract_slots = fields.Integer(string='Contract slots left', compute='_compute_contract_slots', readonly=True, help='remaining paid slots in contract')
-    order_ids = fields.One2many('sale.order', 'project_id')
+    contract_slots = fields.Integer(string='Contract slots left', compute='_compute_contract_slots', readonly=True, help='remaining paid slots in contract', store=True)
+
+    order_line_ids = fields.One2many('sale.order.line', 'contract_id')
+    invoice_line_ids = fields.One2many('account.invoice.line', 'account_analytic_id')
 
     @api.one
+    @api.depends('invoice_line_ids.invoice_id.state', 'order_line_ids.booking_state')
     def _compute_contract_slots(self):
+        contract_slots = 0
 
-        lines = self.env['sale.order.line'].search([('order_id', 'in', self.order_ids.ids)])
-        slots = 0
-        for line in lines:
-            slots += line.available_for_contract
-        self.contract_slots = slots
+
+        invoice_line_obj = self.env['account.invoice.line']
+        contract_slots += invoice_line_obj.search_count([('account_analytic_id', '=', self.id),
+                                                                         ('invoice_id.state', '=', 'paid'),
+                                                                         ('invoice_id.type', '=', 'out_invoice')])
+        contract_slots -= invoice_line_obj.search_count([('account_analytic_id', '=', self.id),
+                                                                         ('invoice_id.state', '=', 'paid'),
+                                                                         ('invoice_id.type', '=', 'out_refund')])
+        contract_slots -= len(self.order_line_ids.filtered(lambda r: r.booking_state in ['consumed', 'no_show']))
+        self.contract_slots = contract_slots
 
 
 class SaleOrderTheCage(models.Model):
@@ -49,6 +58,7 @@ class SaleOrderTheCage(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
+    active = fields.Boolean(default=True, compute='_compute_line_active', store='True')
     booking_reminder = fields.Boolean(default=False, select=True)
     booking_state = fields.Selection([('in_progress', 'In Progress'),
                                       ('consumed', 'Consumed'),
@@ -58,15 +68,11 @@ class SaleOrderLine(models.Model):
                                       ('cancelled', 'Cancelled')],
                                      default='in_progress', required='True')
 
-    available_for_contract = fields.Integer(compute='_compute_available')
-
-    @api.one
-    def _compute_available(self):
-        self.available_for_contract = self.order_id.project_id and self.invoiced and\
-                                      self.invoice_lines[0].invoice_id.state == 'paid' and self.booking_state == 'in_progress' and 1 or 0
-        # self.invoice_lines[0] the [0] is here  because we don't think that our line would be paid by more than one invoice line
-        # thus we don't work with partial payments, can only pay one sale order by several invoices. Can't pay one order line by many invoices
-
+    @api.multi
+    @api.depends('booking_state')
+    def _compute_line_active(self):
+        for line in self:
+            line.active = line.booking_state != 'cancelled'
 
     @api.model
     def _cron_booking_reminder(self):
@@ -235,15 +241,3 @@ class GenerateBookingWizard(models.TransientModel):
                                                 'booking_end': line.booking_end,
                                                 'automatic': True,
                                                 'state': 'draft'})
-
-
-class AccountInvoice(models.Model):
-    _inherit = "account.invoice"
-
-    @api.multi
-    @api.returns('self')
-    def refund(self, date=None, period_id=None, description=None, journal_id=None):
-        res = super(AccountInvoice, self).refund(date=date, period_id=period_id, description=description, journal_id=journal_id)
-        order_obj = self.env['sale.order'].search([('invoice_ids', 'in', self.ids)])
-        # TODO don't finish there. Do not know how to check that refund is not only created but paid also
-        return res
