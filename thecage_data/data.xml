@@ -37,11 +37,11 @@
         <!--                   Venues                   -->
         <record id="venue_kallang" model="pitch_booking.venue">
             <field name="name">Kallang</field>
-            <field name="country_id" ref="res_company_kl"/>
+            <field name="company_id" ref="res_company_kl"/>
         </record>
         <record id="venue_bt" model="pitch_booking.venue">
             <field name="name">Bukit Timah</field>
-            <field name="country_id" ref="res_company_bt"/>
+            <field name="company_id" ref="res_company_bt"/>
         </record>
 
         <!--                   Pitches                   -->
