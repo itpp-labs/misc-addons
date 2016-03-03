@@ -140,7 +140,6 @@
         <field name="arch" type="xml">
           <xpath expr="//field[@name='state']" position="after">
             <field name="booking_state"/>
-            <field name="available_for_contract"/>
           </xpath>
         </field>
       </record>
