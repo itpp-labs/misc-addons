@@ -10,5 +10,6 @@
     'data': [
         'data.xml',
         'views/log.xml',
+        'security/ir.model.access.csv',
     ],
 }
