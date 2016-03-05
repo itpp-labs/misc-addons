@@ -141,6 +141,12 @@ class sale_order_line(models.Model):
                                                ('state', '!=', 'cancel')])
             line.overlap = bool(overlaps)
 
+    @api.multi
+    @api.constrains('overlap')
+    def _check_overlap(self):
+        for record in self:
+            if record.overlap:
+                raise ValidationError('There already is booking at that time.')
 
     @api.multi
     @api.constrains('calendar_id', 'booking_start', 'booking_end')
