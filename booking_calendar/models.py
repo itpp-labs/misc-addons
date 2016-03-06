@@ -141,7 +141,6 @@ class sale_order_line(models.Model):
                                                ('state', '!=', 'cancel')])
             line.overlap = bool(overlaps)
 
-
     @api.multi
     @api.constrains('calendar_id', 'booking_start', 'booking_end')
     def _check_date_fit_product_calendar(self):
