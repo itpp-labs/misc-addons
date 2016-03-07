@@ -12,7 +12,7 @@ class AccountAnalyticAccount(models.Model):
 
     remind_on_slots = fields.Integer(help='configure when to remind a customer about remaining slots', string='Remind on (slots)', default=2)
     contract_slots = fields.Integer(string='Contract slots left', compute='_compute_contract_slots', readonly=True, help='remaining paid slots in contract', store=True)
-
+    type = fields.Selection(default='contract')
     order_line_ids = fields.One2many('sale.order.line', 'contract_id')
     invoice_line_ids = fields.One2many('account.invoice.line', 'account_analytic_id')
 
