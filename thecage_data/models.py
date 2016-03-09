@@ -21,15 +21,16 @@ class AccountAnalyticAccount(models.Model):
     def _compute_contract_slots(self):
         contract_slots = 0
 
+        for l in self.invoice_line_ids:
+            contract_slots += not l.pitch_id.resource_id.has_slot_calendar and l.invoice_id.state == 'paid' and l.invoice_id.type == 'out_invoice' and l.quantity or \
+                              not l.pitch_id.resource_id.has_slot_calendar and l.invoice_id.state == 'paid' and l.invoice_id.type == 'out_refund' and -l.quantity or \
+                              l.pitch_id.resource_id.has_slot_calendar and l.invoice_id.state == 'paid' and l.invoice_id.type == 'out_invoice' and l.quantity/2 or \
+                              l.pitch_id.resource_id.has_slot_calendar and l.invoice_id.state == 'paid' and l.invoice_id.type == 'out_refund' and -l.quantity/2
 
-        invoice_line_obj = self.env['account.invoice.line']
-        contract_slots += invoice_line_obj.search_count([('account_analytic_id', '=', self.id),
-                                                                         ('invoice_id.state', '=', 'paid'),
-                                                                         ('invoice_id.type', '=', 'out_invoice')])
-        contract_slots -= invoice_line_obj.search_count([('account_analytic_id', '=', self.id),
-                                                                         ('invoice_id.state', '=', 'paid'),
-                                                                         ('invoice_id.type', '=', 'out_refund')])
-        contract_slots -= len(self.order_line_ids.filtered(lambda r: r.booking_state in ['consumed', 'no_show']))
+        for l in self.order_line_ids:
+            contract_slots += not l.pitch_id.resource_id.has_slot_calendar and l.booking_state in ['consumed', 'no_show'] and -l.product_uom_qty or \
+                              l.pitch_id.resource_id.has_slot_calendar and l.booking_state in ['consumed', 'no_show'] and -l.product_uom_qty/2
+
         self.contract_slots = contract_slots
 
     @api.model
