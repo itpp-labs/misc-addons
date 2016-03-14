@@ -239,3 +239,17 @@ class GenerateBookingWizard(models.TransientModel):
                                                 'booking_end': line.booking_end,
                                                 'automatic': True,
                                                 'state': 'draft'})
+
+
+class AccountInvoice(models.Model):
+    _inherit = "account.invoice"
+
+    @api.multi
+    @api.returns('self')
+    def refund(self, date=None, period_id=None, description=None, journal_id=None):
+        res = super(AccountInvoice, self).refund(date=date, period_id=period_id, description=description, journal_id=journal_id)
+        for invoice in self:
+            bookings = self.env['sale.order.line'].search([('invoice_lines', 'in', invoice.invoice_line.ids)])
+            bookings.write({'active': False})
+
+        return res
