@@ -7,7 +7,8 @@ class mail_message(models.Model):
     @api.one
     @api.depends('author_id', 'notified_partner_ids')
     def _get_sent(self):
-        self.sent = len(self.notified_partner_ids) > 1 or len(self.notified_partner_ids) == 1 and self.author_id and self.notified_partner_ids[0].id != self.author_id.id
+        self_sudo = self.sudo()
+        self_sudo.sent = len(self_sudo.notified_partner_ids) > 1 or len(self_sudo.notified_partner_ids) == 1 and self_sudo.author_id and self_sudo.notified_partner_ids[0].id != self_sudo.author_id.id
 
     sent = fields.Boolean('Sent', compute=_get_sent, help='Was message sent to someone', store=True)
 
