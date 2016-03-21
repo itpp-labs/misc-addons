@@ -4,7 +4,7 @@
 'summary': """Searching for tasks includes "Messages" and "Description" fields""",
 'author': "IT-Projects LLC, Ilmir Karamov",
 'license': 'GPL-3',
-'website': "http://it-projects.info",
+'website': "https://it-projects.info",
 'version': '1.0.0',
 'price': 15.00,
 'currency': 'EUR',
