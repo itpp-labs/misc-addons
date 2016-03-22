@@ -230,7 +230,7 @@
           </xpath>
         </field>
       </record>
-      <record id="thecage_view_booking_order_line_form_allow_edit_state_to_all_leads" model="ir.ui.view">
+      <record id="thecage_view_booking_order_line_form_edit_state_to_all_leads" model="ir.ui.view">
         <field name="name">thecage.booking.order.line</field>
         <field name="model">sale.order.line</field>
         <field name="inherit_id" ref="thecage_view_booking_order_line_form"/>

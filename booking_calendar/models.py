@@ -203,13 +203,6 @@ class sale_order_line(models.Model):
             'color': b.resource_id.color
         } for b in bookings]
 
-    @api.multi
-    def unlink(self):
-        cancelled = self.filtered(lambda line: line.state == 'cancel')
-        self.write({'active': False})
-        (self - cancelled).button_cancel()
-        super(sale_order_line, cancelled).unlink()
-
     @api.onchange('booking_start', 'booking_end')
     def _on_change_booking_time(self):
         domain = {'product_id': []}
