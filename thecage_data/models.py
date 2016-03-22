@@ -62,11 +62,18 @@ class SaleOrderTheCage(models.Model):
 
 
 class SaleOrderLine(models.Model):
-    _inherit = 'sale.order.line'
+    _name = 'sale.order.line'
+    _inherit = ['mail.thread', 'sale.order.line']
 
     active = fields.Boolean(default=True, compute='_compute_line_active', store='True')
     booking_reminder = fields.Boolean(default=False, select=True)
-    booking_state = fields.Selection('_get_booking_states', default='in_progress', required='True')
+    booking_state = fields.Selection('_get_booking_states', default='in_progress', required='True', track_visibility='onchange')
+
+    booking_end = fields.Datetime(track_visibility='onchange')
+    booking_start = fields.Datetime(track_visibility='onchange')
+    venue_id = fields.Many2one(track_visibility='onchange')
+    pitch_id = fields.Many2one(track_visibility='onchange')
+    product_id = fields.Many2one(track_visibility='onchange')
 
     @api.model
     def _get_booking_states(self):
