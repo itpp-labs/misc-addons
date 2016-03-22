@@ -91,7 +91,8 @@
             <field name="name">Booking slot</field>
             <field name="model">sale.order.line</field>
             <field name="arch" type="xml">
-                <form string="Booking Form">
+              <form string="Booking Form">
+                <sheet>
                     <group>
                         <field name="partner_id" readonly="0" required="1"/>
                         <field name="project_id" domain="[('partner_id','=',partner_id)]" readonly="0" required="0"/>
@@ -108,7 +109,8 @@
                         <field name="product_uom_qty" />
                     </group>
                     <field name="state" widget="statusbar"/>
-                </form>
+                </sheet>
+                  </form>
             </field>
         </record>
 

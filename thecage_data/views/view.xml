@@ -185,6 +185,20 @@
         </field>
       </record>
 
+      <record id="view_order_line_booking_form" model="ir.ui.view">
+        <field name="name">sale.order.line.form2.booking</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="booking_calendar.view_booking_order_line_form"/>
+        <field name="arch" type="xml">
+          <xpath expr="//sheet" position="after">
+            <div class="oe_chatter">
+              <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+              <field name="message_ids" widget="mail_thread"/>
+            </div>
+          </xpath>
+        </field>
+      </record>
+
       <record id="thecage_view_booking_order_line_form" model="ir.ui.view">
         <field name="name">thecage.booking.order.line</field>
         <field name="model">sale.order.line</field>
