@@ -66,13 +66,19 @@ class SaleOrderLine(models.Model):
 
     active = fields.Boolean(default=True, compute='_compute_line_active', store='True')
     booking_reminder = fields.Boolean(default=False, select=True)
-    booking_state = fields.Selection([('in_progress', 'In Progress'),
-                                      ('consumed', 'Consumed'),
-                                      ('no_show', 'No Show'),
-                                      ('rain_check', 'Rain Check'),
-                                      ('emergency', 'Emergency'),
-                                      ('cancelled', 'Cancelled')],
-                                     default='in_progress', required='True')
+    booking_state = fields.Selection('_get_booking_states', default='in_progress', required='True')
+
+    @api.model
+    def _get_booking_states(self):
+        states =  [('in_progress', 'In Progress'),
+                ('consumed', 'Consumed'),
+                ('no_show', 'No Show'),
+                ('rain_check', 'Rain Check'),
+                ('emergency', 'Emergency')]
+        if self.env.ref('base.group_sale_manager').id in self.env.user.groups_id.ids:
+            states.append(('cancelled', 'Cancelled'))
+
+        return states
 
     @api.multi
     @api.depends('booking_state')
@@ -253,3 +259,19 @@ class AccountInvoice(models.Model):
             bookings.write({'active': False})
 
         return res
+
+
+class ProductProduct(models.Model):
+    _inherit = "product.product"
+
+    @api.one
+    def write(self, vals):
+        # for ordinary products, not booking
+        # we don't need to write such field as venue_id to product
+        # Why there is such need for booking I don't know
+        if vals['venue_id'] == False:
+            return
+        return super(ProductProduct, self).write(vals)
+
+
+
