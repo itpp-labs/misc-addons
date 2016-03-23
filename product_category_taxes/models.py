@@ -12,8 +12,10 @@ class ProductTemplate(models.Model):
             'supplier_taxes_id': [(4, new_tax) for new_tax in new_category.supplier_taxes_id.ids]
         }
         if old_category:
-            new_taxes['taxes_id'] += [(3, old_tax) for old_tax in old_category.taxes_id.ids]
-            new_taxes['supplier_taxes_id'] += [(3, old_tax) for old_tax in old_category.supplier_taxes_id.ids]
+            new_taxes['taxes_id'] += [(3, old_tax) for old_tax in old_category.taxes_id.ids if
+                                      (4, old_tax) not in new_taxes['taxes_id']]
+            new_taxes['supplier_taxes_id'] += [(3, old_tax) for old_tax in old_category.supplier_taxes_id.ids if
+                                               (4, old_tax) not in new_taxes['supplier_taxes_id']]
         return new_taxes
 
     @api.model
