@@ -258,14 +258,14 @@ class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     @api.multi
-    def confirm_paid(self):
+    def invoice_validate(self):
         for invoice_obj in self.filtered(lambda r: r.type == 'out_refund'):
             for invoice_line_obj in invoice_obj.invoice_line:
                 bookings = self.env['sale.order.line'].search([('pitch_id', '=', invoice_line_obj.pitch_id.id),
                                                                ('booking_start', '=', invoice_line_obj.booking_start)])
-                bookings.write({'active': False})
+                bookings.write({'active': False, 'booking_state': 'cancelled'})
 
-        return super(AccountInvoice, self).confirm_paid()
+        return super(AccountInvoice, self).invoice_validate()
 
 class ProductProduct(models.Model):
     _inherit = "product.product"
