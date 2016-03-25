@@ -9,6 +9,9 @@
          <attribute name="filter_domain">['|', '|', ('name', 'ilike', self), ('description', 'ilike', self), ('message_ids.body', 'ilike', self)]</attribute>
         </xpath>
       </field>
+      <xpath expr="//search/field[@name='name']" position="after">
+          <field name="name" string="Name"/>
+      </xpath>
     </record>
   </data>
 </openerp>
