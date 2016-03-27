@@ -1,6 +1,6 @@
 {
     'name' : 'Sentbox',
-    'version' : '1.0.1',
+    'version' : '1.0.2',
     'author' : 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'LGPL-3',
     'category' : 'Social Network',

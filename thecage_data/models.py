@@ -11,17 +11,32 @@ class AccountAnalyticAccount(models.Model):
 
 
     remind_on_slots = fields.Integer(help='configure when to remind a customer about remaining slots', string='Remind on (slots)', default=2)
-    contract_slots = fields.Integer(string='Contract slots left', compute='_compute_contract_slots', readonly=True, help='remaining paid slots in contract')
-    order_ids = fields.One2many('sale.order', 'project_id')
+    contract_slots = fields.Integer(string='Contract slots left', compute='_compute_contract_slots', readonly=True, help='remaining paid slots in contract', store=True)
+    type = fields.Selection(default='contract')
+    order_line_ids = fields.One2many('sale.order.line', 'contract_id')
+    invoice_line_ids = fields.One2many('account.invoice.line', 'account_analytic_id')
 
     @api.one
+    @api.depends('invoice_line_ids.invoice_id.state', 'order_line_ids.booking_state')
     def _compute_contract_slots(self):
+        contract_slots = 0
 
-        lines = self.env['sale.order.line'].search([('order_id', 'in', self.order_ids.ids)])
-        slots = 0
-        for line in lines:
-            slots += line.available_for_contract
-        self.contract_slots = slots
+        for l in self.invoice_line_ids:
+            contract_slots += not l.pitch_id.resource_id.has_slot_calendar and l.invoice_id.state == 'paid' and l.invoice_id.type == 'out_invoice' and l.quantity or \
+                              not l.pitch_id.resource_id.has_slot_calendar and l.invoice_id.state == 'paid' and l.invoice_id.type == 'out_refund' and -l.quantity or \
+                              l.pitch_id.resource_id.has_slot_calendar and l.invoice_id.state == 'paid' and l.invoice_id.type == 'out_invoice' and l.quantity/2 or \
+                              l.pitch_id.resource_id.has_slot_calendar and l.invoice_id.state == 'paid' and l.invoice_id.type == 'out_refund' and -l.quantity/2
+
+        for l in self.order_line_ids:
+            contract_slots += not l.pitch_id.resource_id.has_slot_calendar and l.booking_state in ['consumed', 'no_show'] and -l.product_uom_qty or \
+                              l.pitch_id.resource_id.has_slot_calendar and l.booking_state in ['consumed', 'no_show'] and -l.product_uom_qty/2
+
+        self.contract_slots = contract_slots
+
+    @api.model
+    def _cron_expiring_reminder(self):
+        # TODO: send email and sms if contract_slots are less than remind_on_slots. send sms only. send email only
+        pass
 
 
 class SaleOrderTheCage(models.Model):
@@ -47,26 +62,36 @@ class SaleOrderTheCage(models.Model):
 
 
 class SaleOrderLine(models.Model):
-    _inherit = 'sale.order.line'
+    _name = 'sale.order.line'
+    _inherit = ['mail.thread', 'sale.order.line']
 
+    active = fields.Boolean(default=True, compute='_compute_line_active', store='True')
     booking_reminder = fields.Boolean(default=False, select=True)
-    booking_state = fields.Selection([('in_progress', 'In Progress'),
-                                      ('consumed', 'Consumed'),
-                                      ('no_show', 'No Show'),
-                                      ('rain_check', 'Rain Check'),
-                                      ('emergency', 'Emergency'),
-                                      ('cancelled', 'Cancelled')],
-                                     default='in_progress', required='True')
+    booking_state = fields.Selection('_get_booking_states', default='in_progress', required='True', track_visibility='onchange')
 
-    available_for_contract = fields.Integer(compute='_compute_available')
+    booking_end = fields.Datetime(track_visibility='onchange')
+    booking_start = fields.Datetime(track_visibility='onchange')
+    venue_id = fields.Many2one(track_visibility='onchange')
+    pitch_id = fields.Many2one(track_visibility='onchange')
+    product_id = fields.Many2one(track_visibility='onchange')
 
-    @api.one
-    def _compute_available(self):
-        self.available_for_contract = self.order_id.project_id and self.invoiced and\
-                                      self.invoice_lines[0].invoice_id.state == 'paid' and self.booking_state == 'in_progress' and 1 or 0
-        # self.invoice_lines[0] the [0] is here  because we don't think that our line would be paid by more than one invoice line
-        # thus we don't work with partial payments, can only pay one sale order by several invoices. Can't pay one order line by many invoices
+    @api.model
+    def _get_booking_states(self):
+        states =  [('in_progress', 'In Progress'),
+                ('consumed', 'Consumed'),
+                ('no_show', 'No Show'),
+                ('rain_check', 'Rain Check'),
+                ('emergency', 'Emergency')]
+        if self.env.ref('base.group_sale_manager').id in self.env.user.groups_id.ids:
+            states.append(('cancelled', 'Cancelled'))
 
+        return states
+
+    @api.multi
+    @api.depends('booking_state')
+    def _compute_line_active(self):
+        for line in self:
+            line.active = line.booking_state != 'cancelled'
 
     @api.model
     def _cron_booking_reminder(self):
@@ -82,14 +107,6 @@ class SaleOrderLine(models.Model):
             msg = 'Sale Order #' + line.order_id.name + ' is confirmed'
             phone = line.order_id.partner_id.mobile
             self.env['sms_sg.sendandlog'].send_sms(phone, msg)
-
-    @api.multi
-    def write(self, values):
-        for line in self:
-            if 'booking_start' in values:
-                if datetime.strptime(values['booking_start'], DTF) < datetime.strptime(line.booking_start, DTF):
-                    raise ValidationError(_('You can move booking forward only.'))
-        return super(SaleOrderLine, self).write(values)
 
 
 class ResPartnerReminderConfig(models.Model):
@@ -241,9 +258,26 @@ class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     @api.multi
-    @api.returns('self')
-    def refund(self, date=None, period_id=None, description=None, journal_id=None):
-        res = super(AccountInvoice, self).refund(date=date, period_id=period_id, description=description, journal_id=journal_id)
-        order_obj = self.env['sale.order'].search([('invoice_ids', 'in', self.ids)])
-        # TODO don't finish there. Do not know how to check that refund is not only created but paid also
-        return res
+    def invoice_validate(self):
+        for invoice_obj in self.filtered(lambda r: r.type == 'out_refund'):
+            for invoice_line_obj in invoice_obj.invoice_line:
+                bookings = self.env['sale.order.line'].search([('pitch_id', '=', invoice_line_obj.pitch_id.id),
+                                                               ('booking_start', '=', invoice_line_obj.booking_start)])
+                bookings.write({'active': False, 'booking_state': 'cancelled'})
+
+        return super(AccountInvoice, self).invoice_validate()
+
+class ProductProduct(models.Model):
+    _inherit = "product.product"
+
+    @api.one
+    def write(self, vals):
+        # for ordinary products, not booking
+        # we don't need to write such field as venue_id to product
+        # Why there is such need for booking I don't know
+        if vals['venue_id'] == False:
+            return
+        return super(ProductProduct, self).write(vals)
+
+
+

@@ -108,10 +108,12 @@
                 <header class="oe_edit_only" attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}">
                     <button type="action"
                             name="%(thecage_generate_booking_action)d"
-                            string="Generate Booking Lines"/>
+                            string="Generate Booking Lines"
+                            groups = "base.group_sale_manager" />
                     <button type="object"
                             name="remove_generated_lines"
-                            string="Remove generated Lines"/>
+                            string="Remove generated Lines"
+                            groups = "base.group_sale_manager" />
                 </header>
             </xpath>
         </field>
@@ -130,7 +132,7 @@
       </record>
 
       <record model="ir.actions.act_window" id="booking_calendar.booking_orders_lines_list_action">
-          <field name="context" eval="{'search_default_active_bookings': 1, 'search_default_venue_kallang':1}"/>
+          <field name="context" eval="{'search_default_active_bookings': 1}"/>
       </record>
       
       <record id="thecage_view_booking_order_line_tree" model="ir.ui.view">
@@ -139,8 +141,60 @@
         <field name="inherit_id" ref="booking_calendar.view_booking_order_line_tree"/>
         <field name="arch" type="xml">
           <xpath expr="//field[@name='state']" position="after">
-            <field name="booking_state"/>
-            <field name="available_for_contract"/>
+            <field name="booking_state" readonly="1" />
+          </xpath>
+        </field>
+      </record>
+      <record id="thecage_view_booking_order_line_tree_state" model="ir.ui.view">
+        <field name="name">sale.order.line.tree</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="thecage_view_booking_order_line_tree"/>
+        <field name="groups_id" eval="[(4, ref('base.group_sale_manager'), 0)]"/>
+        <field name="arch" type="xml">
+          <xpath expr="//field[@name='booking_state']" position="attributes">
+            <attribute name="readonly">0</attribute>
+          </xpath>
+        </field>
+      </record>
+
+      <record id="pitch_booking_view_booking_order_line_form" model="ir.ui.view">
+        <field name="name">pitch.booking.order.line</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="pitch_booking.view_booking_order_line_form"/>
+        <field name="arch" type="xml">
+          <xpath expr="//field[@name='venue_id']" position="attributes">
+            <attribute name="readonly">1</attribute>
+          </xpath>
+          <xpath expr="//field[@name='pitch_id']" position="attributes">
+            <attribute name="readonly">1</attribute>
+          </xpath>
+        </field>
+      </record>
+      <record id="pitch_booking_view_booking_order_line_form_state" model="ir.ui.view">
+        <field name="name">pitch.booking.order.line</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="pitch_booking_view_booking_order_line_form"/>
+        <field name="groups_id" eval="[(4, ref('base.group_sale_manager'), 0)]"/>
+        <field name="arch" type="xml">
+          <xpath expr="//field[@name='venue_id']" position="attributes">
+            <attribute name="readonly">0</attribute>
+          </xpath>
+          <xpath expr="//field[@name='pitch_id']" position="attributes">
+            <attribute name="readonly">0</attribute>
+          </xpath>
+        </field>
+      </record>
+
+      <record id="view_order_line_booking_form" model="ir.ui.view">
+        <field name="name">sale.order.line.form2.booking</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="booking_calendar.view_booking_order_line_form"/>
+        <field name="arch" type="xml">
+          <xpath expr="//sheet" position="after">
+            <div class="oe_chatter">
+              <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+              <field name="message_ids" widget="mail_thread"/>
+            </div>
           </xpath>
         </field>
       </record>
@@ -151,21 +205,79 @@
         <field name="inherit_id" ref="booking_calendar.view_booking_order_line_form"/>
         <field name="arch" type="xml">
           <xpath expr="//field[@name='price_unit']" position="after">
-            <field name="booking_state"/>
+            <field name="booking_state" readonly="1" />
+          </xpath>
+          <xpath expr="//field[@name='partner_id']" position="attributes">
+            <attribute name="readonly">1</attribute>
+          </xpath>
+          <xpath expr="//field[@name='project_id']" position="attributes">
+            <attribute name="readonly">1</attribute>
+          </xpath>
+          <xpath expr="//field[@name='booking_start']" position="attributes">
+            <attribute name="readonly">1</attribute>
+          </xpath>
+          <xpath expr="//field[@name='booking_end']" position="attributes">
+            <attribute name="readonly">1</attribute>
           </xpath>
         </field>
       </record>
-
+      <record id="thecage_view_booking_order_line_form_allow_edit_all_to_manager" model="ir.ui.view">
+        <field name="name">thecage.booking.order.line</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="thecage_view_booking_order_line_form"/>
+        <field name="groups_id" eval="[(4, ref('base.group_sale_manager'), 0)]"/>
+        <field name="arch" type="xml">
+          <xpath expr="//field[@name='booking_state']" position="attributes">
+            <attribute name="readonly">0</attribute>
+          </xpath>
+          <xpath expr="//field[@name='partner_id']" position="attributes">
+            <attribute name="readonly">0</attribute>
+          </xpath>
+          <xpath expr="//field[@name='project_id']" position="attributes">
+            <attribute name="readonly">0</attribute>
+          </xpath>
+          <xpath expr="//field[@name='booking_start']" position="attributes">
+            <attribute name="readonly">0</attribute>
+          </xpath>
+          <xpath expr="//field[@name='booking_end']" position="attributes">
+            <attribute name="readonly">0</attribute>
+          </xpath>
+        </field>
+      </record>
+      <record id="thecage_view_booking_order_line_form_edit_state_to_all_leads" model="ir.ui.view">
+        <field name="name">thecage.booking.order.line</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="thecage_view_booking_order_line_form"/>
+        <field name="groups_id" eval="[(4, ref('base.group_sale_salesman_all_leads'), 0)]"/>
+        <field name="arch" type="xml">
+          <xpath expr="//field[@name='booking_state']" position="attributes">
+            <attribute name="readonly">0</attribute>
+          </xpath>
+        </field>
+      </record>
+      
       <record id="thecage_view_order_form" model="ir.ui.view">
         <field name="name">sale.order.form</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
           <xpath expr="//field[@name='order_line']/tree" position="inside">
-            <field name="booking_state"/>
+            <field name="booking_state" readonly="1" />
           </xpath>
         </field>
       </record>
+      <record id="thecage_view_order_form_state" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="thecage_view_order_form"/>
+        <field name="groups_id" eval="[(4, ref('base.group_sale_manager'), 0)]"/>
+        <field name="arch" type="xml">
+          <xpath expr="//field[@name='booking_state']" position="attributes">
+            <attribute name="readonly">0</attribute>
+          </xpath>
+        </field>
+      </record>
+
 
     </data>
 </openerp>
