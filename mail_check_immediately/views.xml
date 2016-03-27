@@ -1,9 +1,0 @@
-<openerp>
-    <data>
-        <template id="assets_backend_inherited_check_mail" name="Check mail immediately bar" inherit_id="web.assets_backend">
-            <xpath expr="." position="inside">
-                <script type="text/javascript" src="/mail_check_immediately/static/src/js/main.js"></script>
-            </xpath>
-        </template>
-    </data>
-</openerp>
