@@ -16,7 +16,7 @@
     <field name="model">calendar.event</field>
     <field name="inherit_id" ref="calendar.view_calendar_event_form_popup"/>
     <field name="arch" type="xml">
-        <xpath expr="//field[@name='name']" position="after">
+        <xpath expr="//field[@name='attendee_status']" position="after">
             <field name="reminder_res_id" invisible="1"/>
             <div attrs="{'invisible':[('reminder_res_id', '=', 0)]}">
             <label for="open_reminder_object"/>

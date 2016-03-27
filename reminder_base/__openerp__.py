@@ -1,7 +1,7 @@
 {
     'name': "Reminders and Agenda (technical core)",
     'version': '1.0.4',
-    'author': 'IT-Projects LLC, Ivan Yelizariev',
+    'author': 'IT-Projects LLC, Ivan Yelizariev, Pavel Romanchenko',
     'license': 'LGPL-3',
     'category': 'Reminders and Agenda',
     'website': 'https://twitter.com/yelizariev',
@@ -11,5 +11,5 @@
     'data': [
         'reminder_base_views.xml',
         ],
-    'installable': False,
+    'installable': True,
 }
