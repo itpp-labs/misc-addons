@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-    <data noupdate="1">
+  <!-- <data noupdate="1"> -->
+  <data>
 
         <!--                      Partner                        -->
         <record id="res_partner_bt" model="res.partner">
@@ -29,19 +30,41 @@
             <field name="name">We Wanted To Be Footballers Pte Ltd</field>
         </record>
 
+        <!--                      Warehouse                        -->
+        <record id="stock_warehouse_thecage" model="stock.warehouse">
+            <field name="name">The Cage Sports Park Pte Ltd</field>
+            <field name="company_id" ref="res_company_bt"/>
+            <field name="code">bt</field>
+        </record>
+        <record id="stock_warehouse_wewanted" model="stock.warehouse">
+            <field name="name">We Wanted To Be Footballers Pte Ltd</field>
+            <field name="company_id" ref="res_company_kl"/>
+            <field name="code">kl</field>
+        </record>
+
         <!--                      User                        -->
         <record id="base.user_root" model="res.users">
             <field name="company_ids" eval="[(4, ref('res_company_bt')),(4, ref('res_company_kl')),]"/>
         </record>
+        <!--                      Groups                        -->
+        <record id="group_frontdesk" model="res.groups">
+          <field name="name">Front Desk</field>
+          <field name="implied_ids" eval="[(4, ref('base.group_sale_salesman_all_leads'))]"/>
+        </record>
+        <record id="group_bookingstaff" model="res.groups">
+          <field name="name">Booking Staff</field>
+          <field name="implied_ids" eval="[(4, ref('base.group_sale_manager'))]"/>
+        </record>
+
 
         <!--                   Venues                   -->
         <record id="venue_kallang" model="pitch_booking.venue">
             <field name="name">Kallang</field>
-            <field name="country_id" ref="res_company_kl"/>
+            <field name="company_id" ref="res_company_kl"/>
         </record>
         <record id="venue_bt" model="pitch_booking.venue">
             <field name="name">Bukit Timah</field>
-            <field name="country_id" ref="res_company_bt"/>
+            <field name="company_id" ref="res_company_bt"/>
         </record>
 
         <!--                   Pitches                   -->
@@ -280,7 +303,7 @@
         </record>
 
         <!--                   Products                   -->
-        <record id="product_product_klsb6wd" model="product.product">
+        <record forcecreate="True" id="product_product_klsb6wd" model="product.product">
             <field name="name">Kallang Standard @S$54per one hour before 6pm on Weekdays</field>
             <field name="list_price">54.0</field>
             <field name="type">service</field>
@@ -289,8 +312,9 @@
             <field name="description">Public</field>
             <field name="venue_id" ref="venue_kallang"/>
             <field name="calendar_id" ref="calendar_before_6_weekdays"/>
+            <field name="company_id" ref="res_company_kl" />
         </record>
-        <record id="product_product_klstb7wd" model="product.product">
+        <record forcecreate="True" id="product_product_klstb7wd" model="product.product">
             <field name="name">Kallang Students @S$54per two hours before 7pm on Weekdays</field>
             <field name="list_price">27.0</field>
             <field name="type">service</field>
@@ -299,8 +323,9 @@
             <field name="description">Students Only</field>
             <field name="venue_id" ref="venue_kallang"/>
             <field name="calendar_id" ref="calendar_before_7_weekdays"/>
+            <field name="company_id" ref="res_company_kl" />
         </record>
-        <record id="product_product_klnsfb7wd" model="product.product">
+        <record forcecreate="True" id="product_product_klnsfb7wd" model="product.product">
             <field name="name">Kallang NSF @S$75per two hours before 7pm on Weekdays</field>
             <field name="list_price">37.5</field>
             <field name="type">service</field>
@@ -309,8 +334,9 @@
             <field name="description">NSF Only</field>
             <field name="venue_id" ref="venue_kallang"/>
             <field name="calendar_id" ref="calendar_before_7_weekdays"/>
+            <field name="company_id" ref="res_company_kl" />
         </record>
-        <record id="product_product_klppa6wd" model="product.product">
+        <record forcecreate="True" id="product_product_klppa6wd" model="product.product">
             <field name="name">Kallang Peak public @S$96per one hour after 6pm</field>
             <field name="list_price">96.0</field>
             <field name="type">service</field>
@@ -319,8 +345,9 @@
             <field name="description">Public</field>
             <field name="venue_id" ref="venue_kallang"/>
             <field name="calendar_id" ref="calendar_after_6_weekdays"/>
+            <field name="company_id" ref="res_company_kl" />
         </record>
-        <record id="product_product_klnightwd" model="product.product">
+        <record forcecreate="True" id="product_product_klnightwd" model="product.product">
             <field name="name">Kallang Late Night @S$150per two hours after 10pm on Monday-Thursday</field>
             <field name="list_price">75.0</field>
             <field name="type">service</field>
@@ -329,6 +356,7 @@
             <field name="description">Monday-Thursday</field>
             <field name="venue_id" ref="venue_kallang"/>
             <field name="calendar_id" ref="calendar_after_10_weekdays"/>
+            <field name="company_id" ref="res_company_kl" />
         </record>
 
         <!--                       Leaves                    -->
@@ -368,10 +396,40 @@
             <field name="interval_type">days</field>
             <field name="numbercall">-1</field>
             <field name="doall" eval="False"/>
-            <field name="model" eval="'sale.order'"/>
-            <field name="function" eval="'_cron_expiring_reminder'"/>
+            <field name="model">account.analytic.account</field>
+            <field name="function">_cron_expiring_reminder</field>
             <field name="args" eval="'()'"/>
         </record>
+
+        <!--                      ir.rule                       -->
+        <record id="show_own_venues_only" model="ir.rule">
+          <field name="name">Show venues depending on current company</field>
+          <field name="model_id" ref="pitch_booking.model_pitch_booking_venue"/>
+          <field name="perm_read" eval="1"/>
+          <field name="perm_write" eval="1"/>
+          <field name="perm_create" eval="1"/>
+          <field name="perm_unlink" eval="1" />
+          <field name="domain_force">[('company_id','=',user.company_id.id)]</field>
+        </record>
+        <record id="show_own_pitches_only" model="ir.rule">
+          <field name="name">Show pitches depending on current company</field>
+          <field name="model_id" ref="pitch_booking.model_pitch_booking_pitch"/>
+          <field name="perm_read" eval="1"/>
+          <field name="perm_write" eval="1"/>
+          <field name="perm_create" eval="1"/>
+          <field name="perm_unlink" eval="1" />
+          <field name="domain_force">[('venue_id.company_id','=',user.company_id.id)]</field>
+        </record>
+        <record id="sale_order_line_unlink" model="ir.rule">
+          <field name="name">restrict deletion for lines with service product</field>
+          <field name="model_id" ref="sale.model_sale_order_line"/>
+          <field name="perm_read" eval="0"/>
+          <field name="perm_write" eval="0"/>
+          <field name="perm_create" eval="0"/>
+          <field name="perm_unlink" eval="1" />
+          <field name="domain_force">[('product_id.type','!=','service')]</field>
+        </record>
+
 
     </data>
 </openerp>
