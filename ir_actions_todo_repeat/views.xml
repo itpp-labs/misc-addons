@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="base.config_wizard_step_view_form" />
             <field name="arch" type="xml">
                 <field name="sequence" position="after">
-                    <field name="no_repeat"/>
+                    <field name="repeat"/>
                 </field>
             </field>
         </record>
