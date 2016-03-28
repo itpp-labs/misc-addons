@@ -22,8 +22,14 @@ class ProductTemplate(models.Model):
     def create(self, vals):
         if vals.get('categ_id'):
             new_taxes = self._get_new_taxes(vals['categ_id'])
-            vals['taxes_id'] += new_taxes['taxes_id']
-            vals['supplier_taxes_id'] += new_taxes['supplier_taxes_id']
+            if vals.get('taxes_id'):
+                vals['taxes_id'] += new_taxes['taxes_id']
+            else:
+                vals['taxes_id'] = new_taxes['taxes_id']
+            if vals.get('supplier_taxes_id'):
+                vals['supplier_taxes_id'] += new_taxes['supplier_taxes_id']
+            else:
+                vals['supplier_taxes_id'] = new_taxes['supplier_taxes_id']
         return super(ProductTemplate, self).create(vals)
 
     @api.multi
