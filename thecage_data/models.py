@@ -75,6 +75,29 @@ class SaleOrderLine(models.Model):
     pitch_id = fields.Many2one(track_visibility='onchange')
     product_id = fields.Many2one(track_visibility='onchange')
 
+    @api.one
+    def write(self, vals):
+        result = super(SaleOrderLine, self).write(vals)
+
+        if vals.get('booking_start') or vals.get('booking_end'):
+            self.send_booking_time()
+        return result
+
+    @api.one
+    def send_booking_time(self):
+        if self.booking_start and self.booking_end:
+            template = self.env.ref('thecage_data.email_template_booking_time_updated')
+            email_ctx = {
+                'default_model': 'sale.order.line',
+                'default_res_id': self.id,
+                'default_use_template': bool(template),
+                'default_template_id': template.id,
+                'default_composition_mode': 'comment',
+            }
+            composer = self.env['mail.compose.message'].with_context(email_ctx).create({})
+            composer.send_mail()
+
+
     @api.model
     def _get_booking_states(self):
         states =  [('in_progress', 'In Progress'),
