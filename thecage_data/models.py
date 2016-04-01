@@ -290,17 +290,4 @@ class AccountInvoice(models.Model):
 
         return super(AccountInvoice, self).invoice_validate()
 
-class ProductProduct(models.Model):
-    _inherit = "product.product"
-
-    @api.one
-    def write(self, vals):
-        # for ordinary products, not booking
-        # we don't need to write such field as venue_id to product
-        # Why there is such need for booking I don't know
-        if vals['venue_id'] == False:
-            return
-        return super(ProductProduct, self).write(vals)
-
-
 
