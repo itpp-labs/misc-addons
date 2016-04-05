@@ -111,10 +111,10 @@ class SaleOrderLine(models.Model):
         return states
 
     @api.multi
-    @api.depends('booking_state')
+    @api.depends('order_id.state', 'booking_state')
     def _compute_line_active(self):
         for line in self:
-            line.active = line.booking_state != 'cancelled'
+            line.active = line.booking_state != 'cancelled' and line.order_id.state != 'cancel'
 
     @api.model
     def _cron_booking_reminder(self):
