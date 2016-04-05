@@ -135,12 +135,14 @@ class sale_order_line(models.Model):
                                               '&', ('booking_end', '>', line.booking_start), ('booking_end', '<', line.booking_end),
                                               ('resource_id', '!=', False),
                                               ('id', 'not in', ids),
-                                              ('resource_id', '=', line.resource_id.id)])
+                                              ('resource_id', '=', line.resource_id.id),
+                                              ('state', '!=', 'cancel')])
                 overlaps += line.search_count([('active', '=', True),
                                                ('id', 'not in', ids),
                                                ('booking_start', '=', line.booking_start),
                                                ('booking_end', '=', line.booking_end),
-                                               ('resource_id', '=', line.resource_id.id)])
+                                               ('resource_id', '=', line.resource_id.id),
+                                               ('state', '!=', 'cancel')])
             line.overlap = bool(overlaps)
 
     @api.multi
@@ -153,12 +155,14 @@ class sale_order_line(models.Model):
                                               '&', ('booking_end', '>', line.booking_start), ('booking_end', '<', line.booking_end),
                                               ('resource_id', '!=', False),
                                               ('id', '!=', line.id),
-                                              ('resource_id', '=', line.resource_id.id)])
+                                              ('resource_id', '=', line.resource_id.id),
+                                             ('state', '!=', 'cancel')])
                 overlaps_with += self.search([('active', '=', True),
                                                ('id', '!=', line.id),
                                                ('booking_start', '=', line.booking_start),
                                                ('booking_end', '=', line.booking_end),
-                                               ('resource_id', '=', line.resource_id.id)])
+                                               ('resource_id', '=', line.resource_id.id),
+                                              ('state', '!=', 'cancel')])
 
                 msg = 'There are bookings with overlapping times: %(this)s and %(those)s' % {'this': [line.id], 'those': overlaps_with.ids}
                 raise ValidationError(msg)
