@@ -2,7 +2,7 @@
 {
     "name": """Web tour extra""",
     "summary": """Superstructure on phantom tours""",
-    "category": "Sales Management",
+    "category": "Tools",
     # "images": ['images/1.png'],
     "version": "1.0.0",
 
