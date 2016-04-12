@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": """Extended tours""",
-    "summary": """Extra futures for tours""",
+    "summary": """Extra features for tours""",
     "category": "Tools",
     # "images": ['images/1.png'],
     "version": "1.0.0",
