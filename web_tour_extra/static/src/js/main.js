@@ -16,7 +16,7 @@ openerp.web_tour_extra = function(instance) {
 				"step_id": 0
 			};
 			// Do not clean hash for reasons of saving starting tour path.
-			window.location.hash = window.location.hash. replace(/[&?][/?]#tutorial[^=]*=true/, "");;
+			window.location.hash = window.location.hash.replace(RegExp("&?/?#tutorial[^=]*=true"), "");
 			Tour.log("Tour '" + state.id + "' Begin from url hash");
 			Tour.saveState(state.id, state.mode, state.step_id, 0);
 		}
