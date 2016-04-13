@@ -131,8 +131,8 @@ class sale_order_line(models.Model):
             if line.resource_id and line.booking_start and line.booking_end:
                 ids = getattr(self, '_origin', False) and self._origin.ids or bool(line.id) and [line.id] or []
                 overlaps = line.search_count([('active', '=', True),
-                                              '&', '|', '&', ('booking_start', '>', line.booking_start), ('booking_start', '<', line.booking_end),
-                                              '&', ('booking_end', '>', line.booking_start), ('booking_end', '<', line.booking_end),
+                                              '&', '|', '&', ('booking_start', '>=', line.booking_start), ('booking_start', '<', line.booking_end),
+                                              '&', ('booking_end', '>', line.booking_start), ('booking_end', '<=', line.booking_end),
                                               ('resource_id', '!=', False),
                                               ('id', 'not in', ids),
                                               ('resource_id', '=', line.resource_id.id),
