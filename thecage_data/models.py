@@ -75,6 +75,29 @@ class SaleOrderLine(models.Model):
     pitch_id = fields.Many2one(track_visibility='onchange')
     product_id = fields.Many2one(track_visibility='onchange')
 
+    @api.one
+    def write(self, vals):
+        result = super(SaleOrderLine, self).write(vals)
+
+        if vals.get('booking_start') or vals.get('booking_end'):
+            self.send_booking_time()
+        return result
+
+    @api.one
+    def send_booking_time(self):
+        if self.booking_start and self.booking_end:
+            template = self.env.ref('thecage_data.email_template_booking_time_updated')
+            email_ctx = {
+                'default_model': 'sale.order.line',
+                'default_res_id': self.id,
+                'default_use_template': bool(template),
+                'default_template_id': template.id,
+                'default_composition_mode': 'comment',
+            }
+            composer = self.env['mail.compose.message'].with_context(email_ctx).create({})
+            composer.send_mail()
+
+
     @api.model
     def _get_booking_states(self):
         states =  [('in_progress', 'In Progress'),
@@ -88,10 +111,10 @@ class SaleOrderLine(models.Model):
         return states
 
     @api.multi
-    @api.depends('booking_state')
+    @api.depends('order_id.state', 'booking_state')
     def _compute_line_active(self):
         for line in self:
-            line.active = line.booking_state != 'cancelled'
+            line.active = line.booking_state != 'cancelled' and line.order_id.state != 'cancel'
 
     @api.model
     def _cron_booking_reminder(self):
@@ -128,8 +151,8 @@ class LinesWizard(models.TransientModel):
     @api.multi
     def find_overlaps(self, pitch_id, booking_start, booking_end):
         overlaps = 0
-        overlaps = self.env['sale.order.line'].search_count(['&', '|', '&', ('booking_start', '>', booking_start), ('booking_start', '<', booking_end),
-                                                             '&', ('booking_end', '>', booking_start), ('booking_end', '<', booking_end),
+        overlaps = self.env['sale.order.line'].search_count(['&', '|', '&', ('booking_start', '>=', booking_start), ('booking_start', '<', booking_end),
+                                                             '&', ('booking_end', '>', booking_start), ('booking_end', '<=', booking_end),
                                                              ('pitch_id', '!=', False),
                                                              ('pitch_id', '=', pitch_id)])
         overlaps += self.env['sale.order.line'].search_count([('booking_start', '=', booking_start),
@@ -266,18 +289,5 @@ class AccountInvoice(models.Model):
                 bookings.write({'active': False, 'booking_state': 'cancelled'})
 
         return super(AccountInvoice, self).invoice_validate()
-
-class ProductProduct(models.Model):
-    _inherit = "product.product"
-
-    @api.one
-    def write(self, vals):
-        # for ordinary products, not booking
-        # we don't need to write such field as venue_id to product
-        # Why there is such need for booking I don't know
-        if vals['venue_id'] == False:
-            return
-        return super(ProductProduct, self).write(vals)
-
 
 

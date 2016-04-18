@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp><data>
+
+<template id="assets_common" name="web_tour_extra assets" inherit_id="web.assets_common">
+    <xpath expr="." position="inside">
+        <script type="text/javascript" src="/web_tour_extra/static/src/js/main.js"></script>
+    </xpath>
+</template>
+
+
+</data></openerp>
