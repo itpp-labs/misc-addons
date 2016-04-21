@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    "name": """Start-End dates in invoices and analytic lines""",
+    "name": """Start-End dates in invoice and analytic lines""",
     "summary": """Technical core for other modules""",
     "category": "Accounting",
     "images": [],

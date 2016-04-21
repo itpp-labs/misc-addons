@@ -1,13 +1,13 @@
-================================================
- Start-End dates in invoices and analytic lines
-================================================
+===============================================
+ Start-End dates in invoice and analytic lines
+===============================================
 
 Adds fields
 * Start Date
 * End Date
 
 to models:
-* account.invoice
+* account.invoice.line
 * account.analytic.line
 
 Copies dates from ``account.invoice`` to ``account.analytic.line`` whenever Invoice is validated
