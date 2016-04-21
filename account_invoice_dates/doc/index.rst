@@ -6,6 +6,7 @@ Usage
 =====
 
 * Grant access to ``Analytic Accounting`` and ``Financial Manager``
+
   * Open ``Settings/Users/Users`` - choose your user
   * click edit
   * set ``Technical settings`` checkbox
@@ -15,7 +16,8 @@ Usage
   * click edit
   * set ``Analytic Accounting`` checkbox
   * click save
-  * press F5
+  * press F
+
 * Create new invoice with Start Date, End date, Analytic Account
 * Validate
 * Open ``Invoicing/Jounal Entries/Analytic Journal Items``
