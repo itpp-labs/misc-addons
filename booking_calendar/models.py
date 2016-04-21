@@ -118,17 +118,21 @@ class sale_order_line(models.Model):
             line.project_id = line.order_id.project_id
 
     @api.multi
-    @api.depends('resource_id', 'booking_start', 'booking_end')
+    @api.depends('resource_id.active', 'booking_start', 'booking_end', 'active')
     def _compute_date_overlap(self):
+        # we don't use resource_id itself but use resource_id.active in depends list because
+        # we don't need to compute on changes taking place in resource.resource model but only on
+        # the line where resource switches. We don't do unnecessary computation.
         for line in self:
-            if line.state == 'cancel' or not line.active:
+            if not line.active:
+                line.overlap = False
                 continue
             overlaps = 0
             if line.resource_id and line.booking_start and line.booking_end:
                 ids = getattr(self, '_origin', False) and self._origin.ids or bool(line.id) and [line.id] or []
                 overlaps = line.search_count([('active', '=', True),
-                                              '&', '|', '&', ('booking_start', '>', line.booking_start), ('booking_start', '<', line.booking_end),
-                                              '&', ('booking_end', '>', line.booking_start), ('booking_end', '<', line.booking_end),
+                                              '&', '|', '&', ('booking_start', '>=', line.booking_start), ('booking_start', '<', line.booking_end),
+                                              '&', ('booking_end', '>', line.booking_start), ('booking_end', '<=', line.booking_end),
                                               ('resource_id', '!=', False),
                                               ('id', 'not in', ids),
                                               ('resource_id', '=', line.resource_id.id),
@@ -144,9 +148,24 @@ class sale_order_line(models.Model):
     @api.multi
     @api.constrains('overlap')
     def _check_overlap(self):
-        for record in self:
-            if record.overlap:
-                raise ValidationError('There already is booking at that time.')
+        for line in self:
+            if line.overlap:
+                overlaps_with = self.search([('active', '=', True),
+                                              '&', '|', '&', ('booking_start', '>', line.booking_start), ('booking_start', '<', line.booking_end),
+                                              '&', ('booking_end', '>', line.booking_start), ('booking_end', '<', line.booking_end),
+                                              ('resource_id', '!=', False),
+                                              ('id', '!=', line.id),
+                                              ('resource_id', '=', line.resource_id.id),
+                                             ('state', '!=', 'cancel')])
+                overlaps_with += self.search([('active', '=', True),
+                                               ('id', '!=', line.id),
+                                               ('booking_start', '=', line.booking_start),
+                                               ('booking_end', '=', line.booking_end),
+                                               ('resource_id', '=', line.resource_id.id),
+                                              ('state', '!=', 'cancel')])
+
+                msg = 'There are bookings with overlapping times: %(this)s and %(those)s' % {'this': [line.id], 'those': overlaps_with.ids}
+                raise ValidationError(msg)
 
     @api.multi
     @api.constrains('calendar_id', 'booking_start', 'booking_end')
