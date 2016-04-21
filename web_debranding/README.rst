@@ -15,6 +15,13 @@ Removes references to odoo.com:
 10. **Hides Modules menu** (by default, only admin user see Modules menu. You could change it via tick "Show Modules Menu" in user's access rights tab)
 11. Removes odoo.com bindings (via disable_openerp_online module)
 12. Deletes "Sent by ... using OpenERP" footer in email (via mail_delete_sent_by_footer module)
+13. .
+14. .
+15. .
+16. .
+17. .
+18. .
+19. Replaces "Odoo" in all backend qweb templates (e.g. FAQ in import tool)
 
 By default the module replaces "Odoo" to "Software". To configure
 module open Settings\\System Parameters and modify
@@ -64,4 +71,12 @@ To automatically install this module for every new databases set **'auto_install
 * base_setup
   
 
-Tested on Odoo 8.0 eeedd2d9f52d46d8193059854e7430ca0c1fd6c0
+Tested on Odoo 8.0 a40d48378d22309e53e6d38000d543de1d2f7a78
+
+Need our service?
+=================
+
+Contact us by `email <mailto:it@it-projects.info>`_ or fill out `request form <https://www.it-projects.info/page/website.contactus>`_:
+
+* it@it-projects.info
+* https://www.it-projects.info/page/website.contactus

@@ -1,9 +1,10 @@
 {
     'name' : 'IM Notifications',
     'version': '1.0.1',
-    'author' : 'Ivan Yelizariev',
+    'author' : 'IT-Projects LLC, Ivan Yelizariev',
+    'license': 'GPL-3',
     'category' : 'Tools',
-    'website' : 'https://yelizariev.github.io',
+    'website' : 'https://twitter.com/yelizariev',
     'price': 9.00,
     'currency': 'EUR',
     'depends' : ['im_chat', 'mail'],
@@ -12,5 +13,6 @@
         'im_notif_data.xml',
         'im_notif_views.xml',
         ],
-    'installable': True
+    'installable': True,
+    'uninstall_hook': 'pre_uninstall',
 }

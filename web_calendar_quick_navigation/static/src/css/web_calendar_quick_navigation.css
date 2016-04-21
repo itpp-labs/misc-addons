@@ -1,0 +1,18 @@
+.openerp .fc-view-month .fc-day-number {
+    cursor: pointer;
+}
+
+.oe_calendar_widget .quick_monthes{
+	text-align: center;
+}
+
+.oe_calendar_widget .quick_weeks{
+	text-align: center;
+}
+
+.oe_calendar_widget .quick_monthes .current{
+	font-weight: bold;
+}
+.oe_calendar_widget .quick_weeks .current{
+	font-weight: bold;
+}

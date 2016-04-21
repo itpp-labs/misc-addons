@@ -2,9 +2,10 @@
     'name': "Reminders and Agenda for Issues",
     'version': '1.0.0',
     'author': 'Matmoz d.o.o.',
+    'license': 'GPL-3',
     'category': 'Reminders and Agenda',
     'website': 'https://www.matmoz.si',
-    'price': 6.00,
+    'price': 9.00,
     'currency': 'EUR',
     'depends': ['reminder_base', 'service_desk_issue'],
     'data': [

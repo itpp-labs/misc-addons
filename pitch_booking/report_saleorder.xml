@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="pitch_booking_report_saleorder_document" inherit_id="booking_calendar.booking_calendar_report_saleorder_document">
+            <xpath expr="//table[@class='table table-condensed']/thead/tr/th[2]" position="after">
+                <th>Venue</th>
+                <th>Pitch</th>
+            </xpath>
+
+            <xpath expr="//tbody[@class='sale_tbody']/tr/td[2]" position="after">
+                <td> <span t-field="l.venue_id"/> </td>
+                <td> <span t-field="l.pitch_id"/> </td>
+            </xpath>
+
+        </template>
+
+        <template id="pitch_booking_report_invoice_document" inherit_id="account.report_invoice_document">
+            <xpath expr="//table[@class='table table-condensed']/thead/tr" position="replace">
+                <tr>
+                    <th>Product</th>
+                    <th>Venue</th>
+                    <th>Pitch</th>
+                    <th>Date start</th>
+                    <th>Date end</th>
+                    <th class="text-right">Unit Price</th>
+                    <th class="text-right">Price</th>
+                </tr>
+            </xpath>
+            <xpath expr="//tbody[@class='invoice_tbody']/tr" position="replace">
+                <tr t-foreach="o.invoice_line" t-as="l">
+                    <td><span t-field="l.name"/></td>
+                    <td> <span t-field="l.venue_id"/> </td>
+                    <td> <span t-field="l.pitch_id"/> </td>
+                    <td> <span t-field="l.booking_start"/> </td>
+                    <td> <span t-field="l.booking_end"/> </td>
+                    <td class="text-right"> <span t-field="l.price_unit"/> </td>
+                    <td class="text-right">
+                        <span t-field="l.price_subtotal"
+                              t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                    </td>
+                </tr>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>

@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data noupdate="1">
+
+        <!--                      Partner                        -->
+        <record id="res_partner_bt" model="res.partner">
+            <field name="name">The Cage Sports Park Pte Ltd</field>
+            <field name="country_id" ref="base.sg"/>
+            <field name="is_company" eval="1" />
+        </record>
+        <record id="res_partner_kl" model="res.partner">
+            <field name="name">We Wanted To Be Footballers Pte Ltd</field>
+            <field name="country_id" ref="base.sg"/>
+            <field name="is_company" eval="1" />
+        </record>
+
+        <!--                      Company                        -->
+        <record id="res_company_bt" model="res.company">
+            <field name="partner_id" ref="res_partner_bt"/>
+            <field name="parent_id" ref="base.main_company"/>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="name">The Cage Sports Park Pte Ltd</field>
+        </record>
+
+        <record id="res_company_kl" model="res.company">
+            <field name="partner_id" ref="res_partner_kl"/>
+            <field name="parent_id" ref="base.main_company"/>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="name">We Wanted To Be Footballers Pte Ltd</field>
+        </record>
+
+        <!--                      Warehouse                        -->
+        <record id="stock_warehouse_thecage" model="stock.warehouse">
+            <field name="name">The Cage Sports Park Pte Ltd</field>
+            <field name="company_id" ref="res_company_bt"/>
+            <field name="code">bt</field>
+        </record>
+        <record id="stock_warehouse_wewanted" model="stock.warehouse">
+            <field name="name">We Wanted To Be Footballers Pte Ltd</field>
+            <field name="company_id" ref="res_company_kl"/>
+            <field name="code">kl</field>
+        </record>
+
+        <!--                      User                        -->
+        <record id="base.user_root" model="res.users">
+            <field name="company_ids" eval="[(4, ref('res_company_bt')),(4, ref('res_company_kl')),]"/>
+        </record>
+        <!--                      Groups                        -->
+        <record id="group_frontdesk" model="res.groups">
+          <field name="name">Front Desk</field>
+          <field name="implied_ids" eval="[(4, ref('base.group_sale_salesman_all_leads'))]"/>
+        </record>
+        <record id="group_bookingstaff" model="res.groups">
+          <field name="name">Booking Staff</field>
+          <field name="implied_ids" eval="[(4, ref('base.group_sale_manager'))]"/>
+        </record>
+
+
+        <!--                   Venues                   -->
+        <record id="venue_kallang" model="pitch_booking.venue">
+            <field name="name">Kallang</field>
+            <field name="company_id" ref="res_company_kl"/>
+        </record>
+        <record id="venue_bt" model="pitch_booking.venue">
+            <field name="name">Bukit Timah</field>
+            <field name="company_id" ref="res_company_bt"/>
+        </record>
+
+        <!--                   Pitches                   -->
+        <record id="kl_pitch_1" model="pitch_booking.pitch">
+            <field name="name">P1</field>
+            <field name="venue_id" ref="venue_kallang"/>       
+        </record>
+        <record id="kl_pitch_2" model="pitch_booking.pitch">
+            <field name="name">P2</field>
+            <field name="venue_id" ref="venue_kallang"/>       
+        </record>
+        <record id="kl_pitch_3" model="pitch_booking.pitch">
+            <field name="name">P3</field>
+            <field name="venue_id" ref="venue_kallang"/>       
+        </record>
+        <record id="kl_pitch_4" model="pitch_booking.pitch">
+            <field name="name">P4</field>
+            <field name="venue_id" ref="venue_kallang"/>       
+        </record>
+        <record id="kl_pitch_5" model="pitch_booking.pitch">
+            <field name="name">P5</field>
+            <field name="venue_id" ref="venue_kallang"/>       
+        </record>
+        <record id="kl_pitch_6" model="pitch_booking.pitch">
+            <field name="name">P6</field>
+            <field name="venue_id" ref="venue_kallang"/>       
+        </record>
+
+        <record id="bt_pitch_1" model="pitch_booking.pitch">
+            <field name="name">SP1</field>
+            <field name="venue_id" ref="venue_bt"/>       
+        </record>
+        <record id="bt_pitch_2" model="pitch_booking.pitch">
+            <field name="name">SP2</field>
+            <field name="venue_id" ref="venue_bt"/>       
+        </record>
+        <record id="bt_pitch_3" model="pitch_booking.pitch">
+            <field name="name">SP3</field>
+            <field name="venue_id" ref="venue_bt"/>       
+        </record>
+        <record id="bt_pitch_4" model="pitch_booking.pitch">
+            <field name="name">TP1</field>
+            <field name="venue_id" ref="venue_bt"/>       
+        </record>
+        <record id="bt_pitch_5" model="pitch_booking.pitch">
+            <field name="name">TP2</field>
+            <field name="venue_id" ref="venue_bt"/>       
+        </record>
+        <record id="bt_pitch_6" model="pitch_booking.pitch">
+            <field name="name">TP3</field>
+            <field name="venue_id" ref="venue_bt"/>       
+        </record>
+
+        <!--                   Working Time                   -->
+        <record id="calendar_before_6_weekdays" model="resource.calendar">
+            <field name="name">Before 6pm on Weekdays</field>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_b6wd_mon">
+            <field name="name">Monday</field>
+            <field name="dayofweek">0</field>
+            <field name="hour_from">00</field>
+            <field name="hour_to">18</field>
+            <field name="calendar_id" ref="calendar_before_6_weekdays"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_b6wd_tue">
+            <field name="name">Tuesday</field>
+            <field name="dayofweek">1</field>
+            <field name="hour_from">00</field>
+            <field name="hour_to">18</field>
+            <field name="calendar_id" ref="calendar_before_6_weekdays"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_b6wd_wed">
+            <field name="name">Wednesday</field>
+            <field name="dayofweek">2</field>
+            <field name="hour_from">00</field>
+            <field name="hour_to">18</field>
+            <field name="calendar_id" ref="calendar_before_6_weekdays"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_b6wd_thu">
+            <field name="name">Thursday</field>
+            <field name="dayofweek">3</field>
+            <field name="hour_from">00</field>
+            <field name="hour_to">18</field>
+            <field name="calendar_id" ref="calendar_before_6_weekdays"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_b6wd_fri">
+            <field name="name">Friday</field>
+            <field name="dayofweek">4</field>
+            <field name="hour_from">00</field>
+            <field name="hour_to">18</field>
+            <field name="calendar_id" ref="calendar_before_6_weekdays"/>
+        </record>
+        <record id="calendar_before_7_weekdays" model="resource.calendar">
+            <field name="name">Before 7pm on Weekdays</field>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_b7wd_mon">
+            <field name="name">Monday</field>
+            <field name="dayofweek">0</field>
+            <field name="hour_from">00</field>
+            <field name="hour_to">19</field>
+            <field name="calendar_id" ref="calendar_before_7_weekdays"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_b7wd_tue">
+            <field name="name">Tuesday</field>
+            <field name="dayofweek">1</field>
+            <field name="hour_from">00</field>
+            <field name="hour_to">19</field>
+            <field name="calendar_id" ref="calendar_before_7_weekdays"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_b7wd_wed">
+            <field name="name">Wednesday</field>
+            <field name="dayofweek">2</field>
+            <field name="hour_from">00</field>
+            <field name="hour_to">19</field>
+            <field name="calendar_id" ref="calendar_before_7_weekdays"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_b7wd_thu">
+            <field name="name">Thursday</field>
+            <field name="dayofweek">3</field>
+            <field name="hour_from">00</field>
+            <field name="hour_to">19</field>
+            <field name="calendar_id" ref="calendar_before_7_weekdays"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_b7wd_fri">
+            <field name="name">Friday</field>
+            <field name="dayofweek">4</field>
+            <field name="hour_from">00</field>
+            <field name="hour_to">19</field>
+            <field name="calendar_id" ref="calendar_before_7_weekdays"/>
+        </record>
+        <record id="calendar_after_6_weekdays" model="resource.calendar">
+            <field name="name">After 6pm on Weekdays</field>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_a6wd_mon">
+            <field name="name">Monday</field>
+            <field name="dayofweek">0</field>
+            <field name="hour_from">18</field>
+            <field name="hour_to">00</field>
+            <field name="calendar_id" ref="calendar_after_6_weekdays"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_a6wd_tue">
+            <field name="name">Tuesday</field>
+            <field name="dayofweek">1</field>
+            <field name="hour_from">18</field>
+            <field name="hour_to">00</field>
+            <field name="calendar_id" ref="calendar_after_6_weekdays"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_a6wd_wed">
+            <field name="name">Wednesday</field>
+            <field name="dayofweek">2</field>
+            <field name="hour_from">18</field>
+            <field name="hour_to">00</field>
+            <field name="calendar_id" ref="calendar_after_6_weekdays"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_a6wd_thu">
+            <field name="name">Thursday</field>
+            <field name="dayofweek">3</field>
+            <field name="hour_from">18</field>
+            <field name="hour_to">00</field>
+            <field name="calendar_id" ref="calendar_after_6_weekdays"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_a6wd_fri">
+            <field name="name">Friday</field>
+            <field name="dayofweek">4</field>
+            <field name="hour_from">18</field>
+            <field name="hour_to">00</field>
+            <field name="calendar_id" ref="calendar_after_6_weekdays"/>
+        </record>
+        <record id="calendar_after_10_weekdays" model="resource.calendar">
+            <field name="name">After 10pm on Weekdays</field>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_a10wd_mon">
+            <field name="name">Monday</field>
+            <field name="dayofweek">0</field>
+            <field name="hour_from">22</field>
+            <field name="hour_to">00</field>
+            <field name="calendar_id" ref="calendar_after_10_weekdays"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_a10wd_tue">
+            <field name="name">Tuesday</field>
+            <field name="dayofweek">1</field>
+            <field name="hour_from">22</field>
+            <field name="hour_to">00</field>
+            <field name="calendar_id" ref="calendar_after_10_weekdays"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_a10wd_wed">
+            <field name="name">Wednesday</field>
+            <field name="dayofweek">2</field>
+            <field name="hour_from">22</field>
+            <field name="hour_to">00</field>
+            <field name="calendar_id" ref="calendar_after_10_weekdays"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_a10wd_thu">
+            <field name="name">Thursday</field>
+            <field name="dayofweek">3</field>
+            <field name="hour_from">22</field>
+            <field name="hour_to">00</field>
+            <field name="calendar_id" ref="calendar_after_10_weekdays"/>
+        </record>
+        <record id="calendar_weekends_and_ph" model="resource.calendar">
+            <field name="name">Weekends</field>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_we_sat">
+            <field name="name">Saturday</field>
+            <field name="dayofweek">5</field>
+            <field name="hour_from">00</field>
+            <field name="hour_to">00</field>
+            <field name="calendar_id" ref="calendar_weekends_and_ph"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_we_sun">
+            <field name="name">Sunday</field>
+            <field name="dayofweek">6</field>
+            <field name="hour_from">00</field>
+            <field name="hour_to">00</field>
+            <field name="calendar_id" ref="calendar_weekends_and_ph"/>
+        </record>
+        <record id="calendar_saturdays" model="resource.calendar">
+            <field name="name">Saturdays</field>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_sat">
+            <field name="name">Saturday</field>
+            <field name="dayofweek">5</field>
+            <field name="hour_from">00</field>
+            <field name="hour_to">00</field>
+            <field name="calendar_id" ref="calendar_saturdays"/>
+        </record>
+        <record id="calendar_sundays" model="resource.calendar">
+            <field name="name">Sundays</field>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_sun">
+            <field name="name">Sunday</field>
+            <field name="dayofweek">6</field>
+            <field name="hour_from">00</field>
+            <field name="hour_to">00</field>
+            <field name="calendar_id" ref="calendar_sundays"/>
+        </record>
+
+        <!--                   Products                   -->
+        <record forcecreate="True" id="product_product_klsb6wd" model="product.product">
+            <field name="name">Kallang Standard @S$54per one hour before 6pm on Weekdays</field>
+            <field name="list_price">54.0</field>
+            <field name="type">service</field>
+            <field name="uom_id" ref="product.product_uom_hour"/>
+            <field name="uom_po_id" ref="product.product_uom_hour"/>
+            <field name="description">Public</field>
+            <field name="venue_id" ref="venue_kallang"/>
+            <field name="calendar_id" ref="calendar_before_6_weekdays"/>
+            <field name="company_id" ref="res_company_kl" />
+        </record>
+        <record forcecreate="True" id="product_product_klstb7wd" model="product.product">
+            <field name="name">Kallang Students @S$54per two hours before 7pm on Weekdays</field>
+            <field name="list_price">27.0</field>
+            <field name="type">service</field>
+            <field name="uom_id" ref="product.product_uom_hour"/>
+            <field name="uom_po_id" ref="product.product_uom_hour"/>
+            <field name="description">Students Only</field>
+            <field name="venue_id" ref="venue_kallang"/>
+            <field name="calendar_id" ref="calendar_before_7_weekdays"/>
+            <field name="company_id" ref="res_company_kl" />
+        </record>
+        <record forcecreate="True" id="product_product_klnsfb7wd" model="product.product">
+            <field name="name">Kallang NSF @S$75per two hours before 7pm on Weekdays</field>
+            <field name="list_price">37.5</field>
+            <field name="type">service</field>
+            <field name="uom_id" ref="product.product_uom_hour"/>
+            <field name="uom_po_id" ref="product.product_uom_hour"/>
+            <field name="description">NSF Only</field>
+            <field name="venue_id" ref="venue_kallang"/>
+            <field name="calendar_id" ref="calendar_before_7_weekdays"/>
+            <field name="company_id" ref="res_company_kl" />
+        </record>
+        <record forcecreate="True" id="product_product_klppa6wd" model="product.product">
+            <field name="name">Kallang Peak public @S$96per one hour after 6pm</field>
+            <field name="list_price">96.0</field>
+            <field name="type">service</field>
+            <field name="uom_id" ref="product.product_uom_hour"/>
+            <field name="uom_po_id" ref="product.product_uom_hour"/>
+            <field name="description">Public</field>
+            <field name="venue_id" ref="venue_kallang"/>
+            <field name="calendar_id" ref="calendar_after_6_weekdays"/>
+            <field name="company_id" ref="res_company_kl" />
+        </record>
+        <record forcecreate="True" id="product_product_klnightwd" model="product.product">
+            <field name="name">Kallang Late Night @S$150per two hours after 10pm on Monday-Thursday</field>
+            <field name="list_price">75.0</field>
+            <field name="type">service</field>
+            <field name="uom_id" ref="product.product_uom_hour"/>
+            <field name="uom_po_id" ref="product.product_uom_hour"/>
+            <field name="description">Monday-Thursday</field>
+            <field name="venue_id" ref="venue_kallang"/>
+            <field name="calendar_id" ref="calendar_after_10_weekdays"/>
+            <field name="company_id" ref="res_company_kl" />
+        </record>
+
+        <!--                       Leaves                    -->
+         <record id="resource_leaves_calendar_weph_deepavali" model="resource.calendar.leaves">
+            <field name="name">PH</field>
+            <field name="date_from">2015-11-10 00:00:00</field>
+            <field name="date_to">2015-11-11 00:00:00</field>
+            <field name="calendar_id" ref="calendar_weekends_and_ph"/>
+        </record>
+
+        <!--                       Leaves                    -->
+         <record id="resource_leaves_calendar_weph_cd" model="resource.calendar.leaves">
+            <field name="name">PH</field>
+            <field name="date_from">2015-12-25 00:00:00</field>
+            <field name="date_to">2015-12-26 00:00:00</field>
+            <field name="calendar_id" ref="calendar_weekends_and_ph"/>
+        </record>
+
+        <!--                      Cron                       -->
+        <record forcecreate="True" id="ir_cron_booking_reminder" model="ir.cron">
+            <field name="name">Booking reminder</field>
+            <field eval="True" name="active" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'sale.order.line'"/>
+            <field name="function" eval="'_cron_booking_reminder'"/>
+            <field name="args" eval="'()'"/>
+        </record>
+        <record forcecreate="True" id="ir_cron_expiring_reminder" model="ir.cron">
+            <field name="name">Booking contract expiring reminder</field>
+            <field eval="True" name="active" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model">account.analytic.account</field>
+            <field name="function">_cron_expiring_reminder</field>
+            <field name="args" eval="'()'"/>
+        </record>
+
+        <!--                      ir.rule                       -->
+        <record id="show_own_venues_only" model="ir.rule">
+          <field name="name">Show venues depending on current company</field>
+          <field name="model_id" ref="pitch_booking.model_pitch_booking_venue"/>
+          <field name="perm_read" eval="1"/>
+          <field name="perm_write" eval="1"/>
+          <field name="perm_create" eval="1"/>
+          <field name="perm_unlink" eval="1" />
+          <field name="domain_force">[('company_id','=',user.company_id.id)]</field>
+        </record>
+        <record id="show_own_pitches_only" model="ir.rule">
+          <field name="name">Show pitches depending on current company</field>
+          <field name="model_id" ref="pitch_booking.model_pitch_booking_pitch"/>
+          <field name="perm_read" eval="1"/>
+          <field name="perm_write" eval="1"/>
+          <field name="perm_create" eval="1"/>
+          <field name="perm_unlink" eval="1" />
+          <field name="domain_force">[('venue_id.company_id','=',user.company_id.id)]</field>
+        </record>
+        <record id="sale_order_line_unlink" model="ir.rule">
+          <field name="name">restrict deletion for lines with service product</field>
+          <field name="model_id" ref="sale.model_sale_order_line"/>
+          <field name="perm_read" eval="0"/>
+          <field name="perm_write" eval="0"/>
+          <field name="perm_create" eval="0"/>
+          <field name="perm_unlink" eval="1" />
+          <field name="domain_force">[('product_id.type','!=','service')]</field>
+        </record>
+
+        <!--                      email.template                       -->
+        <record id="email_template_booking_time_updated" model="email.template">
+          <field name="name">Booking time updated</field>
+          <field name="email_from">${(object.order_id.user_id.email or '')|safe}</field>
+          <field name="subject">Booking time</field>
+          <field name="partner_to">${object.order_id.partner_id and object.partner_id.id or ''}</field>
+          <field name="lang">${object.order_id.partner_id and object.partner_id.lang or ''}</field>
+          <field name="model_id" ref="thecage_data.model_sale_order_line"/>
+          <field name="body_html"><![CDATA[
+
+          <p>Booking time has been changed:</p>
+          <p>Bookint start time: ${format_tz(object.booking_start, tz=object.order_id.partner_id.tz, context={'lang':object.order_id.partner_id.lang})}</p>              
+          <p>Bookint end time: ${format_tz(object.booking_end, tz=object.order_id.partner_id.tz, context={'lang':object.order_id.partner_id.lang})}</p>
+          ]]></field>
+        </record>
+
+
+    </data>
+</openerp>

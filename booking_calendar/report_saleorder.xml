@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="booking_calendar_report_saleorder_document" inherit_id="sale.report_saleorder_document">
+            <xpath expr="//table[@class='table table-condensed']/thead/tr" position="replace">
+                <tr>
+                    <th>Product</th>
+                    <th>Description</th>
+                    <th>Date start</th>
+                    <th>Date end</th>
+                    <th class="text-right">Unit Price</th>
+                    <th class="text-right">Price</th>
+                </tr>
+            </xpath>
+            <xpath expr="//tbody[@class='sale_tbody']/tr" position="replace">
+                <tr t-foreach="o.order_line" t-as="l">
+                    <td>
+                        <span t-field="l.product_id"/>
+                    </td>
+                    <td>
+                        <span t-field="l.name"/>
+                    </td>
+                    <td>
+                        <span t-field="l.booking_start"/>
+                    </td>
+                    <td>
+                        <span t-field="l.booking_end"/>
+                    </td>
+                    <td class="text-right">
+                        <span t-field="l.price_unit"/>
+                    </td>
+                    <td class="text-right">
+                        <span t-field="l.price_subtotal"
+                              t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
+                    </td>
+                </tr>
+            </xpath>
+        </template>
+    </data>
+</openerp>

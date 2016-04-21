@@ -24,7 +24,7 @@
 {
     "name" : "Currency Rate Update",
     "version" : "0.7",
-    "author" : "Camptocamp, Ivan Yelizariev",
+    "author" : "Camptocamp, IT-Projects LLC, Ivan Yelizariev",
     "website" : "http://camptocamp.com",
     "category" : "Financial Management/Configuration",
     "depends" : [

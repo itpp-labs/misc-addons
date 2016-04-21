@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+      <record id="view_order_form_slots" model="ir.ui.view">
+        <field name="name">view.order.form.slots</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+          <xpath expr="//field[@name='project_id']" position="after">
+            <field name="available_slots" attrs="{'invisible':[('project_id','=',False)]}"/>
+            <field name="paid_slots" attrs="{'invisible':[('project_id','=',False)]}"/>
+          </xpath>
+        </field>
+      </record>
+    </data>
+</openerp>

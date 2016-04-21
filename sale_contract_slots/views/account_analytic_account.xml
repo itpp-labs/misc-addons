@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+      <record id="account_analytic_account_form_slots" model="ir.ui.view">
+        <field name="name">analytic.account.form.slots</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+        <field name="arch" type="xml">
+          <xpath expr="//group[@name='main']" position="inside">
+            <group name="slots">
+              <field name="paid_slots"/>
+              <field name="available_slots"/>
+            </group>
+          </xpath>
+        </field>
+      </record>
+    </data>
+</openerp>
