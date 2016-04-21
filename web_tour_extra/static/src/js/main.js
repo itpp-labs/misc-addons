@@ -1,7 +1,13 @@
-openerp.web_tour_extra = function(instance) {
-	var Tour = instance.web.Tour;
+odoo.define('web_tour_extra.Tour', function (require) {
+	"use strict";
 
-	instance.web.Tour.getState = function () {
+	var core = require('web.core');
+	
+	var _t = core._t;
+	var qweb = core.qweb;
+	var Tour = require('web.Tour');
+	
+	Tour.getState = function () {
 		var state = JSON.parse(localStorage.getItem("tour") || 'false') || {};
 		if (state) {
 			this.time = state.time;
@@ -18,8 +24,18 @@ openerp.web_tour_extra = function(instance) {
 			// Do not clean hash for reasons of saving starting tour path.
 			window.location.hash = window.location.hash.replace(RegExp("&?/?#tutorial[^=]*=true"), "");
 			Tour.log("Tour '" + state.id + "' Begin from url hash");
-			Tour.saveState(state.id, state.mode, state.step_id, 0);
+			Tour.saveState(state.id, state.mode, state.step_id, 0, state.log);
 		}
+		else if (!state.id && window.location.href.indexOf("#tutorial.") > -1) {
+            state = {
+                "id": window.location.href.match(/#tutorial\.(.*)=true/)[1],
+                "mode": "tutorial",
+                "step_id": 0
+            };
+            window.location.hash = "";
+            Tour.log("Tour '"+state.id+"' Begin from url hash");
+            Tour.saveState(state.id, state.mode, state.step_id, 0, state.log);
+        }
 		if (!state.id) {
 			return;
 		}
@@ -27,10 +43,10 @@ openerp.web_tour_extra = function(instance) {
 		state.step = state.tour && state.tour.steps[state.step_id === -1 ? 0 : state.step_id];
 		return state;
 	};
-	$(document).ready(function () {
-    if (Tour.autoRunning) {
-        Tour.running();
-    };
-});
+// 	$(document).ready(function () {
+//     if (Tour.autoRunning) {
+//         Tour.running();
+//     };
+// });
 
-};
+});
