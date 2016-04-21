@@ -13,14 +13,11 @@
     #"currency": "EUR",
 
     "depends": [
-        "dependency1",
-        "dependency2",
+        "account",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
-        "file1.xml",
-        "file2.xml",
-        "file3.yml",
+        "views.xml",
     ],
     "demo": [
     ],
