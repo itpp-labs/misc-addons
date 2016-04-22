@@ -43,10 +43,12 @@ odoo.define('web_tour_extra.Tour', function (require) {
 		state.step = state.tour && state.tour.steps[state.step_id === -1 ? 0 : state.step_id];
 		return state;
 	};
-// 	$(document).ready(function () {
-//     if (Tour.autoRunning) {
-//         Tour.running();
-//     };
-// });
-
+	// below fix of backend popover bug when element can't get in time and some old stuff is pooped
+	var super_closePopover = Tour.closePopover;
+    Tour.closePopover = function () {
+        if (Tour.$element) {
+            Tour.$element.data('bs.popover', false)
+        }
+		super_closePopover.call(this)
+    };
 });
