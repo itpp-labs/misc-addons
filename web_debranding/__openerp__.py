@@ -5,7 +5,7 @@
     'license': 'LGPL-3',
     'category': 'Debranding',
     'website': 'https://twitter.com/yelizariev',
-    'price': 90.00,
+    'price': 150.00,
     'currency': 'EUR',
     'depends': [
         'web',
