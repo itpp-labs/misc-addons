@@ -110,7 +110,9 @@ class sale_order_line(models.Model):
     overlap = fields.Boolean(compute='_compute_date_overlap', default=False, store=True)
     automatic = fields.Boolean(default=False, store=True, help='automatically generated booking lines')
     active = fields.Boolean(default=True)
-    resource_trigger = fields.Integer(help='we use this feild in _compute_date_overlap instead of resource_id because resource_id is related to pitch in pitch_booking module')
+    resource_trigger = fields.Integer(help='''we use this feild in _compute_date_overlap instead of resource_id
+    because resource_id is related to pitch in pitch_booking module. If we hadn't done it then _compute_date_overlap would be called
+    for each line with the same resource instead of only only for current new line''')
 
     @api.one
     def write(self, vals):
