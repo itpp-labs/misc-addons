@@ -28,7 +28,10 @@ openerp.web_tour_extra = function(instance) {
 		return state;
 	};
 	$(document).ready(function () {
-	if(localStorage.getItem("tour"))
+    // Do not run if 'tour' exists. If tour started it will do: 'Tour._load_template = true;'
+    // And if for some reasons it started again this check: 'if (!Tour._load_template) {'
+    // That make system think tour already loaded, but some times it may be not loaded yet.
+    if(localStorage.getItem("tour"))
     {return};
     if (Tour.autoRunning) {
         Tour.running();
