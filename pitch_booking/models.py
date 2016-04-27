@@ -33,6 +33,13 @@ class sale_order_line(models.Model):
     pitch_id = fields.Many2one('pitch_booking.pitch', string='Pitch')
     resource_id = fields.Many2one('resource.resource', 'Resource', related='pitch_id.resource_id', store=True)
 
+    @api.one
+    def write(self, vals):
+        result = super(sale_order_line, self).write(vals)
+        if vals.get('pitch_id') and not vals.get('resource_id'):
+            vals['resource_id'] = self.env['pitch_booking.pitch'].browse(vals.get('pitch_id')).resource_id
+        return result
+
     @api.onchange('resource_id')
     def _on_change_resource(self):
         if self.resource_id:
