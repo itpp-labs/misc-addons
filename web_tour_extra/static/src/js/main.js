@@ -28,6 +28,8 @@ openerp.web_tour_extra = function(instance) {
 		return state;
 	};
 	$(document).ready(function () {
+	if(localStorage.getItem("tour"))
+    {return};
     if (Tour.autoRunning) {
         Tour.running();
     };
