@@ -12,4 +12,4 @@ Extra features for tours:
         <field name="target">self</field>
     </record>
 
-   if you are developer, don't forget to change url ``/web?res_partner_mails_count=tutorial#...`` back to ``/web#...`` whenever you want to relaunch the Tour (usually by uninstalling and installing your module).
+if you are developer, don't forget to change url ``/web?res_partner_mails_count=tutorial#...`` back to ``/web#...`` whenever you want to relaunch the Tour (usually by uninstalling and installing your module).
