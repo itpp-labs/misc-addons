@@ -4,4 +4,12 @@ Extended tours
 Extra features for tours:
 
 * Fixes issue with running Tour in specific backend page. For example, without this module it's impossible to start Tour from ``/web#id=3&view_type=form&model=res.partner``, the hash will be cleaned and Tour begins from ``/web#`` page.
-    * To launch tutorial using ir.action.todo we need to change url (add some values assignment). To relaunch tour, for example if you uninstall and install it again, you need to change url back (like *database/web*). If url will be same tutorial wount be started.
+    * to use it in  ``ir.action.todo`` add something to url, because page has to be reloded, e.g.::
+
+    <record id="res_partner_mails_count_tutorial" model="ir.actions.act_url">
+        <field name="name">res_partner_mails_count Tutorial</field>
+        <field name="url" eval="'/web?res_partner_mails_count=tutorial#id='+str(ref('base.partner_root'))+'&amp;view_type=form&amp;model=res.partner&amp;/#tutorial_extra.mails_count_tour=true'"/>
+        <field name="target">self</field>
+    </record>
+
+   if you are developer, don't forget to change url ``/web?res_partner_mails_count=tutorial#...`` back to ``/web#...`` whenever you want to relaunch the Tour (usually by uninstalling and installing your module).
