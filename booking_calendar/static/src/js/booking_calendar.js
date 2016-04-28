@@ -13,6 +13,7 @@ openerp.booking_calendar = function (session) {
         init: function (parent, dataset, view_id, options) {
             this._super(parent, dataset, view_id, options);
             this.color_code_map = {};
+            this.read_resource_color_def = {}
             this.last_domain = {};
         },
         event_data_transform: function(evt) {
@@ -179,6 +180,9 @@ openerp.booking_calendar = function (session) {
 
         },
         read_resource_color: function(key) {
+            if (this.read_resource_color_def[key])
+                return this.read_resource_color_def[key]
+
             var self = this;
             var def = $.Deferred();
             if (key in this.color_code_map) {
@@ -186,10 +190,12 @@ openerp.booking_calendar = function (session) {
             }
             else {            
                 new session.web.Model(this.model).call('read_color', [key]).then(function(result) {
+                    self.read_resource_color_def[key] = false
                     self.color_code_map[key] = result;
                     def.resolve(result);
                 });
             }
+            this.read_resource_color_def[key] = def;
             return def;
         },
         
