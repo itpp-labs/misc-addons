@@ -185,7 +185,7 @@ class sale_order_line(models.Model):
                     raise ValidationError(_('Not valid interval of booking for the product %s.') % line.product_id.name)
 
     @api.multi
-    @api.constrains('resource_id', 'booking_start', 'booking_end')
+    @api.constrains('resource_trigger', 'booking_start', 'booking_end')
     def _check_date_fit_resource_calendar(self):
         for line in self.sudo():
             if line.state == 'cancel':
