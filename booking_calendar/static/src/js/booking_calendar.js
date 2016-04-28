@@ -181,14 +181,12 @@ openerp.booking_calendar = function (session) {
         read_resource_color: function(key) {
             var self = this;
             var def = $.Deferred();
-            if (this.color_code_map[key]) {
+            if (key in this.color_code_map) {
                 def.resolve(this.color_code_map[key]);
             }
             else {            
                 new session.web.Model(this.model).call('read_color', [key]).then(function(result) {
-                    if (result) {
-                        self.color_code_map[key] = result;
-                    }
+                    self.color_code_map[key] = result;
                     def.resolve(result);
                 });
             }
