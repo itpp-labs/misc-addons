@@ -27,6 +27,21 @@ openerp.web_tour_extra = function(instance) {
 		state.step = state.tour && state.tour.steps[state.step_id === -1 ? 0 : state.step_id];
 		return state;
 	};
+	var super_autoTogglePopover = Tour.autoTogglePopover;
+	instance.web.Tour.autoTogglePopover = function () {
+		var state = Tour.getState();
+		var step = state.step;
+		var $element = $(step.element).first();
+		if (step.title) {
+		    // delete title from $element in order to prevent replacing title
+            // by $element.attr('title') in fixTitle function in web/static/lib/bootstrap/js/boostrap.js
+			var title = $element.attr('title');
+			$element.attr('title', null);
+		}
+		super_autoTogglePopover.call(this);
+        // return title back
+		$element.attr('title', title);
+	};
 	$(document).ready(function () {
 	// if there 'tour' in localStorage, then tour is already running and we don't need to run it again
 	// Otherwise we have to call running again, because built-in call doesn't use overwritten function getStorage and doesn't handle tutorial_extra.*=true url
