@@ -23,7 +23,7 @@ class ir_translation(models.Model):
         if not new_name:
             return source
 
-        return re.sub(r'\bodoo\b', new_name, source, flags=re.IGNORECASE)
+        return re.sub(r'\bodoo(?!\.define)\b', new_name, source, flags=re.IGNORECASE)
 
     @tools.ormcache('name', 'types', 'lang', 'source', 'res_id')
     def __get_source(self, cr, uid, name, types, lang, source, res_id):
