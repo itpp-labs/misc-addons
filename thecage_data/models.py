@@ -151,8 +151,8 @@ class LinesWizard(models.TransientModel):
     @api.multi
     def find_overlaps(self, pitch_id, booking_start, booking_end):
         overlaps = 0
-        overlaps = self.env['sale.order.line'].search_count(['&', '|', '&', ('booking_start', '>', booking_start), ('booking_start', '<', booking_end),
-                                                             '&', ('booking_end', '>', booking_start), ('booking_end', '<', booking_end),
+        overlaps = self.env['sale.order.line'].search_count(['&', '|', '&', ('booking_start', '>=', booking_start), ('booking_start', '<', booking_end),
+                                                             '&', ('booking_end', '>', booking_start), ('booking_end', '<=', booking_end),
                                                              ('pitch_id', '!=', False),
                                                              ('pitch_id', '=', pitch_id)])
         overlaps += self.env['sale.order.line'].search_count([('booking_start', '=', booking_start),

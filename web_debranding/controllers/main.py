@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import openerp
-from openerp import http, SUPERUSER_ID
+from openerp import http
 from openerp.addons.web.controllers.main import Binary
 from openerp.addons.web.controllers.main import WebClient
 from openerp.addons.web.controllers import main as controllers_main
 import functools
-from openerp.http import request, serialize_exception as _serialize_exception
+from openerp.http import request
 from openerp.modules import get_module_resource
 from cStringIO import StringIO
 db_monodb = http.db_monodb
@@ -81,6 +81,7 @@ class WebClientCustom(WebClient):
     @http.route('/web/webclient/translations', type='json', auth="none")
     def translations(self, mods=None, lang=None):
         res = super(WebClientCustom, self).translations(mods, lang)
+
         for module_key, module_vals in res['modules'].iteritems():
             for message in module_vals['messages']:
                 message['id'] = self._debrand(message['id'])
@@ -90,3 +91,4 @@ class WebClientCustom(WebClient):
     def _debrand(self, string):
         new_company = request.env['ir.config_parameter'].get_param('web_debranding.new_name')
         return re.sub(r'[Oo]doo', new_company, string)
+

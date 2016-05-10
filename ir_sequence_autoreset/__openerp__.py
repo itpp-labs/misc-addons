@@ -43,7 +43,7 @@ http://me.alipay.com/wangbuke
     'data': [
            'ir_sequence.xml',
     ],
-    'installable': True,
+    'installable': False,
     'images': [],
 }
 

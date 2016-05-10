@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="product_category_taxes_form" model="ir.ui.view">
+            <field name="name">product_category_taxes.form</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="account.view_category_property_form" />
+            <field name="arch" type="xml">
+                <group name="first" position="after">
+                    <group>
+                        <group name="product_category_taxes" string="Taxes">
+                            <field name="taxes_id" widget="many2many_tags"/>
+                            <field name="supplier_taxes_id" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                </group>
+            </field>
+        </record>
+
+    </data>
+</openerp>

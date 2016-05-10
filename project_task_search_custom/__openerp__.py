@@ -3,7 +3,7 @@
 'name': "Task Search Custom",
 'summary': """Searching for tasks includes "Messages" and "Description" fields""",
 'author': "IT-Projects LLC, Ilmir Karamov",
-'license': 'GPL-3',
+'license': 'LGPL-3',
 'website': "https://it-projects.info",
 'version': '1.1.0',
 'price': 15.00,

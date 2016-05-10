@@ -2,7 +2,7 @@
     'name' : 'Initialization data',
     'version' : '1.0.0',
     'author' : 'IT-Projects LLC, Veronika Kotovich',
-    'license': 'GPL-3',
+    'license': 'LGPL-3',
     'website' : 'https://twitter.com/vkotovi4',
     'category' : 'Other',
     'description': """
@@ -21,6 +21,6 @@
         'views/view.xml',
         'security/ir.model.access.csv',
         ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
 }
