@@ -12,7 +12,7 @@ To rollback everything, before uninstalling the module set  **ir_attachment.loca
 Technical implementation
 ------------------------
 
-The module just calls built-in force_storage method of ir.attachment model, so it should be safe enough.
+We use fixed built-in force_storage function to update location for existed attachments.
 
 Note
 ----
