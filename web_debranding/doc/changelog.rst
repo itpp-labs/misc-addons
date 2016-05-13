@@ -6,7 +6,7 @@ Changelog
 `1.0.6`
 -------
 
-- FIX: bug with replacing the word "odoo" in URLs
+- FIX: bug with replacing the word "odoo" in JS functions
 
 `1.0.5`
 -------

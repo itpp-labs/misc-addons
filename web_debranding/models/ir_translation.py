@@ -25,7 +25,7 @@ class ir_translation(models.Model):
 
         """
         We must exclude the case when after the word "odoo" is the word "define".
-        Since URLs are also contained in the localization files.
+        Since JS functions are also contained in the localization files.
         """
         return re.sub(r'\bodoo(?!\.define)\b', new_name, source, flags=re.IGNORECASE)
 
