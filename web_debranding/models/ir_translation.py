@@ -26,6 +26,9 @@ class ir_translation(models.Model):
         """
         We must exclude the case when after the word "odoo" is the word "define".
         Since JS functions are also contained in the localization files.
+        Example:
+        po file: https://github.com/odoo/odoo/blob/9.0/addons/im_livechat/i18n/ru.po#L853
+        py file: https://github.com/odoo/odoo/blob/9.0/addons/im_livechat/controllers/main.py#L33
         """
         return re.sub(r'\bodoo(?!\.define)\b', new_name, source, flags=re.IGNORECASE)
 
