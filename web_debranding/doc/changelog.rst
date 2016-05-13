@@ -3,6 +3,11 @@
 Changelog
 =========
 
+`1.0.6`
+-------
+
+- FIX: bug with replacing the word "odoo" in URLs
+
 `1.0.5`
 -------
 

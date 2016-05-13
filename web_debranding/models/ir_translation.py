@@ -23,6 +23,10 @@ class ir_translation(models.Model):
         if not new_name:
             return source
 
+        """
+        We must exclude the case when after the word "odoo" is the word "define".
+        Since URLs are also contained in the localization files.
+        """
         return re.sub(r'\bodoo(?!\.define)\b', new_name, source, flags=re.IGNORECASE)
 
     @tools.ormcache('name', 'types', 'lang', 'source', 'res_id')
