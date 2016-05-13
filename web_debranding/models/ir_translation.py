@@ -28,7 +28,7 @@ class ir_translation(models.Model):
         Since JS functions are also contained in the localization files.
         Example:
         po file: https://github.com/odoo/odoo/blob/9.0/addons/im_livechat/i18n/ru.po#L853
-        py file: https://github.com/odoo/odoo/blob/9.0/addons/im_livechat/controllers/main.py#L33
+        xml file: https://github.com/odoo/odoo/blob/9.0/addons/im_livechat/views/im_livechat_channel_templates.xml#L148
         """
         return re.sub(r'\bodoo(?!\.define)\b', new_name, source, flags=re.IGNORECASE)
 
