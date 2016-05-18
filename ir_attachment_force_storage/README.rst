@@ -12,7 +12,7 @@ To rollback everything, before uninstalling the module set  **ir_attachment.loca
 Technical implementation
 ------------------------
 
-We use fixed built-in force_storage function to update location for existed attachments.
+We use fixed built-in force_storage function to update location for existing attachments.
 
 Note
 ----
