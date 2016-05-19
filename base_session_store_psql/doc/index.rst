@@ -2,15 +2,10 @@
  Store sessions in postgresql
 ==============================
 
-Installation
-============
-
-Simply add this module to *addons path*. In current implementation, you even don't need to install it.
-
 Usage
 =====
 
-Module use the same db settings as odoo does.
+Specify ``log_db`` value in config file or run odoo with ``--log-db`` parameter. This database will be used to store sessions.
 
 Uninstallation
 ==============

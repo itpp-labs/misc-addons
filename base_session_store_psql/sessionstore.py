@@ -23,6 +23,7 @@ import pickle
 from openerp import exceptions
 from openerp.sql_db import db_connect
 from openerp.tools import config
+from openerp.http import db_list
 
 import psycopg2
 
@@ -33,14 +34,17 @@ class PostgresSessionStore(SessionStore):
 
     def __init__(self, session_class=None):
         super(PostgresSessionStore, self).__init__(session_class=session_class)
+        # set value to avoid errors in session_gc function
+        self.path = config.session_dir
 
     def get_cursor(self):
-        if 'db_name' not in config.options or not config['db_name']:
+        db_name = config.get('log_db')
+        if not db_name:
             raise exceptions.UserError(
-                'You have to define a database name in the config to use the'
+-                'You have to define a log_db value in the config to use the'
                 'Postgres Session Store.')
 
-        con = db_connect(config['db_name'])
+        con = db_connect(db_name)
         cr = con.cursor()
         cr.execute(
             """
