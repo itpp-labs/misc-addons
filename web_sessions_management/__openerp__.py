@@ -73,4 +73,5 @@ NOTE: Admin has no restrictions""",
     'application': False,
     'auto_install': False,  # If it's True, the modules will be auto-installed when all dependencies are installed
     'certificate': '',
+    "post_load": 'post_load',
 }
