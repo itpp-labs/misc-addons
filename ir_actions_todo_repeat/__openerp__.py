@@ -20,6 +20,10 @@
     ],
     "demo": [
     ],
+
+    "post_load": 'post_load',
+    "pre_init_hook": None,
+    "post_init_hook": None,
     "installable": True,
     "auto_install": False,
 }
