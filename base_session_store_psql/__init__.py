@@ -1,3 +1,10 @@
+import openerp
 def post_load():
-    print 'POST_LOAD'
+    if not openerp.tools.config.get('log_db'):
+        raise exceptions.UserError(
+                'You have to define a log_db value in the config to use the'
+                'Postgres Session Store.')
+
+
+
     import http

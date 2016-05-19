@@ -39,11 +39,6 @@ class PostgresSessionStore(SessionStore):
 
     def get_cursor(self):
         db_name = config.get('log_db')
-        if not db_name:
-            raise exceptions.UserError(
--                'You have to define a log_db value in the config to use the'
-                'Postgres Session Store.')
-
         con = db_connect(db_name)
         cr = con.cursor()
         cr.execute(
