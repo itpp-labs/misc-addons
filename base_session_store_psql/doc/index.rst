@@ -5,9 +5,9 @@
 Installation
 ============
 
-To use module add it to ``server_wide_modules`` in config file or run odoo with ``--load`` parameter. E.g. ::
+To use module, add it to ``--load`` parameter. E.g. ::
 
-     ./odoo.py --load=web,base_session_store_psql
+     ./odoo.py --load=web,web_kanban,base_session_store_psql
 
 In current implementation, you don't need to install module via odoo interface.
 
@@ -20,4 +20,4 @@ Specify ``log_db`` value in config file or run odoo with ``--log-db`` parameter.
 Uninstallation
 ==============
 
-To uninstall the module delete it from ``server_wide_modules`` setting.
+To uninstall the module delete it from ``--load`` parameter.
