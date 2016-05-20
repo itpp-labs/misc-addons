@@ -9,7 +9,7 @@ To use module add it to ``server_wide_modules`` in config file or run odoo with 
 
      ./odoo.py --load=web,base_session_store_psql
 
-In current implementation, you don't need to install module.
+In current implementation, you don't need to install module via odoo interface.
 
 Usage
 =====
