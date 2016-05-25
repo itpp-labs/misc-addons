@@ -42,6 +42,10 @@
               <field name="reminder_sms"/>
               <field name="reminder_email"/>
             </group>
+            <group name="confirm configuration">
+              <field name="confirmation_sms"/>
+              <field name="confirmation_email"/>
+            </group>
           </xpath>
         </field>
       </record>
