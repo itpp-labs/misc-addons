@@ -81,7 +81,7 @@ class PostgresSessionStore(SessionStore):
 
     def delete(self, session):
         with self.get_cursor() as cr:
-            cr.execute("DELETE FROM sessionstore WHERE id = %s LIMIT 1;",
+            cr.execute("DELETE FROM sessionstore WHERE id = %s;",
                        (session.sid,))
 
     def get(self, sid):
