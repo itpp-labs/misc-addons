@@ -48,9 +48,13 @@ class SaleOrderTheCage(models.Model):
     def write(self, vals):
         result = super(SaleOrderTheCage, self).write(vals)
         # send sms immediately after user pushed 'Send by Email' button on the Sale Order
-        if vals.get('state') == 'sent' and self.partner_id.reminder_sms:
-                msg = 'Sale Order #' + self.name + ' is confirmed'
-                phone = self.partner_id.mobile
+        if vals.get('state') == 'sent' and self.partner_id.confirmation_sms:
+            phone = self.partner_id.mobile
+            for line in self.order_line:
+                msg = 'Successfully booked a pitch at The Cage %s!\n' % line.venue_id.name
+                msg += 'Pitch %s\n' % line.pitch_id.name
+                msg += 'From: %s To %s\n' % (line.booking_start, line.booking_end)
+                msg += 'ID %s\n' % self.id
                 self.env['sms_sg.sendandlog'].send_sms(phone, msg)
         return result
 
@@ -127,14 +131,20 @@ class SaleOrderLine(models.Model):
                              ])
         lines.write({'booking_reminder': True})
         for line in lines:
-            msg = 'Sale Order #' + line.order_id.name + ' is confirmed'
-            phone = line.order_id.partner_id.mobile
-            self.env['sms_sg.sendandlog'].send_sms(phone, msg)
+            if line.order_id.partner_id.reminder_sms:
+                msg = 'Your game at The Cage %s is coming up soon!\n' % line.venue_id.name
+                msg += 'Pitch %s\n' % line.pitch_id.name
+                msg += 'From: %s To %s\n' % (line.booking_start, line.booking_end)
+                msg += 'ID %s\n' % line.order_id.id
+                phone = line.order_id.partner_id.mobile
+                self.env['sms_sg.sendandlog'].send_sms(phone, msg)
 
 
 class ResPartnerReminderConfig(models.Model):
     _inherit = 'res.partner'
 
+    confirmation_email = fields.Boolean(default=True, string='Booking email confirmation enabled')
+    confirmation_sms = fields.Boolean(default=True, string='Booking sms confirmation enabled')
     reminder_sms = fields.Boolean(default=True, string='Booking sms reminder enabled')
     reminder_email = fields.Boolean(default=True, string='Booking email reminder enabled')
 
