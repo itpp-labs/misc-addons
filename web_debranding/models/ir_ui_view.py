@@ -1,5 +1,6 @@
-
+import logging
 from openerp import SUPERUSER_ID, models, tools, api
+_logger = logging.getLogger(__name__)
 
 MODULE = '_web_debranding'
 
@@ -28,21 +29,27 @@ class view(models.Model):
         registry = self.pool
         view_id = registry['ir.model.data'].xmlid_to_res_id(cr, SUPERUSER_ID, "%s.%s" % (MODULE, name))
         if view_id:
-            registry['ir.ui.view'].write(cr, SUPERUSER_ID, [view_id], {
+            try:
+                registry['ir.ui.view'].write(cr, SUPERUSER_ID, [view_id], {
                 'arch': arch,
             })
+            except:
+                _logger.warning('Cannot update view %s. Delete it.', name, exc_info=True)
+                registry['ir.ui.view'].unlink(cr, SUPERUSER_ID, [view_id])
+                return
+
             return view_id
 
         try:
-            view_id = registry['ir.ui.view'].create(cr, SUPERUSER_ID, {
-                'name': name,
-                'type': type,
-                'arch': arch,
-                'inherit_id': registry['ir.model.data'].xmlid_to_res_id(cr, SUPERUSER_ID, inherit_id, raise_if_not_found=True)
-            })
+            with cr.savepoint():
+                view_id = registry['ir.ui.view'].create(cr, SUPERUSER_ID, {
+                    'name': name,
+                    'type': type,
+                    'arch': arch,
+                    'inherit_id': registry['ir.model.data'].xmlid_to_res_id(cr, SUPERUSER_ID, inherit_id, raise_if_not_found=True)
+                })
         except:
-            import traceback
-            traceback.print_exc()
+            _logger.debug('Cannot create view %s. Cancel.', name, exc_info=True)
             return
         registry['ir.model.data'].create(cr, SUPERUSER_ID, {
             'name': name,
