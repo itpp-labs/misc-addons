@@ -13,6 +13,17 @@ class view(models.Model):
            <div class="oe_footer"></div>
        </xpath>''')
 
+        self._create_view(cr, uid, 'webclient_bootstrap_enterprise_title', 'web.webclient_bootstrap', '''
+       <xpath expr="//title" position="replace"></xpath>''')
+
+        self._create_view(cr, uid, 'webclient_bootstrap_enterprise_favicon', 'web.webclient_bootstrap', '''
+       <xpath expr="//link[@rel='shortcut icon']" position="replace">
+           <t t-set="favicon" t-value="request and request.env['ir.config_parameter'].get_param('web_debranding.favicon_url', '').strip() or ''"/>
+           <t t-if="favicon">
+               <link rel="shortcut icon" t-att-href="favicon" type="image/x-icon"/>
+           </t>
+       </xpath>''')
+
     def _create_view(self, cr, uid, name, inherit_id, arch, noupdate=False, type='qweb'):
         registry = self.pool
         view_id = registry['ir.model.data'].xmlid_to_res_id(cr, SUPERUSER_ID, "%s.%s" % (MODULE, name))

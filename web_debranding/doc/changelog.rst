@@ -7,6 +7,8 @@ Changelog
 -------
 
 - FIX: bug with replacing the word "odoo" in JS functions
+- FIX: replace title and favicon in Odoo Enterprise
+
 
 `1.0.5`
 -------
