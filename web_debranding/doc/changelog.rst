@@ -3,6 +3,11 @@
 Changelog
 =========
 
+`1.0.7`
+-------
+
+- FIX: bug with fields on User form in Odoo Enterprise
+
 `1.0.6`
 -------
 
