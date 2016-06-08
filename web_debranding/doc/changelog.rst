@@ -3,6 +3,11 @@
 Changelog
 =========
 
+`1.0.8`
+-------
+
+- IMP: 11. Disables server requests to odoo.com (publisher_warranty_url) - optional
+
 `1.0.7`
 -------
 
