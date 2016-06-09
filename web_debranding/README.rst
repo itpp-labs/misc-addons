@@ -13,7 +13,7 @@ Removes references to odoo.com:
 8. Replaces "Odoo" in strings marked for translation.
 9. Replaces default favicon to a custom one
 10. **Hides Apps menu** (by default, only admin (superuser) can see Apps menu. You could change it via tick "Show Modules Menu" in user's access rights tab)
-11. Disables server requests to odoo.com (publisher_warranty_url)
+11. Disables server requests to odoo.com (publisher_warranty_url) - optional
 12. Deletes "My odoo.com account" button
 13. Deletes Apps and other blocks from Settings/Dashboard
 14. Replaces "Odoo" in planner
@@ -29,6 +29,8 @@ module open Settings\\System Parameters and modify
 * web_debranding.new_title (put space in value if you don't need Brand in Title)
 * web_debranding.new_name (your Brand)
 * web_debranding.favicon_url
+* web_debranding.send_publisher_warranty_url - set 0 to disable server requests to odoo.com 
+and 1 otherwise (useful for enterprise contractors)
 * web_debranding.planner_footer
 
 Further debranding

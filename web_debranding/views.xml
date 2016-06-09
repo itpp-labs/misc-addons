@@ -33,6 +33,11 @@
         <field name="value"> </field>
     </record>
 
+    <record id="web_debranding.send_publisher_warranty_url" model="ir.config_parameter">
+        <field name="key">web_debranding.send_publisher_warranty_url</field>
+        <field name="value">0</field>
+    </record>
+
     <record id="web_debranding.planner_footer" model="ir.config_parameter">
         <field name="key">web_debranding.planner_footer</field>
         <field name="value"> </field>
