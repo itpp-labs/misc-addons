@@ -7,7 +7,7 @@
 <template id="assets_backend" name="stock assets" inherit_id="web.assets_backend">
     <xpath expr="." position="inside">
         <link rel="stylesheet" href="/stock/static/src/css/stock.css"/>
-        <script type="text/javascript" src="/stock_picking_barcode/static/src/js/stock_picking_barcode.js"></script>
+        <script type="text/javascript" src="/stock_picking_barcode/static/src/js/widgets.js"></script>
 
     </xpath>
 </template>

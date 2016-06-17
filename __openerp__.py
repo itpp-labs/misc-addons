@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "Stock Picking Barcode",
-    "summary": """Allow check products by barcode""",
+    "summary": """Handle Pickings by barcode scanner""",
     "category": "Warehouse",
     "images": [],
     "version": "9.0.1.0.0",
@@ -18,14 +18,6 @@
     "external_dependencies": {"python": [], "bin": []},
 
     "data": [
-        'security/stock_security.xml',
-        'security/ir.model.access.csv',
-        'stock_view.xml',
-        'product_view.xml',
-        'views/report_package_barcode.xml',
-        'views/report_lot_barcode.xml',
-        'views/report_location_barcode.xml',
-        'views/report_stockpicking.xml',
         'views/stock.xml',
     ],
     "qweb": [],
