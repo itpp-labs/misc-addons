@@ -17,7 +17,17 @@
     ],
     "external_dependencies": {"python": [], "bin": []},
 
-    "data": [],
+    "data": [
+        'security/stock_security.xml',
+        'security/ir.model.access.csv',
+        'stock_view.xml',
+        'product_view.xml',
+        'views/report_package_barcode.xml',
+        'views/report_lot_barcode.xml',
+        'views/report_location_barcode.xml',
+        'views/report_stockpicking.xml',
+        'views/stock.xml',
+    ],
     "qweb": [],
     "demo": [],
 
