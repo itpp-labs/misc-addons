@@ -6,7 +6,7 @@
 Stock Picking Barcode
 =====================
 
-This module allow you to check the products by barcode.
+This module allow you to handle Pickings by barcode scanner via special page /barcode/web (the same as it was in odoo 8.0)
 
 Installation
 ============
@@ -37,7 +37,7 @@ So you can check products by barcode.
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/stock-logistics-barcode/9.0-stock_picking_barcode
+   :target: https://runbot.odoo-community.org/runbot/stock-logistics-barcode/9.0
 
 .. repo_id is available in https://github.com/OCA/maintainer-tools/blob/master/tools/repos_with_ids.txt
 .. branch is "8.0" for example
