@@ -6,7 +6,7 @@ from openerp.tools.float_utils import float_compare
 
 
 class stock_picking(osv.osv):
-    _name = "stock.picking"
+    _inherit = "stock.picking"
 
     def process_barcode_from_ui(self, cr, uid, picking_id, barcode_str, visible_op_ids, context=None):
         """This function is called each time there barcode scanner reads an input"""

@@ -19,8 +19,12 @@
 
     "data": [
         'views/stock.xml',
+        'views/stock_view.xml',
+        'views/stock_dashboard.xml',
     ],
-    "qweb": [],
+    "qweb": [
+        # 'static/src/xml/picking.xml',
+    ],
     "demo": [],
 
     "post_load": None,
