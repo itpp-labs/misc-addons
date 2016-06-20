@@ -5,7 +5,7 @@
     'license': 'GPL-3',
     'category': 'Reminders and Agenda',
     'website': 'https://www.matmoz.si',
-    'price': 9.00,
+    'price': 21.00,
     'currency': 'EUR',
     'depends': ['reminder_base', 'service_desk_issue'],
     'data': [

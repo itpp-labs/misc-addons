@@ -5,7 +5,7 @@
     'license': 'GPL-3',
     'category': 'Reminders and Agenda',
     'website': 'https://twitter.com/yelizariev',
-    'price': 21.00,
+    'price': 9.00,
     'currency': 'EUR',
     'depends': ['calendar'],
     'data': [
