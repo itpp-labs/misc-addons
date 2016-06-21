@@ -14,4 +14,4 @@ class BarcodeController(http.Controller):
         if not request.session.uid:
             return http.local_redirect('/web/login?redirect=/barcode/web')
 
-        return request.render('stock.barcode_index')
+        return request.render('stock_picking_barcode.barcode_index')

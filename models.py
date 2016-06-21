@@ -288,3 +288,21 @@ class stock_picking(osv.osv):
         """This function prints the picking list"""
         context = dict(context or {}, active_ids=ids)
         return self.pool.get("report").get_action(cr, uid, ids, 'stock.report_picking', context=context)
+
+    @api.cr_uid_ids_context
+    def open_barcode_interface(self, cr, uid, picking_ids, context=None):
+        final_url = "/barcode/web/#action=stock.ui&picking_id=" + str(picking_ids[0])
+        return {'type': 'ir.actions.act_url', 'url': final_url, 'target': 'self',}
+
+    @api.cr_uid_ids_context
+    def do_partial_open_barcode(self, cr, uid, picking_ids, context=None):
+        self.do_prepare_partial(cr, uid, picking_ids, context=context)
+        return self.open_barcode_interface(cr, uid, picking_ids, context=context)
+
+
+class stock_picking_type(osv.osv):
+    _inherit = "stock.picking.type"
+
+    def open_barcode_interface(self, cr, uid, ids, context=None):
+        final_url = "/barcode/web/#action=stock.ui&picking_type_id=" + str(ids[0]) if len(ids) else '0'
+        return {'type': 'ir.actions.act_url', 'url': final_url, 'target': 'self'}
