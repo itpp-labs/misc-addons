@@ -23,7 +23,7 @@
         'views/stock_dashboard.xml',
     ],
     "qweb": [
-        # 'static/src/xml/picking.xml',
+        'static/src/xml/picking.xml',
     ],
     "demo": [],
 

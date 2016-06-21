@@ -738,7 +738,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                 }).then(function(){
                         return new Model('stock.pack.operation').call('search',[[['picking_id','=',self.picking.id]]])
                 }).then(function(pack_op_ids){
-                        return new Model('stock.pack.operation').call('read',[pack_op_ids, [], new data.CompoundContext()])
+                        return new Model('stock.pack.operation.lot').call('read',[pack_op_ids, [], new data.CompoundContext()])
                 }).then(function(operations){
                     self.packoplines = operations;
                     var package_ids = [];
@@ -753,12 +753,6 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                     return new Model('stock.quant.package').call('read',[package_ids, [], new data.CompoundContext()])
                 }).then(function(packages){
                     self.packages = packages;
-                }).then(function(){
-                        return new Model('product.ul').call('search',[[]])
-                }).then(function(uls_ids){
-                        return new Model('product.ul').call('read',[uls_ids, []])
-                }).then(function(uls){
-                    self.uls = uls;
                 });
         },
         start: function(){

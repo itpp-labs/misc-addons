@@ -82,6 +82,10 @@ class stock_picking(osv.osv):
             domain.append(('picking_type_id', '=', context['default_picking_type_id']))
         return self.search(cr, uid, domain, context=context)
 
+    def check_group_lot(self, cr, uid, context=None):
+        """ This function will return true if we have the setting to use lots activated. """
+        return self.pool.get('res.users').has_group(cr, uid, 'stock.group_production_lot')
+
     def check_group_pack(self, cr, uid, context=None):
         """ This function will return true if we have the setting to use package activated. """
         return self.pool.get('res.users').has_group(cr, uid, 'stock.group_tracking_lot')
