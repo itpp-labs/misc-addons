@@ -11,6 +11,8 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
     var _t = core._t;
     var qweb = core.qweb;
 
+    var barcode_events = require('barcodes.BarcodeEvents');
+
     // This widget makes sure that the scaling is disabled on mobile devices.
     // Widgets that want to display fullscreen on mobile phone need to extend this
     // widget.
@@ -163,8 +165,11 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                 self.getParent().barcode_scanner.disconnect();
             });
             this.$('.oe_searchbox').blur(function(){
-                self.getParent().barcode_scanner.connect(function(ean){
-                    self.get_Parent().scan(ean);
+                // self.getParent().barcode_scanner.connect(function(ean){
+                //     self.get_Parent().scan(ean);
+                // });
+                core.bus.on('barcode_scanned', this, function (barcode) {
+                    self.get_Parent().scan(barcode);
                 });
             });
             this.$('#js_select').change(function(){
@@ -226,8 +231,11 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                 });
                 //reactivate scanner when dialog close
                 $lot_modal.on('hidden.bs.modal', function(){
-                    self.getParent().barcode_scanner.connect(function(ean){
-                        self.getParent().scan(ean);
+                    // self.getParent().barcode_scanner.connect(function(ean){
+                    //     self.getParent().scan(ean);
+                    // });
+                    core.bus.on('barcode_scanned', this, function (barcode) {
+                        self.getParent().scan(barcode);
                     });
                 });
                 self.$('.js_lot_scan').focus();
@@ -241,8 +249,12 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                     $lot_modal.modal('hide');
                     //we need this here since it is not sure the hide event
                     //will be catch because we refresh the view after the create_lot call
-                    self.getParent().barcode_scanner.connect(function(ean){
-                        self.getParent().scan(ean);
+
+                    // self.getParent().barcode_scanner.connect(function(ean){
+                    //     self.getParent().scan(ean);
+                    // });
+                    core.bus.on('barcode_scanned', this, function (barcode) {
+                        self.getParent().scan(barcode);
                     });
                     self.getParent().create_lot(op_id, lot_name);
                 });
@@ -275,8 +287,11 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                     self.getParent().set_operation_quantity(value, op_id);
                 }
                 
-                self.getParent().barcode_scanner.connect(function(ean){
-                    self.getParent().scan(ean);
+                // self.getParent().barcode_scanner.connect(function(ean){
+                //     self.getParent().scan(ean);
+                // });
+                core.bus.on('barcode_scanned', this, function (barcode) {
+                    self.getParent().scan(barcode);
                 });
             });
             this.$('.js_change_src').click(function(){
@@ -468,7 +483,8 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             this.picking_types = [];
             this.loaded = this.load();
             this.scanning_type = 0;
-            this.barcode_scanner = new module.BarcodeScanner();
+            // this.barcode_scanner = new BarcodeScanner();
+            this.barcode_scanner = new barcode_events.BarcodeEvents;
             this.pickings_by_type = {};
             this.pickings_by_id = {};
             this.picking_search_string = "";
@@ -523,7 +539,10 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             this._super();
             var self = this;
             web_client.set_content_full_screen(true);
-            this.barcode_scanner.connect(function(barcode){
+            // this.barcode_scanner.connect(function(barcode){
+            //     self.on_scan(barcode);
+            // });
+            core.bus.on('barcode_scanned', this, function (barcode) {
                 self.on_scan(barcode);
             });
             this.loaded.then(function(){
@@ -759,8 +778,11 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             this._super();
             var self = this;
             web_client.set_content_full_screen(true);
-            this.barcode_scanner.connect(function(ean){
-                self.scan(ean);
+            // this.barcode_scanner.connect(function(ean){
+            //     self.scan(ean);
+            // });
+            core.bus.on('barcode_scanned', this, function (barcode) {
+                self.scan(barcode);
             });
 
             this.$('.js_pick_quit').click(function(){ self.quit(); });
