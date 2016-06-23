@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    "name": """Time Log""",
+    "name": """Project timelog""",
     "summary": """Time log for project""",
     "category": "Project",
     "version": "1.0.0",
@@ -10,9 +10,8 @@
     "license": "GPL-3",
 
     "depends": [
-        #"base",
         "bus",
-        "project",
+        "project_timesheet",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
