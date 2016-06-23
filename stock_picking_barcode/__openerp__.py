@@ -4,13 +4,13 @@
     "summary": """Handle Pickings by barcode scanner""",
     "category": "Warehouse",
     "images": [],
-    "version": "9.0.1.0.0",
+    "version": "1.0.0",
 
-    "author": "IT-Projects LLC, Pavel Romanchenko, Odoo Community Association (OCA)",
+    "author": "IT-Projects LLC, Pavel Romanchenko",
     "website": "https://it-projects.info",
-    "license": "AGPL-3",
-    # 'price': 9.00,
-    # 'currency': 'EUR',
+    "license": "LGPL-3",
+    'price': 280.00,
+    'currency': 'EUR',
 
     "depends": [
         "stock"
