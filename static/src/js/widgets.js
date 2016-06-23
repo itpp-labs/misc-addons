@@ -93,35 +93,62 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                                     product_id: undefined,
                                     can_scan: false,
                                     head_container: true,
-                                    processed: packopline.processed,
+                                    processed_boolean: packopline.processed_boolean,
                                     package_id: myPackage.id,
                                     ul_id: myPackage.ul_id[0]
                             },
-                            classes: ('success container_head ') + (packopline.processed === "true" ? 'processed hidden ':'')
+                            classes: ('success container_head ') + (packopline.processed_boolean === "true" ? 'processed hidden ':'')
                         });
                         pack_created.push(packopline.result_package_id[0]);
                     }
-                    self.rows.push({
-                        cols: { product: packopline.product_id[1] || packopline.package_id[1],
-                                qty: packopline.product_qty,
-                                rem: packopline.qty_done,
-                                uom: packopline.product_uom_id[1],
-                                // lot: packopline.lot_id[1],
-                                pack: pack,
-                                container: packopline.result_package_id[1],
-                                container_id: packopline.result_package_id[0],
-                                loc: packopline.location_id[1],
-                                dest: packopline.location_dest_id[1],
-                                id: packopline.id,
-                                product_id: packopline.product_id[0],
-                                can_scan: packopline.result_package_id[1] === undefined ? true : false,
-                                head_container: false,
-                                processed: packopline.processed,
-                                package_id: undefined,
-                                ul_id: -1
-                        },
-                        classes: color + (packopline.result_package_id[1] !== undefined ? 'in_container_hidden ' : '') + (packopline.processed === "true" ? 'processed hidden ':'')
-                    });
+                    if (packopline.pack_lot_ids.length > 1){
+                        for (var i = 0; i < packopline.pack_lot_ids.length; i++){
+                            self.rows.push({
+                                cols: { product: packopline.product_id[1] || packopline.package_id[1],
+                                        qty: packopline.product_qty,
+                                        rem: packopline.qty_done,
+                                        uom: packopline.product_uom_id[1],
+                                        lot: packopline.pack_lot_ids[i].lot_id[1],
+                                        pack: pack,
+                                        container: packopline.result_package_id[1],
+                                        container_id: packopline.result_package_id[0],
+                                        loc: packopline.location_id[1],
+                                        dest: packopline.location_dest_id[1],
+                                        id: packopline.id,
+                                        product_id: packopline.product_id[0],
+                                        can_scan: packopline.result_package_id[1] === undefined ? true : false,
+                                        head_container: false,
+                                        processed_boolean: packopline.processed_boolean,
+                                        package_id: undefined,
+                                        ul_id: -1
+                                },
+                                classes: color + (packopline.result_package_id[1] !== undefined ? 'in_container_hidden ' : '') + (packopline.processed_boolean === "true" ? 'processed hidden ':'')
+                            });
+                        }
+                    } else {
+                        self.rows.push({
+                            cols: { product: packopline.product_id[1] || packopline.package_id[1],
+                                    qty: packopline.product_qty,
+                                    rem: packopline.qty_done,
+                                    uom: packopline.product_uom_id[1],
+                                    lot: '',
+                                    pack: pack,
+                                    container: packopline.result_package_id,
+                                    container_id: packopline.result_package_id[0],
+                                    loc: packopline.location_id[1],
+                                    dest: packopline.location_dest_id[1],
+                                    id: packopline.id,
+                                    product_id: packopline.product_id[0],
+                                    can_scan: packopline.result_package_id[1] === undefined ? true : false,
+                                    head_container: false,
+                                    processed_boolean: packopline.processed_boolean,
+                                    package_id: undefined,
+                                    ul_id: -1
+                            },
+                            classes: color + (packopline.result_package_id[1] !== undefined ? 'in_container_hidden ' : '') + (packopline.processed_boolean === "true" ? 'processed hidden ':'')
+                        });
+                    }
+
             });
             //sort element by things to do, then things done, then grouped by packages
             var group_by_container = _.groupBy(self.rows, function(row){
@@ -443,7 +470,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             var self = this;
             var done = true;
             _.each( model.packoplines, function(packopline){
-                if (packopline.processed === "false"){
+                if (packopline.processed_boolean === "false"){
                     done = false;
                     return done;
                 }
@@ -484,7 +511,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             this.loaded = this.load();
             this.scanning_type = 0;
             // this.barcode_scanner = new BarcodeScanner();
-            this.barcode_scanner = new barcode_events.BarcodeEvents;
+            // this.barcode_scanner = new barcode_events.BarcodeEvents;
             this.pickings_by_type = {};
             this.pickings_by_id = {};
             this.picking_search_string = "";
@@ -620,18 +647,13 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             },100);
         },
         quit: function(){
-            return new Model("ir.model.data").call(
-                "search_read",
-                [
-                    [['name', '=', 'action_picking_type_form']],
-                    ['res_id']]
-            ).pipe(function(res) {
+            return new Model("ir.model.data").get_func("search_read")([['name', '=', 'action_picking_type_form']], ['res_id']).pipe(function(res) {
                 window.location = '/web#action=' + res[0]['res_id'];
             });
         },
         destroy: function(){
             this._super();
-            this.barcode_scanner.disconnect();
+            // this.barcode_scanner.disconnect();
             web_client.set_content_full_screen(false);
         }
     });
@@ -662,7 +684,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             this.packoplines = null;
             this.selected_operation = { id: null, picking_id: null};
             this.packages = null;
-            this.barcode_scanner = new BarcodeScanner();
+            // this.barcode_scanner = new BarcodeScanner();
             this.locations = [];
             this.uls = [];
             if(this.picking_id){
@@ -1054,13 +1076,13 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
         },
         quit: function(){
             this.destroy();
-            return new Model("ir.model.data").call("search_read", [[['name', '=', 'action_picking_type_form']], ['res_id']]).pipe(function(res) {
+            return new Model("ir.model.data").get_func("search_read")([['name', '=', 'action_picking_type_form']], ['res_id']).pipe(function(res) {
                     window.location = '/web#action=' + res[0]['res_id'];
                 });
         },
         destroy: function(){
             this._super();
-            this.barcode_scanner.disconnect();
+            // this.barcode_scanner.disconnect();
             web_client.set_content_full_screen(false);
         }
     });

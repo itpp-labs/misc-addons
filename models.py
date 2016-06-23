@@ -12,7 +12,7 @@ class stock_picking(osv.osv):
         """This function is called each time there barcode scanner reads an input"""
         lot_obj = self.pool.get('stock.production.lot')
         package_obj = self.pool.get('stock.quant.package')
-        product_obj = self.pool.get('product.template')
+        product_obj = self.pool.get('product.product')
         stock_operation_obj = self.pool.get('stock.pack.operation')
         stock_location_obj = self.pool.get('stock.location')
         answer = {'filter_loc': False, 'operation_id': False}
