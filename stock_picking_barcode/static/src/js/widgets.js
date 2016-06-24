@@ -934,7 +934,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             if (pack_op_ids.length !== 0){
                 var backorder_model = new Model('stock.backorder.confirmation');
                 return backorder_model.call('create', [self.picking]).then(function(id){
-                    return backorder_model.call('process', [[self.id]]).then(function(){
+                    return backorder_model.call('process', [id]).then(function(){
                         return self.refresh_ui(self.picking.id).then(function(){
                             if (self.picking_editor.check_done()){
                                 return self.done();
