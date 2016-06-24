@@ -935,7 +935,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                 // return new Model('stock.pack.operation')
                 //     .call('action_drop_down', [pack_op_ids])
                 return new Model('stock.backorder.confirmation')
-                    .call('process', [[]])
+                    .call('process', [[self.id]])
                     .then(function(){
                             return self.refresh_ui(self.picking.id).then(function(){
                                 if (self.picking_editor.check_done()){
