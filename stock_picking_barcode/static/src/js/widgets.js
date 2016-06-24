@@ -628,7 +628,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             },100);
         },
         quit: function(){
-            return new Model("ir.model.data").get_func("search_read")([['name', '=', 'action_picking_type_form']], ['res_id']).pipe(function(res) {
+            return new Model("ir.model.data").call("search_read", [[['name', '=', 'stock_picking_type_action']], ['res_id']]).then(function(res) {
                 window.location = '/web#action=' + res[0]['res_id'];
             });
         },
@@ -920,7 +920,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             var pack_op_ids = self.picking_editor.get_current_op_selection(false);
             if (pack_op_ids.length !== 0){
                 return new Model('stock.picking')
-                    .call('action_pack',[[[self.picking.id]], pack_op_ids])
+                    .call('put_in_pack',[[[self.picking.id]], pack_op_ids])
                     .then(function(pack){
                         //TODO: the functionality using current_package_id in context is not needed anymore
                         session.user_context.current_package_id = false;
@@ -932,8 +932,10 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             var self = this;
             var pack_op_ids = self.picking_editor.get_current_op_selection(true);
             if (pack_op_ids.length !== 0){
-                return new Model('stock.pack.operation')
-                    .call('action_drop_down', [pack_op_ids])
+                // return new Model('stock.pack.operation')
+                //     .call('action_drop_down', [pack_op_ids])
+                return new Model('stock.backorder.confirmation')
+                    .call('process', [[]])
                     .then(function(){
                             return self.refresh_ui(self.picking.id).then(function(){
                                 if (self.picking_editor.check_done()){
@@ -1052,7 +1054,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
         },
         quit: function(){
             this.destroy();
-            return new Model("ir.model.data").get_func("search_read")([['name', '=', 'action_picking_type_form']], ['res_id']).pipe(function(res) {
+            return new Model("ir.model.data").call("search_read", [[['name', '=', 'stock_picking_type_action']], ['res_id']]).then(function(res) {
                     window.location = '/web#action=' + res[0]['res_id'];
                 });
         },
