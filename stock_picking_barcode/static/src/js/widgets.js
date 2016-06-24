@@ -932,17 +932,16 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             var self = this;
             var pack_op_ids = self.picking_editor.get_current_op_selection(true);
             if (pack_op_ids.length !== 0){
-                // return new Model('stock.pack.operation')
-                //     .call('action_drop_down', [pack_op_ids])
-                return new Model('stock.backorder.confirmation')
-                    .call('process', [[self.id]])
-                    .then(function(){
-                            return self.refresh_ui(self.picking.id).then(function(){
-                                if (self.picking_editor.check_done()){
-                                    return self.done();
-                                }
-                            });
+                var backorder_model = new Model('stock.backorder.confirmation');
+                return backorder_model.call('create', [self.picking]).then(function(id){
+                    return backorder_model.call('process', [[self.id]]).then(function(){
+                        return self.refresh_ui(self.picking.id).then(function(){
+                            if (self.picking_editor.check_done()){
+                                return self.done();
+                            }
+                        });
                     });
+                });
             }
         },
         done: function(){

@@ -225,11 +225,6 @@ class stock_picking(osv.osv):
             context=context
         )
 
-    def do_print_picking(self, cr, uid, ids, context=None):
-        """This function prints the picking list"""
-        context = dict(context or {}, active_ids=ids)
-        return self.pool.get("report").get_action(cr, uid, ids, 'stock.report_picking', context=context)
-
     @api.cr_uid_ids_context
     def open_barcode_interface(self, cr, uid, picking_ids, context=None):
         final_url = "/barcode/web/#action=stock.ui&picking_id=" + str(picking_ids[0])
