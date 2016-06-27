@@ -8,7 +8,7 @@
 			<field name="inherit_id" ref="stock.view_picking_form"/>
             <field name="arch" type="xml">
 				<xpath expr="//div[@class='oe_button_box']" position="inside">
-                        <!--<button name="do_partial_open_barcode" groups="stock.group_stock_user" type="object" class="oe_stock_scan_button" attrs="{'invisible': ['|',('pack_operation_exist', '=', True),('state','not in',('assigned', 'partially_available'))]}"><img src="/stock_picking_barcode/static/src/img/scan.png" class="oe_stock_scan_image oe_stock_scan_image_btn"/></button>-->
+                        <button name="do_partial_open_barcode" groups="stock.group_stock_user" type="object" class="oe_stock_scan_button" attrs="{'invisible': ['|',('pack_operation_exist', '=', True),('state','not in',('assigned', 'partially_available'))]}"><img src="/stock_picking_barcode/static/src/img/scan.png" class="oe_stock_scan_image oe_stock_scan_image_btn"/></button>
                         <button name="open_barcode_interface" groups="stock.group_stock_user" type="object" class="oe_stock_scan_button" attrs="{'invisible': ['|',('pack_operation_exist', '=', False),('state','not in',('assigned', 'partially_available'))]}"><img src="/stock_picking_barcode/static/src/img/scan.png" class="oe_stock_scan_image oe_stock_scan_image_btn"/></button>
 				</xpath>
                 <xpath expr="//h1" position="replace">
