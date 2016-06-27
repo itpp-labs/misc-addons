@@ -1,0 +1,12 @@
+#venues-tab {
+    /*width: 40%;*/
+    float:left;
+    text-align: left;
+    padding-right: 20px;
+}
+#venues-tab a {
+    padding-right: 10px;
+}
+#venues-tab a.active {
+    font-weight: bold;
+}
