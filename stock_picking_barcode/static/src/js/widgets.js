@@ -93,7 +93,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
                                     head_container: true,
                                     processed_boolean: packopline.processed_boolean,
                                     package_id: myPackage.id,
-                                    ul_id: myPackage.ul_id[0]
+                                    // ul_id: myPackage.ul_id[0]
                             },
                             classes: ('success container_head ') + (packopline.processed_boolean === "true" ? 'processed hidden ':'')
                         });
@@ -438,7 +438,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             //get list of element in this.rows where rem > 0 and container is empty is specified
             var list = [];
             _.each(this.rows, function(row){
-                if (row.cols.rem > 0 && (ignore_container || row.cols.container === undefined)){
+                if (row.cols.rem > 0 && (ignore_container || row.cols.container === undefined || !row.cols.container)){
                     list.push(row.cols.id);
                 }
             });
@@ -920,7 +920,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             var pack_op_ids = self.picking_editor.get_current_op_selection(false);
             if (pack_op_ids.length !== 0){
                 return new Model('stock.picking')
-                    .call('put_in_pack',[[[self.picking.id]], pack_op_ids])
+                    .call('put_in_pack', [[self.picking.id]])
                     .then(function(pack){
                         //TODO: the functionality using current_package_id in context is not needed anymore
                         session.user_context.current_package_id = false;
@@ -1042,6 +1042,7 @@ odoo.define('stock_picking_barcode.widgets', function (require) {
             var self = this;
             return new Model('stock.quant.package')
                 .call('write',[[package_id],{'ul_id': pack }]);
+            return;
         },
         reload_pack_operation: function(){
             var self = this;

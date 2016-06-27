@@ -134,30 +134,21 @@
                                 <t t-esc="row.cols.product" />
                             </td>
                             <td class='brctbl-col2 text-center js_row_qty'>
-                                <div class="input-group">
-                                    <span class="input-group-addon js_minus input-sm" t-att-data-product-id='row.cols.product_id'><a href="#"><i class="fa fa-minus"></i></a></span>
-                                    <form class="js_submit_value">
-                                        <input type="text" class="form-control text-center js_qty" t-att-value="row.cols.rem"></input>
-                                        <!-- <input type="submit" class="hidden"></input> -->
-                                    </form>
-                                    <span class="input-group-addon js_plus input-sm" t-att-data-product-id='row.cols.product_id'><a href="#"><i class="fa fa-plus"></i></a></span>
-                                </div>
-                                <!--<t t-if="!row.cols.processed_boolean &amp;&amp; !row.cols.container">-->
-                                    <!--<div class="input-group">-->
-                                        <!--<span class="input-group-addon js_minus input-sm" t-att-data-product-id='row.cols.product_id'><a href="#"><i class="fa fa-minus"></i></a></span>-->
-                                        <!--<form class="js_submit_value">-->
-                                            <!--<input type="text" class="form-control text-center js_qty" t-att-value="row.cols.rem"></input>-->
-                                            <!--&lt;!&ndash; <input type="submit" class="hidden"></input> &ndash;&gt;-->
-                                        <!--</form>-->
-                                        <!--<span class="input-group-addon js_plus input-sm" t-att-data-product-id='row.cols.product_id'><a href="#"><i class="fa fa-plus"></i></a></span>-->
-                                    <!--</div>-->
-                                <!--</t>-->
-                                <!--<t t-if="(row.cols.processed_boolean || row.cols.container)">-->
-                                    <!--<t t-esc="row.cols.rem" />-->
-                                <!--</t>-->
-                                <!--<t t-log="row.cols.processed_boolean"/>-->
-                                <!--<t t-log="row.cols.container"/>-->
-                                <!--<t t-log="row.cols.rem"/>-->
+                                <t t-if="!row.cols.container">
+                                    <div class="input-group">
+                                        <span class="input-group-addon js_minus input-sm" t-att-data-product-id='row.cols.product_id'><a href="#"><i class="fa fa-minus"></i></a></span>
+                                        <form class="js_submit_value">
+                                            <input type="text" class="form-control text-center js_qty" t-att-value="row.cols.rem"></input>
+                                        </form>
+                                        <span class="input-group-addon js_plus input-sm" t-att-data-product-id='row.cols.product_id'><a href="#"><i class="fa fa-plus"></i></a></span>
+                                    </div>
+                                </t>
+                                <t t-if="row.cols.container">
+                                    <t t-esc="row.cols.rem" />
+                                </t>
+                                <t t-log="row.cols.processed_boolean"/>
+                                <t t-log="row.cols.container"/>
+                                <t t-log="row.cols.rem"/>
                             </td>
                             <td class="brctbl-col3 text-center">
                                 <t t-esc="row.cols.qty"/> <t t-esc="row.cols.uom" />
