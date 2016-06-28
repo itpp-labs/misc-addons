@@ -151,10 +151,10 @@ class sale_order(models.Model):
     _inherit = 'sale.order'
 
     @api.multi
-    def _add_booking_line(self, product_id, resource, start, end):
+    def _add_booking_line(self, product_id, resource, start, end, tz_offset=0):
         if resource:
             for rec in self:
-                line = super(sale_order, rec)._add_booking_line(product_id, resource, start, end)
+                line = super(sale_order, rec)._add_booking_line(product_id, resource, start, end, tz_offset)
                 sol = rec.env['sale.order.line'].sudo()
                 pitch_obj = rec.env['pitch_booking.pitch'].sudo()
                 pitchs = pitch_obj.search([('resource_id','=',resource)], limit=1)
