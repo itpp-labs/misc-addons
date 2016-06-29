@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-
+        <record id="view_task_form2" model="ir.ui.view">
+            <field name="name">project.task.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/group[2]" position="replace">
+                    <group>
+                        <field name="date_deadline"/>
+                        <field name="datetime_stopline"/>
+                        <field name="categ_ids" widget="many2many_tags"/>
+                        <field name="progress" widget="progressbar"
+                               groups="project.group_time_work_estimation_tasks"/>
+                    </group>
+                </xpath>
+                <xpath expr="//tree[@string='Task Work']" position="replace">
+                    <tree string="Task Work" editable="top">
+                        <field name="name"/>
+                        <button name="play_timer" type="object"/>
+                        <button name="stop_timer" type="object"/>
+                        <field name="hours" widget="float_time" sum="Spent Hours"/>
+                        <field name="date"/>
+                        <field name="user_id" context="{'default_groups_ref': ['base.group_user', 'base.group_partner_manager', 'project.group_project_user']}"/>
+                    </tree>
+                </xpath>
+            </field>
+        </record>
     </data>
 </openerp>

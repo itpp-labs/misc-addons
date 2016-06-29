@@ -30,3 +30,28 @@ class ProjectTimeLog(models.Model):
             outAr = out.split(':')
             outAr = ["%02d" % (int(float(x))) for x in outAr]
             self.duration = ":".join(outAr)
+
+class task(models.Model):
+    _inherit = ['project.task']
+    datetime_stopline = fields.Datetime(string='Stopline', select=True, copy=False, default=False)
+
+class task(models.Model):
+    _inherit = ['project.task.work']
+
+    @api.multi
+    def play_timer(self):
+        print("-----------------")
+        print("call play timer")
+        print(self.id)
+        print("-----------------")
+        # notifications = []
+        # message = {'play': 'play'}
+        # notifications.append([(self._cr.dbname, 'chess.game.line', self.env.user.id), message])
+        # self.env['bus.bus'].sendmany(notifications)
+
+    @api.multi
+    def stop_timer(self):
+        print("-----------------")
+        print("call stop timer")
+        print(self.id)
+        print("-----------------")

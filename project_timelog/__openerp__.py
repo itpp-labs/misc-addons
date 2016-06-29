@@ -18,6 +18,7 @@
         "security/ir.model.access.csv",
         "views/project_timelog_views.xml",
         "views/project_timelog_templates.xml",
+        "security/project_timelog_security.xml",
     ],
 
     "installable": True,
