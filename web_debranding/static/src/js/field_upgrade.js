@@ -12,21 +12,33 @@ odoo.define('web_debranding.field_upgrade', function (require) {
 
     var include = {
         'start': function(){
+            // $el = .oe_form_field
             var $el = this.$el;
-            var i = 1;
-            var MAX = 10;
-            while (true){
-                if (i > MAX)
-                    break;
-                i++;
-                if ($el.prop("tagName") == 'TR'){
-                    $el.hide();
-                    break;
+
+            // $el = div
+            $el = $el.parent()
+            $el.hide()
+
+            // $el = div
+            $el = $el.parent()
+            if (_.all($el.children(), function(ch){return $(ch).css('display') == 'none'})){
+                // hide whole group as doesn't have fields
+                var i = 1;
+                var MAX = 10;
+                while (true){
+                    if (i > MAX)
+                        break;
+                    i++;
+                    if ($el.prop("tagName") == 'TR'){
+                        $el.hide();
+                        break;
+                    }
+                    $el = $el.parent();
+                    if (!$el)
+                        break;
                 }
-                $el = $el.parent();
-                if (!$el)
-                    break;
             }
+            return this._super.apply(this, arguments);
         },
         'on_click_input':function(){
         }
