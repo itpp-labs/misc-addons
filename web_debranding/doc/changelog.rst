@@ -3,6 +3,11 @@
 Changelog
 =========
 
+`1.0.9`
+-------
+
+- FIX: don't hide whole section in Settings if it not all fields are enterprise
+
 `1.0.8`
 -------
 
