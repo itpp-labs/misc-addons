@@ -14,31 +14,22 @@ class Controller(openerp.addons.bus.bus.Controller):
 
     @http.route('/timelog/init', type="json", auth="public")
     def init_timelog(self, **kwargs):
-        author_name = http.request.env.user.name # current user name
-        author_id = http.request.env.user.id # current user ID
-        task_id = 13 # current Task
+        current_user = request.env["res.users"].search([("id", "=", http.request.env.user.id)])
+        current_user_active_task_id = current_user.active_task_id
+        current_user_active_work_id = current_user.active_work_id
 
-        task = request.env["project.task"].search([('user_id', '=', author_id)]) # all tasks current user
-        work = request.env["project.task.work"].search([('user_id', '=', author_id), ('task_id', '=', task_id)]) # all works in tasks current user and current task
-        stopline = request.env["project.task"].search([('id', '=', task_id)]) # stopline in current task
+        stopline = request.env["project.task"].search([('id', '=', current_user_active_task_id)]) # stopline for current task
 
-        # как определить текущую задачу? пусть временно текущая задача id = 13
-        # надо получить конечное значение для таймера (значение времени, сколько нужно работать)
-        # данный результат отправить в js не нужно по умолчанию 2 часа.
+        # Время по текущей подзадаче
+        # Общее время по текущей задачи (суммируется только данные текущего пользователя)
+        # Общее время за сегодняшний день.
+        # Общее время за текущую неделю.
 
         notification = []
-
-
-        print("--------------------------------------")
-        print(task)
-        print(work)
-        print("stopline")
-        print(stopline.datetime_stopline)
-        print("--------------------------------------")
 
         if stopline.datetime_stopline is not False:
             notification.append({'stopline': stopline.datetime_stopline})
 
-        notification.append({'author_name': author_name, 'author_id': author_id, 'task_id': task_id})
+        notification.append({'task_id': current_user_active_task_id, 'work_id': current_user_active_work_id})
 
         return notification

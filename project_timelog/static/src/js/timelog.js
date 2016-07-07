@@ -52,16 +52,35 @@ $(document).ready(function() {
         init: function(){
             this._super();
             var self = this;
+            this.stopline = '';
+            this.work_id = '';
+            this.task_id = '';
             openerp.session = new openerp.Session();
             this.c_manager = new openerp.TimeLog.Manager();
             console.log("Initial timer");
             this.start();
         },
-        start: function(){
+        start: function() {
             var self = this;
             openerp.session.rpc("/timelog/init", {}).then(function(notification){
-               console.log(notification);
+                console.log(notification);
+                if (notification.length == 2) {
+                    self.stopline = notification[0].stopline;
+                    self.work_id = notification[1].work_id;
+                    self.task_id = notification[1].task_id;
+                } else {
+                    self.work_id = notification[0].work_id;
+                    self.task_id = notification[0].task_id;
+                }
+            //    Время по текущей подзадаче
+            //    Общее время по текущей задачи (суммируется только данные текущего пользователя)
+            //    Общее время за сегодняшний день.
+            //    Общее время за текущую неделю.
             });
+        },
+
+        initial_timer: function() {
+
         }
     });
     var new_time_log = new TimeLog.Conversation(this);
