@@ -1,0 +1,72 @@
+body {
+	background-color: #383838;
+}
+.clock {
+	font-size: 20pt;
+	text-align: center;
+	cursor: pointer;
+	display: inline-block;
+	padding-bottom: 20px;
+	padding-right: 30px;
+	color: white;
+}
+.button #start, .button #stop {
+	margin-bottom: 20px;
+}
+.tooltip-content {
+	color: black !important;
+	z-index: 1;
+}
+
+#reset {
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+.clock_clock {
+	width: 120px;
+	display: inline-block;
+}
+
+.tooltip {
+	position: relative;
+	display: inline-block;
+	white-space: normal;
+	cursor: pointer;
+}
+	
+.tooltip-content {
+	opacity: 0;
+    visibility: hidden;		
+	font-size: 12px;
+	text-align: center;
+    border-color: #aaa #555 #555 #aaa;
+    border-style: solid;
+    border-width: 1px;
+	padding: 5px;
+	width: 150px;
+	height: 50px;
+
+    position: absolute;
+	left: 50%;
+	top: 20px;
+    background-color: white;		
+    -webkit-transition: bottom .5s ease, opacity .5s ease;
+    -moz-transition: bottom .5s ease, opacity .5s ease;
+    -ms-transition: bottom .5s ease, opacity .5s ease;
+    -o-transition: bottom .5s ease, opacity .5s ease;
+    transition: bottom .5s ease, opacity .5s ease;					
+}
+
+.tooltip-content:before {
+    border-right-width: 25px;
+    border-top-color: #555;
+    border-top-width: 15px;
+    bottom: -15px;
+}
+	
+.tooltip:hover .tooltip-content{
+	opacity: 1;
+    visibility: visible;
+	bottom: 30px;
+}
