@@ -145,7 +145,10 @@
                 <!-- Nav tabs -->
                 <div id="venues-tab">
                     <t t-foreach="venues" t-as="venue">
-                        <a t-att-href="'/booking/calendar?venue=%s' % venue.id" t-att-class="'active' if venue.id == active_venue else ''" t-att-data-venue="venue.id"><t t-esc="venue.name"/></a>
+                      <t t-if="venue.id == active_venue">
+                        <t t-esc="venue.name"/>
+                      </t>
+                        <a t-att-href="'/booking/calendar?venue=%s' % venue.id" t-att-class="'active' if venue.id == active_venue else ''" t-att-data-venue="venue.id" style="visibility:hidden;" ><t t-esc="venue.name"/></a>
                     </t>
                 </div>
             </xpath>
