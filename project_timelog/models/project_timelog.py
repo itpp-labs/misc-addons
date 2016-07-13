@@ -8,16 +8,25 @@ class ProjectTimeLog(models.Model):
     _name = "project.timelog"
     _description = "project timelog"
 
-    work_id  = fields.Many2one("project.task.work", "Task", required=True)
+    work_id = fields.Many2one("project.task.work", "Task", required=True)
     start_datetime = fields.Datetime(string="Start date", default=datetime.datetime.now())
     end_datetime = fields.Datetime(string="End date")
     duration = fields.Char(string="Duration", compute="_compute_duration", store=True)
     user_id = fields.Many2one("res.users", string="User name")
 
+    @api.multi
+    def sum_time(self, timelog):
+        sum_time = datetime.timedelta(0)
+        for e in timelog:
+            date_start_object = datetime.datetime.strptime(e.start_datetime, "%Y-%m-%d %H:%M:%S")
+            date_end_object = datetime.datetime.strptime(e.end_datetime, "%Y-%m-%d %H:%M:%S")
+            sum_time = sum_time + (date_end_object-date_start_object)
+        return int(round(sum_time.total_seconds(),0))
+
     @api.one
     @api.depends("start_datetime", "end_datetime")
     def _compute_duration(self):
-        if self.end_datetime == False:
+        if self.end_datetime is False:
             self.duration = False
         else:
             if type(self.start_datetime) is str:
@@ -31,12 +40,7 @@ class ProjectTimeLog(models.Model):
                 end_datetime = self.end_datetime
 
             resultat = end_datetime - start_datetime
-            if (resultat.days == 1):
-                out = str(resultat).replace(" day, ", ":")
-            elif (resultat.days > 1):
-                out = str(resultat).replace(" days, ", ":")
-            else:
-                out = "0:" + str(resultat)
+            out = str(resultat)
             outAr = out.split(':')
             outAr = ["%02d" % (int(float(x))) for x in outAr]
             self.duration = ":".join(outAr)
@@ -73,6 +77,14 @@ class project_work(models.Model):
                 # there are timelogs yesterday
                 return False
 
+        # необходимо сделать проверку, если подзадача уже работала больше 5 минут и мы переключились на новую
+        # и затем решили перейти на предыдущую, сделать ее не активной, для этого надо добавить новое после "статус"
+        # которое будет вычисляться и будет иметься несколько статусов "неактивная, новый, остановленный, текущий"
+        # так же реализовать востановление таймера после обновления страницы для этот нужно смотреть когда был запущен
+        # последний лог подзадачи, посмотреть если ли время остановки, если нет, то найти текущее время, найти разность
+        # и отрправить в таймер как начальное значение, (тоже самое для всех таймеров)
+
+
         # record data for current user (last active timer)
         current_user.write({
             "active_work_id": self.id,
@@ -86,10 +98,10 @@ class project_work(models.Model):
             "start_datetime": datetime.datetime.now(),
         })
 
-        # notifications = []
-        # message = {"play": "play", "active_work_id": self.id, "active_task_id": self.task_id.id}
-        # notifications.append([(self._cr.dbname, "chess.game.line", self.env.user.id), message])
-        # self.env["bus.bus"].sendmany(notifications)
+        notifications = []
+        message = {"status": "play", "active_work_id": self.id, "active_task_id": self.task_id.id}
+        notifications.append([(self._cr.dbname, "project.timelog", self.env.user.id), message])
+        self.env["bus.bus"].sendmany(notifications)
 
     @api.multi
     def stop_timer(self):
@@ -97,7 +109,7 @@ class project_work(models.Model):
             # current user is not match user with solved task
             return False
 
-        timelog = self.env["project.timelog"].search([("work_id", "=", self.id), ("user_id.id", "=", self.env.user.id)])
+        timelog = self.env["project.timelog"].search([("work_id", "=", self.id), ("user_id", "=", self.env.user.id)])
 
         # last timelog in current work
         last_timelog_id = timelog[len(timelog)-1].id
@@ -107,7 +119,23 @@ class project_work(models.Model):
             "end_datetime": datetime.datetime.now(),
         })
 
-        # notifications = []
-        # message = {"stop": "stop", "active_work_id": self.id, "active_task_id": self.task_id.id}
-        # notifications.append([(self._cr.dbname, "chess.game.line", self.env.user.id), message])
-        # self.env["bus.bus"].sendmany(notifications)
+        notifications = []
+        message = {"status": "stop", "active_work_id": self.id, "active_task_id": self.task_id.id}
+        notifications.append([(self._cr.dbname, "project.timelog", self.env.user.id), message])
+        self.env["bus.bus"].sendmany(notifications)
+        print("-------------------------")
+        print(timelog)
+        print("-------------------------")
+        h=0
+        m=0
+        s=0
+        for e in timelog:
+            print(e.duration)
+            h=h+int(e.duration.split(":")[0])*60*60
+            m=m+int(e.duration.split(":")[1])*60
+            s=s+int(e.duration.split(":")[2])
+
+
+
+
+        # Записать результат в поле тайм на карточке и так же записать дату первого лога

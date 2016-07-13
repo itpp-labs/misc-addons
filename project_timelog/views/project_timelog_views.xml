@@ -27,5 +27,21 @@
                 </xpath>
             </field>
         </record>
+
+        <record id="action_timelog" model="ir.actions.act_window">
+            <field name="name">Timelog</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.timelog</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem id="menu_timelog_content" parent="base.menu_main_pm"
+                  name="Timelog"/>
+
+        <menuitem id="menu_new_timelog_content"
+                  parent="menu_timelog_content"
+                  action="action_timelog"/>
+
     </data>
 </openerp>
