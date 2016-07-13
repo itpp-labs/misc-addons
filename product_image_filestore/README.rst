@@ -78,6 +78,11 @@ d24ff706a9194fe33c9f98aca0c0424486b661cf
 
 Further information and discussion: http://yelizariev.github.io/odoo/module/2015/03/06/product-image-filestore.html
 
+9.0+
+====
+
+The module is obsolete in 9.0 and later versions, because `odoo 9.0+ stores images on filestore by default <http://stackoverflow.com/questions/36620976/where-does-odoo-9-physically-store-the-image-field-of-res-partner-records-in/36622134?stw=2#36622134>`_ 
+
 Credits
 =======
 
