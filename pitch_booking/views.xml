@@ -7,6 +7,12 @@
                 <script type="text/javascript" src="/pitch_booking/static/src/js/pitch_booking.js"></script>
             </xpath>
         </template>
+        <template id="assets_frontend" inherit_id="website.assets_frontend" name="Booking Calendar Assets Include">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/pitch_booking/static/src/js/website_pitch_booking.js"></script>
+                <link rel="stylesheet" href="/pitch_booking/static/src/css/pitch_booking.css"/>
+            </xpath>
+        </template>
 
         <record id="view_pitch" model="ir.ui.view">
             <field name="name">pitch.form</field>
@@ -135,13 +141,16 @@
 
 
         <template id="calendar" inherit_id="website_booking_calendar.index">
-            <xpath expr="//t[@t-call='website_booking_calendar.resources']" position="before">
+            <xpath expr="//t[@t-call='website_booking_calendar.calendar']" position="before">
                 <!-- Nav tabs -->
-                <ul class="nav nav-pills nav-stacked">
+                <div id="venues-tab">
                     <t t-foreach="venues" t-as="venue">
-                        <li t-att-class="'active' if venue.id == active_venue else ''"><a t-att-href="'/booking/calendar?venue=%s' % venue.id"><t t-esc="venue.name"/></a></li>
+                      <t t-if="venue.id == active_venue">
+                        <t t-esc="venue.name"/>
+                      </t>
+                        <a t-att-href="'/booking/calendar?venue=%s' % venue.id" t-att-class="'active' if venue.id == active_venue else ''" t-att-data-venue="venue.id" style="visibility:hidden;" ><t t-esc="venue.name"/></a>
                     </t>
-                </ul>
+                </div>
             </xpath>
         </template>
 

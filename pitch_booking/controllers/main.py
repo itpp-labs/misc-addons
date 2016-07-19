@@ -28,7 +28,7 @@ class website_booking_calendar(controller):
 
     def _get_values(self, params):
         values = super(website_booking_calendar, self)._get_values(params)
-        cr, uid, context = request.cr, request.uid, request.context
+        cr, uid, context = request.cr, SUPERUSER_ID, request.context
         venue_obj = request.registry['pitch_booking.venue']
         venues = venue_obj.browse(cr, uid, venue_obj.search(cr, uid, [], context=context), context=context)
         values.update({

@@ -87,9 +87,14 @@ class resource_calendar(models.Model):
     @api.multi
     def validate_time_limits(self, booking_start, booking_end):
         #localize UTC dates to be able to compare with hours in Working Time
-        user_tz = pytz.timezone(self.env.context.get('tz') or 'UTC')
-        start_dt = pytz.utc.localize(fields.Datetime.from_string(booking_start)).astimezone(user_tz)
-        end_dt = pytz.utc.localize(fields.Datetime.from_string(booking_end)).astimezone(user_tz)
+        tz_offset = self.env.context.get('tz_offset')
+        if tz_offset:
+            start_dt = datetime.strptime(booking_start, DTF) - timedelta(minutes=tz_offset)
+            end_dt = datetime.strptime(booking_end, DTF) - timedelta(minutes=tz_offset)
+        else:
+            user_tz = pytz.timezone(self.env.context.get('tz') or 'UTC')
+            start_dt = pytz.utc.localize(fields.Datetime.from_string(booking_start)).astimezone(user_tz)
+            end_dt = pytz.utc.localize(fields.Datetime.from_string(booking_end)).astimezone(user_tz)
         for calendar in self:
             hours = calendar.get_working_accurate_hours(start_dt, end_dt)
             duration = seconds(end_dt - start_dt) / 3600.0
