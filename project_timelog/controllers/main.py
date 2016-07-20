@@ -25,7 +25,7 @@ class Controller(openerp.addons.bus.bus.Controller):
         # All logs
         all_timelog =  request.env["project.timelog"]
 
-        # All logs for current user (у текущего пользователя может быть только 1 тайм лог)
+        # All logs for current user
         all_timelog_current_user = all_timelog.search([("user_id", "=", current_user.id)])
 
         # All logs for current user and current task
@@ -49,6 +49,11 @@ class Controller(openerp.addons.bus.bus.Controller):
                 date_object = datetime.datetime.strptime(first_timelog[0].start_datetime, "%Y-%m-%d %H:%M:%S")
                 if date_object.day == datetime.datetime.now().day:
                     first_init_time = request.env["project.timelog"].sum_time(first_timelog)
+
+        play_status = False
+        if len(all_timelog_current_user) is not 0:
+            if first_timelog[-1].end_datetime is False:
+                play_status = True
 
         # 2. All time in current task for current user
         second_init_time = 0
@@ -80,10 +85,14 @@ class Controller(openerp.addons.bus.bus.Controller):
         if stopline.datetime_stopline is not False:
             timerstopline = str(stopline.datetime_stopline)
 
+        config = request.env["ir.config_parameter"]
+        convert_sec = 3600
+
         resultat = {
+            'timer_status': play_status,
             'task_id': current_user_active_task_id,
             'work_id': current_user_active_work_id,
-            "planned_hours": stopline.planned_hours,
+            "planned_hours": int(round(stopline.planned_hours*convert_sec,0)),
             "stopline": timerstopline,
 
             "init_first_timer": first_init_time,
@@ -91,45 +100,24 @@ class Controller(openerp.addons.bus.bus.Controller):
             "init_third_timer": third_init_time,
             "init_fourth_timer": fourth_init_time,
 
+            "time_subtasks": int(round(float(config.get_param("project_timelog.time_subtasks"))*convert_sec,0)),
+            "time_warning_subtasks": int(round(float(config.get_param("project_timelog.time_warning_subtasks"))*convert_sec,0)),
+
+            "normal_time_day": int(round(float(config.get_param("project_timelog.normal_time_day"))*convert_sec,0)),
+            "good_time_day": int(round(float(config.get_param("project_timelog.good_time_day"))*convert_sec,0)),
+
+            "normal_time_week": int(round(float(config.get_param("project_timelog.normal_time_week"))*convert_sec,0)),
+            "good_time_week": int(round(float(config.get_param("project_timelog.good_time_week"))*convert_sec,0)),
+
             "name_first_timer": subwork_name,
             "description_second_timer": desctiption_timer,
         }
 
         return resultat
 
-    @http.route('/timelog/get_timer', type="json", auth="public")
-    def init_timer(self, work_id, task_id, **kwargs):
-        current_user = request.env["res.users"].search([("id", "=", http.request.env.user.id)])
-
-        all_timelog =  request.env["project.timelog"]
-        timelog_current_user = all_timelog.search([("user_id", "=", current_user.id),("work_id", "=", work_id)])
-
-        first_init_time = 0
-        if len(timelog_current_user) is not 0:
-            first_init_time = request.env["project.timelog"].sum_time(timelog_current_user[:-1])
-
-        second_init_time = False
-        if task_id is not current_user.active_task_id:
-            task_id = current_user.active_task_id
-            all_timelog_current_user_and_task = all_timelog.search([("user_id", "=", current_user.id),("work_id.task_id", "=", task_id)])
-            if len(all_timelog_current_user_and_task) is not 0:
-                second_init_time = request.env["project.timelog"].sum_time(all_timelog_current_user_and_task[:-1])
-
-        subwork = request.env["project.task.work"].search([("id", "=", work_id)]) # current user
-
-        desctiption_timer = []
-        all_timelog_other_users = all_timelog.search([("user_id", "!=", current_user.id),("work_id.task_id", "=", task_id)])
-        if len(all_timelog_other_users) != 0:
-            for e in all_timelog_other_users:
-                desctiption_timer.append(str(e.user_id.name))
-                desctiption_timer.append(str(e.duration))
-
-        return {
-            "init_first_timer": first_init_time,
-            "init_second_timer": second_init_time,
-            "name_first_timer": subwork.name,
-            "description_second_timer": desctiption_timer
-        }
-
-
+    @http.route('/timelog/stop_timer', type="json", auth="public")
+    def stop_timer(self, timelog_id, **kwargs):
+        last_timelog =  request.env["project.timelog"].search([("id", "=", timelog_id)])
+        last_timelog.write({"end_datetime": datetime.datetime.now()})
+        return True
 

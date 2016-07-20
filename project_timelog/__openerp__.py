@@ -17,6 +17,7 @@
     "data": [
         "security/ir.model.access.csv",
         "views/project_timelog_views.xml",
+        "views/res_config_view.xml",
         "views/project_timelog_templates.xml",
         "security/project_timelog_security.xml",
     ],

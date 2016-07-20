@@ -11,12 +11,19 @@ class ProjectTimeLog(models.Model):
     work_id = fields.Many2one("project.task.work", "Task", required=True)
     start_datetime = fields.Datetime(string="Start date", default=datetime.datetime.now())
     end_datetime = fields.Datetime(string="End date")
-    duration = fields.Char(string="Duration", compute="_compute_duration", store=True)
+    # duration = fields.Char(string="Duration", compute="_compute_duration", store=True)
+    duration = fields.Float(string="Duration", compute="_compute_duration", store=True)
     user_id = fields.Many2one("res.users", string="User name")
 
     @api.multi
     def sum_time(self, timelog):
         sum_time = datetime.timedelta(0)
+        if len(timelog) == 1 and timelog.end_datetime is False:
+            return 0
+        if timelog[-1].end_datetime is False:
+            time_now = datetime.datetime.now()
+            sum_time = sum_time + (time_now - datetime.datetime.strptime(timelog[-1].start_datetime, "%Y-%m-%d %H:%M:%S"))
+            timelog = timelog[:-1]
         for e in timelog:
             date_start_object = datetime.datetime.strptime(e.start_datetime, "%Y-%m-%d %H:%M:%S")
             date_end_object = datetime.datetime.strptime(e.end_datetime, "%Y-%m-%d %H:%M:%S")
@@ -40,10 +47,7 @@ class ProjectTimeLog(models.Model):
                 end_datetime = self.end_datetime
 
             resultat = end_datetime - start_datetime
-            out = str(resultat)
-            outAr = out.split(':')
-            outAr = ["%02d" % (int(float(x))) for x in outAr]
-            self.duration = ":".join(outAr)
+            self.duration = int(round(resultat.total_seconds(),0))/3600.0
 
 class task(models.Model):
     _inherit = ["project.task"]
@@ -65,6 +69,13 @@ class project_work(models.Model):
         if self.env.user.id != self.user_id.id:
             # current user is not match user with solved task
             return False
+
+        print("--------------------")
+        duration = self.env["project.timelog"].search([("work_id", "=", self.id), ("user_id", "=", self.env.user.id)])
+        if len(duration)>0:
+            for e in duration:
+                print(e.duration)
+        print("--------------------")
 
         current_user = self.env["res.users"].search([("id", "=", self.user_id.id)])
         current_date = datetime.datetime.now()
@@ -92,14 +103,14 @@ class project_work(models.Model):
         })
 
         # create new timelog for current work
-        self.env['project.timelog'].create({
+        last_timelog = self.env['project.timelog'].create({
             "work_id": self.id,
             "user_id": self.user_id.id,
             "start_datetime": datetime.datetime.now(),
         })
 
         notifications = []
-        message = {"status": "play", "active_work_id": self.id, "active_task_id": self.task_id.id}
+        message = {"status": "play", "active_work_id": self.id, "active_task_id": self.task_id.id, "timelog_id": last_timelog.id}
         notifications.append([(self._cr.dbname, "project.timelog", self.env.user.id), message])
         self.env["bus.bus"].sendmany(notifications)
 
@@ -110,6 +121,11 @@ class project_work(models.Model):
             return False
 
         timelog = self.env["project.timelog"].search([("work_id", "=", self.id), ("user_id", "=", self.env.user.id)])
+
+
+        print("-----------------------")
+        print("STOP")
+        print("-----------------------")
 
         # last timelog in current work
         last_timelog_id = timelog[len(timelog)-1].id
@@ -123,17 +139,15 @@ class project_work(models.Model):
         message = {"status": "stop", "active_work_id": self.id, "active_task_id": self.task_id.id}
         notifications.append([(self._cr.dbname, "project.timelog", self.env.user.id), message])
         self.env["bus.bus"].sendmany(notifications)
-        print("-------------------------")
-        print(timelog)
-        print("-------------------------")
-        h=0
-        m=0
-        s=0
-        for e in timelog:
-            print(e.duration)
-            h=h+int(e.duration.split(":")[0])*60*60
-            m=m+int(e.duration.split(":")[1])*60
-            s=s+int(e.duration.split(":")[2])
+        # h=0
+        # m=0
+        # s=0
+        # if len(timelog)>0:
+        #     for e in timelog:
+        #         print(e.duration)
+        #         h=h+int(e.duration.split(":")[0])*60*60
+        #         m=m+int(e.duration.split(":")[1])*60
+        #         s=s+int(e.duration.split(":")[2])
 
 
 

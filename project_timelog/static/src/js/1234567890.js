@@ -10,6 +10,10 @@ $(document).ready(function() {
             var self = this;
             var bus_last = 0;
             Number(storage.getItem("bus_last"))==null ? bus_last=this.bus.last : bus_last=Number(storage.getItem("bus_last"));
+
+            // если раскоментить бас ласт то при первоначальной установки модуля таймер не запускается
+            // но если не закоментить от сервера получается несколько сообщений
+
             // start the polling
             this.bus = openerp.bus.bus;
             this.bus.last = bus_last;
@@ -40,22 +44,20 @@ $(document).ready(function() {
             }
         },
         received_message: function(message) {
-            var status = storage.getItem("first_click");
-            if (status==null) {
-                storage.setItem("first_click", "first_click");
-                new_time_log.load_timer_data();
-            } else {
-                if (message.status == "play") {
-                    new_time_log.timelog_id=message.timelog_id;
-                    if (message.active_work_id == new_time_log.work_id) {
-                        new_time_log.start_timer();
-                    } else {
-                        new_time_log.load_timer_data();
-
-                    }
+            /*должны проверить ай ди текущей подзадачи, если они не совпадают то инициализировать заново таймер (новыми данными)
+            * после инициализация запускать (таким образом при каждом запуске таймера значения будут обновляться, если сопвпадают ай ди
+            * то значит таймер без изминений и он уже инициализирован */
+            if (message.status == "play") {
+                if (message.active_work_id == new_time_log.work_id) {
+                    console.log("play");
+                    new_time_log.start_timer();
                 } else {
-                    new_time_log.stop_timer();
+                    new_time_log.load_timer_data(message.active_work_id, message.active_task_id);
+                    new_time_log.start_timer();
                 }
+            } else {
+                console.log("stop");
+                new_time_log.stop_timer();
             }
             storage.setItem("bus_last", this.bus.last);
         },
@@ -71,7 +73,6 @@ $(document).ready(function() {
             this.stopline = '';
             this.work_id = '';
             this.task_id = '';
-            this.timelog_id='';
             this.status = 'stopped';
             this.times = [0,0,0,0];
 			this.initial_planed_hours = 0;
@@ -85,26 +86,15 @@ $(document).ready(function() {
 			this.normal_time_week = 0;
 			this.good_time_week = 0;
 
-            this.timer_status = false;
-
             this.audio_format = '';
-            storage.setItem("status","no");
+
             this.start();
         },
         start: function() {
             var self = this;
-            var status = storage.getItem("first_click");
 
-            if (status!=null) {
-                self.load_timer_data();
-            }
-        },
-
-        //loading data for timer
-        load_timer_data: function(){
-            var self = this;
             openerp.session.rpc("/timelog/init", {}).then(function(resultat){
-                self.timer_status = resultat.timer_status;
+                console.log(resultat);
                 self.stopline = resultat.stopline;
                 self.task_id = resultat.task_id;
                 self.work_id = resultat.work_id;
@@ -117,8 +107,6 @@ $(document).ready(function() {
                     resultat.name_first_timer
                 ];
 
-                console.log(self.times);
-
                 self.time_warning_subtasks = resultat.time_warning_subtasks;
                 self.time_subtasks = resultat.time_subtasks;
 
@@ -128,18 +116,29 @@ $(document).ready(function() {
                 self.normal_time_week = resultat.normal_time_week;
                 self.good_time_week = resultat.good_time_week;
 
-                if (self.time_subtasks<=self.times[0]) {
-                    self.times[0] = self.time_subtasks;
-                    storage.setItem("status","yes");
-                } else {
-                    storage.setItem("status","no");
+                if (self.time_warning_subtasks==0) {
+                    return false;
                 }
 
                 self.add_title(resultat.name_first_timer, resultat.description_second_timer);
                 self.check_audio();
-                if (self.timer_status) {
-                    new_time_log.start_timer();
+            });
+        },
+
+        //loading data for timer
+        load_timer_data: function(work_id, task_id){
+            var self = this;
+            openerp.session.rpc("/timelog/get_timer", {"work_id": work_id, "task_id": task_id}).then(function(resultat){
+                console.log(resultat);
+                self.times[0] = resultat.init_first_timer;
+                if (resultat.init_second_timer) {
+                    self.times[1] = resultat.init_second_timer;
+                    self.task_id = task_id;
                 }
+                self.initial_planed_hours = resultat.planned_hours;
+                self.add_title(resultat.name_first_timer, resultat.description_second_timer);
+                self.updateView();
+                self.work_id = work_id;
             });
         },
 
@@ -178,7 +177,6 @@ $(document).ready(function() {
 
             switch(id) {
                 case 0: {
-                    $('#clock0').css('color','white');
                     if ( this.times[0] == this.time_warning_subtasks) {
                         $('#clock0').css('color','orange');
                         self.playAudio(0);
@@ -191,7 +189,7 @@ $(document).ready(function() {
                         this.addClass(0, "expired");
                         var element = document.getElementById("clock0");
                         this.startAnim(element, 500, 10*500);
-                        if (id == 0) this.timerTimeLimited();
+                        this.stop_timer();
                     }
                 } break;
 
@@ -237,17 +235,6 @@ $(document).ready(function() {
             }
         },
 
-        timerTimeLimited: function() {
-            var self = this;
-            if (storage.getItem("status")=="yes") {
-                return false;
-            }
-            storage.setItem("status","yes");
-            openerp.session.rpc("/timelog/stop_timer", {"timelog_id":self.timelog_id}).then(function(resultat){
-                self.stop_timer();
-            });
-        },
-
         addClass : function(id, className) {
 			var element = document.getElementById("clock"+id);
 			element.className += " " + className;
@@ -275,6 +262,10 @@ $(document).ready(function() {
                 if (seconds < 10) result += "0"; result += seconds;
             }
             else result += minutes;
+
+
+            if (id == 0) console.log(result);
+
             return result;
 		},
 
@@ -290,10 +281,9 @@ $(document).ready(function() {
 		},
 
         start_timer: function(){
-			if (this.status == 'running' || this.time_subtasks<=this.times[0]){
+			if (this.status == 'running'){
 				return false;
 			}
-            console.log("play");
 			var self = this;
 			this.status = 'running';
 			this.setIntervalTimer();
@@ -306,7 +296,6 @@ $(document).ready(function() {
 			if (this.status == 'stopped'){
 				return false;
 			}
-            console.log("stop");
 			var self = this;
 			this.status = 'stopped';
 			for (var i = 0; i < 4; i++) {
