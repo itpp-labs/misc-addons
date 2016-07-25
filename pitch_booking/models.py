@@ -131,6 +131,15 @@ class sale_order_line(models.Model):
         resources = self.env['pitch_booking.pitch'].search(pitch_domain)
         return resources
 
+    @api.model
+    def get_booking_available_products(self, event, products):
+        products = super(sale_order_line, self).get_booking_available_products(event, products)
+        res = []
+        pitch = self.env['pitch_booking.pitch'].search([('resource_id', '=', int(event['resource']))])
+        if pitch and pitch.venue_id:
+            res = products.filtered(lambda p: p.venue_id == pitch.venue_id)
+        return res
+
 
 class account_invoice_line(models.Model):
     _inherit = 'account.invoice.line'
