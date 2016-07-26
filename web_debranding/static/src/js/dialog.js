@@ -1,6 +1,8 @@
 odoo.define('web_debranding.dialog', function(require) {
     var core = require('web.core');
     var QWeb = core.qweb;
+    var Model = require('web.Model');
+    var session = require('web.session');
     var _t = core._t;
 
     var CrashManager = require('web.CrashManager')
@@ -8,9 +10,9 @@ odoo.define('web_debranding.dialog', function(require) {
         init: function () {
             this._super();
             var self = this;
-            var model = new openerp.Model("ir.config_parameter");
+            var model = new Model("ir.config_parameter");
             self.debranding_new_name = _t('Software');
-            if (!openerp.session.db)
+            if (!session.db)
                 return;
             var r = model.query(['value'])
                 .filter([['key', '=', 'web_debranding.new_name']])
