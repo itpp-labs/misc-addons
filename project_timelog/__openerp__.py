@@ -11,6 +11,7 @@
 
     "depends": [
         "bus",
+        "im_chat",
         "project_timesheet",
     ],
     "external_dependencies": {"python": [], "bin": []},

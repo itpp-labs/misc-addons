@@ -9,17 +9,16 @@ class ProjectTimeLog(models.Model):
     _description = "project timelog"
 
     work_id = fields.Many2one("project.task.work", "Task", required=True)
+    task_name = fields.Char(related='work_id.task_id.name', store=True)
+    project_name = fields.Char(related='work_id.task_id.project_id.name', store=True)
     start_datetime = fields.Datetime(string="Start date", default=datetime.datetime.now())
     end_datetime = fields.Datetime(string="End date")
-    # duration = fields.Char(string="Duration", compute="_compute_duration", store=True)
     duration = fields.Float(string="Duration", compute="_compute_duration", store=True)
     user_id = fields.Many2one("res.users", string="User name")
 
     @api.multi
     def sum_time(self, timelog):
         sum_time = datetime.timedelta(0)
-        if len(timelog) == 1 and timelog.end_datetime is False:
-            return 0
         if timelog[-1].end_datetime is False:
             time_now = datetime.datetime.now()
             sum_time = sum_time + (time_now - datetime.datetime.strptime(timelog[-1].start_datetime, "%Y-%m-%d %H:%M:%S"))
@@ -62,7 +61,7 @@ class Users(models.Model):
 class project_work(models.Model):
     _inherit = ["project.task.work"]
 
-    timelog_ids = fields.One2many("project.timelog", "work_id", "Timelog") # ????????
+    timelog_ids = fields.One2many("project.timelog", "work_id", "Timelog")
 
     @api.multi
     def play_timer(self):
@@ -70,12 +69,15 @@ class project_work(models.Model):
             # current user is not match user with solved task
             return False
 
-        print("--------------------")
         duration = self.env["project.timelog"].search([("work_id", "=", self.id), ("user_id", "=", self.env.user.id)])
-        if len(duration)>0:
+        config = self.env["ir.config_parameter"].get_param("project_timelog.time_subtasks")
+
+        sum_timelog = 0.0
+        if len(duration)>0 and len(config)>0:
             for e in duration:
-                print(e.duration)
-        print("--------------------")
+                sum_timelog = sum_timelog + round(e.duration,3)
+            if sum_timelog >= round(float(config),3):
+                return False
 
         current_user = self.env["res.users"].search([("id", "=", self.user_id.id)])
         current_date = datetime.datetime.now()
@@ -91,10 +93,6 @@ class project_work(models.Model):
         # необходимо сделать проверку, если подзадача уже работала больше 5 минут и мы переключились на новую
         # и затем решили перейти на предыдущую, сделать ее не активной, для этого надо добавить новое после "статус"
         # которое будет вычисляться и будет иметься несколько статусов "неактивная, новый, остановленный, текущий"
-        # так же реализовать востановление таймера после обновления страницы для этот нужно смотреть когда был запущен
-        # последний лог подзадачи, посмотреть если ли время остановки, если нет, то найти текущее время, найти разность
-        # и отрправить в таймер как начальное значение, (тоже самое для всех таймеров)
-
 
         # record data for current user (last active timer)
         current_user.write({
@@ -122,13 +120,11 @@ class project_work(models.Model):
 
         timelog = self.env["project.timelog"].search([("work_id", "=", self.id), ("user_id", "=", self.env.user.id)])
 
-
-        print("-----------------------")
-        print("STOP")
-        print("-----------------------")
+        if timelog[-1].end_datetime is not False:
+            return False
 
         # last timelog in current work
-        last_timelog_id = timelog[len(timelog)-1].id
+        last_timelog_id = timelog[-1].id
 
         # record date in timer (end datetime for log)
         self.env["project.timelog"].search([("id", '=', last_timelog_id)]).write({
@@ -139,17 +135,19 @@ class project_work(models.Model):
         message = {"status": "stop", "active_work_id": self.id, "active_task_id": self.task_id.id}
         notifications.append([(self._cr.dbname, "project.timelog", self.env.user.id), message])
         self.env["bus.bus"].sendmany(notifications)
-        # h=0
-        # m=0
-        # s=0
-        # if len(timelog)>0:
-        #     for e in timelog:
-        #         print(e.duration)
-        #         h=h+int(e.duration.split(":")[0])*60*60
-        #         m=m+int(e.duration.split(":")[1])*60
-        #         s=s+int(e.duration.split(":")[2])
 
+        sum_timelog = 0.0
+        for e in timelog:
+            sum_timelog = sum_timelog + e.duration
 
+        if len(timelog) == 1:
+            value = {
+                "date": timelog[0].end_datetime,
+                "hours": float(sum_timelog),
+            }
+        else:
+            value = {
+                "hours": float(sum_timelog),
+            }
 
-
-        # Записать результат в поле тайм на карточке и так же записать дату первого лога
+        self.env["project.task.work"].search([("id", "=", self.id)]).write(value)

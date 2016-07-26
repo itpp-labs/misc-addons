@@ -36,6 +36,13 @@ class Controller(openerp.addons.bus.bus.Controller):
 
         first_timelog =  all_timelog.search([("work_id", "=", current_user_active_work_id)])
 
+        last_timelog = 0
+
+        if len(first_timelog)>1:
+            last_timelog = first_timelog[-1].id
+        elif len(first_timelog)==1:
+            last_timelog = first_timelog[0].id
+
         subwork = request.env["project.task.work"].search([("id", "=", current_user_active_work_id)]) # current user
 
         subwork_name = "None"
@@ -69,17 +76,28 @@ class Controller(openerp.addons.bus.bus.Controller):
         # 4. All time this week
         fourth_init_time = 0
         today = datetime.datetime.today()
-        first_day_week = today - datetime.timedelta(7 - datetime.datetime.weekday(today))
-        timelog_this_week = all_timelog.search([("user_id", "=", current_user.id), ("start_datetime", ">=", first_day_week.strftime('%Y-%m-%d 00:00:00')), ("start_datetime", "<=", datetime.datetime.now().strftime('%Y-%m-%d 23:59:59'))])
+        monday = today - datetime.timedelta(datetime.datetime.weekday(today))
+        sunday = today + datetime.timedelta(6 - datetime.datetime.weekday(today))
+        timelog_this_week = all_timelog.search([("user_id", "=", current_user.id), ("start_datetime", ">=", monday.strftime('%Y-%m-%d 00:00:00')), ("start_datetime", "<=", sunday.strftime('%Y-%m-%d 23:59:59'))])
         if len(timelog_this_week) is not 0:
             fourth_init_time = request.env["project.timelog"].sum_time(timelog_this_week)
 
-        desctiption_timer = []
+        second_timer_info = []
+        desctiption_timer = ''
         if len(all_timelog_other_users) != 0:
             all_timelog_other_users = all_timelog.search([("user_id", "!=", current_user.id),("work_id.task_id", "=", current_user_active_task_id)])
+            another_users = []
             for e in all_timelog_other_users:
-                desctiption_timer.append(str(e.user_id.name))
-                desctiption_timer.append(str(e.duration))
+                another_users.append(str(e.user_id.name))
+            another_users = list(set(another_users))
+            for e in another_users:
+                res = all_timelog.search([("user_id.name", "=", e),("work_id.task_id", "=", current_user_active_task_id)])
+                sum_another_timelog = 0
+                for i in res:
+                    sum_another_timelog = sum_another_timelog + i.duration
+                second_timer_info.append(e+": "+str(sum_another_timelog)+' &nbsp;                  ')
+            for e in second_timer_info:
+                desctiption_timer = desctiption_timer + e
 
         timerstopline = 0
         if stopline.datetime_stopline is not False:
@@ -111,13 +129,8 @@ class Controller(openerp.addons.bus.bus.Controller):
 
             "name_first_timer": subwork_name,
             "description_second_timer": desctiption_timer,
+
+            "timelog_id": last_timelog
         }
 
         return resultat
-
-    @http.route('/timelog/stop_timer', type="json", auth="public")
-    def stop_timer(self, timelog_id, **kwargs):
-        last_timelog =  request.env["project.timelog"].search([("id", "=", timelog_id)])
-        last_timelog.write({"end_datetime": datetime.datetime.now()})
-        return True
-

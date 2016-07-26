@@ -3,12 +3,14 @@ $(document).ready(function() {
     var TimeLog = openerp.TimeLog = {};
     var storage = localStorage;
     var audio = new Audio();
+    var instance = openerp;
 
     TimeLog.Manager = openerp.Widget.extend({
-        init: function () {
+        init: function (widget) {
             this._super();
             var self = this;
             var bus_last = 0;
+            this.widget = widget;
             Number(storage.getItem("bus_last"))==null ? bus_last=this.bus.last : bus_last=Number(storage.getItem("bus_last"));
             // start the polling
             this.bus = openerp.bus.bus;
@@ -41,33 +43,34 @@ $(document).ready(function() {
         },
         received_message: function(message) {
             var status = storage.getItem("first_click");
-            if (status==null) {
+            if ((status==null) && (message.status == "play")) {
                 storage.setItem("first_click", "first_click");
-                new_time_log.load_timer_data();
+                this.widget.load_timer_data();
             } else {
                 if (message.status == "play") {
-                    new_time_log.timelog_id=message.timelog_id;
-                    if (message.active_work_id == new_time_log.work_id) {
-                        new_time_log.start_timer();
+                    this.widget.timelog_id = message.timelog_id;
+                    if (message.active_work_id == this.widget.work_id) {
+                        this.widget.start_timer();
                     } else {
-                        new_time_log.load_timer_data();
+                        this.widget.finish_status = false;
+                        this.widget.load_timer_data();
 
                     }
                 } else {
-                    new_time_log.stop_timer();
+                    this.widget.stop_timer();
                 }
             }
             storage.setItem("bus_last", this.bus.last);
         },
     });
 
-    TimeLog.Conversation = openerp.Widget.extend({
-        init: function(){
-            this._super();
+    TimeLog.TimelogWidget = openerp.Widget.extend({
+        init: function(parent){
+            this._super(parent);
             var self = this;
-            openerp.session = new openerp.Session();
-            this.c_manager = new openerp.TimeLog.Manager();
+            this.c_manager = new openerp.TimeLog.Manager(this);
 
+            this.finish_status = false;
             this.stopline = '';
             this.work_id = '';
             this.task_id = '';
@@ -76,38 +79,45 @@ $(document).ready(function() {
             this.times = [0,0,0,0];
 			this.initial_planed_hours = 0;
 
-            this.time_warning_subtasks = 0;
-			this.time_subtasks = 0;
+            this.time_warning_subtasks = 1;
+			this.time_subtasks = 1;
 
-			this.normal_time_day = 0;
-            this.good_time_day = 0;
+			this.normal_time_day = 1;
+            this.good_time_day = 1;
 
-			this.normal_time_week = 0;
-			this.good_time_week = 0;
+			this.normal_time_week = 1;
+			this.good_time_week = 1;
 
             this.timer_status = false;
 
             this.audio_format = '';
             storage.setItem("status","no");
-            this.start();
         },
         start: function() {
             var self = this;
             var status = storage.getItem("first_click");
+            this.config = new openerp.web.Model('ir.config_parameter');
 
             if (status!=null) {
                 self.load_timer_data();
+            } else {
+                self.config.call('get_param', ['project_timelog.normal_time_day']).then(function(res) {
+                    if (res) {
+                        self.updateView();
+                    }
+                });
             }
         },
 
-        //loading data for timer
         load_timer_data: function(){
             var self = this;
-            openerp.session.rpc("/timelog/init", {}).then(function(resultat){
+            this.activate_click();
+            this.rpc("/timelog/init", {}).then(function(resultat){
                 self.timer_status = resultat.timer_status;
                 self.stopline = resultat.stopline;
                 self.task_id = resultat.task_id;
                 self.work_id = resultat.work_id;
+                self.timelog_id = resultat.timelog_id;
                 self.initial_planed_hours = resultat.planned_hours;
                 self.times = [
                     resultat.init_first_timer,
@@ -116,9 +126,6 @@ $(document).ready(function() {
                     resultat.init_fourth_timer,
                     resultat.name_first_timer
                 ];
-
-                console.log(self.times);
-
                 self.time_warning_subtasks = resultat.time_warning_subtasks;
                 self.time_subtasks = resultat.time_subtasks;
 
@@ -138,8 +145,27 @@ $(document).ready(function() {
                 self.add_title(resultat.name_first_timer, resultat.description_second_timer);
                 self.check_audio();
                 if (self.timer_status) {
-                    new_time_log.start_timer();
+                    self.start_timer();
                 }
+            });
+        },
+
+        activate_click: function() {
+            var self = this;
+            $( "#clock0" ).click(function() {
+                self.timer_pause();
+            });
+
+            $( "#clock1" ).click(function(event) {
+                self.go_to(event, 'task');
+            });
+
+            $( "#clock2" ).click(function(event) {
+                self.go_to(event, 'day');
+            });
+
+            $( "#clock3" ).click(function(event) {
+                self.go_to(event, 'week');
             });
         },
 
@@ -154,10 +180,9 @@ $(document).ready(function() {
         updateView : function() {
             var element = document.getElementById("timelog_timer");
             if(!element) {
-                console.log("not element");
+                // not element
                 return false;
             }
-
 			for (var i = 0; i < 4; i++) {
 			  this.updateClock(i, this.times[i]);
 			}
@@ -172,9 +197,6 @@ $(document).ready(function() {
 			var formattedTime = this.formatTime(id, time);
 			element.innerHTML = formattedTime;
 			var self = this;
-
-            /*когда условие выполнилось нужно остановить таймер и отправить запрос на сервер с сохранением даты остановки таймер или там при достижении
-            * 2 часов остановить таймер */
 
             switch(id) {
                 case 0: {
@@ -196,6 +218,9 @@ $(document).ready(function() {
                 } break;
 
                 case 1:  {
+                    if (this.initial_planed_hours == 0) {
+                        break;
+                    }
                     if (this.times[1] >= this.initial_planed_hours) {
                         $('#clock1').css('color','orange');
                     }
@@ -240,12 +265,15 @@ $(document).ready(function() {
         timerTimeLimited: function() {
             var self = this;
             if (storage.getItem("status")=="yes") {
+                self.finish_status = true;
                 return false;
             }
             storage.setItem("status","yes");
-            openerp.session.rpc("/timelog/stop_timer", {"timelog_id":self.timelog_id}).then(function(resultat){
-                self.stop_timer();
-            });
+
+            var model = new openerp.web.Model('project.task.work');
+            model.call("stop_timer", [self.work_id]);
+            self.finish_status = true;
+            this.stop_timer();
         },
 
         addClass : function(id, className) {
@@ -279,13 +307,18 @@ $(document).ready(function() {
 		},
 
         setIntervalTimer: function() {
-			this.timer = window.setInterval(this.countDownTimer, 1000);
+            var self = this;
+			this.timer = window.setInterval(function(){
+                self.countDownTimer();
+            }, 1000);
+
 		},
 
         countDownTimer: function() {
+            var self = this;
 			for (var i = 0; i < 4; i++) {
-			  new_time_log.times[i]++;
-			  new_time_log.updateClock(i, new_time_log.times[i]);
+			  self.times[i]++;
+			  self.updateClock(i, self.times[i]);
 			}
 		},
 
@@ -344,12 +377,70 @@ $(document).ready(function() {
         add_title: function(first_timer_name, description_second_timer) {
             $('#clock0').attr("title", first_timer_name);
             $('#clock1').attr("title", description_second_timer);
+        },
+
+        timer_pause: function() {
+            var self = this;
+            var model_subtask = new openerp.web.Model('project.task.work');
+            if (self.status=="running" && !self.finish_status) model_subtask.call("stop_timer", [self.work_id]);
+            else {
+                if (self.status == "stopped" && !self.finish_status) model_subtask.call("play_timer", [self.work_id]);
+            }
+            if (self.finish_status) return false;
+        },
+        go_to: function(event, status) {
+            var self = this;
+            var id = this.task_id;
+            var parent = self.getParent();
+            var action = {};
+            var context;
+            if (status == 'task') {
+                action = {
+                    res_id: id,
+                    res_model: "project.task",
+                    views: [[false, 'form']],
+                    type: 'ir.actions.act_window',
+                    target: 'current',
+                    flags: {
+                        action_buttons: true,
+                    }
+                };
+            } else {
+                if (status == 'day') {
+                    context = {
+                        'search_default_today': 1,
+                        'search_default_group_tasks': 1,
+                        'search_default_group_subtasks': 1,
+                    };
+                } else {
+                    context = {
+                        'search_default_week': 1,
+                    };
+                }
+                action = {
+                    res_model: "project.timelog",
+                    name: "My Timelog",
+                    views: [[false, 'list']],
+                    type: 'ir.actions.act_window',
+                    target: 'current',
+                    view_mode: 'tree',
+                    view_type: 'form',
+                    context: context,
+                    flags: {
+                        action_buttons: true,
+                    }
+                };
+            }
+            parent.action_manager.do_action(action);
         }
     });
 
-    var new_time_log = new TimeLog.Conversation(this);
-
-	$( "#clock0" ).click(function() {
-		console.log("click!");
-	});
+    instance.web.WebClient.include({
+        show_application: function() {
+            var self = this;
+            this.timelog_widget  = new TimeLog.TimelogWidget(self);
+            this.timelog_widget.appendTo(this.$el.parents().find('.oe_timelog_placeholder'));
+            return this._super();
+        },
+    });
 });

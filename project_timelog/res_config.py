@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from openerp.osv import fields, osv
+from openerp.http import request
 
 class timelog_config_settings(osv.osv_memory):
     _name = 'timelog.config.settings'

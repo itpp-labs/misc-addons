@@ -8,15 +8,9 @@
             </xpath>
         </template>
 
-        <template id="assets_frontend" inherit_id="web.assets_common">
-          <xpath expr="." position="inside">
-              <script type="text/javascript" src="/project_timelog/static/src/js/timer_button.js"></script>
-          </xpath>
-        </template>
-
         <template id="timer_navbar" inherit_id="web.menu" priority="1">
             <xpath expr="//ul[@class='nav navbar-nav navbar-right oe_systray']" position="after">
-                <ul class="nav navbar-nav navbar-right timelog">
+                <ul class="nav navbar-nav navbar-right timelog oe_timelog_placeholder">
                     <li class="timelog" id="timelog_timer">
                           <div id="clock0" class="clock">
                               t
