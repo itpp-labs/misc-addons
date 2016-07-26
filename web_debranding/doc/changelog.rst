@@ -3,6 +3,12 @@
 Changelog
 =========
 
+`1.0.10`
+-------
+
+- FIX: Reconsile button didn't work
+- FIX: Updated title was not set
+
 `1.0.9`
 -------
 
