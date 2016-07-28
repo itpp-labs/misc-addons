@@ -84,6 +84,7 @@ class Controller(openerp.addons.bus.bus.Controller):
 
         second_timer_info = []
         desctiption_timer = ''
+        user_time  = 0
         if len(all_timelog_other_users) != 0:
             all_timelog_other_users = all_timelog.search([("user_id", "!=", current_user.id),("work_id.task_id", "=", current_user_active_task_id)])
             another_users = []
@@ -95,16 +96,32 @@ class Controller(openerp.addons.bus.bus.Controller):
                 sum_another_timelog = 0
                 for i in res:
                     sum_another_timelog = sum_another_timelog + i.duration
-                second_timer_info.append(e+": "+str(sum_another_timelog)+' &nbsp;                  ')
+                sum_another_timelog = 3600 * sum_another_timelog
+                sum_another_timelog = datetime.timedelta(seconds=round(sum_another_timelog,0))
+                second_timer_info.append(e+": "+str(sum_another_timelog))
+
             for e in second_timer_info:
                 desctiption_timer = desctiption_timer + e
 
-        timerstopline = 0
-        if stopline.datetime_stopline is not False:
-            timerstopline = str(stopline.datetime_stopline)
-
         config = request.env["ir.config_parameter"]
         convert_sec = 3600
+
+        timerstopline = False
+        time_subtasks = int(round(float(config.get_param("project_timelog.time_subtasks"))*convert_sec,0))
+        # if stopline.datetime_stopline is not False:
+        #     date_object = datetime.datetime.strptime(stopline.datetime_stopline, "%Y-%m-%d %H:%M:%S")
+        #     timerstopline = int(round((date_object-datetime.datetime.now()).total_seconds(), 0))
+        #     if timerstopline>0:
+        #         time_subtasks = timerstopline
+        #         timerstopline = False
+        #     else:
+        #         timerstopline = str(date_object)
+
+        # ошибка так как задает общее время работы а не до какого времени работать, например если разность получилось 60 то он и будет 60 секунд работать
+        # хоть с перерывами хоть и без
+        # возможно нужно делать через крон, после того как считали это поле и оно оказалась не пусто делаем вызов крон функции которая по достижению
+        # этого времени отправит в js по средством bus сообщение о том что нужно остановить таймер, так же за 20 минут до завершения отправит сообщение
+        # warning subtask
 
         resultat = {
             'timer_status': play_status,
@@ -118,8 +135,8 @@ class Controller(openerp.addons.bus.bus.Controller):
             "init_third_timer": third_init_time,
             "init_fourth_timer": fourth_init_time,
 
-            "time_subtasks": int(round(float(config.get_param("project_timelog.time_subtasks"))*convert_sec,0)),
-            "time_warning_subtasks": int(round(float(config.get_param("project_timelog.time_warning_subtasks"))*convert_sec,0)),
+            "time_subtasks": time_subtasks,
+            "time_warning_subtasks": time_subtasks - int(round(float(config.get_param("project_timelog.time_warning_subtasks"))*convert_sec,0)),
 
             "normal_time_day": int(round(float(config.get_param("project_timelog.normal_time_day"))*convert_sec,0)),
             "good_time_day": int(round(float(config.get_param("project_timelog.good_time_day"))*convert_sec,0)),

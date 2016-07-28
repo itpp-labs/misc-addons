@@ -56,8 +56,13 @@ $(document).ready(function() {
                         this.widget.load_timer_data();
 
                     }
-                } else {
+                }
+                if (message.status == "stop") {
                     this.widget.stop_timer();
+                    this.audio_format= audio.canPlayType("audio/ogg; codecs=vorbis") ? ".ogg" : ".mp3";
+                    var audio_name = "stop" + '.' + this.audio_format;
+                    audio.src = openerp.session.url("/project_timelog/static/src/audio/"+"stop"+ this.audio_format);
+                    audio.play();
                 }
             }
             storage.setItem("bus_last", this.bus.last);
@@ -141,6 +146,9 @@ $(document).ready(function() {
                 } else {
                     storage.setItem("status","no");
                 }
+                //if (self.time_subtasks==1) {
+                //    self.times[0] = resultat.init_first_timer;
+                //}
 
                 self.add_title(resultat.name_first_timer, resultat.description_second_timer);
                 self.check_audio();
@@ -215,6 +223,12 @@ $(document).ready(function() {
                         this.startAnim(element, 500, 10*500);
                         if (id == 0) this.timerTimeLimited();
                     }
+
+                    //if (this.stopline) {
+                    //    $('#clock0').css('color','red');
+                    //    this.addClass(0, "expired");
+                    //    if (id == 0) this.timerTimeLimited();
+                    //}
                 } break;
 
                 case 1:  {
