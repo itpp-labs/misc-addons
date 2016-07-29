@@ -14,9 +14,12 @@
 
     "depends": [
         "project",
+        "web_gantt8",
     ],
     "external_dependencies": {"python": [], "bin": []},
-    "data": [],
+    "data": [
+        'project_view.xml'
+    ],
     "qweb": [],
     "demo": [],
 
