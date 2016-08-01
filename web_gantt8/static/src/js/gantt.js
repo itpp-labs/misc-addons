@@ -182,6 +182,7 @@ var GanttView = View.extend({
             }
         };
         var $div = $("<div id='" + this.chart_id + "'></div>");
+        $div.css('min-height', 500);
         $div.prependTo(document.body);
         var gantt = new GanttChart();
         _.each(_.compact(_.map(groups, function(e) {return generate_task_info(e, 0);})), function(project) {
