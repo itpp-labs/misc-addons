@@ -181,6 +181,8 @@ var GanttView = View.extend({
                 return {task_info: task_info, task_start: task_start, task_stop: task_stop};
             }
         };
+        var $div = $("<div id='" + this.chart_id + "'></div>");
+        $div.prependTo(document.body);
         var gantt = new GanttChart();
         _.each(_.compact(_.map(groups, function(e) {return generate_task_info(e, 0);})), function(project) {
             gantt.addProject(project);
@@ -194,6 +196,9 @@ var GanttView = View.extend({
             self.on_task_changed(task);
         });
         gantt.create(this.chart_id);
+
+        this.$el.children().append($div.contents());
+        $div.remove();
 
         // bind event to display task when we click the item in the tree
         $(".taskNameItem", self.$el).click(function(event) {

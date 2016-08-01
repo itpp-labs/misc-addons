@@ -7,8 +7,8 @@
     position: absolute;
     top: 5px;
 }
-.openerp .oe_view_manager .oe_view_manager_switch .oe_vm_switch_gantt:after {
-  /*font-family: "mnmliconsRegular" !important;*/
+.openerp .oe_view_manager .oe_view_manager_body .oe_view_manager_view_gantt:after {
+  font-family: "mnmliconsRegular" !important;
   font-size: 21px;
   font-weight: 300 !important;
   content: "y";
