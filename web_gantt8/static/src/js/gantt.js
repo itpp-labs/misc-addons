@@ -167,7 +167,8 @@ var GanttView = View.extend({
                         self.fields[self.fields_view.arch.attrs.date_delay]);
                     if (!tmp)
                         return;
-                    task_stop = new Date(task_start + (parse_value(tmp, {type:"float"}) * 60 * 60 * 1000));
+                    task_stop = new Date(task_start);
+                    task_stop.setMilliseconds((parse_value(tmp, {type:"float"}) * 60 * 60 * 1000));
                     duration_in_business_hours = true;
                 }
                 duration = (task_stop.getTime() - task_start.getTime()) / (1000 * 60 * 60);
@@ -226,7 +227,8 @@ var GanttView = View.extend({
         if (!duration_in_business_hours){
             duration = (duration / 8 ) * 24;
         }
-        var end = new Date(start + (duration * 60 * 60 * 1000));
+        var end = new Date(start);
+        end.setMilliseconds((duration * 60 * 60 * 1000));
         var data = {};
         data[self.fields_view.arch.attrs.date_start] =
             time.auto_date_to_str(start, self.fields[self.fields_view.arch.attrs.date_start].type);
