@@ -7,7 +7,7 @@
     <field name="arch" type="xml">
         <xpath expr="//field[@name='planned_revenue' and @sum='Expected Revenues']" position="replace">
             <field name="planned_revenue"/>
-            <field name="weighted_planned_revenue" sum="Expected Revenues*"/>
+            <field name="weighted_planned_revenue"/>
         </xpath>
         <xpath expr="//t[@t-if='record.planned_revenue.raw_value']" position="replace">
             <t t-if="record.weighted_planned_revenue.raw_value">
