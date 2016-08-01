@@ -16,7 +16,7 @@ var GanttView = View.extend({
     display_name: _lt('Gantt'),
     template: "GanttView",
     view_type: "gantt8",
-    icon: 'fa-toggle-right',
+    icon: 'fa-tasks',
     init: function() {
         this._super.apply(this, arguments);
         this.has_been_loaded = $.Deferred();
@@ -167,7 +167,7 @@ var GanttView = View.extend({
                         self.fields[self.fields_view.arch.attrs.date_delay]);
                     if (!tmp)
                         return;
-                    task_stop = task_start.clone().addMilliseconds(parse_value(tmp, {type:"float"}) * 60 * 60 * 1000);
+                    task_stop = new Date(task_start + (parse_value(tmp, {type:"float"}) * 60 * 60 * 1000));
                     duration_in_business_hours = true;
                 }
                 duration = (task_stop.getTime() - task_start.getTime()) / (1000 * 60 * 60);
@@ -196,7 +196,6 @@ var GanttView = View.extend({
             self.on_task_changed(task);
         });
         gantt.create(this.chart_id);
-
         this.$el.children().append($div.contents());
         $div.remove();
 
@@ -226,7 +225,7 @@ var GanttView = View.extend({
         if (!duration_in_business_hours){
             duration = (duration / 8 ) * 24;
         }
-        var end = start.clone().addMilliseconds(duration * 60 * 60 * 1000);
+        var end = new Date(start + (duration * 60 * 60 * 1000));
         var data = {};
         data[self.fields_view.arch.attrs.date_start] =
             time.auto_date_to_str(start, self.fields[self.fields_view.arch.attrs.date_start].type);
@@ -240,22 +239,20 @@ var GanttView = View.extend({
     },
     on_task_display: function(task) {
         var self = this;
-        var pop = new form_common.FormViewDialog(self);
-        pop.on('write_completed', self, self.reload);
-        pop.show_element(
-            self.dataset.model,
-            task.id,
-            null,
-            {}
-        );
+        new form_common.FormViewDialog(self, {
+            res_model: self.dataset.model,
+            res_id: task.id
+        }).open();
     },
     on_task_create: function() {
         var self = this;
-        var pop = new form_common.SelectCreateDialog(this);
-        pop.on("elements_selected", self, function() {
-            self.reload();
-        });
-        pop.select_element(self.dataset.model, {initial_view: "form"});
+        new form_common.SelectCreateDialog(this, {
+            res_model: self.dataset.model,
+            initial_view: "form",
+            on_selected: function() {
+                self.reload();
+            }
+        }).open();
     }
 });
 core.view_registry.add('gantt8', GanttView);
