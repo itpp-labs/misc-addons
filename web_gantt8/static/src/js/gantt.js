@@ -242,10 +242,13 @@ var GanttView = View.extend({
     },
     on_task_display: function(task) {
         var self = this;
-        new form_common.FormViewDialog(self, {
+        var pop = new form_common.FormViewDialog(self, {
             res_model: self.dataset.model,
             res_id: task.id
         }).open();
+        pop.on('write_completed', self, function () {
+            self.reload();
+        });
     },
     on_task_create: function() {
         var self = this;
