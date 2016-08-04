@@ -3,6 +3,11 @@
 Changelog
 =========
 
+`1.0.11`
+-------
+
+- FIX desktop notifications: replace odoo icon company log and debrand text
+
 `1.0.10`
 -------
 
