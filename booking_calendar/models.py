@@ -226,17 +226,15 @@ class sale_order_line(models.Model):
         return self.search(domain)
 
     @api.model
-    def get_bookings(self, start, end, resource_ids):
-        domain = []
-        if resource_ids:
-            domain.append(('resource_id', 'in', resource_ids))
+    def get_bookings(self, start, end, offset, domain):
         bookings = self.sudo().search_booking_lines(start, end, domain)
         return [{
+            'className': 'booked_slot resource_%s' % b.resource_id.id,
             'id': b.id,
             'title': b.resource_id.name,
             'start': '%s+00:00' % b.booking_start,
             'end': '%s+00:00' % b.booking_end,
-            'resourceId': b.resource_id.id,
+            'resource_id': b.resource_id.id,
             'editable': False,
             'color': b.resource_id.color
         } for b in bookings]
