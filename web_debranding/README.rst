@@ -13,7 +13,7 @@ Removes references to odoo.com:
 8. Replaces "Odoo" in strings marked for translation.
 9. Replaces default favicon to a custom one
 10. **Hides Apps menu** (by default, only admin (superuser) can see Apps menu. You could change it via tick "Show Modules Menu" in user's access rights tab)
-11. Disables server requests to odoo.com (publisher_warranty_url) - optional
+11. Disables server requests to odoo.com (publisher_warranty_url) - optional. Works only for non-enterprise versions of odoo, check `note <#enterprise-users-notice>`_ below.
 12. Deletes "My odoo.com account" button
 13. Deletes Apps and other blocks from Settings/Dashboard
 14. Replaces "Odoo" in planner
@@ -30,7 +30,7 @@ module open Settings\\System Parameters and modify
 * web_debranding.new_name (your Brand)
 * web_debranding.favicon_url
 * web_debranding.send_publisher_warranty_url - set 0 to disable server requests to odoo.com 
-and 1 otherwise (useful for enterprise contractors)
+and 1 otherwise (useful for enterprise contractors). Works only for non-enterprise versions of odoo, check `note <#enterprise-users-notice>`_ below.
 * web_debranding.planner_footer
 
 Further debranding
@@ -68,6 +68,11 @@ To automatically install this module for every new databases set **'auto_install
 * bus (built-in)
 
 Tested on Odoo 9.0 2ec9a9c99294761e56382bdcd766e90b8bc1bb38
+
+Enterprise users notice
+=======================
+
+* `Terms of Odoo Enterprise Subscription Agreement <https://www.odoo.com/documentation/user/9.0/legal/terms/enterprise.html#customer-obligations>`_ don't allow to disable server requests to odoo.com. For this reason feature #11 doesn't work in Enterprise version.
 
 Need our service?
 =================

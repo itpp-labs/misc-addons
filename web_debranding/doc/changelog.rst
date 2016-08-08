@@ -3,6 +3,11 @@
 Changelog
 =========
 
+`1.0.12`
+-------
+
+- FIX: Forbid to disable odoo.com binding for enterprise due to terms of Odoo Enterprise Subscription Agreement
+
 `1.0.11`
 -------
 

@@ -1,6 +1,6 @@
 {
     'name': "Backend debranding",
-    'version': '1.0.11',
+    'version': '1.0.12',
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'LGPL-3',
     'category': 'Debranding',
