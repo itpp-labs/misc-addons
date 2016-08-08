@@ -26,12 +26,11 @@ Removes references to odoo.com:
 By default the module replaces "Odoo" to "Software". To configure
 module open Settings\\System Parameters and modify
 
-* web_debranding.new_title (put space in value if you don't need Brand in Title)
-* web_debranding.new_name (your Brand)
-* web_debranding.favicon_url
-* web_debranding.send_publisher_warranty_url - set 0 to disable server requests to odoo.com 
-and 1 otherwise (useful for enterprise contractors). Works only for non-enterprise versions of odoo, check `note <#enterprise-users-notice>`_ below.
-* web_debranding.planner_footer
+* ``web_debranding.new_title`` (put space in value if you don't need Brand in Title)
+* ``web_debranding.new_name`` (your Brand)
+* ``web_debranding.favicon_url``
+* ``web_debranding.send_publisher_warranty_url`` - set 0 to disable server requests to odoo.com and 1 otherwise (useful for enterprise contractors). Works only for non-enterprise versions of odoo, check `note <#enterprise-users-notice>`_ below.
+* ``web_debranding.planner_footer``
 
 Further debranding
 ==================
