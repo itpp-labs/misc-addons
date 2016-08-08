@@ -13,7 +13,7 @@ Contributors
 
 Sponsors
 --------
-* `IT-Projects LLC <https://it-projects.info>`_
+* `Associated Environmental Systems <https://www.associatedenvironmentalsystems.com/>`_
 
 Further information
 ===================

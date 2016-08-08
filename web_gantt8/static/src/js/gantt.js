@@ -186,6 +186,7 @@ var GanttView = View.extend({
         $div.css('min-height', 500);
         $div.prependTo(document.body);
         var gantt = new GanttChart();
+        gantt.maxWidthPanelNames = 250;
         _.each(_.compact(_.map(groups, function(e) {return generate_task_info(e, 0);})), function(project) {
             gantt.addProject(project);
         });
