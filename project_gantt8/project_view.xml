@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+        <record id="gantt8_edit_project" model="ir.ui.view">
+            <field name="name">gantt8.project.project.form</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='sequence']" position="after">
+                    <field name="date_start" groups="base.group_no_one"/>
+                    <field name="date" groups="base.group_no_one"/>
+                </xpath>
+            </field>
+        </record>
         <record id="project.act_project_project_2_project_task_all" model="ir.actions.act_window">
             <field name="view_mode">kanban,tree,form,calendar,pivot,graph,gantt8</field>
         </record>

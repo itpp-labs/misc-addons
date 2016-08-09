@@ -7,14 +7,6 @@
     position: absolute;
     top: 5px;
 }
-.openerp .oe-view-manager .oe-view-manager-content .oe-view-manager-view-gantt8:after {
-  font-family: "mnmliconsRegular" !important;
-  font-size: 21px;
-  font-weight: 300 !important;
-  content: "y";
-  top: -2px;
-  position: relative;
-}
 
 @media print {
     .oe_gantt button {
