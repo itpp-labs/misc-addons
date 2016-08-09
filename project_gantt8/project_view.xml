@@ -6,9 +6,11 @@
             <field name="model">project.project</field>
             <field name="inherit_id" ref="project.edit_project"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='sequence']" position="after">
-                    <field name="date_start" groups="base.group_no_one"/>
-                    <field name="date" groups="base.group_no_one"/>
+                <xpath expr="//group[@name='misc']" position="before">
+                    <group string="Gantt View">
+                        <field name="date_start"/>
+                        <field name="date"/>
+                    </group>
                 </xpath>
             </field>
         </record>
