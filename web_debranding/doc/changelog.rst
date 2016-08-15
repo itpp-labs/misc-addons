@@ -3,6 +3,11 @@
 Changelog
 =========
 
+`1.0.13`
+-------
+
+- IMP: Add "Developer mode" link to the top right-hand User Menu
+
 `1.0.12`
 -------
 
