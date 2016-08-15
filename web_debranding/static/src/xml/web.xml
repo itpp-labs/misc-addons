@@ -13,6 +13,9 @@
         <t t-jquery="a[data-menu='support']" t-operation="replace"></t>
         <t t-jquery="a[data-menu='about']" t-operation="replace"></t>
         <t t-jquery="a[data-menu='account']" t-operation="replace"></t>
+        <t t-jquery="a[data-menu='settings']" t-operation="after">
+            <li><a href="?debug" data-menu="debug">Developer mode</a></li>
+        </t>
         <t t-jquery="li.divider" t-operation="replace"></t>
     </t>
 </templates>
