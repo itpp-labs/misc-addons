@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': "Reminders and Agenda for Phonecalls",
     'version': '1.0.0',
@@ -10,6 +11,6 @@
     'depends': ['reminder_base', 'crm'],
     'data': [
         'views.xml',
-        ],
+    ],
     'installable': True,
 }

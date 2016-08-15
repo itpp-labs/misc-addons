@@ -1,8 +1,9 @@
+# -*- coding: utf-8 -*-
 from openerp.osv import fields as old_fields
-from openerp import api,models,fields
+from openerp import api, models, fields
 from openerp.addons.gamification.models.challenge import start_end_date_for_period
 from openerp.tools.safe_eval import safe_eval
-import json
+
 
 class gamification_goal_definition(models.Model):
     _inherit = 'gamification.goal.definition'
@@ -11,18 +12,19 @@ class gamification_goal_definition(models.Model):
 
     _columns = {
         'computation_mode': old_fields.selection([
-                ('manually', 'Recorded manually'),
-                ('count', 'Automatic: number of records'),
-                ('sum', 'Automatic: sum on a field'),
-                ('avg', 'Automatic: avg on a field'),
-                ('min', 'Automatic: min on a field'),
-                ('max', 'Automatic: max on a field'),
-                ('python', 'Automatic: execute a specific Python code'),
-            ],
+            ('manually', 'Recorded manually'),
+            ('count', 'Automatic: number of records'),
+            ('sum', 'Automatic: sum on a field'),
+            ('avg', 'Automatic: avg on a field'),
+            ('min', 'Automatic: min on a field'),
+            ('max', 'Automatic: max on a field'),
+            ('python', 'Automatic: execute a specific Python code'),
+        ],
             string="Computation Mode",
             help="Defined how will be computed the goals. The result of the operation will be stored in the field 'Current'.",
             required=True),
     }
+
 
 class gamification_goal(models.Model):
     _inherit = 'gamification.goal'
@@ -34,11 +36,11 @@ class gamification_goal(models.Model):
         result = {}
         for goal in self.browse(cr, uid, ids, context=context):
             definition = goal.definition_id
-            if True: # keep original indent
+            if True:  # keep original indent
                 obj = self.pool.get(definition.model_id.model)
                 field_date_name = definition.field_date_id and definition.field_date_id.name or False
-                if True: # keep original indent
-                    #for goal in goals:
+                if True:  # keep original indent
+                    # for goal in goals:
                     if True:
                         # eval the domain with user replaced by goal user object
                         domain = safe_eval(definition.domain, {'user': goal.user_id})
@@ -49,18 +51,17 @@ class gamification_goal(models.Model):
                         if goal.end_date and field_date_name:
                             domain.append((field_date_name, '<=', goal.end_date))
 
-                        #if definition.computation_mode == 'sum':
-                        if fname=='sum':
+                        # if definition.computation_mode == 'sum':
+                        if fname == 'sum':
                             field_name = definition.field_id.name
                             # TODO for master: group on user field in batch mode
                             res = obj.read_group(cr, uid, domain, [field_name], [], context=context)
                             new_value = res and res[0][field_name] or 0.0
 
-                        else: # fname == 'count'
+                        else:  # fname == 'count'
                             new_value = obj.search(cr, uid, domain, context=context, count=True)
                         result[goal.id] = new_value
         return result
-
 
     _columns = {
         'sum': old_fields.function(_get_sum, string='Sum', type='float', help='Compute goal as sum'),
@@ -71,7 +72,7 @@ class gamification_goal(models.Model):
     def update(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
-        #commit = context.get('commit_gamification', False)
+        # commit = context.get('commit_gamification', False)
 
         goals_by_definition = {}
         all_goals = {}
@@ -94,7 +95,7 @@ class gamification_goal(models.Model):
                 field_date_name = definition.field_date_id and definition.field_date_id.name or False
 
                 if False:
-                    #keep original indent
+                    # keep original indent
                     pass
                 else:
                     for goal in goals:
@@ -113,10 +114,10 @@ class gamification_goal(models.Model):
                             res = obj.read_group(cr, uid, domain, [field_name], [], context=context)
                             new_value = res and res[0][field_name] or 0.0
                             count = obj.search_count(cr, uid, domain, context=context)
-                            if count!=0:
+                            if count != 0:
                                 new_value = float(new_value) / count
 
-                        else:# computation_mode in ('min', 'max')
+                        else:  # computation_mode in ('min', 'max')
                             field_name = definition.field_id.name
                             try:
                                 # works if field is stored
@@ -137,7 +138,6 @@ class gamification_goal(models.Model):
                         if new_value != goal.current:
                             goals_to_write[goal.id]['current'] = new_value
 
-
             for goal_id, value in goals_to_write.items():
                 if not value:
                     continue
@@ -145,7 +145,7 @@ class gamification_goal(models.Model):
 
                 # check goal target reached
                 if (goal.definition_id.condition == 'higher' and value.get('current', goal.current) >= goal.target_goal) \
-                  or (goal.definition_id.condition == 'lower' and value.get('current', goal.current) <= goal.target_goal):
+                        or (goal.definition_id.condition == 'lower' and value.get('current', goal.current) <= goal.target_goal):
                     value['state'] = 'reached'
 
                 # check goal failure
@@ -154,9 +154,8 @@ class gamification_goal(models.Model):
                     value['closed'] = True
                 if value:
                     self.write(cr, uid, [goal.id], value, context=context)
-            #if commit:
+            # if commit:
             #    cr.commit()
-
 
         return super(gamification_goal, self).update(cr, uid, other_ids, context=context)
 
@@ -214,7 +213,7 @@ class gamification_challenge(models.Model):
             'action': <{True,False}>,
             'display_mode': <{progress,boolean}>,
             'target': <challenge line target>,
-            'state': <gamification.goal state {draft,inprogress,reached,failed,canceled}>,                                
+            'state': <gamification.goal state {draft,inprogress,reached,failed,canceled}>,
             'completeness': <percentage>,
             'current': <current value>,
         }
@@ -251,7 +250,7 @@ class gamification_challenge(models.Model):
 
             if challenge.visibility_mode == 'personal':
                 if not user_id:
-                    raise osv.except_osv(_('Error!'),_("Retrieving progress for personal challenge without user information"))
+                    raise osv.except_osv(_('Error!'), _("Retrieving progress for personal challenge without user information"))
                 domain.append(('user_id', '=', user_id))
                 sorting = goal_obj._order
                 limit = 1
@@ -266,7 +265,7 @@ class gamification_challenge(models.Model):
             goal_ids = goal_obj.search(cr, uid, domain, order=sorting, limit=limit, context=context)
             ranking = 0
             for goal in goal_obj.browse(cr, uid, goal_ids, context=context):
-                definition_id = goal.definition_id # new stuff
+                definition_id = goal.definition_id  # new stuff
                 evaled_domain = safe_eval(definition_id.domain, {'user': goal.user_id})
                 evaled_domain = str(evaled_domain)
                 if challenge.visibility_mode == 'personal':
@@ -304,14 +303,12 @@ class gamification_challenge(models.Model):
                         all_reached = False
             if goal_ids:
                 res_lines.append(line_data)
-        if all_reached and not challenge.show_reached: # new stuff
+        if all_reached and not challenge.show_reached:  # new stuff
             return []
         if challenge.precision:
             for line in res_lines:
                 current = line.get('current')
                 if current:
-                    current = round(current/challenge.precision)*challenge.precision
+                    current = round(current / challenge.precision) * challenge.precision
                     line['current'] = current
         return res_lines
-
-

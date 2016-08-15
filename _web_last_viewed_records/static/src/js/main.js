@@ -16,11 +16,11 @@ openerp.web_last_viewed_records = function(instance){
         },
         add_last_viewed: function(item){
             if (_.any(this.last_viewed, function(x){
-                    if (x['title'] != item['title'] ||
-                        x['view_type'] != item['view_type'] ||
-                        x['url']['model'] != item['url']['model'])
+                    if (x.title != item.title ||
+                        x.view_type != item.view_type ||
+                        x.url.model != item.url.model)
                         return false;
-                    if (x['view_type'] == 'form' && x['id'] != item['id'])
+                    if (x.view_type == 'form' && x.id != item.id)
                         return false;
                     return true;
                 }))
@@ -28,7 +28,7 @@ openerp.web_last_viewed_records = function(instance){
 
             //save json data to localStorage
             var data = this.load_last_viewed_history();
-            data.last_viewed = data.last_viewed || []
+            data.last_viewed = data.last_viewed || [];
             data.last_viewed.unshift(item);
             data.last_viewed.splice(this.last_viewed_history_size);
             this.save_last_viewed_history(data);
@@ -94,7 +94,7 @@ openerp.web_last_viewed_records = function(instance){
             }
             return titles.join(' <span class="oe_fade">|</span>&nbsp;');
         },
-    })
+    });
 
     instance.web.ViewManagerAction.include({
         try_add_last_viewed: function(view_type){
@@ -112,22 +112,22 @@ openerp.web_last_viewed_records = function(instance){
                     'model': act.res_model,
                     'menu_id': act.menu_id,
                     'action': act.id
-                }
+                };
             var title = act.display_name;
             var dr = view.controller.datarecord;
             if (dr){
                 title = dr.display_name || title;
                 if (view_type=='form'){
-                    url['id'] = dr.id;
+                    url.id = dr.id;
                 }
             }
-            if (view_type=='form' && !url['id'])
+            if (view_type=='form' && !url.id)
                 return false;
             var last_viewed_item = {
                 'title': title,
                 'url': url,
                 'view_type': view_type,
-            }
+            };
             this.ActionManager.add_last_viewed(last_viewed_item);
 
             return true;
@@ -141,13 +141,13 @@ openerp.web_last_viewed_records = function(instance){
 
             var exec = function(){
                 if (self.active_view == view_type && self.try_add_last_viewed(view_type)){
-                    self.update_last_viewed_title()
+                    self.update_last_viewed_title();
                 }
-            }
+            };
             exec();
             view.controller.on('change:title', this, function(){
-                exec()
-            })
+                exec();
+            });
 
             return res;
 
@@ -161,7 +161,7 @@ openerp.web_last_viewed_records = function(instance){
                 this.update_last_viewed_title();
         }
 
-    })
+    });
     instance.mail.Wall.include({
         start: function() {
             this._super();
@@ -171,4 +171,4 @@ openerp.web_last_viewed_records = function(instance){
             this.$el.find('.oe_view_manager_last_viewed').html(this.ActionManager.get_last_viewed_title());
         },
     });
-}
+};

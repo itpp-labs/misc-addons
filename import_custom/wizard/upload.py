@@ -1,11 +1,9 @@
+# -*- coding: utf-8 -*-
 from openerp.osv import osv, fields
-from openerp.tools.translate import _
-from openerp import tools
 import logging
 _logger = logging.getLogger(__name__)
 
-import base64
-import tempfile 
+import tempfile
 
 
 try:
@@ -24,10 +22,10 @@ import shutil
 try:
     from cStringIO import StringIO
 except ImportError:
-    from StringIO import StringIO
+    pass
 
-import os
 import glob
+
 
 class import_custom_upload(osv.TransientModel):
     _name = "import_custom.upload"
@@ -35,23 +33,22 @@ class import_custom_upload(osv.TransientModel):
 
     _columns = {
         'file': fields.char('file (*.tar.gz)'),
-        }
+    }
+
     def upload_button(self, cr, uid, ids, context=None):
 
         record = self.browse(cr, uid, ids[0])
 
-
-
-        tmp_dir,files = self.unzip_file(record.file.strip(), pattern='*.csv')
-        _logger.info('files: %s'%files)
+        tmp_dir, files = self.unzip_file(record.file.strip(), pattern='*.csv')
+        _logger.info('files: %s' % files)
 
         instance = import_custom(self.pool, cr, uid,
-                                   'yelizariev', #instance_name
-                                   'import_custom', # module_name
-                                    run_import=False,
-                                 import_dir = '/home/tmp/',
-                                  context={'csv_files': files},
-                                   )
+                                 'yelizariev',  # instance_name
+                                 'import_custom',  # module_name
+                                 run_import=False,
+                                 import_dir='/home/tmp/',
+                                 context={'csv_files': files},
+                                 )
 
         instance.run()
 
@@ -61,7 +58,6 @@ class import_custom_upload(osv.TransientModel):
             pass
 
         return instance
-
 
     def unzip_file(self, filename, pattern='*'):
         '''
@@ -73,4 +69,4 @@ class import_custom_upload(osv.TransientModel):
         dir = tempfile.mkdtemp(prefix='tmp_import_custom')
         tar.extractall(path=dir)
 
-        return dir, glob.glob('%s/%s' % (dir, pattern))+glob.glob('%s/*/%s' % (dir, pattern))
+        return dir, glob.glob('%s/%s' % (dir, pattern)) + glob.glob('%s/*/%s' % (dir, pattern))

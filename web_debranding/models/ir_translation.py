@@ -1,9 +1,9 @@
+# -*- coding: utf-8 -*-
 import re
-import inspect
-import types
 
-import openerp
-from openerp import SUPERUSER_ID, models, tools, api
+from openerp import SUPERUSER_ID
+from openerp import models
+from openerp import tools
 
 
 class ir_translation(models.Model):

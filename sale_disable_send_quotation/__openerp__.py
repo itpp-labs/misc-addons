@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': "Disable sending quotations",
     'version': '1.0.0',
@@ -11,6 +12,6 @@
     'images': ['images/form.png'],
     'data': [
         'views.xml',
-        ],
+    ],
     'installable': True,
 }

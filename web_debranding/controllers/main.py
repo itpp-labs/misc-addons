@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import openerp
-from openerp import http, SUPERUSER_ID
+from openerp import http
 from openerp.addons.web.controllers.main import Binary
 from openerp.addons.web.controllers.main import WebClient
 from openerp.addons.web.controllers import main as controllers_main
 import functools
-from openerp.http import request, serialize_exception as _serialize_exception
+from openerp.http import request
 from openerp.modules import get_module_resource
 from cStringIO import StringIO
 db_monodb = http.db_monodb
@@ -14,6 +14,7 @@ import re
 
 
 class BinaryCustom(Binary):
+
     @http.route([
         '/web/binary/company_logo',
         '/logo',

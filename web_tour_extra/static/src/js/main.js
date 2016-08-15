@@ -46,10 +46,10 @@ openerp.web_tour_extra = function(instance) {
     // if there 'tour' in localStorage, then tour is already running and we don't need to run it again
     // Otherwise we have to call running again, because built-in call doesn't use overwritten function getStorage and doesn't handle tutorial_extra.*=true url
     if(localStorage.getItem("tour"))
-    {return};
+    {return;}
     if (Tour.autoRunning) {
         Tour.running();
-    };
+    }
 });
 
 };

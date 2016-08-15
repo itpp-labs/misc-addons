@@ -24,9 +24,9 @@
 -->
 <openerp>
     <data>
-	<record model="ir.module.category" id="module_category_project_tags">
-	    <field name="name">Project Tags</field>
-	    <field name="description">Project Tags</field>
+    <record model="ir.module.category" id="module_category_project_tags">
+        <field name="name">Project Tags</field>
+        <field name="description">Project Tags</field>
         <field name="sequence">1</field>
         <field name="parent_id" ref="base.module_category_project_management"/>
     </record>

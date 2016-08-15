@@ -1,4 +1,7 @@
-from openerp import api, models, fields, SUPERUSER_ID
+# -*- coding: utf-8 -*-
+from openerp import api
+from openerp import models
+
 
 class ir_config_parameter(models.Model):
     _inherit = 'ir.config_parameter'

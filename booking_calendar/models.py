@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from datetime import datetime, timedelta
 import pytz
 from dateutil import rrule
@@ -62,7 +63,7 @@ class resource_calendar(models.Model):
                     min_to = int((calendar_working_day.hour_to - int(calendar_working_day.hour_to)) * 60)
                     x = work_dt.replace(hour=int(calendar_working_day.hour_from), minute=min_from)
                     if calendar_working_day.hour_to == 0:
-                        y = work_dt.replace(hour=0, minute=0)+timedelta(days=1)
+                        y = work_dt.replace(hour=0, minute=0) + timedelta(days=1)
                     else:
                         y = work_dt.replace(hour=int(calendar_working_day.hour_to), minute=min_to)
                     working_interval = (x, y)
@@ -70,13 +71,13 @@ class resource_calendar(models.Model):
                 for interval in working_intervals:
                     hours += interval[1] - interval[0]
 
-            #Add public holidays
+            # Add public holidays
             leaves = leave_obj.search([('name', '=', 'PH'), ('calendar_id', '=', calendar.id)])
             leave_intervals = []
             for l in leaves:
                 leave_intervals.append((datetime.strptime(l.date_from, DTF),
                                         datetime.strptime(l.date_to, DTF)
-                ))
+                                        ))
             clean_intervals = calendar.interval_remove_leaves((start_dt, end_dt), leave_intervals)
 
             for interval in clean_intervals:
@@ -86,7 +87,7 @@ class resource_calendar(models.Model):
 
     @api.multi
     def validate_time_limits(self, booking_start, booking_end):
-        #localize UTC dates to be able to compare with hours in Working Time
+        # localize UTC dates to be able to compare with hours in Working Time
         tz_offset = self.env.context.get('tz_offset')
         if tz_offset:
             start_dt = datetime.strptime(booking_start, DTF) - timedelta(minutes=tz_offset)
@@ -163,17 +164,17 @@ class sale_order_line(models.Model):
         for line in self:
             if line.overlap:
                 overlaps_with = self.search([('active', '=', True),
-                                              '&', '|', '&', ('booking_start', '>', line.booking_start), ('booking_start', '<', line.booking_end),
-                                              '&', ('booking_end', '>', line.booking_start), ('booking_end', '<', line.booking_end),
-                                              ('resource_id', '!=', False),
-                                              ('id', '!=', line.id),
-                                              ('resource_id', '=', line.resource_id.id),
+                                             '&', '|', '&', ('booking_start', '>', line.booking_start), ('booking_start', '<', line.booking_end),
+                                             '&', ('booking_end', '>', line.booking_start), ('booking_end', '<', line.booking_end),
+                                             ('resource_id', '!=', False),
+                                             ('id', '!=', line.id),
+                                             ('resource_id', '=', line.resource_id.id),
                                              ('state', '!=', 'cancel')])
                 overlaps_with += self.search([('active', '=', True),
-                                               ('id', '!=', line.id),
-                                               ('booking_start', '=', line.booking_start),
-                                               ('booking_end', '=', line.booking_end),
-                                               ('resource_id', '=', line.resource_id.id),
+                                              ('id', '!=', line.id),
+                                              ('booking_start', '=', line.booking_start),
+                                              ('booking_end', '=', line.booking_end),
+                                              ('resource_id', '=', line.resource_id.id),
                                               ('state', '!=', 'cancel')])
 
                 msg = 'There are bookings with overlapping times: %(this)s and %(those)s' % {'this': [line.id], 'those': overlaps_with.ids}
@@ -247,15 +248,14 @@ class sale_order_line(models.Model):
         if self.booking_start and self.booking_end:
             start = datetime.strptime(self.booking_start, DTF)
             end = datetime.strptime(self.booking_end, DTF)
-            self.product_uom_qty = (end - start).seconds/3600
+            self.product_uom_qty = (end - start).seconds / 3600
             booking_products = self.env['product.product'].search([('calendar_id', '!=', False)])
             domain_products = []
-            domain_products = [p.id for p in booking_products 
-                if p.calendar_id.validate_time_limits(self.booking_start, self.booking_end)]
+            domain_products = [p.id for p in booking_products
+                               if p.calendar_id.validate_time_limits(self.booking_start, self.booking_end)]
             if domain_products:
                 domain['product_id'].append(('id', 'in', domain_products))
         return {'domain': domain}
-
 
     @api.onchange('partner_id', 'project_id')
     def _on_change_partner(self):
@@ -277,7 +277,7 @@ class sale_order_line(models.Model):
 
     @api.model
     def create(self, values):
-        if not values.get('order_id') and  values.get('partner_id'):
+        if not values.get('order_id') and values.get('partner_id'):
             order_obj = self.env['sale.order']
             order_vals = order_obj.onchange_partner_id(values.get('partner_id'))['value']
             order_vals.update({
@@ -311,8 +311,8 @@ class sale_order_line(models.Model):
         if self.product_id and self.partner_id:
             pricelist = self.partner_id.property_product_pricelist
             if pricelist:
-                data = self.product_id_change(pricelist.id, self.product_id.id, 
-                    qty=self.product_uom_qty, partner_id=self.partner_id.id)
+                data = self.product_id_change(pricelist.id, self.product_id.id,
+                                              qty=self.product_uom_qty, partner_id=self.partner_id.id)
                 for k in data['value']:
                     if not k in ['name']:
                         setattr(self, k, data['value'][k])
@@ -328,7 +328,7 @@ class sale_order_line(models.Model):
         if pitch_id:
             resources = [pitch_obj.browse(int(pitch_id)).resource_id]
         elif venue_id:
-            resources = [p.resource_id for p in pitch_obj.search([('venue_id','=',int(venue_id))])]
+            resources = [p.resource_id for p in pitch_obj.search([('venue_id', '=', int(venue_id))])]
         return [{
             'name': r.name,
             'id': r.id,
@@ -373,7 +373,7 @@ class sale_order_line(models.Model):
 
     @api.model
     def get_free_slots_resources(self, domain):
-        resources = self.env['resource.resource'].search([('to_calendar','=',True)])
+        resources = self.env['resource.resource'].search([('to_calendar', '=', True)])
         return resources
 
     @api.model
@@ -386,7 +386,7 @@ class sale_order_line(models.Model):
         slots = {}
         now = datetime.now() - timedelta(minutes=SLOT_START_DELAY_MINS) - timedelta(minutes=offset)
         for r in resources:
-            if not r.id in slots:
+            if r.id not in slots:
                 slots[r.id] = {}
             start_dt = fixed_start_dt
             while start_dt < end_dt:
@@ -399,7 +399,7 @@ class sale_order_line(models.Model):
                         min_to = int((calendar_working_day.hour_to - int(calendar_working_day.hour_to)) * 60)
                         x = start_dt.replace(hour=int(calendar_working_day.hour_from), minute=min_from)
                         if calendar_working_day.hour_to == 0:
-                            y = start_dt.replace(hour=0, minute=0)+timedelta(days=1)
+                            y = start_dt.replace(hour=0, minute=0) + timedelta(days=1)
                         else:
                             y = start_dt.replace(hour=int(calendar_working_day.hour_to), minute=min_to)
                         if r.has_slot_calendar and x >= now and x >= start_dt and y <= end_dt:
@@ -407,12 +407,12 @@ class sale_order_line(models.Model):
                         elif not r.has_slot_calendar:
                             while x < y:
                                 if x >= now:
-                                    slots[r.id][x.strftime(DTF)] = self.generate_slot(r, x, x+timedelta(minutes=SLOT_DURATION_MINS))
+                                    slots[r.id][x.strftime(DTF)] = self.generate_slot(r, x, x + timedelta(minutes=SLOT_DURATION_MINS))
                                 x += timedelta(minutes=SLOT_DURATION_MINS)
                     start_dt += timedelta(days=1)
                     start_dt = start_dt.replace(hour=0, minute=0, second=0)
                 else:
-                    slots[r.id][start_dt.strftime(DTF)] = self.generate_slot(r, start_dt, start_dt+timedelta(minutes=SLOT_DURATION_MINS))
+                    slots[r.id][start_dt.strftime(DTF)] = self.generate_slot(r, start_dt, start_dt + timedelta(minutes=SLOT_DURATION_MINS))
                     start_dt += timedelta(minutes=SLOT_DURATION_MINS)
                     continue
             leaves = leave_obj.search([('name', '=', 'PH'), ('calendar_id', '=', r.calendar_id.id)])
@@ -427,7 +427,7 @@ class sale_order_line(models.Model):
                 else:
                     from_dt = max(now, from_dt)
                     while from_dt < to_dt:
-                        slots[r.id][from_dt.strftime(DTF)] = self.generate_slot(r, from_dt, from_dt+timedelta(minutes=SLOT_DURATION_MINS))
+                        slots[r.id][from_dt.strftime(DTF)] = self.generate_slot(r, from_dt, from_dt + timedelta(minutes=SLOT_DURATION_MINS))
                         from_dt += timedelta(minutes=SLOT_DURATION_MINS)
 
         res = []
@@ -475,8 +475,8 @@ class SaleOrderAmountTotal(osv.osv):
                                                 store={
                                                     'sale.order': (lambda self, cr, uid, ids, c={}: ids, ['order_line'], 10),
                                                     'sale.order.line': (_get_order, ['price_unit', 'tax_id', 'discount', 'product_uom_qty', 'state'], 10),
-                                                },
-                                                multi='sums', help="The total amount."),
+        },
+            multi='sums', help="The total amount."),
     }
 
 

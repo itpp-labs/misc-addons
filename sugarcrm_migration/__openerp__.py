@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 {
-    'name' : 'import SugarCRM + kashflow data to odoo ',
-    'version' : '1.0.0',
-    'author' : 'IT-Projects LLC, Ivan Yelizariev',
+    'name': 'import SugarCRM + kashflow data to odoo ',
+    'version': '1.0.0',
+    'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'GPL-3',
-    'category' : 'Tools',
-    'website' : 'https://yelizariev.github.io',
+    'category': 'Tools',
+    'website': 'https://yelizariev.github.io',
     'description': """
 Depends on:
 
@@ -20,11 +21,11 @@ Odoo optimisation:
     "external_dependencies": {
         'python': ['MySQLdb', 'pandas']
     },
-    'depends' : ['import_framework', 'crm', 'project', 'sale_mediation_custom', 'multi_company'],
-    'data':[
+    'depends': ['import_framework', 'crm', 'project', 'sale_mediation_custom', 'multi_company'],
+    'data': [
         'wizard/upload.xml',
         'data.xml',
-        ],
+    ],
     'installable': True,
     'auto_install': False,
 }

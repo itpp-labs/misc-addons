@@ -12,10 +12,10 @@ $(document).ready(function(){
             return true;
 
         p.validate();
-        event.stopImmediatePropagation()
-    })
+        event.stopImmediatePropagation();
+    });
 
     $('#is-company').on('click', function(event){
-        $('#company-name').parent().parent().parent().toggle(this.checked)
-    })
-})
+        $('#company-name').parent().parent().parent().toggle(this.checked);
+    });
+});

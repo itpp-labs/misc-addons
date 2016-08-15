@@ -20,18 +20,18 @@
 #################################################################################
 
 {
-    "name" : "Add Project Description",
+    "name": "Add Project Description",
     "version": "1.0",
-    "author" : "Julius Network Solutions",
-    "website" : "http://www.julius.fr",
-    "category" : "Generic Modules/Projects & Services",
-    "depends" : ["project",
-                 ],
+    "author": "Julius Network Solutions",
+    "website": "http://www.julius.fr",
+    "category": "Generic Modules/Projects & Services",
+    "depends": ["project",
+                ],
     "description": """Add Project Description""",
-    "init_xml" : [],
-    "demo_xml" : [],
+    "init_xml": [],
+    "demo_xml": [],
     "update_xml": [
-        "project_view.xml", 
+        "project_view.xml",
     ],
     "data": ["security/project_description_security.xml"],
 

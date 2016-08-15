@@ -5,13 +5,17 @@ from openerp.addons.auth_signup.controllers.main import AuthSignupHome
 from openerp import http
 from openerp.http import request
 
+
 class SignupDenied(Exception):
     pass
+
 
 class UserExists(Exception):
     pass
 
+
 class AuthConfirm(AuthSignupHome):
+
     def _signup_with_values(self, token, values):
         if token:
             return super(AuthConfirm, self)._signup_with_values(token, values)
@@ -32,8 +36,8 @@ class AuthConfirm(AuthSignupHome):
             pass
         try:
             res = self._singup_with_confirmation(*args, **kw)
-            message =  request.env['mail.message'].sudo().search([('res_id', '=', res['partner_id']),
-                                                                  ('subject', '=', 'Confirm registration')])
+            message = request.env['mail.message'].sudo().search([('res_id', '=', res['partner_id']),
+                                                                 ('subject', '=', 'Confirm registration')])
             request.registry['mail.message'].set_message_read(request.cr, res['user_id'], [message.id], read=True, context=request.context)
             registration_redirect_url = request.registry['ir.config_parameter'].get_param(request.cr, SUPERUSER_ID, 'auth_signup_confirmation.url_singup_thankyou')
             return werkzeug.utils.redirect(registration_redirect_url)
@@ -76,14 +80,14 @@ class AuthConfirm(AuthSignupHome):
             values = {'partner_id': new_partner.id,
                       'login': kw['login'],
                       'password': kw['password'],
-                      'name': kw['name'] ,
+                      'name': kw['name'],
                       'alias_name': kw['name']}
             new_user_id = res_users.sudo()._signup_create_user(values)
             new_user = request.env['res.users'].sudo().search([('id', '=', new_user_id)])
             new_user.active = False
         redirect_url = werkzeug.url_encode({'redirect': kw['redirect']})
         signup_url = new_partner.with_context(signup_force_type_in_url='signup/confirm',
-            signup_valid=True)._get_signup_url(SUPERUSER_ID, [new_partner.id])[new_partner.id]
+                                              signup_valid=True)._get_signup_url(SUPERUSER_ID, [new_partner.id])[new_partner.id]
         if redirect_url != 'redirect=':
             signup_url += '&%s' % redirect_url
         # send email

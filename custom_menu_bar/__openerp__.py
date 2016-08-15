@@ -1,16 +1,17 @@
+# -*- coding: utf-8 -*-
 {
-    'name' : 'Custom menu bar (orange)',
-    'version' : '1.0.0',
-    'author' : 'IT-Projects LLC, Ivan Yelizariev',
+    'name': 'Custom menu bar (orange)',
+    'version': '1.0.0',
+    'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'GPL-3',
-    'category' : 'Tools',
-    'website' : 'https://yelizariev.github.io',
+    'category': 'Tools',
+    'website': 'https://yelizariev.github.io',
     'description': """
 
     """,
-    'depends' : ['base'],
-    'data':[
+    'depends': ['base'],
+    'data': [
         'views.xml',
-        ],
+    ],
     'installable': True
 }

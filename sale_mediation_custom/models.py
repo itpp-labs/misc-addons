@@ -3,12 +3,13 @@ from openerp.osv import fields as old_fields
 from openerp.osv import osv
 from openerp import api, models, fields, exceptions
 from openerp.tools.translate import _
-import time
 import re
 
-from datetime import date, datetime, timedelta
+from datetime import date
+from datetime import datetime
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
+
 
 def _get_proposal_id(self, cr, uid, ids, name, args, context=None):
     res = {}
@@ -16,6 +17,7 @@ def _get_proposal_id(self, cr, uid, ids, name, args, context=None):
         proposal_id = self.pool['website_proposal.proposal'].search(cr, uid, [('res_id', '=', r.id), ('res_model', '=', self._name)], context=context)
         res[r.id] = proposal_id and proposal_id[0]
     return res
+
 
 class account_analytic_account(models.Model):
     _inherit = 'account.analytic.account'
@@ -41,7 +43,7 @@ class account_analytic_account(models.Model):
     sale_order_lines = fields.One2many('sale.order.line', 'Order lines', related='sale_order_id.order_line')
     sale_order_state = fields.Selection('Sale order status', related='sale_order_id.state')
 
-    #create_date = fields.Date(default=fields.Date.context_today)
+    # create_date = fields.Date(default=fields.Date.context_today)
     color = fields.Integer('Color index', related='section_id.color')
 
     _columns = {
@@ -63,6 +65,7 @@ class mail_compose_message(osv.Model):
             self.pool.get('crm.lead').browse(cr, uid, context['sale_case_id'], context=context).signal_workflow('proposal_sent')
         return super(mail_compose_message, self).send_mail(cr, uid, ids, context=context)
 
+
 class res_partner(models.Model):
     _inherit = 'res.partner'
 
@@ -76,6 +79,7 @@ class res_partner(models.Model):
         'website': old_fields.char('Website', help="Website of Partner or Company", track_visibility='onchange'),
     }
 
+
 class sale_order(models.Model):
     _inherit = 'sale.order'
 
@@ -86,6 +90,7 @@ class sale_order(models.Model):
 
     invoice_deal_time = fields.Integer(string='Invoice deal time', compute=_get_invoice_deal_time, store=True)
 
+
 class crm_lead(models.Model):
     _inherit = 'crm.lead'
 
@@ -94,8 +99,8 @@ class crm_lead(models.Model):
         d = fields.Date.from_string(today)
         name = d.strftime('SE%y%m%d')
         ids = self.search(cr, uid, [('create_date', '>=', d.strftime(DEFAULT_SERVER_DATE_FORMAT))], context=context)
-        if len(ids)>0:
-            name = name + ('%02i'% (len(ids) + 1))
+        if len(ids) > 0:
+            name = name + ('%02i' % (len(ids) + 1))
         return name
 
     sales_funnel_type = fields.Selection(related='stage_id.sales_funnel_type', readonly=True)
@@ -143,9 +148,8 @@ class crm_lead(models.Model):
 
     @api.model
     def update_deal_time(self):
-        self.search([('sales_funnel_type','not in', ['won', 'lost'])])._get_deal_time()
-        self.search([('sales_funnel_type','not in', ['won', 'lost'])])._get_last_action_time()
-
+        self.search([('sales_funnel_type', 'not in', ['won', 'lost'])])._get_deal_time()
+        self.search([('sales_funnel_type', 'not in', ['won', 'lost'])])._get_last_action_time()
 
     @api.one
     @api.depends('date_action', 'date_last_stage_update')
@@ -171,22 +175,22 @@ class crm_lead(models.Model):
         pass
 
     @api.multi
-    def action_create_sale_case(self): # OLD
-        #assert len(self) == 1, 'This option should only be used for a single id at a time.'
+    def action_create_sale_case(self):  # OLD
+        # assert len(self) == 1, 'This option should only be used for a single id at a time.'
         sale_case_id = None
         for r in self:
-            if r.contract_ids or not r.partner_id or r.type!='lead':
+            if r.contract_ids or not r.partner_id or r.type != 'lead':
                 continue
             vals = {'lead_id': r.id,
                     'partner_id': r.partner_id.id,
                     'section_id': r.section_id and r.section_id.id or False,
                     'type': 'contract',
-                    'state':'lead'}
+                    'state': 'lead'}
             sale_case_id = self.env['account.analytic.account'].create(vals)
             sale_case_id.write({'name': '%s %s' % (sale_case_id.name, r.name)})
-            #r.type = 'opportunity'
+            # r.type = 'opportunity'
 
-        if len(self)>1 or not sale_case_id:
+        if len(self) > 1 or not sale_case_id:
             return True
 
         form = self.env.ref('account_analytic_analysis.account_analytic_account_form_form', False)
@@ -197,7 +201,7 @@ class crm_lead(models.Model):
             'view_mode': 'tree, form, kanban',
             'res_model': 'account.analytic.account',
             'res_id': sale_case_id and int(sale_case_id),
-            #'view_id': False,
+            # 'view_id': False,
             'views': [(form.id, 'form')],
             'type': 'ir.actions.act_window',
         }
@@ -225,9 +229,8 @@ class crm_lead(models.Model):
     def action_set_state_sales_lost(self):
         self.set_sales_funnel('lost')
 
-
     @api.v7
-    def action_send_proposal(self, cr, uid, ids, context = None):
+    def action_send_proposal(self, cr, uid, ids, context=None):
         assert len(ids) == 1, 'This option should only be used for a single id at a time.'
         sale_case = self.browse(cr, uid, ids, context=context)[0]
         if not sale_case.sale_order_id.order_line:
@@ -241,7 +244,7 @@ class crm_lead(models.Model):
         try:
             compose_form_id = ir_model_data.get_object_reference(cr, uid, 'mail', 'email_compose_message_wizard_form')[1]
         except ValueError:
-            compose_form_id = False 
+            compose_form_id = False
         ctx = dict()
         ctx.update({
             'default_model': 'crm.lead',
@@ -264,13 +267,13 @@ class crm_lead(models.Model):
         }
 
     @api.v7
-    def action_send_proposal_quick(self, cr, uid, ids, context = None):
+    def action_send_proposal_quick(self, cr, uid, ids, context=None):
         res = self.pool['crm.lead'].action_send_proposal(cr, uid, ids, context=context)
         compose_ctx = res.get('context')
         compose_id = self.pool['mail.compose.message'].create(cr, uid, {}, context=compose_ctx)
         self.pool['mail.compose.message'].send_mail(cr, uid, [compose_id], context=compose_ctx)
 
-    #@api.v7 # workflow handler doesn't work with this decorator
+    # @api.v7 # workflow handler doesn't work with this decorator
     def action_set_state_sale_won(self, cr, uid, ids, context={}):
         assert len(ids) == 1, 'This option should only be used for a single id at a time.'
 
@@ -300,16 +303,16 @@ class crm_lead(models.Model):
 
         name = r.name
         if m:
-            name = 'PE%s (SE)%s'% (m.group(1), m.group(2))
+            name = 'PE%s (SE)%s' % (m.group(1), m.group(2))
         vals = {
-            'name':name,
+            'name': name,
             'partner_id': r.partner_id.id,
             'sale_case_id': r.id,
             'date_start': r.project_start_date,
             'date': r.project_end_date,
         }
         project_id = self.pool['project.project'].create(cr, uid, vals, context=context.copy())
-        r.write({'project_id':project_id})
+        r.write({'project_id': project_id})
         r.set_sales_funnel('won')
 
         data_obj = self.pool.get('ir.model.data')
@@ -322,8 +325,8 @@ class crm_lead(models.Model):
             'view_mode': 'kanban, tree, form',
             'res_model': 'project.project',
             'res_id': int(project_id),
-            #'view_id': False,
-            'views': [(form_view['res_id'],'form')],
+            # 'view_id': False,
+            'views': [(form_view['res_id'], 'form')],
             'type': 'ir.actions.act_window',
         }
 
@@ -343,10 +346,9 @@ class crm_lead(models.Model):
         default['name'] = _('%s (copy)') % self.name
         new_id = super(crm_lead, self).copy(default)
         if self.proposal_id:
-            proposal_default = {'res_id':new_id}
+            proposal_default = {'res_id': new_id}
             new_proposal_id = self.proposal_id.copy(proposal_default)
         return new_id
-
 
     @api.one
     def try_update_stage(self, stage):
@@ -355,20 +357,20 @@ class crm_lead(models.Model):
         if not (old and new):
             return {'warning': '"Sales funnel" field has to be specified for sale stage!'}
 
-        if old=='lost' and new!='lead':
+        if old == 'lost' and new != 'lead':
             return {'warning': 'From dead stage you can move sale case only to lead stage'}
-        if new=='quotation':
+        if new == 'quotation':
             if not self.partner_id:
                 return {'warning': 'You have to specify Customer'}
             if not self.proposal_id:
                 return {'warning': 'You have to create a quotation'}
-        if new=='negotiation':
-            #if old!='quotation':
+        if new == 'negotiation':
+            # if old!='quotation':
             #    return {'warning': 'You can move to negotiation only after quotation'}
             if not self.is_proposal_sent:
                 return {'warning': 'You have to send quotation to customer'}
-        if new=='won':
-            #if old!='negotiation':
+        if new == 'won':
+            # if old!='negotiation':
             #    return {'warning': 'You have to pass Negotiation stages before move sale case to Won'}
             if not self.is_proposal_confirmed:
                 return {'warning': 'Quotation is not confirmed by customer'}
@@ -388,7 +390,7 @@ class crm_lead(models.Model):
                     vals['date_closed_custom'] = fields.datetime.now()
         if 'user_id' in vals:
             for r in self:
-                if r.sale_order_id and ( not r.sale_order_id.user_id or r.sale_order_id.user_id.id != vals['user_id']):
+                if r.sale_order_id and (not r.sale_order_id.user_id or r.sale_order_id.user_id.id != vals['user_id']):
                     r.sale_order_id.user_id = vals['user_id']
         result = super(crm_lead, self).write(vals)
         if 'sale_order_id' not in vals:
@@ -402,7 +404,7 @@ class crm_lead(models.Model):
         return result
 
     _columns = {
-        'proposal_id': old_fields.function(_get_proposal_id, type='many2one', obj='website_proposal.proposal', string='Proposal'), # to delete
+        'proposal_id': old_fields.function(_get_proposal_id, type='many2one', obj='website_proposal.proposal', string='Proposal'),  # to delete
     }
     _defaults = {
         'name': _get_new_code,
@@ -458,12 +460,12 @@ class crm_lead(models.Model):
                 'partner_shipping_id': partner_addr['delivery'],
                 'date_order': old_fields.datetime.now(),
                 'fiscal_position': fpos,
-                'payment_term':payment_term,
+                'payment_term': payment_term,
             }
             sale_order = self.env['sale.order'].create(vals)
             r.write({'sale_order_id': sale_order.id,
-                        'ref': 'sale.order,%s' % sale_order.id,
-                    })
+                     'ref': 'sale.order,%s' % sale_order.id,
+                     })
         return sale_order
 
 
@@ -479,10 +481,10 @@ class project_project(models.Model):
 
     _columns = {
         # use own name, instead of account.analytic.account name
-        'name': old_fields.char('Project Name', required=True),# TO DELETE
+        'name': old_fields.char('Project Name', required=True),  # TO DELETE
     }
     _defaults = {
-        #'name': '_'
+        # 'name': '_'
     }
 
     @api.multi
@@ -505,6 +507,7 @@ class project_project(models.Model):
             context['project_name'] = vals.get('name')
         return super(project_project, self).create(cr, uid, vals, context=context)
 
+
 class project_task(models.Model):
     _inherit = 'project.task'
 
@@ -521,12 +524,14 @@ class crm_case_stage(models.Model):
         ('lost', 'Lost'),
     ], string='Sales funnel', help='Type of stage. When you move sale case between stages of different types there will be some extra checks and actions.')
 
+
 class website_proposal_template(osv.osv):
     _inherit = 'website_proposal.template'
 
     _defaults = {
         'res_model': 'crm.lead',
     }
+
 
 class account_invoice(models.Model):
     _inherit = 'account.invoice'

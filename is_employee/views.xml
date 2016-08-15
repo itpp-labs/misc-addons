@@ -4,22 +4,22 @@
         <record id="view_users_form" model="ir.ui.view">
             <field name="name">res.users.form</field>
             <field name="model">res.users</field>
-			<field name="inherit_id" ref="base.view_users_form"/>
+            <field name="inherit_id" ref="base.view_users_form"/>
             <field name="arch" type="xml">
-				<xpath expr="//field[@name='partner_id']" position="after">
-					<field name="employee_ids" widget="many2many_tags" readonly="1"/>
-				</xpath>
-			</field>
-		</record>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="employee_ids" widget="many2many_tags" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
         <record id="view_partner_form" model="ir.ui.view">
             <field name="name">res.partner.form</field>
             <field name="model">res.partner</field>
-			<field name="inherit_id" ref="base.view_partner_form"/>
-			<field name="arch" type="xml">
-				<xpath expr="//field[@name='function']" position="after">
-					<field name="employee_id" attrs="{'invisible':[('employee_id', '=', False)]}" readonly="1"/>
-				</xpath>
-			</field>
-		</record>
-	</data>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='function']" position="after">
+                    <field name="employee_id" attrs="{'invisible':[('employee_id', '=', False)]}" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
 </openerp>

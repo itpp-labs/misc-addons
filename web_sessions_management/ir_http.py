@@ -1,7 +1,10 @@
+# -*- coding: utf-8 -*-
 import random
 import openerp
-from openerp import api, models, SUPERUSER_ID
+from openerp import api
+from openerp import models
 from openerp.http import request
+
 
 class ir_http(models.AbstractModel):
     _inherit = 'ir.http'

@@ -4,26 +4,26 @@
 
 <record id="view_repair_order_tree" model="ir.ui.view">
     <field name="model">mrp.repair</field>
-	<field name="inherit_id" ref="mrp_repair.view_repair_order_tree"/>
+    <field name="inherit_id" ref="mrp_repair.view_repair_order_tree"/>
     <field name="arch" type="xml">
-		<xpath expr="//field[@name='partner_id']" position="after">
+        <xpath expr="//field[@name='partner_id']" position="after">
             <field name="create_date"/>
             <field name="open_time"/>
-		</xpath>
+        </xpath>
     </field>
 </record>
 
 <record id="view_repair_order_form" model="ir.ui.view">
     <field name="model">mrp.repair</field>
-	<field name="inherit_id" ref="mrp_repair.view_repair_order_form"/>
+    <field name="inherit_id" ref="mrp_repair.view_repair_order_form"/>
     <field name="arch" type="xml">
-		<xpath expr="//field[@name='partner_id']" position="after">
+        <xpath expr="//field[@name='partner_id']" position="after">
             <field name="customer_po"/>
             <field name="open_time"/>
             <field name="create_date"/>
-		</xpath>
+        </xpath>
     </field>
 </record>
 
-	</data>
+    </data>
 </openerp>

@@ -1,4 +1,6 @@
-from openerp.osv import fields as old_fields, osv
+# -*- coding: utf-8 -*-
+from openerp.osv import osv
+
 
 class mrp_repair(osv.osv):
     _inherit = 'mrp.repair'

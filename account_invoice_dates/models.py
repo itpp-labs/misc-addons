@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from openerp import api, models, fields
 
 
@@ -25,6 +26,7 @@ class account_invoice(models.Model):
         res['end_date'] = line.get('end_date')
         return res
 
+
 class account_move_line(models.Model):
 
     _inherit = "account.move.line"
@@ -37,6 +39,7 @@ class account_move_line(models.Model):
         res['start_date'] = obj_line.start_date
         res['end_date'] = obj_line.end_date
         return res
+
 
 class account_invoice_line(models.Model):
 
@@ -51,6 +54,7 @@ class account_invoice_line(models.Model):
         res['start_date'] = line.start_date
         res['end_date'] = line.end_date
         return res
+
 
 class account_analytic_line(models.Model):
 

@@ -1,4 +1,5 @@
-import im_notif_models
+# -*- coding: utf-8 -*-
+from . import im_notif_models
 
 
 def pre_uninstall(cr, registry):

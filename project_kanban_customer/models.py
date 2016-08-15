@@ -1,4 +1,7 @@
-from openerp import api, models, fields, SUPERUSER_ID
+# -*- coding: utf-8 -*-
+from openerp import fields
+from openerp import models
+
 
 class project_project(models.Model):
     _inherit = 'project.project'

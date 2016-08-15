@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-		<template id="assets_backend" name="assets" inherit_id="web.assets_backend">
-			<xpath expr="." position="inside">
-				<link rel="stylesheet" href="/gamification_extra/static/src/css/gamification_extra.css"/>
-				<script type="text/javascript" src="/gamification_extra/static/src/js/gamification_extra.js"></script>
-			</xpath>
-		</template>
+        <template id="assets_backend" name="assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/gamification_extra/static/src/css/gamification_extra.css"/>
+                <script type="text/javascript" src="/gamification_extra/static/src/js/gamification_extra.js"></script>
+            </xpath>
+        </template>
 
         <record id="challenge_form_view" model="ir.ui.view">
             <field name="name">Challenge Form</field>
             <field name="model">gamification.challenge</field>
-			<field name="inherit_id" ref="gamification.challenge_form_view"/>
+            <field name="inherit_id" ref="gamification.challenge_form_view"/>
             <field name="arch" type="xml">
-				<xpath expr="//field[@name='category']/.." position="after">
+                <xpath expr="//field[@name='category']/.." position="after">
                     <group string="Other">
                         <field name="show_reached"/>
                         <field name="precision"/>
                     </group>
-					
-				</xpath>
-			</field>
-		</record>
+                    
+                </xpath>
+            </field>
+        </record>
 
-		<record id="goal_definition_form_view" model="ir.ui.view">
+        <record id="goal_definition_form_view" model="ir.ui.view">
             <field name="name">Goal Form</field>
             <field name="model">gamification.goal.definition</field>
-			<field name="inherit_id" ref="gamification.goal_definition_form_view"/>
+            <field name="inherit_id" ref="gamification.goal_definition_form_view"/>
             <field name="arch" type="xml">
-				<xpath expr="//field[@name='compute_code']" position="after">
-					<field name="click_action"/>
-				</xpath>
-				<xpath expr="//field[@name='domain']" position="attributes">
-					<attribute name="attrs">{'invisible':[('computation_mode','in',('manually'))], 'required':[('computation_mode','not in',('manually', 'python'))]}</attribute>
-				</xpath>
-				<xpath expr="//field[@name='model_id']" position="attributes">
-					<attribute name="attrs">{'invisible':[('computation_mode','in',('manually'))], 'required':[('computation_mode','not in',('manually', 'python'))]}</attribute>
-				</xpath>
+                <xpath expr="//field[@name='compute_code']" position="after">
+                    <field name="click_action"/>
+                </xpath>
+                <xpath expr="//field[@name='domain']" position="attributes">
+                    <attribute name="attrs">{'invisible':[('computation_mode','in',('manually'))], 'required':[('computation_mode','not in',('manually', 'python'))]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='model_id']" position="attributes">
+                    <attribute name="attrs">{'invisible':[('computation_mode','in',('manually'))], 'required':[('computation_mode','not in',('manually', 'python'))]}</attribute>
+                </xpath>
 
-				<xpath expr="//field[@name='field_id']" position="attributes">
-					<attribute name="attrs">{'invisible':[('computation_mode','in',('manually','python'))], 'required':[('computation_mode','not in',('manually', 'python'))]}</attribute>
-				</xpath>
-				<xpath expr="//field[@name='field_date_id']" position="attributes">
-					<attribute name="attrs">{'invisible':[('computation_mode','in',('manually', 'python'))]}</attribute>
-				</xpath>
-			</field>
-		</record>
-	</data>
+                <xpath expr="//field[@name='field_id']" position="attributes">
+                    <attribute name="attrs">{'invisible':[('computation_mode','in',('manually','python'))], 'required':[('computation_mode','not in',('manually', 'python'))]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='field_date_id']" position="attributes">
+                    <attribute name="attrs">{'invisible':[('computation_mode','in',('manually', 'python'))]}</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
 </openerp>

@@ -8,7 +8,7 @@ openerp.web_calendar_repeat_form = function (session) {
             if (this.quick_create_instance == 'instance.web_calendar_repeat_form.QuickCreateRepeated') {
                 this.repeat_form = true;
             }
-            return res
+            return res;
         },
         slow_created: function (data) {
             this._super();
@@ -81,4 +81,4 @@ openerp.web_calendar_repeat_form = function (session) {
         }
     });
 
-}
+};
