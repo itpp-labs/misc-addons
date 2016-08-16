@@ -27,7 +27,7 @@ import base64
 from openerp.addons.base.ir.ir_mail_server import encode_rfc2822_address_header, encode_header, encode_header_param
 
 
-class res_users(models.Model):
+class ResUsers(models.Model):
     _inherit = 'res.users'
 
     signature_id = fields.Many2one('res.users.signature', string='Signature template', help='Keep empty to edit signature manually')
@@ -47,13 +47,13 @@ class res_users(models.Model):
 
     @api.one
     def write(self, vals):
-        res = super(res_users, self).write(vals)
+        res = super(ResUsers, self).write(vals)
         if any([k in vals for k in ['company_id']]):
             self.render_signature_id()
         return res
 
 
-class res_users_signature(models.Model):
+class ResUsersSignature(models.Model):
     _name = 'res.users.signature'
 
     name = fields.Char('Name')
@@ -79,7 +79,7 @@ You can use control structures:
 
     @api.one
     def write(self, vals):
-        res = super(res_users_signature, self).write(vals)
+        res = super(ResUsersSignature, self).write(vals)
         self.action_update_signature()
         return res
 
@@ -88,18 +88,18 @@ You can use control structures:
         self.user_ids.render_signature_id()
 
 
-class res_partner(models.Model):
+class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     @api.one
     def write(self, vals):
-        res = super(res_partner, self).write(vals)
+        res = super(ResPartner, self).write(vals)
         if self.user_ids:
             self.user_ids.render_signature_id()
         return res
 
 
-class ir_mail_server(models.Model):
+class IrMailServer(models.Model):
     _inherit = "ir.mail_server"
 
     def build_email(self, email_from, email_to, subject, body, email_cc=None, email_bcc=None, reply_to=False,

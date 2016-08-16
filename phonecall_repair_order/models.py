@@ -4,13 +4,13 @@ from openerp import fields
 from openerp import models
 
 
-class crm_phonecall(models.Model):
+class CrmPhonecall(models.Model):
     _inherit = "crm.phonecall"
 
     repair_id = fields.Many2one('mrp.repair', 'Repair Order')
 
 
-class mrp_repair(models.Model):
+class MrpRepair(models.Model):
     _inherit = 'mrp.repair'
 
     @api.one

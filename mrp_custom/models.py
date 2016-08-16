@@ -3,7 +3,7 @@
 from openerp import models, fields, api
 
 
-class mrp_custom_jobs(models.Model):
+class MrpCustomJobs(models.Model):
     _name = 'mrp_custom.jobs'
     job_number = fields.Integer(string="Job Number")
     job_name = fields.Char(compute='_get_name')
@@ -52,7 +52,7 @@ class mrp_custom_jobs(models.Model):
         self.job_name = "Job " + str(self.job_number)
 
 
-class mrp_custom_routing(models.Model):
+class MrpCustomRouting(models.Model):
     _name = 'mrp_custom.routing'
     job_id = fields.Many2one(
         'mrp_custom.jobs', ondelete='cascade', string="Job", required=True)
@@ -63,7 +63,7 @@ class mrp_custom_routing(models.Model):
     act_run_hrs = fields.Char(string='Actual run hours')
 
 
-class mrp_custom_material(models.Model):
+class MrpCustomMaterial(models.Model):
     _name = 'mrp_custom.material'
     job_id = fields.Many2one(
         'mrp_custom.jobs', ondelete='cascade', string="Job", required=True)
@@ -76,7 +76,7 @@ class mrp_custom_material(models.Model):
     act_total_cost = fields.Char(string='Act total cost')
 
 
-class mrp_custom_cases(models.Model):
+class MrpCustomCases(models.Model):
     _name = 'mrp_custom.cases'
     job_id = fields.Many2one(
         'mrp_custom.jobs', ondelete='cascade', string="Job", required=True)
@@ -88,7 +88,7 @@ class mrp_custom_cases(models.Model):
     assigned_user = fields.Char(string='Assigned User')
 
 
-class mrp_custom_contacts(models.Model):
+class MrpCustomContacts(models.Model):
     _name = 'mrp_custom.contacts'
     contact_name = fields.Char(string="Contact Name")
     _rec_name = 'contact_name'

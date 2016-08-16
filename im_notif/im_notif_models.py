@@ -6,7 +6,7 @@ from openerp.osv import fields as old_fields
 from openerp.tools.translate import _
 
 
-class res_partner(models.Model):
+class ResPartner(models.Model):
     _inherit = 'res.partner'
     _columns = {
         'notify_email': old_fields.selection([
@@ -22,7 +22,7 @@ class res_partner(models.Model):
     }
 
 
-class mail_notification(models.Model):
+class MailNotification(models.Model):
     _inherit = 'mail.notification'
 
     def get_recipients(self, cr, uid, ids, message, context=None):

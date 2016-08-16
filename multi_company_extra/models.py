@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 from openerp.osv import osv, fields
-import werkzeug.utils
 
 
-class account_chart(osv.osv_memory):
+class AccountChart(osv.osv_memory):
 
     _inherit = 'account.chart'
 

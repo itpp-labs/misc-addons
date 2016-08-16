@@ -2,6 +2,6 @@
 from openerp import models
 
 
-class crm_phonecall(models.Model):
+class CrmPhonecall(models.Model):
     _name = 'crm.phonecall'
     _inherit = ['crm.phonecall', 'reminder']

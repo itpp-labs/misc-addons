@@ -6,11 +6,11 @@ from openerp import models
 from openerp.http import request
 
 
-class ir_http(models.AbstractModel):
+class IrHttp(models.AbstractModel):
     _inherit = 'ir.http'
 
     def _auth_method_user(self):
-        super(ir_http, self)._auth_method_user()
+        super(IrHttp, self)._auth_method_user()
         if random.random() < 0.01:
             with openerp.registry(request.cr.dbname).cursor() as cr:
                 cr.autocommit(True)

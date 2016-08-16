@@ -2,7 +2,7 @@
 from openerp.osv import osv
 
 
-class sale_advance_payment_inv(osv.osv_memory):
+class SaleAdvancePaymentInv(osv.osv_memory):
     _inherit = "sale.advance.payment.inv"
 
     def _get_advance_payment_method(self, cr, uid, context=None):

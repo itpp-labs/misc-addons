@@ -44,7 +44,7 @@ from openerp.tools.translate import _
 _logger = logging.getLogger(__name__)
 
 
-class Currency_rate_update_service(osv.Model):
+class CurrencyRateUpdateService(osv.Model):
     """Class thats tell for wich services wich currencies
     have to be updated"""
     _name = "currency.rate.update.service"
@@ -108,7 +108,7 @@ class Currency_rate_update_service(osv.Model):
     ]
 
 
-class Currency_rate_update(osv.Model):
+class CurrencyRateUpdate(osv.Model):
     """Class that handle an ir cron call who will
     update currencies based on a web url"""
     _name = "currency.rate.update"
@@ -161,15 +161,16 @@ class Currency_rate_update(osv.Model):
 
         return cron_id
 
-    def save_cron(self, cr, uid, datas, context={}):
+    def save_cron(self, cr, uid, datas, context=None):
         """save the cron config data should be a dict"""
+        context = context or {}
         # modify the cron
         cron_id = self.get_cron_id(cr, uid, context)
         result = self.pool.get('ir.cron').write(cr, uid, [cron_id], datas)
 
     def run_currency_update(self, cr, uid):
         "update currency at the given frequence"
-        factory = Currency_getter_factory()
+        factory = CurrencyGetterFactory()
         curr_obj = self.pool.get('res.currency')
         rate_obj = self.pool.get('res.currency.rate')
         companies = self.pool.get('res.company').search(cr, uid, [])
@@ -195,13 +196,13 @@ class Currency_rate_update(osv.Model):
                 raise orm.except_orm(_('Error!'), ('Base currency rate should be 1.00!'))
             main_curr = main_curr_rec.name
             for service in comp.services_to_use:
-                print "comp.services_to_use =", comp.services_to_use
+
                 note = service.note or ''
                 try:
                     # we initalize the class that will handle the request
                     # and return a dict of rate
                     getter = factory.register(service.service)
-                    print "getter =", getter
+
                     curr_to_fetch = map(lambda x: x.name, service.currency_to_update)
                     res, log_info = getter.get_updated_currency(curr_to_fetch, main_curr, service.max_delta_days)
                     rate_name = time.strftime('%Y-%m-%d')
@@ -282,7 +283,7 @@ class UnsuportedCurrencyError(Exception):
 # end of error definition
 
 
-class Currency_getter_factory():
+class CurrencyGetterFactory():
     """Factory pattern class that will return
     a currency getter class base on the name passed
     to the register method"""
@@ -305,7 +306,7 @@ class Currency_getter_factory():
             raise UnknowClassError
 
 
-class Curreny_getter_interface(object):
+class CurrenyGetterInterface(object):
     "Abstract class of currency getter"
 
     # remove in order to have a dryer code
@@ -382,8 +383,8 @@ class Curreny_getter_interface(object):
             _logger.warning("the rate timestamp (%s) is not today's date", rate_date_str)
 
 
-#Yahoo # ##################################################################################
-class Yahoo_getter(Curreny_getter_interface):
+# Yahoo # ##################################################################################
+class YahooGetter(Curreny_getter_interface):
     """Implementation of Currency_getter_factory interface
     for Yahoo finance service"""
 
@@ -403,10 +404,9 @@ class Yahoo_getter(Curreny_getter_interface):
                 raise Exception('Could not update the %s' % (curr))
 
         return self.updated_currency, self.log_info  # empty string added by polish changes
-##Admin CH # ###########################################################################
 
-
-class Admin_ch_getter(Curreny_getter_interface):
+# #Admin CH # ###########################################################################
+class AdminChGetter(Curreny_getter_interface):
     """Implementation of Currency_getter_factory interface
     for Admin.ch service"""
 
@@ -462,10 +462,9 @@ class Admin_ch_getter(Curreny_getter_interface):
             _logger.debug("Rate retrieved : 1 " + main_currency + ' = ' + str(rate) + ' ' + curr)
         return self.updated_currency, self.log_info
 
-## ECB getter # ###########################################################################
 
-
-class ECB_getter(Curreny_getter_interface):
+# # ECB getter # ###########################################################################
+class ECBGetter(Curreny_getter_interface):
     """Implementation of Currency_getter_factory interface
     for ECB service"""
 
@@ -519,10 +518,9 @@ class ECB_getter(Curreny_getter_interface):
             _logger.debug("Rate retrieved : 1 " + main_currency + ' = ' + str(rate) + ' ' + curr)
         return self.updated_currency, self.log_info
 
-##PL NBP # ###########################################################################
 
-
-class PL_NBP_getter(Curreny_getter_interface):   # class added according to polish needs = based on class Admin_ch_getter
+# #PL NBP # ###########################################################################
+class PLNBPGetter(Curreny_getter_interface):   # class added according to polish needs = based on class Admin_ch_getter
     """Implementation of Currency_getter_factory interface
     for PL NBP service"""
 
@@ -583,8 +581,8 @@ class PL_NBP_getter(Curreny_getter_interface):   # class added according to poli
         return self.updated_currency, self.log_info
 
 
-##Banco de México # ###########################################################################
-class Banxico_getter(Curreny_getter_interface):  # class added for Mexico rates
+# #Banco de México # ###########################################################################
+class BanxicoGetter(Curreny_getter_interface):  # class added for Mexico rates
     """Implementation of Currency_getter_factory interface
     for Banco de México service"""
 
@@ -627,16 +625,15 @@ class Banxico_getter(Curreny_getter_interface):  # class added for Mexico rates
                 else:
                     rate = main_rate
             else:
-                """ No other currency supported
-                """
+                # No other currency supported
                 continue
 
             self.updated_currency[curr] = rate
             logger.debug("Rate retrieved : " + main_currency + ' = ' + str(rate) + ' ' + curr)
 
 
-##CA BOC # ####   Bank of Canada   # ###########################################################
-class CA_BOC_getter(Curreny_getter_interface):
+# #CA BOC # ####   Bank of Canada   # ###########################################################
+class CABOCGetter(Curreny_getter_interface):
     """Implementation of Curreny_getter_factory interface for Bank of Canada RSS service"""
 
     def get_updated_currency(self, currency_array, main_currency, max_delta_days):

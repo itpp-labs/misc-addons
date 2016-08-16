@@ -8,7 +8,7 @@ import sys
 _logger = logging.getLogger(__name__)
 
 
-class product_template(osv.Model):
+class ProductTemplate(osv.Model):
     _inherit = "product.template"
 
     def _auto_init(self, cr, context=None):
@@ -22,10 +22,10 @@ class product_template(osv.Model):
             cr.commit()
         else:
             _logger.info('No image field found in product_template; no data to save.')
-        return super(product_template, self)._auto_init(cr, context=context)
+        return super(ProductTemplate, self)._auto_init(cr, context=context)
 
     def _auto_end(self, cr, context=None):
-        super(product_template, self)._auto_end(cr, context=context)
+        super(ProductTemplate, self)._auto_end(cr, context=context)
         # Only proceed if we have the appropriate _old field
         cr.execute("select COUNT(*) from information_schema.columns where table_name='product_template' AND column_name='image_old';")
         res = cr.dictfetchone()
@@ -55,7 +55,6 @@ class product_template(osv.Model):
             _logger.info('No image_old field present in product_template; assuming data is already saved in the filestore.')
 
     def _get_image(self, cr, uid, ids, name, args, context=None):
-        attachment_field = 'image_attachment_id' if name == 'image' else 'image_medium_attachment_id'
         result = dict.fromkeys(ids, False)
         for obj in self.browse(cr, uid, ids, context=context):
             result[obj.id] = {
@@ -111,7 +110,7 @@ class product_template(osv.Model):
     }
 
 
-class product_product(osv.Model):
+class ProductProduct(osv.Model):
     _inherit = "product.product"
 
     def _auto_init(self, cr, context=None):
@@ -125,10 +124,10 @@ class product_product(osv.Model):
             cr.commit()
         else:
             _logger.info('No image_variant field found in product_product; no data to save.')
-        return super(product_product, self)._auto_init(cr, context=context)
+        return super(ProductProduct, self)._auto_init(cr, context=context)
 
     def _auto_end(self, cr, context=None):
-        super(product_product, self)._auto_end(cr, context=context)
+        super(ProductProduct, self)._auto_end(cr, context=context)
         # Only proceed if we have the appropriate _old field
         cr.execute("select COUNT(*) from information_schema.columns where table_name='product_product' AND column_name='image_variant_old';")
         res = cr.dictfetchone()
@@ -170,7 +169,7 @@ class product_product(osv.Model):
         image_variant_id = obj.image_variant_attachment_id.id
 
         if not value:
-            ids = [id for id in [image_variant_id] if id]
+            ids = [id for _id in [image_variant_id] if _id]
             if ids:
                 self.pool['ir.attachment'].unlink(cr, uid, ids, context=context)
             return True
@@ -186,7 +185,7 @@ class product_product(osv.Model):
         res = self.pool['ir.attachment'].write(cr, uid, image_variant_id, {'datas': image}, context=context)
 
         if not product.product_tmpl_id.image:
-            print ' *** no template image!'
+
             product.image_variant_attachment_id.unlink()
             product.product_tmpl_id.write({'image': image})
         return res

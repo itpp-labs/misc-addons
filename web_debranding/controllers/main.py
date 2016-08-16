@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import re
 
 import openerp
 from openerp import http
@@ -10,7 +11,6 @@ from openerp.http import request
 from openerp.modules import get_module_resource
 from cStringIO import StringIO
 db_monodb = http.db_monodb
-import re
 
 
 class BinaryCustom(Binary):

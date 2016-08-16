@@ -3,7 +3,7 @@ from openerp import api
 from openerp import models
 
 
-class mail_message(models.Model):
+class MailMessage(models.Model):
     _inherit = 'mail.message'
 
     @api.cr_uid_context
@@ -15,4 +15,4 @@ class mail_message(models.Model):
             if partner.is_company and not domain_by_id:
                 ids = None
                 domain = [('model', '=', 'res.partner'), ('res_id', 'in', [partner.id] + partner.child_ids.ids)]
-        return super(mail_message, self).message_read(cr, uid, ids, domain, message_unload_ids, thread_level, context, parent_id, limit)
+        return super(MailMessage, self).message_read(cr, uid, ids, domain, message_unload_ids, thread_level, context, parent_id, limit)

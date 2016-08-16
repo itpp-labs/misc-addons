@@ -29,7 +29,7 @@ import glob
 from openerp.osv.fields import sanitize_binary_value
 
 
-class fixdate_custom(mapper):
+class FixdateCustom(mapper):
     """
     convert '2010/12/31 13:26:25' to '2010-12-31'
     """
@@ -45,7 +45,7 @@ class fixdate_custom(mapper):
         return '20%s-%s-%s' % (y, m, d)
 
 
-class image(mapper):
+class Image(mapper):
 
     def __init__(self, val):
         self.val = val
@@ -76,7 +76,7 @@ class image(mapper):
         return val
 
 
-class import_custom(import_base):
+class ImportCustom(import_base):
     TABLE_PROSPECTS = 'prospects_burda'
     TABLE_PROSPECTS_TAG = TABLE_PROSPECTS + '_tag'
 
@@ -176,7 +176,7 @@ class import_custom(import_base):
                      'mobile': 'Mobile',
                      'email': 'Email',
                      'country_id/.id': country_by_name('Country'),
-                     'date': fixdate_custom('CreationDate'),
+                     'date': FixdateCustom('CreationDate'),
                      'comment': ppconcat('Subscription'),
                  }
                  },
@@ -273,7 +273,7 @@ class import_custom(import_base):
                      'active': lambda record: not int(record['disabled']),
 
                      'public_categ_id/id': xml_id(self.TABLE_PRODUCT_CATEGORY, 'ecom_category_id'),
-                     'image_medium': image('id'),
+                     'image_medium': Image('id'),
                      'description': ppconcat(
                          'color',
                          'weight',

@@ -27,7 +27,7 @@ except ImportError:
 import glob
 
 
-class import_custom_upload(osv.TransientModel):
+class ImportCustomUpload(osv.TransientModel):
     _name = "import_custom.upload"
     _description = "Upload dumps"
 

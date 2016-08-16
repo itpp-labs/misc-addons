@@ -19,7 +19,7 @@ def _get_proposal_id(self, cr, uid, ids, name, args, context=None):
     return res
 
 
-class account_analytic_account(models.Model):
+class AccountAnalyticAccount(models.Model):
     _inherit = 'account.analytic.account'
 
     support_manager_id = fields.Many2one('res.users', 'Support manager', select=True)
@@ -55,7 +55,7 @@ class account_analytic_account(models.Model):
     }
 
 
-class mail_compose_message(osv.Model):
+class MailComposeMessage(osv.Model):
     _inherit = 'mail.compose.message'
 
     def send_mail(self, cr, uid, ids, context=None):
@@ -63,10 +63,10 @@ class mail_compose_message(osv.Model):
         if context.get('default_model') == 'crm.lead' and context.get('mark_proposal_as_sent') and context.get('sale_case_id'):
             context = dict(context, mail_post_autofollow=True)
             self.pool.get('crm.lead').browse(cr, uid, context['sale_case_id'], context=context).signal_workflow('proposal_sent')
-        return super(mail_compose_message, self).send_mail(cr, uid, ids, context=context)
+        return super(MailComposeMessage, self).send_mail(cr, uid, ids, context=context)
 
 
-class res_partner(models.Model):
+class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     participate_in_contract_ids = fields.Many2many('account.analytic.account', id2='contract_id', id1='partner_id', string='Participate in contracts')
@@ -80,7 +80,7 @@ class res_partner(models.Model):
     }
 
 
-class sale_order(models.Model):
+class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     @api.one
@@ -91,7 +91,7 @@ class sale_order(models.Model):
     invoice_deal_time = fields.Integer(string='Invoice deal time', compute=_get_invoice_deal_time, store=True)
 
 
-class crm_lead(models.Model):
+class CrmLead(models.Model):
     _inherit = 'crm.lead'
 
     def _get_new_code(self, cr, uid, context=None):
@@ -344,7 +344,7 @@ class crm_lead(models.Model):
     def copy(self, default=None):
         default = dict(default or {})
         default['name'] = _('%s (copy)') % self.name
-        new_id = super(crm_lead, self).copy(default)
+        new_id = super(CrmLead, self).copy(default)
         if self.proposal_id:
             proposal_default = {'res_id': new_id}
             new_proposal_id = self.proposal_id.copy(proposal_default)
@@ -392,15 +392,15 @@ class crm_lead(models.Model):
             for r in self:
                 if r.sale_order_id and (not r.sale_order_id.user_id or r.sale_order_id.user_id.id != vals['user_id']):
                     r.sale_order_id.user_id = vals['user_id']
-        result = super(crm_lead, self).write(vals)
+        result = super(CrmLead, self).write(vals)
         if 'sale_order_id' not in vals:
             self.create_sale_order(raise_error=False)
         return result
 
     @api.model
     def create(self, vals):
-        result = super(crm_lead, self).create(vals)
-        sale_order = result.create_sale_order(raise_error=False)
+        result = super(CrmLead, self).create(vals)
+        SaleOrder = result.create_sale_order(raise_error=False)
         return result
 
     _columns = {
@@ -412,10 +412,10 @@ class crm_lead(models.Model):
 
     @api.multi
     def create_sale_order(self, raise_error=True):
-        sale_order = None
+        SaleOrder = None
         for r in self:
             if r.sale_order_id:
-                sale_order = r.sale_order_id
+                SaleOrder = r.sale_order_id
                 continue
 
             partner = r.partner_id
@@ -462,14 +462,14 @@ class crm_lead(models.Model):
                 'fiscal_position': fpos,
                 'payment_term': payment_term,
             }
-            sale_order = self.env['sale.order'].create(vals)
-            r.write({'sale_order_id': sale_order.id,
-                     'ref': 'sale.order,%s' % sale_order.id,
+            SaleOrder = self.env['sale.order'].create(vals)
+            r.write({'sale_order_id': SaleOrder.id,
+                     'ref': 'sale.order,%s' % SaleOrder.id,
                      })
-        return sale_order
+        return SaleOrder
 
 
-class project_project(models.Model):
+class ProjectProject(models.Model):
     _inherit = 'project.project'
     sale_case_id = fields.Many2one('crm.lead', 'Sale case')
     sale_case_ids = fields.One2many('crm.lead', 'project_id', string='Sale case')
@@ -505,14 +505,14 @@ class project_project(models.Model):
     def create(self, cr, uid, vals, context={}):
         if 'project_name' not in context:
             context['project_name'] = vals.get('name')
-        return super(project_project, self).create(cr, uid, vals, context=context)
+        return super(ProjectProject, self).create(cr, uid, vals, context=context)
 
 
-class project_task(models.Model):
+class ProjectTask(models.Model):
     _inherit = 'project.task'
 
 
-class crm_case_stage(models.Model):
+class CrmCaseStage(models.Model):
 
     _inherit = 'crm.case.stage'
 
@@ -525,7 +525,7 @@ class crm_case_stage(models.Model):
     ], string='Sales funnel', help='Type of stage. When you move sale case between stages of different types there will be some extra checks and actions.')
 
 
-class website_proposal_template(osv.osv):
+class WebsiteProposalTemplate(osv.osv):
     _inherit = 'website_proposal.template'
 
     _defaults = {
@@ -533,7 +533,7 @@ class website_proposal_template(osv.osv):
     }
 
 
-class account_invoice(models.Model):
+class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
     date_invoice_end = fields.Date(string='Invoice End Date')
@@ -552,4 +552,4 @@ class account_invoice(models.Model):
     @api.multi
     def confirm_paid(self):
         self.write({'date_invoice_end': fields.Date.today()})
-        return super(account_invoice, self).confirm_paid()
+        return super(AccountInvoice, self).confirm_paid()

@@ -24,7 +24,7 @@
 from openerp.osv import osv, fields
 
 
-class project_tag(osv.osv):
+class ProjectTag(osv.osv):
     """"""
 
     _name = 'project_tags.project_tag'
@@ -42,6 +42,6 @@ class project_tag(osv.osv):
     ]
 
 
-project_tag()
+ProjectTag()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

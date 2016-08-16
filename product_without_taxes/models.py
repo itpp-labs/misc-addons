@@ -5,7 +5,7 @@ from openerp.osv import fields as old_fields
 import openerp.addons.decimal_precision as dp
 
 
-class sale_order_line(models.Model):
+class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     def _get_price_unit_without_taxes(self, cr, uid, ids, fname, arg, context=None):
@@ -25,7 +25,7 @@ class sale_order_line(models.Model):
     }
 
 
-class account_invoice_line(models.Model):
+class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
 
     def _get_price_unit_without_taxes(self, cr, uid, ids, fname, arg, context=None):

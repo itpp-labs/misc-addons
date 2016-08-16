@@ -2,7 +2,7 @@
 from openerp import models, fields
 
 
-class res_partner_country_code(models.Model):
+class ResPartnerCountryCode(models.Model):
     _inherit = 'res.partner'
 
     def default_country_id(self):

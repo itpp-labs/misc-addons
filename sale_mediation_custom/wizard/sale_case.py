@@ -33,7 +33,7 @@ def fix_sale_case_workflow(sale_case, new_signal):
             break
 
 
-class create_proposal_lead(models.TransientModel):
+class CreateProposalLead(models.TransientModel):
     _name = 'sale_mediation_custom.create_proposal_lead'
     sale_case_id = fields.Many2one('crm.lead', default=_get_active_id)
     proposal_template_id = fields.Many2one('website_proposal.template', string='Quotation template')

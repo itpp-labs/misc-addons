@@ -2,7 +2,7 @@
 from openerp.osv import fields, osv
 
 
-class res_partner(osv.osv):
+class ResPartner(osv.osv):
     _inherit = 'res.partner'
 
     def _partners_for_stat(self, cr, uid, ids, context=None):

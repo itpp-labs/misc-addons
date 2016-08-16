@@ -2,7 +2,7 @@
 from openerp import models
 
 
-class task(models.Model):
+class Task(models.Model):
     _name = 'project.issue'
     _inherit = ['project.issue', 'reminder']
 

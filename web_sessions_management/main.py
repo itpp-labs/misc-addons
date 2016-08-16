@@ -32,7 +32,7 @@ from openerp import http
 _logger = logging.getLogger(__name__)
 
 
-class Home_tkobr(openerp.addons.web.controllers.main.Home):
+class HomeTkobr(openerp.addons.web.controllers.main.Home):
 
     @http.route('/web/login', type='http', auth="none")
     def web_login(self, redirect=None, **kw):

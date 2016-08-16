@@ -24,17 +24,17 @@
   </data>
 
  <data noupdate="1">
-    <record id="web_debranding.new_name" model="ir.config_parameter">
+    <record id="new_name" model="ir.config_parameter">
         <field name="key">web_debranding.new_name</field>
         <field name="value">Software</field>
     </record>
 
-    <record id="web_debranding.custom_title" model="ir.config_parameter">
+    <record id="custom_title" model="ir.config_parameter">
         <field name="key">web_debranding.new_title</field>
         <field name="value">Software</field>
     </record>
 
-    <record id="web_debranding.favicon_url" model="ir.config_parameter">
+    <record id="favicon_url" model="ir.config_parameter">
         <field name="key">web_debranding.favicon_url</field>
         <field name="value"> </field>
     </record>

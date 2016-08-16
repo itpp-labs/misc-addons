@@ -3,7 +3,7 @@ from openerp import fields
 from openerp import models
 
 
-class hr_applicant(models.Model):
+class HrApplicant(models.Model):
     _name = 'hr.applicant'
     _inherit = ['hr.applicant', 'reminder']
     _reminder_date_field = 'date_action'

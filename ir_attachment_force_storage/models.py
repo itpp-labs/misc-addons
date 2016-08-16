@@ -3,7 +3,7 @@ from openerp import api
 from openerp import models
 
 
-class ir_config_parameter(models.Model):
+class IrConfigParameter(models.Model):
     _inherit = 'ir.config_parameter'
 
     @api.model
@@ -12,14 +12,14 @@ class ir_config_parameter(models.Model):
 
     @api.model
     def create(self, vals):
-        res = super(ir_config_parameter, self).create(vals)
+        res = super(IrConfigParameter, self).create(vals)
         if vals and vals.get('key') == 'ir_attachment.location':
             self._attachment_force_storage()
         return res
 
     @api.one
     def write(self, vals):
-        res = super(ir_config_parameter, self).write(vals)
+        res = super(IrConfigParameter, self).write(vals)
         if self.key == 'ir_attachment.location':
             self._attachment_force_storage()
         return res

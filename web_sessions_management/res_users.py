@@ -31,7 +31,7 @@ from openerp.addons.base.ir.ir_cron import _intervalTypes
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 
-class res_users(osv.osv):
+class ResUsers(osv.osv):
     _inherit = 'res.users'
 
     _columns = {
@@ -60,7 +60,7 @@ class res_users(osv.osv):
             else:
                 u_exp_date = g_exp_date
             g_no_multiple_sessions = False
-            u_no_multiple_sessions = user_id.no_multiple_sessions
+            # u_no_multiple_sessions = user_id.no_multiple_sessions
             for group in user_id.groups_id:
                 if group.no_multiple_sessions:
                     g_no_multiple_sessions = True
@@ -69,7 +69,8 @@ class res_users(osv.osv):
                     if t_exp_date < g_exp_date:
                         g_exp_date = t_exp_date
             if g_no_multiple_sessions:
-                u_no_multiple_sessions = True
+                # u_no_multiple_sessions = True
+                pass
             if g_exp_date < u_exp_date:
                 u_exp_date = g_exp_date
         else:
