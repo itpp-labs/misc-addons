@@ -46,7 +46,7 @@ class Loaner(models.Model):
         return res
 
 
-class Loaner_Usage(models.Model):
+class LoanerUsage(models.Model):
     _name = 'mrp_loaner.loaner_usage'
     _inherit = ['mail.thread', 'ir.needaction_mixin']
     _description = 'Loaner Usage'

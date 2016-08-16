@@ -2,7 +2,7 @@
 from openerp.osv import osv, fields
 
 
-class website_menu(osv.Model):
+class WebsiteMenu(osv.Model):
     _inherit = "website.menu"
     _columns = {
         'public': fields.boolean('Public')
@@ -12,7 +12,7 @@ class website_menu(osv.Model):
     }
 
 
-class crm_lead(osv.Model):
+class CrmLead(osv.Model):
     _inherit = "crm.lead"
 
     def _x_out_amount_get(self, cr, uid, ids, field_names, args, context=None):

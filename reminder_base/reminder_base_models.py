@@ -4,7 +4,7 @@ from openerp import fields
 from openerp import models
 
 
-class reminder(models.AbstractModel):
+class Reminder(models.AbstractModel):
     _name = 'reminder'
 
     _reminder_date_field = 'date'
@@ -123,7 +123,7 @@ class reminder(models.AbstractModel):
     @api.model
     def create(self, vals):
         vals = self._check_and_create_reminder_event(vals)
-        res = super(reminder, self).create(vals)
+        res = super(Reminder, self).create(vals)
         res._update_reminder(vals)
         return res
 
@@ -131,12 +131,12 @@ class reminder(models.AbstractModel):
     def write(self, vals):
         if not self.reminder_event_id:
             vals = self._check_and_create_reminder_event(vals)
-        res = super(reminder, self).write(vals)
+        res = super(Reminder, self).write(vals)
         self._update_reminder(vals)
         return res
 
 
-class calendar_event(models.Model):
+class CalendarEvent(models.Model):
     _inherit = 'calendar.event'
 
     reminder_res_model = fields.Char('Related Document Model for reminding')
@@ -157,7 +157,7 @@ class calendar_event(models.Model):
         }
 
 
-class reminder_admin_wizard(models.TransientModel):
+class ReminderAdminWizard(models.TransientModel):
     _name = 'reminder.admin'
 
     model = fields.Selection(string='Model', selection='_get_model_list', required=True)

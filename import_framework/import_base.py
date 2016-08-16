@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import mapper
+from . import mapper
 try:
     from pandas import DataFrame
 except ImportError:
@@ -8,7 +8,7 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-class create_childs(object):
+class CreateChilds(object):
 
     def __init__(self, childs):
 
@@ -32,7 +32,7 @@ class create_childs(object):
         return self.childs
 
 
-class import_base(object):
+class ImportBase(object):
 
     def __init__(self, pool, cr, uid,
                  instance_name,
@@ -195,7 +195,7 @@ class import_base(object):
                                          imp.get('id'), imp.get('fields'),
                                          self.import_options, context=context)
                 _logger.info('import_result:\n%s' % messages)
-            except Exception as e:
+            except Exception:
 
                 import traceback
                 import StringIO
@@ -210,7 +210,6 @@ class import_base(object):
             self.cr.commit()
 
     def resolve_dependencies(self, deps):
-        import_list = []
         for dname in deps:
             if dname in self.mapped:
                 continue
@@ -320,7 +319,7 @@ class import_base(object):
             # set parent for instance of dbmapper
             elif isinstance(value, mapper.dbmapper):
                 value.set_parent(self)
-            elif isinstance(value, create_childs):
+            elif isinstance(value, CreateChilds):
                 # {'child_ids':[{'id':id1, 'name':name1}, {'id':id2, 'name':name2}]}
                 # ->
                 # {'child_ids/id':[id1, id2], 'child_ids/name': [name1, name2]}
@@ -364,7 +363,6 @@ res = [
             if any(data_lst):
                 add = True
                 if i >= 0:
-                    print '_fields_mapp', zip(fields, data_lst)
                     add = False
                     # ignore empty lines
                     for pos, val in enumerate(data_lst):

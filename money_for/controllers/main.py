@@ -17,7 +17,7 @@ class SignupError(Exception):
     pass
 
 
-class calculator(http.Controller):
+class Calculator(http.Controller):
 
     def _check_currency(self, code):
         try:
@@ -69,7 +69,7 @@ def check_lead_access(func):
     return wrapper
 
 
-class money4(openerp.addons.web.controllers.main.Home):
+class Money4(openerp.addons.web.controllers.main.Home):
 
     def _empty_context(self):
         return {

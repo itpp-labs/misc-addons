@@ -3,7 +3,7 @@ from openerp import fields
 from openerp import models
 
 
-class crm_lead(models.Model):
+class CrmLead(models.Model):
     _name = 'crm.lead'
     _inherit = ['crm.lead', 'reminder']
     _reminder_date_field = 'date_action'

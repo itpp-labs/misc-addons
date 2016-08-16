@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from openerp.osv import osv, fields
+from openerp.tools.translate import _
 
-
-class delivery_grid(osv.osv):
+class DeliveryGrid(osv.osv):
     _inherit = "delivery.grid"
 
     def get_price(self, cr, uid, id, order, dt, context=None):
@@ -44,7 +44,7 @@ class delivery_grid(osv.osv):
         return price
 
 
-class delivery_grid_line(osv.osv):
+class DeliveryGridLine(osv.osv):
     _inherit = "delivery.grid.line"
     _columns = {
         'type': fields.selection([('weight', 'Weight'), ('volume', 'Volume'),
@@ -53,7 +53,7 @@ class delivery_grid_line(osv.osv):
     }
 
 
-class product_template(osv.osv):
+class ProductTemplate(osv.osv):
     _inherit = 'product.template'
     _columns = {
         'special_delivery': fields.integer('Special Delivery', help='Allows make special rules at delivery grid. Can be negative')

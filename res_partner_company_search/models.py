@@ -3,7 +3,7 @@ from openerp import fields
 from openerp import models
 
 
-class res_partner(models.Model):
+class ResPartner(models.Model):
     _inherit = 'res.partner'
     p_category_id = fields.Many2many('res.partner.category', related='parent_id.category_id', string='Parent Tags')
     p_user_id = fields.Many2one('res.users', related='parent_id.user_id', string='Parent Salesperson')
@@ -28,4 +28,4 @@ class res_partner(models.Model):
             context = (context or {}).copy()
             context['parent_search_applied'] = 1
 
-        return super(res_partner, self).search(cr, user, args, offset=offset, limit=limit, order=order, context=context, count=count)
+        return super(ResPartner, self).search(cr, user, args, offset=offset, limit=limit, order=order, context=context, count=count)

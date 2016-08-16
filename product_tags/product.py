@@ -24,7 +24,7 @@ from openerp import fields
 from openerp import models
 
 
-class product_tag(models.Model):
+class ProductTag(models.Model):
     _description = 'Product Tags'
     _name = "product.tag"
 
@@ -66,7 +66,7 @@ class product_tag(models.Model):
         return tags.name_get()
 
 
-class product_template(models.Model):
+class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     tag_ids = fields.Many2many(string='Tags',

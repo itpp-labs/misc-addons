@@ -6,7 +6,7 @@ from openerp import models
 from openerp import tools
 
 
-class ir_translation(models.Model):
+class IrTranslation(models.Model):
     _inherit = 'ir.translation'
 
     def _debrand(self, cr, uid, source):
@@ -22,5 +22,5 @@ class ir_translation(models.Model):
 
     @tools.ormcache(skiparg=3)
     def _get_source(self, cr, uid, name, types, lang, source=None, res_id=None):
-        res = super(ir_translation, self)._get_source(cr, uid, name, types, lang, source, res_id)
+        res = super(IrTranslation, self)._get_source(cr, uid, name, types, lang, source, res_id)
         return self._debrand(cr, uid, res)

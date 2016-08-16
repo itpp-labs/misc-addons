@@ -4,7 +4,7 @@ from openerp import fields
 from openerp import models
 
 
-class crm_lead(models.Model):
+class CrmLead(models.Model):
 
     _inherit = 'crm.lead'
 

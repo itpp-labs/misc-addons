@@ -2,7 +2,7 @@
 from openerp.osv import osv, fields
 
 
-class contract_category(osv.Model):
+class ContractCategory(osv.Model):
     _inherit = 'res.partner.category'
     _name = 'contract.category'
 
@@ -13,7 +13,7 @@ class contract_category(osv.Model):
     }
 
 
-class crm_lead(osv.Model):
+class CrmLead(osv.Model):
     _inherit = 'crm.lead'
 
     _columns = {
@@ -21,7 +21,7 @@ class crm_lead(osv.Model):
     }
 
 
-class project_project(osv.Model):
+class ProjectProject(osv.Model):
     _inherit = 'project.project'
 
     def _suppliers_subscribed(self, cr, uid, ids, name, args, context=None):
@@ -47,10 +47,10 @@ class project_project(osv.Model):
         if partner_id:
             vals['message_follower_ids'] = vals.get('message_follower_ids') or []
             vals['message_follower_ids'].append((4, partner_id))
-        return super(project_project, self).create(cr, uid, vals, context=context)
+        return super(ProjectProject, self).create(cr, uid, vals, context=context)
 
 
-class project_task(osv.Model):
+class ProjectTask(osv.Model):
     _inherit = 'project.task'
 
     def _get_default_supplier(self, cr, uid, context=None):
@@ -71,7 +71,7 @@ class project_task(osv.Model):
     }
 
 
-class account_analytic_account(osv.Model):
+class AccountAnalyticAccount(osv.Model):
     _inherit = 'account.analytic.account'
 
     def _get_project_id(self, cr, uid, ids, name, args, context=None):
@@ -110,14 +110,14 @@ class account_analytic_account(osv.Model):
         return False
 
 
-class sale_order(osv.osv):
+class SaleOrder(osv.osv):
     _inherit = "sale.order"
     _defaults = {
         'project_id': lambda self, cr, uid, context: context.get('account_analytic_id', False)
     }
 
 
-class crm_make_sale(osv.TransientModel):
+class CrmMakeSale(osv.TransientModel):
     _inherit = "crm.make.sale"
 
     def makeOrder(self, cr, uid, ids, context=None):
@@ -131,4 +131,4 @@ class crm_make_sale(osv.TransientModel):
                     account_analytic_id = case.account_analytic_id
                     break
         context.update({'account_analytic_id': account_analytic_id})
-        return super(crm_make_sale, self).makeOrder(cr, uid, ids, context)
+        return super(CrmMakeSale, self).makeOrder(cr, uid, ids, context)

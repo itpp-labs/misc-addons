@@ -2,7 +2,7 @@
 from openerp.osv import osv, fields
 
 
-class sale_order(osv.Model):
+class SaleOrder(osv.Model):
     _inherit = "sale.order"
 
     def _paid_total(self, cursor, user, ids, field_name, arg, context=None):
@@ -96,7 +96,7 @@ class sale_order(osv.Model):
         for line in order_lines:
             if line.product_id.type != 'service':
                 new_order_lines.append(line)
-        return super(sale_order, self)._create_pickings_and_procurements(cr, uid, order, new_order_lines, picking_id, context)
+        return super(SaleOrder, self)._create_pickings_and_procurements(cr, uid, order, new_order_lines, picking_id, context)
     # def action_register_prepayment(self, cr, uid, ids, context=None):
 
     # def invoice_ids_get(self, cr, uid, ids, *args):

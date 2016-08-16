@@ -3,9 +3,10 @@ from openerp.osv import fields as old_fields
 from openerp import api, models, fields
 from openerp.addons.gamification.models.challenge import start_end_date_for_period
 from openerp.tools.safe_eval import safe_eval
+from openerp.tools.translate import _
+from openerp import osv
 
-
-class gamification_goal_definition(models.Model):
+class GamificationGoalDefinition(models.Model):
     _inherit = 'gamification.goal.definition'
 
     click_action = fields.Text('Click action', help='Executed when user click on goal. Keep empty to show records in domain.')
@@ -26,7 +27,7 @@ class gamification_goal_definition(models.Model):
     }
 
 
-class gamification_goal(models.Model):
+class GamificationGoal(models.Model):
     _inherit = 'gamification.goal'
 
     @api.v7
@@ -157,10 +158,10 @@ class gamification_goal(models.Model):
             # if commit:
             #    cr.commit()
 
-        return super(gamification_goal, self).update(cr, uid, other_ids, context=context)
+        return super(GamificationGoal, self).update(cr, uid, other_ids, context=context)
 
 
-class gamification_challenge(models.Model):
+class GamificationChallenge(models.Model):
     _inherit = 'gamification.challenge'
 
     show_reached = fields.Boolean('Show after reaching', defaults=False)

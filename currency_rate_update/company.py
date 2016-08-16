@@ -22,7 +22,7 @@
 from openerp.osv import fields, orm
 
 
-class res_company(orm.Model):
+class ResCompany(orm.Model):
     """override company to add currency update"""
 
     def _multi_curr_enable(self, cr, uid, ids, field_name, arg, context={}):
@@ -44,7 +44,7 @@ class res_company(orm.Model):
             currency_updater_obj.run_currency_update(cr, uid)
         except Exception as e:
             raise e
-            return False
+        # print "ok"
         return True
 
     def write(self, cr, uid, ids, vals, context=None):
@@ -92,7 +92,7 @@ class res_company(orm.Model):
                 save_cron
             )
 
-        return super(res_company, self).write(cr, uid, ids, vals, context=context)
+        return super(ResCompany, self).write(cr, uid, ids, vals, context=context)
 
     _inherit = "res.company"
     _columns = {

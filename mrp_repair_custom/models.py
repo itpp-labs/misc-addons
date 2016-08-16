@@ -6,7 +6,7 @@ from datetime import datetime
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 
-class mrp_repair(models.Model):
+class MrpRepair(models.Model):
     _inherit = 'mrp.repair'
 
     customer_po = fields.Char('Customer PO')
@@ -33,7 +33,7 @@ class mrp_repair(models.Model):
 
     @api.v7
     def action_repair_done(self, cr, uid, ids, context=None):
-        print ' *** action_repair_done'
-        res = super(mrp_repair, self).action_repair_done(cr, uid, ids, context)
+
+        res = super(MrpRepair, self).action_repair_done(cr, uid, ids, context)
         self.write(cr, uid, ids, {'close_date': fields.Datetime.now()}, context=context)
         return res

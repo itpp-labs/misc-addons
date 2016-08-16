@@ -2,7 +2,7 @@
 from openerp.osv import osv, fields
 
 
-class res_partner(osv.Model):
+class ResPartner(osv.Model):
     _inherit = 'res.partner'
 
     _columns = {

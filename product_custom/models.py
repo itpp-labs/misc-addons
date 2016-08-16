@@ -3,7 +3,7 @@ from openerp import fields
 from openerp import models
 
 
-class product_template(models.Model):
+class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     customer_lead_time = fields.Integer('Customer Lead Time', default=7)

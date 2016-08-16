@@ -3,7 +3,7 @@ from openerp.osv import osv, fields
 from openerp.addons.decimal_precision import decimal_precision as dp
 
 
-class account_analytic_account(osv.Model):
+class AccountAnalyticAccount(osv.Model):
     _inherit = "account.analytic.account"
 
     def _negative(self, res):
@@ -72,7 +72,7 @@ class account_analytic_account(osv.Model):
         return self._negative(res_final)
 
     def _supplier_get_total_estimation(self, account):
-        total = super(account_analytic_account, self)._get_total_estimation(account)
+        total = super(AccountAnalyticAccount, self)._get_total_estimation(account)
 
         if account.supplier_fix_price_invoices:
             total += account.supplier_amount_max
@@ -80,21 +80,21 @@ class account_analytic_account(osv.Model):
         return total
 
     def _get_total_invoiced(self, account):
-        total = super(account_analytic_account, self)._get_total_invoiced(account)
+        total = super(AccountAnalyticAccount, self)._get_total_invoiced(account)
         if account.supplier_fix_price_invoices:
             total += account.supplier_ca_invoiced
 
         return total
 
     def _get_total_remaining(self, account):
-        total = super(account_analytic_account, self)._get_total_remaining(account)
+        total = super(AccountAnalyticAccount, self)._get_total_remaining(account)
         if account.supplier_fix_price_invoices:
             total += account.supplier_remaining_ca
 
         return total
 
     def _get_total_toinvoice(self, account):
-        total = super(account_analytic_account, self)._get_total_toinvoice(account)
+        total = super(AccountAnalyticAccount, self)._get_total_toinvoice(account)
         if account.supplier_fix_price_invoices:
             total += account.supplier_fix_price_to_invoice
         return total
@@ -141,7 +141,7 @@ class account_analytic_account(osv.Model):
     ]
 
 
-class purchase_order(osv.Model):
+class PurchaseOrder(osv.Model):
     _inherit = "purchase.order"
     _columns = {
         'contract_id': fields.many2one('account.analytic.account', 'Analytic Account'),
@@ -149,11 +149,7 @@ class purchase_order(osv.Model):
     }
 
 
-class purchase_order_line(osv.Model):
-    _inherit = 'purchase.order.line'
-
-
-class purchase_order_line(osv.Model):
+class PurchaseOrderLine(osv.Model):
     _inherit = 'purchase.order.line'
 
     def create(self, cr, uid, vals, context=None):
@@ -161,7 +157,7 @@ class purchase_order_line(osv.Model):
             order = self.pool.get('purchase.order').browse(cr, uid, vals.get('order_id'))
             if order and order.contract_id and not vals.get('account_analytic_id'):
                 vals['account_analytic_id'] = order.contract_id.id
-        order = super(purchase_order_line, self).create(cr, uid, vals, context=context)
+        order = super(PurchaseOrderLine, self).create(cr, uid, vals, context=context)
         return order
 
     _defaults = {

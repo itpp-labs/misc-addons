@@ -28,14 +28,6 @@ from datetime import datetime
 from datetime import timedelta
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from openerp.http import root
-import werkzeug.contrib.sessions
-import werkzeug.datastructures
-import werkzeug.exceptions
-import werkzeug.local
-import werkzeug.routing
-import werkzeug.wrappers
-import werkzeug.wsgi
-from werkzeug.wsgi import wrap_file
 
 _logger = logging.getLogger(__name__)
 
@@ -44,7 +36,7 @@ LOGOUT_TYPES = [('ur', 'User Request'),
                 ('re', 'Rule enforcing')]
 
 
-class ir_sessions(models.Model):
+class IrSessions(models.Model):
     _name = 'ir.sessions'
     _description = "Sessions"
 

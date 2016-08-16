@@ -3,7 +3,7 @@ from openerp import fields
 from openerp import models
 
 
-class project_project(models.Model):
+class ProjectProject(models.Model):
     _inherit = 'project.project'
 
     partner_country_image = fields.Binary('Partner\'s country flag', related='partner_id.country_id.image')
