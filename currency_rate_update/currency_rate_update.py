@@ -384,12 +384,12 @@ class CurrenyGetterInterface(object):
 
 
 # Yahoo # ##################################################################################
-class YahooGetter(Curreny_getter_interface):
+class YahooGetter(CurrenyGetterInterface):
     """Implementation of Currency_getter_factory interface
     for Yahoo finance service"""
 
     def get_updated_currency(self, currency_array, main_currency, max_delta_days):
-        """implementation of abstract method of Curreny_getter_interface"""
+        """implementation of abstract method of CurrenyGetterInterface"""
         self.validate_cur(main_currency)
         url = 'http://download.finance.yahoo.com/d/quotes.txt?s="%s"=X&f=sl1c1abg'
         if main_currency in currency_array:
@@ -406,7 +406,7 @@ class YahooGetter(Curreny_getter_interface):
         return self.updated_currency, self.log_info  # empty string added by polish changes
 
 # #Admin CH # ###########################################################################
-class AdminChGetter(Curreny_getter_interface):
+class AdminChGetter(CurrenyGetterInterface):
     """Implementation of Currency_getter_factory interface
     for Admin.ch service"""
 
@@ -421,7 +421,7 @@ class AdminChGetter(Curreny_getter_interface):
         return res
 
     def get_updated_currency(self, currency_array, main_currency, max_delta_days):
-        """implementation of abstract method of Curreny_getter_interface"""
+        """implementation of abstract method of CurrenyGetterInterface"""
         url = 'http://www.afd.admin.ch/publicdb/newdb/mwst_kurse/wechselkurse.php'
         # we do not want to update the main currency
         if main_currency in currency_array:
@@ -464,7 +464,7 @@ class AdminChGetter(Curreny_getter_interface):
 
 
 # # ECB getter # ###########################################################################
-class ECBGetter(Curreny_getter_interface):
+class ECBGetter(CurrenyGetterInterface):
     """Implementation of Currency_getter_factory interface
     for ECB service"""
 
@@ -477,7 +477,7 @@ class ECBGetter(Curreny_getter_interface):
         return res
 
     def get_updated_currency(self, currency_array, main_currency, max_delta_days):
-        """implementation of abstract method of Curreny_getter_interface"""
+        """implementation of abstract method of CurrenyGetterInterface"""
         url = 'http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml'
         # Important : as explained on the ECB web site, the currencies are
         # at the beginning of the afternoon ; so, until 3 p.m. Paris time
@@ -520,7 +520,7 @@ class ECBGetter(Curreny_getter_interface):
 
 
 # #PL NBP # ###########################################################################
-class PLNBPGetter(Curreny_getter_interface):   # class added according to polish needs = based on class Admin_ch_getter
+class PLNBPGetter(CurrenyGetterInterface):   # class added according to polish needs = based on class Admin_ch_getter
     """Implementation of Currency_getter_factory interface
     for PL NBP service"""
 
@@ -535,7 +535,7 @@ class PLNBPGetter(Curreny_getter_interface):   # class added according to polish
         return res
 
     def get_updated_currency(self, currency_array, main_currency, max_delta_days):
-        """implementation of abstract method of Curreny_getter_interface"""
+        """implementation of abstract method of CurrenyGetterInterface"""
         url = 'http://www.nbp.pl/kursy/xml/LastA.xml'    # LastA.xml is always the most recent one
         # we do not want to update the main currency
         if main_currency in currency_array:
@@ -582,7 +582,7 @@ class PLNBPGetter(Curreny_getter_interface):   # class added according to polish
 
 
 # #Banco de México # ###########################################################################
-class BanxicoGetter(Curreny_getter_interface):  # class added for Mexico rates
+class BanxicoGetter(CurrenyGetterInterface):  # class added for Mexico rates
     """Implementation of Currency_getter_factory interface
     for Banco de México service"""
 
@@ -608,7 +608,7 @@ class BanxicoGetter(Curreny_getter_interface):  # class added for Mexico rates
         return float(rate)
 
     def get_updated_currency(self, currency_array, main_currency, max_delta_days=1):
-        """implementation of abstract method of Curreny_getter_interface"""
+        """implementation of abstract method of CurrenyGetterInterface"""
         logger = logging.getLogger(__name__)
         # we do not want to update the main currency
         if main_currency in currency_array:
@@ -633,11 +633,11 @@ class BanxicoGetter(Curreny_getter_interface):  # class added for Mexico rates
 
 
 # #CA BOC # ####   Bank of Canada   # ###########################################################
-class CABOCGetter(Curreny_getter_interface):
+class CABOCGetter(CurrenyGetterInterface):
     """Implementation of Curreny_getter_factory interface for Bank of Canada RSS service"""
 
     def get_updated_currency(self, currency_array, main_currency, max_delta_days):
-        """implementation of abstract method of Curreny_getter_interface"""
+        """implementation of abstract method of CurrenyGetterInterface"""
 
         # as of Jan 2014 BOC is publishing noon rates for about 60 currencies
         url = 'http://www.bankofcanada.ca/stats/assets/rates_rss/noon/en_%s.xml'
