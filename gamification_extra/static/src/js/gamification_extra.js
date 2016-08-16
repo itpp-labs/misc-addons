@@ -14,8 +14,8 @@ openerp.gamification_extra = function(instance) {
                     'target': 'current',
                     'views': [[false, 'list'], [false, 'form']],
                     'domain':  $t.attr('data-domain'),
-                })
-            }
+                });
+            };
         },
-    })
-}
+    });
+};

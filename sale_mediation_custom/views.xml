@@ -1,65 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-	<data>
+    <data>
         <record id="view_partners_form_crm1" model="ir.ui.view">
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="crm.view_partners_form_crm1"/>
             <field name="arch" type="xml">
-				<xpath expr="//field[@name='section_id']" position="attributes">
-					<attribute name="invisible">1</attribute>
-				</xpath>
-			</field>
-		</record>
+                <xpath expr="//field[@name='section_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
 
 
-		<record model="ir.actions.act_window" id="action_phonecall">
-			<field name="name">Phone Calls</field>
-			<field name="res_model">crm.phonecall</field>
-			<field name="view_type">form</field>
-			<field name="view_mode">tree,calendar,form</field>
-			<field name="view_id" ref="crm.crm_case_phone_tree_view"/>
-			<field name="search_view_id" ref="crm.view_crm_case_phonecalls_filter"/>
-		</record>
+        <record model="ir.actions.act_window" id="action_phonecall">
+            <field name="name">Phone Calls</field>
+            <field name="res_model">crm.phonecall</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,calendar,form</field>
+            <field name="view_id" ref="crm.crm_case_phone_tree_view"/>
+            <field name="search_view_id" ref="crm.view_crm_case_phonecalls_filter"/>
+        </record>
 
         <record id="edit_project" model="ir.ui.view">
             <field name="name">project.project.form</field>
             <field name="model">project.project</field>
-			<field name="inherit_id" ref="project.edit_project"/>
+            <field name="inherit_id" ref="project.edit_project"/>
             <field name="arch" type="xml">
-				<xpath expr="//field[@name='active']" position="after">
-					<field name="archived"/>
-				</xpath>
-				<xpath expr="//field[@name='user_id']" position="before">
-					<field name="xtype" widget="radio"/>
+                <xpath expr="//field[@name='active']" position="after">
+                    <field name="archived"/>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="before">
+                    <field name="xtype" widget="radio"/>
                     <newline/>
-				</xpath>
-				<xpath expr="//field[@name='user_id']" position="after">
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="after">
                     <newline/>
-					<field name="sale_case_id"/>
-				</xpath>
-				<xpath expr="//div[@name='buttons']" position="inside">
+                    <field name="sale_case_id"/>
+                </xpath>
+                <xpath expr="//div[@name='buttons']" position="inside">
                     <button  class="oe_inline oe_stat_button" name="action_phonecall_count"  type="object" icon="fa-phone">
                         <field string="Calls" name="phonecall_count" widget="statinfo"/>
                     </button>
-				</xpath>
-			</field>
-		</record>
+                </xpath>
+            </field>
+        </record>
 
         <record id="view_project_project_filter" model="ir.ui.view">
             <field name="model">project.project</field>
-			<field name="inherit_id" ref="project.view_project_project_filter"/>
+            <field name="inherit_id" ref="project.view_project_project_filter"/>
             <field name="arch" type="xml">
-				<xpath expr="//filter[@string='Member']" position="before">
+                <xpath expr="//filter[@string='Member']" position="before">
                     <filter name="external" string="External" domain="[('xtype', '=', 'external')]"/>
                     <filter name="internal" string="Internal" domain="[('xtype', '=', 'internal')]"/>
                     <separator/>
 
-				</xpath>
-			</field>
-		</record>
+                </xpath>
+            </field>
+        </record>
         <record id="project.open_view_project_all" model="ir.actions.act_window">
-			<field name="context">{'search_default_Current':1, 'search_default_external':1, 'default_xtype':'external'}</field>
-		</record>
+            <field name="context">{'search_default_Current':1, 'search_default_external':1, 'default_xtype':'external'}</field>
+        </record>
 
         <record id="open_view_project_internal" model="ir.actions.act_window">
             <field name="name">Projects</field>
@@ -88,20 +88,20 @@
 
 
         <record model="ir.ui.view" id="crm_case_form_view_leads">
-			<field name="name">CRM - Leads Form</field>
-			<field name="model">crm.lead</field>
-			<field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
-			<field name="arch" type="xml">
-				<xpath expr="//header/button" position="replace">
-					<button type="object" name="action_create_sale_case" class="oe_highlight" string="Create Sale Case" attrs="{'invisible':[('contract_ids', '!=', [])]}"/>
-				</xpath>
-				<xpath expr="//page[@string='Extra Info']" position="after">
-					<page string="Sale cases" attrs="{'invisible':[('contract_ids', '=', [])]}">
-						<field name="contract_ids"/>
-					</page>
-				</xpath>
-			</field>
-		</record>
+            <field name="name">CRM - Leads Form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/button" position="replace">
+                    <button type="object" name="action_create_sale_case" class="oe_highlight" string="Create Sale Case" attrs="{'invisible':[('contract_ids', '!=', [])]}"/>
+                </xpath>
+                <xpath expr="//page[@string='Extra Info']" position="after">
+                    <page string="Sale cases" attrs="{'invisible':[('contract_ids', '=', [])]}">
+                        <field name="contract_ids"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
 
 
         <record id="account_analytic_account_form_form" model="ir.ui.view">
@@ -109,34 +109,34 @@
             <field name="model">account.analytic.account</field>
             <field name="inherit_id" ref="account_analytic_analysis.account_analytic_account_form_form"/>
             <field name="arch" type="xml">
-				<!--
-				<xpath expr="//button[@name='set_pending']" position="replace">
-				</xpath>
-				<xpath expr="//button[@name='set_close']" position="replace">
-				</xpath>
-				<xpath expr="//button[@name='set_open']" position="replace">
-				</xpath>
-				<xpath expr="//button[@name='set_cancel']" position="replace">
-				</xpath>
-				-->
-				<xpath expr="//field[@name='manager_id']" position="after">
-					<!-- <field name="support_manager_id"/> -->
-					<field name="section_id"/>
-					<field name="commissioning_manager_id"/>
-					<field name="business_manager_id"/>
-					<field name="consultant_id"/>
-					<field name="notetaker_id"/>
-					<field name="proof_reader_id"/>
-				</xpath>
-				<xpath expr="//field[@name='company_id']" position="after">
-				</xpath>
-				<xpath expr="//notebook" position="inside">
-					<page string="Participants">
-						<field name="participant_ids"/>
-					</page>
-				</xpath>
-			</field>
-		</record>
+                <!--
+                <xpath expr="//button[@name='set_pending']" position="replace">
+                </xpath>
+                <xpath expr="//button[@name='set_close']" position="replace">
+                </xpath>
+                <xpath expr="//button[@name='set_open']" position="replace">
+                </xpath>
+                <xpath expr="//button[@name='set_cancel']" position="replace">
+                </xpath>
+                -->
+                <xpath expr="//field[@name='manager_id']" position="after">
+                    <!-- <field name="support_manager_id"/> -->
+                    <field name="section_id"/>
+                    <field name="commissioning_manager_id"/>
+                    <field name="business_manager_id"/>
+                    <field name="consultant_id"/>
+                    <field name="notetaker_id"/>
+                    <field name="proof_reader_id"/>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="after">
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Participants">
+                        <field name="participant_ids"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
 
         <record model="ir.ui.view" id="sale_case_kanban_view">
             <field name="name">Contract (sale case) - Kanban view</field>
@@ -147,19 +147,19 @@
                     <field name="color"/>
                     <templates>
                         <t t-name="kanban-box">
-							<div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
-								<!--
-								<div class="oe_dropdown_toggle oe_dropdown_kanban" groups="base.group_user">
-									<span class="oe_e">í</span>
-									<ul class="oe_dropdown_menu">
-										<li><ul class="oe_kanban_colorpicker" data-field="color"/></li>
-									</ul>
-								</div>
-								-->
-								<div class="oe_kanban_content">
-									<div><b><field name="name"/></b></div>
-									<!--
-								<t t-if="record.date_deadline.raw_value and record.date_deadline.raw_value lt (new Date())" t-set="red">oe_kanban_text_red</t> 
+                            <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
+                                <!--
+                                <div class="oe_dropdown_toggle oe_dropdown_kanban" groups="base.group_user">
+                                    <span class="oe_e">í</span>
+                                    <ul class="oe_dropdown_menu">
+                                        <li><ul class="oe_kanban_colorpicker" data-field="color"/></li>
+                                    </ul>
+                                </div>
+                                -->
+                                <div class="oe_kanban_content">
+                                    <div><b><field name="name"/></b></div>
+                                    <!--
+                                <t t-if="record.date_deadline.raw_value and record.date_deadline.raw_value lt (new Date())" t-set="red">oe_kanban_text_red</t> 
 
                                 <div class="oe_kanban_footer_left" style="margin-top:5px;">
                                     <t t-raw="record.message_summary.raw_value"/>
@@ -172,19 +172,19 @@
                                         <field name="priority" widget="priority"/>
                                     </div>
                                 </div>
-									-->
-								</div>
+                                    -->
+                                </div>
 
-								<div class="oe_clear"></div>
-							</div>
+                                <div class="oe_clear"></div>
+                            </div>
 
 
 
-						</t>
-					</templates>
-				</kanban>
-			</field>
-		</record>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
 
 
 
@@ -215,10 +215,10 @@
 
 
 <!--
-		<delete id="crm.menu_crm_opportunities" model="ir.ui.menu"/>
-		<delete id="crm.menu_crm_leads" model="ir.ui.menu"/>
-		<delete id="sale.menu_sale_quotations" model="ir.ui.menu"/>
-		<delete id="sale.menu_sale_order" model="ir.ui.menu"/>
+        <delete id="crm.menu_crm_opportunities" model="ir.ui.menu"/>
+        <delete id="crm.menu_crm_leads" model="ir.ui.menu"/>
+        <delete id="sale.menu_sale_quotations" model="ir.ui.menu"/>
+        <delete id="sale.menu_sale_order" model="ir.ui.menu"/>
 -->
 
 
@@ -226,135 +226,135 @@
         <record model="ir.ui.view" id="crm_case_stage_form">
             <field name="name">crm.case.stage.form</field>
             <field name="model">crm.case.stage</field>
-			<field name="inherit_id" ref="crm.crm_case_stage_form"/>
+            <field name="inherit_id" ref="crm.crm_case_stage_form"/>
             <field name="arch" type="xml">
-				<xpath expr="//field[@name='type']" position="after">
-					<field name="sales_funnel_type"/>
-				</xpath>
-			</field>
-		</record>
+                <xpath expr="//field[@name='type']" position="after">
+                    <field name="sales_funnel_type"/>
+                </xpath>
+            </field>
+        </record>
 
         <!-- Sale Order Form View  -->
         <record model="ir.ui.view" id="view_order_form">
             <field name="name">sale.order.form</field>
             <field name="model">sale.order</field>
-			<field name="inherit_id" ref="sale.view_order_form"/>
-			<field name="arch" type="xml">
-				<xpath expr="//button[@name='action_quotation_send' and @states='draft']" position="attributes"><attribute name="invisible">1</attribute></xpath>
-				<xpath expr="//button[@name='action_quotation_send' and @states='sent,progress,manual']" position="attributes"><attribute name="invisible">1</attribute></xpath>
-				<xpath expr="//button[@name='print_quotation' and @states='draft']" position="attributes"><attribute name="invisible">1</attribute></xpath>
-				<xpath expr="//button[@name='print_quotation' and @states!='draft']" position="attributes"><attribute name="invisible">1</attribute></xpath>
-				<xpath expr="//button[@name='action_button_confirm' and @states='draft']" position="attributes"><attribute name="groups">access_custom.group_show_built_in_sale_buttons</attribute></xpath>
-				<xpath expr="//button[@name='action_button_confirm' and @states='sent']" position="attributes"><attribute name="groups">access_custom.group_show_built_in_sale_buttons</attribute></xpath>
-				<!--<xpath expr="//button[@name='cancel']" position="attributes"><attribute name="invisible">1</attribute></xpath>-->
-				<xpath expr="//button[@name='copy_quotation']" position="attributes"><attribute name="invisible">1</attribute></xpath>
-				<!--<xpath expr="//button[@name='action_cancel']" position="attributes"><attribute name="invisible">1</attribute></xpath>-->
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_quotation_send' and @states='draft']" position="attributes"><attribute name="invisible">1</attribute></xpath>
+                <xpath expr="//button[@name='action_quotation_send' and @states='sent,progress,manual']" position="attributes"><attribute name="invisible">1</attribute></xpath>
+                <xpath expr="//button[@name='print_quotation' and @states='draft']" position="attributes"><attribute name="invisible">1</attribute></xpath>
+                <xpath expr="//button[@name='print_quotation' and @states!='draft']" position="attributes"><attribute name="invisible">1</attribute></xpath>
+                <xpath expr="//button[@name='action_button_confirm' and @states='draft']" position="attributes"><attribute name="groups">access_custom.group_show_built_in_sale_buttons</attribute></xpath>
+                <xpath expr="//button[@name='action_button_confirm' and @states='sent']" position="attributes"><attribute name="groups">access_custom.group_show_built_in_sale_buttons</attribute></xpath>
+                <!--<xpath expr="//button[@name='cancel']" position="attributes"><attribute name="invisible">1</attribute></xpath>-->
+                <xpath expr="//button[@name='copy_quotation']" position="attributes"><attribute name="invisible">1</attribute></xpath>
+                <!--<xpath expr="//button[@name='action_cancel']" position="attributes"><attribute name="invisible">1</attribute></xpath>-->
 
-				<xpath expr="//field[@name='state']" position="attributes">
-					<attribute name="statusbar_visible">draft,progress,done</attribute>
-				</xpath>
-			</field>
-		</record>
+                <xpath expr="//field[@name='state']" position="attributes">
+                    <attribute name="statusbar_visible">draft,progress,done</attribute>
+                </xpath>
+            </field>
+        </record>
 
         <!-- CRM Lead Kanban View  -->
         <record model="ir.ui.view" id="crm_case_kanban_view_leads">
             <field name="name">CRM - Leads Kanban</field>
             <field name="model">crm.lead</field>
-			<field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
-			<field name="arch" type="xml">
-				<xpath expr="//templates" position="before">
-					<field name="deal_time"/>
-					<field name="last_action_time"/>
-					<field name="stage_closed_id"/>
-				</xpath>
-				<xpath expr="//field[@name='title_action']" position="after">
+            <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+            <field name="arch" type="xml">
+                <xpath expr="//templates" position="before">
+                    <field name="deal_time"/>
+                    <field name="last_action_time"/>
+                    <field name="stage_closed_id"/>
+                </xpath>
+                <xpath expr="//field[@name='title_action']" position="after">
                     <div style="padding-left: 0.5em">
-						Last Action: <span t-esc="record.last_action_time.raw_value"/> <span t-esc="record.last_action_time > 1 and 'days' or 'day'"/>
-					</div>
+                        Last Action: <span t-esc="record.last_action_time.raw_value"/> <span t-esc="record.last_action_time > 1 and 'days' or 'day'"/>
+                    </div>
                     <div style="padding-left: 0.5em">
-						Deal Time: <span t-esc="record.deal_time.raw_value"/> <span t-esc="record.deal_time > 1 and 'days' or 'day'"/>
-						<t t-if="record.stage_closed_id.raw_value">
-							<br/><span>Closed on: </span><field name="stage_closed_id"/>
-						</t>
-					</div>
-				</xpath>
-			</field>
-		</record>
+                        Deal Time: <span t-esc="record.deal_time.raw_value"/> <span t-esc="record.deal_time > 1 and 'days' or 'day'"/>
+                        <t t-if="record.stage_closed_id.raw_value">
+                            <br/><span>Closed on: </span><field name="stage_closed_id"/>
+                        </t>
+                    </div>
+                </xpath>
+            </field>
+        </record>
         <!-- CRM Lead Form View  -->
         <record model="ir.ui.view" id="crm.crm_case_form_view_oppor">
-			<field name="priority" eval="10"/>
-		</record>
+            <field name="priority" eval="10"/>
+        </record>
         <record model="ir.ui.view" id="crm_case_form_view_oppor">
-			<field name="name">Opportunity</field>
-			<field name="model">crm.lead</field>
-			<field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
-			<field name="arch" type="xml">
-				<xpath expr="//field[@name='active']" position="after">
-					<field name="archived"/>
-				</xpath>
-				<xpath expr="//button[@name='case_mark_won']" position="attributes">
-					<attribute name="invisible">1</attribute>
-				</xpath>
-				<xpath expr="//button[@name='case_mark_lost']" position="attributes">
-					<attribute name="invisible">1</attribute>
-				</xpath>
-				<xpath expr="//button[@string='Create Quotation']" position="attributes">
-					<attribute name="invisible">1</attribute>
-				</xpath>
-				<xpath expr="//button[@string='Convert to Quotation']" position="attributes">
-					<attribute name="invisible">1</attribute>
-				</xpath>
-				<xpath expr="//button[@name='case_mark_won']" position="before">
-					<field name="proposal_id" invisible="True"/>
-					<field name="id" invisible="1"/>
-					<field name="sales_funnel_type" invisible="1"/>
-					<field name="is_proposal_sent" invisible="1"/>
-					<button type="action" name="%(action_create_proposal_lead)d" class="oe_highlight" string="Create quotation" attrs="{'invisible':['|','|',('sale_order_lines','=', []),('sales_funnel_type','!=', 'lead'), ('proposal_id','!=', False)]}" context="{'lead_id': id}"/>
-					<button name="edit_proposal" string="Edit quotation" attrs="{'invisible':['|',('sales_funnel_type', '!=', 'quotation'),('proposal_id', '=', False)]}" type="object"/>
-					<button name="open_proposal" string="Open quotation" attrs="{'invisible':[('proposal_id', '=', False)]}" type="object"/>
-					<button type="object" name="action_send_proposal" string="Edit mail &amp; Send" attrs="{'invisible': ['|', ('sale_order_lines','=', []), ('sales_funnel_type', '!=', 'quotation')]}"/>
-					<button type="object" name="action_send_proposal_quick" class="oe_highlight" string="Send" attrs="{'invisible': ['|', ('sale_order_lines','=', []), ('sales_funnel_type', '!=', 'quotation')]}"/>
-					<button name="proposal_confirmed_backend" class="oe_highlight" string="Won" attrs="{'invisible':['|',('sales_funnel_type','not in', ['negotiation']),('is_proposal_sent', '=', False)]}"/>
-					
-				</xpath>
+            <field name="name">Opportunity</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='active']" position="after">
+                    <field name="archived"/>
+                </xpath>
+                <xpath expr="//button[@name='case_mark_won']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='case_mark_lost']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@string='Create Quotation']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@string='Convert to Quotation']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='case_mark_won']" position="before">
+                    <field name="proposal_id" invisible="True"/>
+                    <field name="id" invisible="1"/>
+                    <field name="sales_funnel_type" invisible="1"/>
+                    <field name="is_proposal_sent" invisible="1"/>
+                    <button type="action" name="%(action_create_proposal_lead)d" class="oe_highlight" string="Create quotation" attrs="{'invisible':['|','|',('sale_order_lines','=', []),('sales_funnel_type','!=', 'lead'), ('proposal_id','!=', False)]}" context="{'lead_id': id}"/>
+                    <button name="edit_proposal" string="Edit quotation" attrs="{'invisible':['|',('sales_funnel_type', '!=', 'quotation'),('proposal_id', '=', False)]}" type="object"/>
+                    <button name="open_proposal" string="Open quotation" attrs="{'invisible':[('proposal_id', '=', False)]}" type="object"/>
+                    <button type="object" name="action_send_proposal" string="Edit mail &amp; Send" attrs="{'invisible': ['|', ('sale_order_lines','=', []), ('sales_funnel_type', '!=', 'quotation')]}"/>
+                    <button type="object" name="action_send_proposal_quick" class="oe_highlight" string="Send" attrs="{'invisible': ['|', ('sale_order_lines','=', []), ('sales_funnel_type', '!=', 'quotation')]}"/>
+                    <button name="proposal_confirmed_backend" class="oe_highlight" string="Won" attrs="{'invisible':['|',('sales_funnel_type','not in', ['negotiation']),('is_proposal_sent', '=', False)]}"/>
+                    
+                </xpath>
 
-				<xpath expr="//field[@name='section_id']" position="after">
-					<field name="company_id" readonly="1"/>
-				</xpath>
-				<xpath expr="//field[@name='categ_ids']/.." position="before">
-					<group>
-						<field name="contract_id" readonly="1"/>
-						<field name="project_id" readonly="1"/>
-						<label for="project_start_date" string="Project time interval"/>
-						<div>
-							<field name="project_start_date" nolabel="1"/> - <field  name="project_end_date"/>
-							<span attrs="{'invisible': ['|',('sales_funnel_type','!=', 'negotiation'),'&amp;',('project_end_date','!=',False),('project_start_date','!=',False)]}" style="color:red"><b>No interval</b></span>
-						</div>
-					</group>
-				</xpath>
-				<xpath expr="//notebook/page[@string='Internal Notes']" position="replace">
-					<page string="Details">
-						<!-- <button t-if="not sale_order_id" type="object" name="action_create_sale_order"/> -->
-						<group>
-							
-							<group>
-								<field name="sale_order_id" readonly="True"/>
-							</group>
-							<!--
-							<label for="open_proposal" string="Proposal"/>
-							<button name="open_proposal" string="Open quotation" attrs="{'invisible':[('proposal_id', '=', False)]}" type="object"/>
-							-->
-							<group>
-								<field name="sale_order_state"/>
-							</group>
-						</group>
+                <xpath expr="//field[@name='section_id']" position="after">
+                    <field name="company_id" readonly="1"/>
+                </xpath>
+                <xpath expr="//field[@name='categ_ids']/.." position="before">
+                    <group>
+                        <field name="contract_id" readonly="1"/>
+                        <field name="project_id" readonly="1"/>
+                        <label for="project_start_date" string="Project time interval"/>
+                        <div>
+                            <field name="project_start_date" nolabel="1"/> - <field  name="project_end_date"/>
+                            <span attrs="{'invisible': ['|',('sales_funnel_type','!=', 'negotiation'),'&amp;',('project_end_date','!=',False),('project_start_date','!=',False)]}" style="color:red"><b>No interval</b></span>
+                        </div>
+                    </group>
+                </xpath>
+                <xpath expr="//notebook/page[@string='Internal Notes']" position="replace">
+                    <page string="Details">
+                        <!-- <button t-if="not sale_order_id" type="object" name="action_create_sale_order"/> -->
+                        <group>
+                            
+                            <group>
+                                <field name="sale_order_id" readonly="True"/>
+                            </group>
+                            <!--
+                            <label for="open_proposal" string="Proposal"/>
+                            <button name="open_proposal" string="Open quotation" attrs="{'invisible':[('proposal_id', '=', False)]}" type="object"/>
+                            -->
+                            <group>
+                                <field name="sale_order_state"/>
+                            </group>
+                        </group>
 
-						<field name="pricelist_id" invisible="1"/>
-						<field name="fiscal_position" invisible="1"/>
-						<field name="date_order" invisible="1"/>
+                        <field name="pricelist_id" invisible="1"/>
+                        <field name="fiscal_position" invisible="1"/>
+                        <field name="date_order" invisible="1"/>
 
-						<div class="text-center" attrs="{'invisible': [('sale_order_id','!=', False)]}"><button name="create_sale_order" string="Create sale order" type="object"/></div>
-						<p class="text-center" style="color:red" attrs="{'invisible': [('sale_order_lines','!=', [])]}">No Lines:</p>
+                        <div class="text-center" attrs="{'invisible': [('sale_order_id','!=', False)]}"><button name="create_sale_order" string="Create sale order" type="object"/></div>
+                        <p class="text-center" style="color:red" attrs="{'invisible': [('sale_order_lines','!=', [])]}">No Lines:</p>
                             <field name="sale_order_lines" attrs="{'readonly':[('sale_order_state', 'not in', ['draft', 'sent'])]}">
                                 <form string="Sales Order Lines">
                                     <header groups="base.group_user">
@@ -426,41 +426,41 @@
                                 </tree>
                             </field>
 
-							<separator string="Internal note" class="oe_edit_only"/>
-							<field name="description"/>
+                            <separator string="Internal note" class="oe_edit_only"/>
+                            <field name="description"/>
 
 
-					</page>
-				</xpath>
+                    </page>
+                </xpath>
 
-			</field>
-		</record>
+            </field>
+        </record>
 
         <record model="ir.ui.view" id="crm_case_form_view_oppor_sale_manager">
-			<field name="name">Opportunity</field>
-			<field name="model">crm.lead</field>
-			<field name="inherit_id" ref="sale_mediation_custom.crm_case_form_view_oppor"/>
-			<field name="groups_id" eval="[(6, 0, [ref('base.group_sale_manager') ])]"/>
+            <field name="name">Opportunity</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="sale_mediation_custom.crm_case_form_view_oppor"/>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_sale_manager') ])]"/>
 
-			<field name="arch" type="xml">
-				<xpath expr="//field[@name='company_id']" position="attributes">
-					<attribute name="readonly">0</attribute>
-				</xpath>
-				<xpath expr="//field[@name='project_id']" position="attributes">
-					<attribute name="readonly">0</attribute>
-				</xpath>
-			</field>
-		</record>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </xpath>
+                <xpath expr="//field[@name='project_id']" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </xpath>
+            </field>
+        </record>
 
         <record model="ir.ui.view" id="crm_case_section_salesteams_view_kanban">
             <field name="name">crm.case.section.kanban</field>
             <field name="model">crm.case.section</field>
             <field name="inherit_id" ref="crm.crm_case_section_salesteams_view_kanban"/>
             <field name="arch" type="xml">
-				<xpath expr="//div[@class='oe_salesteams_leads']" position="replace">
-				</xpath>
-			</field>
-		</record>
+                <xpath expr="//div[@class='oe_salesteams_leads']" position="replace">
+                </xpath>
+            </field>
+        </record>
 
         <record id="action_create_sale_case" model="ir.actions.server">
             <field name="name">Create sales funnel (from lead)</field>
@@ -480,51 +480,51 @@
         </record>
 
 
-		<!-- PHONE CALLS MENUS -->
+        <!-- PHONE CALLS MENUS -->
 
-		<!-- Logged Calls -->
-		<record model="ir.actions.act_window" id="crm.crm_case_categ_phone_incoming0">
-			<field name="context">{"search_default_user_id":uid, 'default_state':'done'}</field>
-			<field name="domain">[('state','in', ['done','cancel'])]</field>
-			<field name="view_id" ref="crm.crm_case_phone_tree_view"/>
-		</record>
-		<record model="ir.actions.act_window.view" id="crm.action_crm_tag_tree_phone_incoming0">
-			<field name="sequence" eval="1"/>
-			<field name="view_mode">tree</field>
-			<field name="view_id" ref="crm.crm_case_phone_tree_view"/>
-			<field name="act_window_id" ref="crm.crm_case_categ_phone_incoming0"/>
-		</record>
-		<record model="ir.ui.view" id="crm_case_phone_tree_view">
-			<field name="model">crm.phonecall</field>
-			<field name="inherit_id" ref="crm.crm_case_phone_tree_view"/>
-			<field name="arch" type="xml">
-				<xpath expr="//tree" position="attributes">
-					<attribute name="colors">gray:state in ('cancel',);blue:state in ('pending',)</attribute>
-				</xpath>
-				<xpath expr="//button[@name='action_make_meeting']" position="before">
-					<button string="Schedule Other Call"
-							icon="terp-call-start"
-							name="%(crm.phonecall_to_phonecall_act)d"
-							type="action"/>
-				</xpath>
-				<xpath expr="//button[@name='action_make_meeting']" position="attributes">
-					<attribute name="states"></attribute>
-				</xpath>
-				<xpath expr="//button[@name='action_button_convert2opportunity']" position="attributes">
-					<attribute name="states"></attribute>
-				</xpath>
-			</field>
-		</record>
+        <!-- Logged Calls -->
+        <record model="ir.actions.act_window" id="crm.crm_case_categ_phone_incoming0">
+            <field name="context">{"search_default_user_id":uid, 'default_state':'done'}</field>
+            <field name="domain">[('state','in', ['done','cancel'])]</field>
+            <field name="view_id" ref="crm.crm_case_phone_tree_view"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="crm.action_crm_tag_tree_phone_incoming0">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="crm.crm_case_phone_tree_view"/>
+            <field name="act_window_id" ref="crm.crm_case_categ_phone_incoming0"/>
+        </record>
+        <record model="ir.ui.view" id="crm_case_phone_tree_view">
+            <field name="model">crm.phonecall</field>
+            <field name="inherit_id" ref="crm.crm_case_phone_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="colors">gray:state in ('cancel',);blue:state in ('pending',)</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_make_meeting']" position="before">
+                    <button string="Schedule Other Call"
+                            icon="terp-call-start"
+                            name="%(crm.phonecall_to_phonecall_act)d"
+                            type="action"/>
+                </xpath>
+                <xpath expr="//button[@name='action_make_meeting']" position="attributes">
+                    <attribute name="states"></attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_button_convert2opportunity']" position="attributes">
+                    <attribute name="states"></attribute>
+                </xpath>
+            </field>
+        </record>
 
-		<!-- Scheduled Calls -->
-		<record model="ir.actions.act_window" id="crm.crm_case_categ_phone_outgoing0">
-			<field name="domain">[('state','not in', ['done','cancel'])]</field>
-			<field name="context">{"search_default_user_id":uid}</field>
-		</record>
+        <!-- Scheduled Calls -->
+        <record model="ir.actions.act_window" id="crm.crm_case_categ_phone_outgoing0">
+            <field name="domain">[('state','not in', ['done','cancel'])]</field>
+            <field name="context">{"search_default_user_id":uid}</field>
+        </record>
 
-	</data>
+    </data>
 
-	<data noupdate="1">
+    <data noupdate="1">
 
         <record id="email_template_proposal_lead" model="email.template">
             <field name="name">Send Quotation</field>
@@ -540,11 +540,11 @@
 
     <p>Hello ${object.partner_id.name}, please check attached document.</p>
 
-	<p>To sign document you can use our online tool: <a href="/website_proposal/${object.proposal_id.id}/${object.proposal_id.access_token}">open document ${object.name}</a>
+    <p>To sign document you can use our online tool: <a href="/website_proposal/${object.proposal_id.id}/${object.proposal_id.access_token}">open document ${object.name}</a>
 
 ]]></field>
 
-		</record>
-	</data>
+        </record>
+    </data>
 
 </openerp>

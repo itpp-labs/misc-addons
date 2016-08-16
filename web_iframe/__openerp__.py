@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': "IFrame pages (technical core)",
     'version': '1.0.0',
@@ -11,6 +12,6 @@
     ],
     'data': [
         'web_iframe_views.xml',
-        ],
+    ],
     'installable': True
 }

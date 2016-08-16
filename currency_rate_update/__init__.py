@@ -21,5 +21,5 @@
 #
 ##############################################################################
 
-import currency_rate_update
-import company
+from . import currency_rate_update
+from . import company

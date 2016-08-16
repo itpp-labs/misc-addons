@@ -1,1 +1,2 @@
-import upload
+# -*- coding: utf-8 -*-
+from . import upload

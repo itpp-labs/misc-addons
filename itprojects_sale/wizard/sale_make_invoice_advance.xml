@@ -20,5 +20,5 @@
             <field name="target">new</field>
             <field name="context">{'advance_payment_method':'all'}</field>
         </record>
-	 </data>
+     </data>
 </openerp>

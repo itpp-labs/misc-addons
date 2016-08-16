@@ -1,5 +1,6 @@
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 from openerp.osv import osv
+
 
 class sale_order(osv.osv):
     _inherit = 'sale.order'

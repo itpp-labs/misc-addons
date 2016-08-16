@@ -3,12 +3,10 @@ from openerp import models, fields, api
 from datetime import datetime, date, timedelta
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 from openerp.exceptions import ValidationError
-from openerp.tools.translate import _
 
 
 class AccountAnalyticAccount(models.Model):
     _inherit = 'account.analytic.account'
-
 
     remind_on_slots = fields.Integer(help='configure when to remind a customer about remaining slots', string='Remind on (slots)', default=2)
     contract_slots = fields.Integer(string='Contract slots left', compute='_compute_contract_slots', readonly=True, help='remaining paid slots in contract', store=True)
@@ -23,13 +21,13 @@ class AccountAnalyticAccount(models.Model):
 
         for l in self.invoice_line_ids:
             contract_slots += not l.pitch_id.resource_id.has_slot_calendar and l.invoice_id.state == 'paid' and l.invoice_id.type == 'out_invoice' and l.quantity or \
-                              not l.pitch_id.resource_id.has_slot_calendar and l.invoice_id.state == 'paid' and l.invoice_id.type == 'out_refund' and -l.quantity or \
-                              l.pitch_id.resource_id.has_slot_calendar and l.invoice_id.state == 'paid' and l.invoice_id.type == 'out_invoice' and l.quantity/2 or \
-                              l.pitch_id.resource_id.has_slot_calendar and l.invoice_id.state == 'paid' and l.invoice_id.type == 'out_refund' and -l.quantity/2
+                not l.pitch_id.resource_id.has_slot_calendar and l.invoice_id.state == 'paid' and l.invoice_id.type == 'out_refund' and -l.quantity or \
+                l.pitch_id.resource_id.has_slot_calendar and l.invoice_id.state == 'paid' and l.invoice_id.type == 'out_invoice' and l.quantity / 2 or \
+                l.pitch_id.resource_id.has_slot_calendar and l.invoice_id.state == 'paid' and l.invoice_id.type == 'out_refund' and -l.quantity / 2
 
         for l in self.order_line_ids:
             contract_slots += not l.pitch_id.resource_id.has_slot_calendar and l.booking_state in ['consumed', 'no_show'] and -l.product_uom_qty or \
-                              l.pitch_id.resource_id.has_slot_calendar and l.booking_state in ['consumed', 'no_show'] and -l.product_uom_qty/2
+                l.pitch_id.resource_id.has_slot_calendar and l.booking_state in ['consumed', 'no_show'] and -l.product_uom_qty / 2
 
         self.contract_slots = contract_slots
 
@@ -101,14 +99,13 @@ class SaleOrderLine(models.Model):
             composer = self.env['mail.compose.message'].with_context(email_ctx).create({})
             composer.send_mail()
 
-
     @api.model
     def _get_booking_states(self):
-        states =  [('in_progress', 'In Progress'),
-                ('consumed', 'Consumed'),
-                ('no_show', 'No Show'),
-                ('rain_check', 'Rain Check'),
-                ('emergency', 'Emergency')]
+        states = [('in_progress', 'In Progress'),
+                  ('consumed', 'Consumed'),
+                  ('no_show', 'No Show'),
+                  ('rain_check', 'Rain Check'),
+                  ('emergency', 'Emergency')]
         if self.env.ref('base.group_sale_manager').id in self.env.user.groups_id.ids:
             states.append(('cancelled', 'Cancelled'))
 
@@ -221,7 +218,7 @@ class GenerateBookingWizard(models.TransientModel):
         if self.booking_start and self.booking_end:
             start = datetime.strptime(self.booking_start, DTF)
             end = datetime.strptime(self.booking_end, DTF)
-            self.product_uom_qty = (end - start).seconds/3600
+            self.product_uom_qty = (end - start).seconds / 3600
 
     @api.one
     @api.depends('booking_start')
@@ -299,5 +296,3 @@ class AccountInvoice(models.Model):
                 bookings.write({'active': False, 'booking_state': 'cancelled'})
 
         return super(AccountInvoice, self).invoice_validate()
-
-

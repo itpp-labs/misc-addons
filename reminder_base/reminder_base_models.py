@@ -1,4 +1,7 @@
-from openerp import api, models, fields, SUPERUSER_ID
+# -*- coding: utf-8 -*-
+from openerp import api
+from openerp import fields
+from openerp import models
 
 
 class reminder(models.AbstractModel):
@@ -168,7 +171,7 @@ class reminder_admin_wizard(models.TransientModel):
             if r.model_id.model == 'reminder':
                 # ignore abstract class
                 continue
-            res.append( (r.model_id.model, r.model_id.name) )
+            res.append((r.model_id.model, r.model_id.name))
         return res
 
     @api.onchange('model')

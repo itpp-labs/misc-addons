@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': "Signature templates for user emails (HR)",
     'version': '1.0.0',
@@ -8,7 +9,7 @@
     'depends': ['res_users_signature', 'hr'],
     'data': [
         'views.xml',
-        ],
+    ],
     'installable': True,
     'auto_install': True,
 }

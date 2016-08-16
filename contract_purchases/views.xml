@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-	<data>
+    <data>
         <record id="purchase_order_form" model="ir.ui.view">
             <field name="name">purchase.order.form</field>
             <field name="model">purchase.order</field>
-			<field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
             <field name="arch" type="xml">
-				<xpath expr="//field[@name='journal_id']" position="after">
-					<field name="contract_id"/>
-				</xpath>
-			</field>
-		</record>
+                <xpath expr="//field[@name='journal_id']" position="after">
+                    <field name="contract_id"/>
+                </xpath>
+            </field>
+        </record>
 
         <record id="account_analytic_account_form_form" model="ir.ui.view">
             <field name="name">account.analytic.account.invoice.form.inherit</field>
@@ -18,8 +18,8 @@
             <field name="inherit_id" ref="account_analytic_analysis.account_analytic_account_form_form"/>
             <field eval="40" name="priority"/>
             <field name="arch" type="xml">
-				<xpath expr="//tr[@name='total']" position="before">
-					<tr>
+                <xpath expr="//tr[@name='total']" position="before">
+                    <tr>
                         <td class="oe_timesheet_grey">
                             <label for="supplier_fix_price_invoices"/>
                             </td><td class="oe_timesheet_grey">
@@ -51,8 +51,8 @@
                                     />
                         </td>
                     </tr>
-				</xpath>
-			</field>
-		</record>
-	</data>
+                </xpath>
+            </field>
+        </record>
+    </data>
 </openerp>

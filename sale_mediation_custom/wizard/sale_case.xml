@@ -17,7 +17,7 @@
             <field name="arch" type="xml">
                 <form>
                     <group>
-						<field name="proposal_template_id" domain="[('res_model', '=', 'crm.lead')]" widget="radio"/>
+                        <field name="proposal_template_id" domain="[('res_model', '=', 'crm.lead')]" widget="radio"/>
                     </group>
                     <footer>
                         <button name="action_apply" string="Create proposal" type="object" class="oe_highlight"/>
@@ -29,5 +29,5 @@
         </record>
 
 
-	 </data>
+     </data>
 </openerp>

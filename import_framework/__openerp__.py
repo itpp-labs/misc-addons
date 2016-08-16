@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 {
-    'name' : 'Import framework ',
-    'version' : '1.0.0',
-    'author' : 'IT-Projects LLC, Ivan Yelizariev',
+    'name': 'Import framework ',
+    'version': '1.0.0',
+    'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'GPL-3',
-    'category' : 'Tools',
-    'website' : 'https://yelizariev.github.io',
+    'category': 'Tools',
+    'website': 'https://yelizariev.github.io',
     'description': """
 Depends on:
 
@@ -13,9 +14,9 @@ Depends on:
     "external_dependencies": {
         'python': ['pandas']
     },
-    'depends' : ['base'],
-    'data':[
-        ],
+    'depends': ['base'],
+    'data': [
+    ],
     'installable': True,
     'auto_install': False,
 }

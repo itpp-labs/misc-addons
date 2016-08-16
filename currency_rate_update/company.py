@@ -19,8 +19,8 @@
 #
 ##############################################################################
 
-from openerp import netsvc
 from openerp.osv import fields, orm
+
 
 class res_company(orm.Model):
     """override company to add currency update"""
@@ -28,7 +28,7 @@ class res_company(orm.Model):
     def _multi_curr_enable(self, cr, uid, ids, field_name, arg, context={}):
         "check if multi company currency is enabled"
         result = {}
-        if self.pool.get('ir.model.fields').search(cr, uid, [('name', '=', 'company_id'), ('model', '=', 'res.currency')])==[]:
+        if self.pool.get('ir.model.fields').search(cr, uid, [('name', '=', 'company_id'), ('model', '=', 'res.currency')]) == []:
             enable = 0
         else:
             enable = 1
@@ -36,18 +36,16 @@ class res_company(orm.Model):
             result[id] = enable
         return result
 
-
     def button_refresh_currency(self, cr, uid, ids, context=None):
         """Refrech  the currency !!for all the company
         now"""
         currency_updater_obj = self.pool.get('currency.rate.update')
         try:
             currency_updater_obj.run_currency_update(cr, uid)
-        except Exception, e:
+        except Exception as e:
             raise e
             return False
         return True
-
 
     def write(self, cr, uid, ids, vals, context=None):
         """handle the activation of the currecny update on compagnies.
@@ -62,31 +60,31 @@ class res_company(orm.Model):
         for company in self.browse(cr, uid, ids, context=context):
             if 'auto_currency_up' in vals:
                 enable = company.multi_company_currency_enable
-                compagnies =  self.search(cr, uid, [])
+                compagnies = self.search(cr, uid, [])
                 activate_cron = 'f'
                 value = vals.get('auto_currency_up')
-                if not value :
-                    for comp in compagnies :
+                if not value:
+                    for comp in compagnies:
                         if self.browse(cr, uid, comp).auto_currency_up:
                             activate_cron = 't'
                             break
-                    save_cron.update({'active':activate_cron})
-                else :
+                    save_cron.update({'active': activate_cron})
+                else:
                     do_next = True
-                    for comp in compagnies :
+                    for comp in compagnies:
                         if comp != company.id and not enable:
                             if self.browse(cr, uid, comp).multi_company_currency_enable:
-                                raise Exception('Yon can not activate auto currency '+\
-                                                'update on more thant one company with this '+
+                                raise Exception('Yon can not activate auto currency ' +
+                                                'update on more thant one company with this ' +
                                                 'multi company configuration')
-                    for comp in compagnies :
+                    for comp in compagnies:
                         if self.browse(cr, uid, comp).auto_currency_up:
                             activate_cron = 't'
                             break
-                    save_cron.update({'active':activate_cron})
+                    save_cron.update({'active': activate_cron})
 
         if 'interval_type' in vals:
-            save_cron.update({'interval_type':vals.get('interval_type')})
+            save_cron.update({'interval_type': vals.get('interval_type')})
         if save_cron:
             self.pool.get('currency.rate.update').save_cron(
                 cr,
@@ -96,38 +94,34 @@ class res_company(orm.Model):
 
         return super(res_company, self).write(cr, uid, ids, vals, context=context)
 
-
-
     _inherit = "res.company"
     _columns = {
-        ### activate the currency update
+        # activate the currency update
         'auto_currency_up': fields.boolean('Automatical update of the currency this company'),
-        'services_to_use' : fields.one2many(
-                                            'currency.rate.update.service',
-                                            'company_id',
-                                            'Currency update services'
-                                            ),
-        ###predifine cron frequence
+        'services_to_use': fields.one2many(
+            'currency.rate.update.service',
+            'company_id',
+            'Currency update services'
+        ),
+        # predifine cron frequence
         'interval_type': fields.selection(
-                                                [
-                                                    ('days','Day(s)'),
-                                                    ('weeks', 'Week(s)'),
-                                                    ('months', 'Month(s)')
-                                                ],
-                                                'Currency update frequence',
-                                                help="""changing this value will
+            [
+                ('days', 'Day(s)'),
+                ('weeks', 'Week(s)'),
+                ('months', 'Month(s)')
+            ],
+            'Currency update frequence',
+            help="""changing this value will
                                                  also affect other compagnies"""
-                                            ),
-        ###function field that allows to know the
-        ###mutli company currency implementation
-        'multi_company_currency_enable' : fields.function(
-                                            _multi_curr_enable,
-                                            method=True,
-                                            type='boolean',
-                                            string="Multi company currency",
-                                            help='if this case is not check you can'+\
-                                            ' not set currency is active on two company'
-                                        ),
+        ),
+        # function field that allows to know the
+        # mutli company currency implementation
+        'multi_company_currency_enable': fields.function(
+            _multi_curr_enable,
+            method=True,
+            type='boolean',
+            string="Multi company currency",
+            help='if this case is not check you can' +\
+            ' not set currency is active on two company'
+        ),
     }
-
-

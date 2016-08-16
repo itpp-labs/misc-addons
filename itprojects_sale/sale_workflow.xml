@@ -35,7 +35,7 @@
         <record id="act_contract_draft" model="workflow.activity">
             <field name="wkf_id" ref="sale.wkf_sale"/>
             <field name="name">contract draft</field>
-				<!-- <field name="type">function</field> -->
+                <!-- <field name="type">function</field> -->
             <!-- <field name="action">write({'state':'contract_draft'})</field> -->
         </record>
 
@@ -148,7 +148,7 @@
             <field name="act_from" ref="act_development"/>
             <field name="act_to" ref="act_acceptance_act_sent"/>
             <field name="signal">acceptance_act_sent</field>
-				<field name="condition">use_contract</field>
+                <field name="condition">use_contract</field>
         </record>
         <record id="trans_acceptance_act_sent_development" model="workflow.transition">
             <field name="act_from" ref="act_acceptance_act_sent"/>
@@ -160,28 +160,28 @@
             <field name="act_from" ref="act_review"/>
             <field name="act_to" ref="act_acceptance_act_sent"/>
             <field name="signal">acceptance_act_sent</field>
-				<field name="condition">use_contract</field>
+                <field name="condition">use_contract</field>
         </record>
 
         <record id="trans_acceptance_act_sent_acceptance_act_signed" model="workflow.transition">
             <field name="act_from" ref="act_acceptance_act_sent"/>
             <field name="act_to" ref="act_acceptance_act_signed"/>
             <field name="signal">acceptance_act_signed</field>
-				<field name="condition">use_contract</field>
+                <field name="condition">use_contract</field>
         </record>
 
         <record id="trans_development_acceptance_act_signed" model="workflow.transition">
             <field name="act_from" ref="act_development"/>
             <field name="act_to" ref="act_acceptance_act_signed"/>
             <field name="signal">acceptance_act_signed</field>
-				<field name="condition">use_contract</field>
+                <field name="condition">use_contract</field>
         </record>
 
         <record id="trans_review_acceptance_act_signed" model="workflow.transition">
             <field name="act_from" ref="act_review"/>
             <field name="act_to" ref="act_acceptance_act_signed"/>
             <field name="signal">acceptance_act_signed</field>
-				<field name="condition">use_contract</field>
+                <field name="condition">use_contract</field>
         </record>
 
 <!-- /Acceptance -->
@@ -206,7 +206,7 @@
             <field name="kind">function</field>
             <field name="action">write({'state':'prepayment'})</field>
         </record>
-		  
+          
         <!-- <record id="act_final_payment" model="workflow.activity"> -->
         <!--     <field name="wkf_id" ref="sale.wkf_sale"/> -->
         <!--     <field name="name">final payment</field> -->
@@ -215,7 +215,7 @@
         <record id="trans_router_prepayment" model="workflow.transition">
             <field name="act_from" ref="sale.act_router"/>
             <field name="act_to" ref="act_prepayment"/>
-				<field name="condition">not use_contract</field>
+                <field name="condition">not use_contract</field>
         </record>
 
         <record id="trans_prepayment_develop" model="workflow.transition">
@@ -233,13 +233,13 @@
             <field name="act_from" ref="act_review"/>
             <field name="act_to" ref="sale.act_invoice"/>
             <field name="signal">manual_invoice</field>
-		  		<field name="condition">not use_contract</field>
+                  <field name="condition">not use_contract</field>
         </record>
 
         <!-- <record id="trans_review_final_payment" model="workflow.transition"> -->
         <!--     <field name="act_from" ref="act_review"/> -->
         <!--     <field name="act_to" ref="act_final_payment"/> -->
-		  <!-- 		<field name="condition">not use_contract</field> -->
+          <!--         <field name="condition">not use_contract</field> -->
         <!-- </record> -->
 
         <!-- <record id="trans_final_payment_review" model="workflow.transition"> -->
@@ -252,13 +252,13 @@
 
 <!--
         <record id="sale_stock.trans_router_wait_ship" model="workflow.transition">
-			 <field name="condition">False</field>
+             <field name="condition">False</field>
         </record>
 -->
         <record id="sale.trans_router_wait_invoice" model="workflow.transition">
             <field name="act_from" ref="sale.act_router"/>
             <field name="act_to" ref="act_wait_contract"/> <!-- it is not act_wait_invoice, beacause we override sale process -->
-				<field name="condition">use_contract</field>
+                <field name="condition">use_contract</field>
         </record>
         <record id="trans_wait_contract_contract" model="workflow.transition">
             <field name="act_from" ref="act_wait_contract"/>
@@ -268,19 +268,19 @@
         <record id="trans_contract_signed_wait_development" model="workflow.transition">
             <field name="act_from" ref="act_contract_signed"/>
             <field name="act_to" ref="act_wait_development"/>
-				<field name="condition">True</field>
+                <field name="condition">True</field>
         </record>
 
         <record id="trans_wait_development_development" model="workflow.transition">
             <field name="act_from" ref="act_wait_development"/>
             <field name="act_to" ref="act_development"/>
-				<field name="condition">True</field> <!-- TODO has_developer -->
+                <field name="condition">True</field> <!-- TODO has_developer -->
         </record>
 
         <record id="trans_acceptance_act_signed_wait_invoice" model="workflow.transition">
             <field name="act_from" ref="act_acceptance_act_signed"/>
             <field name="act_to" ref="sale.act_wait_invoice"/>
-				<field name="condition">use_contract</field>
+                <field name="condition">use_contract</field>
         </record>
 
 <!-- /Common -->

@@ -3,11 +3,11 @@
     <data>
 
 
-		<template id="show_sign_in" inherit_id="website.show_sign_in">
-		  <xpath expr="//a[@t-attf-href='/web/login']/b" position="replace">
-			 <b>Вход для сотрудников</b>
-		  </xpath>
-		</template>
+        <template id="show_sign_in" inherit_id="website.show_sign_in">
+          <xpath expr="//a[@t-attf-href='/web/login']/b" position="replace">
+             <b>Вход для сотрудников</b>
+          </xpath>
+        </template>
 
-	 </data>
+     </data>
 </openerp>

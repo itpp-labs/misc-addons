@@ -2,8 +2,8 @@
 <templates id="template" xml:space="preserve">
 
 <t t-extend="FieldCharDomain">
-	<t t-jquery=".oe_form_field>button" t-operation="after">
-		<span class="oe_domain_value"/>
-	</t>
+    <t t-jquery=".oe_form_field>button" t-operation="after">
+        <span class="oe_domain_value"/>
+    </t>
 </t>
 </templates>

@@ -13,5 +13,5 @@
         <record id="report_address_label" model="ir.actions.report.xml">
             <field name="paperformat_id" ref="labels.paperformat_a4_avery_8_portrait"/>
         </record>
-	</data>
+    </data>
 </openerp>

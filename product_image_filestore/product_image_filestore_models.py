@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from openerp.osv import osv, fields
 from openerp import SUPERUSER_ID, tools
 
@@ -54,7 +55,7 @@ class product_template(osv.Model):
             _logger.info('No image_old field present in product_template; assuming data is already saved in the filestore.')
 
     def _get_image(self, cr, uid, ids, name, args, context=None):
-        attachment_field = 'image_attachment_id' if name=='image' else 'image_medium_attachment_id'
+        attachment_field = 'image_attachment_id' if name == 'image' else 'image_medium_attachment_id'
         result = dict.fromkeys(ids, False)
         for obj in self.browse(cr, uid, ids, context=context):
             result[obj.id] = {
@@ -80,7 +81,7 @@ class product_template(osv.Model):
             image_medium_id = self.pool['ir.attachment'].create(cr, uid, {'name': 'Product Medium Image'}, context=context)
             self.write(cr, uid, id, {'image_attachment_id': image_id,
                                      'image_small_attachment_id': image_small_id,
-                                     'image_medium_attachment_id':image_medium_id},
+                                     'image_medium_attachment_id': image_medium_id},
                        context=context)
 
         images = tools.image_get_resized_images(value, return_big=True, avoid_resize_medium=True)
@@ -96,17 +97,17 @@ class product_template(osv.Model):
         'image_medium_attachment_id': fields.many2one('ir.attachment', 'Medium-sized Image  attachment', help='Technical field to store image in filestore'),
 
         'image': fields.function(_get_image, fnct_inv=_set_image, string="Image", multi='_get_image', type='binary',
-            help="This field holds the image used as image for the product, limited to 1024x1024px."),
+                                 help="This field holds the image used as image for the product, limited to 1024x1024px."),
         'image_medium': fields.function(_get_image, fnct_inv=_set_image,
-            string="Medium-sized image", type="binary", multi="_get_image",
-            help="Medium-sized image of the product. It is automatically "\
-                 "resized as a 128x128px image, with aspect ratio preserved, "\
-                 "only when the image exceeds one of those sizes. Use this field in form views or some kanban views."),
+                                        string="Medium-sized image", type="binary", multi="_get_image",
+                                        help="Medium-sized image of the product. It is automatically "
+                                        "resized as a 128x128px image, with aspect ratio preserved, "
+                                        "only when the image exceeds one of those sizes. Use this field in form views or some kanban views."),
         'image_small': fields.function(_get_image, fnct_inv=_set_image,
-            string="Small-sized image", type="binary", multi="_get_image",
-            help="Small-sized image of the product. It is automatically "\
-                 "resized as a 64x64px image, with aspect ratio preserved. "\
-                 "Use this field anywhere a small image is required."),
+                                       string="Small-sized image", type="binary", multi="_get_image",
+                                       help="Small-sized image of the product. It is automatically "
+                                       "resized as a 64x64px image, with aspect ratio preserved. "
+                                       "Use this field anywhere a small image is required."),
     }
 
 
@@ -194,15 +195,15 @@ class product_product(osv.Model):
         'image_variant_attachment_id': fields.many2one('ir.attachment', 'Image Variant attachment', help='Technical field to store image in filestore'),
 
         'image_variant': fields.function(_get_image_variant, fnct_inv=_set_image_variant, string="Variant Image", type='binary',
-            help="This field holds the image used as image for the product variant, limited to 1024x1024px."),
+                                         help="This field holds the image used as image for the product variant, limited to 1024x1024px."),
         'image': fields.function(_get_image_variant, fnct_inv=_set_image_variant,
-            string="Big-sized image", type="binary",
-            help="Image of the product variant (Big-sized image of product template if false). It is automatically "\
-                 "resized as a 1024x1024px image, with aspect ratio preserved."),
+                                 string="Big-sized image", type="binary",
+                                 help="Image of the product variant (Big-sized image of product template if false). It is automatically "
+                                 "resized as a 1024x1024px image, with aspect ratio preserved."),
         'image_small': fields.function(_get_image_variant, fnct_inv=_set_image_variant,
-            string="Small-sized image", type="binary",
-            help="Image of the product variant (Small-sized image of product template if false)."),
+                                       string="Small-sized image", type="binary",
+                                       help="Image of the product variant (Small-sized image of product template if false)."),
         'image_medium': fields.function(_get_image_variant, fnct_inv=_set_image_variant,
-            string="Medium-sized image", type="binary",
-            help="Image of the product variant (Medium-sized image of product template if false)."),
+                                        string="Medium-sized image", type="binary",
+                                        help="Image of the product variant (Medium-sized image of product template if false)."),
     }

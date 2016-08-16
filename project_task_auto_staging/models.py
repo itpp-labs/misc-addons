@@ -92,4 +92,4 @@ class project_task_auto_staging(models.Model):
             ('when_date_automove', '<=', time.strftime('%Y-%m-%d'))])
         for task in tasks:
             task.with_context(auto_staging=True).write(
-                {'stage_id':  task.automove_to_stage_id.id})
+                {'stage_id': task.automove_to_stage_id.id})

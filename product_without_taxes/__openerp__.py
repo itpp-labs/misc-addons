@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': "Product without taxes",
     'version': '1.0.0',
@@ -8,6 +9,6 @@
     'depends': ['sale', 'account'],
     'data': [
         'views.xml',
-        ],
+    ],
     'installable': True
 }

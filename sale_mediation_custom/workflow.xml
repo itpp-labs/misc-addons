@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-		<!-- LEAD based -->
+        <!-- LEAD based -->
 
         <record id="wkf_sales_funnel_lead" model="workflow">
             <field name="name">sales_funnel_lead</field>

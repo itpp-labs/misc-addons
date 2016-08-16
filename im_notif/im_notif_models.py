@@ -1,8 +1,10 @@
-import openerp
-from openerp import api, models, fields, SUPERUSER_ID, tools
+# -*- coding: utf-8 -*-
+from openerp import SUPERUSER_ID
+from openerp import models
+from openerp import tools
 from openerp.osv import fields as old_fields
-from openerp.tools import html2plaintext
 from openerp.tools.translate import _
+
 
 class res_partner(models.Model):
     _inherit = 'res.partner'
@@ -13,11 +15,12 @@ class res_partner(models.Model):
             ('im_xor_email', 'IM (if online) + email (if offline)'),
             ('im_and_email', 'IM (if online) + email'),
             ('always', 'Only emails'),
-            ], 'Receive Inbox Notifications by Email, IM', required=True,
+        ], 'Receive Inbox Notifications by Email, IM', required=True,
             oldname='notification_email_send',
             help="Policy to receive emails, IM for new messages pushed to your personal Inbox. IM can be used only for partners with odoo user account"
-                                     ),
+        ),
     }
+
 
 class mail_notification(models.Model):
     _inherit = 'mail.notification'
@@ -51,7 +54,7 @@ class mail_notification(models.Model):
                 continue
             send_email = False
             for user in partner.user_ids:
-                if user.im_status=='offline':
+                if user.im_status == 'offline':
                     if n != 'im':
                         send_email = True
                 else:
@@ -79,25 +82,24 @@ class mail_notification(models.Model):
             )
         author = message.author_id and message.author_id.name_get()
         author = author and author[0][1] or message.email_from
-        #body = html2plaintext(message.body)[:100] or ''
+        # body = html2plaintext(message.body)[:100] or ''
         mtype = {'email': _('Email'),
                  'comment': _('Comment'),
                  'notification': _('System notification'),
-        }.get(message.type, '')
+                 }.get(message.type, '')
 
         about = message.subject or message.record_name or 'UNDEFINED'
         about = '[ABOUT] %s' % about
         if url:
-            about =  '<a href="%s">%s</a>' % (url, about)
+            about = '<a href="%s">%s</a>' % (url, about)
         im_text = [
             '_____________________',
             '<a href="%s">_____[open_inbox]_____</a>' % inbox_url,
             '%s [FROM] %s' % (message.type, author),
             about,
         ]
-        #im_text = im_text + body.split('\n')
+        # im_text = im_text + body.split('\n')
         return im_text
-
 
     def _notify_email(self, cr, uid, ids, message_id, force_send=False, user_signature=True, context=None):
         # based on addons/mail/mail_followers.py::_notify_email
@@ -127,7 +129,6 @@ class mail_notification(models.Model):
             message_id = self.pool["im_chat.message"].post(cr, SUPERUSER_ID, user_from, uuid, message_type, message_content, context=context)
 
         return True
-
 
     def _do_notify_email(self, cr, uid, email_pids, message, force_send=False, user_signature=True, context=None):
 

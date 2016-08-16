@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': "Reminders and Agenda (technical core)",
     'version': '1.0.4',
@@ -10,6 +11,6 @@
     'depends': ['calendar'],
     'data': [
         'reminder_base_views.xml',
-        ],
+    ],
     'installable': True,
 }

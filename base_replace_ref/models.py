@@ -1,4 +1,9 @@
-from openerp import api, models, fields, SUPERUSER_ID, exceptions
+# -*- coding: utf-8 -*-
+from openerp import api
+from openerp import exceptions
+from openerp import fields
+from openerp import models
+
 
 class replace_rule(models.Model):
     _name = 'base_replace_ref.rule'
@@ -62,7 +67,7 @@ class replace_rule(models.Model):
             r.write({field_id.relation_field: None})
             self.env[field_id.relation].browse(dst).write({field_id.relation_field: parent_id})
             return True
-        res = model.search([ (field_id.name, '=', src)])
+        res = model.search([(field_id.name, '=', src)])
         if field_id.ttype == 'many2one':
             res.write({field_id.name: dst})
         if field_id.ttype == 'many2many':
@@ -78,6 +83,7 @@ class value_line(models.Model):
     rule_id = fields.Many2one('base_replace_ref.rule')
     src = fields.Char('Source', help=_src_dst_help, required=True)
     dst = fields.Char('Destination', help=_src_dst_help)
+
 
 class field_line(models.Model):
     _name = 'base_replace_ref.rule.field_line'

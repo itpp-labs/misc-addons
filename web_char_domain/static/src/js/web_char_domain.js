@@ -11,5 +11,5 @@ openerp.web_char_domain = function(instance){
             }
             this.$('.oe_domain_value').text(JSON.stringify(domain));
         }
-    })
-}
+    });
+};

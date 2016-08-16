@@ -41,5 +41,5 @@ openerp.web_polymorphic_field = function (instance) {
             this.add_polymorphism(); 
         }
     });
-    instance.web.form.widgets.add('polymorphic', 'instance.web.form.FieldPolymorphic')
+    instance.web.form.widgets.add('polymorphic', 'instance.web.form.FieldPolymorphic');
 };

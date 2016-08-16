@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 import logging
 _logger = logging.getLogger(__name__)
-from openerp.exceptions import except_orm
 try:
     import MySQLdb
     import MySQLdb.cursors
-    from pandas import merge, DataFrame
+    from pandas import DataFrame
+    from pandas import merge
 except ImportError:
     pass
 from openerp.addons.import_framework.import_base import import_base
@@ -23,10 +23,12 @@ except ImportError:
     from StringIO import StringIO
 import csv
 
+
 class fix_kashflow_date(mapper):
     """
     convert '31/12/2012' to '2012-12-31'
     """
+
     def __init__(self, field_name):
         self.field_name = field_name
 
@@ -34,11 +36,12 @@ class fix_kashflow_date(mapper):
         s = external_values.get(self.field_name)
         if not s:
             return ''
-        d,m,y = str(s).split('/')
-        return '%s-%s-%s' % (y,m,d)
+        d, m, y = str(s).split('/')
+        return '%s-%s-%s' % (y, m, d)
 
 
 class date_to_period(fix_kashflow_date, dbmapper):
+
     def __init__(self, field_name, context):
         super(date_to_period, self).__init__(field_name)
         self.context = context()
@@ -51,8 +54,6 @@ class date_to_period(fix_kashflow_date, dbmapper):
         if not period_ids:
             print 'period_ids not found', s
         return period_ids and str(period_ids[0]) or ''
-
-
 
 
 class import_kashflow(import_base):
@@ -104,8 +105,8 @@ class import_kashflow(import_base):
         # COMPANY_NAME-transactions.csv
 
         self.csv_files = self.context.get('csv_files')
-        self.import_options.update({'separator':',',
-                                    #'quoting':''
+        self.import_options.update({'separator': ',',
+                                    # 'quoting':''
                                     })
         companies = []
         for f in self.csv_files:
@@ -113,23 +114,23 @@ class import_kashflow(import_base):
                 c = re.match('.*?([^/]*)-transactions.csv$', f).group(1)
                 companies.append(c)
 
-        self.companies = [{'name':c} for c in companies]
+        self.companies = [{'name': c} for c in companies]
 
     def get_data(self, table):
         file_name = filter(lambda f: f.endswith('/%s.csv' % table), self.csv_files)
         if file_name:
-            _logger.info('read file "%s"' % ( '%s.csv' % table))
+            _logger.info('read file "%s"' % ('%s.csv' % table))
             file_name = file_name[0]
         else:
-            _logger.info('file not found %s' % ( '%s.csv' % table))
+            _logger.info('file not found %s' % ('%s.csv' % table))
             return []
 
         with open(file_name, 'rb') as csvfile:
             fixed_file = StringIO(csvfile.read() .replace('\r\n', '\n'))
         reader = csv.DictReader(fixed_file,
-                            delimiter = self.import_options.get('separator'),
-                            #quotechar = self.import_options.get('quoting'),
-                            )
+                                delimiter=self.import_options.get('separator'),
+                                # quotechar = self.import_options.get('quoting'),
+                                )
         res = list(reader)
         for line_num, line in enumerate(res):
             line[self.COL_LINE_NUM] = str(line_num)
@@ -140,11 +141,11 @@ class import_kashflow(import_base):
         for c in self.companies:
             company = c.get('name')
             res.extend(
-                self.get_mapping_partners(company) + 
+                self.get_mapping_partners(company) +
                 [
-                self.get_mapping_journals(company),
-                self.get_mapping_nominal_codes(company),
-                self.get_mapping_transactions(company),
+                    self.get_mapping_journals(company),
+                    self.get_mapping_nominal_codes(company),
+                    self.get_mapping_transactions(company),
                 ])
         return res
 
@@ -156,33 +157,33 @@ class import_kashflow(import_base):
         for c in self.companies:
             context = self.get_context_company(c.get('name'))()
             company_id = context.get('company_id')
-            for year in [2012,2013,2014]:
-                existed = self.pool.get('account.fiscalyear').search(self.cr, self.uid, [('code','=',str(year)), ('company_id','=', company_id)])
+            for year in [2012, 2013, 2014]:
+                existed = self.pool.get('account.fiscalyear').search(self.cr, self.uid, [('code', '=', str(year)), ('company_id', '=', company_id)])
                 if existed:
                     continue
                 year_id = self.pool.get('account.fiscalyear').create(self.cr, self.uid, {
-                    'name':'%s (%s)' % (str(year), c.get('name')),
-                    'code':str(year),
+                    'name': '%s (%s)' % (str(year), c.get('name')),
+                    'code': str(year),
                     'date_start': time.strftime('%s-04-01' % year),
-                    'date_stop': time.strftime('%s-03-31' % (year+1)),
+                    'date_stop': time.strftime('%s-03-31' % (year + 1)),
                     'company_id': company_id
-                    })
+                })
                 self.pool.get('account.fiscalyear').create_period3(self.cr, self.uid, [year_id])
 
     def get_mapping_company(self):
         return {
             'name': self.TABLE_COMPANY,
             'table': self.table_company,
-            'dependencies' : [],
-            'models':[
-                {'model' : 'res.company',
+            'dependencies': [],
+            'models': [
+                {'model': 'res.company',
                  'finalize': self.finalize_companies,
                  'fields': {
                      'id': xml_id(self.TABLE_COMPANY, 'name'),
                      'name': 'name',
-                     }
+                 }
                  },
-                {'model' : 'account.account',
+                {'model': 'account.account',
                  'hook': self.hook_account_account_root,
                  'fields': {
                      'id': xml_id(self.TABLE_NOMINAL_CODES_ROOT, 'name'),
@@ -191,20 +192,21 @@ class import_kashflow(import_base):
                      'type': const('view'),
                      'name': 'name',
                      'user_type/id': const('account.data_account_type_view'),
-                     }
                  }
-                ]
-            }
+                 }
+            ]
+        }
 
     def get_table(self, company, table):
         def f():
             t = DataFrame(self.get_data(company + table))
             return t
         return f
+
     def get_partner_by_name(self, name):
-        id = self.pool['res.partner'].search(self.cr, self.uid, [('name','=', name)])
+        id = self.pool['res.partner'].search(self.cr, self.uid, [('name', '=', name)])
         if isinstance(id, list):
-            if len(id)!=1:
+            if len(id) != 1:
                 return None
             id = id[0]
         return id
@@ -230,25 +232,26 @@ class import_kashflow(import_base):
 
                 vals = {'name': data_name,
                         'model': 'res.partner',
-                        #'module': self.module_name,
+                        # 'module': self.module_name,
                         'module': '',
                         'res_id': id,
-                    }
+                        }
                 self.pool.get('ir.model.data').create(self.cr, self.uid, vals, context=self.context)
                 return None
-            return external_values # create new partner
+            return external_values  # create new partner
         return f
 
     def get_mapping_partners(self, company):
         table = company + self.TABLE_PARTNER
+
         def f(customer=False, supplier=False):
             table_cus_or_sup = self.TABLE_CUSTOMER if customer else self.TABLE_SUPPLIER
             return {
                 'name': company + table_cus_or_sup,
                 'table': self.get_table(company, table_cus_or_sup),
-                'dependencies' : [self.TABLE_COMPANY],
-                'models':[
-                    {'model' : 'res.partner',
+                'dependencies': [self.TABLE_COMPANY],
+                'models': [
+                    {'model': 'res.partner',
                      'hook': self.get_hook_check_existed_partners(xml_id(table, self.COL_P_CODE), self.COL_P_NAME),
                      'fields': {
                          'id': xml_id(table, self.COL_P_CODE),
@@ -258,34 +261,33 @@ class import_kashflow(import_base):
                          'customer': const('1') if customer else const('0'),
                          'supplier': const('1') if supplier else const('0'),
                          'phone': self.COL_P_TELEPHONE,
-                         #'mobile': self.COL_P_MOBILE,
+                         # 'mobile': self.COL_P_MOBILE,
                          'zip': self.COL_P_POST_CODE,
                          'street': self.COL_P_ADDRESS,
-                         'street2': concat(self.COL_P_LINE_2,self.COL_P_LINE_3,self.COL_P_LINE_4),
+                         'street2': concat(self.COL_P_LINE_2, self.COL_P_LINE_3, self.COL_P_LINE_4),
                          'comment': ppconcat(self.COL_P_SOURCE),
-                         }
+                     }
                      },
-                    {'model' : 'res.partner',
-                     'hook': self.get_hook_check_existed_partners(xml_id(table+'_child', self.COL_P_CODE), self.COL_P_FULL_NAME, self.get_hook_ignore_empty(self.COL_P_MOBILE, self.COL_P_FULL_NAME)),
+                    {'model': 'res.partner',
+                     'hook': self.get_hook_check_existed_partners(xml_id(table + '_child', self.COL_P_CODE), self.COL_P_FULL_NAME, self.get_hook_ignore_empty(self.COL_P_MOBILE, self.COL_P_FULL_NAME)),
                      'fields': {
-                         'id': xml_id(table+'_child', self.COL_P_CODE),
+                         'id': xml_id(table + '_child', self.COL_P_CODE),
                          'company_id/id': self.company_id(company),
                          'parent_id/id': xml_id(table, self.COL_P_CODE),
                          'name': value(self.COL_P_FULL_NAME, default='NONAME'),
                          'customer': const('1') if customer else const('0'),
                          'supplier': const('1') if supplier else const('0'),
-                         #'phone': self.COL_P_TELEPHONE,
+                         # 'phone': self.COL_P_TELEPHONE,
                          'mobile': self.COL_P_MOBILE,
-                         }
                      }
-                    ]
-                }
+                     }
+                ]
+            }
 
         return [f(customer=True), f(supplier=True)]
 
-
     def company_id(self, company):
-        id = self.get_xml_id(self.TABLE_COMPANY, 'name', {'name':company})
+        id = self.get_xml_id(self.TABLE_COMPANY, 'name', {'name': company})
         return const(id)
 
     def get_hook_account_account(self, company):
@@ -294,7 +296,7 @@ class import_kashflow(import_base):
             res_id = self.pool.get('ir.model.data').xmlid_to_res_id(
                 self.cr,
                 self.uid,
-                '.'+id
+                '.' + id
             )
             if res_id:
                 # account already created
@@ -309,7 +311,7 @@ class import_kashflow(import_base):
         res_id = self.pool.get('ir.model.data').xmlid_to_res_id(
             self.cr,
             self.uid,
-            '.'+id
+            '.' + id
         )
         if res_id:
             # account already created
@@ -322,10 +324,10 @@ class import_kashflow(import_base):
         return {
             'name': table,
             'table': self.get_table(company, self.TABLE_NOMINAL_CODES),
-            'dependencies' : [self.TABLE_COMPANY],
-            'models':[{
-                'model' : 'account.account',
-                 'context': self.get_context_company(company),
+            'dependencies': [self.TABLE_COMPANY],
+            'models': [{
+                'model': 'account.account',
+                'context': self.get_context_company(company),
                 'hook': self.get_hook_account_account(company),
                 'fields': {
                     'id': xml_id(table, self.COL_NOMINAL_CODE),
@@ -335,26 +337,25 @@ class import_kashflow(import_base):
                     'user_type/id': const('account.data_account_type_view'),
                     'parent_id/id': xml_id(self.TABLE_NOMINAL_CODES_ROOT, 'company_name'),
 
-                    }
-                }]
-            }
+                }
+            }]
+        }
 
     def get_xml_id(self, table, col, external_values):
         id = xml_id(table, col)
         id.set_parent(self)
         return id(external_values)
 
-
     map_journal_type = {
-        'SI':'sale',# Sales Invoice
-        'SC':'sale',# Sales Credit
-        'PC':'purchase',# Purchase Credit
-        'PI':'purchase',# Purchase Invoice
-        'JC':'general',# Journal Credit
-        'JD':'general',# Journal Debit
-        'BP':'bank',# Bank Payment
-        'BR':'bank',# Bank Receipt
-        }
+        'SI': 'sale',  # Sales Invoice
+        'SC': 'sale',  # Sales Credit
+        'PC': 'purchase',  # Purchase Credit
+        'PI': 'purchase',  # Purchase Invoice
+        'JC': 'general',  # Journal Credit
+        'JD': 'general',  # Journal Debit
+        'BP': 'bank',  # Bank Payment
+        'BR': 'bank',  # Bank Receipt
+    }
 
     def table_journal(self):
         res = []
@@ -368,10 +369,10 @@ class import_kashflow(import_base):
         return {
             'name': journal,
             'table': self.table_journal,
-            'dependencies' : [self.TABLE_COMPANY],
-            'models':[
+            'dependencies': [self.TABLE_COMPANY],
+            'models': [
 
-                {'model' : 'account.journal',
+                {'model': 'account.journal',
                  'context': self.get_context_company(company),
                  'fields': {
                      'id': xml_id(journal, self.COL_TR_TYPE),
@@ -379,9 +380,9 @@ class import_kashflow(import_base):
                      'name': self.COL_TR_TYPE,
                      'code': self.COL_TR_TYPE,
                      'type': map_val(self.COL_TR_TYPE, self.map_journal_type),
-                     }
-                    },
-                ]
+                 }
+                 },
+            ]
         }
 
     def get_context_company(self, company):
@@ -389,9 +390,9 @@ class import_kashflow(import_base):
             company_id = self.pool.get('ir.model.data').xmlid_to_res_id(
                 self.cr,
                 self.uid,
-                '.'+self.company_id(company)({})
+                '.' + self.company_id(company)({})
             )
-            return {'company_id':company_id}
+            return {'company_id': company_id}
         return f
 
     def hook_bank_entries_move(self, external_values):
@@ -433,7 +434,6 @@ class import_kashflow(import_base):
 
         return [debit, credit]
 
-
     def hook_journal_entries_move(self, external_values):
         journal_type = external_values.get(self.COL_TR_TYPE)
         if journal_type not in ['JC', 'JD', 'SI', 'SC', 'PI', 'PC']:
@@ -454,11 +454,11 @@ class import_kashflow(import_base):
         journal_type = external_values.get(self.COL_TR_TYPE)
         amount = external_values.get(self.COL_TR_AMOUNT)
         if journal_type in ['JC', 'SC', 'PC']:
-            external_values['debit']='0'
-            external_values['credit']=amount
+            external_values['debit'] = '0'
+            external_values['credit'] = amount
         else:
-            external_values['debit']=amount
-            external_values['credit']='0'
+            external_values['debit'] = amount
+            external_values['credit'] = '0'
 
         bank = external_values.get(self.COL_TR_BANK)
         partner_id = ''
@@ -466,11 +466,11 @@ class import_kashflow(import_base):
             partner_id = bank
         external_values['partner_id'] = partner_id
 
-        external_values[self.COL_ID_CUSTOM] = '%s-%s-%s'%(
+        external_values[self.COL_ID_CUSTOM] = '%s-%s-%s' % (
             external_values[self.COL_TR_TRANSACTION],
             external_values[self.COL_TR_CODE],
             external_values.get(self.COL_LINE_NUM)
-            )
+        )
 
         res = [external_values]
 
@@ -494,16 +494,16 @@ class import_kashflow(import_base):
         return {
             'name': table,
             'table': self.get_table(company, self.TABLE_TRANSACTION),
-            'dependencies' : [company + self.TABLE_JOURNAL,
-                              company + self.TABLE_NOMINAL_CODES,
-                              company + self.TABLE_CUSTOMER,
-                              company + self.TABLE_SUPPLIER,
-                              ],
-            'models':[
+            'dependencies': [company + self.TABLE_JOURNAL,
+                             company + self.TABLE_NOMINAL_CODES,
+                             company + self.TABLE_CUSTOMER,
+                             company + self.TABLE_SUPPLIER,
+                             ],
+            'models': [
                 # TODO VAT
 
                 # JC,JD, SI,SC, PC,PI
-                {'model' : 'account.move',
+                {'model': 'account.move',
                  'hook': self.hook_journal_entries_move,
                  'context': self.get_context_company(company),
                  'fields': {
@@ -514,9 +514,9 @@ class import_kashflow(import_base):
                      'period_id/.id': date_to_period(self.COL_TR_DATE, self.get_context_company(company)),
                      'date': fix_kashflow_date(self.COL_TR_DATE),
                      'narration': self.COL_TR_COMMENT,
-                     }
-                    },
-                {'model' : 'account.move.line',
+                 }
+                 },
+                {'model': 'account.move.line',
                  'hook': self.hook_journal_entries_move_line,
                  'context': self.get_context_company(company),
                  'fields': {
@@ -528,13 +528,13 @@ class import_kashflow(import_base):
                      'move_id/id': xml_id(move, self.COL_TR_TRANSACTION),
                      'partner_id/.id': res_id(const(partner), 'partner_id', default=None),
                      'account_id/id': xml_id(account, self.COL_TR_CODE),
-                     'debit':'debit',
-                     'credit':'credit',
-                     }
+                     'debit': 'debit',
+                     'credit': 'credit',
+                 }
                  },
 
                 # BP,BR
-                {'model' : 'account.move',
+                {'model': 'account.move',
                  'context': self.get_context_company(company),
                  'hook': self.hook_bank_entries_move,
                  'fields': {
@@ -545,9 +545,9 @@ class import_kashflow(import_base):
                      'period_id/.id': date_to_period(self.COL_TR_DATE, self.get_context_company(company)),
                      'date': fix_kashflow_date(self.COL_TR_DATE),
                      'narration': self.COL_TR_COMMENT,
-                     }
-                    },
-                {'model' : 'account.move.line',
+                 }
+                 },
+                {'model': 'account.move.line',
                  'hook': self.hook_bank_entries_move_line,
                  'context': self.get_context_company(company),
                  'fields': {
@@ -558,9 +558,9 @@ class import_kashflow(import_base):
                      'date': fix_kashflow_date(self.COL_TR_DATE),
                      'move_id/id': xml_id(move, self.COL_LINE_NUM),
                      'account_id/id': xml_id(account, 'account_id'),
-                     'debit':'debit',
-                     'credit':'credit',
-                     }
+                     'debit': 'debit',
+                     'credit': 'credit',
+                 }
                  },
-                ]
-            }
+            ]
+        }

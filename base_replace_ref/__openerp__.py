@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': "Replace x2y references",
     'version': '1.0.0',
@@ -8,6 +9,6 @@
     'depends': [],
     'data': [
         'views.xml',
-        ],
+    ],
     'installable': True
 }

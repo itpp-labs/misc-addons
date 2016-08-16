@@ -25,12 +25,12 @@ openerp.web_debranding.load_dialog = function(instance) {
         init: function (parent, options, content) {
             if (parent && parent.debranding_new_name){
                 options = options || {};
-                if (options['title']){
-                    var title = options['title'].replace(/Odoo/ig, parent.debranding_new_name);
-                    options['title'] = title;
+                if (options.title){
+                    var title = options.title.replace(/Odoo/ig, parent.debranding_new_name);
+                    options.title = title;
                 }
                 if (content){
-                    content = (content instanceof $) ? content : $(content)
+                    content = (content instanceof $) ? content : $(content);
                     var content_html = content.html().replace(/Odoo/ig, parent.debranding_new_name);
                     content.html(content_html);
                 }

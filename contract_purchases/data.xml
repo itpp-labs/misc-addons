@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-	<data>
+    <data>
        <record id="view_request_for_quotation_filter" model="ir.ui.view">
             <field name="name">request.quotation.select</field>
             <field name="model">purchase.order</field>
-			<field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
             <field name="arch" type="xml">
-				<xpath expr="//field[@name='create_uid']" position="after">
-					<field name="contract_id"/>
-				</xpath>
-			</field>
+                <xpath expr="//field[@name='create_uid']" position="after">
+                    <field name="contract_id"/>
+                </xpath>
+            </field>
         </record>
 
 
@@ -28,5 +28,5 @@
               </p>
             </field>
         </record>
-	</data>
+    </data>
 </openerp>

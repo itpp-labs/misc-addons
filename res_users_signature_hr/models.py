@@ -1,4 +1,6 @@
-from openerp import api, models, fields, SUPERUSER_ID
+# -*- coding: utf-8 -*-
+from openerp import api
+from openerp import models
 
 
 class hr_employee(models.Model):

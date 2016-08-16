@@ -4,35 +4,35 @@
     <record id="view_calendar_event_search" model="ir.ui.view">
         <field name="name">CRM - Meetings Search</field>
         <field name="model">calendar.event</field>
-		<field name="inherit_id" ref="calendar.view_calendar_event_search"/>
+        <field name="inherit_id" ref="calendar.view_calendar_event_search"/>
         <field name="arch" type="xml">
-			<xpath expr="//field[@name='partner_ids']" position="attributes">
-				<attribute name="operator">child_of</attribute>
-			</xpath>
-		</field>
-	</record>
+            <xpath expr="//field[@name='partner_ids']" position="attributes">
+                <attribute name="operator">child_of</attribute>
+            </xpath>
+        </field>
+    </record>
 
     <record id="view_account_move_line_filter" model="ir.ui.view">
         <field name="name">Journal Items</field>
         <field name="model">account.move.line</field>
-		<field name="inherit_id" ref="account.view_account_move_line_filter"/>
+        <field name="inherit_id" ref="account.view_account_move_line_filter"/>
         <field name="arch" type="xml">
-			<xpath expr="//field[@name='partner_id']" position="attributes">
-				<attribute name="operator">child_of</attribute>
-			</xpath>
-		</field>
-	</record>
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="operator">child_of</attribute>
+            </xpath>
+        </field>
+    </record>
 
     <record id="view_task_search_form" model="ir.ui.view">
         <field name="name">project.task.search.form</field>
         <field name="model">project.task</field>
-		<field name="inherit_id" ref="project.view_task_search_form"/>
+        <field name="inherit_id" ref="project.view_task_search_form"/>
         <field name="arch" type="xml">
-			<xpath expr="//field[@name='partner_id']" position="attributes">
-				<attribute name="operator">child_of</attribute>
-			</xpath>
-		</field>
-	</record>
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="operator">child_of</attribute>
+            </xpath>
+        </field>
+    </record>
 
-	</data>
+    </data>
 </openerp>
