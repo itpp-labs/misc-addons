@@ -61,7 +61,7 @@ class SaleOrderTheCage(models.Model):
                 msg += 'Pitch %s\n' % line.pitch_id.name
                 msg += 'From: %s To %s\n' % (format_tz(line.booking_start, self.env.user.tz, DTF),
                                              format_tz(line.booking_end, self.env.user.tz, DTF))
-                msg += 'ID %s\n' % self.id
+                msg += 'ID %s\n' % self.name
                 self.env['sms_sg.sendandlog'].send_sms(phone, msg)
         return result
 
@@ -142,7 +142,7 @@ class SaleOrderLine(models.Model):
                 msg += 'Pitch %s\n' % line.pitch_id.name
                 msg += 'From: %s To %s\n' % (format_tz(line.booking_start, self.env.user.tz, DTF),
                                              format_tz(line.booking_end, self.env.user.tz, DTF))
-                msg += 'ID %s\n' % line.order_id.id
+                msg += 'ID %s\n' % self.order_id.name
                 phone = line.order_id.partner_id.mobile
                 self.env['sms_sg.sendandlog'].send_sms(phone, msg)
 
