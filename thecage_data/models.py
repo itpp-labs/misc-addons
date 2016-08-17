@@ -1,9 +1,17 @@
 # -*- coding: utf-8 -*-
+import pytz
+from pytz import timezone
 from openerp import models, fields, api
 from datetime import datetime, date, timedelta
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 from openerp.exceptions import ValidationError
 
+def format_tz(datetime_str, tz, dtf):
+    datetime_obj = datetime.strptime(datetime_str, dtf)
+    user_timezone = timezone(tz)
+    datetime_obj = pytz.utc.localize(datetime_obj)
+    datetime_obj = datetime_obj.astimezone(user_timezone)
+    return datetime_obj.strftime(dtf)
 
 class AccountAnalyticAccount(models.Model):
     _inherit = 'account.analytic.account'
@@ -51,7 +59,8 @@ class SaleOrderTheCage(models.Model):
             for line in self.order_line:
                 msg = 'Successfully booked a pitch at The Cage %s!\n' % line.venue_id.name
                 msg += 'Pitch %s\n' % line.pitch_id.name
-                msg += 'From: %s To %s\n' % (line.booking_start, line.booking_end)
+                msg += 'From: %s To %s\n' % (format_tz(line.booking_start, self.env.user.tz, DTF),
+                                             format_tz(line.booking_end, self.env.user.tz, DTF))
                 msg += 'ID %s\n' % self.id
                 self.env['sms_sg.sendandlog'].send_sms(phone, msg)
         return result
@@ -131,7 +140,8 @@ class SaleOrderLine(models.Model):
             if line.order_id.partner_id.reminder_sms:
                 msg = 'Your game at The Cage %s is coming up soon!\n' % line.venue_id.name
                 msg += 'Pitch %s\n' % line.pitch_id.name
-                msg += 'From: %s To %s\n' % (line.booking_start, line.booking_end)
+                msg += 'From: %s To %s\n' % (format_tz(line.booking_start, self.env.user.tz, DTF),
+                                             format_tz(line.booking_end, self.env.user.tz, DTF))
                 msg += 'ID %s\n' % line.order_id.id
                 phone = line.order_id.partner_id.mobile
                 self.env['sms_sg.sendandlog'].send_sms(phone, msg)
