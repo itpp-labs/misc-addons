@@ -3,14 +3,14 @@
     "name": """Gantt view for Projects""",
     "summary": """Restores feature from odoo 8.0""",
     "category": "Project",
-    "images": [],
+    "images": ['images/gantt_view.png'],
     "version": "1.0.0",
 
     "author": "IT-Projects LLC, Pavel Romanchenko",
     "website": "https://it-projects.info",
-    "license": "LGPL-3",
-    #"price": 9.00,
-    #"currency": "EUR",
+    "license": "AGPL-3",
+    "price": 160.00,
+    "currency": "EUR",
 
     "depends": [
         "project",
@@ -30,3 +30,4 @@
     "auto_install": False,
     "application": False,
 }
+
