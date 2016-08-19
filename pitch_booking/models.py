@@ -17,7 +17,7 @@ class pitch_booking_venue(models.Model):
 
 class pitch_booking_pitch(models.Model):
     _name = 'pitch_booking.pitch'
-    _inherits = {'resource.resource': 'resource_id'}   
+    _inherits = {'resource.resource': 'resource_id'}
     _defaults = {
         'to_calendar': True,
     }
@@ -43,7 +43,7 @@ class sale_order_line(models.Model):
     @api.onchange('resource_id')
     def _on_change_resource(self):
         if self.resource_id:
-            pitch = self.env['pitch_booking.pitch'].search([('resource_id','=',self.resource_id.id)])
+            pitch = self.env['pitch_booking.pitch'].search([('resource_id', '=', self.resource_id.id)])
             if pitch:
                 self.pitch_id = pitch[0].id
 
@@ -59,7 +59,7 @@ class sale_order_line(models.Model):
             'venue_id': line.venue_id.id,
             'pitch_id': line.pitch_id.id,
             'booking_start': line.booking_start,
-            'booking_end': line.booking_end    
+            'booking_end': line.booking_end
         })
         return res
 
@@ -74,7 +74,7 @@ class sale_order_line(models.Model):
         if pitch_id:
             resources = [pitch_obj.browse(int(pitch_id)).resource_id]
         elif venue_id:
-            resources = [p.resource_id for p in pitch_obj.search([('venue_id','=',int(venue_id))])]
+            resources = [p.resource_id for p in pitch_obj.search([('venue_id', '=', int(venue_id))])]
         return [{
             'name': r.name,
             'id': r.id,
@@ -123,11 +123,11 @@ class sale_order_line(models.Model):
         for cond in domain:
             if type(cond) in (tuple, list):
                 if cond[0] == 'venue_id':
-                    pitch_domain.append(tuple(cond));
+                    pitch_domain.append(tuple(cond))
                 elif cond[0] == 'pitch_id':
-                    pitch_domain.append(('name',cond[1], cond[2]));
+                    pitch_domain.append(('name', cond[1], cond[2]))
 
-        pitch_domain.append(('to_calendar','=',True));
+        pitch_domain.append(('to_calendar', '=', True))
         resources = self.env['pitch_booking.pitch'].search(pitch_domain)
         return resources
 
@@ -166,7 +166,7 @@ class sale_order(models.Model):
                 line = super(sale_order, rec)._add_booking_line(product_id, resource, start, end, tz_offset)
                 sol = rec.env['sale.order.line'].sudo()
                 pitch_obj = rec.env['pitch_booking.pitch'].sudo()
-                pitchs = pitch_obj.search([('resource_id','=',resource)], limit=1)
+                pitchs = pitch_obj.search([('resource_id', '=', resource)], limit=1)
                 if pitchs:
                     line.write({
                         'pitch_id': pitchs[0].id,

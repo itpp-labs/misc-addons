@@ -21,24 +21,24 @@
 #################################################################################
 
 {
-    "name" : "Product Tags",
-    "version" : "1.0",
-    "author" : "Julius Network Solutions",
-    "website" : "http://julius.fr",
-    "category" : "Sales Management",
-    "depends" : [
+    "name": "Product Tags",
+    "version": "1.0",
+    "author": "Julius Network Solutions",
+    "website": "http://julius.fr",
+    "category": "Sales Management",
+    "depends": [
         'product',
     ],
     "description": """
     Add tags in products like it's done for the partners
     """,
-    "demo" : [],
-    "data" : [
+    "demo": [],
+    "data": [
         'security/ir.model.access.csv',
         'product_view.xml',
     ],
-    'installable' : True,
-    'active' : False,
+    'installable': True,
+    'active': False,
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

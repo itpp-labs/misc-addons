@@ -1,4 +1,5 @@
-from openerp import api,models,fields
+from openerp import api, models, fields
+
 
 class res_partner(models.Model):
     _inherit = 'res.partner'
@@ -15,6 +16,7 @@ class res_partner(models.Model):
         self.employee_id = self.user_ids.employee_ids.ids and self.user_ids.employee_ids.ids[0] or None
 
     employee_id = fields.Many2one('hr.employee', string='Related employee', compute=_get_employee_id)
+
 
 class res_users(models.Model):
     _inherit = 'res.users'

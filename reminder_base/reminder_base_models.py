@@ -168,7 +168,7 @@ class reminder_admin_wizard(models.TransientModel):
             if r.model_id.model == 'reminder':
                 # ignore abstract class
                 continue
-            res.append( (r.model_id.model, r.model_id.name) )
+            res.append((r.model_id.model, r.model_id.name))
         return res
 
     @api.onchange('model')

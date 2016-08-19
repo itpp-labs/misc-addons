@@ -3,6 +3,7 @@ import openerp
 from openerp import api, models, SUPERUSER_ID
 from openerp.http import request
 
+
 class ir_http(models.AbstractModel):
     _inherit = 'ir.http'
 

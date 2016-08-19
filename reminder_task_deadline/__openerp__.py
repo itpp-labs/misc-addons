@@ -10,6 +10,6 @@
     'depends': ['reminder_base', 'project'],
     'data': [
         'views.xml',
-        ],
+    ],
     'installable': True,
 }

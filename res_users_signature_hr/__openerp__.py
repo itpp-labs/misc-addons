@@ -8,7 +8,7 @@
     'depends': ['res_users_signature', 'hr'],
     'data': [
         'views.xml',
-        ],
+    ],
     'installable': False,
     'auto_install': True,
 }

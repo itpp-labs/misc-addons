@@ -10,6 +10,6 @@
     'depends': ['reminder_base', 'hr_recruitment'],
     'data': [
         'views.xml',
-        ],
+    ],
     'installable': True,
 }

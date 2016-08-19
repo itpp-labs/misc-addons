@@ -8,6 +8,6 @@
     'depends': ['crm'],
     'data': [
         'views.xml',
-        ],
+    ],
     'installable': True
 }

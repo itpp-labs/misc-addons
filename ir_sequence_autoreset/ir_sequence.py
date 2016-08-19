@@ -22,6 +22,7 @@
 from openerp.osv import osv, fields
 from openerp.tools.translate import _
 
+
 class ir_sequence(osv.osv):
     _inherit = 'ir.sequence'
 
@@ -48,13 +49,13 @@ class ir_sequence(osv.osv):
         force_company = context.get('force_company')
         if not force_company:
             force_company = self.pool.get('res.users').browse(cr, uid, uid).company_id.id
-        sequences = self.read(cr, uid, seq_ids, ['name','company_id','implementation','number_next','prefix','suffix','padding', 'number_increment', 'auto_reset', 'reset_period', 'reset_time', 'reset_init_number'])
-        preferred_sequences = [s for s in sequences if s['company_id'] and s['company_id'][0] == force_company ]
+        sequences = self.read(cr, uid, seq_ids, ['name', 'company_id', 'implementation', 'number_next', 'prefix', 'suffix', 'padding', 'number_increment', 'auto_reset', 'reset_period', 'reset_time', 'reset_init_number'])
+        preferred_sequences = [s for s in sequences if s['company_id'] and s['company_id'][0] == force_company]
         seq = preferred_sequences[0] if preferred_sequences else sequences[0]
         if seq['implementation'] == 'standard':
-            current_time =':'.join([seq['reset_period'], self._interpolation_dict().get(seq['reset_period'])])
+            current_time = ':'.join([seq['reset_period'], self._interpolation_dict().get(seq['reset_period'])])
             if seq['auto_reset'] and current_time != seq['reset_time']:
-                cr.execute("UPDATE ir_sequence SET reset_time=%s WHERE id=%s ", (current_time,seq['id']))
+                cr.execute("UPDATE ir_sequence SET reset_time=%s WHERE id=%s ", (current_time, seq['id']))
                 self._alter_sequence(cr, seq['id'], seq['number_increment'], seq['reset_init_number'])
                 cr.commit()
 

@@ -62,7 +62,7 @@ class PostgresSessionStore(SessionStore):
         with self.get_cursor() as cr:
             sql_data = {
                 'data': psycopg2.Binary(pickle.dumps(dict(session),
-                                        pickle.HIGHEST_PROTOCOL)),
+                                                     pickle.HIGHEST_PROTOCOL)),
                 'id': session.sid,
             }
 

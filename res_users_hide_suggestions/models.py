@@ -1,4 +1,5 @@
-from openerp import api,models,fields
+from openerp import api, models, fields
+
 
 class res_users(models.Model):
     _inherit = 'res.users'

@@ -21,6 +21,7 @@
 #################################################################################
 from openerp import models, fields, api, _
 
+
 class product_tag(models.Model):
     _description = 'Product Tags'
     _name = "product.tag"
@@ -38,7 +39,7 @@ class product_tag(models.Model):
     parent_right = fields.Integer('Right Parent', select=True)
 
     image = fields.Binary('Image')
-    
+
     _parent_store = True
     _parent_order = 'name'
     _order = 'parent_left'
@@ -61,6 +62,7 @@ class product_tag(models.Model):
             args = [('name', operator, name)] + args
         tags = self.search(args, limit=limit)
         return tags.name_get()
+
 
 class product_template(models.Model):
     _inherit = "product.template"

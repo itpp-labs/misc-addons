@@ -1,5 +1,6 @@
 from openerp.osv import osv, fields
 
+
 class delivery_grid(osv.osv):
     _inherit = "delivery.grid"
 
@@ -20,17 +21,17 @@ class delivery_grid(osv.osv):
             quantity += q
         total = order.amount_total or 0.0
 
-        return self.get_price_from_picking(cr, uid, id, total,weight, volume, quantity, special_delivery, context=context)
+        return self.get_price_from_picking(cr, uid, id, total, weight, volume, quantity, special_delivery, context=context)
 
     def get_price_from_picking(self, cr, uid, id, total, weight, volume, quantity, special_delivery=0, context=None):
         grid = self.browse(cr, uid, id, context=context)
         price = 0.0
         ok = False
-        price_dict = {'price': total, 'volume':volume, 'weight': weight, 'wv':volume*weight, 'quantity': quantity, 'special_delivery':special_delivery}
+        price_dict = {'price': total, 'volume': volume, 'weight': weight, 'wv': volume * weight, 'quantity': quantity, 'special_delivery': special_delivery}
         for line in grid.line_ids:
-            test = eval(line.type+line.operator+str(line.max_value), price_dict)
+            test = eval(line.type + line.operator + str(line.max_value), price_dict)
             if test:
-                if line.price_type=='variable':
+                if line.price_type == 'variable':
                     price = line.list_price * price_dict[line.variable_factor]
                 else:
                     price = line.list_price
@@ -41,13 +42,15 @@ class delivery_grid(osv.osv):
 
         return price
 
+
 class delivery_grid_line(osv.osv):
     _inherit = "delivery.grid.line"
     _columns = {
-        'type': fields.selection([('weight','Weight'),('volume','Volume'),\
-                                  ('wv','Weight * Volume'), ('price','Price'), ('quantity','Quantity'), ('special_delivery','Special Delivery')],\
-                                  'Variable', required=True),
+        'type': fields.selection([('weight', 'Weight'), ('volume', 'Volume'),
+                                  ('wv', 'Weight * Volume'), ('price', 'Price'), ('quantity', 'Quantity'), ('special_delivery', 'Special Delivery')],
+                                 'Variable', required=True),
     }
+
 
 class product_template(osv.osv):
     _inherit = 'product.template'

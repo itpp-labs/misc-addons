@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from openerp.osv import osv,fields
+from openerp.osv import osv, fields
 from openerp import SUPERUSER_ID
+
 
 class contract_category(osv.Model):
     _inherit = 'res.partner.category'
@@ -9,8 +10,9 @@ class contract_category(osv.Model):
     _columns = {
         'parent_id': fields.many2one('contract.category', 'Parent Category', select=True, ondelete='cascade'),
 
-        'partner_ids': fields.many2many('account.analytic.account', id1='category_id', id2='partner_id', string='Contracts'), # wrong name due to inherit
+        'partner_ids': fields.many2many('account.analytic.account', id1='category_id', id2='partner_id', string='Contracts'),  # wrong name due to inherit
     }
+
 
 class crm_lead(osv.Model):
     _inherit = 'crm.lead'
@@ -18,6 +20,7 @@ class crm_lead(osv.Model):
     _columns = {
         'contract_ids': fields.one2many('account.analytic.account', 'lead_id', 'Contracts')
     }
+
 
 class project_project(osv.Model):
     _inherit = 'project.project'
@@ -89,17 +92,18 @@ class account_analytic_account(osv.Model):
         'fix_price_invoices': True,
         'supplier_fix_price_invoices': True,
     }
+
     def project_create(self, cr, uid, analytic_account_id, vals, context=None):
         '''
         This function is called at the time of analytic account creation and is used to create a project automatically linked to it if the conditions are meet.
         '''
         project_pool = self.pool.get('project.project')
-        project_id = project_pool.search(cr, uid, [('analytic_account_id','=', analytic_account_id)])
+        project_id = project_pool.search(cr, uid, [('analytic_account_id', '=', analytic_account_id)])
         if not project_id and self._trigger_project_creation(cr, uid, vals, context=context):
             project_values = {
                 'name': vals.get('name'),
                 'analytic_account_id': analytic_account_id,
-                'type': vals.get('type','contract'),
+                'type': vals.get('type', 'contract'),
             }
             ctx = context.copy()
             ctx['partner_id'] = vals.get('partner_id')
@@ -112,6 +116,7 @@ class sale_order(osv.osv):
     _defaults = {
         'project_id': lambda self, cr, uid, context: context.get('account_analytic_id', False)
     }
+
 
 class crm_make_sale(osv.TransientModel):
     _inherit = "crm.make.sale"

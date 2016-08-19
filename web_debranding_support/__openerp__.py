@@ -8,7 +8,7 @@
     'depends': ['support_branding', 'web_debranding'],
     'data': [
         'views.xml',
-        ],
+    ],
     'installable': False,
     'auto_install': True,
 }

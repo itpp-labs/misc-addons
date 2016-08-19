@@ -10,6 +10,6 @@
     'depends': ['reminder_base', 'service_desk_issue'],
     'data': [
         'views.xml',
-        ],
+    ],
     'installable': False,
 }

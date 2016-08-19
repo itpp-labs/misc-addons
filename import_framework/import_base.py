@@ -9,6 +9,7 @@ _logger = logging.getLogger(__name__)
 
 
 class create_childs(object):
+
     def __init__(self, childs):
 
         # extend childs to same set of fields
@@ -27,9 +28,9 @@ class create_childs(object):
 
         self.childs = childs
 
-
     def get_childs(self):
         return self.childs
+
 
 class import_base(object):
 
@@ -37,11 +38,11 @@ class import_base(object):
                  instance_name,
                  module_name,
                  email_to_notify=False,
-                 import_dir = '/tmp/', # path to save *.csv files for debug or manual upload
-                 run_import = True,
+                 import_dir='/tmp/',  # path to save *.csv files for debug or manual upload
+                 run_import=True,
                  context=None):
-        #Thread.__init__(self)
-        self.import_options = {'quoting':'"', 'separator':',', 'headers':True}
+        # Thread.__init__(self)
+        self.import_options = {'quoting': '"', 'separator': ',', 'headers': True}
         self.external_id_field = 'id'
         self.pool = pool
         self.cr = cr
@@ -57,7 +58,6 @@ class import_base(object):
         self.run_import = run_import
         self.import_num = 1
         self.initialize()
-
 
     def initialize(self):
         """
@@ -142,6 +142,7 @@ class import_base(object):
     def hook_ignore_all(self, *args):
         # for debug
         return None
+
     def get_hook_ignore_empty(self, *args):
         def f(external_values):
             ignore = True
@@ -177,14 +178,14 @@ class import_base(object):
         decrement = True
 
         while decrement:
-            # decrease the maxInt value by factor 10 
+            # decrease the maxInt value by factor 10
             # as long as the OverflowError occurs.
 
             decrement = False
             try:
                 csv.field_size_limit(maxInt)
             except OverflowError:
-                maxInt = int(maxInt/10)
+                maxInt = int(maxInt / 10)
                 decrement = True
 
     def do_import(self, import_list, context):
@@ -196,7 +197,7 @@ class import_base(object):
                 messages = import_obj.do(self.cr, self.uid,
                                          imp.get('id'), imp.get('fields'),
                                          self.import_options, context=context)
-                _logger.info('import_result:\n%s'%messages)
+                _logger.info('import_result:\n%s' % messages)
             except Exception as e:
 
                 import traceback
@@ -234,10 +235,10 @@ class import_base(object):
                 _logger.info('map and import: import-%s' % self.import_num)
                 self.map_and_import_batch(mmodel, records)
             else:
-                i=0
+                i = 0
                 while True:
-                    _logger.info('importing batch # %s (import-%s)' % (i,self.import_num))
-                    rr = records[i*split:(i+1)*split]
+                    _logger.info('importing batch # %s (import-%s)' % (i, self.import_num))
+                    rr = records[i * split:(i + 1) * split]
                     if len(rr):
                         self.map_and_import_batch(mmodel, rr)
                         i += 1
@@ -250,11 +251,11 @@ class import_base(object):
                 _logger.info('finalize model done')
 
     def map_and_import_batch(self, mmodel, records):
-            import_list = self.do_mapping(records, mmodel)
-            context = mmodel.get('context')
-            if context:
-                context = context()
-            self.do_import(import_list, context)
+        import_list = self.do_mapping(records, mmodel)
+        context = mmodel.get('context')
+        if context:
+            context = context()
+        self.do_import(import_list, context)
 
     def do_mapping(self, records, mmodel):
 
@@ -263,7 +264,7 @@ class import_base(object):
         res = []
 
         mfields = self._preprocess_mapping(mmodel.get('fields'))
-        _logger.info('mapping records to %s: %s' %( mmodel.get('model'), len(records)))
+        _logger.info('mapping records to %s: %s' % (mmodel.get('model'), len(records)))
         for key, r in records.iterrows():
             hooked = hook(dict(r))
             if not isinstance(hooked, list):
@@ -281,7 +282,7 @@ class import_base(object):
         data_binary = res.to_csv(sep=self.import_options.get('separator'),
                                  quotechar=self.import_options.get('quoting'),
                                  index=False,
-                                 header = fields,
+                                 header=fields,
                                  encoding='utf-8'
                                  )
 
@@ -290,7 +291,7 @@ class import_base(object):
                 self.import_dir,
                 self.import_num,
                 mmodel.get('model'),
-                )
+            )
             with open(file_name, 'w') as f:
                 f.write(data_binary)
 
@@ -299,11 +300,11 @@ class import_base(object):
         if not self.run_import:
             return []
         id = self.pool['base_import.import'].create(self.cr, self.uid,
-            {'res_model':mmodel.get('model'),
-             'file': data_binary,
-             'file_name': mmodel.get('model'),
-             })
-        return [{'id':id, 'fields':fields}]
+                                                    {'res_model': mmodel.get('model'),
+                                                     'file': data_binary,
+                                                     'file_name': mmodel.get('model'),
+                                                     })
+        return [{'id': id, 'fields': fields}]
 
     def _preprocess_mapping(self, mapping):
         """
@@ -319,7 +320,7 @@ class import_base(object):
         for key, value in m.items():
             if isinstance(value, basestring):
                 m[key] = mapper.value(value)
-            #set parent for instance of dbmapper
+            # set parent for instance of dbmapper
             elif isinstance(value, mapper.dbmapper):
                 value.set_parent(self)
             elif isinstance(value, create_childs):
@@ -333,10 +334,10 @@ class import_base(object):
                         if new_key not in m:
                             m[new_key] = []
                         m[new_key].append(cvalue)
-                del m[key] # delete 'child_ids'
+                del m[key]  # delete 'child_ids'
         return m
 
-    def _fields_mapp(self,dict_sugar, openerp_dict):
+    def _fields_mapp(self, dict_sugar, openerp_dict):
         """
 {'name': name0, 'child_ids/id':[id1, id2], 'child_ids/name': [name1, name2]} ->
 
@@ -351,21 +352,21 @@ res = [
         res = []
         i = -1
         while True:
-            fields=[]
+            fields = []
             data_lst = []
-            for key,val in openerp_dict.items():
+            for key, val in openerp_dict.items():
                 if key not in fields:
                     fields.append(key)
-                    if isinstance(val, list) and len(val)>i and i>=0:
+                    if isinstance(val, list) and len(val) > i and i >= 0:
                         value = val[i](dict_sugar)
-                    elif not isinstance(val, list) and i==-1:
+                    elif not isinstance(val, list) and i == -1:
                         value = val(dict_sugar)
                     else:
                         value = ''
                     data_lst.append(value)
             if any(data_lst):
                 add = True
-                if i>=0:
+                if i >= 0:
                     print '_fields_mapp', zip(fields, data_lst)
                     add = False
                     # ignore empty lines

@@ -18,4 +18,4 @@ class fleet_vehicle(osv.osv):
         'odometer': fields.function(_get_odometer, fnct_inv=_set_odometer, type='float', string='Last Odometer',
                                     help='Odometer measure of the vehicle at the moment of this log',
                                     track_visibility='onchange'),
-        }
+    }

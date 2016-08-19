@@ -1,10 +1,10 @@
 {
-    'name' : 'Updated char_domain widget',
-    'version' : '1.0.0',
-    'author' : 'IT-Projects LLC, Ivan Yelizariev',
+    'name': 'Updated char_domain widget',
+    'version': '1.0.0',
+    'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'LGPL-3',
-    'category' : 'Tools',
-    'website' : 'https://yelizariev.github.io',
+    'category': 'Tools',
+    'website': 'https://yelizariev.github.io',
     'description': """
 Shows domain value at char_domain widget, e.g.
 
@@ -12,11 +12,11 @@ Shows domain value at char_domain widget, e.g.
 
 Tested on Odoo 8.0 ab7b5d7732a7c222a0aea45bd173742acd47242d
     """,
-    'depends' : ['web'],
-    'data':[
+    'depends': ['web'],
+    'data': [
         'views.xml',
-        ],
-    'qweb' : [
+    ],
+    'qweb': [
         "static/src/xml/*.xml",
     ],
     'installable': False

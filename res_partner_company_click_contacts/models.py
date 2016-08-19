@@ -1,5 +1,6 @@
 from openerp import api, models, fields, SUPERUSER_ID
 
+
 class res_partner(models.Model):
     _inherit = "res.partner"
 

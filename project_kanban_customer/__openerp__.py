@@ -8,6 +8,6 @@
     'depends': ['project'],
     'data': [
         'views.xml',
-        ],
+    ],
     'installable': False
 }

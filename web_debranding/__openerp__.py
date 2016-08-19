@@ -22,7 +22,7 @@
         'views.xml',
         'js.xml',
         'pre_install.yml',
-        ],
+    ],
     'qweb': [
         'static/src/xml/web.xml',
     ],

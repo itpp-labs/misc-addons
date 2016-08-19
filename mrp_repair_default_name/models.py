@@ -1,5 +1,6 @@
 from openerp.osv import fields as old_fields, osv
 
+
 class mrp_repair(osv.osv):
     _inherit = 'mrp.repair'
 

@@ -1,5 +1,6 @@
 from openerp import api, models, fields, SUPERUSER_ID
 
+
 class project_project(models.Model):
     _inherit = 'project.project'
 

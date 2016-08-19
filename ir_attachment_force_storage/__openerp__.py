@@ -8,6 +8,6 @@
     'depends': [],
     'data': [
         'data.xml'
-        ],
+    ],
     'installable': True
 }

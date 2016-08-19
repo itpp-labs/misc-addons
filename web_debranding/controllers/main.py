@@ -14,6 +14,7 @@ import re
 
 
 class BinaryCustom(Binary):
+
     @http.route([
         '/web/binary/company_logo',
         '/logo',
@@ -91,4 +92,3 @@ class WebClientCustom(WebClient):
     def _debrand(self, string):
         new_company = request.env['ir.config_parameter'].get_param('web_debranding.new_name')
         return re.sub(r'[Oo]doo', new_company, string)
-

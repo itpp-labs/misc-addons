@@ -10,6 +10,6 @@
     'depends': ['reminder_base', 'crm'],
     'data': [
         'views.xml',
-        ],
+    ],
     'installable': False,
 }

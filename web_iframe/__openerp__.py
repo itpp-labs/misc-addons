@@ -11,6 +11,6 @@
     ],
     'data': [
         'web_iframe_views.xml',
-        ],
+    ],
     'installable': False
 }

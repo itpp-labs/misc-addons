@@ -37,31 +37,31 @@ _logger = logging.getLogger(__name__)
 
 
 class Home_tkobr(openerp.addons.web.controllers.main.Home):
-     
+
     @http.route('/web/login', type='http', auth="none")
     def web_login(self, redirect=None, **kw):
         openerp.addons.web.controllers.main.ensure_db()
-         
+
         if request.httprequest.method == 'GET' and redirect and request.session.uid:
             return http.redirect_with_hash(redirect)
-         
+
         if not request.uid:
             request.uid = openerp.SUPERUSER_ID
-         
+
         values = request.params.copy()
         if not redirect:
             redirect = '/web?' + request.httprequest.query_string
         values['redirect'] = redirect
-         
+
         try:
             values['databases'] = http.db_list()
         except openerp.exceptions.AccessDenied:
             values['databases'] = None
-         
+
         if request.httprequest.method == 'POST':
             old_uid = request.uid
             uid = request.session.authenticate(request.session.db,
-                request.params['login'], request.params['password'])
+                                               request.params['login'], request.params['password'])
             if uid is not False:
                 self.save_session(request.cr, uid, request.context)
                 return http.redirect_with_hash(redirect)
@@ -71,7 +71,7 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
             values['reason2'] = '- User not allowed to have multiple logins'
             values['reason3'] = '- User not allowed to login at this specific time or day'
         return request.render('web.login', values)
-        
+
     def save_session(self, cr, uid, context=None):
         if not request.uid:
             request.uid = openerp.SUPERUSER_ID
@@ -80,13 +80,11 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
         session_obj = request.registry.get('ir.sessions')
         user_obj = request.registry.get('res.users')
         u_exp_date, seconds = user_obj.get_expiring_date(cr, request.uid,
-             uid, context)
+                                                         uid, context)
         return session_obj.create(cr, SUPERUSER_ID, {'user_id': uid,
-            'session_id': sid,
-            'expiration_seconds': seconds,
-            'date_login': fields.datetime.now(),
-            'date_last_activity': fields.datetime.now(),
-            'logged_in': True},
-            context=context)
-
-
+                                                     'session_id': sid,
+                                                     'expiration_seconds': seconds,
+                                                     'date_login': fields.datetime.now(),
+                                                     'date_last_activity': fields.datetime.now(),
+                                                     'logged_in': True},
+                                  context=context)

@@ -7,6 +7,7 @@ PARAMS = [
     'web_debranding.planner_footer'
 ]
 
+
 class IrConfigParameter(models.Model):
     _inherit = 'ir.config_parameter'
 

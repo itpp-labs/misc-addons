@@ -3,6 +3,7 @@ from openerp.osv import fields as old_fields
 
 import openerp.addons.decimal_precision as dp
 
+
 class sale_order_line(models.Model):
     _inherit = 'sale.order.line'
 
@@ -19,8 +20,9 @@ class sale_order_line(models.Model):
         return res
 
     _columns = {
-        'price_unit_without_taxes': old_fields.function(_get_price_unit_without_taxes, type='float', string='Unit Price (W/o taxes)', digits_compute= dp.get_precision('Product Price'))
+        'price_unit_without_taxes': old_fields.function(_get_price_unit_without_taxes, type='float', string='Unit Price (W/o taxes)', digits_compute=dp.get_precision('Product Price'))
     }
+
 
 class account_invoice_line(models.Model):
     _inherit = 'account.invoice.line'
@@ -38,5 +40,5 @@ class account_invoice_line(models.Model):
         return res
 
     _columns = {
-        'price_unit_without_taxes': old_fields.function(_get_price_unit_without_taxes, type='float', string='Unit Price (W/o taxes)', digits_compute= dp.get_precision('Product Price'))
+        'price_unit_without_taxes': old_fields.function(_get_price_unit_without_taxes, type='float', string='Unit Price (W/o taxes)', digits_compute=dp.get_precision('Product Price'))
     }

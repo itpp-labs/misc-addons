@@ -5,7 +5,7 @@ import logging
 _logger = logging.getLogger(__name__)
 
 import base64
-import tempfile 
+import tempfile
 
 
 try:
@@ -30,6 +30,7 @@ except ImportError:
 import os
 import glob
 
+
 class sugarcrm_migration_upload(osv.TransientModel):
     _name = "sugarcrm_migration.upload"
     _description = "Upload dumps"
@@ -42,14 +43,15 @@ class sugarcrm_migration_upload(osv.TransientModel):
         'db_name': fields.char('MySQL Database'),
         'db_user': fields.char('MySQL User'),
         'db_passwd': fields.char('MySQL Password'),
-        }
+    }
     _defaults = {
         'db_host': 'localhost',
         'db_port': '3306',
         'db_name': 'test',
         'db_user': 'test',
         'db_passwd': 'test',
-        }
+    }
+
     def upload_button(self, cr, uid, ids, context=None):
 
         record = self.browse(cr, uid, ids[0])
@@ -60,18 +62,18 @@ class sugarcrm_migration_upload(osv.TransientModel):
         return True
 
     def sugarcrm(self, record, cr, uid):
-        #if not record.sugarcrm_file:
+        # if not record.sugarcrm_file:
         #    return
 
-        #unzip files
+        # unzip files
         files = []
         tmp_dir = None
         if record.sugarcrm_file:
-            tmp_dir,files = self.unzip_file(record.sugarcrm_file.strip())
+            tmp_dir, files = self.unzip_file(record.sugarcrm_file.strip())
 
         instance = import_sugarcrm(self.pool, cr, uid,
-                                   'sugarcrm', #instance_name
-                                   'sugarcrm_migration', # module_name
+                                   'sugarcrm',  # instance_name
+                                   'sugarcrm_migration',  # module_name
                                    context={'db_host': record.db_host,
                                             'db_port': record.db_port,
                                             'db_user': record.db_user,
@@ -84,7 +86,7 @@ class sugarcrm_migration_upload(osv.TransientModel):
             shutil.rmtree(tmp_dir)
         except:
             pass
-        
+
         instance.run()
         return instance
 
@@ -93,20 +95,19 @@ class sugarcrm_migration_upload(osv.TransientModel):
             return
 
         # unzip files
-        tmp,files = self.unzip_file(record.kashflow_file.strip(), pattern='*.csv')
-        _logger.info('kashflow files: %s'%files)
+        tmp, files = self.unzip_file(record.kashflow_file.strip(), pattern='*.csv')
+        _logger.info('kashflow files: %s' % files)
 
         # map data and save to base_import.import
         instance = import_kashflow(self.pool, cr, uid,
-                                   'kashflow', #instance_name
-                                   'sugarcrm_migration', #module_name
-                                   context = {'csv_files': files,
-                                              'sugarcrm_instance_name':'sugarcrm'
-                                              }
+                                   'kashflow',  # instance_name
+                                   'sugarcrm_migration',  # module_name
+                                   context={'csv_files': files,
+                                            'sugarcrm_instance_name': 'sugarcrm'
+                                            }
                                    )
         instance.run()
         return instance
-
 
     def unzip_file(self, filename, pattern='*'):
         '''
@@ -118,4 +119,4 @@ class sugarcrm_migration_upload(osv.TransientModel):
         dir = tempfile.mkdtemp(prefix='tmp_sugarcrm_migration')
         tar.extractall(path=dir)
 
-        return dir, glob.glob('%s/%s' % (dir, pattern))+glob.glob('%s/*/%s' % (dir, pattern))
+        return dir, glob.glob('%s/%s' % (dir, pattern)) + glob.glob('%s/*/%s' % (dir, pattern))

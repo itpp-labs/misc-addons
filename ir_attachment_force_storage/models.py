@@ -1,6 +1,7 @@
 from openerp import api, models, fields, SUPERUSER_ID
 from openerp.osv import osv
 
+
 class ir_config_parameter(models.Model):
     _inherit = 'ir.config_parameter'
 

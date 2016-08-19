@@ -8,6 +8,6 @@
     'depends': ['mrp_repair'],
     'data': [
         'views.xml',
-        ],
+    ],
     'installable': False
 }

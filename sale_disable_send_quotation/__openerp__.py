@@ -11,6 +11,6 @@
     'images': ['images/form.png'],
     'data': [
         'views.xml',
-        ],
+    ],
     'installable': False,
 }

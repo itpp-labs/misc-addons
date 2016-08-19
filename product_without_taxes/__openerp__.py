@@ -8,6 +8,6 @@
     'depends': ['sale', 'account'],
     'data': [
         'views.xml',
-        ],
+    ],
     'installable': False
 }

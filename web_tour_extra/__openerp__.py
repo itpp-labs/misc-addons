@@ -14,7 +14,7 @@
 
     "depends": [
         'base',
-        'web' ,
+        'web',
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [

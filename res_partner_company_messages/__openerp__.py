@@ -9,6 +9,6 @@
     'depends': ['mail'],
     'data': [
         'views.xml',
-        ],
+    ],
     'installable': False
 }

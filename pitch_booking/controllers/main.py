@@ -22,7 +22,7 @@ class website_booking_calendar(controller):
         if pitch_id:
             return pitch_obj.browse(cr, uid, int(pitch_id), context=context).resource_id
         elif venue_id:
-            pitch_ids = pitch_obj.search(cr, uid, [('venue_id','=',int(venue_id))], context=context)
+            pitch_ids = pitch_obj.search(cr, uid, [('venue_id', '=', int(venue_id))], context=context)
             return [p.resource_id for p in pitch_obj.browse(cr, SUPERUSER_ID, pitch_ids, context=context)]
         return super(website_booking_calendar, self)._get_resources(params)
 

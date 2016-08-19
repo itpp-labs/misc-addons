@@ -48,6 +48,7 @@ LOGOUT_TYPES = [('ur', 'User Request'),
                 ('to', 'Timeout'),
                 ('re', 'Rule enforcing')]
 
+
 class ir_sessions(models.Model):
     _name = 'ir.sessions'
     _description = "Sessions"
@@ -65,7 +66,7 @@ class ir_sessions(models.Model):
     # Add other fields about the sessions like Source IPs etc...
 
     _order = 'date_logout desc'
-    
+
     # scheduler function to validate users session
     @api.model
     def validate_sessions(self):
@@ -129,4 +130,4 @@ class ir_sessions(models.Model):
         self.write({'logged_in': False,
                     'date_logout': fields.datetime.now(),
                     'logout_type': logout_type,
-                })
+                    })

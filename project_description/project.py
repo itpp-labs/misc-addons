@@ -26,14 +26,14 @@ from openerp.tools.translate import _
 class project_project(orm.Model):
     _inherit = "project.project"
     _columns = {
-        #restricted field. Allowed group members only.
+        # restricted field. Allowed group members only.
         'description': fields.text('description', groups="project_description.group_access_to_project_description"),
     }
 
 
 class account_analytic_account(orm.Model):
     _inherit = 'account.analytic.account'
-    
+
     def name_get(self, cr, uid, ids, context=None):
         res = []
         if not ids:
