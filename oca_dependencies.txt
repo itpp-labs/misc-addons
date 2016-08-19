@@ -5,3 +5,4 @@ OCA_website https://github.com/OCA/website
 access-addons https://github.com/it-projects-llc/access-addons
 mail-addons https://github.com/it-projects-llc/mail-addons
 website-addons https://github.com/it-projects-llc/website-addons
+l10n-addons https://github.com/it-projects-llc/l10n-addons
