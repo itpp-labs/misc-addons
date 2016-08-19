@@ -1,15 +1,15 @@
 <templates>
-	<t t-extend="gamification.ChallengeSummary">
-		<t t-jquery="[t-foreach='challenge.lines']">
-			this.attr('t-att-data-domain', 'line.domain').attr('t-att-data-model', 'line.model').attr('t-attf-class', this.attr('t-attf-class') + ' oe_goal_details');
-		</t>
-		<!--
-			TODO ranking mode
-		<t t-jquery="[t-foreach='line.goals'] > div">
-			this.attr('t-att-data-domain', 'goal.domain').attr('t-att-data-model', 'goal.model').addClass('oe_goal_details');
-			console.log('XXX', this)
-		</t>
-		-->
-	</t>
+    <t t-extend="gamification.ChallengeSummary">
+        <t t-jquery="[t-foreach='challenge.lines']">
+            this.attr('t-att-data-domain', 'line.domain').attr('t-att-data-model', 'line.model').attr('t-attf-class', this.attr('t-attf-class') + ' oe_goal_details');
+        </t>
+        <!--
+            TODO ranking mode
+        <t t-jquery="[t-foreach='line.goals'] > div">
+            this.attr('t-att-data-domain', 'goal.domain').attr('t-att-data-model', 'goal.model').addClass('oe_goal_details');
+            console.log('XXX', this)
+        </t>
+        -->
+    </t>
 
 </templates>

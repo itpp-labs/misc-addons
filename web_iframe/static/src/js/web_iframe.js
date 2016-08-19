@@ -33,5 +33,5 @@ openerp.web_iframe = function (session) {
         },
         iframe_clicked: function(e){
         }
-    })
-}
+    });
+};

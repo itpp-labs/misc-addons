@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': 'Logo improvements for multicompany',
     'version': '1.0.0',

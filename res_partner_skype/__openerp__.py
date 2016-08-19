@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": "Skype field in partner form",
     "version": "1.0.0",

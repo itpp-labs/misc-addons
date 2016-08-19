@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': 'IM Notifications',
     'version': '1.0.1',

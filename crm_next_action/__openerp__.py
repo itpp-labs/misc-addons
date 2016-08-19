@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': 'Log\Notify Next Action changes',
     'version': '1.0.0',

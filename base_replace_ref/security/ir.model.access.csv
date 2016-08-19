@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_base_replace_ref_rule,access_base_replace_ref_rule,model_base_replace_ref_rule,,1,0,0,0
+access_base_replace_ref_rule_value_line,access_base_replace_ref_rule_value_line,model_base_replace_ref_rule_value_line,,1,0,0,0
+access_base_replace_ref_rule_field_line,access_base_replace_ref_rule_field_line,model_base_replace_ref_rule_field_line,,1,0,0,0

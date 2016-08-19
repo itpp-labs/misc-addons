@@ -51,7 +51,7 @@ openerp.web_calendar_quick_navigation = function (session) {
                     date: i,
                     name: view.calendar.formatDate(d, 'ddMMM') + '-'
                         + view.calendar.formatDate(dE, 'ddMMM')
-                })
+                });
             }
             if ($(element).find('div.quick_weeks').length) {
                 $(element).find('div.quick_weeks').replaceWith($(QWeb.render("CalendarView.quick_navigation.panel.weeks", {
@@ -119,11 +119,11 @@ openerp.web_calendar_quick_navigation = function (session) {
             var self = this;
             res.viewRender = function(view, element) {
                 self.view_render(self, view, element);
-            }
+            };
             res.select = function (start_date, end_date, all_day, _js_event, _view) {
                 self.select(self, start_date, end_date, all_day, _js_event, _view);
-            }
+            };
             return res;
         }
     });
-}
+};

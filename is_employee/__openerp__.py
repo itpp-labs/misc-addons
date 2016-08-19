@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': 'is_employee field',
     'version': '1.0.0',

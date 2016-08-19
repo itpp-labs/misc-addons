@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 from openerp.osv import osv, fields
-from openerp import SUPERUSER_ID
 
 
-class crm_phonecall(osv.Model):
+class CrmPhonecall(osv.Model):
     _inherit = 'crm.phonecall'
 
     _track = {
@@ -44,7 +43,7 @@ class crm_phonecall(osv.Model):
             vals['state'] = state
             del ctx['default_state']
 
-        return super(crm_phonecall, self).create(cr, uid, vals, context=ctx)
+        return super(CrmPhonecall, self).create(cr, uid, vals, context=ctx)
 
     def write(self, cr, uid, ids, vals, context=None):
         vals = self._add_followers(cr, uid, vals, context)
@@ -55,4 +54,4 @@ class crm_phonecall(osv.Model):
         except:
             pass
 
-        return super(crm_phonecall, self).write(cr, uid, ids, vals, context=ctx)
+        return super(CrmPhonecall, self).write(cr, uid, ids, vals, context=ctx)

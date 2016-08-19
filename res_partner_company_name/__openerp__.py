@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': 'Quick access to company name',
     'version': '1.0.0',

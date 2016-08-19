@@ -21,12 +21,10 @@
 ##############################################################################
 
 
-import re
-from openerp import netsvc
 from openerp.osv import osv, fields
 
 
-class project(osv.osv):
+class Project(osv.osv):
     """"""
 
     _name = 'project.project'
@@ -44,6 +42,6 @@ class project(osv.osv):
     ]
 
 
-project()
+Project()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

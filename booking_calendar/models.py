@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from datetime import datetime, timedelta
 import pytz
 from dateutil import rrule
@@ -18,7 +19,7 @@ SLOT_START_DELAY_MINS = 15
 SLOT_DURATION_MINS = 60
 
 
-class resource_resource(models.Model):
+class ResourceResource(models.Model):
     _inherit = 'resource.resource'
 
     to_calendar = fields.Boolean('Display on calendar')
@@ -26,7 +27,7 @@ class resource_resource(models.Model):
     has_slot_calendar = fields.Boolean('Use Working Time as Slots Definition')
 
 
-class resource_calendar(models.Model):
+class ResourceCalendar(models.Model):
     _inherit = 'resource.calendar'
 
     @api.multi
@@ -103,7 +104,7 @@ class resource_calendar(models.Model):
         return True
 
 
-class sale_order_line(models.Model):
+class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     resource_id = fields.Many2one('resource.resource', 'Resource')
@@ -121,7 +122,7 @@ class sale_order_line(models.Model):
 
     @api.one
     def write(self, vals):
-        result = super(sale_order_line, self).write(vals)
+        result = super(SaleOrderLine, self).write(vals)
         if vals.get('resource_id'):
             vals['resource_trigger'] = vals.get('resource_id')
         return result
@@ -285,7 +286,7 @@ class sale_order_line(models.Model):
             })
             order = order_obj.create(order_vals)
             values.update({'order_id': order.id})
-        return super(sale_order_line, self).create(values)
+        return super(SaleOrderLine, self).create(values)
 
     @api.onchange('product_id')
     def _on_change_product_id(self):
@@ -451,7 +452,7 @@ class sale_order_line(models.Model):
         }
 
 
-class product_template(models.Model):
+class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     calendar_id = fields.Many2one('resource.calendar', string='Working time')

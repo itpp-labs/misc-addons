@@ -11,7 +11,7 @@
 #     - rates given by PL_NBP webservice is now correct even when main_cur <> PLN
 #     - if company_currency <> CHF, you can now update CHF via Admin.ch webservice
 #       (same for EUR with ECB webservice and PLN with NBP webservice)
-#     For more details, see Launchpad bug #645263
+#     For more details, see Launchpad bug # 645263
 #     - mecanism to check if rates given by the webservice are "fresh" enough to be
 #       written in OpenERP ('max_delta_days' parameter for each currency update service)
 #        Ported to OpenERP 7.0 by Lorenzo Battistini <lorenzo.battistini@agilebg.com>
@@ -44,7 +44,7 @@ from openerp.tools.translate import _
 _logger = logging.getLogger(__name__)
 
 
-class Currency_rate_update_service(osv.Model):
+class CurrencyRateUpdateService(osv.Model):
     """Class thats tell for wich services wich currencies
     have to be updated"""
     _name = "currency.rate.update.service"
@@ -55,8 +55,8 @@ class Currency_rate_update_service(osv.Model):
             [
                 ('Admin_ch_getter', 'Admin.ch'),
                 ('ECB_getter', 'European Central Bank'),
-                #('NYFB_getter','Federal Reserve Bank of NY'),
-                #('Google_getter','Google Finance'),
+                # ('NYFB_getter','Federal Reserve Bank of NY'),
+                # ('Google_getter','Google Finance'),
                 ('Yahoo_getter', 'Yahoo Finance '),
                 ('PL_NBP_getter', 'Narodowy Bank Polski'),  # Added for polish rates
                 ('Banxico_getter', 'Banco de México'),  # Added for mexican rates
@@ -108,7 +108,7 @@ class Currency_rate_update_service(osv.Model):
     ]
 
 
-class Currency_rate_update(osv.Model):
+class CurrencyRateUpdate(osv.Model):
     """Class that handle an ir cron call who will
     update currencies based on a web url"""
     _name = "currency.rate.update"
@@ -161,15 +161,16 @@ class Currency_rate_update(osv.Model):
 
         return cron_id
 
-    def save_cron(self, cr, uid, datas, context={}):
+    def save_cron(self, cr, uid, datas, context=None):
         """save the cron config data should be a dict"""
+        context = context or {}
         # modify the cron
         cron_id = self.get_cron_id(cr, uid, context)
         result = self.pool.get('ir.cron').write(cr, uid, [cron_id], datas)
 
     def run_currency_update(self, cr, uid):
         "update currency at the given frequence"
-        factory = Currency_getter_factory()
+        factory = CurrencyGetterFactory()
         curr_obj = self.pool.get('res.currency')
         rate_obj = self.pool.get('res.currency.rate')
         companies = self.pool.get('res.company').search(cr, uid, [])
@@ -195,13 +196,13 @@ class Currency_rate_update(osv.Model):
                 raise orm.except_orm(_('Error!'), ('Base currency rate should be 1.00!'))
             main_curr = main_curr_rec.name
             for service in comp.services_to_use:
-                print "comp.services_to_use =", comp.services_to_use
+
                 note = service.note or ''
                 try:
                     # we initalize the class that will handle the request
                     # and return a dict of rate
                     getter = factory.register(service.service)
-                    print "getter =", getter
+
                     curr_to_fetch = map(lambda x: x.name, service.currency_to_update)
                     res, log_info = getter.get_updated_currency(curr_to_fetch, main_curr, service.max_delta_days)
                     rate_name = time.strftime('%Y-%m-%d')
@@ -282,7 +283,7 @@ class UnsuportedCurrencyError(Exception):
 # end of error definition
 
 
-class Currency_getter_factory():
+class CurrencyGetterFactory():
     """Factory pattern class that will return
     a currency getter class base on the name passed
     to the register method"""
@@ -305,7 +306,7 @@ class Currency_getter_factory():
             raise UnknowClassError
 
 
-class Curreny_getter_interface(object):
+class CurrenyGetterInterface(object):
     "Abstract class of currency getter"
 
     # remove in order to have a dryer code
@@ -382,13 +383,13 @@ class Curreny_getter_interface(object):
             _logger.warning("the rate timestamp (%s) is not today's date", rate_date_str)
 
 
-#Yahoo ###################################################################################
-class Yahoo_getter(Curreny_getter_interface):
+# Yahoo # ##################################################################################
+class YahooGetter(CurrenyGetterInterface):
     """Implementation of Currency_getter_factory interface
     for Yahoo finance service"""
 
     def get_updated_currency(self, currency_array, main_currency, max_delta_days):
-        """implementation of abstract method of Curreny_getter_interface"""
+        """implementation of abstract method of CurrenyGetterInterface"""
         self.validate_cur(main_currency)
         url = 'http://download.finance.yahoo.com/d/quotes.txt?s="%s"=X&f=sl1c1abg'
         if main_currency in currency_array:
@@ -403,10 +404,9 @@ class Yahoo_getter(Curreny_getter_interface):
                 raise Exception('Could not update the %s' % (curr))
 
         return self.updated_currency, self.log_info  # empty string added by polish changes
-##Admin CH ############################################################################
 
-
-class Admin_ch_getter(Curreny_getter_interface):
+# #Admin CH # ###########################################################################
+class AdminChGetter(CurrenyGetterInterface):
     """Implementation of Currency_getter_factory interface
     for Admin.ch service"""
 
@@ -421,12 +421,12 @@ class Admin_ch_getter(Curreny_getter_interface):
         return res
 
     def get_updated_currency(self, currency_array, main_currency, max_delta_days):
-        """implementation of abstract method of Curreny_getter_interface"""
+        """implementation of abstract method of CurrenyGetterInterface"""
         url = 'http://www.afd.admin.ch/publicdb/newdb/mwst_kurse/wechselkurse.php'
         # we do not want to update the main currency
         if main_currency in currency_array:
             currency_array.remove(main_currency)
-        # Move to new XML lib cf Launchpad bug #645263
+        # Move to new XML lib cf Launchpad bug # 645263
         from lxml import etree
         _logger.debug("Admin.ch currency rate service : connecting...")
         rawfile = self.get_url(url)
@@ -462,10 +462,9 @@ class Admin_ch_getter(Curreny_getter_interface):
             _logger.debug("Rate retrieved : 1 " + main_currency + ' = ' + str(rate) + ' ' + curr)
         return self.updated_currency, self.log_info
 
-## ECB getter ############################################################################
 
-
-class ECB_getter(Curreny_getter_interface):
+# # ECB getter # ###########################################################################
+class ECBGetter(CurrenyGetterInterface):
     """Implementation of Currency_getter_factory interface
     for ECB service"""
 
@@ -478,7 +477,7 @@ class ECB_getter(Curreny_getter_interface):
         return res
 
     def get_updated_currency(self, currency_array, main_currency, max_delta_days):
-        """implementation of abstract method of Curreny_getter_interface"""
+        """implementation of abstract method of CurrenyGetterInterface"""
         url = 'http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml'
         # Important : as explained on the ECB web site, the currencies are
         # at the beginning of the afternoon ; so, until 3 p.m. Paris time
@@ -488,7 +487,7 @@ class ECB_getter(Curreny_getter_interface):
         # we do not want to update the main currency
         if main_currency in currency_array:
             currency_array.remove(main_currency)
-        # Move to new XML lib cf Launchpad bug #645263
+        # Move to new XML lib cf Launchpad bug # 645263
         from lxml import etree
         _logger.debug("ECB currency rate service : connecting...")
         rawfile = self.get_url(url)
@@ -519,10 +518,9 @@ class ECB_getter(Curreny_getter_interface):
             _logger.debug("Rate retrieved : 1 " + main_currency + ' = ' + str(rate) + ' ' + curr)
         return self.updated_currency, self.log_info
 
-##PL NBP ############################################################################
 
-
-class PL_NBP_getter(Curreny_getter_interface):   # class added according to polish needs = based on class Admin_ch_getter
+# #PL NBP # ###########################################################################
+class PLNBPGetter(CurrenyGetterInterface):   # class added according to polish needs = based on class Admin_ch_getter
     """Implementation of Currency_getter_factory interface
     for PL NBP service"""
 
@@ -537,12 +535,12 @@ class PL_NBP_getter(Curreny_getter_interface):   # class added according to poli
         return res
 
     def get_updated_currency(self, currency_array, main_currency, max_delta_days):
-        """implementation of abstract method of Curreny_getter_interface"""
+        """implementation of abstract method of CurrenyGetterInterface"""
         url = 'http://www.nbp.pl/kursy/xml/LastA.xml'    # LastA.xml is always the most recent one
         # we do not want to update the main currency
         if main_currency in currency_array:
             currency_array.remove(main_currency)
-        # Move to new XML lib cf Launchpad bug #645263
+        # Move to new XML lib cf Launchpad bug # 645263
         from lxml import etree
         _logger.debug("NBP.pl currency rate service : connecting...")
         rawfile = self.get_url(url)
@@ -552,7 +550,7 @@ class PL_NBP_getter(Curreny_getter_interface):   # class added according to poli
         # node = xpath.Evaluate("/tabela_kursow", dom) # BEGIN Polish - rates table name
         # if isinstance(node, list) :
         #    node = node[0]
-        #self.log_info = node.getElementsByTagName('numer_tabeli')[0].childNodes[0].data
+        # self.log_info = node.getElementsByTagName('numer_tabeli')[0].childNodes[0].data
         # self.log_info = self.log_info + " " + node.getElementsByTagName('data_publikacji')[0].childNodes[0].data    # END Polish - rates table name
 
         rate_date = dom.xpath('/tabela_kursow/data_publikacji/text()', namespaces=ns)[0]
@@ -583,8 +581,8 @@ class PL_NBP_getter(Curreny_getter_interface):   # class added according to poli
         return self.updated_currency, self.log_info
 
 
-##Banco de México ############################################################################
-class Banxico_getter(Curreny_getter_interface):  # class added for Mexico rates
+# #Banco de México # ###########################################################################
+class BanxicoGetter(CurrenyGetterInterface):  # class added for Mexico rates
     """Implementation of Currency_getter_factory interface
     for Banco de México service"""
 
@@ -610,7 +608,7 @@ class Banxico_getter(Curreny_getter_interface):  # class added for Mexico rates
         return float(rate)
 
     def get_updated_currency(self, currency_array, main_currency, max_delta_days=1):
-        """implementation of abstract method of Curreny_getter_interface"""
+        """implementation of abstract method of CurrenyGetterInterface"""
         logger = logging.getLogger(__name__)
         # we do not want to update the main currency
         if main_currency in currency_array:
@@ -627,20 +625,19 @@ class Banxico_getter(Curreny_getter_interface):  # class added for Mexico rates
                 else:
                     rate = main_rate
             else:
-                """ No other currency supported
-                """
+                # No other currency supported
                 continue
 
             self.updated_currency[curr] = rate
             logger.debug("Rate retrieved : " + main_currency + ' = ' + str(rate) + ' ' + curr)
 
 
-##CA BOC #####   Bank of Canada   ############################################################
-class CA_BOC_getter(Curreny_getter_interface):
+# #CA BOC # ####   Bank of Canada   # ###########################################################
+class CABOCGetter(CurrenyGetterInterface):
     """Implementation of Curreny_getter_factory interface for Bank of Canada RSS service"""
 
     def get_updated_currency(self, currency_array, main_currency, max_delta_days):
-        """implementation of abstract method of Curreny_getter_interface"""
+        """implementation of abstract method of CurrenyGetterInterface"""
 
         # as of Jan 2014 BOC is publishing noon rates for about 60 currencies
         url = 'http://www.bankofcanada.ca/stats/assets/rates_rss/noon/en_%s.xml'

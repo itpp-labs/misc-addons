@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': 'Purchases in contract',
     'version': '1.0.0',

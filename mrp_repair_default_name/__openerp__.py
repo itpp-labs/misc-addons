@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': "Fix gaps in Repair order numbering",
     'version': '1.0.0',

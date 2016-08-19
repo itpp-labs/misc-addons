@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': "Full view for company's contacts",
     'version': '1.0.0',

@@ -22,11 +22,11 @@
 #
 ##############################################################################
 
-import openerp
-from openerp.osv import fields, osv, orm
+from openerp.osv import fields
+from openerp.osv import osv
 
 
-class res_groups(osv.osv):
+class ResGroups(osv.osv):
     _inherit = 'res.groups'
 
     _columns = {

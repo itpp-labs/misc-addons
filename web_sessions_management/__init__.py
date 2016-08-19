@@ -22,11 +22,12 @@
 #
 ##############################################################################
 
-import res_users
-import ir_sessions
-import main
-import res_groups
-import ir_http
+from . import res_users
+from . import ir_sessions
+from . import main
+from . import res_groups
+from . import ir_http
+
 
 
 def post_load():

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': 'Notify saleperson about call from his partner',
     'version': '1.0.0',

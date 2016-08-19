@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import mapper
+from . import mapper
 try:
     from pandas import DataFrame
 except ImportError:
@@ -8,7 +8,7 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-class create_childs(object):
+class CreateChilds(object):
 
     def __init__(self, childs):
 
@@ -32,7 +32,7 @@ class create_childs(object):
         return self.childs
 
 
-class import_base(object):
+class ImportBase(object):
 
     def __init__(self, pool, cr, uid,
                  instance_name,
@@ -52,7 +52,7 @@ class import_base(object):
         self.context = context or {}
         self.email = email_to_notify
         self.table_list = []
-        #self.logger = logging.getLogger(module_name)
+        # self.logger = logging.getLogger(module_name)
         self.cache = {}
         self.import_dir = import_dir
         self.run_import = run_import
@@ -64,20 +64,17 @@ class import_base(object):
             init before import
             usually for the login
         """
-        pass
 
     def finalize(self):
         """
             init after import
         """
-        pass
 
     def init_run(self):
         """
             call after intialize run in the thread, not in the main process
             TO use for long initialization operation
         """
-        pass
 
     def get_data(self, table):
         """
@@ -106,24 +103,24 @@ class import_base(object):
         """
             @return: { TABLE_NAME : {
                 'model' : 'openerp.model.name',
-                #if true import the table if not just resolve dependencies, use for meta package, by default => True
-                #Not required
+                # if true import the table if not just resolve dependencies, use for meta package, by default => True
+                # Not required
                 'import' : True or False,
-                #Not required
+                # Not required
                 'dependencies' : [TABLE_1, TABLE_2],
-                #Not required
-                'hook' : self.function_name, #get the val dict of the object, return the same val dict or False
+                # Not required
+                'hook' : self.function_name, # get the val dict of the object, return the same val dict or False
                 'map' : { @see mapper
                     'openerp_field_name' : 'external_field_name', or val('external_field_name')
-                    'openerp_field_id/id' : ref(TABLE_1, 'external_id_field'), #make the mapping between the external id and the xml on the right
-                    'openerp_field2_id/id_parent' : ref(TABLE_1,'external_id_field') #indicate a self dependencies on openerp_field2_id
+                    'openerp_field_id/id' : ref(TABLE_1, 'external_id_field'), # make the mapping between the external id and the xml on the right
+                    'openerp_field2_id/id_parent' : ref(TABLE_1,'external_id_field') # indicate a self dependencies on openerp_field2_id
                     'state' : map_val('state_equivalent_field', mapping), # use get_state_map to make the mapping between the value of the field and the value of the state
-                    'text_field' : concat('field_1', 'field_2', .., delimiter=':'), #concat the value of the list of field in one
-                    'description_field' : ppconcat('field_1', 'field_2', .., delimiter='\n\t'), #same as above but with a prettier formatting
-                    'field' : call(callable, arg1, arg2, ..), #call the function with all the value, the function should send the value : self.callable
+                    'text_field' : concat('field_1', 'field_2', .., delimiter=':'), # concat the value of the list of field in one
+                    'description_field' : ppconcat('field_1', 'field_2', .., delimiter='\n\t'), # same as above but with a prettier formatting
+                    'field' : call(callable, arg1, arg2, ..), # call the function with all the value, the function should send the value : self.callable
                     'field' : callable
                     'field' : call(method, val('external_field') interface of method is self, val where val is the value of the field
-                    'field' : const(value) #always set this field to value
+                    'field' : const(value) # always set this field to value
                     + any custom mapper that you will define
                 }
             },
@@ -198,7 +195,7 @@ class import_base(object):
                                          imp.get('id'), imp.get('fields'),
                                          self.import_options, context=context)
                 _logger.info('import_result:\n%s' % messages)
-            except Exception as e:
+            except Exception:
 
                 import traceback
                 import StringIO
@@ -213,7 +210,6 @@ class import_base(object):
             self.cr.commit()
 
     def resolve_dependencies(self, deps):
-        import_list = []
         for dname in deps:
             if dname in self.mapped:
                 continue
@@ -315,7 +311,7 @@ class import_base(object):
             use to allow syntaxical sugar like 'field': 'external_field'
             instead of 'field' : value('external_field')
         """
-        #m = dict(mapping)
+        # m = dict(mapping)
         m = mapping
         for key, value in m.items():
             if isinstance(value, basestring):
@@ -323,7 +319,7 @@ class import_base(object):
             # set parent for instance of dbmapper
             elif isinstance(value, mapper.dbmapper):
                 value.set_parent(self)
-            elif isinstance(value, create_childs):
+            elif isinstance(value, CreateChilds):
                 # {'child_ids':[{'id':id1, 'name':name1}, {'id':id2, 'name':name2}]}
                 # ->
                 # {'child_ids/id':[id1, id2], 'child_ids/name': [name1, name2]}
@@ -367,7 +363,6 @@ res = [
             if any(data_lst):
                 add = True
                 if i >= 0:
-                    print '_fields_mapp', zip(fields, data_lst)
                     add = False
                     # ignore empty lines
                     for pos, val in enumerate(data_lst):

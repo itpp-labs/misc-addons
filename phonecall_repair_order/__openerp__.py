@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': 'Link Repair orders & phonecalls',
     'version': '1.0.0',

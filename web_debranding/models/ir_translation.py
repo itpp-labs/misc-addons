@@ -1,12 +1,12 @@
+# -*- coding: utf-8 -*-
 import re
-import inspect
-import types
 
-import openerp
-from openerp import SUPERUSER_ID, models, tools, api
+from openerp import SUPERUSER_ID
+from openerp import models
+from openerp import tools
 
 
-class ir_translation(models.Model):
+class IrTranslation(models.Model):
     _inherit = 'ir.translation'
 
     def _debrand_dict(self, res):
@@ -34,7 +34,7 @@ class ir_translation(models.Model):
 
     @tools.ormcache('name', 'types', 'lang', 'source', 'res_id')
     def __get_source(self, cr, uid, name, types, lang, source, res_id):
-        res = super(ir_translation, self).__get_source(cr, uid, name, types, lang, source, res_id)
+        res = super(IrTranslation, self).__get_source(cr, uid, name, types, lang, source, res_id)
         return self._debrand(cr, uid, res)
 
     @api.model

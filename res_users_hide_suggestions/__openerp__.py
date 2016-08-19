@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': 'Hide suggestions',
     'version': '1.0.0',

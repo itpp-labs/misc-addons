@@ -1,13 +1,14 @@
-from openerp import api, models, fields, SUPERUSER_ID
+# -*- coding: utf-8 -*-
+from openerp import models
 from openerp.tools.translate import _
 
 
-class ir_actions_act_window_debranding(models.Model):
+class IrActionsActWindowDebranding(models.Model):
     _inherit = 'ir.actions.act_window'
 
     def read(self, cr, uid, ids, fields=None,
              context=None, load='_classic_read'):
-        results = super(ir_actions_act_window_debranding, self).read(
+        results = super(IrActionsActWindowDebranding, self).read(
             cr, uid, ids, fields=fields, context=context, load=load)
         if not fields or 'help' in fields:
             new_name = self.pool.get('ir.config_parameter').get_param(

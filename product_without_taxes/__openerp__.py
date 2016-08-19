@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': "Product without taxes",
     'version': '1.0.0',

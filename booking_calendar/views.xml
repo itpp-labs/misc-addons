@@ -23,7 +23,7 @@
         </template>
         <template id="assests_fullcalendar" name="fullcalendar replacement" inherit_id="web_calendar.assets_backend">
             <xpath expr="//script[@src='/web_calendar/static/lib/fullcalendar/js/fullcalendar.js']" position="replace">
-                <script type="text/javascript" src="/booking_calendar/static/src/js/fullcalendar.1.6.7.js"></script>
+                <script type="text/javascript" src="/booking_calendar/static/lib/js/fullcalendar.1.6.7.js"></script>
             </xpath>
         </template>
         

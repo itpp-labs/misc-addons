@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': 'Notification for new sale order (quotation)',
     'version': '1.0.0',

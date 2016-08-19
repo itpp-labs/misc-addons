@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": "SWIFT for res.partner.bank",
     "version": "1.0.0",

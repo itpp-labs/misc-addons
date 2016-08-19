@@ -1,17 +1,15 @@
 # -*- coding: utf-8 -*-
 from openerp.osv import osv, fields
-from openerp import SUPERUSER_ID
-from openerp.tools.translate import _
 
 
-class product_template(osv.Model):
+class ProductTemplate(osv.Model):
     _inherit = 'product.template'
     _columns = {
         'website_description': fields.html('Description for the website', translate=True),
     }
 
 
-class delivery_carrier(osv.Model):
+class DeliveryCarrier(osv.Model):
     _inherit = 'delivery.carrier'
     _columns = {
         'website_description': fields.text('Description for the website', translate=True),
@@ -28,21 +26,21 @@ class WebsiteResPartner(osv.Model):
     }
 
 
-class sale_order_line(osv.osv):
+class SaleOrderLine(osv.osv):
     _inherit = "sale.order.line"
     _columns = {
         'website_description': fields.html('Line Description', translate=True),
     }
 
 
-class sale_order_option(osv.osv):
+class SaleOrderOption(osv.osv):
     _inherit = "sale.order.option"
     _columns = {
         'website_description': fields.html('Line Description', translate=True),
     }
 
 
-class sale_order(osv.osv):
+class SaleOrder(osv.osv):
     _inherit = 'sale.order'
     _columns = {
         'website_description': fields.html('Description', translate=True),

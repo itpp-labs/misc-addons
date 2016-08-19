@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 from openerp.osv import osv, fields
-import openerp
 
 
-class res_partner(osv.Model):
+class ResPartner(osv.Model):
     _inherit = 'res.partner'
 
     _columns = {

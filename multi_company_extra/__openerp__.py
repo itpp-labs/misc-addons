@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": "Updates for multi company mode",
     "version": "0.1",

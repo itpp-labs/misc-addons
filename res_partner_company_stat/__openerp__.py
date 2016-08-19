@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': 'Fix stat buttons for companies',
     'version': '1.0.0',

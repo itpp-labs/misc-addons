@@ -23,7 +23,7 @@ import re
 import math
 
 
-class mapper(object):
+class Mapper(object):
     """
         super class for all mapper class
         They are call before import data
@@ -38,7 +38,7 @@ class mapper(object):
         raise NotImplementedError()
 
 
-class dbmapper(mapper):
+class Dbmapper(Mapper):
     """
         Super class for mapper that need to access to
         data base or any function of the import_framework
@@ -62,7 +62,7 @@ class dbmapper(mapper):
         return self.parent.pool['ir.model.data'].browse(self.parent.cr, self.parent.uid, data)
 
 
-class concat(mapper):
+class Concat(Mapper):
     """
         Use : contact('field_name1', 'field_name2', delimiter='_')
         concat value of fields using the delimiter, delimiter is optional
@@ -77,7 +77,7 @@ class concat(mapper):
         return self.delimiter.join(map(lambda x: tools.ustr(external_values.get(x, '')or ''), self.arg))
 
 
-class tags_from_fields(dbmapper):
+class TagsFromFields(Dbmapper):
 
     def __init__(self, table, field_list):
         self.table = table
@@ -99,7 +99,7 @@ class tags_from_fields(dbmapper):
         return ','.join(res)
 
 
-class ppconcat(mapper):
+class Ppconcat(Mapper):
     """
         Use : contact('field_name1', 'field_name2', delimiter='_')
         concat external field name and value of fields using the delimiter,
@@ -118,7 +118,7 @@ class ppconcat(mapper):
         return self.delimiter.join(map(lambda x: x + ": " + tools.ustr(external_values.get(x, '')), filter(lambda x: external_values.get(x) and (self.skip_value != external_values.get(x)), self.arg)))
 
 
-class first(mapper):
+class First(Mapper):
 
     def __init__(self, *arg, **kwargs):
         self.arg = arg
@@ -135,7 +135,7 @@ class first(mapper):
         return v
 
 
-class fixdate(mapper):
+class Fixdate(Mapper):
     """
     convert '2010-02-12 13:26:25' to '2010-02-12'
     """
@@ -150,7 +150,7 @@ class fixdate(mapper):
         return str(s).split(' ')[0]
 
 
-class const(mapper):
+class Const(Mapper):
     """
         Use : const(arg)
         return always arg
@@ -167,7 +167,7 @@ def do_clean_xml_id(value):
     return re.sub('[\'", ^]', '_', (value and unicode(value) or ''))
 
 
-class value(mapper):
+class Value(Mapper):
     """
         Use : value(external_field_name)
         Return the value of the external field name
@@ -194,7 +194,7 @@ class value(mapper):
         return val
 
 
-class mapper_int(mapper):
+class MapperInt(Mapper):
 
     def __init__(self, val, default=0):
         self.val = val
@@ -209,7 +209,7 @@ def do_clean_sugar(v):
     return (v or '').replace('^', '').strip()
 
 
-class clean_sugar(mapper):
+class CleanSugar(Mapper):
 
     def __init__(self, val, default=0):
         self.val = val
@@ -220,7 +220,7 @@ class clean_sugar(mapper):
         return do_clean_sugar(val)
 
 
-class map_val(mapper):
+class MapVal(Mapper):
     """
         Use : map_val(external_field, val_mapping)
         where val_mapping is a dictionary
@@ -231,7 +231,7 @@ class map_val(mapper):
     """
 
     def __init__(self, val, map, default=''):
-        self.val = value(val)
+        self.val = Value(val)
         self.map = map
         self.default = default
 
@@ -239,7 +239,7 @@ class map_val(mapper):
         return self.map.get(self.val(external_values), self.default)
 
 
-class ref(dbmapper):
+class Ref(Dbmapper):
     """
         Use : ref(table_name, external_id)
         return the xml_id of the ressource
@@ -255,7 +255,7 @@ class ref(dbmapper):
         return self.parent.xml_id_exist(self.table, external_values.get(self.field_name))
 
 
-class refbyname(dbmapper):
+class Refbyname(Dbmapper):
     """
         Use : refbyname(table_name, external_name, res.model)
         same as ref but use the name of the ressource to find it
@@ -271,7 +271,7 @@ class refbyname(dbmapper):
         return self.parent.name_exist(self.table, v, self.model)
 
 
-class xml_id(dbmapper):
+class XmlId(Dbmapper):
 
     def __init__(self, table, field_name='id'):
         self.table = table
@@ -287,21 +287,21 @@ class xml_id(dbmapper):
         return self.parent._generate_xml_id(field_value, self.table)
 
 
-class user2partner(dbmapper):
+class User2partner(Dbmapper):
 
     def __init__(self, table_user, field_name='id'):
         self.table_user = table_user
-        #self.table_partner = table_partner
+        # self.table_partner = table_partner
         self.field_name = field_name
 
     def __call__(self, external_values):
-        id = xml_id(self.table_user, self.field_name)
+        id = XmlId(self.table_user, self.field_name)
         id.set_parent(self.parent)
         user_xml_id = id(external_values)
         return user_xml_id + '_res_partner'
 
 
-class user_by_login(dbmapper):
+class UserByLogin(Dbmapper):
 
     def __init__(self, field_name):
         self.field_name = field_name
@@ -321,7 +321,7 @@ FIX_COUNTRY = {
 }
 
 
-class country_by_name(dbmapper):
+class CountryByName(Dbmapper):
 
     def __init__(self, field_name):
         self.field_name = field_name
@@ -339,7 +339,7 @@ class country_by_name(dbmapper):
             return ''
 
 
-class res_id(dbmapper):
+class ResId(Dbmapper):
 
     def __init__(self, get_table, field_name, default='0'):
         self.get_table = get_table
@@ -347,7 +347,7 @@ class res_id(dbmapper):
         self.default = default
 
     def __call__(self, external_values):
-        id = xml_id(self.get_table(external_values), self.field_name)
+        id = XmlId(self.get_table(external_values), self.field_name)
         id.set_parent(self.parent)
         xmlid = id(external_values)
         res_id = self.parent.pool['ir.model.data'].xmlid_to_res_id(self.parent.cr,
@@ -356,7 +356,7 @@ class res_id(dbmapper):
         return res_id and str(res_id) or self.default
 
 
-class emails2partners(dbmapper):
+class Emails2partners(Dbmapper):
 
     def __init__(self, field_name):
         self.field_name = field_name
@@ -366,7 +366,7 @@ class emails2partners(dbmapper):
         if alias_domain is None:
             ir_config_parameter = self.parent.pool.get("ir.config_parameter")
             alias_domain = ir_config_parameter.get_param(self.parent.cr, self.parent.uid, "mail.catchall.domain")
-            print 'alias_domain', alias_domain
+
             alias_domain = alias_domain or ''
             self.parent.cache['alias_domain'] = alias_domain
 
@@ -386,7 +386,7 @@ class emails2partners(dbmapper):
                     res.append(str(partner_id))
                     continue
                 else:
-                    # print 'alias not found', email
+
                     pass
 
             #
@@ -402,15 +402,15 @@ class emails2partners(dbmapper):
                 res.append(str(partner_id))
                 continue
             else:
-                # print 'partner not found', email
+
                 pass
 
         res = ','.join(res)
-        # print 'emails2partners', s, res
+
         return res
 
 
-class call(mapper):
+class Call(Mapper):
     """
         Use : call(function, arg1, arg2)
         to call the function with external val follow by the arg specified
@@ -423,7 +423,7 @@ class call(mapper):
     def __call__(self, external_values):
         args = []
         for arg in self.arg:
-            if isinstance(arg, mapper):
+            if isinstance(arg, Mapper):
                 args.append(arg(external_values))
             else:
                 args.append(arg)

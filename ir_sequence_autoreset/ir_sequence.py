@@ -23,7 +23,7 @@ from openerp.osv import osv, fields
 from openerp.tools.translate import _
 
 
-class ir_sequence(osv.osv):
+class IrSequence(osv.osv):
     _inherit = 'ir.sequence'
 
     _columns = {

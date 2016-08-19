@@ -20,10 +20,9 @@
 #################################################################################
 
 from openerp.osv import fields, orm
-from openerp.tools.translate import _
 
 
-class project_project(orm.Model):
+class ProjectProject(orm.Model):
     _inherit = "project.project"
     _columns = {
         # restricted field. Allowed group members only.
@@ -31,7 +30,7 @@ class project_project(orm.Model):
     }
 
 
-class account_analytic_account(orm.Model):
+class AccountAnalyticAccount(orm.Model):
     _inherit = 'account.analytic.account'
 
     def name_get(self, cr, uid, ids, context=None):

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': 'Custom menu bar (orange)',
     'version': '1.0.0',

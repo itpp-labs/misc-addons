@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': 'Translate website_description',
     'version': '1.0.0',

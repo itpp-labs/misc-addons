@@ -1,7 +1,10 @@
-from openerp import api, models, fields, SUPERUSER_ID
+# -*- coding: utf-8 -*-
+from openerp import api
+from openerp import fields
+from openerp import models
 
 
-class ir_ui_menu(models.Model):
+class IrUiMenu(models.Model):
 
     _inherit = 'ir.ui.menu'
 
@@ -12,7 +15,7 @@ class ir_ui_menu(models.Model):
     }
 
 
-class page(models.Model):
+class Page(models.Model):
 
     _name = 'web_iframe_pages.page'
     _order = 'sequence'
@@ -48,17 +51,17 @@ class page(models.Model):
 
     @api.model
     def create(self, vals):
-        res = super(page, self).create(vals)
+        res = super(Page, self).create(vals)
         res.update_menu()
         return res
 
     @api.multi
     def write(self, vals):
-        res = super(page, self).write(vals)
+        res = super(Page, self).write(vals)
         self.update_menu()
         return res
 
     @api.multi
     def unlink(self):
         self.menu_id.unlink()
-        return super(page, self).unlink()
+        return super(Page, self).unlink()

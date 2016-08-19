@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': "Reminders and Agenda for Tasks",
     'version': '1.0.0',

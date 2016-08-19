@@ -24,19 +24,15 @@
 
 import logging
 import openerp
-from openerp.osv import fields, osv, orm
-from datetime import date, datetime, time, timedelta
-from openerp.addons.base.ir.ir_cron import _intervalTypes
+from openerp.osv import fields
 from openerp import SUPERUSER_ID
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from openerp.http import request
-from openerp.tools.translate import _
 from openerp import http
 
 _logger = logging.getLogger(__name__)
 
 
-class Home_tkobr(openerp.addons.web.controllers.main.Home):
+class HomeTkobr(openerp.addons.web.controllers.main.Home):
 
     @http.route('/web/login', type='http', auth="none")
     def web_login(self, redirect=None, **kw):

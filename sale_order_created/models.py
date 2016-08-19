@@ -1,7 +1,8 @@
-from openerp import api, models, fields, SUPERUSER_ID
+# -*- coding: utf-8 -*-
+from openerp import models
 
 
-class sale_order(models.Model):
+class SaleOrder(models.Model):
 
     _inherit = 'sale.order'
 

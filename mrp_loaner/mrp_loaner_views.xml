@@ -119,40 +119,40 @@
     <field name="model">mrp_loaner.loaner_usage</field>
     <field name="arch" type="xml">
         <form string="Loaner Usage Form">
-			<header>
-				<field name="state" widget="statusbar" clickable="True"/>
-			</header>
+            <header>
+                <field name="state" widget="statusbar" clickable="True"/>
+            </header>
             <sheet>
-				<group>
-					<group string="Information">
-						<field name="loaner_id"/>
-					</group>
-					<group string="Accessories">
-						<field name="accessory_cord"/>
-						<field name="accessory_rack"/>
-						<field name="accessory_trays"/>
-						<field name="accessory_other"/>
-					</group>
-					<group string="Out">
-						<field name="date_out"/>
-						<field name="shipping_out_paid"/>
-						<field name="courier_out"/>
-						<field name="courier_out_other"/>
-						<field name="tracking_out"/>
-						<field name="shipping_out_amount"/>
-						<field name="condition_out"/>
-					</group>
-					<group string="Back">
-						<field name="date_back"/>
-						<field name="shipping_back_paid"/>
-						<field name="courier_back"/>
-						<field name="courier_back_other"/>
-						<field name="tracking_back"/>
-						<field name="shipping_back_amount"/>
-						<field name="condition_back"/>
-					</group>
-				</group>
-				<field name="notes"/>
+                <group>
+                    <group string="Information">
+                        <field name="loaner_id"/>
+                    </group>
+                    <group string="Accessories">
+                        <field name="accessory_cord"/>
+                        <field name="accessory_rack"/>
+                        <field name="accessory_trays"/>
+                        <field name="accessory_other"/>
+                    </group>
+                    <group string="Out">
+                        <field name="date_out"/>
+                        <field name="shipping_out_paid"/>
+                        <field name="courier_out"/>
+                        <field name="courier_out_other"/>
+                        <field name="tracking_out"/>
+                        <field name="shipping_out_amount"/>
+                        <field name="condition_out"/>
+                    </group>
+                    <group string="Back">
+                        <field name="date_back"/>
+                        <field name="shipping_back_paid"/>
+                        <field name="courier_back"/>
+                        <field name="courier_back_other"/>
+                        <field name="tracking_back"/>
+                        <field name="shipping_back_amount"/>
+                        <field name="condition_back"/>
+                    </group>
+                </group>
+                <field name="notes"/>
             </sheet>
             <div class="oe_chatter">
                 <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>

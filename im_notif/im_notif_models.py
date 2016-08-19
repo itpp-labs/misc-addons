@@ -1,11 +1,12 @@
-import openerp
-from openerp import api, models, fields, SUPERUSER_ID, tools
+# -*- coding: utf-8 -*-
+from openerp import SUPERUSER_ID
+from openerp import models
+from openerp import tools
 from openerp.osv import fields as old_fields
-from openerp.tools import html2plaintext
 from openerp.tools.translate import _
 
 
-class res_partner(models.Model):
+class ResPartner(models.Model):
     _inherit = 'res.partner'
     _columns = {
         'notify_email': old_fields.selection([
@@ -21,7 +22,7 @@ class res_partner(models.Model):
     }
 
 
-class mail_notification(models.Model):
+class MailNotification(models.Model):
     _inherit = 'mail.notification'
 
     def get_recipients(self, cr, uid, ids, message, context=None):
@@ -81,7 +82,7 @@ class mail_notification(models.Model):
             )
         author = message.author_id and message.author_id.name_get()
         author = author and author[0][1] or message.email_from
-        #body = html2plaintext(message.body)[:100] or ''
+        # body = html2plaintext(message.body)[:100] or ''
         mtype = {'email': _('Email'),
                  'comment': _('Comment'),
                  'notification': _('System notification'),
@@ -97,7 +98,7 @@ class mail_notification(models.Model):
             '%s [FROM] %s' % (message.type, author),
             about,
         ]
-        #im_text = im_text + body.split('\n')
+        # im_text = im_text + body.split('\n')
         return im_text
 
     def _notify_email(self, cr, uid, ids, message_id, force_send=False, user_signature=True, context=None):

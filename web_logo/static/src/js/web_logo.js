@@ -20,6 +20,6 @@ openerp.web_logo = function(instance){
     }
 
 
-    })
+    });
 
-}
+};

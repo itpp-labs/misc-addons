@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': 'Sales in mediation company ',
     'version': '1.0.0',
@@ -11,7 +12,7 @@
     'depends': ['sale', 'crm', 'project', 'contract_purchases'],
     'data': [
         'views.xml',
-        #'data.xml',
+        # 'data.xml',
     ],
     'installable': False,
 }

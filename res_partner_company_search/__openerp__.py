@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': 'Search partner by company fields',
     'version': '1.0.0',

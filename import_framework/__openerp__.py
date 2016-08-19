@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': 'Import framework ',
     'version': '1.0.0',

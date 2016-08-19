@@ -2,7 +2,7 @@
 <openerp>
     <data>
 <template id="style">
-	<style type="text/css">
+    <style type="text/css">
 .page-break  {
     clear: left;
     display:block;
@@ -27,5 +27,5 @@
 }
 </style>
 </template>
-	</data>
+    </data>
 </openerp>

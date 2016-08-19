@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': 'Loaner equipment',
     'version': '1.0.0',

@@ -1,6 +1,6 @@
-import models
-import controllers
-import fields
+from . import models
+from . import controllers
+from . import fields
 
 from openerp import SUPERUSER_ID
 

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': 'Repair Order (custom)',
     'version': '1.0.0',

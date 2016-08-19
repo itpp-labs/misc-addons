@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': 'Football pitches booking functionality',
     'version': '1.0.0',
