@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_web_iframe_pages_page,access_web_iframe_pages_page,model_web_iframe_pages_page,,1,0,0,0

@@ -3,13 +3,13 @@ from openerp import SUPERUSER_ID
 from openerp.http import request
 
 try:
-    from openerp.addons.website_booking_calendar.controllers.main import website_booking_calendar as controller
+    from openerp.addons.website_booking_calendar.controllers.main import website_booking_calendar as Controller
 except ImportError:
     class Controller(object):
         pass
 
 
-class WebsiteBookingCalendar(controller):
+class WebsiteBookingCalendar(Controller):
 
     def _get_resources(self, params):
         venue_id, pitch_id = params.get('venue'), params.get('pitch')
