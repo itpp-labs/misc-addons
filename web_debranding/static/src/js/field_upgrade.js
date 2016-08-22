@@ -16,12 +16,12 @@ odoo.define('web_debranding.field_upgrade', function (require) {
             var $el = this.$el;
 
             // $el = div
-            $el = $el.parent()
-            $el.hide()
+            $el = $el.parent();
+            $el.hide();
 
             // $el = div
-            $el = $el.parent()
-            if (_.all($el.children(), function(ch){return $(ch).css('display') == 'none'})){
+            $el = $el.parent();
+            if (_.all($el.children(), function(ch){return $(ch).css('display') == 'none';})){
                 // hide whole group as doesn't have fields
                 var i = 1;
                 var MAX = 10;

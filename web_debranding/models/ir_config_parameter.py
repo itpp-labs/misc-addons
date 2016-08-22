@@ -1,4 +1,5 @@
-from openerp import models, api, tools, SUPERUSER_ID
+# -*- coding: utf-8 -*-
+from openerp import models, api, tools
 
 PARAMS = [
     'web_debranding.new_name',

@@ -6,14 +6,14 @@ Removes references to odoo.com:
 1. Deletes Odoo label in footer
 2. Replaces "Odoo" in page title
 3. Replaces "Odoo" in help message for empty list
-4. .
+4. *(feature is not required in 9.0 version)*
 5. Deletes Documentation, Support, About links. Adds "Developer mode" link to the top right-hand User Menu.
 6. Replaces default logo by empty image
 7. Replaces "Odoo" in Dialog Box
 8. Replaces "Odoo" in strings marked for translation.
 9. Replaces default favicon to a custom one
 10. **Hides Apps menu** (by default, only admin (superuser) can see Apps menu. You could change it via tick "Show Modules Menu" in user's access rights tab)
-11. Disables server requests to odoo.com (publisher_warranty_url) - optional. Works only for non-enterprise versions of odoo, check `note <#enterprise-users-notice>`_ below.
+11. Disables server requests to odoo.com (publisher_warranty_url) - optional. Works only for non-enterprise versions of odoo, check `note <#enterprise-users-notice>`__ below.
 12. Deletes "My odoo.com account" button
 13. Deletes Apps and other blocks from Settings/Dashboard
 14. Replaces "Odoo" in planner
@@ -29,7 +29,7 @@ module open Settings\\System Parameters and modify
 * ``web_debranding.new_title`` (put space in value if you don't need Brand in Title)
 * ``web_debranding.new_name`` (your Brand)
 * ``web_debranding.favicon_url``
-* ``web_debranding.send_publisher_warranty_url`` - set 0 to disable server requests to odoo.com and 1 otherwise (useful for enterprise contractors). Works only for non-enterprise versions of odoo, check `note <#enterprise-users-notice>`_ below.
+* ``web_debranding.send_publisher_warranty_url`` - set 0 to disable server requests to odoo.com and 1 otherwise (useful for enterprise contractors). Works only for non-enterprise versions of odoo, check `note <#enterprise-users-notice>`__ below.
 * ``web_debranding.planner_footer``
 
 Further debranding

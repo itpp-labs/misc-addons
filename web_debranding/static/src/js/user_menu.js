@@ -9,9 +9,9 @@ odoo.define('web_debranding.UserMenu', function (require) {
     UserMenu.include({
         on_menu_debug: function(){
             if (session.debug){
-                return alert(_t('Developer mode is already activated'))
+                return alert(_t('Developer mode is already activated'));
             }
             window.location = $.param.querystring(window.location.href, 'debug');
         }
     });
-})
+});

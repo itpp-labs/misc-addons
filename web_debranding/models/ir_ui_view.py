@@ -1,11 +1,12 @@
+# -*- coding: utf-8 -*-
 import logging
-from openerp import SUPERUSER_ID, models, tools, api
+from openerp import SUPERUSER_ID, models
 _logger = logging.getLogger(__name__)
 
 MODULE = '_web_debranding'
 
 
-class view(models.Model):
+class View(models.Model):
     _inherit = 'ir.ui.view'
 
     def _create_debranding_views(self, cr, uid):

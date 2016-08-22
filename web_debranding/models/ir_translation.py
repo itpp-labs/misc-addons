@@ -23,13 +23,11 @@ class IrTranslation(models.Model):
         if not new_name:
             return source
 
-        """
-        We must exclude the case when after the word "odoo" is the word "define".
-        Since JS functions are also contained in the localization files.
-        Example:
-        po file: https://github.com/odoo/odoo/blob/9.0/addons/im_livechat/i18n/ru.po#L853
-        xml file: https://github.com/odoo/odoo/blob/9.0/addons/im_livechat/views/im_livechat_channel_templates.xml#L148
-        """
+        # We must exclude the case when after the word "odoo" is the word "define".
+        # Since JS functions are also contained in the localization files.
+        # Example:
+        # po file: https://github.com/odoo/odoo/blob/9.0/addons/im_livechat/i18n/ru.po#L853
+        # xml file: https://github.com/odoo/odoo/blob/9.0/addons/im_livechat/views/im_livechat_channel_templates.xml#L148
         return re.sub(r'\bodoo(?!\.define)\b', new_name, source, flags=re.IGNORECASE)
 
     @tools.ormcache('name', 'types', 'lang', 'source', 'res_id')
