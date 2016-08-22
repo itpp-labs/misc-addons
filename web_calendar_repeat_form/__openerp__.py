@@ -15,5 +15,5 @@ To activate feature in calendar view xml defenition use the following attribute 
     'category': 'Web',
     'depends': ['web_calendar'],
     'data': ['views.xml'],
-    'installable': True
+    'installable': False,
 }
