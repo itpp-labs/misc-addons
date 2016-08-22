@@ -13,5 +13,5 @@ Makes days and weeks clickable in month view
     'depends': ['web_calendar'],
     'data': ['views.xml'],
     'qweb': ['static/src/xml/*.xml'],
-    'installable': True
+    'installable': False,
 }
