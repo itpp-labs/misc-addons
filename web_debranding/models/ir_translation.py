@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 
-from openerp import SUPERUSER_ID
+from openerp import api
 from openerp import models
 from openerp import tools
 
@@ -40,11 +40,11 @@ class IrTranslation(models.Model):
     @api.model
     @tools.ormcache_context('model_name', keys=('lang',))
     def get_field_string(self, model_name):
-        res = super(ir_translation, self).get_field_string(model_name)
+        res = super(IrTranslation, self).get_field_string(model_name)
         return self._debrand_dict(res)
 
     @api.model
     @tools.ormcache_context('model_name', keys=('lang',))
     def get_field_help(self, model_name):
-        res = super(ir_translation, self).get_field_help(model_name)
+        res = super(IrTranslation, self).get_field_help(model_name)
         return self._debrand_dict(res)
