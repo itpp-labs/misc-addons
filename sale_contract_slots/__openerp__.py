@@ -12,4 +12,5 @@
         'views/account_analytic_account.xml',
         'views/sale_order.xml',
     ],
+    'installable': False,
 }
