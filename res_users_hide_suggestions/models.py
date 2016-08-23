@@ -1,6 +1,9 @@
-from openerp import api,models,fields
+# -*- coding: utf-8 -*-
+from openerp import fields
+from openerp import models
 
-class res_users(models.Model):
+
+class ResUsers(models.Model):
     _inherit = 'res.users'
 
     display_suggestions_hidden = fields.Boolean('Suggestions were hidden', default=False, help="Tick to don't repeat removing suggestion ticks")

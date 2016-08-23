@@ -2,17 +2,17 @@
 <openerp>
     <data>
         <record id="view_partner_form_skype" model="ir.ui.view">
-			 <field name="name">res.partner.form.skype</field>
+             <field name="name">res.partner.form.skype</field>
           <field name="model">res.partner</field>
           <field name="inherit_id" ref="base.view_partner_form"/>
           <field name="arch" type="xml">
-				<data>
-				  <xpath expr="//field[@name='email']" position="after">
-					 <field name="skype" widget="skype"/>
-				  </xpath>
-				</data>
-			 </field>
+                <data>
+                  <xpath expr="//field[@name='email']" position="after">
+                     <field name="skype" widget="skype"/>
+                  </xpath>
+                </data>
+             </field>
 
-		  </record>
-	 </data>
+          </record>
+     </data>
 </openerp>

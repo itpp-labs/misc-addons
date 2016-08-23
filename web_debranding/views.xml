@@ -6,7 +6,7 @@
        <xpath expr="//div[@t-if='not disable_footer']" position="replace"></xpath>
     </template>
 
-    <template id="web_debranding.web_layout" inherit_id="web.layout">
+    <template id="web_layout" inherit_id="web.layout">
        <xpath expr="//title" position="replace"></xpath>
        <xpath expr="//link[@rel='shortcut icon']" position="replace">
            <t t-set="favicon" t-value="request and request.env['ir.config_parameter'].get_param('web_debranding.favicon_url', '').strip() or ''"/>
@@ -18,27 +18,27 @@
   </data>
 
  <data noupdate="1">
-    <record id="web_debranding.new_name" model="ir.config_parameter">
+    <record id="new_name" model="ir.config_parameter">
         <field name="key">web_debranding.new_name</field>
         <field name="value">Software</field>
     </record>
 
-    <record id="web_debranding.custom_title" model="ir.config_parameter">
+    <record id="custom_title" model="ir.config_parameter">
         <field name="key">web_debranding.new_title</field>
         <field name="value">Software</field>
     </record>
 
-    <record id="web_debranding.favicon_url" model="ir.config_parameter">
+    <record id="favicon_url" model="ir.config_parameter">
         <field name="key">web_debranding.favicon_url</field>
         <field name="value"> </field>
     </record>
 
-    <record id="web_debranding.send_publisher_warranty_url" model="ir.config_parameter">
+    <record id="send_publisher_warranty_url" model="ir.config_parameter">
         <field name="key">web_debranding.send_publisher_warranty_url</field>
         <field name="value">0</field>
     </record>
 
-    <record id="web_debranding.planner_footer" model="ir.config_parameter">
+    <record id="planner_footer" model="ir.config_parameter">
         <field name="key">web_debranding.planner_footer</field>
         <field name="value"> </field>
     </record>

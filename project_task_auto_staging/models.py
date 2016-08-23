@@ -7,12 +7,12 @@ from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from openerp.exceptions import ValidationError
 
 
-class project_project_auto_staging(models.Model):
+class ProjectProjectAutoStaging(models.Model):
     _inherit = 'project.project'
     allow_automove = fields.Boolean('Allow auto move tasks', default=True, help='Allows move tasks to another stages according to Autostaging settings')
 
 
-class project_task_type_auto_staging(models.Model):
+class ProjectTaskTypeAutoStaging(models.Model):
     _inherit = 'project.task.type'
 
     to_stage_automove_id = fields.Many2one('project.task.type')
@@ -23,7 +23,7 @@ class project_task_type_auto_staging(models.Model):
     def write(self, vals):
         if not vals.get('active_move', True):
             vals['delay_automove'] = 0
-        return super(project_task_type_auto_staging, self).write(vals)
+        return super(ProjectTaskTypeAutoStaging, self).write(vals)
 
     @api.one
     @api.constrains('delay_automove')
@@ -33,7 +33,7 @@ class project_task_type_auto_staging(models.Model):
                 "Value of 'Delay' field  must be greater than 0")
 
 
-class project_task_auto_staging(models.Model):
+class ProjectTaskAutoStaging(models.Model):
     _inherit = 'project.task'
     allow_automove = fields.Boolean(
         compute='_get_allow_automove', search='_search_allow_automove')
@@ -92,4 +92,4 @@ class project_task_auto_staging(models.Model):
             ('when_date_automove', '<=', time.strftime('%Y-%m-%d'))])
         for task in tasks:
             task.with_context(auto_staging=True).write(
-                {'stage_id':  task.automove_to_stage_id.id})
+                {'stage_id': task.automove_to_stage_id.id})

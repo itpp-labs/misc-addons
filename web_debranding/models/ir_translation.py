@@ -1,12 +1,12 @@
+# -*- coding: utf-8 -*-
 import re
-import inspect
-import types
 
-import openerp
-from openerp import SUPERUSER_ID, models, tools, api
+from openerp import api
+from openerp import models
+from openerp import tools
 
 
-class ir_translation(models.Model):
+class IrTranslation(models.Model):
     _inherit = 'ir.translation'
 
     def _debrand_dict(self, res):
@@ -23,28 +23,26 @@ class ir_translation(models.Model):
         if not new_name:
             return source
 
-        """
-        We must exclude the case when after the word "odoo" is the word "define".
-        Since JS functions are also contained in the localization files.
-        Example:
-        po file: https://github.com/odoo/odoo/blob/9.0/addons/im_livechat/i18n/ru.po#L853
-        xml file: https://github.com/odoo/odoo/blob/9.0/addons/im_livechat/views/im_livechat_channel_templates.xml#L148
-        """
+        # We must exclude the case when after the word "odoo" is the word "define".
+        # Since JS functions are also contained in the localization files.
+        # Example:
+        # po file: https://github.com/odoo/odoo/blob/9.0/addons/im_livechat/i18n/ru.po#L853
+        # xml file: https://github.com/odoo/odoo/blob/9.0/addons/im_livechat/views/im_livechat_channel_templates.xml#L148
         return re.sub(r'\bodoo(?!\.define)\b', new_name, source, flags=re.IGNORECASE)
 
     @tools.ormcache('name', 'types', 'lang', 'source', 'res_id')
     def __get_source(self, cr, uid, name, types, lang, source, res_id):
-        res = super(ir_translation, self).__get_source(cr, uid, name, types, lang, source, res_id)
+        res = super(IrTranslation, self).__get_source(cr, uid, name, types, lang, source, res_id)
         return self._debrand(cr, uid, res)
 
     @api.model
     @tools.ormcache_context('model_name', keys=('lang',))
     def get_field_string(self, model_name):
-        res = super(ir_translation, self).get_field_string(model_name)
+        res = super(IrTranslation, self).get_field_string(model_name)
         return self._debrand_dict(res)
 
     @api.model
     @tools.ormcache_context('model_name', keys=('lang',))
     def get_field_help(self, model_name):
-        res = super(ir_translation, self).get_field_help(model_name)
+        res = super(IrTranslation, self).get_field_help(model_name)
         return self._debrand_dict(res)

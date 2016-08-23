@@ -1,10 +1,12 @@
+# -*- coding: utf-8 -*-
 import logging
-from openerp import SUPERUSER_ID, models, tools, api
+from openerp import SUPERUSER_ID, models
 _logger = logging.getLogger(__name__)
 
 MODULE = '_web_debranding'
 
-class view(models.Model):
+
+class View(models.Model):
     _inherit = 'ir.ui.view'
 
     def _create_debranding_views(self, cr, uid):
@@ -31,8 +33,8 @@ class view(models.Model):
         if view_id:
             try:
                 registry['ir.ui.view'].write(cr, SUPERUSER_ID, [view_id], {
-                'arch': arch,
-            })
+                    'arch': arch,
+                })
             except:
                 _logger.warning('Cannot update view %s. Delete it.', name, exc_info=True)
                 registry['ir.ui.view'].unlink(cr, SUPERUSER_ID, [view_id])

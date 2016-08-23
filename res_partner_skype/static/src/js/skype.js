@@ -22,18 +22,18 @@ instance.web.form.FieldSkype = instance.web.form.FieldChar.extend({
                     .text(this.get('value') || '');
         }
     },
-	skype_uri:function(){
-		//http://developer.skype.com/skype-uris/reference
-		return 'skype:' + this.get('value') + '?'+(this.options.type || 'chat') + (this.options.video?'&video=true':'') + (this.options.topic?'&topic='+encodeURIComponent(this.options.topic):'');
-	},
+    skype_uri:function(){
+        //http://developer.skype.com/skype-uris/reference
+        return 'skype:' + this.get('value') + '?'+(this.options.type || 'chat') + (this.options.video?'&video=true':'') + (this.options.topic?'&topic='+encodeURIComponent(this.options.topic):'');
+    },
     on_button_clicked: function() {
         if (!this.get('value') || !this.is_syntax_valid()) {
             this.do_warn(_t("Skype Error"), _t("Can't skype to invalid skype address"));
         } else {
-            location.href = this.skype_uri()
+            location.href = this.skype_uri();
         }
     }
 });
 
-instance.web.form.widgets.add('skype', 'instance.web.form.FieldSkype')
-})()
+instance.web.form.widgets.add('skype', 'instance.web.form.FieldSkype');
+})();

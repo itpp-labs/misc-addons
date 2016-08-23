@@ -1,6 +1,10 @@
-from openerp import api, models, fields, SUPERUSER_ID
+# -*- coding: utf-8 -*-
+from openerp import api
+from openerp import fields
+from openerp import models
 
-class res_partner(models.Model):
+
+class ResPartner(models.Model):
     _inherit = "res.partner"
 
     record_url = fields.Char('Link to record', compute='compute_record_url')

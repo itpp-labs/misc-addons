@@ -1,14 +1,15 @@
-from openerp import http, SUPERUSER_ID
+# -*- coding: utf-8 -*-
+from openerp import SUPERUSER_ID
 from openerp.http import request
 
 try:
-    from openerp.addons.website_booking_calendar.controllers.main import website_booking_calendar as controller
+    from openerp.addons.website_booking_calendar.controllers.main import website_booking_calendar as Controller
 except ImportError:
-    class controller(object):
+    class Controller(object):
         pass
 
 
-class website_booking_calendar(controller):
+class WebsiteBookingCalendar(Controller):
 
     def _get_resources(self, params):
         venue_id, pitch_id = params.get('venue'), params.get('pitch')
@@ -22,12 +23,12 @@ class website_booking_calendar(controller):
         if pitch_id:
             return pitch_obj.browse(cr, uid, int(pitch_id), context=context).resource_id
         elif venue_id:
-            pitch_ids = pitch_obj.search(cr, uid, [('venue_id','=',int(venue_id))], context=context)
+            pitch_ids = pitch_obj.search(cr, uid, [('venue_id', '=', int(venue_id))], context=context)
             return [p.resource_id for p in pitch_obj.browse(cr, SUPERUSER_ID, pitch_ids, context=context)]
-        return super(website_booking_calendar, self)._get_resources(params)
+        return super(WebsiteBookingCalendar, self)._get_resources(params)
 
     def _get_values(self, params):
-        values = super(website_booking_calendar, self)._get_values(params)
+        values = super(WebsiteBookingCalendar, self)._get_values(params)
         cr, uid, context = request.cr, SUPERUSER_ID, request.context
         venue_obj = request.registry['pitch_booking.venue']
         venues = venue_obj.browse(cr, uid, venue_obj.search(cr, uid, [], context=context), context=context)

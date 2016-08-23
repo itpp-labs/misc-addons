@@ -1,4 +1,6 @@
-from openerp import api, models, fields, SUPERUSER_ID
+# -*- coding: utf-8 -*-
+from openerp import fields
+from openerp import models
 
 AVAILABLE_CONDITIONS = [
     ('0', 'Very Poor'),
@@ -13,6 +15,7 @@ AVAILABLE_COURIERS = [
     ('1', 'Bus'),
     ('2', 'Other'),
 ]
+
 
 class Loaner(models.Model):
     _name = 'mrp_loaner.loaner'
@@ -42,7 +45,8 @@ class Loaner(models.Model):
             res.append((r.id, '%s %s %s' % (b, n, s)))
         return res
 
-class Loaner_Usage(models.Model):
+
+class LoanerUsage(models.Model):
     _name = 'mrp_loaner.loaner_usage'
     _inherit = ['mail.thread', 'ir.needaction_mixin']
     _description = 'Loaner Usage'
@@ -54,18 +58,18 @@ class Loaner_Usage(models.Model):
     accessory_trays = fields.Selection(string="Trays", selection=[('0', '0'), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ], required=False, )
     accessory_other = fields.Char(string="Other Accessories", required=False, )
     date_out = fields.Date(string="Date Loaner Sent", required=False, default=fields.Date.today)
-    shipping_out_paid = fields.Boolean(string="Shipping Out Paid by us",  )
+    shipping_out_paid = fields.Boolean(string="Shipping Out Paid by us",)
     courier_out = fields.Selection(string="Outbound Courier", selection=AVAILABLE_COURIERS, required=False, )
     courier_out_other = fields.Char(string="Other Outbound Courier", required=False, )
-    tracking_out = fields.Char(string="Outbound Tracking #", required=False, )
-    shipping_out_amount = fields.Float(string="Outbound Shipping Cost",  required=False, )
+    tracking_out = fields.Char(string="Outbound Tracking # ", required=False, )
+    shipping_out_amount = fields.Float(string="Outbound Shipping Cost", required=False, )
     condition_out = fields.Selection(string="Condition When Sent", selection=AVAILABLE_CONDITIONS, required=False, )
     date_back = fields.Date(string="Date Loaner Returned", required=False)
-    shipping_back_paid = fields.Boolean(string="Shipping Back Paid by us",  )
+    shipping_back_paid = fields.Boolean(string="Shipping Back Paid by us",)
     courier_back = fields.Selection(string="Return Courier", selection=AVAILABLE_COURIERS, required=False, )
     courier_back_other = fields.Char(string="Other Return Courier", required=False, )
-    tracking_back = fields.Char(string="Return Tracking #", required=False, )
-    shipping_back_amount = fields.Float(string="Return Shipping Cost",  required=False, )
+    tracking_back = fields.Char(string="Return Tracking # ", required=False, )
+    shipping_back_amount = fields.Float(string="Return Shipping Cost", required=False, )
     condition_back = fields.Selection(string="Condition When Returned", selection=AVAILABLE_CONDITIONS, required=False, )
     state = fields.Selection(string="State", selection=[('loan', 'On Loan'), ('testing', 'QC Testing'), ('done', 'Done'), ], required=False, default='loan')
     notes = fields.Text(string="Notes", required=False, )

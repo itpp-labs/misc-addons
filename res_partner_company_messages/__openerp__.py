@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': "Aggregate messages from company's contacts",
     'version': '1.0.0',
@@ -9,6 +10,6 @@
     'depends': ['mail'],
     'data': [
         'views.xml',
-        ],
+    ],
     'installable': False
 }

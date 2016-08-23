@@ -22,21 +22,21 @@
 #
 ##############################################################################
 {
-    "name" : "Currency Rate Update",
-    "version" : "0.7",
-    "author" : "Camptocamp, IT-Projects LLC, Ivan Yelizariev",
-    "website" : "http://camptocamp.com",
-    "category" : "Financial Management/Configuration",
-    "depends" : [
+    "name": "Currency Rate Update",
+    "version": "0.7",
+    "author": "Camptocamp, IT-Projects LLC, Ivan Yelizariev",
+    "website": "http://camptocamp.com",
+    "category": "Financial Management/Configuration",
+    "depends": [
         "base",
-        "account", #Added to ensure account security groups are present
-        ],
-    "data" : [
+        "account",  # Added to ensure account security groups are present
+    ],
+    "data": [
         "currency_rate_update.xml",
         "company_view.xml",
         "security/security.xml",
-        ],
-    "demo" : [],
+    ],
+    "demo": [],
     "active": False,
     'installable': False
 }

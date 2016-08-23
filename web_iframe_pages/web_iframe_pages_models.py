@@ -1,6 +1,10 @@
-from openerp import api, models, fields, SUPERUSER_ID
+# -*- coding: utf-8 -*-
+from openerp import api
+from openerp import fields
+from openerp import models
 
-class ir_ui_menu(models.Model):
+
+class IrUiMenu(models.Model):
 
     _inherit = 'ir.ui.menu'
 
@@ -10,7 +14,8 @@ class ir_ui_menu(models.Model):
         'parent_id': lambda self, cr, uid, ctx: ctx and ctx.get('default_iframe_pages_group') and self.pool.get('ir.model.data').get_object_reference(cr, uid, 'web_iframe_pages', 'menu_top')[1]
     }
 
-class page(models.Model):
+
+class Page(models.Model):
 
     _name = 'web_iframe_pages.page'
     _order = 'sequence'
@@ -24,7 +29,7 @@ class page(models.Model):
 
         return self.env['ir.ui.menu'].create({'name': name,
                                               'action': 'ir.actions.client,%d' % action.id
-                                          })
+                                              })
 
     menu_id = fields.Many2one('ir.ui.menu', 'Menu')
     menu_id_name = fields.Char('Entry')
@@ -38,7 +43,7 @@ class page(models.Model):
     def update_menu(self):
         if not self.menu_id:
             self.menu_id = self.get_default_menu_id()
-        self.menu_id.action.params = {'link':self.link}
+        self.menu_id.action.params = {'link': self.link}
         self.menu_id.name = self.menu_id_name
         self.menu_id.action.name = self.menu_id_name
         self.menu_id.parent_id = self.menu_id_parent_id
@@ -46,17 +51,17 @@ class page(models.Model):
 
     @api.model
     def create(self, vals):
-        res = super(page, self).create(vals)
+        res = super(Page, self).create(vals)
         res.update_menu()
         return res
 
     @api.multi
     def write(self, vals):
-        res = super(page, self).write(vals)
+        res = super(Page, self).write(vals)
         self.update_menu()
         return res
 
     @api.multi
     def unlink(self):
         self.menu_id.unlink()
-        return super(page, self).unlink()
+        return super(Page, self).unlink()

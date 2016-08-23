@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 from openerp.osv import fields as old_fields
-from openerp import api,models,fields,tools
+from openerp import api, models, fields, tools
 try:
     from openerp.addons.email_template.email_template import mako_template_env
 except ImportError:
@@ -12,12 +13,11 @@ from openerp.loglevels import ustr
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
-from email.charset import Charset
-from email.header import Header
-from email.utils import formatdate, make_msgid, COMMASPACE, parseaddr
+from email.utils import COMMASPACE
+from email.utils import formatdate
+from email.utils import make_msgid
 from email import Encoders
 import openerp.tools as tools
-from openerp.tools.translate import _
 from openerp.tools import html2text
 import openerp.tools as tools
 
@@ -26,7 +26,8 @@ import base64
 
 from openerp.addons.base.ir.ir_mail_server import encode_rfc2822_address_header, encode_header, encode_header_param
 
-class res_users(models.Model):
+
+class ResUsers(models.Model):
     _inherit = 'res.users'
 
     signature_id = fields.Many2one('res.users.signature', string='Signature template', help='Keep empty to edit signature manually')
@@ -34,27 +35,25 @@ class res_users(models.Model):
         'signature': old_fields.html('Signature', sanitize=False)
     }
 
-
     @api.one
     @api.onchange('signature_id')
     def render_signature_id(self):
         if not self.signature_id:
             return
         mako = mako_template_env.from_string(tools.ustr(self.signature_id.template))
-        html = mako.render({'user':self})
+        html = mako.render({'user': self})
         if html != self.signature:
             self.signature = html
 
     @api.one
     def write(self, vals):
-        res = super(res_users, self).write(vals)
+        res = super(ResUsers, self).write(vals)
         if any([k in vals for k in ['company_id']]):
             self.render_signature_id()
         return res
 
 
-
-class res_users_signature(models.Model):
+class ResUsersSignature(models.Model):
     _name = 'res.users.signature'
 
     name = fields.Char('Name')
@@ -80,7 +79,7 @@ You can use control structures:
 
     @api.one
     def write(self, vals):
-        res = super(res_users_signature, self).write(vals)
+        res = super(ResUsersSignature, self).write(vals)
         self.action_update_signature()
         return res
 
@@ -88,23 +87,24 @@ You can use control structures:
     def action_update_signature(self):
         self.user_ids.render_signature_id()
 
-class res_partner(models.Model):
+
+class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     @api.one
     def write(self, vals):
-        res = super(res_partner, self).write(vals)
+        res = super(ResPartner, self).write(vals)
         if self.user_ids:
             self.user_ids.render_signature_id()
         return res
 
 
-class ir_mail_server(models.Model):
+class IrMailServer(models.Model):
     _inherit = "ir.mail_server"
 
     def build_email(self, email_from, email_to, subject, body, email_cc=None, email_bcc=None, reply_to=False,
-               attachments=None, message_id=None, references=None, object_id=False, subtype='plain', headers=None,
-               body_alternative=None, subtype_alternative='plain'):
+                    attachments=None, message_id=None, references=None, object_id=False, subtype='plain', headers=None,
+                    body_alternative=None, subtype_alternative='plain'):
         """ copy-pasted from openerp/addons/base/ir/ir_mail_server.py::build_email """
 
         ftemplate = '__image-%s__'
@@ -120,20 +120,18 @@ class ir_mail_server(models.Model):
                 break
             s = match.start()
             e = match.end()
-            data = body[s+len('"data:image/png;base64,'):e-1]
+            data = body[s + len('"data:image/png;base64,'):e - 1]
             new_body += body[pos:s]
 
             fname = ftemplate % fcounter
             fcounter += 1
-            attachments.append( (fname, base64.b64decode(data)) )
+            attachments.append((fname, base64.b64decode(data)))
 
             new_body += '"cid:%s"' % fname
             pos = e
 
         new_body += body[pos:]
         body = new_body
-
-
 
         email_from = email_from or tools.config.get('email_from')
         assert email_from, "You must either provide a sender address explicitly or configure "\
@@ -143,11 +141,14 @@ class ir_mail_server(models.Model):
         # Note: we must force all strings to to 8-bit utf-8 when crafting message,
         #       or use encode_header() for headers, which does it automatically.
 
-        headers = headers or {} # need valid dict later
+        headers = headers or {}  # need valid dict later
 
-        if not email_cc: email_cc = []
-        if not email_bcc: email_bcc = []
-        if not body: body = u''
+        if not email_cc:
+            email_cc = []
+        if not email_bcc:
+            email_bcc = []
+        if not body:
+            body = u''
 
         email_body_utf8 = ustr(body).encode('utf-8')
         email_text_part = MIMEText(email_body_utf8, _subtype=subtype, _charset='utf-8')
@@ -205,7 +206,7 @@ class ir_mail_server(models.Model):
                 # so we fix it by using RFC2047 encoding for the filename instead.
                 part.set_param('name', filename_rfc2047)
                 part.add_header('Content-Disposition', 'attachment', filename=filename_rfc2047)
-                part.add_header('Content-ID', '<%s>' % filename_rfc2047) # NEW STUFF
+                part.add_header('Content-ID', '<%s>' % filename_rfc2047)  # NEW STUFF
 
                 part.set_payload(fcontent)
                 Encoders.encode_base64(part)

@@ -4,22 +4,22 @@
 
 <record model="ir.ui.view" id="crm_case_phone_form_view">
     <field name="model">crm.phonecall</field>
-	<field name="inherit_id" ref="crm.crm_case_phone_form_view"/>
+    <field name="inherit_id" ref="crm.crm_case_phone_form_view"/>
     <field name="arch" type="xml">
-		<xpath expr="//field[@name='opportunity_id']" position="after">
-			<field name="repair_id" domain="[('state', 'not in', ['cancel', 'done'])]" context="{'mrp_repair_extended_name':1}"/>
-		</xpath>
-	</field>
+        <xpath expr="//field[@name='opportunity_id']" position="after">
+            <field name="repair_id" domain="[('state', 'not in', ['cancel', 'done'])]" context="{'mrp_repair_extended_name':1}"/>
+        </xpath>
+    </field>
 </record>
 
 <record id="view_crm_case_phonecalls_filter" model="ir.ui.view">
     <field name="model">crm.phonecall</field>
-	<field name="inherit_id" ref="crm.view_crm_case_phonecalls_filter"/>
+    <field name="inherit_id" ref="crm.view_crm_case_phonecalls_filter"/>
     <field name="arch" type="xml">
-		<xpath expr="//field[@name='opportunity_id']" position="after">
-			<field name="repair_id"/>
-		</xpath>
-	</field>
+        <xpath expr="//field[@name='opportunity_id']" position="after">
+            <field name="repair_id"/>
+        </xpath>
+    </field>
 
 </record>
 
@@ -35,11 +35,11 @@
     <field name="help" type="html">
         <p class="oe_view_nocontent_create">
             Click to log the summary of a phone call. 
-			</p><p>
+            </p><p>
             Odoo allows you to log inbound calls on the fly to track the
             history of the communication with a customer or to inform another
             team member.
-			</p><p>
+            </p><p>
             In order to follow up on the call, you can trigger a request for
             another call, a meeting or an opportunity.
         </p>
@@ -49,9 +49,9 @@
 
 <record id="view_repair_order_form" model="ir.ui.view">
     <field name="model">mrp.repair</field>
-	<field name="inherit_id" ref="mrp_repair.view_repair_order_form"/>
+    <field name="inherit_id" ref="mrp_repair.view_repair_order_form"/>
     <field name="arch" type="xml">
-		<xpath expr="//sheet/*[1]" position="before">
+        <xpath expr="//sheet/*[1]" position="before">
 
             <div class="oe_right oe_button_box">
                 <button class="oe_inline oe_stat_button" type="action"
@@ -61,9 +61,9 @@
                 </button>
             </div>
 
-		</xpath>
-	</field>
+        </xpath>
+    </field>
 </record>
 
-	</data>
+    </data>
 </openerp>

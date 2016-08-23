@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import mapper
+from . import mapper
 try:
     from pandas import DataFrame
 except ImportError:
@@ -8,7 +8,8 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-class create_childs(object):
+class CreateChilds(object):
+
     def __init__(self, childs):
 
         # extend childs to same set of fields
@@ -27,21 +28,21 @@ class create_childs(object):
 
         self.childs = childs
 
-
     def get_childs(self):
         return self.childs
 
-class import_base(object):
+
+class ImportBase(object):
 
     def __init__(self, pool, cr, uid,
                  instance_name,
                  module_name,
                  email_to_notify=False,
-                 import_dir = '/tmp/', # path to save *.csv files for debug or manual upload
-                 run_import = True,
+                 import_dir='/tmp/',  # path to save *.csv files for debug or manual upload
+                 run_import=True,
                  context=None):
-        #Thread.__init__(self)
-        self.import_options = {'quoting':'"', 'separator':',', 'headers':True}
+        # Thread.__init__(self)
+        self.import_options = {'quoting': '"', 'separator': ',', 'headers': True}
         self.external_id_field = 'id'
         self.pool = pool
         self.cr = cr
@@ -51,33 +52,29 @@ class import_base(object):
         self.context = context or {}
         self.email = email_to_notify
         self.table_list = []
-        #self.logger = logging.getLogger(module_name)
+        # self.logger = logging.getLogger(module_name)
         self.cache = {}
         self.import_dir = import_dir
         self.run_import = run_import
         self.import_num = 1
         self.initialize()
 
-
     def initialize(self):
         """
             init before import
             usually for the login
         """
-        pass
 
     def finalize(self):
         """
             init after import
         """
-        pass
 
     def init_run(self):
         """
             call after intialize run in the thread, not in the main process
             TO use for long initialization operation
         """
-        pass
 
     def get_data(self, table):
         """
@@ -106,24 +103,24 @@ class import_base(object):
         """
             @return: { TABLE_NAME : {
                 'model' : 'openerp.model.name',
-                #if true import the table if not just resolve dependencies, use for meta package, by default => True
-                #Not required
+                # if true import the table if not just resolve dependencies, use for meta package, by default => True
+                # Not required
                 'import' : True or False,
-                #Not required
+                # Not required
                 'dependencies' : [TABLE_1, TABLE_2],
-                #Not required
-                'hook' : self.function_name, #get the val dict of the object, return the same val dict or False
+                # Not required
+                'hook' : self.function_name, # get the val dict of the object, return the same val dict or False
                 'map' : { @see mapper
                     'openerp_field_name' : 'external_field_name', or val('external_field_name')
-                    'openerp_field_id/id' : ref(TABLE_1, 'external_id_field'), #make the mapping between the external id and the xml on the right
-                    'openerp_field2_id/id_parent' : ref(TABLE_1,'external_id_field') #indicate a self dependencies on openerp_field2_id
+                    'openerp_field_id/id' : ref(TABLE_1, 'external_id_field'), # make the mapping between the external id and the xml on the right
+                    'openerp_field2_id/id_parent' : ref(TABLE_1,'external_id_field') # indicate a self dependencies on openerp_field2_id
                     'state' : map_val('state_equivalent_field', mapping), # use get_state_map to make the mapping between the value of the field and the value of the state
-                    'text_field' : concat('field_1', 'field_2', .., delimiter=':'), #concat the value of the list of field in one
-                    'description_field' : ppconcat('field_1', 'field_2', .., delimiter='\n\t'), #same as above but with a prettier formatting
-                    'field' : call(callable, arg1, arg2, ..), #call the function with all the value, the function should send the value : self.callable
+                    'text_field' : concat('field_1', 'field_2', .., delimiter=':'), # concat the value of the list of field in one
+                    'description_field' : ppconcat('field_1', 'field_2', .., delimiter='\n\t'), # same as above but with a prettier formatting
+                    'field' : call(callable, arg1, arg2, ..), # call the function with all the value, the function should send the value : self.callable
                     'field' : callable
                     'field' : call(method, val('external_field') interface of method is self, val where val is the value of the field
-                    'field' : const(value) #always set this field to value
+                    'field' : const(value) # always set this field to value
                     + any custom mapper that you will define
                 }
             },
@@ -142,6 +139,7 @@ class import_base(object):
     def hook_ignore_all(self, *args):
         # for debug
         return None
+
     def get_hook_ignore_empty(self, *args):
         def f(external_values):
             ignore = True
@@ -177,14 +175,14 @@ class import_base(object):
         decrement = True
 
         while decrement:
-            # decrease the maxInt value by factor 10 
+            # decrease the maxInt value by factor 10
             # as long as the OverflowError occurs.
 
             decrement = False
             try:
                 csv.field_size_limit(maxInt)
             except OverflowError:
-                maxInt = int(maxInt/10)
+                maxInt = int(maxInt / 10)
                 decrement = True
 
     def do_import(self, import_list, context):
@@ -196,8 +194,8 @@ class import_base(object):
                 messages = import_obj.do(self.cr, self.uid,
                                          imp.get('id'), imp.get('fields'),
                                          self.import_options, context=context)
-                _logger.info('import_result:\n%s'%messages)
-            except Exception as e:
+                _logger.info('import_result:\n%s' % messages)
+            except Exception:
 
                 import traceback
                 import StringIO
@@ -212,7 +210,6 @@ class import_base(object):
             self.cr.commit()
 
     def resolve_dependencies(self, deps):
-        import_list = []
         for dname in deps:
             if dname in self.mapped:
                 continue
@@ -234,10 +231,10 @@ class import_base(object):
                 _logger.info('map and import: import-%s' % self.import_num)
                 self.map_and_import_batch(mmodel, records)
             else:
-                i=0
+                i = 0
                 while True:
-                    _logger.info('importing batch # %s (import-%s)' % (i,self.import_num))
-                    rr = records[i*split:(i+1)*split]
+                    _logger.info('importing batch # %s (import-%s)' % (i, self.import_num))
+                    rr = records[i * split:(i + 1) * split]
                     if len(rr):
                         self.map_and_import_batch(mmodel, rr)
                         i += 1
@@ -250,11 +247,11 @@ class import_base(object):
                 _logger.info('finalize model done')
 
     def map_and_import_batch(self, mmodel, records):
-            import_list = self.do_mapping(records, mmodel)
-            context = mmodel.get('context')
-            if context:
-                context = context()
-            self.do_import(import_list, context)
+        import_list = self.do_mapping(records, mmodel)
+        context = mmodel.get('context')
+        if context:
+            context = context()
+        self.do_import(import_list, context)
 
     def do_mapping(self, records, mmodel):
 
@@ -263,7 +260,7 @@ class import_base(object):
         res = []
 
         mfields = self._preprocess_mapping(mmodel.get('fields'))
-        _logger.info('mapping records to %s: %s' %( mmodel.get('model'), len(records)))
+        _logger.info('mapping records to %s: %s' % (mmodel.get('model'), len(records)))
         for key, r in records.iterrows():
             hooked = hook(dict(r))
             if not isinstance(hooked, list):
@@ -281,7 +278,7 @@ class import_base(object):
         data_binary = res.to_csv(sep=self.import_options.get('separator'),
                                  quotechar=self.import_options.get('quoting'),
                                  index=False,
-                                 header = fields,
+                                 header=fields,
                                  encoding='utf-8'
                                  )
 
@@ -290,7 +287,7 @@ class import_base(object):
                 self.import_dir,
                 self.import_num,
                 mmodel.get('model'),
-                )
+            )
             with open(file_name, 'w') as f:
                 f.write(data_binary)
 
@@ -299,11 +296,11 @@ class import_base(object):
         if not self.run_import:
             return []
         id = self.pool['base_import.import'].create(self.cr, self.uid,
-            {'res_model':mmodel.get('model'),
-             'file': data_binary,
-             'file_name': mmodel.get('model'),
-             })
-        return [{'id':id, 'fields':fields}]
+                                                    {'res_model': mmodel.get('model'),
+                                                     'file': data_binary,
+                                                     'file_name': mmodel.get('model'),
+                                                     })
+        return [{'id': id, 'fields': fields}]
 
     def _preprocess_mapping(self, mapping):
         """
@@ -314,15 +311,15 @@ class import_base(object):
             use to allow syntaxical sugar like 'field': 'external_field'
             instead of 'field' : value('external_field')
         """
-        #m = dict(mapping)
+        # m = dict(mapping)
         m = mapping
         for key, value in m.items():
             if isinstance(value, basestring):
                 m[key] = mapper.value(value)
-            #set parent for instance of dbmapper
+            # set parent for instance of dbmapper
             elif isinstance(value, mapper.dbmapper):
                 value.set_parent(self)
-            elif isinstance(value, create_childs):
+            elif isinstance(value, CreateChilds):
                 # {'child_ids':[{'id':id1, 'name':name1}, {'id':id2, 'name':name2}]}
                 # ->
                 # {'child_ids/id':[id1, id2], 'child_ids/name': [name1, name2]}
@@ -333,10 +330,10 @@ class import_base(object):
                         if new_key not in m:
                             m[new_key] = []
                         m[new_key].append(cvalue)
-                del m[key] # delete 'child_ids'
+                del m[key]  # delete 'child_ids'
         return m
 
-    def _fields_mapp(self,dict_sugar, openerp_dict):
+    def _fields_mapp(self, dict_sugar, openerp_dict):
         """
 {'name': name0, 'child_ids/id':[id1, id2], 'child_ids/name': [name1, name2]} ->
 
@@ -351,22 +348,21 @@ res = [
         res = []
         i = -1
         while True:
-            fields=[]
+            fields = []
             data_lst = []
-            for key,val in openerp_dict.items():
+            for key, val in openerp_dict.items():
                 if key not in fields:
                     fields.append(key)
-                    if isinstance(val, list) and len(val)>i and i>=0:
+                    if isinstance(val, list) and len(val) > i and i >= 0:
                         value = val[i](dict_sugar)
-                    elif not isinstance(val, list) and i==-1:
+                    elif not isinstance(val, list) and i == -1:
                         value = val(dict_sugar)
                     else:
                         value = ''
                     data_lst.append(value)
             if any(data_lst):
                 add = True
-                if i>=0:
-                    print '_fields_mapp', zip(fields, data_lst)
+                if i >= 0:
                     add = False
                     # ignore empty lines
                     for pos, val in enumerate(data_lst):

@@ -1,23 +1,25 @@
+# -*- coding: utf-8 -*-
 from datetime import datetime, timedelta
 import logging
-import traceback
-from openerp import api, models, fields, tools, SUPERUSER_ID
+from openerp import api
+from openerp import fields
+from openerp import models
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 from openerp.addons.booking_calendar.models import SLOT_START_DELAY_MINS, SLOT_DURATION_MINS
 
 _logger = logging.getLogger(__name__)
 
 
-class pitch_booking_venue(models.Model):
+class PitchBookingVenue(models.Model):
     _name = 'pitch_booking.venue'
 
     name = fields.Char('Name')
     company_id = fields.Many2one('res.company', 'Company')
 
 
-class pitch_booking_pitch(models.Model):
+class PitchBookingPitch(models.Model):
     _name = 'pitch_booking.pitch'
-    _inherits = {'resource.resource': 'resource_id'}   
+    _inherits = {'resource.resource': 'resource_id'}
     _defaults = {
         'to_calendar': True,
     }
@@ -26,7 +28,7 @@ class pitch_booking_pitch(models.Model):
     resource_id = fields.Many2one('resource.resource', ondelete='cascade', required=True)
 
 
-class sale_order_line(models.Model):
+class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     venue_id = fields.Many2one('pitch_booking.venue', string='Venue', related='product_id.venue_id')
@@ -35,7 +37,7 @@ class sale_order_line(models.Model):
 
     @api.one
     def write(self, vals):
-        result = super(sale_order_line, self).write(vals)
+        result = super(SaleOrderLine, self).write(vals)
         if vals.get('pitch_id') and not vals.get('resource_id'):
             vals['resource_id'] = self.env['pitch_booking.pitch'].browse(vals.get('pitch_id')).resource_id
         return result
@@ -43,7 +45,7 @@ class sale_order_line(models.Model):
     @api.onchange('resource_id')
     def _on_change_resource(self):
         if self.resource_id:
-            pitch = self.env['pitch_booking.pitch'].search([('resource_id','=',self.resource_id.id)])
+            pitch = self.env['pitch_booking.pitch'].search([('resource_id', '=', self.resource_id.id)])
             if pitch:
                 self.pitch_id = pitch[0].id
 
@@ -54,12 +56,12 @@ class sale_order_line(models.Model):
 
     @api.model
     def _prepare_order_line_invoice_line(self, line, account_id=False):
-        res = super(sale_order_line, self)._prepare_order_line_invoice_line(line, account_id)
+        res = super(SaleOrderLine, self)._prepare_order_line_invoice_line(line, account_id)
         res.update({
             'venue_id': line.venue_id.id,
             'pitch_id': line.pitch_id.id,
             'booking_start': line.booking_start,
-            'booking_end': line.booking_end    
+            'booking_end': line.booking_end
         })
         return res
 
@@ -74,7 +76,7 @@ class sale_order_line(models.Model):
         if pitch_id:
             resources = [pitch_obj.browse(int(pitch_id)).resource_id]
         elif venue_id:
-            resources = [p.resource_id for p in pitch_obj.search([('venue_id','=',int(venue_id))])]
+            resources = [p.resource_id for p in pitch_obj.search([('venue_id', '=', int(venue_id))])]
         return [{
             'name': r.name,
             'id': r.id,
@@ -123,17 +125,17 @@ class sale_order_line(models.Model):
         for cond in domain:
             if type(cond) in (tuple, list):
                 if cond[0] == 'venue_id':
-                    pitch_domain.append(tuple(cond));
+                    pitch_domain.append(tuple(cond))
                 elif cond[0] == 'pitch_id':
-                    pitch_domain.append(('name',cond[1], cond[2]));
+                    pitch_domain.append(('name', cond[1], cond[2]))
 
-        pitch_domain.append(('to_calendar','=',True));
+        pitch_domain.append(('to_calendar', '=', True))
         resources = self.env['pitch_booking.pitch'].search(pitch_domain)
         return resources
 
     @api.model
     def get_booking_available_products(self, event, products):
-        products = super(sale_order_line, self).get_booking_available_products(event, products)
+        products = super(SaleOrderLine, self).get_booking_available_products(event, products)
         res = []
         pitch = self.env['pitch_booking.pitch'].search([('resource_id', '=', int(event['resource']))])
         if pitch and pitch.venue_id:
@@ -141,7 +143,7 @@ class sale_order_line(models.Model):
         return res
 
 
-class account_invoice_line(models.Model):
+class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
 
     venue_id = fields.Many2one('pitch_booking.venue', string='Venue')
@@ -150,23 +152,23 @@ class account_invoice_line(models.Model):
     booking_end = fields.Datetime(string="Date end")
 
 
-class product_template(models.Model):
+class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     venue_id = fields.Many2one('pitch_booking.venue', string='Venue')
 
 
-class sale_order(models.Model):
+class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     @api.multi
     def _add_booking_line(self, product_id, resource, start, end, tz_offset=0):
         if resource:
             for rec in self:
-                line = super(sale_order, rec)._add_booking_line(product_id, resource, start, end, tz_offset)
+                line = super(SaleOrder, rec)._add_booking_line(product_id, resource, start, end, tz_offset)
                 sol = rec.env['sale.order.line'].sudo()
                 pitch_obj = rec.env['pitch_booking.pitch'].sudo()
-                pitchs = pitch_obj.search([('resource_id','=',resource)], limit=1)
+                pitchs = pitch_obj.search([('resource_id', '=', resource)], limit=1)
                 if pitchs:
                     line.write({
                         'pitch_id': pitchs[0].id,

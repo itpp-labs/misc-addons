@@ -1,25 +1,25 @@
 .. _changelog:
 
-Changelog
-=========
+Updates
+=======
 
 `1.0.13`
--------
+--------
 
 - IMP: Add "Developer mode" link to the top right-hand User Menu
 
 `1.0.12`
--------
+--------
 
 - FIX: Forbid to disable odoo.com binding for enterprise due to terms of Odoo Enterprise Subscription Agreement
 
 `1.0.11`
--------
+--------
 
 - FIX desktop notifications: replace odoo icon company log and debrand text
 
 `1.0.10`
--------
+--------
 
 - FIX: Reconsile button didn't work
 - FIX: Updated title was not set

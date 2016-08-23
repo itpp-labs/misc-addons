@@ -5,8 +5,8 @@
 Usage
 =====
 
-* `Install <https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html>`_ this module
-* `Enable technical features <https://odoo-development.readthedocs.io/en/latest/odoo/usage/technical-features.html>`_
+* `Install <https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html>`__ this module
+* `Enable technical features <https://odoo-development.readthedocs.io/en/latest/odoo/usage/technical-features.html>`__
 * Update Confirmation page if needed
 
   * Open ``Settings / Technical / Parameters / System Parameters``

@@ -8,16 +8,16 @@
             <field name="inherit_id" ref="account_voucher.view_vendor_receipt_dialog_form"/>
             <field name="arch" type="xml">
                 <data>
-						<xpath expr="//field[@name='journal_id']" position="replace">
+                        <xpath expr="//field[@name='journal_id']" position="replace">
                     <field name="journal_id"
                            domain="[('type','in',['bank', 'cash']), ('company_id', '=', company_id)]"
                            invisible="context.get('line_type', False)"
                            widget="selection"
                            on_change="onchange_journal(journal_id, line_cr_ids, False, partner_id, date, amount, type, company_id, context)"
                            string="Payment Method"/>
-						</xpath>
-					 </data>
-				</field>
+                        </xpath>
+                     </data>
+                </field>
         </record>
 
         <record id="view_account_chart_inherit" model="ir.ui.view">
@@ -27,18 +27,18 @@
             <field name="inherit_id" ref="account.view_account_chart"/>
             <field name="arch" type="xml">
                 <data>
-						<xpath expr="//field[@name='fiscalyear']" position="replace">
-						  <field name="company_id"/>
-						  <field
-								name="fiscalyear"
-								domain="[('company_id', '=', company_id)]"
-								on_change="onchange_fiscalyear(fiscalyear)"
-								class="oe_inline"/>
-						</xpath>
-					 </data>
-				</field>
+                        <xpath expr="//field[@name='fiscalyear']" position="replace">
+                          <field name="company_id"/>
+                          <field
+                                name="fiscalyear"
+                                domain="[('company_id', '=', company_id)]"
+                                on_change="onchange_fiscalyear(fiscalyear)"
+                                class="oe_inline"/>
+                        </xpath>
+                     </data>
+                </field>
         </record>
-		
+        
         <record id="view_order_form" model="ir.ui.view">
             <field name="name">sale.order.form.multi_company</field>
             <field name="model">sale.order</field>
@@ -46,10 +46,10 @@
             <field name="arch" type="xml">
                 <data>
                     <field name="company_id" position="replace">
-						<field name="company_id" groups="base.group_multi_company" />
-					</field>
-				</data>
-			</field>
-		</record>
+                        <field name="company_id" groups="base.group_multi_company" />
+                    </field>
+                </data>
+            </field>
+        </record>
     </data>
 </openerp>

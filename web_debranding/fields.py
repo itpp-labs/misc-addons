@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 from openerp.fields import _String
 
 get_trans_func = _String.get_trans_func
+
 
 def get_trans_func_debrand(self, records):
     # check either web_debranding is installed

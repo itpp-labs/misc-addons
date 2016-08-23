@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 from openerp.osv import osv, fields
 
-class crm_lead(osv.osv):
+
+class CrmLead(osv.osv):
     _inherit = 'crm.lead'
 
     _track = {

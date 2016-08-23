@@ -3,7 +3,7 @@
 from openerp import models, fields, api
 
 
-class project_task_order(models.Model):
+class ProjectTaskOrder(models.Model):
     _inherit = 'project.task'
 
     kanban_state_num = fields.Integer('Kanban state num', compute='_kanban_num', store=True)

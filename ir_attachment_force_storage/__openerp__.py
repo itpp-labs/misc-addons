@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': "Force move attachments to DB storage",
     'version': '1.0.0',
@@ -8,6 +9,6 @@
     'depends': [],
     'data': [
         'data.xml'
-        ],
+    ],
     'installable': True
 }

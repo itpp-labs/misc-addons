@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': "Backend debranding",
     'version': '1.0.13',
@@ -22,7 +23,7 @@
         'views.xml',
         'js.xml',
         'pre_install.yml',
-        ],
+    ],
     'qweb': [
         'static/src/xml/web.xml',
     ],

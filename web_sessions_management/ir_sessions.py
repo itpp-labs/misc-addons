@@ -23,24 +23,11 @@
 ##############################################################################
 
 import logging
-import openerp
 from openerp import api, models, fields
-from datetime import date, datetime, time, timedelta
+from datetime import datetime
+from datetime import timedelta
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
-from openerp import SUPERUSER_ID
-from openerp.http import request
-from openerp.http import Response
 from openerp.http import root
-from openerp import http
-from openerp.tools.translate import _
-import werkzeug.contrib.sessions
-import werkzeug.datastructures
-import werkzeug.exceptions
-import werkzeug.local
-import werkzeug.routing
-import werkzeug.wrappers
-import werkzeug.wsgi
-from werkzeug.wsgi import wrap_file
 
 _logger = logging.getLogger(__name__)
 
@@ -48,7 +35,8 @@ LOGOUT_TYPES = [('ur', 'User Request'),
                 ('to', 'Timeout'),
                 ('re', 'Rule enforcing')]
 
-class ir_sessions(models.Model):
+
+class IrSessions(models.Model):
     _name = 'ir.sessions'
     _description = "Sessions"
 
@@ -65,7 +53,7 @@ class ir_sessions(models.Model):
     # Add other fields about the sessions like Source IPs etc...
 
     _order = 'date_logout desc'
-    
+
     # scheduler function to validate users session
     @api.model
     def validate_sessions(self):
@@ -129,4 +117,4 @@ class ir_sessions(models.Model):
         self.write({'logged_in': False,
                     'date_logout': fields.datetime.now(),
                     'logout_type': logout_type,
-                })
+                    })

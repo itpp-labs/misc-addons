@@ -50,7 +50,6 @@ class AutostagingCard(models.AbstractModel):
     # should be defined on inherired model:
     # autostaging_next_stage = fields.Many2one('STAGE_MODEL', related='_FIELD_STAGE_ID.autostaging_next_stage')
 
-
     @api.one
     def _compute_enabled(self):
         if getattr(self, self._field_stage_id).autostaging_enabled and (
@@ -111,4 +110,4 @@ class AutostagingCard(models.AbstractModel):
         cards = self.search(domain)
         for card in cards:
             card.with_context(autostaging=True).write(
-                {self._field_stage_id:  getattr(card, self._field_stage_id).next_stage.id})
+                {self._field_stage_id: getattr(card, self._field_stage_id).next_stage.id})

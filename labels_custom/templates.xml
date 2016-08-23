@@ -5,25 +5,25 @@
 <template id="report_address_label_template">
     <t t-call="report.html_container">
         <div class="page">
-			<t t-call="labels.style"/>
-			<t t-set="counter" t-value="0"/>
+            <t t-call="labels.style"/>
+            <t t-set="counter" t-value="0"/>
             <t t-foreach="docs" t-as="obj">
-				<t t-set="counter" t-value="counter+1"/>
-				<div class="avery_label avery_label_8_portrait">
+                <t t-set="counter" t-value="counter+1"/>
+                <div class="avery_label avery_label_8_portrait">
 
-					<div t-field="obj.partner_id"
-						 t-field-options='{"widget": "contact", "fields": ["name", "address", "phone"], "no_marker": true}' />
-					<p>Ref: <span t-field="obj.origin"/></p>
+                    <div t-field="obj.partner_id"
+                         t-field-options='{"widget": "contact", "fields": ["name", "address", "phone"], "no_marker": true}' />
+                    <p>Ref: <span t-field="obj.origin"/></p>
 
-				</div>
-				<t t-if="counter % 8 == 0">
-					<t t-set="counter" t-value="0"/>
-					<div class="page-break"/>
-				</t>
+                </div>
+                <t t-if="counter % 8 == 0">
+                    <t t-set="counter" t-value="0"/>
+                    <div class="page-break"/>
+                </t>
             </t>
         </div>
     </t>
 </template>
 
-	</data>
+    </data>
 </openerp>

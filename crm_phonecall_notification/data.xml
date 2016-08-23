@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-	<data>
+    <data>
         <record id="mt_phonecall_new" model="mail.message.subtype">
             <field name="name">Phonecall Created</field>
             <field name="res_model">crm.phonecall</field>
@@ -8,5 +8,5 @@
             <field name="hidden" eval="False"/>
             <field name="description">Phonecall Created</field>
         </record>
-	</data>
+    </data>
 </openerp>

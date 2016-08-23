@@ -3,3 +3,4 @@ access_mrp_custom_jobs,mrp_custom.job,model_mrp_custom_jobs,,1,0,0,0
 access_mrp_custom_routing,mrp_custom.routing,model_mrp_custom_routing,,1,0,0,0
 access_mrp_custom_material,mrp_custom.job,model_mrp_custom_material,,1,0,0,0
 access_mrp_custom_contacts,mrp_custom.job,model_mrp_custom_contacts,,1,0,0,0
+access_mrp_custom_cases,access_mrp_custom_cases,model_mrp_custom_cases,,1,0,0,0

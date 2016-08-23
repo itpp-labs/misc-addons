@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-	<data>
-		<record id="administrator" model="res.groups">
-			<field name="name">Signature administrator</field>
-			<field name="comment">the user will have access to edit signatures</field>
-		</record>
+    <data>
+        <record id="administrator" model="res.groups">
+            <field name="name">Signature administrator</field>
+            <field name="comment">the user will have access to edit signatures</field>
+        </record>
 
-	</data>
+    </data>
 </openerp>

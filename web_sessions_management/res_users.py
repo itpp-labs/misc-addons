@@ -22,32 +22,32 @@
 #
 ##############################################################################
 
-import openerp
-from openerp.osv import fields, osv, orm
-from datetime import date, datetime, time, timedelta
+from openerp.osv import fields
+from openerp.osv import osv
+from datetime import datetime
 from openerp import SUPERUSER_ID
 from openerp.http import request
 from openerp.addons.base.ir.ir_cron import _intervalTypes
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 
-class res_users(osv.osv):
+class ResUsers(osv.osv):
     _inherit = 'res.users'
-    
+
     _columns = {
         'login_calendar_id': fields.many2one('resource.calendar',
-            'Allowed Login Calendar', company_dependent=True,
-            help='The user will be only allowed to login in the calendar defined here.'),
+                                             'Allowed Login Calendar', company_dependent=True,
+                                             help='The user will be only allowed to login in the calendar defined here.'),
         'no_multiple_sessions': fields.boolean('No Multiple Sessions', company_dependent=True,
-            help='Select this to prevent user to start a session more than once'),
+                                               help='Select this to prevent user to start a session more than once'),
         'interval_number': fields.integer('Session Timeout', company_dependent=True, help='Timeout since last activity for auto logout'),
         'interval_type': fields.selection([('minutes', 'Minutes'),
-            ('hours', 'Hours'), ('work_days', 'Work Days'),
-            ('days', 'Days'), ('weeks', 'Weeks'), ('months', 'Months')],
-            'Interval Unit', company_dependent=True),
+                                           ('hours', 'Hours'), ('work_days', 'Work Days'),
+                                           ('days', 'Days'), ('weeks', 'Weeks'), ('months', 'Months')],
+                                          'Interval Unit', company_dependent=True),
         'session_ids': fields.one2many('ir.sessions', 'user_id', 'User Sessions')
-        }
-    
+    }
+
     # get earlier expiring date
     def get_expiring_date(self, cr, uid, id, context):
         now = datetime.now()
@@ -60,7 +60,7 @@ class res_users(osv.osv):
             else:
                 u_exp_date = g_exp_date
             g_no_multiple_sessions = False
-            u_no_multiple_sessions = user_id.no_multiple_sessions
+            # u_no_multiple_sessions = user_id.no_multiple_sessions
             for group in user_id.groups_id:
                 if group.no_multiple_sessions:
                     g_no_multiple_sessions = True
@@ -69,12 +69,11 @@ class res_users(osv.osv):
                     if t_exp_date < g_exp_date:
                         g_exp_date = t_exp_date
             if g_no_multiple_sessions:
-                u_no_multiple_sessions = True
+                # u_no_multiple_sessions = True
+                pass
             if g_exp_date < u_exp_date:
                 u_exp_date = g_exp_date
         else:
             u_exp_date = g_exp_date
         seconds = u_exp_date - now
         return datetime.strftime(u_exp_date, DEFAULT_SERVER_DATETIME_FORMAT), seconds.seconds
-        
-        

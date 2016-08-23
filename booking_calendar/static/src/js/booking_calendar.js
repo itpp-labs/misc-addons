@@ -13,7 +13,7 @@ openerp.booking_calendar = function (session) {
         init: function (parent, dataset, view_id, options) {
             this._super(parent, dataset, view_id, options);
             this.color_code_map = {};
-            this.read_resource_color_def = {}
+            this.read_resource_color_def = {};
             this.last_domain = {};
         },
         event_data_transform: function(evt) {
@@ -73,7 +73,7 @@ openerp.booking_calendar = function (session) {
                                 if (!self.all_filters[key]) {
                                     filter_item = {
                                         value: key,
-                                        label: e['title'],
+                                        label: e.title,
                                         color: self.get_color(key),
                                         is_checked: true
                                     };
@@ -98,7 +98,7 @@ openerp.booking_calendar = function (session) {
                         });
                 },
                 allDayDefault: false
-            }
+            };
             this.$calendar.fullCalendar('addEventSource', this.free_slot_source);
         },
         free_slot_click_data: function(event) {
@@ -126,7 +126,7 @@ openerp.booking_calendar = function (session) {
                     if (view.name == 'month' && event.className.indexOf('free_slot') >= 0) {
                         return false;
                     }
-                }
+                };
                 res.eventClick = function (event) {
                     if (event.className.indexOf('free_slot') >= 0) {
                         var d = new Date();
@@ -181,7 +181,7 @@ openerp.booking_calendar = function (session) {
         },
         read_resource_color: function(key) {
             if (this.read_resource_color_def[key])
-                return this.read_resource_color_def[key]
+                return this.read_resource_color_def[key];
 
             var self = this;
             var def = $.Deferred();
@@ -190,7 +190,7 @@ openerp.booking_calendar = function (session) {
             }
             else {            
                 new session.web.Model(this.model).call('read_color', [key]).then(function(result) {
-                    self.read_resource_color_def[key] = false
+                    self.read_resource_color_def[key] = false;
                     self.color_code_map[key] = result;
                     def.resolve(result);
                 });
@@ -210,7 +210,7 @@ openerp.booking_calendar = function (session) {
             if (attrs.free_slots) {
                 this.free_slots = attrs.free_slots;
             }
-            return res
+            return res;
         },
         remove_event: function(id) {
             var id = parseInt(id);
@@ -234,7 +234,7 @@ openerp.booking_calendar = function (session) {
                                         self.do_action({
                                             'type': 'ir.actions.act_window',
                                             'res_model': 'sale.order',
-                                            'res_id': records[0]['order_id'][0],
+                                            'res_id': records[0].order_id[0],
                                             'target': 'current',
                                             'views': [[false, 'form'], [false, 'list']],
                                             'context': {}
@@ -263,4 +263,4 @@ openerp.booking_calendar = function (session) {
             }
         },
     });
-}
+};

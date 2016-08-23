@@ -15,5 +15,5 @@
             <field name="partner_id" ref="notif_partner"/>
             <field name="active" eval="True"/>
         </record>
-	</data>
+    </data>
 </openerp>

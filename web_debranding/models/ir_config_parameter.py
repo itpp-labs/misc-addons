@@ -1,4 +1,5 @@
-from openerp import models, api, tools, SUPERUSER_ID
+# -*- coding: utf-8 -*-
+from openerp import models, api, tools
 
 PARAMS = [
     'web_debranding.new_name',
@@ -6,6 +7,7 @@ PARAMS = [
     'web_debranding.favicon_url',
     'web_debranding.planner_footer'
 ]
+
 
 class IrConfigParameter(models.Model):
     _inherit = 'ir.config_parameter'

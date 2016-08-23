@@ -1,6 +1,8 @@
-from openerp import api,models,fields
+# -*- coding: utf-8 -*-
+from openerp import api, models, fields
 
-class res_partner(models.Model):
+
+class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     @api.one
@@ -16,7 +18,8 @@ class res_partner(models.Model):
 
     employee_id = fields.Many2one('hr.employee', string='Related employee', compute=_get_employee_id)
 
-class res_users(models.Model):
+
+class ResUsers(models.Model):
     _inherit = 'res.users'
 
     @api.one

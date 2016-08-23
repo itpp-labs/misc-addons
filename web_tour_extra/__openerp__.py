@@ -8,13 +8,13 @@
 
     "author": "IT-Projects LLC",
     "website": "https://it-projects.info",
-    "license": "GPL-3",
+    "license": "LGPL-3",
     # "price": 30.00,
     # "currency": "EUR",
 
     "depends": [
         'base',
-        'web' ,
+        'web',
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [

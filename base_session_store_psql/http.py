@@ -6,6 +6,7 @@ from openerp.tools.func import lazy_property
 
 from .sessionstore import PostgresSessionStore
 
+
 class Root_tkobr(openerp.http.Root):
 
     @lazy_property
@@ -16,4 +17,3 @@ class Root_tkobr(openerp.http.Root):
 
 root = Root_tkobr()
 openerp.http.root.session_store = root.session_store
-

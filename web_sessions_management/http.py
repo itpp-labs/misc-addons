@@ -23,11 +23,7 @@
 ##############################################################################
 
 import logging
-import random
 import openerp
-from openerp.osv import fields, osv, orm
-from datetime import date, datetime, time, timedelta
-from openerp import SUPERUSER_ID
 import werkzeug.contrib.sessions
 import werkzeug.datastructures
 import werkzeug.exceptions
@@ -35,13 +31,9 @@ import werkzeug.local
 import werkzeug.routing
 import werkzeug.wrappers
 import werkzeug.wsgi
-from werkzeug.wsgi import wrap_file
 from openerp.http import request
-from openerp.tools.translate import _
-from openerp.http import Response
-from openerp import http
 from openerp.tools.func import lazy_property
-#   
+#
 _logger = logging.getLogger(__name__)
 
 
@@ -54,13 +46,13 @@ class OpenERPSession(openerp.http.OpenERPSession):
             pass
 
         if env and hasattr(env, 'registry') and env.registry.get('ir.sessions'):
-           session = env['ir.sessions'].sudo().search([('session_id', '=', self.sid)])
-           if session:
-               session._on_session_logout(logout_type)
+            session = env['ir.sessions'].sudo().search([('session_id', '=', self.sid)])
+            if session:
+                session._on_session_logout(logout_type)
         return super(OpenERPSession, self).logout(keep_db=keep_db)
 
 
-class Root_tkobr(openerp.http.Root):
+class RootTkobr(openerp.http.Root):
 
     @lazy_property
     def session_store(self):
@@ -69,6 +61,5 @@ class Root_tkobr(openerp.http.Root):
         _logger.debug('HTTP sessions stored in: %s', path)
         return werkzeug.contrib.sessions.FilesystemSessionStore(path, session_class=OpenERPSession)
 
-root = Root_tkobr()
+root = RootTkobr()
 openerp.http.root.session_store = root.session_store
-

@@ -1,6 +1,8 @@
-from openerp.osv import fields as old_fields, osv
+# -*- coding: utf-8 -*-
+from openerp.osv import osv
 
-class mrp_repair(osv.osv):
+
+class MrpRepair(osv.osv):
     _inherit = 'mrp.repair'
 
     _defaults = {
@@ -10,4 +12,4 @@ class mrp_repair(osv.osv):
     def create(self, cr, uid, vals, context=None):
         if vals.get('name', '/') == '/':
             vals['name'] = self.pool.get('ir.sequence').get(cr, uid, 'mrp.repair') or '/'
-        return super(mrp_repair, self).create(cr, uid, vals, context=context)
+        return super(MrpRepair, self).create(cr, uid, vals, context=context)

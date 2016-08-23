@@ -5,7 +5,7 @@ odoo.define('web_debranding.dialog', function(require) {
     var session = require('web.session');
     var _t = core._t;
 
-    var CrashManager = require('web.CrashManager')
+    var CrashManager = require('web.CrashManager');
     CrashManager.include({
         init: function () {
             this._super();
@@ -25,7 +25,7 @@ odoo.define('web_debranding.dialog', function(require) {
         },
     });
 
-    var Dialog = require('web.Dialog')
+    var Dialog = require('web.Dialog');
     Dialog.include({
         init: function (parent, options) {
             var debranding_new_name = ' ';
@@ -34,15 +34,15 @@ odoo.define('web_debranding.dialog', function(require) {
                 debranding_new_name = parent.debranding_new_name;
             }
             options = options || {};
-            if (options['title']){
-                var title = options['title'].replace(/Odoo/ig, debranding_new_name);
-                options['title'] = title;
+            if (options.title){
+                var title = options.title.replace(/Odoo/ig, debranding_new_name);
+                options.title = title;
             } else {
-                options['title'] = debranding_new_name;
+                options.title = debranding_new_name;
             }
             if (options.$content){
                 if (!(options.$content instanceof $)){
-                    options.$content = $(options.$content)
+                    options.$content = $(options.$content);
                 }
                 var content_html = options.$content.html().replace(/Odoo/ig, debranding_new_name);
                 options.$content.html(content_html);

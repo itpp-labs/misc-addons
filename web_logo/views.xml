@@ -2,17 +2,17 @@
 <openerp>
     <data>
 
-		<template id="layout_logo_show" inherit_id="website.layout_logo_show" >
-			<xpath expr="//img" position="replace">
-				<img t-attf-src="/logo.png?company_id=#{company_id or website.user_id != user_id and user_id.company_id.id or ''}"/>
-			</xpath>
-		</template>
+        <template id="layout_logo_show" inherit_id="website.layout_logo_show" >
+            <xpath expr="//img" position="replace">
+                <img t-attf-src="/logo.png?company_id=#{company_id or website.user_id != user_id and user_id.company_id.id or ''}"/>
+            </xpath>
+        </template>
 
-		<template id="assets_backend" name="assets" inherit_id="web.assets_backend">
-			<xpath expr="." position="inside">
-				<script type="text/javascript" src="/web_logo/static/src/js/web_logo.js"></script>
-			</xpath>
-		</template>
+        <template id="assets_backend" name="assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/web_logo/static/src/js/web_logo.js"></script>
+            </xpath>
+        </template>
 
-	</data>
+    </data>
 </openerp>

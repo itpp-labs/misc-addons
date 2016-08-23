@@ -1,14 +1,16 @@
+# -*- coding: utf-8 -*-
 import openerp
-from openerp import http, SUPERUSER_ID
+from openerp import http
 from openerp.addons.web.controllers.main import Binary
 import functools
-from openerp.http import request, serialize_exception as _serialize_exception
+from openerp.http import request
 from openerp.modules import get_module_resource
 from cStringIO import StringIO
 db_monodb = http.db_monodb
 
 
 class BinaryCustom(Binary):
+
     @http.route([
         '/web/binary/company_logo',
         '/logo',
@@ -52,7 +54,7 @@ class BinaryCustom(Binary):
                         response = http.send_file(image_data, filename=imgname, mtime=row[1])
                     else:
                         response = http.send_file(placeholder('nologo.png'))
-            except Exception, e:
+            except Exception as e:
                 raise e
                 response = http.send_file(placeholder(imgname))
 

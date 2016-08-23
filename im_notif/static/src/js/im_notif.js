@@ -40,5 +40,5 @@
             txt += _.escape(str.slice(last, str.length));
             return txt;
         },
-     })
- })()
+     });
+ })();

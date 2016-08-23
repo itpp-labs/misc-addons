@@ -19,9 +19,12 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #################################################################################
-from openerp import models, fields, api, _
+from openerp import api
+from openerp import fields
+from openerp import models
 
-class product_tag(models.Model):
+
+class ProductTag(models.Model):
     _description = 'Product Tags'
     _name = "product.tag"
 
@@ -38,7 +41,7 @@ class product_tag(models.Model):
     parent_right = fields.Integer('Right Parent', select=True)
 
     image = fields.Binary('Image')
-    
+
     _parent_store = True
     _parent_order = 'name'
     _order = 'parent_left'
@@ -62,7 +65,8 @@ class product_tag(models.Model):
         tags = self.search(args, limit=limit)
         return tags.name_get()
 
-class product_template(models.Model):
+
+class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     tag_ids = fields.Many2many(string='Tags',
