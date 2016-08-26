@@ -15,6 +15,11 @@ Sponsors
 --------
 * `Associated Environmental Systems <https://www.associatedenvironmentalsystems.com/>`_
 
+Donation
+========
+
+Feel free to help us maintain this and other modules by purchasing it at `app store <https://www.odoo.com/apps/modules/9.0/project_gantt8/>`_.
+
 Further information
 ===================
 
