@@ -19,23 +19,52 @@ function waitFor (condition, callback, timeout, timeoutMessageCallback) {
     }());
 }
 
+function waitForReady (page, ready, callback){
+    waitFor(function() {
+        console.log("PhantomTest: wait for condition:", ready);
+        return page.evaluate(function (ready) {
+            var r = false;
+            try {
+                console.log("page.evaluate eval expr:", ready);
+                r = !!eval(ready);
+            } catch(ex) {
+            }
+            console.log("page.evaluate eval result:", r);
+            return r;
+        }, ready)
+    }, callback);
+}
+
+function timeoutMessage (){
+    return ("Timeout\nhref: " + window.location.href +
+                   "\nreferrer: " + document.referrer +
+                   "\n\n" + (document.body && document.body.innerHTML)).replace(/[^a-z0-9\s~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, "*");
+}
+
 function PhantomTest() {
     var self = this;
     this.options = JSON.parse(system.args[system.args.length-1]);
     this.inject = this.options.inject || [];
-    this.timeout = this.options.timeout ? Math.round(parseFloat(this.options.timeout)*1000 - 5000) : 10000;
     this.origin = 'http://localhost';
     this.origin += this.options.port ? ':' + this.options.port : '';
 
     // ----------------------------------------------------
     // configure phantom and page
     // ----------------------------------------------------
-    phantom.addCookie({
+    this.pages = {} // sname -> page
+
+// wrong indent to keep original code in place
+for (var sname in self.options.sessions){ 
+    session = self.options.sessions[sname];
+    var jar = require('cookiejar').create();
+    this.page = require('webpage').create();
+    this.page.cookieJar = jar;
+    this.pages[sname] = this.page;
+    jar.addCookie({
         'domain': 'localhost',
         'name': 'session_id',
-        'value': this.options.session_id,
+        'value': session.session_id,
     });
-    this.page = require('webpage').create();
     this.page.viewportSize = { width: 1366, height: 768 };
     this.page.onError = function(message, trace) {
         var msg = [message];
@@ -59,95 +88,122 @@ function PhantomTest() {
     this.page.onConsoleMessage = function(message) {
         console.log(message);
     };
-    this.page.onLoadFinished = function(status) {
-        if (status === "success") {
-            for (var k in self.inject) {
-                var found = false;
-                var v = self.inject[k];
-                var need = v;
-                var src = v;
-                if (v[0]) {
-                    need = v[0];
-                    src = v[1];
-                    found = self.page.evaluate(function(code) {
-                        try {
-                            return !!eval(code);
-                        } catch (e) {
-                            return false;
-                        }
-                    }, need);
-                }
-                if(!found) {
-                    console.log('Injecting', src, 'needed for', need);
-                    if(!self.page.injectJs(src)) {
-                        console.log('error', "Cannot inject " + src);
-                        phantom.exit(1);
-                    }
-                }
-            }
-        }
-    };
+
+    var pagesLoaded = false;
+(function(){
+    // put it in function to have new variables scope
+    // (self.page is changed)
+    var page = self.page;
+    var timeout = session.timeout ? Math.round(parseFloat(session.timeout)*1000 - 5000) : 30000;
+
     setTimeout(function () {
-        self.page.evaluate(function () {
-            var message = ("Timeout\nhref: " + window.location.href +
-                           "\nreferrer: " + document.referrer +
-                           "\n\n" + (document.body && document.body.innerHTML)).replace(/[^a-z0-9\s~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, "*");
+        if (pagesLoaded)
+            return;
+        page.evaluate(function (timeoutMessage) {
+            var message = timeoutMessage();
             console.log('error', message);
-        });
+        }, timeoutMessage);
         phantom.exit(1);
-    }, self.timeout);
+    }, timeout);
+})()
+
+}// for (var sname in self.options.sessions){ 
+
 
     // ----------------------------------------------------
     // run test
     // ----------------------------------------------------
-    this.run = function(url_path, code, ready) {
-        if(self.options.login) {
+    this.run = function() {
+        // load pages and then call runCommands
+
+        pages_count = 0;
+        onPageReady = function(status) {
+            if (status === "success") {
+                pages_count--;
+                if (pages_count == 0){
+                    pagesLoaded = true;
+                    self.runCommands()
+                }
+            }
+        };
+
+
+    // wrong indent to keep original code in place
+    for (var sname in self.pages){
+        page = self.pages[sname];
+        session = self.options.sessions[sname];
+        // authenticate
+        url_path = session.url_path;
+        if(session.login) {
             var qp = [];
             qp.push('db=' + self.options.db);
-            qp.push('login=' + self.options.login);
-            qp.push('key=' + self.options.password);
+            qp.push('login=' + session.login);
+            qp.push('key=' + session.password);
             qp.push('redirect=' + encodeURIComponent(url_path));
             url_path = "/login?" + qp.join('&');
         }
         var url = self.origin + url_path;
-        code = code || "true";
-        ready = ready || "true";
-        self.page.open(url, function(status) {
-            if (status !== 'success') {
-                console.log('error', "failed to load " + url);
-                phantom.exit(1);
-            } else {
-                console.log('loaded', url, status);
-                // clear localstorage leftovers
-                self.page.evaluate(function () { localStorage.clear() });
-                // process ready
-                waitFor(function() {
-                    console.log("PhantomTest.run: wait for condition:", ready);
-                    return self.page.evaluate(function (ready) {
-                        var r = false;
-                        try {
-                            console.log("page.evaluate eval expr:", ready);
-                            r = !!eval(ready);
-                        } catch(ex) {
-                        }
-                        console.log("page.evaluate eval result:", r);
-                        return r;
-                    }, ready);
-                // run test
-                }, function() {
-                    console.log("PhantomTest.run: condition statified, executing: " + code);
-                    self.page.evaluate(function (code) { return eval(code); }, code);
-                    console.log("PhantomTest.run: execution launched, waiting for console.log('ok')...");
-                });
-            }
-        });
+
+        // open page
+        ready = session.ready || "true";
+
+        pages_count++;
+        (function(){
+            var currentPage = page;
+            console.log('start loading', url);
+            currentPage.open(url, function(status) {
+                if (status !== 'success') {
+                    console.log('error', "failed to load " + url);
+                    phantom.exit(1);
+                } else {
+                    console.log('loaded', url, status);
+                    // clear localstorage leftovers
+                    currentPage.evaluate(function () { localStorage.clear() });
+                    // process ready
+                    waitForReady(page, ready, onPageReady);
+                }
+            });
+        })()
+    }//for (var sname in self.pages){
+
     };
+
+    this.runCommands = function() {
+        var i = -1;
+        function nextCommand(){
+            i++;
+            if (i == self.options.command.length){
+                return;
+            }
+            command = self.options.command[i];
+            page = self.pages[command.session];
+            code = command.code || 'true';
+            ready = command.ready || 'true';
+
+            console.log("PhantomTest.runCommands: executing: " + code);
+            (function(){
+                var commandNum = i;
+                setTimeout(function () {
+                    if (commandNum != i)
+                        return;
+                    page.evaluate(function (timeoutMessage) {
+                        var message = timeoutMessage();
+                        console.log('error', message);
+                    }, timeoutMessage);
+                    phantom.exit(1);
+                }, command.timeout || 60333)
+            })()
+            page.evaluate(function (code) { return eval(code); }, code);
+            waitForReady(page, ready, nextCommand)
+        }
+    };
+
 }
 
 // js mode or jsfile mode
 if(system.args.length === 2) {
     pt = new PhantomTest();
-    pt.run(pt.options.url_path, pt.options.code, pt.options.ready);
+    pt.run();
 }
 
 // vim:et:
