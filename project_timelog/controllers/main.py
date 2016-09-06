@@ -121,7 +121,8 @@ class Controller(openerp.addons.bus.bus.Controller):
         # хоть с перерывами хоть и без
         # возможно нужно делать через крон, после того как считали это поле и оно оказалась не пусто делаем вызов крон функции которая по достижению
         # этого времени отправит в js по средством bus сообщение о том что нужно остановить таймер, так же за 20 минут до завершения отправит сообщение
-        # warning subtask
+        # warning subtask вызывать раз в 5 минут. Как вызывать функцию крон по времени, со значения модели другого поля?
+        # например известен стоплайн
 
         resultat = {
             'timer_status': play_status,
@@ -151,3 +152,7 @@ class Controller(openerp.addons.bus.bus.Controller):
         }
 
         return resultat
+
+    @http.route('/timelog/connection', type='http', auth="public")
+    def connection(self, **kwargs):
+        return "1"
