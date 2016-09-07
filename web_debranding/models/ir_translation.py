@@ -4,6 +4,7 @@ import re
 from openerp import SUPERUSER_ID
 from openerp import models
 from openerp import tools
+from openerp.tools.translate import _
 
 
 class IrTranslation(models.Model):
@@ -13,10 +14,7 @@ class IrTranslation(models.Model):
         if not source or not re.search(r'\bodoo\b', source, re.IGNORECASE):
             return source
 
-        new_name = self.pool['ir.config_parameter'].get_param(cr, SUPERUSER_ID, 'web_debranding.new_name', False)
-
-        if not new_name:
-            return source
+        new_name = self.pool['ir.config_parameter'].get_param(cr, SUPERUSER_ID, 'web_debranding.new_name') or _('Software')
 
         return re.sub(r'\bodoo\b', new_name, source, flags=re.IGNORECASE)
 
