@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 import re
 
+from openerp import SUPERUSER_ID
 from openerp import api
 from openerp import models
 from openerp import tools
+from openerp.tools.translate import _
 
 
 class IrTranslation(models.Model):
@@ -18,10 +20,7 @@ class IrTranslation(models.Model):
         if not source or not re.search(r'\bodoo\b', source, re.IGNORECASE):
             return source
 
-        new_name = self.pool['ir.config_parameter'].get_debranding_parameters(cr, uid).get('web_debranding.new_name')
-
-        if not new_name:
-            return source
+        new_name = self.pool['ir.config_parameter'].get_param(cr, SUPERUSER_ID, 'web_debranding.new_name') or _('Software')
 
         # We must exclude the case when after the word "odoo" is the word "define".
         # Since JS functions are also contained in the localization files.

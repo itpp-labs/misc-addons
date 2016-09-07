@@ -10,6 +10,8 @@ import functools
 from openerp.http import request
 from openerp.modules import get_module_resource
 from cStringIO import StringIO
+from openerp.tools.translate import _
+
 db_monodb = http.db_monodb
 
 
@@ -90,5 +92,5 @@ class WebClientCustom(WebClient):
         return res
 
     def _debrand(self, string):
-        new_company = request.env['ir.config_parameter'].get_param('web_debranding.new_name')
+        new_company = request.env['ir.config_parameter'].get_param('web_debranding.new_name') or _('Software')
         return re.sub(r'[Oo]doo', new_company, string)

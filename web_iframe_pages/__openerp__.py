@@ -9,6 +9,7 @@
     'depends': ['web_iframe'],
     'data': [
         'web_iframe_pages_views.xml',
+        'security/ir.model.access.csv',
     ],
     'installable': False
 }
