@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-import project_timelog
+from . import project_timelog

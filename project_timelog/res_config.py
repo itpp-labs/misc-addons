@@ -1,26 +1,18 @@
 # -*- coding: utf-8 -*-
 from openerp.osv import fields, osv
-from openerp.http import request
+
 
 class timelog_config_settings(osv.osv_memory):
     _name = 'timelog.config.settings'
     _inherit = 'res.config.settings'
 
     _columns = {
-        'time_subtasks': fields.float('Install completion time',
-            help="""Set the time for timer subtasks"""),
-        'time_warning_subtasks': fields.float('Install warning time',
-            help="""Set the warning time for timer subtasks"""),
-
-        'normal_time_day': fields.float('Install normal time',
-            help="""Set the normal time for timer day"""),
-        'good_time_day': fields.float('Install good time',
-            help="""Set the good time for timer day"""),
-
-        'normal_time_week': fields.float('Install normal time',
-            help="""Set the normal time for timer weel"""),
-        'good_time_week': fields.float('Install good time',
-            help="""Set the good time for timer week"""),
+        'time_subtasks': fields.float('Install completion time', help="""Set the time for timer subtasks"""),
+        'time_warning_subtasks': fields.float('Install warning time', help="""Set the warning time for timer subtasks"""),
+        'normal_time_day': fields.float('Install normal time', help="""Set the normal time for timer day"""),
+        'good_time_day': fields.float('Install good time', help="""Set the good time for timer day"""),
+        'normal_time_week': fields.float('Install normal time', help="""Set the normal time for timer weel"""),
+        'good_time_week': fields.float('Install good time', help="""Set the good time for timer week"""),
     }
 
     def set_custom_parameters(self, cr, uid, ids, context=None):

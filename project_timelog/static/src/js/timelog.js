@@ -116,16 +116,16 @@ $(document).ready(function() {
             this.timelog_id='';
             this.status = 'stopped';
             this.times = [0,0,0,0];
-			this.initial_planed_hours = 0;
+            this.initial_planed_hours = 0;
 
             this.time_warning_subtasks = 1;
-			this.time_subtasks = 1;
+            this.time_subtasks = 1;
 
-			this.normal_time_day = 1;
+            this.normal_time_day = 1;
             this.good_time_day = 1;
 
-			this.normal_time_week = 1;
-			this.good_time_week = 1;
+            this.normal_time_week = 1;
+            this.good_time_week = 1;
 
             this.timer_status = false;
 
@@ -220,7 +220,7 @@ $(document).ready(function() {
             }
             this.audio_format= audio.canPlayType("audio/ogg; codecs=vorbis") ? ".ogg" : ".mp3";
             this.updateView();
-		},
+        },
 
         updateView : function() {
             var element = document.getElementById("timelog_timer");
@@ -228,20 +228,20 @@ $(document).ready(function() {
                 // not element
                 return false;
             }
-			for (var i = 0; i < 4; i++) {
-			  this.updateClock(i, this.times[i]);
-			}
-		},
+            for (var i = 0; i < 4; i++) {
+              this.updateClock(i, this.times[i]);
+            }
+        },
 
         updateClock : function(id, time) {
-			var element = document.getElementById("clock"+id);
+            var element = document.getElementById("clock"+id);
             if(!element) {
                 return false;
             }
 
-			var formattedTime = this.formatTime(id, time);
-			element.innerHTML = formattedTime;
-			var self = this;
+            var formattedTime = this.formatTime(id, time);
+            element.innerHTML = formattedTime;
+            var self = this;
 
             switch(id) {
                 case 0: {
@@ -301,7 +301,7 @@ $(document).ready(function() {
 
                 default:
                     console.log("NONE");
-				break;
+                break;
             }
         },
 
@@ -335,15 +335,15 @@ $(document).ready(function() {
         },
 
         addClass : function(id, className) {
-			var element = document.getElementById("clock"+id);
-			element.className += " " + className;
-		},
+            var element = document.getElementById("clock"+id);
+            element.className += " " + className;
+        },
 
-		removeClass : function(id, className) {
-			var element = document.getElementById("clock"+id);
-			var exp = new RegExp(className);
-			element.className = element.className.replace( exp , '' );
-		},
+        removeClass : function(id, className) {
+            var element = document.getElementById("clock"+id);
+            var exp = new RegExp(className);
+            element.className = element.className.replace( exp , '' );
+        },
 
         formatTime : function(id, time) {
             var minutes = Math.floor(time / 60);
@@ -362,75 +362,75 @@ $(document).ready(function() {
             }
             else result += minutes;
             return result;
-		},
+        },
 
         setIntervalTimer: function() {
             var self = this;
-			this.timer = window.setInterval(function(){
+            this.timer = window.setInterval(function(){
                 self.countDownTimer();
             }, 1000);
 
-		},
+        },
 
         countDownTimer: function() {
             var self = this;
-			for (var i = 0; i < 4; i++) {
-			  self.times[i]++;
-			  self.updateClock(i, self.times[i]);
-			}
-		},
+            for (var i = 0; i < 4; i++) {
+              self.times[i]++;
+              self.updateClock(i, self.times[i]);
+            }
+        },
 
         start_timer: function(){
-			if (this.status == 'running' || this.time_subtasks<=this.times[0]){
-				return false;
-			}
+            if (this.status == 'running' || this.time_subtasks<=this.times[0]){
+                return false;
+            }
             console.log("play");
-			var self = this;
-			this.status = 'running';
-			this.setIntervalTimer();
-			for (var i = 0; i < 4; i++) {
-			  this.addClass(i, "running");
-			}
-		},
+            var self = this;
+            this.status = 'running';
+            this.setIntervalTimer();
+            for (var i = 0; i < 4; i++) {
+              this.addClass(i, "running");
+            }
+        },
 
-		stop_timer: function(){
-			if (this.status == 'stopped'){
-				return false;
-			}
+        stop_timer: function(){
+            if (this.status == 'stopped'){
+                return false;
+            }
             console.log("stop");
-			var self = this;
-			this.status = 'stopped';
-			for (var i = 0; i < 4; i++) {
+            var self = this;
+            this.status = 'stopped';
+            for (var i = 0; i < 4; i++) {
                 this.removeClass(i, "running");
-			}
-			clearTimeout(this.timer);
-		},
+            }
+            clearTimeout(this.timer);
+        },
 
         startAnim: function (element, interval, time) {
-			var self = this;
-			element.animTimer = setInterval(function () {
-			if (element.style.display == "none")  {
-				element.style.display = "";
-				self.playAudio(1);
-			}
-			else
-				element.style.display = "none";
-			}, interval);
-			setTimeout(function(){
-				self.stopAnim(element);
-			}, time);
-		},
+            var self = this;
+            element.animTimer = setInterval(function () {
+            if (element.style.display == "none")  {
+                element.style.display = "";
+                self.playAudio(1);
+            }
+            else
+                element.style.display = "none";
+            }, interval);
+            setTimeout(function(){
+                self.stopAnim(element);
+            }, time);
+        },
 
-		stopAnim: function(element){
-			clearInterval(element.animTimer);
-			element.style.display = "";
-		},
+        stopAnim: function(element){
+            clearInterval(element.animTimer);
+            element.style.display = "";
+        },
 
-		playAudio: function(id) {
-			var audio_name = id + '.' + this.audio_format;
+        playAudio: function(id) {
+            var audio_name = id + '.' + this.audio_format;
             audio.src = openerp.session.url("/project_timelog/static/src/audio/"+id+ this.audio_format);
-			audio.play();
-		},
+            audio.play();
+        },
 
         add_title: function(first_timer_name, description_second_timer) {
             $('#clock0').attr("title", first_timer_name);
