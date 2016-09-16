@@ -1,4 +1,4 @@
-function getterSetter(variableParent, variableName, getterFunction, setterFunction) {
+;function getterSetter(variableParent, variableName, getterFunction, setterFunction) {
     if (Object.defineProperty) {
         Object.defineProperty(variableParent, variableName, {
             get: getterFunction,
@@ -9,7 +9,7 @@ function getterSetter(variableParent, variableName, getterFunction, setterFuncti
         variableParent.__defineGetter__(variableName, getterFunction);
         variableParent.__defineSetter__(variableName, setterFunction);
     }
-};
+}
 
 (function (w) {
     w.onlinejs = w.onlinejs || {};
@@ -49,7 +49,7 @@ function getterSetter(variableParent, variableName, getterFunction, setterFuncti
     };
 
     w.onlinejs.startCheck = function () {
-        setInterval("window.onlinejs.logic.checkConnectionWithRequest(true)", w.onLineCheckTimeout);
+        setInterval("window.onlinejs.logic.checkConnectionWithRequest(true)", w.onLineCheckTimeout)
     };
 
     w.onlinejs.stopCheck = function () {

@@ -126,7 +126,7 @@ class task(models.Model):
             # if subtask is existing then play this subtask timer
             new_work = {}
             existing_timer = self.work_ids.search([("name", "=", e.name), ("stage_id", "=", self.stage_id.id)])
-            if len(existing_timer)>0:
+            if len(existing_timer) > 0:
                 new_work = existing_timer
             else:
                 # create new subtask
@@ -195,8 +195,8 @@ class project_work(models.Model):
     task_allow_logs = fields.Boolean(related='task_id.stage_id.allow_log_time', store=True, default=True)
 
     def create(self, cr, uid, vals, context=None):
-        print self, cr, uid, vals, context
-        print type(vals)
+
+
         task = self.pool.get('project.task').browse(cr, uid, vals.get('task_id'), context=context)
         vals['stage_id'] = task.stage_id.id
         vals['user_id'] = uid
@@ -348,9 +348,9 @@ class project_work(models.Model):
                 'tag': 'action_warn',
                 'name': 'Warning',
                 'params': {
-                   'title': 'Warning!',
-                   'text': 'The timer already has stopped.',
-                   'sticky': False
+                    'title': 'Warning!',
+                    'text': 'The timer already has stopped.',
+                    'sticky': False
                 }
             }
 
