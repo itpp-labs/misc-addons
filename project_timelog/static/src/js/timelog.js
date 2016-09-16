@@ -13,7 +13,7 @@ $(document).ready(function() {
             this.stopline_audio_warning = true;
             this.stopline_audio_stop = true;
             this.widget = widget;
-            Number(storage.getItem("bus_last"))==null ? bus_last=this.bus.last : bus_last=Number(storage.getItem("bus_last"));
+            Number(storage.getItem("bus_last")) === null ? bus_last=this.bus.last : bus_last=Number(storage.getItem("bus_last"));
             // start the polling
             this.bus = openerp.bus.bus;
             this.bus.last = bus_last;
@@ -24,7 +24,7 @@ $(document).ready(function() {
             console.log(notification);
             var self = this;
             if (typeof notification[0][0] === 'string') {
-                notification = [notification]
+                notification = [notification];
             }
             for (var i = 0; i < notification.length; i++) {
                 var channel = notification[i][0];
@@ -48,7 +48,7 @@ $(document).ready(function() {
             console.log(message);
             var status = storage.getItem("first_click");
             var self = this;
-            if ((status==null) && (message.status == "play")) {
+            if ((status===null) && (message.status == "play")) {
                 storage.setItem("first_click", "first_click");
                 this.widget.load_timer_data();
             } else {
@@ -66,7 +66,7 @@ $(document).ready(function() {
                     this.widget.stop_timer();
                     if (!message.client_status && !message.stopline) {
                         this.audio_format = audio.canPlayType("audio/ogg; codecs=vorbis") ? ".ogg" : ".mp3";
-                        var audio_name = "stop" + '.' + this.audio_format;
+
                         audio.src = openerp.session.url("/project_timelog/static/src/audio/" + "stop" + this.audio_format);
                         audio.play();
                     }
@@ -74,7 +74,7 @@ $(document).ready(function() {
                         $('#clock0').css('color','red');
                         if (self.stopline_audio_stop) {
                             this.audio_format = audio.canPlayType("audio/ogg; codecs=vorbis") ? ".ogg" : ".mp3";
-                            var audio_name = "stop" + '.' + this.audio_format;
+
                             audio.src = openerp.session.url("/project_timelog/static/src/audio/" + "stop" + this.audio_format);
                             audio.play();
                         }
@@ -88,8 +88,8 @@ $(document).ready(function() {
                     month = now.getMonth();
                     day = now.getDay();
                     minute = now.getMinutes();
-                    if (year == message.time['year'] && month == message.time['month'] && day == message.time['day']) {
-                        if (minute >=message.time['minute']) {
+                    if (year == message.time.year && month == message.time.month && day == message.time.day) {
+                        if (minute >=message.time.minute) {
                             $('#clock0').css('color','orange');
                             if (self.song_on) {
                                 self.widget.playAudio(0);
@@ -143,7 +143,7 @@ $(document).ready(function() {
             }
             self.offConection();
 
-            if (status!=null) {
+            if (status!==null) {
                 self.load_timer_data();
             } else {
                 self.config.call('get_param', ['project_timelog.normal_time_day']).then(function(res) {
@@ -256,12 +256,12 @@ $(document).ready(function() {
                     if ( this.times[0] >= this.time_subtasks) {
                         $('#clock0').css('color','red');
                         this.addClass(0, "expired");
-                        if (id == 0) this.timerTimeLimited();
+                        if (id === 0) this.timerTimeLimited();
                     }
                 } break;
 
                 case 1:  {
-                    if (this.initial_planed_hours == 0) {
+                    if (this.initial_planed_hours === 0) {
                         break;
                     }
                     if (this.times[1] >= this.initial_planed_hours) {
@@ -329,7 +329,7 @@ $(document).ready(function() {
                 flags: {
                     action_buttons: true,
                 }
-            }
+            };
             parent.action_manager.do_action(action);
             this.stop_timer();
         },
@@ -356,7 +356,7 @@ $(document).ready(function() {
             result += hours + ":";
             if (minutes < 10) result += "0";
 
-            if (id == 0) {
+            if (id === 0) {
                 result += minutes + ":";
                 if (seconds < 10) result += "0"; result += seconds;
             }
@@ -458,7 +458,9 @@ $(document).ready(function() {
                     self.audio_format= audio.canPlayType("audio/ogg; codecs=vorbis") ? ".ogg" : ".mp3";
                     audio.src = openerp.session.url("/project_timelog/static/src/audio/"+"stop"+ self.audio_format);
                     audio.play();
-                    setTimeout(function(){alert("Warning! Internet is disconnect.");}, 500);
+                    this.warn_message = "No internet connection";
+                    this.warn_sticky = true;
+                    this.show_warn_message(this.warn_message, this.warn_sticky);
                 }
             }, time_connection);
         },
@@ -507,6 +509,12 @@ $(document).ready(function() {
                 };
             }
             parent.action_manager.do_action(action);
+        },
+
+        show_warn_message: function(warn_message, warn_sticky){
+            var parent = this.getParent();
+            parent.action_manager.do_warn(warn_message, warn_sticky);
+
         }
     });
 

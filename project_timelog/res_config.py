@@ -7,12 +7,12 @@ class timelog_config_settings(osv.osv_memory):
     _inherit = 'res.config.settings'
 
     _columns = {
-        'time_subtasks': fields.float('Install completion time', help="""Set the time for timer subtasks"""),
-        'time_warning_subtasks': fields.float('Install warning time', help="""Set the warning time for timer subtasks"""),
-        'normal_time_day': fields.float('Install normal time', help="""Set the normal time for timer day"""),
-        'good_time_day': fields.float('Install good time', help="""Set the good time for timer day"""),
-        'normal_time_week': fields.float('Install normal time', help="""Set the normal time for timer weel"""),
-        'good_time_week': fields.float('Install good time', help="""Set the good time for timer week"""),
+        'time_subtasks': fields.float('Install completion time', help="""Set the time when the timer should stop"""),
+        'time_warning_subtasks': fields.float('Install warning time', help="""Set the time for how long the timer should warn that it will be stopped"""),
+        'normal_time_day': fields.float('Install normal time', help="""Setting time standards provided throughout the day"""),
+        'good_time_day': fields.float('Install good time', help="""Installation in excess of the time allowed for the day"""),
+        'normal_time_week': fields.float('Install normal time', help="""Setting time standards provided throughout the week"""),
+        'good_time_week': fields.float('Install good time', help="""Installation in excess of the time allowed for the week"""),
     }
 
     def set_custom_parameters(self, cr, uid, ids, context=None):

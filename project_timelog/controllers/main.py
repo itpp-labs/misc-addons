@@ -8,7 +8,6 @@ from openerp.http import request
 class Controller(openerp.addons.bus.bus.Controller):
     def _poll(self, dbname, channels, last, options):
         if request.session.uid:
-            registry, cr, uid, context = request.registry, request.cr, request.session.uid, request.context
             channels.append((request.db, 'project.timelog', request.uid))
         return super(Controller, self)._poll(dbname, channels, last, options)
 
@@ -58,7 +57,9 @@ class Controller(openerp.addons.bus.bus.Controller):
 
         play_status = False
         if len(all_timelog_current_user) is not 0:
-            if first_timelog[-1].end_datetime is False:
+            if len(first_timelog) > 1 and first_timelog[-1].end_datetime is False:
+                play_status = True
+            if len(first_timelog) == 1 and first_timelog[0].end_datetime is False:
                 play_status = True
 
         # 2. All time in current task for current user

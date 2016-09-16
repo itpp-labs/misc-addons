@@ -9,7 +9,7 @@ function getterSetter(variableParent, variableName, getterFunction, setterFuncti
         variableParent.__defineGetter__(variableName, getterFunction);
         variableParent.__defineSetter__(variableName, setterFunction);
     }
-}
+};
 
 (function (w) {
     w.onlinejs = w.onlinejs || {};
@@ -23,11 +23,11 @@ function getterSetter(variableParent, variableName, getterFunction, setterFuncti
     w.onlinejs.setOnLineURL = function (newURL) {
         w.onlinejs._onLineURL = newURL;
         w.onlinejs.getStatusFromNavigatorOnLine();
-    }
+    };
 
     w.onlinejs.getOnLineURL = function () {
         return w.onlinejs._onLineURL;
-    }
+    };
 
     getterSetter(w, 'onLineURL', w.onlinejs.getOnLineURL, w.onlinejs.setOnLineURL);
 
@@ -36,7 +36,7 @@ function getterSetter(variableParent, variableName, getterFunction, setterFuncti
     w.onlinejs.setStatus = function (newStatus) {
         w.onlinejs.fireHandlerDependOnStatus(newStatus);
         w.onLine = newStatus;
-    }
+    };
 
     w.onlinejs.fireHandlerDependOnStatus = function (newStatus) {
         if (newStatus === true && w.onLineHandler !== undefined && (w.onLine !== true || w.onlinejs.handlerFired === false)) {
@@ -50,20 +50,20 @@ function getterSetter(variableParent, variableName, getterFunction, setterFuncti
 
     w.onlinejs.startCheck = function () {
         setInterval("window.onlinejs.logic.checkConnectionWithRequest(true)", w.onLineCheckTimeout);
-    }
+    };
 
     w.onlinejs.stopCheck = function () {
         clearInterval("window.onlinejs.logic.checkConnectionWithRequest(true)", w.onLineCheckTimeout);
-    }
+    };
 
     w.checkOnLine = function () {
         w.onlinejs.logic.checkConnectionWithRequest(false);
-    }
+    };
 
     w.onlinejs.getOnLineCheckURL = function () {
         return w.onlinejs._onLineURL + '?' + Math.floor(Math.random() * 1000000);
         //return w.onlinejs._onLineURL + '?' + Math.floor(Math.random() * 1000000);
-    }
+    };
 
     w.onlinejs.getStatusFromNavigatorOnLine = function () {
         if (w.navigator.onLine !== undefined) {
@@ -71,18 +71,18 @@ function getterSetter(variableParent, variableName, getterFunction, setterFuncti
         } else {
             w.onlinejs.setStatus(true);
         }
-    }
+    };
 
     //Network transport layer
     var xmlhttp = new XMLHttpRequest();
 
     w.onlinejs.isXMLHttp = function () {
         return "withCredentials" in xmlhttp;
-    }
+    };
 
     w.onlinejs.isXDomain = function () {
         return typeof XDomainRequest != "undefined";
-    }
+    };
 
     //For IE we use XDomainRequest and sometimes it uses a bit different logic, so adding decorator for this
     w.onlinejs.XDomainLogic = {
@@ -91,11 +91,11 @@ function getterSetter(variableParent, variableName, getterFunction, setterFuncti
             xmlhttp.onerror = function () {
                 xmlhttp.status = 404;
                 w.onlinejs.processXmlhttpStatus();
-            }
+            };
             xmlhttp.ontimeout = function () {
                 xmlhttp.status = 404;
                 w.onlinejs.processXmlhttpStatus();
-            }
+            };
         },
         onInternetAsyncStatus: function () {
             try {
@@ -113,7 +113,7 @@ function getterSetter(variableParent, variableName, getterFunction, setterFuncti
             xmlhttp.open("GET", url);
             w.onlinejs.tryToSend(xmlhttp);
         }
-    }
+    };
 
     //Another case for decoration is XMLHttpRequest
     w.onlinejs.XMLHttpLogic = {
@@ -145,7 +145,7 @@ function getterSetter(variableParent, variableName, getterFunction, setterFuncti
                 return w.onLine;
             }
         }
-    }
+    };
 
     if (w.onlinejs.isXDomain()) {
         w.onlinejs.logic = w.onlinejs.XDomainLogic;
@@ -156,11 +156,11 @@ function getterSetter(variableParent, variableName, getterFunction, setterFuncti
     w.onlinejs.processXmlhttpStatus = function () {
         var tempOnLine = w.onlinejs.verifyStatus(xmlhttp.status);
         w.onlinejs.setStatus(tempOnLine);
-    }
+    };
 
     w.onlinejs.verifyStatus = function (status) {
         return status === 200;
-    }
+    };
 
     w.onlinejs.tryToSend = function (xmlhttprequest) {
         try {
@@ -168,7 +168,7 @@ function getterSetter(variableParent, variableName, getterFunction, setterFuncti
         } catch(e) {
             w.onlinejs.setStatus(false);
         }
-    }
+    };
 
     //Events handling
     w.onlinejs.addEvent = function (obj, type, callback) {
@@ -177,7 +177,7 @@ function getterSetter(variableParent, variableName, getterFunction, setterFuncti
         } else {
             obj.addEventListener(type, callback);
         }
-    }
+    };
 
     w.onlinejs.addEvent(w, 'load', function () {
         w.onlinejs.fireHandlerDependOnStatus(w.onLine);
@@ -185,11 +185,11 @@ function getterSetter(variableParent, variableName, getterFunction, setterFuncti
 
     w.onlinejs.addEvent(w, 'online', function () {
         window.onlinejs.logic.checkConnectionWithRequest(true);
-    })
+    });
 
     w.onlinejs.addEvent(w, 'offline', function () {
         window.onlinejs.logic.checkConnectionWithRequest(true);
-    })
+    });
 
     w.onlinejs.getStatusFromNavigatorOnLine();
     w.onlinejs.logic.init();
