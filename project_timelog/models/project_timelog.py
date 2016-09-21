@@ -1,8 +1,9 @@
+# -*- coding: utf-8 -*-
 import datetime
 from openerp import models, fields, api
 
 
-class project_timelog(models.Model):
+class ProjectTimelog(models.Model):
     _name = "project.timelog"
     _description = "project timelog"
     _rec_name = 'work_id'
@@ -30,7 +31,7 @@ class project_timelog(models.Model):
             sum_time = sum_time + (date_end_object-date_start_object)
         return int(round(sum_time.total_seconds(), 0))
 
-    @api.one
+    @api.multi
     @api.depends("start_datetime", "end_datetime", "time_correction")
     def _compute_duration(self):
         if self.end_datetime is False:
@@ -54,7 +55,7 @@ class project_timelog(models.Model):
             self.duration = round(int(round(resultat.total_seconds(), 0))/3600.0, 3) + self.time_correction
 
 
-class task(models.Model):
+class Task(models.Model):
     _inherit = ["project.task"]
     datetime_stopline = fields.Datetime(string="Stopline", select=True, track_visibility='onchange', copy=False)
     _track = {
@@ -177,13 +178,13 @@ class Users(models.Model):
     timer_status = fields.Boolean(default=False)
 
 
-class project_task_type(models.Model):
+class ProjectTaskType(models.Model):
     _inherit = ["project.task.type"]
 
     allow_log_time = fields.Boolean(default=True)
 
 
-class project_work(models.Model):
+class ProjectWork(models.Model):
     _inherit = ["project.task.work"]
     stage_id = fields.Many2one("project.task.type", "Stage")
     _sql_constraints = [
@@ -203,7 +204,7 @@ class project_work(models.Model):
         if 'task_id' in vals:
             cr.execute('update project_task set remaining_hours=remaining_hours - %s where id=%s', (vals.get('hours', 0.0), vals['task_id']))
             self.pool.get('project.task').invalidate_cache(cr, uid, ['remaining_hours'], [vals['task_id']], context=context)
-        return super(project_work, self).create(cr, uid, vals, context=context)
+        return super(ProjectWork, self).create(cr, uid, vals, context=context)
 
     @api.multi
     def play_timer(self):
@@ -398,7 +399,7 @@ class project_work(models.Model):
         return True
 
 
-class im_chat_presence(models.Model):
+class ImChatPresence(models.Model):
     _inherit = ["im_chat.presence"]
 
     # This function is called every 5 minut

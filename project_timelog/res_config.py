@@ -1,18 +1,17 @@
-from openerp.osv import fields, osv
+# -*- coding: utf-8 -*-
+from openerp import models, fields, api
 
 
-class timelog_config_settings(osv.osv_memory):
+class TimelogConfigSettings(models.Model):
     _name = 'timelog.config.settings'
     _inherit = 'res.config.settings'
 
-    _columns = {
-        'time_subtasks': fields.float('Install completion time', help="""Set the time when the timer should stop"""),
-        'time_warning_subtasks': fields.float('Install warning time', help="""Set the time for how long the timer should warn that it will be stopped"""),
-        'normal_time_day': fields.float('Install normal time', help="""Setting time standards provided throughout the day"""),
-        'good_time_day': fields.float('Install good time', help="""Installation in excess of the time allowed for the day"""),
-        'normal_time_week': fields.float('Install normal time', help="""Setting time standards provided throughout the week"""),
-        'good_time_week': fields.float('Install good time', help="""Installation in excess of the time allowed for the week"""),
-    }
+    time_subtasks = fields.Float(string='Install completion time', help="""Set the time when the timer should stop""")
+    time_warning_subtasks = fields.Float(string='Install warning time', help="""Set the time for how long the timer should warn that it will be stopped""")
+    normal_time_day = fields.Float(string='Install normal time', help="""Setting time standards provided throughout the day""")
+    good_time_day = fields.Float(string='Install good time', help="""Installation in excess of the time allowed for the day""")
+    normal_time_week = fields.Float(string='Install normal time', help="""Setting time standards provided throughout the week""")
+    good_time_week = fields.Float(string='Install good time', help="""Installation in excess of the time allowed for the week""")
 
     def set_custom_parameters(self, cr, uid, ids, context=None):
         config_parameters = self.pool.get("ir.config_parameter")
