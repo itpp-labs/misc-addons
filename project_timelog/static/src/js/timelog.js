@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     "use strict";
     var TimeLog = openerp.TimeLog = {};
     var storage = localStorage;
@@ -13,7 +14,11 @@ $(document).ready(function() {
             this.stopline_audio_warning = true;
             this.stopline_audio_stop = true;
             this.widget = widget;
-            Number(storage.getItem("bus_last")) === null ? bus_last=this.bus.last : bus_last=Number(storage.getItem("bus_last"));
+            if (Number(storage.getItem("bus_last")) === null) {
+                bus_last=this.bus.last;
+            } else {
+                bus_last=Number(storage.getItem("bus_last"));
+            }
             // start the polling
             this.bus = openerp.bus.bus;
             this.bus.last = bus_last;
