@@ -458,9 +458,9 @@ $(document).ready(function() {
                     self.audio_format= audio.canPlayType("audio/ogg; codecs=vorbis") ? ".ogg" : ".mp3";
                     audio.src = openerp.session.url("/project_timelog/static/src/audio/"+"stop"+ self.audio_format);
                     audio.play();
-                    this.warn_message = "No internet connection";
-                    this.warn_sticky = true;
-                    this.show_warn_message(this.warn_message, this.warn_sticky);
+                    self.warn_message = "No internet connection";
+                    self.warn_sticky = true;
+                    self.show_warn_message(this.warn_message, this.warn_sticky);
                 }
             }, time_connection);
         },
@@ -497,7 +497,7 @@ $(document).ready(function() {
                 action = {
                     res_model: "project.timelog",
                     name: "My Timelog",
-                    views: [[false, 'list']],
+                    views: [[false, 'list'], [false, 'form']],
                     type: 'ir.actions.act_window',
                     target: 'current',
                     view_mode: 'tree',

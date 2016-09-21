@@ -195,8 +195,6 @@ class project_work(models.Model):
     task_allow_logs = fields.Boolean(related='task_id.stage_id.allow_log_time', store=True, default=True)
 
     def create(self, cr, uid, vals, context=None):
-
-
         task = self.pool.get('project.task').browse(cr, uid, vals.get('task_id'), context=context)
         vals['stage_id'] = task.stage_id.id
         vals['user_id'] = uid
