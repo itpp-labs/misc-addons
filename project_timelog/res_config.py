@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 from openerp.osv import fields, osv
 
 
-class timelog_config_settings(osv.osv_memory):
+class TimelogConfigSettings(osv.osv_memory):
     _name = 'timelog.config.settings'
     _inherit = 'res.config.settings'
 

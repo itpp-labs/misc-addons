@@ -5,7 +5,7 @@
 Installation
 ============
 
-* Set module ``project_timelog``.
+* Set module ``Project timelog``.
 * Open menu ``setting``.
 * Open ``timelog`` in Cofiguration section.
 * Choose necessary configuration settings and press ``apply``.
@@ -39,7 +39,7 @@ Compulsory completion of the task
 
 Uninstallation
 ==============
-* Press the button ``uninstall`` in module ``project_timelog`` from the list of modules.
+* Press the button ``uninstall`` in module ``Project timelog`` from the list of modules.
 
 Note
 ====

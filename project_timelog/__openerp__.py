@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": """Project timelog""",
     "summary": """Time log for project""",
