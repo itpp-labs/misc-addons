@@ -405,6 +405,7 @@ class YahooGetter(CurrenyGetterInterface):
 
         return self.updated_currency, self.log_info  # empty string added by polish changes
 
+
 # #Admin CH # ###########################################################################
 class AdminChGetter(CurrenyGetterInterface):
     """Implementation of Currency_getter_factory interface

@@ -2,6 +2,7 @@
 from openerp.osv import osv, fields
 from openerp.tools.translate import _
 
+
 class DeliveryGrid(osv.osv):
     _inherit = "delivery.grid"
 
