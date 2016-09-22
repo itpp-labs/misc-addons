@@ -6,7 +6,7 @@
     'license': 'GPL-3',
     'category': 'Custom',
     'website': 'https://yelizariev.github.io',
-    'summary': 'Check WARNING before installing \ uninstalling!',
+    'summary': 'Check WARNING before installing / uninstalling!',
     'depends': ['product'],
     'data': [],
     'installable': True
