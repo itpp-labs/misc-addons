@@ -29,7 +29,6 @@
                 ],
     "description": """Add Project Description""",
     "init_xml": [],
-    "demo_xml": [],
     "update_xml": [
         "project_view.xml",
     ],
