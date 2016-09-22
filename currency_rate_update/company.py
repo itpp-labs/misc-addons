@@ -25,7 +25,7 @@ from openerp.osv import fields, orm
 class ResCompany(orm.Model):
     """override company to add currency update"""
 
-    def _multi_curr_enable(self, cr, uid, ids, field_name, arg, context={}):
+    def _multi_curr_enable(self, cr, uid, ids, field_name, arg, context=None):
         "check if multi company currency is enabled"
         result = {}
         if self.pool.get('ir.model.fields').search(cr, uid, [('name', '=', 'company_id'), ('model', '=', 'res.currency')]) == []:
