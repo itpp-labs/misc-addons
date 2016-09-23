@@ -40,7 +40,6 @@ class ResourceCalendar(models.Model):
         """
         leave_obj = self.env['resource.calendar.leaves']
         for calendar in self:
-            id = calendar.id
             hours = timedelta()
             for day in rrule.rrule(rrule.DAILY, dtstart=start_dt,
                                    until=end_dt.replace(hour=23, minute=59, second=59),
@@ -55,7 +54,6 @@ class ResourceCalendar(models.Model):
                 work_limits.append((day_start_dt.replace(hour=0, minute=0, second=0), day_start_dt))
                 work_limits.append((day_end_dt, day_end_dt.replace(hour=23, minute=59, second=59)))
 
-                intervals = []
                 work_dt = day_start_dt.replace(hour=0, minute=0, second=0)
                 working_intervals = []
                 for calendar_working_day in calendar.get_attendances_for_weekdays([day_start_dt.weekday()])[0]:

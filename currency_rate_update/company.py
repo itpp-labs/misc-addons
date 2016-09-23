@@ -70,7 +70,6 @@ class ResCompany(orm.Model):
                             break
                     save_cron.update({'active': activate_cron})
                 else:
-                    do_next = True
                     for comp in compagnies:
                         if comp != company.id and not enable:
                             if self.browse(cr, uid, comp).multi_company_currency_enable:

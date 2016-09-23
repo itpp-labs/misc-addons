@@ -149,7 +149,7 @@ class CurrencyRateUpdate(osv.Model):
                 }
             )
             cron_id = int(cron_id[0])
-        except Exception as e:
+        except Exception:
             _logger.info('warning cron not found one will be created')
             pass  # ignore if the cron is missing cause we are going to create it in db
 
@@ -166,7 +166,7 @@ class CurrencyRateUpdate(osv.Model):
         context = context or {}
         # modify the cron
         cron_id = self.get_cron_id(cr, uid, context)
-        result = self.pool.get('ir.cron').write(cr, uid, [cron_id], datas)
+        self.pool.get('ir.cron').write(cr, uid, [cron_id], datas)
 
     def run_currency_update(self, cr, uid):
         "update currency at the given frequence"
@@ -182,7 +182,6 @@ class CurrencyRateUpdate(osv.Model):
             # we initialise the multi compnay search filter or not serach filter
             search_filter = []
             if comp.multi_company_currency_enable:
-                search_filter = [('company_id', '=', comp.id)]
             # we fetch the main currency looking for currency with base = true. The main rate should be set at  1.00
             main_curr_ids = curr_obj.search(cr, uid, [('base', '=', True), ('company_id', '=', comp.id)])
             if not main_curr_ids:
