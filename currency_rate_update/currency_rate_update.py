@@ -180,8 +180,6 @@ class CurrencyRateUpdate(osv.Model):
             if not comp.auto_currency_up:
                 continue
             # we initialise the multi compnay search filter or not serach filter
-            search_filter = []
-            if comp.multi_company_currency_enable:
             # we fetch the main currency looking for currency with base = true. The main rate should be set at  1.00
             main_curr_ids = curr_obj.search(cr, uid, [('base', '=', True), ('company_id', '=', comp.id)])
             if not main_curr_ids:
