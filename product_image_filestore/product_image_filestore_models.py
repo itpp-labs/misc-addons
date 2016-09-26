@@ -31,6 +31,7 @@ class ProductTemplate(osv.Model):
         res = cr.dictfetchone()
         if res.get('count'):
             _logger.info('Starting rewrite of product_template, saving images to filestore.')
+            errors_encountered = False
             # Rewrite all records to store the images on the filestore
             for template_id in self.pool.get('product.template').search(cr, SUPERUSER_ID, [], context=context):
                 wvals = {}
@@ -43,13 +44,21 @@ class ProductTemplate(osv.Model):
                         self.pool.get('product.template').write(cr, SUPERUSER_ID, template_id, wvals)
                         cr.execute("UPDATE product_template SET image_old = null WHERE id=%s", (template_id, ))
                     except:
+                        errors_encountered = True
                         filename = '/tmp/product_template_image_%d.b64' % (template_id, )
                         with open(filename, 'wb') as f:
                             f.write(datas)
                         _logger.error('Failed to convert image for product template %d - raw base-64 encoded data stored in %s' % (template_id, filename))
                         _logger.error('The error was: %s' % sys.exc_info()[0])
-            # Finally, rename to _bkp so we won't run this every time we upgrade the module.
-            cr.execute("ALTER TABLE product_template RENAME COLUMN image_old TO image_bkp")
+            # Finally, remove the _old column if all went well so we won't run this every time we upgrade the module.
+            # If we encountered errors, or there's still data left in image_old, rename instead and log an error. Fixes #265
+            cr.execute("SELECT COUNT(*) FROM product_template WHERE image_old IS NOT NULL AND image_old != ''")
+            res_cnt = cr.dictfetchone()
+            if errors_encountered or res.get('count'):
+                cr.execute("ALTER TABLE product_template RENAME COLUMN image_old TO image_bkp")
+                _logger.error('Failed to convert all images in product_template. Data left intact in column image_old, manual intervention required.')
+            else:
+                cr.execute("ALTER TABLE product_template DROP COLUMN image_old")
             cr.commit()
         else:
             _logger.info('No image_old field present in product_template; assuming data is already saved in the filestore.')
@@ -133,6 +142,7 @@ class ProductProduct(osv.Model):
         res = cr.dictfetchone()
         if res.get('count'):
             _logger.info('Starting rewrite of product_product, saving images to filestore.')
+            errors_encountered = False
             # Rewrite all records to store the images on the filestore
             for product_id in self.pool.get('product.product').search(cr, SUPERUSER_ID, [], context=context):
                 wvals = {}
@@ -145,13 +155,21 @@ class ProductProduct(osv.Model):
                         self.pool.get('product.product').write(cr, SUPERUSER_ID, product_id, wvals)
                         cr.execute("UPDATE product_product SET image_variant_old = null WHERE id=%s", (product_id, ))
                     except:
+                        errors_encountered=True
                         filename = '/tmp/product_product_image_%d.b64' % (product_id, )
                         with open(filename, 'wb') as f:
                             f.write(datas)
                         _logger.error('Failed to convert image for product variant %d - raw base-64 encoded data stored in %s' % (product_id, filename))
                         _logger.error('The error was: %s' % sys.exc_info()[0])
-            # Finally, rename to _bkp so we won't run this every time we upgrade the module.
-            cr.execute("ALTER TABLE product_product RENAME COLUMN image_variant_old TO image_variant_bkp")
+            # Finally, remove the _old column if all went well so we won't run this every time we upgrade the module.
+            # If we encountered errors, or there's still data left in image_variant_old, rename instead and log an error. Fixes #265
+            cr.execute("SELECT COUNT(*) FROM product_product WHERE image_variant_old IS NOT NULL AND image_variant_old != ''")
+            res_cnt = cr.dictfetchone()
+            if errors_encountered or res.get('count'):
+                cr.execute("ALTER TABLE product_product RENAME COLUMN image_variant_old TO image_variant_bkp")
+                _logger.error('Failed to convert all images in product_product. Data left intact in column image_variant_old, manual intervention required.')
+            else:
+                cr.execute("ALTER TABLE product_product DROP COLUMN image_variant_old")
             cr.commit()
         else:
             _logger.info('No image_variant_old field present in product_product; assuming data is already saved in the filestore.')
