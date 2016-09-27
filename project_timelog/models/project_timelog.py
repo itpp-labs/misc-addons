@@ -2,6 +2,7 @@
 import datetime
 from openerp import models, fields, api
 from openerp.exceptions import Warning as UserError
+from openerp.tools.translate import _
 
 
 class ProjectTimelog(models.Model):
@@ -52,7 +53,7 @@ class ProjectTimelog(models.Model):
             user = self.pool.get('res.users').browse(cr, uid, uid, context=context)
             if not user.has_group('project.group_project_manager'):
                 if vals['time_correction'] > 0.00:
-                    raise UserError(('Only manager can enter positive time.'))
+                    raise UserError(_('Only manager can enter positive time.'))
         return super(ProjectTimelog, self).write(cr, uid, ids, vals, context)
 
 
