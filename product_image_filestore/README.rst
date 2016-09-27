@@ -30,12 +30,18 @@ Regular Installation:
     encoded contents of the image file, but in some cases may contain
     invalid data such as the string "[False]". If this is the case, those files
     may be safely deleted as they would never have decoded to a valid image
-    anyway.
+    anyway. When the upgrade fails, the original column containing the data
+    that wasn't converted is also preserved, with a '_bkp' suffix, to aid
+    with the investigation.
 
 Post-Install:
 -------------
 
-    After the process is complete, the original fields remain in the database
+    If all goes well, the process is transparent and no further action is
+    required. The images are moved from the database to the filestore, and
+    the database columns are dropped.
+
+    If the upgrade fails, however, the original fields remain in the database
     but are renamed to the same name with the "_bkp" suffix. For successfully
     converted records, the contents are set to null; for failed conversions,
     the original data remains in the field. This data is the same data that's
@@ -44,9 +50,9 @@ Post-Install:
     The files in /tmp are the most convenient way to retrieve all information
     pertaining failed conversions. Since this folder is emptied upon reboot,
     a secondary backup is left in the database in the form of the image_bkp and
-    image_variant_bkp columns in product_template and product_product. After a
-    successful install, or after concluding the investigation into the failure,
-    these columns can safely be dropped via following commands:::
+    image_variant_bkp columns in product_template and product_product. After
+    concluding the investigation into the failure, these columns can be safely
+    dropped via following commands:::
 
         ALTER TABLE product_template DROP COLUMN image_bkp;
         ALTER TABLE product_product  DROP COLUMN image_variant_bkp;
@@ -92,4 +98,4 @@ Author:
 
 Contributors:
 -------------
-    * Juan Rial, Dynapps, https://github.com/jrial
+    * Juan Rial, https://github.com/jrial
