@@ -43,7 +43,7 @@ $(document).ready(function() {
         on_notification_do: function (channel, message) {
             var self = this;
             var error = false;
-            var channel = JSON.parse(channel);
+            channel = JSON.parse(channel);
             if (Array.isArray(channel) && channel[1] === 'project.timelog') {
                 try {
                     this.received_message(message);

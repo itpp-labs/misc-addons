@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 from openerp import models, fields, api
-from openerp.exceptions import Warning
+from openerp.exceptions import Warning as UserError
 
 
 class ProjectTimelog(models.Model):
@@ -52,8 +52,8 @@ class ProjectTimelog(models.Model):
             user = self.pool.get('res.users').browse(cr, uid, uid, context=context)
             if not user.has_group('project.group_project_manager'):
                 if vals['time_correction'] > 0.00:
-                    raise Warning(('Only manager can enter positive time.'))
-        return super(ProjectTimelog,self).write(cr, uid, ids, vals, context)
+                    raise UserError(('Only manager can enter positive time.'))
+        return super(ProjectTimelog, self).write(cr, uid, ids, vals, context)
 
 
 class Task(models.Model):
@@ -74,7 +74,7 @@ class Task(models.Model):
                 return False
             stopline_date = datetime.datetime.strptime(task.datetime_stopline, "%Y-%m-%d %H:%M:%S")
             if stopline_date <= datetime.datetime.now():
-                work = self.env["project.task.work"].search([('id', '=', u.active_work_id.id)]).stop_timer(client_status=False, stopline=True)
+                self.env["project.task.work"].search([('id', '=', u.active_work_id.id)]).stop_timer(client_status=False, stopline=True)
             else:
                 warning_time = stopline_date - datetime.timedelta(minutes=20)
                 notifications = []
