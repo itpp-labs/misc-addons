@@ -32,7 +32,7 @@
         </record>
 
         <!--if stopline is not false. If date/time in stopline is current date/time then timer will stop-->
-        <record id="ir_cron_stopline111" model="ir.cron">
+        <record id="ir_cron_stopline" model="ir.cron">
             <field name="name">Stopline</field>
             <field name="active" eval="True" />
             <field name="user_id" ref="base.user_root" />
