@@ -2,7 +2,7 @@
 from openerp import models, fields
 
 
-class TimelogConfigSettings(models.Model):
+class TimelogConfigSettings(models.TransientModel):
     _name = 'timelog.config.settings'
     _inherit = 'res.config.settings'
 

@@ -19,14 +19,17 @@ $(document).ready(function() {
             } else {
                 bus_last=Number(storage.getItem("bus_last"));
             }
+
+            var channel = JSON.stringify([this.widget.dbname,"project.timelog",String(this.widget.uid)]);
             // start the polling
+
             this.bus = openerp.bus.bus;
             this.bus.last = bus_last;
+            this.bus.add_channel(channel);
             this.bus.on("notification", this, this.on_notification);
             this.bus.start_polling();
         },
         on_notification: function (notification) {
-            console.log(notification);
             var self = this;
             if (typeof notification[0][0] === 'string') {
                 notification = [notification];
@@ -40,6 +43,7 @@ $(document).ready(function() {
         on_notification_do: function (channel, message) {
             var self = this;
             var error = false;
+            var channel = JSON.parse(channel);
             if (Array.isArray(channel) && channel[1] === 'project.timelog') {
                 try {
                     this.received_message(message);
@@ -50,7 +54,6 @@ $(document).ready(function() {
             }
         },
         received_message: function(message) {
-            console.log(message);
             var status = storage.getItem("first_click");
             var self = this;
             if ((status===null) && (message.status == "play")) {
@@ -112,7 +115,8 @@ $(document).ready(function() {
         init: function(parent){
             this._super(parent);
             var self = this;
-            this.c_manager = new openerp.TimeLog.Manager(this);
+            this.load_server_data();
+            //this.c_manager = new openerp.TimeLog.Manager(this);
 
             this.finish_status = false;
             this.stopline = '';
@@ -159,6 +163,15 @@ $(document).ready(function() {
             }
         },
 
+        load_server_data: function() {
+            var self = this;
+            this.rpc("/timelog/upd", {}).then(function(resultat){
+                self.uid = resultat.uid;
+                self.dbname = resultat.dbname;
+                self.c_manager = new openerp.TimeLog.Manager(self);
+            });
+        },
+
         load_timer_data: function(){
             var self = this;
             this.activate_click();
@@ -170,11 +183,11 @@ $(document).ready(function() {
                 self.timelog_id = resultat.timelog_id;
                 self.initial_planed_hours = resultat.planned_hours;
                 self.times = [
-                    resultat.init_first_timer,
-                    resultat.init_second_timer,
-                    resultat.init_third_timer,
-                    resultat.init_fourth_timer,
-                    resultat.name_first_timer
+                    resultat.init_log_timer,
+                    resultat.init_task_timer,
+                    resultat.init_day_timer,
+                    resultat.init_week_timer,
+                    resultat.subtask_name
                 ];
                 self.time_warning_subtasks = resultat.time_warning_subtasks;
                 self.time_subtasks = resultat.time_subtasks;
@@ -192,7 +205,7 @@ $(document).ready(function() {
                     storage.setItem("status","no");
                 }
 
-                self.add_title(resultat.name_first_timer, resultat.description_second_timer);
+                self.add_title(resultat.subtask_name, resultat.description_second_timer);
                 self.check_audio();
                 if (self.timer_status) {
                     self.start_timer();

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data noupdate="1">
+    <!--<data>-->
         <!--if user offline then timer will stop-->
         <record id="ir_cron_offline_stop_timer" model="ir.cron">
             <field name="name">Offline stop timer</field>
@@ -31,7 +32,7 @@
         </record>
 
         <!--if stopline is not false. If date/time in stopline is current date/time then timer will stop-->
-        <record id="ir_cron_stopline" model="ir.cron">
+        <record id="ir_cron_stopline111" model="ir.cron">
             <field name="name">Stopline</field>
             <field name="active" eval="True" />
             <field name="user_id" ref="base.user_root" />
