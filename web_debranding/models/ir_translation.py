@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 import re
 
-from openerp import SUPERUSER_ID
 from openerp import api
 from openerp import models
 from openerp import tools
-from openerp.tools.translate import _
 
 
 class IrTranslation(models.Model):

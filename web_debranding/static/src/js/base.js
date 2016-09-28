@@ -10,8 +10,8 @@ odoo.define('web_debranding.base', function(require) {
             this._super.apply(this, arguments);
             var self = this;
             var model = new Model("ir.config_parameter");
-            odoo.debranding_new_name = ''
-            odoo.debranding_new_website = ''
+            odoo.debranding_new_name = '';
+            odoo.debranding_new_website = '';
             model.call('get_debranding_parameters')
                 .then(function(result){
                     odoo.debranding_new_name = result['web_debranding.new_name']
