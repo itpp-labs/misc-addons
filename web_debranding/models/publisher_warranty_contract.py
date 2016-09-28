@@ -7,7 +7,7 @@ from openerp.release import version_info
 _logger = logging.getLogger(__name__)
 
 
-class PublisherWarrantyContract(models.Model):
+class PublisherWarrantyContract(models.AbstractModel):
     _inherit = 'publisher_warranty.contract'
 
     def update_notification(self, cr, uid, ids, cron_mode=True, context=None):
