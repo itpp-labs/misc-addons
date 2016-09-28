@@ -11,16 +11,18 @@ from openerp.tools.translate import _
 class IrTranslation(models.Model):
     _inherit = 'ir.translation'
 
+    @api.model
     def _debrand_dict(self, res):
         for k in res:
             res[k] = self._debrand(res[k])
         return res
 
-    def _debrand(self, cr, uid, source):
+    @api.model
+    def _debrand(self, source):
         if not source or not re.search(r'\bodoo\b', source, re.IGNORECASE):
             return source
 
-        new_name = self.pool['ir.config_parameter'].get_param(cr, SUPERUSER_ID, 'web_debranding.new_name') or _('Software')
+        new_name = self.env['ir.config_parameter'].get_param('web_debranding.new_name') or _('Software')
 
         # We must exclude the case when after the word "odoo" is the word "define".
         # Since JS functions are also contained in the localization files.
@@ -30,9 +32,9 @@ class IrTranslation(models.Model):
         return re.sub(r'\bodoo(?!\.define)\b', new_name, source, flags=re.IGNORECASE)
 
     @tools.ormcache('name', 'types', 'lang', 'source', 'res_id')
-    def __get_source(self, cr, uid, name, types, lang, source, res_id):
-        res = super(IrTranslation, self).__get_source(cr, uid, name, types, lang, source, res_id)
-        return self._debrand(cr, uid, res)
+    def __get_source(self, name, types, lang, source, res_id):
+        res = super(IrTranslation, self).__get_source(name, types, lang, source, res_id)
+        return self._debrand(res)
 
     @api.model
     @tools.ormcache_context('model_name', keys=('lang',))
