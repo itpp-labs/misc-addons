@@ -16,37 +16,50 @@ class ProjectTimelog(models.Model):
     start_datetime = fields.Datetime(string="Start date", default=datetime.datetime.now())
     end_datetime = fields.Datetime(string="End date")
     duration = fields.Float(string="Duration", compute="_compute_duration", store=True)
+    corrected_duration = fields.Float(string="Corrected duration", compute="_compute_corrected_duration", store=True)
     user_id = fields.Many2one("res.users", string="User name", index=True)
     stage_id = fields.Many2one("project.task.type", string="Stage")
     time_correction = fields.Float(default=0.00)
 
     @api.multi
-    def sum_time(self, timelog):
-        sum_time = datetime.timedelta(0)
-        for e in timelog:
-            date_start_object = datetime.datetime.strptime(e.start_datetime, "%Y-%m-%d %H:%M:%S")
-            date_end_object = e.end_datetime and datetime.datetime.strptime(e.end_datetime, "%Y-%m-%d %H:%M:%S") or datetime.datetime.now()
-            sum_time = sum_time + (date_end_object-date_start_object)
-        return int(round(sum_time.total_seconds(), 0))
+    @api.depends("start_datetime", "end_datetime")
+    def _compute_duration(self):
+        for r in self:
+            if r.end_datetime is False:
+                r.duration = False
+            else:
+                if type(r.start_datetime) is str:
+                    start_datetime = datetime.datetime.strptime(r.start_datetime, "%Y-%m-%d %H:%M:%S")
+                else:
+                    start_datetime = r.start_datetime
+
+                if type(r.end_datetime) is str:
+                    end_datetime = datetime.datetime.strptime(r.end_datetime, "%Y-%m-%d %H:%M:%S")
+                else:
+                    end_datetime = r.end_datetime
+
+                resultat = end_datetime - start_datetime
+                r.duration = round(int(round(resultat.total_seconds(), 0))/3600.0, 3)
 
     @api.multi
     @api.depends("start_datetime", "end_datetime", "time_correction")
-    def _compute_duration(self):
-        if self.end_datetime is False:
-            self.duration = False
-        else:
-            if type(self.start_datetime) is str:
-                start_datetime = datetime.datetime.strptime(self.start_datetime, "%Y-%m-%d %H:%M:%S")
+    def _compute_corrected_duration(self):
+        for r in self:
+            if r.end_datetime is False:
+                r.duration = False
             else:
-                start_datetime = self.start_datetime
+                if type(r.start_datetime) is str:
+                    start_datetime = datetime.datetime.strptime(r.start_datetime, "%Y-%m-%d %H:%M:%S")
+                else:
+                    start_datetime = r.start_datetime
 
-            if type(self.end_datetime) is str:
-                end_datetime = datetime.datetime.strptime(self.end_datetime, "%Y-%m-%d %H:%M:%S")
-            else:
-                end_datetime = self.end_datetime
+                if type(r.end_datetime) is str:
+                    end_datetime = datetime.datetime.strptime(r.end_datetime, "%Y-%m-%d %H:%M:%S")
+                else:
+                    end_datetime = r.end_datetime
 
-            resultat = end_datetime - start_datetime
-            self.duration = round(int(round(resultat.total_seconds(), 0))/3600.0, 3) + self.time_correction
+                resultat = end_datetime - start_datetime
+                r.corrected_duration = round(int(round(resultat.total_seconds(), 0))/3600.0, 3) + r.time_correction
 
     def write(self, cr, uid, ids, vals, context=None):
         if 'time_correction' in vals:
@@ -116,7 +129,7 @@ class Task(models.Model):
 
             sum_timelog = e.hours
             for d in last_log[-1]:
-                sum_timelog = sum_timelog + d.duration
+                sum_timelog = sum_timelog + d.corrected_duration
             value = {
                 "hours": float(sum_timelog),
             }
@@ -178,8 +191,6 @@ class Task(models.Model):
 class Users(models.Model):
     _inherit = ["res.users"]
 
-    # active_work_id = fields.Integer(default=0)
-    # active_task_id = fields.Integer(default=0)
     active_work_id = fields.Many2one("project.task.work", "Work", default=None)
     active_task_id = fields.Many2one("project.task", "Task", default=None)
     timer_status = fields.Boolean(default=False)
@@ -197,9 +208,24 @@ class ProjectWork(models.Model):
     _sql_constraints = [
         ('name_task_uniq', 'unique (name,stage_id,task_id)', 'The name of the subtask must be unique per stage!')
     ]
+    hours = fields.Float(string='Time Spent', compute="_compute_hours", default=0)
     timelog_ids = fields.One2many("project.timelog", "work_id", "Timelog")
     status = fields.Char(string="Status", default="active")
     task_allow_logs = fields.Boolean(related='task_id.stage_id.allow_log_time', store=True, default=True)
+
+    @api.multi
+    @api.depends("timelog_ids.end_datetime", "timelog_ids.time_correction")
+    def _compute_hours(self):
+        for r in self:
+            if not r.timelog_ids:
+                return False
+            sum_timelog = 0.00
+            timelog = r.env.user.active_work_id.timelog_ids
+            if timelog[-1].end_datetime is False:
+                timelog = timelog[:-1]
+            for e in timelog:
+                sum_timelog = sum_timelog + e.corrected_duration
+            r.hours = float(sum_timelog)
 
     def create(self, cr, uid, vals, context=None):
         task = self.pool.get('project.task').browse(cr, uid, vals.get('task_id'), context=context)
@@ -278,13 +304,13 @@ class ProjectWork(models.Model):
                     }
                 }
         stage = project_task.stage_id.id
-        duration = self.env["project.timelog"].search([("work_id", "=", self.id), ("user_id", "=", self.env.user.id)])
+        corrected_duration = self.env["project.timelog"].search([("work_id", "=", self.id), ("user_id", "=", self.env.user.id)])
         config = self.env["ir.config_parameter"].get_param("project_timelog.time_subtasks")
 
         sum_timelog = 0.0
-        if duration and config:
-            for e in duration:
-                sum_timelog = sum_timelog + round(e.duration, 3)
+        if corrected_duration and config:
+            for e in corrected_duration:
+                sum_timelog = sum_timelog + round(e.corrected_duration, 3)
             if sum_timelog >= round(float(config), 3):
                 return False
 
@@ -381,21 +407,8 @@ class ProjectWork(models.Model):
 
         self.user_id.write({"timer_status": False})
 
-        sum_timelog = self.hours
-        for e in timelog[-1]:
-            sum_timelog = sum_timelog + e.duration
-
         if len(timelog) == 1:
-            value = {
-                "date": timelog[0].end_datetime,
-                "hours": float(sum_timelog),
-            }
-        else:
-            value = {
-                "hours": float(sum_timelog),
-            }
-
-        self.env["project.task.work"].search([("id", "=", self.id)]).write(value)
+            self.write({"date": timelog[0].end_datetime})
 
     # This function is called every day for 00:00:00 hours
     @api.model

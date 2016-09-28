@@ -9,8 +9,9 @@ class TimelogController(http.Controller):
     @http.route('/timelog/init', type="json", auth="public")
     def init_timelog(self, **kwargs):
         timelog_obj = request.env["project.timelog"]
-        all_timelog_current_user = timelog_obj.search([("user_id", "=", http.request.env.user.id)])
-        all_timelog_current_user_in_current_task = all_timelog_current_user.search([("work_id.task_id", "=", http.request.env.user.active_task_id.id)])
+        all_timelog_current_user = timelog_obj.search_count([("user_id", "=", http.request.env.user.id)])
+
+        all_timelog_current_user_in_current_task = timelog_obj.search([("user_id", "=", http.request.env.user.id), ("work_id.task_id", "=", http.request.env.user.active_task_id.id)])
 
         # stopline for current task
         stopline = http.request.env.user.active_task_id
@@ -36,7 +37,7 @@ class TimelogController(http.Controller):
             if timelog and timelog[0].start_datetime is not False:
                 date_object = datetime.datetime.strptime(timelog[0].start_datetime, "%Y-%m-%d %H:%M:%S")
                 if date_object.day == datetime.datetime.now().day:
-                    log_timer = request.env["project.timelog"].sum_time(timelog)
+                    log_timer = int(round(http.request.env.user.active_work_id.hours * 3600, 0))
 
         play_status = False
         if all_timelog_current_user:
@@ -46,22 +47,41 @@ class TimelogController(http.Controller):
         # 2. All time in current task for current user
         task_timer = 0
         if all_timelog_current_user_in_current_task:
-            task_timer = request.env["project.timelog"].sum_time(all_timelog_current_user_in_current_task)
+            # all work for current user in active task
+            all_work = request.env["project.task.work"].search([('task_id', '=', http.request.env.user.active_task_id.id), ('user_id', '=', http.request.env.user.id)])
+            sum_spent = 0
+            for r in all_work:
+                sum_spent = sum_spent + r.hours
+            task_timer = int(round(sum_spent * 3600, 0))
 
         # 3. All the time for today 3.
         day_timer = 0
-        timelog_today = all_timelog_current_user.search([("start_datetime", ">=", datetime.datetime.now().strftime('%Y-%m-%d 00:00:00')), ("start_datetime", "<=", datetime.datetime.now().strftime('%Y-%m-%d 23:59:59'))])
+        timelog_today = timelog_obj.search([("user_id", "=", http.request.env.user.id), ("start_datetime", ">=", datetime.datetime.now().strftime('%Y-%m-%d 00:00:00')), ("start_datetime", "<=", datetime.datetime.now().strftime('%Y-%m-%d 23:59:59'))])
         if timelog_today:
-            day_timer = request.env["project.timelog"].sum_time(timelog_today)
+            today_work_id = []
+            for r in timelog_today:
+                today_work_id.append(r.work_id.id)
+            today_work_id = list(set(today_work_id))
+            sum_spent_day = 0
+            for e in today_work_id:
+                sum_spent_day = sum_spent_day + request.env["project.task.work"].search([("id", "=", e)]).hours
+            day_timer = int(round(sum_spent_day * 3600, 0))
 
         # 4. All time this week
         week_timer = 0
         today = datetime.datetime.today()
         monday = today - datetime.timedelta(datetime.datetime.weekday(today))
         sunday = today + datetime.timedelta(6 - datetime.datetime.weekday(today))
-        timelog_this_week = all_timelog_current_user.search([("start_datetime", ">=", monday.strftime('%Y-%m-%d 00:00:00')), ("start_datetime", "<=", sunday.strftime('%Y-%m-%d 23:59:59'))])
+        timelog_this_week = timelog_obj.search([("user_id", "=", http.request.env.user.id), ("start_datetime", ">=", monday.strftime('%Y-%m-%d 00:00:00')), ("start_datetime", "<=", sunday.strftime('%Y-%m-%d 23:59:59'))])
         if timelog_this_week:
-            week_timer = request.env["project.timelog"].sum_time(timelog_this_week)
+            week_work_id = []
+            for r in timelog_this_week:
+                week_work_id.append(r.work_id.id)
+            week_work_id = list(set(week_work_id))
+            sum_spent_week = 0
+            for e in week_work_id:
+                sum_spent_week = sum_spent_week + request.env["project.task.work"].search([("id", "=", e)]).hours
+            week_timer = int(round(sum_spent_week * 3600, 0))
 
         second_timer_info = []
         desctiption_timer = ''
@@ -74,7 +94,7 @@ class TimelogController(http.Controller):
                 res = timelog_obj.search([("user_id.name", "=", e), ("work_id.task_id", "=", http.request.env.user.active_task_id.id)])
                 sum_another_timelog = 0
                 for i in res:
-                    sum_another_timelog = sum_another_timelog + i.duration
+                    sum_another_timelog = sum_another_timelog + i.corrected_duration
                 sum_another_timelog = 3600 * sum_another_timelog
                 sum_another_timelog = datetime.timedelta(seconds=round(sum_another_timelog, 0))
                 second_timer_info.append(e + ": " + str(sum_another_timelog))

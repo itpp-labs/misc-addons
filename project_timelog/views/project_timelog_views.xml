@@ -59,11 +59,12 @@
                             <group>
                                 <field name="start_datetime" string="Start datetime" help="The time when you start the timer" readonly="1"/>
                                 <field name="end_datetime" string="End datetime" help="The time when you end the timer" readonly="1"/>
+                                <field name="duration" string="Duration" widget="float_time" help="Total time, before taking into account errors" readonly="1"/>
                             </group>
                         </group>
                         <sheet>
                             <group><field name="time_correction" string="Time correction" help="To correct the mistake of the recorded time" widget="float_time"/></group>
-                            <group><field name="duration" string="Duration" widget="float_time" help="Total time , taking into account errors" readonly="1"/></group>
+                            <group><field name="corrected_duration" string="Corrected duration" widget="float_time" help="Total time, after taking into account errors" readonly="1"/></group>
                         </sheet>
                     </sheet>
                 </form>
@@ -80,7 +81,7 @@
                     <field name="end_datetime" />
                     <field name="stage_id" />
                     <field name="duration" string="Duration" widget="float_time"/>
-                    <field name="time_correction" string="Time correction" widget="float_time"/>
+                    <field name="corrected_duration" string="Corrected duration" widget="float_time"/>
                 </tree>
             </field>
         </record>
@@ -96,7 +97,7 @@
                     <field name="end_datetime" />
                     <field name="stage_id" />
                     <field name="duration" string="Duration" widget="float_time"/>
-                    <field name="time_correction" string="Time correction" widget="float_time"/>
+                    <field name="corrected_duration" string="Corrected duration" widget="float_time"/>
                 </tree>
             </field>
         </record>
@@ -106,7 +107,7 @@
             <field name="model">project.timelog</field>
             <field name="arch" type="xml">
                 <graph string="Timelog" type="bar" create="false">
-                    <field name="duration" type="measure" widget="float_time"/>
+                    <field name="corrected_duration" type="measure" widget="float_time"/>
                 </graph>
             </field>
         </record>
@@ -119,6 +120,7 @@
                     <field name="work_id"/>
                     <field name="stage_id" />
                     <field name="duration"/>
+                    <field name="corrected_duration"/>
                     <field name="user_id" string="User"/>
                     <field name="start_datetime" />
                     <field name="end_datetime" />
