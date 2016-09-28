@@ -9,39 +9,12 @@
     <template id="web_layout" inherit_id="web.layout">
        <xpath expr="//title" position="replace"></xpath>
        <xpath expr="//link[@rel='shortcut icon']" position="replace">
-           <t t-set="favicon" t-value="request and request.env['ir.config_parameter'].get_param('web_debranding.favicon_url', '').strip() or ''"/>
+           <t t-set="favicon" t-value="request and request.env['ir.config_parameter'].get_debranding_parameters().get('web_debranding.favicon_url')"/>
            <t t-if="favicon">
                <link rel="shortcut icon" t-att-href="favicon" type="image/x-icon"/>
            </t>
        </xpath>
     </template>
   </data>
-
- <data noupdate="1">
-    <record id="new_name" model="ir.config_parameter">
-        <field name="key">web_debranding.new_name</field>
-        <field name="value">Software</field>
-    </record>
-
-    <record id="custom_title" model="ir.config_parameter">
-        <field name="key">web_debranding.new_title</field>
-        <field name="value">Software</field>
-    </record>
-
-    <record id="favicon_url" model="ir.config_parameter">
-        <field name="key">web_debranding.favicon_url</field>
-        <field name="value"> </field>
-    </record>
-
-    <record id="send_publisher_warranty_url" model="ir.config_parameter">
-        <field name="key">web_debranding.send_publisher_warranty_url</field>
-        <field name="value">0</field>
-    </record>
-
-    <record id="planner_footer" model="ir.config_parameter">
-        <field name="key">web_debranding.planner_footer</field>
-        <field name="value"> </field>
-    </record>
- </data>
 
 </openerp>

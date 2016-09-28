@@ -22,12 +22,14 @@ Removes references to odoo.com:
 17. [ENTERPRISE] Deletes odoo logo in application switcher
 18. Hides Enterprise features in Settings
 19. Replaces "Odoo" in all backend qweb templates (e.g. FAQ in import tool)
+20. Replaces "odoo.com" in hints, examples, etc.
 
 By default the module replaces "Odoo" to "Software". To configure
 module open Settings\\System Parameters and modify
 
 * ``web_debranding.new_title`` (put space in value if you don't need Brand in Title)
 * ``web_debranding.new_name`` (your Brand)
+* ``web_debranding.new_website`` (your website)
 * ``web_debranding.favicon_url``
 * ``web_debranding.send_publisher_warranty_url`` - set 0 to disable server requests to odoo.com and 1 otherwise (useful for enterprise contractors). Works only for non-enterprise versions of odoo, check `note <#enterprise-users-notice>`__ below.
 * ``web_debranding.planner_footer``
