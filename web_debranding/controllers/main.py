@@ -75,7 +75,7 @@ class WebClientCustom(WebClient):
         content, checksum = controllers_main.concat_xml(files)
         if request.context['lang'] == 'en_US':
             content = content.decode('utf-8')
-            content = self._debrand(content)
+            content = request.env['ir.translation']._debrand(content)
 
         return controllers_main.make_conditional(
             request.make_response(content, [('Content-Type', 'text/xml')]),
@@ -87,10 +87,6 @@ class WebClientCustom(WebClient):
 
         for module_key, module_vals in res['modules'].iteritems():
             for message in module_vals['messages']:
-                message['id'] = self._debrand(message['id'])
-                message['string'] = self._debrand(message['string'])
+                message['id'] = request.env['ir.translation']._debrand(message['id'])
+                message['string'] = request.env['ir.translation']._debrand(message['string'])
         return res
-
-    def _debrand(self, string):
-        new_company = request.env['ir.config_parameter'].get_param('web_debranding.new_name') or _('Software')
-        return re.sub(r'[Oo]doo', new_company, string)

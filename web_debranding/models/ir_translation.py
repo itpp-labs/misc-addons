@@ -22,14 +22,18 @@ class IrTranslation(models.Model):
         if not source or not re.search(r'\bodoo\b', source, re.IGNORECASE):
             return source
 
-        new_name = self.env['ir.config_parameter'].get_param('web_debranding.new_name') or _('Software')
+        params = self.env['ir.config_parameter'].get_debranding_parameters()
+        new_name = params.get('web_debranding.new_name')
+        new_website = params.get('web_debranding.new_website')
 
         # We must exclude the case when after the word "odoo" is the word "define".
         # Since JS functions are also contained in the localization files.
         # Example:
         # po file: https://github.com/odoo/odoo/blob/9.0/addons/im_livechat/i18n/ru.po#L853
         # xml file: https://github.com/odoo/odoo/blob/9.0/addons/im_livechat/views/im_livechat_channel_templates.xml#L148
-        return re.sub(r'\bodoo(?!\.define)\b', new_name, source, flags=re.IGNORECASE)
+        source = re.sub(r'\bodoo.com\b', new_website, source, flags=re.IGNORECASE)
+        source = re.sub(r'\bodoo(?!\.define)\b', new_name, source, flags=re.IGNORECASE)
+        return source
 
     @tools.ormcache('name', 'types', 'lang', 'source', 'res_id')
     def __get_source(self, name, types, lang, source, res_id):

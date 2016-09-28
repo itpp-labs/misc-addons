@@ -22,7 +22,7 @@ class View(models.Model):
 
         self._create_view('webclient_bootstrap_enterprise_favicon', 'web.webclient_bootstrap', '''
        <xpath expr="//link[@rel='shortcut icon']" position="replace">
-           <t t-set="favicon" t-value="request and request.env['ir.config_parameter'].get_param('web_debranding.favicon_url', '').strip() or ''"/>
+           <t t-set="favicon" t-value="request and request.env['ir.config_parameter'].get_debranding_parameters().get('web_debranding.favicon_url', '')"/>
            <t t-if="favicon">
                <link rel="shortcut icon" t-att-href="favicon" type="image/x-icon"/>
            </t>
@@ -49,7 +49,7 @@ class View(models.Model):
                     'name': name,
                     'type': type,
                     'arch': arch,
-                    'inherit_id': self.env.ref(inherit_id, raise_if_not_found=True)
+                    'inherit_id': self.env.ref(inherit_id, raise_if_not_found=True).id
                 })
         except:
             _logger.debug('Cannot create view %s. Cancel.', name, exc_info=True)

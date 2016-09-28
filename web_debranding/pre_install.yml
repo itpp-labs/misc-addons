@@ -1,4 +1,7 @@
 -
+  !python {model: ir.config_parameter}: |
+    self.create_debranding_parameters(cr, uid)
+-
   !python {model: ir.translation}: |
     self.clear_caches()
 
