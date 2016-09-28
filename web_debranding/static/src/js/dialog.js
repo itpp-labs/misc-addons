@@ -9,6 +9,7 @@ odoo.define('web_debranding.dialog', function(require) {
     Dialog.include({
         init: function (parent, options) {
             var debranding_new_name = odoo.debranding_new_name;
+            var debranding_new_website = odoo.debranding_new_website;
             options = options || {};
             if (options.title){
                 var title = options.title.replace(/Odoo/ig, debranding_new_name);
@@ -20,7 +21,9 @@ odoo.define('web_debranding.dialog', function(require) {
                 if (!(options.$content instanceof $)){
                     options.$content = $(options.$content);
                 }
-                var content_html = options.$content.html().replace(/Odoo/ig, debranding_new_name);
+                var content_html = options.$content.html();
+                content_html = content_html.replace(/Odoo.com/ig, debranding_new_website);
+                content_html = content_html.replace(/Odoo/ig, debranding_new_name);
                 options.$content.html(content_html);
             }
             this._super(parent, options);
