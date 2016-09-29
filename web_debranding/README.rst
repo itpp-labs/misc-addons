@@ -6,7 +6,7 @@ Removes references to odoo.com:
 1. Deletes Odoo label in footer
 2. Replaces "Odoo" in page title
 3. Replaces "Odoo" in help message for empty list
-4. *(feature is not required in 9.0 version)*
+4. *(feature is not required in 9.0+ versions)*
 5. Deletes Documentation, Support, About links. Adds "Developer mode" link to the top right-hand User Menu.
 6. Replaces default logo by empty image
 7. Replaces "Odoo" in Dialog Box
@@ -68,7 +68,7 @@ To automatically install this module for every new databases set **'auto_install
 * base_setup (built-in)
 * bus (built-in)
 
-Tested on Odoo 9.0 2ec9a9c99294761e56382bdcd766e90b8bc1bb38
+Tested on Odoo 10.0 b2804b1d2ae5fd7ec5c0eca79a8db77476badc84
 
 Enterprise users notice
 =======================

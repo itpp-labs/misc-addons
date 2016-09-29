@@ -36,6 +36,7 @@ class View(models.Model):
                 view.write({
                     'arch': arch,
                 })
+                view._check_xml()
             except:
                 _logger.warning('Cannot update view %s. Delete it.', name, exc_info=True)
                 view.unlink()
@@ -51,6 +52,7 @@ class View(models.Model):
                     'arch': arch,
                     'inherit_id': self.env.ref(inherit_id, raise_if_not_found=True).id
                 })
+                view._check_xml()
         except:
             _logger.debug('Cannot create view %s. Cancel.', name, exc_info=True)
             return
