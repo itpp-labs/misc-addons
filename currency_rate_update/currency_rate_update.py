@@ -367,7 +367,7 @@ class CurrenyGetterInterface(object):
             _logger.warning("the rate timestamp (%s) is not today's date", rate_date_str)
 
 
-# Yahoo # ##################################################################################
+# Yahoo # # #################################################################################
 class YahooGetter(CurrenyGetterInterface):
 
     """Implementation of Currency_getter_factory interface
@@ -391,7 +391,7 @@ class YahooGetter(CurrenyGetterInterface):
         return self.updated_currency, self.log_info  # empty string added by polish changes
 
 
-# Admin CH # ###########################################################################
+# Admin CH # # ##########################################################################
 class AdminChGetter(CurrenyGetterInterface):
 
     """Implementation of Currency_getter_factory interface
@@ -450,7 +450,7 @@ class AdminChGetter(CurrenyGetterInterface):
         return self.updated_currency, self.log_info
 
 
-# ECB getter # ###########################################################################
+# ECB getter # # ##########################################################################
 class ECBGetter(CurrenyGetterInterface):
 
     """Implementation of Currency_getter_factory interface
@@ -507,7 +507,7 @@ class ECBGetter(CurrenyGetterInterface):
         return self.updated_currency, self.log_info
 
 
-# PL NBP # ###########################################################################
+# PL NBP # # ##########################################################################
 class PLNBPGetter(CurrenyGetterInterface):   # class added according to polish needs = based on class Admin_ch_getter
 
     """Implementation of Currency_getter_factory interface
@@ -570,7 +570,7 @@ class PLNBPGetter(CurrenyGetterInterface):   # class added according to polish n
         return self.updated_currency, self.log_info
 
 
-# Banco de México # ###########################################################################
+# Banco de México # # ##########################################################################
 class BanxicoGetter(CurrenyGetterInterface):  # class added for Mexico rates
 
     """Implementation of Currency_getter_factory interface
@@ -622,7 +622,7 @@ class BanxicoGetter(CurrenyGetterInterface):  # class added for Mexico rates
             logger.debug("Rate retrieved : " + main_currency + ' = ' + str(rate) + ' ' + curr)
 
 
-# CA BOC # ####   Bank of Canada   # ###########################################################
+# CA BOC # # ###   Bank of Canada   # # ##########################################################
 class CABOCGetter(CurrenyGetterInterface):
 
     """Implementation of Curreny_getter_factory interface for Bank of Canada RSS service"""
