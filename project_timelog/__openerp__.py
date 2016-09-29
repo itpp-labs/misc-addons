@@ -22,6 +22,7 @@
         "res_config_view.xml",
         "views/project_timelog_templates.xml",
         "data/project_timelog_data.xml",
+        "pre_install.yml",
     ],
 
     "installable": True,

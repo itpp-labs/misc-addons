@@ -69,6 +69,7 @@ $(document).ready(function() {
                         this.widget.load_timer_data();
 
                     }
+                    $('#clock0').css('color','white');
                 }
                 if (message.status == "stop") {
                     this.widget.stop_timer();
@@ -77,6 +78,9 @@ $(document).ready(function() {
 
                         audio.src = openerp.session.url("/project_timelog/static/src/audio/" + "stop" + this.audio_format);
                         audio.play();
+                    }
+                    if (message.client_status) {
+                        $('#clock0').css('color','rgb(152, 152, 152)');
                     }
                     if (message.stopline) {
                         $('#clock0').css('color','red');
@@ -263,7 +267,12 @@ $(document).ready(function() {
 
             switch(id) {
                 case 0: {
-                    $('#clock0').css('color','white');
+                    if (self.status == 'stopped') {
+                        $('#clock0').css('color','rgb(152, 152, 152);');
+                    }
+                    else {
+                        $('#clock0').css('color','white');
+                    }
                     if ( this.times[0] == this.time_warning_subtasks) {
                         $('#clock0').css('color','orange');
                         self.playAudio(0);
@@ -451,16 +460,23 @@ $(document).ready(function() {
         },
 
         add_title: function(first_timer_name, description_second_timer) {
-            $('#clock0').attr("title", first_timer_name);
-            $('#clock1').attr("title", description_second_timer);
+            $('#clock0').attr("title", 'Current subtask'+' '+first_timer_name+'. Time for current subtask. When approaching the mark of 2 hours it changes color to orange and emits a short signal. Upon exceeding mark of 2 hours (set in Configuration) the timer is stopped and the color changes to red, it flashes and emits a long beep. When you click on a timer it works as a pause.');
+            $('#clock1').attr("title", description_second_timer+". General time for current task (only the current user data are summed). Upon exceeding 'initially planned hours' (taking into account all the logs for the task) it changes color to yellow. Upon exceeding 'initially planned hours' 100% (set) it changes to red. Clicking on the timer opens the current task.");
+            $('#clock2').attr("title", "General time for current day. Upon reaching 5 hours (set in Configuration) it changes color to yellow. Upon reaching 6 hours (set in Configuration) it changes color to green. Clicking on the timer opens a page with the current day logs.");
+            $('#clock3').attr("title", "General time for current week. Upon reaching 30 hours (set in Configuration) it changes to green and emits a beautiful melody. When reaching 40 hours (set in Configuration) it changes color to blue and emits a long beautiful melody. Clicking on the timer opens a page with logs of current week.");
         },
 
         timer_pause: function() {
             var self = this;
             var model_subtask = new openerp.web.Model('project.task.work');
-            if (self.status=="running" && !self.finish_status) model_subtask.call("stop_timer", [self.work_id]);
-            else {
-                if (self.status == "stopped" && !self.finish_status) model_subtask.call("play_timer", [self.work_id]);
+            if (self.status=="running" && !self.finish_status) {
+                model_subtask.call("stop_timer", [self.work_id]);
+                $('#clock0').css('color','rgb(152, 152, 152)');
+            } else {
+                if (self.status == "stopped" && !self.finish_status) {
+                    model_subtask.call("play_timer", [self.work_id]);
+                    $('#clock0').css('color','white');
+                }
             }
             if (self.finish_status) return false;
         },
@@ -510,6 +526,8 @@ $(document).ready(function() {
                 } else {
                     context = {
                         'search_default_week': 1,
+                        'search_default_group_tasks': 1,
+                        'search_default_group_subtasks': 1,
                     };
                 }
                 action = {

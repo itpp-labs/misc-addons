@@ -1,0 +1,3 @@
+-
+  !python {model: timelog.config.settings}: |
+    self.set_custom_parameters(cr, uid, context)

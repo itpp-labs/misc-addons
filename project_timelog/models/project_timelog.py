@@ -212,6 +212,12 @@ class ProjectWork(models.Model):
     timelog_ids = fields.One2many("project.timelog", "work_id", "Timelog")
     status = fields.Char(string="Status", default="active")
     task_allow_logs = fields.Boolean(related='task_id.stage_id.allow_log_time', store=True, default=True)
+    # current_user = fields.Integer(string="Current user", compute="_compute_current_user", store=True)
+    #
+    # @api.multi
+    # def _compute_current_user(self):
+    #     for r in self:
+    #         r.current_user = r.env.user.id
 
     @api.multi
     @api.depends("timelog_ids.end_datetime", "timelog_ids.time_correction")
@@ -221,6 +227,8 @@ class ProjectWork(models.Model):
                 return False
             sum_timelog = 0.00
             timelog = r.env.user.active_work_id.timelog_ids
+            if not timelog:
+                return False
             if timelog[-1].end_datetime is False:
                 timelog = timelog[:-1]
             for e in timelog:
