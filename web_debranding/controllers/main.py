@@ -26,7 +26,7 @@ class BinaryCustom(Binary):
         imgname = 'logo.png'
         default_logo_module = 'web_debranding'
         if request.session.db:
-            request.env['ir.config_parameter'].get_param('web_debranding.default_logo_module')
+            default_logo_module = request.env['ir.config_parameter'].get_param('web_debranding.default_logo_module')
         placeholder = functools.partial(get_module_resource, default_logo_module, 'static', 'src', 'img')
         uid = None
         if request.session.db:
