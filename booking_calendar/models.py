@@ -473,8 +473,8 @@ class SaleOrderAmountTotal(osv.osv):
                                                 store={
                                                     'sale.order': (lambda self, cr, uid, ids, c={}: ids, ['order_line'], 10),
                                                     'sale.order.line': (_get_order, ['price_unit', 'tax_id', 'discount', 'product_uom_qty', 'state'], 10),
-        },
-            multi='sums', help="The total amount."),
+                                                },
+                                                multi='sums', help="The total amount."),
     }
 
 

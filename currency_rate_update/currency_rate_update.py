@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-##############################################################################
+#
 #
 #    Copyright (c) 2009 Camptocamp SA
 #    @author Nicolas Bessi
@@ -11,7 +11,7 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-##############################################################################
+#
 
 # TODO "nice to have" : restain the list of currencies that can be added for
 # a webservice to the list of currencies supported by the Webservice
@@ -28,6 +28,7 @@ _logger = logging.getLogger(__name__)
 
 
 class CurrencyRateUpdateService(osv.Model):
+
     """Class thats tell for wich services wich currencies
     have to be updated"""
     _name = "currency.rate.update.service"
@@ -92,6 +93,7 @@ class CurrencyRateUpdateService(osv.Model):
 
 
 class CurrencyRateUpdate(osv.Model):
+
     """Class that handle an ir cron call who will
     update currencies based on a web url"""
     _name = "currency.rate.update"
@@ -264,6 +266,7 @@ class UnsuportedCurrencyError(Exception):
 
 
 class CurrencyGetterFactory():
+
     """Factory pattern class that will return
     a currency getter class base on the name passed
     to the register method"""
@@ -287,6 +290,7 @@ class CurrencyGetterFactory():
 
 
 class CurrenyGetterInterface(object):
+
     "Abstract class of currency getter"
 
     # remove in order to have a dryer code
@@ -365,6 +369,7 @@ class CurrenyGetterInterface(object):
 
 # Yahoo # ##################################################################################
 class YahooGetter(CurrenyGetterInterface):
+
     """Implementation of Currency_getter_factory interface
     for Yahoo finance service"""
 
@@ -386,8 +391,9 @@ class YahooGetter(CurrenyGetterInterface):
         return self.updated_currency, self.log_info  # empty string added by polish changes
 
 
-# #Admin CH # ###########################################################################
+# Admin CH # ###########################################################################
 class AdminChGetter(CurrenyGetterInterface):
+
     """Implementation of Currency_getter_factory interface
     for Admin.ch service"""
 
@@ -444,8 +450,9 @@ class AdminChGetter(CurrenyGetterInterface):
         return self.updated_currency, self.log_info
 
 
-# # ECB getter # ###########################################################################
+# ECB getter # ###########################################################################
 class ECBGetter(CurrenyGetterInterface):
+
     """Implementation of Currency_getter_factory interface
     for ECB service"""
 
@@ -500,8 +507,9 @@ class ECBGetter(CurrenyGetterInterface):
         return self.updated_currency, self.log_info
 
 
-# #PL NBP # ###########################################################################
+# PL NBP # ###########################################################################
 class PLNBPGetter(CurrenyGetterInterface):   # class added according to polish needs = based on class Admin_ch_getter
+
     """Implementation of Currency_getter_factory interface
     for PL NBP service"""
 
@@ -562,8 +570,9 @@ class PLNBPGetter(CurrenyGetterInterface):   # class added according to polish n
         return self.updated_currency, self.log_info
 
 
-# #Banco de México # ###########################################################################
+# Banco de México # ###########################################################################
 class BanxicoGetter(CurrenyGetterInterface):  # class added for Mexico rates
+
     """Implementation of Currency_getter_factory interface
     for Banco de México service"""
 
@@ -613,8 +622,9 @@ class BanxicoGetter(CurrenyGetterInterface):  # class added for Mexico rates
             logger.debug("Rate retrieved : " + main_currency + ' = ' + str(rate) + ' ' + curr)
 
 
-# #CA BOC # ####   Bank of Canada   # ###########################################################
+# CA BOC # ####   Bank of Canada   # ###########################################################
 class CABOCGetter(CurrenyGetterInterface):
+
     """Implementation of Curreny_getter_factory interface for Bank of Canada RSS service"""
 
     def get_updated_currency(self, currency_array, main_currency, max_delta_days):
