@@ -3,7 +3,6 @@ from openerp import SUPERUSER_ID
 from openerp import models
 from openerp import tools
 from openerp.osv import fields as old_fields
-from openerp.tools.translate import _
 
 
 class ResPartner(models.Model):
