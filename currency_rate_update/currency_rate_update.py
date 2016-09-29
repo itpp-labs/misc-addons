@@ -3,24 +3,6 @@
 #
 #    Copyright (c) 2009 Camptocamp SA
 #    @author Nicolas Bessi
-#    @source JBA and AWST inpiration
-#    @contributor Grzegorz Grzelak (grzegorz.grzelak@birdglobe.com), Joel Grand-Guillaume
-#    Copyright (c) 2010 Alexis de Lattre (alexis@via.ecp.fr)
-#     - ported XML-based webservices (Admin.ch, ECB, PL NBP) to new XML lib
-#     - rates given by ECB webservice is now correct even when main_cur <> EUR
-#     - rates given by PL_NBP webservice is now correct even when main_cur <> PLN
-#     - if company_currency <> CHF, you can now update CHF via Admin.ch webservice
-#       (same for EUR with ECB webservice and PLN with NBP webservice)
-#     For more details, see Launchpad bug # 645263
-#     - mecanism to check if rates given by the webservice are "fresh" enough to be
-#       written in OpenERP ('max_delta_days' parameter for each currency update service)
-#        Ported to OpenERP 7.0 by Lorenzo Battistini <lorenzo.battistini@agilebg.com>
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -40,6 +22,7 @@ import time
 from datetime import datetime, timedelta
 import logging
 from openerp.tools.translate import _
+from openerp.tools import safe_eval
 
 _logger = logging.getLogger(__name__)
 
@@ -297,7 +280,7 @@ class CurrencyGetterFactory():
             'CA_BOC_getter',
         ]
         if class_name in allowed:
-            class_def = eval(class_name)
+            class_def = safe_eval(class_name)
             return class_def()
         else:
             raise UnknowClassError
