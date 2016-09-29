@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
-from openerp.osv import fields as old_fields
+from openerp import fields as old_fields
 from openerp import api, models, fields
 from openerp.addons.gamification.models.challenge import start_end_date_for_period
 from openerp.tools.safe_eval import safe_eval
 from openerp.tools.translate import _
-from openerp import osv
+from openerp import models
 
 class GamificationGoalDefinition(models.Model):
     _inherit = 'gamification.goal.definition'
 
     click_action = fields.Text('Click action', help='Executed when user click on goal. Keep empty to show records in domain.')
 
-    _columns = {
-        'computation_mode': old_fields.selection([
+
+        'computation_mode': old_fields.Selection([
             ('manually', 'Recorded manually'),
             ('count', 'Automatic: number of records'),
             ('sum', 'Automatic: sum on a field'),
@@ -24,7 +24,7 @@ class GamificationGoalDefinition(models.Model):
             string="Computation Mode",
             help="Defined how will be computed the goals. The result of the operation will be stored in the field 'Current'.",
             required=True),
-    }
+
 
 
 class GamificationGoal(models.Model):
@@ -64,10 +64,10 @@ class GamificationGoal(models.Model):
                         result[goal.id] = new_value
         return result
 
-    _columns = {
-        'sum': old_fields.function(_get_sum, string='Sum', type='float', help='Compute goal as sum'),
-        'count': old_fields.function(_get_sum, string='Count', type='float', help='Compute goal as count'),
-    }
+
+    sum = fields.Float(compute="_get_sum", string='Sum', help='Compute goal as sum')
+    count = fields.Float(compute="_get_sum", string='Count', help='Compute goal as count')
+
 
     @api.v7
     def update(self, cr, uid, ids, context=None):
@@ -150,7 +150,7 @@ class GamificationGoal(models.Model):
                     value['state'] = 'reached'
 
                 # check goal failure
-                elif goal.end_date and fields.date.today() > goal.end_date:
+                elif goal.end_date and fields.Date.today() > goal.end_date:
                     value['state'] = 'failed'
                     value['closed'] = True
                 if value:
@@ -251,7 +251,7 @@ class GamificationChallenge(models.Model):
 
             if challenge.visibility_mode == 'personal':
                 if not user_id:
-                    raise osv.except_osv(_('Error!'), _("Retrieving progress for personal challenge without user information"))
+                    raise UserError(_('Error!'), _("Retrieving progress for personal challenge without user information"))
                 domain.append(('user_id', '=', user_id))
                 sorting = goal_obj._order
                 limit = 1

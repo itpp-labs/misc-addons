@@ -115,6 +115,6 @@ class IrSessions(models.Model):
     @api.multi
     def _on_session_logout(self, logout_type=None):
         self.write({'logged_in': False,
-                    'date_logout': fields.datetime.now(),
+                date_logout = fields.Datetime.now()
                     'logout_type': logout_type,
                     })

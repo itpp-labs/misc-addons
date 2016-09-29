@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
-from openerp.osv import osv, fields
+from openerp import models, fields
 
 
-class ResPartner(osv.Model):
+class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    _columns = {
-        'skype': fields.char('Skype', size=128, select=True)
-    }
+    skype = fields.Char('Skype', size=128, select=True)
+

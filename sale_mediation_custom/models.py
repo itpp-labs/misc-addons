@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from openerp.osv import fields as old_fields
-from openerp.osv import osv
+from openerp import fields as old_fields
+from openerp import models
 from openerp import api, models, fields, exceptions
 from openerp.tools.translate import _
 import time
@@ -46,16 +46,16 @@ class account_analytic_account(models.Model):
     #create_date = fields.Date(default=fields.Date.context_today)
     color = fields.Integer('Color index', related='section_id.color')
 
-    _columns = {
-        'proposal_id': old_fields.function(_get_proposal_id, type='many2one', obj='website_proposal.proposal', string='Proposal'),
-    }
+
+    proposal_id = fields.Many2one('website_proposal.proposal', compute="_get_proposal_id", string='Proposal')
+
 
     _defaults = {
         'name': lambda self, cr, uid, context=None: context.get('project_name') or 'NONAME'
     }
 
 
-class mail_compose_message(osv.Model):
+class mail_compose_message(models.Model):
     _inherit = 'mail.compose.message'
 
     def send_mail(self, cr, uid, ids, context=None):
@@ -70,14 +70,14 @@ class res_partner(models.Model):
     _inherit = 'res.partner'
 
     participate_in_contract_ids = fields.Many2many('account.analytic.account', id2='contract_id', id1='partner_id', string='Participate in contracts')
-    _columns = {
-        'email': old_fields.char('Email', track_visibility='onchange'),
-        'phone': old_fields.char('Phone', track_visibility='onchange'),
-        'name': old_fields.char('Name', required=True, select=True, track_visibility='onchange'),
-        'fax': old_fields.char('Fax', track_visibility='onchange'),
-        'mobile': old_fields.char('Mobile', track_visibility='onchange'),
-        'website': old_fields.char('Website', help="Website of Partner or Company", track_visibility='onchange'),
-    }
+
+    email = fields.Char('Email', track_visibility='onchange')
+    phone = fields.Char('Phone', track_visibility='onchange')
+    name = fields.Char('Name', required=True, select=True, track_visibility='onchange')
+    fax = fields.Char('Fax', track_visibility='onchange')
+    mobile = fields.Char('Mobile', track_visibility='onchange')
+    website = fields.Char('Website', help="Website of Partner or Company", track_visibility='onchange')
+
 
 
 class sale_order(models.Model):
@@ -95,7 +95,7 @@ class crm_lead(models.Model):
     _inherit = 'crm.lead'
 
     def _get_new_code(self, cr, uid, context=None):
-        today = old_fields.date.context_today(self, cr, uid, context=context)
+        today = old_fields.Date.context_today(self, cr, uid, context=context)
         d = fields.Date.from_string(today)
         name = d.strftime('SE%y%m%d')
         ids = self.search(cr, uid, [('create_date', '>=', d.strftime(DEFAULT_SERVER_DATE_FORMAT))], context=context)
@@ -139,8 +139,8 @@ class crm_lead(models.Model):
     @api.depends('date_closed_custom')
     def _get_deal_time(self):
         res = None
-        start_date = self.create_date or old_fields.datetime.now()
-        end_date = self.date_closed_custom or old_fields.datetime.now()
+        start_date = self.create_date or old_fields.Datetime.now()
+        end_date = self.date_closed_custom or old_fields.Datetime.now()
         d = datetime.strptime(end_date, DEFAULT_SERVER_DATETIME_FORMAT) - datetime.strptime(start_date, DEFAULT_SERVER_DATETIME_FORMAT)
         res = d.days + 1
         self.deal_time = res
@@ -155,12 +155,12 @@ class crm_lead(models.Model):
     @api.depends('date_action', 'date_last_stage_update')
     def _get_last_action_time(self):
         res = None
-        start_date = self.date_action or self.date_last_stage_update or old_fields.datetime.now()
+        start_date = self.date_action or self.date_last_stage_update or old_fields.Datetime.now()
         try:
             start_date = datetime.strptime(start_date, DEFAULT_SERVER_DATETIME_FORMAT)
         except:
             start_date = datetime.strptime(start_date, DEFAULT_SERVER_DATE_FORMAT)
-        end_date = old_fields.datetime.now()
+        end_date = old_fields.Datetime.now()
         end_date = datetime.strptime(end_date, DEFAULT_SERVER_DATETIME_FORMAT)
 
         d = end_date - start_date
@@ -387,7 +387,7 @@ class crm_lead(models.Model):
                     raise exceptions.Warning(res.get('warning'))
                 if new_stage.sales_funnel_type in ['won', 'lost']:
                     vals['stage_closed_id'] = r.stage_id.id
-                    vals['date_closed_custom'] = fields.datetime.now()
+                    vals['date_closed_custom'] = fields.Datetime.now()
         if 'user_id' in vals:
             for r in self:
                 if r.sale_order_id and (not r.sale_order_id.user_id or r.sale_order_id.user_id.id != vals['user_id']):
@@ -403,9 +403,9 @@ class crm_lead(models.Model):
         sale_order = result.create_sale_order(raise_error=False)
         return result
 
-    _columns = {
-        'proposal_id': old_fields.function(_get_proposal_id, type='many2one', obj='website_proposal.proposal', string='Proposal'),  # to delete
-    }
+
+        'proposal_id': old_fields.Many2one('website_proposal.proposal', compute="_get_proposal_id", string='Proposal'),  # to delete
+
     _defaults = {
         'name': _get_new_code,
     }
@@ -429,7 +429,7 @@ class crm_lead(models.Model):
             partner_addr = partner.address_get(['default', 'invoice', 'delivery', 'contact'])
             if False in partner_addr.values():
                 if raise_error:
-                    raise osv.except_osv(_('Insufficient Data!'), _('No address(es) defined for this customer.'))
+                    raise UserError(_('Insufficient Data!'), _('No address(es) defined for this customer.'))
                 else:
                     continue
 
@@ -458,7 +458,7 @@ class crm_lead(models.Model):
                 'pricelist_id': pricelist,
                 'partner_invoice_id': partner_addr['invoice'],
                 'partner_shipping_id': partner_addr['delivery'],
-                'date_order': old_fields.datetime.now(),
+            date_order = fields.Datetime.now()
                 'fiscal_position': fpos,
                 'payment_term': payment_term,
             }
@@ -479,10 +479,10 @@ class project_project(models.Model):
         ('internal', 'Internal'),
     ], string="Project type", default='external')
 
-    _columns = {
+
         # use own name, instead of account.analytic.account name
-        'name': old_fields.char('Project Name', required=True),  # TO DELETE
-    }
+        'name': old_fields.Char('Project Name', required=True),  # TO DELETE
+
     _defaults = {
         #'name': '_'
     }
@@ -525,7 +525,7 @@ class crm_case_stage(models.Model):
     ], string='Sales funnel', help='Type of stage. When you move sale case between stages of different types there will be some extra checks and actions.')
 
 
-class website_proposal_template(osv.osv):
+class website_proposal_template(models.Model):
     _inherit = 'website_proposal.template'
 
     _defaults = {

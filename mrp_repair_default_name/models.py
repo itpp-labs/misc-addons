@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from openerp.osv import osv
+from openerp import models
 
 
-class MrpRepair(osv.osv):
+class MrpRepair(models.Model):
     _inherit = 'mrp.repair'
 
     _defaults = {

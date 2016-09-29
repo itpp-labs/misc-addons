@@ -1,7 +1,7 @@
 from openerp import api, models, fields, exceptions
 
-from openerp.osv import fields as old_fields
-from openerp.osv import osv
+from openerp import fields as old_fields
+from openerp import models
 from openerp.tools.translate import _
 
 

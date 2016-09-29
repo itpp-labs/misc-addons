@@ -19,7 +19,7 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, orm
+from openerp import fields
 
 
 class ResCompany(orm.Model):
@@ -95,16 +95,16 @@ class ResCompany(orm.Model):
         return super(ResCompany, self).write(cr, uid, ids, vals, context=context)
 
     _inherit = "res.company"
-    _columns = {
+
         # activate the currency update
-        'auto_currency_up': fields.boolean('Automatical update of the currency this company'),
-        'services_to_use': fields.one2many(
+    auto_currency_up = fields.Boolean('Automatical update of the currency this company')
+    services_to_use = fields.One2many(
             'currency.rate.update.service',
             'company_id',
             'Currency update services'
-        ),
+        )
         # predifine cron frequence
-        'interval_type': fields.selection(
+    interval_type = fields.Selection(
             [
                 ('days', 'Day(s)'),
                 ('weeks', 'Week(s)'),
@@ -113,15 +113,15 @@ class ResCompany(orm.Model):
             'Currency update frequence',
             help="""changing this value will
                                                  also affect other compagnies"""
-        ),
+        )
         # function field that allows to know the
         # mutli company currency implementation
-        'multi_company_currency_enable': fields.function(
+    multi_company_currency_enable = fields.Function(
             _multi_curr_enable,
             method=True,
             type='boolean',
             string="Multi company currency",
             help='if this case is not check you can' +\
             ' not set currency is active on two company'
-        ),
-    }
+    )
+

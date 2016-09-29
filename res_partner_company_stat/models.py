@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from openerp.osv import fields, osv
+from openerp import fields, models
 
 
-class ResPartner(osv.osv):
+class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     def _partners_for_stat(self, cr, uid, ids, context=None):
@@ -76,12 +76,12 @@ class ResPartner(osv.osv):
 
         return res
 
-    _columns = {
-        'opportunity_count': fields.function(_opportunity_meeting_phonecall_count, string="Opportunity", type='integer', multi='opp_meet'),
-        'meeting_count': fields.function(_opportunity_meeting_phonecall_count, string="# Meetings", type='integer', multi='opp_meet'),
-        'phonecall_count': fields.function(_opportunity_meeting_phonecall_count, string="Phonecalls", type="integer", multi='opp_meet'),
-        'sale_order_count': fields.function(_sale_order_count, string='# of Sales Order', type='integer'),
-        'contracts_count': fields.function(_journal_item_count, string="Contracts", type='integer', multi="invoice_journal"),
-        'journal_item_count': fields.function(_journal_item_count, string="Journal Items", type="integer", multi="invoice_journal"),
-        'task_count': fields.function(_task_count, string='# Tasks', type='integer'),
-    }
+
+    opportunity_count = fields.Integer(compute="_opportunity_meeting_phonecall_count", string="Opportunity",)
+    meeting_count = fields.Integer(compute="_opportunity_meeting_phonecall_count", string="# Meetings",)
+    phonecall_count = fields.Integer(compute="_opportunity_meeting_phonecall_count", string="Phonecalls",)
+    sale_order_count = fields.Integer(compute="_sale_order_count", string='# of Sales Order', )
+    contracts_count = fields.Integer(compute="_journal_item_count", string="Contracts",)
+    journal_item_count = fields.Integer(compute="_journal_item_count", string="Journal Items",)
+    task_count = fields.Integer(compute="_task_count", string='# Tasks', )
+

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from openerp.osv import osv, fields
+from openerp import models, fields
 
 
-class CrmPhonecall(osv.Model):
+class CrmPhonecall(models.Model):
     _inherit = 'crm.phonecall'
 
     _track = {
@@ -10,10 +10,10 @@ class CrmPhonecall(osv.Model):
             'crm_phonecall_notification.mt_phonecall_new': lambda self, cr, uid, obj, ctx=None: obj.partner_id
         }
     }
-    _columns = {
-        'name': fields.char('Call Summary', required=True, track_visibility='onchange'),
-        'partner_id': fields.many2one('res.partner', 'Contact', track_visibility='onchange'),
-    }
+
+    name = fields.Char('Call Summary', required=True, track_visibility='onchange')
+    partner_id = fields.Many2one('res.partner', 'Contact', track_visibility='onchange')
+
 
     def _add_followers(self, cr, uid, vals, context):
         vals = vals or {}

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from openerp import models
-from openerp.osv import fields as old_fields
+from openerp import fields as old_fields
 
 import openerp.addons.decimal_precision as dp
 
@@ -20,9 +20,9 @@ class SaleOrderLine(models.Model):
             res[r.id] = val.get('total', 0.0)
         return res
 
-    _columns = {
-        'price_unit_without_taxes': old_fields.function(_get_price_unit_without_taxes, type='float', string='Unit Price (W/o taxes)', digits_compute=dp.get_precision('Product Price'))
-    }
+
+        'price_unit_without_taxes': old_fields.Float(compute="_get_price_unit_without_taxes", string='Unit Price (W/o taxes)', digits_compute=dp.get_precision('Product Price'))
+
 
 
 class AccountInvoiceLine(models.Model):
@@ -40,6 +40,6 @@ class AccountInvoiceLine(models.Model):
             res[r.id] = val.get('total', 0.0)
         return res
 
-    _columns = {
-        'price_unit_without_taxes': old_fields.function(_get_price_unit_without_taxes, type='float', string='Unit Price (W/o taxes)', digits_compute=dp.get_precision('Product Price'))
-    }
+
+        'price_unit_without_taxes': old_fields.Float(compute="_get_price_unit_without_taxes", string='Unit Price (W/o taxes)', digits_compute=dp.get_precision('Product Price'))
+

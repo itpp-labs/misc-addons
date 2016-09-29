@@ -1,4 +1,4 @@
-from openerp.osv import osv, fields
+from openerp import models, fields
 from openerp.tools.translate import _
 from openerp import tools
 import logging
@@ -30,13 +30,13 @@ import os
 import glob
 
 
-class import_custom_upload(osv.TransientModel):
+class import_custom_upload(models.TransientModel):
     _name = "import_custom.upload"
     _description = "Upload dumps"
 
-    _columns = {
-        'file': fields.char('file (*.tar.gz)'),
-    }
+
+    file = fields.Char('file (*.tar.gz)')
+
 
     def upload_button(self, cr, uid, ids, context=None):
 

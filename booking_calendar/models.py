@@ -11,7 +11,7 @@ from openerp.exceptions import ValidationError
 
 from openerp.addons.resource.resource import seconds
 import openerp.addons.decimal_precision as dp
-from openerp.osv import fields as old_api_fields, osv
+from openerp import fields as old_api_fields, models
 
 _logger = logging.getLogger(__name__)
 
@@ -458,7 +458,7 @@ class ProductTemplate(models.Model):
     calendar_id = fields.Many2one('resource.calendar', string='Working time')
 
 
-class SaleOrderAmountTotal(osv.osv):
+class SaleOrderAmountTotal(models.Model):
     _inherit = 'sale.order'
 
     def _amount_all_wrapper(self, cr, uid, ids, field_name, arg, context=None):
@@ -470,14 +470,14 @@ class SaleOrderAmountTotal(osv.osv):
             result[line.order_id.id] = True
         return result.keys()
 
-    _columns = {
-        'amount_total': old_api_fields.function(_amount_all_wrapper, digits_compute=dp.get_precision('Account'), string='Total',
+
+    amount_total = fields.Function(_amount_all_wrapper, digits_compute=dp.get_precision('Account'), string='Total'
                                                 store={
                                                     'sale.order': (lambda self, cr, uid, ids, c={}: ids, ['order_line'], 10),
                                                     'sale.order.line': (_get_order, ['price_unit', 'tax_id', 'discount', 'product_uom_qty', 'state'], 10),
         },
             multi='sums', help="The total amount."),
-    }
+
 
 
 class SaleOrder(models.Model):

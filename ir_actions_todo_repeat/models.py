@@ -1,12 +1,12 @@
-from openerp.osv import fields, osv
+from openerp import fields, models
 
 
-class ir_actions_todo(osv.osv):
+class ir_actions_todo(models.Model):
     _inherit = 'ir.actions.todo'
 
-    _columns = {
-        'repeat': fields.boolean(string='Repeat'),
-    }
+
+    repeat = fields.Boolean(string='Repeat')
+
 
     _defaults = {
         'repeat': False,

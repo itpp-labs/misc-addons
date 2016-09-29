@@ -29,7 +29,7 @@ except ImportError:
 import csv
 
 import glob
-from openerp.osv.fields import sanitize_binary_value
+from openerp.models.fields import sanitize_binary_value
 
 
 class fixdate_custom(mapper):
@@ -170,7 +170,7 @@ class import_custom(import_base):
                      'is_company': map_val('Is a Company', {'True': '1', 'False': '0'}, default='0'),
                      'customer': const('1'),
                      'supplier': const('0'),
-                     'category_id/id': tags_from_fields(self.TABLE_PROSPECTS_TAG, ['Tag', 'Tags', 'TypeName']),
+                 category_id/id = fields(self.TABLE_PROSPECTS_TAG, ['Tag', 'Tags', 'TypeName'])
                      'street': 'Street',
                      'street2': 'Street2',
                      'zip': 'Zip',

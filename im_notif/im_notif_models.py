@@ -2,14 +2,14 @@
 from openerp import SUPERUSER_ID
 from openerp import models
 from openerp import tools
-from openerp.osv import fields as old_fields
+from openerp import fields as old_fields
 from openerp.tools.translate import _
 
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
-    _columns = {
-        'notify_email': old_fields.selection([
+
+        'notify_email': old_fields.Selection([
             ('none', 'Never'),
             ('im', 'Only IM (if online)'),
             ('im_xor_email', 'IM (if online) + email (if offline)'),
@@ -19,7 +19,7 @@ class ResPartner(models.Model):
             oldname='notification_email_send',
             help="Policy to receive emails, IM for new messages pushed to your personal Inbox. IM can be used only for partners with odoo user account"
         ),
-    }
+
 
 
 class MailNotification(models.Model):

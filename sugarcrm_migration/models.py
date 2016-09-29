@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
-from openerp.osv import osv, fields
+from openerp import models, fields
 from openerp import SUPERUSER_ID
 
 
-class ir_attachment(osv.Model):
+class ir_attachment(models.Model):
     _inherit = 'ir.attachment'
 
-    _columns = {
-        'res_model_tmp': fields.char('Resource Model (TMP)', readonly=True, help="The database object this attachment will be attached to"),
-        'res_id_tmp': fields.integer('Resource ID (TMP)', readonly=True, help="The record id this is attached to"),
-    }
+
+    res_model_tmp = fields.Char('Resource Model (TMP)', readonly=True, help="The database object this attachment will be attached to")
+    res_id_tmp = fields.Integer('Resource ID (TMP)', readonly=True, help="The record id this is attached to")
 
 
-class account_analytic_account(osv.Model):
+
+class account_analytic_account(models.Model):
     _inherit = 'account.analytic.account'
-    _columns = {
-        'user_id_tmp': fields.many2one('res.users', 'Case manager (TMP)'),
-    }
+
+    user_id_tmp = fields.Many2one('res.users', 'Case manager (TMP)')
+

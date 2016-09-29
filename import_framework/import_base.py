@@ -18,7 +18,7 @@ class CreateChilds(object):
         fields = set()
         for c in childs:
             for f in c:
-                fields.add(f)
+                fields.Add(f)
 
         # extend childs
         for c in childs:
@@ -352,7 +352,7 @@ res = [
             data_lst = []
             for key, val in openerp_dict.items():
                 if key not in fields:
-                    fields.append(key)
+                    fields.Append(key)
                     if isinstance(val, list) and len(val) > i and i >= 0:
                         value = val[i](dict_sugar)
                     elif not isinstance(val, list) and i == -1:

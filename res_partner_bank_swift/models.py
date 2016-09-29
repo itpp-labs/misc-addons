@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from openerp.osv import osv, fields
+from openerp import models, fields
 
 
-class ResPartnerBank(osv.osv):
+class ResPartnerBank(models.Model):
     _inherit = "res.partner.bank"
 
-    _columns = {
-        'bank_swift': fields.char('SWIFT'),
-    }
+
+    bank_swift = fields.Char('SWIFT')
+

@@ -1,47 +1,47 @@
 # -*- coding: utf-8 -*-
-from openerp.osv import osv, fields
+from openerp import models, fields
 
 
-class ProductTemplate(osv.Model):
+class ProductTemplate(models.Model):
     _inherit = 'product.template'
-    _columns = {
-        'website_description': fields.html('Description for the website', translate=True),
-    }
+
+    website_description = fields.Html('Description for the website', translate=True)
 
 
-class DeliveryCarrier(osv.Model):
+
+class DeliveryCarrier(models.Model):
     _inherit = 'delivery.carrier'
-    _columns = {
-        'website_description': fields.text('Description for the website', translate=True),
-    }
+
+    website_description = fields.Text('Description for the website', translate=True)
 
 
-class WebsiteResPartner(osv.Model):
+
+class WebsiteResPartner(models.Model):
     _inherit = 'res.partner'
-    _columns = {
-        'website_description': fields.html(
+
+    website_description = fields.Html(
             'Website Partner Full Description',
             translate=True,
-        ),
-    }
+    )
 
 
-class SaleOrderLine(osv.osv):
+
+class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
-    _columns = {
-        'website_description': fields.html('Line Description', translate=True),
-    }
+
+    website_description = fields.Html('Line Description', translate=True)
 
 
-class SaleOrderOption(osv.osv):
+
+class SaleOrderOption(models.Model):
     _inherit = "sale.order.option"
-    _columns = {
-        'website_description': fields.html('Line Description', translate=True),
-    }
+
+    website_description = fields.Html('Line Description', translate=True)
 
 
-class SaleOrder(osv.osv):
+
+class SaleOrder(models.Model):
     _inherit = 'sale.order'
-    _columns = {
-        'website_description': fields.html('Description', translate=True),
-    }
+
+    website_description = fields.Html('Description', translate=True)
+
