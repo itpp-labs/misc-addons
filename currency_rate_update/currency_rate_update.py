@@ -46,7 +46,7 @@ class CurrencyRateUpdateService(osv.Model):
                 ('Banxico_getter', 'Banco de México'),  # Added for mexican rates
                 # Bank of Canada is using RSS-CB http://www.cbwiki.net/wiki/index.php/Specification_1.1 :
                 # This RSS format is used by other national banks (Thailand, Malaysia, Mexico...)
-                                                        ('CA_BOC_getter', 'Bank of Canada - noon rates'),  # Added for canadian rates
+                ('CA_BOC_getter', 'Bank of Canada - noon rates'),  # Added for canadian rates
             ],
             "Webservice to use",
             required=True

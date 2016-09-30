@@ -312,7 +312,7 @@ class SaleOrderLine(models.Model):
                 data = self.product_id_change(pricelist.id, self.product_id.id,
                                               qty=self.product_uom_qty, partner_id=self.partner_id.id)
                 for k in data['value']:
-                    if not k in ['name']:
+                    if k not in ['name']:
                         setattr(self, k, data['value'][k])
 
     @api.model
@@ -472,8 +472,7 @@ class SaleOrderAmountTotal(osv.osv):
         'amount_total': old_api_fields.function(_amount_all_wrapper, digits_compute=dp.get_precision('Account'), string='Total',
                                                 store={
                                                     'sale.order': (lambda self, cr, uid, ids, c={}: ids, ['order_line'], 10),
-                                                    'sale.order.line': (_get_order, ['price_unit', 'tax_id', 'discount', 'product_uom_qty', 'state'], 10),
-                                                },
+                                                    'sale.order.line': (_get_order, ['price_unit', 'tax_id', 'discount', 'product_uom_qty', 'state'], 10)},
                                                 multi='sums', help="The total amount."),
     }
 

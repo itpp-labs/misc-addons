@@ -54,7 +54,7 @@ class BinaryCustom(Binary):
                         response = http.send_file(image_data, filename=imgname, mtime=row[1])
                     else:
                         response = http.send_file(placeholder('nologo.png'))
-            except Exception as e:
+            except Exception:
                 response = http.send_file(placeholder(imgname))
 
         return response
