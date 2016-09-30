@@ -4,6 +4,6 @@ odoo.define('web_debranding.announcement', function (require) {
     require('mail.announcement');
     var WebClient = require('web.WebClient');
     WebClient.include({
-        show_annoucement_bar: function() {}
+        show_announcement_bar: function() {}
     });
 });
