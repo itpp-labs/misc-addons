@@ -7,7 +7,7 @@
                 <script type="text/javascript" src="/pitch_booking/static/src/js/pitch_booking.js"></script>
             </xpath>
         </template>
-        <template id="assets_frontend" inherit_id="website.assets_frontend" name="Booking Calendar Assets Include">
+        <template id="assets_frontend" inherit_id="website.assets_frontend" name="Booking Calendar Assets Include" priority="8">
             <xpath expr="." position="inside">
                 <script type="text/javascript" src="/pitch_booking/static/src/js/website_pitch_booking.js"></script>
                 <link rel="stylesheet" href="/pitch_booking/static/src/css/pitch_booking.css"/>

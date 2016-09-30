@@ -8,8 +8,6 @@
                 <script type="text/javascript"
                         src="/web_debranding/static/src/js/base.js"></script>
                 <script type="text/javascript"
-                        src="/web_debranding/static/src/js/title.js"></script>
-                <script type="text/javascript"
                         src="/web_debranding/static/src/js/dialog.js"></script>
                 <script type="text/javascript"
                         src="/web_debranding/static/src/js/dashboard.js"></script>
