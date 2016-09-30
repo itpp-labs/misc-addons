@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from openerp.osv import osv
+from openerp import models
 
 
-class SaleOrder(osv.osv):
+class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     def action_quotation_send(self, cr, uid, ids, context=None):

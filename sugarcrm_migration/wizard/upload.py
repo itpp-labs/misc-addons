@@ -1,4 +1,4 @@
-from openerp.osv import osv, fields
+from openerp import models, fields
 from openerp.tools.translate import _
 from openerp import tools
 import logging
@@ -31,19 +31,19 @@ import os
 import glob
 
 
-class sugarcrm_migration_upload(osv.TransientModel):
+class sugarcrm_migration_upload(models.TransientModel):
     _name = "sugarcrm_migration.upload"
     _description = "Upload dumps"
 
-    _columns = {
-        'sugarcrm_file': fields.char('Sugarcrm file (*.tar.gz)', help='Path on server'),
-        'kashflow_file': fields.char('Kashflow file (*.tar.gz)', help='Path on server'),
-        'db_host': fields.char('MySQL Host'),
-        'db_port': fields.char('MySQL Port'),
-        'db_name': fields.char('MySQL Database'),
-        'db_user': fields.char('MySQL User'),
-        'db_passwd': fields.char('MySQL Password'),
-    }
+
+    sugarcrm_file = fields.Char('Sugarcrm file (*.tar.gz)', help='Path on server')
+    kashflow_file = fields.Char('Kashflow file (*.tar.gz)', help='Path on server')
+    db_host = fields.Char('MySQL Host')
+    db_port = fields.Char('MySQL Port')
+    db_name = fields.Char('MySQL Database')
+    db_user = fields.Char('MySQL User')
+    db_passwd = fields.Char('MySQL Password')
+
     _defaults = {
         'db_host': 'localhost',
         'db_port': '3306',

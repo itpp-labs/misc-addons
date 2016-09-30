@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from openerp.osv import fields as old_fields
+from openerp import fields as old_fields
 from openerp import api, models, fields, tools
 try:
     from openerp.addons.email_template.email_template import mako_template_env
@@ -31,9 +31,9 @@ class ResUsers(models.Model):
     _inherit = 'res.users'
 
     signature_id = fields.Many2one('res.users.signature', string='Signature template', help='Keep empty to edit signature manually')
-    _columns = {
-        'signature': old_fields.html('Signature', sanitize=False)
-    }
+
+        'signature': old_fields.Html('Signature', sanitize=False)
+
 
     @api.one
     @api.onchange('signature_id')

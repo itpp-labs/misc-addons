@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-from openerp.osv import osv, fields
+from openerp import models, fields
 
 
-class AccountChart(osv.osv_memory):
+class AccountChart(models.TransientModel):
 
     _inherit = 'account.chart'
 
-    _columns = {
-        'company_id': fields.many2one('res.company')
-    }
+
+    company_id = fields.Many2one('res.company')
+
     _defaults = {
         'company_id': lambda self, cr, uid, c: self.pool.get('res.users').browse(cr, uid, uid, c).company_id.id
     }

@@ -265,7 +265,7 @@ class import_sugarcrm(import_base):
                         'opt_out': mapper_int('unsubscribe_c'),
                         'customer': const('1'),
                         'supplier': const('0'),
-                        'category_id/id': tags_from_fields(self.TABLE_ACCOUNT_TAG, ['initial_source_of_referral_c', 'private_sector_new_c', 'rtw_organisation_type_c', 'sales_funnel_c', 'shenley_holdings_company_new_c', 'source_of_referral_c', 'status_c', 'introduced_by_c', 'introduced_by_customer_c', 'sister_company_c', ]),
+                    category_id/id = fields(self.TABLE_ACCOUNT_TAG, ['initial_source_of_referral_c', 'private_sector_new_c', 'rtw_organisation_type_c', 'sales_funnel_c', 'shenley_holdings_company_new_c', 'source_of_referral_c', 'status_c', 'introduced_by_c', 'introduced_by_customer_c', 'sister_company_c', ])
                         'comment': ppconcat('website_c'),
                     }},
                 # realted lead
@@ -420,7 +420,7 @@ class import_sugarcrm(import_base):
                     'customer': const('0'),
                     'supplier': const('1'),
 
-                    'category_id/id': tags_from_fields(self.TABLE_CONTACT_TAG, ['agreed_commission_c', 'agreed_introducer_commission_c', 'ambassador_c', 'consultant_type_c', 'consultant_type_other_c', 'england_c', 'ethnicity_c', 'europe_c', 'first_language_c', 'gender_c', 'other_languages_c', 'religion_c', 'role_c', 'role_type_c', 'skill_set_c', 'specialism_c', 'status_live_c', 'status_live_new_c', 'trainer_type_c', 'training_experience_c', 'willing_to_travel_c', ]),
+                category_id/id = fields(self.TABLE_CONTACT_TAG, ['agreed_commission_c', 'agreed_introducer_commission_c', 'ambassador_c', 'consultant_type_c', 'consultant_type_other_c', 'england_c', 'ethnicity_c', 'europe_c', 'first_language_c', 'gender_c', 'other_languages_c', 'religion_c', 'role_c', 'role_type_c', 'skill_set_c', 'specialism_c', 'status_live_c', 'status_live_new_c', 'trainer_type_c', 'training_experience_c', 'willing_to_travel_c', ])
 
                     'comment': ppconcat(
                          'description',
@@ -591,7 +591,7 @@ class import_sugarcrm(import_base):
                     'business_manager_id/.id': res_id(const(self.TABLE_CASE + '_%s%s' % ('secondary_', '_c')), 'id', default=None),
                     'commissioning_manager_id/.id': res_id(const(self.TABLE_CASE + '_%s%s' % ('primary_', '_c')), 'id', default=None),
 
-                    'category_id/id': tags_from_fields(self.TABLE_CASE_TAG, ['business_type_c', 'probability_of_closing_c', 'production_funnel_c', 'product_area_c', 'product_type_c', 'reason_lost_c', 'source_of_referral_c', ]),
+                category_id/id = fields(self.TABLE_CASE_TAG, ['business_type_c', 'probability_of_closing_c', 'production_funnel_c', 'product_area_c', 'product_type_c', 'reason_lost_c', 'source_of_referral_c', ])
                     'create_date': 'date_entered',
                     'state': map_val('case_status_c', self.case_state_mapping, 'draft'),
                     'partner_id/id': xml_id(self.TABLE_ACCOUNT, 'account_id'),

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from openerp.osv import osv, fields
+from openerp import models, fields
 
 
-class CrmLead(osv.osv):
+class CrmLead(models.Model):
     _inherit = 'crm.lead'
 
     _track = {
@@ -13,7 +13,7 @@ class CrmLead(osv.osv):
             'crm_next_action.mt_lead_next_action': lambda self, cr, uid, obj, ctx=None: True
         }
     }
-    _columns = {
-        'date_action': fields.date('Next Action Date', select=True, track_visibility='onchange'),
-        'title_action': fields.char('Next Action', track_visibility='onchange'),
-    }
+
+    date_action = fields.Date('Next Action Date', select=True, track_visibility='onchange')
+    title_action = fields.Char('Next Action', track_visibility='onchange')
+

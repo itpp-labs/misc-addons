@@ -35,7 +35,7 @@
 # a webservice to the list of currencies supported by the Webservice
 # TODO : implement max_delta_days for Yahoo webservice
 
-from openerp.osv import fields, osv, orm
+from openerp import fields, models
 import time
 from datetime import datetime, timedelta
 import logging
@@ -44,14 +44,14 @@ from openerp.tools.translate import _
 _logger = logging.getLogger(__name__)
 
 
-class CurrencyRateUpdateService(osv.Model):
+class CurrencyRateUpdateService(models.Model):
     """Class thats tell for wich services wich currencies
     have to be updated"""
     _name = "currency.rate.update.service"
     _description = "Currency Rate Update"
-    _columns = {
+
         # list of webservicies the value sould be a class name
-        'service': fields.selection(
+    service = fields.Selection(
             [
                 ('Admin_ch_getter', 'Admin.ch'),
                 ('ECB_getter', 'European Central Bank'),
@@ -66,24 +66,24 @@ class CurrencyRateUpdateService(osv.Model):
             ],
             "Webservice to use",
             required=True
-        ),
+        )
         # list of currency to update
-        'currency_to_update': fields.many2many(
+    currency_to_update = fields.Many2many(
             'res.currency',
             'res_curreny_auto_udate_rel',
             'service_id',
             'currency_id',
             'currency to update with this service',
-        ),
+    )
         # back ref
-        'company_id': fields.many2one(
+    company_id = fields.Many2one(
             'res.company',
             'linked company',
-        ),
+    )
         # note fileds that will be used as a logger
-        'note': fields.text('update notice'),
-        'max_delta_days': fields.integer('Max delta days', required=True, help="If the time delta between the rate date given by the webservice and the current date exeeds this value, then the currency rate is not updated in OpenERP."),
-    }
+    note = fields.Text('update notice')
+    max_delta_days = fields.Integer('Max delta days', required=True, help="If the time delta between the rate date given by the webservice and the current date exeeds this value, then the currency rate is not updated in OpenERP.")
+
     _defaults = {
         'max_delta_days': lambda *a: 4,
     }
@@ -108,7 +108,7 @@ class CurrencyRateUpdateService(osv.Model):
     ]
 
 
-class CurrencyRateUpdate(osv.Model):
+class CurrencyRateUpdate(models.Model):
     """Class that handle an ir cron call who will
     update currencies based on a web url"""
     _name = "currency.rate.update"
@@ -367,9 +367,9 @@ class CurrenyGetterInterface(object):
             objfile.close()
             return rawfile
         except ImportError:
-            raise osv.except_osv('Error !', self.MOD_NAME + 'Unable to import urllib !')
+            raise UserError('Error !', self.MOD_NAME + 'Unable to import urllib !')
         except IOError:
-            raise osv.except_osv('Error !', self.MOD_NAME + 'Web Service does not exist !')
+            raise UserError('Error !', self.MOD_NAME + 'Web Service does not exist !')
 
     def check_rate_date(self, rate_date, max_delta_days):
         """Check date constrains. WARN : rate_date must be of datetime type"""
@@ -669,7 +669,7 @@ class CABOCGetter(CurrenyGetterInterface):
             if dom.status != 200:
                 _logger.error("Exchange data for %s is not reported by Bank\
                     of Canada." % curr)
-                raise osv.except_osv('Error !', 'Exchange data for %s is not\
+                raise UserError('Error !', 'Exchange data for %s is not\
                     reported by Bank of Canada.' % str(curr))
 
             _logger.debug("BOC sent a valid RSS file for: " + curr)
@@ -687,7 +687,7 @@ class CABOCGetter(CurrenyGetterInterface):
             else:
                 _logger.error("Exchange data format error for Bank of Canada -\
                     %s. Please check provider data format and/or source code." % curr)
-                raise osv.except_osv('Error !', 'Exchange data format error for\
+                raise UserError('Error !', 'Exchange data format error for\
                     Bank of Canada - %s !' % str(curr))
 
         return self.updated_currency, self.log_info

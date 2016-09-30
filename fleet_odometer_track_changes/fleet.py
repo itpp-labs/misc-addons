@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from openerp.osv import fields, osv
+from openerp import fields, models
 
 
-class FleetVehicle(osv.osv):
+class FleetVehicle(models.Model):
 
     _inherit = 'fleet.vehicle'
 
@@ -14,8 +14,8 @@ class FleetVehicle(osv.osv):
         res = super(FleetVehicle, self)._set_odometer(cr, uid, id, name, value, args, context)
         return res
 
-    _columns = {
-        'odometer': fields.function(_get_odometer, fnct_inv=_set_odometer, type='float', string='Last Odometer',
+
+    odometer = fields.Float(compute="_get_odometer", fnct_inv=_set_odometer, string='Last Odometer'
                                     help='Odometer measure of the vehicle at the moment of this log',
                                     track_visibility='onchange'),
-    }
+

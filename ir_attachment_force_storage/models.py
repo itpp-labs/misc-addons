@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from openerp import api
 from openerp import models
-from openerp.osv import osv
+from openerp import models
 from openerp.exceptions import AccessError
 from openerp.tools.translate import _
 
@@ -28,22 +28,22 @@ class IrConfigParameter(models.Model):
         return res
 
 
-class ir_attachment(osv.osv):
+class ir_attachment(models.Model):
     _inherit = 'ir.attachment'
 
-    def force_storage(self, cr, uid, context=None):
+    @api.model
+    def force_storage(self):
         """Force all attachments to be stored in the currently configured storage"""
-        if not self.pool['res.users']._is_admin(cr, uid, [uid]):
+        if not self.env.user._is_admin():
             raise AccessError(_('Only administrators can execute this action.'))
 
-        location = self._storage(cr, uid, context)
+        location = self._storage()
         domain = {
             'db': [('store_fname', '!=', False)],
             'file': [('db_datas', '!=', False)],
         }[location]
 
-        ids = self.search(cr, uid, domain, context=context)
-        for attach in self.browse(cr, uid, ids, context=context):
+        for attach in self.search(domain):
             # we add url because in some environment mimetype is not computed correctly
             attach.write({'datas': attach.datas, 'url': attach.url})
         return True

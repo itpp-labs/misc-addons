@@ -19,15 +19,15 @@
 #
 #################################################################################
 
-from openerp.osv import fields, orm
+from openerp import fields
 
 
 class ProjectProject(orm.Model):
     _inherit = "project.project"
-    _columns = {
+
         # restricted field. Allowed group members only.
-        'description': fields.text('description', groups="project_description.group_access_to_project_description"),
-    }
+    description = fields.Text('description', groups="project_description.group_access_to_project_description")
+
 
 
 class AccountAnalyticAccount(orm.Model):

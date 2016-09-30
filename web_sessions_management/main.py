@@ -24,7 +24,7 @@
 
 import logging
 import openerp
-from openerp.osv import fields
+from openerp import fields
 from openerp import SUPERUSER_ID
 from openerp.http import request
 from openerp import http
@@ -80,7 +80,7 @@ class HomeTkobr(openerp.addons.web.controllers.main.Home):
         return session_obj.create(cr, SUPERUSER_ID, {'user_id': uid,
                                                      'session_id': sid,
                                                      'expiration_seconds': seconds,
-                                                     'date_login': fields.datetime.now(),
-                                                     'date_last_activity': fields.datetime.now(),
+                                                 date_login = fields.Datetime.now()
+                                                 date_last_activity = fields.Datetime.now()
                                                      'logged_in': True},
                                   context=context)

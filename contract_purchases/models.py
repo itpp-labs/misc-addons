@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from openerp.osv import osv, fields
+from openerp import models, fields
 from openerp.addons.decimal_precision import decimal_precision as dp
 
 
-class AccountAnalyticAccount(osv.Model):
+class AccountAnalyticAccount(models.Model):
     _inherit = "account.analytic.account"
 
     def _negative(self, res):
@@ -109,29 +109,29 @@ class AccountAnalyticAccount(osv.Model):
                 res[account.id].append(p.partner_id.id)
         return res
 
-    _columns = {
-        'supplier_fix_price_invoices': fields.boolean('Fixed Price (Supplier)'),
 
-        'supplier_fix_price_to_invoice': fields.function(_supplier_fix_price_to_invoice_calc, type='float', string='Remaining Time',
+    supplier_fix_price_invoices = fields.Boolean('Fixed Price (Supplier)')
+
+    supplier_fix_price_to_invoice = fields.Float(compute="_supplier_fix_price_to_invoice_calc", string='Remaining Time'
                                                          help="Sum of quotations for this contract."),
 
-        'supplier_remaining_ca': fields.function(_supplier_remaining_ca_calc, type='float', string='Remaining Revenue',
+    supplier_remaining_ca = fields.Float(compute="_supplier_remaining_ca_calc", string='Remaining Revenue'
                                                  help="Computed using the formula: Max Invoice Price - Invoiced Amount.",
                                                  digits_compute=dp.get_precision('Account')),
 
-        'supplier_ca_invoiced': fields.function(_supplier_ca_invoiced_calc, type='float', string='Invoiced Amount',
+    supplier_ca_invoiced = fields.Float(compute="_supplier_ca_invoiced_calc", string='Invoiced Amount'
                                                 help="Total customer invoiced amount for this account.",
                                                 digits_compute=dp.get_precision('Account')),
 
-        'supplier_amount_max': fields.float('Max. Invoice Price',
+    supplier_amount_max = fields.Float('Max. Invoice Price'
                                             help="Keep empty if this contract is not limited to a total fixed price."),
-        'ca_invoiced': fields.function(_ca_invoiced_calc_inherit, type='float', string='Invoiced Amount',
+    ca_invoiced = fields.Float(compute="_ca_invoiced_calc_inherit", string='Invoiced Amount'
                                        help="Total customer invoiced amount for this account.",
                                        digits_compute=dp.get_precision('Account')),
-        'supplier_ids': fields.function(_get_supplier_ids, string='Suppliers', type='many2many', relation='res.partner')
+    supplier_ids = fields.Many2many(compute="_get_supplier_ids", string='Suppliers', relation='res.partner')
 
 
-    }
+
 
     def _check_supplier_amount_max(self, cr, uid, ids, context=None):
         return all([record.supplier_amount_max <= 0 for record in self.browse(cr, uid, ids, context)])
@@ -141,15 +141,15 @@ class AccountAnalyticAccount(osv.Model):
     ]
 
 
-class PurchaseOrder(osv.Model):
+class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
-    _columns = {
-        'contract_id': fields.many2one('account.analytic.account', 'Analytic Account'),
 
-    }
+    contract_id = fields.Many2one('account.analytic.account', 'Analytic Account')
 
 
-class PurchaseOrderLine(osv.Model):
+
+
+class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
     def create(self, cr, uid, vals, context=None):
@@ -161,5 +161,5 @@ class PurchaseOrderLine(osv.Model):
         return order
 
     _defaults = {
-        'date_planned': lambda self, cr, uid, context=None: fields.date.context_today(self, cr, uid, context=context)
+        'date_planned': lambda self, cr, uid, context=None: fields.Date.context_today(self, cr, uid, context=context)
     }

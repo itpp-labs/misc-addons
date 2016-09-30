@@ -19,21 +19,21 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, fields
 from openerp.tools.translate import _
 
 
-class IrSequence(osv.osv):
+class IrSequence(models.Model):
     _inherit = 'ir.sequence'
 
-    _columns = {
-        'auto_reset': fields.boolean('Auto Reset'),
-        'reset_period': fields.selection(
+
+    auto_reset = fields.Boolean('Auto Reset')
+    reset_period = fields.Selection(
             [('year', 'Every Year'), ('month', 'Every Month'), ('woy', 'Every Week'), ('day', 'Every Day'), ('h24', 'Every Hour'), ('min', 'Every Minute'), ('sec', 'Every Second')],
-            'Reset Period', required=True),
-        'reset_time': fields.char('Name', size=64, help=""),
-        'reset_init_number': fields.integer('Reset Number', required=True, help="Reset number of this sequence"),
-    }
+            'Reset Period', required=True)
+    reset_time = fields.Char('Name', size=64, help="")
+    reset_init_number = fields.Integer('Reset Number', required=True, help="Reset number of this sequence")
+
 
     _defaults = {
         'auto_reset': False,
@@ -69,7 +69,7 @@ class IrSequence(osv.osv):
             interpolated_prefix = self._interpolate(seq['prefix'], d)
             interpolated_suffix = self._interpolate(seq['suffix'], d)
         except ValueError:
-            raise osv.except_osv(_('Warning'), _('Invalid prefix or suffix for sequence \'%s\'') % (seq.get('name')))
+            raise UserError(_('Warning'), _('Invalid prefix or suffix for sequence \'%s\'') % (seq.get('name')))
         return interpolated_prefix + '%%0%sd' % seq['padding'] % seq['number_next'] + interpolated_suffix
 
 
