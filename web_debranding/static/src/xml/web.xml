@@ -11,7 +11,6 @@
       <!-- It supports versions before and after this commit https://github.com/odoo/odoo/commit/bcca4a44c79d94db320ffe6f8311fcbb7ff81421 -->
         <t t-jquery="a[data-menu='documentation']" t-operation="replace"></t>
         <t t-jquery="a[data-menu='support']" t-operation="replace"></t>
-        <t t-jquery="a[data-menu='about']" t-operation="replace"></t>
         <t t-jquery="a[data-menu='account']" t-operation="replace"></t>
         <t t-jquery="a[data-menu='settings']" t-operation="after">
             <li><a href="?debug" data-menu="debug">Developer mode</a></li>

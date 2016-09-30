@@ -1,5 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_pitch_booking_venue,access_pitch_booking_venue,model_pitch_booking_venue,,1,0,0,0
-access_pitch_booking_venue_sm,access_pitch_booking_venue,model_pitch_booking_venue,base.group_sale_manager,1,1,1,1
+access_pitch_booking_venue_sm,access_pitch_booking_venue,model_pitch_booking_venue,sales_team.group_sale_manager,1,1,1,1
 access_pitch_booking_pitch,access_pitch_booking_pitch,model_pitch_booking_pitch,,1,0,0,0
-access_pitch_booking_pitch_sm,access_pitch_booking_pitch,model_pitch_booking_pitch,base.group_sale_manager,1,1,1,1
+access_pitch_booking_pitch_sm,access_pitch_booking_pitch,model_pitch_booking_pitch,sales_team.group_sale_manager,1,1,1,1

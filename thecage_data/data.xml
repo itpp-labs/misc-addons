@@ -48,11 +48,11 @@
         <!--                      Groups                        -->
         <record id="group_frontdesk" model="res.groups">
           <field name="name">Front Desk</field>
-          <field name="implied_ids" eval="[(4, ref('base.group_sale_salesman_all_leads'))]"/>
+          <field name="implied_ids" eval="[(4, ref('sales_team.group_sale_salesman_all_leads'))]"/>
         </record>
         <record id="group_bookingstaff" model="res.groups">
           <field name="name">Booking Staff</field>
-          <field name="implied_ids" eval="[(4, ref('base.group_sale_manager'))]"/>
+          <field name="implied_ids" eval="[(4, ref('sales_team.group_sale_manager'))]"/>
         </record>
 
 
