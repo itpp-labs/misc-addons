@@ -13,5 +13,7 @@
                 <t t-call="theme_kit.custom_css"/>
             </xpath>
         </template>
+        <template id="theme_kit.dummy">
+        </template>
     </data>
 </odoo>

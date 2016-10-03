@@ -34,7 +34,7 @@
                             </div>
 
                         </group>
-                        <group string="Colors">
+                        <group string="Theme">
                             <field name="theme_id" class="oe_inline"/>
                         </group>
                         <group string="Name">

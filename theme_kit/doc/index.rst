@@ -25,4 +25,3 @@ To temporarly undo Color Scheme (e. g. if you have applied non-contrast backgrou
 * Type and click Enter:
 
     $('#custom_css').remove()
-

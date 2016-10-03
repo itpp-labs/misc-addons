@@ -16,6 +16,7 @@
     "depends": [
         "web_debranding",
         "web_login_background",
+        "web_widget_color",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
