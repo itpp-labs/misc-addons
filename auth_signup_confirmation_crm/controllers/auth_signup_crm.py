@@ -4,7 +4,6 @@ from openerp import http
 from openerp.http import request
 
 
-
 class AuthLead(AuthConfirm):
 
     @http.route('/web/signup/confirm', type='http', auth='public')

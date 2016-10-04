@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from openerp import models
-from openerp.tools.translate import _
 
 
 class IrActionsActWindowDebranding(models.Model):

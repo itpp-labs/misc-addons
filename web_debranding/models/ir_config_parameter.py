@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from openerp import models, api, tools
+from openerp import models, api
 from openerp.tools.translate import _
 
 PARAMS = [
@@ -10,6 +10,7 @@ PARAMS = [
     ('web_debranding.send_publisher_warranty_url', '0'),
     ('web_debranding.planner_footer', ''),
 ]
+
 
 class IrConfigParameter(models.Model):
     _inherit = 'ir.config_parameter'

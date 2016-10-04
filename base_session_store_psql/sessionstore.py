@@ -20,10 +20,8 @@
 ##############################################################################
 import pickle
 
-from openerp import exceptions
 from openerp.sql_db import db_connect
 from openerp.tools import config
-from openerp.http import db_list
 
 import psycopg2
 
