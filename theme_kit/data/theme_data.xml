@@ -48,6 +48,10 @@
             <field name="content_form_title_active">True</field>
             <field name="content_form_link">#EC1C24</field>
             <field name="content_form_link_active">True</field>
+            <field name="content_loader">#FDDE63</field>
+            <field name="content_loader_active">True</field>
+            <field name="content_loader_text">#000000</field>
+            <field name="content_loader_text_active">True</field>
         </record>
 
         <record model="theme_kit.theme" id="burger_king_theme">
@@ -107,6 +111,10 @@
             <field name="content_form_text_active">True</field>
             <field name="content_text">#444444</field>
             <field name="content_text_active">True</field>
+            <field name="content_loader">#CD201F</field>
+            <field name="content_loader_active">True</field>
+            <field name="content_loader_text">#FFFFFF</field>
+            <field name="content_loader_text_active">True</field>
         </record>
 
         <record model="theme_kit.theme" id="you_tube_theme">
@@ -166,6 +174,10 @@
             <field name="content_form_text_active">True</field>
             <field name="content_text">#000000</field>
             <field name="content_text_active">True</field>
+            <field name="content_loader">#000000</field>
+            <field name="content_loader_active">True</field>
+            <field name="content_loader_text">#FFFFFF</field>
+            <field name="content_loader_text_active">True</field>
         </record>
 
         <record model="theme_kit.theme" id="cola_theme">
@@ -225,13 +237,17 @@
             <field name="content_form_text_active">True</field>
             <field name="content_text">#003399</field>
             <field name="content_text_active">True</field>
+            <field name="content_loader">#FFCC00</field>
+            <field name="content_loader_active">True</field>
+            <field name="content_loader_text">#000000</field>
+            <field name="content_loader_text_active">True</field>
         </record>
 
         <record model="theme_kit.theme" id="ikea_theme">
             <field name="name">IKEA</field>
-            <field name="top_panel_id" ref="cola_top_panel"/>
-            <field name="left_panel_id" ref="cola_left_panel"/>
-            <field name="content_id" ref="cola_content"/>
+            <field name="top_panel_id" ref="ikea_top_panel"/>
+            <field name="left_panel_id" ref="ikea_left_panel"/>
+            <field name="content_id" ref="ikea_content"/>
         </record>
 
     </data>

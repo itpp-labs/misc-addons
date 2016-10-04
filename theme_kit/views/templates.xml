@@ -3,9 +3,6 @@
     <data noupdate="1">
         <template id="theme_kit.custom_css">
             <style type="text/css">
-                #oe_main_menu_navbar{
-                background-color: #884444;
-                }
             </style>
         </template>
         <template id="webclient_bootstrap" inherit_id="web.webclient_bootstrap">

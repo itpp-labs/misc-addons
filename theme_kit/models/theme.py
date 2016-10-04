@@ -22,8 +22,11 @@ class Theme(models.Model):
                 code = code + r.left_panel_id.less
             if r.content_id:
                 code = code + r.content_id.less
-            compiled = self.generate_less2css(code)
-            r.code = compiled
+            if code:
+                compiled = self.generate_less2css(code)
+                r.code = compiled
+            else:
+                r.code = code
 
     def generate_less2css(self, code):
         bundle = AssetsBundle('theme_kit.dummy')
@@ -44,22 +47,22 @@ class ThemeTopPanel(models.Model):
     top_panel_bg_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
 
     top_panel_border = fields.Char('Border color', help="Border color for Top Panel")
-    top_panel_border_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
+    top_panel_border_active = fields.Boolean(default=False, help="Border color for Top Panel")
 
     top_panel_font = fields.Char('Font color', help="Font color for Top Panel")
-    top_panel_font_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
+    top_panel_font_active = fields.Boolean(default=False, help="Font color for Top Panel")
 
     top_panel_active_item_font = fields.Char('Active item Font color', help="Active item Font color for Top Panel")
-    top_panel_active_item_font_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
+    top_panel_active_item_font_active = fields.Boolean(default=False, help="Active item Font color for Top Panel")
 
     top_panel_active_item_bg = fields.Char('Active item Background color', help="Active item Background color for Top Panel")
-    top_panel_active_item_bg_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
+    top_panel_active_item_bg_active = fields.Boolean(default=False, help="Active item Background color for Top Panel")
 
     top_panel_hover_item_font = fields.Char('Hover item Font color', help="Hover item Font color for Top Panel")
-    top_panel_hover_item_font_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
+    top_panel_hover_item_font_active = fields.Boolean(default=False, help="Hover item Font color for Top Panel")
 
     top_panel_hover_item_bg = fields.Char('Hover item Background color', help="Hover item Background color for Top Panel")
-    top_panel_hover_item_bg_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
+    top_panel_hover_item_bg_active = fields.Boolean(default=False, help="Hover item Background color for Top Panel")
 
     less = fields.Text('less', help='technical computed field', compute='_compute_less')
 
@@ -120,25 +123,25 @@ class ThemeLeftPanel(models.Model):
     name = fields.Char('Name')
 
     left_panel_bg = fields.Char('Background color', help="Background Color for Left Menu Bar")
-    left_panel_bg_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
+    left_panel_bg_active = fields.Boolean(default=False, help="Background Color for Left Menu Bar")
 
     left_panel_main_menu = fields.Char('Main Menu Font color', help="Main Menu Font colo for Left Menu Bar")
-    left_panel_main_menu_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
+    left_panel_main_menu_active = fields.Boolean(default=False, help="Main Menu Font colo for Left Menu Bar")
 
     left_panel_sub_menu = fields.Char('Sub Menu Font color', help="Sub Menu Font colo for Left Menu Bar")
-    left_panel_sub_menu_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
+    left_panel_sub_menu_active = fields.Boolean(default=False, help="Sub Menu Font colo for Left Menu Bar")
 
     left_panel_active_item_font = fields.Char('Active item Font color', help="Active item Font color for Left Menu Bar")
-    left_panel_active_item_font_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
+    left_panel_active_item_font_active = fields.Boolean(default=False, help="Active item Font color for Left Menu Bar")
 
     left_panel_active_item_bg = fields.Char('Active item Background color', help="Active item Background color for Left Menu Bar")
-    left_panel_active_item_bg_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
+    left_panel_active_item_bg_active = fields.Boolean(default=False, help="Active item Background color for Left Menu Bar")
 
     left_panel_hover_item_font = fields.Char('Hover item Font color', help="Hover item Font color for Left Menu Bar")
-    left_panel_hover_item_font_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
+    left_panel_hover_item_font_active = fields.Boolean(default=False, help="Hover item Font color for Left Menu Bar")
 
     left_panel_hover_item_bg = fields.Char('Hover item Background color', help="Hover item Background color for Left Menu Bar")
-    left_panel_hover_item_bg_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
+    left_panel_hover_item_bg_active = fields.Boolean(default=False, help="Hover item Background color for Left Menu Bar")
 
     less = fields.Text('less', help='technical computed field', compute='_compute_less')
 
@@ -149,41 +152,78 @@ class ThemeLeftPanel(models.Model):
             code = ''
             if self.left_panel_bg_active:
                 code = code + '''.oe_leftbar{{
-                background-color: {theme.left_panel_bg}!important;
-                }}'''
+                    background-color: {theme.left_panel_bg}!important;
+                }}
+                .o_mail_chat .o_mail_chat_sidebar {{
+                    background-color: {theme.left_panel_bg}!important;
+                }}
+                .o_mail_chat .o_mail_annoying_notification_bar {{
+                    background-color: {theme.left_panel_bg}!important;
+                }}
+                '''
             if self.left_panel_main_menu_active:
                 code = code + '''.oe_leftbar .oe_secondary_menu_section .oe_menu_leaf{{
-                color: {theme.left_panel_main_menu};
+                    color: {theme.left_panel_main_menu};
                 }}
                 .oe_leftbar .oe_secondary_menu_section{{
-                color: {theme.left_panel_main_menu};
-                }}'''
+                    color: {theme.left_panel_main_menu};
+                }}
+                .o_mail_chat .o_mail_chat_sidebar h4{{
+                    color: {theme.left_panel_main_menu}!important;
+                }}
+                '''
             if self.left_panel_sub_menu_active:
                 code = code + '''.oe_leftbar .oe_secondary_submenu .oe_menu_text{{
-                color: {theme.left_panel_sub_menu};
-                }}'''
+                    color: {theme.left_panel_sub_menu};
+                }}
+                .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item {{
+                    color: {theme.left_panel_sub_menu}!important;
+                }}
+                .o_mail_request_permission, .o_mail_request_permission a {{
+                    color: {theme.left_panel_sub_menu}!important;
+                }}
+                .o_mail_request_permission a:hover {{
+                    color: darken({theme.left_panel_sub_menu}, 10%)!important;
+                }}
+                '''
             if self.left_panel_active_item_font_active:
                 code = code + '''.oe_leftbar .oe_secondary_submenu .active .oe_menu_text{{
-                color: {theme.left_panel_active_item_font}!important;
+                    color: {theme.left_panel_active_item_font}!important;
                 }}
                 .oe_leftbar .oe_secondary_submenu a:focus .oe_menu_text{{
-                color: {theme.left_panel_active_item_font}!important;
-                }}'''
+                    color: {theme.left_panel_active_item_font}!important;
+                }}
+                .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item.o_active {{
+                    color: {theme.left_panel_active_item_font}!important;
+                }}
+                '''
             if self.left_panel_active_item_bg_active:
                 code = code + '''.oe_leftbar .oe_secondary_submenu .active a{{
-                background-color: {theme.left_panel_active_item_bg}!important;
+                    background-color: {theme.left_panel_active_item_bg}!important;
                 }}
                 .oe_leftbar .oe_secondary_submenu a:focus{{
-                background-color: {theme.left_panel_active_item_bg}!important;
-                }}'''
+                    background-color: {theme.left_panel_active_item_bg}!important;
+                }}
+                .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item.o_active {{
+                    background-color: {theme.left_panel_active_item_bg}!important;
+                }}
+                '''
             if self.left_panel_hover_item_font_active:
                 code = code + '''.oe_leftbar .oe_secondary_submenu a:hover .oe_menu_text{{
-                color: {theme.left_panel_hover_item_font}!important;
-                }}'''
+                    color: {theme.left_panel_hover_item_font}!important;
+                }}
+                .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item:hover {{
+                    color: {theme.left_panel_hover_item_font}!important;
+                }}
+                '''
             if self.left_panel_hover_item_bg_active:
                 code = code + '''.oe_leftbar .oe_secondary_submenu a:hover{{
-                background-color: {theme.left_panel_hover_item_bg}!important;
-                }}'''
+                    background-color: {theme.left_panel_hover_item_bg}!important;
+                }}
+                .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item:hover {{
+                    background-color: {theme.left_panel_hover_item_bg}!important;
+                }}
+                '''
             code = code.format(
                 theme=r,
             )
@@ -196,25 +236,31 @@ class ThemeContent(models.Model):
     name = fields.Char('Name')
 
     content_bg = fields.Char('Background color', help="Color for Main page")
-    content_bg_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
+    content_bg_active = fields.Boolean(default=False, help="Color for Main page")
 
     content_button = fields.Char('Button color', help="Button Color for Main page")
-    content_button_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
+    content_button_active = fields.Boolean(default=False, help="Button Color for Main page")
 
-    content_form = fields.Char('Background form color')
-    content_form_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
+    content_form = fields.Char('Background form color', help="Background form color'")
+    content_form_active = fields.Boolean(default=False, help="Background form color'")
 
     content_form_text = fields.Char('Text form color')
-    content_form_text_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
+    content_form_text_active = fields.Boolean(default=False, help="Text form color")
 
     content_form_title = fields.Char('Text title form color')
-    content_form_title_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
+    content_form_title_active = fields.Boolean(default=False, help="Text title form color")
 
     content_text = fields.Char('Text content color')
-    content_text_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
+    content_text_active = fields.Boolean(default=False, help="Text content color")
 
     content_form_link = fields.Char('Link form color')
-    content_form_link_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
+    content_form_link_active = fields.Boolean(default=False, help="Link form color")
+
+    content_loader = fields.Char('Loader color')
+    content_loader_active = fields.Boolean(default=False, help="Loader color")
+
+    content_loader_text = fields.Char('Loader text color')
+    content_loader_text_active = fields.Boolean(default=False, help="Loader text color")
 
     less = fields.Text('less', help='technical computed field', compute='_compute_less')
 
@@ -318,7 +364,7 @@ class ThemeContent(models.Model):
                 '''
             if self.content_form_link_active:
                 code = code + ''' .oe_application a {{
-                    color: {theme.content_form_link} !important;
+                    color: {theme.content_form_link};
                 }}
                 '''
             if self.content_button_active:
@@ -359,6 +405,18 @@ class ThemeContent(models.Model):
                     color: {theme.content_form_title} !important;
                 }}
                 '''
+
+            if self.content_loader_active:
+                code = code + '''.openerp .oe_loading {{
+                    background: {theme.content_loader}!important;
+                    border: 1px solid {theme.content_loader}!important;
+                    color: darken({theme.content_loader},40%)!important;
+                }}'''
+
+            if self.content_loader_text_active:
+                code = code + '''.openerp .oe_loading {{
+                    color: {theme.content_loader_text}!important;
+                }}'''
 
 
             code = code.format(

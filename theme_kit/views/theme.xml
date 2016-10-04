@@ -199,6 +199,16 @@
                                     <field name="content_form_link_active" nolabel="1" class="oe_inline"/>
                                     <field name="content_form_link" widget="color" attrs="{'readonly':[('content_form_link_active','=',False)]}" class="oe_inline"/>
                                 </div>
+                                <div>
+                                    <label for="content_loader"/>
+                                    <field name="content_loader_active" nolabel="1" class="oe_inline"/>
+                                    <field name="content_loader" widget="color" attrs="{'readonly':[('content_loader_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                                <div>
+                                    <label for="content_loader_text"/>
+                                    <field name="content_loader_text_active" nolabel="1" class="oe_inline"/>
+                                    <field name="content_loader_text" widget="color" attrs="{'readonly':[('content_loader_text_active','=',False)]}" class="oe_inline"/>
+                                </div>
                             </group>
                         </group>
                     </sheet>
@@ -239,7 +249,7 @@
         </record>
 
         <menuitem id="theme_menu" name="Color Schemes" parent="main_menu" sequence="1" action="theme_action"/>
-        <menuitem id="theme_color_setting" name="Color Settings" sequence="2" parent="main_menu" />
+        <menuitem id="theme_color_setting" name="Color Details" sequence="2" parent="main_menu" />
             <menuitem id="theme_top_panel_menu" name="Color Top Panel" parent="theme_color_setting" sequence="1" action="theme_top_panel_action"/>
             <menuitem id="theme_left_panel_menu" name="Color Left Panel" parent="theme_color_setting" sequence="2" action="theme_left_panel_action"/>
             <menuitem id="theme_conten_menu" name="Color Content" parent="theme_color_setting" sequence="3" action="theme_content_action"/>
