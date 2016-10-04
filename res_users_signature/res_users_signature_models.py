@@ -17,9 +17,7 @@ from email.utils import COMMASPACE
 from email.utils import formatdate
 from email.utils import make_msgid
 from email import Encoders
-import openerp.tools as tools
 from openerp.tools import html2text
-import openerp.tools as tools
 
 import re
 import base64
