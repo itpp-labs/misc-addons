@@ -78,7 +78,7 @@ Enterprise users notice
 Need our service?
 =================
 
-Contact us by `email <mailto:it@it-projects.info>`__ or fill out `request form <https://www.it-projects.info/page/website.contactus>`__:
+Contact us by `email <mailto:it@it-projects.info>`___ or fill out `request form <https://www.it-projects.info/page/website.contactus>`___:
 
 * it@it-projects.info
 * https://www.it-projects.info/page/website.contactus

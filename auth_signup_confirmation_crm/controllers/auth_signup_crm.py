@@ -13,7 +13,7 @@ class AuthLead(AuthConfirm):
         res = super(AuthLead, self).singnup_using_generated_link(*args, **kw)
         user = request.env['res.users'].sudo().search([('partner_id.signup_token', '=', kw['token'])])
         if user.active and not user_state_before:
-            new_lead = request.env['crm.lead'].sudo().create(
+            request.env['crm.lead'].sudo().create(
                 {
                     'name': user.partner_id.name,
                     'partner_id': user.partner_id.id,
