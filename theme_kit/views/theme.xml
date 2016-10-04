@@ -185,6 +185,16 @@
                                     <field name="content_form_text" widget="color" attrs="{'readonly':[('content_form_text_active','=',False)]}" class="oe_inline"/>
                                 </div>
                                 <div>
+                                    <label for="content_form_title"/>
+                                    <field name="content_form_title_active" nolabel="1" class="oe_inline"/>
+                                    <field name="content_form_title" widget="color" attrs="{'readonly':[('content_form_title_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                                <div>
+                                    <label for="content_text"/>
+                                    <field name="content_text_active" nolabel="1" class="oe_inline"/>
+                                    <field name="content_text" widget="color" attrs="{'readonly':[('content_text_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                                <div>
                                     <label for="content_form_link"/>
                                     <field name="content_form_link_active" nolabel="1" class="oe_inline"/>
                                     <field name="content_form_link" widget="color" attrs="{'readonly':[('content_form_link_active','=',False)]}" class="oe_inline"/>

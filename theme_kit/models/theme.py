@@ -17,19 +17,22 @@ class Theme(models.Model):
         for r in self:
             code = ''
             if r.top_panel_id:
-                code = code + r.top_panel_id.code
+                code = code + r.top_panel_id.less
             if r.left_panel_id:
-                code = code + r.left_panel_id.code
+                code = code + r.left_panel_id.less
             if r.content_id:
-                code = code + r.content_id.code
-            bundle = AssetsBundle('theme_kit.dummy')
-            assets = LessStylesheetAsset(bundle, inline=code, url='')
-            cmd = assets.get_command()
-            source = assets.get_source()
-            # source = '\n'.join([asset.get_source() for asset in assets])
-            compiled = bundle.compile_css(cmd, source)
-            compiled = '''<style type="text/css" id="theme_kit.custom_css">''' + compiled + '''</style>'''
+                code = code + r.content_id.less
+            compiled = self.generate_less2css(code)
             r.code = compiled
+
+    def generate_less2css(self, code):
+        bundle = AssetsBundle('theme_kit.dummy')
+        assets = LessStylesheetAsset(bundle, inline=code, url='')
+        cmd = assets.get_command()
+        source = assets.get_source()
+        compiled = bundle.compile_css(cmd, source)
+        compiled = '''<style type="text/css" id="custom_css">''' + compiled + '''</style>'''
+        return compiled
 
 
 class ThemeTopPanel(models.Model):
@@ -58,10 +61,10 @@ class ThemeTopPanel(models.Model):
     top_panel_hover_item_bg = fields.Char('Hover item Background color', help="Hover item Background color for Top Panel")
     top_panel_hover_item_bg_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
 
-    code = fields.Text('Code', help='technical computed field', compute='_compute_code')
+    less = fields.Text('less', help='technical computed field', compute='_compute_less')
 
     @api.multi
-    def _compute_code(self):
+    def _compute_less(self):
         for r in self:
             code = ''
             # double {{ will be formated as single {
@@ -107,7 +110,7 @@ class ThemeTopPanel(models.Model):
             code = code.format(
                 theme=r,
             )
-            self.code = code
+            self.less = code
 
 
 
@@ -137,10 +140,10 @@ class ThemeLeftPanel(models.Model):
     left_panel_hover_item_bg = fields.Char('Hover item Background color', help="Hover item Background color for Left Menu Bar")
     left_panel_hover_item_bg_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
 
-    code = fields.Text('Code', help='technical computed field', compute='_compute_code')
+    less = fields.Text('less', help='technical computed field', compute='_compute_less')
 
     @api.multi
-    def _compute_code(self):
+    def _compute_less(self):
         for r in self:
             # double {{ will be formated as single {
             code = ''
@@ -184,7 +187,7 @@ class ThemeLeftPanel(models.Model):
             code = code.format(
                 theme=r,
             )
-            self.code = code
+            self.less = code
 
 
 class ThemeContent(models.Model):
@@ -204,13 +207,19 @@ class ThemeContent(models.Model):
     content_form_text = fields.Char('Text form color')
     content_form_text_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
 
+    content_form_title = fields.Char('Text title form color')
+    content_form_title_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
+
+    content_text = fields.Char('Text content color')
+    content_text_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
+
     content_form_link = fields.Char('Link form color')
     content_form_link_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
 
-    code = fields.Text('Code', help='technical computed field', compute='_compute_code')
+    less = fields.Text('less', help='technical computed field', compute='_compute_less')
 
     @api.multi
-    def _compute_code(self):
+    def _compute_less(self):
         for r in self:
             code = ''
             if self.content_bg_active:
@@ -268,6 +277,9 @@ class ThemeContent(models.Model):
                 .o_kanban_view {{
                     background-color: lighten({theme.content_bg}, 30%) !important;
                 }}
+                .openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_values {{
+                    background: lighten({theme.content_bg}, 15%)!important;
+                }}
                 '''
 
             if self.content_form_active:
@@ -304,9 +316,52 @@ class ThemeContent(models.Model):
                     color: darken({theme.content_form_text}, 10%) !important;
                 }}
                 '''
-                # if self.content_button_active:
+            if self.content_form_link_active:
+                code = code + ''' .oe_application a {{
+                    color: {theme.content_form_link} !important;
+                }}
+                '''
+            if self.content_button_active:
+                code = code + '''.oe_button.oe_highlight,
+                .oe_button.btn-primary,
+                .btn-primary{{
+                    background-color: {theme.content_button} !important;
+                    border-color: darken({theme.content_button},10%) !important;
+                }}
+                oe_button.oe_highlight:hover,
+                .oe_button.btn-primary:hover,
+                .btn-primary:hover{{
+                    background-color: darken({theme.content_button},10%) !important;
+                    border-color: darken({theme.content_button},20%) !important;
+                }}
+                .openerp .oe_tag {{
+                    border: 1px solid {theme.content_button} !important;
+                }}
+                .label-default {{
+                    background-color: {theme.content_button} !important;
+                }}
+                '''
+
+            if self.content_text_active:
+                code = code + '''.openerp{{
+                    color: {theme.content_text};
+                }}
+                '''
+
+            if self.content_form_title_active:
+                code = code + '''.openerp .oe_horizontal_separator {{
+                    color: {theme.content_form_title} !important;
+                }}
+                .breadcrumb > .active {{
+                    color: {theme.content_form_title} !important;
+                }}
+                .breadcrumb > li + li:before {{
+                    color: {theme.content_form_title} !important;
+                }}
+                '''
+
 
             code = code.format(
                 theme=r,
             )
-            self.code = code
+            self.less = code

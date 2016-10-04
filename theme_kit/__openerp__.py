@@ -25,6 +25,7 @@
         "views/templates.xml",
         "views/res_config.xml",
         "views/theme.xml",
+        "data/theme_data.xml",
     ],
     "qweb": [
     ],
