@@ -1,21 +1,15 @@
-from openerp import fields, models
+from openerp import fields, models, api
 
 
 class ir_actions_todo(models.Model):
     _inherit = 'ir.actions.todo'
 
+    repeat = fields.Boolean(string='Repeat', repeat=False)
 
-    repeat = fields.Boolean(string='Repeat')
-
-
-    _defaults = {
-        'repeat': False,
-    }
-
-    def action_launch(self, cr, uid, ids, context=None):
-        res = super(ir_actions_todo, self).action_launch(cr, uid, ids, context)
-        wizard_id = ids and ids[0] or False
-        wizard = self.browse(cr, uid, wizard_id, context=context)
-        if wizard.type in ('automatic', 'once') and wizard.repeat:
-            wizard.write({'state': 'open'})
+    @api.multi
+    def action_launch(self, context=None):
+        res = super(ir_actions_todo, self).action_launch(context=context)
+        for wizard in self:
+            if wizard.type in ('automatic', 'once') and wizard.repeat:
+                wizard.write({'state': 'open'})
         return res
