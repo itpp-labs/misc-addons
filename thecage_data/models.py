@@ -58,7 +58,7 @@ class SaleOrderTheCage(models.Model):
         # send sms immediately after user pushed 'Send by Email' button on the Sale Order
         if vals.get('state') == 'sent' and self.partner_id.confirmation_sms:
             phone = self.partner_id.mobile
-            for line in self.order_line:
+            for line in self.order_line.filtered(lambda r: r.pitch_id): # filter not bookings
                 msg = 'Successfully booked a pitch at The Cage %s!\n' % line.venue_id.name
                 msg += 'Pitch %s\n' % line.pitch_id.name
                 msg += 'From: %s To %s\n' % (format_tz(line.booking_start, self.env.user.tz, DTF),
