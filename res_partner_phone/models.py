@@ -12,7 +12,9 @@ class ResPartnerPhone(models.Model):
                         ['parent_id', 'is_company', 'name', 'mobile', 'phone'], 10)
     }
 
-    _display_name = lambda self, *args, **kwargs: self._display_name_compute(*args, **kwargs)
+    def _display_name(self, *args, **kwargs):
+        return self._display_name_compute(*args, **kwargs)
+
     _columns = {
         'display_name': fields.function(_display_name, type='char', string='Name',
                                         store=_display_name_store_triggers, select=True)

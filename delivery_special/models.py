@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from openerp.osv import osv, fields
 from openerp.tools.translate import _
+from openerp.tools import safe_eval
+
 
 class DeliveryGrid(osv.osv):
     _inherit = "delivery.grid"
@@ -30,7 +32,7 @@ class DeliveryGrid(osv.osv):
         ok = False
         price_dict = {'price': total, 'volume': volume, 'weight': weight, 'wv': volume * weight, 'quantity': quantity, 'special_delivery': special_delivery}
         for line in grid.line_ids:
-            test = eval(line.type + line.operator + str(line.max_value), price_dict)
+            test = safe_eval(line.type + line.operator + str(line.max_value), price_dict)
             if test:
                 if line.price_type == 'variable':
                     price = line.list_price * price_dict[line.variable_factor]

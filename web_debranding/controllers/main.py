@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import re
-
 import openerp
 from openerp import http
 from openerp.addons.web.controllers.main import Binary
@@ -10,7 +8,6 @@ import functools
 from openerp.http import request
 from openerp.modules import get_module_resource
 from cStringIO import StringIO
-from openerp.tools.translate import _
 
 db_monodb = http.db_monodb
 
