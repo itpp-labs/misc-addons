@@ -21,15 +21,15 @@ Contributors
 
 Sponsors
 ========
-* `IT-Projects LLC <https://it-projects.info>`__
+* `IT-Projects LLC <https://it-projects.info>`___
 
 Further information
 ===================
 
 HTML Description: https://apps.odoo.com/apps/modules/8.0/account_invoice_dates/
 
-Usage instructions: `<doc/index.rst>`__
+Usage instructions: `<doc/index.rst>`___
 
-Changelog: `<doc/changelog.rst>`__
+Changelog: `<doc/changelog.rst>`___
 
 Tested on Odoo 8.0 25b1df2eb331275ab6bb5e572665492bbff15bdc

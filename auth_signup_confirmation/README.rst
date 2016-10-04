@@ -13,7 +13,7 @@ Contributors
 
 Sponsors
 --------
-* `IT-Projects LLC <https://it-projects.info>`__
+* `IT-Projects LLC <https://it-projects.info>`___
 
 Further information
 ===================
@@ -22,8 +22,8 @@ Demo: http://runbot.it-projects.info/demo/misc-addons/8.0
 
 HTML Description: https://apps.odoo.com/apps/modules/8.0/auth_signup_confirmation/
 
-Usage instructions: `<doc/index.rst>`__
+Usage instructions: `<doc/index.rst>`___
 
-Changelog: `<doc/changelog.rst>`__
+Changelog: `<doc/changelog.rst>`___
 
 Tested on Odoo 8.0 17a130428516d9dd8105f90e8c9a65a0b4e8901b

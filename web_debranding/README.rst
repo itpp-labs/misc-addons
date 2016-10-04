@@ -76,7 +76,7 @@ Tested on Odoo 8.0 a40d48378d22309e53e6d38000d543de1d2f7a78
 Need our service?
 =================
 
-Contact us by `email <mailto:it@it-projects.info>`__ or fill out `request form <https://www.it-projects.info/page/website.contactus>`__:
+Contact us by `email <mailto:it@it-projects.info>`___ or fill out `request form <https://www.it-projects.info/page/website.contactus>`___:
 
 * it@it-projects.info
 * https://www.it-projects.info/page/website.contactus

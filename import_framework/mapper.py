@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-##############################################################################
+#
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
@@ -17,13 +17,14 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-##############################################################################
+#
 from openerp import tools
 import re
 import math
 
 
 class Mapper(object):
+
     """
         super class for all mapper class
         They are call before import data
@@ -39,6 +40,7 @@ class Mapper(object):
 
 
 class Dbmapper(Mapper):
+
     """
         Super class for mapper that need to access to
         data base or any function of the import_framework
@@ -63,6 +65,7 @@ class Dbmapper(Mapper):
 
 
 class Concat(Mapper):
+
     """
         Use : contact('field_name1', 'field_name2', delimiter='_')
         concat value of fields using the delimiter, delimiter is optional
@@ -100,6 +103,7 @@ class TagsFromFields(Dbmapper):
 
 
 class Ppconcat(Mapper):
+
     """
         Use : contact('field_name1', 'field_name2', delimiter='_')
         concat external field name and value of fields using the delimiter,
@@ -136,6 +140,7 @@ class First(Mapper):
 
 
 class Fixdate(Mapper):
+
     """
     convert '2010-02-12 13:26:25' to '2010-02-12'
     """
@@ -151,6 +156,7 @@ class Fixdate(Mapper):
 
 
 class Const(Mapper):
+
     """
         Use : const(arg)
         return always arg
@@ -168,6 +174,7 @@ def do_clean_xml_id(value):
 
 
 class Value(Mapper):
+
     """
         Use : value(external_field_name)
         Return the value of the external field name
@@ -221,6 +228,7 @@ class CleanSugar(Mapper):
 
 
 class MapVal(Mapper):
+
     """
         Use : map_val(external_field, val_mapping)
         where val_mapping is a dictionary
@@ -240,6 +248,7 @@ class MapVal(Mapper):
 
 
 class Ref(Dbmapper):
+
     """
         Use : ref(table_name, external_id)
         return the xml_id of the ressource
@@ -256,6 +265,7 @@ class Ref(Dbmapper):
 
 
 class Refbyname(Dbmapper):
+
     """
         Use : refbyname(table_name, external_name, res.model)
         same as ref but use the name of the ressource to find it
@@ -411,6 +421,7 @@ class Emails2partners(Dbmapper):
 
 
 class Call(Mapper):
+
     """
         Use : call(function, arg1, arg2)
         to call the function with external val follow by the arg specified

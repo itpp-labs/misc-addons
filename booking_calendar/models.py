@@ -40,7 +40,6 @@ class ResourceCalendar(models.Model):
         """
         leave_obj = self.env['resource.calendar.leaves']
         for calendar in self:
-            id = calendar.id
             hours = timedelta()
             for day in rrule.rrule(rrule.DAILY, dtstart=start_dt,
                                    until=end_dt.replace(hour=23, minute=59, second=59),
@@ -55,7 +54,6 @@ class ResourceCalendar(models.Model):
                 work_limits.append((day_start_dt.replace(hour=0, minute=0, second=0), day_start_dt))
                 work_limits.append((day_end_dt, day_end_dt.replace(hour=23, minute=59, second=59)))
 
-                intervals = []
                 work_dt = day_start_dt.replace(hour=0, minute=0, second=0)
                 working_intervals = []
                 for calendar_working_day in calendar.get_attendances_for_weekdays([day_start_dt.weekday()])[0]:
@@ -314,7 +312,7 @@ class SaleOrderLine(models.Model):
                 data = self.product_id_change(pricelist.id, self.product_id.id,
                                               qty=self.product_uom_qty, partner_id=self.partner_id.id)
                 for k in data['value']:
-                    if not k in ['name']:
+                    if k not in ['name']:
                         setattr(self, k, data['value'][k])
 
     @api.model
@@ -474,9 +472,8 @@ class SaleOrderAmountTotal(osv.osv):
         'amount_total': old_api_fields.function(_amount_all_wrapper, digits_compute=dp.get_precision('Account'), string='Total',
                                                 store={
                                                     'sale.order': (lambda self, cr, uid, ids, c={}: ids, ['order_line'], 10),
-                                                    'sale.order.line': (_get_order, ['price_unit', 'tax_id', 'discount', 'product_uom_qty', 'state'], 10),
-        },
-            multi='sums', help="The total amount."),
+                                                    'sale.order.line': (_get_order, ['price_unit', 'tax_id', 'discount', 'product_uom_qty', 'state'], 10)},
+                                                multi='sums', help="The total amount."),
     }
 
 

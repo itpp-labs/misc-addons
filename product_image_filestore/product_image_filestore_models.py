@@ -53,7 +53,6 @@ class ProductTemplate(osv.Model):
             # Finally, remove the _old column if all went well so we won't run this every time we upgrade the module.
             # If we encountered errors, or there's still data left in image_old, rename instead and log an error. Fixes #265
             cr.execute("SELECT COUNT(*) FROM product_template WHERE image_old IS NOT NULL AND image_old != ''")
-            res_cnt = cr.dictfetchone()
             if errors_encountered or res.get('count'):
                 cr.execute("ALTER TABLE product_template RENAME COLUMN image_old TO image_bkp")
                 _logger.error('Failed to convert all images in product_template. Data left intact in column image_old, manual intervention required.')
@@ -155,7 +154,7 @@ class ProductProduct(osv.Model):
                         self.pool.get('product.product').write(cr, SUPERUSER_ID, product_id, wvals)
                         cr.execute("UPDATE product_product SET image_variant_old = null WHERE id=%s", (product_id, ))
                     except:
-                        errors_encountered=True
+                        errors_encountered = True
                         filename = '/tmp/product_product_image_%d.b64' % (product_id, )
                         with open(filename, 'wb') as f:
                             f.write(datas)
@@ -164,7 +163,6 @@ class ProductProduct(osv.Model):
             # Finally, remove the _old column if all went well so we won't run this every time we upgrade the module.
             # If we encountered errors, or there's still data left in image_variant_old, rename instead and log an error. Fixes #265
             cr.execute("SELECT COUNT(*) FROM product_product WHERE image_variant_old IS NOT NULL AND image_variant_old != ''")
-            res_cnt = cr.dictfetchone()
             if errors_encountered or res.get('count'):
                 cr.execute("ALTER TABLE product_product RENAME COLUMN image_variant_old TO image_variant_bkp")
                 _logger.error('Failed to convert all images in product_product. Data left intact in column image_variant_old, manual intervention required.')
