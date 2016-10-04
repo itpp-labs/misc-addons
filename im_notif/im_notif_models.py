@@ -82,11 +82,6 @@ class MailNotification(models.Model):
             )
         author = message.author_id and message.author_id.name_get()
         author = author and author[0][1] or message.email_from
-        # body = html2plaintext(message.body)[:100] or ''
-        mtype = {'email': _('Email'),
-                 'comment': _('Comment'),
-                 'notification': _('System notification'),
-                 }.get(message.type, '')
 
         about = message.subject or message.record_name or 'UNDEFINED'
         about = '[ABOUT] %s' % about
@@ -126,7 +121,7 @@ class MailNotification(models.Model):
             session = session_obj.session_get(cr, user_from, user_to, context=context)
             uuid = session.get('uuid')
             message_content = '\n'.join(im_text)
-            message_id = self.pool["im_chat.message"].post(cr, SUPERUSER_ID, user_from, uuid, message_type, message_content, context=context)
+            self.pool["im_chat.message"].post(cr, SUPERUSER_ID, user_from, uuid, message_type, message_content, context=context)
 
         return True
 

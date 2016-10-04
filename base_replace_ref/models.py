@@ -22,7 +22,6 @@ class ReplaceRule(models.Model):
             raise exceptions.Warning('Define Model first')
 
         self.draft = True
-        res = []
         cur_fields = [line.field_id.id for line in self.field_line_ids]
         for field in self.env['ir.model.fields'].search([('relation', '=', self.model_id.model)]):
             if field.id in cur_fields:

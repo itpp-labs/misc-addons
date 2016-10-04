@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Calendar View Quick Navigation',
-    'description': '',
     'description': """
 Makes days and weeks clickable in month view
 """,

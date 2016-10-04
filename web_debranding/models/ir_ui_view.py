@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
-from openerp import SUPERUSER_ID, models, api
+from openerp import models, api
+
 _logger = logging.getLogger(__name__)
 
 MODULE = '_web_debranding'

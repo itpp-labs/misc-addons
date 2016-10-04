@@ -1,26 +1,8 @@
 # -*- coding: utf-8 -*-
-##############################################################################
+#
 #
 #    Copyright (c) 2009 Camptocamp SA
 #    @author Nicolas Bessi
-#    @source JBA and AWST inpiration
-#    @contributor Grzegorz Grzelak (grzegorz.grzelak@birdglobe.com), Joel Grand-Guillaume
-#    Copyright (c) 2010 Alexis de Lattre (alexis@via.ecp.fr)
-#     - ported XML-based webservices (Admin.ch, ECB, PL NBP) to new XML lib
-#     - rates given by ECB webservice is now correct even when main_cur <> EUR
-#     - rates given by PL_NBP webservice is now correct even when main_cur <> PLN
-#     - if company_currency <> CHF, you can now update CHF via Admin.ch webservice
-#       (same for EUR with ECB webservice and PLN with NBP webservice)
-#     For more details, see Launchpad bug # 645263
-#     - mecanism to check if rates given by the webservice are "fresh" enough to be
-#       written in OpenERP ('max_delta_days' parameter for each currency update service)
-#        Ported to OpenERP 7.0 by Lorenzo Battistini <lorenzo.battistini@agilebg.com>
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -29,7 +11,7 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-##############################################################################
+#
 
 # TODO "nice to have" : restain the list of currencies that can be added for
 # a webservice to the list of currencies supported by the Webservice
@@ -40,6 +22,7 @@ import time
 from datetime import datetime, timedelta
 import logging
 from openerp.tools.translate import _
+from openerp.tools import safe_eval
 
 _logger = logging.getLogger(__name__)
 
@@ -61,8 +44,8 @@ class CurrencyRateUpdateService(models.Model):
                 ('PL_NBP_getter', 'Narodowy Bank Polski'),  # Added for polish rates
                 ('Banxico_getter', 'Banco de México'),  # Added for mexican rates
                 # Bank of Canada is using RSS-CB http://www.cbwiki.net/wiki/index.php/Specification_1.1 :
-                                                        # This RSS format is used by other national banks (Thailand, Malaysia, Mexico...)
-                                                        ('CA_BOC_getter', 'Bank of Canada - noon rates'),  # Added for canadian rates
+                # This RSS format is used by other national banks (Thailand, Malaysia, Mexico...)
+                ('CA_BOC_getter', 'Bank of Canada - noon rates'),  # Added for canadian rates
             ],
             "Webservice to use",
             required=True
@@ -149,7 +132,7 @@ class CurrencyRateUpdate(models.Model):
                 }
             )
             cron_id = int(cron_id[0])
-        except Exception as e:
+        except Exception:
             _logger.info('warning cron not found one will be created')
             pass  # ignore if the cron is missing cause we are going to create it in db
 
@@ -166,7 +149,7 @@ class CurrencyRateUpdate(models.Model):
         context = context or {}
         # modify the cron
         cron_id = self.get_cron_id(cr, uid, context)
-        result = self.pool.get('ir.cron').write(cr, uid, [cron_id], datas)
+        self.pool.get('ir.cron').write(cr, uid, [cron_id], datas)
 
     def run_currency_update(self, cr, uid):
         "update currency at the given frequence"
@@ -180,9 +163,6 @@ class CurrencyRateUpdate(models.Model):
             if not comp.auto_currency_up:
                 continue
             # we initialise the multi compnay search filter or not serach filter
-            search_filter = []
-            if comp.multi_company_currency_enable:
-                search_filter = [('company_id', '=', comp.id)]
             # we fetch the main currency looking for currency with base = true. The main rate should be set at  1.00
             main_curr_ids = curr_obj.search(cr, uid, [('base', '=', True), ('company_id', '=', comp.id)])
             if not main_curr_ids:
@@ -284,6 +264,7 @@ class UnsuportedCurrencyError(Exception):
 
 
 class CurrencyGetterFactory():
+
     """Factory pattern class that will return
     a currency getter class base on the name passed
     to the register method"""
@@ -300,13 +281,14 @@ class CurrencyGetterFactory():
             'CA_BOC_getter',
         ]
         if class_name in allowed:
-            class_def = eval(class_name)
+            class_def = safe_eval(class_name)
             return class_def()
         else:
             raise UnknowClassError
 
 
 class CurrenyGetterInterface(object):
+
     "Abstract class of currency getter"
 
     # remove in order to have a dryer code
@@ -383,8 +365,9 @@ class CurrenyGetterInterface(object):
             _logger.warning("the rate timestamp (%s) is not today's date", rate_date_str)
 
 
-# Yahoo # ##################################################################################
+# Yahoo # # #################################################################################
 class YahooGetter(CurrenyGetterInterface):
+
     """Implementation of Currency_getter_factory interface
     for Yahoo finance service"""
 
@@ -405,8 +388,10 @@ class YahooGetter(CurrenyGetterInterface):
 
         return self.updated_currency, self.log_info  # empty string added by polish changes
 
-# #Admin CH # ###########################################################################
+
+# Admin CH # # ##########################################################################
 class AdminChGetter(CurrenyGetterInterface):
+
     """Implementation of Currency_getter_factory interface
     for Admin.ch service"""
 
@@ -463,8 +448,9 @@ class AdminChGetter(CurrenyGetterInterface):
         return self.updated_currency, self.log_info
 
 
-# # ECB getter # ###########################################################################
+# ECB getter # # ##########################################################################
 class ECBGetter(CurrenyGetterInterface):
+
     """Implementation of Currency_getter_factory interface
     for ECB service"""
 
@@ -519,8 +505,9 @@ class ECBGetter(CurrenyGetterInterface):
         return self.updated_currency, self.log_info
 
 
-# #PL NBP # ###########################################################################
+# PL NBP # # ##########################################################################
 class PLNBPGetter(CurrenyGetterInterface):   # class added according to polish needs = based on class Admin_ch_getter
+
     """Implementation of Currency_getter_factory interface
     for PL NBP service"""
 
@@ -581,8 +568,9 @@ class PLNBPGetter(CurrenyGetterInterface):   # class added according to polish n
         return self.updated_currency, self.log_info
 
 
-# #Banco de México # ###########################################################################
+# Banco de México # # ##########################################################################
 class BanxicoGetter(CurrenyGetterInterface):  # class added for Mexico rates
+
     """Implementation of Currency_getter_factory interface
     for Banco de México service"""
 
@@ -632,8 +620,9 @@ class BanxicoGetter(CurrenyGetterInterface):  # class added for Mexico rates
             logger.debug("Rate retrieved : " + main_currency + ' = ' + str(rate) + ' ' + curr)
 
 
-# #CA BOC # ####   Bank of Canada   # ###########################################################
+# CA BOC # # ###   Bank of Canada   # # ##########################################################
 class CABOCGetter(CurrenyGetterInterface):
+
     """Implementation of Curreny_getter_factory interface for Bank of Canada RSS service"""
 
     def get_updated_currency(self, currency_array, main_currency, max_delta_days):

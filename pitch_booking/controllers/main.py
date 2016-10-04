@@ -14,7 +14,6 @@ class WebsiteBookingCalendar(Controller):
     def _get_resources(self, params):
         venue_id, pitch_id = params.get('venue'), params.get('pitch')
         cr, uid, context = request.cr, request.uid, request.context
-        resource_obj = request.registry['resource.resource']
         pitch_obj = request.registry['pitch_booking.pitch']
         venue_obj = request.registry['pitch_booking.venue']
         if not venue_id:

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-##############################################################################
+#
 #
 #    Copyright (c) 2009 CamptoCamp. All rights reserved.
 #    @author Nicolas Bessi
@@ -17,15 +17,16 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-##############################################################################
+#
 
 from openerp import fields
 
 
 class ResCompany(orm.Model):
+
     """override company to add currency update"""
 
-    def _multi_curr_enable(self, cr, uid, ids, field_name, arg, context={}):
+    def _multi_curr_enable(self, cr, uid, ids, field_name, arg, context=None):
         "check if multi company currency is enabled"
         result = {}
         if self.pool.get('ir.model.fields').search(cr, uid, [('name', '=', 'company_id'), ('model', '=', 'res.currency')]) == []:
@@ -70,7 +71,6 @@ class ResCompany(orm.Model):
                             break
                     save_cron.update({'active': activate_cron})
                 else:
-                    do_next = True
                     for comp in compagnies:
                         if comp != company.id and not enable:
                             if self.browse(cr, uid, comp).multi_company_currency_enable:
@@ -121,7 +121,7 @@ class ResCompany(orm.Model):
             method=True,
             type='boolean',
             string="Multi company currency",
-            help='if this case is not check you can' +\
+            help='if this case is not check you can' +
             ' not set currency is active on two company'
     )
 

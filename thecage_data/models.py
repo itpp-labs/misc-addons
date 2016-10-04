@@ -6,12 +6,14 @@ from datetime import datetime, date, timedelta
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 from openerp.exceptions import ValidationError
 
+
 def format_tz(datetime_str, tz, dtf):
     datetime_obj = datetime.strptime(datetime_str, dtf)
     user_timezone = timezone(tz)
     datetime_obj = pytz.utc.localize(datetime_obj)
     datetime_obj = datetime_obj.astimezone(user_timezone)
     return datetime_obj.strftime(dtf)
+
 
 class AccountAnalyticAccount(models.Model):
     _inherit = 'account.analytic.account'

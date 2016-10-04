@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-##############################################################################
+#
 #
 #    Auto reset sequence by year,month,day
 #    Copyright 2013 wangbuke <wangbuke@gmail.com>
@@ -17,7 +17,7 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-##############################################################################
+#
 
 from openerp import models, fields
 from openerp.tools.translate import _
