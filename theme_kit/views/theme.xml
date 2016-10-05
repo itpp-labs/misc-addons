@@ -36,6 +36,10 @@
                                 <field name="content_id" />
                             </group>
                         </group>
+                            <group string="Custom setting">
+                                <field name="custom_css"/>
+                                <field name="custom_js"/>
+                            </group>
                     </sheet>
                 </form>
             </field>
