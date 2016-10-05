@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#################################################################################
+#
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2013 Julius Network Solutions SARL <contact@julius.fr>
@@ -18,7 +18,7 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#################################################################################
+#
 
 {
     "name": "Product Tags",
@@ -37,7 +37,7 @@
         'security/ir.model.access.csv',
         'product_view.xml',
     ],
-    'installable': True,
+    'installable': False,
     'active': False,
 }
 
