@@ -1,7 +1,7 @@
 odoo.define('web_debranding.native_notifications', function (require) {
 "use strict";
 
-    require('web_debranding.dialog');
+    require('web_debranding.base');
     var MailTools = require('mail_base.base').MailTools;
     var chat_manager = require('mail_base.base').chat_manager;
     var session = require('web.session');
