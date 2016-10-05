@@ -23,6 +23,7 @@ Removes references to odoo.com:
 18. Hides Enterprise features in Settings
 19. Replaces "Odoo" in all backend qweb templates (e.g. FAQ in import tool)
 20. Replaces "odoo.com" in hints, examples, etc.
+21. Rename "OdooBot" to "Bot". Use company's logo as bot avatar
 
 By default the module replaces "Odoo" to "Software". To configure
 module open Settings\\System Parameters and modify
