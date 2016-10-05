@@ -128,12 +128,9 @@ class SaleOrderLine(models.Model):
 
     @api.model
     def _cron_booking_reminder(self):
-        lines = self.search(['&', '&', '&', ('booking_reminder', '=', False),
+        lines = self.search([('booking_reminder', '=', False),
                              ('booking_start', '!=', False),
-                             ('booking_start', '<=', (datetime.now() + timedelta(hours=48)).strftime(DTF)),
-                             '|',
-                             ('order_id.state', '=', 'done'),
-                             ('price_unit', '=', '0'),
+                             ('booking_start', '>=', (datetime.now() - timedelta(hours=48)).strftime(DTF)),
                              ])
         lines.write({'booking_reminder': True})
         for line in lines:
@@ -142,7 +139,7 @@ class SaleOrderLine(models.Model):
                 msg += 'Pitch %s\n' % line.pitch_id.name
                 msg += 'From: %s To %s\n' % (format_tz(line.booking_start, self.env.user.tz, DTF),
                                              format_tz(line.booking_end, self.env.user.tz, DTF))
-                msg += 'ID %s\n' % self.order_id.name
+                msg += 'ID %s\n' % line.order_id.name
                 phone = line.order_id.partner_id.mobile
                 self.env['sms_sg.sendandlog'].send_sms(phone, msg)
 
