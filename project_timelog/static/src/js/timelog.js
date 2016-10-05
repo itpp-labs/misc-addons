@@ -43,6 +43,9 @@ $(document).ready(function() {
         on_notification_do: function (channel, message) {
             var self = this;
             var error = false;
+            if (typeof channel != "string") {
+                return false;
+            }
             channel = JSON.parse(channel);
             if (Array.isArray(channel) && channel[1] === 'project.timelog') {
                 try {
@@ -236,6 +239,15 @@ $(document).ready(function() {
             });
         },
 
+        add_favicon: function() {
+            if (this.status == 'stopped') {
+                $('link[type="image/x-icon"]').attr('href', '/project_timelog/static/src/img/favicon_play.ico');
+            }
+            if (this.status == 'running') {
+                $('link[type="image/x-icon"]').attr('href', '/project_timelog/static/src/img/favicon_stop.ico');
+            }
+        },
+
         check_audio: function() {
             if (typeof(Audio) === "undefined") {
                 return;
@@ -412,6 +424,7 @@ $(document).ready(function() {
                 return false;
             }
             console.log("play");
+            this.add_favicon();
             var self = this;
             this.status = 'running';
             this.setIntervalTimer();
@@ -425,6 +438,7 @@ $(document).ready(function() {
                 return false;
             }
             console.log("stop");
+            this.add_favicon();
             var self = this;
             this.status = 'stopped';
             for (var i = 0; i < 4; i++) {

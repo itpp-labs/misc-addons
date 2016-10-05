@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from openerp import models, fields
+from openerp import models, fields, api
 
 
 class TimelogConfigSettings(models.TransientModel):
@@ -26,10 +26,20 @@ class TimelogConfigSettings(models.TransientModel):
     def get_default_custom_parameters(self, cr, uid, ids, context=None):
         icp = self.pool.get('ir.config_parameter')
         return {
-            'time_subtasks': icp.get_param(cr, uid, 'project_timelog.time_subtasks', default=2, context=context),
-            'time_warning_subtasks': icp.get_param(cr, uid, 'project_timelog.time_warning_subtasks', default=0.33, context=context),
-            'normal_time_day': icp.get_param(cr, uid, 'project_timelog.normal_time_day', default=5, context=context),
-            'good_time_day': icp.get_param(cr, uid, 'project_timelog.good_time_day', default=6, context=context),
-            'normal_time_week': icp.get_param(cr, uid, 'project_timelog.normal_time_week', default=30, context=context),
-            'good_time_week': icp.get_param(cr, uid, 'project_timelog.good_time_week', default=40, context=context),
+            'time_subtasks': icp.get_param(cr, uid, 'project_timelog.time_subtasks', context=context),
+            'time_warning_subtasks': icp.get_param(cr, uid, 'project_timelog.time_warning_subtasks', context=context),
+            'normal_time_day': icp.get_param(cr, uid, 'project_timelog.normal_time_day', context=context),
+            'good_time_day': icp.get_param(cr, uid, 'project_timelog.good_time_day', context=context),
+            'normal_time_week': icp.get_param(cr, uid, 'project_timelog.normal_time_week', context=context),
+            'good_time_week': icp.get_param(cr, uid, 'project_timelog.good_time_week', context=context),
         }
+
+    @api.model
+    def init_timer_parametrs(self):
+        icp = self.env["ir.config_parameter"]
+        icp.set_param(key="project_timelog.time_subtasks", value=2)
+        icp.set_param(key="project_timelog.time_warning_subtasks", value=0.33)
+        icp.set_param(key="project_timelog.normal_time_day", value=5)
+        icp.set_param(key="project_timelog.good_time_day", value=6)
+        icp.set_param(key="project_timelog.normal_time_week", value=30)
+        icp.set_param(key="project_timelog.good_time_week", value=40)

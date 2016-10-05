@@ -43,6 +43,10 @@ class TimelogController(http.Controller):
         if all_timelog_current_user:
             if timelog and timelog[-1].end_datetime is False:
                 play_status = True
+                start_datetime = datetime.datetime.strptime(timelog[-1].start_datetime, "%Y-%m-%d %H:%M:%S")
+                end_datetime = datetime.datetime.now()
+                play_status_time = (end_datetime - start_datetime).total_seconds()
+                log_timer = int(round(play_status_time, 0)) + log_timer
 
         # 2. All time in current task for current user
         task_timer = 0
@@ -53,6 +57,10 @@ class TimelogController(http.Controller):
             for r in all_work:
                 sum_spent = sum_spent + r.hours
             task_timer = int(round(sum_spent * 3600, 0))
+            if play_status:
+                task_timer = task_timer + play_status_time
+
+
 
         # 3. All the time for today 3.
         day_timer = 0
@@ -66,6 +74,8 @@ class TimelogController(http.Controller):
             for e in today_work_id:
                 sum_spent_day = sum_spent_day + request.env["project.task.work"].search([("id", "=", e)]).hours
             day_timer = int(round(sum_spent_day * 3600, 0))
+            if play_status:
+                day_timer = day_timer + play_status_time
 
         # 4. All time this week
         week_timer = 0
@@ -82,6 +92,8 @@ class TimelogController(http.Controller):
             for e in week_work_id:
                 sum_spent_week = sum_spent_week + request.env["project.task.work"].search([("id", "=", e)]).hours
             week_timer = int(round(sum_spent_week * 3600, 0))
+            if play_status:
+                week_timer = week_timer + play_status_time
 
         second_timer_info = []
         desctiption_timer = ''
