@@ -20,12 +20,12 @@ $(document).ready(function() {
                 bus_last=Number(storage.getItem("bus_last"));
             }
 
-            var channel = JSON.stringify([this.widget.dbname,"project.timelog",String(this.widget.uid)]);
+            this.channel = JSON.stringify([this.widget.dbname,"project.timelog",String(this.widget.uid)]);
             // start the polling
 
             this.bus = openerp.bus.bus;
             this.bus.last = bus_last;
-            this.bus.add_channel(channel);
+            this.bus.add_channel(this.channel);
             this.bus.on("notification", this, this.on_notification);
             this.bus.start_polling();
         },
@@ -44,6 +44,9 @@ $(document).ready(function() {
             var self = this;
             var error = false;
             if (typeof channel != "string") {
+                return false;
+            }
+            if (channel != this.channel) {
                 return false;
             }
             channel = JSON.parse(channel);
