@@ -1,5 +1,7 @@
 odoo.define('web_debranding.UserMenu', function (require) {
     "use strict";
+
+    require('web_debranding.base');
     var session = require('web.session');
     var core = require('web.core');
     var _t = core._t;
