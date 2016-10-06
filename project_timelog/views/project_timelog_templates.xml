@@ -5,7 +5,7 @@
                 <link rel="stylesheet" type="text/less" href="/project_timelog/static/src/less/timer_button.less"/>
                 <link rel="stylesheet" type="text/css" href="/project_timelog/static/src/css/timer.css"/>
                 <script type="text/javascript" src="/project_timelog/static/src/js/timelog.js"></script>
-                <script type="text/javascript" src="/project_timelog/static/src/js/online.js"></script>
+                <script type="text/javascript" src="/project_timelog/static/lib/online.js"></script>
             </xpath>
         </template>
 
@@ -14,16 +14,16 @@
                 <ul class="nav navbar-nav navbar-right timelog oe_timelog_placeholder">
                     <li class="timelog" id="timelog_timer">
                           <div id="clock0" class="clock">
-                              t
+                              00:00:00
                           </div>
                           <div id="clock1" class="clock">
-                              i
+                              00:00
                           </div>
                           <div id="clock2" class="clock">
-                              m
+                              00:00
                           </div>
                           <div id="clock3" class="clock">
-                              e
+                              00:00
                           </div>
                     </li>
                 </ul>

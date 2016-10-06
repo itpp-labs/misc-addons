@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data noupdate="1">
+    <!--<data>-->
         <!--if user offline then timer will stop-->
         <record id="ir_cron_offline_stop_timer" model="ir.cron">
             <field name="name">Offline stop timer</field>
@@ -57,6 +58,26 @@
             <field name="res_model">project.project</field>
             <field name="parent_id" eval="ref('mt_timelog_stopline')"/>
             <field name="relation_field">project_id</field>
+        </record>
+
+        <record id="action_auto_stop_timer" model="ir.actions.server">
+            <field name="name">Auto stop timer for user</field>
+            <field name="condition">True</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_project_task"/>
+            <field name="state">code</field>
+            <field name="code">
+                obj.set_stage_timer()
+            </field>
+        </record>
+
+        <record id="rule_auto_stop_timer" model="base.action.rule">
+            <field name="name">Set timer info</field>
+            <field eval="True" name="active" />
+            <field name="model_id" ref="model_project_task"/>
+            <field name="kind">on_write</field>
+            <field name="server_action_ids"
+                   eval="[(4, ref('action_auto_stop_timer'))]"/>
         </record>
     </data>
 </openerp>

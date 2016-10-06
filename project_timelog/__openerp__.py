@@ -12,6 +12,7 @@
     "depends": [
         "bus",
         "im_chat",
+        "base_action_rule",
         "project_timesheet",
     ],
     "external_dependencies": {"python": [], "bin": []},
@@ -21,7 +22,7 @@
         "res_config_view.xml",
         "views/project_timelog_templates.xml",
         "data/project_timelog_data.xml",
-        "security/project_timelog_security.xml",
+        "pre_install.yml",
     ],
 
     "installable": True,

@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     "use strict";
     var TimeLog = openerp.TimeLog = {};
     var storage = localStorage;
@@ -13,18 +14,25 @@ $(document).ready(function() {
             this.stopline_audio_warning = true;
             this.stopline_audio_stop = true;
             this.widget = widget;
-            Number(storage.getItem("bus_last"))==null ? bus_last=this.bus.last : bus_last=Number(storage.getItem("bus_last"));
+            if (Number(storage.getItem("bus_last")) === null) {
+                bus_last=this.bus.last;
+            } else {
+                bus_last=Number(storage.getItem("bus_last"));
+            }
+
+            this.channel = JSON.stringify([this.widget.dbname,"project.timelog",String(this.widget.uid)]);
             // start the polling
+
             this.bus = openerp.bus.bus;
             this.bus.last = bus_last;
+            this.bus.add_channel(this.channel);
             this.bus.on("notification", this, this.on_notification);
             this.bus.start_polling();
         },
         on_notification: function (notification) {
-            console.log(notification);
             var self = this;
             if (typeof notification[0][0] === 'string') {
-                notification = [notification]
+                notification = [notification];
             }
             for (var i = 0; i < notification.length; i++) {
                 var channel = notification[i][0];
@@ -35,6 +43,13 @@ $(document).ready(function() {
         on_notification_do: function (channel, message) {
             var self = this;
             var error = false;
+            if (typeof channel != "string") {
+                return false;
+            }
+            if (channel != this.channel) {
+                return false;
+            }
+            channel = JSON.parse(channel);
             if (Array.isArray(channel) && channel[1] === 'project.timelog') {
                 try {
                     this.received_message(message);
@@ -45,10 +60,9 @@ $(document).ready(function() {
             }
         },
         received_message: function(message) {
-            console.log(message);
             var status = storage.getItem("first_click");
             var self = this;
-            if ((status==null) && (message.status == "play")) {
+            if ((status===null) && (message.status == "play")) {
                 storage.setItem("first_click", "first_click");
                 this.widget.load_timer_data();
             } else {
@@ -61,20 +75,24 @@ $(document).ready(function() {
                         this.widget.load_timer_data();
 
                     }
+                    $('#clock0').css('color','white');
                 }
                 if (message.status == "stop") {
                     this.widget.stop_timer();
                     if (!message.client_status && !message.stopline) {
                         this.audio_format = audio.canPlayType("audio/ogg; codecs=vorbis") ? ".ogg" : ".mp3";
-                        var audio_name = "stop" + '.' + this.audio_format;
+
                         audio.src = openerp.session.url("/project_timelog/static/src/audio/" + "stop" + this.audio_format);
                         audio.play();
+                    }
+                    if (message.client_status) {
+                        $('#clock0').css('color','rgb(152, 152, 152)');
                     }
                     if (message.stopline) {
                         $('#clock0').css('color','red');
                         if (self.stopline_audio_stop) {
                             this.audio_format = audio.canPlayType("audio/ogg; codecs=vorbis") ? ".ogg" : ".mp3";
-                            var audio_name = "stop" + '.' + this.audio_format;
+
                             audio.src = openerp.session.url("/project_timelog/static/src/audio/" + "stop" + this.audio_format);
                             audio.play();
                         }
@@ -88,8 +106,8 @@ $(document).ready(function() {
                     month = now.getMonth();
                     day = now.getDay();
                     minute = now.getMinutes();
-                    if (year == message.time['year'] && month == message.time['month'] && day == message.time['day']) {
-                        if (minute >=message.time['minute']) {
+                    if (year == message.time.year && month == message.time.month && day == message.time.day) {
+                        if (minute >=message.time.minute) {
                             $('#clock0').css('color','orange');
                             if (self.song_on) {
                                 self.widget.playAudio(0);
@@ -107,7 +125,8 @@ $(document).ready(function() {
         init: function(parent){
             this._super(parent);
             var self = this;
-            this.c_manager = new openerp.TimeLog.Manager(this);
+            this.load_server_data();
+            //this.c_manager = new openerp.TimeLog.Manager(this);
 
             this.finish_status = false;
             this.stopline = '';
@@ -116,16 +135,16 @@ $(document).ready(function() {
             this.timelog_id='';
             this.status = 'stopped';
             this.times = [0,0,0,0];
-			this.initial_planed_hours = 0;
+            this.initial_planed_hours = 0;
 
             this.time_warning_subtasks = 1;
-			this.time_subtasks = 1;
+            this.time_subtasks = 1;
 
-			this.normal_time_day = 1;
+            this.normal_time_day = 1;
             this.good_time_day = 1;
 
-			this.normal_time_week = 1;
-			this.good_time_week = 1;
+            this.normal_time_week = 1;
+            this.good_time_week = 1;
 
             this.timer_status = false;
 
@@ -143,7 +162,7 @@ $(document).ready(function() {
             }
             self.offConection();
 
-            if (status!=null) {
+            if (status!==null) {
                 self.load_timer_data();
             } else {
                 self.config.call('get_param', ['project_timelog.normal_time_day']).then(function(res) {
@@ -152,6 +171,15 @@ $(document).ready(function() {
                     }
                 });
             }
+        },
+
+        load_server_data: function() {
+            var self = this;
+            this.rpc("/timelog/upd", {}).then(function(resultat){
+                self.uid = resultat.uid;
+                self.dbname = resultat.dbname;
+                self.c_manager = new openerp.TimeLog.Manager(self);
+            });
         },
 
         load_timer_data: function(){
@@ -165,11 +193,11 @@ $(document).ready(function() {
                 self.timelog_id = resultat.timelog_id;
                 self.initial_planed_hours = resultat.planned_hours;
                 self.times = [
-                    resultat.init_first_timer,
-                    resultat.init_second_timer,
-                    resultat.init_third_timer,
-                    resultat.init_fourth_timer,
-                    resultat.name_first_timer
+                    resultat.init_log_timer,
+                    resultat.init_task_timer,
+                    resultat.init_day_timer,
+                    resultat.init_week_timer,
+                    resultat.subtask_name
                 ];
                 self.time_warning_subtasks = resultat.time_warning_subtasks;
                 self.time_subtasks = resultat.time_subtasks;
@@ -187,7 +215,7 @@ $(document).ready(function() {
                     storage.setItem("status","no");
                 }
 
-                self.add_title(resultat.name_first_timer, resultat.description_second_timer);
+                self.add_title(resultat.subtask_name, resultat.description_second_timer);
                 self.check_audio();
                 if (self.timer_status) {
                     self.start_timer();
@@ -214,13 +242,22 @@ $(document).ready(function() {
             });
         },
 
+        add_favicon: function() {
+            if (this.status == 'stopped') {
+                $('link[type="image/x-icon"]').attr('href', '/project_timelog/static/src/img/favicon_play.ico');
+            }
+            if (this.status == 'running') {
+                $('link[type="image/x-icon"]').attr('href', '/project_timelog/static/src/img/favicon_stop.ico');
+            }
+        },
+
         check_audio: function() {
             if (typeof(Audio) === "undefined") {
                 return;
             }
             this.audio_format= audio.canPlayType("audio/ogg; codecs=vorbis") ? ".ogg" : ".mp3";
             this.updateView();
-		},
+        },
 
         updateView : function() {
             var element = document.getElementById("timelog_timer");
@@ -228,24 +265,29 @@ $(document).ready(function() {
                 // not element
                 return false;
             }
-			for (var i = 0; i < 4; i++) {
-			  this.updateClock(i, this.times[i]);
-			}
-		},
+            for (var i = 0; i < 4; i++) {
+              this.updateClock(i, this.times[i]);
+            }
+        },
 
         updateClock : function(id, time) {
-			var element = document.getElementById("clock"+id);
+            var element = document.getElementById("clock"+id);
             if(!element) {
                 return false;
             }
 
-			var formattedTime = this.formatTime(id, time);
-			element.innerHTML = formattedTime;
-			var self = this;
+            var formattedTime = this.formatTime(id, time);
+            element.innerHTML = formattedTime;
+            var self = this;
 
             switch(id) {
                 case 0: {
-                    $('#clock0').css('color','white');
+                    if (self.status == 'stopped') {
+                        $('#clock0').css('color','rgb(152, 152, 152);');
+                    }
+                    else {
+                        $('#clock0').css('color','white');
+                    }
                     if ( this.times[0] == this.time_warning_subtasks) {
                         $('#clock0').css('color','orange');
                         self.playAudio(0);
@@ -256,12 +298,12 @@ $(document).ready(function() {
                     if ( this.times[0] >= this.time_subtasks) {
                         $('#clock0').css('color','red');
                         this.addClass(0, "expired");
-                        if (id == 0) this.timerTimeLimited();
+                        if (id === 0) this.timerTimeLimited();
                     }
                 } break;
 
                 case 1:  {
-                    if (this.initial_planed_hours == 0) {
+                    if (this.initial_planed_hours === 0) {
                         break;
                     }
                     if (this.times[1] >= this.initial_planed_hours) {
@@ -301,7 +343,7 @@ $(document).ready(function() {
 
                 default:
                     console.log("NONE");
-				break;
+                break;
             }
         },
 
@@ -329,21 +371,21 @@ $(document).ready(function() {
                 flags: {
                     action_buttons: true,
                 }
-            }
+            };
             parent.action_manager.do_action(action);
             this.stop_timer();
         },
 
         addClass : function(id, className) {
-			var element = document.getElementById("clock"+id);
-			element.className += " " + className;
-		},
+            var element = document.getElementById("clock"+id);
+            element.className += " " + className;
+        },
 
-		removeClass : function(id, className) {
-			var element = document.getElementById("clock"+id);
-			var exp = new RegExp(className);
-			element.className = element.className.replace( exp , '' );
-		},
+        removeClass : function(id, className) {
+            var element = document.getElementById("clock"+id);
+            var exp = new RegExp(className);
+            element.className = element.className.replace( exp , '' );
+        },
 
         formatTime : function(id, time) {
             var minutes = Math.floor(time / 60);
@@ -356,93 +398,102 @@ $(document).ready(function() {
             result += hours + ":";
             if (minutes < 10) result += "0";
 
-            if (id == 0) {
+            if (id === 0) {
                 result += minutes + ":";
                 if (seconds < 10) result += "0"; result += seconds;
             }
             else result += minutes;
             return result;
-		},
+        },
 
         setIntervalTimer: function() {
             var self = this;
-			this.timer = window.setInterval(function(){
+            this.timer = window.setInterval(function(){
                 self.countDownTimer();
             }, 1000);
 
-		},
+        },
 
         countDownTimer: function() {
             var self = this;
-			for (var i = 0; i < 4; i++) {
-			  self.times[i]++;
-			  self.updateClock(i, self.times[i]);
-			}
-		},
+            for (var i = 0; i < 4; i++) {
+              self.times[i]++;
+              self.updateClock(i, self.times[i]);
+            }
+        },
 
         start_timer: function(){
-			if (this.status == 'running' || this.time_subtasks<=this.times[0]){
-				return false;
-			}
+            if (this.status == 'running' || this.time_subtasks<=this.times[0]){
+                return false;
+            }
             console.log("play");
-			var self = this;
-			this.status = 'running';
-			this.setIntervalTimer();
-			for (var i = 0; i < 4; i++) {
-			  this.addClass(i, "running");
-			}
-		},
+            this.add_favicon();
+            var self = this;
+            this.status = 'running';
+            this.setIntervalTimer();
+            for (var i = 0; i < 4; i++) {
+              this.addClass(i, "running");
+            }
+        },
 
-		stop_timer: function(){
-			if (this.status == 'stopped'){
-				return false;
-			}
+        stop_timer: function(){
+            if (this.status == 'stopped'){
+                return false;
+            }
             console.log("stop");
-			var self = this;
-			this.status = 'stopped';
-			for (var i = 0; i < 4; i++) {
+            this.add_favicon();
+            var self = this;
+            this.status = 'stopped';
+            for (var i = 0; i < 4; i++) {
                 this.removeClass(i, "running");
-			}
-			clearTimeout(this.timer);
-		},
+            }
+            clearTimeout(this.timer);
+        },
 
         startAnim: function (element, interval, time) {
-			var self = this;
-			element.animTimer = setInterval(function () {
-			if (element.style.display == "none")  {
-				element.style.display = "";
-				self.playAudio(1);
-			}
-			else
-				element.style.display = "none";
-			}, interval);
-			setTimeout(function(){
-				self.stopAnim(element);
-			}, time);
-		},
+            var self = this;
+            element.animTimer = setInterval(function () {
+            if (element.style.display == "none")  {
+                element.style.display = "";
+                self.playAudio(1);
+            }
+            else
+                element.style.display = "none";
+            }, interval);
+            setTimeout(function(){
+                self.stopAnim(element);
+            }, time);
+        },
 
-		stopAnim: function(element){
-			clearInterval(element.animTimer);
-			element.style.display = "";
-		},
+        stopAnim: function(element){
+            clearInterval(element.animTimer);
+            element.style.display = "";
+        },
 
-		playAudio: function(id) {
-			var audio_name = id + '.' + this.audio_format;
+        playAudio: function(id) {
+            var audio_name = id + '.' + this.audio_format;
             audio.src = openerp.session.url("/project_timelog/static/src/audio/"+id+ this.audio_format);
-			audio.play();
-		},
+            audio.play();
+        },
 
         add_title: function(first_timer_name, description_second_timer) {
-            $('#clock0').attr("title", first_timer_name);
-            $('#clock1').attr("title", description_second_timer);
+            $('#clock0').attr("title", 'Current subtask'+' '+first_timer_name+'. Time for current subtask. When approaching the mark of 2 hours it changes color to orange and emits a short signal. Upon exceeding mark of 2 hours (set in Configuration) the timer is stopped and the color changes to red, it flashes and emits a long beep. When you click on a timer it works as a pause.');
+            $('#clock1').attr("title", description_second_timer+". General time for current task (only the current user data are summed). Upon exceeding 'initially planned hours' (taking into account all the logs for the task) it changes color to yellow. Upon exceeding 'initially planned hours' 100% (set) it changes to red. Clicking on the timer opens the current task.");
+            $('#clock2').attr("title", "General time for current day. Upon reaching 5 hours (set in Configuration) it changes color to yellow. Upon reaching 6 hours (set in Configuration) it changes color to green. Clicking on the timer opens a page with the current day logs.");
+            $('#clock3').attr("title", "General time for current week. Upon reaching 30 hours (set in Configuration) it changes to green and emits a beautiful melody. When reaching 40 hours (set in Configuration) it changes color to blue and emits a long beautiful melody. Clicking on the timer opens a page with logs of current week.");
         },
 
         timer_pause: function() {
             var self = this;
             var model_subtask = new openerp.web.Model('project.task.work');
-            if (self.status=="running" && !self.finish_status) model_subtask.call("stop_timer", [self.work_id]);
-            else {
-                if (self.status == "stopped" && !self.finish_status) model_subtask.call("play_timer", [self.work_id]);
+            if (self.status=="running" && !self.finish_status) {
+                model_subtask.call("stop_timer", [self.work_id]);
+                $('#clock0').css('color','rgb(152, 152, 152)');
+            } else {
+                if (self.status == "stopped" && !self.finish_status) {
+                    model_subtask.call("play_timer", [self.work_id]);
+                    $('#clock0').css('color','white');
+                }
             }
             if (self.finish_status) return false;
         },
@@ -458,7 +509,9 @@ $(document).ready(function() {
                     self.audio_format= audio.canPlayType("audio/ogg; codecs=vorbis") ? ".ogg" : ".mp3";
                     audio.src = openerp.session.url("/project_timelog/static/src/audio/"+"stop"+ self.audio_format);
                     audio.play();
-                    setTimeout(function(){alert("Warning! Internet is disconnect.");}, 500);
+                    self.warn_message = "No internet connection";
+                    self.warn_sticky = true;
+                    self.show_warn_message(this.warn_message, this.warn_sticky);
                 }
             }, time_connection);
         },
@@ -490,12 +543,14 @@ $(document).ready(function() {
                 } else {
                     context = {
                         'search_default_week': 1,
+                        'search_default_group_tasks': 1,
+                        'search_default_group_subtasks': 1,
                     };
                 }
                 action = {
                     res_model: "project.timelog",
                     name: "My Timelog",
-                    views: [[false, 'list']],
+                    views: [[false, 'list'], [false, 'form']],
                     type: 'ir.actions.act_window',
                     target: 'current',
                     view_mode: 'tree',
@@ -507,6 +562,12 @@ $(document).ready(function() {
                 };
             }
             parent.action_manager.do_action(action);
+        },
+
+        show_warn_message: function(warn_message, warn_sticky){
+            var parent = this.getParent();
+            parent.action_manager.do_warn(warn_message, warn_sticky);
+
         }
     });
 

@@ -1,45 +1,47 @@
 # -*- coding: utf-8 -*-
-from openerp.osv import fields, osv
-from openerp.http import request
+from openerp import models, fields, api
 
-class timelog_config_settings(osv.osv_memory):
+
+class TimelogConfigSettings(models.TransientModel):
     _name = 'timelog.config.settings'
     _inherit = 'res.config.settings'
 
-    _columns = {
-        'time_subtasks': fields.float('Install completion time',
-            help="""Set the time for timer subtasks"""),
-        'time_warning_subtasks': fields.float('Install warning time',
-            help="""Set the warning time for timer subtasks"""),
+    time_subtasks = fields.Float(string='Set completion time', help="""Set the time when the timer should stop""")
+    time_warning_subtasks = fields.Float(string='Set warning time', help="""Set the time for how long the timer should warn that it will be stopped""")
+    normal_time_day = fields.Float(string='Set normal time', help="""Setting time standards provided throughout the day""")
+    good_time_day = fields.Float(string='Set good time', help="""Set in excess of the time allowed for the day""")
+    normal_time_week = fields.Float(string='Set normal time', help="""Setting time standards provided throughout the week""")
+    good_time_week = fields.Float(string='Set good time', help="""Set in excess of the time allowed for the week""")
 
-        'normal_time_day': fields.float('Install normal time',
-            help="""Set the normal time for timer day"""),
-        'good_time_day': fields.float('Install good time',
-            help="""Set the good time for timer day"""),
+    @api.multi
+    def set_custom_parameters(self):
+        config_parameters = self.env['ir.config_parameter']
+        for record in self:
+            config_parameters.set_param(key="project_timelog.time_subtasks", value=record.time_subtasks)
+            config_parameters.set_param(key="project_timelog.time_warning_subtasks", value=record.time_warning_subtasks)
+            config_parameters.set_param(key="project_timelog.normal_time_day", value=record.normal_time_day)
+            config_parameters.set_param(key="project_timelog.good_time_day", value=record.good_time_day)
+            config_parameters.set_param(key="project_timelog.normal_time_week", value=record.normal_time_week)
+            config_parameters.set_param(key="project_timelog.good_time_week", value=record.good_time_week)
 
-        'normal_time_week': fields.float('Install normal time',
-            help="""Set the normal time for timer weel"""),
-        'good_time_week': fields.float('Install good time',
-            help="""Set the good time for timer week"""),
-    }
-
-    def set_custom_parameters(self, cr, uid, ids, context=None):
-        config_parameters = self.pool.get("ir.config_parameter")
-        for record in self.browse(cr, uid, ids, context=context):
-            config_parameters.set_param(cr, uid, "project_timelog.time_subtasks", record.time_subtasks, context=context)
-            config_parameters.set_param(cr, uid, "project_timelog.time_warning_subtasks", record.time_warning_subtasks, context=context)
-            config_parameters.set_param(cr, uid, "project_timelog.normal_time_day", record.normal_time_day, context=context)
-            config_parameters.set_param(cr, uid, "project_timelog.good_time_day", record.good_time_day, context=context)
-            config_parameters.set_param(cr, uid, "project_timelog.normal_time_week", record.normal_time_week, context=context)
-            config_parameters.set_param(cr, uid, "project_timelog.good_time_week", record.good_time_week, context=context)
-
-    def get_default_custom_parameters(self, cr, uid, ids, context=None):
-        icp = self.pool.get('ir.config_parameter')
+    @api.multi
+    def get_default_custom_parameters(self, fields=None):
+        icp = self.env['ir.config_parameter']
         return {
-            'time_subtasks': icp.get_param(cr, uid, 'project_timelog.time_subtasks', default=2, context=context),
-            'time_warning_subtasks': icp.get_param(cr, uid, 'project_timelog.time_warning_subtasks', default=0.33, context=context),
-            'normal_time_day': icp.get_param(cr, uid, 'project_timelog.normal_time_day', default=5, context=context),
-            'good_time_day': icp.get_param(cr, uid, 'project_timelog.good_time_day', default=6, context=context),
-            'normal_time_week': icp.get_param(cr, uid, 'project_timelog.normal_time_week', default=30, context=context),
-            'good_time_week': icp.get_param(cr, uid, 'project_timelog.good_time_week', default=40, context=context),
+            'time_subtasks': icp.get_param('project_timelog.time_subtasks'),
+            'time_warning_subtasks': icp.get_param('project_timelog.time_warning_subtasks'),
+            'normal_time_day': icp.get_param('project_timelog.normal_time_day'),
+            'good_time_day': icp.get_param('project_timelog.good_time_day'),
+            'normal_time_week': icp.get_param('project_timelog.normal_time_week'),
+            'good_time_week': icp.get_param('project_timelog.good_time_week'),
         }
+
+    @api.model
+    def init_timer_parametrs(self):
+        icp = self.env["ir.config_parameter"]
+        icp.set_param(key="project_timelog.time_subtasks", value=2)
+        icp.set_param(key="project_timelog.time_warning_subtasks", value=0.33)
+        icp.set_param(key="project_timelog.normal_time_day", value=5)
+        icp.set_param(key="project_timelog.good_time_day", value=6)
+        icp.set_param(key="project_timelog.normal_time_week", value=30)
+        icp.set_param(key="project_timelog.good_time_week", value=40)

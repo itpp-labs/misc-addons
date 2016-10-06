@@ -1,57 +1,77 @@
 # -*- coding: utf-8 -*-
 import datetime
-import time
-from openerp import models, fields, api, SUPERUSER_ID
-from openerp.exceptions import Warning
-from openerp import http
+from openerp import models, fields, api
+from openerp.exceptions import Warning as UserError
+from openerp.tools.translate import _
 
 
-class ProjectTimeLog(models.Model):
+class ProjectTimelog(models.Model):
     _name = "project.timelog"
     _description = "project timelog"
+    _rec_name = 'work_id'
 
-    work_id = fields.Many2one("project.task.work", "Task", required=True)
+    work_id = fields.Many2one("project.task.work", "Task", required=True, index=True)
     task_name = fields.Char(related='work_id.task_id.name', store=True)
     project_name = fields.Char(related='work_id.task_id.project_id.name', store=True)
     start_datetime = fields.Datetime(string="Start date", default=datetime.datetime.now())
     end_datetime = fields.Datetime(string="End date")
     duration = fields.Float(string="Duration", compute="_compute_duration", store=True)
-    user_id = fields.Many2one("res.users", string="User name")
+    corrected_duration = fields.Float(string="Corrected duration", compute="_compute_corrected_duration", store=True)
+    user_id = fields.Many2one("res.users", string="User name", index=True)
     stage_id = fields.Many2one("project.task.type", string="Stage")
+    time_correction = fields.Float(default=0.00)
 
     @api.multi
-    def sum_time(self, timelog):
-        sum_time = datetime.timedelta(0)
-        if timelog[-1].end_datetime is False:
-            time_now = datetime.datetime.now()
-            sum_time = sum_time + (time_now - datetime.datetime.strptime(timelog[-1].start_datetime, "%Y-%m-%d %H:%M:%S"))
-            timelog = timelog[:-1]
-        for e in timelog:
-            date_start_object = datetime.datetime.strptime(e.start_datetime, "%Y-%m-%d %H:%M:%S")
-            date_end_object = datetime.datetime.strptime(e.end_datetime, "%Y-%m-%d %H:%M:%S")
-            sum_time = sum_time + (date_end_object-date_start_object)
-        return int(round(sum_time.total_seconds(),0))
-
-    @api.one
     @api.depends("start_datetime", "end_datetime")
     def _compute_duration(self):
-        if self.end_datetime is False:
-            self.duration = False
-        else:
-            if type(self.start_datetime) is str:
-                start_datetime  = datetime.datetime.strptime(self.start_datetime, "%Y-%m-%d %H:%M:%S")
+        for r in self:
+            if r.end_datetime is False:
+                r.duration = False
             else:
-                start_datetime  = self.start_datetime
+                if type(r.start_datetime) is str:
+                    start_datetime = datetime.datetime.strptime(r.start_datetime, "%Y-%m-%d %H:%M:%S")
+                else:
+                    start_datetime = r.start_datetime
 
-            if type(self.end_datetime) is str:
-                end_datetime = datetime.datetime.strptime(self.end_datetime, "%Y-%m-%d %H:%M:%S")
+                if type(r.end_datetime) is str:
+                    end_datetime = datetime.datetime.strptime(r.end_datetime, "%Y-%m-%d %H:%M:%S")
+                else:
+                    end_datetime = r.end_datetime
+
+                resultat = end_datetime - start_datetime
+                r.duration = round(int(round(resultat.total_seconds(), 0))/3600.0, 3)
+
+    @api.multi
+    @api.depends("start_datetime", "end_datetime", "time_correction")
+    def _compute_corrected_duration(self):
+        for r in self:
+            if r.end_datetime is False:
+                r.duration = False
             else:
-                end_datetime = self.end_datetime
+                if type(r.start_datetime) is str:
+                    start_datetime = datetime.datetime.strptime(r.start_datetime, "%Y-%m-%d %H:%M:%S")
+                else:
+                    start_datetime = r.start_datetime
 
-            resultat = end_datetime - start_datetime
-            self.duration = round(int(round(resultat.total_seconds(),0))/3600.0,3)
+                if type(r.end_datetime) is str:
+                    end_datetime = datetime.datetime.strptime(r.end_datetime, "%Y-%m-%d %H:%M:%S")
+                else:
+                    end_datetime = r.end_datetime
 
-class task(models.Model):
+                resultat = end_datetime - start_datetime
+                r.corrected_duration = round(int(round(resultat.total_seconds(), 0))/3600.0, 3) + r.time_correction
+
+    @api.multi
+    def write(self, vals):
+        if 'time_correction' in vals:
+            user = self.env.user
+            if not user.has_group('project.group_project_manager'):
+                if vals['time_correction'] > 0.00:
+                    raise UserError(_('Only manager can enter positive time.'))
+        return super(ProjectTimelog, self).write(vals)
+
+
+class Task(models.Model):
     _inherit = ["project.task"]
     datetime_stopline = fields.Datetime(string="Stopline", select=True, track_visibility='onchange', copy=False)
     _track = {
@@ -60,65 +80,177 @@ class task(models.Model):
         },
     }
 
-    def stopline_timer(self, cr, uid, context=None):
-        task_obj = self.pool.get("project.task")
-        user_rec = self.pool["res.users"].browse(cr, uid, uid, context=context)
-        task = self.pool.get("project.task").browse(cr, uid, user_rec.active_task_id, context=context)
-        if task.datetime_stopline is False:
+    @api.model
+    def stopline_timer(self):
+        user = self.env["res.users"].search([])
+        for u in user:
+            task = self.env["project.task"].search([('id', '=', u.active_task_id.id)])
+            if task.datetime_stopline is False:
+                return False
+            stopline_date = datetime.datetime.strptime(task.datetime_stopline, "%Y-%m-%d %H:%M:%S")
+            if stopline_date <= datetime.datetime.now():
+                self.env["project.task.work"].search([('id', '=', u.active_work_id.id)]).stop_timer(client_status=False, stopline=True)
+            else:
+                warning_time = stopline_date - datetime.timedelta(minutes=20)
+                notifications = []
+                time = {
+                    'year': warning_time.year,
+                    'month': warning_time.month,
+                    'day': warning_time.day,
+                    'minute': warning_time.minute,
+                }
+                message = {"status": "stopline", "time": time}
+                channel = '["%s","%s","%s"]' % (self._cr.dbname, "project.timelog", u.id)
+                notifications.append([channel, message])
+                self.env["bus.bus"].sendmany(notifications)
+                return True
+
+    @api.multi
+    def set_stage_timer(self):
+        work = self.work_ids.search([("status", "=", "play")])
+        if len(work) == 0:
             return False
-        today = datetime.datetime.now()
-        stopline_date = datetime.datetime.strptime(task.datetime_stopline, "%Y-%m-%d %H:%M:%S")
-        if stopline_date<=today:
-            work = self.pool["project.task.work"].browse(cr, uid, user_rec.active_work_id, context=context)
-            work.stop_timer(client_status = False, stopline=True) # time limited, call stop function
-        else:
-            warning_time = stopline_date - datetime.timedelta(minutes=20)
+        for e in work:
+            if self.stage_id == e.stage_id:
+                return False
+
+            # stop current timer
+            last_log = e.timelog_ids[-1]
+            e.write({'status': 'stop'})
+            e.user_id.write({"timer_status": False})
+            last_log.write({
+                "end_datetime": datetime.datetime.now(),
+            })
+
             notifications = []
-            time = {
-                'year': warning_time.year,
-                'month': warning_time.month,
-                'day': warning_time.day,
-                'minute': warning_time.minute,
+            message = {"status": "stop", "active_work_id": e.id, "active_task_id": self.id, "client_status": True, "stopline": False}
+            channel = '["%s","%s","%s"]' % (self._cr.dbname, "project.timelog", e.user_id.id)
+            notifications.append([channel, message])
+            self.env["bus.bus"].sendmany(notifications)
+
+            sum_timelog = e.hours
+            for d in last_log[-1]:
+                sum_timelog = sum_timelog + d.corrected_duration
+            value = {
+                "hours": float(sum_timelog),
             }
-            message = {"status": "stopline", "time": time}
-            notifications.append([(cr.dbname, "project.timelog", user_rec.id), message])
-            self.pool["bus.bus"].sendmany(cr, uid, notifications)
-            # не отправляется сообщение через bus, перепроверить
-            return True
+
+            self.env["project.task.work"].search([("id", "=", e.id)]).write(value)
+
+            # if not allow log time for stage
+            if self.stage_id.allow_log_time is False:
+                return False
+
+            # if subtask is existing then play this subtask timer
+            new_work = {}
+            existing_timer = self.work_ids.search([("name", "=", e.name), ("stage_id", "=", self.stage_id.id)])
+            if len(existing_timer) > 0:
+                new_work = existing_timer
+            else:
+                # create new subtask
+                vals = {
+                    'name': e.name,
+                    'task_id': e.task_id.id,
+                    'hours': 0.0,
+                    'user_id': e.user_id.id,
+                    'company_id': e.company_id.id,
+                }
+                new_work = self.env["project.task.work"].create(vals)
+
+            new_work.write({'status': 'play'})
+
+            # record data for current user (last active timer)
+            new_work.user_id.write({
+                "active_work_id": new_work.id,
+                "active_task_id": new_work.task_id.id,
+                "timer_status": True,
+            })
+
+            # create new timelog for current work
+            last_timelog = self.env['project.timelog'].create({
+                "work_id": new_work.id,
+                "user_id": new_work.user_id.id,
+                "start_datetime": datetime.datetime.now(),
+                "stage_id": self.stage_id.id,
+            })
+
+            notifications = []
+            message = {"status": "play", "active_work_id": new_work.id, "active_task_id": new_work.task_id.id, "timelog_id": last_timelog.id}
+            channel = '["%s","%s","%s"]' % (self._cr.dbname, "project.timelog", new_work.user_id.id)
+            notifications.append([channel, message])
+            self.env["bus.bus"].sendmany(notifications)
+
+        return {
+            'name': 'Reload page',
+            'view_mode': 'tree',
+            'view_type': 'form',
+            'res_model': 'project.task',
+            'type': 'ir.actions.act_window',
+        }
+
 
 class Users(models.Model):
     _inherit = ["res.users"]
 
-    active_work_id = fields.Integer(default=0)
-    active_task_id = fields.Integer(default=0)
+    active_work_id = fields.Many2one("project.task.work", "Work", default=None)
+    active_task_id = fields.Many2one("project.task", "Task", default=None)
     timer_status = fields.Boolean(default=False)
 
-class project_task_type(models.Model):
+
+class ProjectTaskType(models.Model):
     _inherit = ["project.task.type"]
 
     allow_log_time = fields.Boolean(default=True)
 
 
-class project_work(models.Model):
+class ProjectWork(models.Model):
     _inherit = ["project.task.work"]
     stage_id = fields.Many2one("project.task.type", "Stage")
     _sql_constraints = [
         ('name_task_uniq', 'unique (name,stage_id,task_id)', 'The name of the subtask must be unique per stage!')
     ]
+    hours = fields.Float(string='Time Spent', compute="_compute_hours", default=0)
     timelog_ids = fields.One2many("project.timelog", "work_id", "Timelog")
     status = fields.Char(string="Status", default="active")
-    # task_stage = fields.Many2one(related='task_id.stage_id')
     task_allow_logs = fields.Boolean(related='task_id.stage_id.allow_log_time', store=True, default=True)
+    user_current = fields.Boolean(compute="_compute_user_current", default=True)
 
-    def create(self, cr, uid, vals, context=None):
-        task = self.pool.get('project.task').browse(cr, uid, vals.get('task_id'), context=context)
+    @api.multi
+    def _compute_user_current(self):
+        for r in self:
+            if r.user_id.id == r.env.user.id:
+                r.user_current = True
+            else:
+                r.user_current = False
+
+    @api.multi
+    @api.depends("timelog_ids.end_datetime", "timelog_ids.time_correction")
+    def _compute_hours(self):
+        for r in self:
+            if not r.timelog_ids:
+                return False
+            sum_timelog = 0.00
+            timelog = r.env.user.active_work_id.timelog_ids
+            if not timelog:
+                return False
+            if timelog[-1].end_datetime is False:
+                timelog = timelog[:-1]
+            for e in timelog:
+                sum_timelog = sum_timelog + e.corrected_duration
+            r.hours = float(sum_timelog)
+
+    @api.model
+    def create(self, vals):
+        task = self.env['project.task'].browse(vals.get('task_id'))
         vals['stage_id'] = task.stage_id.id
+        vals['user_id'] = self.env.user.id
+        vals['hours'] = 0.00
         if 'hours' in vals and (not vals['hours']):
             vals['hours'] = 0.00
         if 'task_id' in vals:
-            cr.execute('update project_task set remaining_hours=remaining_hours - %s where id=%s', (vals.get('hours',0.0), vals['task_id']))
-            self.pool.get('project.task').invalidate_cache(cr, uid, ['remaining_hours'], [vals['task_id']], context=context)
-        return super(project_work,self).create(cr, uid, vals, context=context)
+            self._cr.execute('update project_task set remaining_hours=remaining_hours - %s where id=%s', (vals.get('hours', 0.0), vals['task_id']))
+            self.env['project.task'].invalidate_cache(['remaining_hours'], [vals['task_id']])
+        return super(ProjectWork, self).create(vals)
 
     @api.multi
     def play_timer(self):
@@ -128,9 +260,9 @@ class project_work(models.Model):
                 'tag': 'action_warn',
                 'name': 'Warning',
                 'params': {
-                   'title': 'Warning!',
-                   'text': 'Current user is not match user with solved task.',
-                   'sticky': True
+                    'title': 'Warning!',
+                    'text': 'Current user is not match user with solved task.',
+                    'sticky': True
                 }
             }
 
@@ -140,29 +272,22 @@ class project_work(models.Model):
                 'tag': 'action_warn',
                 'name': 'Warning',
                 'params': {
-                   'title': 'Error!',
-                   'text': 'Please, stop previous timer.',
-                   'sticky': False
+                    'title': 'Error!',
+                    'text': 'Please, stop previous timer.',
+                    'sticky': False
                 }
             }
-            ''' last_timelog = self.env["project.timelog"].search([("work_id", "=", self.env.user.active_work_id)])[-1]
-            last_timelog.write({
-                "end_datetime": datetime.datetime.now(),
-            })
-            self.env["project.task.work"].search([("id", "=", self.env.user.active_work_id)]).write({
-                'status':'stop',
-            })'''
-        project_task = self.env["project.task"].search([("id", "=", self.task_id.id)])
-        if len(project_task)>0:
+        project_task = self.task_id
+        if project_task:
             if project_task.stage_id.allow_log_time is False:
                 return {
                     'type': 'ir.actions.client',
                     'tag': 'action_warn',
                     'name': 'Warning',
                     'params': {
-                       'title': 'Error!',
-                       'text': 'In the current state of the task can not be created timelogs.',
-                       'sticky': True
+                        'title': 'Error!',
+                        'text': 'In the current state of the task can not be created timelogs.',
+                        'sticky': True
                     }
                 }
 
@@ -179,35 +304,35 @@ class project_work(models.Model):
             }
         datetime_stopline = project_task.datetime_stopline
         if datetime_stopline is not False and self.task_id.id == self.env.user.active_task_id:
-            stopline_date = datetime.datetime.strptime(task.datetime_stopline, "%Y-%m-%d %H:%M:%S")
-            if stopline_date<=datetime.datetime.now():
+            stopline_date = datetime.datetime.strptime(datetime_stopline, "%Y-%m-%d %H:%M:%S")
+            if stopline_date <= datetime.datetime.now():
                 return {
                     'type': 'ir.actions.client',
                     'tag': 'action_warn',
                     'name': 'Warning',
                     'params': {
-                       'title': 'Error!',
-                       'text': 'Unable to create logs until it is modified or deleted stopline.',
-                       'sticky': True
+                        'title': 'Error!',
+                        'text': 'Unable to create logs until it is modified or deleted stopline.',
+                        'sticky': True
                     }
                 }
         stage = project_task.stage_id.id
-        duration = self.env["project.timelog"].search([("work_id", "=", self.id), ("user_id", "=", self.env.user.id)])
+        corrected_duration = self.env["project.timelog"].search([("work_id", "=", self.id), ("user_id", "=", self.env.user.id)])
         config = self.env["ir.config_parameter"].get_param("project_timelog.time_subtasks")
 
         sum_timelog = 0.0
-        if len(duration)>0 and len(config)>0:
-            for e in duration:
-                sum_timelog = sum_timelog + round(e.duration,3)
-            if sum_timelog >= round(float(config),3):
+        if corrected_duration and config:
+            for e in corrected_duration:
+                sum_timelog = sum_timelog + round(e.corrected_duration, 3)
+            if sum_timelog >= round(float(config), 3):
                 return False
 
-        current_user = self.env["res.users"].search([("id", "=", self.user_id.id)])
+        current_user = self.user_id
         current_date = datetime.datetime.now()
 
         first_timelog = self.env["project.timelog"].search([("work_id", "=", self.id)])
 
-        if len(first_timelog)>0 and first_timelog[0].end_datetime is not False:
+        if first_timelog and first_timelog[0].end_datetime is not False:
             date_object = datetime.datetime.strptime(first_timelog[0].end_datetime, "%Y-%m-%d %H:%M:%S")
             if date_object is not False and date_object.day != current_date.day:
                 # there are timelogs yesterday
@@ -216,13 +341,13 @@ class project_work(models.Model):
                     'tag': 'action_warn',
                     'name': 'Warning',
                     'params': {
-                       'title': 'Error!',
-                       'text': "Yesterday's timelogs.",
-                       'sticky': False
+                        'title': 'Error!',
+                        'text': "Yesterday's timelogs.",
+                        'sticky': False
                     }
                 }
 
-        self.write({'status':'play'})
+        self.write({'status': 'play'})
 
         # record data for current user (last active timer)
         current_user.write({
@@ -241,11 +366,12 @@ class project_work(models.Model):
 
         notifications = []
         message = {"status": "play", "active_work_id": self.id, "active_task_id": self.task_id.id, "timelog_id": last_timelog.id}
-        notifications.append([(self._cr.dbname, "project.timelog", self.env.user.id), message])
+        channel = '["%s","%s","%s"]' % (self._cr.dbname, "project.timelog", self.env.user.id)
+        notifications.append([channel, message])
         self.env["bus.bus"].sendmany(notifications)
 
     @api.multi
-    def stop_timer(self, status = False, client_status = True, stopline=False):
+    def stop_timer(self, status=False, client_status=True, stopline=False):
         if self.env.user.id != self.user_id.id:
             # current user is not match user with solved task
             return {
@@ -253,13 +379,13 @@ class project_work(models.Model):
                 'tag': 'action_warn',
                 'name': 'Warning',
                 'params': {
-                   'title': 'Warning!',
-                   'text': 'Current user is not match user with solved task.',
-                   'sticky': True
+                    'title': 'Warning!',
+                    'text': 'Current user is not match user with solved task.',
+                    'sticky': True
                 }
             }
 
-        timelog = self.env["project.timelog"].search([("work_id", "=", self.id), ("user_id", "=", self.env.user.id)])
+        timelog = self.env.user.active_work_id.timelog_ids
 
         if timelog[-1].end_datetime is not False:
             return {
@@ -267,16 +393,16 @@ class project_work(models.Model):
                 'tag': 'action_warn',
                 'name': 'Warning',
                 'params': {
-                   'title': 'Warning!',
-                   'text': 'The timer already has stopped.',
-                   'sticky': False
+                    'title': 'Warning!',
+                    'text': 'The timer already has stopped.',
+                    'sticky': False
                 }
             }
 
         if status is True:
-            self.write({'status':'nonactive'})
+            self.write({'status': 'nonactive'})
         else:
-            self.write({'status':'stop'})
+            self.write({'status': 'stop'})
 
         # last timelog in current work
         last_timelog_id = timelog[-1].id
@@ -288,70 +414,44 @@ class project_work(models.Model):
 
         notifications = []
         message = {"status": "stop", "active_work_id": self.id, "active_task_id": self.task_id.id, "client_status": client_status, "stopline": stopline}
-        notifications.append([(self._cr.dbname, "project.timelog", self.env.user.id), message])
+        channel = '["%s","%s","%s"]' % (self._cr.dbname, "project.timelog", self.env.user.id)
+        notifications.append([channel, message])
         self.env["bus.bus"].sendmany(notifications)
 
-        self.env["res.users"].search([("id", "=", self.user_id.id)]).write({"timer_status": False})
-
-        sum_timelog = 0.0
-        for e in timelog:
-            sum_timelog = sum_timelog + e.duration
+        self.user_id.write({"timer_status": False})
 
         if len(timelog) == 1:
-            value = {
-                "date": timelog[0].end_datetime,
-                "hours": float(sum_timelog),
-            }
-        else:
-            value = {
-                "hours": float(sum_timelog),
-            }
-
-        self.env["project.task.work"].search([("id", "=", self.id)]).write(value)
+            self.write({"date": timelog[0].end_datetime})
 
     # This function is called every day for 00:00:00 hours
-    def subtask_new_status(self, cr, uid, context=None):
-        status_obj = self.pool.get("project.task.work")
-        status_ids = self.pool.get("project.task.work").search(cr, uid, [])
-        for id in status_ids:
-            res = status_obj.browse(cr, uid, id ,context=context)
-            if str(res.status) != "nonactive":
-                res.write({"status": "nonactive"})
+    @api.model
+    def subtask_new_status(self):
+        status = self.env["project.task.work"].search([('status', '!=', 'nonactive')])
+        for e in status:
+            e.write({"status": "nonactive"})
         return True
 
-class im_chat_presence(models.Model):
+
+class ImChatPresence(models.Model):
     _inherit = ["im_chat.presence"]
 
     # This function is called every 5 minut
-    def offline_stop_timer(self, cr, uid, context=None):
-        status_obj = self.pool.get("im_chat.presence")
-        status_ids = self.pool.get("im_chat.presence").search(cr, uid, [])
-
-        task_obj = self.pool["project.task.work"]
-        user_rec = self.pool["res.users"].browse(cr, uid, uid ,context=context)
-        for id in status_ids:
-            res = status_obj.browse(cr, uid, id ,context=context)
-
-            #  if user offline - call stop timer
-            if str(res.status) == "offline":
-                task_obj.browse(cr, uid, user_rec.active_work_id ,context=context).stop_timer(client_status = False)
-
-            all_timelog_obj = self.pool["project.timelog"]
-            all_timelog_ids =  self.pool["project.timelog"].search(cr, uid, [("work_id", "=", user_rec.active_work_id)])
-            last_timelog_obj = all_timelog_obj.browse(cr, uid, all_timelog_ids[-1] ,context=context)
+    @api.model
+    def offline_stop_timer(self):
+        status = self.env["im_chat.presence"].search([('status', '=', 'offline')])
+        for e in status:
+            task = self.env["project.task.work"].search([("user_id", "=", e.user_id.id)])
+            task.stop_timer(client_status=False)
+        user = self.env["res.users"].search([])
+        time_subtask = int(round(float(self.env["ir.config_parameter"].get_param('project_timelog.time_subtasks'))*3600, 0))
+        for u in user:
+            all_timelog = self.env["project.timelog"].search([("work_id", "=", u.active_work_id.id)])
             sum_time = datetime.timedelta(0)
-
-            #  if time a subtask >= all time for log then call stop timer
-            if last_timelog_obj.end_datetime is False: # pressed button "play"
-                time_now = datetime.datetime.now()
-                sum_time = sum_time + (time_now - datetime.datetime.strptime(last_timelog_obj.start_datetime, "%Y-%m-%d %H:%M:%S"))
-                for id in all_timelog_ids[:-1]:
-                    timelog_obj = all_timelog_obj.browse(cr, uid, id ,context=context)
-                    date_start_object = datetime.datetime.strptime(timelog_obj.start_datetime, "%Y-%m-%d %H:%M:%S")
-                    date_end_object = datetime.datetime.strptime(timelog_obj.end_datetime, "%Y-%m-%d %H:%M:%S")
-                    sum_time = sum_time + (date_end_object-date_start_object)
-                sum_time = int(round(sum_time.total_seconds(),0))
-                time_subtask = int(round(float(self.pool("ir.config_parameter").get_param(cr, uid, 'project_timelog.time_subtasks', context=context))*3600, 0))
-                if sum_time >=time_subtask:
-                    task_obj.browse(cr, uid, user_rec.active_work_id ,context=context).stop_timer(client_status = False)
+            for id in all_timelog:
+                date_start_object = datetime.datetime.strptime(id.start_datetime, "%Y-%m-%d %H:%M:%S")
+                date_end_object = id.end_datetime and datetime.datetime.strptime(id.end_datetime, "%Y-%m-%d %H:%M:%S") or datetime.datetime.now()
+                sum_time = sum_time + (date_end_object-date_start_object)
+            sum_time = int(round(sum_time.total_seconds(), 0))
+            if sum_time >= time_subtask:
+                self.env["project.task.work"].search([("user_id", "=", u.id)]).stop_timer(client_status=False)
         return True
