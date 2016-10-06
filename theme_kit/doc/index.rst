@@ -26,3 +26,38 @@ To temporarly undo Color Scheme (e. g. if you have applied non-contrast backgrou
 
     $('#custom_css').remove()
 
+Examples of the use of custom JS and Less
+
+* JS::
+
+    $(document).ready(function(){
+        var ribbon = $('<div class="test-ribbon"/>');
+        $('body').append(ribbon);
+        ribbon.html("Demo");
+    })
+
+* css::
+
+    .test-ribbon{
+        width: 200px;
+        top: 25px;
+        left: -50px;
+        text-align: center;
+        line-height: 50px;
+        letter-spacing: 1px;
+        color: darken(#f0f0f0, 5%);
+        -webkit-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+        z-index: 9999;
+        position: fixed;
+        box-shadow: 0 0 3px rgba(0,0,0,.3);
+        background: rgba(255,0,0,.6);
+        pointer-events: none;
+    }
+
+    .test-ribbon b {
+        font-size: 20px;
+    }

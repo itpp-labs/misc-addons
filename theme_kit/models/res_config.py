@@ -38,7 +38,7 @@ class Config(models.TransientModel):
 * CompanyName's Operation System
 * etc.
     ''')
-    company_logo = fields.Binary('Company Logo')
+    company_logo = fields.Binary('Company Logo', help="Due to browser cache, old logo may be still shown. To fix that, clear browser cache")
 
     wallpapers_count = fields.Integer('Wallpapers', readonly=True)
 
