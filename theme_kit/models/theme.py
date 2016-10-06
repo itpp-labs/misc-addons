@@ -27,8 +27,16 @@ class Theme(models.Model):
             if r.custom_css:
                 code = code + r.custom_css
             if code:
-                compiled = self.generate_less2css(code)
-                r.code = compiled
+                code = self.generate_less2css(code)
+            if r.custom_js:
+                js_code = r.custom_js
+                js_code = 'try {'+ js_code + '''
+                    } catch (err) {
+                      console.log('Error' + err.name + ":" + err.message + ". " + err.stack);
+                      alert('Error' + err.name + ":" + err.message + ". " + err.stack);
+                    }'''
+                code = code + '''<script type="text/javascript" id="custom_js">''' + js_code + '''</script>'''
+                r.code = code
             else:
                 r.code = code
 
@@ -89,7 +97,7 @@ class ThemeTopPanel(models.Model):
                     border-color: {theme.top_panel_border};
                 }}
                 .openerp .oe-control-panel {{
-                    border-bottom-color: {theme.left_panel_bg}!important;
+                    border-bottom-color: {theme.top_panel_border}!important;
                 }}
                 '''
             if self.top_panel_font_active:
