@@ -61,10 +61,10 @@ class ProjectTimelog(models.Model):
                 resultat = end_datetime - start_datetime
                 r.corrected_duration = round(int(round(resultat.total_seconds(), 0))/3600.0, 3) + r.time_correction
 
-    @api.model
+    @api.multi
     def write(self, vals):
         if 'time_correction' in vals:
-            user = self.env['res.users'].browse(self.env.user.id)
+            user = self.env.user
             if not user.has_group('project.group_project_manager'):
                 if vals['time_correction'] > 0.00:
                     raise UserError(_('Only manager can enter positive time.'))
