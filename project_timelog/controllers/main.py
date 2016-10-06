@@ -60,8 +60,6 @@ class TimelogController(http.Controller):
             if play_status:
                 task_timer = task_timer + play_status_time
 
-
-
         # 3. All the time for today 3.
         day_timer = 0
         timelog_today = timelog_obj.search([("user_id", "=", http.request.env.user.id), ("start_datetime", ">=", datetime.datetime.now().strftime('%Y-%m-%d 00:00:00')), ("start_datetime", "<=", datetime.datetime.now().strftime('%Y-%m-%d 23:59:59'))])

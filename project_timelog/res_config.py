@@ -34,6 +34,29 @@ class TimelogConfigSettings(models.TransientModel):
             'good_time_week': icp.get_param(cr, uid, 'project_timelog.good_time_week', context=context),
         }
 
+    # @api.model
+    # def set_custom_parameters(self):
+    #     config_parameters = self.env['ir.config_parameter']
+    #     for record in self.browse():
+    #         config_parameters.set_param(key="project_timelog.time_subtasks", value=record.time_subtasks)
+    #         config_parameters.set_param(key="project_timelog.time_warning_subtasks", value=record.time_warning_subtasks)
+    #         config_parameters.set_param(key="project_timelog.normal_time_day", value=record.normal_time_day)
+    #         config_parameters.set_param(key="project_timelog.good_time_day", value=record.good_time_day)
+    #         config_parameters.set_param(key="project_timelog.normal_time_week", value=record.normal_time_week)
+    #         config_parameters.set_param(key="project_timelog.good_time_week", value=record.good_time_week)
+    #
+    # @api.model
+    # def get_default_custom_parameters(self):
+    #     icp = self.env['ir.config_parameter']
+    #     return {
+    #         'time_subtasks': icp.get_param('project_timelog.time_subtasks'),
+    #         'time_warning_subtasks': icp.get_param('project_timelog.time_warning_subtasks'),
+    #         'normal_time_day': icp.get_param('project_timelog.normal_time_day'),
+    #         'good_time_day': icp.get_param('project_timelog.good_time_day'),
+    #         'normal_time_week': icp.get_param('project_timelog.normal_time_week'),
+    #         'good_time_week': icp.get_param('project_timelog.good_time_week'),
+    #     }
+
     @api.model
     def init_timer_parametrs(self):
         icp = self.env["ir.config_parameter"]

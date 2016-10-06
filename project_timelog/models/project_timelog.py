@@ -61,13 +61,14 @@ class ProjectTimelog(models.Model):
                 resultat = end_datetime - start_datetime
                 r.corrected_duration = round(int(round(resultat.total_seconds(), 0))/3600.0, 3) + r.time_correction
 
-    def write(self, cr, uid, ids, vals, context=None):
+    @api.model
+    def write(self, vals):
         if 'time_correction' in vals:
-            user = self.pool.get('res.users').browse(cr, uid, uid, context=context)
+            user = self.env['res.users'].browse(self.env.user.id)
             if not user.has_group('project.group_project_manager'):
                 if vals['time_correction'] > 0.00:
                     raise UserError(_('Only manager can enter positive time.'))
-        return super(ProjectTimelog, self).write(cr, uid, ids, vals, context)
+        return super(ProjectTimelog, self).write(vals)
 
 
 class Task(models.Model):
@@ -238,17 +239,18 @@ class ProjectWork(models.Model):
                 sum_timelog = sum_timelog + e.corrected_duration
             r.hours = float(sum_timelog)
 
-    def create(self, cr, uid, vals, context=None):
-        task = self.pool.get('project.task').browse(cr, uid, vals.get('task_id'), context=context)
+    @api.model
+    def create(self, vals):
+        task = self.env['project.task'].browse(vals.get('task_id'))
         vals['stage_id'] = task.stage_id.id
-        vals['user_id'] = uid
+        vals['user_id'] = self.env.user.id
         vals['hours'] = 0.00
         if 'hours' in vals and (not vals['hours']):
             vals['hours'] = 0.00
         if 'task_id' in vals:
-            cr.execute('update project_task set remaining_hours=remaining_hours - %s where id=%s', (vals.get('hours', 0.0), vals['task_id']))
-            self.pool.get('project.task').invalidate_cache(cr, uid, ['remaining_hours'], [vals['task_id']], context=context)
-        return super(ProjectWork, self).create(cr, uid, vals, context=context)
+            self._cr.execute('update project_task set remaining_hours=remaining_hours - %s where id=%s', (vals.get('hours', 0.0), vals['task_id']))
+            self.env['project.task'].invalidate_cache(['remaining_hours'], [vals['task_id']])
+        return super(ProjectWork, self).create(vals)
 
     @api.multi
     def play_timer(self):
