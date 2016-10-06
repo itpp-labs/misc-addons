@@ -30,7 +30,7 @@ class Theme(models.Model):
                 code = self.generate_less2css(code)
             if r.custom_js:
                 js_code = r.custom_js
-                js_code = 'try {'+ js_code + '''
+                js_code = 'try {' + js_code + '''
                     } catch (err) {
                       console.log('Error' + err.name + ":" + err.message + ". " + err.stack);
                       alert('Error' + err.name + ":" + err.message + ". " + err.stack);
