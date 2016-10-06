@@ -36,9 +36,7 @@ class Theme(models.Model):
                       alert('Error' + err.name + ":" + err.message + ". " + err.stack);
                     }'''
                 code = code + '''<script type="text/javascript" id="custom_js">''' + js_code + '''</script>'''
-                r.code = code
-            else:
-                r.code = code
+            r.code = code
 
     def generate_less2css(self, code):
         bundle = AssetsBundle('theme_kit.dummy')
