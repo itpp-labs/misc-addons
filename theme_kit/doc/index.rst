@@ -28,7 +28,7 @@ To temporarly undo Color Scheme (e. g. if you have applied non-contrast backgrou
 
 Examples of the use of custom JS and Less
 
-* JS:
+* JS::
 
     $(document).ready(function(){
         var ribbon = $('<div class="test-ribbon"/>');
@@ -36,7 +36,7 @@ Examples of the use of custom JS and Less
         ribbon.html("Demo");
     })
 
-* css:
+* css::
 
     .test-ribbon{
         width: 200px;
@@ -45,7 +45,7 @@ Examples of the use of custom JS and Less
         text-align: center;
         line-height: 50px;
         letter-spacing: 1px;
-        color: #f0f0f0;
+        color: darken(#f0f0f0, 5%);
         -webkit-transform: rotate(-45deg);
         -ms-transform: rotate(-45deg);
         -moz-transform: rotate(-45deg);
