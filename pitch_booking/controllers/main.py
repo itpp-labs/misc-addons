@@ -3,7 +3,7 @@ from openerp import SUPERUSER_ID
 from openerp.http import request
 
 try:
-    from openerp.addons.website_booking_calendar.controllers.main import  WebsiteBookingCalendar as Controller
+    from openerp.addons.website_booking_calendar.controllers.main import WebsiteBookingCalendar as Controller
 except ImportError:
     class Controller(object):
         pass
