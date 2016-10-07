@@ -26,6 +26,8 @@ class PitchBookingPitch(models.Model):
 
     venue_id = fields.Many2one('pitch_booking.venue', required=True)
     resource_id = fields.Many2one('resource.resource', ondelete='cascade', required=True)
+    allowed_days_interval = fields.Integer(string='Allowed Days Interval', help='allow online bookings only on specified days from now')
+    hours_to_prepare = fields.Integer(string='Hours to prepare', help="don't allow bookings if time before the event is less than spciefied")
 
 
 class SaleOrderLine(models.Model):
