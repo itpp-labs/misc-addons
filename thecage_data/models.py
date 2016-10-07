@@ -145,6 +145,18 @@ class SaleOrderLine(models.Model):
                 phone = line.order_id.partner_id.mobile
                 self.env['sms_sg.sendandlog'].send_sms(phone, msg)
 
+            if line.order_id.partner_id.reminder_email:
+                template = self.env.ref('thecage_data.email_template_booking_reminder')
+                email_ctx = {
+                    'default_model': 'sale.order.line',
+                    'default_res_id': line.id,
+                    'default_use_template': bool(template),
+                    'default_template_id': template.id,
+                    'default_composition_mode': 'comment',
+                }
+                composer = self.env['mail.compose.message'].with_context(email_ctx).create({})
+                composer.send_mail()
+
 
 class ResPartnerReminderConfig(models.Model):
     _inherit = 'res.partner'
