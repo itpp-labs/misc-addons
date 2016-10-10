@@ -19,18 +19,24 @@
             <field name="model">pitch_booking.pitch</field>
             <field name="arch" type="xml">
                 <form string="Pitch">
+                  <sheet>
                     <group>
-                        <group>
-                            <field name="name"/>
-                            <field name="venue_id"/>
-                            <field name="color" widget="color"/>
-                        </group>
-                        <group>
-                            <field name="calendar_id"/>
-                            <field name="has_slot_calendar"/>
-                            <field name="company_id"/>
-                        </group>
+                      <group>
+                        <field name="name"/>
+                        <field name="venue_id"/>
+                        <field name="color" widget="color"/>
+                      </group>
+                      <group>
+                        <field name="calendar_id"/>
+                        <field name="has_slot_calendar"/>
+                        <field name="company_id"/>
+                      </group>
                     </group>
+                    <group string="Online Bookings">
+                      <field name="allowed_days_interval"/>
+                      <field name="hours_to_prepare"/>
+                    </group>
+                  </sheet>
                 </form>
             </field>
         </record>
@@ -51,10 +57,12 @@
             <field name="model">pitch_booking.venue</field>
             <field name="arch" type="xml">
                 <form string="Venue">
+                  <sheet>
                     <group>
-                        <field name="name"/>
-                        <field name="company_id"/>
+                      <field name="name"/>
+                      <field name="company_id"/>
                     </group>
+                  </sheet>
                 </form>
             </field>
         </record>

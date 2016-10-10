@@ -25,6 +25,8 @@ class ResourceResource(models.Model):
     to_calendar = fields.Boolean('Display on calendar')
     color = fields.Char('Color')
     has_slot_calendar = fields.Boolean('Use Working Time as Slots Definition')
+    allowed_days_interval = fields.Integer(string='Allowed Days Interval', help='allow online bookings only on specified days from now')
+    hours_to_prepare = fields.Integer(string='Hours to prepare', help="don't allow bookings if time before the event is less than spciefied")
 
 
 class ResourceCalendar(models.Model):
@@ -375,10 +377,9 @@ class SaleOrderLine(models.Model):
         return resources
 
     @api.model
-    def get_free_slots(self, start, end, offset, domain):
+    def get_free_slots(self, start, end, offset, domain, online=False):
         leave_obj = self.env['resource.calendar.leaves']
         start_dt = datetime.strptime(start, DTF) - timedelta(minutes=offset)
-        end_dt = datetime.strptime(end, DTF) - timedelta(minutes=offset)
         fixed_start_dt = start_dt
         resources = self.get_free_slots_resources(domain)
         slots = {}
@@ -386,7 +387,19 @@ class SaleOrderLine(models.Model):
         for r in resources:
             if r.id not in slots:
                 slots[r.id] = {}
+
             start_dt = fixed_start_dt
+            if online and r.hours_to_prepare:
+                days = r.hours_to_prepare / 24
+                hours = r.hours_to_prepare % 24
+                online_min_dt = now + timedelta(days=days, hours=hours)
+                start_dt = start_dt if start_dt > online_min_dt else online_min_dt
+
+            end_dt = datetime.strptime(end, DTF) - timedelta(minutes=offset)
+            if online and r.allowed_days_interval:
+                online_max_dt = now + timedelta(days=r.allowed_days_interval)
+                end_dt = end_dt if end_dt < online_max_dt else online_max_dt
+
             while start_dt < end_dt:
                 if start_dt < now:
                     start_dt += timedelta(minutes=SLOT_DURATION_MINS)

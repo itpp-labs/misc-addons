@@ -132,7 +132,7 @@ class SaleOrderLine(models.Model):
     def _cron_booking_reminder(self):
         lines = self.search([('booking_reminder', '=', False),
                              ('booking_start', '!=', False),
-                             ('booking_start', '>=', (datetime.now() - timedelta(hours=48)).strftime(DTF)),
+                             ('booking_start', '<=', (datetime.now() + timedelta(hours=48)).strftime(DTF)),
                              ])
         lines.write({'booking_reminder': True})
         for line in lines:
@@ -144,6 +144,18 @@ class SaleOrderLine(models.Model):
                 msg += 'ID %s\n' % line.order_id.name
                 phone = line.order_id.partner_id.mobile
                 self.env['sms_sg.sendandlog'].send_sms(phone, msg)
+
+            if line.order_id.partner_id.reminder_email:
+                template = self.env.ref('thecage_data.email_template_booking_reminder')
+                email_ctx = {
+                    'default_model': 'sale.order.line',
+                    'default_res_id': line.id,
+                    'default_use_template': bool(template),
+                    'default_template_id': template.id,
+                    'default_composition_mode': 'comment',
+                }
+                composer = self.env['mail.compose.message'].with_context(email_ctx).create({})
+                composer.send_mail()
 
 
 class ResPartnerReminderConfig(models.Model):
