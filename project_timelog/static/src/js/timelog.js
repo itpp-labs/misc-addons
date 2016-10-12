@@ -73,7 +73,6 @@ $(document).ready(function() {
                     } else {
                         this.widget.finish_status = false;
                         this.widget.load_timer_data();
-
                     }
                     $('#clock0').css('color','white');
                 }
