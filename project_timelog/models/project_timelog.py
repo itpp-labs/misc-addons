@@ -137,14 +137,6 @@ class Task(models.Model):
 
                 new_work.sudo(w.user_id).play_timer()
 
-            return {
-                'name': 'Reload page',
-                'view_mode': 'tree',
-                'view_type': 'form',
-                'res_model': 'project.task',
-                'type': 'ir.actions.act_window',
-            }
-
 
 class Users(models.Model):
     _inherit = ["res.users"]
