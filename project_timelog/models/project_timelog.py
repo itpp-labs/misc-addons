@@ -108,88 +108,42 @@ class Task(models.Model):
     @api.multi
     def set_stage_timer(self):
         for r in self:
-            work = r.work_ids.search([("status", "=", "play"), ("task_id", "=", r.id)])
-            if len(work) == 0:
+            works = r.work_ids.filtered(lambda x: x.status == "play")
+            if len(works) == 0:
                 return False
-            for e in work:
-                if r.stage_id == e.stage_id:
+            for w in works:
+                if r.stage_id == w.stage_id:  # stage is not changed
                     return False
-                if e.user_id.active_task_id.id is not r.id:
-                    continue
 
                 # stop current timer
-                last_log = e.timelog_ids[-1]
-                e.write({'status': 'stop'})
-                e.user_id.write({"timer_status": False})
-                last_log.write({
-                    "end_datetime": datetime.datetime.now(),
-                })
-                notifications = []
-                message = {"status": "stop", "active_work_id": e.id, "active_task_id": r.id, "client_status": True, "stopline": False, "stage": r.id}
-                channel = '["%s","%s","%s"]' % (r._cr.dbname, "project.timelog", e.user_id.id)
-                notifications.append([channel, message])
-                r.env["bus.bus"].sendmany(notifications)
-            return True
+                w.sudo(w.user_id).stop_timer()
 
-    @api.multi
-    def get_stage_timer(self):
-        for r in self:
-            work = r.work_ids
-            current_work = work.search([("id", "=", r.env.user.active_work_id.id)])
+                existing_work = works.search([("task_id", "=", r.id), ("name", "=", w.name), ("stage_id", "=", r.stage_id.id)])
 
-            sum_timelog = current_work.hours
-            last_log = current_work.timelog_ids[-1]
-            for d in last_log[-1]:
-                sum_timelog = sum_timelog + d.corrected_duration
-            value = {
-                "hours": float(sum_timelog),
-            }
-            r.env["project.task.work"].search([("id", "=", current_work.id)]).write(value)
-
-            # if not allow log time for stage
-            if r.stage_id.allow_log_time is False:
-                return False
-
-            existing_work = work.search([("task_id", "=", r.id), ("name", "=", current_work.name), ("stage_id", "=", r.stage_id.id)])
-            if len(existing_work) > 0:
-                if existing_work.user_id.id == r.env.user.id:
-                    new_work = existing_work
+                if len(existing_work) > 0:
+                    if existing_work.user_id.id == w.user_id.id:
+                        new_work = existing_work
+                    else:
+                        return False
                 else:
-                    return False
-            else:
-                # create new subtask
-                vals = {
-                    'name': current_work.name,
-                    'task_id': current_work.task_id.id,
-                    'hours': 0.0,
-                    'user_id': current_work.user_id.id,
-                    'company_id': current_work.company_id.id,
-                }
-                new_work = r.env["project.task.work"].create(vals)
+                    # create new subtask
+                    vals = {
+                        'name': w.name,
+                        'task_id': w.task_id.id,
+                        'user_id': w.user_id.id,
+                        'company_id': w.company_id.id,
+                    }
+                    new_work = r.env["project.task.work"].sudo().create(vals)
 
-            new_work.write({'status': 'play'})
+                new_work.sudo(w.user_id).play_timer()
 
-            # record data for current user (last active timer)
-            new_work.user_id.write({
-                "active_work_id": new_work.id,
-                "active_task_id": new_work.task_id.id,
-                "timer_status": True,
-            })
-
-            # create new timelog for current work
-            last_timelog = r.env['project.timelog'].create({
-                "work_id": new_work.id,
-                "user_id": new_work.user_id.id,
-                "start_datetime": datetime.datetime.now(),
-                "stage_id": r.stage_id.id,
-            })
-
-            notifications = []
-            message = {"status": "play", "active_work_id": new_work.id, "active_task_id": new_work.task_id.id, "timelog_id": last_timelog.id}
-            channel = '["%s","%s","%s"]' % (r._cr.dbname, "project.timelog", new_work.user_id.id)
-            notifications.append([channel, message])
-            r.env["bus.bus"].sendmany(notifications)
-            return 1
+            return {
+                'name': 'Reload page',
+                'view_mode': 'tree',
+                'view_type': 'form',
+                'res_model': 'project.task',
+                'type': 'ir.actions.act_window',
+            }
 
 
 class Users(models.Model):
@@ -266,7 +220,6 @@ class ProjectWork(models.Model):
                     'sticky': True
                 }
             }
-
         if self.env.user.timer_status is True:
             return {
                 'type': 'ir.actions.client',
@@ -364,10 +317,10 @@ class ProjectWork(models.Model):
             "start_datetime": datetime.datetime.now(),
             "stage_id": stage,
         })
-
+        channel_user_id = self.env.user.id
         notifications = []
         message = {"status": "play", "active_work_id": self.id, "active_task_id": self.task_id.id, "timelog_id": last_timelog.id}
-        channel = '["%s","%s","%s"]' % (self._cr.dbname, "project.timelog", self.env.user.id)
+        channel = '["%s","%s","%s"]' % (self._cr.dbname, "project.timelog", channel_user_id)
         notifications.append([channel, message])
         self.env["bus.bus"].sendmany(notifications)
 

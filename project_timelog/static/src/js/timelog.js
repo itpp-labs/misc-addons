@@ -73,7 +73,6 @@ $(document).ready(function() {
                     } else {
                         this.widget.finish_status = false;
                         this.widget.load_timer_data();
-
                     }
                     $('#clock0').css('color','white');
                 }
@@ -98,26 +97,6 @@ $(document).ready(function() {
                         }
                         self.stopline_audio_stop = false;
                     }
-                    if (typeof(message.stage) != "undefined") {
-                        var model = new openerp.web.Model('project.task');
-                        model.call("get_stage_timer", [message.stage]).then(function(res) {
-                            if(res) {
-                                var parent = self.widget.getParent();
-                                var action = {
-                                    res_id: message.stage,
-                                    res_model: "project.task",
-                                    views: [[false, 'form']],
-                                    type: 'ir.actions.act_window',
-                                    target: 'current',
-                                    flags: {
-                                        action_buttons: true,
-                                    }
-                                };
-                                parent.action_manager.do_action(action);
-                            }
-                        });
-                    }
-
                 }
                 if (message.status == "stopline") {
                     var now = new Date();
