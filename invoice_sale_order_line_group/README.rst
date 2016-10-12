@@ -2,9 +2,7 @@
  Invoice sale order line group
 ===============================
 
-With this module sales managers can create account invoice
-from choosen sale order lines. Sale order lines may be from
-different sale orders but one grouped invoice wiil be created for each partner.
+By using this module sales managers can create account invoice from chosen sale order lines. Sale order lines may be from different sale orders, but one grouped invoice will be created for each partner.
 
 Credits
 =======

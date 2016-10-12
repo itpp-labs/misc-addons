@@ -2,15 +2,15 @@
 {
     "name": """Invoice sale order line group""",
     "summary": """
-    The module facilitates creation one aggregated invoce from choosen order lines. The order lines may be from different orders.""",
+    The module facilitates the creation one aggregated invoice from chosen order lines. The order lines may be from different sale orders.""",
     "category": "Accounting & Finance",
-    "images": [],
+    "images": ['images/lines_to_invoice.png'],
     "version": "1.0.0",
 
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "website": "https://it-projects.info",
     "license": "LGPL-3",
-    "price": 9.00,
+    "price": 15.00,
     "currency": "EUR",
 
     "depends": [
