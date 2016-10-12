@@ -107,55 +107,66 @@ class Task(models.Model):
 
     @api.multi
     def set_stage_timer(self):
-        work = self.work_ids.search([("status", "=", "play")])
-        if len(work) == 0:
-            return False
-        for e in work:
-            if self.stage_id == e.stage_id:
+        for r in self:
+            work = r.work_ids.search([("status", "=", "play"), ("task_id", "=", r.id)])
+            if len(work) == 0:
                 return False
+            for e in work:
+                if r.stage_id == e.stage_id:
+                    return False
+                if e.user_id.active_task_id.id is not r.id:
+                    continue
 
-            # stop current timer
-            last_log = e.timelog_ids[-1]
-            e.write({'status': 'stop'})
-            e.user_id.write({"timer_status": False})
-            last_log.write({
-                "end_datetime": datetime.datetime.now(),
-            })
+                # stop current timer
+                last_log = e.timelog_ids[-1]
+                e.write({'status': 'stop'})
+                e.user_id.write({"timer_status": False})
+                last_log.write({
+                    "end_datetime": datetime.datetime.now(),
+                })
+                notifications = []
+                message = {"status": "stop", "active_work_id": e.id, "active_task_id": r.id, "client_status": True, "stopline": False, "stage": r.id}
+                channel = '["%s","%s","%s"]' % (r._cr.dbname, "project.timelog", e.user_id.id)
+                notifications.append([channel, message])
+                r.env["bus.bus"].sendmany(notifications)
+            return True
 
-            notifications = []
-            message = {"status": "stop", "active_work_id": e.id, "active_task_id": self.id, "client_status": True, "stopline": False}
-            channel = '["%s","%s","%s"]' % (self._cr.dbname, "project.timelog", e.user_id.id)
-            notifications.append([channel, message])
-            self.env["bus.bus"].sendmany(notifications)
+    @api.multi
+    def get_stage_timer(self):
+        for r in self:
+            work = r.work_ids
+            current_work = work.search([("id", "=", r.env.user.active_work_id.id)])
 
-            sum_timelog = e.hours
+            sum_timelog = current_work.hours
+            last_log = current_work.timelog_ids[-1]
             for d in last_log[-1]:
                 sum_timelog = sum_timelog + d.corrected_duration
             value = {
                 "hours": float(sum_timelog),
             }
-
-            self.env["project.task.work"].search([("id", "=", e.id)]).write(value)
+            r.env["project.task.work"].search([("id", "=", current_work.id)]).write(value)
 
             # if not allow log time for stage
-            if self.stage_id.allow_log_time is False:
+            if r.stage_id.allow_log_time is False:
                 return False
 
-            # if subtask is existing then play this subtask timer
-            new_work = {}
-            existing_timer = self.work_ids.search([("name", "=", e.name), ("stage_id", "=", self.stage_id.id)])
-            if len(existing_timer) > 0:
-                new_work = existing_timer
+            work_new = {}
+            existing_work = work.search([("task_id", "=", r.id), ("name", "=", current_work.name), ("stage_id", "=", r.stage_id.id)])
+            if len(existing_work) > 0:
+                if existing_work.user_id.id == r.env.user.id:
+                    new_work = existing_work
+                else:
+                    return False
             else:
                 # create new subtask
                 vals = {
-                    'name': e.name,
-                    'task_id': e.task_id.id,
+                    'name': current_work.name,
+                    'task_id': current_work.task_id.id,
                     'hours': 0.0,
-                    'user_id': e.user_id.id,
-                    'company_id': e.company_id.id,
+                    'user_id': current_work.user_id.id,
+                    'company_id': current_work.company_id.id,
                 }
-                new_work = self.env["project.task.work"].create(vals)
+                new_work = r.env["project.task.work"].create(vals)
 
             new_work.write({'status': 'play'})
 
@@ -163,30 +174,23 @@ class Task(models.Model):
             new_work.user_id.write({
                 "active_work_id": new_work.id,
                 "active_task_id": new_work.task_id.id,
-                "timer_status": True,
+                 "timer_status": True,
             })
 
             # create new timelog for current work
-            last_timelog = self.env['project.timelog'].create({
+            last_timelog = r.env['project.timelog'].create({
                 "work_id": new_work.id,
                 "user_id": new_work.user_id.id,
                 "start_datetime": datetime.datetime.now(),
-                "stage_id": self.stage_id.id,
+                "stage_id": r.stage_id.id,
             })
 
             notifications = []
             message = {"status": "play", "active_work_id": new_work.id, "active_task_id": new_work.task_id.id, "timelog_id": last_timelog.id}
-            channel = '["%s","%s","%s"]' % (self._cr.dbname, "project.timelog", new_work.user_id.id)
+            channel = '["%s","%s","%s"]' % (r._cr.dbname, "project.timelog", new_work.user_id.id)
             notifications.append([channel, message])
-            self.env["bus.bus"].sendmany(notifications)
-
-        return {
-            'name': 'Reload page',
-            'view_mode': 'tree',
-            'view_type': 'form',
-            'res_model': 'project.task',
-            'type': 'ir.actions.act_window',
-        }
+            r.env["bus.bus"].sendmany(notifications)
+            return 1
 
 
 class Users(models.Model):
@@ -243,13 +247,11 @@ class ProjectWork(models.Model):
     def create(self, vals):
         task = self.env['project.task'].browse(vals.get('task_id'))
         vals['stage_id'] = task.stage_id.id
-        vals['user_id'] = self.env.user.id
+        if 'user_id' in vals and (not vals['user_id']):
+            vals['user_id'] = self.env.user.id
         vals['hours'] = 0.00
         if 'hours' in vals and (not vals['hours']):
             vals['hours'] = 0.00
-        if 'task_id' in vals:
-            self._cr.execute('update project_task set remaining_hours=remaining_hours - %s where id=%s', (vals.get('hours', 0.0), vals['task_id']))
-            self.env['project.task'].invalidate_cache(['remaining_hours'], [vals['task_id']])
         return super(ProjectWork, self).create(vals)
 
     @api.multi
