@@ -150,7 +150,6 @@ class Task(models.Model):
             if r.stage_id.allow_log_time is False:
                 return False
 
-            work_new = {}
             existing_work = work.search([("task_id", "=", r.id), ("name", "=", current_work.name), ("stage_id", "=", r.stage_id.id)])
             if len(existing_work) > 0:
                 if existing_work.user_id.id == r.env.user.id:
@@ -174,7 +173,7 @@ class Task(models.Model):
             new_work.user_id.write({
                 "active_work_id": new_work.id,
                 "active_task_id": new_work.task_id.id,
-                 "timer_status": True,
+                "timer_status": True,
             })
 
             # create new timelog for current work
