@@ -317,10 +317,10 @@ class ProjectWork(models.Model):
             "start_datetime": datetime.datetime.now(),
             "stage_id": stage,
         })
-        channel_user_id = self.env.user.id
+
         notifications = []
         message = {"status": "play", "active_work_id": self.id, "active_task_id": self.task_id.id, "timelog_id": last_timelog.id}
-        channel = '["%s","%s","%s"]' % (self._cr.dbname, "project.timelog", channel_user_id)
+        channel = '["%s","%s","%s"]' % (self._cr.dbname, "project.timelog", self.env.user.id)
         notifications.append([channel, message])
         self.env["bus.bus"].sendmany(notifications)
 
