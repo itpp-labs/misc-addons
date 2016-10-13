@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 {
-    "name": """Invoice sale order line group""",
-    "summary": """
-    The module facilitates the creation one aggregated invoice from chosen order lines. The order lines may be from different sale orders.""",
-    "category": "Accounting & Finance",
+    "name": """Invoice multiorder lines""",
+    "summary": """Choose different sale order lines from list and create one invoice per partner from them""",
+    "category": "Accounting",
     "images": ['images/lines_to_invoice.png'],
     "version": "1.0.0",
+    "application": False,
 
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "website": "https://it-projects.info",
-    "license": "LGPL-3",
-    "price": 15.00,
+    "license": "GPL-3",
+    "price": 50.00,
     "currency": "EUR",
 
     "depends": [
@@ -29,6 +29,7 @@
     "post_load": None,
     "pre_init_hook": None,
     "post_init_hook": None,
-    "installable": True,
+
     "auto_install": False,
+    "installable": True,
 }
