@@ -26,7 +26,7 @@ class SaleOrderLineMakeGroupedInvoice(osv.osv_memory):
         partner_currency = {}
         for o in order_obj.browse(cr, uid, orders, context=context):
             currency_id = o.pricelist_id.currency_id.id
-            if (o.partner_id.id in partner_currency) and (partner_currency[o.partner_id.id] <> currency_id):
+            if (o.partner_id.id in partner_currency) and (partner_currency[o.partner_id.id] != currency_id):
                 raise osv.except_osv(
                     _('Error!'),
                     _('You cannot group sales having different currencies for the same partner.'))
@@ -43,7 +43,7 @@ class SaleOrderLineMakeGroupedInvoice(osv.osv_memory):
                 order_obj.write(cr, uid, [o.id], {'state': 'progress'})
                 cr.execute('insert into sale_order_invoice_rel (order_id,invoice_id) values (%s,%s)', (o.id, res))
                 order_obj.invalidate_cache(cr, uid, ['invoice_ids'], [o.id], context=context)
-            #remove last '|' in invoice_ref
+            # remove last '|' in invoice_ref
             if len(invoice_ref) >= 1:
                 invoice_ref = invoice_ref[:-1]
             if len(origin_ref) >= 1:
