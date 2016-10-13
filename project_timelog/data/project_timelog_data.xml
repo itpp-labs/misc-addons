@@ -3,7 +3,7 @@
     <data noupdate="1">
     <!--<data>-->
         <!--if user offline then timer will stop-->
-        <record id="ir_cron_offline_stop_timer" model="ir.cron">
+        <record id="ir_cron_check_stop_timer" model="ir.cron">
             <field name="name">Offline stop timer</field>
             <field name="active" eval="True" />
             <field name="user_id" ref="base.user_root" />
@@ -11,7 +11,7 @@
             <field name="interval_type">minutes</field>
             <field name="numbercall">-1</field>
             <field name="model" eval="'im_chat.presence'" />
-            <field name="function" eval="'offline_stop_timer'" />
+            <field name="function" eval="'check_stop_timer'" />
             <field name="args" eval="" />
             <field name="priority" eval="4" />
         </record>
