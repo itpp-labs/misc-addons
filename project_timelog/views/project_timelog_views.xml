@@ -7,7 +7,6 @@
             <field name="inherit_id" ref="project.view_task_form2"/>
             <field name="priority" eval="999"/>
             <field name="arch" type="xml">
-
                 <xpath expr="//notebook/page[@string='Description']" position="before">
                     <page string="Work summary">
                         <field name="work_ids" groups="project.group_tasks_work_on_tasks">
@@ -24,16 +23,6 @@
                                 <field name="user_id" readonly="1" context="{'default_groups_ref': ['base.group_user', 'base.group_partner_manager', 'project.group_project_user']}"/>
                             </tree>
                         </field>
-                        <group>
-                            <group class="oe_subtotal_footer oe_right" name="project_hours" groups="project.group_time_work_estimation_tasks">
-                                <field name="effective_hours" widget="float_time"/>
-                                <label for="remaining_hours" string="Remaining" groups="project.group_time_work_estimation_tasks"/>
-                                <div>
-                                    <field name="remaining_hours" widget="float_time" groups="project.group_time_work_estimation_tasks"/>
-                                </div>
-                                <field name="total_hours" widget="float_time" class="oe_subtotal_footer_separator"/>
-                            </group>
-                        </group>
                         <div class="oe_clear"/>
                     </page>
                 </xpath>
@@ -42,11 +31,7 @@
                     <field name="datetime_stopline" readonly="1"/>
                 </xpath>
 
-                <xpath expr="//page[@string='Description']" position="replace">
-                    <page string="Description">
-                        <field name="description" placeholder="Add a Description..."/>
-                        <div class="oe_clear"/>
-                    </page>
+                <xpath expr="//page[@string='Description']/field[@name='work_ids']" position="replace">
                 </xpath>
             </field>
         </record>

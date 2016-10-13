@@ -120,31 +120,23 @@ class Task(models.Model):
 
                 existing_work = works.search([("task_id", "=", r.id), ("name", "=", w.name), ("stage_id", "=", r.stage_id.id)])
                 current_date = datetime.datetime.now()
+                subtask_name = ''
                 if len(existing_work) > 0:
                     if existing_work.user_id.id == w.user_id.id:
                         new_work = existing_work
                         if new_work.timelog_ids[0].end_datetime is not False:   # there are timelogs yesterday
                             date_object = datetime.datetime.strptime(new_work.timelog_ids[0].end_datetime, "%Y-%m-%d %H:%M:%S")
                             if date_object is not False and date_object.day != current_date.day:
-                                vals = {
-                                    'name': str(current_date.day) + '.' + str(current_date.month) + '.' + str(current_date.year) + ' ' + w.name,
-                                    'task_id': w.task_id.id,
-                                    'user_id': w.user_id.id,
-                                    'company_id': w.company_id.id,
-                                }
-                                new_work = r.env["project.task.work"].sudo().create(vals)
+                                subtask_name = str(current_date.day) + '.' + str(current_date.month) + '.' + str(current_date.year) + ' ' + w.name
                     else:
-                        vals = {
-                            'name': str(current_date.day) + '.' + str(current_date.month) + '.' + str(current_date.year) + ' ' + w.name,
-                            'task_id': w.task_id.id,
-                            'user_id': w.user_id.id,
-                            'company_id': w.company_id.id,
-                        }
-                        new_work = r.env["project.task.work"].sudo().create(vals)
+                        subtask_name = str(current_date.day) + '.' + str(current_date.month) + '.' + str(current_date.year) + ' ' + w.name
                 else:
                     # create new subtask
+                    subtask_name = w.name
+
+                if subtask_name:
                     vals = {
-                        'name': w.name,
+                        'name': subtask_name,
                         'task_id': w.task_id.id,
                         'user_id': w.user_id.id,
                         'company_id': w.company_id.id,
