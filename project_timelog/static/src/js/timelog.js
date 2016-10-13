@@ -78,13 +78,13 @@ $(document).ready(function() {
                 }
                 if (message.status == "stop") {
                     this.widget.stop_timer();
-                    if (!message.client_status && !message.stopline) {
+                    if (!message.play_a_sound && !message.stopline) {
                         this.audio_format = audio.canPlayType("audio/ogg; codecs=vorbis") ? ".ogg" : ".mp3";
 
                         audio.src = openerp.session.url("/project_timelog/static/src/audio/" + "stop" + this.audio_format);
                         audio.play();
                     }
-                    if (message.client_status) {
+                    if (message.play_a_sound) {
                         $('#clock0').css('color','rgb(152, 152, 152)');
                     }
                     if (message.stopline) {

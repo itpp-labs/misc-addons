@@ -89,7 +89,7 @@ class Task(models.Model):
                 return False
             stopline_date = datetime.datetime.strptime(task.datetime_stopline, "%Y-%m-%d %H:%M:%S")
             if stopline_date <= datetime.datetime.now():
-                self.env["project.task.work"].search([('id', '=', u.active_work_id.id)]).stop_timer(client_status=False, stopline=True)
+                self.env["project.task.work"].search([('id', '=', u.active_work_id.id)]).stop_timer(play_a_sound=False, stopline=True)
             else:
                 warning_time = stopline_date - datetime.timedelta(minutes=20)
                 notifications = []
@@ -119,16 +119,24 @@ class Task(models.Model):
                 w.sudo(w.user_id).stop_timer()
 
                 existing_work = works.search([("task_id", "=", r.id), ("name", "=", w.name), ("stage_id", "=", r.stage_id.id)])
-
+                current_date = datetime.datetime.now()
+                subtask_name = ''
                 if len(existing_work) > 0:
                     if existing_work.user_id.id == w.user_id.id:
                         new_work = existing_work
+                        if new_work.timelog_ids[0].end_datetime is not False:   # there are timelogs yesterday
+                            date_object = datetime.datetime.strptime(new_work.timelog_ids[0].end_datetime, "%Y-%m-%d %H:%M:%S")
+                            if date_object is not False and date_object.day != current_date.day:
+                                subtask_name = str(current_date.day) + '.' + str(current_date.month) + '.' + str(current_date.year) + ' ' + w.name
                     else:
-                        return False
+                        subtask_name = str(current_date.day) + '.' + str(current_date.month) + '.' + str(current_date.year) + ' ' + w.name
                 else:
                     # create new subtask
+                    subtask_name = w.name
+
+                if subtask_name:
                     vals = {
-                        'name': w.name,
+                        'name': subtask_name,
                         'task_id': w.task_id.id,
                         'user_id': w.user_id.id,
                         'company_id': w.company_id.id,
@@ -193,6 +201,8 @@ class ProjectWork(models.Model):
         task = self.env['project.task'].browse(vals.get('task_id'))
         vals['stage_id'] = task.stage_id.id
         if 'user_id' in vals and (not vals['user_id']):
+            vals['user_id'] = self.env.user.id
+        if 'user_id' not in vals:
             vals['user_id'] = self.env.user.id
         vals['hours'] = 0.00
         if 'hours' in vals and (not vals['hours']):
@@ -317,57 +327,58 @@ class ProjectWork(models.Model):
         self.env["bus.bus"].sendmany(notifications)
 
     @api.multi
-    def stop_timer(self, status=False, client_status=True, stopline=False):
-        if self.env.user.id != self.user_id.id:
-            # current user is not match user with solved task
-            return {
-                'type': 'ir.actions.client',
-                'tag': 'action_warn',
-                'name': 'Warning',
-                'params': {
-                    'title': 'Warning!',
-                    'text': 'Current user is not match user with solved task.',
-                    'sticky': True
+    def stop_timer(self, status=False, play_a_sound=True, stopline=False):
+        for r in self:
+            if r.env.user.id != r.user_id.id:
+                # current user is not match user with solved task
+                return {
+                    'type': 'ir.actions.client',
+                    'tag': 'action_warn',
+                    'name': 'Warning',
+                    'params': {
+                        'title': 'Warning!',
+                        'text': 'Current user is not match user with solved task.',
+                        'sticky': True
+                    }
                 }
-            }
 
-        timelog = self.env.user.active_work_id.timelog_ids
+            timelog = r.env.user.active_work_id.timelog_ids
 
-        if timelog[-1].end_datetime is not False:
-            return {
-                'type': 'ir.actions.client',
-                'tag': 'action_warn',
-                'name': 'Warning',
-                'params': {
-                    'title': 'Warning!',
-                    'text': 'The timer already has stopped.',
-                    'sticky': False
+            if timelog[-1].end_datetime is not False:
+                return {
+                    'type': 'ir.actions.client',
+                    'tag': 'action_warn',
+                    'name': 'Warning',
+                    'params': {
+                        'title': 'Warning!',
+                        'text': 'The timer already has stopped.',
+                        'sticky': False
+                    }
                 }
-            }
 
-        if status is True:
-            self.write({'status': 'nonactive'})
-        else:
-            self.write({'status': 'stop'})
+            if status is True:
+                r.write({'status': 'nonactive'})
+            else:
+                r.write({'status': 'stop'})
 
-        # last timelog in current work
-        last_timelog_id = timelog[-1].id
+            # last timelog in current work
+            last_timelog_id = timelog[-1].id
 
-        # record date in timer (end datetime for log)
-        self.env["project.timelog"].search([("id", '=', last_timelog_id)]).write({
-            "end_datetime": datetime.datetime.now(),
-        })
+            # record date in timer (end datetime for log)
+            r.env["project.timelog"].search([("id", '=', last_timelog_id)]).write({
+                "end_datetime": datetime.datetime.now(),
+            })
 
-        notifications = []
-        message = {"status": "stop", "active_work_id": self.id, "active_task_id": self.task_id.id, "client_status": client_status, "stopline": stopline}
-        channel = '["%s","%s","%s"]' % (self._cr.dbname, "project.timelog", self.env.user.id)
-        notifications.append([channel, message])
-        self.env["bus.bus"].sendmany(notifications)
+            notifications = []
+            message = {"status": "stop", "active_work_id": r.id, "active_task_id": r.task_id.id, "play_a_sound": play_a_sound, "stopline": stopline}
+            channel = '["%s","%s","%s"]' % (r._cr.dbname, "project.timelog", r.env.user.id)
+            notifications.append([channel, message])
+            r.env["bus.bus"].sendmany(notifications)
 
-        self.user_id.write({"timer_status": False})
+            r.user_id.write({"timer_status": False})
 
-        if len(timelog) == 1:
-            self.write({"date": timelog[0].end_datetime})
+            if len(timelog) == 1:
+                r.write({"date": timelog[0].end_datetime})
 
     # This function is called every day for 00:00:00 hours
     @api.model
@@ -383,11 +394,11 @@ class ImChatPresence(models.Model):
 
     # This function is called every 5 minut
     @api.model
-    def offline_stop_timer(self):
+    def check_stop_timer(self):
         status = self.env["im_chat.presence"].search([('status', '=', 'offline')])
         for e in status:
             task = self.env["project.task.work"].search([("user_id", "=", e.user_id.id)])
-            task.stop_timer(client_status=False)
+            task.stop_timer(play_a_sound=False)
         user = self.env["res.users"].search([])
         time_subtask = int(round(float(self.env["ir.config_parameter"].get_param('project_timelog.time_subtasks'))*3600, 0))
         for u in user:
@@ -399,5 +410,5 @@ class ImChatPresence(models.Model):
                 sum_time = sum_time + (date_end_object-date_start_object)
             sum_time = int(round(sum_time.total_seconds(), 0))
             if sum_time >= time_subtask:
-                self.env["project.task.work"].search([("user_id", "=", u.id)]).stop_timer(client_status=False)
+                self.env["project.task.work"].search([("user_id", "=", u.id), ("user_id.active_work_id", "=", u.active_work_id.id)]).stop_timer(play_a_sound=False)
         return True
