@@ -23,6 +23,16 @@
                                 <field name="user_id" readonly="1" context="{'default_groups_ref': ['base.group_user', 'base.group_partner_manager', 'project.group_project_user']}"/>
                             </tree>
                         </field>
+                        <group>
+                             <group class="oe_subtotal_footer oe_right" name="project_hours" groups="project.group_time_work_estimation_tasks">
+                                <field name="effective_hours" widget="float_time"/>
+                                <label for="remaining_hours" string="Remaining" groups="project.group_time_work_estimation_tasks"/>
+                                <div>
+                                    <field name="remaining_hours" widget="float_time" groups="project.group_time_work_estimation_tasks"/>
+                                </div>
+                                <field name="total_hours" widget="float_time" class="oe_subtotal_footer_separator"/>
+                             </group>
+                        </group>
                         <div class="oe_clear"/>
                     </page>
                 </xpath>
@@ -32,6 +42,8 @@
                 </xpath>
 
                 <xpath expr="//page[@string='Description']/field[@name='work_ids']" position="replace">
+                </xpath>
+                <xpath expr="//page[@string='Description']/group" position="replace">
                 </xpath>
             </field>
         </record>
