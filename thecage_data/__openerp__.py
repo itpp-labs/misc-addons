@@ -17,6 +17,7 @@
                 'account_analytic_analysis',
                 'booking_calendar_analytic',
                 'website_sale_order_company',
+                'invoice_sale_order_line_group',
                 ],
     'data': [
         'data.xml',
