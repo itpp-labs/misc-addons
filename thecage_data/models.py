@@ -131,13 +131,11 @@ class SaleOrderLine(models.Model):
     @api.model
     def _cron_booking_reminder(self):
         lines72 = self.search([('booking_reminder', '=', False),
-                             ('booking_start', '!=', False),
-                             ('booking_start', '<=', (datetime.now() + timedelta(hours=72)).strftime(DTF)),
-                             ])
+                               ('booking_start', '!=', False),
+                               ('booking_start', '<=', (datetime.now() + timedelta(hours=72)).strftime(DTF))])
         lines48 = self.search([('booking_reminder', '=', False),
-                             ('booking_start', '!=', False),
-                             ('booking_start', '<=', (datetime.now() + timedelta(hours=48)).strftime(DTF)),
-                             ])
+                               ('booking_start', '!=', False),
+                               ('booking_start', '<=', (datetime.now() + timedelta(hours=48)).strftime(DTF))])
         lines = lines72 - lines48
         lines.write({'booking_reminder': True})
         for line in lines:
