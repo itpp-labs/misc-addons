@@ -32,9 +32,15 @@
                         <field name="company_id"/>
                       </group>
                     </group>
-                    <group string="Online Bookings">
-                      <field name="allowed_days_interval"/>
-                      <field name="hours_to_prepare"/>
+                    <group>
+                      <group string="Online Bookings" col="2">
+                        <field name="allowed_days_interval"/>
+                        <field name="hours_to_prepare"/>
+                      </group>
+                      <group string="Holidays" col="2">
+                        <field name="holidays_country_id"/>
+                        <field name="work_on_holidays"/>
+                      </group>
                     </group>
                   </sheet>
                 </form>
