@@ -84,7 +84,7 @@ class Task(models.Model):
     def stopline_timer(self):
         user = self.env["res.users"].search([])
         for u in user:
-            task = self.env["project.task"].search([('id', '=', u.active_task_id.id)])
+            task = u.active_task_id
             if task.datetime_stopline is False:
                 return False
             stopline_date = datetime.datetime.strptime(task.datetime_stopline, "%Y-%m-%d %H:%M:%S")
@@ -396,14 +396,13 @@ class ImChatPresence(models.Model):
     # This function is called every 5 minut
     @api.model
     def check_stop_timer(self):
-        status = self.env["im_chat.presence"].search([('status', '=', 'offline')])
+        status = self.search([('status', '=', 'offline')])
         for e in status:
-            task = self.env["project.task.work"].search([("user_id", "=", e.user_id.id)])
-            task.sudo(e.user_id).stop_timer(play_a_sound=False)
-        user = self.env["res.users"].search([])
+            e.user_id.active_work_id.sudo(e.user_id).stop_timer(play_a_sound=False)
+        user = self.env["res.users"].search([("active_work_id.status", "=", "play")])
         time_subtask = int(round(float(self.env["ir.config_parameter"].get_param('project_timelog.time_subtasks'))*3600, 0))
         for u in user:
-            all_timelog = self.env["project.timelog"].search([("work_id", "=", u.active_work_id.id)])
+            all_timelog = u.active_work_id.timelog_ids
             sum_time = datetime.timedelta(0)
             for id in all_timelog:
                 date_start_object = datetime.datetime.strptime(id.start_datetime, "%Y-%m-%d %H:%M:%S")
