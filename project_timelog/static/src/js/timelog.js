@@ -77,6 +77,7 @@ $(document).ready(function() {
                     $('#clock0').css('color','white');
                 }
                 if (message.status == "stop") {
+                    this.widget.end_datetime_status = true;
                     this.widget.stop_timer();
                     if (!message.play_a_sound && !message.stopline) {
                         this.audio_format = audio.canPlayType("audio/ogg; codecs=vorbis") ? ".ogg" : ".mp3";
@@ -207,6 +208,8 @@ $(document).ready(function() {
                 self.normal_time_week = resultat.normal_time_week;
                 self.good_time_week = resultat.good_time_week;
 
+                self.end_datetime_status = resultat.end_datetime_status;
+
                 if (self.time_subtasks<=self.times[0]) {
                     self.times[0] = self.time_subtasks;
                     storage.setItem("status","yes");
@@ -214,7 +217,7 @@ $(document).ready(function() {
                     storage.setItem("status","no");
                 }
 
-                self.add_title(resultat.subtask_name, resultat.description_second_timer);
+                self.add_title(resultat.subtask_name, resultat.task_name, resultat.description_second_timer);
                 self.check_audio();
                 if (self.timer_status) {
                     self.start_timer();
@@ -372,6 +375,7 @@ $(document).ready(function() {
                 }
             };
             parent.action_manager.do_action(action);
+            this.end_datetime_status = true;
             this.stop_timer();
         },
 
@@ -398,8 +402,8 @@ $(document).ready(function() {
             if (minutes < 10) result += "0";
 
             if (id === 0) {
-                result += minutes + ":";
-                if (seconds < 10) result += "0"; result += seconds;
+                result += minutes + "<span id='clock_second'>" + ":";
+                if (seconds < 10) result += "0"; result +=seconds + "</span>";
             }
             else result += minutes;
             return result;
@@ -436,12 +440,14 @@ $(document).ready(function() {
         },
 
         stop_timer: function(){
+            var self = this;
             if (this.status == 'stopped'){
-                return false;
+                if (self.end_datetime_status) {
+                    return false;
+                }
             }
             console.log("stop");
             this.add_favicon();
-            var self = this;
             this.status = 'stopped';
             for (var i = 0; i < 4; i++) {
                 this.removeClass(i, "running");
@@ -475,11 +481,18 @@ $(document).ready(function() {
             audio.play();
         },
 
-        add_title: function(first_timer_name, description_second_timer) {
-            $('#clock0').attr("title", 'Current subtask'+' '+first_timer_name+'. Time for current subtask. When approaching the mark of 2 hours it changes color to orange and emits a short signal. Upon exceeding mark of 2 hours (set in Configuration) the timer is stopped and the color changes to red, it flashes and emits a long beep. When you click on a timer it works as a pause.');
-            $('#clock1').attr("title", description_second_timer+". General time for current task (only the current user data are summed). Upon exceeding 'initially planned hours' (taking into account all the logs for the task) it changes color to yellow. Upon exceeding 'initially planned hours' 100% (set) it changes to red. Clicking on the timer opens the current task.");
-            $('#clock2').attr("title", "General time for current day. Upon reaching 5 hours (set in Configuration) it changes color to yellow. Upon reaching 6 hours (set in Configuration) it changes color to green. Clicking on the timer opens a page with the current day logs.");
-            $('#clock3').attr("title", "General time for current week. Upon reaching 30 hours (set in Configuration) it changes to green and emits a beautiful melody. When reaching 40 hours (set in Configuration) it changes color to blue and emits a long beautiful melody. Clicking on the timer opens a page with logs of current week.");
+        add_title: function(first_timer_name, task_name, description_second_timer) {
+            var tws = this.formatTime(1, this.time_warning_subtasks).split(':');
+            var ts = this.formatTime(1, this.time_subtasks).split(':');
+            var ntd = this.formatTime(1, this.normal_time_day).split(':');
+            var gtd = this.formatTime(1, this.good_time_day).split(':');
+            var ntw = this.formatTime(1, this.normal_time_week).split(':');
+            var gtw = this.formatTime(1, this.good_time_week).split(':');
+
+            $('#clock0').attr("title", 'Subtask: '+first_timer_name+'\n\nTotal time of the subtask.\n\n* White: time is less than '+ tws[0] +' hours '+tws[1]+' minutes;\n* Short Signal: time is '+ tws[0] +' hours '+tws[1]+' minutes;\n* Yellow: time between '+ tws[0] +' hours '+tws[1]+' minutes and '+ ts[0] +' hours '+ts[1]+' minutes;\n* Long Signal: timer is stopping.\n* Red: timer is stopped;\n\nClick to Play/Pause.');
+            $('#clock1').attr("title", 'Task: '+task_name+'\n\nTotal time for the task (includes logs of other users): '+description_second_timer+"\n\n* White: time is less than 'initially planned hours';\n* Yellow: time is more than 'initially planned hours';\n* Red: time is twice more than 'initially planned hours';\n\nClick to open the task.");
+            $('#clock2').attr("title", "Total time of the day.\n\n* White: time is less "+ ntd[0] +" hours "+ntd[1]+" minutes;\n* Yellow: time between "+ ntd[0] +" hours "+ntd[1]+" minutes and "+ gtd[0] +" hours "+gtd[1]+" minutes;\n* Green: time is more than "+ gtd[0] +" hours "+gtd[1]+" minutes;\n\nClick to open logs of the day.");
+            $('#clock3').attr("title", "Total time of the week.\n\n* White: time is less than "+ ntw[0] +" hours "+ntw[1]+" minutes\n* Melody #1: time is "+ ntw[0] +" hours "+ntw[1]+" minutes;\n* Yellow: time between "+ ntw[0] +" hours "+ntw[1]+" minutes and "+ gtw[0] +" hours "+gtw[1]+" minutes;\n* Melody #2: time is "+ gtw[0] +" hours "+gtw[1]+" minutes;\n* Blue: time is more than "+ gtw[0] +" hours "+gtw[1]+" minutes;\n\nClick to open logs of the week.");
         },
 
         timer_pause: function() {
@@ -502,6 +515,7 @@ $(document).ready(function() {
             var time_connection = 5*60*1000;
             var connection_interval = setInterval(function(){
                 if (!window.onLine) {
+                    self.end_datetime_status = true;
                     self.stop_timer();
                     console.log('YOU ARE OFFLINE');
                     clearInterval(connection_interval);
@@ -579,3 +593,4 @@ $(document).ready(function() {
         },
     });
 });
+

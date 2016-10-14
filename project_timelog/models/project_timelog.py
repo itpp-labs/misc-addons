@@ -89,7 +89,7 @@ class Task(models.Model):
                 return False
             stopline_date = datetime.datetime.strptime(task.datetime_stopline, "%Y-%m-%d %H:%M:%S")
             if stopline_date <= datetime.datetime.now():
-                self.env["project.task.work"].search([('id', '=', u.active_work_id.id)]).stop_timer(play_a_sound=False, stopline=True)
+                u.active_work_id.sudo(u).stop_timer(play_a_sound=False, stopline=True)
             else:
                 warning_time = stopline_date - datetime.timedelta(minutes=20)
                 notifications = []
@@ -162,6 +162,7 @@ class ProjectTaskType(models.Model):
 
 class ProjectWork(models.Model):
     _inherit = ["project.task.work"]
+    _order = 'id'
     stage_id = fields.Many2one("project.task.type", "Stage")
     _sql_constraints = [
         ('name_task_uniq', 'unique (name,stage_id,task_id)', 'The name of the subtask must be unique per stage!')
@@ -385,7 +386,7 @@ class ProjectWork(models.Model):
     def subtask_new_status(self):
         status = self.env["project.task.work"].search([('status', '!=', 'nonactive')])
         for e in status:
-            e.write({"status": "nonactive"})
+            e.sudo(e.user_id).write({"status": "nonactive"})
         return True
 
 
@@ -398,7 +399,7 @@ class ImChatPresence(models.Model):
         status = self.env["im_chat.presence"].search([('status', '=', 'offline')])
         for e in status:
             task = self.env["project.task.work"].search([("user_id", "=", e.user_id.id)])
-            task.stop_timer(play_a_sound=False)
+            task.sudo(e.user_id).stop_timer(play_a_sound=False)
         user = self.env["res.users"].search([])
         time_subtask = int(round(float(self.env["ir.config_parameter"].get_param('project_timelog.time_subtasks'))*3600, 0))
         for u in user:
@@ -410,5 +411,5 @@ class ImChatPresence(models.Model):
                 sum_time = sum_time + (date_end_object-date_start_object)
             sum_time = int(round(sum_time.total_seconds(), 0))
             if sum_time >= time_subtask:
-                self.env["project.task.work"].search([("user_id", "=", u.id), ("user_id.active_work_id", "=", u.active_work_id.id)]).stop_timer(play_a_sound=False)
+                u.active_work_id.sudo(u).stop_timer(play_a_sound=False)
         return True
