@@ -32,11 +32,23 @@
       </field>
     </record>
 
+    <record id="view_sales_order_line_filter_grouped" model="ir.ui.view">
+      <field name="name">sale.order.line.select.grouped</field>
+      <field name="model">sale.order.line</field>
+      <field name="inherit_id" ref="sale.view_sales_order_line_filter"/>
+      <field name="arch" type="xml">
+        <xpath expr="//group" position="inside">
+          <filter invisible="1" name="group_order_id" string="Order" icon="terp-gtk-jump-to-rtl" domain="[]" context="{'group_by':'order_id'}"/>
+        </xpath>
+      </field>
+    </record>
+
     <record id="sales_orders_lines_list_action" model="ir.actions.act_window">
       <field name="name">Sales Orders Lines</field>
       <field name="res_model">sale.order.line</field>
       <field name="view_id" ref="view_sale_order_line_tree"/>
       <field name="view_mode">tree,form</field>
+      <field name="context">{'search_default_group_order_id': 1}</field>
     </record>
 
     <menuitem action="sales_orders_lines_list_action" id="menu_sale_order_line" parent="base.menu_sales" sequence="6" groups="base.group_sale_salesman,base.group_sale_manager"/>
