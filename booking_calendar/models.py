@@ -6,6 +6,7 @@ import logging
 
 from openerp import api, models, fields
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
+from openerp.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 from openerp.tools.translate import _
 from openerp.exceptions import ValidationError
 
@@ -27,6 +28,11 @@ class ResourceResource(models.Model):
     has_slot_calendar = fields.Boolean('Use Working Time as Slots Definition')
     allowed_days_interval = fields.Integer(string='Allowed Days Interval', help='allow online bookings only on specified days from now')
     hours_to_prepare = fields.Integer(string='Hours to prepare', help="don't allow bookings if time before the event is less than spciefied")
+    holidays_country_id = fields.Many2one(
+        'res.country',
+        'Holidays Country'
+    )
+    work_on_holidays = fields.Boolean(default=False)
 
 
 class ResourceCalendar(models.Model):
@@ -404,6 +410,14 @@ class SaleOrderLine(models.Model):
                 if start_dt < now:
                     start_dt += timedelta(minutes=SLOT_DURATION_MINS)
                     continue
+                if not r.work_on_holidays and r.holidays_country_id:
+                    holidays = self.env['hr.holidays.public'].search([
+                        ('country_id', '=', r.holidays_country_id.id),
+                        ('year', '=', start_dt.year),
+                    ], limit=1)
+                    if holidays[0].line_ids.filtered(lambda r: r.date == start_dt.strftime(DF)):
+                        start_dt += timedelta(1)
+
                 if r.calendar_id:
                     for calendar_working_day in r.calendar_id.get_attendances_for_weekdays([start_dt.weekday()])[0]:
                         min_from = int((calendar_working_day.hour_from - int(calendar_working_day.hour_from)) * 60)
