@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-##############################################################################
+#
 #
 #    Copyright (c) 2008 Camtocamp SA
 #    @author JB Aubort, Nicolas Bessi, Joel Grand-Guillaume
@@ -20,7 +20,7 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-##############################################################################
+#
 {
     "name": "Currency Rate Update",
     "version": "0.7",
