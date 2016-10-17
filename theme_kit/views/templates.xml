@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <template id="theme_kit.custom_css">
+            <style type="text/css">
+            </style>
+            <script type="text/javascript">
+            </script>
+        </template>
+        <template id="webclient_bootstrap" inherit_id="web.webclient_bootstrap">
+            <xpath expr="//script[2]" position="before">
+                <t t-call="theme_kit.custom_css"/>
+            </xpath>
+        </template>
+        <template id="theme_kit.dummy">
+        </template>
+    </data>
+</odoo>
