@@ -6,6 +6,9 @@
 	color: white;
 }
 
+#clock1 {
+	font-style: italic;
+}
 #clock3 {
 	margin-right: 20px;
 }
