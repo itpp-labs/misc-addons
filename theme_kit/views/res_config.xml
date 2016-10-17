@@ -56,7 +56,7 @@
                                 <p class="mt0">System Name is used in context like followings:</p>
                                 <ul>
                                     <li><em>[System Name]</em> helps you easily track all activities related to a customer; discussions, history of business opportunities, documents, etc.</li>
-                                    <li><em>[System Name]</em> needs your permission to enable desktop notifications.</li>
+                                    <!--<li><em>[System Name]</em> needs your permission to enable desktop notifications.</li>-->
                                     <li><em>[System Name]</em> has now the permission to send you native notifications on this device.</li>
                                     <li><em>[System Name]</em> Warning - Warning<br/>
                                     You can not remove the admin user as it is used internally for resources created by <em>[System Name]</em> (updates, module installation, ...)</li>
