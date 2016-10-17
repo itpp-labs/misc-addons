@@ -9,6 +9,8 @@ $(document).ready(function() {
         init: function (widget) {
             this._super();
             var self = this;
+            this.stopline_audio_warning = true;
+            this.stopline_audio_stop = true;
             this.widget = widget;
 
             this.channel = JSON.stringify([this.widget.dbname,"project.timelog",String(this.widget.uid)]);
