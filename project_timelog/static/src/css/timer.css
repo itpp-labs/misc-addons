@@ -57,3 +57,7 @@
     visibility: visible;
 	bottom: 30px;
 }
+
+#clock_second {
+	font-size: 60%;
+}

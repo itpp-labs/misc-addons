@@ -26,10 +26,15 @@ class TimelogController(http.Controller):
             last_timelog = timelog[-1].id
 
         subtask = http.request.env.user.active_work_id
+        task = http.request.env.user.active_task_id
 
         subtask_name = "None"
         if subtask:
             subtask_name = subtask.name
+
+        task_name = "None"
+        if task:
+            task_name = task.name
 
         # 1. All time (today) in current work for current user
         log_timer = 0
@@ -107,7 +112,7 @@ class TimelogController(http.Controller):
                     sum_another_timelog = sum_another_timelog + i.corrected_duration
                 sum_another_timelog = 3600 * sum_another_timelog
                 sum_another_timelog = datetime.timedelta(seconds=round(sum_another_timelog, 0))
-                second_timer_info.append(e + ": " + str(sum_another_timelog))
+                second_timer_info.append(e + ": " + str(sum_another_timelog) + "\n")
 
             for e in second_timer_info:
                 desctiption_timer = desctiption_timer + e
@@ -124,6 +129,11 @@ class TimelogController(http.Controller):
         work_id = http.request.env.user.active_work_id.id
         if work_id is False:
             work_id = 0
+
+        end_datetime_status = True
+        t = http.request.env.user.active_work_id.timelog_ids
+        if t and t[-1].end_datetime is False:
+            end_datetime_status = False
 
         resultat = {
             'timer_status': play_status,
@@ -148,8 +158,10 @@ class TimelogController(http.Controller):
 
             "subtask_name": subtask_name,
             "description_second_timer": desctiption_timer,
+            "task_name": task_name,
 
-            "timelog_id": last_timelog
+            "timelog_id": last_timelog,
+            "end_datetime_status": end_datetime_status
         }
         return resultat
 

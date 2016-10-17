@@ -10,7 +10,7 @@
                 <xpath expr="//notebook/page[@string='Description']" position="before">
                     <page string="Work summary">
                         <field name="work_ids" groups="project.group_tasks_work_on_tasks">
-                            <tree string="Task Work" editable="top">
+                            <tree string="Task Work" editable="bottom">
                                 <field name="name" attrs="{'readonly': [('status', '=', 'nonactive')]}"/>
                                 <field name="status" invisible="1"/>
                                 <field name="user_current" invisible="1"/>
@@ -43,7 +43,7 @@
 
                 <xpath expr="//page[@string='Description']/field[@name='work_ids']" position="replace">
                 </xpath>
-                <xpath expr="//page[@string='Description']/group" position="replace">
+                <xpath expr="//group[@name='project_hours']" position="replace">
                 </xpath>
             </field>
         </record>
