@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Template Burger King-->
+        <record model="theme_kit.top_panel" id="burger_king_top_panel">
+            <field name="name">Burger King</field>
+            <field name="top_panel_bg">#ED7902</field>
+            <field name="top_panel_bg_active">True</field>
+            <field name="top_panel_border">#994E01</field>
+            <field name="top_panel_border_active">True</field>
+            <field name="top_panel_font">#FFFFFF</field>
+            <field name="top_panel_font_active">True</field>
+            <field name="top_panel_active_item_font">#762823</field>
+            <field name="top_panel_active_item_font_active">True</field>
+            <field name="top_panel_active_item_bg">#FDBD10</field>
+            <field name="top_panel_active_item_bg_active">True</field>
+            <field name="top_panel_hover_item_font">#762823</field>
+            <field name="top_panel_hover_item_font_active">True</field>
+            <field name="top_panel_hover_item_bg">#FDBD10</field>
+            <field name="top_panel_hover_item_bg_active">True</field>
+        </record>
+
+        <record model="theme_kit.left_panel" id="burger_king_left_panel">
+            <field name="name">Burger King</field>
+            <field name="left_panel_bg">#ED7902</field>
+            <field name="left_panel_bg_active">True</field>
+            <field name="left_panel_main_menu"> #59291C</field>
+            <field name="left_panel_main_menu_active">True</field>
+            <field name="left_panel_sub_menu">#FFFFFF</field>
+            <field name="left_panel_sub_menu_active">True</field>
+            <field name="left_panel_active_item_font">#762823</field>
+            <field name="left_panel_active_item_font_active">True</field>
+            <field name="left_panel_active_item_bg">#FDBD10</field>
+            <field name="left_panel_active_item_bg_active">True</field>
+            <field name="left_panel_hover_item_font">#762823</field>
+            <field name="left_panel_hover_item_font_active">True</field>
+            <field name="left_panel_hover_item_bg">#FDBD10</field>
+            <field name="left_panel_hover_item_bg_active">True</field>
+        </record>
+
+        <record model="theme_kit.content" id="burger_king_content">
+            <field name="name">Burger King</field>
+            <field name="content_bg">#FDDE63</field>
+            <field name="content_bg_active">True</field>
+            <field name="content_button">#EC1C24</field>
+            <field name="content_button_active">True</field>
+            <field name="content_form_title">#EC1C24</field>
+            <field name="content_form_title_active">True</field>
+            <field name="content_form_link">#EC1C24</field>
+            <field name="content_form_link_active">True</field>
+            <field name="content_loader">#FDDE63</field>
+            <field name="content_loader_active">True</field>
+            <field name="content_loader_text">#000000</field>
+            <field name="content_loader_text_active">True</field>
+        </record>
+
+        <record model="theme_kit.theme" id="burger_king_theme">
+            <field name="name">Burger King</field>
+            <field name="top_panel_id" ref="burger_king_top_panel"/>
+            <field name="left_panel_id" ref="burger_king_left_panel"/>
+            <field name="content_id" ref="burger_king_content"/>
+        </record>
+        <!--Template You Tube-->
+        <record model="theme_kit.top_panel" id="you_tube_top_panel">
+            <field name="name">You Tube</field>
+            <field name="top_panel_bg">#FFFFFF</field>
+            <field name="top_panel_bg_active">True</field>
+            <field name="top_panel_border">#EBEBEB</field>
+            <field name="top_panel_border_active">True</field>
+            <field name="top_panel_font">#444444</field>
+            <field name="top_panel_font_active">True</field>
+            <field name="top_panel_active_item_font">#FFFFFF</field>
+            <field name="top_panel_active_item_font_active">True</field>
+            <field name="top_panel_active_item_bg">#CD201F</field>
+            <field name="top_panel_active_item_bg_active">True</field>
+            <field name="top_panel_hover_item_font">#FFFFFF</field>
+            <field name="top_panel_hover_item_font_active">True</field>
+            <field name="top_panel_hover_item_bg">#444444</field>
+            <field name="top_panel_hover_item_bg_active">True</field>
+        </record>
+
+        <record model="theme_kit.left_panel" id="you_tube_left_panel">
+            <field name="name">You Tube</field>
+            <field name="left_panel_bg">#FFFFFF</field>
+            <field name="left_panel_bg_active">True</field>
+            <field name="left_panel_main_menu">#CD201F</field>
+            <field name="left_panel_main_menu_active">True</field>
+            <field name="left_panel_sub_menu">#444444</field>
+            <field name="left_panel_sub_menu_active">True</field>
+            <field name="left_panel_active_item_font">#FFFFFF</field>
+            <field name="left_panel_active_item_font_active">True</field>
+            <field name="left_panel_active_item_bg">#CD201F</field>
+            <field name="left_panel_active_item_bg_active">True</field>
+            <field name="left_panel_hover_item_font">#FFFFFF</field>
+            <field name="left_panel_hover_item_font_active">True</field>
+            <field name="left_panel_hover_item_bg">#444444</field>
+            <field name="left_panel_hover_item_bg_active">True</field>
+        </record>
+
+        <record model="theme_kit.content" id="you_tube_content">
+            <field name="name">You Tube</field>
+            <field name="content_bg">#F1F1F1</field>
+            <field name="content_bg_active">True</field>
+            <field name="content_button">#CD201F</field>
+            <field name="content_button_active">True</field>
+            <field name="content_form_title">#CD201F</field>
+            <field name="content_form_title_active">True</field>
+            <field name="content_form_link">#CD201F</field>
+            <field name="content_form_link_active">True</field>
+            <field name="content_form_text">#444444</field>
+            <field name="content_form_text_active">True</field>
+            <field name="content_text">#444444</field>
+            <field name="content_text_active">True</field>
+            <field name="content_loader">#CD201F</field>
+            <field name="content_loader_active">True</field>
+            <field name="content_loader_text">#FFFFFF</field>
+            <field name="content_loader_text_active">True</field>
+        </record>
+
+        <record model="theme_kit.theme" id="you_tube_theme">
+            <field name="name">You Tube</field>
+            <field name="top_panel_id" ref="you_tube_top_panel"/>
+            <field name="left_panel_id" ref="you_tube_left_panel"/>
+            <field name="content_id" ref="you_tube_content"/>
+        </record>
+        <!--Template Coca-Cola-->
+        <record model="theme_kit.top_panel" id="cola_top_panel">
+            <field name="name">Coca-Cola</field>
+            <field name="top_panel_bg">#ED1C16</field>
+            <field name="top_panel_bg_active">True</field>
+            <field name="top_panel_border">#000000</field>
+            <field name="top_panel_border_active">True</field>
+            <field name="top_panel_font">#FFFFFF</field>
+            <field name="top_panel_font_active">True</field>
+            <field name="top_panel_active_item_font">#FFFFFF</field>
+            <field name="top_panel_active_item_font_active">True</field>
+            <field name="top_panel_active_item_bg">#000000</field>
+            <field name="top_panel_active_item_bg_active">True</field>
+            <field name="top_panel_hover_item_font">#FFFFFF</field>
+            <field name="top_panel_hover_item_font_active">True</field>
+            <field name="top_panel_hover_item_bg">#000000</field>
+            <field name="top_panel_hover_item_bg_active">True</field>
+        </record>
+
+        <record model="theme_kit.left_panel" id="cola_left_panel">
+            <field name="name">Coca-Cola</field>
+            <field name="left_panel_bg">#ED1C16</field>
+            <field name="left_panel_bg_active">True</field>
+            <field name="left_panel_main_menu">#FFFFFF</field>
+            <field name="left_panel_main_menu_active">True</field>
+            <field name="left_panel_sub_menu">#FFFFFF</field>
+            <field name="left_panel_sub_menu_active">True</field>
+            <field name="left_panel_active_item_font">#FFFFFF</field>
+            <field name="left_panel_active_item_font_active">True</field>
+            <field name="left_panel_active_item_bg">#000000</field>
+            <field name="left_panel_active_item_bg_active">True</field>
+            <field name="left_panel_hover_item_font">#FFFFFF</field>
+            <field name="left_panel_hover_item_font_active">True</field>
+            <field name="left_panel_hover_item_bg">#000000</field>
+            <field name="left_panel_hover_item_bg_active">True</field>
+        </record>
+
+        <record model="theme_kit.content" id="cola_content">
+            <field name="name">Coca-Cola</field>
+            <field name="content_bg">#FFFFFF</field>
+            <field name="content_bg_active">True</field>
+            <field name="content_button">#ED1C16</field>
+            <field name="content_button_active">True</field>
+            <field name="content_form_title">#ED1C16</field>
+            <field name="content_form_title_active">True</field>
+            <field name="content_form_link">#ED1C16</field>
+            <field name="content_form_link_active">True</field>
+            <field name="content_form_text">#000000</field>
+            <field name="content_form_text_active">True</field>
+            <field name="content_text">#000000</field>
+            <field name="content_text_active">True</field>
+            <field name="content_loader">#000000</field>
+            <field name="content_loader_active">True</field>
+            <field name="content_loader_text">#FFFFFF</field>
+            <field name="content_loader_text_active">True</field>
+        </record>
+
+        <record model="theme_kit.theme" id="cola_theme">
+            <field name="name">Coca-Cola</field>
+            <field name="top_panel_id" ref="cola_top_panel"/>
+            <field name="left_panel_id" ref="cola_left_panel"/>
+            <field name="content_id" ref="cola_content"/>
+        </record>
+        <!--Template IKEA-->
+        <record model="theme_kit.top_panel" id="ikea_top_panel">
+            <field name="name">IKEA</field>
+            <field name="top_panel_bg">#003399</field>
+            <field name="top_panel_bg_active">True</field>
+            <field name="top_panel_border">#002369</field>
+            <field name="top_panel_border_active">True</field>
+            <field name="top_panel_font">#FFCC00</field>
+            <field name="top_panel_font_active">True</field>
+            <field name="top_panel_active_item_font">#003399</field>
+            <field name="top_panel_active_item_font_active">True</field>
+            <field name="top_panel_active_item_bg">#FFCC00</field>
+            <field name="top_panel_active_item_bg_active">True</field>
+            <field name="top_panel_hover_item_font">#003399</field>
+            <field name="top_panel_hover_item_font_active">True</field>
+            <field name="top_panel_hover_item_bg">#FFCC00</field>
+            <field name="top_panel_hover_item_bg_active">True</field>
+        </record>
+
+        <record model="theme_kit.left_panel" id="ikea_left_panel">
+            <field name="name">IKEA</field>
+            <field name="left_panel_bg">#003399</field>
+            <field name="left_panel_bg_active">True</field>
+            <field name="left_panel_main_menu">#FFCC00</field>
+            <field name="left_panel_main_menu_active">True</field>
+            <field name="left_panel_sub_menu">#FFCC00</field>
+            <field name="left_panel_sub_menu_active">True</field>
+            <field name="left_panel_active_item_font">#003399</field>
+            <field name="left_panel_active_item_font_active">True</field>
+            <field name="left_panel_active_item_bg">#FFCC00</field>
+            <field name="left_panel_active_item_bg_active">True</field>
+            <field name="left_panel_hover_item_font">#003399</field>
+            <field name="left_panel_hover_item_font_active">True</field>
+            <field name="left_panel_hover_item_bg">#FFCC00</field>
+            <field name="left_panel_hover_item_bg_active">True</field>
+        </record>
+
+        <record model="theme_kit.content" id="ikea_content">
+            <field name="name">IKEA</field>
+            <field name="content_bg">#FFCC00</field>
+            <field name="content_bg_active">True</field>
+            <field name="content_button">#003399</field>
+            <field name="content_button_active">True</field>
+            <field name="content_form_title">#003399</field>
+            <field name="content_form_title_active">True</field>
+            <field name="content_form_link">#003399</field>
+            <field name="content_form_link_active">True</field>
+            <field name="content_form_text">#003399</field>
+            <field name="content_form_text_active">True</field>
+            <field name="content_text">#003399</field>
+            <field name="content_text_active">True</field>
+            <field name="content_loader">#FFCC00</field>
+            <field name="content_loader_active">True</field>
+            <field name="content_loader_text">#000000</field>
+            <field name="content_loader_text_active">True</field>
+        </record>
+
+        <record model="theme_kit.theme" id="ikea_theme">
+            <field name="name">IKEA</field>
+            <field name="top_panel_id" ref="ikea_top_panel"/>
+            <field name="left_panel_id" ref="ikea_left_panel"/>
+            <field name="content_id" ref="ikea_content"/>
+        </record>
+
+    </data>
+</odoo>

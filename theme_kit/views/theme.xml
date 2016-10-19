@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="theme_view_tree" model="ir.ui.view">
+            <field name="name">theme_kit.theme.tree</field>
+            <field name="model">theme_kit.theme</field>
+            <field name="arch" type="xml">
+                <tree string="Color Schemes">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="theme_view_form" model="ir.ui.view">
+            <field name="name">theme_kit.theme.form</field>
+            <field name="model">theme_kit.theme</field>
+            <field name="arch" type="xml">
+                <form string="Color scheme">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Top panel">
+                                <field name="top_panel_id" />
+                            </group>
+                            <group string="Left panel">
+                                <field name="left_panel_id" />
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Content">
+                                <field name="content_id" />
+                            </group>
+                        </group>
+                            <group string="Custom setting">
+                                <field name="custom_css"/>
+                                <field name="custom_js"/>
+                            </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="theme_top_panel_view_form" model="ir.ui.view">
+            <field name="name">theme_kit.top_panel.form</field>
+            <field name="model">theme_kit.top_panel</field>
+            <field name="arch" type="xml">
+                <form string="Color scheme">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Top panel">
+                                <div>
+                                    <label for="top_panel_bg" />
+                                    <field name="top_panel_bg_active" nolabel="1" class="oe_inline"/>
+                                    <field name="top_panel_bg" widget="color" attrs="{'readonly':[('top_panel_bg_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                                <div>
+                                    <label for="top_panel_border" />
+                                    <field name="top_panel_border_active" nolabel="1" class="oe_inline"/>
+                                    <field name="top_panel_border" class="oe_inline" attrs="{'readonly':[('top_panel_border_active','=',False)]}" widget="color"/>
+                                </div>
+                                <div>
+                                    <label for="top_panel_font" />
+                                    <field name="top_panel_font_active" nolabel="1" class="oe_inline"/>
+                                    <field name="top_panel_font" widget="color" attrs="{'readonly':[('top_panel_font_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                                <div>
+                                    <label for="top_panel_active_item_font" />
+                                    <field name="top_panel_active_item_font_active" nolabel="1" class="oe_inline"/>
+                                    <field name="top_panel_active_item_font" widget="color" attrs="{'readonly':[('top_panel_active_item_font_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                                <div>
+                                    <label for="top_panel_active_item_bg" />
+                                    <field name="top_panel_active_item_bg_active" nolabel="1" class="oe_inline"/>
+                                    <field name="top_panel_active_item_bg" widget="color" attrs="{'readonly':[('top_panel_active_item_bg_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                                <div>
+                                    <label for="top_panel_hover_item_font" />
+                                    <field name="top_panel_hover_item_font_active" nolabel="1" class="oe_inline"/>
+                                    <field name="top_panel_hover_item_font" widget="color" attrs="{'readonly':[('top_panel_hover_item_font_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                                <div>
+                                    <label for="top_panel_hover_item_bg" />
+                                    <field name="top_panel_hover_item_bg_active" nolabel="1" class="oe_inline"/>
+                                    <field name="top_panel_hover_item_bg" widget="color" attrs="{'readonly':[('top_panel_hover_item_bg_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="theme_left_panel_view_form" model="ir.ui.view">
+            <field name="name">theme_kit.left_panel.form</field>
+            <field name="model">theme_kit.left_panel</field>
+            <field name="arch" type="xml">
+                <form string="Color scheme">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Left panel">
+                                <div>
+                                    <label for="left_panel_bg" />
+                                    <field name="left_panel_bg_active" nolabel="1" class="oe_inline"/>
+                                    <field name="left_panel_bg" class="oe_inline" attrs="{'readonly':[('left_panel_bg_active','=',False)]}" widget="color"/>
+                                </div>
+                                <div>
+                                    <label for="left_panel_main_menu"/>
+                                    <field name="left_panel_main_menu_active" nolabel="1" class="oe_inline"/>
+                                    <field name="left_panel_main_menu" class="oe_inline" attrs="{'readonly':[('left_panel_main_menu_active','=',False)]}" widget="color"/>
+                                </div>
+                                <div>
+                                    <label for="left_panel_sub_menu"/>
+                                    <field name="left_panel_sub_menu_active" nolabel="1" class="oe_inline"/>
+                                    <field name="left_panel_sub_menu" widget="color" attrs="{'readonly':[('left_panel_sub_menu_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                                <div>
+                                    <label for="left_panel_active_item_font"/>
+                                    <field name="left_panel_active_item_font_active" nolabel="1" class="oe_inline"/>
+                                    <field name="left_panel_active_item_font" widget="color" attrs="{'readonly':[('left_panel_active_item_font_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                                <div>
+                                    <label for="left_panel_active_item_bg"/>
+                                    <field name="left_panel_active_item_bg_active" nolabel="1" class="oe_inline"/>
+                                    <field name="left_panel_active_item_bg" widget="color" attrs="{'readonly':[('left_panel_active_item_bg_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                                <div>
+                                    <label for="left_panel_hover_item_font"/>
+                                    <field name="left_panel_hover_item_font_active" nolabel="1" class="oe_inline"/>
+                                    <field name="left_panel_hover_item_font" widget="color" attrs="{'readonly':[('left_panel_hover_item_font_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                                <div>
+                                    <label for="left_panel_hover_item_bg"/>
+                                    <field name="left_panel_hover_item_bg_active" nolabel="1" class="oe_inline"/>
+                                    <field name="left_panel_hover_item_bg" widget="color" attrs="{'readonly':[('left_panel_hover_item_bg_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="theme_content_view_form" model="ir.ui.view">
+            <field name="name">theme_kit.content.form</field>
+            <field name="model">theme_kit.content</field>
+            <field name="arch" type="xml">
+                <form string="Color scheme">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Content">
+                                <div>
+                                    <label for="content_bg"/>
+                                    <field name="content_bg_active" nolabel="1" class="oe_inline"/>
+                                    <field name="content_bg" widget="color" attrs="{'readonly':[('content_bg_active','=',False)]}" class="oe_inline" />
+                                </div>
+                                <div>
+                                    <label for="content_button"/>
+                                    <field name="content_button_active" nolabel="1" class="oe_inline"/>
+                                    <field name="content_button" widget="color" attrs="{'readonly':[('content_button_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                                <div>
+                                    <label for="content_form"/>
+                                    <field name="content_form_active" nolabel="1" class="oe_inline"/>
+                                    <field name="content_form" widget="color" attrs="{'readonly':[('content_form_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                                <div>
+                                    <label for="content_form_text"/>
+                                    <field name="content_form_text_active" nolabel="1" class="oe_inline"/>
+                                    <field name="content_form_text" widget="color" attrs="{'readonly':[('content_form_text_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                                <div>
+                                    <label for="content_form_title"/>
+                                    <field name="content_form_title_active" nolabel="1" class="oe_inline"/>
+                                    <field name="content_form_title" widget="color" attrs="{'readonly':[('content_form_title_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                                <div>
+                                    <label for="content_text"/>
+                                    <field name="content_text_active" nolabel="1" class="oe_inline"/>
+                                    <field name="content_text" widget="color" attrs="{'readonly':[('content_text_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                                <div>
+                                    <label for="content_form_link"/>
+                                    <field name="content_form_link_active" nolabel="1" class="oe_inline"/>
+                                    <field name="content_form_link" widget="color" attrs="{'readonly':[('content_form_link_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                                <div>
+                                    <label for="content_loader"/>
+                                    <field name="content_loader_active" nolabel="1" class="oe_inline"/>
+                                    <field name="content_loader" widget="color" attrs="{'readonly':[('content_loader_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                                <div>
+                                    <label for="content_loader_text"/>
+                                    <field name="content_loader_text_active" nolabel="1" class="oe_inline"/>
+                                    <field name="content_loader_text" widget="color" attrs="{'readonly':[('content_loader_text_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="theme_action" model="ir.actions.act_window">
+            <field name="name">Color Scheme</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">theme_kit.theme</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="theme_top_panel_action" model="ir.actions.act_window">
+            <field name="name">Color Top Panel</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">theme_kit.top_panel</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="theme_left_panel_action" model="ir.actions.act_window">
+            <field name="name">Color Left Panel</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">theme_kit.left_panel</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="theme_content_action" model="ir.actions.act_window">
+            <field name="name">Color Content</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">theme_kit.content</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="theme_menu" name="Color Schemes" parent="main_menu" sequence="1" action="theme_action"/>
+        <menuitem id="theme_color_setting" name="Color Details" sequence="2" parent="main_menu" />
+            <menuitem id="theme_top_panel_menu" name="Color Top Panel" parent="theme_color_setting" sequence="1" action="theme_top_panel_action"/>
+            <menuitem id="theme_left_panel_menu" name="Color Left Panel" parent="theme_color_setting" sequence="2" action="theme_left_panel_action"/>
+            <menuitem id="theme_conten_menu" name="Color Content" parent="theme_color_setting" sequence="3" action="theme_content_action"/>
+
+    </data>
+</odoo>
