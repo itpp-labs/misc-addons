@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from openerp import models, fields, api
-from openerp.addons.base.ir.ir_qweb import AssetsBundle, LessStylesheetAsset
+from odoo import models, fields, api
+from odoo.addons.base.ir.ir_qweb.assetsbundle import AssetsBundle, LessStylesheetAsset
 
 
 class Theme(models.Model):
@@ -39,7 +39,7 @@ class Theme(models.Model):
             r.code = code
 
     def generate_less2css(self, code):
-        bundle = AssetsBundle('theme_kit.dummy')
+        bundle = AssetsBundle('theme_kit.dummy', [], [])
         assets = LessStylesheetAsset(bundle, inline=code, url='')
         cmd = assets.get_command()
         source = assets.get_source()

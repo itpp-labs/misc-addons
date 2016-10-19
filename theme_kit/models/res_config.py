@@ -43,12 +43,12 @@ class Config(models.TransientModel):
     wallpapers_count = fields.Integer('Wallpapers', readonly=True)
 
     @api.multi
-    def get_default_wallpapers_count(self):
+    def get_default_wallpapers_count(self, fields):
         wallpapers_count = self.env['ir.attachment'].search_count([('use_as_background', '=', True)])
         return {'wallpapers_count': wallpapers_count}
 
     @api.multi
-    def get_default_company_logo(self):
+    def get_default_company_logo(self, fields):
         return {'company_logo': self.env.user.company_id.logo}
 
     @api.multi
@@ -56,7 +56,7 @@ class Config(models.TransientModel):
         self.env.user.company_id.logo = self.company_logo
 
     @api.multi
-    def get_default_ids(self):
+    def get_default_ids(self, fields):
         res = {}
         for field, param in FIELD_PARAM_ID_LIST:
             value = self.env['ir.config_parameter'].get_param(param)
@@ -72,7 +72,7 @@ class Config(models.TransientModel):
             self.env['ir.config_parameter'].set_param(param, getattr(self, field).id or '')
 
     @api.multi
-    def get_default_strs(self):
+    def get_default_strs(self, fields):
         res = {}
         for field, param in FIELD_PARAM_STR_LIST:
             value = self.env['ir.config_parameter'].get_param(param)
