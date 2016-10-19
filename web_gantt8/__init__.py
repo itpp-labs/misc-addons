@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-import web_gantt8
+from . import web_gantt8

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ir_attachment_login_bg_action" model="ir.actions.act_window">
+            <field name="name">Login page wallpapers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ir.attachment</field>
+            <field name="view_type">form</field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="base.view_attachment_search"/>
+            <field name="context">{"default_use_as_background": 1, "default_public": 1, "default_name": "Wallpaper"}}}}</field>
+            <field name="domain">[('use_as_background', '=', True)]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to add new Wallpapers.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
