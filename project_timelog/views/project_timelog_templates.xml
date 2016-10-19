@@ -14,16 +14,12 @@
                 <ul class="nav navbar-nav navbar-right timelog oe_timelog_placeholder">
                     <li class="timelog" id="timelog_timer">
                           <div id="clock0" class="clock">
-                              00:00:00
                           </div>
                           <div id="clock1" class="clock">
-                              00:00
                           </div>
                           <div id="clock2" class="clock">
-                              00:00
                           </div>
                           <div id="clock3" class="clock">
-                              00:00
                           </div>
                     </li>
                 </ul>
