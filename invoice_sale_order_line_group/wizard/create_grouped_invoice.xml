@@ -15,10 +15,10 @@
             All selected lines are ok to be invoiced
           </p>
           <p attrs="{'invisible': [('invoiced_count', '=', 0)]}">
-            Warning: some of the selected lines are already invoiced - cannot invoice such
+            Warning: Invoice cannot be created due to some of the selected lines are already invoiced
           </p>
           <p attrs="{'invisible': [('draft_count', '=', 0)]}">
-            Warning: some of the selected lines are either in "draft" or "cancel" state - cannot invoice such
+            Warning: Invoice cannot be created due to some of the selected lines are either in "draft" or "cancel" state
           </p>
           <notebook invisible="1">
             <page string="Invoiced">
