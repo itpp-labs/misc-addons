@@ -121,6 +121,7 @@
                 <search>
                     <filter name="active_bookings" string="Active Bookings"
                         domain="[('state', '!=', False), ('booking_end', '&gt;=', time.strftime('%Y-%m-%d %H:%M:%S'))]"/>
+                    <filter name="uninvoiced" icon="terp-dolar_ok!" string="Uninvoiced" domain="[('invoiced','&lt;&gt;', 1)]" help="Sales Order Lines that haven't yet been invoiced"/>
                     <group expand="0" string="Group By">
                         <filter string="Booking Month" domain="[]" context="{'group_by':'booking_start'}"/>
                         <filter string="Booking Day" domain="[]" context="{'group_by':'booking_start:day'}"/>
@@ -145,7 +146,7 @@
           <field name="view_id" ref="view_booking_order_line_tree"/>
           <field name="view_mode">calendar,tree,form</field>
           <field name="search_view_id" ref="booking_search_view"/>
-          <field name="context" eval="{'search_default_active_bookings': 1}"/>
+          <field name="context">{'search_default_active_bookings': True}</field>
         </record>
 
         <record model="ir.actions.act_window.view" id="booking_orders_lines_list_actiont_calendar">
