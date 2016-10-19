@@ -121,7 +121,7 @@
                 <search>
                     <filter name="active_bookings" string="Active Bookings"
                         domain="[('state', '!=', False), ('booking_end', '&gt;=', time.strftime('%Y-%m-%d %H:%M:%S'))]"/>
-                    <filter name="uninvoiced" icon="terp-dolar_ok!" string="Uninvoiced" domain="[('invoiced','&lt;&gt;', 1)]" help="Sales Order Lines that haven't yet been invoiced"/>
+                    <filter name="uninvoiced" icon="terp-dolar_ok!" string="Not invoiced" domain="[('invoiced','&lt;&gt;', 1)]" help="Sales Order Lines that haven't yet been invoiced"/>
                     <group expand="0" string="Group By">
                         <filter string="Booking Month" domain="[]" context="{'group_by':'booking_start'}"/>
                         <filter string="Booking Day" domain="[]" context="{'group_by':'booking_start:day'}"/>
