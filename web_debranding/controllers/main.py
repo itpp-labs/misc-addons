@@ -9,8 +9,9 @@ from openerp.http import request
 from openerp.modules import get_module_resource
 from cStringIO import StringIO
 
-db_monodb = http.db_monodb
+from openerp.addons.web_debranding.models.ir_translation import debrand
 
+db_monodb = http.db_monodb
 
 class BinaryCustom(Binary):
 
@@ -72,7 +73,8 @@ class WebClientCustom(WebClient):
         content, checksum = controllers_main.concat_xml(files)
         if request.context['lang'] == 'en_US':
             content = content.decode('utf-8')
-            content = request.env['ir.translation']._debrand(content)
+            # request.env could be not available
+            content = debrand(request.session.db and request.env or None, content)
 
         return controllers_main.make_conditional(
             request.make_response(content, [('Content-Type', 'text/xml')]),
