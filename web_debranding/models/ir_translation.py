@@ -5,7 +5,7 @@ from openerp import api
 from openerp import models
 from openerp import tools
 
-from openerp.addons.web_debranding.models.ir_config_parameter import PARAMS
+from .ir_config_parameter import PARAMS
 
 
 def debrand(env, source):
