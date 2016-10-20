@@ -136,7 +136,7 @@
       </record>
 
       <record model="ir.actions.act_window" id="booking_calendar.booking_orders_lines_list_action">
-          <field name="context" eval="{'search_default_active_bookings': 1, 'search_default_uninvoiced': 1}"/>
+          <field name="context" eval="{'search_default_active_bookings': 1}"/>
       </record>
       
       <record id="thecage_view_booking_order_line_tree" model="ir.ui.view">
