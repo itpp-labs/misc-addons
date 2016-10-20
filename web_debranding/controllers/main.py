@@ -9,9 +9,10 @@ from openerp.http import request
 from openerp.modules import get_module_resource
 from cStringIO import StringIO
 
-from openerp.addons.web_debranding.models.ir_translation import debrand
+from ..models.ir_translation import debrand
 
 db_monodb = http.db_monodb
+
 
 class BinaryCustom(Binary):
 
