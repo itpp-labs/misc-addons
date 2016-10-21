@@ -122,6 +122,7 @@
                     <filter name="active_bookings" string="Active Bookings"
                         domain="[('state', '!=', False), ('booking_end', '&gt;=', time.strftime('%Y-%m-%d %H:%M:%S'))]"/>
                     <filter name="uninvoiced" icon="terp-dolar_ok!" string="Not invoiced" domain="[('invoiced','&lt;&gt;', 1)]" help="Sales Order Lines that haven't yet been invoiced"/>
+                    <separator/>
                     <filter name="today" string="Today" domain="[('booking_start','&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59))), ('booking_start','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0)))]" help="Bookings processed Today or planned for Today"/>
                     <filter name="yesterday" string="Yesterday" domain="[('booking_start','&lt;=', datetime.datetime.combine(context_today()-datetime.timedelta(1), datetime.time(23,59,59))), ('booking_start','&gt;=', datetime.datetime.combine(context_today()-datetime.timedelta(1), datetime.time(0,0,0)))]"/>
                     <filter name="tomorrow" string="Tomorrow" domain="[('booking_start','&lt;=', datetime.datetime.combine(context_today()+datetime.timedelta(1), datetime.time(23,59,59))), ('booking_start','&gt;=', datetime.datetime.combine(context_today()+datetime.timedelta(1), datetime.time(0,0,0)))]"/>
