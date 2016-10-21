@@ -187,6 +187,7 @@
             <xpath expr="//group" position="before">
                 <field name="venue_id"/>
                 <field name="pitch_id"/>
+                <field name="order_partner_id"/>
             </xpath>
           </field>
         </record>
