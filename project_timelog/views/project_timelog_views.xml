@@ -9,7 +9,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//notebook/page[@string='Description']" position="before">
                     <page string="Work summary">
-                        <field name="work_ids" groups="project.group_tasks_work_on_tasks">
+                        <field name="work_ids" groups="project.group_tasks_work_on_tasks" >
                             <tree string="Task Work" editable="bottom">
                                 <field name="name" attrs="{'readonly': [('status', '=', 'nonactive')]}"/>
                                 <field name="status" invisible="1"/>
@@ -77,10 +77,10 @@
                                 <field name="duration" string="Duration" widget="float_time" help="Total time, before taking into account errors" readonly="1"/>
                             </group>
                         </group>
-                        <sheet>
+                        <group>
                             <group><field name="time_correction" string="Time correction" help="To correct the mistake of the recorded time" widget="float_time"/></group>
                             <group><field name="corrected_duration" string="Corrected duration" widget="float_time" help="Total time, after taking into account errors" readonly="1"/></group>
-                        </sheet>
+                        </group>
                     </sheet>
                 </form>
             </field>
@@ -139,7 +139,7 @@
                     <field name="user_id" string="User"/>
                     <field name="start_datetime" />
                     <field name="end_datetime" />
-                    <filter name="today" string="Today" domain="[('start_datetime', '&gt;=',  ((context_today()).strftime('%%Y-%%m-%%d'))+' '+'00:00:00'), ('end_datetime', '&lt;=', ((context_today()).strftime('%%Y-%%m-%%d'))+' '+'23:59:59')]"/>
+                    <filter name="today" string="Today" domain="[('start_datetime', '&gt;=',  datetime.datetime.combine(context_today(), datetime.time(0,0,0))), ('end_datetime', '&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59)))]"/>
                     <separator/>
                     <filter name="week" string="This week" domain="[('start_datetime', '&gt;=', ((context_today()+relativedelta(weeks=-1, days=1, weekday=0)).strftime('%%Y-%%m-%%d'))+' '+'00:00:00'),
                                                                         ('end_datetime', '&lt;=', ((context_today()+relativedelta(weeks=0, weekday=6)).strftime('%%Y-%%m-%%d'))+' '+'23:59:59')]"/>
