@@ -94,8 +94,14 @@ class ThemeTopPanel(models.Model):
                 code = code + '''#oe_main_menu_navbar{{
                     border-color: {theme.top_panel_border};
                 }}
-                .openerp .oe-control-panel {{
+                .o_control_panel {{
                     border-bottom-color: {theme.top_panel_border}!important;
+                }}
+                .o_list_view thead {{
+                    color: {theme.top_panel_border};
+                }}
+                .o_list_view thead > tr > th {{
+                    border-color: {theme.top_panel_border};
                 }}
                 '''
             if self.top_panel_font_active:
@@ -164,15 +170,17 @@ class ThemeLeftPanel(models.Model):
             # double {{ will be formated as single {
             code = ''
             if self.left_panel_bg_active:
-                code = code + '''.oe_leftbar{{
+                code = code + '''.o_web_client > .o_main .o_sub_menu {{
                     background-color: {theme.left_panel_bg}!important;
                 }}
+
                 .o_mail_chat .o_mail_chat_sidebar {{
                     background-color: {theme.left_panel_bg}!important;
                 }}
                 .o_mail_chat .o_mail_annoying_notification_bar {{
                     background-color: {theme.left_panel_bg}!important;
                 }}
+
                 .o_kanban_view.o_kanban_dashboard.o_project_kanban .o_project_kanban_boxes .o_project_kanban_box:nth-child(odd) {{
                     background-color: {theme.left_panel_bg}!important;
                 }}
@@ -190,11 +198,11 @@ class ThemeLeftPanel(models.Model):
                 }}
                 '''
             if self.left_panel_main_menu_active:
-                code = code + '''.oe_leftbar .oe_secondary_menu_section .oe_menu_leaf{{
-                    color: {theme.left_panel_main_menu};
+                code = code + '''.o_sub_menu .oe_secondary_menu_section{{
+                    color: {theme.left_panel_main_menu}!important;
                 }}
-                .oe_leftbar .oe_secondary_menu_section{{
-                    color: {theme.left_panel_main_menu};
+                .o_sub_menu .oe_secondary_menu_section .oe_menu_leaf{{
+                    color: {theme.left_panel_main_menu}!important;
                 }}
                 .o_mail_chat .o_mail_chat_sidebar h4{{
                     color: {theme.left_panel_main_menu}!important;
@@ -216,7 +224,7 @@ class ThemeLeftPanel(models.Model):
                 }}
                 '''
             if self.left_panel_sub_menu_active:
-                code = code + '''.oe_leftbar .oe_secondary_submenu .oe_menu_text{{
+                code = code + '''.o_sub_menu .oe_secondary_submenu .oe_menu_text{{
                     color: {theme.left_panel_sub_menu};
                 }}
                 .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item {{
@@ -230,10 +238,10 @@ class ThemeLeftPanel(models.Model):
                 }}
                 '''
             if self.left_panel_active_item_font_active:
-                code = code + '''.oe_leftbar .oe_secondary_submenu .active .oe_menu_text{{
+                code = code + '''.o_sub_menu .oe_secondary_submenu .active .oe_menu_text{{
                     color: {theme.left_panel_active_item_font}!important;
                 }}
-                .oe_leftbar .oe_secondary_submenu a:focus .oe_menu_text{{
+                .o_sub_menu .oe_secondary_submenu a:focus .oe_menu_text{{
                     color: {theme.left_panel_active_item_font}!important;
                 }}
                 .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item.o_active {{
@@ -241,10 +249,10 @@ class ThemeLeftPanel(models.Model):
                 }}
                 '''
             if self.left_panel_active_item_bg_active:
-                code = code + '''.oe_leftbar .oe_secondary_submenu .active a{{
+                code = code + '''.o_sub_menu .oe_secondary_submenu .active a{{
                     background-color: {theme.left_panel_active_item_bg}!important;
                 }}
-                .oe_leftbar .oe_secondary_submenu a:focus{{
+                .o_sub_menu .oe_secondary_submenu a:focus{{
                     background-color: {theme.left_panel_active_item_bg}!important;
                 }}
                 .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item.o_active {{
@@ -252,7 +260,7 @@ class ThemeLeftPanel(models.Model):
                 }}
                 '''
             if self.left_panel_hover_item_font_active:
-                code = code + '''.oe_leftbar .oe_secondary_submenu a:hover .oe_menu_text{{
+                code = code + '''.o_sub_menu .oe_secondary_submenu a:hover .oe_menu_text{{
                     color: {theme.left_panel_hover_item_font}!important;
                 }}
                 .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item:hover {{
@@ -260,7 +268,7 @@ class ThemeLeftPanel(models.Model):
                 }}
                 '''
             if self.left_panel_hover_item_bg_active:
-                code = code + '''.oe_leftbar .oe_secondary_submenu a:hover{{
+                code = code + '''.o_sub_menu .oe_secondary_submenu a:hover{{
                     background-color: {theme.left_panel_hover_item_bg}!important;
                 }}
                 .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item:hover {{
@@ -312,11 +320,13 @@ class ThemeContent(models.Model):
         for r in self:
             code = ''
             if self.content_bg_active:
-                code = code + '''.oe_application .oe-control-panel,
-                .oe_application .oe-control-panel .oe-view-title{{
+                code = code + '''.breadcrumb{{
                     background-color: {theme.content_bg}!important;
                 }}
-                .oe_form header{{
+                .o_control_panel{{
+                    background-color: {theme.content_bg}!important;
+                }}
+                .o_form_view header{{
                     border-bottom: 1px solid darken({theme.content_bg}, 10%) !important;
                     background-color: lighten({theme.content_bg}, 30%) !important;
                     background-image: linear-gradient(to bottom, lighten({theme.content_bg}, 30%), {theme.content_bg}) !important;
@@ -326,19 +336,19 @@ class ThemeContent(models.Model):
                     background-image: -ms-linear-gradient(top, lighten({theme.content_bg}, 30%), {theme.content_bg})!important;
                     background-image: -o-linear-gradient(top, lighten({theme.content_bg}, 30%), {theme.content_bg})!important;
                 }}
-                .oe-view-manager {{
+                .o_content {{
                     background-color: {theme.content_bg}!important;
                 }}
-                .oe_list_content thead {{
+                .o_list_view thead {{
                     background: lighten({theme.content_bg}, 15%)!important;
                     border-bottom: 2px solid darken({theme.content_bg}, 10%)!important;
                 }}
-                .oe_list_content tfoot {{
+                .o_list_view tfoot {{
                     border-top: 2px solid darken({theme.content_bg}, 10%)!important;
                     border-bottom: 1px solid darken({theme.content_bg}, 10%)!important;
                     background: lighten({theme.content_bg}, 15%)!important;
                 }}
-                .oe_list_content tbody tr:nth-child(odd) {{
+                .table-striped > tbody > tr:nth-of-type(odd) {{
                     background-color: lighten({theme.content_bg}, 15%)!important;
                     background-image: -webkit-gradient(linear, left top, left bottom, from(lighten({theme.content_bg}, 20%)), to(lighten({theme.content_bg}, 15%)))!important;
                     background-image: -webkit-linear-gradient(top,lighten({theme.content_bg}, 20%), lighten({theme.content_bg}, 15%));
@@ -347,13 +357,13 @@ class ThemeContent(models.Model):
                     background-image: -o-linear-gradient(top, lighten({theme.content_bg}, 20%), lighten({theme.content_bg}, 15%));
                     background-image: linear-gradient(to bottom, lighten({theme.content_bg}, 20%), lighten({theme.content_bg}, 15%));
                 }}
-                .oe_list_content tbody tr {{
+                .o_list_view tbody tr {{
                     border-top: 1px solid darken({theme.content_bg}, 10%)!important;
                 }}
                 .o_web_settings_dashboard {{
                     background: lighten({theme.content_bg}, 20%)!important;
                 }}
-                .oe_application .oe_form_sheetbg {{
+                .o_main .o_form_sheet_bg {{
                     background: lighten({theme.content_bg}, 30%)!important;
                 }}
                 .nav-tabs {{
@@ -366,25 +376,25 @@ class ThemeContent(models.Model):
                 .o_kanban_view {{
                     background-color: lighten({theme.content_bg}, 30%) !important;
                 }}
-                .openerp .oe_searchview .oe_searchview_facets .oe_searchview_facet .oe_facet_values {{
+                .o_facet_values {{
                     background: lighten({theme.content_bg}, 15%)!important;
                 }}
-                .openerp .oe-view-manager-view-kanban .oe_background_grey {{
+                .o_main .o-view-manager-view-kanban .o_background_grey {{
                     background: lighten({theme.content_bg}, 30%) !important;
                 }}
                 '''
 
             if self.content_form_active:
-                code = code + '''.oe_form{{
+                code = code + '''.o_form{{
                     background-color: {theme.content_form}
                 }}
-                .oe_form_sheet {{
+                .o_form_sheet {{
                     background: {theme.content_form}!important
                 }}
-                .oe-x2m-control-panel {{
+                .o-x2m-control-panel {{
                     background-color: {theme.content_form}!important;
                 }}
-                .oe_list_content tbody tr:nth-child(even) {{
+                .o_list_content tbody tr:nth-child(even) {{
                     background-color: {theme.content_form} !important;
                     background-image: -webkit-gradient(linear, left top, left bottom, from(lighten({theme.content_form}, 5%)), to({theme.content_form}))!important;
                     background-image: -webkit-linear-gradient(top,lighten({theme.content_form}, 5%), {theme.content_form});
@@ -395,51 +405,57 @@ class ThemeContent(models.Model):
                 }}
                 '''
             if self.content_form_text_active:
-                code = code + '''.oe_form {{
+                code = code + '''.o_form {{
                     color: {theme.content_form_text} !important;
                 }}
-                .oe_horizontal_separator {{
+                .o_horizontal_separator {{
                     color: darken({theme.content_form_text}, 20%) !important;
                 }}
                 .nav-tabs li .active a {{
                     color: {theme.content_form_text} !important;
                 }}
-                .oe_form div.oe_form_configuration p, .openerp .oe_form div.oe_form_configuration ul, .openerp .oe_form div.oe_form_configuration ol {{
+                .o_form div.o_form_configuration p, .o_main .o_form div.o_form_configuration ul, .o_main .o_form div.o_form_configuration ol {{
                     color: darken({theme.content_form_text}, 10%) !important;
                 }}
                 '''
             if self.content_form_link_active:
-                code = code + ''' .oe_application a {{
+                code = code + ''' .o_main_content a {{
+                    color: {theme.content_form_link};
+                }}
+                .o_control_panel .breadcrumb > li > a {{
                     color: {theme.content_form_link};
                 }}
                 '''
             if self.content_button_active:
-                code = code + '''.oe_button.oe_highlight,
-                .oe_button.btn-primary,
+                code = code + '''.oe_highlight,
+                .o_button.btn-primary,
                 .btn-primary{{
                     background-color: {theme.content_button} !important;
                     border-color: darken({theme.content_button},10%) !important;
                 }}
-                oe_button.oe_highlight:hover,
-                .oe_button.btn-primary:hover,
+                o_button.o_highlight:hover,
+                .o_button.btn-primary:hover,
                 .btn-primary:hover{{
                     background-color: darken({theme.content_button},10%) !important;
                     border-color: darken({theme.content_button},20%) !important;
                 }}
-                .openerp .oe_tag {{
+                .o_main .e_tag {{
                     border: 1px solid {theme.content_button} !important;
                 }}
-                .label-default {{
+                .o_searchview_facet_label {{
                     background-color: {theme.content_button} !important;
+                }}
+                .o_searchview .o_searchview_facet .o_facet_remove {{
+                    color: {theme.content_button} !important;
                 }}
                 '''
             if self.content_text_active:
-                code = code + '''.openerp{{
+                code = code + '''.o_main{{
                     color: {theme.content_text};
                 }}
                 '''
             if self.content_form_title_active:
-                code = code + '''.openerp .oe_horizontal_separator {{
+                code = code + '''.o_main .o_horizontal_separator {{
                     color: {theme.content_form_title} !important;
                 }}
                 .breadcrumb > .active {{
@@ -450,13 +466,13 @@ class ThemeContent(models.Model):
                 }}
                 '''
             if self.content_loader_active:
-                code = code + '''.openerp .oe_loading {{
+                code = code + '''.openerp .o_loading {{
                     background: {theme.content_loader}!important;
                     border: 1px solid {theme.content_loader}!important;
                     color: darken({theme.content_loader},40%)!important;
                 }}'''
             if self.content_loader_text_active:
-                code = code + '''.openerp .oe_loading {{
+                code = code + '''.openerp .o_loading {{
                     color: {theme.content_loader_text}!important;
                 }}'''
 
