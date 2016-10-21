@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 {
-    "name": """hr public holidays ics import""",
+    "name": """Import Holiday ICS""",
     "summary": """
-    import holidays from ics file""",
+    No need for import holidays manually anymore""",
     "category": "Human Resources",
-    "images": [],
+    "images": ['images/ics_import.png'],
     "version": "1.0.0",
 
     "author": "IT-Projects LLC, Ildar Nasyrov",
