@@ -466,13 +466,13 @@ class ThemeContent(models.Model):
                 }}
                 '''
             if self.content_loader_active:
-                code = code + '''.openerp .o_loading {{
+                code = code + '''.o_loading {{
                     background: {theme.content_loader}!important;
                     border: 1px solid {theme.content_loader}!important;
                     color: darken({theme.content_loader},40%)!important;
                 }}'''
             if self.content_loader_text_active:
-                code = code + '''.openerp .o_loading {{
+                code = code + '''.o_loading {{
                     color: {theme.content_loader_text}!important;
                 }}'''
 
