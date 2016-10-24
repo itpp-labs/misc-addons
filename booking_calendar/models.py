@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time
 import pytz
 from dateutil import rrule
 import logging
@@ -48,6 +48,7 @@ class ResourceCalendar(models.Model):
         """
         leave_obj = self.env['resource.calendar.leaves']
         for calendar in self:
+            product = self.env['product.template'].search([('calendar_id', '=', calendar.id)])
             hours = timedelta()
             for day in rrule.rrule(rrule.DAILY, dtstart=start_dt,
                                    until=end_dt.replace(hour=23, minute=59, second=59),
@@ -75,6 +76,16 @@ class ResourceCalendar(models.Model):
                     working_interval = (x, y)
                     leaves = self.get_leave_intervals()
                     leaves = leaves and self.localize_time_intervals(leaves[0])
+                    if product and not product[0].work_on_holidays and product[0].holidays_country_id:
+                        holidays = self.env['hr.holidays.public'].search([
+                            ('country_id', '=', product[0].holidays_country_id.id),
+                            ('year', '=', start_dt.year),
+                        ], limit=1)
+                        for h in holidays[0].line_ids.filtered(lambda r: r.date == start_dt.strftime(DF)):
+                            holiday_interval = [(datetime.combine(datetime.strptime(h.date, DF), time(0, 0)),
+                            datetime.combine(datetime.strptime(h.date, DF) + timedelta(1), time(0, 0)))]
+                            holiday_interval = self.localize_time_intervals(holiday_interval)
+                            work_limits += holiday_interval
                     work_limits += leaves
                     working_intervals += calendar.interval_remove_leaves(working_interval, work_limits)
                 for interval in working_intervals:
@@ -500,6 +511,11 @@ class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     calendar_id = fields.Many2one('resource.calendar', string='Working time')
+    holidays_country_id = fields.Many2one(
+        'res.country',
+        'Holidays Country'
+    )
+    work_on_holidays = fields.Boolean(default=False)
 
 
 class SaleOrderAmountTotal(osv.osv):
