@@ -73,6 +73,9 @@ class ResourceCalendar(models.Model):
                     else:
                         y = work_dt.replace(hour=int(calendar_working_day.hour_to), minute=min_to)
                     working_interval = (x, y)
+                    leaves = self.get_leave_intervals()
+                    leaves = leaves and self.localize_time_intervals(leaves[0])
+                    work_limits += leaves
                     working_intervals += calendar.interval_remove_leaves(working_interval, work_limits)
                 for interval in working_intervals:
                     hours += interval[1] - interval[0]
@@ -108,6 +111,22 @@ class ResourceCalendar(models.Model):
             if round(hours, 2) != round(duration, 2):
                 return False
         return True
+
+    @api.model
+    def localize_time_intervals(self, intervals):
+        # localize UTC dates to be able to compare with hours in Working Time
+        tz_offset = self.env.context.get('tz_offset')
+        localized_intervals = []
+        for interval in intervals:
+            if tz_offset:
+                start_dt = interval[0] - timedelta(minutes=tz_offset)
+                end_dt = interval[1] - timedelta(minutes=tz_offset)
+            else:
+                user_tz = pytz.timezone(self.env.context.get('tz') or 'UTC')
+                start_dt = pytz.utc.localize(interval[0]).astimezone(user_tz)
+                end_dt = pytz.utc.localize(interval[1]).astimezone(user_tz)
+            localized_intervals.append((start_dt, end_dt))
+        return localized_intervals
 
 
 class SaleOrderLine(models.Model):
