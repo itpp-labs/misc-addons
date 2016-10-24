@@ -62,6 +62,8 @@
                 <xpath expr="//field[@name='description_sale']" position="after">
                     <group>
                         <field name="calendar_id"/>
+                        <field name="holidays_country_id"/>
+                        <field name="work_on_holidays"/>
                     </group>
                 </xpath>
             </field>
