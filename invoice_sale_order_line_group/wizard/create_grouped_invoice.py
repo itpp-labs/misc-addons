@@ -40,12 +40,12 @@ class GroupedInvoiceWizard(osv.osv_memory):
             res = order_obj._make_invoice(cr, uid, val[0][0], reduce(lambda x, y: x + y, [l for o, l in val], []), context=context)
             invoice_ref = ''
             origin_ref = ''
-            for o, l in val:
+            for o in set([o for o, l in val]):
                 invoice_ref += (o.client_order_ref or o.name) + '|'
                 origin_ref += (o.origin or o.name) + '|'
                 order_obj.write(cr, uid, [o.id], {'state': 'progress'})
-                cr.execute('insert into sale_order_invoice_rel (order_id,invoice_id) values (%s,%s)', (o.id, res))
-                order_obj.invalidate_cache(cr, uid, ['invoice_ids'], [o.id], context=context)
+            cr.execute('insert into sale_order_invoice_rel (order_id,invoice_id) values (%s,%s)', (o.id, res))
+            order_obj.invalidate_cache(cr, uid, ['invoice_ids'], [o.id], context=context)
             # remove last '|' in invoice_ref
             if len(invoice_ref) >= 1:
                 invoice_ref = invoice_ref[:-1]
