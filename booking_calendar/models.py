@@ -83,7 +83,7 @@ class ResourceCalendar(models.Model):
                         ], limit=1)
                         for h in holidays[0].line_ids.filtered(lambda r: r.date == start_dt.strftime(DF)):
                             holiday_interval = [(datetime.combine(datetime.strptime(h.date, DF), time(0, 0)),
-                            datetime.combine(datetime.strptime(h.date, DF) + timedelta(1), time(0, 0)))]
+                                                 datetime.combine(datetime.strptime(h.date, DF) + timedelta(1), time(0, 0)))]
                             holiday_interval = self.localize_time_intervals(holiday_interval)
                             work_limits += holiday_interval
                     work_limits += leaves
