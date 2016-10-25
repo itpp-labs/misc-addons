@@ -209,7 +209,7 @@
 
         <record model="ir.actions.act_window" id="booking_calendar.booking_orders_lines_list_action">
           <field name="context" eval="{'search_default_active_bookings': 1}"/>
-          <field name="domain">[('venue_id','!=','False'), ('pitch_id','!=',False)]</field>
+          <!-- <field name="domain">[('venue_id','!=','False'), ('pitch_id','!=',False)]</field> -->
         </record>
 
         <record id="view_order_line_booking_form_venue_pitch" model="ir.ui.view">
