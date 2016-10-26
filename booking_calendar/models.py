@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time
 import pytz
 from dateutil import rrule
 import logging
 
 from openerp import api, models, fields
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
+from openerp.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 from openerp.tools.translate import _
 from openerp.exceptions import ValidationError
 
@@ -27,6 +28,11 @@ class ResourceResource(models.Model):
     has_slot_calendar = fields.Boolean('Use Working Time as Slots Definition')
     allowed_days_interval = fields.Integer(string='Allowed Days Interval', help='allow online bookings only on specified days from now')
     hours_to_prepare = fields.Integer(string='Hours to prepare', help="don't allow bookings if time before the event is less than spciefied")
+    holidays_country_id = fields.Many2one(
+        'res.country',
+        'Holidays Country'
+    )
+    work_on_holidays = fields.Boolean(default=False)
 
 
 class ResourceCalendar(models.Model):
@@ -42,6 +48,7 @@ class ResourceCalendar(models.Model):
         """
         leave_obj = self.env['resource.calendar.leaves']
         for calendar in self:
+            product = self.env['product.template'].search([('calendar_id', '=', calendar.id)])
             hours = timedelta()
             for day in rrule.rrule(rrule.DAILY, dtstart=start_dt,
                                    until=end_dt.replace(hour=23, minute=59, second=59),
@@ -67,6 +74,19 @@ class ResourceCalendar(models.Model):
                     else:
                         y = work_dt.replace(hour=int(calendar_working_day.hour_to), minute=min_to)
                     working_interval = (x, y)
+                    leaves = self.get_leave_intervals()
+                    leaves = leaves and self.localize_time_intervals(leaves[0])
+                    if product and not product[0].work_on_holidays and product[0].holidays_country_id:
+                        holidays = self.env['hr.holidays.public'].search([
+                            ('country_id', '=', product[0].holidays_country_id.id),
+                            ('year', '=', start_dt.year),
+                        ], limit=1)
+                        for h in holidays[0].line_ids.filtered(lambda r: r.date == start_dt.strftime(DF)):
+                            holiday_interval = [(datetime.combine(datetime.strptime(h.date, DF), time(0, 0)),
+                                                 datetime.combine(datetime.strptime(h.date, DF) + timedelta(1), time(0, 0)))]
+                            holiday_interval = self.localize_time_intervals(holiday_interval)
+                            work_limits += holiday_interval
+                    work_limits += leaves
                     working_intervals += calendar.interval_remove_leaves(working_interval, work_limits)
                 for interval in working_intervals:
                     hours += interval[1] - interval[0]
@@ -102,6 +122,22 @@ class ResourceCalendar(models.Model):
             if round(hours, 2) != round(duration, 2):
                 return False
         return True
+
+    @api.model
+    def localize_time_intervals(self, intervals):
+        # localize UTC dates to be able to compare with hours in Working Time
+        tz_offset = self.env.context.get('tz_offset')
+        localized_intervals = []
+        for interval in intervals:
+            if tz_offset:
+                start_dt = interval[0] - timedelta(minutes=tz_offset)
+                end_dt = interval[1] - timedelta(minutes=tz_offset)
+            else:
+                user_tz = pytz.timezone(self.env.context.get('tz') or 'UTC')
+                start_dt = pytz.utc.localize(interval[0]).astimezone(user_tz)
+                end_dt = pytz.utc.localize(interval[1]).astimezone(user_tz)
+            localized_intervals.append((start_dt, end_dt))
+        return localized_intervals
 
 
 class SaleOrderLine(models.Model):
@@ -392,18 +428,26 @@ class SaleOrderLine(models.Model):
             if online and r.hours_to_prepare:
                 days = r.hours_to_prepare / 24
                 hours = r.hours_to_prepare % 24
-                online_min_dt = now + timedelta(days=days, hours=hours)
+                online_min_dt = now + timedelta(days=days, hours=hours) - timedelta(minutes=now.minute, seconds=now.second)
                 start_dt = start_dt if start_dt > online_min_dt else online_min_dt
 
             end_dt = datetime.strptime(end, DTF) - timedelta(minutes=offset)
             if online and r.allowed_days_interval:
-                online_max_dt = now + timedelta(days=r.allowed_days_interval)
+                online_max_dt = now + timedelta(days=r.allowed_days_interval) - timedelta(minutes=now.minute, seconds=now.second)
                 end_dt = end_dt if end_dt < online_max_dt else online_max_dt
 
             while start_dt < end_dt:
                 if start_dt < now:
                     start_dt += timedelta(minutes=SLOT_DURATION_MINS)
                     continue
+                if not r.work_on_holidays and r.holidays_country_id:
+                    holidays = self.env['hr.holidays.public'].search([
+                        ('country_id', '=', r.holidays_country_id.id),
+                        ('year', '=', start_dt.year),
+                    ], limit=1)
+                    if holidays[0].line_ids.filtered(lambda r: r.date == start_dt.strftime(DF)):
+                        start_dt += timedelta(1)
+
                 if r.calendar_id:
                     for calendar_working_day in r.calendar_id.get_attendances_for_weekdays([start_dt.weekday()])[0]:
                         min_from = int((calendar_working_day.hour_from - int(calendar_working_day.hour_from)) * 60)
@@ -467,6 +511,11 @@ class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     calendar_id = fields.Many2one('resource.calendar', string='Working time')
+    holidays_country_id = fields.Many2one(
+        'res.country',
+        'Holidays Country'
+    )
+    work_on_holidays = fields.Boolean(default=False)
 
 
 class SaleOrderAmountTotal(osv.osv):

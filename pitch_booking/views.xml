@@ -32,9 +32,15 @@
                         <field name="company_id"/>
                       </group>
                     </group>
-                    <group string="Online Bookings">
-                      <field name="allowed_days_interval"/>
-                      <field name="hours_to_prepare"/>
+                    <group>
+                      <group string="Online Bookings" col="2">
+                        <field name="allowed_days_interval"/>
+                        <field name="hours_to_prepare"/>
+                      </group>
+                      <group string="Holidays" col="2">
+                        <field name="holidays_country_id"/>
+                        <field name="work_on_holidays"/>
+                      </group>
                     </group>
                   </sheet>
                 </form>
@@ -181,6 +187,7 @@
             <xpath expr="//group" position="before">
                 <field name="venue_id"/>
                 <field name="pitch_id"/>
+                <field name="order_partner_id"/>
             </xpath>
           </field>
         </record>
@@ -202,7 +209,7 @@
 
         <record model="ir.actions.act_window" id="booking_calendar.booking_orders_lines_list_action">
           <field name="context" eval="{'search_default_active_bookings': 1}"/>
-          <field name="domain">[('venue_id','!=','False'), ('pitch_id','!=',False)]</field>
+          <!-- <field name="domain">[('venue_id','!=','False'), ('pitch_id','!=',False)]</field> -->
         </record>
 
         <record id="view_order_line_booking_form_venue_pitch" model="ir.ui.view">
