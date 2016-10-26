@@ -10,7 +10,7 @@ _logger = logging.getLogger(__name__)
 try:
     from icalendar import Calendar
 except ImportError:
-    _logger.debug('icalendar library missing, pip install icalendar')
+    _logger.debug('icalendar library missing. Install it via "pip install icalendar"')
 
 
 class HrPublicHolidaysImportIcs(models.TransientModel):
