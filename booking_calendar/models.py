@@ -84,6 +84,7 @@ class ResourceCalendar(models.Model):
                     working_interval = (x, y)
                     leaves = self.get_leave_intervals()
                     leaves = leaves and self.localize_time_intervals(leaves[0])
+                    work_limits += leaves
                     if product and not product[0].work_on_holidays and product[0].holidays_country_id:
                         holidays = self.env['hr.holidays.public'].search([
                             ('country_id', '=', product[0].holidays_country_id.id),
@@ -92,9 +93,10 @@ class ResourceCalendar(models.Model):
                         for h in holidays[0].line_ids.filtered(lambda r: r.date == start_dt.strftime(DF)):
                             holiday_interval = [(datetime.combine(datetime.strptime(h.date, DF), time(0, 0)),
                                                  datetime.combine(datetime.strptime(h.date, DF) + timedelta(1), time(0, 0)))]
-                            holiday_interval = self.localize_time_intervals(holiday_interval)
+                            holiday_interval = self.make_offset_aware(holiday_interval)
                             work_limits += holiday_interval
-                    work_limits += leaves
+                    work_limits = self.make_offset_aware(work_limits)
+                    working_interval = self.make_offset_aware([working_interval])[0]
                     working_intervals += calendar.interval_remove_leaves(working_interval, work_limits)
                 for interval in working_intervals:
                     hours += interval[1] - interval[0]
@@ -144,6 +146,19 @@ class ResourceCalendar(models.Model):
                 user_tz = pytz.timezone(self.env.context.get('tz') or 'UTC')
                 start_dt = pytz.utc.localize(interval[0]).astimezone(user_tz)
                 end_dt = pytz.utc.localize(interval[1]).astimezone(user_tz)
+            localized_intervals.append((start_dt, end_dt))
+        return localized_intervals
+
+    @api.model
+    def make_offset_aware(self, intervals):
+        # some datetimes are in right timezone but without tz_info - that is from hilidays or online calendar
+        # we don't need to convert them from utc to user's tz but need to append tz_info only
+        # if datetimes are aware do nothing with them, if naive - append user tz
+        localized_intervals = []
+        for interval in intervals:
+            user_tz = pytz.timezone(self.env.context.get('tz') or 'UTC')
+            start_dt = not interval[0].tzinfo and user_tz.localize(interval[0]) or interval[0]
+            end_dt = not interval[1].tzinfo and user_tz.localize(interval[1]) or interval[1]
             localized_intervals.append((start_dt, end_dt))
         return localized_intervals
 
