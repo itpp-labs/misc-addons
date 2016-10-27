@@ -66,6 +66,14 @@ class ResourceCalendar(models.Model):
                 work_dt = day_start_dt.replace(hour=0, minute=0, second=0)
                 working_intervals = []
                 for calendar_working_day in calendar.get_attendances_for_weekdays([day_start_dt.weekday()])[0]:
+                    if product and product[0].work_on_holidays and product[0].holidays_country_id and product[0].holidays_schedule == 'premium':
+                        if calendar.get_attendances_for_weekdays([5]):
+                            holidays = self.env['hr.holidays.public'].search([
+                                ('country_id', '=', product[0].holidays_country_id.id),
+                                ('year', '=', start_dt.year),
+                            ], limit=1)
+                            for h in holidays[0].line_ids.filtered(lambda r: r.date == day_start_dt.strftime(DF)):
+                                calendar_working_day = calendar.get_attendances_for_weekdays([5])[0][0]
                     min_from = int((calendar_working_day.hour_from - int(calendar_working_day.hour_from)) * 60)
                     min_to = int((calendar_working_day.hour_to - int(calendar_working_day.hour_to)) * 60)
                     x = work_dt.replace(hour=int(calendar_working_day.hour_from), minute=min_from)
@@ -516,6 +524,10 @@ class ProductTemplate(models.Model):
         'Holidays Country'
     )
     work_on_holidays = fields.Boolean(default=False)
+    holidays_schedule = fields.Selection([
+        ('premium', 'Premium: use Saturday weekend schedule'),
+        ('promotional', 'Promotional: ordinary schedule (restrict it using leaves times if necessary)'),
+        ], string='Holidays schedule', default='premium')
 
 
 class SaleOrderAmountTotal(osv.osv):

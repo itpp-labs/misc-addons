@@ -63,7 +63,8 @@
                     <group>
                         <field name="calendar_id"/>
                         <field name="holidays_country_id"/>
-                        <field name="work_on_holidays"/>
+                        <field name="work_on_holidays" attrs="{'invisible': [('holidays_country_id', '=', False)]}"/>
+                        <field name="holidays_schedule" attrs="{'invisible': [('work_on_holidays', '=', False)]}"/>
                     </group>
                 </xpath>
             </field>
