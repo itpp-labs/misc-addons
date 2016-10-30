@@ -79,7 +79,7 @@ class SaleOrderLine(models.Model):
     _inherit = ['mail.thread', 'sale.order.line']
 
     active = fields.Boolean(default=True, compute='_compute_line_active', store='True')
-    booking_reminder = fields.Boolean(default=False, select=True)
+    booking_reminder = fields.Boolean(default=False, index=True)
     booking_state = fields.Selection('_get_booking_states', default='in_progress', required='True', track_visibility='onchange')
 
     booking_end = fields.Datetime(track_visibility='onchange')

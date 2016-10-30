@@ -22,13 +22,13 @@ def _get_proposal_id(self, cr, uid, ids, name, args, context=None):
 class account_analytic_account(models.Model):
     _inherit = 'account.analytic.account'
 
-    support_manager_id = fields.Many2one('res.users', 'Support manager', select=True)
-    notetaker_id = fields.Many2one('res.partner', 'Notetaker', select=True)
-    proof_reader_id = fields.Many2one('res.partner', 'Proof reader', select=True)
-    consultant_id = fields.Many2one('res.partner', 'Consultant', select=True)
+    support_manager_id = fields.Many2one('res.users', 'Support manager', index=True)
+    notetaker_id = fields.Many2one('res.partner', 'Notetaker', index=True)
+    proof_reader_id = fields.Many2one('res.partner', 'Proof reader', index=True)
+    consultant_id = fields.Many2one('res.partner', 'Consultant', index=True)
 
-    commissioning_manager_id = fields.Many2one('res.partner', 'Commissioning Manager', select=True)
-    business_manager_id = fields.Many2one('res.partner', 'HR/Business Manager', select=True)
+    commissioning_manager_id = fields.Many2one('res.partner', 'Commissioning Manager', index=True)
+    business_manager_id = fields.Many2one('res.partner', 'HR/Business Manager', index=True)
 
     participant_ids = fields.Many2many('res.partner', id1='contract_id', id2='partner_id', string='Participants')
 
@@ -73,7 +73,7 @@ class res_partner(models.Model):
 
     email = fields.Char('Email', track_visibility='onchange')
     phone = fields.Char('Phone', track_visibility='onchange')
-    name = fields.Char('Name', required=True, select=True, track_visibility='onchange')
+    name = fields.Char('Name', required=True, index=True, track_visibility='onchange')
     fax = fields.Char('Fax', track_visibility='onchange')
     mobile = fields.Char('Mobile', track_visibility='onchange')
     website = fields.Char('Website', help="Website of Partner or Company", track_visibility='onchange')

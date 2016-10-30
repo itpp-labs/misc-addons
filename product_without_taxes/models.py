@@ -21,7 +21,7 @@ class SaleOrderLine(models.Model):
         return res
 
 
-        'price_unit_without_taxes': old_fields.Float(compute="_get_price_unit_without_taxes", string='Unit Price (W/o taxes)', digits_compute=dp.get_precision('Product Price'))
+        'price_unit_without_taxes': old_fields.Float(compute="_get_price_unit_without_taxes", string='Unit Price (W/o taxes)', digits=dp.get_precision('Product Price'))
 
 
 
@@ -41,5 +41,5 @@ class AccountInvoiceLine(models.Model):
         return res
 
 
-        'price_unit_without_taxes': old_fields.Float(compute="_get_price_unit_without_taxes", string='Unit Price (W/o taxes)', digits_compute=dp.get_precision('Product Price'))
+        'price_unit_without_taxes': old_fields.Float(compute="_get_price_unit_without_taxes", string='Unit Price (W/o taxes)', digits=dp.get_precision('Product Price'))
 

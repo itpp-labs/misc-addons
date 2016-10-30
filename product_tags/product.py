@@ -35,10 +35,10 @@ class ProductTag(models.Model):
     name = fields.Char('Tag Name', required=True, translate=True)
     display_name = fields.Char('Full Name', compute='_compute_display_name')
     active = fields.Boolean(help='The active field allows you to hide the tag without removing it.', default=True)
-    parent_id = fields.Many2one(string='Parent Tag', comodel_name='product.tag', select=True, ondelete='cascade')
+    parent_id = fields.Many2one(string='Parent Tag', comodel_name='product.tag', index=True, ondelete='cascade')
     child_ids = fields.One2many(string='Child Tags', comodel_name='product.tag', inverse_name='parent_id')
-    parent_left = fields.Integer('Left Parent', select=True)
-    parent_right = fields.Integer('Right Parent', select=True)
+    parent_left = fields.Integer('Left Parent', index=True)
+    parent_right = fields.Integer('Right Parent', index=True)
 
     image = fields.Binary('Image')
 
