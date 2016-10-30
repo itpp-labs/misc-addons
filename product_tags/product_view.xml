@@ -62,7 +62,7 @@
         <menuitem action="product_tag_action_form"
             groups="base.group_no_one"
             id="menu_product_tag_action_form"
-            parent="product.prod_config_main" sequence="3"/>
+            parent="sale.prod_config_main" sequence="3"/>
     
         <record id="product_template_tag_search_inherit" model="ir.ui.view">
             <field name="name">product.template.tag.view.search</field>
