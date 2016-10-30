@@ -469,7 +469,7 @@ class SaleOrderAmountTotal(models.Model):
         return result.keys()
 
 
-    amount_total = fields.Function(_amount_all_wrapper, digits_compute=dp.get_precision('Account'), string='Total'
+    amount_total = fields.Function(_amount_all_wrapper, digits=dp.get_precision('Account'), string='Total'
                                                 store={
                                                     'sale.order': (lambda self, cr, uid, ids, c={}: ids, ['order_line'], 10),
                                                     'sale.order.line': (_get_order, ['price_unit', 'tax_id', 'discount', 'product_uom_qty', 'state'], 10)},

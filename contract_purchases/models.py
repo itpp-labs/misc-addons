@@ -117,17 +117,17 @@ class AccountAnalyticAccount(models.Model):
 
     supplier_remaining_ca = fields.Float(compute="_supplier_remaining_ca_calc", string='Remaining Revenue'
                                                  help="Computed using the formula: Max Invoice Price - Invoiced Amount.",
-                                                 digits_compute=dp.get_precision('Account')),
+                                                 digits=dp.get_precision('Account')),
 
     supplier_ca_invoiced = fields.Float(compute="_supplier_ca_invoiced_calc", string='Invoiced Amount'
                                                 help="Total customer invoiced amount for this account.",
-                                                digits_compute=dp.get_precision('Account')),
+                                                digits=dp.get_precision('Account')),
 
     supplier_amount_max = fields.Float('Max. Invoice Price'
                                             help="Keep empty if this contract is not limited to a total fixed price."),
     ca_invoiced = fields.Float(compute="_ca_invoiced_calc_inherit", string='Invoiced Amount'
                                        help="Total customer invoiced amount for this account.",
-                                       digits_compute=dp.get_precision('Account')),
+                                       digits=dp.get_precision('Account')),
     supplier_ids = fields.Many2many(compute="_get_supplier_ids", string='Suppliers', relation='res.partner')
 
 
