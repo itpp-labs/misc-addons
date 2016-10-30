@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import copy
 from datetime import datetime, timedelta, time
 import pytz
 from dateutil import rrule
@@ -33,6 +34,45 @@ class ResourceResource(models.Model):
         'Holidays Country'
     )
     work_on_holidays = fields.Boolean(default=False)
+
+    @api.multi
+    def search_booking_lines(self, start, end, domain, online=False):
+
+        bookings = self.env['sale.order.line']
+        now = datetime.now()
+
+        for r in self:
+            r_domain = copy.copy(domain)
+            start_dt = datetime.strptime(start, DTF)
+            if online and r.hours_to_prepare:
+                days = r.hours_to_prepare / 24
+                hours = r.hours_to_prepare % 24
+                online_min_dt = now + timedelta(days=days, hours=hours) - timedelta(minutes=now.minute, seconds=now.second)
+                start_dt = start_dt if start_dt > online_min_dt else online_min_dt
+
+            end_dt = datetime.strptime(end, DTF)
+            if online and r.allowed_days_interval:
+                online_max_dt = now + timedelta(days=r.allowed_days_interval) - timedelta(minutes=now.minute, seconds=now.second)
+                end_dt = end_dt if end_dt < online_max_dt else online_max_dt
+
+            r_domain.append(('resource_id', '=', r.id))
+            r_domain.append(('state', '!=', 'cancel'))
+            r_domain.append(('booking_end', '>=', fields.Datetime.now()))
+            r_domain.append('|')
+            r_domain.append('|')
+            r_domain.append('&')
+            r_domain.append(('booking_start', '>=', start_dt.strftime(DTF)))
+            r_domain.append(('booking_start', '<', end_dt.strftime(DTF)))
+            r_domain.append('&')
+            r_domain.append(('booking_end', '>', start_dt.strftime(DTF)))
+            r_domain.append(('booking_end', '<=', end_dt.strftime(DTF)))
+            r_domain.append('&')
+            r_domain.append(('booking_start', '<=', start_dt.strftime(DTF)))
+            r_domain.append(('booking_end', '>=', end_dt.strftime(DTF)))
+
+            bookings += self.env['sale.order.line'].search(r_domain)
+
+        return bookings
 
 
 class ResourceCalendar(models.Model):
@@ -286,8 +326,8 @@ class SaleOrderLine(models.Model):
         return self.search(domain)
 
     @api.model
-    def get_bookings(self, start, end, offset, domain):
-        bookings = self.sudo().search_booking_lines(start, end, domain)
+    def get_bookings(self, start, end, offset, domain, online=False):
+        bookings = self.env['resource.resource'].sudo().search([]).search_booking_lines(start, end, domain, online=online)
         return [{
             'className': 'booked_slot resource_%s' % b.resource_id.id,
             'id': b.id,
