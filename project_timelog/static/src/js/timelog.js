@@ -507,6 +507,7 @@ $(document).ready(function() {
                     name: "My Timelog",
                     views: [[false, 'list'], [false, 'form']],
                     type: 'ir.actions.act_window',
+                    domain: "[('user_id', '=', uid)]",
                     target: 'current',
                     view_mode: 'tree',
                     view_type: 'form',
