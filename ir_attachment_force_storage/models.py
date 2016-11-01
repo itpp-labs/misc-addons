@@ -39,7 +39,7 @@ class ir_attachment(models.Model):
         domain = {
             'db': [('store_fname', '!=', False)],
             'file': [('db_datas', '!=', False)],
-        }[location]
+        }.get(location, [])
 
         ids = self.search(cr, uid, domain, context=context)
         for attach in self.browse(cr, uid, ids, context=context):
