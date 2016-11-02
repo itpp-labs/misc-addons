@@ -7,6 +7,8 @@
             <field name="inherit_id" ref="project.view_task_form2"/>
             <field name="priority" eval="999"/>
             <field name="arch" type="xml">
+                <xpath expr="//group[@name='project_hours']" position="replace">
+                </xpath>
                 <xpath expr="//notebook/page[@string='Description']" position="before">
                     <page string="Work summary">
                         <field name="work_ids" groups="project.group_tasks_work_on_tasks" >
@@ -24,14 +26,14 @@
                             </tree>
                         </field>
                         <group>
-                             <group class="oe_subtotal_footer oe_right" name="project_hours" groups="project.group_time_work_estimation_tasks">
+                            <group class="oe_subtotal_footer oe_right" name="project_hours" groups="project.group_time_work_estimation_tasks">
                                 <field name="effective_hours" widget="float_time"/>
                                 <label for="remaining_hours" string="Remaining" groups="project.group_time_work_estimation_tasks"/>
                                 <div>
                                     <field name="remaining_hours" widget="float_time" groups="project.group_time_work_estimation_tasks"/>
                                 </div>
                                 <field name="total_hours" widget="float_time" class="oe_subtotal_footer_separator"/>
-                             </group>
+                            </group>
                         </group>
                         <div class="oe_clear"/>
                     </page>
@@ -42,8 +44,6 @@
                 </xpath>
 
                 <xpath expr="//page[@string='Description']/field[@name='work_ids']" position="replace">
-                </xpath>
-                <xpath expr="//group[@name='project_hours']" position="replace">
                 </xpath>
             </field>
         </record>
