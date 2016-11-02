@@ -328,7 +328,9 @@ class SaleOrderLine(models.Model):
     @api.model
     def get_bookings(self, start, end, offset, domain, online=False):
         bookings = self.env['resource.resource'].sudo().search([]).search_booking_lines(start, end, domain, online=online)
-        return [{
+        one_hour_bookings = bookings.filtered(lambda r: r.product_uom_qty == 1)
+        many_hour_bookings = bookings - one_hour_bookings
+        res = [{
             'className': 'booked_slot resource_%s' % b.resource_id.id,
             'id': b.id,
             'title': b.resource_id.name,
@@ -337,7 +339,23 @@ class SaleOrderLine(models.Model):
             'resource_id': b.resource_id.id,
             'editable': False,
             'color': b.resource_id.color
-        } for b in bookings]
+        } for b in one_hour_bookings]
+        for b in many_hour_bookings:
+            start_dt = datetime.strptime(b.booking_start, DTF)
+            end_dt = datetime.strptime(b.booking_end, DTF)
+            while start_dt < end_dt:
+                res.append({
+                    'className': 'booked_slot resource_%s' % b.resource_id.id,
+                    'id': b.id,
+                    'title': b.resource_id.name,
+                    'start': '%s+00:00' % start_dt.strftime(DTF),
+                    'end': '%s+00:00' % (start_dt + timedelta(hours=1)).strftime(DTF),
+                    'resource_id': b.resource_id.id,
+                    'editable': False,
+                    'color': b.resource_id.color
+                })
+                start_dt += timedelta(hours=1)
+        return res
 
     @api.onchange('booking_start', 'booking_end')
     def _on_change_booking_time(self):
