@@ -2,7 +2,6 @@
 import copy
 from datetime import datetime, timedelta, time
 import pytz
-from dateutil import rrule
 import logging
 
 from openerp import api, models, fields
