@@ -90,56 +90,53 @@ class ResourceCalendar(models.Model):
         for calendar in self:
             product = self.env['product.template'].search([('calendar_id', '=', calendar.id)])
             hours = timedelta()
-            for day in rrule.rrule(rrule.DAILY, dtstart=start_dt,
-                                   until=end_dt.replace(hour=23, minute=59, second=59),
-                                   byweekday=calendar.get_weekdays()[0]):
-                day_start_dt = day.replace(hour=0, minute=0, second=0)
-                if start_dt and day.date() == start_dt.date():
-                    day_start_dt = start_dt
-                day_end_dt = day.replace(hour=23, minute=59, second=59)
-                if end_dt and day.date() == end_dt.date():
-                    day_end_dt = end_dt
-                work_limits = []
-                work_limits.append((day_start_dt.replace(hour=0, minute=0, second=0), day_start_dt))
-                work_limits.append((day_end_dt, day_end_dt.replace(hour=23, minute=59, second=59)))
 
-                work_dt = day_start_dt.replace(hour=0, minute=0, second=0)
-                working_intervals = []
-                for calendar_working_day in calendar.get_attendances_for_weekdays([day_start_dt.weekday()])[0]:
-                    if product and product[0].work_on_holidays and product[0].holidays_country_id and product[0].holidays_schedule == 'premium':
-                        if calendar.get_attendances_for_weekdays([5]):
-                            holidays = self.env['hr.holidays.public'].search([
-                                ('country_id', '=', product[0].holidays_country_id.id),
-                                ('year', '=', start_dt.year),
-                            ], limit=1)
-                            for h in holidays[0].line_ids.filtered(lambda r: r.date == day_start_dt.strftime(DF)):
-                                calendar_working_day = calendar.get_attendances_for_weekdays([5])[0][0]
-                    min_from = int((calendar_working_day.hour_from - int(calendar_working_day.hour_from)) * 60)
-                    min_to = int((calendar_working_day.hour_to - int(calendar_working_day.hour_to)) * 60)
-                    x = work_dt.replace(hour=int(calendar_working_day.hour_from), minute=min_from)
-                    if calendar_working_day.hour_to == 0:
-                        y = work_dt.replace(hour=0, minute=0) + timedelta(days=1)
-                    else:
-                        y = work_dt.replace(hour=int(calendar_working_day.hour_to), minute=min_to)
-                    working_interval = (x, y)
-                    leaves = self.get_leave_intervals()
-                    leaves = leaves and self.localize_time_intervals(leaves[0])
-                    work_limits += leaves
-                    if product and not product[0].work_on_holidays and product[0].holidays_country_id:
-                        holidays = self.env['hr.holidays.public'].search([
-                            ('country_id', '=', product[0].holidays_country_id.id),
-                            ('year', '=', start_dt.year),
-                        ], limit=1)
-                        for h in holidays[0].line_ids.filtered(lambda r: r.date == start_dt.strftime(DF)):
-                            holiday_interval = [(datetime.combine(datetime.strptime(h.date, DF), time(0, 0)),
-                                                 datetime.combine(datetime.strptime(h.date, DF) + timedelta(1), time(0, 0)))]
-                            holiday_interval = self.make_offset_aware(holiday_interval)
-                            work_limits += holiday_interval
-                    work_limits = self.make_offset_aware(work_limits)
-                    working_interval = self.make_offset_aware([working_interval])[0]
-                    working_intervals += calendar.interval_remove_leaves(working_interval, work_limits)
-                for interval in working_intervals:
-                    hours += interval[1] - interval[0]
+            day_start_dt = start_dt
+            day_end_dt = end_dt
+
+            weekday = [day_start_dt.weekday()]
+            if product and product[0].work_on_holidays and product[0].holidays_country_id and product[0].holidays_schedule == 'premium':
+                if calendar.get_attendances_for_weekdays([5]):
+                    holidays = self.env['hr.holidays.public'].search([
+                        ('country_id', '=', product[0].holidays_country_id.id),
+                        ('year', '=', start_dt.year),
+                    ], limit=1)
+                    for h in holidays[0].line_ids.filtered(lambda r: r.date == start_dt.strftime(DF)):
+                        weekday = [5]
+
+            work_limits = []
+            work_limits.append((day_start_dt.replace(hour=0, minute=0, second=0), day_start_dt))
+            work_limits.append((day_end_dt, day_end_dt.replace(hour=23, minute=59, second=59)))
+
+            work_dt = day_start_dt.replace(hour=0, minute=0, second=0)
+            working_intervals = []
+            for calendar_working_day in calendar.get_attendances_for_weekdays(weekday)[0]:
+                min_from = int((calendar_working_day.hour_from - int(calendar_working_day.hour_from)) * 60)
+                min_to = int((calendar_working_day.hour_to - int(calendar_working_day.hour_to)) * 60)
+                x = work_dt.replace(hour=int(calendar_working_day.hour_from), minute=min_from)
+                if calendar_working_day.hour_to == 0:
+                    y = work_dt.replace(hour=0, minute=0) + timedelta(days=1)
+                else:
+                    y = work_dt.replace(hour=int(calendar_working_day.hour_to), minute=min_to)
+                working_interval = (x, y)
+                leaves = self.get_leave_intervals()
+                leaves = leaves and self.localize_time_intervals(leaves[0])
+                work_limits += leaves
+                if product and not product[0].work_on_holidays and product[0].holidays_country_id:
+                    holidays = self.env['hr.holidays.public'].search([
+                        ('country_id', '=', product[0].holidays_country_id.id),
+                        ('year', '=', start_dt.year),
+                    ], limit=1)
+                    for h in holidays[0].line_ids.filtered(lambda r: r.date == start_dt.strftime(DF)):
+                        holiday_interval = [(datetime.combine(datetime.strptime(h.date, DF), time(0, 0)),
+                                             datetime.combine(datetime.strptime(h.date, DF) + timedelta(1), time(0, 0)))]
+                        holiday_interval = self.make_offset_aware(holiday_interval)
+                        work_limits += holiday_interval
+                work_limits = self.make_offset_aware(work_limits)
+                working_interval = self.make_offset_aware([working_interval])[0]
+                working_intervals += calendar.interval_remove_leaves(working_interval, work_limits)
+            for interval in working_intervals:
+                hours += interval[1] - interval[0]
 
             # Add public holidays
             leaves = leave_obj.search([('name', '=', 'PH'), ('calendar_id', '=', calendar.id)])
