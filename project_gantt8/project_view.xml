@@ -36,19 +36,7 @@
             <field name="inherit_id" ref="project.view_task_form2"/>
             <field eval="2" name="priority"/>
             <field name="arch" type="xml">
-                <xpath expr="//notebook/page[2]/group" position="replace">
-                    <group col="4">
-                        <group col="2">
-                            <field name="sequence" groups="base.group_no_one"/>
-                            <field name="partner_id"/>
-                        </group>
-                        <group col="2">
-                            <field name="date_assign" groups="base.group_no_one"/>
-                            <field name="date_last_stage_update" groups="base.group_no_one"/>
-                            <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
-                            <field name="displayed_image_id" groups="base.group_no_one"/>
-                        </group>
-                    </group>
+                <xpath expr="//notebook/page[2]/group" position="inside">
                     <group string="Gantt View">
                         <field name="date_start"/>
                         <field name="date_end"/>
