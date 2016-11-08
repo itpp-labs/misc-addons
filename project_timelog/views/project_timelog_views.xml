@@ -16,7 +16,7 @@
                                 <field name="name" attrs="{'readonly': [('status', '=', 'nonactive')]}"/>
                                 <field name="status" invisible="1"/>
                                 <field name="user_current" invisible="1"/>
-                                <button name="play_timer" type="object" attrs="{'invisible': ['|',('status','=','play'), ('user_current', '=', False)], 'readonly': ['|','|',('status', '=', 'nonactive'), ('task_allow_logs', '=', False)]}"/>
+                                <button name="play_timer" type="object" attrs="{'invisible': ['|','|','|',('status','=','play'), ('user_current', '=', False), ('status', '=', 'nonactive'), ('task_allow_logs', '=', False)]}"/>
                                 <button name="stop_timer" type="object" attrs="{'invisible': ['|','|','|',('status','=','stop'), ('status','=','nonactive'), ('status','=','active'), ('user_current', '=', False)]}"/>
                                 <field name="stage_id" readonly="1"/>
                                 <field name="task_allow_logs" invisible="1"/>
@@ -56,6 +56,30 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='datetime_stopline']" position="attributes">
                     <attribute name="readonly">0</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="task_type_edit" model="ir.ui.view">
+            <field name="name">project.task.type.form</field>
+            <field name="model">project.task.type</field>
+            <field name="inherit_id" ref="project.task_type_edit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group" position="inside">
+                    <group>
+                        <field name="allow_log_time"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="task_type_tree" model="ir.ui.view">
+            <field name="name">project.task.type.tree</field>
+            <field name="model">project.task.type</field>
+            <field name="inherit_id" ref="project.task_type_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="inside">
+                    <field name="allow_log_time"/>
                 </xpath>
             </field>
         </record>

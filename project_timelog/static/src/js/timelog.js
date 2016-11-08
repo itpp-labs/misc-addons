@@ -146,16 +146,21 @@ $(document).ready(function() {
             console.log("YOU ARE OFFLINE");
             var self = this;
             self.end_datetime_status = true;
-            self.stop_timer();
             self.audio_format= audio.canPlayType("audio/ogg; codecs=vorbis") ? ".ogg" : ".mp3";
             audio.src = openerp.session.url("/project_timelog/static/src/audio/"+"stop"+ self.audio_format);
-            audio.play();
+            if (self.status == 'running') {
+                audio.play();
+            }
+            self.stop_timer();
             self.warn_message = "No internet connection";
             self.warn_sticky = true;
             self.show_warn_message(this.warn_message, this.warn_sticky);
         },
         ClientOnLine: function(){
             console.log("YOU ARE ONLINE");
+            this.warn_message = "You are online";
+            this.warn_sticky = true;
+            this.show_warn_message(this.warn_message, this.warn_sticky);
         },
         load_server_data: function() {
             var self = this;

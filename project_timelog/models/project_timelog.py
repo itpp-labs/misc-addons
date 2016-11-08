@@ -118,6 +118,9 @@ class Task(models.Model):
                 # stop current timer
                 w.sudo(w.user_id).stop_timer()
 
+                if not r.stage_id.allow_log_time:
+                    continue
+
                 existing_work = works.search([("task_id", "=", r.id), ("name", "=", w.name), ("stage_id", "=", r.stage_id.id)])
                 current_date = datetime.datetime.now()
                 subtask_name = ''
@@ -170,7 +173,7 @@ class ProjectWork(models.Model):
     hours = fields.Float(string='Time Spent', compute="_compute_hours", default=0)
     timelog_ids = fields.One2many("project.timelog", "work_id", "Timelog")
     status = fields.Char(string="Status", default="active")
-    task_allow_logs = fields.Boolean(related='task_id.stage_id.allow_log_time', store=True, default=True)
+    task_allow_logs = fields.Boolean(related='task_id.stage_id.allow_log_time', readonly=True)
     user_current = fields.Boolean(compute="_compute_user_current", default=True)
 
     @api.multi
@@ -201,6 +204,8 @@ class ProjectWork(models.Model):
     def create(self, vals):
         task = self.env['project.task'].browse(vals.get('task_id'))
         vals['stage_id'] = task.stage_id.id
+        if not task.stage_id.allow_log_time:
+            raise UserError(_('Creating new subtask in state "%s" is forbidden.') % task.stage_id.name)
         if 'user_id' in vals and (not vals['user_id']):
             vals['user_id'] = self.env.user.id
         if 'user_id' not in vals:
