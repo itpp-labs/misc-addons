@@ -11,6 +11,7 @@
     """,
     'depends': ['l10n_sg',
                 'pitch_booking',
+                'multi_company',
                 'sms_sg',
                 'sale_order_hide_tax',
                 'res_partner_phone',
