@@ -304,6 +304,35 @@ class SaleOrderLine(models.Model):
             if datetime.strptime(line.booking_start, DTF) + timedelta(minutes=SLOT_START_DELAY_MINS) < datetime.now():
                 raise ValidationError(_('Please book on time in %s minutes from now.') % SLOT_START_DELAY_MINS)
 
+    @api.multi
+    @api.constrains('resource_trigger', 'booking_start', 'booking_end')
+    def _check_working_time_slots(self):
+        for line in self:
+            user_tz = pytz.timezone(self.env.context.get('tz') or 'UTC')
+            if line.resource_id and line.resource_id.has_slot_calendar:
+                resource = line.resource_id
+                start_dt = datetime.strptime(line.booking_start, DTF).replace(second=0, microsecond=0)
+                end_dt = datetime.strptime(line.booking_end, DTF).replace(second=0, microsecond=0)
+                allowed_start = []
+                allowed_end = []
+                if resource.calendar_id:
+                    for calendar_working_day in resource.calendar_id.get_attendances_for_weekdays([start_dt.weekday()])[0]:
+                        min_from = int((calendar_working_day.hour_from - int(calendar_working_day.hour_from)) * 60)
+                        min_to = int((calendar_working_day.hour_to - int(calendar_working_day.hour_to)) * 60)
+                        x = start_dt.replace(hour=int(calendar_working_day.hour_from), minute=min_from)
+                        user_tz.localize(x).astimezone(pytz.utc)
+                        allowed_start.append(user_tz.localize(x).astimezone(pytz.utc))
+                        if calendar_working_day.hour_to == 0:
+                            y = start_dt.replace(hour=0, minute=0) + timedelta(days=1)
+                        else:
+                            y = start_dt.replace(hour=int(calendar_working_day.hour_to), minute=min_to)
+                        allowed_end.append(user_tz.localize(y).astimezone(pytz.utc))
+                start_dt = pytz.utc.localize(start_dt)
+                end_dt = pytz.utc.localize(end_dt)
+                if (start_dt not in allowed_start) or (end_dt not in allowed_end):
+                    msg = "There are bookings with times outside the allowed boundary"
+                    raise ValidationError(msg)
+
     @api.model
     def search_booking_lines(self, start, end, domain):
         domain.append(('state', '!=', 'cancel'))
