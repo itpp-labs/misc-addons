@@ -326,6 +326,7 @@ class UserByLogin(Dbmapper):
         else:
             return ''
 
+
 FIX_COUNTRY = {
     'UK': 'United Kingdom'
 }
