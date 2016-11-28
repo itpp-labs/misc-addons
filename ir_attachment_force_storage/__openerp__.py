@@ -10,5 +10,6 @@
     'data': [
         'data.xml'
     ],
+    "auto_install": False,
     'installable': True
 }
