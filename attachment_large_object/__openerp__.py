@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    attachment_large_object module for OpenERP,
@@ -22,26 +22,14 @@
 ##############################################################################
 {
     'name': 'attachment_large_object',
-    'version': '0.1',
-    'category': '',
-    'description': """Provides a storage option for attachments as PostgreSQL large objects.
-
-    To enable it after installation, go to Settings / Technical / System Parameters
-    and add a configuration parameter with:
-
-    - key: ir_attachment.location
-    - value: postgresql:lobject
-
+    'version': '1.0.0',
+    'category': 'Extra Tools',
+    'summary': """Provides a storage option for attachments as PostgreSQL large objects.
     """,
     'author': 'Anybox',
     'website': 'anybox.fr',
     'depends': ['base'],
-    'init_xml': [],
-    'update_xml': [],
     'test': [],
-    'demo_xml': [],
-    'js': [
-    ],
     'installable': True,
     'application': False,
     'auto_install': False,

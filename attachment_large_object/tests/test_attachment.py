@@ -1,4 +1,5 @@
-from anybox.testing.openerp import TransactionCase
+# -*- coding: utf-8 -*-
+from openerp.tests.common import TransactionCase
 
 
 class TestAttachment(TransactionCase):
@@ -28,7 +29,8 @@ class TestAttachment(TransactionCase):
 
         # writing without touching the payload does not create a new large object
         att.write(cr, uid, att_id, dict(name="new name"))
-        self.assertRecord(att, att_id, dict(store_fname=unicode(oid)))
+        record = att.browse(cr, uid, att_id)
+        self.assertEqual(record.store_fname, unicode(oid))
 
         # a write on data, creates a whole new large object
         att.write(cr, uid, att_id, dict(datas='new content'.encode('base64')))
