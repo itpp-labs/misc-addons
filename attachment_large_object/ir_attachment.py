@@ -10,12 +10,12 @@ LARGE_OBJECT_LOCATION = 'postgresql:lobject'
 
 
 class IrAttachment(models.Model):
-    """Provide storage as PostgreSQL large objects of attachements with filestore location ``%r``.
+    """Provide storage as PostgreSQL large objects of attachements with filestore location ``postgresql:lobject``.
 
     Works by overriding the storage handling methods of ``ir.attachment``, as intended by the
     default implementation. The overrides call :funct:`super`, so that this is transparent
     for other locations.
-    """ % LARGE_OBJECT_LOCATION
+    """
 
     _name = 'ir.attachment'
     _inherit = 'ir.attachment'
