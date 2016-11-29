@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
-from openerp.osv import osv, fields
-from openerp import SUPERUSER_ID
+from openerp import models, SUPERUSER_ID
+from openerp.osv import fields
 import psycopg2
 
 logger = logging.getLogger(__name__)
@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 LARGE_OBJECT_LOCATION = 'postgresql:lobject'
 
 
-class IrAttachment(osv.Model):
+class IrAttachment(models.Model):
     """Provide storage as PostgreSQL large objects of attachements with filestore location ``%r``.
 
     Works by overriding the storage handling methods of ``ir.attachment``, as intended by the
