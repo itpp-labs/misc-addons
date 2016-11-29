@@ -8,12 +8,13 @@ For general information on the three classical ways to store file-like
 content in a PostgreSQL DB, see `this wiki page
 <https://wiki.postgresql.org/wiki/BinaryFilesInDB>`_.
 
-Also, check authors` blog post: https://anybox.fr/blog/postgresql-large-object-storage-for-odoo
+Also, check authors' blog post: https://anybox.fr/blog/postgresql-large-object-storage-for-odoo
 
 Advantages
 ==========
 
 Odoo supports two types of storage:
+
 * in-database storage is a base64 encoded text column.
 * file system storage (tree of directories so that it scales well on linked lists based file systems such as EXT4)
 
