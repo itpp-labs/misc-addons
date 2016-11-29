@@ -8,6 +8,8 @@ For general information on the three classical ways to store file-like
 content in a PostgreSQL DB, see `this wiki page
 <https://wiki.postgresql.org/wiki/BinaryFilesInDB>`_.
 
+Also, check authors` blog post: https://anybox.fr/blog/postgresql-large-object-storage-for-odoo
+
 Advantages
 ==========
 
