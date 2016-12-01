@@ -6,7 +6,15 @@
     'license': 'LGPL-3',
     'website': 'https://twitter.com/vkotovi4',
     'category': 'Sale',
-    'depends': ['resource', 'sale', 'web_widget_color', 'web_calendar_repeat_form', 'web_calendar_quick_navigation', 'warning'],
+    'depends': [
+        'resource',
+        'sale',
+        'web_widget_color',
+        'web_calendar_repeat_form',
+        'web_calendar_quick_navigation',
+        'warning',
+        'hr_public_holidays',
+    ],
     'data': [
         'views.xml',
         'report_saleorder.xml',

@@ -145,6 +145,7 @@ class SaleOrderLine(models.Model):
 
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
+    _order = "booking_start,invoice_id,sequence,id"
 
     venue_id = fields.Many2one('pitch_booking.venue', string='Venue')
     pitch_id = fields.Many2one('pitch_booking.pitch', string='Pitch')

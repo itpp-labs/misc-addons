@@ -61,5 +61,6 @@ class RootTkobr(openerp.http.Root):
         _logger.debug('HTTP sessions stored in: %s', path)
         return werkzeug.contrib.sessions.FilesystemSessionStore(path, session_class=OpenERPSession)
 
+
 root = RootTkobr()
 openerp.http.root.session_store = root.session_store
