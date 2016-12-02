@@ -6,4 +6,3 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     skype = fields.Char('Skype', size=128, index=True)
-
