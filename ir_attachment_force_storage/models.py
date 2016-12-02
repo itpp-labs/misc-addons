@@ -65,6 +65,9 @@ class IrAttachment(models.Model):
                 'file': [('db_datas', '!=', False)],
             }.get(new_value, [])
 
+        # trick to disable addional filtering in ir.attachment's method _search
+        domain += [('id', '!=', -1)]
+
         ids = self.search(cr, uid, domain, context=context)
         for attach in self.browse(cr, uid, ids, context=context):
             # we add url because in some environment mimetype is not computed correctly
