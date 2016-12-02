@@ -17,5 +17,6 @@ class RootTkobr(openerp.http.Root):
         _logger.debug('HTTP sessions stored in Postgres')
         return PostgresSessionStore(session_class=openerp.http.OpenERPSession)
 
+
 root = RootTkobr()
 openerp.http.root.session_store = root.session_store
