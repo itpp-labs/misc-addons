@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
-from openerp import models, SUPERUSER_ID
+from openerp import models
 from openerp.osv import fields
 import psycopg2
 

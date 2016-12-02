@@ -46,7 +46,7 @@ class IrConfigParameter(models.Model):
         return res
 
 
-class ir_attachment(models.Model):
+class IrAttachment(models.Model):
     _inherit = 'ir.attachment'
 
     def force_storage_previous(self, cr, uid, previous_value=None, context=None):
