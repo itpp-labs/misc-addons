@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+    <record id="view_sale_order_line_tree" model="ir.ui.view">
+      <field name="name">sale.order.line.tree</field>
+      <field name="model">sale.order.line</field>
+      <field name="arch" type="xml">
+        <tree string="Sales Orders Lines">
+          <field name="sequence" widget="handle"/>
+          <field name="state" invisible="1"/>
+          <field name="th_weight" invisible="1"/>
+          <field name="product_id"
+                 context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id}"
+                 groups="base.group_user"
+                 on_change="product_id_change(parent.pricelist_id, product_id, product_uom_qty, False, product_uos_qty, False, name, parent.partner_id, False, True, parent.date_order, False, parent.fiscal_position, False, context)"/>
+          <field name="name"/>
+          <field name="product_uom_qty"
+                 context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id}"
+                 on_change="product_id_change(parent.pricelist_id, product_id, product_uom_qty, product_uom, product_uos_qty, product_uos, name, parent.partner_id, False, False, parent.date_order, False, parent.fiscal_position, True, context)"/>
+          <field name="product_uom"
+                 context="{'company_id': parent.company_id}"
+                 on_change="onchange_product_uom(parent.pricelist_id, product_id, product_uom_qty, product_uom, product_uos_qty, product_uos, name, parent.partner_id, False, False, parent.date_order, parent.fiscal_position, context)"
+                 groups="product.group_uom" options='{"no_open": True}'/>
+          <field name="product_uos_qty" groups="product.group_uos" invisible="1"/>
+          <field name="product_uos" string="UoS" groups="product.group_uos" invisible="1"/>
+          <field name="price_unit"/>
+          <field name="tax_id" widget="many2many_tags" domain="[('parent_id','=',False),('type_tax_use','&lt;&gt;','purchase')]"/>
+          <field name="discount" groups="sale.group_discount_per_so_line"/>
+          <field name="price_subtotal"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_sales_order_line_filter_grouped" model="ir.ui.view">
+      <field name="name">sale.order.line.select.grouped</field>
+      <field name="model">sale.order.line</field>
+      <field name="inherit_id" ref="sale.view_sales_order_line_filter"/>
+      <field name="arch" type="xml">
+        <xpath expr="//group" position="inside">
+          <filter invisible="1" name="group_order_id" string="Order" icon="terp-gtk-jump-to-rtl" domain="[]" context="{'group_by':'order_id'}"/>
+        </xpath>
+      </field>
+    </record>
+
+    <record id="sales_orders_lines_list_action" model="ir.actions.act_window">
+      <field name="name">Sales Orders Lines</field>
+      <field name="res_model">sale.order.line</field>
+      <field name="view_id" ref="view_sale_order_line_tree"/>
+      <field name="view_mode">tree,form</field>
+      <field name="context">{'search_default_group_order_id': 1}</field>
+    </record>
+
+    <menuitem action="sales_orders_lines_list_action" id="menu_sale_order_line" parent="base.menu_sales" sequence="6" groups="base.group_sale_salesman,base.group_sale_manager"/>
+
+  </data>
+</openerp>

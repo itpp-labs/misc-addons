@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from openerp import api
 from openerp import models
-from openerp import fields
 
 
 class ResPartnerPhone(models.Model):

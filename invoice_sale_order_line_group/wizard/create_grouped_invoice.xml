@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+    <record id="view_sale_order_line_make_grouped_invoice" model="ir.ui.view">
+      <field name="name">Sales OrderLine Make grouped Invoice</field>
+      <field name="model">sale_line.grouped_invoice_wizard</field>
+      <field name="arch" type="xml">
+        <form string="Create invoices">
+          <group>
+            <field name="invoiced_count" invisible="1"/>
+            <field name="draft_count" invisible="1"/>
+          </group>
+          <p attrs="{'invisible': ['|', ('invoiced_count', '>', 0), ('draft_count', '>', 0),]}">
+            All selected lines are ok to be invoiced
+          </p>
+          <p attrs="{'invisible': [('invoiced_count', '=', 0)]}">
+            Warning: Invoice cannot be created due to some of the selected lines are already invoiced
+          </p>
+          <p attrs="{'invisible': [('draft_count', '=', 0)]}">
+            Warning: Invoice cannot be created due to some of the selected lines are either in "draft" or "cancel" state
+          </p>
+          <notebook invisible="1">
+            <page string="Invoiced">
+              <field name="invoiced_line_ids" mode="tree" nolabel="1">
+                <tree string="Invoiced lines" editable="False" create="0" delete="false">
+                  <field name="write_date"/>
+                </tree>
+              </field>
+            </page>
+            <page string="Draft">
+              <field name="draft_line_ids" mode="tree" nolabel="1">
+                <tree string="Draft lines" editable="False" create="0" delete="false">
+                  <field name="write_date"/>
+                </tree>
+              </field>
+            </page>
+          </notebook>
+          <footer>
+            <button name="make_grouped_invoice" string="Create &amp; View Invoice" type="object"
+                    context="{'open_invoices': True}" class="oe_highlight" attrs="{'invisible': ['|', ('invoiced_count', '>', 0), ('draft_count', '>', 0),]}"/>
+            <button name="make_grouped_invoice" string="Create grouped Invoice"
+                    attrs="{'invisible': ['|', ('invoiced_count', '>', 0), ('draft_count', '>', 0),]}" type="object" class="oe_highlight"/>
+            <span attrs="{'invisible': ['|', ('invoiced_count', '>', 0), ('draft_count', '>', 0),]}">or </span>
+            <button string="Cancel" class="oe_link" special="cancel" />
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_view_sale_order_line_make_grouped_invoice" model="ir.actions.act_window">
+      <field name="name">Create grouped Invoice</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">sale_line.grouped_invoice_wizard</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="view_sale_order_line_make_grouped_invoice"/>
+      <field name="target">new</field>
+    </record>
+
+    <record model="ir.values" id="sale_order_line_make_invoice">
+      <field name="model_id" ref="sale.model_sale_order_line" />
+      <field name="name">Make grouped Invoices</field>
+      <field name="key2">client_action_multi</field>
+      <field name="value" eval="'ir.actions.act_window,' + str(ref('action_view_sale_order_line_make_grouped_invoice'))" />
+      <field name="key">action</field>
+      <field name="model">sale.order.line</field>
+    </record>
+
+  </data>
+</openerp>

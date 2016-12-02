@@ -46,10 +46,6 @@ Further debranding
 * delete "Odoo.com Accounts" record at Settings\\Users\\OAuth Providers if module "OAuth2 Authentication" is installed. in your system
 * to debrand **/web/database/manager**:
 
-  * add web_debranding to server wide modules, e.g.
-
-    ./odoo.py --load=web,web_kanban,web_debranding
-
   * edit addons/web/views/database_manager.html file:
 
     * delete or modify <title> tag

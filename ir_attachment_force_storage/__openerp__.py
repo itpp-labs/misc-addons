@@ -6,9 +6,10 @@
     'license': 'LGPL-3',
     'category': 'Tools',
     'website': 'https://yelizariev.github.io',
-    'depends': [],
+    'depends': ['attachment_large_object'],
     'data': [
-        'data.xml'
+        'pre_install.yml'
     ],
+    "auto_install": False,
     'installable': True
 }
