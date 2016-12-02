@@ -20,6 +20,7 @@
 ##############################################################################
 import pickle
 
+from contextlib import closing
 from openerp.sql_db import db_connect
 from openerp.tools import config
 
@@ -35,10 +36,20 @@ class PostgresSessionStore(SessionStore):
         # set value to avoid errors in session_gc function
         self.path = config.session_dir
 
-    def get_cursor(self):
-        db_name = config.get('log_db')
-        con = db_connect(db_name)
-        cr = con.cursor()
+    def get_cursor(self, create_session_store_db=True):
+        db_name = config.get('session_store_db', 'session_store')
+        try:
+            con = db_connect(db_name)
+            cr = con.cursor()
+        except:
+            if not create_session_store_db:
+                raise
+            db_connect('postgres')
+            with closing(db_connect('postgres').cursor()) as cr:
+                cr.autocommit(True)     # avoid transaction block
+                cr.execute("""CREATE DATABASE "%s" ENCODING 'unicode' TEMPLATE "%s" """ % (db_name, config['db_template']))
+            return self.get_cursor(create_session_store_db=False)
+
         cr.execute(
             """
             CREATE TABLE IF NOT EXISTS sessionstore (

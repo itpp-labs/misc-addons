@@ -62,6 +62,9 @@
                 <xpath expr="//field[@name='description_sale']" position="after">
                     <group>
                         <field name="calendar_id"/>
+                        <field name="holidays_country_id"/>
+                        <field name="work_on_holidays" attrs="{'invisible': [('holidays_country_id', '=', False)]}"/>
+                        <field name="holidays_schedule" attrs="{'invisible': [('work_on_holidays', '=', False)]}"/>
                     </group>
                 </xpath>
             </field>
@@ -121,6 +124,14 @@
                 <search>
                     <filter name="active_bookings" string="Active Bookings"
                         domain="[('state', '!=', False), ('booking_end', '&gt;=', time.strftime('%Y-%m-%d %H:%M:%S'))]"/>
+                    <filter name="uninvoiced" icon="terp-dolar_ok!" string="Not invoiced" domain="[('invoiced','&lt;&gt;', 1)]" help="Sales Order Lines that haven't yet been invoiced"/>
+                    <separator/>
+                    <filter name="today" string="Today" domain="[('booking_start','&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59))), ('booking_start','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0)))]" help="Bookings processed Today or planned for Today"/>
+                    <filter name="yesterday" string="Yesterday" domain="[('booking_start','&lt;=', datetime.datetime.combine(context_today()-datetime.timedelta(1), datetime.time(23,59,59))), ('booking_start','&gt;=', datetime.datetime.combine(context_today()-datetime.timedelta(1), datetime.time(0,0,0)))]"/>
+                    <filter name="tomorrow" string="Tomorrow" domain="[('booking_start','&lt;=', datetime.datetime.combine(context_today()+datetime.timedelta(1), datetime.time(23,59,59))), ('booking_start','&gt;=', datetime.datetime.combine(context_today()+datetime.timedelta(1), datetime.time(0,0,0)))]"/>
+                    <filter name="current_month" string="Current month" domain="[('booking_start', '&gt;=', datetime.datetime.combine(context_today()+relativedelta(days=-context_today().day+1), datetime.time(00,00,00))), ('booking_start', '&lt;', datetime.datetime.combine(context_today()+relativedelta(days=-context_today().day+1, months=1), datetime.time(00,00,00)))]"/>
+                    <filter name="last_month" string="Last month" domain="[('booking_start', '&gt;=', datetime.datetime.combine(context_today()+relativedelta(days=-context_today().day+1, months=-1), datetime.time(00,00,00))), ('booking_start', '&lt;', datetime.datetime.combine(context_today()+relativedelta(days=-context_today().day+1), datetime.time(00,00,00)))]"/>
+                    <filter name="next_month" string="Next month" domain="[('booking_start', '&gt;=', datetime.datetime.combine(context_today()+relativedelta(days=-context_today().day+1, months=1), datetime.time(00,00,00))), ('booking_start', '&lt;', datetime.datetime.combine(context_today()+relativedelta(days=-context_today().day+1, months=2), datetime.time(00,00,00)))]"/>
                     <group expand="0" string="Group By">
                         <filter string="Booking Month" domain="[]" context="{'group_by':'booking_start'}"/>
                         <filter string="Booking Day" domain="[]" context="{'group_by':'booking_start:day'}"/>
@@ -145,7 +156,7 @@
           <field name="view_id" ref="view_booking_order_line_tree"/>
           <field name="view_mode">calendar,tree,form</field>
           <field name="search_view_id" ref="booking_search_view"/>
-          <field name="context" eval="{'search_default_active_bookings': 1}"/>
+          <field name="context">{'search_default_active_bookings': True}</field>
         </record>
 
         <record model="ir.actions.act_window.view" id="booking_orders_lines_list_actiont_calendar">

@@ -11,10 +11,10 @@ To use module, add it to ``--load`` parameter. E.g. ::
 
 In current implementation, you don't need to install module via odoo interface.
 
-Usage
-=====
+Configuration
+=============
 
-Specify ``log_db`` value in config file or run odoo with ``--log-db`` parameter. This database will be used to store sessions.
+You can ``session_store_db`` value in config file (default value is ``session_store``). This database will be used to store sessions. 
 
 
 Uninstallation

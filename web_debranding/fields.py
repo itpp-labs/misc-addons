@@ -30,4 +30,5 @@ def get_trans_func_debrand(self, records):
 
         return translate
 
+
 _String.get_trans_func = get_trans_func_debrand
