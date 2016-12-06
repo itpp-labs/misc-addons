@@ -1,2 +1,3 @@
 pandas
+icalendar
 boto3

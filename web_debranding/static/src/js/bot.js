@@ -14,5 +14,5 @@ odoo.define('web_debranding.bot', function (require) {
             }
             return msg;
         }
-    })
+    });
 });

@@ -5,7 +5,6 @@ odoo.define('web_debranding.native_notifications', function (require) {
     var session = require('web.session');
     var core = require('web.core');
     var utils = require('mail.utils');
-    var session = require('web.session');
     var bus = require('bus.bus').bus;
 
     var _t = core._t;

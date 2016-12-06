@@ -13,8 +13,7 @@
     # "currency": "EUR",
 
     "depends": [
-        'base',
-        'web',
+        'web_tour',
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [

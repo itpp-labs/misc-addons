@@ -16,4 +16,3 @@ class CrmLead(models.Model):
 
     date_action = fields.Date('Next Action Date', index=True, track_visibility='onchange')
     title_action = fields.Char('Next Action', track_visibility='onchange')
-
