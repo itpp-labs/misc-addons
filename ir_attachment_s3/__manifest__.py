@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 {
-    "name": """Attachment s3""",
-    "summary": """SHORT_DESCRIPTION_OF_THE_MODULE""",
-    "category": "SOME_CATEGORY",
+    "name": """S3 Attachment Storage""",
+    "summary": """Upload attachments on Amazon S3""",
+    "category": "Tools",
     "images": [],
     "version": "1.0.0",
     "application": False,
@@ -10,8 +10,8 @@
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "website": "https://it-projects.info",
     "license": "AGPL-3",
-    # "price": 9.00,
-    # "currency": "EUR",
+    "price": 200.00,
+    "currency": "EUR",
 
     "depends": [
     ],
