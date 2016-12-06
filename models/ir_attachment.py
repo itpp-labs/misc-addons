@@ -3,7 +3,6 @@ import hashlib
 import logging
 
 from odoo import api, models, _
-from odoo.exceptions import ValidationError
 from odoo.tools.safe_eval import safe_eval
 
 _logger = logging.getLogger(__name__)
@@ -45,7 +44,8 @@ class IrAttachment(models.Model):
         secret_key = self._get_secret_key()
 
         if not access_key_id or not secret_key:
-            raise ValidationError(_('AmazonS3 access_key_id and secret_access_key must be defined in the [Settiings > Parameters > System Parameters]'))
+            _logger.info(_('Amazon S3 access_key_id and secret_access_key are not defined. Attachments are not saved on S3.'))
+            return False
 
         s3 = boto3.resource(
             's3',
@@ -59,18 +59,22 @@ class IrAttachment(models.Model):
         return s3
 
     def _inverse_datas(self):
+        s3 = self._get_s3_resource()
         condition = self._get_condition()
-        # if there is no condition than store all attachments on s3
-        if condition:
+        if not s3:
+            # set s3_records to empty recordset
+            s3_records = self.env[self._name]
+        elif condition:
             s3_records = self.filtered(lambda r: safe_eval(condition, {}, {'attachment': r}, mode="eval"))
         else:
+            # if there is no condition then store all attachments on s3
             s3_records = self
+
         for attach in s3_records:
             value = attach.datas
             bin_data = value and value.decode('base64') or ''
             fname = hashlib.sha1(bin_data).hexdigest()
 
-            s3 = self._get_s3_resource()
             bucket_name = self._get_bucket_name()
             s3.Bucket(bucket_name).put_object(
                 Key=fname,
