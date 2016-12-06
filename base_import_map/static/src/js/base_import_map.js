@@ -11,14 +11,12 @@ odoo.define('base_import_map.map', function (require) {
     var _t = core._t;
 
     BaseImport.DataImport.include({
-        opts: [
-            {name: 'encoding', label: _lt("Encoding:"), value: 'utf-8'},
-            {name: 'separator', label: _lt("Separator:"), value: ','},
-            {name: 'quoting', label: _lt("Text Delimiter:"), value: '"'},
-            {name: 'settings', label: _lt("Settings:"), value: ''},
-            {name: 'save_settings', label: _lt("Save settings:"), value: ''},
-            {name: 'file_read_hook', label: _lt("File read hook:"), value: ''}
-        ],
+        init: function() {
+            this.opts.push({name: 'settings', label: _lt("Settings:"), value: ''});
+            this.opts.push({name: 'save_settings', label: _lt("Save settings:"), value: ''});
+            this.opts.push({name: 'file_read_hook', label: _lt("File read hook:"), value: ''});
+            this._super.apply(this, arguments);
+        },
         start: function() {
             var self = this;
             this.setup_settings_picker();
