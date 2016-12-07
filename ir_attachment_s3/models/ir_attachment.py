@@ -78,7 +78,7 @@ class IrAttachment(models.Model):
             bin_data = value and value.decode('base64') or ''
             fname = hashlib.sha1(bin_data).hexdigest()
 
-            bucket_name = self._get_bucket_name()
+            bucket_name = self._get_credentials('s3.bucket', 'S3_BUCKET')
             s3.Bucket(bucket_name).put_object(
                 Key=fname,
                 Body=bin_data,
