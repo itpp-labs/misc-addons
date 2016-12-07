@@ -75,8 +75,9 @@ class ProjectTimelog(models.Model):
             if not user.has_group('project.group_project_manager'):
                 if vals['time_correction'] > 0.00:
                     raise UserError(_('Only manager can enter positive time.'))
-        if any([key in vals for key in ['start_datetime', 'end_datetime']]):
-            raise UserError(_('Dates cannot be changed. Use Time Correction field instead.'))
+        for r in self:
+            if any([key in vals and getattr(r, key) for key in ['start_datetime', 'end_datetime']]):
+                raise UserError(_('Dates cannot be changed. Use Time Correction field instead.'))
         return super(ProjectTimelog, self).write(vals)
 
 
