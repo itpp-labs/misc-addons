@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 import hashlib
 import logging
 
@@ -24,10 +25,12 @@ class IrAttachment(models.Model):
         return self.env['ir.config_parameter'].get_param('s3.condition')
 
     def _get_access_key_id(self):
-        return self.env['ir.config_parameter'].get_param('s3.access_key_id')
+        return self.env['ir.config_parameter'].get_param('s3.access_key_id') or \
+                os.environ.get('S3_ACCESS_KEY_ID')
 
     def _get_secret_key(self):
-        return self.env['ir.config_parameter'].get_param('s3.secret_key')
+        return self.env['ir.config_parameter'].get_param('s3.secret_key') or \
+                os.environ.get('S3_SECRET_KEY')
 
     @api.model
     def _get_s3_object_url(self, s3, s3_bucket_name, key_name):
