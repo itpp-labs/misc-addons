@@ -71,8 +71,10 @@ $(document).ready(function() {
                     audio.src = openerp.session.url("/project_timelog/static/src/audio/" + "stop" + this.audio_format);
                     audio.play();
                 }
-                if (message.play_a_sound) {
+                if (message.play_a_sound && !self.widget.stopline) {
                     $('#clock0').css('color','rgb(152, 152, 152)');
+                } else if (self.widget.stopline) {
+                    $('#clock0').css('color','red');
                 }
                 if (message.stopline) {
                     $('#clock0').css('color','red');
@@ -264,7 +266,7 @@ $(document).ready(function() {
 
             switch(id) {
                 case 0: {
-                    if (self.status == 'stopped') {
+                    if (self.status == 'stopped' && !self.stopline) {
                         $('#clock0').css('color','rgb(152, 152, 152);');
                     }
                     else {
@@ -277,7 +279,7 @@ $(document).ready(function() {
                     if ( this.times[0] > this.time_warning_subtasks) {
                         $('#clock0').css('color','orange');
                     }
-                    if ( this.times[0] >= this.time_subtasks) {
+                    if ( this.times[0] >= this.time_subtasks || self.stopline){
                         $('#clock0').css('color','red');
                         this.addClass(0, "expired");
                         if (id === 0) this.timerTimeLimited();
@@ -402,6 +404,7 @@ $(document).ready(function() {
             if (this.status == 'running' || this.time_subtasks<=this.times[0]){
                 return false;
             }
+            if (this.stopline) return false;
             console.log("play");
             this.add_favicon();
             var self = this;

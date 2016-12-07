@@ -120,7 +120,15 @@ class TimelogController(http.Controller):
         config = request.env["ir.config_parameter"]
         convert_sec = 3600
 
-        timerstopline = False
+        if task.datetime_stopline is False:
+            timerstopline = False
+        else:
+            stopline_date = datetime.datetime.strptime(task.datetime_stopline, "%Y-%m-%d %H:%M:%S")
+            if stopline_date <= datetime.datetime.today():
+                timerstopline = True
+            else:
+                timerstopline = False
+
         time_subtasks = int(round(float(config.get_param("project_timelog.time_subtasks"))*convert_sec, 0))
 
         task_id = http.request.env.user.active_task_id.id

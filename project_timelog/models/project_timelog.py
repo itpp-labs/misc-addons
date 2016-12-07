@@ -97,8 +97,10 @@ class Task(models.Model):
             if task.datetime_stopline is False:
                 return False
             stopline_date = datetime.datetime.strptime(task.datetime_stopline, "%Y-%m-%d %H:%M:%S")
-            if stopline_date <= datetime.datetime.now():
+            if stopline_date <= datetime.datetime.today():
                 u.active_work_id.sudo(u).stop_timer(play_a_sound=False, stopline=True)
+                if u.active_work_id.status is not 'nonactive':
+                    u.active_work_id.sudo(u).write({'status': 'nonactive'})
             else:
                 warning_time = stopline_date - datetime.timedelta(minutes=20)
                 notifications = []
