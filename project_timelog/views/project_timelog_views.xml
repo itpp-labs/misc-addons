@@ -151,6 +151,17 @@
             </field>
         </record>
 
+        <record id="view_timelog_calendar" model="ir.ui.view">
+            <field name="name">timelog.calendar</field>
+            <field name="model">project.timelog</field>
+            <field name="arch" type="xml">
+                <calendar color="user_id" date_start="start_datetime" date_stop="end_datetime_active" string="Timelog">
+                    <field name="work_name"/>
+                    <field name="task_name"/>
+                </calendar>
+            </field>
+        </record>
+
         <record model="ir.ui.view" id="timelog_search_view">
             <field name="name">timelog.search</field>
             <field name="model">project.timelog</field>
@@ -185,7 +196,7 @@
             <field name="res_model">project.timelog</field>
             <field name="view_type">form</field>
             <field name="view_id" ref="project_timelog.view_my_timelog"/>
-            <field name="view_mode">tree,form,graph</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
             <field name="domain">[('user_id', '=', uid)]</field>
             <field name="context">{
                 'search_default_today': 1,
@@ -201,7 +212,7 @@
             <field name="res_model">project.timelog</field>
             <field name="view_type">form</field>
             <field name="view_id" ref="project_timelog.view_timelog"/>
-            <field name="view_mode">tree,form,graph</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
             <field name="context">{
                 'search_default_group_users': 1,
                 'search_default_group_tasks': 1,

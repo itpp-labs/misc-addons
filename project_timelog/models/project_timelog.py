@@ -12,14 +12,22 @@ class ProjectTimelog(models.Model):
 
     work_id = fields.Many2one("project.task.work", "Task", required=True, index=True)
     task_name = fields.Char(related='work_id.task_id.name', store=True)
+    work_name = fields.Char(related='work_id.name', store=True)
     project_name = fields.Char(related='work_id.task_id.project_id.name', store=True)
     start_datetime = fields.Datetime(string="Start date", default=datetime.datetime.now())
     end_datetime = fields.Datetime(string="End date")
+    end_datetime_active = fields.Datetime(string="End date", help="End tate. Equal to now if timer is not stopped yet.", compute="_compute_end_datetime_active")
     duration = fields.Float(string="Duration", compute="_compute_duration", store=True)
     corrected_duration = fields.Float(string="Corrected duration", compute="_compute_corrected_duration", store=True)
     user_id = fields.Many2one("res.users", string="User name", index=True)
     stage_id = fields.Many2one("project.task.type", string="Stage")
-    time_correction = fields.Float(default=0.00)
+    time_correction = fields.Float('Time Correction', default=0.00)
+
+    @api.multi
+    @api.depends("end_datetime")
+    def _compute_end_datetime_active(self):
+        for r in self:
+            r.end_datetime_active = r.end_datetime or datetime.datetime.now()
 
     @api.multi
     @api.depends("start_datetime", "end_datetime")
@@ -57,7 +65,6 @@ class ProjectTimelog(models.Model):
                     end_datetime = datetime.datetime.strptime(r.end_datetime, "%Y-%m-%d %H:%M:%S")
                 else:
                     end_datetime = r.end_datetime
-
                 resultat = end_datetime - start_datetime
                 r.corrected_duration = round(int(round(resultat.total_seconds(), 0))/3600.0, 3) + r.time_correction
 
@@ -68,6 +75,8 @@ class ProjectTimelog(models.Model):
             if not user.has_group('project.group_project_manager'):
                 if vals['time_correction'] > 0.00:
                     raise UserError(_('Only manager can enter positive time.'))
+        if any([key in vals for key in ['start_datetime', 'end_datetime']]):
+            raise UserError(_('Dates cannot be changed. Use Time Correction field instead.'))
         return super(ProjectTimelog, self).write(vals)
 
 
