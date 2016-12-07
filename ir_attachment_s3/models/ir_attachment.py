@@ -18,33 +18,34 @@ except:
 class IrAttachment(models.Model):
     _inherit = 'ir.attachment'
 
-    def _get_bucket_name(self):
-        return self.env['ir.config_parameter'].get_param('s3.bucket')
-
     def _get_condition(self):
         return self.env['ir.config_parameter'].get_param('s3.condition')
 
-    def _get_access_key_id(self):
-        return self.env['ir.config_parameter'].get_param('s3.access_key_id') or \
-                os.environ.get('S3_ACCESS_KEY_ID')
-
-    def _get_secret_key(self):
-        return self.env['ir.config_parameter'].get_param('s3.secret_key') or \
-                os.environ.get('S3_SECRET_KEY')
+    def _get_credentials(self, param_name, os_var_name):
+        config_obj = self.env['ir.config_parameter']
+        res = config_obj.get_param(param_name)
+        if not res:
+            res = os.environ.get(os_var_name)
+            if res:
+                config_obj.set_param(param_name, res)
+        return res
 
     @api.model
     def _get_s3_object_url(self, s3, s3_bucket_name, key_name):
         bucket_location = s3.meta.client.get_bucket_location(Bucket=s3_bucket_name)
-        object_url = "https://s3-{0}.amazonaws.com/{1}/{2}".format(
-            bucket_location['LocationConstraint'],
+        location_constraint = bucket_location.get('LocationConstraint')
+        domain_part = 's3' + '-' + location_constraint if location_constraint else 's3'
+        object_url = "https://{0}.amazonaws.com/{1}/{2}".format(
+            domain_part,
             s3_bucket_name,
             key_name)
         return object_url
 
     @api.model
     def _get_s3_resource(self):
-        access_key_id = self._get_access_key_id()
-        secret_key = self._get_secret_key()
+        access_key_id = self._get_credentials('s3.access_key_id', 'S3_ACCESS_KEY_ID')
+        secret_key = self._get_credentials('s3.secret_key', 'S3_SECRET_KEY')
+        bucket_name = self._get_credentials('s3.bucket', 'S3_BUCKET')
 
         if not access_key_id or not secret_key:
             _logger.info(_('Amazon S3 access_key_id and secret_access_key are not defined. Attachments are not saved on S3.'))
@@ -55,7 +56,6 @@ class IrAttachment(models.Model):
             aws_access_key_id=access_key_id,
             aws_secret_access_key=secret_key,
             )
-        bucket_name = self._get_bucket_name()
         bucket = s3.Bucket(bucket_name)
         if not bucket:
             s3.create_bucket(Bucket=bucket_name)
