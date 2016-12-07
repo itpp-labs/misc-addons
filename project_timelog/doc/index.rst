@@ -5,10 +5,7 @@
 Installation
 ============
 
-* Set module ``Project timelog``.
-* Open menu ``setting``.
-* Open ``timelog`` in Cofiguration section.
-* Choose necessary configuration settings and press ``apply``.
+* `Install <https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html>`__ this module in a usual way
 
 Usage
 =====
@@ -28,7 +25,7 @@ How to see results
 
 The timer’s work.
 
-* Click to first timer to start it. Press twice to stop it.
+* Click to first timer to start it. Click again to stop it.
 * Click the second timer to open the page with the current task.
 * Click the third timer to open Logs page for current day.
 * Click the fourth to open Logs page for current week.
@@ -45,4 +42,3 @@ Note
 ====
 
 * To use the module, you need to be sure that your odoo instance support longpolling, i.e. Instant Messaging works. Read more about how to use the `longpolling  <https://odoo-development.readthedocs.io/en/latest/admin/longpolling.html>`_
-* While doing reinstallation of module after its removal clear browser data.

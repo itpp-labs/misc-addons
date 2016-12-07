@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 {
     "name": """Project timelog""",
-    "summary": """Time log for project""",
+    "summary": """Timelogs for project""",
     "category": "Project",
     "version": "1.0.0",
 
     "author": "IT-Projects LLC, Dinar Gabbasov",
     'website': "https://twitter.com/gabbasov_dinar",
     "license": "GPL-3",
+    # "price": ,
+    # "currency": "EUR",
 
     "depends": [
         "bus",

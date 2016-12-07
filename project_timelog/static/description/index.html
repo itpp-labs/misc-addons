@@ -4,7 +4,7 @@
         <h3 class="oe_slogan">Tracking Workflow</h3>
         <div class="oe_span6">
             <div class="oe_demo oe_picture oe_screenshot">
-                <a href="http://runbot.it-projects.info/">
+                <a href="http://runbot.it-projects.info/demo/misc-addons/8.0">
                     <img src="00.png" alt="Online Demo">
                 </a>
                 <div class="oe_demo_footer oe_centeralign">Online Demo</div>
@@ -25,8 +25,10 @@
             <p class='oe_mt32'>
                 To install the module fo the following:
                 <ul>
-                    <li>Install the module "Project timelog"</li>
-                    <li>Open menu "settings"</li>
+                    <li><a href="https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html">Install </a>this module in a usual way</li>
+                </ul>
+                Settings
+                <ul><li>Open menu "settings"</li>
                     <li>Open "timelog" in section of Configuration</li>
                     <li>Choose necessary configuration settings and press "apply"</li>
                 </ul>
@@ -46,12 +48,12 @@
         </div>
         <div class="oe_span6">
             <ul class='oe_mt32'>
-                <li>"Install warning time" - is warning time. It must warn a user with audio signal about when it stops (in what time it is stops).</li>
-                <li>"Install completion time" - is a limit on timer work for subtask, it stops after achieving this time.</li>
-                <li>"Install normal time" - is warning time for the number of worked hours for current day (a set number of hours).</li>
-                <li>"Install good time" - is warning time for the number of worked hours for current day ( more than a set number of hours).</li>
-                <li>"Install normal time" - is warning time for the number of worked hours for current week (a set number of hours).</li>
-                <li>"Install good time" - is warning time for the number of worked hours for current week ( more than a set number of hours).</li>
+                <li>"Set warning time" - is warning time. It must warn a user with audio signal about when timer it stops (in what time it is stops).</li>
+                <li>"Set completion time" - is a limit on timer work for subtask, it stops after achieving this time.</li>
+                <li>"Set normal time" - is warning time for the number of worked hours for current day (a set number of hours).</li>
+                <li>"Set good time" - is warning time for the number of worked hours for current day ( more than a set number of hours).</li>
+                <li>"Set normal time" - is warning time for the number of worked hours for current week (a set number of hours).</li>
+                <li>"Set good time" - is warning time for the number of worked hours for current week ( more than a set number of hours).</li>
             </ul>
         </div>
     </div>
@@ -62,8 +64,7 @@
         <h2 class="oe_slogan">Usage</h2>
         <div class="oe_span12">
             <p class='oe_mt32'>
-                After the installation of the module, "time" will appear in the upper right corner. This means than you need to set timer configurations. After its setting, the upper right corner will show "00:00:00 00:00 00:00 00:00".
-            </p>
+                After the installation of the module, the upper right corner will show "00:00:00 00:00 00:00 00:00".            </p>
             <p>
                 The timer allows to immobilize the user’s time of working on subtask in menu "Project->Task", helps to follow the volume of work during day and week.
             </p>
@@ -75,7 +76,7 @@
         </div>
         <div class="oe_span6">
             <p class='oe_mt32'>
-                The result of timer work in written in menu "Project -> Timelog" in section "My timelog". This section shows logs of current users only and explains which task is for subtask, when the timer was launched and stopped, how long it worked and in what state was task. There is a "time correction" which allows to correct the time (see more in section Correction of time). Manager has the access "timelog" in which logs of all people are seen.
+                The result of timer work in written in menu "Project -> Timelog" in section "My timelog". This section shows logs of current users only and explains which task is for subtask, when the timer was launched and stopped, how long it worked and in what state was task. There is a "time correction" which allows to correct the time (see more in section Correction of time). Manager has the access "timelog" in which logs of all users are seen.
             </p>
         </div>
     </div>
@@ -86,7 +87,7 @@
         <h2 class="oe_slogan">Start timer</h2>
         <div class="oe_span6">
             <p class='oe_mt32'>
-                While working you need to create a new subtask in page with current task. Press "play" to start the timer. Press "stop" to stop it. After its stopping a general time appears in above the subtask in "timeSpent".
+                While working you need to create a new subtask in page with current task. Press "play" to start the timer. Press "stop" to stop it. After its stopping a general time appears in above the subtask in "Time Spent".
             </p>
         </div>
         <div class="oe_span6">
@@ -101,15 +102,13 @@
                 If the subtask was created in one state of task, then timer for this subtask cannot be launched in other state of current task.
             </p>
             <p>
-                If timer was launched in one state and state of task has changed while working, then timer automatically stops and creates a new task with the same name.
-            </p>
+                If timer was launched in one state of task and state of task has changed while working, then timer automatically stops and creates a new task with the same name.            </p>
         </div>
     </div>
     <div class="oe_row">
         <div class="oe_span12">
             <p class='oe_mt32'>
-                Checking user’s activity is occurs due to his status in chat. Thus, timer automatically stops, if user is "offline" and there is no internet connection. If new connection appears you need to restart the timer. If timer is stopped user will hear a audio sound.
-            </p>
+                Checking user’s activity is occurs due to his status in chat. Thus, timer automatically stops, if user is "offline" or there is no internet connection. If new connection appears you need to restart the timer. If timer is stopped user will hear a audio signal.            </p>
             <p>
                 If there are subtasks with logs of another day, then subtask is unavailable for user. User can start subtasks in which in "Done by" is stated  user’s name.
             </p>
@@ -149,7 +148,7 @@
         <h2 class="oe_slogan">Time correction</h2>
         <div class="oe_span6">
             <p class='oe_mt32'>
-                If user opened timer occasionally, delete all the unnecessary time with "Time correction". Fo to My timelog and press log which contains a mistake to change working hours. Press "edit" and "time correction" will be available for editing. User can only reduce time and manager can both reduce it or increase it. If user does not put "-" it will be put automatically.
+                If user opened timer occasionally, delete all the unnecessary time with "Time correction". Go to "My timelog" and press log which contains a mistake to change working hours. Press "edit" and "time correction" will be available for editing. User can only reduce time and manager can both reduce it or increase it. If user does not put "-" it will be put automatically.
             </p>
         </div>
         <div class="oe_span6">
@@ -166,7 +165,7 @@
         </div>
         <div class="oe_span6">
             <p class='oe_mt32'>
-                In case of user should immediately goes to a new task in "Stopline", must specify the date and time up to which the user can work. When reaching it he cannot add timelogs to the current task, till Stopline will be changed or deleted. "Stopline" used in difficult tasks and can be edited only by manager. When reaching to Stopline timer changes to orange, and appears the signal. (as in approaching to 2 hours in subtask).
+                In case of user should immediately goes to a new task in "Stopline", must specify the date and time up to which the user can work. When reaching it he cannot add timelogs to the current task, till Stopline will be changed or deleted. "Stopline" used in difficult tasks and can be edited only by manager. When reaching to Stopline timer changes to orange, and appears the signal.
             </p>
         </div>
     </div>

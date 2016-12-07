@@ -18,7 +18,7 @@ Sponsors
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/
+Demo: http://runbot.it-projects.info/demo/misc-addons/8.0
 
 HTML Description: https://apps.odoo.com/apps/modules/8.0/project_timelog/
 
