@@ -18,10 +18,7 @@ except:
 class IrAttachment(models.Model):
     _inherit = 'ir.attachment'
 
-    def _get_condition(self):
-        return self.env['ir.config_parameter'].get_param('s3.condition')
-
-    def _get_credentials(self, param_name, os_var_name):
+    def _get_s3_settings(self, param_name, os_var_name):
         config_obj = self.env['ir.config_parameter']
         res = config_obj.get_param(param_name)
         if not res:
@@ -43,9 +40,9 @@ class IrAttachment(models.Model):
 
     @api.model
     def _get_s3_resource(self):
-        access_key_id = self._get_credentials('s3.access_key_id', 'S3_ACCESS_KEY_ID')
-        secret_key = self._get_credentials('s3.secret_key', 'S3_SECRET_KEY')
-        bucket_name = self._get_credentials('s3.bucket', 'S3_BUCKET')
+        access_key_id = self._get_s3_settings('s3.access_key_id', 'S3_ACCESS_KEY_ID')
+        secret_key = self._get_s3_settings('s3.secret_key', 'S3_SECRET_KEY')
+        bucket_name = self._get_s3_settings('s3.bucket', 'S3_BUCKET')
 
         if not access_key_id or not secret_key:
             _logger.info(_('Amazon S3 access_key_id and secret_access_key are not defined. Attachments are not saved on S3.'))
@@ -63,7 +60,7 @@ class IrAttachment(models.Model):
 
     def _inverse_datas(self):
         s3 = self._get_s3_resource()
-        condition = self._get_condition()
+        condition = self._get_s3_settings('s3.condition', 'S3_CONDITION')
         if not s3:
             # set s3_records to empty recordset
             s3_records = self.env[self._name]
@@ -78,7 +75,7 @@ class IrAttachment(models.Model):
             bin_data = value and value.decode('base64') or ''
             fname = hashlib.sha1(bin_data).hexdigest()
 
-            bucket_name = self._get_credentials('s3.bucket', 'S3_BUCKET')
+            bucket_name = self._get_s3_settings('s3.bucket', 'S3_BUCKET')
             s3.Bucket(bucket_name).put_object(
                 Key=fname,
                 Body=bin_data,
