@@ -14,6 +14,7 @@
     "currency": "EUR",
 
     "depends": [
+        'ir_attachment_url',
     ],
     "external_dependencies": {"python": ['boto3'], "bin": []},
     "data": [
