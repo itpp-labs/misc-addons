@@ -8,6 +8,7 @@ Installation
 * `Install <https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html>`__ this module in a usual way
 * `Using this quickstart instruction <https://boto3.readthedocs.io/en/latest/guide/quickstart.html>`__ install boto3 library and get credentials for it
 * `Using this instruction <http://mikeferrier.com/2011/10/27/granting-access-to-a-single-s3-bucket-using-amazon-iam>`__ grant access to your s3 bucket
+* Set your S3 bucket as public
 * Optionaly, add following parameter to prevent heavy logs from boto3 library:
 
     --log-handler=boto3.resources.action:WARNING
@@ -22,8 +23,8 @@ Instruction how to configure the module.
 
   * ``s3.bucket``: the name of your bucket (e.g. ``mybucket``)
   * ``s3.condition``: only the attachments that meet the condition will be sent to s3 (e.g. ``attachment.res_model == 'product.template'``) - it is actually the way of specifying the models with ``fields.Binary`` fields that should be stored on s3 instead of local file storage or db. Don't specify anything if you want to store all your attachment data from ``fields.Binary`` and also ordinary attachments on s3.
-  * ``s3.access_key_id``
-  * ``s3.secret_key``
+  * ``s3.access_key_id``: S3 access key ID
+  * ``s3.secret_key``: S3 secret access key
 
 Usage
 =====
