@@ -2,7 +2,7 @@
  S3 Attachment Storage
 =======================
 
- The module allows to upload the attachments in Amazon S3 automatically without storing them in Odoo database. It will allow to reduce the load on your server. Attachments will be uploaded on S3 depending on the condition you specified. So you can choose and manage how many attachments should be uploaded on S3.
+The module allows to upload the attachments in Amazon S3 automatically without storing them in Odoo database. It will allow to reduce the load on your server. Attachments will be uploaded on S3 depending on the condition you specified. So you can choose and manage how many attachments should be uploaded on S3.
 
 Credits
 =======
@@ -25,4 +25,3 @@ Usage instructions: `<doc/index.rst>`_
 Changelog: `<doc/changelog.rst>`_
 
 Tested on Odoo 10.0 f05e8655ee4ee7205c67006ca5a8cb30ed445c81
-
