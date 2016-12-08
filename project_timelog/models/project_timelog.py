@@ -37,7 +37,7 @@ class ProjectTimelog(models.Model):
             r.duration = self._duration(r.start_datetime, r.end_datetime)
 
     @api.multi
-    @api.depends("duration", "time_correction")
+    @api.depends("start_datetime", "end_datetime", "time_correction")
     def _compute_corrected_duration(self):
         for r in self:
             r.corrected_duration = r.duration + r.time_correction
