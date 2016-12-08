@@ -145,8 +145,8 @@
             <field name="name">timelog.graph</field>
             <field name="model">project.timelog</field>
             <field name="arch" type="xml">
-                <graph string="Timelog" type="bar" create="false">
-                    <field name="corrected_duration" type="measure" widget="float_time"/>
+                <graph string="Timelog" type="pivot">
+                    <field name="corrected_duration_active" type="measure" widget="float_time"/>
                 </graph>
             </field>
         </record>
@@ -174,9 +174,9 @@
                     <field name="user_id" string="User"/>
                     <field name="start_datetime" />
                     <field name="end_datetime" />
-                    <filter name="today" string="Today" domain="[('start_datetime', '&gt;=',  datetime.datetime.combine(context_today(), datetime.time(0,0,0))), ('end_datetime', '&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59)))]"/>
+                    <filter name="today" string="Today" domain="[('start_datetime', '&gt;=',  datetime.datetime.combine(context_today(), datetime.time(0,0,0))), '|', ('end_datetime', '=', False), ('end_datetime', '&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59)))]"/>
                     <separator/>
-                    <filter name="week" string="This week" domain="[('start_datetime', '&gt;=', ((context_today()+relativedelta(weeks=-1, days=1, weekday=0)).strftime('%%Y-%%m-%%d'))+' '+'00:00:00'),
+                    <filter name="week" string="This week" domain="[('start_datetime', '&gt;=', ((context_today()+relativedelta(weeks=-1, days=1, weekday=0)).strftime('%%Y-%%m-%%d'))+' '+'00:00:00'), '|', ('end_datetime', '=', False), 
                                                                         ('end_datetime', '&lt;=', ((context_today()+relativedelta(weeks=0, weekday=6)).strftime('%%Y-%%m-%%d'))+' '+'23:59:59')]"/>
                     <group string="Group By">
                         <filter name="group_projects" string="Projects" domain="[]" context="{'group_by':'project_name'}"/>

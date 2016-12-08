@@ -19,6 +19,7 @@ class ProjectTimelog(models.Model):
     end_datetime_active = fields.Datetime(string="End date", help="End tate. Equal to now if timer is not stopped yet.", compute="_compute_end_datetime_active")
     duration = fields.Float(string="Duration", compute="_compute_duration", store=True)
     corrected_duration = fields.Float(string="Corrected duration", compute="_compute_corrected_duration", store=True)
+    corrected_duration_active = fields.Float(string="Corrected duration", store="True")
     user_id = fields.Many2one("res.users", string="User name", index=True)
     stage_id = fields.Many2one("project.task.type", string="Stage")
     time_correction = fields.Float('Time Correction', default=0.00)
@@ -33,40 +34,36 @@ class ProjectTimelog(models.Model):
     @api.depends("start_datetime", "end_datetime")
     def _compute_duration(self):
         for r in self:
-            if r.end_datetime is False:
-                r.duration = False
-            else:
-                if type(r.start_datetime) is str:
-                    start_datetime = datetime.datetime.strptime(r.start_datetime, "%Y-%m-%d %H:%M:%S")
-                else:
-                    start_datetime = r.start_datetime
-
-                if type(r.end_datetime) is str:
-                    end_datetime = datetime.datetime.strptime(r.end_datetime, "%Y-%m-%d %H:%M:%S")
-                else:
-                    end_datetime = r.end_datetime
-
-                resultat = end_datetime - start_datetime
-                r.duration = round(int(round(resultat.total_seconds(), 0))/3600.0, 3)
+            r.duration = self._duration(r.start_datetime, r.end_datetime)
 
     @api.multi
-    @api.depends("start_datetime", "end_datetime", "time_correction")
+    @api.depends("duration", "time_correction")
     def _compute_corrected_duration(self):
         for r in self:
-            if r.end_datetime is False:
-                r.duration = False
-            else:
-                if type(r.start_datetime) is str:
-                    start_datetime = datetime.datetime.strptime(r.start_datetime, "%Y-%m-%d %H:%M:%S")
-                else:
-                    start_datetime = r.start_datetime
+            r.corrected_duration = r.duration + r.time_correction
 
-                if type(r.end_datetime) is str:
-                    end_datetime = datetime.datetime.strptime(r.end_datetime, "%Y-%m-%d %H:%M:%S")
-                else:
-                    end_datetime = r.end_datetime
-                resultat = end_datetime - start_datetime
-                r.corrected_duration = round(int(round(resultat.total_seconds(), 0))/3600.0, 3) + r.time_correction
+    @api.multi
+    def _recompute_corrected_duration_active(self):
+        for r in self:
+            if r.end_datetime:
+                value = r.corrected_duration
+            else:
+                value = self._duration(r.start_datetime, datetime.datetime.now()) + r.time_correction
+            r.corrected_duration_active = value
+
+    @api.model
+    def _duration(self, start_datetime, end_datetime):
+        if not end_datetime:
+            return 0
+
+        if type(start_datetime) is str:
+            start_datetime = datetime.datetime.strptime(start_datetime, "%Y-%m-%d %H:%M:%S")
+
+        if type(end_datetime) is str:
+            end_datetime = datetime.datetime.strptime(end_datetime, "%Y-%m-%d %H:%M:%S")
+
+        delta = end_datetime - start_datetime
+        return delta.total_seconds() / 3600.0
 
     @api.multi
     def write(self, vals):
@@ -79,6 +76,13 @@ class ProjectTimelog(models.Model):
             if any([key in vals and getattr(r, key) for key in ['start_datetime', 'end_datetime']]):
                 raise UserError(_('Dates cannot be changed. Use Time Correction field instead.'))
         return super(ProjectTimelog, self).write(vals)
+
+    def read_group(self, cr, uid, domain, fields, groupby, offset=0, limit=None, context=None, orderby=False, lazy=True):
+        if 'corrected_duration_active' in fields:
+            recompute_domain = [('end_datetime', '=', False)] + domain
+            ids = self.search(cr, uid, recompute_domain, context=context)
+            self._recompute_corrected_duration_active(cr, uid, ids, context=context)
+        return super(ProjectTimelog, self).read_group(cr, uid, domain, fields, groupby, offset=offset, limit=limit, context=context, orderby=orderby, lazy=lazy)
 
 
 class Task(models.Model):
