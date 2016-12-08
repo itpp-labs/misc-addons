@@ -22,12 +22,5 @@ class IrAttachment(models.Model):
         super(IrAttachment, self - url_records)._compute_datas()
 
     @api.multi
-    def write(self, vals):
-        self.check('write', values=vals)
-        url = vals.get('url')
-        url_assets_records = self.filtered(lambda r: r.type == 'url' and r.res_model == 'ir.ui.view')
-        super(IrAttachment, self - url_assets_records).write(vals)
-        if url and re.match(r'^/web/content/.*', url):
-            vals.pop('url', False)
-        super(IrAttachment, url_assets_records).write(vals)
-        return True
+    def _filter_protected_attachments(self):
+        return self.filtered(lambda r: r.res_model != 'ir.ui.view' or not r.name.startswith('/web/content/'))
