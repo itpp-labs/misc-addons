@@ -2,7 +2,7 @@
  Product Details
 =================
 
- The module allows to add models with details for product and lots/serial numbers.
+The module allows to add models with details for product and lots/serial numbers.
 
 Credits
 =======
