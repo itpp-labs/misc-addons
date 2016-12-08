@@ -9,6 +9,9 @@ Installation
 * `Using this quickstart instruction <https://boto3.readthedocs.io/en/latest/guide/quickstart.html>`__ install boto3 library and get credentials for it
 * `Using this instruction <http://mikeferrier.com/2011/10/27/granting-access-to-a-single-s3-bucket-using-amazon-iam>`__ grant access to your s3 bucket
 * Set your S3 bucket as public
+* Optionaly, add following parameter to prevent heavy logs from boto3 library:
+
+    --log-handler=boto3.resources.action:WARNING
 
 Configuration
 =============
