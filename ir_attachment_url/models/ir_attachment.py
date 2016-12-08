@@ -26,8 +26,8 @@ class IrAttachment(models.Model):
         self.check('write', values=vals)
         url = vals.get('url')
         url_assets_records = self.filtered(lambda r: r.type == 'url' and r.res_model == 'ir.ui.view')
-        ret = super(IrAttachment, self - url_assets_records).write(vals)
+        super(IrAttachment, self - url_assets_records).write(vals)
         if url and re.match(r'^/web/content/.*', url):
             vals.pop('url', False)
-        ret += super(IrAttachment, url_assets_records).write(vals)
-        return ret
+        super(IrAttachment, url_assets_records).write(vals)
+        return True
