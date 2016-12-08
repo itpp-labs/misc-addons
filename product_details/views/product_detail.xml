@@ -9,7 +9,7 @@
             <data>
                 <xpath expr="//page[@name='general_information']" position="inside">
                     <group name="group_details">
-                        <field name="detail_source"/>
+                        <field name="details"/>
                     </group>
                 </xpath>
             </data>
@@ -23,7 +23,7 @@
         <field name="arch" type="xml">
             <data>
                 <xpath expr="//field[@name='ref']" position="after">
-                    <field name="detail_source"/>
+                    <field name="details"/>
                 </xpath>
             </data>
         </field>
