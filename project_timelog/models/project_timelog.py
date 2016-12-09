@@ -95,6 +95,15 @@ class Task(models.Model):
     }
 
     @api.model
+    def clear_stopline_datetime(self):
+        tasks = self.env["project.task"].search(["datetime_stopline", "!=", False])
+        for task in tasks:
+            datetime_stopline = datetime.datetime.strptime(task.datetime_stopline, "%Y-%m-%d %H:%M:%S")
+            if datetime_stopline.day < datetime.datetime.today().day:
+                task.write({"datetime_stopline": False})
+
+
+    @api.model
     def stopline_timer(self):
         user = self.env["res.users"].search([])
         for u in user:
