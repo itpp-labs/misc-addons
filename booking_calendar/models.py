@@ -92,6 +92,11 @@ class ResourceCalendar(models.Model):
 
             day_start_dt = start_dt
             day_end_dt = end_dt
+            # sometimes one booking may be on two different weekdays
+            # call get_working_accurate_hours recursively for that cases
+            if day_end_dt.date() == day_start_dt.date() + timedelta(1) and \
+                day_end_dt != day_end_dt.replace(hour=0, minute=0, second=0):
+                    hours += timedelta(hours=self.get_working_accurate_hours(start_dt=day_end_dt.replace(hour=0, minute=0, second=0), end_dt=day_end_dt))
 
             weekday = [day_start_dt.weekday()]
             if product and product[0].work_on_holidays and product[0].holidays_country_id and product[0].holidays_schedule == 'premium':
