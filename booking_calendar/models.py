@@ -92,6 +92,11 @@ class ResourceCalendar(models.Model):
 
             day_start_dt = start_dt
             day_end_dt = end_dt
+            # sometimes one booking may be on two different weekdays
+            # call get_working_accurate_hours recursively for that cases
+            if day_end_dt.date() == day_start_dt.date() + timedelta(1) and \
+                    day_end_dt != day_end_dt.replace(hour=0, minute=0, second=0):
+                    hours += timedelta(hours=self.get_working_accurate_hours(start_dt=day_end_dt.replace(hour=0, minute=0, second=0), end_dt=day_end_dt))
 
             weekday = [day_start_dt.weekday()]
             if product and product[0].work_on_holidays and product[0].holidays_country_id and product[0].holidays_schedule == 'premium':
@@ -205,7 +210,7 @@ class SaleOrderLine(models.Model):
     resource_id = fields.Many2one('resource.resource', 'Resource')
     booking_start = fields.Datetime(string="Date start")
     booking_end = fields.Datetime(string="Date end")
-    calendar_id = fields.Many2one('resource.calendar', related='product_id.calendar_id')
+    calendar_id = fields.Many2one('resource.calendar', related='product_id.calendar_id', store=True)
     project_id = fields.Many2one('account.analytic.account', compute='_compute_dependent_fields', store=False, string='Contract')
     partner_id = fields.Many2one('res.partner', compute='_compute_dependent_fields', store=False, string='Customer')
     overlap = fields.Boolean(compute='_compute_date_overlap', default=False, store=True)
