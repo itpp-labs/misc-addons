@@ -281,7 +281,7 @@ class SaleOrderLine(models.Model):
                 raise ValidationError(msg)
 
     @api.multi
-    @api.constrains('calendar_id', 'booking_start', 'booking_end')
+    @api.constrains('product_id.calendar_id', 'booking_start', 'booking_end')
     def _check_date_fit_product_calendar(self):
         for line in self.sudo():
             if line.state == 'cancel':
