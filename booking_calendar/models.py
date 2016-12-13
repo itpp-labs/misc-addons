@@ -210,7 +210,7 @@ class SaleOrderLine(models.Model):
     resource_id = fields.Many2one('resource.resource', 'Resource')
     booking_start = fields.Datetime(string="Date start")
     booking_end = fields.Datetime(string="Date end")
-    calendar_id = fields.Many2one('resource.calendar', related='product_id.calendar_id')
+    calendar_id = fields.Many2one('resource.calendar', related='product_id.calendar_id', store=True)
     project_id = fields.Many2one('account.analytic.account', compute='_compute_dependent_fields', store=False, string='Contract')
     partner_id = fields.Many2one('res.partner', compute='_compute_dependent_fields', store=False, string='Customer')
     overlap = fields.Boolean(compute='_compute_date_overlap', default=False, store=True)
@@ -281,7 +281,7 @@ class SaleOrderLine(models.Model):
                 raise ValidationError(msg)
 
     @api.multi
-    @api.constrains('product_id.calendar_id', 'booking_start', 'booking_end')
+    @api.constrains('calendar_id', 'booking_start', 'booking_end')
     def _check_date_fit_product_calendar(self):
         for line in self.sudo():
             if line.state == 'cancel':
