@@ -83,15 +83,24 @@ class ThemeTopPanel(models.Model):
             # double {{ will be formated as single {
             if self.top_panel_bg_active:
                 code = code + '''
-                #oe_main_menu_navbar{{
+                #oe_main_menu_navbar {{
                     background-color: {theme.top_panel_bg};
                 }}
                 #oe_main_menu_navbar .dropdown-menu{{
                     background-color: {theme.top_panel_bg};
+                }}
+                .o_main_navbar {{
+                    background-color: {theme.top_panel_bg};
+                }}
+                .o_main_navbar .dropdown-menu{{
+                    background-color: {theme.top_panel_bg};
                 }}'''
 
             if self.top_panel_border_active:
-                code = code + '''#oe_main_menu_navbar{{
+                code = code + '''.o_main_navbar{{
+                    border-color: {theme.top_panel_border};
+                }}
+                #oe_main_menu_navbar{{
                     border-color: {theme.top_panel_border};
                 }}
                 .o_control_panel {{
@@ -105,9 +114,30 @@ class ThemeTopPanel(models.Model):
                 }}
                 '''
             if self.top_panel_font_active:
-                code = code + '''.navbar-nav li a{{
+                code = code + '''.o_main_navbar > ul > li > a {{
                     color: {theme.top_panel_font}!important;
-                }}'''
+                }}
+                .navbar-nav li a {{
+                    color: {theme.top_panel_font}!important;
+                }}
+                .o_main_navbar > .o_menu_toggle{{
+                    color: {theme.top_panel_font}!important;
+                }}
+                .o_main_navbar .o_menu_brand {{
+                    color: {theme.top_panel_font}!important;
+                }}
+                .o_main_navbar .open .dropdown-menu > li a span {{
+                    color: {theme.top_panel_font}!important;
+                }}
+                .open .dropdown-menu > li.dropdown-header {{
+                    color: {theme.top_panel_font}!important;
+                    font-weight: bolder;
+                }}
+                .dropdown-menu > li > a {{
+                    color: {theme.top_panel_font}!important;
+                }}
+
+                '''
             if self.top_panel_active_item_font_active:
                 code = code + '''.navbar-nav .active a{{
                     color: {theme.top_panel_active_item_font}!important;
@@ -117,19 +147,63 @@ class ThemeTopPanel(models.Model):
                     background-color: {theme.top_panel_active_item_bg}!important;
                 }}'''
             if self.top_panel_hover_item_font_active:
-                code = code + '''.navbar-nav li a:hover{{
+                code = code + '''.o_main_navbar > ul > li > a:hover{{
+                    color: {theme.top_panel_hover_item_font}!important;
+                }}
+                .o_main_navbar > ul > li > a:focus{{
+                    color: {theme.top_panel_hover_item_font}!important;
+                }}
+                .navbar-nav li a:hover{{
                     color: {theme.top_panel_hover_item_font}!important;
                 }}
                 .navbar-nav li a:focus{{
                     color: {theme.top_panel_hover_item_font}!important;
-                }}'''
+                }}
+                .o_main_navbar > .o_menu_toggle:focus{{
+                    color: {theme.top_panel_hover_item_font}!important;
+                }}
+                .o_main_navbar > .o_menu_toggle:hover{{
+                    color: {theme.top_panel_hover_item_font}!important;
+                }}
+                .o_main_navbar .open .dropdown-menu > li:hover a span {{
+                    color: {theme.top_panel_hover_item_font}!important;
+                }}
+                .o_main_navbar .open .dropdown-menu > li:focus a span {{
+                    color: {theme.top_panel_hover_item_font}!important;
+                }}
+                .dropdown-menu > li > a:hover {{
+                    color: {theme.top_panel_hover_item_font}!important;
+                }}
+                .dropdown-menu > li > a:focus {{
+                    color: {theme.top_panel_hover_item_font}!important;
+                }}
+                '''
             if self.top_panel_hover_item_bg_active:
-                code = code + '''.navbar-nav li a:hover{{
+                code = code + '''.o_main_navbar > ul > li > a:hover{{
+                    background-color: {theme.top_panel_hover_item_bg}!important;
+                }}
+                .o_main_navbar > ul > li > a:focus{{
+                    background-color: {theme.top_panel_hover_item_bg}!important;
+                }}
+                .navbar-nav li a:hover{{
                     background-color: {theme.top_panel_hover_item_bg}!important;
                 }}
                 .navbar-nav li a:focus{{
                     background-color: {theme.top_panel_hover_item_bg}!important;
-                }}'''
+                }}
+                .o_main_navbar > .o_menu_toggle:hover{{
+                    background-color: {theme.top_panel_hover_item_bg}!important;
+                }}
+                .o_main_navbar > .o_menu_toggle:focus{{
+                    background-color: {theme.top_panel_hover_item_bg}!important;
+                }}
+                .o_main_navbar .open .dropdown-menu > li a:hover {{
+                    background-color: {theme.top_panel_hover_item_bg}!important;
+                }}
+                .o_main_navbar .open .dropdown-menu > li a:focus {{
+                    background-color: {theme.top_panel_hover_item_bg}!important;
+                }}
+                '''
             code = code.format(
                 theme=r,
             )
@@ -363,7 +437,10 @@ class ThemeContent(models.Model):
                 .o_web_settings_dashboard {{
                     background: lighten({theme.content_bg}, 20%)!important;
                 }}
-                .o_main .o_form_sheet_bg {{
+                .o_main .o_form_sheet_bg  {{
+                    background: lighten({theme.content_bg}, 30%)!important;
+                }}
+                .o_content .o_form_sheet_bg {{
                     background: lighten({theme.content_bg}, 30%)!important;
                 }}
                 .nav-tabs {{
@@ -381,6 +458,17 @@ class ThemeContent(models.Model):
                 }}
                 .o_main .o-view-manager-view-kanban .o_background_grey {{
                     background: lighten({theme.content_bg}, 30%) !important;
+                }}
+                .o_application_switcher {{
+                    background-image: none;
+                    background-color: {theme.content_bg};
+                    background: -moz-linear-gradient(135deg, lighten({theme.content_bg}, 30%), {theme.content_bg});
+                    background: -o-linear-gradient(135deg, lighten({theme.content_bg}, 30%), {theme.content_bg});
+                    background: -webkit-gradient(linear, left top, right bottom, from(lighten({theme.content_bg}, 30%)), to({theme.content_bg}));
+                    background: -ms-linear-gradient(top, lighten({theme.content_bg}, 30%), {theme.content_bg});
+                }}
+                .o_application_switcher .o_app:hover{{
+                    background-color: darken({theme.content_bg}, 1%) !important;
                 }}
                 '''
 
@@ -405,8 +493,11 @@ class ThemeContent(models.Model):
                 }}
                 '''
             if self.content_form_text_active:
-                code = code + '''.o_form {{
-                    color: {theme.content_form_text} !important;
+                code = code + '''.o_form_view {{
+                    color: {theme.content_form_text};
+                }}
+                .o_form {{
+                    color: {theme.content_form_text};
                 }}
                 .o_horizontal_separator {{
                     color: darken({theme.content_form_text}, 20%) !important;
@@ -451,11 +542,20 @@ class ThemeContent(models.Model):
                 '''
             if self.content_text_active:
                 code = code + '''.o_main{{
-                    color: {theme.content_text};
+                    color: {theme.content_text} !important;
+                }}
+                .o_application_switcher .o_caption {{
+                    color: {theme.content_text} !important;
                 }}
                 '''
             if self.content_form_title_active:
-                code = code + '''.o_main .o_horizontal_separator {{
+                code = code + '''.o_horizontal_separator {{
+                    color: {theme.content_form_title} !important;
+                }}
+                .o_main .o_horizontal_separator {{
+                    color: {theme.content_form_title} !important;
+                }}
+                .o_form_label {{
                     color: {theme.content_form_title} !important;
                 }}
                 .breadcrumb > .active {{
