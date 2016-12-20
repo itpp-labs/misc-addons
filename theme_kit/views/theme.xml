@@ -213,6 +213,32 @@
                                     <field name="content_loader_text_active" nolabel="1" class="oe_inline"/>
                                     <field name="content_loader_text" widget="color" attrs="{'readonly':[('content_loader_text_active','=',False)]}" class="oe_inline"/>
                                 </div>
+                                <div>
+                                    <label for="content_statusbar_bg"/>
+                                    <field name="content_statusbar_bg_active" nolabel="1" class="oe_inline"/>
+                                    <field name="content_statusbar_bg" widget="color" attrs="{'readonly':[('content_statusbar_bg_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                                <div>
+                                    <label for="content_statusbar_element"/>
+                                    <field name="content_statusbar_element_active" nolabel="1" class="oe_inline"/>
+                                    <field name="content_statusbar_element" widget="color" attrs="{'readonly':[('content_statusbar_element_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                                <div>
+                                    <label for="content_statusbar_font_color"/>
+                                    <field name="content_statusbar_font_color_active" nolabel="1" class="oe_inline"/>
+                                    <field name="content_statusbar_font_color" widget="color" attrs="{'readonly':[('content_statusbar_font_color_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                                <div>
+                                    <label for="content_main_menu_font_color"/>
+                                    <field name="content_main_menu_font_color_active" nolabel="1" class="oe_inline"/>
+                                    <field name="content_main_menu_font_color" widget="color" attrs="{'readonly':[('content_main_menu_font_color_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                                <div>
+                                    <label for="content_footer_color"/>
+                                    <field name="content_footer_color_active" nolabel="1" class="oe_inline"/>
+                                    <field name="content_footer_color" widget="color" attrs="{'readonly':[('content_footer_color_active','=',False)]}" class="oe_inline"/>
+                                </div>
+
                             </group>
                         </group>
                     </sheet>

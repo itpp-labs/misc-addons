@@ -9,6 +9,9 @@
 
     <t t-extend="AppSwitcher.Content">
       <t t-jquery=".o_application_switcher_footer" t-operation="replace">
+          <div class="o_app_switcher_footer">
+              <img src="/web/binary/company_logo"></img>
+          </div>
       </t>
     </t>
 

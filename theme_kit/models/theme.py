@@ -92,7 +92,7 @@ class ThemeTopPanel(models.Model):
                 .o_main_navbar {{
                     background-color: {theme.top_panel_bg};
                 }}
-                .o_main_navbar .dropdown-menu{{
+                .dropdown-menu{{
                     background-color: {theme.top_panel_bg};
                 }}'''
 
@@ -105,6 +105,12 @@ class ThemeTopPanel(models.Model):
                 }}
                 .o_control_panel {{
                     border-bottom-color: {theme.top_panel_border}!important;
+                }}
+                .o_form_statusbar .o_arrow_button{{
+                    border-color: lighten({theme.top_panel_border}, 40%)!important;
+                }}
+                .o_form_statusbar .o_arrow_button:before{{
+                    border-left-color: lighten({theme.top_panel_border}, 40%)!important;
                 }}
                 .o_list_view thead {{
                     color: {theme.top_panel_border};
@@ -126,7 +132,7 @@ class ThemeTopPanel(models.Model):
                 .o_main_navbar .o_menu_brand {{
                     color: {theme.top_panel_font}!important;
                 }}
-                .o_main_navbar .open .dropdown-menu > li a span {{
+                .open .dropdown-menu > li a span {{
                     color: {theme.top_panel_font}!important;
                 }}
                 .open .dropdown-menu > li.dropdown-header {{
@@ -165,10 +171,10 @@ class ThemeTopPanel(models.Model):
                 .o_main_navbar > .o_menu_toggle:hover{{
                     color: {theme.top_panel_hover_item_font}!important;
                 }}
-                .o_main_navbar .open .dropdown-menu > li:hover a span {{
+                .open .dropdown-menu > li:hover a span {{
                     color: {theme.top_panel_hover_item_font}!important;
                 }}
-                .o_main_navbar .open .dropdown-menu > li:focus a span {{
+                .open .dropdown-menu > li:focus a span {{
                     color: {theme.top_panel_hover_item_font}!important;
                 }}
                 .dropdown-menu > li > a:hover {{
@@ -197,10 +203,10 @@ class ThemeTopPanel(models.Model):
                 .o_main_navbar > .o_menu_toggle:focus{{
                     background-color: {theme.top_panel_hover_item_bg}!important;
                 }}
-                .o_main_navbar .open .dropdown-menu > li a:hover {{
+                .open .dropdown-menu > li a:hover {{
                     background-color: {theme.top_panel_hover_item_bg}!important;
                 }}
-                .o_main_navbar .open .dropdown-menu > li a:focus {{
+                .open .dropdown-menu > li a:focus {{
                     background-color: {theme.top_panel_hover_item_bg}!important;
                 }}
                 '''
@@ -366,8 +372,8 @@ class ThemeContent(models.Model):
     content_button = fields.Char('Button color', help="Button Color for Main page")
     content_button_active = fields.Boolean(default=False, help="Button Color for Main page")
 
-    content_form = fields.Char('Background form color', help="Background form color'")
-    content_form_active = fields.Boolean(default=False, help="Background form color'")
+    content_form = fields.Char('Background form color', help="Background form color")
+    content_form_active = fields.Boolean(default=False, help="Background form color")
 
     content_form_text = fields.Char('Text form color')
     content_form_text_active = fields.Boolean(default=False, help="Text form color")
@@ -387,6 +393,20 @@ class ThemeContent(models.Model):
     content_loader_text = fields.Char('Loader text color')
     content_loader_text_active = fields.Boolean(default=False, help="Loader text color")
 
+    content_statusbar_bg = fields.Char("Status Bar Background color", help="Status Bar Background color")
+    content_statusbar_bg_active = fields.Boolean(default=False, help="Status Bar Background color")
+
+    content_statusbar_element = fields.Char("Status Bar Current State color", help="Status Bar Current State color")
+    content_statusbar_element_active = fields.Boolean(default=False, help="Status Bar Current State Background color")
+
+    content_statusbar_font_color = fields.Char("Status Bar Font color", help="Status Bar Font color")
+    content_statusbar_font_color_active = fields.Boolean(default=False, help="Status Bar Font color")
+
+    content_main_menu_font_color = fields.Char("Main menu font color", help="Main menu font color")
+    content_main_menu_font_color_active = fields.Boolean(default=False, help="Main menu font color")
+
+    content_footer_color = fields.Char("Footer color", help="Footer color")
+    content_footer_color_active = fields.Boolean(default=False, help="Footer color")
     less = fields.Text('less', help='technical computed field', compute='_compute_less')
 
     @api.multi
@@ -476,6 +496,9 @@ class ThemeContent(models.Model):
                 code = code + '''.o_form{{
                     background-color: {theme.content_form}
                 }}
+                .table-responsive{{
+                    background-color: {theme.content_form}!important;
+                }}
                 .o_form_sheet {{
                     background: {theme.content_form}!important
                 }}
@@ -516,6 +539,12 @@ class ThemeContent(models.Model):
                 .o_control_panel .breadcrumb > li > a {{
                     color: {theme.content_form_link};
                 }}
+                .o_control_panel .dropdown-toggle {{
+                    color: {theme.content_form_link};
+                }}
+                .o_control_panel .o_cp_right, .o_control_panel .o_pager_previous, .o_control_panel .o_pager_next {{
+                    color: {theme.content_form_link};
+                }}
                 '''
             if self.content_button_active:
                 code = code + '''.oe_highlight,
@@ -530,6 +559,9 @@ class ThemeContent(models.Model):
                     background-color: darken({theme.content_button},10%) !important;
                     border-color: darken({theme.content_button},20%) !important;
                 }}
+                .o_statusbar_status > .o_arrow_button.btn-primary.disabled:after {{
+                    border-left-color: {theme.content_button}!important;
+                }}
                 .o_main .e_tag {{
                     border: 1px solid {theme.content_button} !important;
                 }}
@@ -542,9 +574,6 @@ class ThemeContent(models.Model):
                 '''
             if self.content_text_active:
                 code = code + '''.o_main{{
-                    color: {theme.content_text} !important;
-                }}
-                .o_application_switcher .o_caption {{
                     color: {theme.content_text} !important;
                 }}
                 '''
@@ -575,6 +604,61 @@ class ThemeContent(models.Model):
                 code = code + '''.o_loading {{
                     color: {theme.content_loader_text}!important;
                 }}'''
+            if self.content_statusbar_bg_active:
+                code = code + '''.o_form_statusbar {{
+                    background-color: {theme.content_statusbar_bg}!important;
+                }}
+                .o_form_view .o_form_statusbar > .o_statusbar_status > .o_arrow_button:before,
+                .o_form_view .o_form_statusbar > .o_statusbar_status > .o_arrow_button:after
+                {{
+                    border-left-color: {theme.content_statusbar_bg};
+                }}
+                .o_form_statusbar .btn-default {{
+                    background-color: {theme.content_statusbar_bg}!important;
+                }}
+                '''
+            if self.content_statusbar_element_active:
+                code = code + '''.o_form_view .o_form_statusbar > .o_statusbar_status > .o_arrow_button.btn-primary.disabled{{
+                    background-color: {theme.content_statusbar_element}!important;
+                }}
+                .o_form_view .o_form_statusbar > .o_statusbar_status > .o_arrow_button.btn-primary.disabled .o_arrow_button:after{{
+                    background-color: {theme.content_statusbar_element}!important;
+                }}
+                .o_statusbar_status > .o_arrow_button.btn-primary.disabled:after {{
+                    border-left-color: {theme.content_statusbar_element}!important;
+                }}
+
+                .o_form_view .o_form_statusbar > .o_statusbar_status > .o_arrow_button:not(.disabled):hover:after, .o_statusbar_status > .o_arrow_button:not(.disabled):focus:after {{
+                    border-left-color: {theme.content_statusbar_element}!important;
+                }}
+                .o_form_statusbar .btn-default:hover, .o_form_statusbar .btn-default:focus {{
+                    background-color: {theme.content_statusbar_element}!important;
+                }}
+                '''
+            if self.content_statusbar_font_color_active:
+                code = code + '''.o_form_view .o_form_statusbar .o_statusbar_status .o_arrow_button {{
+                    color: lighten({theme.content_statusbar_font_color}, 25%)
+                }}
+                .o_form_view .o_form_statusbar .o_statusbar_status .o_arrow_button.btn-primary.disabled {{
+                    color: {theme.content_statusbar_font_color}
+                }}
+                .o_form_view .o_form_statusbar .o_statusbar_status .dropdown-menu .o_arrow_button {{
+                    color: lighten({theme.content_statusbar_font_color}, 25%) !important
+                }}
+                .o_form_view .o_form_statusbar .o_statusbar_status .dropdown-menu .o_arrow_button {{
+                    color: {theme.content_statusbar_font_color}!important
+                }}
+                '''
+            if self.content_main_menu_font_color_active:
+                code = code + '''.o_application_switcher .o_caption {{
+                    color: {theme.content_main_menu_font_color}!important
+                }}
+                '''
+            if self.content_footer_color_active:
+                code = code + '''.o_view_manager_content {{
+                        background-color: {theme.content_footer_color}!important
+                }}
+                '''
 
             code = code.format(
                 theme=r,
