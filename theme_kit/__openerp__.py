@@ -4,7 +4,7 @@
     "summary": """Brand your odoo instance in few clicks""",
     "category": "Debranding",
     "images": [],
-    "version": "1.0.1",
+    "version": "1.0.0",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",
