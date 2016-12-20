@@ -184,6 +184,7 @@
                         <filter name="group_subtasks" string="Subtasks" domain="[]" context="{'group_by':'work_id'}"/>
                         <filter name="group_months" string="Months" domain="[]" context="{'group_by':'start_datetime:month'}" help="Months"/>
                         <filter name="group_weeks" string="Weeks" domain="[]" context="{'group_by':'start_datetime:week'}" help="Week"/>
+                        <filter name="group_days" string="Days" domain="[]" context="{'group_by':'start_datetime:day'}" help="Day"/>
                         <filter name="group_users" string="Users" context="{'group_by':'user_id'}" groups="project.group_project_manager"/>
                     </group>
                 </search>
