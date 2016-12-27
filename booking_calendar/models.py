@@ -394,7 +394,7 @@ class SaleOrderLine(models.Model):
             end_dt_utc = pytz.utc.localize(end_dt)
             resource = b.resource_id
             user_tz = pytz.timezone(self.env.context.get('tz') or 'UTC')
-            if resource.calendar_id: 
+            if resource.calendar_id:
                 for calendar_working_day in resource.calendar_id.get_attendances_for_weekdays([start_dt.weekday()])[0]:
                     min_from = int((calendar_working_day.hour_from - int(calendar_working_day.hour_from)) * 60)
                     min_to = int((calendar_working_day.hour_to - int(calendar_working_day.hour_to)) * 60)
