@@ -19,10 +19,10 @@
 #
 #
 
-from openerp import fields
+from openerp import fields, models
 
 
-class ProjectProject(orm.Model):
+class ProjectProject(models.Model):
     _inherit = "project.project"
 
         # restricted field. Allowed group members only.
@@ -30,7 +30,7 @@ class ProjectProject(orm.Model):
 
 
 
-class AccountAnalyticAccount(orm.Model):
+class AccountAnalyticAccount(models.Model):
     _inherit = 'account.analytic.account'
 
     def name_get(self, cr, uid, ids, context=None):
