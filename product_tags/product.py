@@ -28,12 +28,7 @@ class ProductTag(models.Model):
     _description = 'Product Tags'
     _name = "product.tag"
 
-    # this should be the default according to the documentation, but no such
-    # thing is done in the actual implementation
-    _rec_name = 'display_name'
-
     name = fields.Char('Tag Name', required=True, translate=True)
-    display_name = fields.Char('Full Name', compute='_compute_display_name')
     active = fields.Boolean(help='The active field allows you to hide the tag without removing it.', default=True)
     parent_id = fields.Many2one(string='Parent Tag', comodel_name='product.tag', index=True, ondelete='cascade')
     child_ids = fields.One2many(string='Child Tags', comodel_name='product.tag', inverse_name='parent_id')
@@ -46,14 +41,19 @@ class ProductTag(models.Model):
     _parent_order = 'name'
     _order = 'parent_left'
 
-    @api.one
-    @api.depends('name', 'parent_id.name')
-    def _compute_display_name(self):
+    @api.multi
+    def name_get(self):
         """ Return the tags' display name, including their direct parent. """
-        if self.parent_id:
-            self.display_name = self.parent_id.display_name + ' / ' + self.name
-        else:
-            self.display_name = self.name
+        res = {}
+        for record in self:
+            current = record
+            name = current.name
+            while current.parent_id:
+                name = '%s / %s' % (current.parent_id.name, name)
+                current = current.parent_id
+            res[record.id] = name
+
+        return res.items()
 
     @api.model
     def name_search(self, name, args=None, operator='ilike', limit=100):
