@@ -3,7 +3,7 @@ from openerp import api
 from openerp import models
 from openerp.exceptions import AccessError
 from openerp.tools.translate import _
-from openerp.addons.attachment_large_object.ir_attachment import LARGE_OBJECT_LOCATION
+
 STORAGE_KEY = 'ir_attachment.location'
 
 
@@ -54,16 +54,16 @@ class IrAttachment(models.Model):
         if not self.env.user._is_admin():
             raise AccessError(_('Only administrators can execute this action.'))
         new_value = self._storage()
-        if LARGE_OBJECT_LOCATION in [previous_value, new_value]:
-            # Update all records if large object is participated
-            domain = []
-        else:
+        if all([v in ['db', 'file'] for v in [new_value, previous_value]]):
             # Switching between file and db.
             # We can reduce records to be updated.
             domain = {
                 'db': [('store_fname', '!=', False)],
                 'file': [('db_datas', '!=', False)],
             }.get(new_value, [])
+        else:
+            # Update all records if it's not standart switching
+            domain = []
 
         # trick to disable addional filtering in ir.attachment's method _search
         domain += [('id', '!=', -1)]
