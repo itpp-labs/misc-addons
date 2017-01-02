@@ -92,6 +92,11 @@ class ResourceCalendar(models.Model):
 
             day_start_dt = start_dt
             day_end_dt = end_dt
+            # sometimes one booking may be on two different weekdays
+            # call get_working_accurate_hours recursively for that cases
+            if day_end_dt.date() == day_start_dt.date() + timedelta(1) and \
+                    day_end_dt != day_end_dt.replace(hour=0, minute=0, second=0):
+                    hours += timedelta(hours=self.get_working_accurate_hours(start_dt=day_end_dt.replace(hour=0, minute=0, second=0), end_dt=day_end_dt))
 
             weekday = [day_start_dt.weekday()]
             if product and product[0].work_on_holidays and product[0].holidays_country_id and product[0].holidays_schedule == 'premium':
@@ -205,7 +210,7 @@ class SaleOrderLine(models.Model):
     resource_id = fields.Many2one('resource.resource', 'Resource')
     booking_start = fields.Datetime(string="Date start")
     booking_end = fields.Datetime(string="Date end")
-    calendar_id = fields.Many2one('resource.calendar', related='product_id.calendar_id')
+    calendar_id = fields.Many2one('resource.calendar', related='product_id.calendar_id', store=True)
     project_id = fields.Many2one('account.analytic.account', compute='_compute_dependent_fields', store=False, string='Contract')
     partner_id = fields.Many2one('res.partner', compute='_compute_dependent_fields', store=False, string='Customer')
     overlap = fields.Boolean(compute='_compute_date_overlap', default=False, store=True)
@@ -353,8 +358,10 @@ class SaleOrderLine(models.Model):
     @api.model
     def get_bookings(self, start, end, offset, domain, online=False):
         bookings = self.env['resource.resource'].sudo().search([]).search_booking_lines(start, end, domain, online=online)
-        one_hour_bookings = bookings.filtered(lambda r: r.product_uom_qty == 1)
-        many_hour_bookings = bookings - one_hour_bookings
+        slot_calendar_bookings = bookings.filtered(lambda r: r.resource_id.has_slot_calendar)
+        ordinary_bookings = bookings - slot_calendar_bookings
+        one_hour_bookings = ordinary_bookings.filtered(lambda r: r.product_uom_qty == 1)
+        many_hour_bookings = ordinary_bookings - one_hour_bookings
         res = [{
             'className': 'booked_slot resource_%s' % b.resource_id.id,
             'id': b.id,
@@ -380,6 +387,38 @@ class SaleOrderLine(models.Model):
                     'color': b.resource_id.color
                 })
                 start_dt += timedelta(hours=1)
+        for b in slot_calendar_bookings:
+            start_dt = datetime.strptime(b.booking_start, DTF).replace(second=0, microsecond=0)
+            start_dt_utc = pytz.utc.localize(start_dt)
+            end_dt = datetime.strptime(b.booking_end, DTF).replace(second=0, microsecond=0)
+            end_dt_utc = pytz.utc.localize(end_dt)
+            resource = b.resource_id
+            user_tz = pytz.timezone(self.env.context.get('tz') or 'UTC')
+            if resource.calendar_id:
+                for calendar_working_day in resource.calendar_id.get_attendances_for_weekdays([start_dt.weekday()])[0]:
+                    min_from = int((calendar_working_day.hour_from - int(calendar_working_day.hour_from)) * 60)
+                    min_to = int((calendar_working_day.hour_to - int(calendar_working_day.hour_to)) * 60)
+                    x = start_dt.replace(hour=int(calendar_working_day.hour_from), minute=min_from)
+                    slot_start_utc = user_tz.localize(x).astimezone(pytz.utc)
+
+                    if calendar_working_day.hour_to == 0:
+                        y = start_dt.replace(hour=0, minute=0) + timedelta(days=1)
+                    else:
+                        y = start_dt.replace(hour=int(calendar_working_day.hour_to), minute=min_to)
+                    slot_end_utc = user_tz.localize(y).astimezone(pytz.utc)
+
+                    if slot_start_utc >= start_dt_utc and slot_end_utc <= end_dt_utc:
+                        res.append({
+                            'className': 'booked_slot resource_%s' % b.resource_id.id,
+                            'id': b.id,
+                            'title': b.resource_id.name,
+                            'start': '%s+00:00' % slot_start_utc.strftime(DTF),
+                            'end': '%s+00:00' % slot_end_utc.strftime(DTF),
+                            'resource_id': b.resource_id.id,
+                            'editable': False,
+                            'color': b.resource_id.color
+                        })
+
         return res
 
     @api.onchange('booking_start', 'booking_end')
