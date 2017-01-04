@@ -29,8 +29,8 @@ class Reminder(models.AbstractModel):
             # dummy values
             'name': 'TMP NAME',
             'allday': True,
-            'start_date': fields.Date.today(),
-            'stop_date': fields.Date.today(),
+            'start': fields.Date.today(),
+            'stop': fields.Date.today(),
         }
         event = self.env['calendar.event'].with_context({
             'no_mail_to_attendees': True
@@ -77,31 +77,21 @@ class Reminder(models.AbstractModel):
             if not fdate_value:
                 event.unlink()
                 return
-            if fdate.type == 'date':
-                vals.update({
-                    'allday': True,
-                    'start_date': fdate_value,
-                    'stop_date': fdate_value,
-                })
-            elif fdate.type == 'datetime':
-                vals.update({
-                    'allday': False,
-                    'start_datetime': fdate_value,
-                    'stop_datetime': fdate_value,
-                })
+            vals.update({
+                'allday': fdate.type == 'date',
+                'start': fdate_value,
+                'stop': fdate_value,
+            })
         if self._reminder_description_field:
             vals['description'] = getattr(self, self._reminder_description_field)
 
         if self._reminder_attendees_fields:
             partner_ids = []
             for field_name in self._reminder_attendees_fields:
-                field = self._columns[field_name]
+                field = self._fields[field_name]
                 partner = getattr(self, field_name)
                 model = None
-                try:
-                    model = field.comodel_name
-                except AttributeError:
-                    model = field._obj  # v7
+                model = field.comodel_name
 
                 if model == 'res.users':
                     partner = partner.partner_id
@@ -175,14 +165,14 @@ class ReminderAdminWizard(models.TransientModel):
         return res
 
     @api.onchange('model')
-    @api.one
+    @api.multi
     def _get_events_count(self):
         count = 0
         if self.model:
             count = self.env['calendar.event'].search_count([('reminder_res_model', '=', self.model)])
         self.events_count = count
 
-    @api.one
+    @api.multi
     def action_execute(self):
         if self.action == 'delete':
             self.env['calendar.event'].search([('reminder_res_model', '=', self.model)]).unlink()
