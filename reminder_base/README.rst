@@ -1,11 +1,35 @@
-Reminders and Agenda (technical core)
-=====================================
+=======================================
+ Reminders and Agenda (technical core)
+=======================================
 
-Description: https://apps.odoo.com/apps/modules/8.0/reminder_base
+Base module for *Reminders and Agenda* modules.
 
-Tested on Odoo 8.0 ea4f9c4625ec8eebcf337bbd8a8b44d68c377ad7
+Allows to create ``calendar.event`` for corresponding records (tasks, opportunities, etc.).
 
-Known issues
+Credits
+=======
+
+Contributors
 ------------
+* Ivan Yelizariev <yelizariev@it-projects.info>
 
-* Mail notification doesn't work without email_from parameter in odoo configuration file due to odoo bug, that was fixed 11th Feb 2015 in this commit: https://github.com/odoo/odoo/commit/064f18e6b6003b7fcb3aa5f5072e8e00d18acbb0 . 
+Sponsors
+--------
+* `IT-Projects LLC <https://it-projects.info>`_
+
+Maintainers
+-----------
+* `IT-Projects LLC <https://it-projects.info>`_
+
+Further information
+===================
+
+Demo: http://runbot.it-projects.info/demo/misc-addons/10.0
+
+HTML Description: https://apps.odoo.com/apps/modules/10.0/reminder_base/
+
+Usage instructions: `<doc/index.rst>`_
+
+Changelog: `<doc/changelog.rst>`_
+
+Tested on Odoo 10.0 dc6e7ca25ba4f1b5b6ce9c1857527e14ff919e31
