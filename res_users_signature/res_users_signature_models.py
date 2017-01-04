@@ -112,6 +112,7 @@ class IrMailServer(models.Model):
         pattern = re.compile(r'"data:image/png;base64,[^"]*"')
         pos = 0
         new_body = ''
+        body = body or ''
         while True:
             match = pattern.search(body, pos)
             if not match:
