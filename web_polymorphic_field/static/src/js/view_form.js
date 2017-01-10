@@ -41,7 +41,6 @@ odoo.define('web_polymorphic_field.FieldPolymorphic', function (require) {
         store_dom_value: function () {
             this._super();
             this.add_polymorphism(); 
-            
         }
     });
     core.form_widget_registry.add('polymorphic', FieldPolymorphic)
