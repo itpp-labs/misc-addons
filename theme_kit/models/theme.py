@@ -94,7 +94,21 @@ class ThemeTopPanel(models.Model):
                 }}
                 .dropdown-menu{{
                     background-color: {theme.top_panel_bg};
-                }}'''
+                }}
+                .o_calendar_container .o_calendar_view .o_calendar_widget .fc-week-number, .o_calendar_container .o_calendar_view .o_calendar_widget .fc-widget-header {{
+                    background-color: {theme.top_panel_bg};
+                }}
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker .ui-widget-header {{
+                    background-color: {theme.top_panel_bg};
+                }}
+                .datepicker .table-condensed > thead {{
+                    background-color: {theme.top_panel_bg};
+                }}
+
+                .datepicker .table-condensed > thead th:hover {{
+                    background-color: darken({theme.top_panel_bg}, 15%) !important;
+                }}
+                '''
 
             if self.top_panel_border_active:
                 code = code + '''.o_main_navbar{{
@@ -142,7 +156,27 @@ class ThemeTopPanel(models.Model):
                 .dropdown-menu > li > a {{
                     color: {theme.top_panel_font}!important;
                 }}
-
+                .o_calendar_container .o_calendar_view .o_calendar_widget .fc-week-number, .o_calendar_container .o_calendar_view .o_calendar_widget .fc-widget-header {{
+                    color: {theme.top_panel_font}!important;
+                }}
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker .ui-widget-header {{
+                    color: {theme.top_panel_font}!important;
+                }}
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker .ui-widget-header .ui-datepicker-prev, .o_calendar_container .o_calendar_sidebar_container .ui-datepicker .ui-widget-header .ui-datepicker-next {{
+                    color: {theme.top_panel_font}!important;
+                }}
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker .ui-widget-header .ui-datepicker-prev:hover, .o_calendar_container .o_calendar_sidebar_container .ui-datepicker .ui-widget-header .ui-datepicker-next:hover {{
+                    color: darken({theme.top_panel_font}, 20%)!important;
+                }}
+                .o_calendar_container .o_calendar_sidebar_container .o_calendar_sidebar_toggler {{
+                    color: {theme.top_panel_font}!important;
+                }}
+                .o_calendar_container .o_calendar_sidebar_container .o_calendar_sidebar_toggler:hover {{
+                    color: darken({theme.top_panel_font}, 20%)!important;
+                }}
+                .datepicker .table-condensed > thead {{
+                    color: {theme.top_panel_font}!important;
+                }}
                 '''
             if self.top_panel_active_item_font_active:
                 code = code + '''.navbar-nav .active a{{
@@ -514,6 +548,37 @@ class ThemeContent(models.Model):
                     background-image: -o-linear-gradient(top, lighten({theme.content_form}, 5%), {theme.content_form});
                     background-image: linear-gradient(to bottom, lighten({theme.content_form}, 5%), {theme.content_form});
                 }}
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table td a {{
+                    background-color: darken({theme.content_form}, 10%);
+                }}
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table td {{
+                    background-color: {theme.content_form};
+                }}
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table thead {{
+                    background-color: {theme.content_form};
+                }}
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table .ui-state-active {{
+                    background-color: darken({theme.content_form}, 25%);
+                }}
+
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table td a:hover {{
+                    background-color: darken({theme.content_form}, 25%);
+                }}
+                .datepicker .table-condensed  {{
+                    background-color: {theme.content_form};
+                }}
+                .datepicker .table-condensed > thead > tr:last-child {{
+                    background-color: {theme.content_form};
+                }}
+                .datepicker .table-condensed > thead > tr:last-child th:hover{{
+                    background-color: darken({theme.content_form}, 15%);
+                }}
+                .datepicker .table-condensed > tbody > tr > td.active, .datepicker .table-condensed > tbody > tr > td .active {{
+                    background-color: darken({theme.content_form}, 15%);
+                }}
+                .bootstrap-datetimepicker-widget td.day:hover, .bootstrap-datetimepicker-widget td.hour:hover, .bootstrap-datetimepicker-widget td.minute:hover, .bootstrap-datetimepicker-widget td.second:hover {{
+                    background-color: lighten({theme.content_form}, 15%);
+                }}
                 '''
             if self.content_form_text_active:
                 code = code + '''.o_form_view {{
@@ -530,6 +595,21 @@ class ThemeContent(models.Model):
                 }}
                 .o_form div.o_form_configuration p, .o_main .o_form div.o_form_configuration ul, .o_main .o_form div.o_form_configuration ol {{
                     color: darken({theme.content_form_text}, 10%) !important;
+                }}
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table .ui-state-default {{
+                    color: {theme.content_form_text};
+                }}
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table .ui-state-active {{
+                    color: lighten({theme.content_form_text}, 30%)!important;
+                }}
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table thead {{
+                    color: {theme.content_form_text};
+                }}
+                .datepicker .table-condensed > thead > tr:last-child {{
+                    color: {theme.content_form_text};
+                }}
+                .datepicker .table-condensed  {{
+                    color: {theme.content_form_text};
                 }}
                 '''
             if self.content_form_link_active:
