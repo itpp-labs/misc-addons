@@ -3,6 +3,12 @@
 Updates
 =======
 
+`1.0.2`
+-------
+
+- ADD: added new styles for calendar
+
+
 `1.0.1`
 -------
 
