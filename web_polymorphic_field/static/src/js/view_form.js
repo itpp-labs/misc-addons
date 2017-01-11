@@ -35,18 +35,16 @@ odoo.define('web_polymorphic_field.FieldPolymorphic', function (require) {
                 }
             }
         },
-        commit_value: function () {
-            var reinit_polymorphic_field = false;
-            this.store_dom_value(reinit_polymorphic_field);
-            return this._super();
-        },
         render_value: function() {
             this._super();
             this.add_polymorphism(); 
         },
-        store_dom_value: function (reinit) {
+        store_dom_value: function (e) {
             this._super();
-            reinit = typeof reinit !== 'undefined' ? reinit : true;
+            var reinit = false;
+            if (e && e.type == 'change') {
+                reinit = true;
+            }
             this.add_polymorphism(reinit); 
         }
     });
