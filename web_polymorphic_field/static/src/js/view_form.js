@@ -18,7 +18,6 @@
 ******************************************************************************/
 odoo.define('web_polymorphic_field.FieldPolymorphic', function (require) {
     var core = require('web.core');
-    var common = require('web.form_common');
 
     var FieldSelection = core.form_widget_registry.get('selection')
     var FieldPolymorphic = FieldSelection.extend( {
@@ -27,21 +26,28 @@ odoo.define('web_polymorphic_field.FieldPolymorphic', function (require) {
             this._super(field_manager, node);
             this.polymorphic = this.node.attrs.polymorphic;
         },
-        add_polymorphism: function() {
+        add_polymorphism: function(reinit) {
             if(this.get_value() != false) {
                 polymorphic_field = this.field_manager.fields[this.polymorphic];
                 polymorphic_field.field.relation = this.get_value();
-                polymorphic_field.reinit_value();
+                if (reinit) {
+                    polymorphic_field.reinit_value();
+                }
             }
+        },
+        commit_value: function () {
+            var reinit_polymorphic_field = false;
+            this.store_dom_value(reinit_polymorphic_field);
+            return this._super();
         },
         render_value: function() {
             this._super();
             this.add_polymorphism(); 
         },
-        store_dom_value: function () {
+        store_dom_value: function (reinit) {
             this._super();
-            this.add_polymorphism(); 
-            
+            reinit = typeof reinit !== 'undefined' ? reinit : true;
+            this.add_polymorphism(reinit); 
         }
     });
     core.form_widget_registry.add('polymorphic', FieldPolymorphic)
