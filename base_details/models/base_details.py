@@ -9,7 +9,7 @@ class BaseDetails(models.AbstractModel):
         return []
 
     @property
-    def get_details(self):
+    def details(self):
         if self.details_model and self.details_model in self.env and self.details_res_id:
             details_record = self.env[self.details_model].browse(self.details_res_id)
         else:

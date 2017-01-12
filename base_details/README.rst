@@ -5,9 +5,9 @@
 The module allows to add reference in any models.
 The reference consist of model name and record id. A list of models is contained in the ``details_model`` field.
 It's generated in the ``_model_selection`` function which can be overridden in your code.
-Also the module adds property ``get_details`` what allows get record with details, e.g.::
+Also the module adds property ``details`` what allows get record with details, e.g.::
 
-    self.product_id.get_details
+    self.product_id.details
 
 Credits
 =======
