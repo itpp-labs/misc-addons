@@ -10,5 +10,6 @@ Installation
 Usage
 =====
 
-The module adds new fields ``detail_source`` in the ``product.template`` and in the ``stock.production.lot`` models.
-To change list of model which contains details you have to inherit the ``_get_detail_source`` function. 
+The module adds new fields in the product variant form view.
+You can select a model and a record which will be stored product details.
+To change list of model which contains details you have to inherit the ``_model_selection`` function. 

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 {
-    "name": """Product Details""",
-    "summary": """Allows to add links with describes of products.""",
-    "category": "Extra Tools",
+    "name": """Base Details""",
+    "summary": """Allows to add reference in any models""",
+    "category": "Hidden",
     "images": ["static/description/icon.png"],
     "version": "1.0.0",
     "application": False,
@@ -14,11 +14,10 @@
     # "currency": "EUR",
 
     "depends": [
-        'stock', 'base_details',
+        'web_polymorphic_field',
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
-        'views/product_detail.xml',
     ],
     "qweb": [
     ],
