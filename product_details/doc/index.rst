@@ -10,6 +10,6 @@ Installation
 Usage
 =====
 
-The module adds new fields in the product variant form view.
+The module adds new fields in the product template form view.
 You can select a model and a record which will be stored product details.
 To change list of model which contains details you have to inherit the ``_model_selection`` function. 
