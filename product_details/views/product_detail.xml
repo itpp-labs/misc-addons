@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id='sale_deal_product_normal_form_view' model='ir.ui.view'>
-        <field name="name">product.product.form</field>
-        <field name="model">product.product</field>
-        <field name="inherit_id" ref="product.product_normal_form_view"/>
+    <record id='sale_deal_product_template_form_view' model='ir.ui.view'>
+        <field name="name">product.template.common.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
         <field name="arch" type="xml">
             <data>
                 <xpath expr="//page[@name='general_information']/group[1]" position="before">
