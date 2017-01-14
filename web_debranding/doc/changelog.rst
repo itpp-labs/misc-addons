@@ -1,3 +1,8 @@
+`1.0.14`
+--------
+
+- FIX: Compatibility with Timesheet Grid View module
+
 `1.0.13`
 --------
 
