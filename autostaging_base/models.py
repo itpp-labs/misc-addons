@@ -23,22 +23,15 @@ class AutostagingStage(models.AbstractModel):
 
     @api.multi
     def write(self, vals):
-        for r in self:
-            r.write_one(vals)
-        return True
-
-    @api.multi
-    def write_one(self, vals):
-        self.ensure_one()
         result = super(AutostagingStage, self).write(vals)
         if not vals.get('autostaging_enabled', True):
             vals['autostaging_idle_timeout'] = 0
         else:
-            domain = [(self._card_stage_id, '=', self.id)]
-            self.env[self._card_model].search(domain)._update_autostaging_date()
+            for r in self:
+                domain = [(self._card_stage_id, '=', r.id)]
+                self.env[self._card_model].search(domain)._update_autostaging_date()
         return result
 
-    @api.one
     @api.constrains('autostaging_idle_timeout')
     def _check_autostaging_idle_timeout(self):
         if self.autostaging_enabled and self.autostaging_idle_timeout <= 0:
@@ -98,13 +91,6 @@ class AutostagingCard(models.AbstractModel):
 
     @api.multi
     def write(self, vals):
-        for r in self:
-            r.write_one(vals)
-        return True
-
-    @api.multi
-    def write_one(self, vals):
-        self.ensure_one()
         result = super(AutostagingCard, self).write(vals)
         self._update_autostaging_date()
         return result

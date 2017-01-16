@@ -37,16 +37,9 @@ class SaleOrderLine(models.Model):
 
     @api.multi
     def write(self, vals):
-        for r in self:
-            r.write_one(vals)
-        return True
-
-    @api.multi
-    def write_one(self, vals):
-        self.ensure_one()
-        result = super(SaleOrderLine, self).write(vals)
         if vals.get('pitch_id') and not vals.get('resource_id'):
             vals['resource_id'] = self.env['pitch_booking.pitch'].browse(vals.get('pitch_id')).resource_id
+        result = super(SaleOrderLine, self).write(vals)
         return result
 
     @api.onchange('resource_id')

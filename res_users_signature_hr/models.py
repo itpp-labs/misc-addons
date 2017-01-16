@@ -8,13 +8,7 @@ class HrEmployee(models.Model):
 
     @api.multi
     def write(self, vals):
-        for r in self:
-            r.write_one(vals)
-        return True
-
-    @api.multi
-    def write_one(self, vals):
-        self.ensure_one()
         res = super(HrEmployee, self).write(vals)
-        self.user_id.render_signature_id()
+        for r in self:
+            r.user_id.render_signature_id()
         return res
