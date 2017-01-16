@@ -185,7 +185,7 @@ class ReminderAdminWizard(models.TransientModel):
     _name = 'reminder.admin'
 
     model = fields.Selection(string='Model', selection='_get_model_list', required=True)
-    events_count = fields.Integer(string='Count of calendar records', compute='_get_events_count')
+    events_count = fields.Integer(string='Count of calendar records', compute='_compute_events_count')
     action = fields.Selection(string='Action', selection=[('create', 'Create Calendar Records'), ('delete', 'Delete Calendar Records')],
                               required=True, default='create',)
 
@@ -200,17 +200,12 @@ class ReminderAdminWizard(models.TransientModel):
 
     @api.onchange('model')
     @api.multi
-    def _get_events_count(self):
+    def _compute_events_count(self):
         for r in self:
-            r._get_events_count_one(self)
-        return True
-    @api.multi
-    def _get_events_count_one(self):
-        self.ensure_one()
-        count = 0
-        if self.model:
-            count = self.env['calendar.event'].search_count([('reminder_res_model', '=', self.model)])
-        self.events_count = count
+            count = 0
+            if r.model:
+                count = self.env['calendar.event'].search_count([('reminder_res_model', '=', r.model)])
+            r.events_count = count
 
     @api.multi
     def action_execute(self):
