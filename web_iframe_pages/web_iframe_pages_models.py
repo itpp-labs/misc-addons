@@ -39,8 +39,14 @@ class Page(models.Model):
 
     link = fields.Char('Link')
 
-    @api.one
+    @api.multi
     def update_menu(self):
+        for r in self:
+            r.update_menu_one(self)
+        return True
+    @api.multi
+    def update_menu_one(self):
+        self.ensure_one()
         if not self.menu_id:
             self.menu_id = self.get_default_menu_id()
         self.menu_id.action.params = {'link': self.link}

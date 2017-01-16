@@ -13,8 +13,14 @@ class CrmPhonecall(models.Model):
 class MrpRepair(models.Model):
     _inherit = 'mrp.repair'
 
-    @api.one
+    @api.multi
     def _get_phonecall_count(self):
+        for r in self:
+            r._get_phonecall_count_one(self)
+        return True
+    @api.multi
+    def _get_phonecall_count_one(self):
+        self.ensure_one()
         self.phonecall_count = self.env['crm.phonecall'].search_count([('repair_id', '=', self.id)])
 
     phonecall_count = fields.Integer('Phonecalls Count', compute='_get_phonecall_count')

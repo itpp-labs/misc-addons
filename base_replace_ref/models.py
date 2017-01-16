@@ -16,8 +16,14 @@ class ReplaceRule(models.Model):
 
     field_line_ids = fields.One2many('base_replace_ref.rule.field_line', 'rule_id', string='Field lines')
 
-    @api.one
+    @api.multi
     def find_fields(self):
+        for r in self:
+            r.find_fields_one(self)
+        return True
+    @api.multi
+    def find_fields_one(self):
+        self.ensure_one()
         if not self.model_id:
             raise exceptions.Warning('Define Model first')
 
@@ -28,8 +34,14 @@ class ReplaceRule(models.Model):
                 continue
             self.env['base_replace_ref.rule.field_line'].create({'rule_id': self.id, 'model_id': field.model_id.id, 'field_id': field.id})
 
-    @api.one
+    @api.multi
     def clear_fields(self):
+        for r in self:
+            r.clear_fields_one(self)
+        return True
+    @api.multi
+    def clear_fields_one(self):
+        self.ensure_one()
         self.field_line_ids.unlink()
 
     @api.model
@@ -44,8 +56,14 @@ class ReplaceRule(models.Model):
         assert res, 'Value not found for ref %s' % value
         return res.id
 
-    @api.one
+    @api.multi
     def apply(self):
+        for r in self:
+            r.apply_one(self)
+        return True
+    @api.multi
+    def apply_one(self):
+        self.ensure_one()
         if self.draft:
             raise exceptions.Warning('You cannot apply draft rule')
 
