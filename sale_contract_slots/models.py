@@ -19,8 +19,15 @@ class AccountAnalyticAccountSlots(models.Model):
     order_ids = fields.One2many('sale.order', 'project_id')
 
     @api.depends('order_ids.state')
-    @api.one
+    @api.multi
     def _compute_available_slots(self):
+        for r in self:
+            r._compute_available_slots_one()
+        return True
+
+    @api.multi
+    def _compute_available_slots_one(self):
+        self.ensure_one()
         lines = self.env['sale.order.line'].search(['&', ('order_id.project_id', '=', self.id),
                                                     '|', '&',
                                                     ('order_id.state', 'in', ['manual', 'done']),
@@ -32,8 +39,15 @@ class AccountAnalyticAccountSlots(models.Model):
         self.available_slots = sum(lines.mapped(lambda r: r.product_id.slots * r.product_uom_qty))
 
     @api.depends('order_ids.state')
-    @api.one
+    @api.multi
     def _compute_paid_slots(self):
+        for r in self:
+            r._compute_paid_slots_one()
+        return True
+
+    @api.multi
+    def _compute_paid_slots_one(self):
+        self.ensure_one()
         lines = self.env['sale.order.line'].search(['&', '&', ('order_id.project_id', '=', self.id),
                                                     ('order_id.state', '=', 'done'),
                                                     ('product_id.slots', '>', '0')])
