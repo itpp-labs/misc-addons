@@ -52,8 +52,15 @@ class SaleOrderTheCage(models.Model):
 
     expiring_reminder = fields.Boolean(default=False)
 
-    @api.one
+    @api.multi
     def write(self, vals):
+        for r in self:
+            r.write_one(vals)
+        return True
+
+    @api.multi
+    def write_one(self, vals):
+        self.ensure_one()
         result = super(SaleOrderTheCage, self).write(vals)
         # send sms immediately after user pushed 'Send by Email' button on the Sale Order
         if vals.get('state') == 'sent' and self.partner_id.confirmation_sms:
@@ -88,16 +95,30 @@ class SaleOrderLine(models.Model):
     pitch_id = fields.Many2one(track_visibility='onchange')
     product_id = fields.Many2one(track_visibility='onchange')
 
-    @api.one
+    @api.multi
     def write(self, vals):
+        for r in self:
+            r.write_one(vals)
+        return True
+
+    @api.multi
+    def write_one(self, vals):
+        self.ensure_one()
         result = super(SaleOrderLine, self).write(vals)
 
         if vals.get('booking_start') or vals.get('booking_end'):
             self.send_booking_time()
         return result
 
-    @api.one
+    @api.multi
     def send_booking_time(self):
+        for r in self:
+            r.send_booking_time_one()
+        return True
+
+    @api.multi
+    def send_booking_time_one(self):
+        self.ensure_one()
         if self.booking_start and self.booking_end:
             template = self.env.ref('thecage_data.email_template_booking_time_updated')
             email_ctx = {
