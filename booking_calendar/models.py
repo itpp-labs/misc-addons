@@ -96,7 +96,7 @@ class ResourceCalendar(models.Model):
             # call get_working_accurate_hours recursively for that cases
             if day_end_dt.date() == day_start_dt.date() + timedelta(1) and \
                     day_end_dt != day_end_dt.replace(hour=0, minute=0, second=0):
-                    hours += timedelta(hours=self.get_working_accurate_hours(start_dt=day_end_dt.replace(hour=0, minute=0, second=0), end_dt=day_end_dt))
+                hours += timedelta(hours=self.get_working_accurate_hours(start_dt=day_end_dt.replace(hour=0, minute=0, second=0), end_dt=day_end_dt))
 
             weekday = [day_start_dt.weekday()]
             if product and product[0].work_on_holidays and product[0].holidays_country_id and product[0].holidays_schedule == 'premium':
@@ -225,6 +225,7 @@ class SaleOrderLine(models.Model):
         for r in self:
             r.write_one(self, vals)
         return True
+
     @api.multi
     def write_one(self, vals):
         self.ensure_one()
@@ -670,7 +671,7 @@ class ProductTemplate(models.Model):
     holidays_schedule = fields.Selection([
         ('premium', 'Premium: use Saturday weekend schedule'),
         ('promotional', 'Promotional: ordinary schedule (restrict it using leaves times if necessary)'),
-        ], string='Holidays schedule', default='premium')
+    ], string='Holidays schedule', default='premium')
 
 
 class SaleOrderAmountTotal(osv.osv):

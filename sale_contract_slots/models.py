@@ -24,6 +24,7 @@ class AccountAnalyticAccountSlots(models.Model):
         for r in self:
             r._compute_available_slots_one(self)
         return True
+
     @api.multi
     def _compute_available_slots_one(self):
         self.ensure_one()
@@ -43,6 +44,7 @@ class AccountAnalyticAccountSlots(models.Model):
         for r in self:
             r._compute_paid_slots_one(self)
         return True
+
     @api.multi
     def _compute_paid_slots_one(self):
         self.ensure_one()

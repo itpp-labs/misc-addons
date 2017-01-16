@@ -26,6 +26,7 @@ class AutostagingStage(models.AbstractModel):
         for r in self:
             r.write_one(self, vals)
         return True
+
     @api.multi
     def write_one(self, vals):
         self.ensure_one()
@@ -61,6 +62,7 @@ class AutostagingCard(models.AbstractModel):
         for r in self:
             r._compute_enabled_one(self)
         return True
+
     @api.multi
     def _compute_enabled_one(self):
         self.ensure_one()
@@ -74,6 +76,7 @@ class AutostagingCard(models.AbstractModel):
         for r in self:
             r._get_autostaging_date_one(self)
         return True
+
     @api.multi
     def _get_autostaging_date_one(self):
         self.ensure_one()
@@ -86,6 +89,7 @@ class AutostagingCard(models.AbstractModel):
         for r in self:
             r._update_autostaging_date_one(self)
         return True
+
     @api.multi
     def _update_autostaging_date_one(self):
         self.ensure_one()
@@ -97,6 +101,7 @@ class AutostagingCard(models.AbstractModel):
         for r in self:
             r.write_one(self, vals)
         return True
+
     @api.multi
     def write_one(self, vals):
         self.ensure_one()
@@ -115,6 +120,7 @@ class AutostagingCard(models.AbstractModel):
         for r in self:
             r._compute_autostaging_days_left_one(self)
         return True
+
     @api.multi
     def _compute_autostaging_days_left_one(self):
         self.ensure_one()

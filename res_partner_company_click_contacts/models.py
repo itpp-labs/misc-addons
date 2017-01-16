@@ -14,6 +14,7 @@ class ResPartner(models.Model):
         for r in self:
             r.compute_record_url_one(self)
         return True
+
     @api.multi
     def compute_record_url_one(self):
         self.ensure_one()

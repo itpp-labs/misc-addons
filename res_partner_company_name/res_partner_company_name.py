@@ -10,6 +10,7 @@ class ResPartner(models.Model):
         for r in self:
             r._get_company_name_one(self)
         return True
+
     @api.multi
     def _get_company_name_one(self):
         self.ensure_one()

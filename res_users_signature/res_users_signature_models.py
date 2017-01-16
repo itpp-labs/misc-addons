@@ -48,6 +48,7 @@ class ResUsers(models.Model):
         for r in self:
             r.write_one(self, vals)
         return True
+
     @api.multi
     def write_one(self, vals):
         self.ensure_one()
@@ -86,6 +87,7 @@ You can use control structures:
         for r in self:
             r.write_one(self, vals)
         return True
+
     @api.multi
     def write_one(self, vals):
         self.ensure_one()
@@ -98,6 +100,7 @@ You can use control structures:
         for r in self:
             r.action_update_signature_one(self)
         return True
+
     @api.multi
     def action_update_signature_one(self):
         self.ensure_one()
@@ -112,6 +115,7 @@ class ResPartner(models.Model):
         for r in self:
             r.write_one(self, vals)
         return True
+
     @api.multi
     def write_one(self, vals):
         self.ensure_one()

@@ -17,6 +17,7 @@ class ResPartner(models.Model):
         for r in self:
             r._get_employee_id_one(self)
         return True
+
     @api.multi
     def _get_employee_id_one(self):
         self.ensure_one()

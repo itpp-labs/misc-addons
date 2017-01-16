@@ -44,6 +44,7 @@ class Page(models.Model):
         for r in self:
             r.update_menu_one(self)
         return True
+
     @api.multi
     def update_menu_one(self):
         self.ensure_one()

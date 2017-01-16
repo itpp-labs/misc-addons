@@ -24,6 +24,7 @@ class ProjectTaskTypeAutoStaging(models.Model):
         for r in self:
             r.write_one(self, vals)
         return True
+
     @api.multi
     def write_one(self, vals):
         self.ensure_one()
@@ -72,6 +73,7 @@ class ProjectTaskAutoStaging(models.Model):
         for r in self:
             r._get_allow_automove_one(self)
         return True
+
     @api.multi
     def _get_allow_automove_one(self):
         self.ensure_one()
@@ -91,6 +93,7 @@ class ProjectTaskAutoStaging(models.Model):
         for r in self:
             r._get_days_to_automove_one(self)
         return True
+
     @api.multi
     def _get_days_to_automove_one(self):
         self.ensure_one()

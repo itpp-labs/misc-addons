@@ -18,6 +18,7 @@ class MrpRepair(models.Model):
         for r in self:
             r._get_phonecall_count_one(self)
         return True
+
     @api.multi
     def _get_phonecall_count_one(self):
         self.ensure_one()

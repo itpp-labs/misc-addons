@@ -14,9 +14,9 @@
     ],
     'installable': True,
 
-   'demo_title': 'Reminders and Agenda modules',
-   'demo_addons': ['reminder_phonecall', 'reminder_task_deadline', 'reminder_hr_recruitment'],
-   'demo_addons_hidden': ['website'],
-   'demo_url': 'reminders-and-agenda',
-   'demo_summary': 'The module provides easy way to configure instant or mail notifications for any supported record with date field.',
+    'demo_title': 'Reminders and Agenda modules',
+    'demo_addons': ['reminder_phonecall', 'reminder_task_deadline', 'reminder_hr_recruitment'],
+    'demo_addons_hidden': ['website'],
+    'demo_url': 'reminders-and-agenda',
+    'demo_summary': 'The module provides easy way to configure instant or mail notifications for any supported record with date field.',
 }

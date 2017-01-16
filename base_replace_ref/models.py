@@ -21,6 +21,7 @@ class ReplaceRule(models.Model):
         for r in self:
             r.find_fields_one(self)
         return True
+
     @api.multi
     def find_fields_one(self):
         self.ensure_one()
@@ -39,6 +40,7 @@ class ReplaceRule(models.Model):
         for r in self:
             r.clear_fields_one(self)
         return True
+
     @api.multi
     def clear_fields_one(self):
         self.ensure_one()
@@ -61,6 +63,7 @@ class ReplaceRule(models.Model):
         for r in self:
             r.apply_one(self)
         return True
+
     @api.multi
     def apply_one(self):
         self.ensure_one()

@@ -23,6 +23,7 @@ class Reminder(models.AbstractModel):
         for r in self:
             r._get_reminder_event_name_one(self)
         return True
+
     @api.multi
     def _get_reminder_event_name_one(self):
         self.ensure_one()
@@ -53,6 +54,7 @@ class Reminder(models.AbstractModel):
         for r in self:
             r._update_reminder_one(self, vals)
         return True
+
     @api.multi
     def _update_reminder_one(self, vals):
         self.ensure_one()
@@ -76,6 +78,7 @@ class Reminder(models.AbstractModel):
         for r in self:
             r._do_update_reminder_one(self, update_date=True)
         return True
+
     @api.multi
     def _do_update_reminder_one(self, update_date=True):
         self.ensure_one()
@@ -150,6 +153,7 @@ class Reminder(models.AbstractModel):
         for r in self:
             r.write_one(self, vals)
         return True
+
     @api.multi
     def write_one(self, vals):
         self.ensure_one()
@@ -212,6 +216,7 @@ class ReminderAdminWizard(models.TransientModel):
         for r in self:
             r.action_execute_one(self)
         return True
+
     @api.multi
     def action_execute_one(self):
         self.ensure_one()

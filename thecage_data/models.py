@@ -57,6 +57,7 @@ class SaleOrderTheCage(models.Model):
         for r in self:
             r.write_one(self, vals)
         return True
+
     @api.multi
     def write_one(self, vals):
         self.ensure_one()
@@ -99,6 +100,7 @@ class SaleOrderLine(models.Model):
         for r in self:
             r.write_one(self, vals)
         return True
+
     @api.multi
     def write_one(self, vals):
         self.ensure_one()
@@ -113,6 +115,7 @@ class SaleOrderLine(models.Model):
         for r in self:
             r.send_booking_time_one(self)
         return True
+
     @api.multi
     def send_booking_time_one(self):
         self.ensure_one()

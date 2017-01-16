@@ -11,6 +11,7 @@ class HrEmployee(models.Model):
         for r in self:
             r.write_one(self, vals)
         return True
+
     @api.multi
     def write_one(self, vals):
         self.ensure_one()

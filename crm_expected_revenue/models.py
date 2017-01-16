@@ -14,6 +14,7 @@ class CrmLead(models.Model):
         for r in self:
             r.get_weighted_planned_revenue_one(self)
         return True
+
     @api.multi
     def get_weighted_planned_revenue_one(self):
         self.ensure_one()
