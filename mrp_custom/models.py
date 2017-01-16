@@ -47,8 +47,15 @@ class MrpCustomJobs(models.Model):
 
     comment = fields.Text(string='Comment')
 
-    @api.one
+    @api.multi
     def _get_name(self):
+        for r in self:
+            r._get_name_one(self)
+        return True
+
+    @api.multi
+    def _get_name_one(self):
+        self.ensure_one()
         self.job_name = "Job " + str(self.job_number)
 
 

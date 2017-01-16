@@ -96,7 +96,7 @@ class ResourceCalendar(models.Model):
             # call get_working_accurate_hours recursively for that cases
             if day_end_dt.date() == day_start_dt.date() + timedelta(1) and \
                     day_end_dt != day_end_dt.replace(hour=0, minute=0, second=0):
-                    hours += timedelta(hours=self.get_working_accurate_hours(start_dt=day_end_dt.replace(hour=0, minute=0, second=0), end_dt=day_end_dt))
+                hours += timedelta(hours=self.get_working_accurate_hours(start_dt=day_end_dt.replace(hour=0, minute=0, second=0), end_dt=day_end_dt))
 
             weekday = [day_start_dt.weekday()]
             if product and product[0].work_on_holidays and product[0].holidays_country_id and product[0].holidays_schedule == 'premium':
@@ -220,8 +220,15 @@ class SaleOrderLine(models.Model):
     because resource_id is related to pitch in pitch_booking module. If we hadn't done it then _compute_date_overlap would be called
     for each line with the same resource instead of only only for current new line''')
 
-    @api.one
+    @api.multi
     def write(self, vals):
+        for r in self:
+            r.write_one(self, vals)
+        return True
+
+    @api.multi
+    def write_one(self, vals):
+        self.ensure_one()
         result = super(SaleOrderLine, self).write(vals)
         if vals.get('resource_id'):
             vals['resource_trigger'] = vals.get('resource_id')
@@ -664,7 +671,7 @@ class ProductTemplate(models.Model):
     holidays_schedule = fields.Selection([
         ('premium', 'Premium: use Saturday weekend schedule'),
         ('promotional', 'Promotional: ordinary schedule (restrict it using leaves times if necessary)'),
-        ], string='Holidays schedule', default='premium')
+    ], string='Holidays schedule', default='premium')
 
 
 class SaleOrderAmountTotal(osv.osv):

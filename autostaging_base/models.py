@@ -21,8 +21,15 @@ class AutostagingStage(models.AbstractModel):
     # should be defined on inherired model:
     # autostaging_next_stage = fields.Many2one('define_some_card_model')
 
-    @api.one
+    @api.multi
     def write(self, vals):
+        for r in self:
+            r.write_one(self, vals)
+        return True
+
+    @api.multi
+    def write_one(self, vals):
+        self.ensure_one()
         result = super(AutostagingStage, self).write(vals)
         if not vals.get('autostaging_enabled', True):
             vals['autostaging_idle_timeout'] = 0
@@ -50,26 +57,54 @@ class AutostagingCard(models.AbstractModel):
     # should be defined on inherired model:
     # autostaging_next_stage = fields.Many2one('STAGE_MODEL', related='_FIELD_STAGE_ID.autostaging_next_stage')
 
-    @api.one
+    @api.multi
     def _compute_enabled(self):
+        for r in self:
+            r._compute_enabled_one(self)
+        return True
+
+    @api.multi
+    def _compute_enabled_one(self):
+        self.ensure_one()
         if getattr(self, self._field_stage_id).autostaging_enabled and (
                 not getattr(self, self._field_folder_id) or
                 getattr(self, self._field_folder_id).autostaging_enabled):
             self.autostaging_enabled = True
 
-    @api.one
+    @api.multi
     def _get_autostaging_date(self):
+        for r in self:
+            r._get_autostaging_date_one(self)
+        return True
+
+    @api.multi
+    def _get_autostaging_date_one(self):
+        self.ensure_one()
         delta = datetime.timedelta(days=getattr(self, self._field_stage_id).autostaging_idle_timeout)
         return (datetime.datetime.strptime(
             self.write_date, DEFAULT_SERVER_DATETIME_FORMAT) + delta).strftime(DEFAULT_SERVER_DATETIME_FORMAT)
 
-    @api.one
+    @api.multi
     def _update_autostaging_date(self):
+        for r in self:
+            r._update_autostaging_date_one(self)
+        return True
+
+    @api.multi
+    def _update_autostaging_date_one(self):
+        self.ensure_one()
         if not self.env.context.get('autostaging_update_date'):
             self.with_context(autostaging_update_date=True).write({'autostaging_date': self._get_autostaging_date()})
 
-    @api.one
+    @api.multi
     def write(self, vals):
+        for r in self:
+            r.write_one(self, vals)
+        return True
+
+    @api.multi
+    def write_one(self, vals):
+        self.ensure_one()
         result = super(AutostagingCard, self).write(vals)
         self._update_autostaging_date()
         return result
@@ -80,8 +115,15 @@ class AutostagingCard(models.AbstractModel):
         result._update_autostaging_date()
         return result
 
-    @api.one
+    @api.multi
     def _compute_autostaging_days_left(self):
+        for r in self:
+            r._compute_autostaging_days_left_one(self)
+        return True
+
+    @api.multi
+    def _compute_autostaging_days_left_one(self):
+        self.ensure_one()
         today = datetime.datetime.now()
         date_modifications = datetime.datetime.strptime(self.write_date, DEFAULT_SERVER_DATETIME_FORMAT)
         delta = today - date_modifications

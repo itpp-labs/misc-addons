@@ -43,8 +43,15 @@ class ResUsers(models.Model):
         if html != self.signature:
             self.signature = html
 
-    @api.one
+    @api.multi
     def write(self, vals):
+        for r in self:
+            r.write_one(self, vals)
+        return True
+
+    @api.multi
+    def write_one(self, vals):
+        self.ensure_one()
         res = super(ResUsers, self).write(vals)
         if any([k in vals for k in ['company_id']]):
             self.render_signature_id()
@@ -75,22 +82,43 @@ You can use control structures:
 ''')
     user_ids = fields.One2many('res.users', 'signature_id', string='Users')
 
-    @api.one
+    @api.multi
     def write(self, vals):
+        for r in self:
+            r.write_one(self, vals)
+        return True
+
+    @api.multi
+    def write_one(self, vals):
+        self.ensure_one()
         res = super(ResUsersSignature, self).write(vals)
         self.action_update_signature()
         return res
 
-    @api.one
+    @api.multi
     def action_update_signature(self):
+        for r in self:
+            r.action_update_signature_one(self)
+        return True
+
+    @api.multi
+    def action_update_signature_one(self):
+        self.ensure_one()
         self.user_ids.render_signature_id()
 
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    @api.one
+    @api.multi
     def write(self, vals):
+        for r in self:
+            r.write_one(self, vals)
+        return True
+
+    @api.multi
+    def write_one(self, vals):
+        self.ensure_one()
         res = super(ResPartner, self).write(vals)
         if self.user_ids:
             self.user_ids.render_signature_id()
