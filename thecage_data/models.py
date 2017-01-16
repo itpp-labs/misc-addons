@@ -54,24 +54,18 @@ class SaleOrderTheCage(models.Model):
 
     @api.multi
     def write(self, vals):
-        for r in self:
-            r.write_one(vals)
-        return True
-
-    @api.multi
-    def write_one(self, vals):
-        self.ensure_one()
         result = super(SaleOrderTheCage, self).write(vals)
-        # send sms immediately after user pushed 'Send by Email' button on the Sale Order
-        if vals.get('state') == 'sent' and self.partner_id.confirmation_sms:
-            phone = self.partner_id.mobile
-            for line in self.order_line.filtered(lambda r: r.pitch_id):  # filter not bookings
-                msg = 'Successfully booked a pitch at The Cage %s!\n' % line.venue_id.name
-                msg += 'Pitch %s\n' % line.pitch_id.name
-                msg += 'From: %s To %s\n' % (format_tz(line.booking_start, self.env.user.tz, DTF),
-                                             format_tz(line.booking_end, self.env.user.tz, DTF))
-                msg += 'ID %s\n' % self.name
-                self.env['sms_sg.sendandlog'].send_sms(phone, msg)
+        for r in self:
+            # send sms immediately after user pushed 'Send by Email' button on the Sale Order
+            if vals.get('state') == 'sent' and r.partner_id.confirmation_sms:
+                phone = r.partner_id.mobile
+                for line in r.order_line.filtered(lambda r: r.pitch_id):  # filter not bookings
+                    msg = 'Successfully booked a pitch at The Cage %s!\n' % line.venue_id.name
+                    msg += 'Pitch %s\n' % line.pitch_id.name
+                    msg += 'From: %s To %s\n' % (format_tz(line.booking_start, self.env.user.tz, DTF),
+                                                 format_tz(line.booking_end, self.env.user.tz, DTF))
+                    msg += 'ID %s\n' % r.name
+                    self.env['sms_sg.sendandlog'].send_sms(phone, msg)
         return result
 
     @api.multi
@@ -97,18 +91,12 @@ class SaleOrderLine(models.Model):
 
     @api.multi
     def write(self, vals):
-        for r in self:
-            r.write_one(vals)
-        return True
-
-    @api.multi
-    def write_one(self, vals):
-        self.ensure_one()
         result = super(SaleOrderLine, self).write(vals)
-
-        if vals.get('booking_start') or vals.get('booking_end'):
-            self.send_booking_time()
+        for r in self:
+            if vals.get('booking_start') or vals.get('booking_end'):
+                r.send_booking_time()
         return result
+
 
     @api.multi
     def send_booking_time(self):

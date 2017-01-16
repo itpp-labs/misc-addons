@@ -222,13 +222,6 @@ class SaleOrderLine(models.Model):
 
     @api.multi
     def write(self, vals):
-        for r in self:
-            r.write_one(vals)
-        return True
-
-    @api.multi
-    def write_one(self, vals):
-        self.ensure_one()
         result = super(SaleOrderLine, self).write(vals)
         if vals.get('resource_id'):
             vals['resource_trigger'] = vals.get('resource_id')

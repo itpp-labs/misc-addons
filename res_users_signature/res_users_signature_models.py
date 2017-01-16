@@ -45,16 +45,10 @@ class ResUsers(models.Model):
 
     @api.multi
     def write(self, vals):
-        for r in self:
-            r.write_one(vals)
-        return True
-
-    @api.multi
-    def write_one(self, vals):
-        self.ensure_one()
         res = super(ResUsers, self).write(vals)
-        if any([k in vals for k in ['company_id']]):
-            self.render_signature_id()
+        for r in self:
+            if any([k in vals for k in ['company_id']]):
+                r.render_signature_id()
         return res
 
 
@@ -84,15 +78,9 @@ You can use control structures:
 
     @api.multi
     def write(self, vals):
-        for r in self:
-            r.write_one(vals)
-        return True
-
-    @api.multi
-    def write_one(self, vals):
-        self.ensure_one()
         res = super(ResUsersSignature, self).write(vals)
-        self.action_update_signature()
+        for r in self:
+            r.action_update_signature()
         return res
 
     @api.multi
@@ -112,16 +100,10 @@ class ResPartner(models.Model):
 
     @api.multi
     def write(self, vals):
-        for r in self:
-            r.write_one(vals)
-        return True
-
-    @api.multi
-    def write_one(self, vals):
-        self.ensure_one()
         res = super(ResPartner, self).write(vals)
-        if self.user_ids:
-            self.user_ids.render_signature_id()
+        for r in self:
+            if r.user_ids:
+                r.user_ids.render_signature_id()
         return res
 
 

@@ -151,14 +151,8 @@ class Reminder(models.AbstractModel):
     @api.multi
     def write(self, vals):
         for r in self:
-            r.write_one(vals)
-        return True
-
-    @api.multi
-    def write_one(self, vals):
-        self.ensure_one()
-        if not self.reminder_event_id:
-            vals = self._check_and_create_reminder_event(vals)
+            if not r.reminder_event_id:
+                vals = r._check_and_create_reminder_event(vals)
         res = super(Reminder, self).write(vals)
         self._update_reminder(vals)
         return res

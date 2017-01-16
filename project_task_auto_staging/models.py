@@ -21,13 +21,6 @@ class ProjectTaskTypeAutoStaging(models.Model):
 
     @api.multi
     def write(self, vals):
-        for r in self:
-            r.write_one(vals)
-        return True
-
-    @api.multi
-    def write_one(self, vals):
-        self.ensure_one()
         if not vals.get('active_move', True):
             vals['delay_automove'] = 0
         return super(ProjectTaskTypeAutoStaging, self).write(vals)
