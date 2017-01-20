@@ -2,12 +2,13 @@
 {
     "name": """Reminders and Agenda for Opportunities (with time)""",
     "summary": """Reminders for opportunities with the precise time feature""",
-    "category": "Debranding",
+    "category": "Reminders and Agenda",
     "images": [],
-    "version": "1.1.0",
+    "version": "1.0.0",
     "application": False,
 
     "author": "IT-Projects LLC, Dinar Gabbasov",
+    "support": "apps@it-projects.info",
     "website": "https://twitter.com/gabbasov_dinar",
     "license": "GPL-3",
     "price": 21.00,
