@@ -69,7 +69,6 @@ class Reminder(models.AbstractModel):
     def _do_update_reminder(self, update_date=True):
         for r in self:
             r._do_update_reminder_one(update_date=True)
-        return True
 
     @api.multi
     def _do_update_reminder_one(self, update_date=True):
