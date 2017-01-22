@@ -20,13 +20,6 @@ class Reminder(models.AbstractModel):
 
     @api.multi
     def _get_reminder_event_name(self):
-        for r in self:
-            r._get_reminder_event_name_one()
-        return True
-
-    @api.multi
-    def _get_reminder_event_name_one(self):
-        self.ensure_one()
         return '%s: %s' % (self._description, self.display_name)
 
     @api.model
@@ -82,7 +75,10 @@ class Reminder(models.AbstractModel):
     @api.multi
     def _do_update_reminder_one(self, update_date=True):
         self.ensure_one()
-        vals = {'name': self._get_reminder_event_name()[0]}
+        vals = {}
+        name = self._get_reminder_event_name()
+        if name:
+            vals['name'] = name[0]
 
         event = self.reminder_event_id
         if not event:
