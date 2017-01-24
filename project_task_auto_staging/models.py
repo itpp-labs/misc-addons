@@ -19,7 +19,7 @@ class ProjectTaskTypeAutoStaging(models.Model):
     delay_automove = fields.Integer()
     active_move = fields.Boolean('Enable auto move', default=False)
 
-    @api.one
+    @api.multi
     def write(self, vals):
         if not vals.get('active_move', True):
             vals['delay_automove'] = 0
@@ -50,7 +50,7 @@ class ProjectTaskAutoStaging(models.Model):
         'stage_id': {
             'project_task_auto_staging.mt_auto_move_task':
             lambda self, cr, uid, obj, ctx=None:
-                ctx and ctx.get('auto_staging')
+            ctx and ctx.get('auto_staging')
         }
     }
 
@@ -61,8 +61,15 @@ class ProjectTaskAutoStaging(models.Model):
                     ('stage_id.active_move', '=', True),
                     ('stage_id.to_stage_automove_id', '!=', False)]
 
-    @api.one
+    @api.multi
     def _get_allow_automove(self):
+        for r in self:
+            r._get_allow_automove_one()
+        return True
+
+    @api.multi
+    def _get_allow_automove_one(self):
+        self.ensure_one()
         self.allow_automove = self.project_id.use_tasks and \
             self.project_id.allow_automove and \
             self.stage_id.active_move and self.stage_id.to_stage_automove_id
@@ -74,8 +81,15 @@ class ProjectTaskAutoStaging(models.Model):
         self.when_date_automove = datetime.datetime.strptime(
             self.write_date, DEFAULT_SERVER_DATETIME_FORMAT) + delta
 
-    @api.one
+    @api.multi
     def _get_days_to_automove(self):
+        for r in self:
+            r._get_days_to_automove_one()
+        return True
+
+    @api.multi
+    def _get_days_to_automove_one(self):
+        self.ensure_one()
         if self.allow_automove:
             today = datetime.datetime.now()
             date_modifications = datetime.datetime.strptime(

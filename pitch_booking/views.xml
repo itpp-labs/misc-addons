@@ -7,7 +7,7 @@
                 <script type="text/javascript" src="/pitch_booking/static/src/js/pitch_booking.js"></script>
             </xpath>
         </template>
-        <template id="assets_frontend" inherit_id="website.assets_frontend" name="Booking Calendar Assets Include">
+        <template id="assets_frontend" inherit_id="website.assets_frontend" name="Booking Calendar Assets Include" priority="8">
             <xpath expr="." position="inside">
                 <script type="text/javascript" src="/pitch_booking/static/src/js/website_pitch_booking.js"></script>
                 <link rel="stylesheet" href="/pitch_booking/static/src/css/pitch_booking.css"/>
@@ -19,18 +19,30 @@
             <field name="model">pitch_booking.pitch</field>
             <field name="arch" type="xml">
                 <form string="Pitch">
+                  <sheet>
                     <group>
-                        <group>
-                            <field name="name"/>
-                            <field name="venue_id"/>
-                            <field name="color" widget="color"/>
-                        </group>
-                        <group>
-                            <field name="calendar_id"/>
-                            <field name="has_slot_calendar"/>
-                            <field name="company_id"/>
-                        </group>
+                      <group>
+                        <field name="name"/>
+                        <field name="venue_id"/>
+                        <field name="color" widget="color"/>
+                      </group>
+                      <group>
+                        <field name="calendar_id"/>
+                        <field name="has_slot_calendar"/>
+                        <field name="company_id"/>
+                      </group>
                     </group>
+                    <group>
+                      <group string="Online Bookings" col="2">
+                        <field name="allowed_days_interval"/>
+                        <field name="hours_to_prepare"/>
+                      </group>
+                      <group string="Holidays" col="2">
+                        <field name="holidays_country_id"/>
+                        <field name="work_on_holidays"/>
+                      </group>
+                    </group>
+                  </sheet>
                 </form>
             </field>
         </record>
@@ -51,10 +63,12 @@
             <field name="model">pitch_booking.venue</field>
             <field name="arch" type="xml">
                 <form string="Venue">
+                  <sheet>
                     <group>
-                        <field name="name"/>
-                        <field name="company_id"/>
+                      <field name="name"/>
+                      <field name="company_id"/>
                     </group>
+                  </sheet>
                 </form>
             </field>
         </record>
@@ -173,6 +187,7 @@
             <xpath expr="//group" position="before">
                 <field name="venue_id"/>
                 <field name="pitch_id"/>
+                <field name="order_partner_id"/>
             </xpath>
           </field>
         </record>
@@ -194,7 +209,7 @@
 
         <record model="ir.actions.act_window" id="booking_calendar.booking_orders_lines_list_action">
           <field name="context" eval="{'search_default_active_bookings': 1}"/>
-          <field name="domain">[('venue_id','!=','False'), ('pitch_id','!=',False)]</field>
+          <!-- <field name="domain">[('venue_id','!=','False'), ('pitch_id','!=',False)]</field> -->
         </record>
 
         <record id="view_order_line_booking_form_venue_pitch" model="ir.ui.view">

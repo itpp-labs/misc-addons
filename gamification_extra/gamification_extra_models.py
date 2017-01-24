@@ -6,6 +6,7 @@ from openerp.tools.safe_eval import safe_eval
 from openerp.tools.translate import _
 from openerp import osv
 
+
 class GamificationGoalDefinition(models.Model):
     _inherit = 'gamification.goal.definition'
 

@@ -282,6 +282,7 @@
         </field>
       </record>
 
+      <delete id="invoice_sale_order_line_group.menu_sale_order_line" model="ir.ui.menu"/>
 
     </data>
 </openerp>

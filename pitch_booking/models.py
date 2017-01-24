@@ -35,11 +35,11 @@ class SaleOrderLine(models.Model):
     pitch_id = fields.Many2one('pitch_booking.pitch', string='Pitch')
     resource_id = fields.Many2one('resource.resource', 'Resource', related='pitch_id.resource_id', store=True)
 
-    @api.one
+    @api.multi
     def write(self, vals):
-        result = super(SaleOrderLine, self).write(vals)
         if vals.get('pitch_id') and not vals.get('resource_id'):
             vals['resource_id'] = self.env['pitch_booking.pitch'].browse(vals.get('pitch_id')).resource_id
+        result = super(SaleOrderLine, self).write(vals)
         return result
 
     @api.onchange('resource_id')
@@ -145,6 +145,7 @@ class SaleOrderLine(models.Model):
 
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
+    _order = "booking_start,invoice_id,sequence,id"
 
     venue_id = fields.Many2one('pitch_booking.venue', string='Venue')
     pitch_id = fields.Many2one('pitch_booking.pitch', string='Pitch')
@@ -166,7 +167,6 @@ class SaleOrder(models.Model):
         if resource:
             for rec in self:
                 line = super(SaleOrder, rec)._add_booking_line(product_id, resource, start, end, tz_offset)
-                sol = rec.env['sale.order.line'].sudo()
                 pitch_obj = rec.env['pitch_booking.pitch'].sudo()
                 pitchs = pitch_obj.search([('resource_id', '=', resource)], limit=1)
                 if pitchs:

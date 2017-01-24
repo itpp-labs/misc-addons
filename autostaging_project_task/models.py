@@ -27,6 +27,6 @@ class ProjectTaskAutostaging(models.Model):
         'stage_id': {
             'ProjectTaskAutostaging.mt_autostaging':
             lambda self, cr, uid, obj, ctx=None:
-                ctx and ctx.get('autostaging')
+            ctx and ctx.get('autostaging')
         }
     }

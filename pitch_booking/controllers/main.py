@@ -3,7 +3,7 @@ from openerp import SUPERUSER_ID
 from openerp.http import request
 
 try:
-    from openerp.addons.website_booking_calendar.controllers.main import website_booking_calendar as Controller
+    from openerp.addons.website_booking_calendar.controllers.main import WebsiteBookingCalendar as Controller
 except ImportError:
     class Controller(object):
         pass
@@ -14,7 +14,6 @@ class WebsiteBookingCalendar(Controller):
     def _get_resources(self, params):
         venue_id, pitch_id = params.get('venue'), params.get('pitch')
         cr, uid, context = request.cr, request.uid, request.context
-        resource_obj = request.registry['resource.resource']
         pitch_obj = request.registry['pitch_booking.pitch']
         venue_obj = request.registry['pitch_booking.venue']
         if not venue_id:
