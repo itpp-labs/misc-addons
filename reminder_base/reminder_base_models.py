@@ -20,13 +20,6 @@ class Reminder(models.AbstractModel):
 
     @api.multi
     def _get_reminder_event_name(self):
-        for r in self:
-            r._get_reminder_event_name_one()
-        return True
-
-    @api.multi
-    def _get_reminder_event_name_one(self):
-        self.ensure_one()
         return '%s: %s' % (self._description, self.display_name)
 
     @api.model
@@ -53,7 +46,6 @@ class Reminder(models.AbstractModel):
     def _update_reminder(self, vals):
         for r in self:
             r._update_reminder_one(vals)
-        return True
 
     @api.multi
     def _update_reminder_one(self, vals):
@@ -77,12 +69,14 @@ class Reminder(models.AbstractModel):
     def _do_update_reminder(self, update_date=True):
         for r in self:
             r._do_update_reminder_one(update_date=True)
-        return True
 
     @api.multi
     def _do_update_reminder_one(self, update_date=True):
         self.ensure_one()
-        vals = {'name': self._get_reminder_event_name()[0]}
+        vals = {}
+        name = self._get_reminder_event_name()
+        if name:
+            vals['name'] = name
 
         event = self.reminder_event_id
         if not event:
@@ -183,7 +177,7 @@ class ReminderAdminWizard(models.TransientModel):
     _name = 'reminder.admin'
 
     model = fields.Selection(string='Model', selection='_get_model_list', required=True)
-    events_count = fields.Integer(string='Count of calendar records', compute='_get_events_count')
+    events_count = fields.Integer(string='Count of calendar records', compute='_compute_events_count')
     action = fields.Selection(string='Action', selection=[('create', 'Create Calendar Records'), ('delete', 'Delete Calendar Records')],
                               required=True, default='create',)
 
@@ -198,18 +192,12 @@ class ReminderAdminWizard(models.TransientModel):
 
     @api.onchange('model')
     @api.multi
-    def _get_events_count(self):
+    def _compute_events_count(self):
         for r in self:
-            r._get_events_count_one()
-        return True
-
-    @api.multi
-    def _get_events_count_one(self):
-        self.ensure_one()
-        count = 0
-        if self.model:
-            count = self.env['calendar.event'].search_count([('reminder_res_model', '=', self.model)])
-        self.events_count = count
+            count = 0
+            if r.model:
+                count = self.env['calendar.event'].search_count([('reminder_res_model', '=', r.model)])
+            r.events_count = count
 
     @api.multi
     def action_execute(self):
