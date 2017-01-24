@@ -1,8 +1,13 @@
 ==================
- Project Time Log
+ Project Timelog
 ==================
 
-Project Time Log
+The timer:
+* allows to track the user working time
+* helps to control and see the overall working load during a day/week
+* generates the corresponding worktime reports
+
+It is a great solution that could be as alternative to Hubstaff or other work time tracker app.
 
 Credits
 =======

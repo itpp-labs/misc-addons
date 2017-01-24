@@ -1,7 +1,7 @@
 <section class="oe_container">
     <div class="oe_row oe_spaced">
-        <h2 class="oe_slogan">Project timelog</h2>
-        <h3 class="oe_slogan">Tracking Workflow</h3>
+        <h2 class="oe_slogan">Project Timelog</h2>
+        <h3 class="oe_slogan">Track the work time and know what your team is working on</h3>
         <div class="oe_span6">
             <div class="oe_demo oe_picture oe_screenshot">
                 <a href="http://runbot.it-projects.info/demo/misc-addons/8.0">
@@ -11,8 +11,14 @@
             </div>
         </div>
         <div class="oe_span6">
-            <p class='oe_mt32'>
-                The timer allows to immobilize the user's time of working on subtask, helps to follow the volume of work during day and week.
+            <p class="oe_mt32">
+              The timer
+			  <ul>
+				<li>allows to track the user working time</li>
+				<li>helps to control and see the overall working load during a day/week</li>
+				<li>generates the corresponding worktime reports</li>
+			  </ul>
+			  It is a great solution that could be as alternative to Hubstaff or other work time tracker app.
             </p>
         </div>
     </div>
@@ -20,97 +26,63 @@
 
 <section class="oe_container oe_dark">
     <div class="oe_row">
-        <h2 class="oe_slogan">Installation</h2>
-        <div class="oe_span6">
-            <p class='oe_mt32'>
-                To install the module fo the following:
-                <ul>
-                    <li><a href="https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html">Install </a>this module in a usual way</li>
-                </ul>
-                Settings
-                <ul><li>Open menu "settings"</li>
-                    <li>Open "timelog" in section of Configuration</li>
-                    <li>Choose necessary configuration settings and press "apply"</li>
-                </ul>
-            </p>
-        </div>
-        <div class="oe_span6">
-            <img class="oe_picture oe_screenshot" src="001.png">
-        </div>
-    </div>
-</section>
-
-<section class="oe_container">
-    <div class="oe_row">
-        <h2 class="oe_slogan">Configuration settings</h2>
-        <div class="oe_span6">
-            <img class="oe_picture oe_screenshot" src="02.png">
-        </div>
-        <div class="oe_span6">
-            <ul class='oe_mt32'>
-                <li>"Set warning time" - is warning time. It must warn a user with audio signal about when timer it stops (in what time it is stops).</li>
-                <li>"Set completion time" - is a limit on timer work for subtask, it stops after achieving this time.</li>
-                <li>"Set normal time" - is warning time for the number of worked hours for current day (a set number of hours).</li>
-                <li>"Set good time" - is warning time for the number of worked hours for current day ( more than a set number of hours).</li>
-                <li>"Set normal time" - is warning time for the number of worked hours for current week (a set number of hours).</li>
-                <li>"Set good time" - is warning time for the number of worked hours for current week ( more than a set number of hours).</li>
-            </ul>
-        </div>
-    </div>
-</section>
-
-<section class="oe_container oe_dark">
-    <div class="oe_row">
-        <h2 class="oe_slogan">Usage</h2>
+      <h2 class="oe_slogan">Usage</h2>
         <div class="oe_span12">
-            <p class='oe_mt32'>
-                After the installation of the module, the upper right corner will show "00:00:00 00:00 00:00 00:00".            </p>
-            <p>
-                The timer allows to immobilize the user’s time of working on subtask in menu "Project->Task", helps to follow the volume of work during day and week.
-            </p>
+            <p class="oe_mt32">
+              After the module installation, you can see the timer bar <b>00:00:00 00:00 00:00 00:00</b> at the top right hand.
+			</p>
         </div>
-    </div>
-    <div class="oe_row">
-        <div class="oe_span6">
-            <img class="oe_picture oe_screenshot" src="03.png">
-        </div>
-        <div class="oe_span6">
-            <p class='oe_mt32'>
-                The result of timer work in written in menu "Project -> Timelog" in section "My timelog". This section shows logs of current users only and explains which task is for subtask, when the timer was launched and stopped, how long it worked and in what state was task. There is a "time correction" which allows to correct the time (see more in section Correction of time). Manager has the access "timelog" in which logs of all users are seen.
-            </p>
-        </div>
+		<div class="oe_span12">
+          <ul class="oe_mt32">
+			<li>
+			  <b>1</b><sup>st</sup> timer - it's time for <b><em>current subtask</em></b>. When approaching to 2 hours  boundary (the value can be changed in <em>Configuration &rarr; Subtask &rarr; Set completion time</em>), it changes color to orange and sounds a short signal. When the time is beyond the preset 2 hours limit, the timer is stopped, the color changes to red, it flashes and sounds a long beep. If you click on the timer, it works as a pause.
+			</li>
+			<li>
+			  <b>2</b><sup>nd</sup> timer - it's general time for <b><em>current task</em></b> (only the time of current user is taken into account and summed). Once the "Initially planned hours" value is exceeded (all the time records related to the task are teaken into account), it changes color to yellow. When "Initially planned hours" exceeds 100% (set it in Configuration), it changes color to red. Clicking on the timer opens the current task.
+			</li>
+			<li>
+			  <b>3</b><sup>rd</sup> timer - it's general time for <b><em>current day</em></b>. If the time reaches 5 hours (set it in <em>Configuration &rarr; Day &rarr; Set normal time</em>), it changes color to yellow and if it reaches 6 hours (set it in <em>Configuration &rarr; Day &rarr; Set good time</em>), it changes color to green. Clicking on the timer opens a page with the current day logs.
+			</li>
+			<li>
+			  <b>4</b><sup>th</sup> timer - it's general time for <b><em>current week</em></b>. When reaching 30 hours (set it in <em>Configuration &rarr; Week &rarr; Set normal time</em>), it changes color to green and sounds a beautiful melody. When reaching 40 hours (set it in <em>Configuration &rarr; Week &rarr; Set good time</em>), it changes color to blue and sounds a long beautiful melody. Clicking on the timer opens the page with the current week logs.
+			</li>
+          </ul>
+		</div>
     </div>
 </section>
 
 <section class="oe_container">
     <div class="oe_row">
-        <h2 class="oe_slogan">Start timer</h2>
-        <div class="oe_span6">
-            <p class='oe_mt32'>
-                While working you need to create a new subtask in page with current task. Press "play" to start the timer. Press "stop" to stop it. After its stopping a general time appears in above the subtask in "Time Spent".
-            </p>
-        </div>
-        <div class="oe_span6">
-            <img class="oe_picture oe_screenshot" src="04.png">
-        </div>
+      <h3 class="oe_slogan">Start the timer</h3>
+      <div class="oe_span6">
+        <p class="oe_mt32">
+          Go to the Project &rarr; Task menu and open or create a task. Then you need to add a new subtask to this task. Here you can see the "play/stop" button. Click on "play" to start the timer or "stop" to stop it. After the stop, a time you spent on the subtask will be displayed in "Time Spent".
+        </p>
+      </div>
+      <div class="oe_span6">
+        <img class="oe_picture oe_screenshot" src="04.png">
+      </div>
     </div>
-    <div class="oe_row"><div class="oe_span6">
+    <div class="oe_row">
+	  <div class="oe_span6">
         <img class="oe_picture oe_screenshot" src="05.png">
-    </div>
-        <div class="oe_span6">
-            <p class='oe_mt32'>
-                If the subtask was created in one state of task, then timer for this subtask cannot be launched in other state of current task.
-            </p>
-            <p>
-                If timer was launched in one state of task and state of task has changed while working, then timer automatically stops and creates a new task with the same name.            </p>
-        </div>
+      </div>
+      <div class="oe_span6">
+        <p class="oe_mt32">
+          If the subtask was created in one task state, the timer for this subtask cannot be launched in other task state.
+        </p>
+        <p>
+          If the timer was launched in one task state and the latter has been changed during the work, the timer automatically stops and new subtask with the same name is created.
+        </p>
+      </div>
     </div>
     <div class="oe_row">
         <div class="oe_span12">
-            <p class='oe_mt32'>
-                Checking user’s activity is occurs due to his status in chat. Thus, timer automatically stops, if user is "offline" or there is no internet connection. If new connection appears you need to restart the timer. If timer is stopped user will hear a audio signal.            </p>
+            <p class="oe_mt32">
+              The user activity is tracked by his status in chat. Thus, timer automatically stops if user is "offline" or there is no internet connection and in this case he will hear the specific audio signal. If connection is restored, he should restart the timer. 
+			</p>
             <p>
-                If there are subtasks with logs of another day, then subtask is unavailable for user. User can start subtasks in which in "Done by" is stated  user’s name.
+              If there are subtasks that contain time records on previous days, they will be unavailable for user. Also user will be able to start the timer on own subtasks only (the subtask owner is displayed in the "Done by" column).
             </p>
         </div>
     </div>
@@ -118,37 +90,10 @@
 
 <section class="oe_container oe_dark">
     <div class="oe_row">
-        <h2 class="oe_slogan">Description of timer work</h2>
-        <div class="oe_span12">
-            <ul class='oe_mt32'>
-               <li>The first timer - is time for current subtask. When approaching the mark of 2 hours (set in Configuration) it changes color to orange and emits a short signal. Upon exceeding mark of 2 hours (set in Configuration) the timer is stopped and the color changes to red, it flashes and emits a long beep. When you click on a timer it works as a pause.</li>
-                <li>The second timer - is general time for current task (only the current user data are summed). Upon exceeding "initially planned hours" (taking into account all the logs for the task) it changes color to yellow. Upon exceeding "initially planned hours" 100% (set) it changes to red. Clicking on the timer opens the current task.</li>
-                <li>The third timer - is general time for current day. Upon reaching 5 hours (set in Configuration) it changes color to yellow. Upon reaching 6 hours (set in Configuration) it changes color to green. Clicking on the timer opens a page with the current day logs.</li>
-                <li>The fourth timer - is general time for current week. Upon reaching 30 hours (set in Configuration) it changes to green and emits a beautiful melody. When reaching 40 hours (set in Configuration) it changes color to blue and emits a long beautiful melody. Clicking on the timer opens a page with logs of current week.</li>
-            </ul>
-        </div>
-    </div>
-</section>
-
-<section class="oe_container">
-    <div class="oe_row">
-        <div class="oe_span12">
-            <h2 class="oe_slogan">Conditions for timer</h2>
-            <ul class='oe_mt32'>
-                <li>Simultaneously you may switch on timer for one subtask only.</li>
-                <li>Do not switch on timer for subtasks which contains not today’s logs.</li>
-                <li>Do not create subtasks with the same names in task of one state.</li>
-            </ul>
-        </div>
-    </div>
-</section>
-
-<section class="oe_container oe_dark">
-    <div class="oe_row">
-        <h2 class="oe_slogan">Time correction</h2>
+        <h3 class="oe_slogan">Time correction</h3>
         <div class="oe_span6">
-            <p class='oe_mt32'>
-                If user opened timer occasionally, delete all the unnecessary time with "Time correction". Go to "My timelog" and press log which contains a mistake to change working hours. Press "edit" and "time correction" will be available for editing. User can only reduce time and manager can both reduce it or increase it. If user does not put "-" it will be put automatically.
+            <p class="oe_mt32">
+                If user launched the timer accidentally, he can delete all the unnecessary time by using "Time correction". Go to "My timelog" and click on log you are going to correct. Click on "Edit" and then "Time correction" will be available for editing. User can only reduce time, but manager can both reduce and increase it. 
             </p>
         </div>
         <div class="oe_span6">
@@ -159,61 +104,128 @@
 
 <section class="oe_container">
     <div class="oe_row">
-        <h2 class="oe_slogan">Compulsory completion of the task</h2>
+        <h3 class="oe_slogan">Forced completion of the task</h3>
         <div class="oe_span6">
             <img class="oe_picture oe_screenshot" src="08.png">
         </div>
         <div class="oe_span6">
-            <p class='oe_mt32'>
-                In case of user should immediately goes to a new task in "Stopline", must specify the date and time up to which the user can work. When reaching it he cannot add timelogs to the current task, till Stopline will be changed or deleted. "Stopline" used in difficult tasks and can be edited only by manager. When reaching to Stopline timer changes to orange, and appears the signal.
-            </p>
+          <p class="oe_mt32">
+            In case of user should immediately goes to a new task, he must specify the date and time in "Stopline". When reaching it, the timer changes color to orange, sounds the specific signal and user cannot add timelogs to the current task before "Stopline" is changed or deleted. The "Stopline" is used for difficult tasks usually and can be edited by manager only. 
+          </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+  <div class="oe_row">
+    <h3 class="oe_slogan">Disable logs for certain task state</h3>
+    <div class="oe_span6">
+      <p class="oe_mt32">
+        To disable the logs creation for certain task state, go to Project &rarr; Configuration &rarr; Stages &rarr; Task Stages, open Stage edit form and uncheck the box "Allow log time".
+      </p>
+    </div>
+	<div class="oe_span6">
+      <img class="oe_picture oe_screenshot" src="09.png">
+    </div>
+  </div>
+</section>
+
+<section class="oe_container oe_dark">
+  <div class="oe_row">
+	<h3 class="oe_slogan">Timer logs</h3>
+    <div class="oe_span6">
+      <img class="oe_picture oe_screenshot" src="03.png">
+    </div>
+    <div class="oe_span6">
+      <p class="oe_mt32">
+        The result of timer work will be written in Project &rarr; Timelog &rarr; My timelog. This section shows time logs of current user and explains which task corresponds to subtask, when the timer was launched and stopped, how long it has been working and what state had a task. There is a "Time correction" feature, which allows to correct the time (see details at the "Time correction" section below). Manager has access to all users time logs.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row">
+        <div class="oe_span12">
+            <h3 class="oe_slogan">Timer specifics</h3>
+            <ul class="oe_mt32">
+              <li>Simultaneously you may switch on the timer for one subtask only.</li>
+              <li>You cannot switch on the timer for subtasks which contains not today's logs.</li>
+              <li>You cannot create subtasks with the same names in task of one state.</li>
+            </ul>
         </div>
     </div>
 </section>
 
 <section class="oe_container oe_dark">
     <div class="oe_row">
-        <h2 class="oe_slogan">Prohibition of logs In determined condition of task</h2>
-        <div class="oe_span12">
-            <p class='oe_mt32'>
-                To prohibit creating logs in determined condition of task state "task_allow_logs" with the meaning "False".
-            </p>
-        </div>
+      <h2 class="oe_slogan">Configuration</h2>
+	  <div class="oe_span12">
+        <p class="oe_mt32">
+          Go to the Settings &rarr; Configuration &rarr; Timelog menu. Choose necessary configuration settings and click "Apply".
+		</p>
+      </div>
+      <div class="oe_span6">
+		<p class="oe_mt32">
+			  <ul>
+				<li>"Set warning time" - it is a time that will warn a user with audio signal indicating the approach to subtask completion time.</li>
+          <li>"Set completion time" - it is a limit on timer work for subtask, it stops after achieving this time.</li>
+          <li>"Set normal time" - it is a warning time for hours worked for current day/week (a set number of hours).</li>
+          <li>"Set good time" - it is a warning time for number of hours worked for current day/week (more than a set number of hours).</li>
+			  </ul>
+		</p>
+      </div>
+	  <div class="oe_span6">
+         <img class="oe_picture oe_screenshot" src="02.png">
+       </div>
     </div>
 </section>
 
 <section class="oe_container">
-    <div class="oe_row">
-        <h2 class="oe_slogan">Uninstallation</h2>
-        <div class="oe_span12">
-            <p class='oe_mt32'>
-                Press "uninstall" in module "Project timelog" to delete module.
-            </p>
-        </div>
+  <div class="oe_row">
+    <h2 class="oe_slogan">Notes</h2>
+    <div class="oe_span12">
+      <ul class="oe_mt32">
+        <li>To use the module, you need to be sure that your odoo instance support longpolling, i.e. Instant Messaging works. Read more about how to use the <a href="https://odoo-development.readthedocs.io/en/latest/admin/longpolling.html"> "longpolling" </a>.
+		</li>
+        <li>If you want to reinstall the module, you need to clear browser data after removing it.
+		</li>
+      </ul>
     </div>
-</section>
-
-<section class="oe_container oe_dark">
-    <div class="oe_row">
-        <h2 class="oe_slogan">Note</h2>
-        <div class="oe_span12">
-            <ul class='oe_mt32'>
-                <li>To use the module, you need to be sure that your odoo instance support longpolling, i.e. Instant Messaging works.Read more about how to use the <a href="https://odoo-development.readthedocs.io/en/latest/admin/longpolling.html"> "longpolling" </a></li>
-                <li>While doing reinstallation of module after its removal clear browser data.</li>
-            </ul>
-        </div>
-    </div>
+  </div>
 </section>
 
 <section class="oe_container">
-    <div class="oe_row oe_spaced">
-        <div class="oe_span12">
-            <h2>Need our service?</h2>
-            <p class="oe_mt32">Contact us by <a href="mailto:it@it-projects.info">email</a> or fill out <a href="https://www.it-projects.info/page/website.contactus " target="_blank">request form</a></p>
-            <ul>
-                <li><a href="mailto:it@it-projects.info">it@it-projects.info <i class="fa fa-envelope-o"></i></a></li>
-                <li><a href="https://www.it-projects.info/page/website.contactus " target="_blank">https://www.it-projects.info/page/website.contactus <i class="fa fa-list-alt"></i></a></li>
-            </ul>
-        </div>
+  <div class="oe_row oe_spaced">
+    <div class="oe_span8">
+      <h2>Need our service?</h2>
+      <p class="oe_mt32">Contact us by <a href="mailto:it@it-projects.info">email</a> or fill out <a href="https://www.it-projects.info/page/website.contactus " target="_blank">request form</a></p>
+      <ul>
+        <li><a href="mailto:it@it-projects.info">it@it-projects.info <i class="fa fa-envelope-o"></i></a></li>
+        <li><a href="https://www.it-projects.info/page/website.contactus " target="_blank">https://www.it-projects.info/page/website.contactus <i class="fa fa-list-alt"></i></a></li>
+      </ul>
     </div>
+    <div class="oe_span4">
+      <div class="stamp" style="width:200px;">
+        <div style="margin-top: 15px;
+                    position: relative;
+                    font-family:'Vollkorn', serif;
+                    font-size: 16px;
+                    line-height: 25px;
+                    text-transform: uppercase;
+                    font-weight: bold;
+                    color: #75526b;
+                    border: 3px dashed #75526b;
+                    float: left;
+                    padding: 4px 12px;
+                    -webkit-transform: rotate(6deg);
+                    -o-transform: rotate(6deg);
+                    -moz-transform: rotate(6deg);
+                    -ms-transform: rotate(6deg);">
+          Tested on Odoo<br/>8.0 community
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </section>
