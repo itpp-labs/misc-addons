@@ -565,18 +565,18 @@ class SaleOrderLine(models.Model):
         resources = self.get_free_slots_resources(domain)
         slots = {}
         now = datetime.now() - timedelta(minutes=SLOT_START_DELAY_MINS) - timedelta(minutes=offset)
+        start_dt = fixed_start_dt
+        end_dt = datetime.strptime(end, DTF) - timedelta(minutes=offset)
         for r in resources:
             if r.id not in slots:
                 slots[r.id] = {}
 
-            start_dt = fixed_start_dt
             if online and r.hours_to_prepare:
                 days = r.hours_to_prepare / 24
                 hours = r.hours_to_prepare % 24
                 online_min_dt = now + timedelta(days=days, hours=hours) - timedelta(minutes=now.minute, seconds=now.second)
                 start_dt = start_dt if start_dt > online_min_dt else online_min_dt
 
-            end_dt = datetime.strptime(end, DTF) - timedelta(minutes=offset)
             if online and r.allowed_days_interval:
                 online_max_dt = now + timedelta(days=r.allowed_days_interval) - timedelta(minutes=now.minute, seconds=now.second)
                 end_dt = end_dt if end_dt < online_max_dt else online_max_dt
