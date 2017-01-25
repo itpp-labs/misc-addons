@@ -6,6 +6,7 @@ from openerp import fields
 from openerp import models
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 from openerp.addons.booking_calendar.models import SLOT_START_DELAY_MINS, SLOT_DURATION_MINS
+from openerp.addons.base.res.res_partner import _tz_get
 
 _logger = logging.getLogger(__name__)
 
@@ -15,6 +16,7 @@ class PitchBookingVenue(models.Model):
 
     name = fields.Char('Name')
     company_id = fields.Many2one('res.company', 'Company')
+    tz = fields.Selection(_tz_get, 'Timezone', default=lambda r: r.env.context.get('tz'))
 
 
 class PitchBookingPitch(models.Model):
