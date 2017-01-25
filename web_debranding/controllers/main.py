@@ -10,6 +10,8 @@ import functools
 from openerp.http import request
 from openerp.modules import get_module_resource
 from cStringIO import StringIO
+from openerp.tools.translate import _
+
 db_monodb = http.db_monodb
 
 
@@ -24,7 +26,7 @@ class BinaryCustom(Binary):
         imgname = 'logo.png'
         default_logo_module = 'web_debranding'
         if request.session.db:
-            request.env['ir.config_parameter'].get_param('web_debranding.default_logo_module')
+            default_logo_module = request.env['ir.config_parameter'].get_param('web_debranding.default_logo_module')
         placeholder = functools.partial(get_module_resource, default_logo_module, 'static', 'src', 'img')
         uid = None
         if request.session.db:
@@ -89,5 +91,5 @@ class WebClientCustom(WebClient):
         return res
 
     def _debrand(self, string):
-        new_company = request.env['ir.config_parameter'].get_param('web_debranding.new_name')
+        new_company = request.env['ir.config_parameter'].get_param('web_debranding.new_name') or _('Software')
         return re.sub(r'[Oo]doo', new_company, string)

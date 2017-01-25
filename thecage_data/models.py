@@ -6,12 +6,14 @@ from datetime import datetime, date, timedelta
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 from openerp.exceptions import ValidationError
 
+
 def format_tz(datetime_str, tz, dtf):
     datetime_obj = datetime.strptime(datetime_str, dtf)
     user_timezone = timezone(tz)
     datetime_obj = pytz.utc.localize(datetime_obj)
     datetime_obj = datetime_obj.astimezone(user_timezone)
     return datetime_obj.strftime(dtf)
+
 
 class AccountAnalyticAccount(models.Model):
     _inherit = 'account.analytic.account'
@@ -50,19 +52,20 @@ class SaleOrderTheCage(models.Model):
 
     expiring_reminder = fields.Boolean(default=False)
 
-    @api.one
+    @api.multi
     def write(self, vals):
         result = super(SaleOrderTheCage, self).write(vals)
-        # send sms immediately after user pushed 'Send by Email' button on the Sale Order
-        if vals.get('state') == 'sent' and self.partner_id.confirmation_sms:
-            phone = self.partner_id.mobile
-            for line in self.order_line:
-                msg = 'Successfully booked a pitch at The Cage %s!\n' % line.venue_id.name
-                msg += 'Pitch %s\n' % line.pitch_id.name
-                msg += 'From: %s To %s\n' % (format_tz(line.booking_start, self.env.user.tz, DTF),
-                                             format_tz(line.booking_end, self.env.user.tz, DTF))
-                msg += 'ID %s\n' % self.name
-                self.env['sms_sg.sendandlog'].send_sms(phone, msg)
+        for r in self:
+            # send sms immediately after user pushed 'Send by Email' button on the Sale Order
+            if vals.get('state') == 'sent' and r.partner_id.confirmation_sms:
+                phone = r.partner_id.mobile
+                for line in r.order_line.filtered(lambda r: r.pitch_id):  # filter not bookings
+                    msg = 'Successfully booked a pitch at The Cage %s!\n' % line.venue_id.name
+                    msg += 'Pitch %s\n' % line.pitch_id.name
+                    msg += 'From: %s To %s\n' % (format_tz(line.booking_start, self.env.user.tz, DTF),
+                                                 format_tz(line.booking_end, self.env.user.tz, DTF))
+                    msg += 'ID %s\n' % r.name
+                    self.env['sms_sg.sendandlog'].send_sms(phone, msg)
         return result
 
     @api.multi
@@ -86,16 +89,24 @@ class SaleOrderLine(models.Model):
     pitch_id = fields.Many2one(track_visibility='onchange')
     product_id = fields.Many2one(track_visibility='onchange')
 
-    @api.one
+    @api.multi
     def write(self, vals):
         result = super(SaleOrderLine, self).write(vals)
-
-        if vals.get('booking_start') or vals.get('booking_end'):
-            self.send_booking_time()
+        for r in self:
+            if vals.get('booking_start') or vals.get('booking_end'):
+                r.send_booking_time()
         return result
 
-    @api.one
+
+    @api.multi
     def send_booking_time(self):
+        for r in self:
+            r.send_booking_time_one()
+        return True
+
+    @api.multi
+    def send_booking_time_one(self):
+        self.ensure_one()
         if self.booking_start and self.booking_end:
             template = self.env.ref('thecage_data.email_template_booking_time_updated')
             email_ctx = {
@@ -128,13 +139,13 @@ class SaleOrderLine(models.Model):
 
     @api.model
     def _cron_booking_reminder(self):
-        lines = self.search(['&', '&', '&', ('booking_reminder', '=', False),
-                             ('booking_start', '!=', False),
-                             ('booking_start', '<=', (datetime.now() + timedelta(hours=48)).strftime(DTF)),
-                             '|',
-                             ('order_id.state', '=', 'done'),
-                             ('price_unit', '=', '0'),
-                             ])
+        lines72 = self.search([('booking_reminder', '=', False),
+                               ('booking_start', '!=', False),
+                               ('booking_start', '<=', (datetime.now() + timedelta(hours=72)).strftime(DTF))])
+        lines48 = self.search([('booking_reminder', '=', False),
+                               ('booking_start', '!=', False),
+                               ('booking_start', '<=', (datetime.now() + timedelta(hours=48)).strftime(DTF))])
+        lines = lines72 - lines48
         lines.write({'booking_reminder': True})
         for line in lines:
             if line.order_id.partner_id.reminder_sms:
@@ -142,9 +153,21 @@ class SaleOrderLine(models.Model):
                 msg += 'Pitch %s\n' % line.pitch_id.name
                 msg += 'From: %s To %s\n' % (format_tz(line.booking_start, self.env.user.tz, DTF),
                                              format_tz(line.booking_end, self.env.user.tz, DTF))
-                msg += 'ID %s\n' % self.order_id.name
+                msg += 'ID %s\n' % line.order_id.name
                 phone = line.order_id.partner_id.mobile
                 self.env['sms_sg.sendandlog'].send_sms(phone, msg)
+
+            if line.order_id.partner_id.reminder_email:
+                template = self.env.ref('thecage_data.email_template_booking_reminder')
+                email_ctx = {
+                    'default_model': 'sale.order.line',
+                    'default_res_id': line.id,
+                    'default_use_template': bool(template),
+                    'default_template_id': template.id,
+                    'default_composition_mode': 'comment',
+                }
+                composer = self.env['mail.compose.message'].with_context(email_ctx).create({})
+                composer.send_mail()
 
 
 class ResPartnerReminderConfig(models.Model):

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="crm_case_form_view_oppor">
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="priority" eval="100"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@string='-']" position="replace">
+                </xpath>
+                <xpath expr="//field[@name='date_action']" position="replace">
+                    <field name="datetime_action" />
+                </xpath>
+                <xpath expr="//field[@name='date_deadline']" position="before">
+                    <field name="reminder_alarm_ids" widget="many2many_tags" attrs="{'readonly':[('datetime_action','=',False)]}" string="Reminders"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
