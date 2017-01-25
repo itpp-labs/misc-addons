@@ -1,6 +1,6 @@
-==================
- Project Timelog
-==================
+==============
+ Time Tracker
+==============
 
 The timer:
 * allows to track the user working time

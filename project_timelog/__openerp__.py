@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 {
-    "name": """Project Timelog""",
-    "summary": """Track the work time and know what your team is working on""",
+    "name": """Time Tracker""",
+    "summary": """Adds Start/Stop buttons to task work lines. Allows to see statistics on Calendar, Graph, Tree views and more""",
     "category": "Project",
     "version": "1.0.0",
     "images": ['images/timelog.png'],
     "author": "IT-Projects LLC, Dinar Gabbasov",
     'website': "https://twitter.com/gabbasov_dinar",
-#    "license": "Other proprietary",
+    "license": "GPL-3",
     "price": 390,
     "currency": "EUR",
 
