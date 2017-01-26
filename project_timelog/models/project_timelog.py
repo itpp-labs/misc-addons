@@ -102,7 +102,6 @@ class Task(models.Model):
             if datetime_stopline.day < datetime.datetime.today().day:
                 task.write({"datetime_stopline": False})
 
-
     @api.model
     def stopline_timer(self):
         user = self.env["res.users"].search([])
