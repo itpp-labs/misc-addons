@@ -167,20 +167,20 @@ class SaleOrderLine(models.Model):
         self.ensure_one()
         return self.venue_id.localize(time_string_in_utc)
 
-    # @api.model
-    # def generate_slot(self, r, start_dt, end_dt, online=False, offset=0):
-    #     start_str = start_dt.strftime(DTF)
-    #     end_str = end_dt.strftime(DTF)
-    #     venue = r[0].venue_id
-    #     return {
-    #         'start': online and venue.localize(start_str) or start_str,
-    #         'end': online and venue.localize(end_str) or end_str,
-    #         'title': r.name,
-    #         'color': r.color,
-    #         'className': 'free_slot resource_%s' % r.id,
-    #         'editable': False,
-    #         'resource_id': r.id
-    #     }
+    @api.model
+    def generate_slot(self, r, start_dt, end_dt, online=False, offset=0):
+        start_str = start_dt.strftime(DTF)
+        end_str = end_dt.strftime(DTF)
+        venue = r[0].venue_id
+        return {
+            'start': online and venue.localize(start_str) or start_str,
+            'end': online and venue.localize(end_str) or end_str,
+            'title': r.name,
+            'color': r.color,
+            'className': 'free_slot resource_%s' % r.id,
+            'editable': False,
+            'resource_id': r.id
+        }
 
 
 class AccountInvoiceLine(models.Model):
