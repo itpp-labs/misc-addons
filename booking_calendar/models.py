@@ -73,6 +73,9 @@ class ResourceResource(models.Model):
 
         return bookings
 
+    @api.multi
+    def get_tz_offset(self):
+        return 0
 
 class ResourceCalendar(models.Model):
     _inherit = 'resource.calendar'
@@ -355,6 +358,16 @@ class SaleOrderLine(models.Model):
         domain.append(('booking_end', '>=', end))
         return self.search(domain)
 
+    @api.multi
+    def localize_to_online(self, time_string_in_utc):
+        self.ensure_one()
+        # to be redefined in child.
+        # online calendar should have the setting as follows
+        # timezone: false
+        # you don't store timezone information for your events and you want all events to render consistently across all client computers, regardless of timezone
+        # online customers may book from everywhere but resources may be in certain timezone always
+        return time_string_in_utc
+
     @api.model
     def get_bookings(self, start, end, offset, domain, online=False):
         bookings = self.env['resource.resource'].sudo().search([]).search_booking_lines(start, end, domain, online=online)
@@ -366,8 +379,8 @@ class SaleOrderLine(models.Model):
             'className': 'booked_slot resource_%s' % b.resource_id.id,
             'id': b.id,
             'title': b.resource_id.name,
-            'start': '%s+00:00' % b.booking_start,
-            'end': '%s+00:00' % b.booking_end,
+            'start': online and b.localize_to_online(b.booking_start) or b.booking_start,
+            'end': online and b.localize_to_online(b.booking_end) or b.booking_end,
             'resource_id': b.resource_id.id,
             'editable': False,
             'color': b.resource_id.color
@@ -376,12 +389,14 @@ class SaleOrderLine(models.Model):
             start_dt = datetime.strptime(b.booking_start, DTF)
             end_dt = datetime.strptime(b.booking_end, DTF)
             while start_dt < end_dt:
+                start_str = start_dt.strftime(DTF)
+                end_str = (start_dt + timedelta(hours=1)).strftime(DTF)
                 res.append({
                     'className': 'booked_slot resource_%s' % b.resource_id.id,
                     'id': b.id,
                     'title': b.resource_id.name,
-                    'start': '%s+00:00' % start_dt.strftime(DTF),
-                    'end': '%s+00:00' % (start_dt + timedelta(hours=1)).strftime(DTF),
+                    'start': online and b.localize_to_online(start_str) or start_str,
+                    'end': online and b.localize_to_online(end_str) or end_str,
                     'resource_id': b.resource_id.id,
                     'editable': False,
                     'color': b.resource_id.color
@@ -408,12 +423,14 @@ class SaleOrderLine(models.Model):
                     slot_end_utc = user_tz.localize(y).astimezone(pytz.utc)
 
                     if slot_start_utc >= start_dt_utc and slot_end_utc <= end_dt_utc:
+                        start_str = slot_start_utc.strftime(DTF)
+                        end_str = slot_end_utc.strftime(DTF)
                         res.append({
                             'className': 'booked_slot resource_%s' % b.resource_id.id,
                             'id': b.id,
                             'title': b.resource_id.name,
-                            'start': '%s+00:00' % slot_start_utc.strftime(DTF),
-                            'end': '%s+00:00' % slot_end_utc.strftime(DTF),
+                            'start': online and b.localize_to_online(start_str) or start_str,
+                            'end': online and b.localize_to_online(end_str) or end_str,
                             'resource_id': b.resource_id.id,
                             'editable': False,
                             'color': b.resource_id.color
@@ -517,7 +534,9 @@ class SaleOrderLine(models.Model):
         } for r in resources]
 
     @api.model
-    def generate_slot(self, r, start_dt, end_dt):
+    def generate_slot(self, r, start_dt, end_dt, online=False):
+        start_str = start_dt.strftime(DTF)
+        end_str = end_dt.strftime(DTF)
         return {
             'start': start_dt.strftime(DTF),
             'end': end_dt.strftime(DTF),
@@ -603,16 +622,16 @@ class SaleOrderLine(models.Model):
                         else:
                             y = start_dt.replace(hour=int(calendar_working_day.hour_to), minute=min_to)
                         if r.has_slot_calendar and x >= now and x >= start_dt and y <= end_dt:
-                            slots[r.id][x.strftime(DTF)] = self.generate_slot(r, x, y)
+                            slots[r.id][x.strftime(DTF)] = self.generate_slot(r, x, y, online=online, offset=offset)
                         elif not r.has_slot_calendar:
                             while x < y:
                                 if x >= now:
-                                    slots[r.id][x.strftime(DTF)] = self.generate_slot(r, x, x + timedelta(minutes=SLOT_DURATION_MINS))
+                                    slots[r.id][x.strftime(DTF)] = self.generate_slot(r, x, x + timedelta(minutes=SLOT_DURATION_MINS), online=online, offset=offset)
                                 x += timedelta(minutes=SLOT_DURATION_MINS)
                     start_dt += timedelta(days=1)
                     start_dt = start_dt.replace(hour=0, minute=0, second=0)
                 else:
-                    slots[r.id][start_dt.strftime(DTF)] = self.generate_slot(r, start_dt, start_dt + timedelta(minutes=SLOT_DURATION_MINS))
+                    slots[r.id][start_dt.strftime(DTF)] = self.generate_slot(r, start_dt, start_dt + timedelta(minutes=SLOT_DURATION_MINS), online=online, offset=offset)
                     start_dt += timedelta(minutes=SLOT_DURATION_MINS)
                     continue
             leaves = leave_obj.search([('name', '=', 'PH'), ('calendar_id', '=', r.calendar_id.id)])
@@ -621,13 +640,13 @@ class SaleOrderLine(models.Model):
                 to_dt = datetime.strptime(leave.date_to, '%Y-%m-%d %H:%M:00') - timedelta(minutes=offset)
                 if r.has_slot_calendar:
                     if from_dt >= now and from_dt >= start_dt and to_dt <= end_dt:
-                        slots[r.id][from_dt.strftime(DTF)] = self.generate_slot(r, from_dt, end_dt)
+                        slots[r.id][from_dt.strftime(DTF)] = self.generate_slot(r, from_dt, end_dt, online=online, offset=offset)
                     else:
                         continue
                 else:
                     from_dt = max(now, from_dt)
                     while from_dt < to_dt:
-                        slots[r.id][from_dt.strftime(DTF)] = self.generate_slot(r, from_dt, from_dt + timedelta(minutes=SLOT_DURATION_MINS))
+                        slots[r.id][from_dt.strftime(DTF)] = self.generate_slot(r, from_dt, from_dt + timedelta(minutes=SLOT_DURATION_MINS), online=online, offset=offset)
                         from_dt += timedelta(minutes=SLOT_DURATION_MINS)
 
         res = []
