@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime, timedelta
+import pytz
 import logging
 from openerp import api
 from openerp import fields
@@ -18,6 +19,15 @@ class PitchBookingVenue(models.Model):
     company_id = fields.Many2one('res.company', 'Company')
     tz = fields.Selection(_tz_get, 'Timezone', default=lambda r: r.env.context.get('tz'))
 
+    @api.multi
+    def localize(self, time_string_in_utc):
+        self.ensure_one()
+        venue_tz = pytz.timezone(self.tz)
+        time_obj = fields.Datetime.from_string(time_string_in_utc)
+        time_obj = pytz.utc.localize(time_obj).astimezone(venue_tz)
+        time_str_venue_tz = time_obj.strftime(DTF)
+        return time_str_venue_tz
+
 
 class PitchBookingPitch(models.Model):
     _name = 'pitch_booking.pitch'
@@ -28,7 +38,18 @@ class PitchBookingPitch(models.Model):
 
     venue_id = fields.Many2one('pitch_booking.venue', required=True)
     resource_id = fields.Many2one('resource.resource', ondelete='cascade', required=True)
+    tz_offset = fields.Integer(compute='_compute_tz_offset')
 
+    @api.multi
+    def _compute_tz_offset(self):
+        for record in self:
+            venue_now = datetime.now(pytz.timezone(record.venue_id.tz or r.env.context.get('tz')))
+            record.tz_offset = venue_now.utcoffset().total_seconds()/60
+
+    @api.multi
+    def get_tz_offset(self):
+        self.ensure_one()
+        return self.tz_offset
 
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
@@ -86,7 +107,7 @@ class SaleOrderLine(models.Model):
         } for r in resources]
 
     @api.model
-    def generate_slot(self, r, start_dt, end_dt):
+    def generate_slot(self, r, start_dt, end_dt, online=False, offset=0):
         return {
             'start': start_dt.strftime(DTF),
             'end': end_dt.strftime(DTF),
@@ -143,6 +164,30 @@ class SaleOrderLine(models.Model):
         if pitch and pitch.venue_id:
             res = products.filtered(lambda p: p.venue_id == pitch.venue_id)
         return res
+
+    @api.multi
+    def localize_to_online(self, time_string_in_utc):
+        # online calendar should have the setting as follows
+        # timezone: false
+        # you don't store timezone information for your events and you want all events to render consistently across all client computers, regardless of timezone
+        # online customers may book from everywhere but venues are always in certain timezone. Show online slots in venue tz therefore
+        self.ensure_one()
+        return self.venue_id.localize(time_string_in_utc)
+
+    # @api.model
+    # def generate_slot(self, r, start_dt, end_dt, online=False, offset=0):
+    #     start_str = start_dt.strftime(DTF)
+    #     end_str = end_dt.strftime(DTF)
+    #     venue = r[0].venue_id
+    #     return {
+    #         'start': online and venue.localize(start_str) or start_str,
+    #         'end': online and venue.localize(end_str) or end_str,
+    #         'title': r.name,
+    #         'color': r.color,
+    #         'className': 'free_slot resource_%s' % r.id,
+    #         'editable': False,
+    #         'resource_id': r.id
+    #     }
 
 
 class AccountInvoiceLine(models.Model):
