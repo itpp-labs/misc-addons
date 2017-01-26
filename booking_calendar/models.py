@@ -222,9 +222,9 @@ class SaleOrderLine(models.Model):
 
     @api.multi
     def write(self, vals):
-        result = super(SaleOrderLine, self).write(vals)
         if vals.get('resource_id'):
             vals['resource_trigger'] = vals.get('resource_id')
+        result = super(SaleOrderLine, self).write(vals)
         return result
 
     @api.multi
