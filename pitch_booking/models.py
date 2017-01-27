@@ -100,18 +100,6 @@ class SaleOrderLine(models.Model):
         } for r in resources]
 
     @api.model
-    def generate_slot(self, r, start_dt, end_dt, online=False, offset=0):
-        return {
-            'start': start_dt.strftime(DTF),
-            'end': end_dt.strftime(DTF),
-            'title': r.name,
-            'color': r.color,
-            'className': 'free_slot resource_%s' % r.id,
-            'editable': False,
-            'resource_id': r.resource_id.id
-        }
-
-    @api.model
     def del_booked_slots(self, slots, start, end, resources, offset, fixed_start_dt, end_dt):
         now = datetime.now() - timedelta(minutes=SLOT_START_DELAY_MINS) - timedelta(minutes=offset)
         lines = self.search_booking_lines(start, end, [('pitch_id', 'in', [r['id'] for r in resources])])
@@ -179,7 +167,7 @@ class SaleOrderLine(models.Model):
             'color': r.color,
             'className': 'free_slot resource_%s' % r.id,
             'editable': False,
-            'resource_id': r.id
+            'resource_id': r.resource_id.id
         }
 
 
