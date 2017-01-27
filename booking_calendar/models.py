@@ -74,8 +74,26 @@ class ResourceResource(models.Model):
         return bookings
 
     @api.multi
-    def get_tz_offset(self):
-        return 0
+    def interval_available_slots(self, start, end, offset, online=False):
+        # redefine in child
+        self.ensure_one()
+        return {}
+
+    @api.model
+    def generate_slot(self, start_dt, end_dt, online=False):
+        self.ensure_one()
+        start_str = start_dt.strftime(DTF)
+        end_str = end_dt.strftime(DTF)
+        return {
+            'start': start_dt.strftime(DTF),
+            'end': end_dt.strftime(DTF),
+            'title': self.name,
+            'color': self.color,
+            'className': 'free_slot resource_%s' % self.id,
+            'editable': False,
+            'resource_id': self.id
+        }
+
 
 class ResourceCalendar(models.Model):
     _inherit = 'resource.calendar'
@@ -534,20 +552,6 @@ class SaleOrderLine(models.Model):
         } for r in resources]
 
     @api.model
-    def generate_slot(self, r, start_dt, end_dt, online=False):
-        start_str = start_dt.strftime(DTF)
-        end_str = end_dt.strftime(DTF)
-        return {
-            'start': start_dt.strftime(DTF),
-            'end': end_dt.strftime(DTF),
-            'title': r.name,
-            'color': r.color,
-            'className': 'free_slot resource_%s' % r.id,
-            'editable': False,
-            'resource_id': r.id
-        }
-
-    @api.model
     def del_booked_slots(self, slots, start, end, resources, offset, fixed_start_dt, end_dt):
         now = datetime.now() - timedelta(minutes=SLOT_START_DELAY_MINS) - timedelta(minutes=offset)
         lines = self.search_booking_lines(start, end, [('resource_id', 'in', [r['id'] for r in resources])])
@@ -578,65 +582,21 @@ class SaleOrderLine(models.Model):
 
     @api.model
     def get_free_slots(self, start, end, offset, domain, online=False):
-        leave_obj = self.env['resource.calendar.leaves']
-        start_dt = datetime.strptime(start, DTF) - timedelta(minutes=offset)
-        fixed_start_dt = start_dt
         resources = self.get_free_slots_resources(domain)
         slots = {}
-        now = datetime.now() - timedelta(minutes=SLOT_START_DELAY_MINS) - timedelta(minutes=offset)
+        now = datetime.now() \
+            - timedelta(minutes=SLOT_START_DELAY_MINS) \
+            - timedelta(minutes=offset)
+        now = now.replace(hour=0, minute=0, second=0)
+        start_dt = datetime.strptime(start, DTF) - timedelta(minutes=offset)
+        start_dt = start_dt < now and now or start_dt
+        end_dt = datetime.strptime(end, DTF) - timedelta(minutes=offset)
         for r in resources:
-            if r.id not in slots:
-                slots[r.id] = {}
+            slots.update({r.id: r.interval_available_slots(start, end, offset, online=online)})
 
-            start_dt = fixed_start_dt
-            if online and r.hours_to_prepare:
-                days = r.hours_to_prepare / 24
-                hours = r.hours_to_prepare % 24
-                online_min_dt = now + timedelta(days=days, hours=hours) - timedelta(minutes=now.minute, seconds=now.second)
-                start_dt = start_dt if start_dt > online_min_dt else online_min_dt
-
-            end_dt = datetime.strptime(end, DTF) - timedelta(minutes=offset)
-            if online and r.allowed_days_interval:
-                online_max_dt = now + timedelta(days=r.allowed_days_interval) - timedelta(minutes=now.minute, seconds=now.second)
-                end_dt = end_dt if end_dt < online_max_dt else online_max_dt
-
-            while start_dt < end_dt:
-                if start_dt < now:
-                    start_dt += timedelta(minutes=SLOT_DURATION_MINS)
-                    continue
-                if not r.work_on_holidays and r.holidays_country_id:
-                    holidays = self.env['hr.holidays.public'].search([
-                        ('country_id', '=', r.holidays_country_id.id),
-                        ('year', '=', start_dt.year),
-                    ], limit=1)
-                    if holidays[0].line_ids.filtered(lambda r: r.date == start_dt.strftime(DF)):
-                        start_dt += timedelta(1)
-
-                if r.calendar_id:
-                    for calendar_working_day in r.calendar_id.get_attendances_for_weekdays([start_dt.weekday()])[0]:
-                        min_from = int((calendar_working_day.hour_from - int(calendar_working_day.hour_from)) * 60)
-                        min_to = int((calendar_working_day.hour_to - int(calendar_working_day.hour_to)) * 60)
-                        x = start_dt.replace(hour=int(calendar_working_day.hour_from), minute=min_from)
-                        if calendar_working_day.hour_to == 0:
-                            y = start_dt.replace(hour=0, minute=0) + timedelta(days=1)
-                        else:
-                            y = start_dt.replace(hour=int(calendar_working_day.hour_to), minute=min_to)
-                        if r.has_slot_calendar and x >= now and x >= start_dt and y <= end_dt:
-                            slots[r.id][x.strftime(DTF)] = self.generate_slot(r, x, y, online=online, offset=offset)
-                        elif not r.has_slot_calendar:
-                            while x < y:
-                                if x >= now:
-                                    slots[r.id][x.strftime(DTF)] = self.generate_slot(r, x, x + timedelta(minutes=SLOT_DURATION_MINS), online=online, offset=offset)
-                                x += timedelta(minutes=SLOT_DURATION_MINS)
-                    start_dt += timedelta(days=1)
-                    start_dt = start_dt.replace(hour=0, minute=0, second=0)
-                else:
-                    slots[r.id][start_dt.strftime(DTF)] = self.generate_slot(r, start_dt, start_dt + timedelta(minutes=SLOT_DURATION_MINS), online=online, offset=offset)
-                    start_dt += timedelta(minutes=SLOT_DURATION_MINS)
-                    continue
 
         res = []
-        for slot in self.del_booked_slots(slots, start, end, resources, offset, fixed_start_dt, end_dt).values():
+        for slot in self.del_booked_slots(slots, start, end, resources, offset, start_dt, end_dt).values():
             for pitch in slot.values():
                 res.append(pitch)
         return res

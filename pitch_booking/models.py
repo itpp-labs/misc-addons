@@ -11,6 +11,9 @@ from openerp.addons.base.res.res_partner import _tz_get
 
 _logger = logging.getLogger(__name__)
 
+SLOT_START_DELAY_MINS = 15
+SLOT_DURATION_MINS = 60
+
 
 class PitchBookingVenue(models.Model):
     _name = 'pitch_booking.venue'
@@ -18,6 +21,13 @@ class PitchBookingVenue(models.Model):
     name = fields.Char('Name')
     company_id = fields.Many2one('res.company', 'Company')
     tz = fields.Selection(_tz_get, 'Timezone', default=lambda r: r.env.context.get('tz'))
+    tz_offset = fields.Integer(compute='_compute_tz_offset')
+
+    @api.multi
+    def _compute_tz_offset(self):
+        for record in self:
+            venue_now = datetime.now(pytz.timezone(record.tz or r.env.context.get('tz')))
+            record.tz_offset = venue_now.utcoffset().total_seconds()/60
 
     @api.multi
     def localize(self, time_string_in_utc):
@@ -38,18 +48,90 @@ class PitchBookingPitch(models.Model):
 
     venue_id = fields.Many2one('pitch_booking.venue', required=True)
     resource_id = fields.Many2one('resource.resource', ondelete='cascade', required=True)
-    tz_offset = fields.Integer(compute='_compute_tz_offset')
 
-    @api.multi
-    def _compute_tz_offset(self):
-        for record in self:
-            venue_now = datetime.now(pytz.timezone(record.venue_id.tz or r.env.context.get('tz')))
-            record.tz_offset = venue_now.utcoffset().total_seconds()/60
-
-    @api.multi
-    def get_tz_offset(self):
+    @api.model
+    def generate_slot(self, start_dt, end_dt, online=False, offset=0):
         self.ensure_one()
-        return self.tz_offset
+        start_str = start_dt.strftime(DTF)
+        end_str = end_dt.strftime(DTF)
+        venue = self.venue_id
+        return {
+            'start': online and venue.localize(start_str) or start_str,
+            'end': online and venue.localize(end_str) or end_str,
+            'title': self.name,
+            'color': self.color,
+            'className': 'free_slot resource_%s' % self.id,
+            'editable': False,
+            'resource_id': self.resource_id.id
+        }
+
+    @api.multi
+    def interval_available_slots(self, start, end, offset, online=False):
+        self.ensure_one()
+        slots = {}
+
+        # datetime.now() is in UTC inside odoo
+        now = datetime.now() \
+            - timedelta(minutes=SLOT_START_DELAY_MINS) \
+            - timedelta(minutes=offset) \
+            + timedelta(hours=1)
+        if online:
+            now = now + timedelta(minutes=self.venue_id.tz_offset)
+        now = now.replace(minute=0, second=0)
+        start_dt = datetime.strptime(start, DTF) - timedelta(minutes=offset)
+        start_dt = start_dt < now and now or start_dt
+        end_dt = datetime.strptime(end, DTF) - timedelta(minutes=offset)
+        if online: # online fullcalendar initialized with timezone=false now, backend calendar has 'local' timezone by default
+            start_dt = start_dt - timedelta(minutes=self.venue_id.tz_offset)
+            end_dt = end_dt - timedelta(minutes=self.venue_id.tz_offset)
+
+        if online and self.hours_to_prepare:
+            online_min_dt = now + timedelta(hours=self.hours_to_prepare)
+            start_dt = start_dt if start_dt > online_min_dt else online_min_dt
+
+        if online and self.allowed_days_interval:
+            online_max_dt = now + timedelta(days=self.allowed_days_interval)
+            end_dt = end_dt if end_dt < online_max_dt else online_max_dt
+
+        while start_dt < end_dt:
+            start_d = online and \
+                (start_dt + timedelta(minutes=self.venue_id.tz_offset)).date() or \
+                start_dt.date()
+
+            if not self.work_on_holidays and self.holidays_country_id:
+                holidays = self.env['hr.holidays.public'].search([
+                    ('country_id', '=', self.holidays_country_id.id),
+                    ('year', '=', start_d.year),
+                ], limit=1)
+                if holidays[0].line_ids.filtered(lambda r: r.date == start_d.strftime(DF)):
+                    start_dt += timedelta(1)
+
+            if self.calendar_id:
+                for calendar_working_day in self.calendar_id.get_attendances_for_weekdays([start_d.weekday()])[0]:
+                    min_from = int((calendar_working_day.hour_from - int(calendar_working_day.hour_from)) * 60)
+                    min_to = int((calendar_working_day.hour_to - int(calendar_working_day.hour_to)) * 60)
+
+                    x = datetime.combine(start_d, datetime.min.time().replace(hour=int(calendar_working_day.hour_from), minute=min_from))
+                    if calendar_working_day.hour_to == 0:
+                        y = datetime.combine(start_d, datetime.min.time()) + timedelta(1)
+                    else:
+                        y = datetime.combine(start_d, datetime.min.time().replace(hour=int(calendar_working_day.hour_to), minute=min_to))
+                    if r.has_slot_calendar and x >= now and x >= start_dt and y <= end_dt:
+                        slots[r.id][x.strftime(DTF)] = self.generate_slot(r, x, y, online=online, offset=offset)
+                    elif not r.has_slot_calendar:
+                        while x < y:
+                            if x >= now:
+                                slots[x.strftime(DTF)] = self.generate_slot(x, x + timedelta(minutes=SLOT_DURATION_MINS), online=online, offset=offset)
+                            x += timedelta(minutes=SLOT_DURATION_MINS)
+                start_dt += timedelta(1)
+                start_dt = start_dt.replace(hour=0, minute=0, second=0)
+                start_dt = online and (start_dt - timedelta(minutes=self.venue_id.tz_offset)) or start_dt
+            else:
+                slots[start_dt.strftime(DTF)] = self.generate_slot(start_dt, start_dt + timedelta(minutes=SLOT_DURATION_MINS), online=online, offset=offset)
+                start_dt += timedelta(minutes=SLOT_DURATION_MINS)
+
+        return slots
+
 
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
@@ -154,21 +236,6 @@ class SaleOrderLine(models.Model):
         # online customers may book from everywhere but venues are always in certain timezone. Show online slots in venue tz therefore
         self.ensure_one()
         return self.venue_id.localize(time_string_in_utc)
-
-    @api.model
-    def generate_slot(self, r, start_dt, end_dt, online=False, offset=0):
-        start_str = start_dt.strftime(DTF)
-        end_str = end_dt.strftime(DTF)
-        venue = r[0].venue_id
-        return {
-            'start': online and venue.localize(start_str) or start_str,
-            'end': online and venue.localize(end_str) or end_str,
-            'title': r.name,
-            'color': r.color,
-            'className': 'free_slot resource_%s' % r.id,
-            'editable': False,
-            'resource_id': r.resource_id.id
-        }
 
 
 class AccountInvoiceLine(models.Model):
