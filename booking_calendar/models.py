@@ -634,20 +634,6 @@ class SaleOrderLine(models.Model):
                     slots[r.id][start_dt.strftime(DTF)] = self.generate_slot(r, start_dt, start_dt + timedelta(minutes=SLOT_DURATION_MINS), online=online, offset=offset)
                     start_dt += timedelta(minutes=SLOT_DURATION_MINS)
                     continue
-            leaves = leave_obj.search([('name', '=', 'PH'), ('calendar_id', '=', r.calendar_id.id)])
-            for leave in leaves:
-                from_dt = datetime.strptime(leave.date_from, '%Y-%m-%d %H:%M:00') - timedelta(minutes=offset)
-                to_dt = datetime.strptime(leave.date_to, '%Y-%m-%d %H:%M:00') - timedelta(minutes=offset)
-                if r.has_slot_calendar:
-                    if from_dt >= now and from_dt >= start_dt and to_dt <= end_dt:
-                        slots[r.id][from_dt.strftime(DTF)] = self.generate_slot(r, from_dt, end_dt, online=online, offset=offset)
-                    else:
-                        continue
-                else:
-                    from_dt = max(now, from_dt)
-                    while from_dt < to_dt:
-                        slots[r.id][from_dt.strftime(DTF)] = self.generate_slot(r, from_dt, from_dt + timedelta(minutes=SLOT_DURATION_MINS), online=online, offset=offset)
-                        from_dt += timedelta(minutes=SLOT_DURATION_MINS)
 
         res = []
         for slot in self.del_booked_slots(slots, start, end, resources, offset, fixed_start_dt, end_dt).values():
