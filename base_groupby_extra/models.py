@@ -32,7 +32,7 @@ class GroupByExtra(models.AbstractModel):
             res = {
                 'field': split[0],
                 'groupby': gb,
-                'type': field_type, 
+                'type': field_type,
                 'display_format': display_formats[gb_function or 'month'] if temporal else None,
                 'interval': time_intervals[gb_function or 'month'] if temporal else None,
                 'tz_convert': tz_convert,
