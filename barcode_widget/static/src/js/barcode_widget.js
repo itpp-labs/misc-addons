@@ -8,7 +8,6 @@ odoo.define('barcode_widget.form_widgets', function (require) {
     var Barcode128Widget = FieldChar.extend({
         template: 'Barcode128Widget',
         render_value: function () {
-            this._super.apply(this, arguments);
             var show_value = this.format_value(this.get('value'), '');
             var barcode_path = '/report/barcode/?type=Code128&value=' + show_value +'&width=250&height=50';
             var $barcodelink = this.$el.find('a');
