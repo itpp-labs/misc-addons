@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import dateutil
 import pytz
+import babel.dates
 
-from odoo import models, api
+from openerp import models, api
 
 
 class GroupByExtra(models.AbstractModel):
@@ -41,3 +42,23 @@ class GroupByExtra(models.AbstractModel):
         else:
             res = super(GroupByExtra, self)._read_group_process_groupby(gb, query)
         return res
+
+    # 9.0 only
+    def _read_group_format_result(self, data, annotated_groupbys, groupby, groupby_dict, domain, context):
+        """
+        Modify built-in function to call format_datetime (original
+        implementation calls only format_date)
+        """
+        domain_group = [dom for gb in annotated_groupbys for dom in self._read_group_get_domain(gb, data[gb['groupby']])]
+        for k, v in data.iteritems():
+            gb = groupby_dict.get(k)
+            if gb and gb['type'] in ('datetime') and v:
+                data[k] = babel.dates.format_datetime(v, format=gb['display_format'], locale=context.get('lang', 'en_US'))
+            elif gb and gb['type'] in ('date') and v:
+                data[k] = babel.dates.format_date(v, format=gb['display_format'], locale=context.get('lang', 'en_US'))
+
+        data['__domain'] = domain_group + domain
+        if len(groupby) - len(annotated_groupbys) >= 1:
+            data['__context'] = {'group_by': groupby[len(annotated_groupbys):]}
+        del data['id']
+        return data
