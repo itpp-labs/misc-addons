@@ -14,6 +14,7 @@
     """,
     'author': 'The Gok Team, IT-Projects LLC',
     'depends': [
+        'web',
     ],
 
     'data': [
