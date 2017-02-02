@@ -12,7 +12,7 @@
         Ex: <field name="barcode" widget="BarCode128" />
 
     """,
-    'author': 'The Gok Team',
+    'author': 'The Gok Team, IT-Projects LLC',
     'depends': [
     ],
 
@@ -20,7 +20,7 @@
         'views/assets.xml'
     ],
 
-    'qweb': ['static/src/xml/*.xml'],
+    'qweb': ['static/src/xml/barcode_widget.xml'],
     'js': [],
     'test': [],
     'demo': [],
