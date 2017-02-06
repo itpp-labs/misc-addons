@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": """Production Lot Details""",
-    "summary": """Allows to add links with describes of production lot.""",
+    "summary": """Allows to add links with describe of production lots.""",
     "category": "Extra Tools",
     "images": ["static/description/icon.png"],
     "version": "1.0.0",
@@ -18,7 +18,7 @@
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
-        'security/production_lot_detail_security.xml',
+        'data/security_demo.xml',
         'views/production_lot_detail.xml',
     ],
     "qweb": [
