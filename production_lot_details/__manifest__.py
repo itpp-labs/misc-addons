@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": """Production Lot Details""",
-    "summary": """Allows to add links with describe of production lots.""",
+    "summary": """Allows to add links with details for production lots.""",
     "category": "Extra Tools",
     "images": ["static/description/icon.png"],
     "version": "1.0.0",
