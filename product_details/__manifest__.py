@@ -14,7 +14,7 @@
     # "currency": "EUR",
 
     "depends": [
-        'stock', 'base_details',
+        'product', 'base_details',
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
