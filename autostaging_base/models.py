@@ -66,13 +66,8 @@ class AutostagingCard(models.AbstractModel):
 
     @api.multi
     def _get_autostaging_date(self):
-        for r in self:
-            r._get_autostaging_date_one()
-        return True
-
-    @api.multi
-    def _get_autostaging_date_one(self):
         self.ensure_one()
+
         delta = datetime.timedelta(days=getattr(self, self._field_stage_id).autostaging_idle_timeout)
         return (datetime.datetime.strptime(
             self.write_date, DEFAULT_SERVER_DATETIME_FORMAT) + delta).strftime(DEFAULT_SERVER_DATETIME_FORMAT)
