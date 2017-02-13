@@ -27,5 +27,5 @@
         "data/pre_install.yml",
     ],
 
-    "installable": True,
+    "installable": False,
 }
