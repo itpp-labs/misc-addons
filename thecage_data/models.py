@@ -97,7 +97,6 @@ class SaleOrderLine(models.Model):
                 r.send_booking_time()
         return result
 
-
     @api.multi
     def send_booking_time(self):
         for r in self:
