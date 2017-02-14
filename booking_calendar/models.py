@@ -220,7 +220,7 @@ class SaleOrderLine(models.Model):
     because resource_id is related to pitch in pitch_booking module. If we hadn't done it then _compute_date_overlap would be called
     for each line with the same resource instead of only only for current new line''')
 
-    @api.one
+    @api.multi
     def write(self, vals):
         result = super(SaleOrderLine, self).write(vals)
         if vals.get('resource_id'):
