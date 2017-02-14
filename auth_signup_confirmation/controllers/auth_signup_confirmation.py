@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import werkzeug
-from openerp import SUPERUSER_ID
 from openerp.addons.auth_signup.controllers.main import AuthSignupHome
 from openerp import http
 from openerp.http import request

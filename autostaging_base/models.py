@@ -5,6 +5,7 @@ import datetime
 import time
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from openerp.exceptions import ValidationError
+from odoo.tools.translate import _
 
 
 class AutostagingFolder(models.AbstractModel):
@@ -35,8 +36,8 @@ class AutostagingStage(models.AbstractModel):
     @api.constrains('autostaging_idle_timeout')
     def _check_autostaging_idle_timeout(self):
         if self.autostaging_enabled and self.autostaging_idle_timeout <= 0:
-            raise ValidationError(
-                "Days limit field value must be greater than 0")
+            raise ValidationError(_(
+                "Days limit field value must be greater than 0"))
 
 
 class AutostagingCard(models.AbstractModel):
