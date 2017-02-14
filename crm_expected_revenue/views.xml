@@ -4,6 +4,7 @@
 <record model="ir.ui.view" id="crm_case_kanban_view_leads">
     <field name="model">crm.lead</field>
     <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+    <field name="priority" eval="1000"/>
     <field name="arch" type="xml">
         <xpath expr="//field[@name='planned_revenue']" position="replace">
             <field name="planned_revenue"/>

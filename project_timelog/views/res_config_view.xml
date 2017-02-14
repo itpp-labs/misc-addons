@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_config_settings" model="ir.ui.view">
+            <field name="name">timelog settings</field>
+            <field name="model">timelog.config.settings</field>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <form string="Configure Project" class="oe_form_configuration">
+                    <header>
+                        <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" type="object" name="cancel" class="oe_link"/>
+                    </header>
+                    <separator string="Timelog Management"/>
+                    <group>
+                        <label for="id" string="Subtasks"/>
+                        <div>
+                            <div>
+                                <label for="time_warning_subtasks"/>
+                                <field name="time_warning_subtasks" class="oe_inline" widget="float_time"/>
+                            </div>
+                            <div>
+                                <label for="time_subtasks"/>
+                                <field name="time_subtasks" class="oe_inline" widget="float_time"/>
+                            </div>
+                        </div>
+                    </group>
+                    <group>
+                        <label for="id" string="Day"/>
+                        <div>
+                            <div>
+                                <label for="normal_time_day"/>
+                                <field name="normal_time_day" class="oe_inline" widget="float_time"/>
+                            </div>
+                            <div>
+                                <label for="good_time_day"/>
+                                <field name="good_time_day" class="oe_inline" widget="float_time"/>
+                            </div>
+                        </div>
+                    </group>
+                    <group>
+                        <label for="id" string="Week"/>
+                        <div>
+                            <div>
+                                <label for="normal_time_week"/>
+                                <field name="normal_time_week" class="oe_inline" widget="float_time"/>
+                            </div>
+                            <div>
+                                <label for="good_time_week"/>
+                                <field name="good_time_week" class="oe_inline" widget="float_time"/>
+                            </div>
+                        </div>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_config_settings" model="ir.actions.act_window">
+            <field name="name">Configure Timelog</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">timelog.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+        <menuitem id="base.menu_timelog_config" name="Timelog" parent="base.menu_config"
+            sequence="15" action="action_config_settings"/>
+    </data>
+</openerp>

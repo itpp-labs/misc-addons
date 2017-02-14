@@ -35,11 +35,11 @@ class SaleOrderLine(models.Model):
     pitch_id = fields.Many2one('pitch_booking.pitch', string='Pitch')
     resource_id = fields.Many2one('resource.resource', 'Resource', related='pitch_id.resource_id', store=True)
 
-    @api.one
+    @api.multi
     def write(self, vals):
-        result = super(SaleOrderLine, self).write(vals)
         if vals.get('pitch_id') and not vals.get('resource_id'):
             vals['resource_id'] = self.env['pitch_booking.pitch'].browse(vals.get('pitch_id')).resource_id
+        result = super(SaleOrderLine, self).write(vals)
         return result
 
     @api.onchange('resource_id')

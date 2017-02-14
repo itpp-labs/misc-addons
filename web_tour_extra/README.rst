@@ -13,3 +13,5 @@ Extra features for tours:
       </record>
 
     if you are developer, don't forget to change url ``/web?res_partner_mails_count=tutorial#...`` back to ``/web#...`` whenever you want to relaunch the Tour (usually by uninstalling and installing your module).
+
+* fix ignoring step's title if there is title in step's element

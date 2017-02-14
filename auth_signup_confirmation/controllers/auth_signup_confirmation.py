@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import werkzeug
-from openerp import SUPERUSER_ID
 from openerp.addons.auth_signup.controllers.main import AuthSignupHome
 from openerp import http
 from openerp.http import request
@@ -38,8 +37,8 @@ class AuthConfirm(AuthSignupHome):
             res = self._singup_with_confirmation(*args, **kw)
             message = request.env['mail.message'].sudo().search([('res_id', '=', res['partner_id']),
                                                                  ('subject', '=', 'Confirm registration')])
-            message.sudo(res['user_id']).set_message_done([res['partner_id']])
-            registration_redirect_url = request.registry['ir.config_parameter'].get_param(request.cr, SUPERUSER_ID, 'auth_signup_confirmation.url_singup_thankyou')
+            message.sudo(res['user_id']).set_message_done()
+            registration_redirect_url = request.env['ir.config_parameter'].sudo().get_param('auth_signup_confirmation.url_singup_thankyou')
             return werkzeug.utils.redirect(registration_redirect_url)
         except UserExists:
             pass
@@ -69,25 +68,22 @@ class AuthConfirm(AuthSignupHome):
             new_partner = new_user.partner_id
             new_partner.email = kw['login']
         else:
-            new_partner = request.env['res.partner'].sudo().with_context(signup_force_type_in_url='signup/confirm',
-                                                                         signup_valid=True).create(
-                {
-                    'name': kw['name'],
-                    'email': kw['login'],
-                }
-            )
             res_users = request.env['res.users']
-            values = {'partner_id': new_partner.id,
-                      'login': kw['login'],
+            values = {'login': kw['login'],
+                      'email': kw.get('email') or kw['login'],
                       'password': kw['password'],
                       'name': kw['name'],
                       'alias_name': kw['name']}
-            new_user_id = res_users.sudo()._signup_create_user(values)
-            new_user = request.env['res.users'].sudo().search([('id', '=', new_user_id)])
+            new_user = res_users.sudo().with_context(
+                signup_force_type_in_url='signup/confirm',
+                signup_valid=True
+            )._signup_create_user(values)
             new_user.active = False
+            new_partner = new_user.partner_id
         redirect_url = werkzeug.url_encode({'redirect': kw['redirect']})
+        new_partner.signup_prepare()
         signup_url = new_partner.with_context(signup_force_type_in_url='signup/confirm',
-                                              signup_valid=True)._get_signup_url(SUPERUSER_ID, [new_partner.id])[new_partner.id]
+                                              signup_valid=True).signup_url
         if redirect_url != 'redirect=':
             signup_url += '&%s' % redirect_url
         # send email
