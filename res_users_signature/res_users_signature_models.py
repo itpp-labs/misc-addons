@@ -43,11 +43,12 @@ class ResUsers(models.Model):
         if html != self.signature:
             self.signature = html
 
-    @api.one
+    @api.multi
     def write(self, vals):
         res = super(ResUsers, self).write(vals)
-        if any([k in vals for k in ['company_id']]):
-            self.render_signature_id()
+        for r in self:
+            if any([k in vals for k in ['company_id']]):
+                r.render_signature_id()
         return res
 
 
@@ -75,25 +76,34 @@ You can use control structures:
 ''')
     user_ids = fields.One2many('res.users', 'signature_id', string='Users')
 
-    @api.one
+    @api.multi
     def write(self, vals):
         res = super(ResUsersSignature, self).write(vals)
-        self.action_update_signature()
+        for r in self:
+            r.action_update_signature()
         return res
 
-    @api.one
+    @api.multi
     def action_update_signature(self):
+        for r in self:
+            r.action_update_signature_one()
+        return True
+
+    @api.multi
+    def action_update_signature_one(self):
+        self.ensure_one()
         self.user_ids.render_signature_id()
 
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    @api.one
+    @api.multi
     def write(self, vals):
         res = super(ResPartner, self).write(vals)
-        if self.user_ids:
-            self.user_ids.render_signature_id()
+        for r in self:
+            if r.user_ids:
+                r.user_ids.render_signature_id()
         return res
 
 
@@ -112,6 +122,7 @@ class IrMailServer(models.Model):
         pattern = re.compile(r'"data:image/png;base64,[^"]*"')
         pos = 0
         new_body = ''
+        body = body or ''
         while True:
             match = pattern.search(body, pos)
             if not match:
