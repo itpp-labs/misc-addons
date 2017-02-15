@@ -25,7 +25,7 @@ class IrAttachment(models.Model):
             res = os.environ.get(os_var_name)
             if res:
                 config_obj.set_param(param_name, res)
-                _logger.info('ir_attachment_s3: parameter {} has been created from env {}'.format(param_name, res))
+                _logger.info('parameter {} has been created from env {}'.format(param_name, os_var_name))
         return res
 
     @api.model
