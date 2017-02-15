@@ -69,20 +69,30 @@ class PitchBookingPitch(models.Model):
     def interval_available_slots(self, start, end, offset, online=False):
         self.ensure_one()
         slots = {}
+        # offset is 0 if slots request comes from online calendar
 
         # datetime.now() is in UTC inside odoo
         now = datetime.now() \
             - timedelta(minutes=SLOT_START_DELAY_MINS) \
             - timedelta(minutes=offset) \
             + timedelta(hours=1)
-        if online:
-            now = now + timedelta(minutes=self.venue_id.tz_offset)
         now = now.replace(minute=0, second=0)
         start_dt = datetime.strptime(start, DTF) - timedelta(minutes=offset)
-        start_dt = start_dt < now and now or start_dt
+        is_current_week = False
+        if start_dt < now:
+            is_current_week = True
+            start_dt = now
         end_dt = datetime.strptime(end, DTF) - timedelta(minutes=offset)
         if online: # online fullcalendar initialized with timezone=false now, backend calendar has 'local' timezone by default
-            start_dt = start_dt - timedelta(minutes=self.venue_id.tz_offset)
+
+            # the difference between them is that backend calendar takes slots in utc and localizes them (using system timezone settings)
+            # online calendar in its turn doesn't localize slots but expects them in proper timezone (that is from venue)
+
+            # for online we should shift start so that after localization it would be from 00:00 for future weeks
+            # and now for current week
+            # (we localize online slots before place them on calendar in self.generate_slot)
+            if not is_current_week:
+                start_dt = start_dt - timedelta(minutes=self.venue_id.tz_offset)
             end_dt = end_dt - timedelta(minutes=self.venue_id.tz_offset)
 
         if online and self.hours_to_prepare:
