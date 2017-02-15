@@ -6,6 +6,7 @@ from openerp import api
 from openerp import fields
 from openerp import models
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
+from openerp.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 from openerp.addons.booking_calendar.models import SLOT_START_DELAY_MINS, SLOT_DURATION_MINS
 from openerp.addons.base.res.res_partner import _tz_get
 
