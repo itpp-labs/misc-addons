@@ -27,7 +27,7 @@ class PitchBookingVenue(models.Model):
     @api.multi
     def _compute_tz_offset(self):
         for record in self:
-            venue_now = datetime.now(pytz.timezone(record.tz or r.env.context.get('tz')))
+            venue_now = datetime.now(pytz.timezone(record.tz or record.env.context.get('tz')))
             record.tz_offset = venue_now.utcoffset().total_seconds()/60
 
     @api.multi
@@ -51,14 +51,14 @@ class PitchBookingPitch(models.Model):
     resource_id = fields.Many2one('resource.resource', ondelete='cascade', required=True)
 
     @api.model
-    def generate_slot(self, start_dt, end_dt, online=False, offset=0):
+    def generate_slot(self, start_dt, end_dt, online=False, offset=0, calendar=False):
         self.ensure_one()
         start_str = start_dt.strftime(DTF)
         end_str = end_dt.strftime(DTF)
         venue = self.venue_id
         return {
-            'start': online and venue.localize(start_str) or start_str,
-            'end': online and venue.localize(end_str) or end_str,
+            'start': online and not calendar and venue.localize(start_str) or start_str,
+            'end': online and not calendar and venue.localize(end_str) or end_str,
             'title': self.name,
             'color': self.color,
             'className': 'free_slot resource_%s' % self.id,
@@ -118,25 +118,28 @@ class PitchBookingPitch(models.Model):
                     start_dt += timedelta(1)
 
             if self.calendar_id:
-                for calendar_working_day in self.calendar_id.get_attendances_for_weekdays([start_d.weekday()])[0]:
-                    min_from = int((calendar_working_day.hour_from - int(calendar_working_day.hour_from)) * 60)
-                    min_to = int((calendar_working_day.hour_to - int(calendar_working_day.hour_to)) * 60)
+                for attendance in self.calendar_id.get_attendances_for_weekdays([start_d.weekday()])[0]:
+                    min_from = int((attendance.hour_from - int(attendance.hour_from)) * 60)
+                    min_to = int((attendance.hour_to - int(attendance.hour_to)) * 60)
 
-                    x = datetime.combine(start_d, datetime.min.time().replace(hour=int(calendar_working_day.hour_from), minute=min_from))
-                    if calendar_working_day.hour_to == 0:
+                    x = datetime.combine(start_d, datetime.min.time().replace(hour=int(attendance.hour_from), minute=min_from))
+                    if attendance.hour_to == 0:
                         y = datetime.combine(start_d, datetime.min.time()) + timedelta(1)
                     else:
-                        y = datetime.combine(start_d, datetime.min.time().replace(hour=int(calendar_working_day.hour_to), minute=min_to))
+                        y = datetime.combine(start_d, datetime.min.time().replace(hour=int(attendance.hour_to), minute=min_to))
                     if self.has_slot_calendar and x >= now and x >= start_dt and y <= end_dt:
-                        slots[x.strftime(DTF)] = self.generate_slot(x, y, online=online, offset=offset)
+                        slots[x.strftime(DTF)] = self.generate_slot(x, y, online=online, offset=offset, calendar=True)
                     elif not self.has_slot_calendar:
                         while x < y:
                             if x >= now:
-                                slots[x.strftime(DTF)] = self.generate_slot(x, x + timedelta(minutes=SLOT_DURATION_MINS), online=online, offset=offset)
+                                slots[x.strftime(DTF)] = self.generate_slot(x,
+                                                                            x + timedelta(minutes=SLOT_DURATION_MINS),
+                                                                            online=online,
+                                                                            offset=offset,
+                                                                            calendar=True)
                             x += timedelta(minutes=SLOT_DURATION_MINS)
                 start_dt += timedelta(1)
                 start_dt = start_dt.replace(hour=0, minute=0, second=0)
-                start_dt = online and (start_dt - timedelta(minutes=self.venue_id.tz_offset)) or start_dt
             else:
                 slots[start_dt.strftime(DTF)] = self.generate_slot(start_dt, start_dt + timedelta(minutes=SLOT_DURATION_MINS), online=online, offset=offset)
                 start_dt += timedelta(minutes=SLOT_DURATION_MINS)
