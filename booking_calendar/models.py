@@ -82,8 +82,6 @@ class ResourceResource(models.Model):
     @api.model
     def generate_slot(self, start_dt, end_dt, online=False):
         self.ensure_one()
-        start_str = start_dt.strftime(DTF)
-        end_str = end_dt.strftime(DTF)
         return {
             'start': start_dt.strftime(DTF),
             'end': end_dt.strftime(DTF),
@@ -593,7 +591,6 @@ class SaleOrderLine(models.Model):
         end_dt = datetime.strptime(end, DTF) - timedelta(minutes=offset)
         for r in resources:
             slots.update({r.id: r.interval_available_slots(start, end, offset, online=online)})
-
 
         res = []
         for slot in self.del_booked_slots(slots, start, end, resources, offset, start_dt, end_dt).values():

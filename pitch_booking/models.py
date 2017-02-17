@@ -84,7 +84,8 @@ class PitchBookingPitch(models.Model):
             is_current_week = True
             start_dt = now
         end_dt = datetime.strptime(end, DTF) - timedelta(minutes=offset)
-        if online: # online fullcalendar initialized with timezone=false now, backend calendar has 'local' timezone by default
+        if online:
+            # online fullcalendar initialized with timezone=false now, backend calendar has 'local' timezone by default
 
             # the difference between them is that backend calendar takes slots in utc and localizes them (using system timezone settings)
             # online calendar in its turn doesn't localize slots but expects them in proper timezone (that is from venue)
