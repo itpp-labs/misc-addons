@@ -1,3 +1,8 @@
+`1.0.15`
+--------
+
+- FIX: Updating Title didn't work on *Optimize SEO* website tool
+
 `1.0.14`
 --------
 
