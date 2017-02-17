@@ -67,6 +67,7 @@
                     <group>
                       <field name="name"/>
                       <field name="company_id"/>
+                      <field name="tz"/>
                     </group>
                   </sheet>
                 </form>
