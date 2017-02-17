@@ -127,7 +127,9 @@ class PitchBookingPitch(models.Model):
                         y = datetime.combine(start_d, datetime.min.time()) + timedelta(1)
                     else:
                         y = datetime.combine(start_d, datetime.min.time().replace(hour=int(attendance.hour_to), minute=min_to))
-                    if self.has_slot_calendar and x >= now and x >= start_dt and y <= end_dt:
+                    if self.has_slot_calendar and \
+                            (not online and x >= now or online and x >= now + timedelta(minutes=self.venue_id.tz_offset)) \
+                            and x >= start_dt and y <= end_dt:
                         slots[x.strftime(DTF)] = self.generate_slot(x, y, online=online, offset=offset, calendar=True)
                     elif not self.has_slot_calendar:
                         while x < y:
