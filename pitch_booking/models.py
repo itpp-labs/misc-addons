@@ -77,7 +77,7 @@ class PitchBookingPitch(models.Model):
             - timedelta(minutes=SLOT_START_DELAY_MINS) \
             - timedelta(minutes=offset) \
             + timedelta(hours=1)
-        now = now.replace(minute=0, second=0)
+        now = now.replace(minute=0, second=0, microsecond=0)
         start_dt = datetime.strptime(start, DTF) - timedelta(minutes=offset)
         is_current_week = False
         if start_dt < now:
