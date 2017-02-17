@@ -131,7 +131,7 @@ class PitchBookingPitch(models.Model):
                         slots[x.strftime(DTF)] = self.generate_slot(x, y, online=online, offset=offset, calendar=True)
                     elif not self.has_slot_calendar:
                         while x < y:
-                            if x >= now:
+                            if not online and x >= now or online and x >= now + timedelta(minutes=self.venue_id.tz_offset):
                                 slots[x.strftime(DTF)] = self.generate_slot(x,
                                                                             x + timedelta(minutes=SLOT_DURATION_MINS),
                                                                             online=online,
