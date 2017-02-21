@@ -23,8 +23,7 @@ class BaseDetails(models.AbstractModel):
 
     @api.onchange('details_model')
     def _onchange_details_model(self):
-        print 'onchange'
-        if self.env['ir.model'].search([('model', '=', self.details_model)]):
+        if self.details_model and self.details_model in self.env:
             self.details_model_exists = True
         else:
             self.details_model_exists = False
