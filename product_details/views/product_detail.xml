@@ -12,7 +12,8 @@
                         <label for="details_res_id"/>
                         <div>
                             <field name="details_model" widget="polymorphic" polymorphic="details_res_id" class="oe_inline"/>
-                            <field name="details_res_id" widget="many2one" class="oe_inline" style="margin-left: 10px;"/>
+                            <field name="details_model_exists" invisible="1"/>
+                            <field name="details_res_id" widget="many2one" class="oe_inline" style="margin-left: 10px;" attrs="{'invisible':[('details_model_exists', '=', False)]}"/>
                         </div>
                     </group>
                 </xpath>
