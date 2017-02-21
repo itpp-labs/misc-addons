@@ -2,10 +2,7 @@
  Base Details
 ==============
 
-The module allows to add reference in any models.
-The reference consist of model name and record id. A list of models is contained in the ``details_model`` field.
-It's generated in the ``_model_selection`` function which can be overridden in your code.
-Also the module adds property ``details`` what allows get record with details, e.g.::
+The module allows to add reference in any models. The reference consist of model name and record id. A list of models is contained in the ``details_model`` field. It's generated in the ``_model_selection`` function which can be overridden in your code. Also the module adds property ``details`` what allows get record with details, e.g.::
 
     self.product_id.details
 
@@ -18,11 +15,11 @@ Contributors
 
 Sponsors
 --------
-* `IT-Projects LLC <https://it-projects.info>`_
+* `IT-Projects LLC <https://it-projects.info>`__
 
 Maintainers
 -----------
-* `IT-Projects LLC <https://it-projects.info>`_
+* `IT-Projects LLC <https://it-projects.info>`__
 
 Further information
 ===================
