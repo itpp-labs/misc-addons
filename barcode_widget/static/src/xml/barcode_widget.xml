@@ -1,25 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
     <t t-name="Barcode128Widget">
-        <div>
-            <span t-att-class="'oe_form_field '+widget.widget_class" t-att-style="widget.node.attrs.style">
-                <t t-if="!widget.get('effective_readonly')">
-                    <input
-                        t-att-type="widget.password ? 'password' : 'text'"
-                        t-att-barcode_events="widget.options.barcode_events"
-                        t-att-id="widget.id_for_label"
-                        t-att-tabindex="widget.node.attrs.tabindex"
-                        t-att-autofocus="widget.node.attrs.autofocus"
-                        t-att-placeholder="widget.node.attrs.placeholder"
-                        t-att-maxlength="widget.field.size"
-                    /><img class="oe_field_translate oe_input_icon" t-if="widget.field.translate" t-att-src='_s + "/web/static/src/img/icons/terp-translate.png"' width="16" height="16" border="0"/>
-                </t>
-                <t t-if="widget.get('effective_readonly')">
-                    <a target="_blank">
-                        <img/>
-                    </a>
-                </t>
-            </span>
+        <input t-if="!widget.get('effective_readonly')" class="o_form_input"
+               t-att-barcode_events="widget.options.barcode_events"
+               t-att-type="widget.password ? 'password' : 'text'"
+               t-att-id="widget.id_for_label"
+               t-att-tabindex="widget.node.attrs.tabindex"
+               t-att-autofocus="widget.node.attrs.autofocus"
+               t-att-placeholder="widget.node.attrs.placeholder"
+               t-att-maxlength="widget.field.size"/>
+        <div t-if="widget.get('effective_readonly')">
+            <span/>
+            <a target="_blank">
+                <img/>
+            </a>
         </div>
     </t>
 </templates>
