@@ -19,6 +19,14 @@ class BaseDetails(models.AbstractModel):
 
     details_model = fields.Selection('_model_selection', string='Detail Model')
     details_res_id = fields.Integer(string='Details')
+    details_model_exists = fields.Boolean(string='Details Model Exists')
+
+    @api.onchange('details_model')
+    def _onchange_details_model(self):
+        if self.details_model and self.details_model in self.env:
+            self.details_model_exists = True
+        else:
+            self.details_model_exists = False
 
 
 class BaseDetailsRecord(models.AbstractModel):
