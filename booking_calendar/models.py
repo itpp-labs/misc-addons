@@ -252,6 +252,28 @@ class SaleOrderLine(models.Model):
             line.partner_id = line.order_id.partner_id
             line.project_id = line.order_id.project_id
 
+    @api.model
+    def is_overlaps(self, resource_id, booking_start, booking_end, self_ids=None):
+        if not self_ids:
+            self_ids = []
+        overlaps = 0
+        if resource_id and booking_start and booking_end:
+            overlaps = self.search_count([('active', '=', True),
+                                          '&', '|', '&', ('booking_start', '>=', booking_start), ('booking_start', '<', booking_end),
+                                          '&', ('booking_end', '>', booking_start), ('booking_end', '<=', booking_end),
+                                          ('resource_id', '!=', False),
+                                          ('id', 'not in', self_ids),
+                                          ('resource_id', '=', resource_id),
+                                          ('state', '!=', 'cancel')])
+            overlaps += self.search_count([('active', '=', True),
+                                           ('id', 'not in', self_ids),
+                                           ('booking_start', '=', booking_start),
+                                           ('booking_end', '=', booking_end),
+                                           ('resource_id', '=', resource_id),
+                                           ('state', '!=', 'cancel')])
+        return overlaps
+
+
     @api.multi
     @api.depends('resource_trigger', 'booking_start', 'booking_end', 'active')
     def _compute_date_overlap(self):
