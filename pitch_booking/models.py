@@ -291,7 +291,7 @@ class SaleOrder(models.Model):
                 line = super(SaleOrder, rec)._add_booking_line(product_id, resource, start, end, tz_offset)
                 pitch_obj = rec.env['pitch_booking.pitch'].sudo()
                 pitchs = pitch_obj.search([('resource_id', '=', resource)], limit=1)
-                if pitchs:
+                if pitchs and line:
                     line.write({
                         'pitch_id': pitchs[0].id,
                         'venue_id': pitchs[0].venue_id.id
