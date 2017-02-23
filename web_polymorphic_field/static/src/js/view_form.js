@@ -19,7 +19,7 @@
 odoo.define('web_polymorphic_field.FieldPolymorphic', function (require) {
     var core = require('web.core');
 
-    var FieldSelection = core.form_widget_registry.get('selection')
+    var FieldSelection = core.form_widget_registry.get('selection');
     var FieldPolymorphic = FieldSelection.extend( {
         template: "FieldSelection",
         init: function(field_manager, node) {
@@ -30,23 +30,16 @@ odoo.define('web_polymorphic_field.FieldPolymorphic', function (require) {
             if(this.get_value() != false) {
                 polymorphic_field = this.field_manager.fields[this.polymorphic];
                 polymorphic_field.field.relation = this.get_value();
-                if (reinit) {
-                    polymorphic_field.reinit_value();
-                }
             }
         },
         render_value: function() {
             this._super();
-            this.add_polymorphism(); 
+            this.add_polymorphism();
         },
         store_dom_value: function (e) {
             this._super();
-            var reinit = false;
-            if (e && e.type == 'change') {
-                reinit = true;
-            }
-            this.add_polymorphism(reinit); 
+            this.add_polymorphism();
         }
     });
-    core.form_widget_registry.add('polymorphic', FieldPolymorphic)
+    core.form_widget_registry.add('polymorphic', FieldPolymorphic);
 });
