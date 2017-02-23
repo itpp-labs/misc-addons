@@ -273,7 +273,6 @@ class SaleOrderLine(models.Model):
                                            ('state', '!=', 'cancel')])
         return overlaps
 
-
     @api.multi
     @api.depends('resource_trigger', 'booking_start', 'booking_end', 'active')
     def _compute_date_overlap(self):
