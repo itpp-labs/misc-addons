@@ -346,6 +346,10 @@ class SaleOrderLine(models.Model):
                 resource = line.resource_id
                 start_dt = datetime.strptime(line.booking_start, DTF).replace(second=0, microsecond=0)
                 end_dt = datetime.strptime(line.booking_end, DTF).replace(second=0, microsecond=0)
+                # localize times from db (UTC times) in user tz first
+                start_dt = pytz.utc.localize(start_dt).astimezone(user_tz)
+                end_dt = pytz.utc.localize(end_dt).astimezone(user_tz)
+
                 allowed_start = []
                 allowed_end = []
                 if resource.calendar_id:
@@ -353,15 +357,12 @@ class SaleOrderLine(models.Model):
                         min_from = int((calendar_working_day.hour_from - int(calendar_working_day.hour_from)) * 60)
                         min_to = int((calendar_working_day.hour_to - int(calendar_working_day.hour_to)) * 60)
                         x = start_dt.replace(hour=int(calendar_working_day.hour_from), minute=min_from)
-                        user_tz.localize(x).astimezone(pytz.utc)
-                        allowed_start.append(user_tz.localize(x).astimezone(pytz.utc))
+                        allowed_start.append(x)
                         if calendar_working_day.hour_to == 0:
                             y = start_dt.replace(hour=0, minute=0) + timedelta(days=1)
                         else:
                             y = start_dt.replace(hour=int(calendar_working_day.hour_to), minute=min_to)
-                        allowed_end.append(user_tz.localize(y).astimezone(pytz.utc))
-                start_dt = pytz.utc.localize(start_dt)
-                end_dt = pytz.utc.localize(end_dt)
+                        allowed_end.append(y)
                 if (start_dt not in allowed_start) or (end_dt not in allowed_end):
                     msg = "There are bookings with times outside the allowed boundary"
                     raise ValidationError(msg)
