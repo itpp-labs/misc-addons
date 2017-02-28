@@ -157,6 +157,16 @@ class SaleOrderLine(models.Model):
     pitch_id = fields.Many2one('pitch_booking.pitch', string='Pitch')
     resource_id = fields.Many2one('resource.resource', 'Resource', related='pitch_id.resource_id', store=True)
 
+    @api.model
+    def create(self, vals):
+        resource_id = vals.get('resource_id')
+        pitch_id = vals.get('pitch_id')
+        if resource_id and not pitch_id:
+            pitch = self.env['pitch_booking.pitch'].search([('resource_id', '=', resource_id)])
+            vals['pitch_id'] = pitch.id
+        res = super(SaleOrderLine, self).create(vals)
+        return res
+
     @api.onchange('resource_id')
     def _on_change_resource(self):
         if self.resource_id:
@@ -281,7 +291,7 @@ class SaleOrder(models.Model):
                 line = super(SaleOrder, rec)._add_booking_line(product_id, resource, start, end, tz_offset)
                 pitch_obj = rec.env['pitch_booking.pitch'].sudo()
                 pitchs = pitch_obj.search([('resource_id', '=', resource)], limit=1)
-                if pitchs:
+                if pitchs and line:
                     line.write({
                         'pitch_id': pitchs[0].id,
                         'venue_id': pitchs[0].venue_id.id
