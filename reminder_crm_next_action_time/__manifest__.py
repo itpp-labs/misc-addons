@@ -20,7 +20,7 @@
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
-        "views.xml",
+        "views/views.xml",
     ],
     "qweb": [
     ],
@@ -32,5 +32,5 @@
     "post_init_hook": None,
 
     "auto_install": False,
-    "installable": False,
+    "installable": True,
 }
