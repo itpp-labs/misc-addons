@@ -1,3 +1,7 @@
+`1.0.6`
+-------
+- Fix: some migration fixes for correct work in v10.0
+
 `1.0.5`
 -------
 - PORT: support for 10.0
