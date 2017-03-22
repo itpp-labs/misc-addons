@@ -124,6 +124,9 @@ class PitchBookingPitch(models.Model):
                     min_to = int((attendance.hour_to - int(attendance.hour_to)) * 60)
 
                     x = datetime.combine(start_d, datetime.min.time().replace(hour=int(attendance.hour_from), minute=min_from))
+                    # let fullcalendar event key be in UTC timezone like it is for non-calendar online slots
+                    event_key = online and (x - timedelta(minutes=self.venue_id.tz_offset)).strftime(DTF) or \
+                        x.strftime(DTF)
                     if attendance.hour_to == 0:
                         y = datetime.combine(start_d, datetime.min.time()) + timedelta(1)
                     else:
@@ -131,15 +134,17 @@ class PitchBookingPitch(models.Model):
                     if self.has_slot_calendar and \
                             (not online and x >= now or online and x >= now + timedelta(minutes=self.venue_id.tz_offset)) \
                             and x >= start_dt and y <= end_dt:
-                        slots[x.strftime(DTF)] = self.generate_slot(x, y, online=online, offset=offset, calendar=True)
+                        slots[event_key] = \
+                            self.generate_slot(x, y, online=online, offset=offset, calendar=True)
                     elif not self.has_slot_calendar:
                         while x < y:
                             if not online and x >= now or online and x >= now + timedelta(minutes=self.venue_id.tz_offset):
-                                slots[x.strftime(DTF)] = self.generate_slot(x,
-                                                                            x + timedelta(minutes=SLOT_DURATION_MINS),
-                                                                            online=online,
-                                                                            offset=offset,
-                                                                            calendar=True)
+                                slots[event_key] = \
+                                    self.generate_slot(x,
+                                                       x + timedelta(minutes=SLOT_DURATION_MINS),
+                                                       online=online,
+                                                       offset=offset,
+                                                       calendar=True)
                             x += timedelta(minutes=SLOT_DURATION_MINS)
                 start_dt += timedelta(1)
                 start_dt = start_dt.replace(hour=0, minute=0, second=0)
