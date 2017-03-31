@@ -14,8 +14,8 @@ class View(models.Model):
     def _create_debranding_views(self):
 
         self._create_view('menu_secondary', 'web.menu_secondary', '''
-        <xpath expr="//div[@class='oe_footer']" position="replace">
-           <div class="oe_footer"></div>
+        <xpath expr="//div[@class='o_sub_menu_footer']" position="replace">
+           <div class="o_sub_menu_footer"></div>
        </xpath>''')
 
         self._create_view('webclient_bootstrap_enterprise_title', 'web.webclient_bootstrap', '''
