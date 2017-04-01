@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="MediaFormViewer">
+        <div class="o_form_field_image">
+            <t t-if="!widget.get('effective_readonly')">
+                <div class="o_form_image_controls">
+                    <span class="fa fa-pencil fa-lg pull-left o_select_file_button" title="Edit"/>
+                    <span class="fa fa-trash-o fa-lg pull-right o_clear_file_button" title="Clear"/>
+                    <span class="o_form_binary_progress">Uploading...</span>
+                    <t t-call="HiddenInputFile">
+                        <t t-set="fileupload_id" t-value="widget.fileupload_id"/>
+                    </t>
+                </div>
+            </t>
+        </div>
+    </t>
+
+    <t t-name="MediaFormViewer-img">
+        <t t-if="widget.type">
+             <t t-if="widget.type[0]=='image'">
+                 <img class="img img-responsive media-image m-dotted"
+                      t-attf-onclick="$('#ImageModal{{ widget.media_id }}').arcticmodal()"
+                      t-att-src='url'
+                      t-att-border="widget.readonly ? 0 : 1"
+                      t-att-name="widget.name"
+                      t-att-width="widget.node.attrs.img_width || widget.node.attrs.width"
+                      t-att-height="widget.node.attrs.img_height || widget.node.attrs.height"/>
+                 <div class="g-hidden">
+                     <div class="box-modal" t-attf-id="ImageModal{{ widget.media_id }}">
+                         <div class="box-modal_close arcticmodal-close">X</div>
+                         <img class="o_image img img-responsive media-image"
+                              t-att-src='url'
+                              t-att-name="widget.name"/>
+                     </div>
+                 </div>
+             </t>
+             <t t-if="widget.type[1]=='pdf'">
+                 <a t-att-href='href_url' target="_blank">
+                     <img class="img img-responsive media-image"
+                          t-att-src='url'
+                          t-att-border="1"/>
+                 </a>
+             </t>
+        </t>
+         <t t-if="!widget.type">
+             <img class="img img-responsive media-image"
+                  t-att-src='url || false'
+                  t-att-border="widget.readonly ? 0 : 1"
+                  t-att-name="widget.name"
+                  t-att-width="widget.node.attrs.img_width || widget.node.attrs.width"
+                  t-att-height="widget.node.attrs.img_height || widget.node.attrs.height"/>
+         </t>
+    </t>
+</templates>
