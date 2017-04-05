@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+  <data>
+    <!--                      email.template                       -->
+    <record id="email_template_subtask_changed" model="email.template">
+      <field name="name">Subtask is changed</field>
+      <field name="email_from">${ctx["subtask_reviewer_id"].id}</field>
+      <field name="email_to">${ctx["subtask_user_id"].id}</field>
+      <field name="model_id" ref="project.model_project_task"/>
+      <field name="body_html"><![CDATA[
+      <p>
+      ${ctx["subtask_user_id"].name},<br> <strong>${ctx["subtask_state"]}</strong>: ${ctx["subtask_name"]}
+      </p>
+      ]]></field>
+    </record>
+  </data>
+</openerp>

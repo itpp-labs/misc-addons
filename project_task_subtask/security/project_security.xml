@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+  <data>
+    <record model="ir.rule" id="project_delete_subtask_rule">
+      <field name="name">Project: delete subtask</field>
+      <field name="model_id" ref="project_task_subtask.model_project_task_subtask"/>
+      <field name="global" eval="True"/>
+      <field name="domain_force">[
+      ('reviewer_id', '=', user.id),
+      ]</field>
+      <field name="perm_unlink" eval="True"/>
+      <field name="perm_write" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_read" eval="False"/>
+    </record>
+  </data>
+</openerp>
