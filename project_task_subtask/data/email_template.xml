@@ -10,7 +10,11 @@
       <field name="model_id" ref="project.model_project_task"/>
       <field name="body_html"><![CDATA[
       <p>
+      % if ctx["subtask_cur_user_id"].id == ctx["subtask_reviewer_id"].id:
       ${ctx["subtask_user_id"].name},<br> <strong>${ctx["subtask_state"]}</strong>: ${ctx["subtask_name"]}
+      % elif ctx["subtask_cur_user_id"].id == ctx["subtask_user_id"].id:
+      ${ctx["subtask_reviewer_id"].name},<br> <strong>${ctx["subtask_state"]}</strong>: ${ctx["subtask_name"]}
+      % endif
       </p>
       ]]></field>
     </record>
