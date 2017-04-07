@@ -67,12 +67,12 @@ class Task(models.Model):
             result_string = '<ul>'
             for subtask in record.subtask_ids:
                 if subtask.state == 'todo' and record.env.user == subtask.user_id:
-                    tmp_string1 = '<b>TODO</b> from {0}: {1}'.format(subtask.reviewer_id.name, subtask.name)
-                    result_string += '<li>{}</li>'.format(escape(tmp_string1))
+                    tmp_string1 = u'<b>TODO</b> from {0}: {1}'.format(subtask.reviewer_id.name, subtask.name)
+                    result_string += u'<li>{}</li>'.format(escape(tmp_string1))
             for subtask in record.subtask_ids:
                 if subtask.state == 'todo' and record.env.user == subtask.reviewer_id:
-                    tmp_string2 = 'TODO for {0}: {1}'.format(subtask.user_id.name, subtask.name)
-                    result_string += '<li>{}</li>'.format(escape(tmp_string2))
+                    tmp_string2 = u'TODO for {0}: {1}'.format(subtask.user_id.name, subtask.name)
+                    result_string += u'<li>{}</li>'.format(escape(tmp_string2))
             record.kanban_subtasks = result_string + '</ul>'
 
     @api.multi
