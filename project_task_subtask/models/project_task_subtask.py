@@ -64,16 +64,16 @@ class Task(models.Model):
     @api.multi
     def _compute_kanban_subtasks(self):
         for record in self:
-            result_string = '<ul>'
+            result_string1 = ''
+            result_string2 = ''
             for subtask in record.subtask_ids:
                 if subtask.state == 'todo' and record.env.user == subtask.user_id:
-                    tmp_string1 = u'<b>TODO</b> from {0}: {1}'.format(subtask.reviewer_id.name, subtask.name)
-                    result_string += u'<li>{}</li>'.format(escape(tmp_string1))
-            for subtask in record.subtask_ids:
-                if subtask.state == 'todo' and record.env.user == subtask.reviewer_id:
-                    tmp_string2 = u'TODO for {0}: {1}'.format(subtask.user_id.name, subtask.name)
-                    result_string += u'<li>{}</li>'.format(escape(tmp_string2))
-            record.kanban_subtasks = result_string + '</ul>'
+                    tmp_string1 = escape(u'{0}: {1}'.format(subtask.reviewer_id.name, subtask.name))
+                    result_string1 += u'<li><b>TODO</b> from {}</li>'.format(tmp_string1)
+                elif subtask.state == 'todo' and record.env.user == subtask.reviewer_id:
+                    tmp_string2 = escape(u'TODO for {0}: {1}'.format(subtask.user_id.name, subtask.name))
+                    result_string2 += u'<li>{}</li>'.format(tmp_string2)
+            record.kanban_subtasks = '<ul>' + result_string1 + result_string2 + '</ul>'
 
     @api.multi
     def send_subtask_email(self, subtask_name, subtask_state, subtask_reviewer_id, subtask_user_id):
@@ -88,6 +88,7 @@ class Task(models.Model):
                 'subtask_state': SUBTASK_STATES[subtask_state],
                 'subtask_reviewer_id': self.env["res.users"].browse(subtask_reviewer_id),
                 'subtask_user_id': self.env["res.users"].browse(subtask_user_id),
+                'subtask_cur_user_id': self.env.user,
             }
             composer = self.env['mail.compose.message'].with_context(email_ctx).create({})
             composer.send_mail()
