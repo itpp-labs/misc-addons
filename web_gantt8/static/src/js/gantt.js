@@ -2,7 +2,7 @@ odoo.define('web_gantt8.gantt', function (require) {
 "use strict";
 var core = require('web.core');
 var View = require('web.View');
-var Model = require('web.Model');
+var Model = require('web.DataModel');
 var formats = require('web.formats');
 var time = require('web.time');
 var parse_value = require('web.web_client');
