@@ -46,4 +46,5 @@ class Binary(fields.Binary):
     def is_url(self, value):
         return re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', value)
 
+
 fields.Binary = Binary
