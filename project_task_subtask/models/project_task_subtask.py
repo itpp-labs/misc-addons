@@ -11,6 +11,7 @@ SUBTASK_STATES = {'done': 'Done',
 
 class ProjectTaskSubtask(models.Model):
     _name = "project.task.subtask"
+    _inherit = ['mail.thread', 'ir.needaction_mixin']
     state = fields.Selection([(k, v) for k, v in SUBTASK_STATES.items()],
                              'Status', required=True, copy=False, default='todo')
     name = fields.Char(required=True, string="Description")
@@ -23,6 +24,12 @@ class ProjectTaskSubtask(models.Model):
     def _compute_reviewer_id(self):
         for record in self:
             record.reviewer_id = record.create_uid
+
+    @api.model
+    def _needaction_domain_get(self):
+        if self._needaction:
+            return [('state', '=', 'todo'), ('user_id', '=', self.env.uid)]
+        return []
 
     @api.multi
     def write(self, vals):
@@ -66,13 +73,15 @@ class Task(models.Model):
         for record in self:
             result_string1 = ''
             result_string2 = ''
+            subtask_counter = 0
             for subtask in record.subtask_ids:
                 if subtask.state == 'todo' and record.env.user == subtask.user_id:
                     tmp_string1 = escape(u'{0}: {1}'.format(subtask.reviewer_id.name, subtask.name))
                     result_string1 += u'<li><b>TODO</b> from {}</li>'.format(tmp_string1)
+                    subtask_counter += 1
                 elif subtask.state == 'todo' and record.env.user == subtask.reviewer_id:
-                    tmp_string2 = escape(u'TODO for {0}: {1}'.format(subtask.user_id.name, subtask.name))
-                    result_string2 += u'<li>{}</li>'.format(tmp_string2)
+                    tmp_string2 = escape(u'{0}: {1}'.format(subtask.user_id.name, subtask.name))
+                    result_string2 += u'<li>TODO for {}</li>'.format(tmp_string2)
             record.kanban_subtasks = '<ul>' + result_string1 + result_string2 + '</ul>'
 
     @api.multi
