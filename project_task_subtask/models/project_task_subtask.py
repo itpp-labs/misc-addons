@@ -37,6 +37,8 @@ class ProjectTaskSubtask(models.Model):
         for r in self:
             if vals.get('state'):
                 r.task_id.send_subtask_email(r.name, r.state, r.reviewer_id.id, r.user_id.id)
+            if vals.get('name'):
+                r.task_id.send_subtask_email(r.name, r.state, r.reviewer_id.id, r.user_id.id)
         return result
 
     @api.model
