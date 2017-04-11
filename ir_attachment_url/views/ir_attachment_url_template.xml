@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="assets_backend" name="ir Attachment URL Assets Backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/ir_attachment_url/static/src/js/ir_attachment_url.js"></script>
+                <link rel="stylesheet" href="/ir_attachment_url/static/src/css/ir_attachment_url.css"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>
