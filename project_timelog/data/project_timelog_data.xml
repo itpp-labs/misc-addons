@@ -17,7 +17,7 @@
         </record>
 
         <!--new status for yesterday's timelogs-->
-        <record id="ir_cron_nonactive_new_timer_status" model="ir.cron">
+        <record id="ir_cron_check_stop_timer" model="ir.cron">
             <field name="name">Nonactive new status</field>
             <field name="active" eval="True" />
             <field name="user_id" ref="base.user_root" />
