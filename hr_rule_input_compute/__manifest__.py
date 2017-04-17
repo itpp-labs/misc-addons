@@ -20,7 +20,7 @@
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
-        'security.hr_rule_input_compute_security.xml',
+        'security/hr_rule_input_compute_security.xml',
         'views/hr_payroll_views.xml',
     ],
     "qweb": [
