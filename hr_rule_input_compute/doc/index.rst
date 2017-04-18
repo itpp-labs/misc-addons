@@ -2,7 +2,7 @@
  Compute Salary Inputs
 =======================
 
-The module allows to make salary rule inputs computable. A ``Python Code`` field in a salary rule form is editable for users with a ``group_hr_rule_input_compute`` group. The users can write code which computes amounts of salary rule inputs, e.g.::
+The module allows to make salary rule inputs as computable. A ``Python Code`` field in a salary rule form is editable for users with ``Enable to edit "Python Code" field for salary inputs`` group. The users can write code, which computes amounts of salary rule inputs, e.g.::
 
     inputs['COMPUTED_INPUT_FIRST']['amount'] = Python expression
     inputs['COMPUTED_INPUT_SECOND']['amount'] = Python expression
@@ -24,4 +24,4 @@ Installation
 Usage
 =====
 
-The module allows to make salary rule inputs computable. The use of the module assumes you have Python skills. More details: https://apps.odoo.com/apps/modules/10.0/product_details/
+The module allows to make salary rule inputs as computable. The use of the module assumes you to have Python skills. For more details: https://apps.odoo.com/apps/modules/10.0/product_details/
