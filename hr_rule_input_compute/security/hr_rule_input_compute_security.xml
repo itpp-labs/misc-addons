@@ -3,7 +3,7 @@
     <data noupdate="0">
 
         <record id="group_hr_rule_input_compute" model="res.groups">
-            <field name="name">Make editable a field for computing salary rule inputs</field>
+            <field name="name">Enable to edit "Python Code" field for salary inputs</field>
         </record>
 
     </data>
