@@ -24,4 +24,4 @@ Installation
 Usage
 =====
 
-The module allows to make salary rule inputs as computable. The use of the module assumes you to have Python skills. For more details: https://apps.odoo.com/apps/modules/10.0/product_details/
+The use of the module assumes you to have Python skills.
