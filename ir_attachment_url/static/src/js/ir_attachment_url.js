@@ -46,7 +46,7 @@ odoo.define('ir_attachment_url', function(require) {
             if (!this.url_clicked) {
                 this.url_clicked = true;
                 this.on_clear();
-            } else {
+            } else if (this.url_clicked) {
                 this.url_clicked = false;
                 this.render_value();
             }
@@ -60,7 +60,7 @@ odoo.define('ir_attachment_url', function(require) {
         },
         is_url_valid: function() {
             if (this.$input.is('input')) {
-                var u = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
+                var u = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
                 return u.test(this.$input.val());
             }
             return true;
