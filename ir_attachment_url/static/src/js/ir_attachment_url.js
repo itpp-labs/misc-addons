@@ -60,7 +60,7 @@ odoo.define('ir_attachment_url', function(require) {
         },
         is_url_valid: function() {
             if (this.$input.is('input')) {
-                var u = /(^https?:\/\/)?[a-z0-9~_\-\.]+\.[a-z]{2,9}(\/|:|\?[!-~]*)*$/i;
+                var u = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
                 return u.test(this.$input.val());
             }
             return true;
