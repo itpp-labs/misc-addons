@@ -19,6 +19,13 @@ class ProjectTaskSubtask(models.Model):
     project_id = fields.Many2one("project.project", related='task_id.project_id', store=True)
     user_id = fields.Many2one('res.users', 'Assigned to', select=True, required=True)
     task_id = fields.Many2one('project.task', 'Task', ondelete='cascade', required=True, select="1")
+    hide_button = fields.Boolean(compute='_compute_hide_button')
+
+    @api.multi
+    def _compute_hide_button(self):
+        for record in self:
+            if self.env.user not in [record.reviewer_id, record.user_id]:
+                record.hide_button = True
 
     @api.multi
     def _compute_reviewer_id(self):
@@ -75,12 +82,10 @@ class Task(models.Model):
         for record in self:
             result_string1 = ''
             result_string2 = ''
-            subtask_counter = 0
             for subtask in record.subtask_ids:
                 if subtask.state == 'todo' and record.env.user == subtask.user_id:
                     tmp_string1 = escape(u'{0}: {1}'.format(subtask.reviewer_id.name, subtask.name))
                     result_string1 += u'<li><b>TODO</b> from {}</li>'.format(tmp_string1)
-                    subtask_counter += 1
                 elif subtask.state == 'todo' and record.env.user == subtask.reviewer_id:
                     tmp_string2 = escape(u'{0}: {1}'.format(subtask.user_id.name, subtask.name))
                     result_string2 += u'<li>TODO for {}</li>'.format(tmp_string2)
