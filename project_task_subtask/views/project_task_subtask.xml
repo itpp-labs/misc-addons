@@ -9,7 +9,7 @@
         <xpath expr = "//page[1]" position = "before">
           <page string="Checklist">
             <field name="subtask_ids">
-              <tree string="Task Work" editable="top" colors="red:recolor == True;gray:state == 'cancelled';green:state == 'done'">
+              <tree string="Task Work" editable="bottom" colors="red:recolor == True;gray:state == 'cancelled';green:state == 'done'">
                   <field name="name"/>
                   <field name="recolor" invisible='True'/>
                   <field name="user_id"/>
