@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='input_ids']" position="before">
                 <group>
-                    <field name="input_python_compute" readonly="1"/>
+                    <field name="input_python_compute" attrs="{'readonly': True}"/>
                 </group>
             </xpath>
         </field>
@@ -17,11 +17,12 @@
     <record id="hr_salary_rule_input_editable_form" model="ir.ui.view">
         <field name="name">hr.salary.rule.form</field>
         <field name="model">hr.salary.rule</field>
+        <field name="priority" eval="100"/>
         <field name="inherit_id" ref="hr_rule_input_compute.hr_salary_rule_form"/>
         <field name="groups_id" eval="[(4, ref('hr_rule_input_compute.group_hr_rule_input_compute'))]"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='input_python_compute']" position="replace">
-                <field name="input_python_compute" readonly="0"/>
+            <xpath expr="//field[@name='input_python_compute']" position="attributes">
+                <attribute name="attrs">{'readonly': False}</attribute>
             </xpath>
         </field>
     </record>
