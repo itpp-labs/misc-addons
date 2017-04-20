@@ -1,3 +1,9 @@
+`1.1.1`
+-------
+
+- **FIX:** Ability to use the module for res.partner model
+- **FIX:** Images are displayed in kanban view correctly
+
 `1.1.0`
 -------
 

@@ -95,7 +95,6 @@ class IrHttp(models.AbstractModel):
             if not content:
                 content = obj[field] or ''
             # end redefined part of original binary_content
-
         # filename
         if not filename:
             if filename_field in obj:

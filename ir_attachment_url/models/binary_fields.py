@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import fields
 import mimetypes
-import re
+from . import image
 
 
 class Binary(fields.Binary):
@@ -13,12 +13,12 @@ class Binary(fields.Binary):
             ('res_id', 'in', records.ids),
         ]
         atts = records.env['ir.attachment'].sudo().search(domain)
-        if value and atts.url and atts.type == 'url' and not self.is_url(value):
+        if value and atts.url and atts.type == 'url' and not image.is_url(value):
             atts.write({
                 'url': None,
                 'type': 'binary',
             })
-        if value and self.is_url(value):
+        if value and image.is_url(value):
             with records.env.norecompute():
                 if value:
                     # update the existing attachments
@@ -42,9 +42,6 @@ class Binary(fields.Binary):
                     atts.unlink()
         else:
             super(Binary, self).write(records, value)
-
-    def is_url(self, value):
-        return re.findall(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', value)
 
 
 fields.Binary = Binary
