@@ -6,7 +6,7 @@ import re
 super_image_resize_images = tools.image_resize_images
 
 
-def image_resize_images(vals, big_name='image', medium_name='image_medium', small_name='image_small'):
+def updated_image_resize_images(vals, big_name='image', medium_name='image_medium', small_name='image_small'):
     """ Update ``vals`` with image fields resized as expected. """
     url = None
     if big_name in vals and is_url(vals[big_name]):
@@ -29,4 +29,4 @@ def is_url(value):
         return re.findall(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', value)
 
 
-tools.image_resize_images = image_resize_images
+tools.image_resize_images = updated_image_resize_images
