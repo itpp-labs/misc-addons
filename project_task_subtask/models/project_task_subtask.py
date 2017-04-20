@@ -2,6 +2,7 @@
 
 from openerp import models, fields, api
 from openerp.tools import html_escape as escape
+from openerp.exceptions import Warning as UserError
 
 
 SUBTASK_STATES = {'done': 'Done',
@@ -46,6 +47,8 @@ class ProjectTaskSubtask(models.Model):
                 r.task_id.send_subtask_email(r.name, r.state, r.reviewer_id.id, r.user_id.id)
             if vals.get('name'):
                 r.task_id.send_subtask_email(r.name, r.state, r.reviewer_id.id, r.user_id.id)
+                if self.env.user != r.reviewer_id:
+                    raise UserError(('Only reviewer can change description.'))
         return result
 
     @api.model
