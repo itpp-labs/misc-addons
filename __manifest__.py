@@ -4,7 +4,7 @@
     "summary": """Use attachment URL and upload data to external storage""",
     "category": "Tools",
     "images": [],
-    "version": "1.1.0",
+    "version": "1.1.1",
     "application": False,
 
     "author": "IT-Projects LLC, Ildar Nasyrov",
@@ -26,7 +26,7 @@
     "demo": [
     ],
 
-    "post_load": None,
+    "post_load": "post_load",
     "pre_init_hook": None,
     "post_init_hook": None,
 

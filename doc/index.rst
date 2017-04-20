@@ -19,7 +19,7 @@ Usage
 
 * Go to Sales >> Products menu
 * Open a product
-* Upload image to this product
+* Upload image to this product or specify image URL
 * Save the changes
 * Go to Settings >> Database Structure >> Attachments menu
 * See related attachment form that contains URL of the image
