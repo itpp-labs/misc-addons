@@ -9,19 +9,17 @@
         <xpath expr = "//page[1]" position = "before">
           <page string="Checklist">
             <field name="subtask_ids">
-              <tree string="Task Work" editable="top">
-                <!-- <tree colors="red:state == 'todo';gray:state == 'cancelled';green:state == 'done'"> -->
+              <tree string="Task Work" editable="top" colors="red:recolor == True;gray:state == 'cancelled';green:state == 'done'">
                   <field name="name"/>
+                  <field name="recolor" invisible='True'/>
                   <field name="user_id"/>
                   <field name="state"/>
                   <field name="hide_button" invisible='True'/>
                   <button name="change_state_done" string="Change state to DONE" type="object" icon="gtk-apply" attrs="{'invisible': ['|', ('state', 'in',['done', 'cancelled']), ('hide_button', '=', True)]}"/>
-                  <!-- , ('id', 'not in', [reviewer_id.id, user_id.id] -->
                   <button name="change_state_todo" string="Change state to TODO" type="object" icon="gtk-new" attrs="{'invisible': [ '|',('state', '=', 'todo'), ('hide_button', '=', True)]}"/>
                   <button name="change_state_cancelled" type="object" string="Change state to CANCELLED" icon="gtk-cancel" attrs="{'invisible': [ '|',('state', '=', 'cancelled'), ('hide_button', '=', True)]}"/>
                   <field name="reviewer_id"/>
-                <!-- </tree> -->
-              </tree>
+                </tree>
             </field>
           </page>
         </xpath>

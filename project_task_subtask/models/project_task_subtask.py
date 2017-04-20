@@ -21,6 +21,13 @@ class ProjectTaskSubtask(models.Model):
     user_id = fields.Many2one('res.users', 'Assigned to', select=True, required=True)
     task_id = fields.Many2one('project.task', 'Task', ondelete='cascade', required=True, select="1")
     hide_button = fields.Boolean(compute='_compute_hide_button')
+    recolor = fields.Boolean(compute='_compute_recolor')
+
+    @api.multi
+    def _compute_recolor(self):
+        for record in self:
+            if self.env.user == record.user_id and record.state == 'todo':
+                record.recolor = True
 
     @api.multi
     def _compute_hide_button(self):
