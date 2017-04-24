@@ -10,8 +10,7 @@ Installation
 
 Configuration
 =============
-
-* `Enable technical features <https://odoo-development.readthedocs.io/en/latest/odoo/usage/technical-features.html>`__
+The module does not need to be pre-configured.
 
 
 Usage
