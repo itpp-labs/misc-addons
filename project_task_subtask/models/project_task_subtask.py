@@ -12,7 +12,7 @@ SUBTASK_STATES = {'done': 'Done',
 
 class ProjectTaskSubtask(models.Model):
     _name = "project.task.subtask"
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _inherit = ['ir.needaction_mixin']
     state = fields.Selection([(k, v) for k, v in SUBTASK_STATES.items()],
                              'Status', required=True, copy=False, default='todo')
     name = fields.Char(required=True, string="Description")
@@ -52,6 +52,8 @@ class ProjectTaskSubtask(models.Model):
         for r in self:
             if vals.get('state'):
                 r.task_id.send_subtask_email(r.name, r.state, r.reviewer_id.id, r.user_id.id)
+                if self.env.user != r.reviewer_id and self.env.user != r.user_id:
+                    raise UserError(('Only users related to that subtask can change state.'))
             if vals.get('name'):
                 r.task_id.send_subtask_email(r.name, r.state, r.reviewer_id.id, r.user_id.id)
                 if self.env.user != r.reviewer_id:
