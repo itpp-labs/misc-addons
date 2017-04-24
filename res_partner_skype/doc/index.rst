@@ -1,6 +1,6 @@
-============================
+=============================
  Skype field in partner form
-============================
+=============================
 
 Installation
 ============
@@ -10,13 +10,15 @@ Installation
 
 Configuration
 =============
+
 The module does not need to be pre-configured.
 
 
 Usage
 =====
 
-* Open res partner form view. As example: [CRM/sales/customers/some_customer]
-* Click on Edit button, populate Skype field and save changes.
-* On form view click on skype address to open chat window.
-
+* Open partner form view. As an example: [CRM/Sales/Customers]
+* Click on `[Edit]` button
+* Specify Skype field 
+* Click on `[Save]` button
+* On the form view click on skype address to open chat window.
