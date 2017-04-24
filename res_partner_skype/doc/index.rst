@@ -16,6 +16,7 @@ The module does not need to be pre-configured.
 Usage
 =====
 
- *Open res partner form view. As example: [CMS/sales/customers/some_customer]
- *Click on skype address located under email address to open chat window.
+ *Open res partner form view. As example: [CRM/sales/customers/some_customer]
+ *Click on Edit button, populate Skype field and save changes.
+ *On form view click on skype address to open chat window.
 
