@@ -4,15 +4,14 @@ odoo.define('res_partner_skype.widget', function (require) {
 var core = require('web.core');
 var FieldChar = core.form_widget_registry.get('char');
 
-
-
- var FieldSkype = FieldChar.extend({
+var FieldSkype = FieldChar.extend({
     template: 'FieldSkype',
     prefix: 'skype',
     init: function() {
         this._super.apply(this, arguments);
         this.clickable = true;
     },
+
     render_value: function() {
         this._super();
         if (this.get("effective_readonly") && this.clickable) {
