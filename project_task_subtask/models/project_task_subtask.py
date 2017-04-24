@@ -18,7 +18,7 @@ class ProjectTaskSubtask(models.Model):
     name = fields.Char(required=True, string="Description")
     reviewer_id = fields.Many2one('res.users', 'Reviewer', readonly=True, default=lambda self: self.env.user)
     project_id = fields.Many2one("project.project", related='task_id.project_id', store=True)
-    user_id = fields.Many2one('res.users', 'Assigned to', select=True, required=True)
+    user_id = fields.Many2one('res.users', 'Assigned to', required=True)
     task_id = fields.Many2one('project.task', 'Task', ondelete='cascade', required=True, select="1")
     hide_button = fields.Boolean(compute='_compute_hide_button')
     recolor = fields.Boolean(compute='_compute_recolor')
@@ -88,6 +88,18 @@ class Task(models.Model):
     _inherit = "project.task"
     subtask_ids = fields.One2many('project.task.subtask', 'task_id', 'Subtask')
     kanban_subtasks = fields.Text(compute='_compute_kanban_subtasks')
+    default_user = fields.Many2one('res.users', compute='_compute_default_user')
+
+    @api.multi
+    def _compute_default_user(self):
+        for record in self:
+            if self.env.user != record.user_id and self.env.user != record.reviewer_id:
+                record.default_user = record.user_id
+            else:
+                if self.env.user != record.user_id:
+                    record.default_user = record.user_id
+                if self.env.user != record.reviewer_id:
+                    record.default_user = record.reviewer_id
 
     @api.multi
     def _compute_kanban_subtasks(self):

@@ -8,7 +8,8 @@
       <field name="arch" type="xml">
         <xpath expr = "//page[1]" position = "before">
           <page string="Checklist">
-            <field name="subtask_ids">
+            <field name="default_user" invisible='True'/>
+            <field name="subtask_ids" context="{'default_user_id': default_user}">
               <tree string="Task Work" editable="bottom" colors="red:recolor == True;gray:state == 'cancelled';green:state == 'done'">
                   <field name="name"/>
                   <field name="recolor" invisible='True'/>
