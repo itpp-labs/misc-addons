@@ -16,4 +16,6 @@ The module does not need to be pre-configured.
 Usage
 =====
 
-Adds skype field to partner form. When you click on skype address, chat window is opened.
+ *Open res partner form view. As example: [CMS/sales/customers/some_customer]
+ *Click on skype address located under email address to open chat window.
+
