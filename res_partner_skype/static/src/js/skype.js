@@ -1,11 +1,12 @@
-(function() {
+odoo.define('res_partner_skype.widget', function (require) {
+'use strict';
 
-var instance = openerp;
-var _t = instance.web._t,
-   _lt = instance.web._lt;
-var QWeb = instance.web.qweb;
+var core = require('web.core');
+var FieldChar = core.form_widget_registry.get('char');
 
-instance.web.form.FieldSkype = instance.web.form.FieldChar.extend({
+
+
+ var FieldSkype = FieldChar.extend({
     template: 'FieldSkype',
     prefix: 'skype',
     init: function() {
@@ -20,5 +21,6 @@ instance.web.form.FieldSkype = instance.web.form.FieldChar.extend({
     }
 });
 
-instance.web.form.widgets.add('skype', 'instance.web.form.FieldSkype');
-})();
+core.form_widget_registry.add('skype', FieldSkype);
+
+});
