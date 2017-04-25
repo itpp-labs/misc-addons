@@ -20,7 +20,7 @@ Usage
 * As an example install CRM app
 * Open ``Sales >> Customers``
 * Open partner form view
-* Click on `[Edit]` button
+* Click on ``[Edit]`` button
 * Specify Skype field 
-* Click on `[Save]` button
+* Click on ``[Save]`` button
 * On the form view click on skype address to open chat window.
