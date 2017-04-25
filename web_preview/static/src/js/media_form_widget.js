@@ -2,108 +2,106 @@ odoo.define('media_form_widget', function(require) {
     var utils = require('web.utils');
     var core = require('web.core');
     var form_widgets = require('web.form_widgets');
+    var KanbanRecord = require('web_kanban.Record');
     var session = require('web.session');
     var QWeb = core.qweb;
-    var FieldBinaryFile = core.form_widget_registry.get('binary');
+    var FieldBinaryImage = core.form_widget_registry.get('image');
     var _t = core._t;
     var common = require('web.form_common');
     var Model = require('web.DataModel');
+    var attachment_url = require('ir_attachment_url');
 
-
-    var MediaFormViewer = FieldBinaryFile.extend({
-        template: 'MediaFormViewer',
-        placeholder: "/web/static/src/img/mimetypes/document.png",
+    FieldBinaryImage.include({
         initialize_content: function() {
             this.media_type = this.view.datarecord.media_type;
+            this.media_video_ID = this.view.datarecord.media_video_ID;
+            this.media_video_service = this.view.datarecord.media_video_service;
+            this.media = this.node.attrs.media;
             this._super();
         },
         render_value: function() {
-            var url = this.placeholder;
-            var href_url = false;
-            if (this.media_type) {
-                this.type = this.media_type.split('/');
-                if (this.type[0] == "image") {
-                    if(this.get('value')) {
-                        if(!utils.is_bin_size(this.get('value'))) {
-                            url = 'data:image/png;base64,' + this.get('value');
-                        } else {
-                            url = session.url('/web/image', {
-                                model: this.view.dataset.model,
-                                id: JSON.stringify(this.view.datarecord.id || null),
-                                field: (this.options.preview_image)? this.options.preview_image : this.name,
-                                unique: (this.view.datarecord.__last_update || '').replace(/[^0-9]/g, ''),
-                            });
-                        }
+            this.media_id = this.view.datarecord.id;
+            var application_mimetype = false;
+            if (this.media_type && this.media_type.split("/")[0] === 'application') {
+                application_mimetype = true;
+            }
+            if (this.media && (this.media_type === 'video/url' ||
+                application_mimetype ||
+                this.media_type === 'application/msword')) {
+                var url = "/web/static/src/img/mimetypes/document.png";
+                if (this.media_type === 'video/url') {
+                    url = "/web/static/src/img/mimetypes/video.png";
+                    if (this.media_video_service === 'youtube') {
+                        url = "/web_preview/static/src/img/youtube.png";
+                    } else if (this.media_video_service === 'vimeo') {
+                        url = "/web_preview/static/src/img/vimeo.png";
                     }
-                } else if (this.type[0] == "application"){
-                    if (this.type[1] == "pdf") {
-                        url = "/web/static/src/img/mimetypes/pdf.png";
-                        href_url = session.url('/web/pdf', {
-                            model: this.view.dataset.model,
-                            id: JSON.stringify(this.view.datarecord.id),
-                            field: this.name,
-                            filename: this.view.datarecord.display_name,
-                            unique: (this.view.datarecord.__last_update || '').replace(/[^0-9]/g, ''),
-                        });
-                    } else {
-                        this.do_warn(_t("Document"), _t("Could not display the selected document."));
-                    }
+                } else if (this.media_type === 'application/pdf') {
+                    url = "/web_preview/static/src/img/pdf.png";
+                    this.pdf_url = this.get_media_url('/web/pdf');
+                } else if (this.media_type === 'application/msword') {
+                    url = "/web_preview/static/src/img/doc.png";
+                    this.msword_url = this.get_media_url('/web/doc');
+                } else if (this.media_type ==='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+                    url = "/web_preview/static/src/img/xlsx.png";
+                    this.xlsx_url = this.get_media_url('/web/xlsx');
+                } else if (this.media_type === 'application/vnd.ms-excel') {
+                    url = "/web_preview/static/src/img/xls.png";
+                    this.xls_url = this.get_media_url('/web/xls');
+                } else if (this.media_type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+                    url = "/web_preview/static/src/img/docx.png";
+                    this.docx_url = this.get_media_url('/web/docx');
                 } else {
                     this.do_warn(_t("Document"), _t("Could not display the selected document."));
                 }
-            }
-
-            this.media_id = this.view.datarecord.id;
-            var media = $(QWeb.render("MediaFormViewer-img", {widget: this, url: url, href_url: href_url}));
-
-            var self = this;
-            media.click(function(e) {
-                if(self.view.get("actual_mode") == "view") {
-                    var $button = $(".o_form_button_edit");
-                    $button.openerpBounce();
-                    e.stopPropagation();
+                var $media = $(QWeb.render("FieldBinaryImage-img", {widget: this, url: url}));
+                this.$('> img').remove();
+                this.$('> a img').remove();
+                this.$el.prepend($media);
+            } else {
+                if (this.media_type && this.media_type.split("/")[0] === "image") {
+                    this.media_type = 'image';
                 }
-            });
-            this.$('> img').remove();
-            this.$('> a img').remove();
-            if (self.options.size) {
-                media.css("width", "" + self.options.size[0] + "px");
-                media.css("height", "" + self.options.size[1] + "px");
+                this._super();
             }
-            this.$el.prepend(media);
-            media.on('error', function() {
-                self.on_clear();
-                media.attr('src', self.placeholder);
-                self.do_warn(_t("Image"), _t("Could not display the selected document."));
-            });
-        },
-        set_value: function(value_) {
-            var changed = value_ !== this.get_value();
-            this._super.apply(this, arguments);
-            if (!changed){
-                this.trigger("change:value", this, {
-                    oldValue: value_,
-                    newValue: value_
-                });
-            }
-        },
-        is_false: function() {
-            return false;
-        },
-        set_dimensions: function(height, width) {
-            this.$el.css({
-                maxWidth: width,
-                minHeight: height,
-            });
-        },
-        on_clear: function() {
-            this.media_type = false;
-            this._super();
         },
         on_file_uploaded_and_valid: function(size, name, content_type, file_base64) {
             this.media_type = content_type;
             this._super(size, name, content_type, file_base64);
         },
+        get_media_url: function(request) {
+            return session.url(request, {
+                model: this.view.dataset.model,
+                id: JSON.stringify(this.view.datarecord.id),
+                field: this.name,
+                filename: this.view.datarecord.display_name,
+                unique: (this.view.datarecord.__last_update || '').replace(/[^0-9]/g, ''),
+            });
+        },
     });
-    core.form_widget_registry.add('media', MediaFormViewer);
+
+    KanbanRecord.include({
+        kanban_image: function(model, field, id, cache, options) {
+            if (this.values.media_type && this.values.media_type.value === "application/pdf") {
+                return "/web_preview/static/src/img/pdf.png";
+            } else if(this.values.media_type && this.values.media_type.value === "application/msword") {
+                return "/web_preview/static/src/img/doc.png";
+            } else if(this.values.media_type && this.values.media_type.value === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+                return "/web_preview/static/src/img/docx.png";
+            } else if(this.values.media_type && this.values.media_type.value === 'application/vnd.ms-excel') {
+                return "/web_preview/static/src/img/xls.png";
+            } else if(this.values.media_type && this.values.media_type.value === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+                return "/web_preview/static/src/img/xlsx.png";
+            } else if (this.values.media_video_service && this.values.media_video_service.value) {
+                var video = this.values.media_video_service.value;
+                if (video === 'youtube') {
+                    return "/web_preview/static/src/img/youtube.png";
+                }
+                if (video === 'vimeo') {
+                    return "/web_preview/static/src/img/vimeo.png";
+                }
+            }
+            return this._super(model, field, id, cache, options);
+        },
+    });
 });

@@ -15,9 +15,16 @@
     cursor: pointer;
 }
 .media-image {
-    max-width: 100px;
     margin-right: 10px;
+    max-width: 90px !important;
+    cursor: pointer;
 }
 .o_image.media-image {
     background-image: none;
+}
+.img.img-responsive.media-image.m-dotted.media-video {
+    box-shadow: none !important;
+}
+.o_image {
+    background-image: none!important;
 }

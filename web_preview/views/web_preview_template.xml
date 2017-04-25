@@ -9,6 +9,7 @@
                 <link rel="stylesheet" href="/web_preview/static/src/css/jquery.arcticmodal.css"/>
                 <link rel="stylesheet" href="/web_preview/static/src/css/simple.css"/>
                 <link rel="stylesheet" href="/web_preview/static/src/css/styles.css"/>
+                <link rel="stylesheet" href="/web_preview/static/src/less/image_controls.less"/>
             </xpath>
         </template>
     </data>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-
         <record model="ir.ui.view" id="view_product_image_form">
             <field name="name">product.image.form</field>
             <field name="model">product.image</field>
@@ -15,12 +14,14 @@
                 </xpath>
                 <xpath expr="//field[@name='image']" position="after">
                     <field name="media_type" invisible="1"/>
+                    <field name="media_video_ID" invisible="1"/>
+                    <field name="media_video_service" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='image']" position="attributes">
+                    <attribute name="media">True</attribute>
                 </xpath>
                 <xpath expr="//div[@class='oe_title']//field[@name='name']" position="attributes">
                     <attribute name="placeholder">Document Name</attribute>
-                </xpath>
-                <xpath expr="//field[@name='image']" position="attributes">
-                    <attribute name="widget">media</attribute>
                 </xpath>
             </field>
         </record>
@@ -28,6 +29,7 @@
         <record model="ir.ui.view" id="product_template_form_view">
             <field name="name">product.template.product.website.form</field>
             <field name="model">product.template</field>
+             <field name="priority">100</field>
             <field name="inherit_id" ref="website_sale.product_template_form_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//page[@groups='website_sale.group_website_multi_image']" position="attributes">
@@ -36,19 +38,16 @@
                 <xpath expr="//field[@name='product_image_ids']" position="attributes">
                     <attribute name="string">Documents</attribute>
                 </xpath>
+                <xpath expr="//field[@name='image']" position="after">
+                    <field name="media_type" invisible="1"/>
+                    <field name="media_video_service" invisible="1"/>
+                </xpath>
+                <xpath expr="//div[@class='o_kanban_image']" position="replace">
+                    <div class="o_kanban_image">
+                        <img t-if="record.image.raw_value" t-att-src="kanban_image('product.image', 'image', record.image.raw_value)"/>
+                    </div>
+                </xpath>
             </field>
         </record>
-
-        <!--<record model="ir.ui.view" id="product_template_form_view">-->
-            <!--<field name="name">product.template.product.website.form</field>-->
-            <!--<field name="model">product.template</field>-->
-            <!--<field name="inherit_id" ref="website_sale.product_template_form_view"/>-->
-            <!--<field name="arch" type="xml">-->
-                <!--<xpath expr="//div[@class='o_kanban_image']/img" position="replace">-->
-                    <!--<field name="image" widget="media"/>-->
-                    <!--&lt;!&ndash;<img t-if="record.image.raw_value" t-att-src="'data:image/png;base64,'+record.image.raw_value"/>&ndash;&gt;-->
-                <!--</xpath>-->
-            <!--</field>-->
-        <!--</record>-->
     </data>
 </openerp>
