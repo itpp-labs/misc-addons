@@ -17,7 +17,9 @@ The module does not need to be pre-configured.
 Usage
 =====
 
-* Open partner form view. As an example at CRM module: ``Customers >> Some customer``
+* As an example install CRM app
+* Open ``Sales >> Customers``
+* Open partner form view
 * Click on `[Edit]` button
 * Specify Skype field 
 * Click on `[Save]` button
