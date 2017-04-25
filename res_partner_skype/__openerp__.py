@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "Skype field in partner form",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "author": "IT-Projects LLC, Ivan Yelizariev",
     'license': 'LGPL-3',
     "category": "Tools",
