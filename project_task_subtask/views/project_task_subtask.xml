@@ -52,7 +52,9 @@
           <sheet>
             <group>
               <field name="name"/>
+              <field name="user_id"/>
               <field name="state"/>
+              <field name="task_id"/>
             </group>
           </sheet>
         </form>
@@ -81,10 +83,11 @@
       <field name="name">subtask.list.form</field>
       <field name="model">project.task.subtask</field>
       <field name="arch" type="xml">
-        <tree string="subtask_list_form" editable="top">
+        <tree string="subtask_list_form">
           <field name="name"/>
           <field name="user_id"/>
           <field name="reviewer_id"/>
+          <field name="task_id"/>
         </tree>
       </field>
     </record>
