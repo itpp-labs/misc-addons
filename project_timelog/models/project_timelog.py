@@ -200,6 +200,17 @@ class ProjectWork(models.Model):
     task_allow_logs = fields.Boolean(related='task_id.stage_id.allow_log_time', readonly=True)
     user_current = fields.Boolean(compute="_compute_user_current", default=True)
 
+    analytic_account_id = fields.Many2one('account.analytic.account', 'Analytic Account',
+                                          related='task_id.project_id.analytic_account_id',
+                                          readonly=True)
+    combined_name = fields.Char('Task and Summary', compute="_compute_combined_name")
+
+    @api.multi
+    def _compute_combined_name(self):
+        for r in self:
+            r.combined_name = "%s: %s" % (r.task_id.name, r.name)
+
+
     @api.multi
     def _compute_user_current(self):
         for r in self:
