@@ -131,4 +131,8 @@ class Task(models.Model):
                 'subtask_cur_user_id': self.env.user,
             }
             composer = self.env['mail.compose.message'].with_context(email_ctx).create({})
-            composer.send_mail()
+            if subtask_user_id == self.env.uid and subtask_reviewer_id == self.env.uid:
+                composer.is_log = True
+                composer.send_mail()
+            else:
+                composer.send_mail()
