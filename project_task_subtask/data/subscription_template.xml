@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+  <data>
+    <record id="subtasks_subtype" model="mail.message.subtype">
+      <field name="name">Subscription to other subtasks</field>
+      <field name="res_model">project.task</field>
+      <field name="description">Subscription to other subtasks</field>
+      <field name="default" eval="True"/>
+    </record>
+  </data>
+</openerp>

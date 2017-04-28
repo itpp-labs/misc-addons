@@ -19,7 +19,7 @@
     "data": [
         'security/ir.model.access.csv',
         'views/project_task_subtask.xml',
-        'data/email_template.xml',
+        'data/subscription_template.xml',
         'security/project_security.xml'
     ],
     "qweb": [

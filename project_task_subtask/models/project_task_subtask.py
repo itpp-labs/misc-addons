@@ -118,21 +118,21 @@ class Task(models.Model):
     @api.multi
     def send_subtask_email(self, subtask_name, subtask_state, subtask_reviewer_id, subtask_user_id):
         for r in self:
-            template = self.env.ref('project_task_subtask.email_template_subtask_changed')
-            email_ctx = {
-                'default_model': 'project.task',
-                'default_res_id': r.id,
-                'default_use_template': bool(template),
-                'default_template_id': template.id,
-                'subtask_name': subtask_name,
-                'subtask_state': SUBTASK_STATES[subtask_state],
-                'subtask_reviewer_id': self.env["res.users"].browse(subtask_reviewer_id),
-                'subtask_user_id': self.env["res.users"].browse(subtask_user_id),
-                'subtask_cur_user_id': self.env.user,
-            }
-            composer = self.env['mail.compose.message'].with_context(email_ctx).create({})
-            if subtask_user_id == self.env.uid and subtask_reviewer_id == self.env.uid:
-                composer.is_log = True
-                composer.send_mail()
-            else:
-                composer.send_mail()
+            body = ''
+            reviewer = self.env["res.users"].browse(subtask_reviewer_id)
+            user = self.env["res.users"].browse(subtask_user_id)
+            state = SUBTASK_STATES[subtask_state]
+            partner_ids = []
+            if self.env.user == reviewer:
+                body = '<p>' + user.name + ', <br><strong>' + state + '</strong>: ' + subtask_name + '</p>'
+                partner_ids = [user.partner_id.id]
+            elif self.env.user == user:
+                body = '<p>' + reviewer.name + ', <br><strong>' + state + '</strong>: ' + subtask_name + '</p>'
+                partner_ids = [reviewer.partner_id.id]
+            subtype = 'project_task_subtask.subtasks_subtype'
+            if user == self.env.user and reviewer == self.env.user:
+                subtype = False
+            r.message_post(type='comment',
+                           subtype=subtype,
+                           body=body,
+                           partner_ids=partner_ids)
