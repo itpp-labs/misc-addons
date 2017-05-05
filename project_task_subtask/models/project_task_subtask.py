@@ -98,22 +98,28 @@ class Task(models.Model):
             else:
                 if self.env.user != record.user_id:
                     record.default_user = record.user_id
-                if self.env.user != record.reviewer_id:
+                elif self.env.user != record.reviewer_id:
                     record.default_user = record.reviewer_id
+                elif self.env.user == record.reviewer_id and self.env.user == record.user_id:
+                    record.default_user = self.env.user
 
     @api.multi
     def _compute_kanban_subtasks(self):
         for record in self:
             result_string1 = ''
             result_string2 = ''
+            result_string3 = ''
             for subtask in record.subtask_ids:
-                if subtask.state == 'todo' and record.env.user == subtask.user_id:
+                if subtask.state == 'todo' and record.env.user == subtask.user_id and record.env.user == subtask.reviewer_id:
+                    tmp_string3 = escape(u': {0}'.format(subtask.name))
+                    result_string3 += u'<li><b>TODO</b>{}</li>'.format(tmp_string3)
+                elif subtask.state == 'todo' and record.env.user == subtask.user_id:
                     tmp_string1 = escape(u'{0}: {1}'.format(subtask.reviewer_id.name, subtask.name))
                     result_string1 += u'<li><b>TODO</b> from {}</li>'.format(tmp_string1)
                 elif subtask.state == 'todo' and record.env.user == subtask.reviewer_id:
                     tmp_string2 = escape(u'{0}: {1}'.format(subtask.user_id.name, subtask.name))
                     result_string2 += u'<li>TODO for {}</li>'.format(tmp_string2)
-            record.kanban_subtasks = '<ul>' + result_string1 + result_string2 + '</ul>'
+            record.kanban_subtasks = '<ul>' + result_string1 + result_string3 + result_string2 + '</ul>'
 
     @api.multi
     def send_subtask_email(self, subtask_name, subtask_state, subtask_reviewer_id, subtask_user_id):
@@ -123,15 +129,16 @@ class Task(models.Model):
             user = self.env["res.users"].browse(subtask_user_id)
             state = SUBTASK_STATES[subtask_state]
             partner_ids = []
-            if self.env.user == reviewer:
+            subtype = 'project_task_subtask.subtasks_subtype'
+            if user == self.env.user and reviewer == self.env.user:
+                body = '<p><strong>' + state + '</strong>: ' + subtask_name + '</p>'
+                subtype = False
+            elif self.env.user == reviewer:
                 body = '<p>' + user.name + ', <br><strong>' + state + '</strong>: ' + subtask_name + '</p>'
                 partner_ids = [user.partner_id.id]
             elif self.env.user == user:
                 body = '<p>' + reviewer.name + ', <br><strong>' + state + '</strong>: ' + subtask_name + '</p>'
                 partner_ids = [reviewer.partner_id.id]
-            subtype = 'project_task_subtask.subtasks_subtype'
-            if user == self.env.user and reviewer == self.env.user:
-                subtype = False
             r.message_post(type='comment',
                            subtype=subtype,
                            body=body,
