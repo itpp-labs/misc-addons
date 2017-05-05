@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
 {
     "name": """Preview Media Files""",
-    "summary": """Showing attached images in popup""",
+    "summary": """Open attached images in popup""",
     "category": "Web",
-    "images": [],
+    "images": ['images/screenshot-1.png'],
     "version": "1.0.0",
     "application": False,
 
     "author": "IT-Projects LLC, Dinar Gabbasov",
     "support": "apps@it-projects.info",
     "website": "https://twitter.com/gabbasov_dinar",
-    "license": "GPL-3",
-    # "price": 0.00,
-    # "currency": "EUR",
+    "license": "OPL-1",
+    "price": 19.00,
+    "currency": "EUR",
 
     "depends": [
         "ir_attachment_url",
