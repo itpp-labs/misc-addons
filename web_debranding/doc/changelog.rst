@@ -1,3 +1,9 @@
+
+`1.0.16`
+--------
+
+- FIX: Removed odoo.com link from left bottom of the page
+
 `1.0.15`
 --------
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": """Reminders and Agenda (technical core)""",
-    "category": "Reminders and Agenda'",
+    "category": "Reminders and Agenda",
     "images": [],
     "version": "1.0.6",
     "application": False,

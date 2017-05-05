@@ -22,7 +22,7 @@
             <field name="model">project.project</field>
             <field name="type">gantt8</field>
             <field name="arch" type="xml">
-                <gantt8 date_start="date_start" date_stop="date" progress="progress_rate" string="Projects">
+                <gantt8 date_start="date_start" date_stop="date" string="Projects">
                 </gantt8>
             </field>
         </record>
@@ -50,7 +50,7 @@
             <field name="type">gantt8</field>
             <field eval="2" name="priority"/>
             <field name="arch" type="xml">
-                <gantt8 date_start="date_start" date_stop="date_end" progress="progress" string="Tasks" default_group_by="project_id">
+                <gantt8 date_start="date_start" date_stop="date_end" string="Tasks" default_group_by="project_id">
                 </gantt8>
             </field>
         </record>
