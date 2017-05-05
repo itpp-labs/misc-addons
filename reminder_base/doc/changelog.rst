@@ -1,3 +1,7 @@
+`1.0.7`
+-------
+- Fix: don't correctly create calendar event with Mass Edit
+
 `1.0.6`
 -------
 - Fix: some migration fixes for correct work in v10.0
