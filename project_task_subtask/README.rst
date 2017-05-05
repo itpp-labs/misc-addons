@@ -5,9 +5,10 @@ Tasks implementation planning
 Use subtasks to control your tasks - devide laborious tasks into subtasks and control their states by email notifications
 
 * added new tab "Subtasks" at task's form
-* when new subtask is created\changed message is sent to user that assigned to this subtask
-* delete subtask can only user who create it
-* Each subtask has button to swith state:
+* when new subtask is created\changed message is sent to user that assigned to this subtas
+* Only users related to that subtask can change subtask parametres
+* All subtasks have a certain color, informing about their state
+* Each subtask has buttons to swith state:
 
  * DONE
  * TODO
@@ -16,7 +17,7 @@ Use subtasks to control your tasks - devide laborious tasks into subtasks and co
 * added new menu "Subtasks"
 
  * default filter: "My", "TODO"
- * optional group by: "Project", "Task"
+ * optional group by: "Project", "Task", "User", "State"
 
 Credits
 =======
