@@ -36,6 +36,10 @@ class HrSalaryRule(models.Model):
 
     input_python_compute = fields.Text(string='Python Code')
 
+
+class HrRuleInput(models.Model):
+    _inherit = 'hr.rule.input'
+
     _sql_constraints = [
         ('hr_salary_rule_code_unique', 'UNIQUE (code)', 'Code must be unique.'),
     ]
