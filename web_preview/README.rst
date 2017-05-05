@@ -1,6 +1,6 @@
-=============
- Web preview
-=============
+=====================
+ Preview Media Files
+=====================
 
 The module allows to open attachments (images and video (by default images only)) in popup
 (for widget='image').
@@ -26,7 +26,7 @@ eg for the model 'product.image'::
             </field>
         </record>
 
-The Model should inherit the web_privew. In the '_preview_media_file' parameter specify the binary field
+The Model should inherit the web_preview. In the '_preview_media_file' parameter specify the binary field
 of the model.
 
 eg for the model 'product.image' and the binary field 'image'::

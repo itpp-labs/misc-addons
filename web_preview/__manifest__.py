@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
-    "name": """Web preview""",
-    "summary": """Web preview""",
+    "name": """Preview Media Files""",
+    "summary": """Showing attached images in popup""",
     "category": "Web",
     "images": [],
     "version": "1.0.0",
