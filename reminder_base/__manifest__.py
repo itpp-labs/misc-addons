@@ -3,7 +3,7 @@
     "name": """Reminders and Agenda (technical core)""",
     "category": "Reminders and Agenda",
     "images": [],
-    "version": "1.0.6",
+    "version": "1.0.7",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev, Pavel Romanchenko",
