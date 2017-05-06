@@ -1,6 +1,6 @@
 `1.0.7`
 -------
-- Fix: don't correctly create calendar event with Mass Edit
+- Fix: compatibility with the "Mass Editing" module
 
 `1.0.6`
 -------
