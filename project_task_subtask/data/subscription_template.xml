@@ -10,11 +10,13 @@
     </record>
 
     <record id="all_subtask_subtype" model="mail.message.subtype">
-    <field name="name">Subscription to all subtasks of project</field>
+    <field name="name">All checklist updates</field>
+    <field name="description">Subscribe to checklist updates of other users. By default you are notified on checklist items to and from you only.</field>
     <field name="sequence">10</field>
     <field name="res_model">project.project</field>
     <field name="parent_id" eval="ref('subtasks_subtype')"/>
     <field name="relation_field">project_id</field>
+    <field name="default" eval="True"/>
     </record>
   </data>
 </openerp>
