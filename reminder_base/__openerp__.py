@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Reminders and Agenda (technical core)",
-    'version': '1.0.4',
+    'version': '1.0.5',
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'GPL-3',
     'category': 'Reminders and Agenda',

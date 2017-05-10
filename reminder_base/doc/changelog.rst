@@ -1,3 +1,8 @@
+`1.0.5`
+-------
+
+- Fix: compatibility with the "Mass Editing" module
+
 `1.0.4`
 -------
 
