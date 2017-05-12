@@ -1,18 +1,7 @@
 -
   !python {model: ir.config_parameter}: |
-    from openerp.tools.translate import _
-    PARAMS = [
-    ('web_debranding.new_name', _('Software')),
-    ('web_debranding.new_title', _('Software')),
-    ('web_debranding.new_website', 'example.com'),
-    ('web_debranding.favicon_url', ''),
-    ('web_debranding.send_publisher_warranty_url', '0'),
-    ('web_debranding.planner_footer', ''),
-    ]
-    res = {}
-    for param, default in PARAMS:
-        value = self.env['ir.config_parameter'].get_param(param, default)
-        res[param] = value.strip()
+    self.create_debranding_parameters()
+
 -
   !python {model: ir.translation}: |
     self.clear_caches()
