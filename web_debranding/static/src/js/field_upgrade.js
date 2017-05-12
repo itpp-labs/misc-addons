@@ -25,23 +25,17 @@ odoo.define('web_debranding.field_upgrade', function (require) {
                         return $(ch).css('display') === 'none';
                         }
                     )
-                )
-            {
+                ){
                 // hide whole group as doesn't have fields
-                var i = 1;
-                var max = 10;
-                while (true) {
-                    if (i > max) {
-                        break;
-                    }
-                    i++;
+                for (var i=0; i<10; i++) {
                     if ($el.prop("tagName") === 'TR'){
                         $el.hide();
                         break;
                     }
                     $el = $el.parent();
-                    if (!$el)
+                    if (!$el) {
                         break;
+                    }
                 }
             }
             return this._super.apply(this, arguments);
