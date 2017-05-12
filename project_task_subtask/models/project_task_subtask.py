@@ -132,13 +132,13 @@ class Task(models.Model):
             partner_ids = []
             subtype = 'project_task_subtask.subtasks_subtype'
             if user == self.env.user and reviewer == self.env.user:
-                body = '<p><strong>' + state + '</strong>: ' + subtask_name + '</p>'
+                body = '<p><strong>' + state + '</strong>: ' + escape(subtask_name) + '</p>'
                 subtype = False
             elif self.env.user == reviewer:
-                body = '<p>' + user.name + ', <br><strong>' + state + '</strong>: ' + subtask_name + '</p>'
+                body = '<p>' + escape(user.name) + ', <br><strong>' + state + '</strong>: ' + escape(subtask_name) + '</p>'
                 partner_ids = [user.partner_id.id]
             elif self.env.user == user:
-                body = '<p>' + reviewer.name + ', <br><strong>' + state + '</strong>: ' + subtask_name + '</p>'
+                body = '<p>' + escape(reviewer.name) + ', <br><strong>' + state + '</strong>: ' + escape(subtask_name) + '</p>'
                 partner_ids = [reviewer.partner_id.id]
             r.message_post(type='comment',
                            subtype=subtype,
