@@ -5,7 +5,7 @@ odoo.define('web_debranding.field_upgrade', function (require) {
     var UpgradeBoolean = core.form_widget_registry.get('upgrade_boolean');
     var UpgradeRadio = core.form_widget_registry.get('upgrade_radio');
 
-    if (UpgradeBoolean.prototype.template != 'FieldUpgradeBoolean'){
+    if (!UpgradeBoolean || UpgradeBoolean.prototype.template !== 'FieldUpgradeBoolean'){
         // we are on enterprise. No need to update
         return;
     }
@@ -21,15 +21,21 @@ odoo.define('web_debranding.field_upgrade', function (require) {
 
             // $el = div
             $el = $el.parent();
-            if (_.all($el.children(), function(ch){return $(ch).css('display') == 'none';})){
+            if (_.all($el.children(), function (ch) {
+                        return $(ch).css('display') === 'none';
+                        }
+                    )
+                )
+            {
                 // hide whole group as doesn't have fields
                 var i = 1;
-                var MAX = 10;
-                while (true){
-                    if (i > MAX)
+                var max = 10;
+                while (true) {
+                    if (i > max) {
                         break;
+                    }
                     i++;
-                    if ($el.prop("tagName") == 'TR'){
+                    if ($el.prop("tagName") === 'TR'){
                         $el.hide();
                         break;
                     }
@@ -41,6 +47,7 @@ odoo.define('web_debranding.field_upgrade', function (require) {
             return this._super.apply(this, arguments);
         },
         'on_click_input':function(){
+            console.log('skip');
         }
     };
 

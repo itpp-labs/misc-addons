@@ -11,7 +11,7 @@ odoo.define('web_debranding.native_notifications', function (require) {
 
     var send_notification_super = utils.send_notification;
     utils.send_notification = function (title, content) {
-        if (title == 'Permission granted') {
+        if (title === 'Permission granted') {
             content = content.replace(/Odoo/ig, odoo.debranding_new_name);
         }
         if (Notification && Notification.permission === "granted") {
@@ -23,7 +23,7 @@ odoo.define('web_debranding.native_notifications', function (require) {
         }
     };
 
-    function _send_native_notification(title, content) {
+    var _send_native_notification = function (title, content) {
         var notification = new Notification(title, {body: content, icon: '/web/binary/company_logo?company_id=' + session.company_id});
         notification.onclick = function () {
             window.focus();

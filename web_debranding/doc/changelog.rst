@@ -1,3 +1,7 @@
+`1.0.17`
+--------
+
+- FIX: Does not reset values to default after update or reinstall
 
 `1.0.16`
 --------
