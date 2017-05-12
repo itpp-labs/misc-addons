@@ -1,7 +1,7 @@
 `1.0.17`
 --------
 
-- FIX: Does not reset values to default after update or reinstall
+- FIX: Do not reset config values to default ones after upgrade or reinstall the module
 
 `1.0.16`
 --------
