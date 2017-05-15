@@ -93,7 +93,7 @@
     </record>
 
     <record id="action_view_subtask" model="ir.actions.act_window">
-      <field name="name">Subtask</field>
+      <field name="name">Checklist</field>
       <field name="res_model">project.task.subtask</field>
       <field name="view_mode">tree,form</field>
       <field name="context">{
@@ -103,7 +103,7 @@
       </field>
     </record> 
 
-    <menuitem name="Subtask"
+    <menuitem name="Checklist"
               parent="project.menu_project_management"
               id="menu_action_view_subtask"
               action="action_view_subtask"/>

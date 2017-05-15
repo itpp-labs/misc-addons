@@ -1,15 +1,30 @@
-=====================
- Project task subtask
-=====================
+========================
+ Project Task Checklist
+========================
+
+Installation
+============
+
+* `Install <https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html>`__ this module in a usual way
 
 Usage
 =====
 
-Example of usage: 
+Example of usage:
+-----------------
 
-* Create user1 and user2: open menu ``Settings >> Users`` click ``[Create]`` in ``Technical Settings`` select "Task's Work on Tasks", in ``Application`` select "Project: user"
-* Login as user1, open ``Project >> Project >> Tasks >> Subtasks`` and create new subtask( Reviewer is user1, Assiigned to user2)
-* Login as user2, you can see message in Inbox "todo: subtask_name", change state of subtask to cancelled/done
-* As user2 you can see message in Inbox "cancelled/done: subtask_name" 
-* ``Project >> Project >> Tasks`` kanban view displays all subtasks in state "todo" assigned to you and subtasks where you are a Reviewer 
-* ``Project >> Project >> Subtasks`` displays all subtask in all states assigned to you and subtasks where you are a Reviewer, also you can find subtasks with the help of filters "My" and "Todo"
+* Create User1 and User2 in the ``Settings >> Users`` menu 
+* Login as User1 
+  
+  * Go to ``Project >> Project >> Tasks`` and open the ``Checklist`` tab
+  * Create new subtask (Reviewer - User1, Assigned to - User2)
+
+* Login as User2 
+
+  * See message in Inbox like "TODO: subtask_name"
+  * Change state of subtask to Cancelled/Done
+  * You can see a message in Inbox "Cancelled: subtask_name" or "Done: subtask_name" accordingly. 
+
+* You can see your TODOs on tasks in kanban view in the ``Project >> Project >> Tasks`` menu
+* The ``Project >> Project >> Checklist`` menu displays ALL subtasks in state TODO assigned to you and subtasks where you are Reviewer
+
