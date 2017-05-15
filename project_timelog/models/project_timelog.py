@@ -210,7 +210,6 @@ class ProjectWork(models.Model):
         for r in self:
             r.combined_name = "%s: %s" % (r.task_id.name, r.name)
 
-
     @api.multi
     def _compute_user_current(self):
         for r in self:
