@@ -37,6 +37,14 @@ class View(models.Model):
             </t>
         </xpath>''')
 
+        self._create_view('webclient_bootstrap_enterprise_apple_touch_icon', 'web.webclient_bootstrap', '''
+        <xpath expr="//link[@rel='apple-touch-icon']" position="replace">
+            <t t-set="icon" t-value="request and request.env['ir.config_parameter'].get_debranding_parameters().get('web_debranding.favicon_url', '')"/>
+            <t t-if="icon">
+                <link rel="apple-touch-icon" t-att-href="icon" type="image/x-icon"/>
+            </t>
+        </xpath>''')
+
     @api.model
     def _create_view(self, name, inherit_id, arch, noupdate=False, type='qweb'):
         view = self.env.ref("%s.%s" % (MODULE, name), raise_if_not_found=False)
