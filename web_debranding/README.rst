@@ -35,6 +35,9 @@ module open Settings\\System Parameters and modify
 * ``web_debranding.favicon_url``
 * ``web_debranding.send_publisher_warranty_url`` - set 0 to disable server requests to odoo.com and 1 otherwise (useful for enterprise contractors). Works only for non-enterprise versions of odoo, check `note <#enterprise-users-notice>`__ below.
 * ``web_debranding.planner_footer``
+* ``web_debranding.icon_url`` - icon for mobile devices. recommended size :192x192
+* ``web_debranding.apple_touch_icon_url`` - icon for IOS Safari. recommended size :152x152
+
 
 Note. More user friendly way to configure the module is available in `Brand Kit <https://apps.odoo.com/apps/modules/9.0/theme_kit/>`__.
 
