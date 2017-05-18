@@ -1,7 +1,7 @@
 `1.0.18`
 --------
 
-- FIX: Replace icons for android and apple devices to custom url
+- FIX: Replace icons for android and apple devices with custom url
 
 `1.0.17`
 --------
