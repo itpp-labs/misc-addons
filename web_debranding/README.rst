@@ -24,7 +24,7 @@ Removes references to odoo.com:
 19. Replaces "Odoo" in all backend qweb templates (e.g. FAQ in import tool)
 20. Replaces "odoo.com" in hints, examples, etc.
 21. Rename "OdooBot" to "Bot". Use company's logo as bot avatar
-22. [ENTERPRISE] replace icons for android and apple devices to custom url
+22. [ENTERPRISE] Replaces icons for android and apple devices with custom url
 
 By default the module replaces "Odoo" to "Software". To configure
 module open Settings\\System Parameters and modify
@@ -81,7 +81,7 @@ Enterprise users notice
 Note
 ====
 
-* You can also use our new extended `Brand Kit module <https://www.odoo.com/apps/modules/10.0/theme_kit>`_ to brand your odoo instance in few clicks.
+* You can also use our new extended `Brand Kit module <https://www.odoo.com/apps/modules/10.0/theme_kit>`_ to brand your odoo instance and create your theme in few clicks.
 
 Need our service?
 =================
