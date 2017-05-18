@@ -9,6 +9,9 @@ PARAMS = [
     ('web_debranding.favicon_url', ''),
     ('web_debranding.send_publisher_warranty_url', '0'),
     ('web_debranding.planner_footer', ''),
+    ('web_debranding.icon_url', ''),
+    ('web_debranding.apple_touch_icon_url', ''),
+
 ]
 
 
