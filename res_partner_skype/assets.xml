@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+    <template id="assets_backend" name="Grid Assets" inherit_id="web.assets_backend">
+        <xpath expr=".">
+            <script type="text/javascript" src="/res_partner_skype/static/src/js/skype.js"/>
+        </xpath>
+    </template>
+    </data>
+</odoo>

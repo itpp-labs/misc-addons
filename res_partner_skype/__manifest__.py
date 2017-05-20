@@ -11,11 +11,9 @@
     "depends": ['web'],
     "images": ['images/partner.png'],
     "data": [
+        'assets.xml',
         'views.xml',
         'data.xml',
-    ],
-    "js": [
-        'static/src/js/skype.js'
     ],
     "qweb": [
         'static/src/xml/base.xml',
