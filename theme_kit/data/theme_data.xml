@@ -20,24 +20,6 @@
             <field name="top_panel_hover_item_bg_active">True</field>
         </record>
 
-        <record model="theme_kit.left_panel" id="burger_king_left_panel">
-            <field name="name">Burger King</field>
-            <field name="left_panel_bg">#ED7902</field>
-            <field name="left_panel_bg_active">True</field>
-            <field name="left_panel_main_menu"> #59291C</field>
-            <field name="left_panel_main_menu_active">True</field>
-            <field name="left_panel_sub_menu">#FFFFFF</field>
-            <field name="left_panel_sub_menu_active">True</field>
-            <field name="left_panel_active_item_font">#762823</field>
-            <field name="left_panel_active_item_font_active">True</field>
-            <field name="left_panel_active_item_bg">#FDBD10</field>
-            <field name="left_panel_active_item_bg_active">True</field>
-            <field name="left_panel_hover_item_font">#762823</field>
-            <field name="left_panel_hover_item_font_active">True</field>
-            <field name="left_panel_hover_item_bg">#FDBD10</field>
-            <field name="left_panel_hover_item_bg_active">True</field>
-        </record>
-
         <record model="theme_kit.content" id="burger_king_content">
             <field name="name">Burger King</field>
             <field name="content_bg">#FDDE63</field>

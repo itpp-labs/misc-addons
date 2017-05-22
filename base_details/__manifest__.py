@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    "name": """Base Details""",
+    "name": """{MODULE_NAME}""",
     "summary": """Allows to add reference in any models""",
     "category": "Hidden",
     "images": ["static/description/icon.png"],

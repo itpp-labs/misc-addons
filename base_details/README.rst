@@ -1,17 +1,17 @@
-==============
- Base Details
-==============
+===============
+ {Module Name}
+===============
 
-The module allows to add reference in any models. The reference consist of model name and record id. A list of models is contained in the ``details_model`` field. It's generated in the ``_model_selection`` function which can be overridden in your code. Also the module adds property ``details`` what allows get record with details, e.g.::
+{Put some short introduction first.}
 
-    self.product_id.details
+{Then add more detailed description, technical specifications, any other information that could be interested for other developers. Don't forget that Usage instructions is a separated and has to be located in doc/index.rst file.}
 
 Credits
 =======
 
 Contributors
 ------------
-* <krotov@it-projects.info>
+* {DEVELOPER_NAME} <{PERSON}@it-projects.info>
 
 Sponsors
 --------
@@ -24,12 +24,12 @@ Maintainers
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/misc-addons/10.0
+Demo: http://runbot.it-projects.info/demo/{REPO-NAME}/{BRANCH}
 
-HTML Description: https://apps.odoo.com/apps/modules/10.0/base_details/
+HTML Description: https://apps.odoo.com/apps/modules/{VERSION}/{TECHNICAL_NAME}/
 
 Usage instructions: `<doc/index.rst>`_
 
 Changelog: `<doc/changelog.rst>`_
 
-Tested on Odoo 10.0 260a3da768fbf1cd8c7d7ddb0e8f08aa3991e374
+Tested on Odoo 10.0 {ODOO_COMMIT_SHA_TO_BE_UPDATED}
