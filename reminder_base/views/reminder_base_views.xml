@@ -26,12 +26,10 @@
             </field>
         </record>
 
-        <!-- TODO: can we remove this? -->
         <record id="calendar_alarm_view_form" model="ir.ui.view">
             <field name="name">calendar.alarm.form</field>
             <field name="model">calendar.alarm</field>
             <field name="inherit_id" ref="calendar.calendar_alarm_view_form"/>
-            <field name="priority" eval="1000" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='type']" position="replace">
                     <field name="type"/>
