@@ -11,7 +11,6 @@
     "depends": ['web'],
     "images": ['images/partner.png'],
     "data": [
-        'assets.xml',
         'views.xml',
         'data.xml',
     ],
