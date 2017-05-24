@@ -3,7 +3,7 @@
     "name": """Brand kit""",
     "summary": """Brand your odoo instance in few clicks""",
     "category": "Debranding",
-    "images": [],
+    "images": ['images/brandkit.png'],
     "version": "1.0.0",
     "application": False,
 
