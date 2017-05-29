@@ -66,7 +66,8 @@ class IrAttachment(models.Model):
             # set s3_records to empty recordset
             s3_records = self.env[self._name]
         elif condition:
-            s3_records = self.filtered(lambda r: safe_eval(condition, {}, {'attachment': r}, mode="eval"))
+            condition = safe_eval(condition, mode="eval")
+            s3_records = self.search([('id', 'in', self.ids)]+ condition)
         else:
             # if there is no condition then store all attachments on s3
             s3_records = self
