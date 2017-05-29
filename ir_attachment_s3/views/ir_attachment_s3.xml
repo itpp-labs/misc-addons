@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="view_s3_config_settings" model="ir.ui.view">
+            <field name="name">s3 settings</field>
+            <field name="model">s3.config.settings</field>
+            <field name="arch" type="xml">
+                <form string="Settings needed to store odoo attachments on Amazon AWS S3 bucket" class="oe_form_configuration">
+                    <header>
+                        <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" type="object" name="cancel" class="oe_link"/>
+                    </header>
+                    <div>
+                        <group string="AWS S3 Access">
+                            <field name="s3_bucket" />
+                            <field name="s3_access_key_id" />
+                            <field name="s3_secret_key" password="True"/>
+                        </group>
+                        <group string="Attachments Domain">
+                            <field name="s3_condition" />
+                        </group>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="action_s3_settings" model="ir.actions.act_window">
+            <field name="name">S3 Settings</field>
+            <field name="res_model">s3.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+	<menuitem id="menu_s3_settings" parent="base.next_id_9"
+		action="action_s3_settings" sequence="90"/>
+
+</odoo>
