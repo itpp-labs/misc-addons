@@ -17,45 +17,38 @@ class S3Settings(models.TransientModel):
                                i.e. [('res_model', 'in', ['product.image'])].
                                According to this only data of model product.image will be sored on S3""")
 
-    # s3_bucket
-    @api.model
-    def get_default_s3_bucket(self, fields):
-        s3_bucket = self.env["ir.config_parameter"].get_param("s3.bucket")
-        return {'s3_bucket': s3_bucket or False}
+    def get_default_all(self, fields):
+        s3_bucket = self.env["ir.config_parameter"].get_param("s3.bucket", default='')
+        s3_access_key_id = self.env["ir.config_parameter"].get_param("s3.access_key_id", default='')
+        s3_secret_key = self.env["ir.config_parameter"].get_param("s3.secret_key", default='')
+        s3_condition = self.env["ir.config_parameter"].get_param("s3.condition", default='')
 
+        return dict(
+            s3_bucket=s3_bucket,
+            s3_access_key_id = s3_access_key_id,
+            s3_secret_key = s3_secret_key,
+            s3_condition = s3_condition
+        )
+
+    # s3_bucket
     def set_s3_bucket(self):
         self.env['ir.config_parameter'].set_param("s3.bucket",
                                                   self.s3_bucket or '',
                                                   groups=['base.group_system'])
 
     # s3_access_key_id
-    @api.model
-    def get_default_s3_access_key_id(self, fields):
-        s3_access_key_id = self.env["ir.config_parameter"].get_param("s3.access_key_id")
-        return {'s3_access_key_id': s3_access_key_id or False}
-
     def set_s3_access_key_id(self):
         self.env['ir.config_parameter'].set_param("s3.access_key_id",
                                                   self.s3_access_key_id or '',
                                                   groups=['base.group_system'])
 
     # s3_secret_key
-    @api.model
-    def get_default_s3_secret_key(self, fields):
-        s3_secret_key = self.env["ir.config_parameter"].get_param("s3.secret_key")
-        return {'s3_secret_key': s3_secret_key or False}
-
     def set_s3_secret_key(self):
         self.env['ir.config_parameter'].set_param("s3.secret_key",
                                                   self.s3_secret_key or '',
                                                   groups=['base.group_system'])
 
     # s3_condition
-    @api.model
-    def get_default_s3_condition(self, fields):
-        s3_condition = self.env["ir.config_parameter"].get_param("s3.condition")
-        return {'s3_condition': s3_condition or False}
-
     def set_s3_condition(self):
         self.env['ir.config_parameter'].set_param("s3.condition",
                                                   self.s3_condition or '',
