@@ -20,6 +20,7 @@
                         <group string="Attachments Domain">
                             <field name="s3_condition" />
                         </group>
+                        <button name="upload_existing" type="object" string="Upload existing attachments"/>
                     </div>
 
                 </form>

@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+import hashlib
+
+from odoo.tools.safe_eval import safe_eval
 from odoo import models, fields, api
 
 
@@ -57,3 +60,37 @@ class S3Settings(models.TransientModel):
         self.env['ir.config_parameter'].set_param("s3.condition",
                                                   self.s3_condition or '',
                                                   groups=['base.group_system'])
+
+    def upload_existing(self):
+        condition = safe_eval(self.s3_condition, mode="eval")
+        domain = [('type', '!=', 'url'), ('id', '!=', 0)] + condition
+        attachments = self.env['ir.attachment'].search(domain)
+        attachments = attachments._filter_protected_attachments()
+
+        if attachments:
+            s3 = self.env['ir.attachment']._get_s3_resource()
+
+            for attach in attachments:
+                value = attach.datas
+                bin_data = value and value.decode('base64') or ''
+                fname = hashlib.sha1(bin_data).hexdigest()
+
+                bucket_name = self.s3_bucket
+
+                s3.Bucket(bucket_name).put_object(
+                    Key=fname,
+                    Body=bin_data,
+                    ACL='public-read',
+                    ContentType=attach.mimetype,
+                    )
+
+                vals = {
+                    'file_size': len(bin_data),
+                    'checksum': attach._compute_checksum(bin_data),
+                    'index_content': attach._index(bin_data, attach.datas_fname, attach.mimetype),
+                    'store_fname': fname,
+                    'db_datas': False,
+                    'type': 'url',
+                    'url': attach._get_s3_object_url(s3, bucket_name, fname),
+                }
+                attach.write(vals)
