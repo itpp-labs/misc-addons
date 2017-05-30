@@ -25,9 +25,9 @@ Configuration
 ::
 
   [options]
-  (...)
+  # (...)
   server_wide_modules = web,ir_attachment_url
-  (...)
+  # (...)
 
 * `Enable technical features <https://odoo-development.readthedocs.io/en/latest/odoo/usage/technical-features.html>`__
 * Open menu ``Settings >> Parameters >> System Parameters`` and specify the following parameters there
