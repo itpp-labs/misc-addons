@@ -2,7 +2,7 @@
 import hashlib
 
 from odoo.tools.safe_eval import safe_eval
-from odoo import models, fields, api
+from odoo import models, fields
 
 
 class S3Settings(models.TransientModel):
@@ -25,9 +25,9 @@ class S3Settings(models.TransientModel):
 
         return dict(
             s3_bucket=s3_bucket,
-            s3_access_key_id = s3_access_key_id,
-            s3_secret_key = s3_secret_key,
-            s3_condition = s3_condition
+            s3_access_key_id=s3_access_key_id,
+            s3_secret_key=s3_secret_key,
+            s3_condition=s3_condition
         )
 
     # s3_bucket
