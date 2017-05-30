@@ -16,7 +16,6 @@ Installation
 Configuration
 =============
 
-Instruction how to configure the module.
 * To enable the feature of linking existing urls to binary fields:
 
  * Start Odoo with ``--load=web,ir_attachment_url``
