@@ -61,5 +61,5 @@ In this case you should also install ``ir_attachment_url`` module to be able to 
 
     * export records, for example of model ``product.template``. Choose ``image`` field in the export dialog and save in file.
     * open the file with your favourite text editor and paste urls into ``image`` column there
-    * import records from edited CSV file
+    * import records from the edited CSV file
     * now when you open from ``Sales >> Sales >> Products`` your product form you shoud see the image you specify by url in the file
