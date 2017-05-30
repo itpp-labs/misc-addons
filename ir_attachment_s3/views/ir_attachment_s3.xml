@@ -34,7 +34,6 @@
             <field name="target">inline</field>
         </record>
 
-	<menuitem id="menu_s3_settings" parent="base.next_id_9"
-		action="action_s3_settings" sequence="90"/>
+        <menuitem id="menu_s3_settings" parent="base.next_id_9" action="action_s3_settings" sequence="90"/>
 
 </odoo>
