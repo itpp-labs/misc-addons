@@ -26,6 +26,8 @@ Instruction how to configure the module.
   * ``s3.access_key_id``: S3 access key ID
   * ``s3.secret_key``: S3 secret access key
 
+The settings are also available from the ``Settings >> Technical >> Database Structure >> S3 Settings``.
+
 Usage
 =====
 
