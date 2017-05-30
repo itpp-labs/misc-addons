@@ -18,9 +18,7 @@ Configuration
 
 * To enable the feature of linking existing urls to binary fields:
 
-  * Start Odoo with ``--load=web,ir_attachment_url``
-    or set the ``server_wide_modules``
-    option in The Odoo configuration file:
+  * Start Odoo with ``--load=web,ir_attachment_url`` or set the ``server_wide_modules`` option in The Odoo configuration file:
 
 ::
 
@@ -47,23 +45,25 @@ For example upload by editing product template from ``Sales >> Product`` menu so
 By doing this you have uploaded image on your s3 storage.
 In this case you should also install ``ir_attachment_url`` module to be able to see products' images in odoo backend. Because by default odoo doesn't use urls in its backend. It uses only local stored files or stored db data.
 
-* To upload existing attachments go to the ``Settings >> Technical >> Database Structure >> S3 Settings`` menu and click the ``[Upload existing attachments]`` button there
+Upload existing attachments
+---------------------------
+
+* To upload existing attachments go to the ``Settings >> Technical >> Database Structure >> S3 Settings`` menu and click on the ``[Upload existing attachments]`` button there
 * To add link of existing S3 bucket object to binary fields of existing odoo records:
 
   * Take ``Link`` urls from Amazon. If you open ``Overview`` of the object on Amazon you should see it at the bottom of the page
 
   * make sure that you have properly configured your odoo, see the ``Configuration`` section of this instruction once again in the ``To enable feature of linking...`` part
 
-  * to link objects one-by-one from an odoo backend (this option is only abailable for images attachments):
+  * to link objects one-by-one from an odoo backend (this option is only available for images attachments):
 
-    * In any place where you can upload images to odoo (i.e. from ``Sales >> Sales >> Products`` when you select a product and push ``[Edit]`` button there
-      and hover your mouse pointer under the place on a form view where an image should be)
-      along with standard pencil and trash bin buttons you can see the additional ``[@]`` button. Click this button.
+    * In any place where you can upload images to odoo (i.e. from ``Sales >> Sales >> Products`` when you select a product and push ``[Edit]`` button there and hover your mouse pointer under the place on a form view where an image should be)
+      along with standard pencil and trash bin buttons you can see the additional ``[@]`` button. Click on this button.
     * Copy-paste your url for image and click ``[Save]`` button
 
-  * to link objects in batch you may use default import/export feature of odoo:
+  * to link objects in batch you may use default import/export feature in odoo:
 
-    * export records, for example of model ``product.template``. Choose ``image`` field in the export dialog and save in file.
-    * open the file with your favourite text editor and paste urls into ``image`` column there
+    * for example, export records of model ``product.template``. Choose ``image`` field in the export dialog and save in file.
+    * open the file with your favorite text editor and paste urls into ``image`` column there
     * import records from the edited CSV file
-    * now when you open from ``Sales >> Sales >> Products`` your product form you shoud see the image you specify by url in the file
+    * now when you open from ``Sales >> Sales >> Products`` your product form, you should see the image you specified by url in the file
