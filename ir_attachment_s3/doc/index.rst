@@ -26,7 +26,6 @@ Configuration
 
   [options]
   (...)
-  workers = 4
   server_wide_modules = web,ir_attachment_url
   (...)
 
