@@ -49,6 +49,7 @@ In this case you should also install ``ir_attachment_url`` module to be able to 
 
 * To upload existing attachments go to the ``Settings >> Technical >> Database Structure >> S3 Settings`` menu and click the ``[Upload existing attachments]`` button there
 * To add link of existing S3 bucket object to binary fields of existing odoo records:
+
   * make sure that you have properly configured your odoo, see the ``Configuration`` section of this instruction once again in the ``To enable feature of linking...`` part
 
   * to link objects one-by-one from an odoo backend (this option is only abailable for images attachments):
