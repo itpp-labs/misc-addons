@@ -57,7 +57,7 @@ In this case you should also install ``ir_attachment_url`` module to be able to 
   * to link objects one-by-one from an odoo backend (this option is only abailable for images attachments):
 
     * In any place where you can upload images to odoo (i.e. from ``Sales >> Sales >> Products`` when you select a product and push ``[Edit]`` button there
-      and hove your mouse pointer under the place on a form view where an image should be)
+      and hover your mouse pointer under the place on a form view where an image should be)
       along with standard pencil and trash bin buttons you can see the additional ``[@]`` button. Click this button.
     * Copy-paste your url for image and click ``[Save]`` button
 
