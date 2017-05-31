@@ -2,7 +2,7 @@
 import hashlib
 
 from odoo.tools.safe_eval import safe_eval
-from odoo import models, fields, exceptions
+from odoo import models, fields, exceptions, _
 
 
 class S3Settings(models.TransientModel):
@@ -65,8 +65,7 @@ class S3Settings(models.TransientModel):
             s3 = self.env['ir.attachment']._get_s3_resource()
 
             if not s3:
-                raise exceptions.MissingError("""Some of the S3 connection credentials are missing.
-                Don't forget to click the ``[Apply]`` button after any changes you've made""")
+                raise exceptions.MissingError(_("Some of the S3 connection credentials are missing.\n Don't forget to click the ``[Apply]`` button after any changes you've made"))
 
             for attach in attachments:
                 value = attach.datas
