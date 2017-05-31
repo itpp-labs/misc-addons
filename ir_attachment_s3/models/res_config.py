@@ -55,7 +55,7 @@ class S3Settings(models.TransientModel):
                                                   groups=['base.group_system'])
 
     def upload_existing(self):
-        condition = safe_eval(self.s3_condition, mode="eval")
+        condition = self.s3_condition and safe_eval(self.s3_condition, mode="eval") or []
         domain = [('type', '!=', 'url'), ('id', '!=', 0)] + condition
         attachments = self.env['ir.attachment'].search(domain)
         attachments = attachments._filter_protected_attachments()
