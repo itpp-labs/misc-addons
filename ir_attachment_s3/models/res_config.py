@@ -2,7 +2,7 @@
 import hashlib
 
 from odoo.tools.safe_eval import safe_eval
-from odoo import models, fields
+from odoo import models, fields, exceptions
 
 
 class S3Settings(models.TransientModel):
@@ -61,7 +61,12 @@ class S3Settings(models.TransientModel):
         attachments = attachments._filter_protected_attachments()
 
         if attachments:
+
             s3 = self.env['ir.attachment']._get_s3_resource()
+
+            if not s3:
+                raise exceptions.MissingError("""Some of the S3 connection credentials are missing.
+                Don't forget to click the ``[Apply]`` button after any changes you've made""")
 
             for attach in attachments:
                 value = attach.datas
@@ -70,12 +75,15 @@ class S3Settings(models.TransientModel):
 
                 bucket_name = self.s3_bucket
 
-                s3.Bucket(bucket_name).put_object(
-                    Key=fname,
-                    Body=bin_data,
-                    ACL='public-read',
-                    ContentType=attach.mimetype,
-                    )
+                try:
+                    s3.Bucket(bucket_name).put_object(
+                        Key=fname,
+                        Body=bin_data,
+                        ACL='public-read',
+                        ContentType=attach.mimetype,
+                        )
+                except Exception, e:
+                    raise exceptions.UserError(e.message)
 
                 vals = {
                     'file_size': len(bin_data),
