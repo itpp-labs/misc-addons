@@ -25,7 +25,6 @@ class ProjectTaskSubtask(models.Model):
     task_id = fields.Many2one('project.task', 'Task', ondelete='cascade', required=True, select="1")
     hide_button = fields.Boolean(compute='_compute_hide_button')
     recolor = fields.Boolean(compute='_compute_recolor')
-    write_date = fields.Datetime('Last Modification', readonly=True, select=True)
 
 
     @api.multi
@@ -57,19 +56,14 @@ class ProjectTaskSubtask(models.Model):
         for r in self:
             if vals.get('state'):
                 r.task_id.send_subtask_email(r.name, r.state, r.reviewer_id.id, r.user_id.id)
-                vals['write_date'] = fields.datetime.now()
                 if self.env.user != r.reviewer_id and self.env.user != r.user_id:
                     raise UserError(_('Only users related to that subtask can change state.'))
             if vals.get('name'):
                 r.task_id.send_subtask_email(r.name, r.state, r.reviewer_id.id, r.user_id.id)
-                vals['write_date'] = fields.datetime.now()
                 if self.env.user != r.reviewer_id:
                     raise UserError(_('Only reviewer can change description.'))
             if vals.get('user_id'):
                 r.task_id.send_subtask_email(r.name, r.state, r.reviewer_id.id, r.user_id.id)
-                vals['write_date'] = fields.datetime.now()
-            if vals.get('reviewer_id'):
-                vals['write_date'] = fields.datetime.now()
         return result
 
     @api.model
