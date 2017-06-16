@@ -4,8 +4,6 @@ from openerp import models, fields, api
 from openerp.tools import html_escape as escape
 from openerp.exceptions import Warning as UserError
 from openerp.tools.translate import _
-from datetime import datetime, date
-
 
 
 SUBTASK_STATES = {'done': 'Done',
@@ -25,7 +23,6 @@ class ProjectTaskSubtask(models.Model):
     task_id = fields.Many2one('project.task', 'Task', ondelete='cascade', required=True, select="1")
     hide_button = fields.Boolean(compute='_compute_hide_button')
     recolor = fields.Boolean(compute='_compute_recolor')
-
 
     @api.multi
     def _compute_recolor(self):
