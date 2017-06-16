@@ -20,6 +20,7 @@
                   <button name="change_state_todo" string="Change state to TODO" type="object" icon="gtk-new" attrs="{'invisible': [ '|',('state', '=', 'todo'), ('hide_button', '=', True)]}"/>
                   <button name="change_state_cancelled" type="object" string="Change state to CANCELLED" icon="gtk-cancel" attrs="{'invisible': [ '|',('state', '=', 'cancelled'), ('hide_button', '=', True)]}"/>
                   <field name="reviewer_id"/>
+                  <field name="write_date"/>
                 </tree>
             </field>
           </page>
@@ -87,7 +88,8 @@
           <field name="name"/>
           <field name="user_id"/>
           <field name="reviewer_id"/>
-          <field name="task_id"/>
+          <field name="task_id"/> 
+          <field name="state"/>
         </tree>
       </field>
     </record>
