@@ -45,8 +45,8 @@ class IrAttachment(models.Model):
         secret_key = self._get_s3_settings('s3.secret_key', 'S3_SECRET_KEY')
         bucket_name = self._get_s3_settings('s3.bucket', 'S3_BUCKET')
 
-        if not access_key_id or not secret_key:
-            _logger.info(_('Amazon S3 access_key_id and secret_access_key are not defined. Attachments are not saved on S3.'))
+        if not access_key_id or not secret_key or not bucket_name:
+            _logger.info(_('Amazon S3 credentials are not defined properly. Attachments won\'t be saved on S3.'))
             return False
 
         s3 = boto3.resource(
@@ -66,7 +66,8 @@ class IrAttachment(models.Model):
             # set s3_records to empty recordset
             s3_records = self.env[self._name]
         elif condition:
-            s3_records = self.filtered(lambda r: safe_eval(condition, {}, {'attachment': r}, mode="eval"))
+            condition = safe_eval(condition, mode="eval")
+            s3_records = self.search([('id', 'in', self.ids)] + condition)
         else:
             # if there is no condition then store all attachments on s3
             s3_records = self

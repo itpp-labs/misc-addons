@@ -18,6 +18,7 @@
     ],
     "external_dependencies": {"python": ['boto3'], "bin": []},
     "data": [
+        "views/ir_attachment_s3.xml",
     ],
     "qweb": [
     ],

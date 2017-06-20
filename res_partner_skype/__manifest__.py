@@ -14,9 +14,6 @@
         'views.xml',
         'data.xml',
     ],
-    "js": [
-        'static/src/js/skype.js'
-    ],
     "qweb": [
         'static/src/xml/base.xml',
     ],
