@@ -89,7 +89,7 @@
           <field name="user_id"/>
           <field name="reviewer_id"/>
           <field name="task_id"/> 
-          <field name="state"/>
+          <field name="task_state"/>
         </tree>
       </field>
     </record>
