@@ -17,12 +17,15 @@ env:
   - VERSION="10.0" TESTS="0" LINT_CHECK="0" TRANSIFEX="0" UNIT_TEST="0"
   - EXCLUDE="hw_printer_network"
   - PYLINT_ODOO_JSLINTRC="/home/travis/maintainer-quality-tools/travis/cfg/.jslintrc"
+  - TRANSIFEX_USER='i18n-bot@it-projects.info'
+  # "secure" contains crypted TRANSIFEX_PASSWORD:
+  - secure: "lPAucFpPTkdGS6yw5XEYoWKyeQkvRwEUcA4S1BMou7EludOSCXWW4IX/CBI/wgGYG9H2ygXbgrsLxKf3iGWVejDxQTZU1sRAZxj2+K8HkEF4UCNiakLLN5EQdELOF9Dsnk3kA0I1gQzrD7G11VLcPkSpGGqBQvJwHk1UHtj/Ez6Vlo2n2pP5xf9MgCdg4Uvp1lPK0lpG+bjvz7U5/HzqUk39bqPXqeohUM8MTrHqXuEU8Mm9+sVv2eeNsCpC0q0khUPiKirugH8hEQWJ1iXEk1a/t1LPe5JaG6KRIUl1mZLBE0JBnMpaw6i1okvRpp2LJb/HZ2TU72P9+a11wFX1KhbVcXIa/RDjeS7lq17fZKRY33otKAPzs3R2irR0OIzak+Z65W/hut4FdL8kvY6oz69zVlXS1OC3rfs9WhZ3uJKXahARZa2Nfk9ESR26UCM0GHeYOEoasvKNgBjD1hdUEJoGRmEFtC8V5iJYGZLNrU1a2WPXQhQB7bBYBIpLEcyhcV40SvUFmVJM11LRYjys2sJ9fGqm1TBR2jEAgVHy9+fxk+fclXXevXKvheEtUrKrMi7hwI8dn81DA6VFnDrOywxfQG5y/ky0wHo9mXlpWzbL/19pxLvbp9+dy18a6iuZ0LCd8MFXXwkWfG711dlFsNWBBWRu9i5tX5rcR2HVUFk="
 
 
   matrix:
   - LINT_CHECK="1"
   - TESTS="1" ODOO_REPO="odoo/odoo"
-  - TESTS="1" ODOO_REPO="OCA/OCB""
+  - TESTS="1" ODOO_REPO="OCA/OCB"
   - TESTS="1" UNIT_TEST="1"
 
 virtualenv:
