@@ -36,6 +36,7 @@ class AuthConfirm(AuthSignupHome):
             pass
         try:
             res = self._singup_with_confirmation(*args, **kw)
+            # FIXME: don't trust to subject. Use more strong way to find message
             message = request.env['mail.message'].sudo().search([('res_id', '=', res['partner_id']),
                                                                  ('subject', '=', 'Confirm registration')])
             message.sudo(res['user_id']).set_message_done([res['partner_id']])
