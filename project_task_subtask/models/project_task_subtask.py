@@ -15,12 +15,13 @@ class ProjectTaskSubtask(models.Model):
     _name = "project.task.subtask"
     _inherit = ['ir.needaction_mixin']
     state = fields.Selection([(k, v) for k, v in SUBTASK_STATES.items()],
-                             'Task state', required=True, copy=False, default='todo')
+                             'Status', required=True, copy=False, default='todo')
     name = fields.Char(required=True, string="Description")
     reviewer_id = fields.Many2one('res.users', 'Reviewer', readonly=True, default=lambda self: self.env.user)
     project_id = fields.Many2one("project.project", related='task_id.project_id', store=True)
     user_id = fields.Many2one('res.users', 'Assigned to', required=True)
     task_id = fields.Many2one('project.task', 'Task', ondelete='cascade', required=True, select="1")
+    task_state = fields.Char(string='Task state', related='task_id.stage_id.name', readonly=True)
     hide_button = fields.Boolean(compute='_compute_hide_button')
     recolor = fields.Boolean(compute='_compute_recolor')
 
