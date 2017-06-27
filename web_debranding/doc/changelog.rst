@@ -1,3 +1,8 @@
+`1.0.19`
+--------
+
+- FIX: Page title was empty even when it doesn't contain references to odoo
+
 `1.0.18`
 --------
 
