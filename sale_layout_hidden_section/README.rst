@@ -1,7 +1,10 @@
-===========================
+============================
  Sale Layout Hidden Section
-===========================
+============================
 
+This module allows to use layouts within specific Sale Order only.
+
+Once you create new sale order, you need to save it after creating new layout (Section), otherwise layout will not be displayed on other order lines.
 
 Credits
 =======
@@ -29,3 +32,4 @@ Usage instructions: `<doc/index.rst>`_
 
 Changelog: `<doc/changelog.rst>`_
 
+Tested on Odoo 10.0 e66e1e2142aa8812149e82cdc5f391aa9599cea6
