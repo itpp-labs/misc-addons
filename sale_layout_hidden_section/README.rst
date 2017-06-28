@@ -4,8 +4,6 @@
 
 This module allows to use layouts within specific Sale Order only.
 
-Once you create new sale order, you need to save it after creating new layout (Section), otherwise layout will not be displayed on other order lines.
-
 Credits
 =======
 
