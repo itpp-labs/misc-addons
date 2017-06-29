@@ -6,6 +6,7 @@ class SaleLayoutCategory(models.Model):
     _inherit = 'sale.layout_category'
 
     sale_order_id = fields.Many2one('sale.order')
+    is_global = fields.Boolean(default=False, string='Global')
 
 
 class SaleOrderLine(models.Model):
