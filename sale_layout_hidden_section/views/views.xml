@@ -20,11 +20,14 @@
         <record id="report_configuration_form_new" model="ir.ui.view">
             <field name="name">report.configuration.form.view_new</field>
             <field name="model">sale.layout_category</field>
-            <field name="inherit_id" ref="sale.report_configuration_form_view"/>
+            <field name="inherit_id" ref="sale.report_configuration_tree_view"/>
             <field name="priority">100</field>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='sequence']" position="after">
                     <field name='is_global' />
+                </xpath>
+                 <xpath expr="//tree" position="attributes">
+                    <attribute name="editable">bottom</attribute>
                 </xpath>
             </field>
         </record>
