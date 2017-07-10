@@ -32,11 +32,11 @@
       <field name="model">project.task</field>
       <field name="inherit_id" ref="project.view_task_kanban"/>
       <field name="arch" type="xml">
-        <xpath expr="//field[@name ='categ_ids']" position="after">
+        <xpath expr="//field[@name ='tag_ids']" position="after">
           <field name="subtask_ids"/>
           <field name="kanban_subtasks"/>
         </xpath>
-        <xpath expr="//span[@title ='Remaining hours']/.." position="after">
+        <xpath expr="//t[@t-name ='kanban-box']" position="inside">
           <div>
              <t t-raw="record.kanban_subtasks.raw_value"/> 
           </div>
@@ -88,6 +88,7 @@
           <field name="user_id"/>
           <field name="reviewer_id"/>
           <field name="task_id"/>
+          <field name="task_state"/>
         </tree>
       </field>
     </record>
