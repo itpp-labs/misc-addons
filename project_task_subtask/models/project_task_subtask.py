@@ -21,6 +21,7 @@ class ProjectTaskSubtask(models.Model):
     project_id = fields.Many2one("project.project", related='task_id.project_id', store=True)
     user_id = fields.Many2one('res.users', 'Assigned to', required=True)
     task_id = fields.Many2one('project.task', 'Task', ondelete='cascade', required=True, select="1")
+    task_state = fields.Char(string='Task state', related='task_id.stage_id.name', readonly=True)
     hide_button = fields.Boolean(compute='_compute_hide_button')
     recolor = fields.Boolean(compute='_compute_recolor')
 
@@ -59,6 +60,8 @@ class ProjectTaskSubtask(models.Model):
                 r.task_id.send_subtask_email(r.name, r.state, r.reviewer_id.id, r.user_id.id)
                 if self.env.user != r.reviewer_id:
                     raise UserError(_('Only reviewer can change description.'))
+            if vals.get('user_id'):
+                r.task_id.send_subtask_email(r.name, r.state, r.create_uid.id, r.user_id.id)
         return result
 
     @api.model
@@ -94,14 +97,14 @@ class Task(models.Model):
     @api.multi
     def _compute_default_user(self):
         for record in self:
-            if self.env.user != record.user_id and self.env.user != record.reviewer_id:
+            if self.env.user != record.user_id and self.env.user != record.create_uid:
                 record.default_user = record.user_id
             else:
                 if self.env.user != record.user_id:
                     record.default_user = record.user_id
-                elif self.env.user != record.reviewer_id:
-                    record.default_user = record.reviewer_id
-                elif self.env.user == record.reviewer_id and self.env.user == record.user_id:
+                elif self.env.user != record.create_uid:
+                    record.default_user = record.create_uid
+                elif self.env.user == record.create_uid and self.env.user == record.user_id:
                     record.default_user = self.env.user
 
     @api.multi
@@ -129,18 +132,18 @@ class Task(models.Model):
             reviewer = self.env["res.users"].browse(subtask_reviewer_id)
             user = self.env["res.users"].browse(subtask_user_id)
             state = SUBTASK_STATES[subtask_state]
-            partner_ids = []
+            reviewer_ids = []
             subtype = 'project_task_subtask.subtasks_subtype'
             if user == self.env.user and reviewer == self.env.user:
                 body = '<p><strong>' + state + '</strong>: ' + escape(subtask_name) + '</p>'
                 subtype = False
             elif self.env.user == reviewer:
                 body = '<p>' + escape(user.name) + ', <br><strong>' + state + '</strong>: ' + escape(subtask_name) + '</p>'
-                partner_ids = [user.partner_id.id]
+                reviewer_ids = [user.create_uid.id]
             elif self.env.user == user:
                 body = '<p>' + escape(reviewer.name) + ', <br><strong>' + state + '</strong>: ' + escape(subtask_name) + '</p>'
-                partner_ids = [reviewer.partner_id.id]
+                reviewer_ids = [reviewer.create_uid.id]
             r.message_post(type='comment',
                            subtype=subtype,
                            body=body,
-                           partner_ids=partner_ids)
+                           reviewer_ids=reviewer_ids)
