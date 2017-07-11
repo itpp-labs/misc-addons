@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from openerp import models, fields, api
-from openerp.tools import html_escape as escape
-from openerp.exceptions import Warning as UserError
-from openerp.tools.translate import _
+from odoo import models, fields, api
+from odoo.tools import html_escape as escape
+from odoo.exceptions import Warning as UserError
+from odoo.tools.translate import _
 
 
 SUBTASK_STATES = {'done': 'Done',
