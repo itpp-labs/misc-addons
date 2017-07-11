@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record id="view_task_form2" model="ir.ui.view">
+      <field name="name">project.task.form</field>
+      <field name="model">project.task</field>
+      <field name="inherit_id" ref="project.view_task_form2"/>
+      <field name="arch" type="xml">
+        <xpath expr = "//page[1]" position = "before">
+          <page string="Checklist">
+            <field name="default_user" invisible='True'/>
+            <field name="subtask_ids" context="{'default_user_id': default_user}">
+              <tree string="Task Work" editable="bottom" colors="red:recolor == True;gray:state == 'cancelled';green:state == 'done'">
+                  <field name="name"/>
+                  <field name="recolor" invisible='True'/>
+                  <field name="user_id"/>
+                  <field name="state"/>
+                  <field name="hide_button" invisible='True'/>
+                  <button name="change_state_done" string="Change state to DONE" type="object" icon="gtk-apply" attrs="{'invisible': ['|', ('state', 'in',['done', 'cancelled']), ('hide_button', '=', True)]}"/>
+                  <button name="change_state_todo" string="Change state to TODO" type="object" icon="gtk-new" attrs="{'invisible': [ '|',('state', '=', 'todo'), ('hide_button', '=', True)]}"/>
+                  <button name="change_state_cancelled" type="object" string="Change state to CANCELLED" icon="gtk-cancel" attrs="{'invisible': [ '|',('state', '=', 'cancelled'), ('hide_button', '=', True)]}"/>
+                  <field name="reviewer_id"/>
+                </tree>
+            </field>
+          </page>
+        </xpath>
+      </field>
+    </record>
+
+    <record id="view_task_kanban_subtasks" model="ir.ui.view">
+      <field name="name">project.task.kanban.subtasks</field>
+      <field name="model">project.task</field>
+      <field name="inherit_id" ref="project.view_task_kanban"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name ='tag_ids']" position="after">
+          <field name="subtask_ids"/>
+          <field name="kanban_subtasks"/>
+        </xpath>
+        <xpath expr="//t[@t-name ='kanban-box']" position="inside">
+          <div>
+             <t t-raw="record.kanban_subtasks.raw_value"/> 
+          </div>
+        </xpath>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_id">
+      <field name="name">project.task.subtask</field>
+      <field name="model">project.task.subtask</field>
+      <field name="arch" type="xml">
+        <form string="Subtask Message">
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="user_id"/>
+              <field name="state"/>
+              <field name="task_id"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="project_task_subtask_view_search" model="ir.ui.view">
+      <field name="name">project.task.subtask.filter</field>
+      <field name="model">project.task.subtask</field>
+      <field name="arch" type="xml">
+        <search string="Filter">
+          <filter string="My" domain="[('user_id','=',uid)]" name="my_subtask"/>
+          <separator/>
+          <filter string="TODO" domain="[('state','=','todo')]" name="done_subtask"/>
+          <group expand="0" string="Group By">
+            <filter string="Project" domain="[]" context="{'group_by':'project_id'}"/>
+            <filter string="Task" domain="[]" context="{'group_by':'task_id'}"/>
+            <filter string="User" domain="[]" context="{'group_by':'user_id'}"/>
+            <filter string="State" domain="[]" context="{'group_by':'state'}"/>
+          </group>
+        </search>
+      </field>
+    </record> 
+
+    <record model="ir.ui.view" id="subtask_list_view">
+      <field name="name">subtask.list.form</field>
+      <field name="model">project.task.subtask</field>
+      <field name="arch" type="xml">
+        <tree string="subtask_list_form">
+          <field name="name"/>
+          <field name="user_id"/>
+          <field name="reviewer_id"/>
+          <field name="task_id"/>
+          <field name="task_state"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="action_view_subtask" model="ir.actions.act_window">
+      <field name="name">Checklist</field>
+      <field name="res_model">project.task.subtask</field>
+      <field name="view_mode">tree,form</field>
+      <field name="context">{
+      'search_default_my_subtask': 1,
+      'search_default_done_subtask': 1, 
+      }
+      </field>
+    </record> 
+
+    <menuitem name="Checklist"
+              parent="project.menu_project_management"
+              id="menu_action_view_subtask"
+              action="action_view_subtask"/>
+    
+  </data>
+</openerp>
