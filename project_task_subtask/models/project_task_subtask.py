@@ -20,7 +20,7 @@ class ProjectTaskSubtask(models.Model):
     reviewer_id = fields.Many2one('res.users', 'Reviewer', readonly=True, default=lambda self: self.env.user)
     project_id = fields.Many2one("project.project", related='task_id.project_id', store=True)
     user_id = fields.Many2one('res.users', 'Assigned to', required=True)
-    task_id = fields.Many2one('project.task', 'Task', ondelete='cascade', required=True, select="1")
+    task_id = fields.Many2one('project.task', 'Task', ondelete='cascade', required=True, index="1")
     task_state = fields.Char(string='Task state', related='task_id.stage_id.name', readonly=True)
     hide_button = fields.Boolean(compute='_compute_hide_button')
     recolor = fields.Boolean(compute='_compute_recolor')
