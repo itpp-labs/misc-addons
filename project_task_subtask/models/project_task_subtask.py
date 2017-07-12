@@ -114,14 +114,20 @@ class Task(models.Model):
             result_string2 = ''
             result_string3 = ''
             for subtask in record.subtask_ids:
+                bounding_length = 25
+                tmp_list = (subtask.name).split()
+                for index in range(len(tmp_list)):
+                    if len(tmp_list[index]) > bounding_length:
+                        tmp_list[index] = tmp_list[index][:bounding_length] + '...'
+                tmp_subtask_name = " ".join(tmp_list)
                 if subtask.state == 'todo' and record.env.user == subtask.user_id and record.env.user == subtask.reviewer_id:
-                    tmp_string3 = escape(u': {0}'.format(subtask.name))
+                    tmp_string3 = escape(u': {0}'.format(tmp_subtask_name))
                     result_string3 += u'<li><b>TODO</b>{}</li>'.format(tmp_string3)
                 elif subtask.state == 'todo' and record.env.user == subtask.user_id:
-                    tmp_string1 = escape(u'{0}: {1}'.format(subtask.reviewer_id.name, subtask.name))
+                    tmp_string1 = escape(u'{0}: {1}'.format(subtask.reviewer_id.name, tmp_subtask_name))
                     result_string1 += u'<li><b>TODO</b> from {}</li>'.format(tmp_string1)
                 elif subtask.state == 'todo' and record.env.user == subtask.reviewer_id:
-                    tmp_string2 = escape(u'{0}: {1}'.format(subtask.user_id.name, subtask.name))
+                    tmp_string2 = escape(u'{0}: {1}'.format(subtask.user_id.name, tmp_subtask_name))
                     result_string2 += u'<li>TODO for {}</li>'.format(tmp_string2)
             record.kanban_subtasks = '<ul>' + result_string1 + result_string3 + result_string2 + '</ul>'
 
