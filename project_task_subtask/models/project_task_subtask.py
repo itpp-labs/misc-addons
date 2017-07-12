@@ -114,10 +114,12 @@ class Task(models.Model):
             result_string2 = ''
             result_string3 = ''
             for subtask in record.subtask_ids:
-                tmp_subtask_name = subtask.name
-                bounding_length = 30
-                if len(subtask.name) > bounding_length:
-                    tmp_subtask_name = subtask.name[0:bounding_length] + '...'
+                bounding_length = 25
+                tmp_list = (subtask.name).split()
+                for index in range(len(tmp_list)):
+                    if len(tmp_list[index]) > bounding_length:
+                        tmp_list[index] = tmp_list[index][:bounding_length] + '...'
+                tmp_subtask_name = " ".join(tmp_list)
                 if subtask.state == 'todo' and record.env.user == subtask.user_id and record.env.user == subtask.reviewer_id:
                     tmp_string3 = escape(u': {0}'.format(tmp_subtask_name))
                     result_string3 += u'<li><b>TODO</b>{}</li>'.format(tmp_string3)
