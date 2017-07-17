@@ -138,11 +138,11 @@ class Task(models.Model):
             reviewer = self.env["res.users"].browse(subtask_reviewer_id)
             user = self.env["res.users"].browse(subtask_user_id)
             state = SUBTASK_STATES[subtask_state]
-            if state == 'Done':
+            if subtask_state == 'done':
                 state = '<span style="color:#080">' + state + '</span>'
-            if state == 'Todo':
+            if subtask_state == 'todo':
                 state = '<span style="color:#A00">' + state + '</span>'
-            if state == 'Cancelled':
+            if subtask_state == 'cancelled':
                 state = '<span style="color:#777">' + state + '</span>'
             partner_ids = []
             subtype = 'project_task_subtask.subtasks_subtype'
