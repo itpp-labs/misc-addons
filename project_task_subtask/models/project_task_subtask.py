@@ -7,7 +7,7 @@ from openerp.tools.translate import _
 
 
 SUBTASK_STATES = {'done': 'Done',
-                  'todo': 'Todo',
+                  'todo': 'TODO',
                   'cancelled': 'Cancelled'}
 
 
