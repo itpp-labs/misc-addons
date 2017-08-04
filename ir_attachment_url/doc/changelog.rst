@@ -1,7 +1,7 @@
 `1.1.2`
 -------
 
-- **FIX:** Technical error related to saving URL
+- **FIX:** Error on saving multiple URLs at once
 
 `1.1.1`
 -------
