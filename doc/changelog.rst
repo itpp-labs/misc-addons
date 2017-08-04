@@ -1,3 +1,8 @@
+`1.1.2`
+-------
+
+- **FIX:** Technical error related to saving URL
+
 `1.1.1`
 -------
 
