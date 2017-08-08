@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from openerp import models, api
-from openerp.tools.translate import _
+from odoo import models, api
+from odoo.tools.translate import _
 
 PARAMS = [
     ('web_debranding.new_name', _('Software')),

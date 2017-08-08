@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from openerp.fields import _String
+from odoo.fields import _String
 
 get_trans_func = _String.get_trans_func
 

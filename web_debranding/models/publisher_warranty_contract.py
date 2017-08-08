@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from openerp import models, api
-from openerp.release import version_info
+from odoo import models, api
+from odoo.release import version_info
 
 _logger = logging.getLogger(__name__)
 

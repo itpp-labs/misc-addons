@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 
-from openerp import models, api
+from odoo import models, api
 
 
 class Planner(models.Model):
