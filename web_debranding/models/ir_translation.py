@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import re
 
-from openerp import api
-from openerp import models
-from openerp import tools
+from odoo import api
+from odoo import models
+from odoo import tools
 
 from .ir_config_parameter import PARAMS
 
