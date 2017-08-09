@@ -8,6 +8,7 @@ from openerp.tools.translate import _
 
 SUBTASK_STATES = {'done': 'Done',
                   'todo': 'TODO',
+                  'waiting': 'Waiting',
                   'cancelled': 'Cancelled'}
 
 
@@ -87,6 +88,11 @@ class ProjectTaskSubtask(models.Model):
         for record in self:
             record.state = 'cancelled'
 
+    @api.multi
+    def change_state_waiting(self):
+        for record in self:
+            record.state = 'waiting'
+
 
 class Task(models.Model):
     _inherit = "project.task"
@@ -144,6 +150,8 @@ class Task(models.Model):
                 state = '<span style="color:#A00">' + state + '</span>'
             if subtask_state == 'cancelled':
                 state = '<span style="color:#777">' + state + '</span>'
+            if subtask_state == 'waiting':
+                state = '<span style="color:#967117">' + state + '</span>'
             partner_ids = []
             subtype = 'project_task_subtask.subtasks_subtype'
             if user == self.env.user and reviewer == self.env.user:
