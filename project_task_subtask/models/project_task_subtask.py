@@ -51,6 +51,7 @@ class ProjectTaskSubtask(models.Model):
 
     @api.multi
     def write(self, vals):
+        old_names = dict(zip(self.mapped('id'), self.mapped('name')))
         result = super(ProjectTaskSubtask, self).write(vals)
         for r in self:
             if vals.get('state'):
@@ -58,7 +59,7 @@ class ProjectTaskSubtask(models.Model):
                 if self.env.user != r.reviewer_id and self.env.user != r.user_id:
                     raise UserError(_('Only users related to that subtask can change state.'))
             if vals.get('name'):
-                r.task_id.send_subtask_email(r.name, r.state, r.reviewer_id.id, r.user_id.id)
+                r.task_id.send_subtask_email(r.name, r.state, r.reviewer_id.id, r.user_id.id, old_name=old_names[r.id])
                 if self.env.user != r.reviewer_id:
                     raise UserError(_('Only reviewer can change description.'))
             if vals.get('user_id'):
@@ -140,7 +141,7 @@ class Task(models.Model):
             record.kanban_subtasks = '<ul>' + result_string1 + result_string3 + result_string2 + '</ul>'
 
     @api.multi
-    def send_subtask_email(self, subtask_name, subtask_state, subtask_reviewer_id, subtask_user_id):
+    def send_subtask_email(self, subtask_name, subtask_state, subtask_reviewer_id, subtask_user_id, old_name=None):
         for r in self:
             body = ''
             reviewer = self.env["res.users"].browse(subtask_reviewer_id)
@@ -156,15 +157,27 @@ class Task(models.Model):
                 state = '<span style="color:#967117">' + state + '</span>'
             partner_ids = []
             subtype = 'project_task_subtask.subtasks_subtype'
-            if user == self.env.user and reviewer == self.env.user:
-                body = '<p><strong>' + state + '</strong>: ' + escape(subtask_name) + '</p>'
-                subtype = False
-            elif self.env.user == reviewer:
-                body = '<p>' + escape(user.name) + ', <br><strong>' + state + '</strong>: ' + escape(subtask_name) + '</p>'
-                partner_ids = [user.partner_id.id]
-            elif self.env.user == user:
-                body = '<p>' + escape(reviewer.name) + ', <br><strong>' + state + '</strong>: ' + escape(subtask_name) + '</p>'
-                partner_ids = [reviewer.partner_id.id]
+            if old_name is None:
+                if user == self.env.user and reviewer == self.env.user:
+                    body = '<p>' + '<strong>' + state + '</strong>: ' + escape(subtask_name) + '</p>'
+                    subtype = False
+                elif self.env.user == reviewer:
+                    body = '<p>' + escape(user.name) + ', <br><strong>' + state + '</strong>: ' + escape(subtask_name) + '</p>'
+                    partner_ids = [user.partner_id.id]
+                elif self.env.user == user:
+                    body = '<p>' + escape(reviewer.name) + ', I updated your checklist item: <br><strong>' + state + '</strong>: ' + escape(subtask_name) + '</p>'
+                    partner_ids = [reviewer.partner_id.id]
+            else:
+                if user == self.env.user and reviewer == self.env.user:
+                    body = '<strong>' + state + '</strong>: ' + escape(old_name)
+                    subtype = False
+                elif self.env.user == reviewer:
+                    body = escape(user.name) + ', <br><strong>' + state + '</strong>: ' + escape(old_name)
+                    partner_ids = [user.partner_id.id]
+                elif self.env.user == user:
+                    body = escape(reviewer.name) + ', <br><strong>' + state + '</strong>: ' + escape(old_name)
+                    partner_ids = [reviewer.partner_id.id]
+                body = '<p>' + body + '<br><em>Updated from</em><br><strong>' + state + '</strong>: ' + escape(subtask_name) + '</p>'
             r.message_post(type='comment',
                            subtype=subtype,
                            body=body,
