@@ -130,11 +130,13 @@ class Task(models.Model):
                     tmp_string3 = escape(u': {0}'.format(tmp_subtask_name))
                     result_string3 += u'<li><b>TODO</b>{}</li>'.format(tmp_string3)
                 elif subtask.state == 'todo' and record.env.user == subtask.user_id:
-                    tmp_string1 = escape(u'{0}: {1}'.format(subtask.reviewer_id.name, tmp_subtask_name))
-                    result_string1 += u'<li><b>TODO</b> from {}</li>'.format(tmp_string1)
+                    tmp_string1_1 = escape(u'{0}'.format(subtask.reviewer_id.name))
+                    tmp_string1_2 = escape(u'{0}'.format(tmp_subtask_name))
+                    result_string1 += u'<li><b>TODO</b> from <em>{0}</em>: {1}</li>'.format(tmp_string1_1, tmp_string1_2)
                 elif subtask.state == 'todo' and record.env.user == subtask.reviewer_id:
-                    tmp_string2 = escape(u'{0}: {1}'.format(subtask.user_id.name, tmp_subtask_name))
-                    result_string2 += u'<li>TODO for {}</li>'.format(tmp_string2)
+                    tmp_string2_1 = escape(u'{0}'.format(subtask.user_id.name))
+                    tmp_string2_2 = escape(u'{0}'.format(tmp_subtask_name))
+                    result_string2 += u'<li>TODO for <em>{0}</em>: {1}</li>'.format(tmp_string2_1, tmp_string2_2)
             record.kanban_subtasks = '<ul>' + result_string1 + result_string3 + result_string2 + '</ul>'
 
     @api.multi
