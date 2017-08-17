@@ -10,7 +10,7 @@
           <page string="Checklist">
             <field name="default_user" invisible='True'/>
             <field name="subtask_ids" context="{'default_user_id': default_user}">
-              <tree string="Task Work" editable="bottom" colors="red:recolor == True;gray:state == 'cancelled';green:state == 'done';DeepSkyBlue:state == 'waiting'">
+              <tree string="Task Work" editable="bottom" colors="red:recolor == True;gray:state == 'cancelled';green:state == 'done';#b818ce:state == 'waiting'">
                   <field name="name"/>
                   <field name="recolor" invisible='True'/>
                   <field name="user_id"/>
