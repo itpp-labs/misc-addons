@@ -157,27 +157,19 @@ class Task(models.Model):
                 state = '<span style="color:#967117">' + state + '</span>'
             partner_ids = []
             subtype = 'project_task_subtask.subtasks_subtype'
-            if old_name is None:
-                if user == self.env.user and reviewer == self.env.user:
-                    body = '<p>' + '<strong>' + state + '</strong>: ' + escape(subtask_name) + '</p>'
-                    subtype = False
-                elif self.env.user == reviewer:
-                    body = '<p>' + escape(user.name) + ', <br><strong>' + state + '</strong>: ' + escape(subtask_name) + '</p>'
-                    partner_ids = [user.partner_id.id]
-                elif self.env.user == user:
-                    body = '<p>' + escape(reviewer.name) + ', I updated your checklist item: <br><strong>' + state + '</strong>: ' + escape(subtask_name) + '</p>'
-                    partner_ids = [reviewer.partner_id.id]
+            if user == self.env.user and reviewer == self.env.user:
+                body = '<p>' + '<strong>' + state + '</strong>: ' + escape(subtask_name)
+                subtype = False
+            elif self.env.user == reviewer:
+                body = '<p>' + escape(user.name) + ', <br><strong>' + state + '</strong>: ' + escape(subtask_name)
+                partner_ids = [user.partner_id.id]
+            elif self.env.user == user:
+                body = '<p>' + escape(reviewer.name) + ', I updated your checklist item: <br><strong>' + state + '</strong>: ' + escape(subtask_name)
+                partner_ids = [reviewer.partner_id.id]
+            if old_name:
+                body = body + '<br><em>Updated from</em><br><strong>' + state + '</strong>: ' + escape(old_name) + '</p>'
             else:
-                if user == self.env.user and reviewer == self.env.user:
-                    body = '<strong>' + state + '</strong>: ' + escape(old_name)
-                    subtype = False
-                elif self.env.user == reviewer:
-                    body = escape(user.name) + ', <br><strong>' + state + '</strong>: ' + escape(old_name)
-                    partner_ids = [user.partner_id.id]
-                elif self.env.user == user:
-                    body = escape(reviewer.name) + ', <br><strong>' + state + '</strong>: ' + escape(old_name)
-                    partner_ids = [reviewer.partner_id.id]
-                body = '<p>' + body + '<br><em>Updated from</em><br><strong>' + state + '</strong>: ' + escape(subtask_name) + '</p>'
+                body = body + '</p>'
             r.message_post(type='comment',
                            subtype=subtype,
                            body=body,
