@@ -154,7 +154,7 @@ class Task(models.Model):
             if subtask_state == 'cancelled':
                 state = '<span style="color:#777">' + state + '</span>'
             if subtask_state == 'waiting':
-                state = '<span style="color:#967117">' + state + '</span>'
+                state = '<span style="color:#b818ce">' + state + '</span>'
             partner_ids = []
             subtype = 'project_task_subtask.subtasks_subtype'
             if user == self.env.user and reviewer == self.env.user:
