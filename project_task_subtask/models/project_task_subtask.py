@@ -164,7 +164,7 @@ class Task(models.Model):
                 body = '<p>' + escape(user.name) + ', <br><strong>' + state + '</strong>: ' + escape(subtask_name)
                 partner_ids = [user.partner_id.id]
             elif self.env.user == user:
-                body = '<p>' + escape(reviewer.name) + ', I updated your checklist item: <br><strong>' + state + '</strong>: ' + escape(subtask_name)
+                body = '<p>' + escape(reviewer.name) + ', I updated checklist item assigned to me: <br><strong>' + state + '</strong>: ' + escape(subtask_name)
                 partner_ids = [reviewer.partner_id.id]
             if old_name:
                 body = body + '<br><em>Updated from</em><br><strong>' + state + '</strong>: ' + escape(old_name) + '</p>'
