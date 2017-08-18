@@ -167,7 +167,7 @@ class Task(models.Model):
                 body = '<p>' + escape(reviewer.name) + ', <em style="color:#999">I updated checklist item assigned to me:</em> <br><strong>' + state + '</strong>: ' + escape(subtask_name)
                 partner_ids = [reviewer.partner_id.id]
             if old_name:
-                body = body + '<br><em>Updated from</em><br><strong>' + state + '</strong>: ' + escape(old_name) + '</p>'
+                body = body + '<br><em style="color:#999">Updated from</em><br><strong>' + state + '</strong>: ' + escape(old_name) + '</p>'
             else:
                 body = body + '</p>'
             r.message_post(type='comment',
