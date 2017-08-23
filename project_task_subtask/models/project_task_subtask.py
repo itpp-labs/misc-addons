@@ -60,8 +60,8 @@ class ProjectTaskSubtask(models.Model):
                     raise UserError(_('Only users related to that subtask can change state.'))
             if vals.get('name'):
                 r.task_id.send_subtask_email(r.name, r.state, r.reviewer_id.id, r.user_id.id, old_name=old_names[r.id])
-                if self.env.user != r.reviewer_id:
-                    raise UserError(_('Only reviewer can change description.'))
+                if self.env.user != r.reviewer_id and self.env.user != r.user_id:
+                    raise UserError(_('Only users related to that subtask can change state.'))
             if vals.get('user_id'):
                 r.task_id.send_subtask_email(r.name, r.state, r.reviewer_id.id, r.user_id.id)
         return result
