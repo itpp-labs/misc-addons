@@ -2,7 +2,7 @@
 import hashlib
 
 from openerp.tools.safe_eval import safe_eval
-from openerp import models, fields, exceptions, _
+from openerp import models, fields, exceptions, _, api
 
 
 class S3Settings(models.TransientModel):
@@ -17,7 +17,8 @@ class S3Settings(models.TransientModel):
                                i.e. [('res_model', 'in', ['product.image'])].
                                According to this only data of model product.image will be sored on S3""")
 
-    def get_default_all(self, fields):
+    @api.multi
+    def get_default_all(self):
         s3_bucket = self.env["ir.config_parameter"].get_param("s3.bucket", default='')
         s3_access_key_id = self.env["ir.config_parameter"].get_param("s3.access_key_id", default='')
         s3_secret_key = self.env["ir.config_parameter"].get_param("s3.secret_key", default='')
