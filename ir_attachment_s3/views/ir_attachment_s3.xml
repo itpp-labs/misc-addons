@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<openerp>
 
         <record id="view_s3_config_settings" model="ir.ui.view">
             <field name="name">s3 settings</field>
@@ -36,4 +36,4 @@
 
         <menuitem id="menu_s3_settings" parent="base.next_id_9" action="action_s3_settings" sequence="90"/>
 
-</odoo>
+</openerp>

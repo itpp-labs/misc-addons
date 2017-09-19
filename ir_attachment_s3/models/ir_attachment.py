@@ -3,8 +3,8 @@ import os
 import hashlib
 import logging
 
-from odoo import api, models, _
-from odoo.tools.safe_eval import safe_eval
+from openerp import api, models, _
+from openerp.tools.safe_eval import safe_eval
 
 _logger = logging.getLogger(__name__)
 

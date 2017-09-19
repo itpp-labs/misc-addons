@@ -5,11 +5,11 @@ import hashlib
 import re
 import os
 
-from odoo import models
-from odoo.exceptions import AccessError
-from odoo.tools.mimetypes import guess_mimetype
-from odoo.http import request, STATIC_CACHE
-from odoo.modules.module import get_resource_path, get_module_path
+from openerp import models
+from openerp.exceptions import AccessError
+from openerp.tools.mimetypes import guess_mimetype
+from openerp.http import request, STATIC_CACHE
+from openerp.modules.module import get_resource_path, get_module_path
 
 
 class IrHttp(models.AbstractModel):

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import tools
+from openerp import tools
 import re
 
 

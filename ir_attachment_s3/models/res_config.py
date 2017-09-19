@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import hashlib
 
-from odoo.tools.safe_eval import safe_eval
-from odoo import models, fields, exceptions, _
+from openerp.tools.safe_eval import safe_eval
+from openerp import models, fields, exceptions, _
 
 
 class S3Settings(models.TransientModel):

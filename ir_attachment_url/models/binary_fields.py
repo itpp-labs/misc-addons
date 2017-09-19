@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import fields
+from openerp import fields
 import mimetypes
 from . import image
 
