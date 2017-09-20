@@ -32,24 +32,28 @@ class S3Settings(models.TransientModel):
         )
 
     # s3_bucket
+    @api.multi
     def set_s3_bucket(self):
         self.env['ir.config_parameter'].set_param("s3.bucket",
                                                   self.s3_bucket or '',
                                                   groups=['base.group_system'])
 
     # s3_access_key_id
+    @api.multi
     def set_s3_access_key_id(self):
         self.env['ir.config_parameter'].set_param("s3.access_key_id",
                                                   self.s3_access_key_id or '',
                                                   groups=['base.group_system'])
 
     # s3_secret_key
+    @api.multi
     def set_s3_secret_key(self):
         self.env['ir.config_parameter'].set_param("s3.secret_key",
                                                   self.s3_secret_key or '',
                                                   groups=['base.group_system'])
 
     # s3_condition
+    @api.multi
     def set_s3_condition(self):
         self.env['ir.config_parameter'].set_param("s3.condition",
                                                   self.s3_condition or '',
