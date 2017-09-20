@@ -59,6 +59,7 @@ class S3Settings(models.TransientModel):
                                                   self.s3_condition or '',
                                                   groups=['base.group_system'])
 
+    @api.multi
     def upload_existing(self):
         condition = self.s3_condition and safe_eval(self.s3_condition, mode="eval") or []
         domain = [('type', '!=', 'url'), ('id', '!=', 0)] + condition
