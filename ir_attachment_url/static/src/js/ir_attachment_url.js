@@ -14,20 +14,20 @@ odoo.define('ir_attachment_url', function(require) {
             var self = this;
             this.url_clicked = false;
             this.is_url = false;
-            this.$('.o_link_address_button').click(function() {
+            this.$('.oe_link_address_button').click(function() {
                 self.on_link_address();
             });
             this._super();
         },
         render_value: function() {
             if (this.url_clicked) {
-                this.$el.children(".img-responsive").remove();
+                this.$el.children("img[name='image_medium']").remove();
                 this.$el.children(".input_url").remove();
-                this.$el.children(".o_form_image_controls").addClass("media_url_controls");
+                this.$el.children(".oe_form_field_image_controls").addClass("media_url_controls");
                 this.$el.prepend($(QWeb.render("AttachmentURL", {widget: this})));
                 this.$input = this.$(".input_url input");
             } else {
-                this.$el.children(".o_form_image_controls").removeClass("media_url_controls");
+                this.$el.children(".oe_form_field_image_controls").removeClass("media_url_controls");
                 this.$el.children(".input_url").remove();
                 this._super();
             }

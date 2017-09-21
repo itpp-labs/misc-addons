@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
     <t t-extend="FieldBinaryImage">
-        <t t-jquery=".o_select_file_button" t-operation="after">
-            <span class="fa fa-at fa-lg o_link_address_button" title="Link"/>
+        <t t-jquery="i[title*='Edit']" t-operation="after">
+            <i class="fa fa-at oe_link_address_button" title="Link"/>
+        </t>
+        <t t-jquery="i[title*='Clear']" t-operation="replace">
+            <i class="fa fa-trash-o fa-1g col-md-offset-3 oe_form_binary_file_clear" title="Clear"/>
         </t>
     </t>
 
