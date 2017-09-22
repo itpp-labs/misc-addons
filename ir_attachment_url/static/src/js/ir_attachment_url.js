@@ -64,6 +64,6 @@ odoo.define('ir_attachment_url', function(require) {
                 return u.test(this.$input.val());
             }
             return true;
-        },
+        }
     });
 });

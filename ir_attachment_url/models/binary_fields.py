@@ -48,4 +48,5 @@ def set(self, cr, obj, id, name, value, user=None, context=None):
         else:
             return super_binary_set(self, cr, obj, id, name, value, user, context)
 
+
 fields.binary.set = set
