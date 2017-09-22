@@ -1,47 +1,51 @@
 # -*- coding: utf-8 -*-
-from openerp import fields
+from openerp.osv import fields
+from openerp import SUPERUSER_ID
 import mimetypes
 from . import image
 
 
-class Binary(fields.Binary):
+super_binary_set = fields.binary.set
 
-    def write(self, records, value):
+
+def set(self, cr, obj, id, name, value, user=None, context=None):
         domain = [
-            ('res_model', '=', records._name),
-            ('res_field', '=', self.name),
-            ('res_id', 'in', records.ids),
+            ('res_model', '=', obj._name),
+            ('res_field', '=', name),
+            ('res_id', '=', id),
         ]
-        atts = records.env['ir.attachment'].sudo().search(domain)
+
+        atts = obj.pool['ir.attachment'].browse(cr, SUPERUSER_ID, [], context).search(domain)
+
         if value and atts.url and atts.type == 'url' and not image.is_url(value):
             atts.write({
                 'url': None,
                 'type': 'binary',
             })
         if value and image.is_url(value):
-            with records.env.norecompute():
+            with atts.env.norecompute():
                 if value:
-                    # update the existing attachments
-                    atts.write({
-                        'url': value,
-                        'mimetype': mimetypes.guess_type(value)[0],
-                        'datas': None,
-                        'type': 'url',
-                    })
-                    # create the missing attachments
-                    for record in (records - records.browse(atts.mapped('res_id'))):
+                    if atts:
+                        # update the existing attachments
+                        atts.write({
+                            'url': value,
+                            'mimetype': mimetypes.guess_type(value)[0],
+                            'datas': None,
+                            'type': 'url',
+                        })
+                    else:
                         atts.create({
-                            'name': self.name,
-                            'res_model': record._name,
-                            'res_field': self.name,
-                            'res_id': record.id,
+                            'name': name,
+                            'res_model': obj._name,
+                            'res_field': name,
+                            'res_id': id,
                             'type': 'url',
                             'url': value,
                         })
                 else:
                     atts.unlink()
+            return []
         else:
-            super(Binary, self).write(records, value)
+            return super_binary_set(self, cr, obj, id, name, value, user, context)
 
-
-fields.Binary = Binary
+fields.binary.set = set
