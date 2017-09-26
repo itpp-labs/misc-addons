@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
-from openerp.osv import fields
+import openerp
 from openerp import SUPERUSER_ID
 import mimetypes
 from . import image
 
+
+# To avoid travis warnings
+fields = openerp.osv.fields
 
 super_binary_set = fields.binary.set
 
