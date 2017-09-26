@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
-from openerp.osv import fields
+import openerp
 from openerp import SUPERUSER_ID
 import mimetypes
 from . import image
 
+
+# To avoid travis warnings
+fields = openerp.osv.fields
 
 super_binary_set = fields.binary.set
 
@@ -47,5 +50,6 @@ def set(self, cr, obj, id, name, value, user=None, context=None):
             return []
         else:
             return super_binary_set(self, cr, obj, id, name, value, user, context)
+
 
 fields.binary.set = set
