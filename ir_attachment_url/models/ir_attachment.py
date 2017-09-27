@@ -13,7 +13,7 @@ class ir_attachment(osv.osv):
     _inherit = ['ir.attachment']
 
     def _data_set(self, cr, uid, id, name, value, arg, context=None):
-        return super(ir_attachment, self)._data_set(cr, uid, id, name, arg, context=context)
+        return super(ir_attachment, self)._data_set(cr, uid, id, name, value, arg, context=context)
 
     def _data_get(self, cr, uid, ids, name, arg, context=None):
         if context is None:
