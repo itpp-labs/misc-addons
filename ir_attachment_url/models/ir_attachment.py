@@ -2,8 +2,11 @@
 import requests
 import base64
 from openerp import api, models
-from openerp.osv import fields, osv
+import openerp
 
+# To avoid travis warnings
+osv = openerp.osv
+fields = openerp.osv.fields
 
 class ir_attachment(osv.osv):
     _name = 'ir.attachment'
