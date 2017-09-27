@@ -5,7 +5,7 @@ from openerp import api, models
 import openerp
 
 # To avoid travis warnings
-osv = openerp.osv
+osv = openerp.osv.osv
 fields = openerp.osv.fields
 
 class ir_attachment(osv.osv):
