@@ -8,6 +8,7 @@ import openerp
 osv = openerp.osv.osv
 fields = openerp.osv.fields
 
+
 class ir_attachment(osv.osv):
     _name = 'ir.attachment'
     _inherit = ['ir.attachment']
