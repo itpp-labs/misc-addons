@@ -11,7 +11,5 @@ class TestDataGet(TransactionCase):
     post_install = True
 
     def test_data_get(self):
-        pass
-        # users = self.env['res.users'].search_read([], ['id', 'image_medium'])
         test_attachment = self.env.ref('ir_attachment_url.test_url_attachment')
         datas = self.env['ir.attachment'].search_read([("id", "=", test_attachment.id)], ['id', 'datas'])
