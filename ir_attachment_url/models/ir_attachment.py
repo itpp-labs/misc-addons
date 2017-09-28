@@ -9,12 +9,12 @@ osv = openerp.osv.osv
 fields = openerp.osv.fields
 
 
-class ir_attachment(osv.osv):
+class IrAttachment(osv.osv):
     _name = 'ir.attachment'
     _inherit = ['ir.attachment']
 
     def _data_set(self, cr, uid, id, name, value, arg, context=None):
-        return super(ir_attachment, self)._data_set(cr, uid, id, name, value, arg, context=context)
+        return super(IrAttachment, self)._data_set(cr, uid, id, name, value, arg, context=context)
 
     def _data_get(self, cr, uid, ids, name, arg, context=None):
         if context is None:
@@ -31,7 +31,7 @@ class ir_attachment(osv.osv):
                     result[attach.id] = "1.00 Kb"
             else:
                 ordinary_ids.append(attach.id)
-        result.update(super(ir_attachment, self)._data_get(cr, uid, ordinary_ids, name, arg, context=context))
+        result.update(super(IrAttachment, self)._data_get(cr, uid, ordinary_ids, name, arg, context=context))
         return result
 
     _columns = {
