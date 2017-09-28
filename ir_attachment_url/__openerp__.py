@@ -24,6 +24,7 @@
         "static/src/xml/ir_attachment_url.xml",
     ],
     "demo": [
+        "demo/ir_attachment.xml",
     ],
 
     "post_load": "post_load",
