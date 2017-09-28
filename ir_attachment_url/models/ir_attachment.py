@@ -39,7 +39,7 @@ class IrAttachment(osv.osv):
     }
 
 
-class IrAttachment(models.Model):
+class IrAttachmentNewApi(models.Model):
     _inherit = 'ir.attachment'
 
     @api.multi
