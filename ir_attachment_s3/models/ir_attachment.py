@@ -89,28 +89,27 @@ class IrAttachment(osv.osv):
         if not s3 or not attach:
             return super(IrAttachment, self)._data_set(cr, uid, id, name, value, arg, context=context)
 
-        if attach:
-            bin_data = value and value.decode('base64') or ''
-            fname = hashlib.sha1(bin_data).hexdigest()
+        bin_data = value and value.decode('base64') or ''
+        fname = hashlib.sha1(bin_data).hexdigest()
 
-            bucket_name = self._get_s3_settings(cr, uid, 's3.bucket', 'S3_BUCKET')
-            s3.Bucket(bucket_name).put_object(
-                Key=fname,
-                Body=bin_data,
-                ACL='public-read',
-                ContentType=attach.mimetype,
-                )
+        bucket_name = self._get_s3_settings(cr, uid, 's3.bucket', 'S3_BUCKET')
+        s3.Bucket(bucket_name).put_object(
+            Key=fname,
+            Body=bin_data,
+            ACL='public-read',
+            ContentType=attach.mimetype,
+            )
 
-            vals = {
-                'file_size': len(bin_data),
-                'checksum': self._compute_checksum(bin_data),
-                'index_content': self._index(cr, SUPERUSER_ID, bin_data, attach.datas_fname, attach.mimetype),
-                'store_fname': fname,
-                'db_datas': False,
-                'type': 'url',
-                'url': self._get_s3_object_url(cr, uid, s3, bucket_name, fname),
-            }
-            super(IrAttachment, self).write(cr, SUPERUSER_ID, [s3_id], vals, context=context)
+        vals = {
+            'file_size': len(bin_data),
+            'checksum': self._compute_checksum(bin_data),
+            'index_content': self._index(cr, SUPERUSER_ID, bin_data, attach.datas_fname, attach.mimetype),
+            'store_fname': fname,
+            'db_datas': False,
+            'type': 'url',
+            'url': self._get_s3_object_url(cr, uid, s3, bucket_name, fname),
+        }
+        super(IrAttachment, self).write(cr, SUPERUSER_ID, [s3_id], vals, context=context)
 
         return True
 
