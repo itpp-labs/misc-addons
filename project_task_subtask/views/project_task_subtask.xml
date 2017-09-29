@@ -9,7 +9,7 @@
           <page string="Checklist">
             <field name="default_user" invisible='True'/>
             <field name="subtask_ids" context="{'default_user_id': default_user}">
-              <tree string="Task Work" editable="bottom" colors="red:recolor == True;gray:state == 'cancelled';green:state == 'done'">
+              <tree string="Task Work" editable="bottom" colors="red:recolor == True;gray:state == 'cancelled';green:state == 'done';#b818ce:state == 'waiting'">
                   <field name="name"/>
                   <field name="recolor" invisible='True'/>
                   <field name="user_id"/>
@@ -19,6 +19,7 @@
                   <button name="change_state_todo" string="Change state to TODO" type="object" icon="fa-caret-square-o-right" attrs="{'invisible': [ '|',('state', '=', 'todo'), ('hide_button', '=', True)]}"/>
                   <button name="change_state_cancelled" type="object" string="Change state to CANCELLED" icon="fa-ban" attrs="{'invisible': [ '|',('state', '=', 'cancelled'), ('hide_button', '=', True)]}"/>
                   <field name="reviewer_id"/>
+                  <field name="write_date" readonly="True"/>
                 </tree>
             </field>
           </page>
