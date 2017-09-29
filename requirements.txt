@@ -1,3 +1,2 @@
-pandas
 icalendar
 boto3

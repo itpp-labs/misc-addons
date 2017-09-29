@@ -8,6 +8,7 @@ from odoo.tools.translate import _
 
 SUBTASK_STATES = {'done': 'Done',
                   'todo': 'TODO',
+                  'waiting': 'Waiting',
                   'cancelled': 'Cancelled'}
 
 
@@ -50,6 +51,7 @@ class ProjectTaskSubtask(models.Model):
 
     @api.multi
     def write(self, vals):
+        old_names = dict(zip(self.mapped('id'), self.mapped('name')))
         result = super(ProjectTaskSubtask, self).write(vals)
         for r in self:
             if vals.get('state'):
@@ -57,11 +59,11 @@ class ProjectTaskSubtask(models.Model):
                 if self.env.user != r.reviewer_id and self.env.user != r.user_id:
                     raise UserError(_('Only users related to that subtask can change state.'))
             if vals.get('name'):
-                r.task_id.send_subtask_email(r.name, r.state, r.reviewer_id.id, r.user_id.id)
-                if self.env.user != r.reviewer_id:
-                    raise UserError(_('Only reviewer can change description.'))
+                r.task_id.send_subtask_email(r.name, r.state, r.reviewer_id.id, r.user_id.id, old_name=old_names[r.id])
+                if self.env.user != r.reviewer_id and self.env.user != r.user_id:
+                    raise UserError(_('Only users related to that subtask can change state.'))
             if vals.get('user_id'):
-                r.task_id.send_subtask_email(r.name, r.state, r.create_uid.id, r.user_id.id)
+                r.task_id.send_subtask_email(r.name, r.state, r.reviewer_id.id, r.user_id.id)
         return result
 
     @api.model
@@ -86,6 +88,11 @@ class ProjectTaskSubtask(models.Model):
     def change_state_cancelled(self):
         for record in self:
             record.state = 'cancelled'
+
+    @api.multi
+    def change_state_waiting(self):
+        for record in self:
+            record.state = 'waiting'
 
 
 class Task(models.Model):
@@ -114,35 +121,58 @@ class Task(models.Model):
             result_string2 = ''
             result_string3 = ''
             for subtask in record.subtask_ids:
+                bounding_length = 25
+                tmp_list = (subtask.name).split()
+                for index in range(len(tmp_list)):
+                    if len(tmp_list[index]) > bounding_length:
+                        tmp_list[index] = tmp_list[index][:bounding_length] + '...'
+                tmp_subtask_name = " ".join(tmp_list)
                 if subtask.state == 'todo' and record.env.user == subtask.user_id and record.env.user == subtask.reviewer_id:
-                    tmp_string3 = escape(u': {0}'.format(subtask.name))
+                    tmp_string3 = escape(u': {0}'.format(tmp_subtask_name))
                     result_string3 += u'<li><b>TODO</b>{}</li>'.format(tmp_string3)
                 elif subtask.state == 'todo' and record.env.user == subtask.user_id:
-                    tmp_string1 = escape(u'{0}: {1}'.format(subtask.reviewer_id.name, subtask.name))
-                    result_string1 += u'<li><b>TODO</b> from {}</li>'.format(tmp_string1)
+                    tmp_string1_1 = escape(u'{0}'.format(subtask.reviewer_id.name))
+                    tmp_string1_2 = escape(u'{0}'.format(tmp_subtask_name))
+                    result_string1 += u'<li><b>TODO</b> from <em>{0}</em>: {1}</li>'.format(tmp_string1_1, tmp_string1_2)
                 elif subtask.state == 'todo' and record.env.user == subtask.reviewer_id:
-                    tmp_string2 = escape(u'{0}: {1}'.format(subtask.user_id.name, subtask.name))
-                    result_string2 += u'<li>TODO for {}</li>'.format(tmp_string2)
+                    tmp_string2_1 = escape(u'{0}'.format(subtask.user_id.name))
+                    tmp_string2_2 = escape(u'{0}'.format(tmp_subtask_name))
+                    result_string2 += u'<li>TODO for <em>{0}</em>: {1}</li>'.format(tmp_string2_1, tmp_string2_2)
             record.kanban_subtasks = '<ul>' + result_string1 + result_string3 + result_string2 + '</ul>'
 
     @api.multi
-    def send_subtask_email(self, subtask_name, subtask_state, subtask_reviewer_id, subtask_user_id):
+    def send_subtask_email(self, subtask_name, subtask_state, subtask_reviewer_id, subtask_user_id, old_name=None):
         for r in self:
             body = ''
             reviewer = self.env["res.users"].browse(subtask_reviewer_id)
             user = self.env["res.users"].browse(subtask_user_id)
             state = SUBTASK_STATES[subtask_state]
-            reviewer_ids = []
+            if subtask_state == 'done':
+                state = '<span style="color:#080">' + state + '</span>'
+            if subtask_state == 'todo':
+                state = '<span style="color:#A00">' + state + '</span>'
+            if subtask_state == 'cancelled':
+                state = '<span style="color:#777">' + state + '</span>'
+            if subtask_state == 'waiting':
+                state = '<span style="color:#b818ce">' + state + '</span>'
+            partner_ids = []
             subtype = 'project_task_subtask.subtasks_subtype'
             if user == self.env.user and reviewer == self.env.user:
-                body = '<p><strong>' + state + '</strong>: ' + escape(subtask_name) + '</p>'
+                body = '<p>' + '<strong>' + state + '</strong>: ' + escape(subtask_name)
                 subtype = False
             elif self.env.user == reviewer:
-                body = '<p>' + escape(user.name) + ', <br><strong>' + state + '</strong>: ' + escape(subtask_name) + '</p>'
-                reviewer_ids = [user.create_uid.id]
+                body = '<p>' + escape(user.name) + ', <br><strong>' + state + '</strong>: ' + escape(subtask_name)
+                partner_ids = [user.partner_id.id]
             elif self.env.user == user:
-                body = '<p>' + escape(reviewer.name) + ', <br><strong>' + state + '</strong>: ' + escape(subtask_name) + '</p>'
-                reviewer_ids = [reviewer.create_uid.id]
+                body = '<p>' + escape(reviewer.name) + ', <em style="color:#999">I updated checklist item assigned to me:</em> <br><strong>' + state + '</strong>: ' + escape(subtask_name)
+                partner_ids = [reviewer.partner_id.id]
+            else:
+                body = '<p>' + escape(user.name) + ', ' + escape(reviewer.name) + ', <em style="color:#999">I updated checklist item, now its assigned to ' + escape(user.name) + ': </em> <br><strong>' + state + '</strong>: ' + escape(subtask_name)
+                partner_ids = [user.partner_id.id, reviewer.partner_id.id]
+            if old_name:
+                body = body + '<br><em style="color:#999">Updated from</em><br><strong>' + state + '</strong>: ' + escape(old_name) + '</p>'
+            else:
+                body = body + '</p>'
             r.message_post(type='comment',
                            subtype=subtype,
                            body=body,

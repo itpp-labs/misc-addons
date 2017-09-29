@@ -89,6 +89,10 @@ class SaleOrderLine(models.Model):
     pitch_id = fields.Many2one(track_visibility='onchange')
     product_id = fields.Many2one(track_visibility='onchange')
 
+    @api.onchange('booking_start')
+    def _on_change_booking_start(self):
+        self.booking_reminder = False
+
     @api.multi
     def write(self, vals):
         result = super(SaleOrderLine, self).write(vals)
