@@ -5,6 +5,12 @@ import logging
 
 from openerp import api, models, _
 from openerp.tools.safe_eval import safe_eval
+import openerp
+from openerp import SUPERUSER_ID
+
+# To avoid travis warnings
+osv = openerp.osv.osv
+fields = openerp.osv.fields
 
 _logger = logging.getLogger(__name__)
 
@@ -15,9 +21,10 @@ except:
     found on your installation')
 
 
-class IrAttachment(models.Model):
+class IrAttachmentNewApi(models.Model):
     _inherit = 'ir.attachment'
 
+    @api.model
     def _get_s3_settings(self, param_name, os_var_name):
         config_obj = self.env['ir.config_parameter']
         res = config_obj.get_param(param_name)
@@ -59,26 +66,32 @@ class IrAttachment(models.Model):
             s3.create_bucket(Bucket=bucket_name)
         return s3
 
-    def _inverse_datas(self):
-        s3 = self._get_s3_resource()
-        condition = self._get_s3_settings('s3.condition', 'S3_CONDITION')
-        if not s3:
-            # set s3_records to empty recordset
-            s3_records = self.env[self._name]
-        elif condition:
-            condition = safe_eval(condition, mode="eval")
-            s3_records = self.search([('id', 'in', self.ids)] + condition)
-        else:
-            # if there is no condition then store all attachments on s3
-            s3_records = self
-        s3_records = s3_records._filter_protected_attachments()
 
-        for attach in s3_records:
-            value = attach.datas
+class IrAttachment(osv.osv):
+    _name = 'ir.attachment'
+    _inherit = ['ir.attachment']
+
+    def _data_set(self, cr, uid, id, name, value, arg, context=None):
+        s3 = self._get_s3_resource(cr, uid)
+        condition = self._get_s3_settings(cr, uid, 's3.condition', 'S3_CONDITION')
+        s3_id = None
+
+        if condition:
+            domain = [('id', '=', id)] + safe_eval(condition, mode="eval")
+            search_res = self.search(cr, uid, domain, context=context)
+            if search_res:
+                s3_id = search_res.pop()
+        else:
+            s3_id = id
+
+        attach = s3_id and self._filter_protected_attachments(cr, uid, [s3_id], context = context)
+
+        if attach:
+            # value = attach.datas
             bin_data = value and value.decode('base64') or ''
             fname = hashlib.sha1(bin_data).hexdigest()
 
-            bucket_name = self._get_s3_settings('s3.bucket', 'S3_BUCKET')
+            bucket_name = self._get_s3_settings(cr, uid, 's3.bucket', 'S3_BUCKET')
             s3.Bucket(bucket_name).put_object(
                 Key=fname,
                 Body=bin_data,
@@ -89,12 +102,22 @@ class IrAttachment(models.Model):
             vals = {
                 'file_size': len(bin_data),
                 'checksum': self._compute_checksum(bin_data),
-                'index_content': self._index(bin_data, attach.datas_fname, attach.mimetype),
+                'index_content': self._index(cr, SUPERUSER_ID, bin_data, attach.datas_fname, attach.mimetype),
                 'store_fname': fname,
                 'db_datas': False,
                 'type': 'url',
-                'url': self._get_s3_object_url(s3, bucket_name, fname),
+                'url': self._get_s3_object_url(cr, uid, s3, bucket_name, fname),
             }
-            super(IrAttachment, attach.sudo()).write(vals)
+            super(IrAttachment, self).write(cr, SUPERUSER_ID, [s3_id], vals, context=context)
 
-        super(IrAttachment, self - s3_records)._inverse_datas()
+        else:
+            super(IrAttachment, self)._data_set(cr, uid, id, name, value, arg, context=context)
+
+        return True
+
+    def _data_get(self, cr, uid, ids, name, arg, context=None):
+        return super(IrAttachment, self)._data_get(cr, uid, ids, name, arg, context=context)
+
+    _columns = {
+        'datas': fields.function(_data_get, fnct_inv=_data_set, string='File Content', type="binary", nodrop=True),
+    }
