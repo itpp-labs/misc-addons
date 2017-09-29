@@ -86,8 +86,10 @@ class IrAttachment(osv.osv):
 
         attach = s3_id and self._filter_protected_attachments(cr, uid, [s3_id], context = context)
 
+        if not s3 or not attach:
+            return super(IrAttachment, self)._data_set(cr, uid, id, name, value, arg, context=context)
+
         if attach:
-            # value = attach.datas
             bin_data = value and value.decode('base64') or ''
             fname = hashlib.sha1(bin_data).hexdigest()
 
@@ -109,9 +111,6 @@ class IrAttachment(osv.osv):
                 'url': self._get_s3_object_url(cr, uid, s3, bucket_name, fname),
             }
             super(IrAttachment, self).write(cr, SUPERUSER_ID, [s3_id], vals, context=context)
-
-        else:
-            super(IrAttachment, self)._data_set(cr, uid, id, name, value, arg, context=context)
 
         return True
 
