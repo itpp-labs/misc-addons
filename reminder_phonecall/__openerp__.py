@@ -5,7 +5,7 @@
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'LGPL-3',
     'category': 'Reminders and Agenda',
-    'live_test_URL': 'http://apps.it-projects.info/shop/product/reminders-and-agenda?version=9.0',
+    'live_test_URL': 'http://apps.it-projects.info/shop/product/reminders-and-agenda?version=10.0',
     'website': 'https://twitter.com/yelizariev',
     'price': 21.00,
     'currency': 'EUR',

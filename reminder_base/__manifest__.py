@@ -2,6 +2,7 @@
 {
     "name": """Reminders and Agenda (technical core)""",
     "category": "Reminders and Agenda",
+    'live_test_URL': 'http://apps.it-projects.info/shop/product/reminders-and-agenda?version=10.0',
     "images": [],
     "version": "1.0.7",
     "application": False,
