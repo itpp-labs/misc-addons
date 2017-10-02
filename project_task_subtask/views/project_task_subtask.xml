@@ -38,7 +38,7 @@
           <field name="subtask_ids"/>
           <field name="kanban_subtasks"/>
         </xpath>
-        <xpath expr="//t[@t-name ='kanban-box']" position="inside">
+        <xpath expr="//div[@class = 'oe_kanban_content']" position="inside">
           <div>
              <t t-raw="record.kanban_subtasks.raw_value"/> 
           </div>
