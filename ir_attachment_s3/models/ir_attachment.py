@@ -84,7 +84,7 @@ class IrAttachment(osv.osv):
         else:
             s3_id = id
 
-        attach = s3_id and self._filter_protected_attachments(cr, uid, [s3_id], context = context)
+        attach = s3_id and self._filter_protected_attachments(cr, uid, [s3_id], context=context)
 
         if not s3 or not attach:
             return super(IrAttachment, self)._data_set(cr, uid, id, name, value, arg, context=context)
