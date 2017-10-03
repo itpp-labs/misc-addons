@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="FieldBinaryImage">
+        <t t-jquery="i[title*='Edit']" t-operation="after">
+            <i class="fa fa-at oe_link_address_button" title="Link"/>
+        </t>
+        <t t-jquery="i[title*='Clear']" t-operation="replace">
+            <i class="fa fa-trash-o fa-1g col-md-offset-3 oe_form_binary_file_clear" title="Clear"/>
+        </t>
+    </t>
+
+    <t t-name="AttachmentURL">
+        <div class="input_url">
+            <span t-if="widget.get('effective_readonly')"/>
+            <input t-if="!widget.get('effective_readonly')" class="o_form_input" type="text" t-att-id="widget.id_for_label" placeholder="Image URL"/>
+        </div>
+    </t>
+</templates>
