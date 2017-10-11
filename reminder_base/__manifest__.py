@@ -40,4 +40,16 @@
     ],
     "demo_url": "reminders-and-agenda",
     "demo_summary": "The module provides easy way to configure instant or mail notifications for any supported record with date field.",
+    "demo_images": [
+        "icon.png",
+        "mail.png",
+        "notif.png",
+        "event-popup.png",
+        "event-form.png",
+        "calendar-week.png",
+        "calendar-month.png",
+        "calendar-day.png",
+        "admin-tool.png",
+        "add-reminder.png",
+    ]
 }
