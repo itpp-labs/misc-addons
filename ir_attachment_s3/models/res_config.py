@@ -81,7 +81,7 @@ class S3Settings(models.TransientModel):
                         ACL='public-read',
                         ContentType=attach.mimetype,
                         )
-                except Exception, e:
+                except Exception as e:
                     raise exceptions.UserError(e.message)
 
                 vals = {
