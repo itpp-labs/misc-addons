@@ -59,7 +59,7 @@ class IrAttachment(models.Model):
 
         :param fname: file storage name, must be the oid as a string.
         """
-        lobj = self.lobject(self.env.cr, fname, 'rb')
+        lobj = self.lobject(self.env.cr, int(fname), 'rb')
         if bin_size:
             return lobj.seek(0, 2)
         return lobj.read().encode('base64')  # GR TODO it must be possible to read-encode in chunks
