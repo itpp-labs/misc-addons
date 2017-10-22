@@ -5,7 +5,7 @@ from openerp.addons.web.controllers.main import Binary
 import functools
 from openerp.http import request
 from openerp.modules import get_module_resource
-from cStringIO import StringIO
+from io import StringIO
 db_monodb = http.db_monodb
 
 

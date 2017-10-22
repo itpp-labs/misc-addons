@@ -22,7 +22,7 @@ def debrand(env, source):
     new_website = params.get('web_debranding.new_website')
 
     try:
-        source = unicode(source, 'utf-8')
+        source = str(source, 'utf-8')
     except:
         pass
 

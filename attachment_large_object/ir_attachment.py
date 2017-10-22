@@ -42,7 +42,7 @@ class IrAttachment(models.Model):
     def _file_delete(self, fname):
         filestore = False
         try:
-            oid = long(fname)
+            oid = int(fname)
         except:
             filestore = True
 

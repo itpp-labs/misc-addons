@@ -21,20 +21,20 @@ class TestAttachment(TransactionCase):
         self.assertEqual(att_r['datas'], bin_data)
         self.assertEqual(att_r['file_size'], 6)
         try:
-            oid = long(att_r['store_fname'])
+            oid = int(att_r['store_fname'])
         except TypeError:
             self.fail("We had a non regular oid: %r. Large object not actually called ?")
 
         # writing without touching the payload does not create a new large object
         att.write(dict(name="new name"))
         record = self.attachment.browse(att.id)
-        self.assertEqual(record.store_fname, unicode(oid))
+        self.assertEqual(record.store_fname, str(oid))
 
         # a write on data, creates a whole new large object
         att.write(dict(datas='new content'.encode('base64')))
         att_r = att.read(('datas', 'store_fname'))
         if isinstance(att_r, (list, tuple)):
             att_r = att_r[0]
-        self.assertNotEqual(att_r['store_fname'], unicode(oid))
+        self.assertNotEqual(att_r['store_fname'], str(oid))
 
         att.unlink()

@@ -183,7 +183,7 @@ class CurrencyRateUpdate(models.Model):
                     # and return a dict of rate
                     getter = factory.register(service.service)
 
-                    curr_to_fetch = map(lambda x: x.name, service.currency_to_update)
+                    curr_to_fetch = [x.name for x in service.currency_to_update]
                     res, log_info = getter.get_updated_currency(curr_to_fetch, main_curr, service.max_delta_days)
                     rate_name = time.strftime('%Y-%m-%d')
                     for curr in service.currency_to_update:
@@ -343,8 +343,8 @@ class CurrenyGetterInterface(object):
     def get_url(self, url):
         """Return a string of a get url query"""
         try:
-            import urllib
-            objfile = urllib.urlopen(url)
+            import urllib.request, urllib.parse, urllib.error
+            objfile = urllib.request.urlopen(url)
             rawfile = objfile.read()
             objfile.close()
             return rawfile
@@ -581,7 +581,7 @@ class BanxicoGetter(CurrenyGetterInterface):  # class added for Mexico rates
         url = 'http://www.banxico.org.mx/rsscb/rss?BMXC_canal=pagos&BMXC_idioma=es'
 
         from xml.dom.minidom import parse
-        from StringIO import StringIO
+        from io import StringIO
 
         logger = logging.getLogger(__name__)
         logger.debug("Banxico currency rate service : connecting...")

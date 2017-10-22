@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo.fields import _String
+import collections
 
 get_trans_func = _String.get_trans_func
 
@@ -10,7 +11,7 @@ def get_trans_func_debrand(self, records):
         return get_trans_func(self, records)
 
     if True:  # keep original indent
-        if callable(self.translate):
+        if isinstance(self.translate, collections.Callable):
             rec_src_trans = records.env['ir.translation']._get_terms_translations(self, records)
 
             def translate(record_id, value):
