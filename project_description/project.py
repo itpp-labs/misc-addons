@@ -37,7 +37,7 @@ class AccountAnalyticAccount(models.Model):
         res = []
         if not ids:
             return res
-        if isinstance(ids, (int, long)):
+        if isinstance(ids, int):
             ids = [ids]
         for id in ids:
             elmt = self.browse(cr, uid, id, context=context)

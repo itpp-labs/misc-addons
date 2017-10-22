@@ -5,7 +5,7 @@ from odoo import fields, models
 class Partner(models.Model):
     _inherit = 'res.partner'
 
-    family = fields.Text(string='Family', help=u"Notes on family members – wife and kids")
+    family = fields.Text(string='Family', help="Notes on family members – wife and kids")
     occupation = fields.Text(string='Occupation', help="What do they do for a living")
     recreation = fields.Text(string='Recreation', help="List of things they enjoy doing")
     motivation = fields.Text(string='Motivation', help="What do they like about stuff/mktg")

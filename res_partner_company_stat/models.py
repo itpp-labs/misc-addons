@@ -16,7 +16,7 @@ class ResPartner(models.Model):
 
     # crm
     def _opportunity_meeting_phonecall_count(self, cr, uid, ids, field_name, arg, context=None):
-        res = dict(map(lambda x: (x, {'opportunity_count': 0, 'meeting_count': 0, 'phonecall_count': 0}), ids))
+        res = dict([(x, {'opportunity_count': 0, 'meeting_count': 0, 'phonecall_count': 0}) for x in ids])
         arr = self._partners_for_stat(cr, uid, ids, context=context)
 
         # the user may not have access rights for opportunities or meetings
@@ -35,7 +35,7 @@ class ResPartner(models.Model):
 
     # sale
     def _sale_order_count(self, cr, uid, ids, field_name, arg, context=None):
-        res = dict(map(lambda x: (x, 0), ids))
+        res = dict([(x, 0) for x in ids])
         arr = self._partners_for_stat(cr, uid, ids, context=context)
 
         # The current user may not have access rights for sale orders
@@ -49,7 +49,7 @@ class ResPartner(models.Model):
 
     # account
     def _journal_item_count(self, cr, uid, ids, field_name, arg, context=None):
-        res = dict(map(lambda x: (x, {'journal_item_count': 0, 'contracts_count': 0}), ids))
+        res = dict([(x, {'journal_item_count': 0, 'contracts_count': 0}) for x in ids])
         arr = self._partners_for_stat(cr, uid, ids, context=context)
 
         MoveLine = self.pool('account.move.line')
@@ -65,7 +65,7 @@ class ResPartner(models.Model):
 
     # project
     def _task_count(self, cr, uid, ids, field_name, arg, context=None):
-        res = dict(map(lambda x: (x, 0), ids))
+        res = dict([(x, 0) for x in ids])
         arr = self._partners_for_stat(cr, uid, ids, context=context)
         Task = self.pool['project.task']
 

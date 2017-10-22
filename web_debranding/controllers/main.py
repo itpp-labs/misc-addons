@@ -7,7 +7,7 @@ from odoo.addons.web.controllers import main as controllers_main
 import functools
 from odoo.http import request
 from odoo.modules import get_module_resource
-from cStringIO import StringIO
+from io import StringIO
 
 from ..models.ir_translation import debrand
 
@@ -85,7 +85,7 @@ class WebClientCustom(WebClient):
     def translations(self, mods=None, lang=None):
         res = super(WebClientCustom, self).translations(mods, lang)
 
-        for module_key, module_vals in res['modules'].iteritems():
+        for module_key, module_vals in res['modules'].items():
             for message in module_vals['messages']:
                 message['id'] = request.env['ir.translation']._debrand(message['id'])
                 message['string'] = request.env['ir.translation']._debrand(message['string'])

@@ -24,7 +24,7 @@ SIGNAL_SELECTION = [
 
 
 def fix_sale_case_workflow(sale_case, new_signal):
-    print 'fix_sale_case_workflow', sale_case, new_signal
+    print('fix_sale_case_workflow', sale_case, new_signal)
     sale_case.delete_workflow()
     sale_case.create_workflow()
     for signal, label in SIGNAL_SELECTION:

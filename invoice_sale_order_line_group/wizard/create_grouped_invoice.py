@@ -2,6 +2,7 @@
 from openerp.osv import osv
 from openerp.tools.translate import _
 from openerp import models, fields, api
+from functools import reduce
 
 
 class GroupedInvoiceWizard(osv.osv_memory):
@@ -36,7 +37,7 @@ class GroupedInvoiceWizard(osv.osv_memory):
 
             partner_currency[o.partner_id.id] = currency_id
 
-        for val in invoices.values():
+        for val in list(invoices.values()):
             res = order_obj._make_invoice(cr, uid, val[0][0], reduce(lambda x, y: x + y, [l for o, l in val], []), context=context)
             invoice_ref = ''
             origin_ref = ''
