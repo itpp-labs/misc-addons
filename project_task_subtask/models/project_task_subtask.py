@@ -176,4 +176,4 @@ class Task(models.Model):
             r.message_post(type='comment',
                            subtype=subtype,
                            body=body,
-                           reviewer_ids=reviewer_ids)
+                           partner_ids=partner_ids)
