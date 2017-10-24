@@ -7,7 +7,7 @@ from odoo.addons.web.controllers import main as controllers_main
 import functools
 from odoo.http import request
 from odoo.modules import get_module_resource
-from io import StringIO
+import io
 
 from ..models.ir_translation import debrand
 
@@ -52,7 +52,7 @@ class BinaryCustom(Binary):
                                """, (uid,))
                     row = cr.fetchone()
                     if row and row[0]:
-                        image_data = StringIO(str(row[0]).decode('base64'))
+                        image_data = io.StringIO(str(row[0]).decode('base64'))
                         response = http.send_file(image_data, filename=imgname, mtime=row[1])
                     else:
                         response = http.send_file(placeholder('nologo.png'))
