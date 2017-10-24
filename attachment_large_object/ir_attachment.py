@@ -36,7 +36,7 @@ class IrAttachment(models.Model):
             return super(IrAttachment, self)._file_write(value, checksum)
 
         lobj = self.lobject(self.env.cr, 0, 'wb')  # oid=0 means creation
-        lobj.write(base64.b64encode(value).decode())
+        lobj.write(base64.b64decode(value))
         oid = lobj.oid
         return str(oid)
 
