@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": """Company-dependent values in System Parameters""",
-    "summary": """Adds multi-company support to many features""",
+    "summary": """Adds multi-company support for dozens features""",
     "category": "Extra Tools",
     # "live_test_url": "",
     "images": [],
@@ -16,24 +16,19 @@
     # "currency": "EUR",
 
     "depends": [
-        "{DEPENDENCY1}",
-        "{DEPENDENCY2}",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
-        "{FILE1}.xml",
-        "{FILE2}.xml",
     ],
     "qweb": [
-        "static/src/xml/{QWEBFILE1}.xml",
     ],
     "demo": [
-        "demo/{DEMOFILE1}.xml",
     ],
 
     "post_load": None,
     "pre_init_hook": None,
     "post_init_hook": None,
+    "uninstall_hook": 'uninstall_hook',
 
     "auto_install": False,
     "installable": True,

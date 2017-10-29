@@ -6,6 +6,7 @@ Installation
 ============
 
 * `Install <https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html>`__ this module in a usual way
+* Make database backup (or at least ``ir.config_parameter`` table)
 
 Configuration
 =============
@@ -84,4 +85,19 @@ For understanding which values are default and which are company dependent do as
 Uninstallation
 ==============
 
-Before installation make backup of System Parameters via export tool.
+* Uninstallation is quite risky! Be very carefull to do it on production!
+* Make database backup
+* Open menu ``[[ Settings ]] >> Technical >> Parameters >> System Parameters``
+* Make Export of all records (``[Action] -> Export``) -- exporting only column ``value`` is enough
+* Click ``[Import]`` button
+* Upload ``*.csv`` file
+* Click ``[Validate]`` -- it must not return errors!
+* Don't close current page!
+* At other page:
+
+  * uninstall module
+  * Upgrade ``base`` module
+
+* Return back to page with importing
+* Click ``[Import]``
+
