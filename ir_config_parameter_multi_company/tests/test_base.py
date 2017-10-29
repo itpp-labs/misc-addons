@@ -35,4 +35,3 @@ class TestBase(common.TransactionCase):
 
         self.env.user.company_id = self.main_company
         self.assertEqual(self.config_param.get_param(KEY), VALUE1)
-

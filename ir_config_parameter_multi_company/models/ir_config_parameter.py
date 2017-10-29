@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 import logging
-import sys
 
 from odoo import models, fields, api, _, tools
 from odoo.addons.base.ir.ir_config_parameter import IrConfigParameter as IrConfigParameterOriginal
 
 _logger = logging.getLogger(__name__)
-PROP_NAME =_('Default value for "%s"')
+PROP_NAME = _('Default value for "%s"')
 
 
 class IrConfigParameter(models.Model):
@@ -24,15 +23,14 @@ class IrConfigParameter(models.Model):
         prop.name = PROP_NAME % res.key
         return res
 
-
     @api.model
     def get_param(self, key, default=False):
         company_id = self.env.context.get('company_id')
         if not company_id:
-            website_id = self.env.context.get('company_id')
+            website_id = self.env.context.get('website_id')
             if website_id:
                 website = self.env['website'].browse(website_id)
-                company_id = website_id.company_id and website_id.company_id.id
+                company_id = website.company_id and website.company_id.id
 
         if not company_id:
             company_id = self.env.user.company_id.id
@@ -45,7 +43,6 @@ class IrConfigParameter(models.Model):
         _logger.debug('_get_param(%s) context: %s', key, self.env.context)
         # call undecorated super method. See odoo/tools/cache.py::ormcache and http://decorator.readthedocs.io/en/stable/tests.documentation.html#getting-the-source-code
         return IrConfigParameterOriginal._get_param.__wrapped__(self, key)
-
 
     @api.multi
     def _create_default_value(self, value):
@@ -86,7 +83,6 @@ class IrConfigParameter(models.Model):
         for r in self.env['ir.config_parameter'].sudo().search([]):
             cr.execute("SELECT key,value_old FROM ir_config_parameter WHERE id = %s", (r.id, ))
             res = cr.dictfetchone()
-            key = res.get('key')
             value_old = res.get('value_old')
             r._create_default_value(value_old)
         # Finally, remove the _old column if all went well so we won't run this every time we upgrade the module.
