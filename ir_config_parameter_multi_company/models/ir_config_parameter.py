@@ -13,6 +13,7 @@ class IrConfigParameter(models.Model):
 
     value = fields.Text(company_dependent=True)
 
+    @api.model
     def create(self, vals):
         res = super(IrConfigParameter, self).create(vals)
         # make value company independent
