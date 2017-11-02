@@ -11,4 +11,5 @@
         'security/security.xml',
         'views/view.xml',
     ],
+    'installable': False,
 }
