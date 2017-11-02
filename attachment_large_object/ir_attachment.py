@@ -63,7 +63,7 @@ class IrAttachment(models.Model):
         lobj = self.lobject(self.env.cr, int(fname), 'rb')
         if bin_size:
             return lobj.seek(0, 2)
-        return base64.b64encode(lobj.read()) # GR TODO it must be possible to read-encode in chunks
+        return base64.b64encode(lobj.read())  # GR TODO it must be possible to read-encode in chunks
 
     @api.depends('store_fname', 'db_datas')
     def _compute_datas(self):
