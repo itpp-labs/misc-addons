@@ -12,5 +12,5 @@
         'auth_signup_confirmation',
         'crm',
     ],
-    'installable': True,
+    'installable': False,
 }

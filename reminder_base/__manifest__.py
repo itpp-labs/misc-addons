@@ -27,7 +27,7 @@
     "post_init_hook": None,
 
     "auto_install": False,
-    "installable": True,
+    "installable": False,
 
     "demo_title": "Reminders and Agenda modules",
     "demo_addons": [

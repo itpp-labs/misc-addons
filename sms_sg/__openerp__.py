@@ -12,4 +12,5 @@
         'views/log.xml',
         'security/ir.model.access.csv',
     ],
+    'installable': False,
 }

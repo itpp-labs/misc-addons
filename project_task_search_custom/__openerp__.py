@@ -14,5 +14,5 @@
     'data': [
         'views/project_task_search_custom.xml',
     ],
-    'installable': True
+    'installable': False
 }

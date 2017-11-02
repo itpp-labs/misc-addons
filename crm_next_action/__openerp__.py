@@ -11,5 +11,5 @@
     'depends': ['crm'],
     'images': ['images/lead.png'],
     'data': ['data.xml'],
-    'installable': True
+    'installable': False
 }

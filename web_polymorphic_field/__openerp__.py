@@ -39,5 +39,5 @@ E.g:
  'js': [
      'static/src/js/view_form.js'
  ],
- 'installable': True,
+ 'installable': False,
  'application': False}
