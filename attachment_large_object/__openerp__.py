@@ -30,7 +30,7 @@
     'website': 'anybox.fr',
     'depends': ['base'],
     'test': [],
-    'installable': False,
+    'installable': True,
     'application': False,
     'auto_install': False,
     'license': 'AGPL-3',
