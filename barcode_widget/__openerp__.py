@@ -14,6 +14,7 @@
     """,
     'author': 'The Gok Team',
     'depends': [
+        'web',
     ],
 
     'data': [
