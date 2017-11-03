@@ -39,7 +39,7 @@ Usage
 Default values
 --------------
 
-All system parameters craeted before module installation (as well as just created parameters) become default value for corresponding parameters. Example:
+All system parameters created before module installation (as well as just created parameters) become default value for corresponding parameters. Example:
 
 * Before installation:
 
@@ -51,7 +51,7 @@ All system parameters craeted before module installation (as well as just create
   * **param1** = *value1* -- default value for param1
   * **param2** = *value2* -- default value for param2
 
-* Now if we switch to company1 and make following updates:
+* Now if we switch to companyA and make following updates:
 
   * **param1** = *value11*
 
