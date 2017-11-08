@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-<data>
+<odoo>
 
     <record id="test_url_attachment" model="ir.attachment">
         <field name="name">test_attachment</field>
@@ -8,5 +7,4 @@
         <field name="url">https://en.wikipedia.org/wiki/Iceland#/media/File:Gullfoss,_an_iconic_waterfall_of_Iceland.jpg</field>
     </record>
 
-</data>
-</openerp>
+</odoo>
