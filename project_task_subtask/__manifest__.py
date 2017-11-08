@@ -25,6 +25,7 @@
     "qweb": [
     ],
     "demo": [
+        'demo/project_task_subtask_demo.xml'
     ],
 
     "post_load": None,

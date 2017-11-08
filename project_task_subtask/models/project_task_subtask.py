@@ -173,7 +173,7 @@ class Task(models.Model):
                 body = body + '<br><em style="color:#999">Updated from</em><br><strong>' + state + '</strong>: ' + escape(old_name) + '</p>'
             else:
                 body = body + '</p>'
-            r.message_post(type='comment',
+            r.message_post(message_type='comment',
                            subtype=subtype,
                            body=body,
                            partner_ids=partner_ids)
