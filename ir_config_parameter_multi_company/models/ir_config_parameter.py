@@ -66,6 +66,7 @@ class IrConfigParameter(models.Model):
             _logger.info('Starting conversion for ir.config_parameter: saving data for further processing.')
             # Rename image column so we don't lose images upon module install
             cr.execute("ALTER TABLE ir_config_parameter RENAME COLUMN value TO value_old")
+
             def call_init():
                 self._init_from_value_old()
             self.pool.post_init(call_init)
