@@ -13,7 +13,7 @@ class TestAttachment(TransactionCase):
 
     def test_large_object(self):
         self.param.set_param('ir_attachment.location', 'postgresql:lobject')
-        bin_data = base64.b64encode("\xff data")
+        bin_data = base64.b64encode(b"\xff data")
         att = self.attachment.create(dict(name="some name", datas=bin_data))
 
         # check payload and the fact that 'store_fname' looks like a PG oid
@@ -33,7 +33,7 @@ class TestAttachment(TransactionCase):
         self.assertEqual(record.store_fname, str(oid))
 
         # a write on data, creates a whole new large object
-        att.write(dict(datas=base64.b64encode('new content')))
+        att.write(dict(datas=base64.b64encode(b'new content')))
         att_r = att.read(('datas', 'store_fname'))
         if isinstance(att_r, (list, tuple)):
             att_r = att_r[0]
