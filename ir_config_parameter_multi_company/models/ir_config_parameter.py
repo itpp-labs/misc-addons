@@ -66,12 +66,14 @@ class IrConfigParameter(models.Model):
             _logger.info('Starting conversion for ir.config_parameter: saving data for further processing.')
             # Rename image column so we don't lose images upon module install
             cr.execute("ALTER TABLE ir_config_parameter RENAME COLUMN value TO value_old")
+            def call_init():
+                self._init_from_value_old()
+            self.pool.post_init(call_init)
         else:
             _logger.debug('No value field found in ir_config_parameter; no data to save.')
         return super(IrConfigParameter, self)._auto_init()
 
-    def _auto_end(self):
-        super(IrConfigParameter, self)._auto_end()
+    def _init_from_value_old(self):
         cr = self.env.cr
         # Only proceed if we have the appropriate _old field
         cr.execute("select COUNT(*) from information_schema.columns where table_name='ir_config_parameter' AND column_name='value_old';")
