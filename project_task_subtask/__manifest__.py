@@ -4,7 +4,7 @@
     "summary": """Use checklist to be ensure that all your tasks are performed and to make easy control over them""",
     "category": """Project Management""",
     "images": ['images/checklist_main.png'],
-    "version": "1.0.0",
+    "version": "1.0.1",
     "application": False,
 
     "author": "IT-Projects LLC, Manaev Rafael",
@@ -25,6 +25,7 @@
     "qweb": [
     ],
     "demo": [
+        'demo/project_task_subtask_demo.xml'
     ],
 
     "post_load": None,
