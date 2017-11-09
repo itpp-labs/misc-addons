@@ -35,30 +35,27 @@ performance. That being said, large objects
   similar file sharing tools)
 - keep allowing easy, consistent backups of the whole system
 
-How to use
-==========
-**Once the module is installed**,
-to have ``ir_attachment`` records been stored as large objects by
-default, set the following record in ``ir.config_parameter``:
+Credits
+=======
 
-:key: ``ir_attachment.location``
-:value: ``postgresql:lobject``
+Contributors
+------------
 
-Preexisting attachments are unaffected.
+* `AnyBox <anybox.fr>`__
+* `Ivan Yelizariev <https://it-projects.info/team/yelizariev>`__
 
-.. warning:: If you do that setting before installing the module
-             you will get inconsistent data in ``ir.attachment``
-             field ``is_lobject`` will be set to ``True``.
+Maintainers
+-----------
+* `IT-Projects LLC <https://it-projects.info>`__
 
-To apply new storage for all existed attachments use module `ir_attachment_force_storage <https://www.odoo.com/apps/modules/10.0/ir_attachment_force_storage/>`_.
 
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/misc-addons/8.0
+Demo: http://runbot.it-projects.info/demo/misc-addons/11.0
 
-HTML Description: https://apps.odoo.com/apps/modules/8.0/attachment_large_object/
+.. HTML Description: https://apps.odoo.com/apps/modules/11.0/attachment_large_object/
 
 Changelog: `<doc/changelog.rst>`_
 
-Tested on Odoo 8.0 8d724924f76a943035a8aa2d1b446418fd6b4034
+Tested on Odoo 11.0 8787f5acee9b5d2cad15b97804522dc04717a1c1
