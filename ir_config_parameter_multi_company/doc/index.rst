@@ -66,7 +66,7 @@ All system parameters created before module installation (as well as just create
   * **param2** = *value2* (default value)
   * **param3** = *value3* (default value)
 
-* Then for companyA we have
+* Then for companyB we have
 
   * **param1** = *value1* (via default value)
   * **param2** = *value22* (value for companyB)
