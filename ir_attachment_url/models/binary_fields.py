@@ -6,7 +6,7 @@ from . import image
 
 class Binary(fields.Binary):
 
-    def write(self, records, value):
+    def write(self, records, value, create=False):
         domain = [
             ('res_model', '=', records._name),
             ('res_field', '=', self.name),
@@ -41,7 +41,7 @@ class Binary(fields.Binary):
                 else:
                     atts.unlink()
         else:
-            super(Binary, self).write(records, value)
+            super(Binary, self).write(records, value, create=create)
 
 
 fields.Binary = Binary
