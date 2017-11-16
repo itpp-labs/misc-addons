@@ -26,7 +26,7 @@ def updated_image_resize_images(vals, big_name='image', medium_name='image_mediu
 
 def is_url(value):
     if value:
-        return re.findall(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', value)
+        return isinstance(value, str) and re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', value)
 
 
 tools.image_resize_images = updated_image_resize_images
