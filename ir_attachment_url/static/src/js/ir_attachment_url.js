@@ -1,69 +1,70 @@
 odoo.define('ir_attachment_url', function(require) {
     var utils = require('web.utils');
     var core = require('web.core');
-    var form_widgets = require('web.form_widgets');
     var session = require('web.session');
     var QWeb = core.qweb;
-    var FieldBinaryImage = core.form_widget_registry.get('image');
+    var FieldBinaryImage = require('web.field_registry').get('image');
     var _t = core._t;
-    var common = require('web.form_common');
-    var Model = require('web.DataModel');
 
     FieldBinaryImage.include({
-        initialize_content: function() {
-            var self = this;
+        events: _.extend({}, FieldBinaryImage.prototype.events, {
+            'click .o_link_address_button': 'on_link_address',
+        }),
+
+        init: function (parent, name, record) {
+            this._super.apply(this, arguments);
             this.url_clicked = false;
             this.is_url = false;
-            this.$('.o_link_address_button').click(function() {
-                self.on_link_address();
-            });
-            this._super();
         },
-        render_value: function() {
-            if (this.url_clicked) {
-                this.$el.children(".img-responsive").remove();
-                this.$el.children(".input_url").remove();
-                this.$el.children(".o_form_image_controls").addClass("media_url_controls");
-                this.$el.prepend($(QWeb.render("AttachmentURL", {widget: this})));
-                this.$input = this.$(".input_url input");
-            } else {
-                this.$el.children(".o_form_image_controls").removeClass("media_url_controls");
-                this.$el.children(".input_url").remove();
-                this._super();
-            }
-        },
-        store_dom_url_value: function () {
-            if (this.$input && this.$input.val()) {
-                if (this.is_url_valid()) {
-                    this.set_value(this.$input.val());
-                } else {
-                    this.do_warn(_t('Warning'), _t('URL is invalid.'));
-                }
-            }
-        },
+
         on_link_address: function() {
-            this.is_url = true;
-            if (!this.url_clicked) {
-                this.url_clicked = true;
-                this.on_clear();
-            } else if (this.url_clicked) {
-                this.url_clicked = false;
-                this.render_value();
-            }
+            var self = this;
+            this.$el.children(".img-responsive").remove();
+            this.$el.children(".input_url").remove();
+            this.$el.children(".o_form_image_controls").addClass("media_url_controls");
+            this.$el.prepend($(QWeb.render("AttachmentURL", {widget: this})));
+            this.$('.input_url input').on('change', function() {
+                var input_val = $(this).val();
+                self._setValue(input_val);
+            });
         },
-        commit_value: function () {
-            if (this.is_url) {
-                this.store_dom_url_value();
-                this.is_url = false;
-            }
-            return this._super();
-        },
-        is_url_valid: function() {
-            if (this.$input.is('input')) {
+
+        is_url_valid: function(value) {
+            if (value || this.$input && this.$input.is('input')) {
                 var u = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
-                return u.test(this.$input.val());
+                return u.test(value || this.$input.val());
             }
             return true;
         },
-    });
+
+        _render: function () {
+            if (!this.is_url_valid(this.value)) {
+                return this._super();
+            }
+
+
+            var self = this;
+            var attrs = this.attrs;
+            var url = this.placeholder;
+            if (this.value) {
+                url = this.value
+            }
+            var $img = $('<img>').attr('src', url);
+            $img.css({
+                width: this.nodeOptions.size ? this.nodeOptions.size[0] : attrs.img_width || attrs.width,
+                height: this.nodeOptions.size ? this.nodeOptions.size[1] : attrs.img_height || attrs.height,
+            });
+            this.$('> img').remove();
+            this.$el.prepend($img);
+            $img.on('error', function () {
+                self.on_clear();
+                $img.attr('src', self.placeholder);
+                self.do_warn(_t("Image"), _t("Could not display the selected image."));
+            });
+        },
+
+        isSet: function () {
+            return true;
+        },
+        });
 });
