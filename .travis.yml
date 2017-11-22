@@ -15,6 +15,12 @@ addons:
 env:
   global:
   - VERSION="11.0" TESTS="0" LINT_CHECK="0" TRANSIFEX="0" UNIT_TEST="0"
+  # * about ir_config_parameter_multi_company:
+  #
+  #   ir_config_parameter_multi_company makes fields value at ir.config_parameter company_dependent,
+  #   but registry may not know it, if module is not loaded yet during testing. It leads to error "column value doesn't exist".
+  #   Adding the module to server-wide modules avoids this problem.
+  - OPTIONS="--load=web,ir_config_parameter_multi_company"
   - EXCLUDE="hw_printer_network"
   - PYLINT_ODOO_JSLINTRC="/home/travis/maintainer-quality-tools/travis/cfg/.jslintrc"
   - TRANSIFEX_USER='i18n-bot@it-projects.info'
