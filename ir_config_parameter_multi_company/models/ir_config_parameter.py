@@ -13,15 +13,44 @@ class IrConfigParameter(models.Model):
 
     value = fields.Text(company_dependent=True)
 
+    @api.multi
+    def _get_property(self, for_default=False):
+        self.ensure_one()
+
+        domain = self.env['ir.property']._get_domain('value', self._name)
+        domain += [('res_id', '=', '%s,%s' % (self._name, self.id))]
+        if for_default:
+            # find: ('company_id', 'in', [company_id, False])
+            # update to: ('company_id', 'in', [False])
+            domain = [
+                ('company_id', 'in', [False])
+                if x[0] == 'company_id'
+                else
+                x
+                for x in domain
+            ]
+
+        prop = self.env['ir.property'].search(domain)
+        return prop
+
     @api.model
     def create(self, vals):
         res = super(IrConfigParameter, self).create(vals)
         # make value company independent
-        domain = self.env['ir.property']._get_domain('value', self._name)
-        domain += [('res_id', '=', '%s,%s' % (self._name, res.id))]
-        prop = self.env['ir.property'].search(domain)
+        prop = res._get_property()
         prop.company_id = None
         prop.name = PROP_NAME % res.key
+        return res
+
+    @api.multi
+    def write(self, vals):
+        res = super(IrConfigParameter, self).write(vals)
+        if 'key' in vals:
+            # Change property name after renaming the parameter to avoid confusions
+            self.ensure_one()  # it's not possible to update key on multiple records
+            name = PROP_NAME % vals.get('key')
+            prop = self._get_property(for_default=True)
+            prop.name = name
         return res
 
     @api.model
