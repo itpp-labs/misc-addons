@@ -91,12 +91,15 @@ Uninstallation
 * Make Export of all records (``[Action] -> Export``) -- exporting only column ``value`` is enough
 * Click ``[Import]`` button
 * Upload ``*.csv`` file
-* Click ``[Validate]`` -- it must not return errors!
+* Click ``[Validate]`` -- it may take some time. It must not return errors!
 * Don't close current page!
 * At other page:
 
-  * uninstall module
-  * Upgrade ``base`` module
+  * uninstall module -- it will update base module automatically which leads to **upgrading all modules**:
+
+    * It may override some changes which were ade manually (e.g. views, pages)
+    * It may lead to errors in third-parties modules in some cases
+
 
 * Return back to page with importing
 * Click ``[Import]``
