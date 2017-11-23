@@ -18,10 +18,10 @@ class S3Settings(models.TransientModel):
                                Empty condition means all models""")
 
     def get_default_all(self, fields):
-        s3_bucket = self.env["ir.config_parameter"].get_param("s3.bucket", default='')
-        s3_access_key_id = self.env["ir.config_parameter"].get_param("s3.access_key_id", default='')
-        s3_secret_key = self.env["ir.config_parameter"].get_param("s3.secret_key", default='')
-        s3_condition = self.env["ir.config_parameter"].get_param("s3.condition", default='')
+        s3_bucket = self.env["ir.config_parameter"].sudo().get_param("s3.bucket", default='')
+        s3_access_key_id = self.env["ir.config_parameter"].sudo().get_param("s3.access_key_id", default='')
+        s3_secret_key = self.env["ir.config_parameter"].sudo().get_param("s3.secret_key", default='')
+        s3_condition = self.env["ir.config_parameter"].sudo().get_param("s3.condition", default='')
 
         return dict(
             s3_bucket=s3_bucket,
@@ -32,25 +32,25 @@ class S3Settings(models.TransientModel):
 
     # s3_bucket
     def set_s3_bucket(self):
-        self.env['ir.config_parameter'].set_param("s3.bucket",
+        self.env['ir.config_parameter'].sudo().set_param("s3.bucket",
                                                   self.s3_bucket or '',
                                                   groups=['base.group_system'])
 
     # s3_access_key_id
     def set_s3_access_key_id(self):
-        self.env['ir.config_parameter'].set_param("s3.access_key_id",
+        self.env['ir.config_parameter'].sudo().set_param("s3.access_key_id",
                                                   self.s3_access_key_id or '',
                                                   groups=['base.group_system'])
 
     # s3_secret_key
     def set_s3_secret_key(self):
-        self.env['ir.config_parameter'].set_param("s3.secret_key",
+        self.env['ir.config_parameter'].sudo().set_param("s3.secret_key",
                                                   self.s3_secret_key or '',
                                                   groups=['base.group_system'])
 
     # s3_condition
     def set_s3_condition(self):
-        self.env['ir.config_parameter'].set_param("s3.condition",
+        self.env['ir.config_parameter'].sudo().set_param("s3.condition",
                                                   self.s3_condition or '',
                                                   groups=['base.group_system'])
 
