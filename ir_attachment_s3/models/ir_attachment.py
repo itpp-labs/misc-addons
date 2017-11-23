@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import base64
 import os
 import hashlib
 import logging
@@ -76,7 +77,7 @@ class IrAttachment(models.Model):
 
         for attach in s3_records:
             value = attach.datas
-            bin_data = value and value.decode('base64') or ''
+            bin_data = base64.b64decode(value) if value else b''
             fname = hashlib.sha1(bin_data).hexdigest()
 
             bucket_name = self._get_s3_settings('s3.bucket', 'S3_BUCKET')

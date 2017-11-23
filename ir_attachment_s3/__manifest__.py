@@ -14,11 +14,12 @@
     "currency": "EUR",
 
     "depends": [
+        'base_setup',
         'ir_attachment_url',
     ],
     "external_dependencies": {"python": ['boto3'], "bin": []},
     "data": [
-        "views/ir_attachment_s3.xml",
+        "views/res_config_settings_views.xml",
     ],
     "qweb": [
     ],
