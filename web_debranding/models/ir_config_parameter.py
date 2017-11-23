@@ -15,8 +15,6 @@ PARAMS = [
 ]
 
 
-print ('ir_config_parameter', 'get_debranding_parameters')
-
 class IrConfigParameter(models.Model):
     _inherit = 'ir.config_parameter'
 

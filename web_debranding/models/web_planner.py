@@ -5,6 +5,7 @@ from odoo import models, api
 
 from .ir_translation import debrand_bytes
 
+
 class Planner(models.Model):
     _inherit = 'web.planner'
 
@@ -16,9 +17,9 @@ class Planner(models.Model):
         planner_footer = '<p>' + planner_footer + '</p>'
         planner_footer = bytes(planner_footer, 'utf-8')
 
-        res = re.sub(b'<p>[^<]*to contact our accounting experts by using the[\s\S]*?</div>', planner_footer, res)
-        res = re.sub(b'<p>[^<]*If you need help, do not hesitate to contact our experts[\s\S]*?</div>', planner_footer, res)
-        res = re.sub(b'<h4>Don\'t hesitate to[\s\S]*logo.png"/>', b'', res)
-        res = re.sub(b'<p>Once it\'s fully working[\s\S]*odoo_logo.png"/>', planner_footer, res)
-        res = re.sub(b'<div class="mt32">[\s\S\n]*Fabien Pinckaers, Founder[\s\S\n]*?</div>', planner_footer, res)
+        res = re.sub(rb'<p>[^<]*to contact our accounting experts by using the[\s\S]*?</div>', planner_footer, res)
+        res = re.sub(rb'<p>[^<]*If you need help, do not hesitate to contact our experts[\s\S]*?</div>', planner_footer, res)
+        res = re.sub(rb'<h4>Don\'t hesitate to[\s\S]*logo.png"/>', b'', res)
+        res = re.sub(rb'<p>Once it\'s fully working[\s\S]*odoo_logo.png"/>', planner_footer, res)
+        res = re.sub(rb'<div class="mt32">[\s\S\n]*Fabien Pinckaers, Founder[\s\S\n]*?</div>', planner_footer, res)
         return debrand_bytes(self.env, res)

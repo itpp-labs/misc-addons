@@ -29,7 +29,6 @@ def debrand(env, source):
     # po file: https://github.com/odoo/odoo/blob/9.0/addons/im_livechat/i18n/ru.po#L853
     # xml file: https://github.com/odoo/odoo/blob/9.0/addons/im_livechat/views/im_livechat_channel_templates.xml#L148
     source = re.sub(r'\bodoo(?!\.define)\b', new_name, source, flags=re.IGNORECASE)
-    #source = source.encode('utf-8')
     return source
 
 
