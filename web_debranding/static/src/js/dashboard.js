@@ -6,7 +6,7 @@ odoo.define('web_debranding.dashboard', function (require) {
         start: function(){
             this.all_dashboards = _.without(this.all_dashboards, 'share');
 
-            // remove Share section completly 
+            // remove Share section completly
             this.$('.o_web_settings_dashboard_share').parent().remove();
 
             var self = this;
@@ -32,7 +32,7 @@ odoo.define('web_debranding.dashboard', function (require) {
                     // old browser - hide whole block
                     self.$('.o_web_settings_dashboard_planner').parent().remove();
                 }
-            })
+            });
         },
     });
 });

@@ -14,5 +14,5 @@ odoo.define('web_debranding.bot', function (require) {
                 msg.displayed_author = 'Bot';
             }
             return msg;
-    }
+    };
 });
