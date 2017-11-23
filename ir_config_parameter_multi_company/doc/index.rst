@@ -95,11 +95,14 @@ Uninstallation
 * Don't close current page!
 * At other page:
 
-  * uninstall module -- it will update base module automatically which leads to **upgrading all modules**:
+  * uninstall module
 
-    * It may override some changes which were ade manually (e.g. views, pages)
-    * It may lead to errors in third-parties modules in some cases
+    * It will update base module automatically which leads to **upgrading all modules**:
 
+      * It may override some changes which were ade manually (e.g. views, pages)
+      * It may lead to errors in third-parties modules in some cases
+
+    * When uninstallation is finished it will show *Internal Server Error*. Keep calm and carry on next step.
 
 * Return back to page with importing
 * Click ``[Import]``
