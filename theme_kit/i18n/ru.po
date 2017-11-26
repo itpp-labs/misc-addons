@@ -1,0 +1,785 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * theme_kit
+# 
+# Translators:
+# Dinar <gabbasov@it-projects.info>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-22 11:27+0000\n"
+"PO-Revision-Date: 2017-11-22 11:27+0000\n"
+"Last-Translator: Dinar <gabbasov@it-projects.info>, 2017\n"
+"Language-Team: Russian (https://www.transifex.com/it-projects-llc/teams/76080/ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.view_config
+msgid "#inbox - <em>[Page Title]</em>"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.view_config
+msgid "<em>[Page Title]</em>"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.view_config
+msgid ""
+"<em>[System Name]</em> Warning - Warning<br/>\n"
+"                                    You can not remove the admin user as it is used internally for resources created by <em>[System Name]</em> (updates, module installation, ...)"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.view_config
+msgid ""
+"<em>[System Name]</em> has now the permission to send you native "
+"notifications on this device."
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.view_config
+msgid ""
+"<em>[System Name]</em> helps you easily track all activities related to a "
+"customer; discussions, history of business opportunities, documents, etc."
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.view_config
+msgid "<span class=\"oe_form_field oe_inline\"> wallpaper(s)</span>"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_active_item_bg
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_top_panel_active_item_bg
+msgid "Active item Background color"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_left_panel_left_panel_active_item_bg
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_left_panel_left_panel_active_item_bg_active
+msgid "Active item Background color for Left Menu Bar"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_top_panel_top_panel_active_item_bg
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_top_panel_top_panel_active_item_bg_active
+msgid "Active item Background color for Top Panel"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_active_item_font
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_top_panel_active_item_font
+msgid "Active item Font color"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_left_panel_left_panel_active_item_font
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_left_panel_left_panel_active_item_font_active
+msgid "Active item Font color for Left Menu Bar"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_top_panel_top_panel_active_item_font
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_top_panel_top_panel_active_item_font_active
+msgid "Active item Font color for Top Panel"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_config_page_title
+msgid ""
+"Anything you want to see in page title, e.g.\n"
+"* CompanyName\n"
+"* CompanyName's Portal\n"
+"* CompanyName's Operation System\n"
+"* etc.\n"
+"    "
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.view_config
+msgid "Apply"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_left_panel_left_panel_bg
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_left_panel_left_panel_bg_active
+msgid "Background Color for Left Menu Bar"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_bg
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_bg
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_top_panel_bg
+msgid "Background color"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_form
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_content_content_form
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_content_content_form_active
+msgid "Background form color"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_top_panel_border
+msgid "Border color"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_top_panel_top_panel_border
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_top_panel_top_panel_border_active
+msgid "Border color for Top Panel"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.menu,name:theme_kit.config_menu
+msgid "Brand"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.menu,name:theme_kit.main_menu
+msgid "Brand Kit"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.actions.act_window,name:theme_kit.config_action
+msgid "Brand settings"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_content_content_button
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_content_content_button_active
+msgid "Button Color for Main page"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_button
+msgid "Button color"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.view_config
+msgid "Cancel"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.actions.act_window,help:theme_kit.ir_attachment_login_bg_action
+msgid "Click here to add new Wallpapers."
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_theme_code
+msgid "Code"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.actions.act_window,name:theme_kit.theme_content_action
+#: model:ir.ui.menu,name:theme_kit.theme_conten_menu
+msgid "Color Content"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.menu,name:theme_kit.theme_color_setting
+msgid "Color Details"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.actions.act_window,name:theme_kit.theme_left_panel_action
+#: model:ir.ui.menu,name:theme_kit.theme_left_panel_menu
+msgid "Color Left Panel"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.actions.act_window,name:theme_kit.theme_action
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_config_theme_id
+msgid "Color Scheme"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.menu,name:theme_kit.theme_menu
+#: model:ir.ui.view,arch_db:theme_kit.theme_view_tree
+msgid "Color Schemes"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_theme_content_id
+msgid "Color Schemes for Content"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_theme_left_panel_id
+msgid "Color Schemes for Left Panel"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_theme_top_panel_id
+msgid "Color Schemes for Top Panel"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.actions.act_window,name:theme_kit.theme_top_panel_action
+#: model:ir.ui.menu,name:theme_kit.theme_top_panel_menu
+msgid "Color Top Panel"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_content_content_bg
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_content_content_bg_active
+msgid "Color for Main page"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.theme_content_view_form
+#: model:ir.ui.view,arch_db:theme_kit.theme_left_panel_view_form
+#: model:ir.ui.view,arch_db:theme_kit.theme_top_panel_view_form
+#: model:ir.ui.view,arch_db:theme_kit.theme_view_form
+msgid "Color scheme"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_config_company_logo
+msgid "Company Logo"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.view_config
+msgid "CompanyName"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.view_config
+msgid "CompanyName's Portal"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.view_config
+msgid "Configure wallpapers"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.theme_content_view_form
+#: model:ir.ui.view,arch_db:theme_kit.theme_view_form
+msgid "Content"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_bg_active
+msgid "Content bg active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_button_active
+msgid "Content button active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_footer_color_active
+msgid "Content footer color active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_form_active
+msgid "Content form active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_form_link_active
+msgid "Content form link active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_form_text_active
+msgid "Content form text active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_form_title_active
+msgid "Content form title active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_loader_active
+msgid "Content loader active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_loader_text_active
+msgid "Content loader text active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_main_menu_font_color_active
+msgid "Content main menu font color active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_statusbar_bg_active
+msgid "Content statusbar bg active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_statusbar_element_active
+msgid "Content statusbar element active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_statusbar_font_color_active
+msgid "Content statusbar font color active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_text_active
+msgid "Content text active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_config_create_uid
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_create_uid
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_create_uid
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_theme_create_uid
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_config_create_date
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_create_date
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_create_date
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_theme_create_date
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_theme_custom_css
+msgid "Custom CSS/LESS"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_theme_custom_js
+msgid "Custom JS"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.theme_view_form
+msgid "Custom setting"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.view_config
+msgid "Dashboard - <em>[Page Title]</em>"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_config_display_name
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_display_name
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_display_name
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_theme_display_name
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_display_name
+msgid "Display Name"
+msgstr "Отображаемое имя"
+
+#. module: theme_kit
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_config_company_logo
+msgid ""
+"Due to browser cache, old logo may be still shown. To fix that, clear "
+"browser cache"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_config_favicon_id
+msgid "Favicon"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_top_panel_font
+msgid "Font color"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_top_panel_top_panel_font
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_top_panel_top_panel_font_active
+msgid "Font color for Top Panel"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_footer_color
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_content_content_footer_color
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_content_content_footer_color_active
+msgid "Footer color"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_hover_item_bg
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_top_panel_hover_item_bg
+msgid "Hover item Background color"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_left_panel_left_panel_hover_item_bg
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_left_panel_left_panel_hover_item_bg_active
+msgid "Hover item Background color for Left Menu Bar"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_top_panel_top_panel_hover_item_bg
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_top_panel_top_panel_hover_item_bg_active
+msgid "Hover item Background color for Top Panel"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_hover_item_font
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_top_panel_hover_item_font
+msgid "Hover item Font color"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_left_panel_left_panel_hover_item_font
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_left_panel_left_panel_hover_item_font_active
+msgid "Hover item Font color for Left Menu Bar"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_top_panel_top_panel_hover_item_font
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_top_panel_top_panel_hover_item_font_active
+msgid "Hover item Font color for Top Panel"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_config_id
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_id
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_id
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_theme_id
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_id
+msgid "ID"
+msgstr "ID"
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_config___last_update
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content___last_update
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel___last_update
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_theme___last_update
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel___last_update
+msgid "Last Modified on"
+msgstr "Последний раз редактировалось"
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_config_write_uid
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_write_uid
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_write_uid
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_theme_write_uid
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_config_write_date
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_write_date
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_write_date
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_theme_write_date
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.theme_left_panel_view_form
+#: model:ir.ui.view,arch_db:theme_kit.theme_view_form
+msgid "Left panel"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_active_item_bg_active
+msgid "Left panel active item bg active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_active_item_font_active
+msgid "Left panel active item font active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_bg_active
+msgid "Left panel bg active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_hover_item_bg_active
+msgid "Left panel hover item bg active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_hover_item_font_active
+msgid "Left panel hover item font active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_main_menu_active
+msgid "Left panel main menu active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_sub_menu_active
+msgid "Left panel sub menu active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_form_link
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_content_content_form_link_active
+msgid "Link form color"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_loader
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_content_content_loader_active
+msgid "Loader color"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_loader_text
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_content_content_loader_text_active
+msgid "Loader text color"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.actions.act_window,name:theme_kit.ir_attachment_login_bg_action
+msgid "Login page wallpapers"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.view_config
+msgid "Logo"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_left_panel_left_panel_main_menu
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_left_panel_left_panel_main_menu_active
+msgid "Main Menu Font colo for Left Menu Bar"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_main_menu
+msgid "Main Menu Font color"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_main_menu_font_color
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_content_content_main_menu_font_color
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_content_content_main_menu_font_color_active
+msgid "Main menu font color"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_top_panel_top_panel_bg
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_top_panel_top_panel_bg_active
+msgid "Menu Bar color for Top Panel"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_name
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_name
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_theme_name
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_name
+#: model:ir.ui.view,arch_db:theme_kit.view_config
+msgid "Name"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_config_page_title
+msgid "Page Title"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.view_config
+msgid "Page Title is used in Browser Tab name, for example<br/>"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_statusbar_bg
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_content_content_statusbar_bg
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_content_content_statusbar_bg_active
+msgid "Status Bar Background color"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_content_content_statusbar_element_active
+msgid "Status Bar Current State Background color"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_statusbar_element
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_content_content_statusbar_element
+msgid "Status Bar Current State color"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_statusbar_font_color
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_content_content_statusbar_font_color
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_content_content_statusbar_font_color_active
+msgid "Status Bar Font color"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_left_panel_left_panel_sub_menu
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_left_panel_left_panel_sub_menu_active
+msgid "Sub Menu Font colo for Left Menu Bar"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_sub_menu
+msgid "Sub Menu Font color"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_config_system_name
+msgid "System Name"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.view_config
+msgid "System Name is used in context like followings:"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_text
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_content_content_text_active
+msgid "Text content color"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_form_text
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_content_content_form_text_active
+msgid "Text form color"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_form_title
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_content_content_form_title_active
+msgid "Text title form color"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.view_config
+msgid "Theme"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.view_config
+msgid "Theme Settings"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.view_config
+msgid "These wallpapers are randomly shown on login page"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.theme_top_panel_view_form
+#: model:ir.ui.view,arch_db:theme_kit.theme_view_form
+msgid "Top panel"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_top_panel_active_item_bg_active
+msgid "Top panel active item bg active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_top_panel_active_item_font_active
+msgid "Top panel active item font active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_top_panel_bg_active
+msgid "Top panel bg active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_top_panel_border_active
+msgid "Top panel border active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_top_panel_font_active
+msgid "Top panel font active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_top_panel_hover_item_bg_active
+msgid "Top panel hover item bg active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_top_panel_hover_item_font_active
+msgid "Top panel hover item font active"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_config_wallpapers_count
+msgid "Wallpapers"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_config_system_name
+msgid ""
+"e.g.\n"
+"* CompanyName's Portal\n"
+"* CompanyName's Operation System\n"
+"* etc.\n"
+"    "
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.view_config
+msgid "etc."
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_less
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_less
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_less
+msgid "less"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.view_config
+msgid "or"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_content_less
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_left_panel_less
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_theme_code
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_top_panel_less
+msgid "technical computed field"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model,name:theme_kit.model_theme_kit_config
+msgid "theme_kit.config"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model,name:theme_kit.model_theme_kit_content
+msgid "theme_kit.content"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model,name:theme_kit.model_theme_kit_left_panel
+msgid "theme_kit.left_panel"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model,name:theme_kit.model_theme_kit_theme
+msgid "theme_kit.theme"
+msgstr ""
+
+#. module: theme_kit
+#: model:ir.model,name:theme_kit.model_theme_kit_top_panel
+msgid "theme_kit.top_panel"
+msgstr ""
