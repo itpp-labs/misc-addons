@@ -6,3 +6,10 @@ form. This module redefine this behaviour to open company's contacts
 with full form.
 
 Tested on Odoo 8.0 ea60fed97af1c139e4647890bf8f68224ea1665b
+
+Maintainers
+===========
+
+* `IT-Projects LLC <https://it-projects.info>`__
+
+  The module is not maintained since Odoo 9.0.
