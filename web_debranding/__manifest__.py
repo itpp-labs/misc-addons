@@ -15,7 +15,6 @@
         'web_planner',
         'access_apps',
         'access_settings_menu',
-        'mail_base',
     ],
     'data': [
         'security/web_debranding_security.xml',
@@ -30,5 +29,5 @@
     ],
     'auto_install': False,
     'uninstall_hook': 'uninstall_hook',
-    'installable': False
+    'installable': True
 }

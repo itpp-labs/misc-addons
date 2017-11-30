@@ -9,7 +9,7 @@ from odoo.http import request
 from odoo.modules import get_module_resource
 import io
 
-from ..models.ir_translation import debrand
+from ..models.ir_translation import debrand_bytes
 
 db_monodb = http.db_monodb
 
@@ -25,7 +25,7 @@ class BinaryCustom(Binary):
         imgname = 'logo.png'
         default_logo_module = 'web_debranding'
         if request.session.db:
-            default_logo_module = request.env['ir.config_parameter'].get_param('web_debranding.default_logo_module')
+            default_logo_module = request.env['ir.config_parameter'].sudo().get_param('web_debranding.default_logo_module')
         placeholder = functools.partial(get_module_resource, default_logo_module, 'static', 'src', 'img')
         uid = None
         if request.session.db:
@@ -73,9 +73,8 @@ class WebClientCustom(WebClient):
 
         content, checksum = controllers_main.concat_xml(files)
         if request.context['lang'] == 'en_US':
-            content = content.decode('utf-8')
             # request.env could be not available
-            content = debrand(request.session.db and request.env or None, content)
+            content = debrand_bytes(request.session.db and request.env or None, content)
 
         return controllers_main.make_conditional(
             request.make_response(content, [('Content-Type', 'text/xml')]),

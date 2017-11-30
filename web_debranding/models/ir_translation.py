@@ -21,11 +21,6 @@ def debrand(env, source):
     new_name = params.get('web_debranding.new_name')
     new_website = params.get('web_debranding.new_website')
 
-    try:
-        source = str(source, 'utf-8')
-    except:
-        pass
-
     source = re.sub(r'\bodoo.com\b', new_website, source, flags=re.IGNORECASE)
 
     # We must exclude the case when after the word "odoo" is the word "define".
@@ -35,6 +30,10 @@ def debrand(env, source):
     # xml file: https://github.com/odoo/odoo/blob/9.0/addons/im_livechat/views/im_livechat_channel_templates.xml#L148
     source = re.sub(r'\bodoo(?!\.define)\b', new_name, source, flags=re.IGNORECASE)
     return source
+
+
+def debrand_bytes(env, source):
+    return bytes(debrand(env, source.decode('utf-8')), 'utf-8')
 
 
 class IrTranslation(models.Model):

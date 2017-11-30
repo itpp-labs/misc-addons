@@ -22,12 +22,12 @@ class IrConfigParameter(models.Model):
     def get_debranding_parameters(self):
         res = {}
         for param, default in PARAMS:
-            value = self.env['ir.config_parameter'].get_param(param, default)
+            value = self.env['ir.config_parameter'].sudo().get_param(param, default)
             res[param] = value.strip()
         return res
 
     @api.model
     def create_debranding_parameters(self):
         for param, default in PARAMS:
-            if not self.env['ir.config_parameter'].get_param(param):
-                self.env['ir.config_parameter'].set_param(param, default or ' ')
+            if not self.env['ir.config_parameter'].sudo().get_param(param):
+                self.env['ir.config_parameter'].sudo().set_param(param, default or ' ')

@@ -3,7 +3,6 @@ odoo.define('web_debranding.dialog', function(require) {
     require('web_debranding.base');
     var core = require('web.core');
     var QWeb = core.qweb;
-    var Model = require('web.Model');
     var session = require('web.session');
     var _t = core._t;
 
