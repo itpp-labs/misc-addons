@@ -2,6 +2,8 @@
 import logging
 from odoo import models, api
 
+from .ir_translation import debrand
+
 _logger = logging.getLogger(__name__)
 
 MODULE = '_web_debranding'
@@ -9,6 +11,13 @@ MODULE = '_web_debranding'
 
 class View(models.Model):
     _inherit = 'ir.ui.view'
+
+    @api.multi
+    def read_combined(self, fields=None):
+        res = super(View, self).read_combined(fields=fields)
+        prevtype = type(res['arch'])
+        res['arch'] = debrand(self.env, res['arch'], is_code=True)
+        return res
 
     @api.model
     def _create_debranding_views(self):

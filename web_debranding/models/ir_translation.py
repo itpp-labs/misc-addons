@@ -8,7 +8,12 @@ from odoo import tools
 from .ir_config_parameter import PARAMS
 
 
-def debrand(env, source):
+def debrand_documentation_links(source, new_documentation_website):
+    return re.sub(r'https://www.odoo.com/documentation/',
+                  new_documentation_website + 'documentation/',
+                  source, flags=re.IGNORECASE)
+
+def debrand(env, source, is_code=False):
     if not source or not re.search(r'\bodoo\b', source, re.IGNORECASE):
         return source
 
@@ -20,13 +25,14 @@ def debrand(env, source):
 
     new_name = params.get('web_debranding.new_name')
     new_website = params.get('web_debranding.new_website')
+    new_documentation_website = params.get('web_debranding.new_documentation_website')
 
-    try:
-        source = unicode(source, 'utf-8')
-    except:
-        pass
-
+    source = debrand_documentation_links(source, new_documentation_website)
     source = re.sub(r'\bodoo.com\b', new_website, source, flags=re.IGNORECASE)
+
+    if is_code:
+        # stop replacing here, because replacing variable odoo is a bad idea
+        return source
 
     # We must exclude the case when after the word "odoo" is the word "define".
     # Since JS functions are also contained in the localization files.

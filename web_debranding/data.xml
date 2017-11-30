@@ -9,13 +9,6 @@
             <field name="image"></field>
         </record>
 
-        <record id="view_website_config_settings" model="ir.ui.view">
-            <field name="model">website.config.settings</field>
-            <field name="inherit_id" ref="website.view_website_config_settings"/>
-            <field name="arch" type="xml">
-                <xpath expr=".//a[@href='https://www.odoo.com/slides/slide/how-a-b-testing-can-help-you-optimize-your-website-341']" position="replace">
-                </xpath>
-            </field>
-        </record>
+
     </data>
 </odoo>
