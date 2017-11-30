@@ -13,3 +13,10 @@ the client wants to use the slots in his contract. In this sale order you also s
 
 
 Tested on Odoo 8.0 e84c01ebc1ef4fdf99865c45f10d7b6b4c4de229
+
+Maintainers
+===========
+
+* `IT-Projects LLC <https://it-projects.info>`__
+
+  The module is not maintained since Odoo 9.0.

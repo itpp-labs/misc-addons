@@ -1,5 +1,3 @@
-Custom models for MRP
-
 Maintainers
 ===========
 

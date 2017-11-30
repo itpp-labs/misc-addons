@@ -16,3 +16,10 @@ Technically modules updates search domain as follows:
 Tested on Odoo 8.0 ea60fed97af1c139e4647890bf8f68224ea1665b
 
 Further information and discussion: https://yelizariev.github.io/odoo/module/2015/02/26/company-contacts.html
+
+Maintainers
+===========
+
+* `IT-Projects LLC <https://it-projects.info>`__
+
+  The module is not maintained since Odoo 9.0.
