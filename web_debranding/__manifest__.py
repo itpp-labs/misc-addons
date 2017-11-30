@@ -7,7 +7,7 @@
     'category': 'Debranding',
     'images': ['images/web_debranding.png'],
     'website': 'https://twitter.com/yelizariev',
-    'price': 150.00,
+    'price': 250.00,
     'currency': 'EUR',
     'depends': [
         'web',
