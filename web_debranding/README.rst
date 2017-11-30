@@ -25,7 +25,7 @@ Removes references to odoo.com:
 20. Replaces "odoo.com" in hints, examples, etc.
 21. Renames "OdooBot" to "Bot". Use company's logo as bot avatar
 22. [ENTERPRISE] Replaces icons for android and apple devices with custom url
-23. TODO Removes help links (e.g. "Help" in Import tool, "How-to" in paypal, etc.)
+23. Replaces links to `documentation <https://www.odoo.com/documentation>`__ (e.g. "Help" in Import tool, "How-to" in paypal, etc.) to custom website
 
 By default the module replaces "Odoo" to "Software". To configure
 module open Settings\\System Parameters and modify
@@ -33,6 +33,7 @@ module open Settings\\System Parameters and modify
 * ``web_debranding.new_title`` (put space in value if you don't need Brand in Title)
 * ``web_debranding.new_name`` (your Brand)
 * ``web_debranding.new_website`` (your website)
+* ``web_debranding.new_documentation_website`` (website with documentation instead of official one)
 * ``web_debranding.favicon_url``
 * ``web_debranding.send_publisher_warranty_url`` - set 0 to disable server requests to odoo.com and 1 otherwise (useful for enterprise contractors). Works only for non-enterprise versions of odoo, check `note <#enterprise-users-notice>`__ below.
 * ``web_debranding.planner_footer``
