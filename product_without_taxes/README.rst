@@ -8,3 +8,10 @@ In invoice and quotatine reports the module replace "Price Unit" to "Price Unit 
 Check images/ folder for screenshots
 
 Tested on Odoo 8.0 258a4cac82ef3b7e6a086f691f3bf8140d37b51c
+
+Maintainers
+===========
+
+* `IT-Projects LLC <https://it-projects.info>`__
+
+  The module is not maintained since Odoo 9.0.
