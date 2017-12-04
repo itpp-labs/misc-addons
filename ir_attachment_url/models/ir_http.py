@@ -10,6 +10,7 @@ from odoo.exceptions import AccessError
 from odoo.tools.mimetypes import guess_mimetype
 from odoo.http import request, STATIC_CACHE
 from odoo.modules.module import get_resource_path, get_module_path
+from odoo.tools import pycompat
 
 
 class IrHttp(models.AbstractModel):
