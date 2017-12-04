@@ -47,12 +47,16 @@ odoo.define('ir_attachment_url', function(require) {
             var attrs = this.attrs;
             var url = this.placeholder;
             if (this.value) {
-                url = this.value
+                url = this.value;
             }
             var $img = $('<img>').attr('src', url);
             $img.css({
-                width: this.nodeOptions.size ? this.nodeOptions.size[0] : attrs.img_width || attrs.width,
-                height: this.nodeOptions.size ? this.nodeOptions.size[1] : attrs.img_height || attrs.height,
+                width: this.nodeOptions.size
+                ? this.nodeOptions.size[0]
+                : attrs.img_width || attrs.width,
+                height: this.nodeOptions.size
+                ? this.nodeOptions.size[1]
+                : attrs.img_height || attrs.height,
             });
             this.$('> img').remove();
             this.$el.prepend($img);
