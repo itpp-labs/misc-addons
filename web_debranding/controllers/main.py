@@ -87,6 +87,6 @@ class WebClientCustom(WebClient):
 
         for module_key, module_vals in res['modules'].iteritems():
             for message in module_vals['messages']:
-                message['id'] = request.env['ir.translation']._debrand(message['id'])
-                message['string'] = request.env['ir.translation']._debrand(message['string'])
+                message['id'] = debrand(request.env, message['id'])
+                message['string'] = debrand(request.env, message['string'])
         return res
