@@ -9,11 +9,17 @@ odoo.define('web_debranding.UserMenu', function (require) {
 
     var UserMenu = require('web.UserMenu');
     UserMenu.include({
-        on_menu_debug: function(){
-            if (session.debug){
+        _onMenuDebug: function(){
+            if (session.debug && session.debug !== 'assets'){
                 return console.log(_t('Developer mode is already activated'));
             }
             window.location = $.param.querystring(window.location.href, 'debug');
+        },
+        _onMenuDebugassets: function(){
+            if (session.debug === 'assets'){
+                return console.log(_t('Developer mode is already activated'));
+            }
+            window.location = $.param.querystring(window.location.href, 'debug=assets');
         }
     });
 });

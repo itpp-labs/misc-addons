@@ -15,12 +15,13 @@
       </t>
     </t>
 
-    <t t-extend="UserMenu">
+    <t t-extend="UserMenu.Actions">
         <t t-jquery="a[data-menu='documentation']" t-operation="replace"></t>
         <t t-jquery="a[data-menu='support']" t-operation="replace"></t>
         <t t-jquery="a[data-menu='account']" t-operation="replace"></t>
         <t t-jquery="a[data-menu='settings']" t-operation="after">
             <li><a href="?debug" data-menu="debug">Developer mode</a></li>
+            <li><a href="?debug=assets" data-menu="debugassets"><em>Developer mode<br/> (with assets)</em></a></li>
         </t>
         <t t-jquery="li.divider" t-operation="replace"></t>
     </t>
