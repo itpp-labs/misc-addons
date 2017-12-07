@@ -13,6 +13,7 @@ def debrand_documentation_links(source, new_documentation_website):
                   new_documentation_website + 'documentation/',
                   source, flags=re.IGNORECASE)
 
+
 def debrand(env, source, is_code=False):
     if not source or not re.search(r'\bodoo\b', source, re.IGNORECASE):
         return source
