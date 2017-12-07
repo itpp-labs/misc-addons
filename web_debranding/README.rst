@@ -9,8 +9,8 @@ Removes references to odoo.com:
 
 2. Replaces "Odoo" in page title
 3. Replaces "Odoo" in help message for empty list. 
-    
-    Some list views has word Odoo when search return empty result. E.g. search random string at menu ``[[ Settings ]] >> Users & Copanies >> Companies`` that return empty result -- it has Odoo word
+
+   Some list views has word Odoo when search return empty result. E.g. search random string at menu ``[[ Settings ]] >> Users & Copanies >> Companies`` that return empty result -- it has Odoo word
 
     Create and manage the companies that will be managed by **Odoo** from here. Shops or subsidiaries can be created and maintained from here.
 
@@ -18,21 +18,20 @@ Removes references to odoo.com:
 5. Deletes *Documentation*, *Support*, *My Odoo.com account*; adds *Developer mode*, *Developer mode (with assets)* links to the top right-hand User Menu.
 6. *(feature is not required in 11.0+ versions)*
 7. Replaces "Odoo" in Dialog Box
-    
-    E.g. try to remove Administrator via menu ``[[ Settings ]] >> Users & Copanies >> Users``. It will show warning
+
+   E.g. try to remove Administrator via menu ``[[ Settings ]] >> Users & Copanies >> Users``. It will show warning
 
     You can not remove the admin user as it is used internally for resources created by **Odoo** (updates, module installation, ...)
 
 8. Replaces "Odoo" in strings marked for translation.
 
-    This provides a big part of debranding. You can find examples at menu ``[[ Settings ]] >> General Settings``:
+   This provides a big part of debranding. You can find examples at menu ``[[ Settings ]] >> General Settings``:
 
     Use external pads in **Odoo** Notes
 
     Extract and analyze **Odoo** data from Google Spreadsheet
-
-    
-    Full list of debranded phrases can be found at menu ``[[ Settings ]] >> Translations >> Application Terms`` (You may need to click ``Generate Missing Terms`` first).
+   
+   Full list of debranded phrases can be found at menu ``[[ Settings ]] >> Translations >> Application Terms`` (You may need to click ``Generate Missing Terms`` first).
 
 9. Replaces default favicon to a custom one
 10. **Hides Apps menu** (by default, only admin (superuser) can see Apps menu. You could change it via tick "Show Modules Menu" in user's access rights tab)
@@ -41,23 +40,23 @@ Removes references to odoo.com:
 13. Deletes Share block and branded parts of other blocks at ``[[ Settings ]] >> Dashboard``
 14. Replaces "Odoo" in planner
 15. Replaces footer in planner to a custom one.
-16. Deletes "Odoo" in a request message for permission desktop notifications (yellow block at ``Discuss`` page. Replaces "Odoo" and icon in desktop notifications
+16. Deletes "Odoo" in a request message for permission desktop notifications (yellow block at ``Discuss`` page). Replaces "Odoo" and icon in desktop notifications
 17. [ENTERPRISE] Deletes odoo logo in application switcher
 18. Hides Enterprise features in Settings
 19. Replaces "Odoo" in all backend qweb templates
-    
+
     This provides a big part of debranding. You can find examples at menu ``[[ Settings ]] >> Dashboard`` in *Implementation* section
 
-    Follow these implementation guides to get the most out of **Odoo**.
+     Follow these implementation guides to get the most out of **Odoo**.
 
 20. Replaces "odoo.com" in hints, examples, etc.
-    
+
     For example, when you create new company it shows placeholder for field *Website*
 
-    e.g. www.odoo.com
+     e.g. www.odoo.com
 
 21. Renames "OdooBot" to "Bot". Use company's logo as bot avatar
-    
+
     To receive a message from the Bot open menu ``[[ Discuss ]] >> CHANNELS >> #general`` and send ``/help`` to the chat.
 
 22. [ENTERPRISE] Replaces icons for android and apple devices with custom url
