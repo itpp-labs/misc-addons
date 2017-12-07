@@ -15,7 +15,6 @@ class View(models.Model):
     @api.multi
     def read_combined(self, fields=None):
         res = super(View, self).read_combined(fields=fields)
-        prevtype = type(res['arch'])
         res['arch'] = debrand(self.env, res['arch'], is_code=True)
         return res
 
