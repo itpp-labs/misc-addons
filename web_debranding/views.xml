@@ -15,6 +15,14 @@
            </t>
        </xpath>
     </template>
+
+
+    <template id="menu_secondary" inherit_id="web.menu_secondary">
+        <xpath expr="//div[hasclass('o_sub_menu_footer')]" position="replace">
+           <div class="o_sub_menu_footer"></div>
+       </xpath>
+    </template>
+
   </data>
 
 </odoo>
