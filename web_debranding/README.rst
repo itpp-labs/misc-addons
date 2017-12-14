@@ -59,7 +59,7 @@ Removes references to odoo.com:
 
     To receive a message from the Bot open menu ``[[ Discuss ]] >> CHANNELS >> #general`` and send ``/help`` to the chat.
 
-22. [ENTERPRISE] Replaces icons for android and apple devices with custom url
+22. [ENTERPRISE] Replaces icons for mobile devices with custom url
 23. Replaces links to `documentation <https://www.odoo.com/documentation>`__ (e.g. "Help" in Import tool, "How-to" in paypal, etc.) to custom website
 
 By default the module replaces "Odoo" to "Software". To configure

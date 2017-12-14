@@ -2,6 +2,17 @@ odoo.define('web_debranding.field_upgrade', function (require) {
 "use strict";
 
     var field_registry = require('web.field_registry');
+    /*
+      Following line doesn't work in enterprise, because web_enterprise module
+      removes web/.../upgrade_fieds.js files from backend assets and adds with new
+      module web_enterprise.upgrade_widgets
+
+      For this reason you can see following output in browser console in Enterprise:
+
+      warning: Some modules could not be started
+      Missing dependencies:    ["web.upgrade_widgets"]
+      Non loaded modules:      ["web_debranding.field_upgrade"]
+    */
     require('web.upgrade_widgets');
     var UpgradeBoolean = field_registry.get('upgrade_boolean');
     var UpgradeRadio = field_registry.get('upgrade_radio');
