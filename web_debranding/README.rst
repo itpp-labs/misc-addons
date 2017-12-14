@@ -34,7 +34,7 @@ Removes references to odoo.com:
    Full list of debranded phrases can be found at menu ``[[ Settings ]] >> Translations >> Application Terms`` (You may need to click ``Generate Missing Terms`` first).
 
 9. Replaces default favicon to a custom one
-10. **Hides Apps menu** (by default, only admin (superuser) can see Apps menu. You could change it via tick "Show Modules Menu" in user's access rights tab)
+10. **Hides Apps menu**. By default, only superuser can see Apps menu. You can change it via setting *Apps access* in a user form.
 11. Disables server requests to odoo.com (publisher_warranty_url) - optional. Works only for non-enterprise versions of odoo, check `note <#enterprise-users-notice>`__ below.
 12. *(feature is a part of p.5)*
 13. Deletes Share block and branded parts of other blocks at ``[[ Settings ]] >> Dashboard``
