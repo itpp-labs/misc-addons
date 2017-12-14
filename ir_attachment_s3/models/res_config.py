@@ -15,7 +15,8 @@ class S3Settings(models.TransientModel):
     s3_condition = fields.Char(string='S3 condition',
                                help="""Specify valid odoo search domain here,
                                i.e. [('res_model', 'in', ['product.image'])].
-                               According to this only data of model product.image will be sored on S3""")
+                               According to this only data of model product.image will be sored on S3.
+                               Empty condition means all models""")
 
     def get_default_all(self, fields):
         s3_bucket = self.env["ir.config_parameter"].get_param("s3.bucket", default='')
