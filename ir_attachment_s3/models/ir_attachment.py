@@ -72,6 +72,7 @@ class IrAttachment(models.Model):
             # if there is no condition then store all attachments on s3
             s3_records = self
         s3_records = s3_records._filter_protected_attachments()
+        s3_records = s3_records.filtered('datas')
 
         for attach in s3_records:
             value = attach.datas
