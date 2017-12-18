@@ -21,7 +21,7 @@ Odoo parameters
   server_wide_modules = web,web_kanban,ir_attachment_url
   (...)
 
-* Note: without the configuration above the module UI wouldn't work - and you couldn't use `@` button on binary image fields to specify its url.
+* Note: without the configuration above the module UI wouldn't work - and you couldn't use `@` button on binary image fields to specify their urls manually.
   All other functions of the module will work without the ``--load=...``, e.g. you can still use `ir_attachment_s3` that specifies urls for you in binary image fields.
 
 Usage
