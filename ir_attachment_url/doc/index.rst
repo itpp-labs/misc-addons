@@ -10,7 +10,7 @@ Installation
 Odoo parameters
 ===============
 
-* Start Odoo with ``--load=web,web_kanban,ir_attachment_url``
+* Run Odoo with ``--load=web,web_kanban,ir_attachment_url``
   or set the ``server_wide_modules``
   option in The Odoo configuration file:
 
