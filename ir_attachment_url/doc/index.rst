@@ -14,6 +14,8 @@ Odoo parameters
   or set the ``server_wide_modules``
   option in The Odoo configuration file:
 
+::
+
   [options]
   (...)
   server_wide_modules = web,web_kanban,ir_attachment_url
