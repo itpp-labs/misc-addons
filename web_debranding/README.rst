@@ -25,6 +25,7 @@ Removes references to odoo.com:
 20. Replaces "odoo.com" in hints, examples, etc.
 21. Rename "OdooBot" to "Bot". Use company's logo as bot avatar
 22. [ENTERPRISE] Replaces icons for android and apple devices with custom url
+23. Hides Odoo e-commerce youtube video
 
 By default the module replaces "Odoo" to "Software". To configure
 module open Settings\\System Parameters and modify

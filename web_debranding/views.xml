@@ -15,6 +15,11 @@
            </t>
        </xpath>
     </template>
+
+    <template id="website_planner" inherit_id="website_sale.website_planner" priority="2">
+       <xpath expr=".//iframe[@src='//www.youtube.com/embed/204DbheXfWw']/parent::div" position="replace"></xpath>
+       <xpath expr=".//img[@src='/web_planner/static/src/img/odoo_logo.png']" position="replace"></xpath>
+    </template>
   </data>
 
 </odoo>
