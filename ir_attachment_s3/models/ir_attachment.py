@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import base64
 import os
 import hashlib
 import logging
@@ -20,11 +21,11 @@ class IrAttachment(models.Model):
 
     def _get_s3_settings(self, param_name, os_var_name):
         config_obj = self.env['ir.config_parameter']
-        res = config_obj.get_param(param_name)
+        res = config_obj.sudo().get_param(param_name)
         if not res:
             res = os.environ.get(os_var_name)
             if res:
-                config_obj.set_param(param_name, res)
+                config_obj.sudo().set_param(param_name, res)
                 _logger.info('parameter {} has been created from env {}'.format(param_name, os_var_name))
         return res
 
@@ -76,7 +77,7 @@ class IrAttachment(models.Model):
 
         for attach in s3_records:
             value = attach.datas
-            bin_data = value and value.decode('base64') or ''
+            bin_data = base64.b64decode(value) if value else b''
             fname = hashlib.sha1(bin_data).hexdigest()
 
             bucket_name = self._get_s3_settings('s3.bucket', 'S3_BUCKET')
