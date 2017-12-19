@@ -28,6 +28,9 @@ Removes references to odoo.com:
 23. Replaces links to `documentation <https://www.odoo.com/documentation>`__ (e.g. "Help" in Import tool, "How-to" in paypal, etc.) to custom website
 24. Hides Odoo e-commerce youtube video
 
+Configuration
+=============
+
 By default the module replaces "Odoo" to "Software". To configure
 module open Settings\\System Parameters and modify
 
@@ -89,7 +92,7 @@ Note
 Need our service?
 =================
 
-Contact us by `email <mailto:it@it-projects.info>`__ or fill out `request form <https://www.it-projects.info/page/website.contactus>`__:
+Contact us by `email <mailto:apps@it-projects.info>`__ or fill out `request form <https://www.it-projects.info/page/website.contactus>`__:
 
-* it@it-projects.info
+* apps@it-projects.info
 * https://www.it-projects.info/page/website.contactus
