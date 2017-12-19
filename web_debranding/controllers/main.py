@@ -9,7 +9,7 @@ from odoo.http import request
 from odoo.modules import get_module_resource
 from cStringIO import StringIO
 
-from ..models.ir_translation import debrand, debrand_bytes
+from ..models.ir_translation import debrand
 
 db_monodb = http.db_monodb
 
