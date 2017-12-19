@@ -10,10 +10,13 @@ from .ir_config_parameter import PARAMS
 
 def debrand_documentation_links(source, new_documentation_website):
     return re.sub(r'https://www.odoo.com/documentation/',
-                  new_documentation_website + 'documentation/',
+                  new_documentation_website + u'documentation/',
                   source, flags=re.IGNORECASE)
 
+
 def debrand(env, source, is_code=False):
+    if isinstance(source, str) and not isinstance(source, unicode):
+        source = source.decode('utf-8')
     if not source or not re.search(r'\bodoo\b', source, re.IGNORECASE):
         return source
 
