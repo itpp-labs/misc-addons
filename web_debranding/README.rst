@@ -62,6 +62,9 @@ Removes references to odoo.com:
 22. [ENTERPRISE] Replaces icons for mobile devices with custom url
 23. Replaces links to `documentation <https://www.odoo.com/documentation>`__ (e.g. "Help" in Import tool, "How-to" in paypal, etc.) to custom website
 
+Configuration
+=============
+
 By default the module replaces "Odoo" to "Software". To configure
 module openf ``[[ Settings ]] >> Technical >> Parameters >> System Parameters`` and modify
 
