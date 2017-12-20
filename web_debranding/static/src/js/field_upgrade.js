@@ -45,16 +45,6 @@ odoo.define('web_debranding.field_upgrade', function (require) {
         }
     };
 
-    var radio_include = {
-        get_enterprise_label: function() {
-            var res = this._super.apply(this, arguments);
-            _.each(res, function(label){
-                label.parentNode.parentNode.className += ' hidden';
-            });
-            return res;
-        },
-    };
-
-    UpgradeRadio.include(radio_include);
+    UpgradeRadio.include(include);
     UpgradeBoolean.include(include);
 });
