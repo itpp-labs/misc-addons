@@ -26,7 +26,7 @@ Removes references to odoo.com:
 21. Rename "OdooBot" to "Bot". Use company's logo as bot avatar
 22. [ENTERPRISE] Replaces icons for android and apple devices with custom url
 23. Replaces links to `documentation <https://www.odoo.com/documentation>`__ (e.g. "Help" in Import tool, "How-to" in paypal, etc.) to custom website
-24. Hides Odoo e-commerce youtube video
+24. Removes official videos in planner
 
 Configuration
 =============

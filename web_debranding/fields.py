@@ -14,6 +14,7 @@ def get_trans_func_debrand(self, records):
 
             def translate(record_id, value):
                 src_trans = rec_src_trans[record_id]
+
                 def tr(source):
                     trans = src_trans.get(source, source)
                     return debrand(records.env, trans)

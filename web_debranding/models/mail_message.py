@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
-from odoo import models, api
+from odoo import models
 
 from .ir_translation import debrand
 
