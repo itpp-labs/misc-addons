@@ -1,8 +1,9 @@
 `1.0.20`
 --------
 
-- FIX: Removes official videos in planner
-- FIX: Replaces "Odoo" in 'install aplication' mails
+- FIX: Remove official videos in planner
+- FIX: Replace "Odoo" in 'install aplication' mails
+- FIX: Remove Enterprise radio-buttons in Settings
 
 `1.0.19`
 --------
