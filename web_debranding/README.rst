@@ -27,6 +27,7 @@ Removes references to odoo.com:
 22. [ENTERPRISE] Replaces icons for android and apple devices with custom url
 23. Replaces links to `documentation <https://www.odoo.com/documentation>`__ (e.g. "Help" in Import tool, "How-to" in paypal, etc.) to custom website
 24. Removes official videos in planner
+25. Replaces "Odoo" in 'install aplication' mails
 
 Configuration
 =============

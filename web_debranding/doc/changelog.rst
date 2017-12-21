@@ -1,3 +1,9 @@
+`1.0.20`
+--------
+
+- FIX: Removes official videos in planner
+- FIX: Replaces "Odoo" in 'install aplication' mails
+
 `1.0.19`
 --------
 
