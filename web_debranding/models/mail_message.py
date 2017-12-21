@@ -14,6 +14,6 @@ class MailMessage(models.Model):
 
     def create(self, values):
         msg = super(MailMessage, self).create(values)
-        if type(msg.subject) is str and 'application installed' in msg.subject:
+        if type(msg.subject) is unicode and 'application installed' in msg.subject:
             msg.body = debrand(self.env, msg.body, is_code=False)
         return msg
