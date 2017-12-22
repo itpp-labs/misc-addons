@@ -14,11 +14,8 @@ class MailMessage(models.Model):
 
     def create(self, values):
         msg = super(MailMessage, self).create(values)
-        if type(msg.subject) is unicode and \
-           type(msg.channel_ids.description) is unicode and \
-           type(msg.channel_ids.name) is unicode and \
-           'application installed!' in msg.subject and \
-           'General announcements for all employees.' == msg.channel_ids.description and \
-           'general' == msg.channel_ids.name:
+        if msg.subject and msg.subject.endswith('application installed!') and \
+           msg.channel_ids.id and self.env.ref('mail.channel_all_employees').id and \
+           self.env.ref('mail.channel_all_employees').id is 1:
             msg.body = debrand(self.env, msg.body, is_code=False)
         return msg
