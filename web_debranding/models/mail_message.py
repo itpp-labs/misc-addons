@@ -16,6 +16,6 @@ class MailMessage(models.Model):
         msg = super(MailMessage, self).create(values)
         if msg.subject and msg.subject.endswith('application installed!') and \
            msg.channel_ids.id and self.env.ref('mail.channel_all_employees').id and \
-           self.env.ref('mail.channel_all_employees').id is 1:
+           self.env.ref('mail.channel_all_employees').id is msg.channel_ids.id:
             msg.body = debrand(self.env, msg.body, is_code=False)
         return msg
