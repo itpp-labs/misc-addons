@@ -13,9 +13,12 @@ class MailMessage(models.Model):
     _inherit = 'mail.message'
 
     def create(self, values):
-        msg = super(MailMessage, self).create(values)
-        if msg.subject and msg.subject.endswith('application installed!') and \
-           msg.channel_ids.id and self.env.ref('mail.channel_all_employees').id and \
-           self.env.ref('mail.channel_all_employees').id is msg.channel_ids.id:
-            msg.body = debrand(self.env, msg.body, is_code=False)
-        return msg
+        subject = values.get('subject')
+        channel_all_employees = self.env.ref('mail.channel_all_employees', raise_if_not_found=False)
+        if channel_all_employees \
+           and subject \
+           and valus.get('model') == 'mail.channel' \    
+           and channel_all_employees.id == values.get('res_id') \
+           and subject.endswith('application installed!'):
+            values['body'] = debrand(self.env, values.get('body', ''), is_code=False)
+        return = super(MailMessage, self).create(values)
