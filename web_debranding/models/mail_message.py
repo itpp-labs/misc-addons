@@ -17,8 +17,8 @@ class MailMessage(models.Model):
         channel_all_employees = self.env.ref('mail.channel_all_employees', raise_if_not_found=False)
         if channel_all_employees \
            and subject \
-           and values.get('model') == 'mail.channel' \    
+           and values.get('model') == 'mail.channel' \
            and channel_all_employees.id == values.get('res_id') \
            and subject.endswith('application installed!'):
             values['body'] = debrand(self.env, values.get('body', ''), is_code=False)
-        return = super(MailMessage, self).create(values)
+        return super(MailMessage, self).create(values)
