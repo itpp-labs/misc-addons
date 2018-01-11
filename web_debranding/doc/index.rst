@@ -2,7 +2,7 @@
  Backend debranding
 ====================
 
-For installation and configuration instructions see README.rst .
+For installation and configuration instructions see README.rst
 
 Usage
 =====
