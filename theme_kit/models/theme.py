@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+
 from odoo import models, fields, api
 from odoo.addons.base.ir.ir_qweb.assetsbundle import AssetsBundle, LessStylesheetAsset
 

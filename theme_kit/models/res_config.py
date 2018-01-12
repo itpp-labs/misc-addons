@@ -1,16 +1,7 @@
-# -*- coding: utf-8 -*-
+
 import hashlib
 
 from openerp import models, fields, api
-
-FIELD_PARAM_ID_LIST = [
-    ('theme_id', 'theme_kit.current_theme_id'),
-    ('favicon_id', 'theme_kit.current_favicon_id'),
-]
-FIELD_PARAM_STR_LIST = [
-    ('page_title', 'web_debranding.new_title'),
-    ('system_name', 'web_debranding.new_name'),
-]
 
 CUSTOM_CSS_ARCH = '''<?xml version="1.0"?>
 <t t-name="theme_kit.custom_css">
@@ -42,50 +33,54 @@ class Config(models.TransientModel):
 
     wallpapers_count = fields.Integer('Wallpapers', readonly=True)
 
-    @api.multi
-    def get_default_wallpapers_count(self, fields):
+    new_documentation_website = fields.Char('Documentation Website', help='''Replaces links to documentation to custom website e.g.
+* "Help" in Import tool
+* "How-to" in paypal
+* etc.
+''')
+
+    @api.model
+    def get_values(self):
+        res = super(Config, self).get_values()
+        ICPSudo = self.env['ir.config_parameter'].sudo()
+
+        theme_id = ICPSudo.get_param("theme_kit.current_theme_id", default='')
+        if theme_id:
+            theme_id = int(theme_id)
+        favicon_id = ICPSudo.get_param("theme_kit.current_favicon_id", default='')
+        if favicon_id:
+            favicon_id = int(favicon_id)
+        page_title = ICPSudo.get_param("web_debranding.new_title", default='')
+        system_name = ICPSudo.get_param("web_debranding.new_name", default='')
+        new_documentation_website = ICPSudo.get_param("web_debranding.new_documentation_website", default='')
+        company_logo = self.env.user.company_id.logo
         wallpapers_count = self.env['ir.attachment'].search_count([('use_as_background', '=', True)])
-        return {'wallpapers_count': wallpapers_count}
+
+        res.update(
+            company_logo=company_logo,
+            theme_id=int(theme_id),
+            favicon_id=favicon_id,
+            page_title=page_title,
+            system_name=system_name,
+            new_documentation_website=new_documentation_website,
+            wallpapers_count=wallpapers_count
+        )
+        return res
 
     @api.multi
-    def get_default_company_logo(self, fields):
-        return {'company_logo': self.env.user.company_id.logo}
+    def set_values(self):
+        super(Config, self).set_values()
+        ICPSudo = self.env['ir.config_parameter'].sudo()
+        ICPSudo.set_param('theme_kit.current_theme_id', getattr(self, 'theme_id').id or '')
+        ICPSudo.set_param('theme_kit.current_favicon_id', getattr(self, 'favicon_id').id or '')
+        ICPSudo.set_param('web_debranding.new_title', getattr(self, 'page_title') or '')
+        ICPSudo.set_param('web_debranding.new_name', getattr(self, 'system_name') or '')
+        ICPSudo.set_param('web_debranding.new_documentation_website', getattr(self, 'new_documentation_website') or '')
 
-    @api.multi
-    def set_company_logo(self):
+        # set company logo
         self.env.user.company_id.logo = self.company_logo
 
-    @api.multi
-    def get_default_ids(self, fields):
-        res = {}
-        for field, param in FIELD_PARAM_ID_LIST:
-            value = self.env['ir.config_parameter'].get_param(param)
-            try:
-                res[field] = int(value)
-            except:
-                pass
-        return res
-
-    @api.multi
-    def set_ids(self):
-        for field, param in FIELD_PARAM_ID_LIST:
-            self.env['ir.config_parameter'].set_param(param, getattr(self, field).id or '')
-
-    @api.multi
-    def get_default_strs(self, fields):
-        res = {}
-        for field, param in FIELD_PARAM_STR_LIST:
-            value = self.env['ir.config_parameter'].get_param(param)
-            res[field] = value
-        return res
-
-    @api.multi
-    def set_strs(self):
-        for field, param in FIELD_PARAM_STR_LIST:
-            self.env['ir.config_parameter'].set_param(param, getattr(self, field) or '')
-
-    @api.multi
-    def set_theme(self):
+        # set theme
         custom_css = self.env.ref('theme_kit.custom_css')
         code = ''
         if self.theme_id:
@@ -93,13 +88,12 @@ class Config(models.TransientModel):
         arch = CUSTOM_CSS_ARCH % code
         custom_css.write({'arch': arch})
 
-    def _attachment2url(self, att):
-        sha = hashlib.sha1(getattr(att, '__last_update')).hexdigest()[0:7]
-        return '/web/image/%s-%s' % (att.id, sha)
-
-    @api.multi
-    def set_favicon(self):
+        # set favicon
         url = ''
         if self.favicon_id:
             url = self.favicon_id.url or self._attachment2url(self.favicon_id)
-        self.env['ir.config_parameter'].set_param('web_debranding.favicon_url', url)
+        ICPSudo.set_param('web_debranding.favicon_url', url)
+
+    def _attachment2url(self, att):
+        sha = hashlib.sha1(getattr(att, '__last_update').encode('utf-8')).hexdigest()[0:7]
+        return '/web/image/%s-%s' % (att.id, sha)
