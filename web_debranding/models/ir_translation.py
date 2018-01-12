@@ -5,7 +5,7 @@ from odoo import api
 from odoo import models
 from odoo import tools
 
-from .ir_config_parameter import PARAMS
+from .ir_config_parameter import PARAMS, IrConfigParameter
 
 
 def debrand_documentation_links(source, new_documentation_website):
