@@ -5,7 +5,7 @@ from odoo import api
 from odoo import models
 from odoo import tools
 
-from .ir_config_parameter import PARAMS, IrConfigParameter
+from .ir_config_parameter import PARAMS
 
 
 def debrand_documentation_links(source, new_documentation_website):
@@ -18,7 +18,7 @@ def debrand(env, source, is_code=False):
     if not source or not re.search(r'\bodoo\b', source, re.IGNORECASE):
         return source
 
-    if env:
+    if env and hasattr(env['ir.config_parameter'], 'get_debranding_parameters'):
         params = env['ir.config_parameter'].get_debranding_parameters()
     else:
         # use default values
