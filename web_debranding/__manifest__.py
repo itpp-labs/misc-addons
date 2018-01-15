@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Backend debranding",
-    'version': '1.0.19',
+    'version': '1.0.20',
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'LGPL-3',
     'category': 'Debranding',
