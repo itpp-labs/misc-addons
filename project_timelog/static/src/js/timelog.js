@@ -46,7 +46,7 @@ odoo.define('project_timelog.timelog', function(require){
         on_notification_do: function (channel, message) {
             var error = false;
             if (_.isString(channel)) {
-                var channel = JSON.parse(channel);
+                channel = JSON.parse(channel);
             }
             if (Array.isArray(channel) && channel[1] === 'project.timelog') {
                 try {
@@ -107,29 +107,26 @@ odoo.define('project_timelog.timelog', function(require){
         init: function(parent){
             this._super(parent);
             var self = this;
-            this.debug = ($.deparam($.param.querystring()).debug !== undefined);
             this.audio = new Audio();
-            this.audio_format = this.audio.canPlayType("audio/ogg; codecs=vorbis") ? ".ogg" : ".mp3";
-
+            this.audio_format = this.audio.canPlayType("audio/ogg; codecs=vorbis")
+                                ? ".ogg"
+                                : ".mp3";
             // the error sound
             this.error = new Audio(session.url("/project_timelog/static/src/audio/offline" + this.audio_format));
             this.status = 'stopped';
 
             // check connection with server
-            Offline.options = {checks: {xhr: {url: '/timelog/connection'}}};
-            Offline.on("up", function(){
+            window.Offline.options = {checks: {xhr: {url: '/timelog/connection'}}};
+            window.Offline.on("up", function(){
                 self.ClientOnLine();
             });
-            Offline.on("down", function(){
+            window.Offline.on("down", function(){
                 self.ClientOffLine();
             });
             this.c_manager = new TimeLog.Manager(this);
             this.load_timer_data();
         },
         ClientOffLine: function() {
-            if (this.debug) {
-                console.log("You are offline.");
-            }
             if (this.status === 'running') {
                 this.error.play();
             }
@@ -138,9 +135,6 @@ odoo.define('project_timelog.timelog', function(require){
             this.show_warn_message(_t("No internet connection"));
         },
         ClientOnLine: function(){
-            if (this.debug) {
-                console.log("You are online.");
-            }
             this.change_audio('online');
             this.load_timer_data();
             this.show_notify_message(_t("You are online"));
@@ -198,7 +192,7 @@ odoo.define('project_timelog.timelog', function(require){
                 $('link[type="image/x-icon"]').attr('href', '/project_timelog/static/src/img/favicon_stop.ico');
             }
         },
-        updateView : function() {
+        updateView: function() {
             if(!$("#timelog_timer").length) {
                 return false;
             }
@@ -206,73 +200,79 @@ odoo.define('project_timelog.timelog', function(require){
               this.updateClock(i, this.times[i]);
             }
         },
-        updateClock : function(id, time) {
+        updateClock: function(id, time) {
             var element = document.getElementById("clock"+id);
             var formattedTime = this.formatTime(id, time);
             element.innerHTML = formattedTime;
 
-            switch(id) {
-                case 0: {
-                    var color = false;
-                    if (this.times[0] === this.config.time_warning_subtasks) {
-                        color = "orange";
-                        this.change_audio("warning");
-                    } else if (this.times[0] > this.config.time_warning_subtasks) {
-                        color = "orange";
-                    }
-                    if ( this.times[0] >= this.config.time_subtasks || this.config.stopline){
-                        color = "red";
-                        this.addClass(0, "expired");
-                        this.timerTimeLimited();
-                    }
-                    if (!color) {
-                        if (this.status === 'stopped') {
-                            color = "gray";
-                        } else {
-                            color = "white";
-                        }
-                    }
-                    $('#clock0').css('color', color);
-                } break;
-                case 1: {
-                    if (this.config.initial_planed_hours === 0) {
-                        break;
-                    }
-                    if (this.times[1] >= this.config.initial_planed_hours) {
-                        $('#clock1').css('color','orange');
-                    }
-                    if (this.times[1] >= 2*this.config.initial_planed_hours) {
-                        $('#clock1').css('color','red');
-                        this.addClass(1, "expired");
-                    }
-                } break;
-                case 2: {
-                    if (this.times[2] >= this.config.normal_time_day){
-                        $('#clock2').css('color','yellow');
-                    }
-                    if (this.times[2] >= this.config.good_time_day) {
-                        $('#clock2').css('color','#00f900');
-                    }
-                } break;
-                case 3: {
-                    if (this.times[3] === this.config.normal_time_week){
-                        $('#clock3').css('color','#00f900');
-                        this.change_audio(2);
-                    } else if (this.times[3] > this.config.normal_time_week){
-                        $('#clock3').css('color','#00f900');
-                    }
-                    if (this.times[3] === this.config.good_time_week) {
-                        $('#clock3').css('color','rgb(0, 144, 249)');
-                        this.change_audio(3);
-                    } else if (this.times[3] >= this.config.good_time_week) {
-                        $('#clock3').css('color','rgb(0, 144, 249)');
-                    }
-                } break;
-                default:
-                    if (this.debug) {
-                        console.log("Timer Error");
-                    }
-                break;
+            if (id === 0) {
+                this.update_first_timer();
+            } else if (id === 1) {
+                this.update_second_timer();
+            } else if (id === 2) {
+                this.update_third_timer();
+            } else if (id === 3) {
+                this.update_fourth_timer();
+            } else {
+                return false;
+            }
+        },
+        update_first_timer: function(){
+            var color = false;
+            if (this.times[0] === this.config.time_warning_subtasks) {
+                color = "orange";
+                this.change_audio("warning");
+            } else if (this.times[0] > this.config.time_warning_subtasks) {
+                color = "orange";
+            }
+
+            if ( this.times[0] >= this.config.time_subtasks || this.config.stopline){
+                color = "red";
+                this.addClass(0, "expired");
+                this.timerTimeLimited();
+            }
+
+            if (!color) {
+                if (this.status === 'stopped') {
+                    color = "gray";
+                } else {
+                    color = "white";
+                }
+            }
+            $('#clock0').css('color', color);
+        },
+        update_second_timer: function(){
+            if (this.config.planned_hours === 0) {
+                return false;
+            }
+            if (this.times[1] >= this.config.planned_hours) {
+                $('#clock1').css('color','orange');
+            }
+            if (this.times[1] >= 2*this.config.planned_hours) {
+                $('#clock1').css('color','red');
+                this.addClass(1, "expired");
+            }
+        },
+        update_third_timer: function(){
+            if (this.times[2] >= this.config.normal_time_day){
+                $('#clock2').css('color','yellow');
+            }
+            if (this.times[2] >= this.config.good_time_day) {
+                $('#clock2').css('color','#00f900');
+            }
+        },
+        update_fourth_timer: function() {
+            if (this.times[3] === this.config.normal_time_week){
+                $('#clock3').css('color','#00f900');
+                this.change_audio(2);
+            } else if (this.times[3] > this.config.normal_time_week){
+                $('#clock3').css('color','#00f900');
+            }
+            if (this.times[3] === this.config.good_time_week) {
+                $('#clock3').css('color','rgb(0, 144, 249)');
+                this.change_audio(3);
+            } else if (this.times[3] >= this.config.good_time_week) {
+                $('#clock3').css('color','rgb(0, 144, 249)');
             }
         },
         timerTimeLimited: function() {
@@ -328,14 +328,13 @@ odoo.define('project_timelog.timelog', function(require){
             if (minutes < 10) {
                 result += "0";
             }
-
             if (id === 0) {
                 result += minutes + "<span id='clock_second'>" + ":";
                 if (seconds < 10) {
-                    result += "0"; result +=seconds + "</span>";
+                    result += "0";
                 }
-            }
-            else {
+                result +=seconds + "</span>";
+            } else {
                 result += minutes;
             }
             return result;
@@ -353,11 +352,8 @@ odoo.define('project_timelog.timelog', function(require){
             }
         },
         start_timer: function(){
-            if (this.config.status == 'running' || this.config.time_subtasks <= this.times[0] || this.config.stopline) {
+            if (this.config.status === 'running' || this.config.time_subtasks <= this.times[0] || this.config.stopline) {
                 return false;
-            }
-            if (this.debug) {
-                console.log("Play");
             }
             this.add_favicon();
             this.status = 'running';
@@ -369,9 +365,6 @@ odoo.define('project_timelog.timelog', function(require){
         stop_timer: function(){
             if (this.status === 'stopped' && this.end_datetime_status){
                 return false;
-            }
-            if (this.debug) {
-                console.log("Stop");
             }
             this.add_favicon();
             this.status = 'stopped';
@@ -416,7 +409,7 @@ odoo.define('project_timelog.timelog', function(require){
                 return false;
             }
             var model_subtask = new Model('account.analytic.line');
-            if (this.status == "running") {
+            if (this.status === "running") {
                 model_subtask.call("stop_timer", [this.config.work_id]);
                 $('#clock0').css('color','gray');
             } else if (this.status === "stopped") {

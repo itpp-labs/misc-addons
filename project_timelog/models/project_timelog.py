@@ -79,12 +79,14 @@ class ProjectTimelog(models.Model):
                 raise UserError(_('Dates cannot be changed. Use Time Correction field instead.'))
         return super(ProjectTimelog, self).write(vals)
 
-    def read_group(self, cr, uid, domain, fields, groupby, offset=0, limit=None, context=None, orderby=False, lazy=True):
+    @api.model
+    def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):
         if 'corrected_duration_active' in fields:
             recompute_domain = [('end_datetime', '=', False)] + domain
-            ids = self.search(cr, uid, recompute_domain, context=context)
-            self._recompute_corrected_duration_active(cr, uid, ids, context=context)
-        return super(ProjectTimelog, self).read_group(cr, uid, domain, fields, groupby, offset=offset, limit=limit, context=context, orderby=orderby, lazy=lazy)
+            ids = self.search(recompute_domain)
+            ids._recompute_corrected_duration_active()
+        return super(ProjectTimelog, self).read_group(domain, fields, groupby, offset=offset, limit=limit,
+                                                              orderby=orderby, lazy=lazy)
 
 
 class Task(models.Model):
