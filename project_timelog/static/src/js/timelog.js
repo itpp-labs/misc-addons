@@ -109,12 +109,12 @@ odoo.define('project_timelog.timelog', function(require){
         init: function(parent){
             this._super(parent);
             var self = this;
-            this.audio = new Audio();
+            this.audio = new window.Audio();
             this.audio_format = this.audio.canPlayType("audio/ogg; codecs=vorbis")
                                 ? ".ogg"
                                 : ".mp3";
             // the error sound
-            this.error = new Audio(session.url("/project_timelog/static/src/audio/offline" + this.audio_format));
+            this.error = new window.Audio(session.url("/project_timelog/static/src/audio/offline" + this.audio_format));
             this.status = 'stopped';
 
             // check connection with server

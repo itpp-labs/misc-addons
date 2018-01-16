@@ -43,6 +43,18 @@ odoo.define('point_of_sale.Tour', function (require) {
                 title: 'Save change',
                 element: '.oe_form_button_save',
             },
+            {
+                title: 'Play timer',
+                element: '.oe-button[data-field="play_timer"]',
+            },
+            {
+                title: 'Wait 5s.',
+                wait: 5000,
+            },
+            {
+                title: 'Stop timer',
+                element: '.oe-button[data-field="stop_timer"]',
+            },
         ],
     });
 });
