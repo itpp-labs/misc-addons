@@ -109,15 +109,12 @@ odoo.define('project_timelog.timelog', function(require){
         init: function(parent){
             this._super(parent);
             var self = this;
-            if (Audio) {
-                this.audio = new Audio();
-                this.audio_format = this.audio.canPlayType("audio/ogg; codecs=vorbis")
-                                    ? ".ogg"
-                                    : ".mp3";
-                // the error sound
-                this.error = new Audio(session.url("/project_timelog/static/src/audio/offline" + this.audio_format));
-            }
-
+            this.audio = new Audio();
+            this.audio_format = this.audio.canPlayType("audio/ogg; codecs=vorbis")
+                                ? ".ogg"
+                                : ".mp3";
+            // the error sound
+            this.error = new Audio(session.url("/project_timelog/static/src/audio/offline" + this.audio_format));
             this.status = 'stopped';
 
             // check connection with server
@@ -132,7 +129,7 @@ odoo.define('project_timelog.timelog', function(require){
             this.load_timer_data();
         },
         ClientOffLine: function() {
-            if (this.status === 'running' && this.error) {
+            if (this.status === 'running') {
                 this.error.play();
             }
             this.end_datetime_status = true;
@@ -145,10 +142,8 @@ odoo.define('project_timelog.timelog', function(require){
             this.show_notify_message(_t("You are online"));
         },
         change_audio: function(name) {
-            if (this.audio) {
-                this.audio.src = session.url("/project_timelog/static/src/audio/" + name + this.audio_format) || this.stop_src;
-                this.audio.play();
-            }
+            this.audio.src = session.url("/project_timelog/static/src/audio/" + name + this.audio_format) || this.stop_src;
+            this.audio.play();
         },
         load_timer_data: function(){
             var self = this;
