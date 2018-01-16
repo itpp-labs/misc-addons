@@ -109,8 +109,8 @@
                     <field name="start_datetime" />
                     <field name="end_datetime" />
                     <field name="stage_id" />
-                    <field name="duration" string="Duration" widget="float_time"/>
-                    <field name="corrected_duration" string="Corrected duration" widget="float_time"/>
+                    <field name="duration" string="Duration" widget="float_time" sum="Total Duration"/>
+                    <field name="corrected_duration" string="Corrected Duration" widget="float_time" sum="Total Corrected Duration"/>
                 </tree>
             </field>
         </record>
@@ -125,8 +125,8 @@
                     <field name="start_datetime" />
                     <field name="end_datetime" />
                     <field name="stage_id" />
-                    <field name="duration" string="Duration" widget="float_time"/>
-                    <field name="corrected_duration" string="Corrected duration" widget="float_time"/>
+                    <field name="duration" string="Duration" widget="float_time" sum="Total Duration"/>
+                    <field name="corrected_duration" string="Corrected Duration" widget="float_time" sum="Total Corrected Duration"/>
                 </tree>
             </field>
         </record>
@@ -213,22 +213,21 @@
         </record>
 
         <!-- Work -->
-        <!--<record id="view_project_task_work_ext_tree" model="ir.ui.view">-->
-            <!--<field name="name">account.analytic.line.ext.tree</field>-->
-            <!--<field name="model">account.analytic.line</field>-->
-            <!--<field name="arch" type="xml">-->
-                <!--<tree string="Project Task Work">-->
-                    <!--<field name="user_id" invisible="1"/>-->
-                    <!--<field name="name" readonly="1"/>-->
-                    <!--<field name="account_id" readonly="1"/>-->
-                    <!--<field name="unit_amount_computed" readonly="1"/>-->
-                    <!--<field name="unit_amount" readonly="1"/>-->
-                    <!--<field name="date" readonly="1"/>-->
-                    <!--<field name="company_id" readonly="1"/>-->
-                    <!--<field name="task_id" invisible="1"/>-->
-                <!--</tree>-->
-            <!--</field>-->
-        <!--</record>-->
+        <record id="view_project_task_work_ext_tree" model="ir.ui.view">
+            <field name="name">account.analytic.line.ext.tree</field>
+            <field name="model">account.analytic.line</field>
+            <field name="arch" type="xml">
+                <tree string="Project Task Work">
+                    <field name="user_id" invisible="1"/>
+                    <field name="name" readonly="1"/>
+                    <field name="account_id" readonly="1"/>
+                    <field name="unit_amount" string="Hours" readonly="1" sum="Total"/>
+                    <field name="date" readonly="1"/>
+                    <field name="company_id" readonly="1"/>
+                    <field name="task_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
 
         <record id="view_project_task_work_ext_filter" model="ir.ui.view">
             <field name="name">account.analytic.line.ext.search</field>
