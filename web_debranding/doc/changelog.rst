@@ -1,3 +1,9 @@
+`1.0.20`
+--------
+
+- FIX: Hiding a custom logo
+- FIX: Error when creating second empty database
+
 `1.0.19`
 --------
 
