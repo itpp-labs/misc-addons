@@ -44,16 +44,15 @@ odoo.define('project_timelog.timelog', function(require){
             }
         },
         on_notification_do: function (channel, message) {
-            var error = false;
-            if (_.isString(channel)) {
-                channel = JSON.parse(channel);
+            var current_channel = channel;
+            if (_.isString(current_channel)) {
+                current_channel = JSON.parse(current_channel);
             }
-            if (Array.isArray(channel) && channel[1] === 'project.timelog') {
+            if (Array.isArray(current_channel) && current_channel[1] === 'project.timelog') {
                 try {
                     this.received_message(message);
                 } catch (err) {
-                    error = err;
-                    console.error(err);
+                    this.widget.show_warn_message(err);
                 }
             }
         },
@@ -84,20 +83,23 @@ odoo.define('project_timelog.timelog', function(require){
                     this.stopline_audio_stop = false;
                 }
             } else if (message.status === "stopline") {
-                var now = new Date();
-                var year = now.getFullYear();
-                var month = now.getMonth();
-                var day = now.getDay();
-                var minute = now.getMinutes();
+                this.check_stopline(message);
+            }
+        },
+        check_stopline: function(message) {
+            var now = new Date();
+            var year = now.getFullYear();
+            var month = now.getMonth();
+            var day = now.getDay();
+            var minute = now.getMinutes();
 
-                if (year === message.time.year && month === message.time.month && day === message.time.day) {
-                    if (minute >= message.time.minute) {
-                        $('#clock0').css('color','orange');
-                        if (this.song_on) {
-                            this.widget.change_audio("warning");
-                        }
-                        this.stopline_audio_warning = false;
+            if (year === message.time.year && month === message.time.month && day === message.time.day) {
+                if (minute >= message.time.minute) {
+                    $('#clock0').css('color','orange');
+                    if (this.song_on) {
+                        this.widget.change_audio("warning");
                     }
+                    this.stopline_audio_warning = false;
                 }
             }
         },
@@ -329,7 +331,8 @@ odoo.define('project_timelog.timelog', function(require){
                 result += "0";
             }
             if (id === 0) {
-                result += minutes + "<span id='clock_second'>" + ":";
+                result += minutes;
+                result += "<span id='clock_second'>:";
                 if (seconds < 10) {
                     result += "0";
                 }
