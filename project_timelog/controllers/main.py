@@ -170,4 +170,4 @@ class TimelogController(http.Controller):
 
     @http.route('/timelog/connection', type='http', auth="public")
     def connection(self, **kwargs):
-        return True
+        return "1"
