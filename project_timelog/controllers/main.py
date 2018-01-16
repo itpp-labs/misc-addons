@@ -16,9 +16,6 @@ class TimelogController(http.Controller):
         subtask = user.active_work_id
         task = user.active_task_id
 
-        # get the timelogs of current user
-        user_timelogs = timelog_obj.search_count([("user_id", "=", user.id)])
-
         # get the timelogs of current user for current task
         # task_user_timelogs = user_timelogs.filter(lambda x: x.work_id.task_id == task.id)
         task_user_timelogs = timelog_obj.search([("user_id", "=", user.id), ("work_id.task_id", "=", task.id)])

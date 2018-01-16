@@ -85,8 +85,7 @@ class ProjectTimelog(models.Model):
             recompute_domain = [('end_datetime', '=', False)] + domain
             ids = self.search(recompute_domain)
             ids._recompute_corrected_duration_active()
-        return super(ProjectTimelog, self).read_group(domain, fields, groupby, offset=offset, limit=limit,
-                                                              orderby=orderby, lazy=lazy)
+        return super(ProjectTimelog, self).read_group(domain, fields, groupby, offset=offset, limit=limit, orderby=orderby, lazy=lazy)
 
 
 class Task(models.Model):
