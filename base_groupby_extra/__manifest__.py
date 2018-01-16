@@ -1,4 +1,3 @@
-
 {
     "name": """Extra grouping options""",
     "summary": """Adds grouping by hours""",
