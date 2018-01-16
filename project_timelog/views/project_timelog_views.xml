@@ -82,6 +82,7 @@
                     <sheet>
                         <group>
                             <group>
+                                <field name="task_id" string="Task" readonly="1"/>
                                 <field name="work_id" string="Subtask" help="Subtask name" readonly="1"/>
                                 <field name="stage_id" string="Stage" help="Stage name" readonly="1"/>
                             </group>

@@ -14,6 +14,7 @@ class ProjectTimelog(models.Model):
 
     work_id = fields.Many2one("account.analytic.line", "Task", required=True, index=True)
     task_name = fields.Char(related='work_id.task_id.name', store=True)
+    task_id = fields.Many2one(related='work_id.task_id')
     work_name = fields.Char(related='work_id.name', store=True)
     project_name = fields.Char(related='work_id.task_id.project_id.name', store=True)
     start_datetime = fields.Datetime(string="Start date", default=datetime.datetime.now())
