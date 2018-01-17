@@ -13,7 +13,7 @@ from ..models.image import is_url
 
 class MailControllerExtended(MailController):
 
-    @http.route('/mail/<string:res_model>/<int:res_id>/avatar/<int:partner_id>', type='http', auth='public')
+    @http.route()
     def avatar(self, res_model, res_id, partner_id):
         headers = [('Content-Type', 'image/png')]
         status = 200
