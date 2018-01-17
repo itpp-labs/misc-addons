@@ -68,7 +68,7 @@ class SettingImport(models.Model):
     file_read_hook = fields.Text(string="File read hook", help="""
 Update values of the file. Use variable ``row`` to update values in a row.""")
     model_id = fields.Many2one("ir.model", string="Models")
-    model = fields.Char(related="model_id.model")
+    model = fields.Char(related="model_id.model", store=True)
     line_ids = fields.One2many("base_import_map.line", "setting_id", string="Settings line")
 
 
