@@ -18,7 +18,8 @@ def debrand(env, source, is_code=False):
     if not source or not re.search(r'\bodoo\b', source, re.IGNORECASE):
         return source
 
-    if env:
+    # get_debranding_parameters may not be available yet on database creation
+    if env and hasattr(env['ir.config_parameter'], 'get_debranding_parameters'):
         params = env['ir.config_parameter'].get_debranding_parameters()
     else:
         # use default values
