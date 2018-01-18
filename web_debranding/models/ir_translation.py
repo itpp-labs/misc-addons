@@ -41,7 +41,7 @@ def debrand(env, source):
     # next regular expression exclude from substitution 'odoo.' and 'odoo = '
     # Example:
     # xml file: https://github.com/odoo/odoo/blob/9.0/addons/im_livechat/views/im_livechat_channel_templates.xml#L148
-    source = re.sub(r'\odoo(?!\.\S|\s?=\s?|[0-9])\b', new_name, source, flags=re.IGNORECASE)
+    source = re.sub(r'\odoo(?!\.\S|\s?=\s?|\w|\[)\b', new_name, source, flags=re.IGNORECASE)
 
     return source
 
