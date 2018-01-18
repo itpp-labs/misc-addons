@@ -34,6 +34,10 @@ def debrand(env, source, is_code=False):
     source = re.sub(r'\bodoo.com\b', new_website, source, flags=re.IGNORECASE)
     source = re.sub(r'\bodoo with retail hardware\b',
                     new_name + u' with retail hardware', source, flags=re.IGNORECASE)
+    source = re.sub(r'\bwebsite built with Odoo\b',
+                    u'website built with ' + new_name, source, flags=re.IGNORECASE)
+    source = re.sub(r'\bshow any activity In Odoo\b',
+                    u'show any activity In ' + new_name, source, flags=re.IGNORECASE)
 
     if is_code:
         # stop replacing here, because replacing variable odoo is a bad idea
