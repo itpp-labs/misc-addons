@@ -44,15 +44,15 @@ class Config(models.TransientModel):
         res = super(Config, self).get_values()
         ICPSudo = self.env['ir.config_parameter'].sudo()
 
-        theme_id = ICPSudo.get_param("theme_kit.current_theme_id", default='')
+        theme_id = ICPSudo.get_param("theme_kit.current_theme_id", default=False)
         if theme_id:
             theme_id = int(theme_id)
-        favicon_id = ICPSudo.get_param("theme_kit.current_favicon_id", default='')
+        favicon_id = ICPSudo.get_param("theme_kit.current_favicon_id", default=False)
         if favicon_id:
             favicon_id = int(favicon_id)
-        page_title = ICPSudo.get_param("web_debranding.new_title", default='')
-        system_name = ICPSudo.get_param("web_debranding.new_name", default='')
-        new_documentation_website = ICPSudo.get_param("web_debranding.new_documentation_website", default='')
+        page_title = ICPSudo.get_param("web_debranding.new_title", default=False)
+        system_name = ICPSudo.get_param("web_debranding.new_name", default=False)
+        new_documentation_website = ICPSudo.get_param("web_debranding.new_documentation_website", default=False)
         company_logo = self.env.user.company_id.logo
         wallpapers_count = self.env['ir.attachment'].search_count([('use_as_background', '=', True)])
 
