@@ -20,5 +20,5 @@ class MailMessage(models.Model):
            and values.get('model') == 'mail.channel' \
            and channel_all_employees.id == values.get('res_id') \
            and subject.endswith('application installed!'):
-            values['body'] = debrand(self.env, values.get('body', ''), is_code=False)
+            values['body'] = debrand(self.env, values.get('body', ''))
         return super(MailMessage, self).create(values)

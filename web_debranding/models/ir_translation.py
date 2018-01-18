@@ -14,7 +14,11 @@ def debrand_documentation_links(source, new_documentation_website):
                   source, flags=re.IGNORECASE)
 
 
-def debrand(env, source, is_code=False):
+def debrand_links(source, new_website):
+    return re.sub(r'\bodoo.com\b', new_website, source, flags=re.IGNORECASE)
+
+
+def debrand(env, source):
     if isinstance(source, str) and not isinstance(source, unicode):
         source = source.decode('utf-8')
     if not source or not re.search(r'\bodoo\b', source, re.IGNORECASE):
@@ -31,24 +35,14 @@ def debrand(env, source, is_code=False):
     new_documentation_website = params.get('web_debranding.new_documentation_website')
 
     source = debrand_documentation_links(source, new_documentation_website)
-    source = re.sub(r'\bodoo.com\b', new_website, source, flags=re.IGNORECASE)
-    source = re.sub(r'\bodoo with retail hardware\b',
-                    new_name + u' with retail hardware', source, flags=re.IGNORECASE)
-    source = re.sub(r'\bwebsite built with Odoo\b',
-                    u'website built with ' + new_name, source, flags=re.IGNORECASE)
-    source = re.sub(r'\bshow any activity In Odoo\b',
-                    u'show any activity In ' + new_name, source, flags=re.IGNORECASE)
-
-    if is_code:
-        # stop replacing here, because replacing variable odoo is a bad idea
-        return source
-
+    source = debrand_links(source, new_website)
     # We must exclude the case when after the word "odoo" is the word "define".
     # Since JS functions are also contained in the localization files.
+    # next regular expression exclude from substitution 'odoo.' and 'odoo = '
     # Example:
-    # po file: https://github.com/odoo/odoo/blob/9.0/addons/im_livechat/i18n/ru.po#L853
     # xml file: https://github.com/odoo/odoo/blob/9.0/addons/im_livechat/views/im_livechat_channel_templates.xml#L148
-    source = re.sub(r'\bodoo(?!\.define)\b', new_name, source, flags=re.IGNORECASE)
+    source = re.sub(r'\odoo(?!\.\S|\s?=\s?|[0-9])\b', new_name, source, flags=re.IGNORECASE)
+
     return source
 
 

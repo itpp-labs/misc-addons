@@ -17,7 +17,7 @@ class View(models.Model):
         res = super(View, self).read_combined(fields=fields)
         if isinstance(res['arch'], str) and not isinstance(res['arch'], unicode):
             res['arch'] = res['arch'].decode('utf-8')
-        res['arch'] = debrand(self.env, res['arch'], is_code=True)
+        res['arch'] = debrand(self.env, res['arch'])
         return res
 
     @api.model
