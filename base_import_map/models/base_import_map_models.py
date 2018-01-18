@@ -20,7 +20,7 @@ class Import(models.TransientModel):
 
     @api.multi
     def do(self, fields, options, dryrun=False):
-        res = super(Import, self).do(fields, options, dryrun=False)
+        res = super(Import, self).do(fields, options, dryrun=dryrun)
         if not dryrun and options['save_settings']:
             model_id = self.env["ir.model"].search([("model", "=", str(self.res_model))]).id
             new_settings = self.env["base_import_map.map"].create({
