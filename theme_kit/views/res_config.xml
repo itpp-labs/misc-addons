@@ -7,64 +7,154 @@
             <field name="name">Brand settings</field>
             <field name="model">theme_kit.config</field>
             <field name="arch" type="xml">
-                <form string="Theme Settings" class="oe_form_configuration">
-                    <header>
-                        <button string="Apply" type="object" name="execute" class="oe_highlight"/>
-                        or
-                        <button string="Cancel" type="object" name="cancel" class="oe_link"/>
-                    </header>
-                    <group>
-                        <group string="Logo">
-                            <field name="company_logo" widget="image" class="oe_avatar"/>
-
-                            <field name="favicon_id" class="oe_inline"/>
-
-                            <label for="wallpapers_count"/>
-                            <div>
-                            <field name="wallpapers_count" class="oe_inline"/><span class="oe_form_field oe_inline"> wallpaper(s)</span>
+                <form string="Theme Settings" class="oe_form_configuration o_base_settings">
+                    <div class="o_control_panel">
+                        <div class="o_panel">
+                            <div class="title h2 mb0 mt4 text-muted hidden-xs">Theme Settings</div>
+                        </div>
+                        <header>
+                            <button string="Save" type="object" name="execute" class="oe_highlight" />
+                            <button string="Discard" type="object" name="cancel" />
+                        </header>
+                    </div>
+                    <div class="o_setting_container">
+                        <div class="settings">
+                            <div class="app_settings_block" data-string="Logo" string="Logo" data-key="logo">
+                                <h2>Logo</h2>
+                                <div class="row mt16 o_settings_container">
+                                    <div class="col-xs-12 col-md-6 o_setting_box">
+                                        <div class="o_setting_right_pane">
+                                            <label for="company_logo"/>
+                                            <div class="text-muted">
+                                                Set the company logo of your website
+                                            </div>
+                                            <div class="content-group">
+                                                <div class="mt16 row">
+                                                    <field name="company_logo" class="col-xs-3 col-md-3 oe_avatar" widget="image"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6 o_setting_box">
+                                        <div class="o_setting_right_pane">
+                                            <label for="favicon_id"/>
+                                            <div class="text-muted">
+                                                Set the company favicon of your website
+                                            </div>
+                                            <div class="content-group">
+                                                <div class="mt16 row">
+                                                    <field name="favicon_id" class="col-xs-3 col-md-3 oe_inline"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6 o_setting_box">
+                                        <div class="o_setting_right_pane">
+                                            <label for="wallpapers_count"/>
+                                            <div class="text-muted">
+                                                test test test
+                                            </div>
+                                            <div class="content-group">
+                                                <div class="mt16 row">
+                                                    <field name="wallpapers_count" class="col-xs-3 col-md-3 oe_inline"/><span class="oe_form_field oe_inline"> wallpaper(s)</span>
+                                                </div>
+                                                <div class="mt16">
+                                                    <button type="action" icon="fa-cogs"
+                                                        name="%(theme_kit.ir_attachment_login_bg_action)d"
+                                                        style="padding-left:0"
+                                                        string="Configure wallpapers" class="oe_link"/>
+                                                    <div class="text-muted">
+                                                        These wallpapers are randomly shown on login page
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h2>Theme</h2>
+                                <div class="row mt16 o_settings_container">
+                                    <div class="col-xs-12 col-md-6 o_setting_box">
+                                        <div class="o_setting_right_pane">
+                                            <label for="theme_id"/>
+                                            <div class="text-muted">
+                                                Set the theme of your website
+                                            </div>
+                                            <div class="content-group">
+                                                <div class="mt16 row">
+                                                    <field name="theme_id" class="col-xs-3 col-md-3 oe_inline"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h2>Name</h2>
+                                <div class="row mt16 o_settings_container">
+                                    <div class="col-xs-12 col-md-6 o_setting_box">
+                                        <div class="o_setting_right_pane">
+                                            <label for="page_title"/>
+                                            <div class="content-group">
+                                                <div class="mt16">
+                                                    <field name="page_title" placeholder="CompanyName"/>
+                                                    <div class="text-muted">
+                                                        <p class="mt0">Page Title is used in Browser Tab name, for example<br/>
+                                                            <ul>
+                                                                <li><em>[Page Title]</em></li>
+                                                                <li>#inbox - <em>[Page Title]</em></li>
+                                                                <li>Dashboard - <em>[Page Title]</em></li>
+                                                            </ul>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6 o_setting_box">
+                                        <div class="o_setting_right_pane">
+                                            <label for="system_name"/>
+                                            <div class="content-group">
+                                                <div class="mt16">
+                                                    <field name="system_name" placeholder="CompanyName's Portal"/>
+                                                    <div class="text-muted">
+                                                        <p class="mt0">System Name is used in context like followings:</p>
+                                                        <ul>
+                                                            <li><em>[System Name]</em> helps you easily track all activities related to a customer; discussions, history of business opportunities, documents, etc.</li>
+                                                            <!--<li><em>[System Name]</em> needs your permission to enable desktop notifications.</li>-->
+                                                            <li><em>[System Name]</em> has now the permission to send you native notifications on this device.</li>
+                                                            <li><em>[System Name]</em> Warning - Warning<br/>
+                                                            You can not remove the admin user as it is used internally for resources created by <em>[System Name]</em> (updates, module installation, ...)</li>
+                                                            <li>etc.</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h2>Documentation</h2>
+                                <div class="row mt16 o_settings_container">
+                                    <div class="col-xs-12 col-md-6 o_setting_box">
+                                        <div class="o_setting_right_pane">
+                                            <label for="new_documentation_website"/>
+                                            <div class="content-group">
+                                                <div class="mt16">
+                                                    <field name="new_documentation_website" placeholder="DocumentationWebsite"/>
+                                                    <div class="text-muted">
+                                                        <p class="mt0">Replaces links to documentation to custom website, for example<br/>
+                                                            <ul>
+                                                                <li><em>"Help"</em> in Import tool</li>
+                                                                <li><em>"How-to"</em> in paypal</li>
+                                                                <li>etc.</li>
+                                                            </ul>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-
-                            <label for="wallpapers_settings"/>
-                            <div name="wallpapers_settings">
-                                <button type="action" icon="fa-cogs"
-                                        name="%(theme_kit.ir_attachment_login_bg_action)d"
-                                        style="padding-left:0"
-                                        string="Configure wallpapers" class="oe_link"/>
-                                <p class="mt0">These wallpapers are randomly shown on login page</p>
-                            </div>
-
-                        </group>
-                        <group string="Theme">
-                            <field name="theme_id" class="oe_inline"/>
-                        </group>
-                        <group string="Name">
-                            <field name="page_title" placeholder="CompanyName" class="oe_inline"/>
-                            <label for="page_title_description"/>
-                            <div name="page_title_description">
-                                <p class="mt0">Page Title is used in Browser Tab name, for example<br/>
-                                <ul>
-                                    <li><em>[Page Title]</em></li>
-                                    <li>#inbox - <em>[Page Title]</em></li>
-                                    <li>Dashboard - <em>[Page Title]</em></li>
-                                </ul>
-                                </p>
-                            </div>
-                            <field name="system_name" placeholder="CompanyName's Portal" class="oe_inline"/>
->
-                            <label for="system_name_description"/>
-                            <div name="system_name_description">
-                                <p class="mt0">System Name is used in context like followings:</p>
-                                <ul>
-                                    <li><em>[System Name]</em> helps you easily track all activities related to a customer; discussions, history of business opportunities, documents, etc.</li>
-                                    <!--<li><em>[System Name]</em> needs your permission to enable desktop notifications.</li>-->
-                                    <li><em>[System Name]</em> has now the permission to send you native notifications on this device.</li>
-                                    <li><em>[System Name]</em> Warning - Warning<br/>
-                                    You can not remove the admin user as it is used internally for resources created by <em>[System Name]</em> (updates, module installation, ...)</li>
-                                    <li>etc.</li>
-                                </ul>
-                            </div>
-                        </group>
-                    </group>
+                        </div>
+                    </div>
                 </form>
             </field>
         </record>
