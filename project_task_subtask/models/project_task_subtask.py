@@ -14,7 +14,7 @@ SUBTASK_STATES = {'done': 'Done',
 
 class ProjectTaskSubtask(models.Model):
     _name = "project.task.subtask"
-    _inherit = ['ir.needaction_mixin']
+    _inherit = ['mail.activity.mixin']
     state = fields.Selection([(k, v) for k, v in list(SUBTASK_STATES.items())],
                              'Status', required=True, copy=False, default='todo')
     name = fields.Char(required=True, string="Description")
