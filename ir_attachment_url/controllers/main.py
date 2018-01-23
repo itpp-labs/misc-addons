@@ -3,7 +3,7 @@ import base64
 import requests
 
 from odoo.http import request
-from odoo import api, http, registry, SUPERUSER_ID, _
+from odoo import http, SUPERUSER_ID
 from odoo.addons.web.controllers.main import binary_content
 from odoo.exceptions import AccessError
 
