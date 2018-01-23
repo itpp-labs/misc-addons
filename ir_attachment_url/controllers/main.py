@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import base64
 import requests
+import werkzeug
 
 from odoo.http import request
 from odoo import http, SUPERUSER_ID
