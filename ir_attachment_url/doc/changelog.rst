@@ -1,7 +1,7 @@
 `1.1.3`
 -------
 
-- **FIX:** Error when using `avatar` controller (in `mail` module). For example it is using in `website_project` on `/my/projects` page
+- **FIX:** Error when using `avatar` controller (in `mail` module). For example it is used in `website_project` on `/my/projects` page
 
 `1.1.2`
 -------
