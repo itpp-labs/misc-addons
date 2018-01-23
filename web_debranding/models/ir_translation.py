@@ -36,12 +36,20 @@ def debrand(env, source):
 
     source = debrand_documentation_links(source, new_documentation_website)
     source = debrand_links(source, new_website)
-    # We must exclude the case when after the word "odoo" is the word "define".
+    # We must exclude the next cases, which occur only in a code,
     # Since JS functions are also contained in the localization files.
-    # next regular expression exclude from substitution 'odoo.' and 'odoo = '
-    # Example:
+    # Next regular expression exclude from substitution 'odoo.SMTH', 'odoo =', 'odoo=', 'odooSMTH', 'odoo['
+    # Where SMTH is an any symbol or number or '_'. Option odoo.com were excluded previously.
+    # Examples:
+    # odoo.
     # xml file: https://github.com/odoo/odoo/blob/9.0/addons/im_livechat/views/im_livechat_channel_templates.xml#L148
-    source = re.sub(r'\odoo(?!\.\S|\s?=\s?|\w|\[)\b', new_name, source, flags=re.IGNORECASE)
+    # odooSMTH
+    # https://github.com/odoo/odoo/blob/cd48a806ac636806130efcf5c055f73758cb0902/addons/iap/static/src/js/iap_credit.js#L10
+    # odoo =
+    # https://github.com/odoo/odoo/blob/11.0/addons/web/static/src/js/boot.js#L47
+    # odoo[
+    # https://github.com/odoo/odoo/blob/11.0/addons/web_editor/static/src/js/backend/fields.js#L227
+    source = re.sub(r'\odoo(?!\.\S|\s?=|\w|\[)\b', new_name, source, flags=re.IGNORECASE)
 
     return source
 
