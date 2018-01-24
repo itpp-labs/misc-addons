@@ -8,7 +8,19 @@ from odoo import tools
 from .ir_config_parameter import PARAMS
 
 
+def debrand_documentation_links(source, new_documentation_website):
+    return re.sub(r'https://www.odoo.com/documentation/',
+                  new_documentation_website + u'documentation/',
+                  source, flags=re.IGNORECASE)
+
+
+def debrand_links(source, new_website):
+    return re.sub(r'\bodoo.com\b', new_website, source, flags=re.IGNORECASE)
+
+
 def debrand(env, source):
+    if isinstance(source, str) and not isinstance(source, unicode):
+        source = source.decode('utf-8')
     if not source or not re.search(r'\bodoo\b', source, re.IGNORECASE):
         return source
 
@@ -20,20 +32,25 @@ def debrand(env, source):
 
     new_name = params.get('web_debranding.new_name')
     new_website = params.get('web_debranding.new_website')
+    new_documentation_website = params.get('web_debranding.new_documentation_website')
 
-    try:
-        source = unicode(source, 'utf-8')
-    except:
-        pass
-
-    source = re.sub(r'\bodoo.com\b', new_website, source, flags=re.IGNORECASE)
-
-    # We must exclude the case when after the word "odoo" is the word "define".
+    source = debrand_documentation_links(source, new_documentation_website)
+    source = debrand_links(source, new_website)
+    # We must exclude the next cases, which occur only in a code,
     # Since JS functions are also contained in the localization files.
-    # Example:
-    # po file: https://github.com/odoo/odoo/blob/9.0/addons/im_livechat/i18n/ru.po#L853
+    # Next regular expression exclude from substitution 'odoo.SMTH', 'odoo =', 'odoo=', 'odooSMTH', 'odoo['
+    # Where SMTH is an any symbol or number or '_'. Option odoo.com were excluded previously.
+    # Examples:
+    # odoo.
     # xml file: https://github.com/odoo/odoo/blob/9.0/addons/im_livechat/views/im_livechat_channel_templates.xml#L148
-    source = re.sub(r'\bodoo(?!\.define)\b', new_name, source, flags=re.IGNORECASE)
+    # odooSMTH
+    # https://github.com/odoo/odoo/blob/11.0/addons/website_google_map/views/google_map_templates.xml#L14
+    # odoo =
+    # https://github.com/odoo/odoo/blob/11.0/addons/web/views/webclient_templates.xml#L260
+    # odoo[
+    # https://github.com/odoo/odoo/blob/11.0/addons/web_editor/views/iframe.xml#L43-L44
+    source = re.sub(r'\odoo(?!\.\S|\s?=|\w|\[)\b', new_name, source, flags=re.IGNORECASE)
+
     return source
 
 

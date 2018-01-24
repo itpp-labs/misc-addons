@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from . import models
 from . import controllers
-from . import fields
 
 from openerp import SUPERUSER_ID, api
 
