@@ -1,4 +1,4 @@
-odoo.define('point_of_sale.Tour', function (require) {
+odoo.define('project_timelog.Tour', function (require) {
     "use strict";
 
     var Tour = require('web.Tour');
@@ -6,25 +6,20 @@ odoo.define('point_of_sale.Tour', function (require) {
     Tour.register({
         id: 'project_timelog',
         name: 'Run tracking timer in the Back-End',
-        path: '/web?debug',
+        path: '/web#model=project.task&action=project.action_view_task',
         mode: 'test',
         steps: [
             {
-                title: 'Go to the Project menu',
-                wait: 200,
-                element: '.oe_menu_toggler[data-menu="190"]',
-            },
-            {
                 title: 'Click tasks',
-                element: '.oe_menu_leaf[data-menu="193"]',
+                element: '.oe_menu_text:contains("Task"):first',
             },
             {
                 title: 'Click on the task card',
-                element: '.oe_kanban_card',
+                element: '.oe_kanban_card:first',
             },
             {
                 title: 'Go to the Timesheet tab',
-                element: 'a[href="#notebook_page_94"]',
+                element: '.nav.nav-tabs a:contains("Timesheets")',
             },
             {
                 title: 'Click the button of edit',
@@ -42,10 +37,11 @@ odoo.define('point_of_sale.Tour', function (require) {
             {
                 title: 'Save change',
                 element: '.oe_form_button_save',
+                wait: 1000,
             },
             {
                 title: 'Play timer',
-                element: '.oe-button[data-field="play_timer"]',
+                element: '.oe-button[data-field="play_timer"] button',
             },
             {
                 title: 'Wait 5s.',
@@ -53,7 +49,7 @@ odoo.define('point_of_sale.Tour', function (require) {
             },
             {
                 title: 'Stop timer',
-                element: '.oe-button[data-field="stop_timer"]',
+                element: '.oe-button[data-field="stop_timer"] button',
             },
         ],
     });
