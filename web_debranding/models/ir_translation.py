@@ -44,11 +44,11 @@ def debrand(env, source):
     # odoo.
     # xml file: https://github.com/odoo/odoo/blob/9.0/addons/im_livechat/views/im_livechat_channel_templates.xml#L148
     # odooSMTH
-    # https://github.com/odoo/odoo/blob/cd48a806ac636806130efcf5c055f73758cb0902/addons/iap/static/src/js/iap_credit.js#L10
+    # https://github.com/odoo/odoo/blob/11.0/addons/website_google_map/views/google_map_templates.xml#L14
     # odoo =
-    # https://github.com/odoo/odoo/blob/11.0/addons/web/static/src/js/boot.js#L47
+    # https://github.com/odoo/odoo/blob/11.0/addons/web/views/webclient_templates.xml#L260
     # odoo[
-    # https://github.com/odoo/odoo/blob/11.0/addons/web_editor/static/src/js/backend/fields.js#L227
+    # https://github.com/odoo/odoo/blob/11.0/addons/web_editor/views/iframe.xml#L43-L44
     source = re.sub(r'\odoo(?!\.\S|\s?=|\w|\[)\b', new_name, source, flags=re.IGNORECASE)
 
     return source
