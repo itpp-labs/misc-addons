@@ -68,6 +68,7 @@
       <field name="model">project.task.subtask</field>
       <field name="arch" type="xml">
         <search string="Filter">
+          <field name="name" string="Description"/>
           <filter string="My" domain="[('user_id','=',uid)]" name="my_subtask"/>
           <separator/>
           <filter string="TODO" domain="[('state','=','todo')]" name="done_subtask"/>
