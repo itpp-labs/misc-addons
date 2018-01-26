@@ -63,6 +63,7 @@ class IrConfigParameter(models.Model):
                 company_id = website.company_id and website.company_id.id
 
         if not company_id:
+            # Warning. Since odoo 11.0 it means that by default Administrator's company value is used
             company_id = self.env.user.company_id.id
 
         return super(IrConfigParameter, self.with_context(force_company=company_id)).get_param(key, default)
