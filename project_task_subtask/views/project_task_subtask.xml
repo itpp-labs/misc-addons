@@ -36,7 +36,7 @@
           <field name="subtask_ids"/>
           <field name="kanban_subtasks" invisible="1"/>
         </xpath>
-        <xpath expr="//div[@class = 'o_kanban_record_bottom']" position="before">
+        <xpath expr="//div[hasclass('o_kanban_record_bottom')]" position="before">
           <div>
              <t t-raw="record.kanban_subtasks.raw_value"/>
           </div>
