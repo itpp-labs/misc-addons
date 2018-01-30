@@ -40,10 +40,10 @@
 
     "auto_install": False,
     "installable": True,
-    
+
     "demo_title": "Brand kit",
     "demo_addons": [
-        "web_debranding", 
+        "web_debranding",
         "web_login_background",
     ],
     "demo_addons_hidden": [
