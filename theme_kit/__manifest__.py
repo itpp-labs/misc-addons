@@ -31,7 +31,6 @@
     "qweb": [
     ],
     "demo": [
-         # "theme_data.xml",
     ],
 
     "post_load": None,
