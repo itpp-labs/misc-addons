@@ -3,6 +3,7 @@
     "name": """Brand kit""",
     "summary": """Brand your odoo instance in few clicks""",
     "category": "Debranding",
+    "live_test_url": "http://apps.it-projects.info/shop/product/theme_kit?version=11.0",
     "images": ['images/brandkit.png'],
     "version": "1.1.2",
     "application": False,
