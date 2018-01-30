@@ -30,6 +30,7 @@
     "qweb": [
     ],
     "demo": [
+         # "theme_data.xml",
     ],
 
     "post_load": None,
@@ -38,4 +39,15 @@
 
     "auto_install": False,
     "installable": True,
+    
+    "demo_title": "Brand kit",
+    "demo_addons": [
+    ],
+    "demo_addons_hidden": [
+    ],
+    "demo_url": "theme-kit",
+    "demo_summary": "Brand your odoo instance in few clicks.",
+    "demo_images": [
+        "images/brandkit.png",
+    ]
 }
