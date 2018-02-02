@@ -61,6 +61,8 @@ Removes references to odoo.com:
 
 22. [ENTERPRISE] Replaces icons for mobile devices with custom url
 23. Replaces links to `documentation <https://www.odoo.com/documentation>`__ (e.g. "Help" in Import tool, "How-to" in paypal, etc.) to custom website
+24. Removes official videos in planner
+25. Replaces "Odoo" in *application installed* mails
 
 Configuration
 =============
@@ -85,6 +87,7 @@ Further debranding
 ==================
 
 * open addons/mail/data/mail_data.xml and edit Template "Notification Email" -- delete "using Odoo"
+* open addons/website_livechat/website_livechat_data.xml and edit in "im_livechat_channel_data_website" record YourWebsiteWithOdoo.com string
 * install **website_debranding** module if module "Website Builder" is installed in your system
 * install **pos_debranding** module if module "POS" is installed in your system
 * delete "Odoo.com Accounts" record at Settings\\Users\\OAuth Providers if module "OAuth2 Authentication" is installed. in your system
