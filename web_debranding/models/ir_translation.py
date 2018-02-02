@@ -5,7 +5,7 @@ from odoo import api
 from odoo import models
 from odoo import tools
 
-from .ir_config_parameter import PARAMS
+from .ir_config_parameter import PARAMS, get_debranding_parameters_env
 
 
 def debrand_documentation_links(source, new_documentation_website):
@@ -20,7 +20,7 @@ def debrand(env, source, is_code=False):
 
     # get_debranding_parameters may not be available yet on database creation
     if env and hasattr(env['ir.config_parameter'], 'get_debranding_parameters'):
-        params = env['ir.config_parameter'].get_debranding_parameters()
+        params = get_debranding_parameters_env(env['ir.config_parameter'])
     else:
         # use default values
         params = dict(PARAMS)
