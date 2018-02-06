@@ -100,6 +100,7 @@ class Task(models.Model):
     subtask_ids = fields.One2many('project.task.subtask', 'task_id', 'Subtask')
     kanban_subtasks = fields.Text(compute='_compute_kanban_subtasks')
     default_user = fields.Many2one('res.users', compute='_compute_default_user')
+    reviewer_id = fields.Many2one('res.users', 'Reviewer', select=True, track_visibility='onchange')
 
     @api.multi
     def _compute_default_user(self):

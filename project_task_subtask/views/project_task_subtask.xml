@@ -6,6 +6,11 @@
       <field name="model">project.task</field>
       <field name="inherit_id" ref="project.view_task_form2"/>
       <field name="arch" type="xml">
+        <xpath expr="//field[@name='user_id']" position="after">
+          <field name="reviewer_id"
+                 options='{"no_open": True}'
+                 context="{'default_groups_ref': ['base.group_user', 'base.group_partner_manager', 'project.group_project_user']}"/>
+        </xpath>
         <xpath expr = "//page[1]" position = "before">
           <page string="Checklist">
             <field name="default_user" invisible='True'/>
