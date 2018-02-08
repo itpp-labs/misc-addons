@@ -1,7 +1,7 @@
 `1.0.21`
 --------
 
-- FIX: In some cases, default parameters were used instead of custom
+- FIX: In some cases, default parameters were used instead of custom ones
 
 `1.0.20`
 --------
