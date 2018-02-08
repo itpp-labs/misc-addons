@@ -19,7 +19,7 @@ PARAMS = [
 def get_debranding_parameters_env(env):
     res = {}
     for param, default in PARAMS:
-        value = env.sudo().get_param(param, default)
+        value = env['ir.config_parameter'].sudo().get_param(param, default)
         res[param] = value.strip()
     return res
 
@@ -29,7 +29,7 @@ class IrConfigParameter(models.Model):
 
     @api.model
     def get_debranding_parameters(self):
-        return get_debranding_parameters_env(self.env['ir.config_parameter'])
+        return get_debranding_parameters_env(self.env)
 
     @api.model
     def create_debranding_parameters(self):

@@ -1,3 +1,8 @@
+`1.0.21`
+--------
+
+- FIX: In some cases, default parameters were used instead of custom
+
 `1.0.20`
 --------
 
