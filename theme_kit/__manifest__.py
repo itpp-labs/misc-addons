@@ -3,6 +3,7 @@
     "name": """Brand kit""",
     "summary": """Brand your odoo instance in few clicks""",
     "category": "Debranding",
+    "live_test_url": "http://apps.it-projects.info/shop/product/theme-kit?version=11.0",
     "images": ['images/brandkit.png'],
     "version": "1.1.2",
     "application": False,
@@ -38,4 +39,17 @@
 
     "auto_install": False,
     "installable": True,
+
+    "demo_title": "Brand kit",
+    "demo_addons": [
+        "web_debranding",
+        "web_login_background",
+    ],
+    "demo_addons_hidden": [
+    ],
+    "demo_url": "theme-kit",
+    "demo_summary": "Brand your odoo instance in few clicks.",
+    "demo_images": [
+        "images/brandkit.png",
+    ]
 }
