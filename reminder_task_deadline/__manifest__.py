@@ -11,7 +11,7 @@
     'currency': 'EUR',
     'depends': ['reminder_base', 'project'],
     'data': [
-        'views.xml',
+        'views/reminder_task_deadline_views.xml',
     ],
-    'installable': False,
+    'installable': True,
 }
