@@ -19,7 +19,6 @@
                 <xpath expr="//field[@name='attendee_status']" position="after">
                     <field name="reminder_res_id" invisible="1"/>
                     <div attrs="{'invisible':[('reminder_res_id', '=', 0)]}">
-                    <label for="open_reminder_object"/>
                     <button string="Open Related Record" name="open_reminder_object" type="object"/>
                     </div>
                 </xpath>
