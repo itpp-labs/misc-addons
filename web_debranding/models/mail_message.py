@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
-from odoo import models
+from odoo import models, api
 
 from .ir_translation import debrand
 
@@ -12,6 +12,7 @@ MODULE = '_web_debranding'
 class MailMessage(models.Model):
     _inherit = 'mail.message'
 
+    @api.model
     def create(self, values):
         subject = values.get('subject')
         channel_all_employees = self.env.ref('mail.channel_all_employees', raise_if_not_found=False)

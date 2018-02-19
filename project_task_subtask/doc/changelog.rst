@@ -1,4 +1,9 @@
 
+`1.0.2`
+-------
+
+**ADD:** new field "Deadline" in Subtasks
+
 `1.0.1`
 -------
 

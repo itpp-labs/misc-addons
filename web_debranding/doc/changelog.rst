@@ -1,3 +1,8 @@
+`1.0.22`
+--------
+
+- FIX: method create didn't work via xmlrpc (e.g. on using Mail Composer)
+
 `1.0.21`
 --------
 
