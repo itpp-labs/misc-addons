@@ -25,6 +25,9 @@
         'views/view.xml',
         'security/ir.model.access.csv',
     ],
+    'demo': [
+        'demo/thecage_demo_data.xml'
+    ],
     'installable': True,
     'auto_install': False,
 }
