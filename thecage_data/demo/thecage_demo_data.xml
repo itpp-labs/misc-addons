@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data noupdate="1">
+    <record id="booking_wewanted_partner" model="res.partner">
+      <field name="name">Wewanted Booking</field>
+      <field name="email">booking@wewanted.com</field>
+    </record>
+    <record id="booking_wewanted_user" model="res.users">
+      <field name="partner_id" ref="booking_wewanted_partner"/>
+      <field name="name">Wewanted User</field>
+      <field name="login">booking@wewanted.com</field>
+      <field name="company_ids" eval="[(4, ref('res_company_bt')),(4, ref('res_company_kl')),]"/>
+      <field name="company_id" ref="res_company_kl"/>
+      <field name="country_id" ref="base.sg"/>
+      <field name="groups_id" eval="[(4, ref('base.group_sale_manager'))]"/>
+    </record>
+    <record id="base.group_multi_company" model="res.groups">
+      <field name="users" eval="[(4, ref('thecage_data.booking_wewanted_user'))]"/>
+    </record>
+    <function model="thecage_data.demo_bookings" name="_create_demo_bookings"
+      eval="(100,)"/>
+  </data>
+</openerp>

@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
+import time
 import pytz
 from pytz import timezone
 from openerp import models, fields, api
 from datetime import datetime, date, timedelta
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 from openerp.exceptions import ValidationError
+
+import logging
+_logger = logging.getLogger(__name__)
 
 
 def format_tz(datetime_str, tz, dtf):
@@ -334,3 +338,50 @@ class AccountInvoice(models.Model):
                 bookings.write({'active': False, 'booking_state': 'cancelled'})
 
         return super(AccountInvoice, self).invoice_validate()
+
+
+class DemoBookings(models.TransientModel):
+    _name = 'thecage_data.demo_bookings'
+
+    @api.model
+    def _create_demo_bookings(self, quantity=10):
+        partner = self.env.ref('base.partner_root')
+        wewanted_user = self.env.ref('thecage_data.booking_wewanted_user')
+        demo_so = self.env['sale.order'].sudo(wewanted_user).create({
+            'name': 'Demo SO',
+            'date_order': fields.datetime.now(),
+            'partner_id': partner.id,
+            'partner_invoice_id': partner.id,
+            'partner_shipping_id': partner.id,
+            'order_policy': 'manual',
+            'pricelist_id': self.env.ref('product.list0').id,
+        })
+        SaleOrderLine = self.env['sale.order.line']
+        product = self.env.ref('thecage_data.product_product_klsb6wd')
+        pitch = self.env.ref('thecage_data.kl_pitch_1')
+        initial_date = date.today() + timedelta(days=-date.today().weekday(), weeks=1)
+        booking_start = datetime.combine(initial_date, datetime.min.time())
+
+        for num in range(0, quantity):
+            booking_end = booking_start + timedelta(hours=1)
+            if booking_end.hour > 18:
+                booking_start = (booking_start + timedelta(days=1)).replace(hour=0, minute=0, second=0)
+                if booking_start.weekday() > 4:
+                    booking_start = booking_start + timedelta(days=-5, weeks=1)
+                booking_end = booking_start + timedelta(hours=1)
+
+            t0 = time.time()
+            line = SaleOrderLine.sudo(wewanted_user).create({
+                'order_id': demo_so.id,
+                'product_id': product.id,
+                'venue_id': product.venue_id.id,
+                'pitch_id': pitch.id,
+                'product_uom_qty': 1,
+                'booking_start': booking_start.strftime(DTF),
+                'booking_end': booking_end.strftime(DTF), 'automatic': True,
+                'state': 'draft'
+            })
+            create_time = time.time() - t0
+            _logger.debug('\nCreated %d line in %.2fs \n', line.id, create_time)
+            print '\n\n\n', '\nCreated %d line in %.2fs \n' % (line.id, create_time), '\n\n\n'
+            booking_start = booking_start + timedelta(hours=1)
