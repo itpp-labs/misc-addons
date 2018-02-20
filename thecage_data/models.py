@@ -383,5 +383,4 @@ class DemoBookings(models.TransientModel):
             })
             create_time = time.time() - t0
             _logger.debug('\nCreated %d line in %.2fs \n', line.id, create_time)
-            print '\n\n\n', '\nCreated %d line in %.2fs \n' % (line.id, create_time), '\n\n\n'
             booking_start = booking_start + timedelta(hours=1)
