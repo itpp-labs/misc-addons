@@ -10,7 +10,7 @@
             <field name="interval_number">5</field>
             <field name="interval_type">minutes</field>
             <field name="numbercall">-1</field>
-            <field name="model" eval="'im_chat.presence'" />
+            <field name="model" eval="'res.users'" />
             <field name="function" eval="'check_stop_timer'" />
             <field name="args" eval="" />
             <field name="priority" eval="4" />
@@ -25,7 +25,7 @@
             <field name="interval_type">days</field>
             <field name="numbercall">-1</field>
             <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 00:00:00')" />
-            <field name="model" eval="'project.task.work'" />
+            <field name="model" eval="'account.analytic.line'" />
             <field name="function" eval="'subtask_new_status'" />
             <field name="args" eval="" />
             <field name="priority" eval="5" />
@@ -54,9 +54,9 @@
             <field name="interval_number">1</field>
             <field name="interval_type">minutes</field>
             <field name="numbercall">-1</field>
-            <field name="model" eval="'project.task'" />
-            <field name="function" eval="'stopline_timer'" />
-            <field name="args" eval="" />
+            <field name="model">project.task</field>
+            <field name="function">stopline_timer</field>
+            <field name="args">()</field>
             <field name="priority" eval="4" />
         </record>
 

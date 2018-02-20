@@ -20,7 +20,7 @@
                   <button name="change_state_waiting" type="object" string="Change state to WAITING" icon="fa-pause" attrs="{'invisible': [ '|',('state', '=', 'waiting'), ('hide_button', '=', True)]}"/>
                   <button name="change_state_cancelled" type="object" string="Change state to CANCELLED" icon="fa-ban" attrs="{'invisible': [ '|',('state', '=', 'cancelled'), ('hide_button', '=', True)]}"/>
                   <field name="reviewer_id"/>
-                  <field name="write_date" readonly="True"/>
+                  <field name="deadline"/>
                 </tree>
             </field>
           </page>
