@@ -1,7 +1,7 @@
 `1.0.23`
 --------
 
-- FIX: Wrong regular expression
+- FIX: Debranding problems after introducing new features
 
 `1.0.22`
 --------
