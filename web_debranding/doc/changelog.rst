@@ -1,3 +1,8 @@
+`1.0.23`
+--------
+
+- FIX: Wrong regular expression
+
 `1.0.22`
 --------
 
