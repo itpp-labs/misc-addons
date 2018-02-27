@@ -92,7 +92,7 @@ class ProjectTimelog(models.Model):
 class Task(models.Model):
     _inherit = "project.task"
 
-    datetime_stopline = fields.Datetime(string="Stopline", select=True, track_visibility='onchange', copy=False)
+    datetime_stopline = fields.Datetime(string="Stopline", index=True, track_visibility='onchange', copy=False)
     _track = {
         'datetime_stopline': {
             'project_timelog.mt_timelog_stopline': lambda self, cr, uid, obj, ctx=None: bool(obj.datetime_stopline),
