@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+
         <record model="ir.ui.view" id="view_task_form2_inherited">
             <field name="name">project.task.form.inherited</field>
             <field name="model">project.task</field>
-            <field name="inherit_id" ref="project_timesheet.view_task_form2_inherited" />
+            <field name="inherit_id" ref="hr_timesheet.view_task_form2_inherited" />
             <field name="priority" eval="999"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='timesheet_ids']/tree" position="replace">
-                    <tree editable="bottom" default_order="date">
-                        <field name="name" attrs="{'readonly': [('status', '=', 'nonactive')]}"/>
-                        <field name="status" invisible="1"/>
-                        <field name="user_current" invisible="1"/>
-                        <field name="task_allow_logs" invisible="1"/>
-                        <button name="play_timer" type="object" attrs="{'invisible': ['|','|','|',('status','=','play'), ('user_current', '=', False), ('status', '=', 'nonactive'), ('task_allow_logs', '=', False)]}"/>
-                        <button name="stop_timer" type="object" attrs="{'invisible': ['|','|','|',('status','=','stop'), ('status','=','nonactive'), ('status','=','active'), ('user_current', '=', False)]}"/>
-                        <field name="stage_id" readonly="1"/>
-                        <field name="date" readonly="1"/>
-                        <field name="user_id" required="1" readonly="1"/>
-                        <field name="account_id" readonly="1"/>
-                        <field name="is_timesheet" invisible="1"/>
-                        <field name="unit_amount" string="Duration" sum="Total time" widget="float_time" readonly="1"/>
-                    </tree>
+                <xpath expr="//field[@name='timesheet_ids']/tree/field[@name='date']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='timesheet_ids']/tree/field[@name='user_id']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='timesheet_ids']/tree/field[@name='unit_amount']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='timesheet_ids']/tree/field[@name='name']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('status', '=', 'nonactive')]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='timesheet_ids']/tree/field[@name='name']" position="after">
+                    <field name="status" invisible="1"/>
+                    <field name="user_current" invisible="1"/>
+                    <field name="task_allow_logs" invisible="1"/>
+                    <button name="play_timer" type="object" attrs="{'invisible': ['|','|','|',('status','=','play'), ('user_current', '=', False), ('status', '=', 'nonactive'), ('task_allow_logs', '=', False)]}"/>
+                    <button name="stop_timer" type="object" attrs="{'invisible': ['|','|','|',('status','=','stop'), ('status','=','nonactive'), ('status','=','active'), ('user_current', '=', False)]}"/>
+                    <field name="stage_id" readonly="1"/>
                 </xpath>
             </field>
         </record>
@@ -110,8 +115,8 @@
                     <field name="start_datetime" />
                     <field name="end_datetime" />
                     <field name="stage_id" />
-                    <field name="duration" string="Duration" widget="float_time" sum="Total Duration"/>
-                    <field name="corrected_duration" string="Corrected Duration" widget="float_time" sum="Total Corrected Duration"/>
+                    <field name="duration" string="Duration" widget="float_time" />
+                    <field name="corrected_duration" string="Corrected Duration" widget="float_time" sum="Total Duration"/>
                 </tree>
             </field>
         </record>
@@ -126,8 +131,8 @@
                     <field name="start_datetime" />
                     <field name="end_datetime" />
                     <field name="stage_id" />
-                    <field name="duration" string="Duration" widget="float_time" sum="Total Duration"/>
-                    <field name="corrected_duration" string="Corrected Duration" widget="float_time" sum="Total Corrected Duration"/>
+                    <field name="duration" string="Duration" widget="float_time" />
+                    <field name="corrected_duration" string="Corrected Duration" widget="float_time" sum="Total Duration"/>
                 </tree>
             </field>
         </record>
@@ -167,14 +172,17 @@
                     <field name="end_datetime" />
                     <filter name="today" string="Today" domain="[('start_datetime', '&gt;=',  datetime.datetime.combine(context_today(), datetime.time(0,0,0))), '|', ('end_datetime', '=', False), ('end_datetime', '&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59)))]"/>
                     <separator/>
-                    <filter name="week" string="This week" domain="[('start_datetime', '&gt;=', ((context_today()+relativedelta(weeks=-1, days=1, weekday=0)).strftime('%%Y-%%m-%%d'))+' '+'00:00:00'), '|', ('end_datetime', '=', False),
+                    <filter name="week" string="This week (monday)" domain="[('start_datetime', '&gt;=', ((context_today()+relativedelta(weeks=-1, days=1, weekday=0)).strftime('%%Y-%%m-%%d'))+' '+'00:00:00'), '|', ('end_datetime', '=', False),
                                                                         ('end_datetime', '&lt;=', ((context_today()+relativedelta(weeks=0, weekday=6)).strftime('%%Y-%%m-%%d'))+' '+'23:59:59')]"/>
+                    <filter name="week_sunday" string="This week (sunday)" domain="[('start_datetime', '&gt;=', ((context_today()+relativedelta(weeks=-1, days=1, weekday=-1)).strftime('%%Y-%%m-%%d'))+' '+'00:00:00'), '|', ('end_datetime', '=', False),
+                                                                        ('end_datetime', '&lt;=', ((context_today()+relativedelta(weeks=0, weekday=5)).strftime('%%Y-%%m-%%d'))+' '+'23:59:59')]"/>
                     <group string="Group By">
                         <filter name="group_projects" string="Projects" domain="[]" context="{'group_by':'project_name'}"/>
                         <filter name="group_tasks" string="Tasks" domain="[]" context="{'group_by':'task_name'}"/>
                         <filter name="group_subtasks" string="Subtasks" domain="[]" context="{'group_by':'work_id'}"/>
                         <filter name="group_months" string="Months" domain="[]" context="{'group_by':'start_datetime:month'}" help="Months"/>
-                        <filter name="group_weeks" string="Weeks" domain="[]" context="{'group_by':'start_datetime:week'}" help="Week"/>
+                        <filter name="group_weeks" string="Weeks Monday" domain="[]" context="{'group_by':'start_datetime:week'}" help="Week"/>
+                        <filter name="group_weeks_sunday" string="Weeks Sunday" domain="[]" context="{'group_by':'start_datetime:week_sunday'}" help="Week Sunday"/>
                         <filter name="group_days" string="Days" domain="[]" context="{'group_by':'start_datetime:day'}" help="Day"/>
                         <filter name="group_users" string="Users" context="{'group_by':'user_id'}" groups="project.group_project_manager"/>
                     </group>
@@ -270,7 +278,7 @@
             <field name="view_mode">tree</field>
         </record>
 
-        <menuitem id="menu_timelog_content" name="Timelog" parent="base.menu_main_pm"/>
+        <menuitem id="menu_timelog_content" name="Timelog" parent="project.menu_main_pm"/>
 
         <menuitem sequence="0" id="menu_new_my_timelog_content"
                   parent="menu_timelog_content"
