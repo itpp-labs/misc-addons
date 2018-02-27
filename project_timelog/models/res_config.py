@@ -13,6 +13,7 @@ class TimelogConfigSettings(models.TransientModel):
 
     normal_time_week = fields.Float(string='Set normal time', help="""Setting time standards provided throughout the week""")
     good_time_week = fields.Float(string='Set good time', help="""Set in excess of the time allowed for the week""")
+    first_weekday = fields.Selection([('monday', 'Monday'), ('sunday', 'Sunday')], string='Beginning of the Week', default='monday')
 
     @api.multi
     def set_custom_parameters(self):
@@ -25,6 +26,7 @@ class TimelogConfigSettings(models.TransientModel):
             config_parameters.set_param(key="project_timelog.good_time_day", value=record.good_time_day)
             config_parameters.set_param(key="project_timelog.normal_time_week", value=record.normal_time_week)
             config_parameters.set_param(key="project_timelog.good_time_week", value=record.good_time_week)
+            config_parameters.set_param(key="project_timelog.first_weekday", value=record.first_weekday)
 
     @api.multi
     def get_default_custom_parameters(self, fields=None):
@@ -36,6 +38,7 @@ class TimelogConfigSettings(models.TransientModel):
             'good_time_day': icp.get_param('project_timelog.good_time_day'),
             'normal_time_week': icp.get_param('project_timelog.normal_time_week'),
             'good_time_week': icp.get_param('project_timelog.good_time_week'),
+            'first_weekday': icp.get_param('project_timelog.first_weekday'),
         }
 
     @api.model
@@ -47,3 +50,4 @@ class TimelogConfigSettings(models.TransientModel):
         icp.set_param(key="project_timelog.good_time_day", value=6)
         icp.set_param(key="project_timelog.normal_time_week", value=30)
         icp.set_param(key="project_timelog.good_time_week", value=40)
+        icp.set_param(key="project_timelog.first_weekday", value='monday')
