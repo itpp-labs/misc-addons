@@ -666,6 +666,5 @@ class SaleOrder(models.Model):
     @api.multi
     @api.constrains('state')
     def _check_state(self):
-        if self.state not in ['draft'] and \
-           self.env['sale.order.line'].search_count([('order_id', '=', self.id), ('overlap', '=', 'True')]):
+        if self.env['sale.order.line'].search_count([('order_id', '=', self.id), ('overlap', '=', 'True')]):
             raise ValidationError(_('There are lines with overlap in this order. Please move overlapping lines to another time or resource'))
