@@ -227,8 +227,8 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     resource_id = fields.Many2one('resource.resource', 'Resource')
-    booking_start = fields.Datetime(string="Date start")
-    booking_end = fields.Datetime(string="Date end")
+    booking_start = fields.Datetime(string="Date start", select=True)
+    booking_end = fields.Datetime(string="Date end", select=True)
     calendar_id = fields.Many2one('resource.calendar', related='product_id.calendar_id', store=True)
     project_id = fields.Many2one('account.analytic.account', compute='_compute_dependent_fields', store=False, string='Contract')
     partner_id = fields.Many2one('res.partner', compute='_compute_dependent_fields', store=False, string='Customer')
@@ -666,6 +666,5 @@ class SaleOrder(models.Model):
     @api.multi
     @api.constrains('state')
     def _check_state(self):
-        if self.search_count([('state', 'not in', ['draft'])]) and \
-           self.env['sale.order.line'].search_count([('order_id', '=', self.id), ('overlap', '=', 'True')]):
+        if self.env['sale.order.line'].search_count([('order_id', '=', self.id), ('overlap', '=', 'True')]):
             raise ValidationError(_('There are lines with overlap in this order. Please move overlapping lines to another time or resource'))
