@@ -227,8 +227,8 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     resource_id = fields.Many2one('resource.resource', 'Resource')
-    booking_start = fields.Datetime(string="Date start")
-    booking_end = fields.Datetime(string="Date end")
+    booking_start = fields.Datetime(string="Date start", select=True)
+    booking_end = fields.Datetime(string="Date end", select=True)
     calendar_id = fields.Many2one('resource.calendar', related='product_id.calendar_id', store=True)
     project_id = fields.Many2one('account.analytic.account', compute='_compute_dependent_fields', store=False, string='Contract')
     partner_id = fields.Many2one('res.partner', compute='_compute_dependent_fields', store=False, string='Customer')
