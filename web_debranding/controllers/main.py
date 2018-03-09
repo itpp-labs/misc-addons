@@ -74,7 +74,7 @@ class WebClientCustom(WebClient):
         content, checksum = controllers_main.concat_xml(files)
         if request.context['lang'] == 'en_US':
             # request.env could be not available
-            content = debrand_bytes(request.session.db and request.env or None, content)
+            content = debrand(request.session.db and request.env or None, content)
 
         return controllers_main.make_conditional(
             request.make_response(content, [('Content-Type', 'text/xml')]),
