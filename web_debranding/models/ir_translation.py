@@ -42,7 +42,9 @@ def debrand(env, source, is_code=False):
     # https://github.com/odoo/odoo/blob/11.0/addons/web/views/webclient_templates.xml#L260
     # odoo[
     # https://github.com/odoo/odoo/blob/11.0/addons/web_editor/views/iframe.xml#L43-L44
-    source = re.sub(r'\bodoo(?!\.\S|\s?=|\w|\[)\b', new_name, source, flags=re.IGNORECASE)
+    # SMTH.odoo
+    # https://github.com/odoo/odoo/blob/11.0/addons/web_editor/views/iframe.xml#L43
+    source = re.sub(r'\b(?<!\.)odoo(?!\.\S|\s?=|\w|\[)\b', new_name, source, flags=re.IGNORECASE)
 
     return source
 

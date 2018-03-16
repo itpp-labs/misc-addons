@@ -1,3 +1,8 @@
+`1.0.24`
+--------
+
+- FIX: Save button on POS creating/editing
+
 `1.0.23`
 --------
 
