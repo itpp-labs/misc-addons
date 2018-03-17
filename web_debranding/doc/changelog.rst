@@ -1,7 +1,7 @@
 `1.0.24`
 --------
 
-- FIX: Save button on POS creating/editing
+- FIX: Save\Create button didn't react in ``Point of Sale`` records
 
 `1.0.23`
 --------
