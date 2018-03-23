@@ -2,10 +2,12 @@
 import logging
 
 from odoo import models, fields, api, _, tools
-from odoo.addons.base.ir.ir_config_parameter import IrConfigParameter as IrConfigParameterOriginal
+from odoo.addons.base.ir.ir_config_parameter import IrConfigParameter as IrConfigParameterOriginal, _default_parameters
 
 _logger = logging.getLogger(__name__)
 PROP_NAME = _('Default value for "%s"')
+
+DATABASE_SECRET_KEY = 'database.secret'
 
 
 class IrConfigParameter(models.Model):
@@ -25,6 +27,12 @@ class IrConfigParameter(models.Model):
         return res
 
     @api.model
+    def reset_database_secret(self):
+        value, groups = _default_parameters[DATABASE_SECRET_KEY]()
+        self.set_param(DATABASE_SECRET_KEY, value, groups=groups)
+        return value
+
+    @api.model
     def get_param(self, key, default=False):
         company_id = self.env.context.get('company_id')
         if not company_id:
@@ -36,7 +44,14 @@ class IrConfigParameter(models.Model):
         if not company_id:
             company_id = self.env.user.company_id.id
 
-        return super(IrConfigParameter, self.with_context(force_company=company_id)).get_param(key, default)
+        self_company = self.with_context(force_company=company_id)
+        res = super(IrConfigParameter, self_company).get_param(key, default)
+        if key == DATABASE_SECRET_KEY and not res:
+            # If we have empty database.secret, we reset it automatically
+            # otherwise admin cannot even login
+            return self_company.reset_database_secret()
+
+        return res
 
     @api.model
     @tools.ormcache_context('self._uid', 'key', keys=("force_company",))
