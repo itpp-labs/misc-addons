@@ -1,3 +1,8 @@
+`1.1.0`
+-------
+
+- **ADD:** automatically resolve problem with csrf-token
+
 `1.0.1`
 -------
 
