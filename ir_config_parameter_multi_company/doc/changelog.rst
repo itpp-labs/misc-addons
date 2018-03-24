@@ -1,3 +1,9 @@
+`2.0.0`
+-------
+
+- **IMP:** removing module is not dangerous anymore
+- **FIX:** after updating module base some parameters losted their values
+
 `1.1.0`
 -------
 
