@@ -331,6 +331,7 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def invoice_validate(self):
+        _logger.debug('invoice_validate START')
         for invoice_obj in self.filtered(lambda r: r.type == 'out_refund'):
             for invoice_line_obj in invoice_obj.invoice_line:
                 bookings = self.env['sale.order.line'].search([('pitch_id', '=', invoice_line_obj.pitch_id.id),

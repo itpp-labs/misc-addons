@@ -41,6 +41,7 @@ class ResourceResource(models.Model):
         now = datetime.now()
 
         for r in self:
+            _logger.debug('resource search_booking_lines START %s', [r.id, start, end])
             r_domain = copy.copy(domain)
             start_dt = datetime.strptime(start, DTF)
             if online and r.hours_to_prepare:
@@ -70,6 +71,7 @@ class ResourceResource(models.Model):
             r_domain.append(('booking_end', '>=', end_dt.strftime(DTF)))
 
             bookings += self.env['sale.order.line'].search(r_domain)
+            _logger.debug('resource search_booking_lines end %s', [r.id, r_domain])
 
         return bookings
 
@@ -104,6 +106,7 @@ class ResourceCalendar(models.Model):
             Takes in account minutes
             Adds public holidays time (resource leaves with reason = PH)
         """
+        _logger.debug('get_working_accurate_hours START %s', [start_dt, end_dt])
         leave_obj = self.env['resource.calendar.leaves']
         for calendar in self:
             product = self.env['product.template'].search([('calendar_id', '=', calendar.id)])
@@ -173,10 +176,12 @@ class ResourceCalendar(models.Model):
             for interval in clean_intervals:
                 hours += (end_dt - start_dt) - (interval[1] - interval[0])
 
+        _logger.debug('get_working_accurate_hours END')
         return seconds(hours) / 3600.0
 
     @api.multi
     def validate_time_limits(self, booking_start, booking_end):
+        _logger.debug('validate_time_limits START %s', [booking_start, booking_end])
         # localize UTC dates to be able to compare with hours in Working Time
         tz_offset = self.env.context.get('tz_offset')
         if tz_offset:
@@ -191,6 +196,7 @@ class ResourceCalendar(models.Model):
             duration = seconds(end_dt - start_dt) / 3600.0
             if round(hours, 2) != round(duration, 2):
                 return False
+        _logger.debug('validate_time_limits END')
         return True
 
     @api.model
@@ -254,9 +260,11 @@ class SaleOrderLine(models.Model):
 
     @api.model
     def is_overlaps(self, resource_id, booking_start, booking_end, self_ids=None):
+        _logger.debug('is_overlaps START %s', [resource_id, booking_start, booking_end])
         if not self_ids:
             self_ids = []
         overlaps = 0
+
         if resource_id and booking_start and booking_end:
             overlaps = self.search_count([('active', '=', True),
                                           '&', '|', '&', ('booking_start', '>=', booking_start), ('booking_start', '<', booking_end),
@@ -265,12 +273,14 @@ class SaleOrderLine(models.Model):
                                           ('id', 'not in', self_ids),
                                           ('resource_id', '=', resource_id),
                                           ('state', '!=', 'cancel')])
+            _logger.debug('before second search_count')
             overlaps += self.search_count([('active', '=', True),
                                            ('id', 'not in', self_ids),
                                            ('booking_start', '=', booking_start),
                                            ('booking_end', '=', booking_end),
                                            ('resource_id', '=', resource_id),
                                            ('state', '!=', 'cancel')])
+        _logger.debug('is_overlaps END')
         return overlaps
 
     @api.multi
@@ -291,6 +301,7 @@ class SaleOrderLine(models.Model):
     def _check_overlap(self):
         for line in self:
             if line.overlap:
+                _logger.debug('_check_overlap ******************')
                 overlaps_with = self.search([('active', '=', True),
                                              '&', '|', '&', ('booking_start', '>', line.booking_start), ('booking_start', '<', line.booking_end),
                                              '&', ('booking_end', '>', line.booking_start), ('booking_end', '<', line.booking_end),
@@ -341,6 +352,7 @@ class SaleOrderLine(models.Model):
     @api.constrains('resource_trigger', 'booking_start', 'booking_end')
     def _check_working_time_slots(self):
         for line in self:
+            _logger.debug('_check_working_time_slots START %s', line.id)
             user_tz = pytz.timezone(self.env.context.get('tz') or 'UTC')
             if line.resource_id and line.resource_id.has_slot_calendar:
                 resource = line.resource_id
@@ -366,9 +378,11 @@ class SaleOrderLine(models.Model):
                 if (start_dt not in allowed_start) or (end_dt not in allowed_end):
                     msg = "There are bookings with times outside the allowed boundary"
                     raise ValidationError(msg)
+            _logger.debug('_check_working_time_slots END %s', line.id)
 
     @api.model
     def search_booking_lines(self, start, end, domain):
+        _logger.debug('search_booking_lines line START %s', [start, end, domain]) 
         domain.append(('state', '!=', 'cancel'))
         domain.append(('booking_end', '>=', fields.Datetime.now()))
         domain.append('|')
@@ -382,6 +396,7 @@ class SaleOrderLine(models.Model):
         domain.append('&')
         domain.append(('booking_start', '<=', start))
         domain.append(('booking_end', '>=', end))
+        _logger.debug('search_booking_lines line END %s', [start, end, domain]) 
         return self.search(domain)
 
     @api.multi
@@ -396,6 +411,7 @@ class SaleOrderLine(models.Model):
 
     @api.model
     def get_bookings(self, start, end, offset, domain, online=False):
+        _logger.debug('get_bookings START')
         bookings = self.env['resource.resource'].sudo().search([]).search_booking_lines(start, end, domain, online=online)
         slot_calendar_bookings = bookings.filtered(lambda r: r.resource_id.has_slot_calendar)
         ordinary_bookings = bookings - slot_calendar_bookings
@@ -466,6 +482,7 @@ class SaleOrderLine(models.Model):
 
     @api.onchange('booking_start', 'booking_end')
     def _on_change_booking_time(self):
+        _logger.debug('_on_change_booking_time')
         domain = {'product_id': []}
         if self.venue_id:
             domain['product_id'].append(('venue_id', '=', self.venue_id.id))
@@ -501,6 +518,7 @@ class SaleOrderLine(models.Model):
 
     @api.model
     def create(self, values):
+        _logger.debug('line create START')
         if not values.get('order_id') and values.get('partner_id'):
             order_obj = self.env['sale.order']
             order_vals = order_obj.onchange_partner_id(values.get('partner_id'))['value']
@@ -510,7 +528,11 @@ class SaleOrderLine(models.Model):
             })
             order = order_obj.create(order_vals)
             values.update({'order_id': order.id})
-        return super(SaleOrderLine, self).create(values)
+            _logger.debug('line create: values is updated')
+        _logger.debug('line create: call super')
+        res = super(SaleOrderLine, self).create(values)
+        _logger.debug('line create END')
+        return res
 
     @api.onchange('product_id')
     def _on_change_product_id(self):
@@ -561,6 +583,7 @@ class SaleOrderLine(models.Model):
 
     @api.model
     def del_booked_slots(self, slots, start, end, resources, offset, fixed_start_dt, end_dt):
+        _logger.debug('del_booked_slots START')
         now = datetime.now() - timedelta(minutes=SLOT_START_DELAY_MINS) - timedelta(minutes=offset)
         lines = self.search_booking_lines(start, end, [('resource_id', 'in', [r['id'] for r in resources])])
         for l in lines:
@@ -666,5 +689,7 @@ class SaleOrder(models.Model):
     @api.multi
     @api.constrains('state')
     def _check_state(self):
+        _logger.debug('_check_state START')
         if self.env['sale.order.line'].search_count([('order_id', '=', self.id), ('overlap', '=', 'True')]):
             raise ValidationError(_('There are lines with overlap in this order. Please move overlapping lines to another time or resource'))
+        _logger.debug('_check_state END')
