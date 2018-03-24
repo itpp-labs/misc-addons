@@ -14,6 +14,8 @@ class Users(models.Model):
 
         DIFFERENCE from original: read database.secret via orm.
         See https://github.com/odoo/odoo/pull/22612#issuecomment-375040429
+
+        TODO: we don't really need this redefinition, because in current version of the module column value is presented and up-to-date. Keep it until we are sure, that without this redefinition everything works after migration from previous versions fo the module.
         """
         database_secret = self.env['ir.config_parameter'].sudo().get_param('database.secret')
         # retrieve the fields used to generate the session token

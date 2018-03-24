@@ -85,19 +85,18 @@ For understanding which values are default and which are company dependent do as
 Uninstallation
 ==============
 
-* Uninstallation is quite risky! Be very carefull to do it on production!
-* Make database backup
+On uninstallation parameter values are restored to *Default values* (see above).
+Nevertheless, it's recommended to follow steps below, if you are not sure, that
+those values are ones you need.
+
+* It's recommended to make database backup before uninstallating the module
 * Open menu ``[[ Settings ]] >> Technical >> Parameters >> System Parameters``
-* Make Export of all records (``[Action] -> Export``) -- exporting only column ``value`` is enough
+* Make Export of all records (``[Action] -> Export``) -- exporting only column ``value`` is enough.
 * Click ``[Import]`` button
 * Upload ``*.csv`` file
 * Click ``[Validate]`` -- it must not return errors!
 * Don't close current page!
-* At other page:
-
-  * uninstall module
-  * Upgrade ``base`` module
-
+* Uninstall the module at another page:
 * Return back to page with importing
 * Click ``[Import]``
 
