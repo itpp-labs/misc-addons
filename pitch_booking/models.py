@@ -50,6 +50,19 @@ class PitchBookingPitch(models.Model):
     venue_id = fields.Many2one('pitch_booking.venue', required=True)
     resource_id = fields.Many2one('resource.resource', ondelete='cascade', required=True)
 
+    @api.multi
+    def write(self, vals):
+        if vals.get('resource_id'):
+            for r in self:
+                vals_copy = vals.copy()
+                if r.resource_id.id == vals.get('resource_id'):
+                    # remove to don't trigger changing event (it leads to recomputing resource_id in sale.order.line
+                    del vals_copy['resource_id']
+                super(PitchBookingPitch, r).write(vals_copy)
+            return True
+        else:
+            return super(PitchBookingPitch, self).write(vals)
+
     @api.model
     def generate_slot(self, start_dt, end_dt, online=False, offset=0, calendar=False):
         self.ensure_one()
