@@ -96,7 +96,7 @@ those values are ones you need.
 * Upload ``*.csv`` file
 * Click ``[Validate]`` -- it must not return errors!
 * Don't close current page!
-* Uninstall the module at another page:
+* Uninstall the module at another page
 * Return back to page with importing
 * Click ``[Import]``
 
