@@ -64,8 +64,8 @@ class IrConfigParameter(models.Model):
 
     @api.model
     def reset_database_secret(self):
-        value, groups = _default_parameters[DATABASE_SECRET_KEY]()
-        self.set_param(DATABASE_SECRET_KEY, value, groups=groups)
+        value = _default_parameters[DATABASE_SECRET_KEY]()
+        self.set_param(DATABASE_SECRET_KEY, value)
         return value
 
     @api.model
