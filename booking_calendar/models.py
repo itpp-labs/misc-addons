@@ -266,11 +266,19 @@ class SaleOrderLine(models.Model):
         overlaps = 0
 
         if resource_id and booking_start and booking_end:
-            overlaps = self.search_count([('active', '=', True),
-                                          '&', '|', '&', ('booking_start', '>=', booking_start), ('booking_start', '<', booking_end),
+            overlaps = self.search_count(['&',
+                                          '|',
+                                          '&', ('booking_start', '<=', booking_start), ('booking_end', '>=', booking_end),
+                                          '|',
+                                          '&', ('booking_start', '>=', booking_start), ('booking_start', '<', booking_end),
                                           '&', ('booking_end', '>', booking_start), ('booking_end', '<=', booking_end),
+                                          '&',
+                                          ('active', '=', True),
+                                          '&',
                                           ('resource_id', '!=', False),
+                                          '&',
                                           ('id', 'not in', self_ids),
+                                          '&',
                                           ('resource_id', '=', resource_id),
                                           ('state', '!=', 'cancel')])
             _logger.debug('before second search_count')
@@ -302,11 +310,19 @@ class SaleOrderLine(models.Model):
         for line in self:
             if line.overlap:
                 _logger.debug('_check_overlap ******************')
-                overlaps_with = self.search([('active', '=', True),
-                                             '&', '|', '&', ('booking_start', '>', line.booking_start), ('booking_start', '<', line.booking_end),
-                                             '&', ('booking_end', '>', line.booking_start), ('booking_end', '<', line.booking_end),
+                overlaps_with = self.search(['&',
+                                             '|',
+                                             '&', ('booking_start', '<=', line.booking_start), ('booking_end', '>=', line.booking_end),
+                                             '|',
+                                             '&', ('booking_start', '>=', line.booking_start), ('booking_start', '<', line.booking_end),
+                                             '&', ('booking_end', '>', line.booking_start), ('booking_end', '<=', line.booking_end),
+                                             '&',
+                                             ('active', '=', True),
+                                             '&',
                                              ('resource_id', '!=', False),
+                                             '&',
                                              ('id', '!=', line.id),
+                                             '&',
                                              ('resource_id', '=', line.resource_id.id),
                                              ('state', '!=', 'cancel')])
                 overlaps_with += self.search([('active', '=', True),
