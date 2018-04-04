@@ -93,16 +93,14 @@ class SaleOrderLine(models.Model):
     pitch_id = fields.Many2one(track_visibility='onchange')
     product_id = fields.Many2one(track_visibility='onchange')
 
-    @api.onchange('booking_start')
-    def _on_change_booking_start(self):
-        self.booking_reminder = False
-
     @api.multi
     def write(self, vals):
         result = super(SaleOrderLine, self).write(vals)
         for r in self:
             if vals.get('booking_start') or vals.get('booking_end'):
                 r.send_booking_time()
+            if vals.get('booking_start'):
+                self.booking_reminder = False
         return result
 
     @api.multi
