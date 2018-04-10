@@ -6,13 +6,16 @@ class SaleOrder(models.Model):
 
     def create_purchase_order(self):
         view = self.env.ref('purchase_order_from_so.purchase_order_wizard_form')
-        vals = {
-            'partner_id': self.partner_id.id,
-            'date_order': self.date_order,
-            'currency_id': self.currency_id.id,
-            'company_id': self.company_id.id,
-            # 'picking_type_id': self.company_id.street,
-        }
+        vals = self.env['purchase.order.wizard'].create_po_from_so(self)
+        # vals = {
+        #     'partner_id': self.partner_id.id,
+        #     'date_order': self.date_order,
+        #     'currency_id': self.currency_id.id,
+        #     'company_id': self.company_id.id,
+        #     # 'picking_type_id': self.company_id.street,
+        #     'order_line':
+        # }
+        print('oooooooooooooo', vals)
         wiz = self.env['purchase.order.wizard'].create(vals)
         return {
             'name': _('Create wizard'),

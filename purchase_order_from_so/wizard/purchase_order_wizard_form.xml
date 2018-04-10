@@ -48,28 +48,28 @@
                             <field name="company_id"/>
                         </group>
                     </group>
-                    <!--<notebook>-->
-                        <!--<page string="Products">-->
-                            <!--<field name="order_line" attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}">-->
-                                 <!--<tree string="Purchase Order Lines" editable="bottom">-->
+                    <notebook>
+                        <page string="Products">
+                            <field name="order_line">
+                                 <tree string="Purchase Order Lines" editable="bottom">
                                     <!--<field name="currency_id" invisible="1"/>-->
                                     <!--<field name="state" invisible="1"/>-->
                                     <!--<field name="sequence" widget="handle"/>-->
-                                    <!--<field name="product_id" attrs="{'readonly': [('state', 'in', ('purchase', 'to approve','done', 'cancel'))]}" context="{'partner_id':parent.partner_id, 'quantity':product_qty,'uom':product_uom, 'company_id': parent.company_id}" force_save="1"/>-->
-                                    <!--<field name="name"/>-->
+                                    <field name="product_id"/>
+                                    <field name="name"/>
                                     <!--<field name="move_dest_ids" invisible="1"/>-->
-                                    <!--<field name="date_planned"/>-->
+                                    <field name="date_planned"/>
                                     <!--<field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>-->
                                     <!--<field name="account_analytic_id" context="{'default_partner_id':parent.partner_id}" groups="purchase.group_analytic_accounting"/>-->
                                     <!--<field name="analytic_tag_ids" groups="purchase.group_analytic_accounting" widget="many2many_tags" options="{'color_field': 'color'}"/>-->
-                                    <!--<field name="product_qty"/>-->
+                                    <field name="product_qty"/>
                                     <!--<field name="qty_received" invisible="not context.get('show_purchase', True)"/>-->
                                     <!--<field name="qty_invoiced" invisible="not context.get('show_purchase', True)"/>-->
-                                    <!--<field name="product_uom" groups="product.group_uom" attrs="{'readonly': [('state', 'in', ('purchase', 'done', 'cancel'))]}" force_save="1"/>-->
-                                    <!--<field name="price_unit"/>-->
+                                    <field name="product_uom"/>
+                                    <field name="price_unit"/>
                                     <!--<field name="taxes_id" widget="many2many_tags" domain="[('type_tax_use','=','purchase')]" context="{'default_type_tax_use': 'purchase'}" options="{'no_create': True}"/>-->
                                     <!--<field name="price_subtotal" widget="monetary"/>-->
-                                <!--</tree>-->
+                                </tree>
                                 <!--<form string="Purchase Order Line">-->
                                     <!--<sheet>-->
                                         <!--<group>-->
@@ -101,7 +101,7 @@
                                         <!--</notebook>-->
                                     <!--</sheet>-->
                                 <!--</form>-->
-                            <!--</field>-->
+                            </field>
                             <!--<group class="oe_subtotal_footer oe_right">-->
                                 <!--<field name="amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}"/>-->
                                 <!--<field name="amount_tax" widget="monetary" options="{'currency_field': 'currency_id'}"/>-->
@@ -112,7 +112,7 @@
                             <!--</group>-->
                             <!--<field name="notes" class="oe_inline" placeholder="Define your terms and conditions ..."/>-->
                             <!--<div class="oe_clear"/>-->
-                        <!--</page>-->
+                        </page>
                         <!--<page string="Deliveries &amp; Invoices">-->
                             <!--<group>-->
                                 <!--<group>-->
@@ -138,7 +138,7 @@
                                 <!--</group>-->
                             <!--</group>-->
                         <!--</page>-->
-                    <!--</notebook>-->
+                    </notebook>
                 </sheet>
                 </form>
             </field>
