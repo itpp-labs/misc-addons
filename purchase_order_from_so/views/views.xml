@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). -->
+
+<odoo>
+    <data>
+
+        <record id="action_po_from_so" model="ir.actions.act_window">
+            <field name="name">Generate Purchase order from the Sale Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <!--<field name="context">{'active_id': order_id}</field>-->
+        </record>
+
+        <record id="view_order_form_new" model="ir.ui.view">
+            <field name="name">sale.order.form.select</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='print_quotation']" position="before">
+                    <!--<button name="create_purchase_order" string="Create Purchase Order" type="object"/>-->
+                    <button name="create_purchase_order" type="object" string="Create Purchase Order" class="oe_highlight"/>
+                    <!--<button name="%(action_po_from_so)d" type="action" string="Create Purchase Order" class="oe_highlight"/>-->
+                </xpath>
+            </field>
+        </record>
+        <act_window id="act_window_po_from_so"
+            name="Generate Purchase order"
+            src_model="sale.order"
+            res_model="purchase.order.wizard"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+
+    </data>
+</odoo>
