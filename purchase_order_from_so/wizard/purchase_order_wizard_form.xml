@@ -35,7 +35,7 @@
                     </div>
                     <group>
                         <group>
-                            <field name="partner_id" />
+                            <field name="partner_id" domain="[('supplier','=',True)]"/>
                                    <!--context="{'search_default_supplier':1, 'default_supplier':1, 'default_customer':0}" -->
                                    <!--domain="[('supplier','=',True)]"-->
                             <!--<field name="partner_ref"/>-->
@@ -50,7 +50,7 @@
                     </group>
                     <notebook>
                         <page string="Products">
-                            <field name="order_line">
+                            <field name="order_line_ids">
                                  <tree string="Purchase Order Lines" editable="bottom">
                                     <!--<field name="currency_id" invisible="1"/>-->
                                     <!--<field name="state" invisible="1"/>-->
@@ -62,11 +62,13 @@
                                     <!--<field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>-->
                                     <!--<field name="account_analytic_id" context="{'default_partner_id':parent.partner_id}" groups="purchase.group_analytic_accounting"/>-->
                                     <!--<field name="analytic_tag_ids" groups="purchase.group_analytic_accounting" widget="many2many_tags" options="{'color_field': 'color'}"/>-->
-                                    <field name="product_qty"/>
+                                    <field name="product_qty_sold"/>
                                     <!--<field name="qty_received" invisible="not context.get('show_purchase', True)"/>-->
                                     <!--<field name="qty_invoiced" invisible="not context.get('show_purchase', True)"/>-->
                                     <field name="product_uom"/>
+                                    <field name="product_qty_to_order"/>
                                     <field name="price_unit"/>
+                                    <field name="partner_id"/>
                                     <!--<field name="taxes_id" widget="many2many_tags" domain="[('type_tax_use','=','purchase')]" context="{'default_type_tax_use': 'purchase'}" options="{'no_create': True}"/>-->
                                     <!--<field name="price_subtotal" widget="monetary"/>-->
                                 </tree>
@@ -140,6 +142,10 @@
                         <!--</page>-->
                     </notebook>
                 </sheet>
+                    <footer>
+                        <button name="create_purchase_orders" string="Create Purchase Orders" type="object" class="btn-primary"/>
+                        <button special="cancel" string="Cancel" class="btn-default"/>
+                    </footer>
                 </form>
             </field>
         </record>

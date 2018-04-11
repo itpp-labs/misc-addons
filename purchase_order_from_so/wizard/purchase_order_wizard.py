@@ -6,7 +6,7 @@ class PurchaseOrderWizard(models.TransientModel):
     _name = 'purchase.order.wizard'
     _description = 'Generate Purchase Order from Sale Order'
 
-    partner_id = fields.Many2one('res.partner', string='Vendor', required=True, change_default=True)
+    partner_id = fields.Many2one('res.partner', string='Customer', required=True, change_default=True)
     name = fields.Char('Order Reference', required=True, index=True, copy=False, default='New')
     date_order = fields.Datetime('Order Date', required=True, index=True, copy=False, default=fields.Datetime.now,
                                  help="Depicts the date where the Quotation should be validated and converted into a purchase order.")
@@ -16,31 +16,53 @@ class PurchaseOrderWizard(models.TransientModel):
                                  default=lambda self: self.env.user.company_id.id)
     picking_type_id = fields.Many2one('stock.picking.type', 'Deliver To', required=True,
                                       help="This will determine operation type of incoming shipment")
-    order_line = fields.One2many('purchase.order.line.wizard', 'order_id', string='Order Lines', states={'cancel': [('readonly', True)], 'done': [('readonly', True)]}, copy=True)
+    order_line_ids = fields.One2many('purchase.order.line.wizard', 'order_id', string='Order Lines', copy=True)
+
+    def create_purchase_orders(self):
+        vendor_ids = map(lambda x: x.partner_id.id, self.order_line_ids)
+        for ven in vendor_ids:
+            p_order = self.env['purchase.order'].create({
+                'name': self.name,
+                'date_order': self.date_order,
+                'partner_id': ven,
+                'currency_id': self.currency_id.id,
+            })
+            print('ololo', ven, self.order_line_ids.filtered(lambda l: l.partner_id.id == ven))
+            for line in self.order_line_ids.filtered(lambda l: l.partner_id.id == ven):
+                o_line = self.env['purchase.order.line'].create({
+                    'name': line.name,
+                    'product_qty': line.product_qty_to_order,
+                    'date_planned': line.date_planned,
+                    'order_id': p_order.id,
+                    'product_uom': line.product_uom.id,
+                    'product_id': line.product_id.id,
+                    'price_unit': line.price_unit,
+                })
+                p_order.write({
+                    'order_line': [(4, o_line.id)]
+                })
+            print('~~~~~', p_order, p_order.order_line)
 
 
-    def create_po_from_so(self, s_order):
-        p_lines = []
+    def create_po_lines_from_so(self, s_order):
+        partner_id = self.env['res.partner'].search([('supplier', '=', True)]) \
+                                            .sorted(key=lambda p: p.purchase_order_count).ids[0]
         for line in s_order.order_line:
+            qty_available = self.env['product.product'].browse(line.product_id.id).qty_available
+            product_qty_to_order = max(line.product_uom_qty - qty_available, 0)
+
             p_line = self.env['purchase.order.line.wizard'].create({
                 'name': line.name,
-                'product_qty': line.product_uom_qty,
+                'product_qty_sold': line.product_uom_qty,
+                'product_qty_to_order': product_qty_to_order,
                 'date_planned': line.order_id.date_order,
                 'product_uom': line.product_uom.id,
                 'product_id': line.product_id.id,
                 'price_unit': line.price_unit,
-                'order_id': line.order_id.id,
+                'order_id': self.id,
+                'partner_id': partner_id,
             })
-            p_lines.append(p_line.id)
-
-        return {
-            'partner_id': s_order.partner_id.id,
-            'date_order': s_order.date_order,
-            'currency_id': s_order.currency_id.id,
-            'company_id': s_order.company_id.id,
-            # 'picking_type_id': self.company_id.street,
-            'order_line': p_lines,
-        }
+            self.order_line_ids += p_line
 
 
 class PurchaseOrderLineWizard(models.TransientModel):
@@ -48,15 +70,16 @@ class PurchaseOrderLineWizard(models.TransientModel):
     _description = 'Purchase Order Lines'
 
     name = fields.Text(string='Description', required=True)
-    product_qty = fields.Float(string='Quantity', digits=dp.get_precision('Product Unit of Measure'), required=True)
-    date_planned = fields.Datetime(string='Scheduled Date', required=True, index=True)
+    product_qty_sold = fields.Float(string='Quantity Sold', digits=dp.get_precision('Product Unit of Measure'), required=True)
+    product_qty_to_order = fields.Float(string='Quantity to Order', digits=dp.get_precision('Product Unit of Measure'))
+    date_planned = fields.Datetime(string='Order Date', required=True, index=True)
     product_uom = fields.Many2one('product.uom', string='Product Unit of Measure', required=True)
     product_id = fields.Many2one('product.product', string='Product', domain=[('purchase_ok', '=', True)], change_default=True, required=True)
     price_unit = fields.Float(string='Unit Price', required=True, digits=dp.get_precision('Product Price'))
+    partner_id = fields.Many2one('res.partner', string='Vendor')
 
     # price_subtotal = fields.Monetary(compute='_compute_amount', string='Subtotal', store=True)
     # price_total = fields.Monetary(compute='_compute_amount', string='Total', store=True)
     # price_tax = fields.Float(compute='_compute_amount', string='Tax', store=True)
 
     order_id = fields.Many2one('purchase.order.wizard', string='Order Reference', index=True, required=True, ondelete='cascade')
-

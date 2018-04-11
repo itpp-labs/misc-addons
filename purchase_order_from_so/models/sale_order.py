@@ -6,17 +6,16 @@ class SaleOrder(models.Model):
 
     def create_purchase_order(self):
         view = self.env.ref('purchase_order_from_so.purchase_order_wizard_form')
-        vals = self.env['purchase.order.wizard'].create_po_from_so(self)
-        # vals = {
-        #     'partner_id': self.partner_id.id,
-        #     'date_order': self.date_order,
-        #     'currency_id': self.currency_id.id,
-        #     'company_id': self.company_id.id,
-        #     # 'picking_type_id': self.company_id.street,
-        #     'order_line':
-        # }
+        vals = {
+            'partner_id': self.partner_id.id,
+            'date_order': self.date_order,
+            'currency_id': self.currency_id.id,
+            'company_id': self.company_id.id,
+        }
         print('oooooooooooooo', vals)
         wiz = self.env['purchase.order.wizard'].create(vals)
+        wiz.create_po_lines_from_so(self)
+        print('llllllllllllllllll', wiz, wiz.order_line_ids)
         return {
             'name': _('Create wizard'),
             'type': 'ir.actions.act_window',
@@ -29,6 +28,12 @@ class SaleOrder(models.Model):
             'res_id': wiz.id,
             'context': vals,
         }
-        # print(self, self.id)
-        # self.env['purchase.order.wizard'].create_purchase_order(self)
-        # print('OLOLO')
+
+    # return {
+    #     'partner_id': s_order.partner_id.id,
+    #     'date_order': s_order.date_order,
+    #     'currency_id': s_order.currency_id.id,
+    #     'company_id': s_order.company_id.id,
+    #     # 'picking_type_id': self.company_id.street,
+    #     'order_line': p_lines,
+    # }
