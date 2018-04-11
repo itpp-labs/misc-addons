@@ -1,7 +1,7 @@
 # Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
-from odoo import models, fields, api, _
+from odoo import models, fields, _
 from odoo.addons import decimal_precision as dp
 
 
@@ -26,7 +26,6 @@ class PurchaseOrderWizard(models.TransientModel):
     def create_purchase_orders(self):
         vendor_ids = map(lambda x: x.partner_id.id, self.order_line_ids)
         for ven in vendor_ids:
-            # if
             p_order = self.env['purchase.order'].create({
                 'name': self.name,
                 'date_order': self.date_order,
@@ -34,7 +33,6 @@ class PurchaseOrderWizard(models.TransientModel):
                 'currency_id': self.currency_id.id,
                 'sale_order_id': self.sale_order_id.id,
             })
-            print('ololo', ven, self.order_line_ids.filtered(lambda l: l.partner_id.id == ven))
             for line in self.order_line_ids.filtered(lambda l: l.partner_id.id == ven):
                 o_line = self.env['purchase.order.line'].create({
                     'name': line.name,
@@ -48,8 +46,6 @@ class PurchaseOrderWizard(models.TransientModel):
                 p_order.write({
                     'order_line': [(4, o_line.id)]
                 })
-            print('~~~~~', p_order, p_order.order_line)
-
 
     def create_po_lines_from_so(self, s_order):
         partner_id = self.env['res.partner'].search([('supplier', '=', True)]) \
@@ -84,9 +80,4 @@ class PurchaseOrderLineWizard(models.TransientModel):
     product_id = fields.Many2one('product.product', string='Product', domain=[('purchase_ok', '=', True)], change_default=True, required=True)
     price_unit = fields.Float(string='Unit Price', required=True, digits=dp.get_precision('Product Price'))
     partner_id = fields.Many2one('res.partner', string='Vendor')
-
-    # price_subtotal = fields.Monetary(compute='_compute_amount', string='Subtotal', store=True)
-    # price_total = fields.Monetary(compute='_compute_amount', string='Total', store=True)
-    # price_tax = fields.Float(compute='_compute_amount', string='Tax', store=True)
-
     order_id = fields.Many2one('purchase.order.wizard', string='Order Reference', index=True, required=True, ondelete='cascade')

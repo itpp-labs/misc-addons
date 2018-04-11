@@ -5,6 +5,13 @@ from odoo import models, fields, _
 
 
 class SaleOrder(models.Model):
+    _inherit = 'purchase.order'
+
+    sale_order_id = fields.Many2one('sale.order', string="Sale Order",
+                                    help="Not empty if an origin for purchase order was sale order")
+
+
+class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     purchased_orders = fields.Integer(compute="_compute_purchased_orders_number",
@@ -36,10 +43,3 @@ class SaleOrder(models.Model):
             'res_id': wizard.id,
             'context': vals,
         }
-
-
-class SaleOrder(models.Model):
-    _inherit = 'purchase.order'
-
-    sale_order_id = fields.Many2one('sale.order', string="Sale Order",
-                                    help="Not empty if an origin for purchase order was sale order")

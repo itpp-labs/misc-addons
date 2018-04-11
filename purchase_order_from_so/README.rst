@@ -2,11 +2,14 @@
    :target: https://www.gnu.org/licenses/lgpl
    :alt: License: LGPL-3
 
-================================
- Purchase Order from Sale Order
-================================
+=================================
+ Purchase Orders from Sale Order
+=================================
 
-Creates Purchase Order from Sale Order
+Creates Purchase Orders from Sale Order
+
+Automatically take data from *Sale Order* and creates *Purchase Order*
+Creates different orders for each vendor, specified in the wizard form
 
 Credits
 =======
