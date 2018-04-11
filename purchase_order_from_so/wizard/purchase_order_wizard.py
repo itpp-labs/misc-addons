@@ -1,3 +1,6 @@
+# Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+
 from odoo import models, fields, api, _
 from odoo.addons import decimal_precision as dp
 
@@ -17,15 +20,19 @@ class PurchaseOrderWizard(models.TransientModel):
     picking_type_id = fields.Many2one('stock.picking.type', 'Deliver To', required=True,
                                       help="This will determine operation type of incoming shipment")
     order_line_ids = fields.One2many('purchase.order.line.wizard', 'order_id', string='Order Lines', copy=True)
+    sale_order_id = fields.Many2one('sale.order', string="Sale Order", required=True,
+                                    help="Not empty if an origin for purchase order was sale order")
 
     def create_purchase_orders(self):
         vendor_ids = map(lambda x: x.partner_id.id, self.order_line_ids)
         for ven in vendor_ids:
+            # if
             p_order = self.env['purchase.order'].create({
                 'name': self.name,
                 'date_order': self.date_order,
                 'partner_id': ven,
                 'currency_id': self.currency_id.id,
+                'sale_order_id': self.sale_order_id.id,
             })
             print('ololo', ven, self.order_line_ids.filtered(lambda l: l.partner_id.id == ven))
             for line in self.order_line_ids.filtered(lambda l: l.partner_id.id == ven):
