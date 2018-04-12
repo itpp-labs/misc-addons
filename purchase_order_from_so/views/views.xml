@@ -34,7 +34,7 @@
                 </xpath>
                 <xpath expr="//button[@name='action_view_invoice']" position="after">
                     <button class="oe_stat_button" type="action" name="%(purchase_order_from_so.action_purchased_orders)d"
-                        icon="fa-download">
+                        icon="fa-shopping-cart">
                         <div class="o_form_field o_stat_info">
                             <field name="purchased_orders"/>
                             <span class="o_stat_text">Purchase Orders</span>
@@ -50,6 +50,18 @@
             view_mode="form"
             target="new"
             key2="client_action_multi"/>
+
+        <record id="purchase_order_form_inherited" model="ir.ui.view">
+            <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="sale_order_id" attrs="{'invisible': [('sale_order_id', 'in', [False, None])]}"/>
+                    <field name="customer_id" attrs="{'invisible': [('sale_order_id', 'in', [False, None])]}"/>
+                </xpath>
+            </field>
+        </record>
 
     </data>
 </odoo>

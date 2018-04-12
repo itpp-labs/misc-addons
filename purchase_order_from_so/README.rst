@@ -9,7 +9,8 @@
 Creates Purchase Orders from Sale Order
 
 Automatically take data from *Sale Order* and creates *Purchase Order*
-Creates different orders for each vendor, specified in the wizard form
+Creates different orders for each vendor, specified in the wizard form.
+Updates existed *Purchase order* if it was created for the same customer, vendor and *Sale Order*
 
 Credits
 =======

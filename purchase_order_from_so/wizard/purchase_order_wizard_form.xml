@@ -30,15 +30,18 @@
                     <notebook>
                         <page string="Products">
                             <field name="order_line_ids">
-                                 <tree string="Purchase Order Lines" editable="bottom">
+                                <tree string="Purchase Order Lines" editable="bottom">
                                     <field name="product_id"/>
                                     <field name="name"/>
                                     <field name="date_planned"/>
                                     <field name="product_qty_sold"/>
                                     <field name="product_uom"/>
                                     <field name="product_qty_to_order"/>
-                                    <field name="price_unit"/>
                                     <field name="partner_id"/>
+                                    <field name="purchase_price"/>
+                                    <field name="taxes_id" widget="many2many_tags" domain="[('type_tax_use','=','purchase')]" context="{'default_type_tax_use': 'purchase'}" options="{'no_create': True}"/>
+                                    <field name="total_price" readonly="1"/>
+                                    <field name="mto_product" readonly="1"/>
                                 </tree>
                             </field>
                         </page>
