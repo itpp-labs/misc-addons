@@ -1,15 +1,19 @@
+.. image:: https://img.shields.io/badge/license-LGPL--3-blue.png
+   :target: https://www.gnu.org/licenses/lgpl
+   :alt: License: LGPL-3
+
 ============================
  Sale Layout Hidden Section
 ============================
 
-This module allows to use layouts within specific Sale Order only.
+This module allows to use layouts (sections) within specific Sale Order only.
 
 Credits
 =======
 
 Contributors
 ------------
-* Artyom Losev <losev@it-projects.info>
+* Artyom Losev <apps@it-projects.info>
 
 Sponsors
 --------
@@ -18,6 +22,12 @@ Sponsors
 Maintainers
 -----------
 * `IT-Projects LLC <https://it-projects.info>`__
+
+      To get a guaranteed support you are kindly requested to purchase the module at `odoo apps store <https://apps.odoo.com/apps/modules/10.0/sale_layout_hidden_section/>`__.
+
+      Thank you for understanding!
+
+      `IT-Projects Team <https://www.it-projects.info/team>`__
 
 Further information
 ===================

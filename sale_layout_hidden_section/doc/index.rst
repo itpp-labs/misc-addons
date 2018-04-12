@@ -11,11 +11,25 @@ Installation
 Configuration
 =============
 
-* Open menu ``Sales >> Settings``
+* Open ``Sales >> Settings`` menu
 * Switch **Sales Reports Layout** to *Personalize the sales orders and invoice report with categories, subtotals and page-breaks*
 * Click ``[Apply]``
 
-Note
+Usage
 =====
 
-* Once you create new sale order, you need to save it after creating new layout (Section), otherwise layout will not be displayed on other order lines.
+* Open ``Sales >> Sale Orders`` menu
+* Click ``[Create]``
+* Add a product to sale order line
+* Create new section in ``Section`` field
+RESULT: the section created is available (selectable) for this SO only
+
+Global Section
+--------------
+
+At any time you are able to set a section as global at ``Sales >> Configuration >> Report Layout Categories`` menu. It means that the section will be available for all SO created.
+
+Note
+----
+
+Once you create new sale order, you need to save it after creating new layout (Section), otherwise layout will not be displayed on other order lines.
