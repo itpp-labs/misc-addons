@@ -7,6 +7,8 @@ Technical module that has to be used in other modules
 
 * adds grouping by hours
 
+  * This feature is built-in since odoo 12: see `commit <https://github.com/odoo/odoo/commit/cdf13bf70379600930649fa0cb11cb377901e39d>`_ or `PR <https://github.com/odoo/odoo/pull/22419>`_
+
 Credits
 =======
 
