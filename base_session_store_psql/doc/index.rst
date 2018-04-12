@@ -14,7 +14,7 @@ In current implementation, you don't need to install module via odoo interface.
 Configuration
 =============
 
-You can ``session_store_db`` value in config file (default value is ``session_store``). This database will be used to store sessions. 
+You can use ``session_store_db`` parameter in config file (default value is ``session_store``) to specify database where sessions are stored. 
 
 
 Uninstallation

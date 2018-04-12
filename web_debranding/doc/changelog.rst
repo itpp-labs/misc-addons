@@ -1,3 +1,20 @@
+`1.0.23`
+--------
+
+- FIX: Debranding problems after introducing new features
+
+`1.0.22`
+--------
+
+- FIX: method create didn't work via xmlrpc (e.g. on using Mail Composer)
+
+`1.0.20`
+--------
+
+- FIX: Remove official videos in planner
+- FIX: Replace "Odoo" in 'install aplication' mails
+- FIX: Remove Enterprise radio-buttons in Settings
+
 `1.0.19`
 --------
 

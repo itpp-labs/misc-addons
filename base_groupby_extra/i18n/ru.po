@@ -1,0 +1,39 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * base_groupby_extra
+# 
+# Translators:
+# Dinar <gabbasov@it-projects.info>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-22 11:27+0000\n"
+"PO-Revision-Date: 2017-11-22 11:27+0000\n"
+"Last-Translator: Dinar <gabbasov@it-projects.info>, 2017\n"
+"Language-Team: Russian (https://www.transifex.com/it-projects-llc/teams/76080/ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#. module: base_groupby_extra
+#: model:ir.model.fields,field_description:base_groupby_extra.field_base_groupby_extra_display_name
+msgid "Display Name"
+msgstr "Отображаемое имя"
+
+#. module: base_groupby_extra
+#: model:ir.model.fields,field_description:base_groupby_extra.field_base_groupby_extra_id
+msgid "ID"
+msgstr "ID"
+
+#. module: base_groupby_extra
+#: model:ir.model.fields,field_description:base_groupby_extra.field_base_groupby_extra___last_update
+msgid "Last Modified on"
+msgstr "Последний раз редактировалось"
+
+#. module: base_groupby_extra
+#: model:ir.model,name:base_groupby_extra.model_base_groupby_extra
+msgid "base_groupby_extra"
+msgstr ""

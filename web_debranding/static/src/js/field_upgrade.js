@@ -45,7 +45,6 @@ odoo.define('web_debranding.field_upgrade', function (require) {
         }
     };
 
-    //skip this for a while as we don't have example to test it
-    //UpgradeRadio.include(include);
+    UpgradeRadio.include(include);
     UpgradeBoolean.include(include);
 });
