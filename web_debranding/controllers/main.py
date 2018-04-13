@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-import openerp
-from openerp import http
-from openerp.addons.web.controllers.main import Binary
-from openerp.addons.web.controllers.main import WebClient
-from openerp.addons.web.controllers import main as controllers_main
+import odoo
+from odoo import http
+from odoo.addons.web.controllers.main import Binary
+from odoo.addons.web.controllers.main import WebClient
+from odoo.addons.web.controllers import main as controllers_main
 import functools
-from openerp.http import request
-from openerp.modules import get_module_resource
+from odoo.http import request
+from odoo.modules import get_module_resource
 from cStringIO import StringIO
 
 from ..models.ir_translation import debrand
@@ -35,14 +35,14 @@ class BinaryCustom(Binary):
             dbname = db_monodb()
 
         if not uid:
-            uid = openerp.SUPERUSER_ID
+            uid = odoo.SUPERUSER_ID
 
         if not dbname:
             response = http.send_file(placeholder(imgname))
         else:
             try:
                 # create an empty registry
-                registry = openerp.modules.registry.Registry(dbname)
+                registry = odoo.modules.registry.Registry(dbname)
                 with registry.cursor() as cr:
                     cr.execute("""SELECT c.logo_web, c.write_date
                                     FROM res_users u
@@ -87,6 +87,6 @@ class WebClientCustom(WebClient):
 
         for module_key, module_vals in res['modules'].iteritems():
             for message in module_vals['messages']:
-                message['id'] = request.env['ir.translation']._debrand(message['id'])
-                message['string'] = request.env['ir.translation']._debrand(message['string'])
+                message['id'] = debrand(request.env, message['id'])
+                message['string'] = debrand(request.env, message['string'])
         return res

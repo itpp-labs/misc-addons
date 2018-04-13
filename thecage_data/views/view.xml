@@ -172,6 +172,9 @@
           <xpath expr="//field[@name='pitch_id']" position="attributes">
             <attribute name="readonly">1</attribute>
           </xpath>
+          <xpath expr="//field[@name='pitch_id']" position="after">
+              <field name="booking_reminder" invisible="1"/>
+          </xpath>
         </field>
       </record>
       <record id="pitch_booking_view_booking_order_line_form_state" model="ir.ui.view">

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
     <data>
         <template id="debranding_title_js" name="Debranding title JS"
                   inherit_id="web.assets_backend">
@@ -22,4 +22,4 @@
             </xpath>
         </template>
     </data>
-</openerp>
+</odoo>

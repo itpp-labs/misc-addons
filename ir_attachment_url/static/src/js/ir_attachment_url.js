@@ -25,7 +25,7 @@ odoo.define('ir_attachment_url', function(require) {
                 this.$el.children(".input_url").remove();
                 this.$el.children(".o_form_image_controls").addClass("media_url_controls");
                 this.$el.prepend($(QWeb.render("AttachmentURL", {widget: this})));
-                this.$input = $(".input_url input");
+                this.$input = this.$(".input_url input");
             } else {
                 this.$el.children(".o_form_image_controls").removeClass("media_url_controls");
                 this.$el.children(".input_url").remove();

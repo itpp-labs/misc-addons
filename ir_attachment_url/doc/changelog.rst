@@ -1,3 +1,13 @@
+`1.1.3`
+-------
+
+- **FIX:** Error when using `avatar` controller (in `mail` module). For example it is used in `website_project` on `/my/projects` page
+
+`1.1.2`
+-------
+
+- **FIX:** Error on saving multiple URLs at once
+
 `1.1.1`
 -------
 

@@ -10,9 +10,19 @@ Installation
 Odoo parameters
 ===============
 
-* Add ``ir_attachment_url`` to ``--load`` parameters, e.g.::
+* Run Odoo with ``--load=web,web_kanban,ir_attachment_url``
+  or set the ``server_wide_modules``
+  option in The Odoo configuration file:
 
-    ./openerp-server --load web,ir_attachment_url --config=/path/to/openerp-server.conf
+::
+
+  [options]
+  (...)
+  server_wide_modules = web,web_kanban,ir_attachment_url
+  (...)
+
+* Note: without the configuration above the module UI wouldn't work - and you couldn't use `@` button on binary image fields to specify their urls manually.
+  All other functions of the module will work without the ``--load=...``, e.g. you can still use `ir_attachment_s3` that specifies urls for you in binary image fields.
 
 Usage
 =====

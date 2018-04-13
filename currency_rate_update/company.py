@@ -19,7 +19,7 @@
 #
 #
 
-from openerp import fields
+from openerp import fields, orm
 
 
 class ResCompany(orm.Model):

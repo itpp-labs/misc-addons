@@ -2,7 +2,7 @@
 {
     'name': 'Email confirmation on sign up',
     'summary': """New user is able to login only after confirming his/her email""",
-    'version': '1.0.0',
+    'version': '1.0.1',
     'author': 'IT-Projects LLC',
     'website': "https://it-projects.info",
     'license': 'LGPL-3',

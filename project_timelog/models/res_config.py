@@ -8,13 +8,16 @@ class TimelogConfigSettings(models.TransientModel):
 
     time_subtasks = fields.Float(string='Set completion time', help="""Set the time when the timer should stop""")
     time_warning_subtasks = fields.Float(string='Set warning time', help="""Set the time for how long the timer should warn that it will be stopped""")
+
     normal_time_day = fields.Float(string='Set normal time', help="""Setting time standards provided throughout the day""")
     good_time_day = fields.Float(string='Set good time', help="""Set in excess of the time allowed for the day""")
+
     normal_time_week = fields.Float(string='Set normal time', help="""Setting time standards provided throughout the week""")
     good_time_week = fields.Float(string='Set good time', help="""Set in excess of the time allowed for the week""")
 
     @api.multi
     def set_custom_parameters(self):
+        self.ensure_one()
         config_parameters = self.env['ir.config_parameter']
         for record in self:
             config_parameters.set_param(key="project_timelog.time_subtasks", value=record.time_subtasks)

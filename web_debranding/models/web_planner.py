@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 
-from openerp import models, api
+from odoo import models, api
 
 
 class Planner(models.Model):
@@ -18,4 +18,6 @@ class Planner(models.Model):
         res = re.sub(r'<h4>Don\'t hesitate to[\s\S]*logo.png"/>', '', res)
         res = re.sub(r'<p>Once it\'s fully working[\s\S]*odoo_logo.png"/>', planner_footer, res)
         res = re.sub(r'<div class="mt32">[\s\S]*Fabien Pinckaers, Founder[\s\S]*?</div>', planner_footer, res)
+        res = re.sub(r'<div[^<]*<strong>See it in action [\s\S]*?</strong><br/>[\s\S]*?<iframe[^<]*www.youtube.com/embed/204DbheXfWw[\s\S]*?</iframe>[^<]*</div>', '', res)
+        res = re.sub(r'<img src="/web_planner/static/src/img/odoo_logo.png"/>', '', res)
         return self.env['ir.translation']._debrand(res)

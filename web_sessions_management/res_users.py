@@ -38,7 +38,7 @@ class ResUsers(models.Model):
     login_calendar_id = fields.Many2one('resource.calendar'
                                              'Allowed Login Calendar', company_dependent=True,
                                              help='The user will be only allowed to login in the calendar defined here.'),
-    no_multiple_sessions = fields.Boolean('No Multiple Sessions', company_dependent=True
+    no_multiple_sessions = fields.Boolean('No Multiple Sessions', company_dependent=True,
                                                help='Select this to prevent user to start a session more than once'),
     interval_number = fields.Integer('Session Timeout', company_dependent=True, help='Timeout since last activity for auto logout')
     interval_type = fields.Selection([('minutes', 'Minutes')
