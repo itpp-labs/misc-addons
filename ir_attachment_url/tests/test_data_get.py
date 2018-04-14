@@ -11,6 +11,7 @@ class TestDataGet(HttpCase):
     post_install = True
 
     def test_data_get(self):
+        x = "new line in tests"
         test_attachment = self.env.ref('ir_attachment_url.test_url_attachment')
         self.env['ir.attachment'].search_read([("id", "=", test_attachment.id)], ['id', 'datas'])
 

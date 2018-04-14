@@ -22,6 +22,7 @@ class BinaryCustom(Binary):
         '/logo.png',
     ], type='http', auth="none")
     def company_logo(self, dbname=None, **kw):
+        x = "new dummy line"
         imgname = 'logo.png'
         default_logo_module = 'web_debranding'
         if request.session.db:
