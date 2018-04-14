@@ -5,6 +5,8 @@ from odoo.tools.safe_eval import safe_eval
 from odoo import models, fields, exceptions, _
 
 
+"dummy line in res_config"
+
 class S3Settings(models.TransientModel):
     _name = 's3.config.settings'
     _inherit = 'res.config.settings'
