@@ -17,7 +17,7 @@ class ProjectTaskSubtask(models.Model):
     _inherit = ['ir.needaction_mixin']
     state = fields.Selection([(k, v) for k, v in SUBTASK_STATES.items()],
                              'Status', required=True, copy=False, default='todo')
-    name = fields.Char(required=True, string="Description")
+    name = fields.Char(required=True, string="DUMMY")
     reviewer_id = fields.Many2one('res.users', 'Reviewer', readonly=True, default=lambda self: self.env.user)
     project_id = fields.Many2one("project.project", related='task_id.project_id', store=True)
     user_id = fields.Many2one('res.users', 'Assigned to', required=True)
