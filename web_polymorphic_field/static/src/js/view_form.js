@@ -18,10 +18,9 @@
 ******************************************************************************/
 odoo.define('web_polymorphic_field.FieldPolymorphic', function (require) {
     var core = require('web.core');
+    var basic_fields = require('web.basic_fields');
 
-    var FieldSelection = core.form_widget_registry.get('selection');
-    var FieldPolymorphic = FieldSelection.extend( {
-        template: "FieldSelection",
+    var FieldPolymorphic = basic_fields.StateSelectionWidget.include( {
         init: function(field_manager, node) {
             this._super(field_manager, node);
             this.polymorphic = this.node.attrs.polymorphic;
