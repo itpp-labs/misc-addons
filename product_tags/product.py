@@ -74,5 +74,3 @@ class ProductTemplate(models.Model):
                                relation='product_product_tag_rel',
                                column1='tag_id',
                                column2='product_id')
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
