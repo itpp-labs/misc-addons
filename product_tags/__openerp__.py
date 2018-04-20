@@ -31,9 +31,6 @@
         'sale',
     ],
     'license': 'AGPL-3',
-    "description": """
-    Add tags in products like it's done for the partners
-    """,
     "demo": [],
     "data": [
         'security/ir.model.access.csv',

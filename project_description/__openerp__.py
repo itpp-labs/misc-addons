@@ -27,7 +27,6 @@
     "category": "Generic Modules/Projects & Services",
     "depends": ["project",
                 ],
-    "description": """Add Project Description""",
     "init_xml": [],
     "update_xml": [
         "project_view.xml",
