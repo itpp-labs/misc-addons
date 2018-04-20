@@ -6,9 +6,6 @@
     'license': 'LGPL-3',
     'category': 'Tools',
     'website': 'https://yelizariev.github.io',
-    'description': """
-
-    """,
     'depends': ['web'],
     'data': [
         'views.xml',

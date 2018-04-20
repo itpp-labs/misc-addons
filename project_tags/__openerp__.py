@@ -25,16 +25,11 @@
     'category': 'Projects & Services',
     'sequence': 14,
     'summary': '',
-    'description': """
-Project Tags
-============
-
-Tested on Odoo 8.0 d023c079ed86468436f25da613bf486a4a17d625
-    """,
     'author': 'Sistemas ADHOC, IT-Projects LLC, Ivan Yelizariev',
     'website': 'www.sistemasadhoc.com.ar',
     'images': [
     ],
+    'license': 'AGPL-3',
     'depends': [
         'project'
     ],
@@ -57,4 +52,3 @@ Tested on Odoo 8.0 d023c079ed86468436f25da613bf486a4a17d625
     'auto_install': False,
     'application': False,
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
