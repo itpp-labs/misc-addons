@@ -22,6 +22,7 @@
  'category': 'Web',
  'depends': ['web'],
  'author': 'Augustin Cisterne-Kaas',
+ 'license': 'GPL-3',
  'description': """
 Add a new widget named "polymorphic"
 The polymorphic field allow to dynamically store an id linked to any model in
