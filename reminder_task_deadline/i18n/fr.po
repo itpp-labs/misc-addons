@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * reminder_crm_next_action_time
+# * reminder_task_deadline
 # 
 # Translators:
 # Translation Bot <i18n-bot@it-projects.info>, 2018
@@ -18,12 +18,12 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#. module: reminder_crm_next_action_time
-#: model:ir.model,name:reminder_crm_next_action_time.model_crm_lead
-msgid "Lead/Opportunity"
-msgstr ""
-
-#. module: reminder_crm_next_action_time
-#: model:ir.ui.view,arch_db:reminder_crm_next_action_time.crm_case_form_view_oppor
+#. module: reminder_task_deadline
+#: model:ir.ui.view,arch_db:reminder_task_deadline.view_task_form2
 msgid "Reminders"
 msgstr "Rappels"
+
+#. module: reminder_task_deadline
+#: model:ir.model,name:reminder_task_deadline.model_project_task
+msgid "Task"
+msgstr ""

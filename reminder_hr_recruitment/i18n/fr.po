@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * reminder_crm_next_action_time
+# * reminder_hr_recruitment
 # 
 # Translators:
 # Translation Bot <i18n-bot@it-projects.info>, 2018
@@ -18,12 +18,17 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#. module: reminder_crm_next_action_time
-#: model:ir.model,name:reminder_crm_next_action_time.model_crm_lead
-msgid "Lead/Opportunity"
+#. module: reminder_hr_recruitment
+#: model:ir.model,name:reminder_hr_recruitment.model_hr_applicant
+msgid "Applicant"
 msgstr ""
 
-#. module: reminder_crm_next_action_time
-#: model:ir.ui.view,arch_db:reminder_crm_next_action_time.crm_case_form_view_oppor
+#. module: reminder_hr_recruitment
+#: model:ir.model.fields,field_description:reminder_hr_recruitment.field_hr_applicant_reminder_alarm_ids
+msgid "Next Action Reminders"
+msgstr ""
+
+#. module: reminder_hr_recruitment
+#: model:ir.ui.view,arch_db:reminder_hr_recruitment.hr_recruitment_form_view_applications
 msgid "Reminders"
 msgstr "Rappels"
