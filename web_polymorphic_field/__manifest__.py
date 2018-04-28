@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 #
 #    Copyright (C) 2014-2015 Augustin Cisterne-Kaas (ACK Consulting Limited)
@@ -18,7 +17,7 @@
 #
 #
 {'name': 'Web Polymorphic Field',
- 'version': '0.2',
+ 'version': '11.0.1.0.0',
  'category': 'Web',
  'depends': ['web'],
  'author': 'Augustin Cisterne-Kaas',
@@ -39,5 +38,5 @@ E.g:
  'js': [
      'static/src/js/view_form.js'
  ],
- 'installable': False,
+ 'installable': True,
  'application': False}
