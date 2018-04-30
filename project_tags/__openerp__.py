@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 #
 #    Sistemas ADHOC - ADHOC SA

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """S3 Attachment Storage""",
     "summary": """Upload attachments on Amazon S3""",

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Product Details""",
     "summary": """Allows to add links with describes of products.""",

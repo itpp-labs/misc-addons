@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "sms.sg service's bridge",
     'author': "IT-Projects LLC, Ildar Nasyrov",

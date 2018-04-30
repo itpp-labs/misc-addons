@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Fill calendar view popup form automatically with previous data',
     'description': """

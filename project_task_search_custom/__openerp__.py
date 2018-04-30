@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Task Search Custom",
     'summary': """Searching for tasks includes "Messages" and "Description" fields""",

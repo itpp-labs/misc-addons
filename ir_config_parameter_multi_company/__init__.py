@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from . import models
 
 def uninstall_hook(cr, registry):

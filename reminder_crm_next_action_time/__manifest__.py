@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Reminders and Agenda for Opportunities (with time)""",
     "summary": """Reminders for opportunities with the precise time feature""",
