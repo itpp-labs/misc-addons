@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Reminders and Agenda for Opportunities",
     'version': '1.0.0',

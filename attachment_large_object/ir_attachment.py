@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import logging
 import base64
 from odoo import models, api

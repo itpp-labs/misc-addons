@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Reminders and Agenda (technical core)""",
     "category": "Reminders and Agenda",

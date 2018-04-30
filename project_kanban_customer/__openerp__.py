@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Show project\'s name with partner\'s name ',
     'version': '1.0.0',

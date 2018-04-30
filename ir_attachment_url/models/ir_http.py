@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import mimetypes
 import base64
 import hashlib

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Company-dependent values in System Parameters""",
     "summary": """Adds multi-company support for dozens features""",
