@@ -18,20 +18,42 @@
 ******************************************************************************/
 odoo.define('web_polymorphic_field.FieldPolymorphic', function (require) {
     var core = require('web.core');
-    var basic_fields = require('web.basic_fields');
+//    var basic_fields = require('web.basic_fields');
+    var registry_selection = require('web.field_registry').get('selection');
+    var registry_many2one = require('web.field_registry').get('many2one');
+//    var FieldSelection = core.form_widget_registry.get('selection')
+    var relational_fields = require('web.relational_fields')
 
-    var FieldPolymorphic = basic_fields.StateSelectionWidget.include( {
-        init: function(field_manager, node) {
-            this._super(field_manager, node);
-            this.polymorphic = this.node.attrs.polymorphic;
+
+//    var search_super = registry_many2one.prototype._search;
+//    registry_many2one.include({
+//        _search: function(args){
+//            console.log('sdfsdf')
+//            if (this.field.type === "integer"){
+//                this.record.data['model']
+//            }
+//            return search_super(args);
+//        }
+//    });
+
+    var FieldPolymorphic = registry_selection.include( {
+        init: function(parent, name, record, options) {
+            this._super(parent, name, record, options);
+            this.polymorphic = this.attrs.polymorphic;
         },
-        add_polymorphism: function(reinit) {
-            if(this.get_value() != false) {
-                polymorphic_field = this.field_manager.fields[this.polymorphic];
-                polymorphic_field.field.relation = this.get_value();
+        add_polymorphism: function() {
+            if(this.value != false) {
+                var polymorphic_field = this.record.fields[this.polymorphic];
+                if (polymorphic_field && this.value){
+                    polymorphic_field.relation = this.value;
+                }
+//                this.record.fields[this.polymorphic].relation = this.value;
+                console.log(this.record.fields[this.polymorphic])
+                console.log(this.record.fields[this.polymorphic])
+                console.log(registry_selection)
             }
         },
-        render_value: function() {
+        _render: function() {
             this._super();
             this.add_polymorphism();
         },
