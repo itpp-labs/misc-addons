@@ -1,9 +1,8 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * web_gantt8
+# * res_partner_skype
 # 
 # Translators:
-# Translation Bot <i18n-bot@it-projects.info>, 2017
 # Randall Castro <rcastro@treintaycinco.com>, 2018
 msgid ""
 msgstr ""
@@ -19,21 +18,13 @@ msgstr ""
 "Language: es_CR\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. module: web_gantt8
-#. openerp-web
-#: code:addons/web_gantt8/static/src/xml/web_gantt.xml:10
-#, python-format
-msgid "Create"
-msgstr "Crear"
+#. module: res_partner_skype
+#: model:ir.model,name:res_partner_skype.model_res_partner
+msgid "Partner"
+msgstr "Cliente"
 
-#. module: web_gantt8
-#. openerp-web
-#: code:addons/web_gantt8/static/src/js/gantt.js:16
-#, python-format
-msgid "Gantt"
-msgstr "Gantt"
-
-#. module: web_gantt8
-#: model:ir.model,name:web_gantt8.model_ir_ui_view
-msgid "ir.ui.view"
-msgstr "ir.ui.view"
+#. module: res_partner_skype
+#: model:ir.model.fields,field_description:res_partner_skype.field_res_partner_skype
+#: model:ir.model.fields,field_description:res_partner_skype.field_res_users_skype
+msgid "Skype"
+msgstr ""

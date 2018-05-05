@@ -1,9 +1,8 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * web_gantt8
+# * reminder_task_deadline
 # 
 # Translators:
-# Translation Bot <i18n-bot@it-projects.info>, 2017
 # Randall Castro <rcastro@treintaycinco.com>, 2018
 msgid ""
 msgstr ""
@@ -19,21 +18,12 @@ msgstr ""
 "Language: es_CR\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. module: web_gantt8
-#. openerp-web
-#: code:addons/web_gantt8/static/src/xml/web_gantt.xml:10
-#, python-format
-msgid "Create"
-msgstr "Crear"
+#. module: reminder_task_deadline
+#: model:ir.ui.view,arch_db:reminder_task_deadline.view_task_form2
+msgid "Reminders"
+msgstr ""
 
-#. module: web_gantt8
-#. openerp-web
-#: code:addons/web_gantt8/static/src/js/gantt.js:16
-#, python-format
-msgid "Gantt"
-msgstr "Gantt"
-
-#. module: web_gantt8
-#: model:ir.model,name:web_gantt8.model_ir_ui_view
-msgid "ir.ui.view"
-msgstr "ir.ui.view"
+#. module: reminder_task_deadline
+#: model:ir.model,name:reminder_task_deadline.model_project_task
+msgid "Task"
+msgstr "Tarea"
