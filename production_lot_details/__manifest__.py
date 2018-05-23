@@ -1,3 +1,6 @@
+# Copyright 2017 Stanislav Krotov <https://www.it-projects.info/team/ufaks>
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+
 {
     "name": """Production Lot Details""",
     "summary": """Allows to add links with details for production lots.""",
@@ -30,5 +33,5 @@
     "post_init_hook": None,
 
     "auto_install": False,
-    "installable": False,
+    "installable": True,
 }
