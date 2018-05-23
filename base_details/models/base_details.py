@@ -1,3 +1,8 @@
+# Copyright 2017 Stanislav Krotov <https://www.it-projects.info/team/ufaks>
+# Copyright 2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+
 from odoo import fields, models, api
 
 
@@ -16,16 +21,19 @@ class BaseDetails(models.AbstractModel):
             details_record = None
         return details_record
 
-    details_model = fields.Selection('_model_selection', string='Detail Model')
-    details_res_id = fields.Integer(string='Details')
-    details_model_exists = fields.Boolean(string='Details Model Exists')
+    details_model_record = fields.Reference(selection="_model_selection", string='Record')
+    details_model = fields.Char(compute="_compute_details", string='Detail Model', store=True)
+    details_res_id = fields.Integer(compute="_compute_details", string='Details', store=True)
+    details_model_exists = fields.Boolean(compute="_compute_details", string='Details Model Exists', store=True)
 
-    @api.onchange('details_model')
-    def _onchange_details_model(self):
-        if self.details_model and self.details_model in self.env:
-            self.details_model_exists = True
-        else:
-            self.details_model_exists = False
+    @api.multi
+    @api.depends('details_model_record')
+    @api.onchange('details_model_record')
+    def _compute_details(self):
+        for rec in self:
+            rec.details_model = rec.details_model_record and rec.details_model_record._name
+            rec.details_res_id = rec.details_model_record and rec.details_model_record.id
+            rec.details_model_exists = (rec.details_model and rec.details_model in rec.env) and True
 
 
 class BaseDetailsRecord(models.AbstractModel):
