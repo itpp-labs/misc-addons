@@ -27,6 +27,7 @@ class AccountAnalyticAccount(models.Model):
     type = fields.Selection(default='contract')
     order_line_ids = fields.One2many('sale.order.line', 'contract_id')
     invoice_line_ids = fields.One2many('account.invoice.line', 'account_analytic_id')
+    slots_reminder = fields.Boolean(default=False, select=True)
 
     @api.one
     @api.depends('invoice_line_ids.invoice_id.state', 'order_line_ids.booking_state')
@@ -47,8 +48,34 @@ class AccountAnalyticAccount(models.Model):
 
     @api.model
     def _cron_expiring_reminder(self):
-        # TODO: send email and sms if contract_slots are less than remind_on_slots. send sms only. send email only
-        pass
+        # send email and sms if contract_slots are less than remind_on_slots. send sms only. send email only
+        contracts = self.search([('type', '=', 'contract'), ('slots_reminder', '=', False)]).filtered(lambda r: r.contract_slots <= r.remind_on_slots)
+        contracts.write({'slots_reminder': True})
+        for contract in contracts:
+            if contract.partner_id.reminder_sms:
+                msg = '{} bookings left\n on your {} contract'.format(contract.contract_slots, contract.name)
+                phone = contract.partner_id.mobile
+                self.env['sms_sg.sendandlog'].send_sms(phone, msg)
+
+            if contract.partner_id.reminder_email:
+                template = self.env.ref('thecage_data.email_template_contract_slots_reminder')
+                email_ctx = {
+                    'default_model': 'account.analytic.account',
+                    'default_res_id': contract.id,
+                    'default_use_template': bool(template),
+                    'default_template_id': template.id,
+                    'default_composition_mode': 'comment',
+                }
+                composer = self.env['mail.compose.message'].with_context(email_ctx).create({})
+                composer.send_mail()
+
+    @api.multi
+    def write(self, vals):
+        result = super(AccountAnalyticAccount, self).write(vals)
+        for r in self:
+            if vals.get('contract_slots'):
+                self.booking_reminder = False
+        return result
 
 
 class SaleOrderTheCage(models.Model):
