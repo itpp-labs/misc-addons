@@ -67,12 +67,12 @@ class IrAttachment(models.Model):
             s3_records = self.env[self._name]
         elif condition:
             condition = safe_eval(condition, mode="eval")
-            s3_records = self.search([('id', 'in', self.ids)] + condition)
+            s3_records = self.sudo().search([('id', 'in', self.ids)] + condition)
         else:
             # if there is no condition then store all attachments on s3
             s3_records = self
         s3_records = s3_records._filter_protected_attachments()
-        s3_records = s3_records.filtered('datas')
+        s3_records = s3_records.filtered(lambda r: r.type != 'url')
 
         for attach in s3_records:
             value = attach.datas
