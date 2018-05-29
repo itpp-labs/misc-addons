@@ -20,11 +20,11 @@ class IrAttachment(models.Model):
 
     def _get_s3_settings(self, param_name, os_var_name):
         config_obj = self.env['ir.config_parameter']
-        res = config_obj.get_param(param_name)
+        res = config_obj.sudo().get_param(param_name)
         if not res:
             res = os.environ.get(os_var_name)
             if res:
-                config_obj.set_param(param_name, res)
+                config_obj.sudo().set_param(param_name, res)
                 _logger.info('parameter {} has been created from env {}'.format(param_name, os_var_name))
         return res
 
