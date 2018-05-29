@@ -109,6 +109,7 @@ class PitchBookingPitch(models.Model):
             if not is_current_week:
                 start_dt = start_dt - timedelta(minutes=self.venue_id.tz_offset)
             end_dt = end_dt - timedelta(minutes=self.venue_id.tz_offset)
+            # this is strange place that I don't sure about. Is it not relevant for calendar has_slot_calendar?
 
         if online and self.hours_to_prepare:
             online_min_dt = now + timedelta(hours=self.hours_to_prepare)
@@ -144,9 +145,11 @@ class PitchBookingPitch(models.Model):
                         y = datetime.combine(start_d, datetime.min.time()) + timedelta(1)
                     else:
                         y = datetime.combine(start_d, datetime.min.time().replace(hour=int(attendance.hour_to), minute=min_to))
-                    if self.has_slot_calendar and \
-                            (not online and x >= now or online and x >= now + timedelta(minutes=self.venue_id.tz_offset)) \
-                            and x >= start_dt and y <= end_dt:
+                    # if self.has_slot_calendar and \
+                    #         (not online and x >= now or online and x >= now + timedelta(minutes=self.venue_id.tz_offset)) \
+                    #         and x >= start_dt and y <= end_dt: # such condition leads to slots stop generating if y > end_dt
+                    # server's timezone is UTC, venue timezone is Asia/Yekaterinburg - mising slots from 19:00 (last end - 19:00)
+                    if self.has_slot_calendar and (not online and x >= now or online and x >= now + timedelta(minutes=self.venue_id.tz_offset)):
                         slots[event_key] = \
                             self.generate_slot(x, y, online=online, offset=offset, calendar=True)
                     elif not self.has_slot_calendar:
