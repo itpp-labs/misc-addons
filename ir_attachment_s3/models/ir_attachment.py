@@ -74,7 +74,7 @@ class IrAttachment(models.Model):
         s3_records = s3_records._filter_protected_attachments()
         s3_records = s3_records.filtered(lambda r: r.type != 'url')
 
-        for attach in self & s3_records:
+        for attach in self & s3_records:  # datas field has got empty somehow in the result of ``s3_records = self.sudo().search([('id', 'in', self.ids)] + condition)`` search for non-superusers but it is in original recordset. Here we use original (with datas) in case it intersects with the search result
             value = attach.datas
             bin_data = value and value.decode('base64') or ''
             fname = hashlib.sha1(bin_data).hexdigest()
