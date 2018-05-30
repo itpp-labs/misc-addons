@@ -74,7 +74,7 @@ class IrAttachment(models.Model):
         s3_records = s3_records._filter_protected_attachments()
         s3_records = s3_records.filtered(lambda r: r.type != 'url')
 
-        for attach in s3_records:
+        for attach in self & s3_records:
             value = attach.datas
             bin_data = value and value.decode('base64') or ''
             fname = hashlib.sha1(bin_data).hexdigest()
