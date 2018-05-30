@@ -1,3 +1,8 @@
+`1.1.1`
+-------
+
+- **FIX:** non-supersusers cannot get attachments in s3
+
 `1.1.0`
 -------
 
