@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Company-dependent values in System Parameters""",
     "summary": """Adds multi-company support for dozens features""",
     "category": "Extra Tools",
     # "live_test_url": "",
     "images": [],
-    "version": "1.0.0",
+    "version": "11.0.2.0.0",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",

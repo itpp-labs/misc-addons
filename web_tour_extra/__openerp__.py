@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Extended tours""",
     "summary": """Extra features for tours""",

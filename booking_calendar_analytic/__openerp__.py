@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Booking Calendar Analytic",
     'author': "IT-Projects LLC, Ildar Nasyrov",

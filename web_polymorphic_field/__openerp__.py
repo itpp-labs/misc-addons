@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 #
 #    Copyright (C) 2014-2015 Augustin Cisterne-Kaas (ACK Consulting Limited)

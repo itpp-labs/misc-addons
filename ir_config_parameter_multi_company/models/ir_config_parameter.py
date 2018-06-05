@@ -1,11 +1,12 @@
-# -*- coding: utf-8 -*-
 import logging
 
 from odoo import models, fields, api, _, tools
-from odoo.addons.base.ir.ir_config_parameter import IrConfigParameter as IrConfigParameterOriginal
+from odoo.addons.base.ir.ir_config_parameter import IrConfigParameter as IrConfigParameterOriginal, _default_parameters
 
 _logger = logging.getLogger(__name__)
 PROP_NAME = _('Default value for "%s"')
+
+DATABASE_SECRET_KEY = 'database.secret'
 
 
 class IrConfigParameter(models.Model):
@@ -40,6 +41,7 @@ class IrConfigParameter(models.Model):
         prop = res._get_property()
         prop.company_id = None
         prop.name = PROP_NAME % res.key
+        res._update_db_value(vals.get('value'))
         return res
 
     @api.multi
@@ -52,6 +54,18 @@ class IrConfigParameter(models.Model):
             prop = self._get_property(for_default=True)
             prop.name = name
         return res
+
+    def _update_db_value(self, value):
+        """Store value in db column. We can use it only directly,
+        because ORM treat value as computed multi-company field"""
+        self.ensure_one()
+        self.env.cr.execute("UPDATE ir_config_parameter SET value=%s WHERE id = %s", (value, self.id, ))
+
+    @api.model
+    def reset_database_secret(self):
+        value = _default_parameters[DATABASE_SECRET_KEY]()
+        self.set_param(DATABASE_SECRET_KEY, value)
+        return value
 
     @api.model
     def get_param(self, key, default=False):
@@ -66,7 +80,17 @@ class IrConfigParameter(models.Model):
             # Warning. Since odoo 11.0 it means that by default Administrator's company value is used
             company_id = self.env.user.company_id.id
 
-        return super(IrConfigParameter, self.with_context(force_company=company_id)).get_param(key, default)
+        self_company = self.with_context(force_company=company_id)
+        res = super(IrConfigParameter, self_company).get_param(key, default)
+        if key == DATABASE_SECRET_KEY and not res:
+            # If we have empty database.secret, we reset it automatically
+            # otherwise admin cannot even login
+
+            # TODO: we don't really need to reset database.secret, because in current version of the module column value is presented and up-to-date. Keep it until we are sure, that without this redefinition everything works after migration from previous versions fo the module.
+
+            return self_company.reset_database_secret()
+
+        return res
 
     @api.model
     @tools.ormcache_context('self._uid', 'key', keys=("force_company",))
@@ -79,45 +103,47 @@ class IrConfigParameter(models.Model):
     def _create_default_value(self, value):
         """Set company-independent default value"""
         self.ensure_one()
-        self.env['ir.property'].create({
+        domain = [
+            ('company_id', '=', False),
+            ('res_id', '=', '%s,%s' % (self._name, self.id))
+        ]
+
+        existing = self.env['ir.property'].search(domain)
+        if existing:
+            # already exists
+            return existing
+
+        _logger.debug('Create default value for %s', self.key)
+        return self.env['ir.property'].create({
             'fields_id': self.env.ref('base.field_ir_config_parameter_value').id,
-            'res_id': 'ir.config_parameter,%s' % self.id,
+            'res_id': '%s,%s' % (self._name, self.id),
             'name': PROP_NAME % self.key,
             'value': value,
             'type': 'text',
         })
 
     def _auto_init(self):
-        # Check that we have an value column
         cr = self.env.cr
-        cr.execute("select COUNT(*) from information_schema.columns where table_name='ir_config_parameter' AND column_name='value';")
-        res = cr.dictfetchone()
-        if res.get('count'):
-            _logger.info('Starting conversion for ir.config_parameter: saving data for further processing.')
-            # Rename image column so we don't lose images upon module install
-            cr.execute("ALTER TABLE ir_config_parameter RENAME COLUMN value TO value_old")
+        # rename "value" to "value_tmp"
+        # to don't lose values, because during installation the column "value" is deleted
+        cr.execute("ALTER TABLE ir_config_parameter RENAME COLUMN value TO value_tmp")
 
-            def call_init():
-                self._init_from_value_old()
-            self.pool.post_init(call_init)
-        else:
-            _logger.debug('No value field found in ir_config_parameter; no data to save.')
+        def post_init_callback():
+            self._post_init()
+        self.pool.post_init(post_init_callback)
         return super(IrConfigParameter, self)._auto_init()
 
-    def _init_from_value_old(self):
+    def _post_init(self):
         cr = self.env.cr
-        # Only proceed if we have the appropriate _old field
-        cr.execute("select COUNT(*) from information_schema.columns where table_name='ir_config_parameter' AND column_name='value_old';")
-        res = cr.dictfetchone()
-        if not res.get('count'):
-            _logger.debug('No value_old field present in ir_config_parameter; assuming data is already saved in the filestore.')
-            return
 
-        _logger.info('Starting rewrite of ir.config_parameter, saving values to ir.property.')
+        # rename "value_tmp" back to "value_tmp"
+        cr.execute("ALTER TABLE ir_config_parameter RENAME COLUMN value_tmp TO value")
+
         for r in self.env['ir.config_parameter'].sudo().search([]):
-            cr.execute("SELECT key,value_old FROM ir_config_parameter WHERE id = %s", (r.id, ))
+            cr.execute("SELECT key,value FROM ir_config_parameter WHERE id = %s", (r.id, ))
             res = cr.dictfetchone()
-            value_old = res.get('value_old')
-            r._create_default_value(value_old)
-        # Finally, remove the _old column if all went well so we won't run this every time we upgrade the module.
-        cr.execute("ALTER TABLE ir_config_parameter DROP COLUMN value_old")
+            value = res.get('value')
+            # value may be empty after migration from previous module version
+            if value:
+                # create default value if it doesn't exist
+                r._create_default_value(value)

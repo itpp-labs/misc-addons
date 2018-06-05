@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Barcode Widget',
     'version': '1.0.1',

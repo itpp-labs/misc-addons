@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import odoo
 from odoo import http
 from odoo.addons.web.controllers.main import Binary

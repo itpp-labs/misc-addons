@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Compute Salary Inputs""",
     "summary": """Allows to compute amounts of inputs in salary rules""",
