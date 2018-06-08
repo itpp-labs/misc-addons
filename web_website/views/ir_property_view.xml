@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!-- Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). -->
+<odoo>
+
+    <record id="ir_property_view_search" model="ir.ui.view">
+        <field name="name">ir.property.search</field>
+        <field name="model">ir.property</field>
+        <field name="inherit_id" ref="base.ir_property_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="website_id" groups="web_website.group_multi_website"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="ir_property_view" model="ir.ui.view">
+        <field name="name">ir.property.form</field>
+        <field name="model">ir.property</field>
+        <field name="inherit_id" ref="base.ir_property_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="website_id" groups="web_website.group_multi_website"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="ir_property_view_tree" model="ir.ui.view">
+        <field name="name">ir.property.tree</field>
+        <field name="model">ir.property</field>
+        <field name="inherit_id" ref="base.ir_property_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="website_id" groups="web_website.group_multi_website"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
