@@ -28,10 +28,12 @@
         "security/ir.model.access.csv",
         "views/res_config_views.xml",
         "views/res_users_views.xml",
+        "views/ir_property_views.xml",
         "views/assets.xml",
     ],
     "demo": [
         "demo/assets_demo.xml",
+        "demo/res_users_demo.xml",
     ],
     "qweb": [
         "static/src/xml/qweb.xml",

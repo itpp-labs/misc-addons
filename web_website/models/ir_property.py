@@ -24,7 +24,6 @@ class IrProperty(models.Model):
 
     @api.model
     def _get_website_id(self):
-        # TODO shall we try to compute default website?
         website_id = self._context.get('website_id') or self.env.user.backend_website_id.id
         return website_id
 
@@ -32,8 +31,7 @@ class IrProperty(models.Model):
         domain = super(IrProperty, self)._get_domain(prop_name, model)
         if self.env.context.get('_get_domain_website_dependent'):
             website_id = self._get_website_id()
-            if website_id:
-                domain += [('website_id', 'in', [website_id, False])]
+            domain += [('website_id', 'in', [website_id, False])]
         return domain
 
     @api.model

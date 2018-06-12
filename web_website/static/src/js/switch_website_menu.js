@@ -38,7 +38,7 @@ var SwitchWebsiteMenu = Widget.extend({
 
         var websites_list = '';
 
-        var websites = session.user_websites.allowed_websites
+        var websites = session.user_websites.allowed_websites;
         websites.unshift(false);
         _.each(websites, function(website) {
             var a = '';
@@ -48,7 +48,7 @@ var SwitchWebsiteMenu = Widget.extend({
                 a = '<span class="o_company"/>';
             }
             if (!website){
-                websites_list += '<li><a href="#" class="all_websites" data-menu="website"><em>' + a + all_websites_text + '</em></a></li>';
+                websites_list += '<li><a href="#" class="all_websites" data-menu="website">' + a + '<em>' + all_websites_text + '</em></a></li>';
             } else {
                 websites_list += '<li><a href="#" data-menu="website" data-website-id="' + website[0] + '">' + a + website[1] + '</a></li>';
             }

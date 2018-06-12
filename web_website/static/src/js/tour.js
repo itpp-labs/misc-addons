@@ -20,8 +20,12 @@ tour.register(tour_name, options,
             trigger: '.o_switch_website_menu > a',
         },
         {
-            content: "Click 'All Website'",
-            trigger: '.o_switch_website_menu .all_websites'
+            content: "Click Website localhost",
+            trigger: '.o_switch_website_menu a[data-website-id=1]',
+        },
+        {
+            content: "Wait when page is reloaded",
+            trigger: '.o_switch_website_menu > a:contains(Website localhost)',
         },
     ]
 );
