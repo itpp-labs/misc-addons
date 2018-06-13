@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from openerp import http
 from openerp import SUPERUSER_ID
 from openerp.http import request
 
@@ -36,3 +37,18 @@ class WebsiteBookingCalendar(Controller):
             'active_venue': int(params.get('venue')) if params.get('venue') else (venues[0].id if venues else None)
         })
         return values
+
+    @http.route()
+    def get_booked_slots(self, **kwargs):
+        cr, uid, context = request.cr, SUPERUSER_ID, request.context
+        Venue = request.registry['pitch_booking.venue']
+        domain = kwargs.get('domain', [])
+        user_tz = 'UTC'
+        venue = False
+        if domain[0][0] == 'venue_id':
+            venue_id = domain[0][2]
+            venue = Venue.browse(cr, uid, venue_id, context=context)
+        if venue:
+            user_tz = venue.tz
+        return request.registry["sale.order.line"].get_bookings(cr, uid, kwargs.get('start'),
+                                                                kwargs.get('end'), kwargs.get('tz'), domain, online=True, user_tz=user_tz, context=context)

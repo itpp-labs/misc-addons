@@ -426,7 +426,7 @@ class SaleOrderLine(models.Model):
         return time_string_in_utc
 
     @api.model
-    def get_bookings(self, start, end, offset, domain, online=False):
+    def get_bookings(self, start, end, offset, domain, online=False, user_tz='UTC'):
         _logger.debug('get_bookings START')
         bookings = self.env['resource.resource'].sudo().search([]).search_booking_lines(start, end, domain, online=online)
         slot_calendar_bookings = bookings.filtered(lambda r: r.resource_id.has_slot_calendar)
@@ -466,7 +466,7 @@ class SaleOrderLine(models.Model):
             end_dt = datetime.strptime(b.booking_end, DTF).replace(second=0, microsecond=0)
             end_dt_utc = pytz.utc.localize(end_dt)
             resource = b.resource_id
-            user_tz = pytz.timezone(self.env.context.get('tz') or 'UTC')
+            user_tz = pytz.timezone(self.env.context.get('tz') or user_tz)
             if resource.calendar_id:
                 for calendar_working_day in resource.calendar_id.get_attendances_for_weekdays([start_dt.weekday()])[0]:
                     min_from = int((calendar_working_day.hour_from - int(calendar_working_day.hour_from)) * 60)
