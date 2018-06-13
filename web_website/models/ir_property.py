@@ -10,6 +10,7 @@ GET_CONTEXT = dict(
     _search_make_website_priority=True,
 )
 
+
 class IrProperty(models.Model):
 
     _inherit = 'ir.property'
@@ -42,8 +43,6 @@ class IrProperty(models.Model):
 
     @api.model
     def _search(self, args, offset=0, limit=None, order=None, count=False, access_rights_uid=None):
-        if self.env.context.get('test'):
-            import wdb; wdb.set_trace()
         if self.env.context.get('_search_order_website_dependent'):
             new_order = [order] if order else []
             new_order.insert(0, 'website_id')

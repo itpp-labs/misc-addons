@@ -139,7 +139,7 @@ class TestFields(common.TransactionCase):
         ])
         props.unlink()
 
-        # **Company**, **Resource** and **Website** are empty (i.e. only **Field** is matched) 
+        # **Company**, **Resource** and **Website** are empty (i.e. only **Field** is matched)
         self._create_property({
             'value': 'only_field',
         })

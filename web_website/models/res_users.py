@@ -58,4 +58,3 @@ class ResUsers(models.Model):
                     and record.backend_website_id.company_id \
                     and record.backend_website_id.company_id != record.company_id:
                 raise ValidationError(_("Current website doesn't belong to Current Company"))
-
