@@ -11,8 +11,9 @@ class TestFields(common.TransactionCase):
 
     def setUp(self):
         super(TestFields, self).setUp()
+        self.MODEL_WEBSITE_DEPENDENT = 'test.website_dependent'
         self.field = self.env['ir.model.fields'].search([
-            ('model', '=', MODEL),
+            ('model', '=', self.MODEL_WEBSITE_DEPENDENT),
             ('name', '=', 'foo')])
 
     def test_website_dependent(self):
@@ -71,8 +72,8 @@ class TestFields(common.TransactionCase):
             dict(base_vals.items() + vals.items())
         )
 
-    def test_website_dependent_priority(self):
-        """ test section "How it works" in index.rst """
+    def test_website_dependent_priority_all_websites(self):
+        """ test section "How it works" in index.rst (All-website case) """
         MODEL = 'test.website_dependent'
 
         company = self.env.user.company_id
@@ -84,14 +85,120 @@ class TestFields(common.TransactionCase):
             ('fields_id', '=', self.field.id),
         ])
         props.unlink()
-
+        # **Company** and **Resource** are empty (i.e. only **Field** is matched)
         self._create_property({
             'value': 'only_field',
         })
         record.invalidate_cache()
         self.assertEqual(record.foo, 'only_field')
 
-        # TOBECONTINUED
+        # **Company** is matched, **Resource** is empty
+        self._create_property({
+            'company_id': company.id,
+            'value': 'only_company',
+        })
+        record.invalidate_cache()
+        self.assertEqual(record.foo, 'only_company')
+
+        # **Company** and **Resource**  are matched
+        self._create_property({
+            'company_id': company.id,
+            'value': 'company_and_resource',
+        }, record)
+        record.invalidate_cache()
+        self.assertEqual(record.foo, 'company_and_resource')
+
+        # check that website-specific records are ignored
+        self._create_property({
+            'website_id': website.id,
+            'value': 'only_website',
+        })
+        record.invalidate_cache()
+        self.assertEqual(record.foo, 'company_and_resource')
+
+        self._create_property({
+            'website_id': website.id,
+            'value': 'website_and_resource',
+        }, record)
+        record.invalidate_cache()
+        self.assertEqual(record.foo, 'company_and_resource')
+
+    def test_website_dependent_priority(self):
+        """ test section "How it works" in index.rst """
+        MODEL = 'test.website_dependent'
+
+        company = self.env.user.company_id
+        wrong_company = self.env['res.company'].create({'name': 'A'})
+        website = self.env.ref('website.default_website')
+        record = self.env[MODEL].create({'foo': 'new_record'})
+        record = record.with_context(website_id=website.id)
+
+        # remove auto created records to be sure
+        props = self.env['ir.property'].search([
+            ('fields_id', '=', self.field.id),
+        ])
+        props.unlink()
+
+        # **Company**, **Resource** and **Website** are empty (i.e. only **Field** is matched) 
+        self._create_property({
+            'value': 'only_field',
+        })
+        record.invalidate_cache()
+        self.assertEqual(record.foo, 'only_field')
+
+        # **Company** is matched, **Resource** and **Website** are empty
+        self._create_property({
+            'company_id': company.id,
+            'value': 'only_company',
+        })
+        record.invalidate_cache()
+        self.assertEqual(record.foo, 'only_company')
+
+        # **Company** and **Resource**  are matched, **Website** is empty
+        self._create_property({
+            'company_id': company.id,
+            'value': 'company_and_resource',
+        }, record)
+        record.invalidate_cache()
+        self.assertEqual(record.foo, 'company_and_resource')
+
+        # **Website** is matched, **Resource** is empty
+        prop = self._create_property({
+            'website_id': website.id,
+            'value': 'only_website',
+        })
+        record.invalidate_cache()
+        self.assertEqual(record.foo, 'only_website')
+
+        # Note, that when **Company** and **Website** are both set,
+        # **Website**'s Company must be equal to **Company** or Empty.
+        prop.unlink()
+        self._create_property({
+            'website_id': website.id,
+            'company_id': wrong_company.id,
+            'value': 'website_and_company',
+        })
+        record.invalidate_cache()
+        self.assertEqual(record.foo, 'company_and_resource')
+
+        # **Website** and **Resource** are matched
+        prop = self._create_property({
+            'website_id': website.id,
+            'value': 'website_and_resource',
+        }, record)
+        record.invalidate_cache()
+        self.assertEqual(record.foo, 'website_and_resource')
+
+        # Note, that when **Company** and **Website** are both set,
+        # **Website**'s Company must be equal to **Company** or Empty.
+        prop.unlink()
+        prop = self._create_property({
+            'website_id': website.id,
+            'company_id': wrong_company.id,
+            'value': 'website_company_resource',
+        }, record)
+        record.invalidate_cache()
+        self.assertEqual(record.foo, 'company_and_resource')
 
     def test_company_dependent(self):
         """ test company-dependent fields. It's the same test as in odoo core"""

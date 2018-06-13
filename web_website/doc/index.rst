@@ -43,6 +43,19 @@ For a given record field and context (Company, Website), priority of the *proper
 #. **Company** is matched, **Resource** and **Website** are empty
 #. **Company**, **Resource** and **Website** are empty (i.e. only **Field** is matched) 
 
+Note, that when **Company** and **Website** are both set, **Website**'s Company
+must be equal to **Company** or Empty. Otherwise such records are ignored.
+
+On computing non-website specific (*All Website* option and not ``website_id``
+in context) it works as without the module, i.e.:
+
+#. **Company** and **Resource**  are matched
+#. **Company** is matched, **Resource** is empty
+#. **Company** and **Resource** are empty (i.e. only **Field** is matched) 
+
+
+Note, if some code use ``sudo()`` before getting the value, configuraiton of superuser will be used.
+
 Uninstallation
 ==============
 

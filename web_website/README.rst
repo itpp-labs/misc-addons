@@ -17,7 +17,8 @@ Roadmap
 =======
 
 * TODO: Use context on switching between websites to allow work with different
-  websites at the same time by using different browser tabs.
+  websites at the same time by using different browser tabs. It also fixes
+  problem of using superuser's configuration when ``sudo()`` is used.
 
 Credits
 =======
