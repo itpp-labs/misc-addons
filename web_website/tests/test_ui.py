@@ -19,7 +19,7 @@ class TestUI(common.HttpCase):
         # this you end up with js, css but no qweb.
         phantom_env = api.Environment(self.registry.test_cr, self.uid, {})
         phantom_env['ir.module.module'].search(
-            [('name', '=', 'point_of_sale')], limit=1
+            [('name', '=', 'web_website')], limit=1
         ).state = 'installed'
 
         menu = self.env.ref('website.menu_website_configuration')
