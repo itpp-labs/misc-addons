@@ -33,7 +33,7 @@ class BaseDetails(models.AbstractModel):
         for rec in self:
             rec.details_model = rec.details_model_record and rec.details_model_record._name
             rec.details_res_id = rec.details_model_record and rec.details_model_record.id
-            rec.details_model_exists = (rec.details_model and rec.details_model in rec.env) and True
+            rec.details_model_exists = rec.details_model and rec.details_model in rec.env
 
 
 class BaseDetailsRecord(models.AbstractModel):
