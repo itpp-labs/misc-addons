@@ -71,6 +71,8 @@ All system parameters created before module installation (as well as just create
   * **param1** = *value1* (via default value)
   * **param2** = *value22* (value for companyB)
   * **param3** = *value3* (via default value)
+  
+  Note: Make sure that the same vaue for all companies (leave the default value)
 
 Company Properties
 ------------------
