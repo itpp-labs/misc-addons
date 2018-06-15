@@ -460,13 +460,13 @@ class SaleOrderLine(models.Model):
                     'color': b.resource_id.color
                 })
                 start_dt += timedelta(hours=1)
+        user_tz = pytz.timezone(self.env.context.get('tz') or user_tz)
         for b in slot_calendar_bookings:
             start_dt = datetime.strptime(b.booking_start, DTF).replace(second=0, microsecond=0)
             start_dt_utc = pytz.utc.localize(start_dt)
             end_dt = datetime.strptime(b.booking_end, DTF).replace(second=0, microsecond=0)
             end_dt_utc = pytz.utc.localize(end_dt)
             resource = b.resource_id
-            user_tz = pytz.timezone(self.env.context.get('tz') or user_tz)
             if resource.calendar_id:
                 for calendar_working_day in resource.calendar_id.get_attendances_for_weekdays([start_dt.weekday()])[0]:
                     min_from = int((calendar_working_day.hour_from - int(calendar_working_day.hour_from)) * 60)
