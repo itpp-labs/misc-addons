@@ -82,6 +82,13 @@ For understanding which values are default and which are company dependent do as
 * Click ``[Group By] -> Field``
 * Now you can find all records under ``Value (ir.config_parameter)``
 
+Protected properties
+--------------------
+
+Following parameter is shared across all companies wherever it was changed:
+
+* ``database.expiration_date`` -- it's used in Odoo EE
+
 Uninstallation
 ==============
 
