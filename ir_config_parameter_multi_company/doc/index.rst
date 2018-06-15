@@ -74,9 +74,9 @@ All system parameters created before module installation (as well as just create
   
   Note: Make sure that the same value for all companies (leave the default value).
   Follow the steps:
-  1. Go to Company properties
-  2. Find this value in every Company and delete it.
-  3. Change companies value (System Parameters). It must be same as Default value (you'll find this in Company Properties).
+ * Go to Company properties
+ * Find this value in every Company and delete it.
+ * Change companies value (System Parameters). It must be the same as Default value (you'll find this in Company Properties).
 
 Company Properties
 ------------------
