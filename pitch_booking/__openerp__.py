@@ -5,9 +5,6 @@
     'license': 'LGPL-3',
     'website': 'https://twitter.com/vkotovi4',
     'category': 'Other',
-    'description': """
-
-    """,
     'depends': ['account', 'website_booking_calendar'],
     'data': [
         'views.xml',
