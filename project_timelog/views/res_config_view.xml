@@ -50,6 +50,10 @@
                                 <label for="good_time_week"/>
                                 <field name="good_time_week" class="oe_inline" widget="float_time"/>
                             </div>
+                            <div>
+                                <label for="week_beginning"/>
+                                <field name="week_beginning" class="oe_inline" required="1"/>
+                            </div>
                         </div>
                     </group>
                 </form>
