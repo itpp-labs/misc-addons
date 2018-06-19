@@ -71,12 +71,7 @@ All system parameters created before module installation (as well as just create
   * **param1** = *value1* (via default value)
   * **param2** = *value22* (value for companyB)
   * **param3** = *value3* (via default value)
-  
-  Note: Make sure that the same value for all companies (leave the default value). Follow the steps:
-  
-* Go to Company properties
-* Find this value in every Company and delete it. Leave the default value only.
-* Change companies value (System Parameters). It must be the same as Default value.
+ 
 
 Company Properties
 ------------------
@@ -94,6 +89,17 @@ Protected properties
 Following parameter is shared across all companies wherever it was changed:
 
 * ``database.expiration_date`` -- it's used in Odoo EE
+
+
+There are cases when you changed the value for one company (for example Database expiration), but there are several companies and you forgot which one is real. 
+And also this can lead to errors in the ir_config_parameter_multi_company module operation.
+In the Company properties, there are excess values that need to be removed. In this case, you need to do the following:
+
+* Activate the developer mode 
+* Go to ``Settings >> General Settings >> Technical>> Parameters >> Company Properties``
+* Find the excess value (database expiration value, for example) and delete it for every company. Don't delete the default value.
+* Go to General ``Settings >> General Settings >> Technical>> Parameters >> System Parameters``
+* Change the value (database expiration, for example) for every company. It must be the same as Default value.
 
 Uninstallation
 ==============
