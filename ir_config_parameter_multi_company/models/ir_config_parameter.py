@@ -54,6 +54,14 @@ class IrConfigParameter(models.Model):
             for r in self:
                 if r.key in SHARED_KEYS:
                     r._force_default(value)
+
+        if 'key' in vals:
+            # Change property name after renaming the parameter to avoid confusions
+            self.ensure_one()  # it's not possible to update key on multiple records
+            name = PROP_NAME % vals.get('key')
+            prop = self._get_property(for_default=True)
+            prop.name = name
+
         return res
 
     def _force_default(self, value):
@@ -92,17 +100,6 @@ class IrConfigParameter(models.Model):
         default_prop.write(vals)
         self._update_db_value(value)
         return self
-
-    @api.multi
-    def write(self, vals):
-        res = super(IrConfigParameter, self).write(vals)
-        if 'key' in vals:
-            # Change property name after renaming the parameter to avoid confusions
-            self.ensure_one()  # it's not possible to update key on multiple records
-            name = PROP_NAME % vals.get('key')
-            prop = self._get_property(for_default=True)
-            prop.name = name
-        return res
 
     def _update_db_value(self, value):
         """Store value in db column. We can use it only directly,
