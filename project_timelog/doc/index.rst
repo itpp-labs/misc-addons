@@ -42,3 +42,4 @@ Note
 ====
 
 * To use the module, you need to be sure that your odoo instance support longpolling, i.e. Instant Messaging works. Read more about how to use the `longpolling  <https://odoo-development.readthedocs.io/en/latest/admin/longpolling.html>`_
+* You need to install a patch to use the new group (the beginning of the week is Sunday). More `here <https://github.com/odoo/odoo/pull/25086>`__
