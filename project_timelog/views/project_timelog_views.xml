@@ -12,7 +12,7 @@
                 <xpath expr="//notebook/page[@string='Description']" position="before">
                     <page string="Work summary">
                         <field name="work_ids" groups="project.group_tasks_work_on_tasks" >
-                            <tree string="Task Work" editable="bottom">
+                            <tree editable="bottom">
                                 <field name="name" attrs="{'readonly': [('status', '=', 'nonactive')]}"/>
                                 <field name="status" invisible="1"/>
                                 <field name="user_current" invisible="1"/>
@@ -114,7 +114,7 @@
             <field name="name">timelog</field>
             <field name="model">project.timelog</field>
             <field name="arch" type="xml">
-                <tree string="My timelog" create="false" edit="true" >
+                <tree create="false" edit="true" >
                     <field name="work_id" string="Subtask"/>
                     <field name="start_datetime" />
                     <field name="end_datetime" />
@@ -129,7 +129,7 @@
             <field name="name">timelog</field>
             <field name="model">project.timelog</field>
             <field name="arch" type="xml">
-                <tree string="Timelog" create="false" edit="true" >
+                <tree create="false" edit="true" >
                     <field name="user_id" string="User"/>
                     <field name="work_id" sting="Subtask"/>
                     <field name="start_datetime" />
@@ -230,7 +230,7 @@
             <field name="name">project.task.work.ext.tree</field>
             <field name="model">project.task.work</field>
             <field name="arch" type="xml">
-                <tree string="Project Task Work">
+                <tree>
                     <field name="user_id" invisible="1"/>
                     <field name="name" readonly="1"/>
                     <field name="analytic_account_id" readonly="1"/>
