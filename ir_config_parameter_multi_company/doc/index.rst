@@ -93,14 +93,13 @@ Following parameter is shared across all companies wherever it was changed:
 
 Reset default values
 --------------------
-There are cases when you change companies values (for example Database expiration). And this can lead to errors in the ir_config_parameter_multi_company module operation.
-To avoid this you need to do the following steps:
 
 * Activate the developer mode 
 * Go to `[[ Settings ]] >> General Settings >> Technical>> Parameters >> Company Properties``
-* Find the value (database expiration value, for example) and delete it for every company. Don't delete the default value.
+* Group by Company
+* Find the value form with the value you want to reset and delete the form for every company. Don't delete the default value.
 * Go to General `[[ Settings ]] >> General Settings >> Technical>> Parameters >> System Parameters``
-* Check the value (database expiration, for example) for every company is the same as Default value.
+* Check that the value for each company is reset and it matches the default value.
 
 Uninstallation
 ==============
