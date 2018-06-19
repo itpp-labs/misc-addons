@@ -451,10 +451,14 @@ $(document).ready(function() {
                 };
             } else {
                 context = {
-                    'search_default_week': 1,
                     'search_default_group_tasks': 1,
                     'search_default_group_subtasks': 1,
                 };
+                if (this.config.week_beginning === 'sunday') {
+                    context.search_default_week_sunday = 1;
+                } else {
+                    context.search_default_week = 1;
+                }
             }
             if (!action) {
                 action = {
