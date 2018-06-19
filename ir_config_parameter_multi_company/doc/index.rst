@@ -91,15 +91,16 @@ Following parameter is shared across all companies wherever it was changed:
 * ``database.expiration_date`` -- it's used in Odoo EE
 
 
-There are cases when you changed the value for one company (for example Database expiration), but there are several companies and you forgot which one is real. 
-And also this can lead to errors in the ir_config_parameter_multi_company module operation.
-In the Company properties, there are excess values that need to be removed. In this case, you need to do the following:
+Reset default values
+--------------------
+There are cases when you change companies values (for example Database expiration). And this can lead to errors in the ir_config_parameter_multi_company module operation.
+To avoid this you need to do the following steps:
 
 * Activate the developer mode 
-* Go to ``Settings >> General Settings >> Technical>> Parameters >> Company Properties``
-* Find the excess value (database expiration value, for example) and delete it for every company. Don't delete the default value.
-* Go to General ``Settings >> General Settings >> Technical>> Parameters >> System Parameters``
-* Change the value (database expiration, for example) for every company. It must be the same as Default value.
+* Go to `[[ Settings ]] >> General Settings >> Technical>> Parameters >> Company Properties``
+* Find the value (database expiration value, for example) and delete it for every company. Don't delete the default value.
+* Go to General `[[ Settings ]] >> General Settings >> Technical>> Parameters >> System Parameters``
+* Check the value (database expiration, for example) for every company is the same as Default value.
 
 Uninstallation
 ==============
