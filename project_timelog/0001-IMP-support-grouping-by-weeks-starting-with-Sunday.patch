@@ -1,14 +1,14 @@
-From 3fe9d49cada8bd9ec1097d49aeb6d94d6bb9c691 Mon Sep 17 00:00:00 2001
+From 0b75a150f20818f7fd21239517d9efcb94b3605a Mon Sep 17 00:00:00 2001
 From: GabbasovDinar <gabbasov@it-projects.info>
-Date: Wed, 20 Jun 2018 13:40:53 +0500
+Date: Wed, 20 Jun 2018 17:16:40 +0500
 Subject: [PATCH] [IMP] support grouping by weeks starting with Sunday
 
 ---
- openerp/models.py | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+ openerp/models.py | 22 +++++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
 
 diff --git a/openerp/models.py b/openerp/models.py
-index 4dd70e7..b422049 100644
+index 4dd70e7..dd93d2b 100644
 --- a/openerp/models.py
 +++ b/openerp/models.py
 @@ -1966,6 +1966,7 @@ class BaseModel(object):
@@ -45,7 +45,18 @@ index 4dd70e7..b422049 100644
          if field_type == 'boolean':
              qualified_field = "coalesce(%s,false)" % qualified_field
          return {
-@@ -2036,6 +2048,10 @@ class BaseModel(object):
+@@ -2014,6 +2026,10 @@ class BaseModel(object):
+             a given value. This is mostly relevant for date/datetime.
+         """
+         if groupby['type'] in ('date', 'datetime') and value:
++            if ':week_sunday' in groupby['groupby']:
++                # postgres's date_trunc supports only weeks starting with Monday
++                # So, make this hack to support weeks starting with Sunday
++                value -= dateutil.relativedelta.relativedelta(days=1)
+             dt_format = DEFAULT_SERVER_DATETIME_FORMAT if groupby['type'] == 'datetime' else DEFAULT_SERVER_DATE_FORMAT
+             domain_dt_begin = value
+             domain_dt_end = value + groupby['interval']
+@@ -2036,6 +2052,10 @@ class BaseModel(object):
          for k,v in data.iteritems():
              gb = groupby_dict.get(k)
              if gb and gb['type'] in ('date', 'datetime') and v:
