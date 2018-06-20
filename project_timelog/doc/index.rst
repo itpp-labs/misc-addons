@@ -6,6 +6,11 @@ Installation
 ============
 
 * `Install <https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html>`__ this module in a usual way
+* To use the module, you need to be sure that your odoo instance support longpolling, i.e. Instant Messaging works. Read more about how to use the `longpolling  <https://odoo-development.readthedocs.io/en/latest/admin/longpolling.html>`_
+* You need to install a patch to use the new group (the beginning of the week is Sunday). The use of the patch is optional and needed only to use Sunday grouping (otherwise only Monday works). More `here. <https://github.com/odoo/odoo/pull/25086>`__ To apply the patch execute::
+
+    cd /path/to/odoo/source
+    patch -p1 < /path/to/0001-IMP-support-grouping-by-weeks-starting-with-Sunday.patch
 
 Usage
 =====
@@ -37,17 +42,3 @@ Forced completion of the task
 Uninstallation
 ==============
 * Open the``Project timelog`` module by going to Apps and click on the ``Uninstall`` button.
-
-Note
-====
-
-* To use the module, you need to be sure that your odoo instance support longpolling, i.e. Instant Messaging works. Read more about how to use the `longpolling  <https://odoo-development.readthedocs.io/en/latest/admin/longpolling.html>`_
-* You need to install a patch to use the new group (the beginning of the week is Sunday). The use of the patch is optional and needed only to use Sunday grouping (otherwise only Monday works). More `here <https://github.com/odoo/odoo/pull/25086>`__
-
-Applying the patch
-==================
-
-::
-
-    cd /path/to/odoo/source
-    patch -p1 < /path/to/0001-IMP-support-grouping-by-weeks-starting-with-Sunday.patch
