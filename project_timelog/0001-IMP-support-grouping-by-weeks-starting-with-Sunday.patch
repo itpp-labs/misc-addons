@@ -1,0 +1,61 @@
+From 3fe9d49cada8bd9ec1097d49aeb6d94d6bb9c691 Mon Sep 17 00:00:00 2001
+From: GabbasovDinar <gabbasov@it-projects.info>
+Date: Wed, 20 Jun 2018 13:40:53 +0500
+Subject: [PATCH] [IMP] support grouping by weeks starting with Sunday
+
+---
+ openerp/models.py | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
+
+diff --git a/openerp/models.py b/openerp/models.py
+index 4dd70e7..b422049 100644
+--- a/openerp/models.py
++++ b/openerp/models.py
+@@ -1966,6 +1966,7 @@ class BaseModel(object):
+                 # Cfr: http://babel.pocoo.org/docs/dates/#date-fields
+                 'day': 'dd MMM yyyy', # yyyy = normal year
+                 'week': "'W'w YYYY",  # w YYYY = ISO week-year
++                'week_sunday': "'W'w'(s)' YYYY",  # w YYYY = ISO week-year
+                 'month': 'MMMM yyyy',
+                 'quarter': 'QQQ yyyy',
+                 'year': 'yyyy',
+@@ -1973,13 +1974,24 @@ class BaseModel(object):
+             time_intervals = {
+                 'day': dateutil.relativedelta.relativedelta(days=1),
+                 'week': datetime.timedelta(days=7),
++                'week_sunday': datetime.timedelta(days=7),
+                 'month': dateutil.relativedelta.relativedelta(months=1),
+                 'quarter': dateutil.relativedelta.relativedelta(months=3),
+                 'year': dateutil.relativedelta.relativedelta(years=1)
+             }
+             if tz_convert:
+                 qualified_field = "timezone('%s', timezone('UTC',%s))" % (context.get('tz', 'UTC'), qualified_field)
+-            qualified_field = "date_trunc('%s', %s)" % (gb_function or 'month', qualified_field)
++            if gb_function == 'week_sunday':
++                # postgres's date_trunc supports only weeks starting with Monday
++                # So, make this hack to support weeks starting with Sunday
++                if field_type == 'date':
++                    # interger must be used to don't convert DATE to TIMESTAMP
++                    interval_day = "integer '1'"
++                else:
++                    interval_day = "interval '1 day'"
++                qualified_field = "date_trunc('week', %s  + %s)" % (qualified_field, interval_day)
++            else:
++                qualified_field = "date_trunc('%s', %s)" % (gb_function or 'month', qualified_field)
+         if field_type == 'boolean':
+             qualified_field = "coalesce(%s,false)" % qualified_field
+         return {
+@@ -2036,6 +2048,10 @@ class BaseModel(object):
+         for k,v in data.iteritems():
+             gb = groupby_dict.get(k)
+             if gb and gb['type'] in ('date', 'datetime') and v:
++                if ':week_sunday' in gb['groupby']:
++                    # postgres's date_trunc supports only weeks starting with Monday
++                    # So, make this hack to support weeks starting with Sunday
++                    v -= dateutil.relativedelta.relativedelta(days=1)
+                 data[k] = babel.dates.format_date(v, format=gb['display_format'], locale=context.get('lang', 'en_US'))
+ 
+         data['__domain'] = domain_group + domain 
+-- 
+1.9.1
+
