@@ -79,12 +79,12 @@ class TimelogController(http.Controller):
         week_timer = 0
         today = datetime.datetime.today()
 
-        week_beginning = config.get_param("project_timelog.week_beginning")
+        first_weekday = config.get_param("project_timelog.first_weekday")
 
-        if week_beginning == 'monday':
+        if first_weekday == 'monday':
             first_day_of_week = today - datetime.timedelta(datetime.datetime.weekday(today))
             last_day_of_week = today + datetime.timedelta(6 - datetime.datetime.weekday(today))
-        elif week_beginning == 'sunday':
+        elif first_weekday == 'sunday':
             first_day_of_week = today - datetime.timedelta(1 + datetime.datetime.weekday(today))
             last_day_of_week = today + datetime.timedelta(5 - datetime.datetime.weekday(today))
 
@@ -174,7 +174,7 @@ class TimelogController(http.Controller):
             "timelog_id": last_timelog,
             "end_datetime_status": end_datetime_status,
 
-            "week_beginning": week_beginning,
+            "first_weekday": first_weekday,
         }
 
     @http.route('/timelog/connection', type='http', auth="public")

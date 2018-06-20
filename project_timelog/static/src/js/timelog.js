@@ -454,7 +454,7 @@ $(document).ready(function() {
                     'search_default_group_tasks': 1,
                     'search_default_group_subtasks': 1,
                 };
-                if (this.config.week_beginning === 'sunday') {
+                if (this.config.first_weekday === 'sunday') {
                     context.search_default_week_sunday = 1;
                 } else {
                     context.search_default_week = 1;
