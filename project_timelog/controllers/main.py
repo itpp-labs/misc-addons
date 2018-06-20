@@ -109,19 +109,17 @@ class TimelogController(http.Controller):
         if timelogs_other_users:
             another_users = []
             for u in timelogs_other_users:
-                another_users.append({
-                    'id': u.user_id.id,
-                    'name': u.user_id.name
-                })
+                another_users.append(u.user_id.id)
             another_users = list(set(another_users))
-            for u in another_users:
-                res = timelog_obj.search([("user_id", "=", u['id']), ("work_id.task_id", "=", task.id)])
+            for user_id in another_users:
+                res = timelog_obj.search([("user_id", "=", user_id), ("work_id.task_id", "=", task.id)])
                 sum_another_timelog = 0
                 for i in res:
                     sum_another_timelog = sum_another_timelog + i.corrected_duration
                 sum_another_timelog = 3600 * sum_another_timelog
                 sum_another_timelog = datetime.timedelta(seconds=round(sum_another_timelog, 0))
-                second_timer_info.append(u['name'] + ": " + str(sum_another_timelog) + "\n")
+                current_user = request.env['res.users'].browse(user_id)
+                second_timer_info.append(current_user.name + ": " + str(sum_another_timelog) + "\n")
 
             for r in second_timer_info:
                 desctiption_timer = desctiption_timer + r
