@@ -74,12 +74,22 @@ class TimelogController(http.Controller):
             if timer_status:
                 day_timer = day_timer + current_time
 
+        config = request.env["ir.config_parameter"]
+
         # 4. All time this week
         week_timer = 0
         today = datetime.datetime.today()
-        monday = today - datetime.timedelta(datetime.datetime.weekday(today))
-        sunday = today + datetime.timedelta(6 - datetime.datetime.weekday(today))
-        timelog_this_week = timelog_obj.search([("user_id", "=", user.id), ("start_datetime", ">=", monday.strftime('%Y-%m-%d 00:00:00')), ("start_datetime", "<=", sunday.strftime('%Y-%m-%d 23:59:59'))])
+
+        first_weekday = config.get_param("project_timelog.first_weekday")
+
+        if first_weekday == 'monday':
+            first_day_of_week = today - datetime.timedelta(datetime.datetime.weekday(today))
+            last_day_of_week = today + datetime.timedelta(6 - datetime.datetime.weekday(today))
+        elif first_weekday == 'sunday':
+            first_day_of_week = today - datetime.timedelta(1 + datetime.datetime.weekday(today))
+            last_day_of_week = today + datetime.timedelta(5 - datetime.datetime.weekday(today))
+
+        timelog_this_week = timelog_obj.search([("user_id", "=", user.id), ("start_datetime", ">=", first_day_of_week.strftime('%Y-%m-%d 00:00:00')), ("start_datetime", "<=", last_day_of_week.strftime('%Y-%m-%d 23:59:59'))])
         if timelog_this_week:
             week_work_ids = []
             for r in timelog_this_week:
@@ -115,7 +125,6 @@ class TimelogController(http.Controller):
             for r in second_timer_info:
                 desctiption_timer = desctiption_timer + r
 
-        config = request.env["ir.config_parameter"]
         convert_sec = 3600
 
         timer_stopline = False
@@ -163,7 +172,9 @@ class TimelogController(http.Controller):
             "task_name": task_name,
 
             "timelog_id": last_timelog,
-            "end_datetime_status": end_datetime_status
+            "end_datetime_status": end_datetime_status,
+
+            "first_weekday": first_weekday,
         }
 
     @http.route('/timelog/connection', type='http', auth="public")
