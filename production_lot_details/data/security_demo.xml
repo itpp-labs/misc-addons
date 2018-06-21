@@ -4,7 +4,6 @@
     # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). -->
 
 <odoo>
-    <data>
 
         <record model="res.groups" id="base.group_user">
             <field name="implied_ids" eval="[
@@ -12,5 +11,4 @@
             ]"/>
         </record>
 
-    </data>
 </odoo>

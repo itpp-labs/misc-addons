@@ -6,7 +6,7 @@
     "summary": """Allows to add links with details for production lots.""",
     "category": "Extra Tools",
     "images": ["static/description/icon.png"],
-    "version": "1.0.0",
+    "version": "11.0.1.0.0",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",
