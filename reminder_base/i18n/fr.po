@@ -1,21 +1,22 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* reminder_base
-#
+# * reminder_base
+# 
+# Translators:
+# Translation Bot <i18n-bot@it-projects.info>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-18 14:43+0000\n"
-"PO-Revision-Date: 2018-02-18 15:43+0100\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2018-04-20 23:53+0000\n"
+"PO-Revision-Date: 2018-04-20 23:53+0000\n"
+"Last-Translator: Translation Bot <i18n-bot@it-projects.info>, 2018\n"
+"Language-Team: French (https://www.transifex.com/it-projects-llc/teams/76080/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: \n"
 "Language: fr\n"
-"X-Generator: Poedit 2.0.6\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: reminder_base
 #: model:ir.model.fields,field_description:reminder_base.field_reminder_admin_action
@@ -76,8 +77,12 @@ msgstr "ID"
 
 #. module: reminder_base
 #: model:ir.ui.view,arch_db:reminder_base.view_reminder_admin
-msgid "In the main, this tool is used after installation or before uninstallation Reminder module"
-msgstr "De base, cet outil est utilisé après une installation ou avant désinstallation du module"
+msgid ""
+"In the main, this tool is used after installation or before uninstallation "
+"Reminder module"
+msgstr ""
+"De base, cet outil est utilisé après une installation ou avant "
+"désinstallation du module"
 
 #. module: reminder_base
 #: model:ir.model.fields,field_description:reminder_base.field_reminder___last_update
@@ -123,6 +128,8 @@ msgstr "Administration des Rappels"
 
 #. module: reminder_base
 #: model:ir.model.fields,field_description:reminder_base.field_crm_lead_reminder_event_id
+#: model:ir.model.fields,field_description:reminder_base.field_hr_applicant_reminder_event_id
+#: model:ir.model.fields,field_description:reminder_base.field_project_task_reminder_event_id
 #: model:ir.model.fields,field_description:reminder_base.field_reminder_reminder_event_id
 msgid "Reminder Calendar Event"
 msgstr "Calendrier des Evènements de Rappels"
@@ -134,6 +141,7 @@ msgid "Reminder administration"
 msgstr "Administration des Rappels"
 
 #. module: reminder_base
+#: model:ir.model.fields,field_description:reminder_base.field_project_task_reminder_alarm_ids
 #: model:ir.model.fields,field_description:reminder_base.field_reminder_reminder_alarm_ids
 msgid "Reminders"
 msgstr "Rappels"

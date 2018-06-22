@@ -34,3 +34,22 @@ class TestBase(common.TransactionCase):
 
         self.env.user.company_id = self.main_company
         self.assertEqual(self.config_param.get_param(KEY), VALUE1)
+
+    def test_protected_param(self):
+        KEY = 'database.expiration_date'
+        VALUE1 = 'value1'
+        VALUE2 = 'value2'
+
+        # first company
+        self.config_param.set_param(KEY, VALUE1)
+        self.assertEqual(self.config_param.get_param(KEY), VALUE1, 'Value is not saved!')
+
+        # for second company
+        self.env.user.company_id = self.second_company
+        self.assertEqual(self.config_param.get_param(KEY), VALUE1)
+        self.config_param.set_param(KEY, VALUE2)
+        self.assertEqual(self.config_param.get_param(KEY), VALUE2)
+
+        # switch back to first company
+        self.env.user.company_id = self.main_company
+        self.assertEqual(self.config_param.get_param(KEY), VALUE2)

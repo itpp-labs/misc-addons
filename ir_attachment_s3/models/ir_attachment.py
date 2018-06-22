@@ -67,14 +67,14 @@ class IrAttachment(models.Model):
             s3_records = self.env[self._name]
         elif condition:
             condition = safe_eval(condition, mode="eval")
-            s3_records = self.search([('id', 'in', self.ids)] + condition)
+            s3_records = self.sudo().search([('id', 'in', self.ids)] + condition)
         else:
             # if there is no condition then store all attachments on s3
             s3_records = self
         s3_records = s3_records._filter_protected_attachments()
-        s3_records = s3_records.filtered('datas')
+        s3_records = s3_records.filtered(lambda r: r.type != 'url')
 
-        for attach in s3_records:
+        for attach in self & s3_records:  # datas field has got empty somehow in the result of ``s3_records = self.sudo().search([('id', 'in', self.ids)] + condition)`` search for non-superusers but it is in original recordset. Here we use original (with datas) in case it intersects with the search result
             value = attach.datas
             bin_data = base64.b64decode(value) if value else b''
             fname = hashlib.sha1(bin_data).hexdigest()
