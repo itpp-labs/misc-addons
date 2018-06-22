@@ -1,7 +1,7 @@
 OCA_project-service https://github.com/it-projects-llc/project
 OCA_server-tools https://github.com/it-projects-llc/server-tools
 OCA_web https://github.com/it-projects-llc/web
-OCA_website https://github.com/it-projects-llc/website
+OCA_website https://github.com/OCA/website
 access-addons https://github.com/it-projects-llc/access-addons
 mail-addons https://github.com/it-projects-llc/mail-addons
 website-addons https://github.com/it-projects-llc/website-addons
