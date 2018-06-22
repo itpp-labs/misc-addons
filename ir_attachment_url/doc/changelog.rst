@@ -1,3 +1,8 @@
+`1.1.4`
+-------
+
+- **FIX:** Protect `ir.ui.menu` in `_filter_protected_attachments`
+
 `1.1.3`
 -------
 
