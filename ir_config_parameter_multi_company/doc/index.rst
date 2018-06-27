@@ -72,6 +72,8 @@ All system parameters created before module installation (as well as just create
   * **param2** = *value22* (value for companyB)
   * **param3** = *value3* (via default value)
 
+For understanding how multi-website values work see Documentation of `web_website <https://apps.odoo.com/apps/modules/10.0/web_website/>`__ 
+
 Company Properties
 ------------------
 
