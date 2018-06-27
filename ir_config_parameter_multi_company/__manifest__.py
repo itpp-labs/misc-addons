@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    "name": """Context dependent values in System Parameters""",
+    "name": """Context-dependent values in System Parameters""",
     "summary": """Adds multi-company and multi-website support for dozens features""",
     "category": "Extra Tools",
     # "live_test_url": "",
