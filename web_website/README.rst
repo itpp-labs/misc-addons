@@ -6,11 +6,9 @@
  Website Switcher in Backend
 =============================
 
-Technical module to switch Websites in Backend similarly to Company Switcher,
-but instead of changing a field in ``res.users`` , it only adds ``website_id``
-value to the context.
+Technical module to switch Websites in Backend similarly to Company Switcher. On changing it update field **backend_website_id** in ``res.users``.
 
-Also, introduces new fields attribute ``website_dependent``, which can be used
+Also, introduces new field attribute ``website_dependent``, which can be used
 only along with ``company_dependent``. See `<models/test_website.py>`_ and `<tests/test_website_dependent.py>`_ as an example of usage.
 
 Roadmap
