@@ -1,5 +1,5 @@
 ===============================================
- Company-dependent values in System Parameters
+ Context-dependent values in System Parameters
 ===============================================
 
 Installation
