@@ -23,15 +23,6 @@ odoo.define('web_debranding.dashboard', function (require) {
                   <hr/>
                   Need more help? <a target="_blank" href="https://www.odoo.com/documentation/user">Browse the documentation.</a>
                 */
-                var $all = self.$('.o_web_settings_dashboard_planners_list').nextAll();
-                var text_node = $all[0].nextSibling;
-                if (text_node.remove){
-                    text_node.remove();
-                    $all.remove();
-                } else {
-                    // old browser - hide whole block
-                    self.$('.o_web_settings_dashboard_planner').parent().remove();
-                }
             });
         },
     });
