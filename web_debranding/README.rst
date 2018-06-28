@@ -38,8 +38,8 @@ Removes references to odoo.com:
 11. Disables server requests to odoo.com (publisher_warranty_url) - optional. Works only for non-enterprise versions of odoo, check `note <#enterprise-users-notice>`__ below.
 12. *(feature is a part of p.5)*
 13. Deletes Share block and branded parts of other blocks at ``[[ Settings ]] >> Dashboard``
-14. Replaces "Odoo" in planner
-15. Replaces footer in planner to a custom one.
+14. *(feature is not required in 11.0+ versions)*
+15. *(feature is not required in 11.0+ versions)*
 16. Deletes "Odoo" in a request message for permission desktop notifications (yellow block at ``Discuss`` page). Replaces "Odoo" and icon in desktop notifications
 17. [ENTERPRISE] Deletes odoo logo in application switcher
 18. Hides Enterprise features in Settings
@@ -61,7 +61,7 @@ Removes references to odoo.com:
 
 22. [ENTERPRISE] Replaces icons for mobile devices with custom url
 23. Replaces links to `documentation <https://www.odoo.com/documentation>`__ (e.g. "Help" in Import tool, "How-to" in paypal, etc.) to custom website
-24. Removes official videos in planner
+24. *(feature is not required in 11.0+ versions)*
 25. Replaces "Odoo" in *application installed* mails
 
 Configuration
@@ -76,7 +76,6 @@ module openf ``[[ Settings ]] >> Technical >> Parameters >> System Parameters`` 
 * ``web_debranding.new_documentation_website`` (website with documentation instead of official one)
 * ``web_debranding.favicon_url``
 * ``web_debranding.send_publisher_warranty_url`` - set 0 to disable server requests to odoo.com and 1 otherwise (useful for enterprise contractors). Works only for non-enterprise versions of odoo, check `note <#enterprise-users-notice>`__ below.
-* ``web_debranding.planner_footer``
 * ``web_debranding.icon_url`` - icon for mobile devices. recommended size :192x192
 * ``web_debranding.apple_touch_icon_url`` - icon for IOS Safari. recommended size :152x152
 

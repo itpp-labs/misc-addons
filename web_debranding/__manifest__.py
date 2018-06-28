@@ -12,7 +12,6 @@
     'depends': [
         'web',
         'mail',
-        'web_planner',
         'access_apps',
         'access_settings_menu',
     ],

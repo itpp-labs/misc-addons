@@ -42,11 +42,6 @@ msgid "Developer mode is already activated"
 msgstr "Режим разработчика уже активирован"
 
 #. module: web_debranding
-#: model:ir.model,name:web_debranding.model_web_planner
-msgid "Planner"
-msgstr ""
-
-#. module: web_debranding
 #: code:addons/web_debranding/models/ir_config_parameter.py:6
 #: code:addons/web_debranding/models/ir_config_parameter.py:7
 #, python-format
