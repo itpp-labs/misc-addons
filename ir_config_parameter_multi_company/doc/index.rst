@@ -96,8 +96,7 @@ Reset default values
 
 * Activate the developer mode 
 * Go to ``[[ Settings ]] >> General Settings >> Technical>> Parameters >> Company Properties``
-* Click ``[Group By] -> Company``
-* Find the value form with the value you want to reset and delete the form for every company. Don't delete the default value.
+* Find the value record with the value you want to reset and delete the record for every company. Don't delete the default value.
 * Go to General ``[[ Settings ]] >> General Settings >> Technical>> Parameters >> System Parameters``
 * Check that the value for each company is reset and it matches the default value.
 
