@@ -93,10 +93,11 @@ Following parameter is shared across all companies wherever it was changed:
 
 Reset default values
 --------------------
+
 * Activate the developer mode 
 * Go to ``[[ Settings ]] >> General Settings >> Technical>> Parameters >> Company Properties``
 * Find the value record with the value you want to reset and delete the record for every company. Don't delete the default value.
-* Go to General ``[[ Settings ]] >> General Settings >> Technical>> Parameters >> System Parameters``
+* Go to General ``[[ Settings ]] >> General Settings >> Technical >> Parameters >> System Parameters``
 * Check that the value for each company is reset and it matches the default value.
 
 Uninstallation
