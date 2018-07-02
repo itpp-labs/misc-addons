@@ -96,7 +96,9 @@ Reset default values
 
 * Activate the developer mode 
 * Go to ``[[ Settings ]] >> General Settings >> Technical >> Parameters >> Company Properties``
-* Find the value record with the value you want to reset and delete the record for every company. Don't delete the default value.
+* Group records by Company > Resource
+* Find group ir.config_parameter for the company in which you made the changes
+* Find the value record with the changed value and delete the record. Don't delete the default value.
 * Go to General ``[[ Settings ]] >> General Settings >> Technical >> Parameters >> System Parameters``
 * Check that the value for each company is reset and it matches the default value.
 
