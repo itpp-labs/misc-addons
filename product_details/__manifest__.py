@@ -1,9 +1,13 @@
+# Copyright 2016-2017 Stanislav Krotov <https://www.it-projects.info/team/ufaks>
+# Copyright 2016-2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+
 {
     "name": """Product Details""",
     "summary": """Allows to add links with describes of products.""",
     "category": "Extra Tools",
     "images": ["static/description/icon.png"],
-    "version": "1.0.0",
+    "version": "11.0.1.0.0",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",
@@ -29,5 +33,5 @@
     "post_init_hook": None,
 
     "auto_install": False,
-    "installable": False,
+    "installable": True,
 }

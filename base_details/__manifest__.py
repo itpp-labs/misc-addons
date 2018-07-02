@@ -1,9 +1,14 @@
+# Copyright 2017 Stanislav Krotov <https://www.it-projects.info/team/ufaks>
+# Copyright 2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+
 {
     "name": """Base Details""",
     "summary": """Allows to add reference in any models""",
     "category": "Hidden",
     "images": ["static/description/icon.png"],
-    "version": "1.0.0",
+    "version": "11.0.1.0.0",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",
@@ -13,7 +18,6 @@
     # "currency": "EUR",
 
     "depends": [
-        'web_polymorphic_field',
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
@@ -28,5 +32,5 @@
     "post_init_hook": None,
 
     "auto_install": False,
-    "installable": False,
+    "installable": True,
 }
