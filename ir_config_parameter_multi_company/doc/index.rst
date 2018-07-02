@@ -98,8 +98,8 @@ Reset default values
 * Go to ``[[ Settings ]] >> General Settings >> Technical >> Parameters >> Company Properties``
 * Group records by Company > Resource
 * Find group ir.config_parameter for the company in which you made the changes
-* Find the value record with the changed value and delete the record. Don't delete the default value.
-* Go to General ``[[ Settings ]] >> General Settings >> Technical >> Parameters >> System Parameters``
+* Find the record with the changed value and delete the record. Don't delete the default value.
+* Go to ``[[ Settings ]] >> General Settings >> Technical >> Parameters >> System Parameters``
 * Check that the value for each company is reset and it matches the default value.
 
 Uninstallation
