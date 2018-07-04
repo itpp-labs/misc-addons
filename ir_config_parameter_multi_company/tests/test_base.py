@@ -10,6 +10,7 @@ class TestBase(common.TransactionCase):
         self.config_param = self.env['ir.config_parameter']
         self.main_company = self.env.user.company_id
         self.second_company = self.env['res.company'].create({'name': 'Second company'})
+        self.env.user.company_ids = [(4, self.second_company.id)]
 
     def test_cache(self):
         KEY = 'test_key'

@@ -1,10 +1,10 @@
 ===============================================
- Company-dependent values in System Parameters
+ Context-dependent values in System Parameters
 ===============================================
 
-Adds multi-company support to many features
+Adds multi-company and multi-website support to many features
 
-Based on built-in company_dependent parameters. Real values are stored at ``ir.property``.
+Based on built-in ``company_dependent`` and new ``website_dependent`` attributes. Real values are stored at ``ir.property``.
 
 Check Usage instructions for understanding how it works.
 
