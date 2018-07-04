@@ -136,8 +136,8 @@ class Reminder(models.AbstractModel):
         r_vals = vals.copy()
         reminders_without_event = self.filtered(lambda r: not r.reminder_event_id)
         reminders_without_event._check_and_create_reminder_event(r_vals)
-        res = super(Reminder, r).write(r_vals)
-        r._update_reminder(r_vals)
+        res = super(Reminder, self).write(r_vals)
+        self._update_reminder(r_vals)
         return res
 
 
