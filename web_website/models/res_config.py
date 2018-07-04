@@ -6,7 +6,7 @@ from odoo import models, fields
 
 class WebWebsiteConfigSettings(models.TransientModel):
 
-    _inherit = 'base.config.settings'
+    _inherit = 'res.config.settings'
 
     group_multi_website = fields.Boolean(
         string='Multi Website for Backend',
