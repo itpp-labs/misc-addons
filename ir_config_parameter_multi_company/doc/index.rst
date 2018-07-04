@@ -71,7 +71,6 @@ All system parameters created before module installation (as well as just create
   * **param1** = *value1* (via default value)
   * **param2** = *value22* (value for companyB)
   * **param3** = *value3* (via default value)
- 
 
 Company Properties
 ------------------
@@ -91,14 +90,20 @@ Following parameter is shared across all companies wherever it was changed:
 * ``database.expiration_date`` -- it's used in Odoo EE
 
 
-Reset default values
---------------------
+Reseting value for all companies
+--------------------------------
 
 * Activate the developer mode 
 * Go to ``[[ Settings ]] >> Technical >> Parameters >> Company Properties``
-* Group records by Company > Resource
-* Find group ir.config_parameter for the company in which you made the changes
-* Find the record with the changed value and delete the record. Don't delete the default value.
+* Group records by ``Resource``
+* Find group ``ir.config_parameter,<ID>`` for the Parameter you need. To get ID of a parameter do as following
+
+  * Go to ``[[ Settings ]] >> Technical >> Parameters >> System Parameters``
+  * Open the Parameter you need
+  * Check url of the page. It contains id value. In example below id is 3 
+    
+        /web?debug#id=3&view_type=form&model=ir.config_parameter&menu_id=25&action=9
+* Select all values except defaul one. Click ``[Action] -> Delete``
 * Go to ``[[ Settings ]] >> Technical >> Parameters >> System Parameters``
 * Check that the value for each company is reset and it matches the default value.
 
