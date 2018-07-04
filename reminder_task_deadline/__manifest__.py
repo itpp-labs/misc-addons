@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": "Reminders and Agenda for Tasks",
     "summary": """Allows you to create reminders for tasks.""",
