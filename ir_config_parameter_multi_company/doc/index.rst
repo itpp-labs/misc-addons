@@ -103,7 +103,7 @@ Reseting value for all companies
   * Check url of the page. It contains id value. In example below id is 3 
     
         /web?debug#id=3&view_type=form&model=ir.config_parameter&menu_id=25&action=9
-* Select all values in than group except defaul one. Click ``[Action] -> Delete``. Don't do anything if you have default value only.
+* Select all values in the group except defaul one. Click ``[Action] -> Delete``. Don't do anything if you have default value only.
 * Open default value and change the value if needed 
 * Go to ``[[ Settings ]] >> Technical >> Parameters >> System Parameters``
 * Check that the value for each company is reset and it matches the default value.
