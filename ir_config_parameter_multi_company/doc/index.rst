@@ -96,7 +96,7 @@ Reseting value for all companies
 * `Activate Developer Mode <https://odoo-development.readthedocs.io/en/latest/odoo/usage/debug-mode.html>`__
 * Go to ``[[ Settings ]] >> Technical >> Parameters >> Company Properties``
 * Group records by ``Resource``
-* Find group ``ir.config_parameter,<ID>`` for the Parameter you need. To get ID of a parameter do as following
+* Find group ``ir.config_parameter,<ID>`` for the Parameter you need. To get ID of the parameter do as following
 
   * Go to ``[[ Settings ]] >> Technical >> Parameters >> System Parameters``
   * Open the Parameter you need
