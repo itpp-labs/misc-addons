@@ -1,10 +1,10 @@
 {
-    "name": """Company-dependent values in System Parameters""",
-    "summary": """Adds multi-company support for dozens features""",
+    "name": """Context-dependent values in System Parameters""",
+    "summary": """Adds multi-company and multi-website support for dozens features""",
     "category": "Extra Tools",
     # "live_test_url": "",
     "images": [],
-    "version": "11.0.2.1.0",
+    "version": "11.0.3.0.0",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",
@@ -15,7 +15,7 @@
     "currency": "EUR",
 
     "depends": [
-        "base_setup",
+        "web_website",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
