@@ -5,9 +5,6 @@
 Installation
 ============
 
-* Add this module to server-wide modules, for example::
-
-      ./odoo-bin --load=web,web_website
 * `Install <https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html>`__ this module in a usual way
 * As this is a technical module, consider to install other modules that use this one, for example `ir_config_parameter_multi_company <https://apps.odoo.com/apps/modules/10.0/ir_config_parameter_multi_company/>`_
 
@@ -41,7 +38,7 @@ For a given record field and context (Company, Website), priority of the *proper
 #. **Website** is matched, **Resource** is empty
 #. **Company** and **Resource**  are matched, **Website** is empty
 #. **Company** is matched, **Resource** and **Website** are empty
-#. **Company**, **Resource** and **Website** are empty (i.e. only **Field** is matched) 
+#. **Company**, **Resource** and **Website** are empty (i.e. only **Field** is matched)
 
 Note, that when **Company** and **Website** are both set, **Website**'s Company
 must be equal to **Company** or Empty. Otherwise such records are ignored.
@@ -51,12 +48,7 @@ in context) it works as without the module, i.e.:
 
 #. **Company** and **Resource**  are matched
 #. **Company** is matched, **Resource** is empty
-#. **Company** and **Resource** are empty (i.e. only **Field** is matched) 
+#. **Company** and **Resource** are empty (i.e. only **Field** is matched)
 
 
 Note, if some code use ``sudo()`` before getting the value, configuraiton of superuser will be used.
-
-Uninstallation
-==============
-
-Don't forget to remove ``web_website`` from server-wide modules
