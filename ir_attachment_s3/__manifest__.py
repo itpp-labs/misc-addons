@@ -3,7 +3,7 @@
     "summary": """Upload attachments on Amazon S3""",
     "category": "Tools",
     "images": [],
-    "version": "11.0.1.1.1",
+    "version": "11.0.1.1.2",
     "application": False,
 
     "author": "IT-Projects LLC, Ildar Nasyrov",
