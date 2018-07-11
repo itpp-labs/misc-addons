@@ -1,3 +1,8 @@
+`1.0.26`
+--------
+
+- FIX: developer mode availability via dropdown menu for not admins
+
 `1.0.25`
 --------
 

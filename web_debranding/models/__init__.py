@@ -5,3 +5,4 @@ from . import ir_config_parameter
 from . import web_planner
 from . import ir_ui_view
 from . import mail_message
+from . import res_users
