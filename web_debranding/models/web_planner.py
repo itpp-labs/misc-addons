@@ -21,6 +21,6 @@ class Planner(models.Model):
         res = re.sub(rb'<h4>Don\'t hesitate to[\s\S]*logo.png"/>', b'', res)
         res = re.sub(rb'<p>Once it\'s fully working[\s\S]*odoo_logo.png"/>', planner_footer, res)
         res = re.sub(rb'<div class="mt32">[\s\S\n]*Fabien Pinckaers, Founder[\s\S\n]*?</div>', planner_footer, res)
-        res = re.sub(rb'<div[^<]*<strong>See it in action [\s\S]*?</strong><br/>[\s\S]*?<iframe[^<]*www.youtube.com/embed/204DbheXfWw[\s\S]*?</iframe>[^<]*</div>', '', res)
-        res = re.sub(rb'<img src="/web_planner/static/src/img/odoo_logo.png"/>', '', res)
+        res = re.sub(rb'<div[^<]*<strong>See it in action [\s\S]*?</strong><br/>[\s\S]*?<iframe[^<]*www.youtube.com/embed/204DbheXfWw[\s\S]*?</iframe>[^<]*</div>', b'', res)
+        res = re.sub(rb'<img src="/web_planner/static/src/img/odoo_logo.png"/>', b'', res)
         return debrand_bytes(self.env, res)
