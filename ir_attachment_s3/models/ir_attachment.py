@@ -60,7 +60,6 @@ class IrAttachment(models.Model):
         return s3
 
     def _inverse_datas(self):
-        # set s3_records to empty recordset
         condition = self._get_s3_settings('s3.condition', 'S3_CONDITION')
         if condition:
             condition = safe_eval(condition, mode="eval")
