@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--Copyright 2015-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    Copyright 2016 Stanislav Krotov <https://it-projects.info/team/ufaks>
+    Copyright 2016 Gabbasov Dinar <https://it-projects.info/team/GabbasovDinar>
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).-->
 <templates>
-
     <t t-extend="mail.client_action">
       <t t-jquery=".o_mail_request_permission" t-operation="inner">
         Your permission is required to <a href="#"> enable desktop notifications</a>.
