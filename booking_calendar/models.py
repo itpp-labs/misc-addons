@@ -464,25 +464,27 @@ class SaleOrderLine(models.Model):
         for b in slot_calendar_bookings:
             start_dt = datetime.strptime(b.booking_start, DTF).replace(second=0, microsecond=0)
             start_dt_utc = pytz.utc.localize(start_dt)
+            start_dt_user_tz = start_dt_utc.astimezone(user_tz)
             end_dt = datetime.strptime(b.booking_end, DTF).replace(second=0, microsecond=0)
             end_dt_utc = pytz.utc.localize(end_dt)
+            end_dt_user_tz = end_dt_utc.astimezone(user_tz)
             resource = b.resource_id
             if resource.calendar_id:
-                for calendar_working_day in resource.calendar_id.get_attendances_for_weekdays([start_dt.weekday()])[0]:
+                for calendar_working_day in resource.calendar_id.get_attendances_for_weekdays([start_dt_user_tz.weekday()])[0]:
                     min_from = int((calendar_working_day.hour_from - int(calendar_working_day.hour_from)) * 60)
                     min_to = int((calendar_working_day.hour_to - int(calendar_working_day.hour_to)) * 60)
-                    x = start_dt.replace(hour=int(calendar_working_day.hour_from), minute=min_from)
-                    slot_start_utc = user_tz.localize(x).astimezone(pytz.utc)
+                    x = start_dt_user_tz.replace(hour=int(calendar_working_day.hour_from), minute=min_from)
+                    slot_start_dt = x
 
                     if calendar_working_day.hour_to == 0:
-                        y = start_dt.replace(hour=0, minute=0) + timedelta(days=1)
+                        y = start_dt_user_tz.replace(hour=0, minute=0) + timedelta(days=1)
                     else:
-                        y = start_dt.replace(hour=int(calendar_working_day.hour_to), minute=min_to)
-                    slot_end_utc = user_tz.localize(y).astimezone(pytz.utc)
+                        y = start_dt_user_tz.replace(hour=int(calendar_working_day.hour_to), minute=min_to)
+                    slot_end_dt = y
 
-                    if slot_start_utc >= start_dt_utc and slot_end_utc <= end_dt_utc:
-                        start_str = slot_start_utc.strftime(DTF)
-                        end_str = slot_end_utc.strftime(DTF)
+                    if slot_start_dt >= start_dt_user_tz and slot_end_dt <= end_dt_user_tz:
+                        start_str = slot_start_dt.astimezone(pytz.utc).strftime(DTF)
+                        end_str = slot_end_dt.astimezone(pytz.utc).strftime(DTF)
                         res.append({
                             'className': 'booked_slot resource_%s' % b.resource_id.id,
                             'id': b.id,
