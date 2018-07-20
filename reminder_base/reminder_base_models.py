@@ -150,7 +150,7 @@ class Reminder(models.AbstractModel):
                 r_vals = r._check_and_create_reminder_event(r_vals)
             res = super(Reminder, r).write(r_vals)
             r._update_reminder(r_vals)
-        return res
+        return True
 
 
 class CalendarEvent(models.Model):
