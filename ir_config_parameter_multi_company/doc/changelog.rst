@@ -1,3 +1,14 @@
+`3.0.0`
+-------
+
+- **ADD:** multi-website support
+
+`2.1.0`
+-------
+
+- **IMP**: ``database.expiration_date`` has to be the same for all companies,
+  because otherwise it blocks the system in Enterprise Edition as expired
+
 `2.0.0`
 -------
 

@@ -29,9 +29,7 @@
         'product',
         'sale',
     ],
-    "description": """
-    Add tags in products like it's done for the partners
-    """,
+    'license': 'AGPL-3',
     "demo": [],
     "data": [
         'security/ir.model.access.csv',
@@ -39,5 +37,3 @@
     ],
     'installable': False,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
