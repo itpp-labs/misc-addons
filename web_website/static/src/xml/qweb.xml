@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!-- Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). -->
+<templates id="template" xml:space="preserve">
+
+<t t-name="SwitchWebsiteMenu">
+    <li class="o_switch_website_menu">
+        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">
+            <span class="oe_topbar_name"/> <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu"/>
+    </li>
+</t>
+
+</templates>

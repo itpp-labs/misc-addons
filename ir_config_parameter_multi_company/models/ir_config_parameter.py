@@ -8,11 +8,16 @@ PROP_NAME = _('Default value for "%s"')
 
 DATABASE_SECRET_KEY = 'database.secret'
 
+# params that has to be shared across all companies
+SHARED_KEYS = [
+    'database.expiration_date',
+]
+
 
 class IrConfigParameter(models.Model):
     _inherit = 'ir.config_parameter'
 
-    value = fields.Text(company_dependent=True)
+    value = fields.Text(company_dependent=True, website_dependent=True)
 
     @api.multi
     def _get_property(self, for_default=False):
@@ -38,22 +43,63 @@ class IrConfigParameter(models.Model):
     def create(self, vals):
         res = super(IrConfigParameter, self).create(vals)
         # make value company independent
-        prop = res._get_property()
-        prop.company_id = None
-        prop.name = PROP_NAME % res.key
-        res._update_db_value(vals.get('value'))
+        res._force_default(vals.get('value'))
         return res
 
     @api.multi
     def write(self, vals):
         res = super(IrConfigParameter, self).write(vals)
+        value = vals.get('value')
+        if value:
+            for r in self:
+                if r.key in SHARED_KEYS:
+                    r._force_default(value)
+
         if 'key' in vals:
             # Change property name after renaming the parameter to avoid confusions
             self.ensure_one()  # it's not possible to update key on multiple records
             name = PROP_NAME % vals.get('key')
             prop = self._get_property(for_default=True)
             prop.name = name
+
         return res
+
+    def _force_default(self, value):
+        """Remove company-dependent values and keeps only default one"""
+        self.ensure_one()
+        Prop = self.env['ir.property']
+        domain = Prop._get_domain('value', self._name)
+
+        # find all props
+        props = Prop.search(domain + [
+            ('res_id', '=', '%s,%s' % (self._name, self.id)),
+        ])
+
+        default_prop = None
+        if len(props) == 0:
+            default_prop = self._create_default_value(value)
+        elif len(props) == 1:
+            default_prop = props
+        else:
+            default_prop = props.filtered(lambda r: not r.company_id)[:1]
+            if not default_prop:
+                default_prop = props[0]
+
+            # remove rest properties
+            (props - default_prop).unlink()
+
+        vals = {
+            'name': PROP_NAME % self.key
+        }
+        if default_prop.company_id:
+            vals['company_id'] = None
+
+        if default_prop.get_by_record() != value:
+            vals['value'] = value
+
+        default_prop.write(vals)
+        self._update_db_value(value)
+        return self
 
     def _update_db_value(self, value):
         """Store value in db column. We can use it only directly,
