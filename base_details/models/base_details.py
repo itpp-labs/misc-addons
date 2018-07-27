@@ -13,6 +13,14 @@ class BaseDetails(models.AbstractModel):
     def _model_selection(self):
         return []
 
+    @api.depends('details_model')
+    def _compute_details_model_record(self):
+        selection = []
+        for x in self._model_selection():
+            if x[0] in [x.model for x in self.env['ir.model'].search([])]:
+                selection.append(x)
+        return selection
+
     @property
     def details(self):
         if self.details_model and self.details_model in self.env and self.details_res_id:
@@ -21,19 +29,36 @@ class BaseDetails(models.AbstractModel):
             details_record = None
         return details_record
 
-    details_model_record = fields.Reference(selection="_model_selection", string='Record')
-    details_model = fields.Char(compute="_compute_details", string='Detail Model', store=True)
-    details_res_id = fields.Integer(compute="_compute_details", string='Details', store=True)
-    details_model_exists = fields.Boolean(compute="_compute_details", string='Details Model Exists', store=True)
+    details_model = fields.Selection(selection="_model_selection", string='Model', store=True)
+    details_model_record = fields.Reference(selection="_compute_details_model_record", string='Record')
+    details_model_exists = fields.Boolean(compute="_compute_existence", string='Details Model Exists', store=True)
+    details_res_id = fields.Integer(compute="_compute_res_id", string='Record', store=True)
+
+    @api.onchange('details_model')
+    def onchange_details_model(self):
+        if self.details_model and self.details_model in [x.model for x in self.env['ir.model'].search([])]:
+            self.details_model_exists = True
+        else:
+            self.details_model_exists = False
 
     @api.multi
-    @api.depends('details_model_record')
-    @api.onchange('details_model_record')
-    def _compute_details(self):
+    def _compute_existence(self):
         for rec in self:
-            rec.details_model = rec.details_model_record and rec.details_model_record._name
-            rec.details_res_id = rec.details_model_record and rec.details_model_record.id
-            rec.details_model_exists = rec.details_model and rec.details_model in rec.env
+            if rec.details_model and rec.details_model in [x.model for x in rec.env['ir.model'].search([])]:
+                rec.details_model_exists = True
+            else:
+                rec.details_model_exists = False
+
+    @api.multi
+    @api.onchange('details_model_exists', 'details_model_record')
+    def _compute_res_id(self):
+        for rec in self:
+            if rec.details_model_exists:
+                rec.details_res_id = rec.details_model_record and rec.details_model_record.id
+                if rec.details_model_record:
+                    rec.details_model = rec.details_model_record._name
+            else:
+                rec.details_res_id = False
 
 
 class BaseDetailsRecord(models.AbstractModel):
