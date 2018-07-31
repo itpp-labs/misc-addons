@@ -1,3 +1,7 @@
+.. image:: https://img.shields.io/badge/license-AGPL--3-blue.png
+   :target: https://www.gnu.org/licenses/agpl-3.0
+   :alt: License: AGPL-3
+
 ========================
  Gantt view from odoo 8
 ========================
