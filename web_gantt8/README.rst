@@ -1,3 +1,7 @@
+.. image:: https://img.shields.io/badge/license-AGPL--3-blue.png
+   :target: https://www.gnu.org/licenses/agpl-3.0
+   :alt: License: AGPL-3
+
 ========================
  Gantt view from odoo 8
 ========================
@@ -7,8 +11,10 @@ The module adds view gantt8 -- ported view from odoo 8.
 Credits
 =======
 
+
 Contributors
 ------------
+* `Odoo S.A. <https://odoo.com>` -- as the author of original code 
 * Pavel Romanchenko <romanchenko@it-projects.info>
 
 Sponsors
