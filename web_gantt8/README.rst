@@ -11,8 +11,10 @@ The module adds view gantt8 -- ported view from odoo 8.
 Credits
 =======
 
+
 Contributors
 ------------
+* `Odoo S.A. <https://odoo.com>` -- as the author of original code 
 * Pavel Romanchenko <romanchenko@it-projects.info>
 
 Sponsors
