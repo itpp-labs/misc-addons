@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Backend debranding",
     "summary": """Removes references to odoo""",

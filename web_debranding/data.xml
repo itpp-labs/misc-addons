@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
         <record id="default_logo_module" model="ir.config_parameter">
             <field name="key">web_debranding.default_logo_module</field>
             <field name="value">web_debranding</field>
@@ -8,7 +7,4 @@
         <record id="base.main_partner" model="res.partner">
             <field name="image"></field>
         </record>
-
-
-    </data>
 </odoo>
