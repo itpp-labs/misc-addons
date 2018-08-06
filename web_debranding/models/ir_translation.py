@@ -82,3 +82,11 @@ class IrTranslation(models.Model):
     def get_field_help(self, model_name):
         res = super(IrTranslation, self).get_field_help(model_name)
         return self._debrand_dict(res)
+
+    @api.model
+    def decorated_clear_caches(self):
+        """For calling clear_caches from via xml <function ... />
+        we wrapped it in the api.model decorator
+
+        """
+        self.clear_caches()
