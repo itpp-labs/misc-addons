@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <function model="ir.config_parameter" name="create_debranding_parameters" />
+        <function model="ir.translation" name="decorated_clear_caches" />
+        <function model="ir.ui.view" name="_create_debranding_views" />
+    </data>
+</odoo>

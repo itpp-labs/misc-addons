@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Backend debranding",
-    'version': '11.0.1.0.23',
+    "summary": """Removes references to odoo""",
+    'version': '12.0.1.0.24',
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'LGPL-3',
     'category': 'Debranding',
@@ -12,17 +13,14 @@
     'depends': [
         'web',
         'mail',
-        'web_planner',
-        'access_apps',
         'access_settings_menu',
     ],
     'data': [
-        'security/web_debranding_security.xml',
         'security/ir.model.access.csv',
         'data.xml',
         'views.xml',
         'js.xml',
-        'pre_install.yml',
+        'pre_install.xml',
     ],
     'qweb': [
         'static/src/xml/web.xml',
@@ -30,5 +28,5 @@
     "post_load": 'post_load',
     'auto_install': False,
     'uninstall_hook': 'uninstall_hook',
-    'installable': False
+    'installable': True
 }

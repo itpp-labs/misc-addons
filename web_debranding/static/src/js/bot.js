@@ -2,17 +2,38 @@ odoo.define('web_debranding.bot', function (require) {
     "use strict";
 
     require('web_debranding.dialog');
-    var chat_manager = require('mail.chat_manager');
+    var Message = require('mail.model.Message');
     var session = require('web.session');
-    var ODOOBOT_ID = "ODOOBOT";
 
-    var make_message_super = chat_manager.make_message;
-    chat_manager.make_message = function(data){
-            var msg = make_message_super(data);
-            if (msg.author_id === ODOOBOT_ID) {
-                msg.avatar_src = '/web/binary/company_logo?company_id=' + session.company_id;
-                msg.displayed_author = 'Bot';
+    Message.include({
+        /**
+         * Get the name of the author of this message.
+         * If Odoobot is the author (default author for transient messages),
+         * returns 'Bot'.
+         *
+         * @override
+         * @private
+         * @returns {string}
+         */
+        _getAuthorName: function () {
+            if (this._isOdoobotAuthor()) {
+                return "Bot";
             }
-            return msg;
-    };
+            return this._super.apply(this, arguments);
+        },
+
+        /**
+         * Get the relative url of the avatar to display next to the message
+         *
+         * @override
+         * @return {string}
+         */
+        getAvatarSource: function () {
+            var res = this._super.apply(this, arguments);
+            if (res === '/mail/static/src/img/odoo_o.png') {
+                return '/web/binary/company_logo?company_id=' + session.company_id;
+            }
+            return res;
+        }
+    });
 });
