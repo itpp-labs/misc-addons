@@ -1,6 +1,6 @@
 {
     "name": "Import Settings",
-    "version": "1.0.0",
+    "version": "11.0.1.0.0",
     "summary": "Allows to save import settings to don't specify columns to fields mapping each time.",
     "category": "Extra Tools",
     "images": ["images/icon.png"],

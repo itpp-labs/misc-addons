@@ -1,0 +1,242 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * project_task_subtask
+# 
+# Translators:
+# Translation Bot <i18n-bot@it-projects.info>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-20 23:52+0000\n"
+"PO-Revision-Date: 2018-04-20 23:52+0000\n"
+"Last-Translator: Translation Bot <i18n-bot@it-projects.info>, 2018\n"
+"Language-Team: French (https://www.transifex.com/it-projects-llc/teams/76080/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. module: project_task_subtask
+#: model:mail.message.subtype,name:project_task_subtask.all_subtask_subtype
+#: model:mail.message.subtype,name:project_task_subtask.subtasks_subtype
+msgid "All checklist updates"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_user_id
+msgid "Assigned to"
+msgstr ""
+
+#. module: project_task_subtask
+#: selection:project.task.subtask,state:0
+msgid "Cancelled"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.ui.view,arch_db:project_task_subtask.view_task_form2
+msgid "Change state to CANCELLED"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.ui.view,arch_db:project_task_subtask.view_task_form2
+msgid "Change state to DONE"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.ui.view,arch_db:project_task_subtask.view_task_form2
+msgid "Change state to TODO"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.ui.view,arch_db:project_task_subtask.view_task_form2
+msgid "Change state to WAITING"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.actions.act_window,name:project_task_subtask.action_view_subtask
+#: model:ir.ui.menu,name:project_task_subtask.menu_action_view_subtask
+#: model:ir.ui.view,arch_db:project_task_subtask.view_task_form2
+msgid "Checklist"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: project_task_subtask
+#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: project_task_subtask
+#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_deadline
+msgid "Deadline"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_default_user
+msgid "Default user"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_name
+#: model:ir.ui.view,arch_db:project_task_subtask.project_task_subtask_view_search
+msgid "Description"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: project_task_subtask
+#: selection:project.task.subtask,state:0
+msgid "Done"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.ui.view,arch_db:project_task_subtask.project_task_subtask_view_search
+msgid "Filter"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.ui.view,arch_db:project_task_subtask.project_task_subtask_view_search
+msgid "Group By"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_hide_button
+msgid "Hide button"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_id
+msgid "ID"
+msgstr "ID"
+
+#. module: project_task_subtask
+#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_kanban_subtasks
+msgid "Kanban subtasks"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask___last_update
+msgid "Last Modified on"
+msgstr "Dernière Modification le"
+
+#. module: project_task_subtask
+#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: project_task_subtask
+#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: project_task_subtask
+#: model:ir.ui.view,arch_db:project_task_subtask.project_task_subtask_view_search
+msgid "My"
+msgstr ""
+
+#. module: project_task_subtask
+#: code:addons/project_task_subtask/models/project_task_subtask.py:61
+#: code:addons/project_task_subtask/models/project_task_subtask.py:65
+#, python-format
+msgid "Only users related to that subtask can change state."
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_project_id
+#: model:ir.ui.view,arch_db:project_task_subtask.project_task_subtask_view_search
+msgid "Project"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_recolor
+msgid "Recolor"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_reviewer_id
+msgid "Reviewer"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.ui.view,arch_db:project_task_subtask.project_task_subtask_view_search
+msgid "State"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_state
+msgid "Status"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:mail.message.subtype,description:project_task_subtask.all_subtask_subtype
+#: model:mail.message.subtype,description:project_task_subtask.subtasks_subtype
+msgid ""
+"Subscribe to checklist updates of other users. By default you are notified "
+"on checklist items to and from you only."
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_ids
+msgid "Subtask"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.ui.view,arch_db:project_task_subtask.view_id
+msgid "Subtask Message"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.ui.view,arch_db:project_task_subtask.project_task_subtask_view_search
+#: selection:project.task.subtask,state:0
+msgid "TODO"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.model,name:project_task_subtask.model_project_task
+#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_task_id
+#: model:ir.ui.view,arch_db:project_task_subtask.project_task_subtask_view_search
+msgid "Task"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.ui.view,arch_db:project_task_subtask.view_task_form2
+msgid "Task Work"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_task_state
+msgid "Task state"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:project.task.subtask,task_state:project_task_subtask.project_task_subtask_1
+msgid "To Do"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.ui.view,arch_db:project_task_subtask.project_task_subtask_view_search
+msgid "User"
+msgstr ""
+
+#. module: project_task_subtask
+#: selection:project.task.subtask,state:0
+msgid "Waiting"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.model,name:project_task_subtask.model_project_task_subtask
+msgid "project.task.subtask"
+msgstr ""
+
+#. module: project_task_subtask
+#: model:ir.ui.view,arch_db:project_task_subtask.subtask_list_view
+msgid "subtask_list_form"
+msgstr ""

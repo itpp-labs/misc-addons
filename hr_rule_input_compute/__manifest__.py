@@ -4,7 +4,7 @@
     "category": "Human Resources",
     # "live_test_URL": "",
     "images": ["static/description/icon.png"],
-    "version": "1.0.0",
+    "version": "11.0.1.0.0",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",
@@ -32,5 +32,5 @@
     "post_init_hook": None,
 
     "auto_install": False,
-    "installable": False,
+    "installable": True,
 }
