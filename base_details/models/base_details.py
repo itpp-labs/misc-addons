@@ -14,7 +14,7 @@ class BaseDetails(models.AbstractModel):
         return []
 
     @api.depends('details_model')
-    def _compute_details_model_record(self):
+    def _details_model_record_selection(self):
         selection = []
         for x in self._model_selection():
             if x[0] in [x.model for x in self.env['ir.model'].search([])]:
@@ -30,7 +30,7 @@ class BaseDetails(models.AbstractModel):
         return details_record
 
     details_model = fields.Selection(selection="_model_selection", string='Model', store=True)
-    details_model_record = fields.Reference(selection="_compute_details_model_record", string='Record')
+    details_model_record = fields.Reference(selection="_details_model_record_selection", string='Record')
     details_model_exists = fields.Boolean(compute="_compute_existence", string='Details Model Exists', store=True)
     details_res_id = fields.Integer(compute="_compute_res_id", string='Record', store=True)
 
