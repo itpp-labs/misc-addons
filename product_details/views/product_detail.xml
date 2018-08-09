@@ -14,13 +14,16 @@
             <data>
                 <xpath expr="//page[@name='general_information']/group[1]" position="before">
                     <group>
-                        <label for="details_res_id"/>
+                        <label for="details_model"/>
                         <div>
-                            <field name="details_model_record" class="oe_inline"/>
-                            <field name="details_model" class="oe_inline" invisible="1"/>
-                            <field name="details_model_exists" invisible="1"/>
-                            <field name="details_res_id" class="oe_inline" invisible="1"/>
+                            <field name="details_model" class="oe_inline"/>
                         </div>
+                        <field name="details_model_exists" invisible="1"/>
+                        <label for="details_model_record" attrs="{'invisible':[('details_model_exists','=', False)]}" class="oe_inline"/>
+                        <div>
+                            <field name="details_model_record" attrs="{'invisible':[('details_model_exists','=', False)]}" class="oe_inline"/>
+                        </div>
+                        <field name="details_res_id" class="oe_inline" invisible="1"/>
                     </group>
                 </xpath>
             </data>
