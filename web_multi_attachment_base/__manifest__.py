@@ -2,8 +2,8 @@
 # Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 {
-    "name": """Upload Multiple Image Attachments at Once""",
-    "summary": """Upload multiple images at once""",
+    "name": """Upload Multiple Attachments""",
+    "summary": """The technical module to upload multiple attachments at once""",
     "category": "Extra Tools",
     # "live_test_url": "",
     "images": [],
@@ -14,8 +14,8 @@
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info/team/GabbasovDinar",
     "license": "LGPL-3",
-    # "price": 9.00,
-    # "currency": "EUR",
+    "price": 19.00,
+    "currency": "EUR",
 
     "depends": [
     ],

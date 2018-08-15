@@ -2,13 +2,13 @@
    :target: https://www.gnu.org/licenses/lgpl
    :alt: License: LGPL-3
 
-=====================================
- Upload Multiple Attachments at Once
-=====================================
+=============================
+ Upload Multiple Attachments
+=============================
 
 The technical module to upload multiple attachments at once.
 
-Use it with `Upload Multiple Images For Product at Once <https://apps.odoo.com/apps/modules/11.0/multi_attachment_product_image/>`__
+Use it with `Upload Multiple Images at Once <https://apps.odoo.com/apps/modules/11.0/multi_attachment_product_image/>`__
 
 Credits
 =======
