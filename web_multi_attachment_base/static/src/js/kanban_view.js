@@ -61,7 +61,8 @@ odoo.define('kanban_view', function (require) {
             var self = this;
             this._super();
             var multy_attach = this.$buttons && this.$buttons.find('.o_button_select_files');
-            if (!this.isReadonly && this.view.arch.tag === 'kanban' && multy_attach && multy_attach.length) {
+            var attachment_field = this.view.arch.tag === 'kanban' && this.view.arch.attrs.drop_attachments_field;
+            if (!this.isReadonly && attachment_field && multy_attach && multy_attach.length) {
                 this.drop_att = {};
                 this.drop_att.name = this.field.name;
                 this.drop_att.model = this.field.relation;
