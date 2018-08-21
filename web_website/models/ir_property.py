@@ -107,3 +107,25 @@ class IrProperty(models.Model):
             _search_domain_website_dependent=True,
             create_website_dependent=True,
         )).set_multi(name, model, values, default_value=default_value)
+
+    @api.multi
+    def _update_db_value_website_dependent(self, field):
+        """Update db value if it's a default value"""
+        for r in self:
+            if r.fields_id != field:
+                # It's another field
+                continue
+            if r.company_id:
+                # it's not default value
+                continue
+            # r.website_id is empty here,
+            # because otherwise r.company_id is not empty too
+            if not r.res_id:
+                # It's not record-specific
+                continue
+            # Default value is updated. Set new value in db column
+            model, res_id = r.res_id.split(',')
+            value = r.get_by_record()
+            model = field.model_id.model
+            record = self.env[model].browse(int(res_id))
+            record._update_db_value(field.name, value)

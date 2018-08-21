@@ -1,6 +1,9 @@
+`4.0.0`
 -------
 
-- **Fix:** Random errors with multi-website parameters due to wrong cache usage
+- **Fix:** random errors with multi-website parameters due to wrong cache usage
+- **Improvement:** better naming in Properties
+- **Improvement:** refactoring in code
 
 `3.0.0`
 -------
