@@ -139,7 +139,7 @@ class IrConfigParameter(models.Model):
         return res
 
     @api.model
-    @tools.ormcache_context('self._uid', 'key', keys=("force_company",))
+    @tools.ormcache_context('self._uid', 'key', keys=('force_company', 'website_id'))
     def _get_param(self, key):
         _logger.debug('_get_param(%s) context: %s', key, self.env.context)
         # call undecorated super method. See odoo/tools/cache.py::ormcache and http://decorator.readthedocs.io/en/stable/tests.documentation.html#getting-the-source-code
