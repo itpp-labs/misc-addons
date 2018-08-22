@@ -9,8 +9,7 @@ class TestUI(common.HttpCase):
     post_install = True
 
     def test_ui(self):
-        # FIXME: we cannot use demo user to test, because with no other modules
-        # installed there is no menu but Website which redirects to homepage
+        # FIXME: Use demo user
 
         # needed because tests are run before the module is marked as
         # installed. In js web will only load qweb coming from modules
@@ -21,10 +20,9 @@ class TestUI(common.HttpCase):
             [('name', '=', 'web_website')], limit=1
         ).state = 'installed'
 
-        menu = self.env.ref('website.menu_website_configuration')
         tour = 'web_website.tour'
         self.phantom_js(
-            '/web#menu_id=%i' % menu.id,
+            '/web',
             "odoo.__DEBUG__.services['web_tour.tour']"
             ".run('%s')" % tour,
 
