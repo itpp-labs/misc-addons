@@ -1,4 +1,4 @@
-# Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 from odoo import models, api
 import logging
@@ -120,7 +120,7 @@ class WebsiteDependentMixin(models.AbstractModel):
 
         field = self._get_field_object(field_name)
         for r in self.sudo().search([]):
-            cr.execute("SELECT %s FROM ir_config_parameter WHERE id = %s" % (field_name, r.id))
+            cr.execute("SELECT %s FROM %s WHERE id = %s" % (field_name, self._table, r.id))
             res = cr.dictfetchone()
             value = res.get(field_name)
             # value may be empty after migration from previous module version
