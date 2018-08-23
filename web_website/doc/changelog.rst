@@ -1,6 +1,6 @@
 `2.1.0`
 -------
-- **Fix:** fix API method that affects new developed module
+- **Fix:** fix API, which affects new modules
 - **Improvement:** allow convert html fields to website-dependent ones
 
 `2.0.0`
