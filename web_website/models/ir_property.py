@@ -16,6 +16,16 @@ class IrProperty(models.Model):
 
     website_id = fields.Many2one('website', 'Website')
 
+    @api.multi
+    def _update_values(self, values):
+        """Support for html fields.
+
+        Can be removed in first odoo release with this patch: https://github.com/odoo/odoo/pull/26556
+        """
+        if values.get('type') == 'html':
+            values['type'] = 'text'
+        return super(IrProperty, self)._update_values(values)
+
     @api.model
     def _is_website_dependent(self, name, model):
         return getattr(self.env[model]._fields[name], 'website_dependent', None)
