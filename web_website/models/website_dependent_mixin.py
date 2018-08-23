@@ -63,7 +63,7 @@ class WebsiteDependentMixin(models.AbstractModel):
             vals['company_id'] = None
 
         if default_prop.get_by_record() != prop_value:
-            vals[field_name] = prop_value
+            vals['value'] = prop_value
 
         default_prop.write(vals)
         self._update_db_value(field_name, prop_value)
