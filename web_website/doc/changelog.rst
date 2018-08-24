@@ -1,3 +1,7 @@
+`2.1.3`
+-------
+- **Improvement:** better names in *Company Properties* menu
+
 `2.1.2`
 -------
 - **Fix:** Error on creating record with non-empty value in website-depedent many2one field
