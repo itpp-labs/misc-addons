@@ -15,7 +15,7 @@ class WebsiteDependentMixin(models.AbstractModel):
     def _prop_label(self, field_name, company=None, website=None):
         self.ensure_one()
         label = self.display_name
-        label = "%s's %s: " % (label, field_name)
+        label = "%s: %s's " % (field_name, label)
         if not company and not website:
             label += 'default'
         elif website:
