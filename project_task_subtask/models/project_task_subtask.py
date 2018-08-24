@@ -17,7 +17,7 @@ class ProjectTaskSubtask(models.Model):
     state = fields.Selection([(k, v) for k, v in list(SUBTASK_STATES.items())],
                              'Status', required=True, copy=False, default='todo')
     name = fields.Char(required=True, string="Description")
-    reviewer_id = fields.Many2one('res.users', 'Reviewer', readonly=True, default=lambda self: self.env.user)
+    reviewer_id = fields.Many2one('res.users', 'Created by', readonly=True, default=lambda self: self.env.user)
     project_id = fields.Many2one("project.project", related='task_id.project_id', store=True)
     user_id = fields.Many2one('res.users', 'Assigned to', required=True)
     task_id = fields.Many2one('project.task', 'Task', ondelete='cascade', required=True, index="1")
