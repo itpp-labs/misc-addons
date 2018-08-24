@@ -1,3 +1,7 @@
+`2.1.1`
+-------
+- **Fix:** Error on searching by website_dependent or company_dependent fields
+
 `2.1.0`
 -------
 - **Fix:** fix API, which affects new modules
