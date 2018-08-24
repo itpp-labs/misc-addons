@@ -7,9 +7,11 @@ class WebsiteDependent(models.Model):
     _name = 'test.website_dependent'
 
     foo = fields.Char(company_dependent=True, website_dependent=True)
+    user_id = fields.Many2one('res.users', company_dependent=True, website_dependent=True)
 
 
 class CompanyDependent(models.Model):
     _name = 'test.company_dependent'
 
     foo = fields.Char(company_dependent=True)
+    user_id = fields.Many2one('res.users', company_dependent=True)
