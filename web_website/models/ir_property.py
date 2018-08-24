@@ -99,7 +99,7 @@ class IrProperty(models.Model):
         return super(IrProperty, self._check_website_dependent(
             name, model,
             **GET_CONTEXT
-        )).get(name, model, operator, value)
+        )).search_multi(name, model, operator, value)
 
     @api.model
     def set_multi(self, name, model, values, default_value=None):
