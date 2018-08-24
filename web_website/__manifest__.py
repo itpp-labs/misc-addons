@@ -6,7 +6,7 @@
     "category": "Hidden",
     # "live_test_url": "",
     "images": [],
-    "version": "11.0.2.1.1",
+    "version": "11.0.2.1.2",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",
@@ -40,7 +40,7 @@
 
     "post_load": None,
     "pre_init_hook": None,
-    "post_init_hook": None,
+    "post_init_hook": "post_init_hook",
     "uninstall_hook": None,
 
     "auto_install": False,

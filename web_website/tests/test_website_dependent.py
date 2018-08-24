@@ -67,6 +67,14 @@ class TestFields(common.TransactionCase):
         res = self.env[MODEL].search([('foo', '=', False)])
         self.assertFalse(res)
 
+        # test many2one
+        record = self.env[MODEL].create({
+            'name': 'Name',
+            'user_id': self.env.user,
+        })
+        record.invalidate_cache()
+        self.assertEqual(record.user_id, self.env.user)
+
     def _create_property(self, vals, record=None):
         base_vals = {
             'name': 'foo',

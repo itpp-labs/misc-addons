@@ -73,6 +73,11 @@ class WebsiteDependentMixin(models.AbstractModel):
         """Store value in db column. We can use it only directly,
         because ORM treat value as computed multi-company field"""
         self.ensure_one()
+        try:
+            # many2one field might be an object here
+            value = value.id
+        except AttributeError:
+            pass
         self.env.cr.execute("UPDATE %s SET %s=%%s WHERE id = %s" % (self._table, field_name, self.id), (value,))
 
     @api.multi
