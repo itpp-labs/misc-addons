@@ -63,6 +63,10 @@ class TestFields(common.TransactionCase):
         self.assertEqual(record.with_context(context1).foo, 'alpha')
         self.assertEqual(record.with_context(context2).foo, 'nowebsite')
 
+        # mostly for coverage of search_multi
+        res = self.env[MODEL].search([('foo', '=', False)])
+        self.assertFalse(res)
+
     def _create_property(self, vals, record=None):
         base_vals = {
             'name': 'foo',
