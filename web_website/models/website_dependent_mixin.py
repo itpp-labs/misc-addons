@@ -42,9 +42,10 @@ class WebsiteDependentMixin(models.AbstractModel):
             ('res_id', '=', '%s,%s' % (self._name, self.id)),
         ])
 
+        field = self._get_field_object(field_name)
+
         default_prop = None
         if len(props) == 0:
-            field = self._get_field_object(field_name)
             default_prop = self._create_default_value(field, prop_value)
         elif len(props) == 1:
             default_prop = props
@@ -66,10 +67,10 @@ class WebsiteDependentMixin(models.AbstractModel):
             vals['value'] = prop_value
 
         default_prop.write(vals)
-        self._update_db_value(field_name, prop_value)
+        self._update_db_value(field, prop_value)
         return self
 
-    def _update_db_value(self, field_name, value):
+    def _update_db_value(self, field, value):
         """Store value in db column. We can use it only directly,
         because ORM treat value as computed multi-company field"""
         self.ensure_one()
@@ -78,7 +79,14 @@ class WebsiteDependentMixin(models.AbstractModel):
             value = value.id
         except AttributeError:
             pass
-        self.env.cr.execute("UPDATE %s SET %s=%%s WHERE id = %s" % (self._table, field_name, self.id), (value,))
+
+        if not value:
+            if field.ttype == 'boolean':
+                value = False
+            else:
+                value = None
+
+        self.env.cr.execute("UPDATE %s SET %s=%%s WHERE id = %s" % (self._table, field.name, self.id), (value,))
 
     @api.multi
     def _create_default_value(self, field, prop_value):
