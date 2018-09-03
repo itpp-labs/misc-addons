@@ -1,5 +1,7 @@
 `2.1.4`
 -------
+- **New:** Computing default company in multi-website environment is moved to
+  this module from website_multi_company
 - **Fix:** Default value was updated for random field in _force_default method
 
 `2.1.3`
