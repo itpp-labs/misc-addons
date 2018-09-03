@@ -22,6 +22,17 @@ class ResUsers(models.Model):
         compute='_compute_backend_website_ids',
     )
 
+    @api.model
+    def _get_company(self):
+        """Try to get company from website first. It affects many models and feature,
+        because it's used in _company_default_get which is used to compute
+        default values on many models
+        """
+        website_id = self.env.context.get('website_id')
+        if website_id:
+            return self.env['website'].browse(website_id).company_id
+        return super(ResUsers, self)._get_company()
+
     def _compute_backend_website_ids(self):
         for r in self:
             websites = self.env['website'].search([
