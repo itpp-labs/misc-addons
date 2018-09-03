@@ -138,4 +138,4 @@ class IrProperty(models.Model):
             value = r.get_by_record()
             model = field.model_id.model
             record = self.env[model].browse(int(res_id))
-            record._update_db_value(field.name, value)
+            record._update_db_value(field, value)
