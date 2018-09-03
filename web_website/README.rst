@@ -31,7 +31,6 @@ safely installable and uninstallable. See module
 * In the field's module add ``uninstall_hook``:
 
   * remove field's properties
-  * update module where the field is from
 
 Roadmap
 =======
