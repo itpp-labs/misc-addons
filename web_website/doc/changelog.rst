@@ -1,3 +1,7 @@
+`2.1.4`
+-------
+- **Fix:** Default value was updated for random field in _force_default method
+
 `2.1.3`
 -------
 - **Improvement:** better names in *Company Properties* menu

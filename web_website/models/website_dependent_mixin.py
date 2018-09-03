@@ -86,6 +86,7 @@ class WebsiteDependentMixin(models.AbstractModel):
         self.ensure_one()
         domain = [
             ('company_id', '=', False),
+            ('fields_id', '=', field.id),
             ('res_id', '=', '%s,%s' % (self._name, self.id))
         ]
 
