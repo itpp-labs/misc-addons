@@ -109,7 +109,7 @@ class WebsiteDependentMixin(models.AbstractModel):
             'res_id': '%s,%s' % (self._name, self.id),
             'name': label,
             'value': prop_value,
-            'type': 'text',
+            'type': field.ttype,
         })
 
     def _get_field_object(self, field_name):

@@ -4,6 +4,7 @@
   this module from website_multi_company
 - **Fix:** Default value was updated for random field in _force_default method
 - **Fix:** updating many2one field to empty value raised error
+- **Fix:** Rare error on reading non-text fields
 
 `2.1.3`
 -------
