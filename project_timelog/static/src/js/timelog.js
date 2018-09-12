@@ -290,7 +290,7 @@ $(document).ready(function() {
                 return false;
             }
             var model = new openerp.web.Model('project.task.work');
-            model.call("stop_timer", [self.work_id, true, false]).then(function(){
+            model.call("stop_timer", [self.config.work_id, true, false]).then(function(){
                 self.finish_status = true;
                 var element = document.getElementById("clock0");
                 self.startAnim(element, 500, 10*500);
