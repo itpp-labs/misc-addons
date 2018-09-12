@@ -134,12 +134,10 @@ var GreetingMessage = Widget.extend({
             }
         } else if (now.hours() < 17) {
             this.$('.o_hr_attendance_message_message').append(_t("Have a good afternoon"));
+        } else if (now.hours() < 18 && Math.random() < 0.2) {
+            this.$('.o_hr_attendance_message_message').append(_t("Early to bed and early to rise, makes a man healthy, wealthy and wise"));
         } else {
-            if (now.hours() < 18 && Math.random() < 0.2) {
-                this.$('.o_hr_attendance_message_message').append(_t("Early to bed and early to rise, makes a man healthy, wealthy and wise"));
-            } else {
-                this.$('.o_hr_attendance_message_message').append(_t("Have a good evening"));
-            }
+            this.$('.o_hr_attendance_message_message').append(_t("Have a good evening"));
         }
     },
 
