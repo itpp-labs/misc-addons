@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) 2004-2015 Odoo S.A.
 # Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
@@ -19,7 +18,6 @@
     "currency": "EUR",
 
     "depends": [
-        'report',
         'barcodes'
     ],
     "external_dependencies": {"python": [], "bin": []},
@@ -36,6 +34,6 @@
     'qweb': [
         "static/src/xml/attendance.xml",
     ],
-    'installable': False,
+    'installable': True,
     'auto_install': False,
 }

@@ -10,7 +10,7 @@
         <field name="name">res.partner.attendance.tree</field>
         <field name="model">res.partner.attendance</field>
         <field name="arch" type="xml">
-            <tree string="Partner attendances">
+            <tree>
                 <field name="partner_id"/>
                 <field name="check_in"/>
                 <field name="check_out"/>
@@ -93,6 +93,17 @@
         </field>
     </record>
 
+    <record id="base_attendance_action_partner_attendances" model="ir.actions.act_window">
+        <field name="name">Attendances</field>
+        <field name="res_model">res.partner.attendance</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_partner_id': active_id, 'default_partner_id': active_id}</field>
+        <field name="help" type="html">
+            <p>No attendance records to display.</p>
+        </field>
+    </record>
+
     <record id="hr_attendance_action_graph" model="ir.actions.act_window">
         <field name="name">Attendance Analysis</field>
         <field name="res_model">res.partner.attendance</field>
@@ -125,27 +136,31 @@
     </record>
 
     <!--Partner kanban view specifically for base_attendance (to check in/out) -->
-    <record id="res_partner_attendance_view" model="ir.ui.view">
+    <record id="res_partner_kiosk_attendance_view" model="ir.ui.view">
         <field name="name">res.partner.kanban</field>
         <field name="model">res.partner</field>
         <field name="priority">99</field>
         <field name="arch" type="xml">
             <kanban class="o_res_partner_attendance_kanban" create="false">
+                <field name="attendance_state"/>
+                <field name="id"/>
                 <templates>
                     <t t-name="kanban-box">
                     <div class="oe_kanban_global_click">
                         <div class="o_kanban_image">
-                            <img t-att-src="kanban_image('res.partner', 'image_medium', record.id.value)"/>
+                            <img t-att-src="kanban_image('res.partner', 'image_medium', record.id.raw_value)"/>
                         </div>
                         <div class="oe_kanban_details">
                             <div id="textbox">
-                                <div class="col-xs-11" style="padding:0px">
-                                    <strong>
-                                        <field name="name"/>
-                                    </strong>
-                                </div><div class="col-xs-1" style="padding:0px">
-                                    <field name="attendance_state" widget="base_attendance_kanban_presence_indicator"/>
+                                <div class="pull-right" t-if="record.attendance_state.raw_value == 'checked_in'">
+                                    <span class="oe_hr_attendance_status fa fa-user oe_hr_attendance_status_green"></span>
                                 </div>
+                                <div class="pull-right" t-if="record.attendance_state.raw_value == 'checked_out'">
+                                    <span class="oe_hr_attendance_status fa fa-user oe_hr_attendance_status_red"></span>
+                                </div>
+                                <strong>
+                                    <field name="name"/>
+                                </strong>
                             </div>
                             <ul>
                                 <li t-if="record.parent_id.raw_value and !record.function.raw_value"><field name="parent_id"/></li>
@@ -171,12 +186,18 @@
         <field name="priority">99</field>
         <field name="groups_id" eval="[(4, ref('base_attendance.group_res_attendance'))]"/>
         <field name="arch" type="xml">
-            <xpath expr="//strong[contains(@class, 'oe_partner_heading')]" position="replace">
+            <xpath expr="//strong[hasclass('oe_partner_heading')]" position="replace">
                 <div class="col-xs-11" style="padding:0px">
                     <strong><field name="name"/></strong>
                 </div>
                 <div class="col-xs-1" style="padding:0px">
-                    <field name="attendance_state" widget="base_attendance_kanban_presence_indicator"/>
+                    <field name="attendance_state" invisible="1"/>
+                <div class="pull-right" t-if="record.attendance_state.raw_value == 'checked_in'">
+                    <span class="fa fa-user oe_hr_attendance_status oe_hr_attendance_status_green"></span>
+                </div>
+                <div class="pull-right" t-if="record.attendance_state.raw_value == 'checked_out'">
+                    <span class="fa fa-user oe_hr_attendance_status oe_hr_attendance_status_red"></span>
+                </div>
                 </div>
             </xpath>
         </field>
@@ -186,7 +207,7 @@
         <field name="name">Customers</field>
         <field name="res_model">res.partner</field>
         <field name="view_mode">kanban</field>
-        <field name="view_id" ref="res_partner_attendance_view"/>
+        <field name="view_id" ref="res_partner_kiosk_attendance_view"/>
         <field name="context">{}</field>
         <field name="groups_id" eval="[(4, ref('base_attendance.group_res_attendance'))]"/>
         <field name="help" type="html">
@@ -207,11 +228,23 @@
         <field name="groups_id" eval="[(4, ref('base_attendance.group_res_attendance'))]"/>
         <field name="arch" type="xml">
             <field name="name" position="replace">
-            <div id="textbox">
-                <field name="attendance_state" widget="base_attendance_form_presence_indicator"/>
-                <field name="name" placeholder="Partner's Name"/>
-            </div>
+                <div id="textbox">
+                    <field name="name" placeholder="Partner's Name"/>
+                </div>
             </field>
+            <xpath expr="//button[hasclass('oe_stat_button')]" position="before">
+                <field name="attendance_state" invisible="1"/>
+
+                <button name="%(base_attendance_action_partner_attendances)d"
+                    class="oe_stat_button"
+                    type="action" attrs="{'invisible': [('attendance_state', '=', False)]}">
+                    <div class="fa fa-fw fa-user o_button_icon oe_hr_attendance_status_green oe_hr_attendance_status" attrs="{'invisible': [('attendance_state', '=', 'checked_out')]}"/>
+                    <div class="fa fa-fw fa-user o_button_icon oe_hr_attendance_status_red oe_hr_attendance_status" attrs="{'invisible': [('attendance_state', '=', 'checked_in')]}"/>
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">Attendance</span>
+                    </div>
+                </button>
+            </xpath>
             <page name="sales_purchases" position="inside">
                 <group string="Attendance information" name="container_row_2">
                     <field name="pin"/>
@@ -228,7 +261,7 @@
 
     <menuitem id="menu_hr_attendance_view_attendances" name="Attendances" parent="menu_hr_attendance_manage_attendances" sequence="10" groups="base_attendance.group_res_attendance" action="hr_attendance_action"/>
 
-    <menuitem id="menu_hr_attendance_view_partners_kanban" name="Partners" parent="menu_hr_attendance_manage_attendances" sequence="15" groups="base_attendance.group_hr_attendance_user" action="res_partner_action_kanban_view"/>
+    <menuitem id="menu_hr_attendance_view_partners_kanban" name="Partners" parent="menu_hr_attendance_manage_attendances" sequence="15" groups="base_attendance.group_hr_attendance_user" action="base.action_partner_form"/>
 
     <menuitem id="menu_hr_attendance_kiosk_mode" name="Kiosk Mode" parent="menu_hr_attendance_manage_attendances" sequence="20" groups="base_attendance.group_hr_attendance_user" action="hr_attendance_action_kiosk_mode"/>
 
