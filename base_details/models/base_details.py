@@ -38,6 +38,8 @@ class BaseDetails(models.AbstractModel):
     def onchange_details_model(self):
         if self.details_model and self.details_model in [x.model for x in self.env['ir.model'].search([])]:
             self.details_model_exists = True
+            # set to random record so we don't need to select model again
+            self.details_model_record = self.env[self.details_model].search([], limit=1)
         else:
             self.details_model_exists = False
 
