@@ -1,3 +1,9 @@
+`1.0.2`
+------
+
+- **FIX** Vanishing of the record field on form saving
+- **NEW** Automatically setting a default value for the record field
+
 `1.0.1`
 ------
 
