@@ -29,7 +29,7 @@ class BaseDetails(models.AbstractModel):
             details_record = None
         return details_record
 
-    details_model = fields.Selection(selection="_model_selection", string='Model', store=True)
+    details_model = fields.Selection(selection="_model_selection", string='Model')
     details_model_record = fields.Reference(selection="_details_model_record_selection", string='Record')
     details_model_exists = fields.Boolean(compute="_compute_existence", string='Details Model Exists', store=True)
     details_res_id = fields.Integer(compute="_compute_res_id", string='Record', store=True)
@@ -42,8 +42,10 @@ class BaseDetails(models.AbstractModel):
             self.details_model_record = self.env[self.details_model].search([], limit=1)
         else:
             self.details_model_exists = False
+            self.details_model_record = False
 
     @api.multi
+    @api.depends('details_model')
     def _compute_existence(self):
         for rec in self:
             if rec.details_model and rec.details_model in [x.model for x in rec.env['ir.model'].search([])]:
