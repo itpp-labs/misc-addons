@@ -2,7 +2,7 @@
 ------
 
 - **FIX** Vanishing of the record field on form saving
-- **NEW** Automatically setting a default value for the record field
+- **NEW** Default value for the record field is set automatically 
 
 `1.0.1`
 ------
