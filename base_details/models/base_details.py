@@ -11,7 +11,7 @@ class BaseDetails(models.AbstractModel):
     _name = 'base_details'
 
     def _model_selection(self):
-        return []
+        return [('res.users', 'Users')] # dummy value to demonstrate error
 
     @api.depends('details_model')
     def _details_model_record_selection(self):
