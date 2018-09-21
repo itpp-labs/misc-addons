@@ -4,7 +4,7 @@
     "category": "Extra Tools",
     # "live_test_url": "",
     "images": [],
-    "version": "11.0.4.0.0",
+    "version": "11.0.5.0.0",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",

@@ -1,3 +1,7 @@
+`5.0.0`
+-------
+- **Fix:** compatibility with mail_multi_website
+
 `4.0.0`
 -------
 

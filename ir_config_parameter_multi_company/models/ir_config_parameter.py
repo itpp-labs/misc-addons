@@ -1,7 +1,7 @@
 import logging
 
 from odoo import models, fields, api, tools
-from odoo.addons.base.ir.ir_config_parameter import IrConfigParameter as IrConfigParameterOriginal, _default_parameters
+from odoo.addons.base.ir.ir_config_parameter import IrConfigParameter as IrConfigParameterOriginal
 
 _logger = logging.getLogger(__name__)
 
@@ -42,36 +42,18 @@ class IrConfigParameter(models.Model):
         return res
 
     @api.model
-    def reset_database_secret(self):
-        value = _default_parameters[DATABASE_SECRET_KEY]()
-        self.set_param(DATABASE_SECRET_KEY, value)
-        return value
-
-    @api.model
     def get_param(self, key, default=False):
-        company_id = self.env.context.get('company_id')
-        if not company_id:
+        if not self.env.context.get('force_company'):
             website_id = self.env.context.get('website_id')
             if website_id:
                 website = self.env['website'].browse(website_id)
-                company_id = website.company_id and website.company_id.id
+                company_id = website.company_id.id
+            else:
+                # Warning. Since odoo 11.0 it means that by default Administrator's company value is used
+                company_id = self.env.user.company_id.id
+            self = self.with_context(force_company=company_id)
 
-        if not company_id:
-            # Warning. Since odoo 11.0 it means that by default Administrator's company value is used
-            company_id = self.env.user.company_id.id
-
-        self_company = self.with_context(force_company=company_id)
-        res = super(IrConfigParameter, self_company).get_param(key, default)
-        if key == DATABASE_SECRET_KEY and not res:
-            # If we have empty database.secret, we reset it automatically
-            # otherwise admin cannot even login
-
-            # TODO: remove this block in odoo 12
-            # we don't really need to reset database.secret, because in current version of the module column value is presented and up-to-date. Keep it until we are sure, that without this redefinition everything works after migration from previous versions fo the module.
-
-            return self_company.reset_database_secret()
-
-        return res
+        return super(IrConfigParameter, self).get_param(key, default)
 
     @api.model
     @tools.ormcache_context('self._uid', 'key', keys=('force_company', 'website_id'))
