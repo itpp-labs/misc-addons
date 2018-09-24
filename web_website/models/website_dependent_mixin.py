@@ -63,7 +63,14 @@ class WebsiteDependentMixin(models.AbstractModel):
         if default_prop.company_id:
             vals['company_id'] = None
 
-        if default_prop.get_by_record() != prop_value:
+        value = default_prop.get_by_record()
+        try:
+            # many2one field is an object here
+            value = value.id
+        except AttributeError:
+            pass
+
+        if value != prop_value:
             vals['value'] = prop_value
 
         default_prop.write(vals)
