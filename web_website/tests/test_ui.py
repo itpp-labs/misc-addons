@@ -20,6 +20,10 @@ class TestUI(common.HttpCase):
             [('name', '=', 'web_website')], limit=1
         ).state = 'installed'
 
+        # Reset admin's values
+        phantom_env.user.company_id = self.env.ref('base.main_company')
+        phantom_env.user.website_id = None
+
         tour = 'web_website.tour'
         self.phantom_js(
             '/web',
