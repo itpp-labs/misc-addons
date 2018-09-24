@@ -146,6 +146,7 @@ class TestFields(common.TransactionCase):
         company = self.env.user.company_id
         wrong_company = self.env['res.company'].create({'name': 'A'})
         website = self.env.ref('website.default_website')
+        website.company_id = company
         record = self.env[MODEL].create({'foo': 'new_record'})
         record = record.with_context(website_id=website.id)
 
@@ -223,6 +224,8 @@ class TestFields(common.TransactionCase):
         company0 = self.env.ref('base.main_company')
         company1 = self.env['res.company'].create({'name': 'A', 'parent_id': company0.id})
         company2 = self.env['res.company'].create({'name': 'B', 'parent_id': company1.id})
+        # we assume that root user has company0
+        self.env.user.company_id = company0
         # create one user per company
         user0 = self.env['res.users'].create({'name': 'Foo', 'login': 'foo',
                                               'company_id': company0.id, 'company_ids': []})
