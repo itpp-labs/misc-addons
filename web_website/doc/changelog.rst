@@ -1,3 +1,7 @@
+`3.0.0`
+-------
+- **New:** set website value automatically in case 1 company = 1 website
+
 `2.1.4`
 -------
 - **New:** Computing default company in multi-website environment is moved to

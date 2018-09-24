@@ -33,17 +33,25 @@ class ResUsers(models.Model):
             return self.env['website'].browse(website_id).company_id
         return super(ResUsers, self)._get_company()
 
+    @api.model
+    def _search_company_websites(self, company_id):
+        return self.env['website'].search([
+            ('company_id', 'in', [False] + [company_id])
+        ])
+
     def _compute_backend_website_ids(self):
         for r in self:
-            websites = self.env['website'].search([
-                ('company_id', 'in', [False] + [r.company_id.id])
-            ])
+            websites = self._search_company_websites(r.company_id.id)
             r.backend_website_ids = websites
             r.backend_websites_count = len(websites)
 
     def write(self, vals):
         if 'company_id' in vals and 'backend_website_id' not in vals:
-            vals['backend_website_id'] = False
+            websites = self._search_company_websites(vals['company_id'])
+            if len(websites) == 1:
+                vals['backend_website_id'] = websites.id
+            else:
+                vals['backend_website_id'] = None
         return super(ResUsers, self).write(vals)
 
     @api.onchange('company_id')
