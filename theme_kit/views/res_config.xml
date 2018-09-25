@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
         <menuitem id="main_menu" name="Brand Kit" parent="base.menu_administration" sequence="1" groups="base.group_no_one"/>
 
         <record id="view_config" model="ir.ui.view">
@@ -167,5 +166,4 @@
         </record>
         <menuitem id="config_menu" name="Brand" parent="main_menu" sequence="1" action="config_action"/>
 
-    </data>
 </odoo>

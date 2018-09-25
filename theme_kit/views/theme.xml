@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
         <record id="theme_view_tree" model="ir.ui.view">
             <field name="name">theme_kit.theme.tree</field>
             <field name="model">theme_kit.theme</field>
@@ -284,5 +283,4 @@
             <menuitem id="theme_left_panel_menu" name="Color Left Panel" parent="theme_color_setting" sequence="2" action="theme_left_panel_action"/>
             <menuitem id="theme_conten_menu" name="Color Content" parent="theme_color_setting" sequence="3" action="theme_content_action"/>
 
-    </data>
 </odoo>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
         <record id="ir_attachment_login_bg_action" model="ir.actions.act_window">
             <field name="name">Login page wallpapers</field>
             <field name="type">ir.actions.act_window</field>
@@ -16,5 +15,4 @@
                 </p>
             </field>
         </record>
-    </data>
 </odoo>
