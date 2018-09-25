@@ -7,7 +7,7 @@
             <field name="name">theme_kit.theme.tree</field>
             <field name="model">theme_kit.theme</field>
             <field name="arch" type="xml">
-                <tree string="Color Schemes">
+                <tree>
                     <field name="name"/>
                 </tree>
             </field>
