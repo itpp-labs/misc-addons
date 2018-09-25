@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). -->
 <odoo>
         <record id="ir_attachment_login_bg_action" model="ir.actions.act_window">
             <field name="name">Login page wallpapers</field>
