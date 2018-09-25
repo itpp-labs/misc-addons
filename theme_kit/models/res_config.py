@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+# Copyright 2016 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2016,2018 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+
 import hashlib
 
 from openerp import models, fields, api
