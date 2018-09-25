@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <data noupdate="1">
+<!-- Copyright 2016 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+     Copyright 2018 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). -->
+<odoo noupdate="1">
         <template id="theme_kit.custom_css">
             <style type="text/css">
             </style>
@@ -14,5 +16,4 @@
         </template>
         <template id="theme_kit.dummy">
         </template>
-    </data>
 </odoo>
