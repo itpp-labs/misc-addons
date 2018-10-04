@@ -2,6 +2,6 @@ input[type="file"]#file-upload {
     display: none;
 }
 .custom-file-upload {
-    padding: 3px 5px 0px 5px;
+    background-color: #f4f4f4 !important;
     cursor: pointer;
 }

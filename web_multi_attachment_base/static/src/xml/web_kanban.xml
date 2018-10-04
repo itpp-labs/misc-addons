@@ -4,12 +4,10 @@
 <template>
 
     <t t-name="DropAttachments.select_files_button">
-        <button class="multiple_images_attachment" style="display: none;">
-            <label for="file-upload" class="custom-file-upload">
-                <i class="fa fa-cloud-upload"></i> Select Images
-            </label>
-            <input id="file-upload" type="file" multiple="multiple" class="o_button_select_files btn btn-primary btn-sm o_form_input_file" accept="image/*"/>
-        </button>
+        <label for="file-upload" class="btn btn-default btn-sm custom-file-upload" style="display: none;">
+            <i class="fa fa-cloud-upload"></i> Select Images
+            <input id="file-upload" type="file" multiple="multiple" class="o_button_select_files btn btn-primary btn-sm o_form_input_file" accept="image/*" style="display: none;"/>
+        </label>
     </t>
 
     <t t-extend="KanbanView.buttons">
