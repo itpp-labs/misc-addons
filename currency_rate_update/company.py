@@ -116,8 +116,8 @@ class ResCompany(models.Model):
         )
         # function field that allows to know the
         # mutli company currency implementation
-    multi_company_currency_enable = fields.Function(
-            _multi_curr_enable,
+    multi_company_currency_enable = fields.Boolean(
+            compute=_multi_curr_enable,
             method=True,
             type='boolean',
             string="Multi company currency",
