@@ -19,10 +19,10 @@
 #
 #
 
-from openerp import fields, orm
+from openerp import fields, models
 
 
-class ResCompany(orm.Model):
+class ResCompany(models.Model):
 
     """override company to add currency update"""
 
