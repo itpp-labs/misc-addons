@@ -17,7 +17,7 @@
 # a webservice to the list of currencies supported by the Webservice
 # TODO : implement max_delta_days for Yahoo webservice
 
-from openerp import fields, models
+from openerp import api, fields, models
 import time
 from datetime import datetime, timedelta
 import logging
@@ -78,6 +78,7 @@ class CurrencyRateUpdateService(models.Model):
         )
     ]
 
+    @api.v7
     def _check_max_delta_days(self, cr, uid, ids):
         for company in self.read(cr, uid, ids, ['max_delta_days']):
             if company['max_delta_days'] >= 0:
@@ -113,6 +114,7 @@ class CurrencyRateUpdate(models.Model):
     LOG_NAME = 'cron-rates'
     MOD_NAME = 'currency_rate_update: '
 
+    @api.v7
     def get_cron_id(self, cr, uid, context):
         """return the updater cron's id. Create one if the cron does not exists """
 
@@ -144,6 +146,7 @@ class CurrencyRateUpdate(models.Model):
 
         return cron_id
 
+    @api.v7
     def save_cron(self, cr, uid, datas, context=None):
         """save the cron config data should be a dict"""
         context = context or {}
@@ -151,6 +154,7 @@ class CurrencyRateUpdate(models.Model):
         cron_id = self.get_cron_id(cr, uid, context)
         self.pool.get('ir.cron').write(cr, uid, [cron_id], datas)
 
+    @api.v7
     def run_currency_update(self, cr, uid):
         "update currency at the given frequence"
         factory = CurrencyGetterFactory()
