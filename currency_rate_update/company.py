@@ -113,11 +113,11 @@ class ResCompany(models.Model):
         # function field that allows to know the
         # mutli company currency implementation
     multi_company_currency_enable = fields.Boolean(
-            compute=_multi_curr_enable,
-            method=True,
-            type='boolean',
-            string="Multi company currency",
-            help='if this case is not check you can' +
-            ' not set currency is active on two company'
+        compute=_multi_curr_enable,
+        method=True,
+        type='boolean',
+        string="Multi company currency",
+        help='if this case is not check you can' +
+        ' not set currency is active on two company'
     )
 

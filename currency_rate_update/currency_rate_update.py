@@ -17,7 +17,7 @@
 # a webservice to the list of currencies supported by the Webservice
 # TODO : implement max_delta_days for Yahoo webservice
 
-from openerp import api, fields, models
+from openerp import fields, models
 import time
 from datetime import datetime, timedelta
 import logging
