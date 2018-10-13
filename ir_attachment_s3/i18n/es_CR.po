@@ -6,10 +6,10 @@
 # Randall <randall_castro@me.com>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-30 21:57+0000\n"
-"PO-Revision-Date: 2018-04-30 21:57+0000\n"
+"POT-Creation-Date: 2018-05-09 17:52+0000\n"
+"PO-Revision-Date: 2018-05-09 17:52+0000\n"
 "Last-Translator: Randall <randall_castro@me.com>, 2018\n"
 "Language-Team: Spanish (Costa Rica) (https://www.transifex.com/it-projects-llc/teams/76080/es_CR/)\n"
 "MIME-Version: 1.0\n"
@@ -19,64 +19,103 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: ir_attachment_s3
+#: model:ir.ui.view,arch_db:ir_attachment_s3.view_s3_config_settings
+msgid "AWS S3 Access"
+msgstr "Acceso AWS S3"
+
+#. module: ir_attachment_s3
 #: code:addons/ir_attachment_s3/models/ir_attachment.py:49
 #, python-format
 msgid ""
 "Amazon S3 credentials are not defined properly. Attachments won't be saved "
 "on S3."
 msgstr ""
-"Los credenciales de Amazon S3 no han sido definidos de manera correcta. Los "
-"adjuntos no serán guardados en S3."
+"Las credenciales Amazon S3 no están definidas correctamente. Los archivos "
+"adjuntos no se guardarán en S3."
 
 #. module: ir_attachment_s3
-#: model:ir.ui.view,arch_db:ir_attachment_s3.res_config_settings_view_form
-msgid "S3 Attachment Strorage"
-msgstr ""
+#: model:ir.ui.view,arch_db:ir_attachment_s3.view_s3_config_settings
+msgid "Apply"
+msgstr "Aplicar"
 
 #. module: ir_attachment_s3
+#: model:ir.ui.view,arch_db:ir_attachment_s3.view_s3_config_settings
+msgid "Attachments Domain"
+msgstr "Dominio Adjuntos "
+
+#. module: ir_attachment_s3
+#: model:ir.ui.view,arch_db:ir_attachment_s3.view_s3_config_settings
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: ir_attachment_s3
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_s3_config_settings_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: ir_attachment_s3
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_s3_config_settings_create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: ir_attachment_s3
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_s3_config_settings_display_name
+msgid "Display Name"
+msgstr "Mostrar Nombre"
+
+#. module: ir_attachment_s3
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_s3_config_settings_id
+msgid "ID"
+msgstr "ID"
+
+#. module: ir_attachment_s3
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_s3_config_settings___last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: ir_attachment_s3
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_s3_config_settings_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: ir_attachment_s3
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_s3_config_settings_write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: ir_attachment_s3
+#: model:ir.actions.act_window,name:ir_attachment_s3.action_s3_settings
 #: model:ir.ui.menu,name:ir_attachment_s3.menu_s3_settings
 msgid "S3 Settings"
-msgstr ""
+msgstr "Configuración de S3"
 
 #. module: ir_attachment_s3
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_res_config_settings_s3_access_key_id
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_test_config_settings_s3_access_key_id
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_theme_kit_config_s3_access_key_id
-#: model:ir.ui.view,arch_db:ir_attachment_s3.res_config_settings_view_form
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_s3_config_settings_s3_access_key_id
 msgid "S3 access key id"
-msgstr ""
+msgstr "ID llave acceso S3"
 
 #. module: ir_attachment_s3
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_res_config_settings_s3_bucket
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_test_config_settings_s3_bucket
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_theme_kit_config_s3_bucket
-#: model:ir.ui.view,arch_db:ir_attachment_s3.res_config_settings_view_form
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_s3_config_settings_s3_bucket
 msgid "S3 bucket name"
 msgstr ""
 
 #. module: ir_attachment_s3
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_res_config_settings_s3_condition
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_test_config_settings_s3_condition
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_theme_kit_config_s3_condition
-#: model:ir.ui.view,arch_db:ir_attachment_s3.res_config_settings_view_form
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_s3_config_settings_s3_condition
 msgid "S3 condition"
 msgstr ""
 
 #. module: ir_attachment_s3
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_res_config_settings_s3_secret_key
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_test_config_settings_s3_secret_key
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_theme_kit_config_s3_secret_key
-#: model:ir.ui.view,arch_db:ir_attachment_s3.res_config_settings_view_form
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_s3_config_settings_s3_secret_key
 msgid "S3 secret key"
 msgstr ""
 
 #. module: ir_attachment_s3
-#: model:ir.actions.act_window,name:ir_attachment_s3.ir_attachment_s3_config_settings_action
-msgid "Settings"
-msgstr "Ajustes"
+#: model:ir.ui.view,arch_db:ir_attachment_s3.view_s3_config_settings
+msgid "Settings needed to store odoo attachments on Amazon AWS S3 bucket"
+msgstr ""
 
 #. module: ir_attachment_s3
-#: code:addons/ir_attachment_s3/models/res_config_settings.py:56
+#: code:addons/ir_attachment_s3/models/res_config.py:68
 #, python-format
 msgid ""
 "Some of the S3 connection credentials are missing.\n"
@@ -84,9 +123,7 @@ msgid ""
 msgstr ""
 
 #. module: ir_attachment_s3
-#: model:ir.model.fields,help:ir_attachment_s3.field_res_config_settings_s3_condition
-#: model:ir.model.fields,help:ir_attachment_s3.field_test_config_settings_s3_condition
-#: model:ir.model.fields,help:ir_attachment_s3.field_theme_kit_config_s3_condition
+#: model:ir.model.fields,help:ir_attachment_s3.field_s3_config_settings_s3_condition
 msgid ""
 "Specify valid odoo search domain here,\n"
 "                               e.g. [('res_model', 'in', ['product.image'])] -- store data of product.image only.\n"
@@ -94,16 +131,14 @@ msgid ""
 msgstr ""
 
 #. module: ir_attachment_s3
-#: model:ir.ui.view,arch_db:ir_attachment_s3.res_config_settings_view_form
+#: model:ir.ui.view,arch_db:ir_attachment_s3.view_s3_config_settings
 msgid "Upload existing attachments"
 msgstr ""
 
 #. module: ir_attachment_s3
-#: model:ir.model.fields,help:ir_attachment_s3.field_res_config_settings_s3_bucket
-#: model:ir.model.fields,help:ir_attachment_s3.field_test_config_settings_s3_bucket
-#: model:ir.model.fields,help:ir_attachment_s3.field_theme_kit_config_s3_bucket
+#: model:ir.model.fields,help:ir_attachment_s3.field_s3_config_settings_s3_bucket
 msgid "i.e. 'attachmentbucket'"
-msgstr ""
+msgstr "ejemplo. 'attachmentbucket'"
 
 #. module: ir_attachment_s3
 #: model:ir.model,name:ir_attachment_s3.model_ir_attachment
@@ -111,6 +146,11 @@ msgid "ir.attachment"
 msgstr "ir.attachment"
 
 #. module: ir_attachment_s3
-#: model:ir.model,name:ir_attachment_s3.model_res_config_settings
-msgid "res.config.settings"
-msgstr "res.config.settings"
+#: model:ir.ui.view,arch_db:ir_attachment_s3.view_s3_config_settings
+msgid "or"
+msgstr "o"
+
+#. module: ir_attachment_s3
+#: model:ir.model,name:ir_attachment_s3.model_s3_config_settings
+msgid "s3.config.settings"
+msgstr "s3.config.settings"
