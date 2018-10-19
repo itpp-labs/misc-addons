@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Initialization data',
     'version': '1.0.0',
@@ -6,9 +5,6 @@
     'license': 'LGPL-3',
     'website': 'https://twitter.com/vkotovi4',
     'category': 'Other',
-    'description': """
-
-    """,
     'depends': ['l10n_sg',
                 'pitch_booking',
                 'multi_company',

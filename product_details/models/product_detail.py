@@ -1,4 +1,7 @@
-# -*- coding: utf-8 -*-
+# Copyright 2016-2017 Stanislav Krotov <https://www.it-projects.info/team/ufaks>
+# Copyright 2016-2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+
 from odoo import models
 
 

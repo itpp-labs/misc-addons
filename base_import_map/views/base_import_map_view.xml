@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-    <data>
+<odoo>
 
         <record model="ir.ui.view" id="base_import_map_form">
             <field name="name">base_import_map.map.form</field>
@@ -46,5 +45,4 @@
 
         <menuitem id="menu_user_interface" name="Import Settings" parent="base.next_id_2" action="action_base_import_map"/>
 
-    </data>
-</openerp>
+</odoo>

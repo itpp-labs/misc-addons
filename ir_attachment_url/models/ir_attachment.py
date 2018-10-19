@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import requests
 import base64
 from odoo import api, models
@@ -22,4 +21,4 @@ class IrAttachment(models.Model):
 
     @api.multi
     def _filter_protected_attachments(self):
-        return self.filtered(lambda r: r.res_model != 'ir.ui.view' or not r.name.startswith('/web/content/'))
+        return self.filtered(lambda r: r.res_model not in ['ir.ui.view', 'ir.ui.menu'] or not r.name.startswith('/web/content/'))

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import werkzeug
 from openerp.addons.auth_signup.controllers.main import AuthSignupHome
 from openerp import http

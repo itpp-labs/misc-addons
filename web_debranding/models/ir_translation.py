@@ -1,3 +1,11 @@
+# Copyright 2015-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2016 Stanislav Krotov <https://it-projects.info/team/ufaks>
+# Copyright 2017 Ilmir Karamov <https://it-projects.info/team/ilmir-k>
+# Copyright 2017 Nicolas JEUDY <https://github.com/njeudy>
+# Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+# Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+
 import re
 
 from odoo import api

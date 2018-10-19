@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 {
     "name": """S3 Attachment Storage""",
     "summary": """Upload attachments on Amazon S3""",
     "category": "Tools",
     "images": [],
-    "version": "1.1.0",
+    "version": "11.0.1.1.2",
     "application": False,
 
     "author": "IT-Projects LLC, Ildar Nasyrov",

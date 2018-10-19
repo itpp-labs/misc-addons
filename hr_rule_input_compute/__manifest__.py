@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Compute Salary Inputs""",
     "summary": """Allows to compute amounts of inputs in salary rules""",
     "category": "Human Resources",
     # "live_test_URL": "",
     "images": ["static/description/icon.png"],
-    "version": "1.0.0",
+    "version": "11.0.1.0.0",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",

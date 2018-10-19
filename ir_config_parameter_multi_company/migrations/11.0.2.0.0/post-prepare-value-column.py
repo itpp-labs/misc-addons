@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from odoo import api, SUPERUSER_ID
 
 
@@ -15,4 +14,5 @@ def migrate(cr, version):
         ('company_id', '=', False)
     ])
 
-    default_values._update_config_parameter_value()
+    field = env.ref('base.field_ir_config_parameter_value')
+    default_values._update_db_value_website_dependent(field)

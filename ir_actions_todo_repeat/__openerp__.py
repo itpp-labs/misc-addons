@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Ir Action Todo Repeat""",
     "summary": """Adds the ability to create repeating wizards.""",

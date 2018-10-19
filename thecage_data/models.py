@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import pytz
 from pytz import timezone
 from openerp import models, fields, api
