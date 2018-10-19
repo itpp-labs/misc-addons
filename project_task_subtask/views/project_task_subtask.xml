@@ -9,7 +9,7 @@
           <page string="Checklist">
             <field name="default_user" invisible='True'/>
             <field name="subtask_ids" context="{'default_user_id': default_user}">
-              <tree string="Task Work" editable="bottom" colors="red:recolor == True;gray:state == 'cancelled';green:state == 'done';#b818ce:state == 'waiting'">
+              <tree editable="bottom" decoration-danger="recolor == True" decoration-muted="state == 'cancelled'" decoration-success="state == 'done'" decoration-info="state == 'waiting'">
                   <field name="name"/>
                   <field name="recolor" invisible='True'/>
                   <field name="user_id"/>
@@ -85,7 +85,7 @@
       <field name="name">subtask.list.form</field>
       <field name="model">project.task.subtask</field>
       <field name="arch" type="xml">
-        <tree string="subtask_list_form">
+        <tree>
           <field name="name"/>
           <field name="user_id"/>
           <field name="reviewer_id"/>

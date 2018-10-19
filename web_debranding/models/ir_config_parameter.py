@@ -1,3 +1,10 @@
+# Copyright 2015-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2016 Stanislav Krotov <https://it-projects.info/team/ufaks>
+# Copyright 2017 ArtyomLosev <https://github.com/ArtyomLosev>
+# Copyright 2017 Ilmir Karamov <https://it-projects.info/team/ilmir-k>
+# Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+
 from odoo import models, api
 from odoo.tools.translate import _
 

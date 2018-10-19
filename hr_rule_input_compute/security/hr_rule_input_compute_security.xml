@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <data noupdate="0">
-
+<odoo noupdate="0">
         <record id="group_hr_rule_input_compute" model="res.groups">
             <field name="name">Enable to edit "Python Code" field for salary inputs</field>
         </record>
-
-    </data>
 </odoo>

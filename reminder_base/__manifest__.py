@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Reminders and Agenda (technical core)""",
     "category": "Reminders and Agenda",
-    'live_test_url': 'http://apps.it-projects.info/shop/product/reminders-and-agenda?version=10.0',
+    'live_test_url': 'http://apps.it-projects.info/shop/product/reminders-and-agenda?version=11.0',
     "images": [],
-    "version": "10.0.1.0.7",
+    "version": "11.0.1.0.7",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev, Pavel Romanchenko",
@@ -27,7 +26,7 @@
     "post_init_hook": None,
 
     "auto_install": False,
-    "installable": False,
+    "installable": True,
 
     "demo_title": "Reminders and Agenda modules",
     "demo_addons": [

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). -->
 <odoo>
-    <data>
         <!--Template Burger King-->
         <record model="theme_kit.top_panel" id="burger_king_top_panel">
             <field name="name">Burger King</field>
@@ -250,5 +251,4 @@
             <field name="content_id" ref="ikea_content"/>
         </record>
 
-    </data>
 </odoo>

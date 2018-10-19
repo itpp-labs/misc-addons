@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import mimetypes
 import base64
 import hashlib
@@ -10,7 +9,7 @@ from odoo.exceptions import AccessError
 from odoo.tools.mimetypes import guess_mimetype
 from odoo.http import request, STATIC_CACHE
 from odoo.modules.module import get_resource_path, get_module_path
-from odoo.tools import pycompat
+from odoo.tools import pycompat, consteq
 
 
 class IrHttp(models.AbstractModel):
@@ -38,6 +37,7 @@ class IrHttp(models.AbstractModel):
         :param str mimetype: mintype of the field (for headers)
         :param str default_mimetype: default mintype if no mintype found
         :param str access_token: optional token for unauthenticated access
+                                 only available  for ir.attachment
         :param Environment env: by default use request.env
         :returns: (status, headers, content)
         """
@@ -46,6 +46,10 @@ class IrHttp(models.AbstractModel):
         obj = None
         if xmlid:
             obj = env.ref(xmlid, False)
+        elif id and model == 'ir.attachment' and access_token:
+            obj = env[model].sudo().browse(int(id))
+            if not consteq(obj.access_token, access_token):
+                return (403, [], None)
         elif id and model in env.registry:
             obj = env[model].browse(int(id))
 

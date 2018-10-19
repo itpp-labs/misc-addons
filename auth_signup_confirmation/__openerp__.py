@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Email confirmation on sign up',
     'summary': """New user is able to login only after confirming his/her email""",

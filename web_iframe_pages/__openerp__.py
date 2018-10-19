@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "IFrame pages",
     'version': '1.0.0',
