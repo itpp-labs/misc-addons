@@ -16,13 +16,3 @@ msgstr ""
 "Plural-Forms: \n"
 "Language: en\n"
 "X-Generator: Poedit 1.8.2\n"
-
-#. module: web_debranding_support
-#: view:website:web.menu_secondary
-msgid "Supported by"
-msgstr ""
-
-#. module: web_debranding_support
-#: view:website:web.menu_secondary
-msgid "Version"
-msgstr ""

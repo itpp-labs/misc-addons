@@ -8,10 +8,7 @@
 
 Removes references to odoo.com:
 
-1. Deletes Odoo label in footer, i.e.
-
-    Powered by Odoo     
-
+1. *(feature is not required in 12.0+ versions)*
 2. Replaces "Odoo" in page title
 3. Replaces "Odoo" in help message for empty list. 
 
@@ -50,9 +47,11 @@ Removes references to odoo.com:
 18. Hides Enterprise features in Settings
 19. Replaces "Odoo" in all backend qweb templates
 
-    This provides a big part of debranding. You can find examples at menu ``[[ Invoicing ]] >> Dashboard >> Reconcile 5 items >> 'Automatic reconcilation' button title on hover``
+    This provides a big part of debranding. You can find examples in any tree view if you click ``[Import]`` button (e.g. at menu ``[[ Settings ]] >> Users & Companies >> Users``), then paste next code in browser javascript console:
+    ``$('.oe_import_with_file').removeClass('d-none').siblings('.o_view_nocontent').hide().parent().find('.oe_import_noheaders.text-muted').show()``
 
-     Let **odoo** try to reconcile entries for the user
+     If the file contains the column names, **Odoo** can try auto-detecting the field corresponding to the column. This makes imports simpler especially when the file has many columns.
+
 
 20. Replaces "odoo.com" in hints, examples, etc.
 
@@ -102,8 +101,9 @@ Further debranding
     * delete or modify <title> tag
     * delete or modify favicon
     * delete or modify <img> tag with logo2.png
-    * delete or modify paragraph <p>Odoo is up and running! <br /> ...</p>
     * delete or modify warning <div class="alert alert-warning">Warning, your Odoo database ...</div>
+    * delete or modify <small class="text-muted">To enhance your experience, some data may be sent to Odoo online services. See our <a href="https://www.odoo.com/privacy">Privacy Policy</a>.</small>
+    * delete or modify <p class="form-text">In order to avoid conflicts between databases, Odoo needs ...</p>
 
 Auto-debrand new databases
 ==========================
@@ -118,7 +118,7 @@ To automatically install this module for every new databases set **'auto_install
 * base_setup (built-in)
 * bus (built-in)
 
-Tested on Odoo 12.0 edd8bad5d97ee489e85504791c807f0099ef24b5
+Tested on Odoo 12.0 e774b2cb1c29fdd407aedc1f5c959d9725d2b514
 
 Enterprise users notice
 =======================
