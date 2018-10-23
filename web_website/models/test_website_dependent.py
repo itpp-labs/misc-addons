@@ -40,6 +40,7 @@ class WebsiteDependent(models.Model):
 
 class CompanyDependent(models.Model):
     _name = 'test.company_dependent'
+    _description = 'Test Class with company_dependent fields'
 
     foo = fields.Char(company_dependent=True)
     user_id = fields.Many2one('res.users', company_dependent=True)
