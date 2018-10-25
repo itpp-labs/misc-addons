@@ -11,4 +11,4 @@ Installation
 Usage
 =====
 
-This module allows you to add tags in products like it's done for the partners.
+After installing this module, you will be able to create and add tags for new and existing products.
