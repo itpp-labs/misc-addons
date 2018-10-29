@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    attachment_large_object module for OpenERP,
@@ -22,7 +21,7 @@
 ##############################################################################
 {
     'name': 'attachment_large_object',
-    'version': '1.0.0',
+    'version': '11.0.1.0.0',
     'category': 'Extra Tools',
     'summary': """Provides a storage option for attachments as PostgreSQL large objects.
     """,

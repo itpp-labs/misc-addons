@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+import base64
 import os
 import hashlib
 import logging
@@ -60,7 +60,6 @@ class IrAttachment(models.Model):
         return s3
 
     def _inverse_datas(self):
-        # set s3_records to empty recordset
         condition = self._get_s3_settings('s3.condition', 'S3_CONDITION')
         if condition:
             condition = safe_eval(condition, mode="eval")
@@ -80,7 +79,7 @@ class IrAttachment(models.Model):
 
         for attach in self & s3_records:  # datas field has got empty somehow in the result of ``s3_records = self.sudo().search([('id', 'in', self.ids)] + condition)`` search for non-superusers but it is in original recordset. Here we use original (with datas) in case it intersects with the search result
             value = attach.datas
-            bin_data = value and value.decode('base64') or ''
+            bin_data = base64.b64decode(value) if value else b''
             fname = hashlib.sha1(bin_data).hexdigest()
 
             bucket_name = self._get_s3_settings('s3.bucket', 'S3_BUCKET')

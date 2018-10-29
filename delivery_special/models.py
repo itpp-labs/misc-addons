@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from openerp import models, fields
 from openerp.tools.translate import _
 from openerp.tools import safe_eval

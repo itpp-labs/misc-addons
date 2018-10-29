@@ -1,3 +1,7 @@
+.. image:: https://img.shields.io/badge/license-LGPL--3-blue.png
+   :target: https://www.gnu.org/licenses/lgpl
+   :alt: License: LGPL-3
+
 ========================
  Production Lot Details
 ========================
@@ -26,5 +30,5 @@ Usage instructions: `<doc/index.rst>`_
 
 Changelog: `<doc/changelog.rst>`_
 
-Tested on Odoo 10.0 260a3da768fbf1cd8c7d7ddb0e8f08aa3991e374
+Tested on Odoo 11.0 e9454e79e27d0b85546132cbe00b391e974c66bf
 

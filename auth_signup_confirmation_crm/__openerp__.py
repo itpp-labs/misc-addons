@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Email confirmation on sign up (CRM extension)',
     'summary': 'Automatically creates a lead for every new user',
@@ -12,5 +11,5 @@
         'auth_signup_confirmation',
         'crm',
     ],
-    'installable': True,
+    'installable': False,
 }

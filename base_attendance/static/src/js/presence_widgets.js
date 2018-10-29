@@ -1,56 +1,61 @@
-/* Copyright (c) 2004-2015 Odoo S.A.
+/* Copyright (c) 2004-2018 Odoo S.A.
    Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). */
 odoo.define('base_attendance.presence_widgets', function (require) {
 "use strict";
 
 var core = require('web.core');
-var form_common = require('web.form_common');
-var kanban_widgets = require('web_kanban.widgets');
+var Widget = require('web.Widget');
 
 var QWeb = core.qweb;
 var _t = core._t;
 
-var FormPresenceIndicator = form_common.AbstractField.extend({
-    init: function() {
-        this._super.apply(this, arguments);
+
+var MyAttendances = Widget.extend({
+    events: {
+        "click .o_hr_attendance_sign_in_out_icon": function() {
+            this.$('.o_hr_attendance_sign_in_out_icon').attr("disabled", "disabled");
+            this.update_attendance();
+        },
     },
-    start: function() {
-        this.display_field();
-        // this.render_value();  -> gets called automatically in form_common.AbstractField
-        this.$el.tooltip({title: _t("partner presence<br/>green: checked in<br/>red: checked out"), trigger: 'hover'});
-        return this._super();
+
+    start: function () {
+        var self = this;
+
+        var def = this._rpc({
+                model: 'res.partner',
+                method: 'search_read',
+                args: [[['user_id', '=', this.getSession().uid]], ['attendance_state', 'name']],
+            }).then(function (res) {
+                if (_.isEmpty(res) ) {
+                    self.$('.o_hr_attendance_employee').append(_t("Error : Could not find employee linked to user"));
+                    return;
+                }
+                self.employee = res[0];
+                self.$el.html(QWeb.render("HrAttendanceMyMainMenu", {widget: self}));
+            });
+
+        return $.when(def, this._super.apply(this, arguments));
     },
-    render_value: function() {
-        this.$('.oe_hr_attendance_status').toggleClass("oe_hr_attendance_status_green", this.get_value() === 'checked_in');
-        this.$('.oe_hr_attendance_status').toggleClass("oe_hr_attendance_status_red", this.get_value() === 'checked_out');
-    },
-    display_field: function() {
-        this.$el.html(QWeb.render("BAPresenceIndicator"));
+
+    update_attendance: function () {
+        var self = this;
+        this._rpc({
+                model: 'res.partner',
+                method: 'attendance_manual',
+                args: [[self.employee.id], 'base_attendance.hr_attendance_action_my_attendances'],
+            }).then(function(result) {
+                if (result.action) {
+                    self.do_action(result.action);
+                } else if (result.warning) {
+                    self.do_warn(result.warning);
+                }
+            });
     },
 });
 
-var KanbanPresenceIndicator = kanban_widgets.AbstractField.extend({
-    init: function() {
-        this._super.apply(this, arguments);
-    },
-    start: function() {
-        this.display_field();
-        // doesn't get called automatically in kanban_widgets.AbstractField
-        this.render_value();
-        this.$el.tooltip({title: _t("partner presence<br/>green: checked in<br/>red: checked out"), trigger: 'hover'});
-        return this._super();
-    },
-    render_value: function() {
-        this.$('.oe_hr_attendance_status').toggleClass("oe_hr_attendance_status_green", this.field.raw_value === 'checked_in');
-        this.$('.oe_hr_attendance_status').toggleClass("oe_hr_attendance_status_red", this.field.raw_value === 'checked_out');
-    },
-    display_field: function() {
-        this.$el.html(QWeb.render("BAPresenceIndicator"));
-    },
-});
+core.action_registry.add('base_attendance_my_attendances', MyAttendances);
 
-core.form_widget_registry.add('base_attendance_form_presence_indicator', FormPresenceIndicator);
-kanban_widgets.registry.add('base_attendance_kanban_presence_indicator', KanbanPresenceIndicator);
+return MyAttendances;
 
 });

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from openerp import fields as old_fields
 from openerp import api, models, fields
 from openerp.addons.gamification.models.challenge import start_end_date_for_period

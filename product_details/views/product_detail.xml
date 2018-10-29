@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--# Copyright 2016-2017 Stanislav Krotov <https://www.it-projects.info/team/ufaks>
+    # Copyright 2016-2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    # Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+    # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). -->
+
 <odoo>
 
     <record id='product_details_product_template_form_view' model='ir.ui.view'>
@@ -9,12 +14,16 @@
             <data>
                 <xpath expr="//page[@name='general_information']/group[1]" position="before">
                     <group>
-                        <label for="details_res_id"/>
+                        <label for="details_model"/>
                         <div>
-                            <field name="details_model" widget="polymorphic" polymorphic="details_res_id" class="oe_inline"/>
-                            <field name="details_model_exists" invisible="1"/>
-                            <field name="details_res_id" widget="many2one" class="oe_inline" style="margin-left: 10px;" attrs="{'invisible':[('details_model_exists', '=', False)]}"/>
+                            <field name="details_model" class="oe_inline"/>
                         </div>
+                        <field name="details_model_exists" invisible="1"/>
+                        <label for="details_model_record" attrs="{'invisible':[('details_model_exists','=', False)]}" class="oe_inline"/>
+                        <div>
+                            <field name="details_model_record" attrs="{'invisible':[('details_model_exists','=', False)]}" class="oe_inline"/>
+                        </div>
+                        <field name="details_res_id" class="oe_inline" invisible="1"/>
                     </group>
                 </xpath>
             </data>

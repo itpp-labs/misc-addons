@@ -1,12 +1,11 @@
-# -*- coding: utf-8 -*-
+import base64
 import hashlib
 
 from odoo.tools.safe_eval import safe_eval
-from odoo import models, fields, exceptions, _
+from odoo import models, fields, api, exceptions, _
 
 
-class S3Settings(models.TransientModel):
-    _name = 's3.config.settings'
+class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
     s3_bucket = fields.Char(string='S3 bucket name', help="i.e. 'attachmentbucket'")
@@ -17,42 +16,31 @@ class S3Settings(models.TransientModel):
                                e.g. [('res_model', 'in', ['product.image'])] -- store data of product.image only.
                                Empty condition means all models""")
 
-    def get_default_all(self, fields):
-        s3_bucket = self.env["ir.config_parameter"].get_param("s3.bucket", default='')
-        s3_access_key_id = self.env["ir.config_parameter"].get_param("s3.access_key_id", default='')
-        s3_secret_key = self.env["ir.config_parameter"].get_param("s3.secret_key", default='')
-        s3_condition = self.env["ir.config_parameter"].get_param("s3.condition", default='')
+    @api.model
+    def get_values(self):
+        res = super(ResConfigSettings, self).get_values()
+        ICPSudo = self.env['ir.config_parameter'].sudo()
+        s3_bucket = ICPSudo.get_param("s3.bucket", default='')
+        s3_access_key_id = ICPSudo.get_param("s3.access_key_id", default='')
+        s3_secret_key = ICPSudo.get_param("s3.secret_key", default='')
+        s3_condition = ICPSudo.get_param("s3.condition", default='')
 
-        return dict(
+        res.update(
             s3_bucket=s3_bucket,
             s3_access_key_id=s3_access_key_id,
             s3_secret_key=s3_secret_key,
             s3_condition=s3_condition
         )
+        return res
 
-    # s3_bucket
-    def set_s3_bucket(self):
-        self.env['ir.config_parameter'].set_param("s3.bucket",
-                                                  self.s3_bucket or '',
-                                                  groups=['base.group_system'])
-
-    # s3_access_key_id
-    def set_s3_access_key_id(self):
-        self.env['ir.config_parameter'].set_param("s3.access_key_id",
-                                                  self.s3_access_key_id or '',
-                                                  groups=['base.group_system'])
-
-    # s3_secret_key
-    def set_s3_secret_key(self):
-        self.env['ir.config_parameter'].set_param("s3.secret_key",
-                                                  self.s3_secret_key or '',
-                                                  groups=['base.group_system'])
-
-    # s3_condition
-    def set_s3_condition(self):
-        self.env['ir.config_parameter'].set_param("s3.condition",
-                                                  self.s3_condition or '',
-                                                  groups=['base.group_system'])
+    @api.multi
+    def set_values(self):
+        super(ResConfigSettings, self).set_values()
+        ICPSudo = self.env['ir.config_parameter'].sudo()
+        ICPSudo.set_param("s3.bucket", self.s3_bucket or '')
+        ICPSudo.set_param("s3.access_key_id", self.s3_access_key_id or '')
+        ICPSudo.set_param("s3.secret_key", self.s3_secret_key or '')
+        ICPSudo.set_param("s3.condition", self.s3_condition or '')
 
     def upload_existing(self):
         condition = self.s3_condition and safe_eval(self.s3_condition, mode="eval") or []
@@ -69,7 +57,7 @@ class S3Settings(models.TransientModel):
 
             for attach in attachments:
                 value = attach.datas
-                bin_data = value and value.decode('base64') or ''
+                bin_data = base64.b64decode(value) if value else b''
                 fname = hashlib.sha1(bin_data).hexdigest()
 
                 bucket_name = self.s3_bucket
@@ -81,7 +69,7 @@ class S3Settings(models.TransientModel):
                         ACL='public-read',
                         ContentType=attach.mimetype,
                         )
-                except Exception, e:
+                except Exception as e:
                     raise exceptions.UserError(e.message)
 
                 vals = {

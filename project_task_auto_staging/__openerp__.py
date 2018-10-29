@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Automatically move tasks",
     'author': "IT-Projects LLC, Ivan Yelizariev",

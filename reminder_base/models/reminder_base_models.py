@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from odoo import api
 from odoo import fields
 from odoo import models
@@ -134,12 +133,11 @@ class Reminder(models.AbstractModel):
 
     @api.multi
     def write(self, vals):
-        for r in self:
-            r_vals = vals.copy()
-            if not r.reminder_event_id:
-                r_vals = r._check_and_create_reminder_event(r_vals)
-            res = super(Reminder, r).write(r_vals)
-            r._update_reminder(r_vals)
+        r_vals = vals.copy()
+        reminders_without_event = self.filtered(lambda r: not r.reminder_event_id)
+        reminders_without_event._check_and_create_reminder_event(r_vals)
+        res = super(Reminder, self).write(r_vals)
+        self._update_reminder(r_vals)
         return res
 
 

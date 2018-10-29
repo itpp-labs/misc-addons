@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Autostaging (technical core)",
     'author': "IT-Projects LLC, Ildar Nasyrov",
@@ -9,5 +8,5 @@
     'data': [
         'data.xml',
     ],
-    "installable": True
+    "installable": False
 }

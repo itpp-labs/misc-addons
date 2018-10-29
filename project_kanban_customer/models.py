@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from openerp import fields
 from openerp import models
 
@@ -12,7 +11,7 @@ class ProjectProject(models.Model):
     def name_get(self, cr, uid, ids, context=None):
         if isinstance(ids, (list, tuple)) and not len(ids):
             return []
-        if isinstance(ids, (long, int)):
+        if isinstance(ids, int):
             ids = [ids]
         reads = self.read(cr, uid, ids, ['partner_id', 'name'], context=context)
         res = []

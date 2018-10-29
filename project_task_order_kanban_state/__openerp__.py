@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Project Task Order",
     'summary': """Order tasks by kanban state:
@@ -12,5 +11,5 @@
     'currency': 'EUR',
     'images': ['images/task_order.png'],
     'depends': ['project'],
-    'installable': True
+    'installable': False
 }

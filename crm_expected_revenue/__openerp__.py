@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Multiply  expected revenue by probability",
     'version': '9.0.1.0.0',
@@ -10,5 +9,5 @@
     'data': [
         'views.xml',
     ],
-    'installable': True
+    'installable': False
 }

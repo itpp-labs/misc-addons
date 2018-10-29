@@ -1,3 +1,8 @@
+`1.1.5`
+-------
+
+- **Fix** Update of an inherited function binary_content according to original one. Update is necessary to support the work with access_token argument.
+
 `1.1.4`
 -------
 
