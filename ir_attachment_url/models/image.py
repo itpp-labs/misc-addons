@@ -5,8 +5,11 @@ import re
 super_image_resize_images = tools.image_resize_images
 
 
-def updated_image_resize_images(vals, big_name='image', medium_name='image_medium', small_name='image_small'):
+def updated_image_resize_images(vals, big_name='image', medium_name='image_medium', small_name='image_small', sizes=None):
     """ Update ``vals`` with image fields resized as expected. """
+    if not sizes:
+        sizes = {}
+
     url = None
     if big_name in vals and is_url(vals[big_name]):
         url = vals[big_name]
@@ -20,7 +23,7 @@ def updated_image_resize_images(vals, big_name='image', medium_name='image_mediu
         vals.update({medium_name: url})
         vals.update({small_name: url})
     else:
-        super_image_resize_images(vals, big_name, medium_name, small_name)
+        super_image_resize_images(vals, big_name, medium_name, small_name, sizes=sizes)
 
 
 def is_url(value):
