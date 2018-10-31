@@ -19,13 +19,11 @@ class IrHttp(models.AbstractModel):
     def binary_content(cls, xmlid=None, model='ir.attachment', id=None, field='datas',
                        unique=False, filename=None, filename_field='datas_fname', download=False,
                        mimetype=None, default_mimetype='application/octet-stream',
-                       access_token=None, env=None):
+                       access_token=None, related_id=None, access_mode=None, env=None):
         """ Get file, attachment or downloadable content
-
         If the ``xmlid`` and ``id`` parameter is omitted, fetches the default value for the
         binary field (via ``default_get``), otherwise fetches the field for
         that precise record.
-
         :param str xmlid: xmlid of the record
         :param str model: name of the model to fetch the binary from
         :param int id: id of the record from which to fetch the binary
@@ -35,6 +33,8 @@ class IrHttp(models.AbstractModel):
         :param str filename_field: if not create an filename with model-id-field
         :param bool download: apply headers to download the file
         :param str mimetype: mintype of the field (for headers)
+        :param related_id: the id of another record used for custom_check
+        :param  access_mode: if truthy, will call custom_check to fetch the object that contains the binary.
         :param str default_mimetype: default mintype if no mintype found
         :param str access_token: optional token for unauthenticated access
                                  only available  for ir.attachment
@@ -45,17 +45,21 @@ class IrHttp(models.AbstractModel):
         # get object and content
         obj = None
         if xmlid:
-            obj = env.ref(xmlid, False)
-        elif id and model == 'ir.attachment' and access_token:
-            obj = env[model].sudo().browse(int(id))
-            if not consteq(obj.access_token, access_token):
-                return (403, [], None)
+            obj = cls._xmlid_to_obj(env, xmlid)
         elif id and model in env.registry:
             obj = env[model].browse(int(id))
-
         # obj exists
         if not obj or not obj.exists() or field not in obj:
             return (404, [], None)
+
+        # access token grant access
+        if model == 'ir.attachment' and access_token:
+            obj = obj.sudo()
+            if access_mode:
+                if not cls._check_access_mode(env, id, access_mode, model, access_token=access_token, related_id=related_id):
+                    return (403, [], None)
+            elif not consteq(obj.access_token or u'', access_token):
+                return (403, [], None)
 
         # check read access
         try:
@@ -130,7 +134,7 @@ class IrHttp(models.AbstractModel):
 
         # cache
         etag = bool(request) and request.httprequest.headers.get('If-None-Match')
-        retag = '"%s"' % hashlib.md5(last_update.encode('utf-8')).hexdigest()
+        retag = '"%s"' % hashlib.md5(pycompat.to_text(content).encode('utf-8')).hexdigest()
         status = status or (304 if etag == retag else 200)
         headers.append(('ETag', retag))
         headers.append(('Cache-Control', 'max-age=%s' % (STATIC_CACHE if unique else 0)))
