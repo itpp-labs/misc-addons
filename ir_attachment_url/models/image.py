@@ -34,11 +34,11 @@ def is_url(value):
 super_image_resize_image = tools.image_resize_image
 
 
-def updated_image_resize_image(base64_source, size=(1024, 1024), encoding='base64', filetype=None, avoid_if_small=False):
+def updated_image_resize_image(base64_source, size=(1024, 1024), encoding='base64', filetype=None, avoid_if_small=False, upper_limit=False):
     source_for_check = base64_source.decode("utf-8") if isinstance(base64_source, bytes) else base64_source
     if is_url(source_for_check):
         return source_for_check
-    return super_image_resize_image(base64_source, size=size, encoding=encoding, filetype=filetype, avoid_if_small=avoid_if_small)
+    return super_image_resize_image(base64_source, size=size, encoding=encoding, filetype=filetype, avoid_if_small=avoid_if_small, upper_limit=upper_limit)
 
 
 def updated_image_resize_image_big(base64_source, size=(1024, 1024), encoding='base64', filetype=None, avoid_if_small=True):
@@ -64,19 +64,24 @@ def updated_image_resize_image_small(base64_source, size=(64, 64), encoding='bas
 
 def updated_image_get_resized_images(base64_source, return_big=False, return_medium=True, return_small=True,
                                      big_name='image', medium_name='image_medium', small_name='image_small',
-                                     avoid_resize_big=True, avoid_resize_medium=False, avoid_resize_small=False):
+                                     avoid_resize_big=True, avoid_resize_medium=False, avoid_resize_small=False, sizes=None):
     """ copy-pasted from odoo/tools/image.py::image_get_resized_images
         because we rewrite image_resize_image function.
     """
+    if not sizes:
+        sizes = {}
     return_dict = dict()
+    size_big = sizes.get(big_name, (1024, 1024))
+    size_medium = sizes.get(medium_name, (128, 128))
+    size_small = sizes.get(small_name, (64, 64))
     if isinstance(base64_source, tools.pycompat.text_type):
         base64_source = base64_source.encode('ascii')
     if return_big:
-        return_dict[big_name] = updated_image_resize_image_big(base64_source, avoid_if_small=avoid_resize_big)
+        return_dict[big_name] = updated_image_resize_image_big(base64_source, avoid_if_small=avoid_resize_big, size=size_big)
     if return_medium:
-        return_dict[medium_name] = updated_image_resize_image_medium(base64_source, avoid_if_small=avoid_resize_medium)
+        return_dict[medium_name] = updated_image_resize_image_medium(base64_source, avoid_if_small=avoid_resize_medium, size=size_medium)
     if return_small:
-        return_dict[small_name] = updated_image_resize_image_small(base64_source, avoid_if_small=avoid_resize_small)
+        return_dict[small_name] = updated_image_resize_image_small(base64_source, avoid_if_small=avoid_resize_small, size=size_small)
     return return_dict
 
 
