@@ -3,7 +3,7 @@
     "summary": """Use attachment URL and upload data to external storage""",
     "category": "Tools",
     "images": [],
-    "version": "11.0.1.1.5",
+    "version": "11.0.1.1.6",
     "application": False,
 
     "author": "IT-Projects LLC, Ildar Nasyrov",
