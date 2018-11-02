@@ -81,7 +81,7 @@ class IrHttp(models.AbstractModel):
 
         # check read access
         try:
-            last_update = obj['__last_update']
+            obj['__last_update']
         except AccessError:
             return (403, [], None)
 
@@ -101,7 +101,7 @@ class IrHttp(models.AbstractModel):
                     if module_resource_path.startswith(module_path):
                         with open(module_resource_path, 'rb') as f:
                             content = base64.b64encode(f.read())
-                        last_update = str(os.path.getmtime(module_resource_path))
+                        # 'last_update' variable removed for lint error fix
 
             if not module_resource_path:
                 module_resource_path = obj.url
@@ -144,7 +144,7 @@ class IrHttp(models.AbstractModel):
 
         # cache
         etag = hasattr(request, 'httprequest') and request.httprequest.headers.get('If-None-Match')
-        retag = '"%s"' % hashlib.md5(last_update).hexdigest()
+        retag = '"%s"' % hashlib.md5(content).hexdigest()
         status = status or (304 if etag == retag else 200)
         headers.append(('ETag', retag))
         headers.append(('Cache-Control', 'max-age=%s' % (STATIC_CACHE if unique else 0)))
