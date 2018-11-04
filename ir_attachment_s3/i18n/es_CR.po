@@ -4,12 +4,13 @@
 # 
 # Translators:
 # Randall <randall_castro@me.com>, 2018
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-30 21:57+0000\n"
-"PO-Revision-Date: 2018-04-30 21:57+0000\n"
+"PO-Revision-Date: 2017-12-19 07:41+0000\n"
 "Last-Translator: Randall <randall_castro@me.com>, 2018\n"
 "Language-Team: Spanish (Costa Rica) (https://www.transifex.com/it-projects-llc/teams/76080/es_CR/)\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +37,7 @@ msgstr ""
 #. module: ir_attachment_s3
 #: model:ir.ui.menu,name:ir_attachment_s3.menu_s3_settings
 msgid "S3 Settings"
-msgstr "Configuración de S3"
+msgstr ""
 
 #. module: ir_attachment_s3
 #: model:ir.model.fields,field_description:ir_attachment_s3.field_res_config_settings_s3_access_key_id
@@ -44,7 +45,7 @@ msgstr "Configuración de S3"
 #: model:ir.model.fields,field_description:ir_attachment_s3.field_theme_kit_config_s3_access_key_id
 #: model:ir.ui.view,arch_db:ir_attachment_s3.res_config_settings_view_form
 msgid "S3 access key id"
-msgstr "ID llave acceso S3"
+msgstr ""
 
 #. module: ir_attachment_s3
 #: model:ir.model.fields,field_description:ir_attachment_s3.field_res_config_settings_s3_bucket
@@ -103,7 +104,7 @@ msgstr ""
 #: model:ir.model.fields,help:ir_attachment_s3.field_test_config_settings_s3_bucket
 #: model:ir.model.fields,help:ir_attachment_s3.field_theme_kit_config_s3_bucket
 msgid "i.e. 'attachmentbucket'"
-msgstr "ejemplo. 'attachmentbucket'"
+msgstr ""
 
 #. module: ir_attachment_s3
 #: model:ir.model,name:ir_attachment_s3.model_ir_attachment
