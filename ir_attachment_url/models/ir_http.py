@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+# Copyright 2016-2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
+# Copyright 2017 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
+# Copyright 2016-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 import mimetypes
 import base64
 import hashlib
@@ -14,6 +18,33 @@ from odoo.modules.module import get_resource_path, get_module_path
 
 class IrHttp(models.AbstractModel):
     _inherit = 'ir.http'
+
+    @classmethod
+    def _find_field_attachment(cls, env, m, f, id):
+        domain = [
+            ('res_model', '=', m),
+            ('res_field', '=', f),
+            ('res_id', '=', id),
+            ('type', '=', 'url'),
+        ]
+        return env['ir.attachment'].sudo().search(domain)
+
+    @classmethod
+    def find_field_attachment(cls, env, model, field, obj):
+        is_attachment = env[model]._fields[field].attachment
+        is_product = model == 'product.product' and field.startswith('image')
+        if not (is_attachment or is_product):
+            return None
+
+        att = cls._find_field_attachment(env, model, field, obj.id)
+
+        if not att and model == 'product.product':
+            # Special case. Product.product's image are computed and
+            # use product.template's image in most cases. But due to
+            # this computation odoo pass binary data (by downloading it
+            # from s3) instead of url. So, make a workaround for it
+            att = cls._find_field_attachment(env, 'product.template', field, obj.product_tmpl_id.id)
+        return att
 
     @classmethod
     def binary_content(cls, xmlid=None, model='ir.attachment', id=None, field='datas', unique=False, filename=None, filename_field='datas_fname', download=False, mimetype=None, default_mimetype='application/octet-stream', env=None):
@@ -80,18 +111,11 @@ class IrHttp(models.AbstractModel):
                 content = module_resource_path
         else:
             # begin redefined part of original binary_content of odoo/base/addons/ir/ir_http
-            is_attachment = env[model]._fields[field].attachment
-            if is_attachment:
-                domain = [
-                    ('res_model', '=', model),
-                    ('res_field', '=', field),
-                    ('res_id', '=', obj.id),
-                    ('type', '=', 'url'),
-                ]
-                att = env['ir.attachment'].sudo().search(domain)
-                if att:
-                    content = att.url
-                    status = 301
+            att = env['ir.http'].find_field_attachment(env, model, field, obj)
+            if att:
+                content = att.url
+                status = 301
+
             if not content:
                 content = obj[field] or ''
             # end redefined part of original binary_content
