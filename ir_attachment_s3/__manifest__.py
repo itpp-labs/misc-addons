@@ -4,7 +4,7 @@
     "summary": """Upload attachments on Amazon S3""",
     "category": "Tools",
     "images": [],
-    "version": "10.0.1.1.2",
+    "version": "10.0.1.2.0",
     "application": False,
 
     "author": "IT-Projects LLC, Ildar Nasyrov",
@@ -19,6 +19,7 @@
     "external_dependencies": {"python": ['boto3'], "bin": []},
     "data": [
         "views/ir_attachment_s3.xml",
+        "security/ir.model.access.csv",
     ],
     "qweb": [
     ],
