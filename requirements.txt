@@ -1,2 +1,3 @@
 icalendar
 boto3
+websocket-client
