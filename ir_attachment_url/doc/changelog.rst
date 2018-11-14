@@ -1,3 +1,8 @@
+`1.1.6`
+-------
+
+- **Fix**  When the "image_resize_image" function was called, they received the error "binascii.Error: decoding with base64 codec failed (Error: Incorrect padding)", since the value of the binary field is the URL, not the base_64 string.
+
 `1.1.5`
 -------
 
