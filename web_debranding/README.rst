@@ -136,5 +136,7 @@ Need our service?
 
 Contact us by `email <mailto:apps@it-projects.info>`__ or fill out `request form <https://www.it-projects.info/page/website.contactus>`__:
 
-* apps@it-projects.info
-* https://www.it-projects.info/page/website.contactus
+* Email: apps@it-projects.info
+* Form: https://www.it-projects.info/page/website.contactus
+* Facebook: https://m.me/itprojectsllc
+* Skype: skype@it-projects.info
