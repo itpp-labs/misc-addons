@@ -6,7 +6,7 @@ def uninstall_hook(cr, registry):
     env = api.Environment(cr, SUPERUSER_ID, {})
 
     # remove properties
-    field_id = env.ref('base.field_ir_config_parameter_value').id
+    field_id = env.ref('base.field_ir_config_parameter__value').id
     env['ir.property'].search([('fields_id', '=', field_id)]).unlink()
 
     # update base module

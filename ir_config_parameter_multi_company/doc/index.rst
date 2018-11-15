@@ -14,7 +14,7 @@ Configuration
 * Open menu ``[[ Settings ]] >> General Settings``
 * Activate **[x] Multi Company - Manage multiple companies**
 * Click ``[Apply]``
-* Open menu ``[[ Settings ]] >> Users >> Users``
+* Open menu ``[[ Settings ]] >> Users & Companies >> Users``
 * Select your user
 * Add some companies to **Allowed Companies** field
 
