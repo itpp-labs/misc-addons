@@ -18,51 +18,54 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #
-from openerp import api
-from openerp import fields
-from openerp import models
+from odoo import _
+from odoo import api
+from odoo import fields
+from odoo import models
+from odoo.exceptions import ValidationError
 
 
 class ProductTag(models.Model):
     _description = 'Product Tags'
     _name = "product.tag"
+    _order = 'name'
+    _parent_order = 'name'
+    _parent_store = True
 
     name = fields.Char('Tag Name', required=True, translate=True)
     active = fields.Boolean(help='The active field allows you to hide the tag without removing it.', default=True)
     parent_id = fields.Many2one(string='Parent Tag', comodel_name='product.tag', index=True, ondelete='cascade')
     child_ids = fields.One2many(string='Child Tags', comodel_name='product.tag', inverse_name='parent_id')
-    parent_left = fields.Integer('Left Parent', index=True)
-    parent_right = fields.Integer('Right Parent', index=True)
-
+    parent_path = fields.Char(index=True)
     image = fields.Binary('Image')
 
-    _parent_store = True
-    _parent_order = 'name'
-    _order = 'parent_left'
+    @api.constrains('parent_id')
+    def _check_parent_id(self):
+        if not self._check_recursion():
+            raise ValidationError(_('You can not create recursive tags.'))
 
     @api.multi
     def name_get(self):
         """ Return the tags' display name, including their direct parent. """
-        res = {}
-        for record in self:
-            current = record
-            name = current.name
-            while current.parent_id:
-                name = '%s / %s' % (current.parent_id.name, name)
+        res = []
+        for category in self:
+            names = []
+            current = category
+            while current:
+                names.append(current.name)
                 current = current.parent_id
-            res[record.id] = name
-
-        return list(res.items())
+            res.append((category.id, ' / '.join(reversed(names))))
+        return res
 
     @api.model
-    def name_search(self, name, args=None, operator='ilike', limit=100):
+    def _name_search(self, name, args=None, operator='ilike', limit=100, name_get_uid=None):
         args = args or []
         if name:
             # Be sure name_search is symetric to name_get
             name = name.split(' / ')[-1]
             args = [('name', operator, name)] + args
-        tags = self.search(args, limit=limit)
-        return tags.name_get()
+        partner_category_ids = self._search(args, limit=limit, access_rights_uid=name_get_uid)
+        return self.browse(partner_category_ids).name_get()
 
 
 class ProductTemplate(models.Model):

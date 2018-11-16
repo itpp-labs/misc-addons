@@ -95,7 +95,7 @@
             <field name="arch" type="xml">
                 <div name="tags" position="inside">
                     <ul>
-                        <li><field name="tag_ids"/></li>
+                        <li><field name="tag_ids" widget="many2many_tags"/></li>
                     </ul>
                 </div>
             </field>
