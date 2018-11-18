@@ -36,6 +36,7 @@ class ProductTag(models.Model):
     active = fields.Boolean(help='The active field allows you to hide the tag without removing it.', default=True)
     parent_id = fields.Many2one(string='Parent Tag', comodel_name='product.tag', index=True, ondelete='cascade')
     child_ids = fields.One2many(string='Child Tags', comodel_name='product.tag', inverse_name='parent_id')
+    color = fields.Integer('Color Index', default=0)
     parent_path = fields.Char(index=True)
     image = fields.Binary('Image')
 
