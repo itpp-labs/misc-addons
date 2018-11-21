@@ -3,7 +3,6 @@
 odoo.define('web_website.SwitchWebsiteMenu', function(require) {
 "use strict";
 
-var Model = require('web.Model');
 var session = require('web.session');
 var SystrayMenu = require('web.SystrayMenu');
 var Widget = require('web.Widget');
@@ -23,9 +22,14 @@ var SwitchWebsiteMenu = Widget.extend({
         this.$el.on('click', '.dropdown-menu li a[data-menu]', _.debounce(function(ev) {
             ev.preventDefault();
             var website_id = $(ev.currentTarget).data('website-id') || false;  // write method ignores undefinded
-            new Model('res.users').call('write', [[session.uid], {'backend_website_id': website_id}]).then(function() {
-                location.reload();
-            });
+            self._rpc({
+                    model: 'res.users',
+                    method: 'write',
+                    args: [[session.uid], {'backend_website_id': website_id}],
+                })
+                .then(function() {
+                    location.reload();
+                });
         }, 1500, true));
 
         var all_websites_text =  _t('All Websites');
@@ -59,5 +63,7 @@ var SwitchWebsiteMenu = Widget.extend({
 });
 
 SystrayMenu.Items.push(SwitchWebsiteMenu);
+
+return SwitchWebsiteMenu;
 
 });

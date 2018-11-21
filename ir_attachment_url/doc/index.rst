@@ -10,7 +10,7 @@ Installation
 Odoo parameters
 ===============
 
-* Run Odoo with ``--load=web,web_kanban,ir_attachment_url``
+* Run Odoo with ``--load=web,ir_attachment_url``
   or set the ``server_wide_modules``
   option in The Odoo configuration file:
 
@@ -18,7 +18,7 @@ Odoo parameters
 
   [options]
   (...)
-  server_wide_modules = web,web_kanban,ir_attachment_url
+  server_wide_modules = web,ir_attachment_url
   (...)
 
 * Note: without the configuration above the module UI wouldn't work - and you couldn't use `@` button on binary image fields to specify their urls manually.

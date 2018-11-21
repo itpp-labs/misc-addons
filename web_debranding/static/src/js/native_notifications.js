@@ -1,3 +1,6 @@
+/*  Copyright 2016-2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    Copyright 2017 ArtyomLosev <https://github.com/ArtyomLosev>
+    License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). */
 odoo.define('web_debranding.native_notifications', function (require) {
     "use strict";
 
@@ -22,8 +25,8 @@ odoo.define('web_debranding.native_notifications', function (require) {
     };
 
     var send_notification_super = utils.send_notification;
-    utils.send_notification = function (title, content) {
-        if (title === 'Permission granted') {
+    utils.send_notification = function (widget, title, content) {
+        if (title === 'Permission granted' || title === 'Permission denied') {
             content = content.replace(/Odoo/ig, odoo.debranding_new_name);
         }
         if (Notification && Notification.permission === "granted") {
@@ -31,7 +34,7 @@ odoo.define('web_debranding.native_notifications', function (require) {
                 _send_native_notification(title, content);
             }
         } else {
-            send_notification_super(title, content);
+            send_notification_super(widget, title, content);
         }
     };
 

@@ -1,19 +1,15 @@
-/* Copyright (c) 2004-2015 Odoo S.A.
+/* Copyright (c) 2004-2018 Odoo S.A.
    Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). */
 odoo.define('base_attendance.greeting_message', function (require) {
 "use strict";
 
-var BarcodeHandlerMixin = require('barcodes.BarcodeHandlerMixin');
-
 var core = require('web.core');
-var Model = require('web.Model');
 var Widget = require('web.Widget');
-
 var _t = core._t;
 
 
-var GreetingMessage = Widget.extend(BarcodeHandlerMixin, {
+var GreetingMessage = Widget.extend({
     template: 'BaseAttendanceGreetingMessage',
 
     events: {
@@ -25,13 +21,13 @@ var GreetingMessage = Widget.extend(BarcodeHandlerMixin, {
     init: function(parent, action) {
         var self = this;
         this._super.apply(this, arguments);
-        BarcodeHandlerMixin.init.apply(this, arguments);
+        this.activeBarcode = true;
 
         // if no correct action given (due to an erroneous back or refresh from the browser), we set the dismiss button to return
         // to the (likely) appropriate menu, according to the user access rights
         if(!action.attendance) {
-            this.stop_listening();
-            this.session.user_has_group('base_attendance.group_hr_attendance_user').then(function(has_group) {
+            this.activeBarcode = false;
+            this.getSession().user_has_group('base_attendance.group_hr_attendance_user').then(function(has_group) {
                 if(has_group) {
                     self.next_action = 'base_attendance.hr_attendance_action_kiosk_mode';
                 } else {
@@ -43,14 +39,22 @@ var GreetingMessage = Widget.extend(BarcodeHandlerMixin, {
 
         this.next_action = action.next_action || 'base_attendance.hr_attendance_action_my_attendances';
         // no listening to barcode scans if we aren't coming from the kiosk mode (and thus not going back to it with next_action)
-        if (this.next_action !== 'base_attendance.hr_attendance_action_kiosk_mode' && this.next_action.tag !== 'base_attendance_kiosk_mode') {
-            this.stop_listening();
+        if (this.next_action !== 'base_attendance.hr_attendance_action_kiosk_mode' && this.next_action.tag !== 'hr_attendance_kiosk_mode') {
+            this.activeBarcode = false;
         }
+
         this.attendance = action.attendance;
+        // We receive the check in/out times in UTC
+        // This widget only deals with display, which should be in browser's TimeZone
+        var moment = window.moment;
+        this.attendance.check_in = this.attendance.check_in && moment.utc(this.attendance.check_in).local();
+        this.attendance.check_out = this.attendance.check_out && moment.utc(this.attendance.check_out).local();
+        this.previous_attendance_change_date = action.previous_attendance_change_date && moment.utc(action.previous_attendance_change_date).local();
+
         // check in/out times displayed in the greeting message template.
-        this.attendance.check_in_time = (new Date((new Date(this.attendance.check_in)).valueOf() - ((new Date()).getTimezoneOffset()*60*1000))).toTimeString().slice(0,8);
-        this.attendance.check_out_time = this.attendance.check_out && (new Date((new Date(this.attendance.check_out)).valueOf() - ((new Date()).getTimezoneOffset()*60*1000))).toTimeString().slice(0,8);
-        this.previous_attendance_change_date = action.previous_attendance_change_date;
+        this.format_time = 'HH:mm:ss';
+        this.attendance.check_in_time = this.attendance.check_in && this.attendance.check_in.format(this.format_time);
+        this.attendance.check_out_time = this.attendance.check_out && this.attendance.check_out.format(this.format_time);
         this.partner_name = action.partner_name;
     },
 
@@ -60,19 +64,22 @@ var GreetingMessage = Widget.extend(BarcodeHandlerMixin, {
             ? this.farewell_message()
             : this.welcome_message();
         }
+        if (this.activeBarcode) {
+            core.bus.on('barcode_scanned', this, this._onBarcodeScanned);
+        }
     },
 
     welcome_message: function() {
         var self = this;
-        var now = new Date((new Date(this.attendance.check_in)).valueOf() - ((new Date()).getTimezoneOffset()*60*1000));
+        var now = this.attendance.check_in.clone();
         this.return_to_main_menu = setTimeout( function() {
             self.do_action(self.next_action, {clear_breadcrumbs: true});
         }, 5000);
 
-        if (now.getHours() < 5) {
+        if (now.hours() < 5) {
             this.$('.o_hr_attendance_message_message').append(_t("Good night"));
-        } else if (now.getHours() < 12) {
-            if (now.getHours() < 8 && Math.random() < 0.3) {
+        } else if (now.hours() < 12) {
+            if (now.hours() < 8 && Math.random() < 0.3) {
                 if (Math.random() < 0.75) {
                     this.$('.o_hr_attendance_message_message').append(_t("The early bird catches the worm"));
                 } else {
@@ -81,16 +88,16 @@ var GreetingMessage = Widget.extend(BarcodeHandlerMixin, {
             } else {
                 this.$('.o_hr_attendance_message_message').append(_t("Good morning"));
             }
-        } else if (now.getHours() < 17){
+        } else if (now.hours() < 17){
             this.$('.o_hr_attendance_message_message').append(_t("Good afternoon"));
-        } else if (now.getHours() < 23){
+        } else if (now.hours() < 23){
             this.$('.o_hr_attendance_message_message').append(_t("Good evening"));
         } else {
             this.$('.o_hr_attendance_message_message').append(_t("Good night"));
         }
         if(this.previous_attendance_change_date){
-            var last_check_out_date = new Date((new Date(this.previous_attendance_change_date)).valueOf() - ((new Date()).getTimezoneOffset()*60*1000));
-            if(now.valueOf() - last_check_out_date.valueOf() > 1000*60*60*24*7){
+            var last_check_out_date = this.previous_attendance_change_date.clone();
+            if(now - last_check_out_date > 24*7*60*60*1000){
                 this.$('.o_hr_attendance_random_message').html(_t("Glad to have you back, it's been a while!"));
             } else if(Math.random() < 0.02){
                 this.$('.o_hr_attendance_random_message').html(_t("If a job is worth doing, it is worth doing well!"));
@@ -100,50 +107,51 @@ var GreetingMessage = Widget.extend(BarcodeHandlerMixin, {
 
     farewell_message: function() {
         var self = this;
-        var now = new Date((new Date(this.attendance.check_out)).valueOf() - ((new Date()).getTimezoneOffset()*60*1000));
+        var now = this.attendance.check_out.clone();
         this.return_to_main_menu = setTimeout( function() {
             self.do_action(self.next_action, {clear_breadcrumbs: true});
         }, 5000);
 
         if(this.previous_attendance_change_date){
-            var last_check_in_date = new Date((new Date(this.previous_attendance_change_date)).valueOf() - ((new Date()).getTimezoneOffset()*60*1000));
-            if(now.valueOf() - last_check_in_date.valueOf() > 1000*60*60*12){
+            var last_check_in_date = this.previous_attendance_change_date.clone();
+            if(now - last_check_in_date > 1000*60*60*12){
                 this.$('.o_hr_attendance_warning_message').append(_t("Warning! Last check in was over 12 hours ago.<br/>If this isn't right, please contact Human Resources."));
                 clearTimeout(this.return_to_main_menu);
-                this.stop_listening();
-            } else if(now.valueOf() - last_check_in_date.valueOf() > 1000*60*60*8){
+                this.activeBarcode = false;
+            } else if(now - last_check_in_date > 1000*60*60*8){
                 this.$('.o_hr_attendance_random_message').html(_t("Another good day's work! See you soon!"));
             }
         }
 
-        if (now.getHours() < 12) {
+        if (now.hours() < 12) {
             this.$('.o_hr_attendance_message_message').append(_t("Have a good day!"));
-        } else if (now.getHours() < 14) {
+        } else if (now.hours() < 14) {
             this.$('.o_hr_attendance_message_message').append(_t("Have a nice lunch!"));
             if (Math.random() < 0.05) {
                 this.$('.o_hr_attendance_random_message').html(_t("Eat breakfast as a king, lunch as a merchant and supper as a beggar"));
             } else if (Math.random() < 0.06) {
                 this.$('.o_hr_attendance_random_message').html(_t("An apple a day keeps the doctor away"));
             }
-        } else if (now.getHours() < 17) {
+        } else if (now.hours() < 17) {
             this.$('.o_hr_attendance_message_message').append(_t("Have a good afternoon"));
-        } else if (now.getHours() < 18 && Math.random() < 0.2) {
+        } else if (now.hours() < 18 && Math.random() < 0.2) {
             this.$('.o_hr_attendance_message_message').append(_t("Early to bed and early to rise, makes a man healthy, wealthy and wise"));
         } else {
             this.$('.o_hr_attendance_message_message').append(_t("Have a good evening"));
         }
-
     },
 
-    on_barcode_scanned: function(barcode) {
+    _onBarcodeScanned: function(barcode) {
         var self = this;
         if (this.return_to_main_menu) {
             // in case of multiple scans in the greeting message view, delete the timer, a new one will be created.
             clearTimeout(this.return_to_main_menu);
         }
-        var res_partner = new Model('res.partner');
-        res_partner.call('attendance_scan', [barcode, ]).
-            then(function (result) {
+        this._rpc({
+                model: 'res.partner',
+                method: 'attendance_scan',
+                args: [barcode, ],
+            }).then(function (result) {
                 if (result.action) {
                     self.do_action(result.action);
                 } else if (result.warning) {
@@ -153,6 +161,7 @@ var GreetingMessage = Widget.extend(BarcodeHandlerMixin, {
     },
 
     destroy: function () {
+        core.bus.off('barcode_scanned', this, this._onBarcodeScanned);
         clearTimeout(this.return_to_main_menu);
         this._super.apply(this, arguments);
     },

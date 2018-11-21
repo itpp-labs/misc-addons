@@ -9,7 +9,7 @@
             <script type="text/javascript">
             </script>
         </template>
-        <template id="webclient_script" inherit_id="web.webclient_script">
+        <template id="webclient_script" inherit_id="web.webclient_bootstrap">
             <xpath expr="." position="inside">
                 <t t-call="theme_kit.custom_css"/>
             </xpath>

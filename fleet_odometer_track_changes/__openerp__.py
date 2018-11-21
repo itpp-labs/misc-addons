@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Fleet with odometer track changes',
     'version': '0.1',

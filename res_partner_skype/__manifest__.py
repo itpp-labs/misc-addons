@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": "Skype field in partner form",
     "version": "1.0.1",
@@ -17,5 +16,5 @@
     "qweb": [
         'static/src/xml/base.xml',
     ],
-    'installable': True
+    'installable': False
 }

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Customer Marketing""",
     "summary": """Allows to store detailed information about customers""",
@@ -32,5 +31,5 @@
     "post_init_hook": None,
 
     "auto_install": False,
-    "installable": True,
+    "installable": False,
 }

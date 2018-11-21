@@ -2,20 +2,6 @@
  Compute Salary Inputs
 =======================
 
-The module allows to make salary rule inputs as computable. A ``Python Code`` field in a salary rule form is editable for users with ``Enable to edit "Python Code" field for salary inputs`` group. The users can write code, which computes amounts of salary rule inputs, e.g.::
-
-    inputs['COMPUTED_INPUT_FIRST']['amount'] = Python expression
-    inputs['COMPUTED_INPUT_SECOND']['amount'] = Python expression
-
-The amounts of the inputs will be computed after you set/change employee or period fields in payslips form.
-
-Available variables:
-* env: Odoo environment
-* operator: Python standard library
-* date_from: begin of employee payslip period, e.g. u'2017-03-01'
-* date_to: end of employee payslip period, e.g. u'2017-03-30'
-* inputs: dictionary with inputs data, e.g. {u'COMPUTED_INPUT_FIRST': {'code': u'COMPUTED_INPUT_FIRST', 'name': u'First Input', 'contract_id': 1}}
-
 Installation
 ============
 
@@ -25,3 +11,12 @@ Usage
 =====
 
 The use of the module assumes you to have Python skills.
+
+* `Enable technical features <https://odoo-development.readthedocs.io/en/latest/odoo/usage/technical-features.html>`__
+* Go to ``[[ Settings ]] >> Users >> Users``menu and open user form
+* Activate **Enable to edit "Python Code" field for salary inputs** 
+* Navigate to `[[ Payroll ]] >> Configuration >> Salary Rules`` menu
+* Open **Inputs** tab
+* Put the code in **Python Code** field
+* Click ``[Save]``
+RESULT: the amounts of inputs are computed according to the python code provided.

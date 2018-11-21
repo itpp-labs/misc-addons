@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 from odoo.tests import common, api
@@ -10,8 +9,7 @@ class TestUI(common.HttpCase):
     post_install = True
 
     def test_ui(self):
-        # FIXME: we cannot use demo user to test, because with no other modules
-        # installed there is no menu but Website which redirects to homepage
+        # FIXME: Use demo user
 
         # needed because tests are run before the module is marked as
         # installed. In js web will only load qweb coming from modules
@@ -22,10 +20,13 @@ class TestUI(common.HttpCase):
             [('name', '=', 'web_website')], limit=1
         ).state = 'installed'
 
-        menu = self.env.ref('website.menu_website_configuration')
+        # Reset admin's values
+        phantom_env.user.company_id = self.env.ref('base.main_company')
+        phantom_env.user.website_id = None
+
         tour = 'web_website.tour'
         self.phantom_js(
-            '/web#menu_id=%i' % menu.id,
+            '/web',
             "odoo.__DEBUG__.services['web_tour.tour']"
             ".run('%s')" % tour,
 

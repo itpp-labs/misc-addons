@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Signature templates for user emails (HR)",
     'version': '1.0.0',

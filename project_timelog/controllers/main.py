@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import datetime
 from openerp import http
 from openerp.http import request

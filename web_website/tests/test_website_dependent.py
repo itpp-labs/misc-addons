@@ -1,7 +1,10 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+import logging
+
 from odoo.tests import common
+
+_logger = logging.getLogger(__name__)
 
 
 class TestFields(common.TransactionCase):
@@ -47,6 +50,7 @@ class TestFields(common.TransactionCase):
         self.assertEqual(record.with_context(context2).foo, 'default')
 
         # Default, company-specific and website-specific values
+        _logger.info('Default, company-specific and website-specific values, record {}'.format(record))
         record = self.env[MODEL].create({'foo': 'nowebsite'})
         record.invalidate_cache()
         self.assertEqual(record.foo, 'nowebsite')
@@ -63,6 +67,14 @@ class TestFields(common.TransactionCase):
         res = self.env[MODEL].search([('foo', '=', False)])
         self.assertFalse(res)
 
+        # test many2one
+        record = self.env[MODEL].create({
+            'name': 'Name',
+            'user_id': self.env.user,
+        })
+        record.invalidate_cache()
+        self.assertEqual(record.user_id, self.env.user)
+
     def _create_property(self, vals, record=None):
         base_vals = {
             'name': 'foo',
@@ -72,9 +84,9 @@ class TestFields(common.TransactionCase):
         if record:
             base_vals['res_id'] = '%s,%s' % (record._name, record.id)
 
-        return self.env['ir.property'].create(
-            dict(base_vals.items() + vals.items())
-        )
+        base_vals.update(vals)
+        _logger.info('create property with vals {}'.format(base_vals))
+        return self.env['ir.property'].create(base_vals)
 
     def test_website_dependent_priority_all_websites(self):
         """ test section "How it works" in index.rst (All-website case) """
@@ -134,6 +146,7 @@ class TestFields(common.TransactionCase):
         company = self.env.user.company_id
         wrong_company = self.env['res.company'].create({'name': 'A'})
         website = self.env.ref('website.default_website')
+        website.company_id = company
         record = self.env[MODEL].create({'foo': 'new_record'})
         record = record.with_context(website_id=website.id)
 
@@ -211,6 +224,8 @@ class TestFields(common.TransactionCase):
         company0 = self.env.ref('base.main_company')
         company1 = self.env['res.company'].create({'name': 'A', 'parent_id': company0.id})
         company2 = self.env['res.company'].create({'name': 'B', 'parent_id': company1.id})
+        # we assume that root user has company0
+        self.env.user.company_id = company0
         # create one user per company
         user0 = self.env['res.users'].create({'name': 'Foo', 'login': 'foo',
                                               'company_id': company0.id, 'company_ids': []})

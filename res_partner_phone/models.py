@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from openerp import api
 from openerp import models
 
@@ -13,10 +12,10 @@ class ResPartnerPhone(models.Model):
     @api.multi
     def name_get(self):
         result = dict(super(ResPartnerPhone, self).name_get())
-        records = self.browse(result.keys())
+        records = self.browse(list(result.keys()))
         for r in records:
             if r.mobile:
                 result[r.id] += ' (' + r.mobile + ')'
             if r.phone:
                 result[r.id] += ' (' + r.phone + ')'
-        return result.items()
+        return list(result.items())
