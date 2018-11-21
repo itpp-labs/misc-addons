@@ -98,7 +98,7 @@ class IrHttp(models.AbstractModel):
         # attachment by url check
         module_resource_path = None
         if model == 'ir.attachment' and obj.type == 'url' and obj.url:
-            url_match = re.match("^/(\w+)/(.+)$", obj.url)
+            url_match = re.match(r"^/(\w+)/(.+)$", obj.url)
             if url_match:
                 module = url_match.group(1)
                 module_path = get_module_path(module)
@@ -109,8 +109,7 @@ class IrHttp(models.AbstractModel):
                     if module_resource_path.startswith(module_path):
                         with open(module_resource_path, 'rb') as f:
                             content = base64.b64encode(f.read())
-                        # commented out because the variable is not used and a lint error occurs 
-                        # last_update = pycompat.text_type(os.path.getmtime(module_resource_path))
+                        # 'last_update' variable removed for lint error fix
 
             if not module_resource_path:
                 module_resource_path = obj.url
