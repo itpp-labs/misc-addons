@@ -3,7 +3,7 @@
     "name": """Time Tracker""",
     "summary": """Adds Start/Stop buttons to task work lines. Allows to see statistics on Calendar, Graph, Tree views and more""",
     "category": "Project",
-    "version": "8.0.1.0.0",
+    "version": "8.0.1.0.1",
     "images": ['images/timelog.png'],
     "author": "IT-Projects LLC, Dinar Gabbasov",
     'website': "https://twitter.com/gabbasov_dinar",
