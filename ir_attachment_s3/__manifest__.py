@@ -18,7 +18,6 @@
     ],
     "external_dependencies": {"python": ['boto3'], "bin": []},
     "data": [
-        "views/ir_attachment_s3.xml",
         "security/ir.model.access.csv",
         "views/res_config_settings_views.xml",
     ],
