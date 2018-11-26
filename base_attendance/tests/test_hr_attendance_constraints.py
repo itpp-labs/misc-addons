@@ -12,7 +12,7 @@ class TestHrAttendance(TransactionCase):
     def setUp(self):
         super(TestHrAttendance, self).setUp()
         self.attendance = self.env['res.partner.attendance']
-        self.test_partner = self.env['res.partner'].search([('name', '=', 'David Simpson')])
+        self.test_partner = self.env.ref('base.partner_demo')
 
     def test_attendance_in_before_out(self):
         # Make sure check_out is before check_in

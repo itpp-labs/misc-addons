@@ -2,10 +2,7 @@
 # Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
-from datetime import datetime
-
 from odoo import models, fields, api, exceptions, _
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 
 class HrAttendance(models.Model):
@@ -45,8 +42,7 @@ class HrAttendance(models.Model):
     def _compute_worked_hours(self):
         for attendance in self:
             if attendance.check_out:
-                delta = datetime.strptime(attendance.check_out, DEFAULT_SERVER_DATETIME_FORMAT) - datetime.strptime(
-                    attendance.check_in, DEFAULT_SERVER_DATETIME_FORMAT)
+                delta = attendance.check_out - attendance.check_in
                 attendance.worked_hours = delta.total_seconds() / 3600.0
 
     @api.constrains('check_in', 'check_out')
