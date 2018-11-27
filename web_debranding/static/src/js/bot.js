@@ -14,13 +14,11 @@ odoo.define('web_debranding.bot', function (require) {
             }
             return this._super.apply(this, arguments);
         },
-
         getAvatarSource: function () {
-            var res = this._super.apply(this, arguments);
-            if (res === '/mail/static/src/img/odoo_o.png') {
+            if (this._isOdoobotAuthor()) {
                 return '/web/binary/company_logo?company_id=' + session.company_id;
             }
-            return res;
+            return this._super.apply(this, arguments);
         }
     });
 });
