@@ -63,7 +63,7 @@ class IrHttp(models.AbstractModel):
 
         # check read access
         try:
-            last_update = obj['__last_update']
+            obj['__last_update']
         except AccessError:
             return (403, [], None)
 
@@ -83,7 +83,7 @@ class IrHttp(models.AbstractModel):
                     if module_resource_path.startswith(module_path):
                         with open(module_resource_path, 'rb') as f:
                             content = base64.b64encode(f.read())
-                        # lint error fix
+                        # lint error fix (unused variable)
                         # last_update = pycompat.text_type(os.path.getmtime(module_resource_path))
 
             if not module_resource_path:
