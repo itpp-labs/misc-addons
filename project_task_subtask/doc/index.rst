@@ -1,5 +1,5 @@
 ========================
- Project Task Checklist
+ Project Task To Do List
 ========================
 
 Installation
@@ -16,7 +16,7 @@ Example of usage:
 * Create User1 and User2 in the ``Settings >> Users`` menu 
 * Login as User1 
   
-  * Go to ``Project >> Project >> Tasks`` and open the ``Checklist`` tab
+  * Go to ``Project >> Project >> Tasks`` and open the ``To Do List`` tab
   * Create new subtask (Reviewer - User1, Assigned to - User2)
 
 * Login as User2 
@@ -26,5 +26,5 @@ Example of usage:
   * You can see a message in Inbox "Cancelled: subtask_name" or "Done: subtask_name" accordingly. 
 
 * You can see your TODOs on tasks in kanban view in the ``Project >> Project >> Tasks`` menu
-* The ``Project >> Project >> Checklist`` menu displays ALL subtasks in state TODO assigned to you and subtasks where you are Reviewer
+* The ``Project >> Project >> To Do List`` menu displays ALL subtasks in state TODO assigned to you and subtasks where you are Reviewer
 

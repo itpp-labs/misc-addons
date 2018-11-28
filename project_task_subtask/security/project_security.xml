@@ -3,6 +3,18 @@
  <openerp>
    <data>
 
+      <!--<record model="ir.rule" id="project_description_subtask_rule">-->
+        <!--<field name="name">Allow edit others tasks</field>-->
+        <!--<field name="model_id" ref="project_task_subtask.model_project_task_subtask"/>-->
+        <!--<field name="groups" eval="[(4,ref('project.group_project_user'))]"/>-->
+        <!--<field name="domain_force">[('reviewer_id', '=', user.id)]</field>-->
+        <!--<field name="perm_unlink" eval="False"/>-->
+        <!--<field name="perm_write" eval="True"/>-->
+        <!--<field name="perm_create" eval="False"/>-->
+        <!--<field name="perm_read" eval="False"/>-->
+      <!--</record>-->
+
+
      <!-- <record model="ir.rule" id="project_description_subtask_rule"> -->
      <!--   <field name="name">Project: only reviewer can change description</field> -->
      <!--   <field name="model_id" ref="project_task_subtask.model_project_task_subtask"/>  -->

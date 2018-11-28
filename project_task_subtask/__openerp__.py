@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 {
-    "name": """Project Task Checklist""",
-    "summary": """Use checklist to be ensure that all your tasks are performed and to make easy control over them""",
+    "name": """Project Task To Do List""",
+    "summary": """Use To Do List to be ensure that all your tasks are performed and to make easy control over them""",
     "category": """Project Management""",
-    "images": ['images/checklist_main.png'],
+    "images": ['images/todolist_main.png'],
     "version": "1.0.0",
     "application": False,
 
