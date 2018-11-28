@@ -27,7 +27,7 @@ from openerp import models
 from datetime import datetime
 from openerp import SUPERUSER_ID
 from openerp.http import request
-from openerp.addons.base.ir.ir_cron import _intervalTypes
+from openerp.addons.base.models.ir_cron import _intervalTypes
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 
