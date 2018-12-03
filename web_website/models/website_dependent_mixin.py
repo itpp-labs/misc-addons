@@ -69,7 +69,10 @@ class WebsiteDependentMixin(models.AbstractModel):
             value = value.id
         except AttributeError:
             pass
-
+        try:
+            prop_value = prop_value.id
+        except AttributeError:
+            pass
         if value != prop_value:
             vals['value'] = prop_value
 
