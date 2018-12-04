@@ -30,16 +30,23 @@ odoo.define('base_attendance.tour', function (require) {
     }
 
     var steps = [{
-            trigger: 'a.oe_menu_toggler:contains("Attendance")',
+            trigger: 'a.full[href="#"]',
+            content: _t("Click to open app list"),
+            position: 'bottom',
+        }, {
+            trigger: 'a.dropdown-item.o_app:contains("Attendance")',
             content: _t("Click to enter menu attendances"),
             position: 'bottom',
         }, {
-            trigger: 'a.oe_menu_leaf:contains("Kiosk")',
+            trigger: 'a.dropdown-toggle.o-no-caret.o_menu_header_lvl_1:contains("Attendance")',
+            content: _t("Click to open Manage Attendances menu"),
+        }, {
+            trigger: 'a.dropdown-item.o_menu_entry_lvl_2:contains("Kiosk")',
             content: _t("Click to enter Kiosk"),
         }];
 
-    steps = steps.concat(partner_check_in_out("Laith Jubair", 'red'));
-    steps = steps.concat(partner_check_in_out("Laith Jubair", 'green'));
+    steps = steps.concat(partner_check_in_out("Brandon Freeman", 'red'));
+    steps = steps.concat(partner_check_in_out("Brandon Freeman", 'green'));
 
     tour.register('test_kiosk_tour', { test: true, url: '/web' }, steps);
 });
