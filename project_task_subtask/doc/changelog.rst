@@ -1,3 +1,8 @@
+`1.1.0`
+-------
+
+**Improvement:** Status bar on tasks for project.task kanban view
+**Improvement:** Automatically sorting subtasks
 
 `1.0.2`
 -------

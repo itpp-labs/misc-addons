@@ -1,0 +1,32 @@
+.task_progress {
+	width:40%;
+	display:inline-block;
+	font-size: 10px;
+}
+
+.task_progress {
+	width:40%;
+	display:inline-block;
+	font-size: 10px;
+}
+.task_progress .task_progress_bar{
+	width:85%;
+	display:inline-block;
+	margin-bottom:0px;
+	height: 10px;
+}
+.task_progress .task_progress_bar_done{
+	max-width: 100%;
+	min-width: 3%;
+}
+.task_progress .task_completion{
+	width:10%;
+	display:inline-block;
+	height: 13px;
+}
+
+.kanban_subtasks {
+    width: 50%;
+    display:inline-block;
+    font-size: 10px;
+}

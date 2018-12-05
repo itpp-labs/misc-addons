@@ -34,11 +34,14 @@
       <field name="inherit_id" ref="project.view_task_kanban"/>
       <field name="arch" type="xml">
         <xpath expr="//field[@name ='tag_ids']" position="after">
-          <field name="subtask_ids"/>
-          <field name="kanban_subtasks" invisible="1"/>
+            <field name="completion" invisible="1"/>
+            <field name="subtask_ids" invisible="1"/>
+            <field name="kanban_subtasks" invisible="1"/>
+            <field name="completion_xml" invisible="1"/>
         </xpath>
         <xpath expr="//div[hasclass('o_kanban_record_bottom')]" position="before">
           <div>
+             <t t-raw="record.completion_xml.raw_value"/>
              <t t-raw="record.kanban_subtasks.raw_value"/>
           </div>
         </xpath>
