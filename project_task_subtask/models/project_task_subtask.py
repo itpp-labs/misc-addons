@@ -7,7 +7,7 @@ from odoo.tools.translate import _
 
 SUBTASK_STATES = {'done': 'Done',
                   'todo': 'TODO',
-                  'waiting': 'Waiting',
+                  'waiting': 'In Progress',
                   'cancelled': 'Cancelled'}
 
 
@@ -100,6 +100,8 @@ class Task(models.Model):
     subtask_ids = fields.One2many('project.task.subtask', 'task_id', 'Subtask')
     kanban_subtasks = fields.Text(compute='_compute_kanban_subtasks')
     default_user = fields.Many2one('res.users', compute='_compute_default_user')
+    completion = fields.Integer('Completion', compute='_compute_completion')
+    completion_xml = fields.Text(compute='_compute_completion_xml')
 
     @api.multi
     def _compute_default_user(self):
@@ -117,28 +119,67 @@ class Task(models.Model):
     @api.multi
     def _compute_kanban_subtasks(self):
         for record in self:
-            result_string1 = ''
-            result_string2 = ''
-            result_string3 = ''
-            for subtask in record.subtask_ids:
-                bounding_length = 25
-                tmp_list = (subtask.name).split()
-                for index in range(len(tmp_list)):
-                    if len(tmp_list[index]) > bounding_length:
-                        tmp_list[index] = tmp_list[index][:bounding_length] + '...'
-                tmp_subtask_name = " ".join(tmp_list)
-                if subtask.state == 'todo' and record.env.user == subtask.user_id and record.env.user == subtask.reviewer_id:
-                    tmp_string3 = escape(': {0}'.format(tmp_subtask_name))
-                    result_string3 += '<li><b>TODO</b>{}</li>'.format(tmp_string3)
-                elif subtask.state == 'todo' and record.env.user == subtask.user_id:
-                    tmp_string1_1 = escape('{0}'.format(subtask.reviewer_id.name))
-                    tmp_string1_2 = escape('{0}'.format(tmp_subtask_name))
-                    result_string1 += '<li><b>TODO</b> from <em>{0}</em>: {1}</li>'.format(tmp_string1_1, tmp_string1_2)
-                elif subtask.state == 'todo' and record.env.user == subtask.reviewer_id:
-                    tmp_string2_1 = escape('{0}'.format(subtask.user_id.name))
-                    tmp_string2_2 = escape('{0}'.format(tmp_subtask_name))
-                    result_string2 += '<li>TODO for <em>{0}</em>: {1}</li>'.format(tmp_string2_1, tmp_string2_2)
-            record.kanban_subtasks = '<ul>' + result_string1 + result_string3 + result_string2 + '</ul>'
+            result_string_td = ''
+            result_string_wt = ''
+            if record.subtask_ids:
+                task_todo_ids = record.subtask_ids.filtered(lambda x: x.state == 'todo' and (
+                        x.user_id.id == record.env.user.id))
+                task_waiting_ids = record.subtask_ids.filtered(lambda x: x.state == 'waiting' and (
+                        x.user_id.id == record.env.user.id))
+                if task_todo_ids:
+                    tmp_string_td = escape(': {0}'.format(len(task_todo_ids)))
+                    result_string_td += '<li><b>TODO{}</b></li>'.format(tmp_string_td)
+                if task_waiting_ids:
+                    tmp_string_wt = escape(': {0}'.format(len(task_waiting_ids)))
+                    result_string_wt += '<li><b>In Progress{}</b></li>'.format(tmp_string_wt)
+            record.kanban_subtasks = '<div class="kanban_subtasks"><ul>' + \
+                                     result_string_td + result_string_wt + '</ul></div>'
+
+    @api.multi
+    def _compute_completion(self):
+        for record in self:
+            record.completion = record.task_completion()
+
+    @api.multi
+    def _compute_completion_xml(self):
+        for record in self:
+            if not ( record.subtask_ids and record.subtask_ids.filtered(lambda x: x.user_id.id == record.env.user.id) ):
+                record.completion_xml = """
+                    <div class="task_progress">
+                    </div>
+                    """
+                continue
+
+            completion = record.task_completion()
+            color = 'bg-success-full'
+            if completion <= 50:
+                color = 'bg-danger-full'
+            record.completion_xml = """
+            <div class="task_progress">
+                <div class="progress_info">
+                    Your Checklist Status:
+                </div>
+                <div class ="o_kanban_counter_progress progress task_progress_bar">
+                    <div data-filter="done"
+                         class ="progress-bar {1} o_bar_has_records task_progress_bar_done"
+                         data-original-title="1 done"
+                         style="width: {0}%;">
+                    </div>
+                    <div data-filter="blocked"
+                         class ="progress-bar bg-danger-full"
+                         data-original-title="0 blocked">
+                    </div>
+                </div>
+                <div class="task_completion"> {0}% </div>
+            </div>
+            """.format(int(completion), color)
+
+    def task_completion(self):
+        user_task_ids = self.subtask_ids.filtered(lambda x: x.user_id.id == self.env.user.id and x.state != 'cancelled')
+        if not user_task_ids:
+            return 100
+        user_done_task_ids = user_task_ids.filtered(lambda x: x.state == 'done')
+        return (len(user_done_task_ids) / len(user_task_ids)) * 100
 
     @api.multi
     def send_subtask_email(self, subtask_name, subtask_state, subtask_reviewer_id, subtask_user_id, old_name=None):
