@@ -1,3 +1,8 @@
+`1.1.7`
+-------
+
+- **Fix:** Product Variant were downloaded on server instead of passing url
+
 `1.1.6`
 -------
 

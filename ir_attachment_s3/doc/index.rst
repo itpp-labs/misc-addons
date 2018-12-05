@@ -5,7 +5,6 @@
 Installation
 ============
 
-* `Install <https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html>`__ this module in a usual way
 * `Using this quickstart instruction <https://boto3.readthedocs.io/en/latest/guide/quickstart.html>`__ install boto3 library and get credentials for it
 * `Using this instruction <http://mikeferrier.com/2011/10/27/granting-access-to-a-single-s3-bucket-using-amazon-iam>`__ grant access to your s3 bucket
 * Set your S3 bucket as public
@@ -13,32 +12,9 @@ Installation
 
     --log-handler=boto3.resources.action:WARNING
 
-Configuration
-=============
 
-* To enable the feature of linking existing urls to binary fields:
-
-  * Start Odoo with ``--load=web,ir_attachment_url`` or set the ``server_wide_modules`` option in The Odoo configuration file:
-
-::
-
-  [options]
-  # (...)
-  server_wide_modules = web,ir_attachment_url
-  # (...)
-
-* `Enable technical features <https://odoo-development.readthedocs.io/en/latest/odoo/usage/technical-features.html>`__
-* Open menu ``Settings >> Parameters >> System Parameters`` and specify the following parameters there
-
-  * ``s3.bucket``: the name of your bucket (e.g. ``mybucket``)
-  * ``s3.condition``: only the attachments that meet the condition will be sent to s3 (e.g. ``[('res_model', 'in', ['product.image'])]``) - it is actually the way of specifying the models with ``fields.Binary`` fields that should be stored on s3 instead of local file storage or db. Don't specify anything if you want to store all your attachment data from ``fields.Binary`` and also ordinary attachments on s3.
-  * ``s3.access_key_id``: S3 access key ID
-  * ``s3.secret_key``: S3 secret access key
-
-The settings are also available from the ``Settings >> Technical >> Database Structure >> S3 Settings``.
-
-S3
---
+IAM
+---
 
 Minimal access policy for s3 credentials are as following::
 
@@ -63,7 +39,31 @@ Minimal access policy for s3 credentials are as following::
   }
   
   
-You can also remove ``"s3:CreateBucket"`` if bucket already exists. 
+You can also remove ``"s3:CreateBucket"`` if bucket already exists.
+
+Configuration
+=============
+
+* To enable the feature of linking existing urls to binary fields:
+
+  * Start Odoo with ``--load=web,ir_attachment_url`` or set the ``server_wide_modules`` option in The Odoo configuration file:
+
+::
+
+  [options]
+  # (...)
+  server_wide_modules = web,ir_attachment_url
+  # (...)
+
+* `Enable technical features <https://odoo-development.readthedocs.io/en/latest/odoo/usage/technical-features.html>`__
+* Open menu ``Settings >> Parameters >> System Parameters`` and specify the following parameters there
+
+  * ``s3.bucket``: the name of your bucket (e.g. ``mybucket``)
+  * ``s3.condition``: only the attachments that meet the condition will be sent to s3 (e.g. ``[('res_model', 'in', ['product.image'])]``) - it is actually the way of specifying the models with ``fields.Binary`` fields that should be stored on s3 instead of local file storage or db. Don't specify anything if you want to store all your attachment data from ``fields.Binary`` and also ordinary attachments on s3.
+  * ``s3.access_key_id``: S3 access key ID
+  * ``s3.secret_key``: S3 secret access key
+
+The settings are also available from the ``Settings >> Technical >> Database Structure >> S3 Settings``.
 
 Usage
 =====
