@@ -11,7 +11,7 @@
             <script type="text/javascript" src="/base_attendance/static/src/js/kiosk_mode.js"></script>
             <script type="text/javascript" src="/base_attendance/static/src/js/kiosk_confirm.js"></script>
             <script type="text/javascript" src="/base_attendance/static/src/js/test_kiosk_tour.js"></script>
-            <link rel="stylesheet" href="/base_attendance/static/src/less/hr_attendance.less"/>
+            <link rel="stylesheet" type="text/scss" href="/base_attendance/static/src/scss/hr_attendance.scss"/>
         </xpath>
     </template>
 </odoo>

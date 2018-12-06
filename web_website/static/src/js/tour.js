@@ -25,7 +25,7 @@ tour.register(tour_name, options,
         },
         {
             content: "Wait when page is reloaded",
-            trigger: '.o_switch_website_menu > a:contains(Website localhost)',
+            trigger: '.o_switch_website_menu > a:contains(My Website)',
         },
     ]
 );

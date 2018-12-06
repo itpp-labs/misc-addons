@@ -24,7 +24,7 @@
             <field name="model">product.tag</field>
             <field name="field_parent">child_ids</field>
             <field name="arch" type="xml">
-                <tree toolbar="1" string="Product Tags">
+                <tree toolbar="1" >
                     <field name="display_name"/>
                 </tree>
             </field>
@@ -35,7 +35,7 @@
             <field name="model">product.tag</field>
             <field eval="6" name="priority"/>
             <field name="arch" type="xml">
-                <tree string="Product Tags">
+                <tree>
                     <field name="display_name"/>
                 </tree>
             </field>
@@ -70,7 +70,7 @@
             <field name="inherit_id" ref="product.product_template_search_view"/>
             <field name="arch" type="xml">
                 <field name="name" position="after">
-                    <field name="tag_ids" string="Tags" filter_domain="['|',('tag_ids','ilike',self),('tag_ids','child_of',self)]"/>
+                    <field name="tag_ids" string="Tags" filter_domain="['|','|',('tag_ids','ilike',self),('tag_ids.parent_id','ilike',self),('tag_ids.parent_id','child_of',self)]"/>
                 </field>
             </field>
         </record>
