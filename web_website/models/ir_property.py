@@ -111,8 +111,7 @@ class IrProperty(models.Model):
         website_id = self._context.get('website_id', None)
         field = self.env[model]._fields[name]
         field_id = self.env['ir.model.fields']._get(model, name).id
-        company_id = self._context.get('force_company') \
-                     or self.env['res.company']._company_default_get(model, field_id).id
+        company_id = self._context.get('force_company') or self.env['res.company']._company_default_get(model, field_id).id
 
         if field.type == 'many2one':
             comodel = self.env[field.comodel_name]
@@ -174,6 +173,9 @@ class IrProperty(models.Model):
         # result format: {res_id: (res_id, val, company_id, website_id), ...}
         # from fetched result was taken only the last row for each res_id
 
+        # Take value for None key, i.e. 
+        # {{None: (None, val0, company_id0, website_id0), ...}, res_id1: (res_id1, val1, company_id1, website_id1), ...}
+        # when there is no such key, use value None
         default_value = result.pop(None, None)
         default_company_id = default_value and default_value[2]
         default_website_id = default_value and default_value[3]
