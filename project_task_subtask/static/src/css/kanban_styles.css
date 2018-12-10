@@ -30,3 +30,6 @@
     display:inline-block;
     font-size: 10px;
 }
+.kanban_subtasks ul{
+    -webkit-padding-start: 30px;
+}

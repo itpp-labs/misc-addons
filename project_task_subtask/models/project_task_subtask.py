@@ -128,10 +128,10 @@ class Task(models.Model):
                         x.user_id.id == record.env.user.id))
                 if task_todo_ids:
                     tmp_string_td = escape(': {0}'.format(len(task_todo_ids)))
-                    result_string_td += '<li><b>TODO</b>{}</li>'.format(tmp_string_td)
+                    result_string_td += '<li><b>TODO{}</b></li>'.format(tmp_string_td)
                 if task_waiting_ids:
                     tmp_string_wt = escape(': {0}'.format(len(task_waiting_ids)))
-                    result_string_wt += '<li><b>WAITING</b>{}</li>'.format(tmp_string_wt)
+                    result_string_wt += '<li><b>In Progress{}</b></li>'.format(tmp_string_wt)
             record.kanban_subtasks = '<div class="kanban_subtasks"><ul>' + \
                                      result_string_td + result_string_wt + '</ul></div>'
 
@@ -143,16 +143,21 @@ class Task(models.Model):
     @api.multi
     def _compute_completion_xml(self):
         for record in self:
+            if not ( record.subtask_ids and record.subtask_ids.filtered(lambda x: x.user_id.id == record.env.user.id) ):
+                record.completion_xml = """
+                    <div class="task_progress">
+                    </div>
+                    """
+                continue
+
             completion = record.task_completion()
             color = 'bg-success-full'
-            if completion < 70:
+            if completion <= 50:
                 color = 'bg-danger-full'
-            elif completion < 100:
-                color = 'bg-warning-full'
             record.completion_xml = """
             <div class="task_progress">
                 <div class="progress_info">
-                    Checklist status:
+                    Your Checklist Status:
                 </div>
                 <div class ="o_kanban_counter_progress progress task_progress_bar">
                     <div data-filter="done"
