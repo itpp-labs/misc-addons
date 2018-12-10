@@ -218,3 +218,13 @@ class Task(models.Model):
                            subtype=subtype,
                            body=body,
                            partner_ids=partner_ids)
+
+    @api.multi
+    def copy(self, default=None):
+        task = super(Task, self).copy(default)
+        for subtask in self.subtask_ids:
+            subtask.copy({
+                'task_id': task.id,
+                'state': subtask.state,
+            })
+        return task
