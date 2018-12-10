@@ -1,3 +1,8 @@
+`1.1.7`
+-------
+
+- **Fix:** Product Variant were downloaded on server instead of passing url
+
 `1.1.6`
 -------
 
@@ -6,7 +11,7 @@
 `1.1.5`
 -------
 
-- **Fix:** Product Variant were downloaded on server instead of passing url
+- **Fix** Update of an inherited function binary_content according to original one. Update is necessary to support the work with access_token argument.
 
 `1.1.4`
 -------

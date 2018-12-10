@@ -122,7 +122,7 @@ those values are ones you need.
 * Make Export of all records (``[Action] -> Export``) -- exporting only column ``value`` is enough.
 * Click ``[Import]`` button
 * Upload ``*.csv`` file
-* Click ``[Validate]`` -- it must not return errors!
+* Click ``[Validate]`` -- it may take some time. It must not return errors!
 * Don't close current page!
 * Uninstall the module at another page
 * Return back to page with importing

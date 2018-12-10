@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Autostaging project task",
     'summary': "Change stages of tasks automatically after a specified time",
@@ -23,5 +22,5 @@
     'post_init_hook': None,
 
     'auto_install': False,
-    'installable': True,
+    'installable': False,
 }

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 from odoo import models, fields, api
@@ -16,6 +15,16 @@ class IrProperty(models.Model):
     _inherit = 'ir.property'
 
     website_id = fields.Many2one('website', 'Website')
+
+    @api.multi
+    def _update_values(self, values):
+        """Support for html fields.
+
+        Can be removed in first odoo release with this patch: https://github.com/odoo/odoo/pull/26556
+        """
+        if values.get('type') == 'html':
+            values['type'] = 'text'
+        return super(IrProperty, self)._update_values(values)
 
     @api.model
     def _is_website_dependent(self, name, model):
@@ -108,3 +117,25 @@ class IrProperty(models.Model):
             _search_domain_website_dependent=True,
             create_website_dependent=True,
         )).set_multi(name, model, values, default_value=default_value)
+
+    @api.multi
+    def _update_db_value_website_dependent(self, field):
+        """Update db value if it's a default value"""
+        for r in self:
+            if r.fields_id != field:
+                # It's another field
+                continue
+            if r.company_id:
+                # it's not default value
+                continue
+            # r.website_id is empty here,
+            # because otherwise r.company_id is not empty too
+            if not r.res_id:
+                # It's not record-specific
+                continue
+            # Default value is updated. Set new value in db column
+            model, res_id = r.res_id.split(',')
+            value = r.get_by_record()
+            model = field.model_id.model
+            record = self.env[model].browse(int(res_id))
+            record._update_db_value(field, value)

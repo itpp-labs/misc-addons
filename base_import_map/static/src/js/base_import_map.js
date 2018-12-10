@@ -4,7 +4,6 @@ odoo.define('base_import_map.map', function (require) {
     var ControlPanelMixin = require('web.ControlPanelMixin');
     var BaseImport = require('base_import.import');
     var core = require('web.core');
-    var Model = require('web.Model');
 
     var QWeb = core.qweb;
     var _lt = core._lt;
@@ -12,9 +11,15 @@ odoo.define('base_import_map.map', function (require) {
 
     BaseImport.DataImport.include({
         init: function() {
-            this.opts.push({name: 'settings', label: _lt("Settings:"), value: ''});
-            this.opts.push({name: 'save_settings', label: _lt("Save settings:"), value: ''});
-            this.opts.push({name: 'file_read_hook', label: _lt("File read hook:"), value: ''});
+            // Assign a new array instead of pushing values to the
+            // original one, because otherwise we would change the
+            // prototype array, meaning that each time 'init' is called
+            // the values are pushed again, resulting in duplicate entries
+            this.opts = this.opts.concat([
+                {name: 'settings', label: _lt("Settings:"), value: ''},
+                {name: 'save_settings', label: _lt("Save settings:"), value: ''},
+                {name: 'file_read_hook', label: _lt("File read hook:"), value: ''}
+            ])
             this._super.apply(this, arguments);
         },
         start: function() {
@@ -24,15 +29,18 @@ odoo.define('base_import_map.map', function (require) {
         },
         setup_settings_picker: function(){
             var self = this;
-            var domain = [['model', '=', this.res_model]];
-            var model = new Model("base_import_map.map");
-            model.call('name_search', {
-                args: domain || false,
-            }).then(function(res){
+            self._rpc({
+                model: 'base_import_map.map',
+                method: 'search_read',
+                args: [
+                    [['model', '=', this.res_model]],
+                    ['name']
+                ]
+            }).then(function(res) {
                 var suggestions = [];
                 if (res) {
                     res.forEach(function (item) {
-                        suggestions.push({id: item[0], text: _t(item[1])});
+                        suggestions.push({id: item.id, text: item.name});
                     });
                 } else {
                     suggestions.push({id: "None", text: _t("None")});

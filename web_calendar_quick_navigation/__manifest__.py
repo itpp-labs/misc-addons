@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Calendar View Quick Navigation',
     'version': '0.1',

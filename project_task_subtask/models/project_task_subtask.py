@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
 from odoo.tools import html_escape as escape
@@ -14,8 +13,8 @@ SUBTASK_STATES = {'done': 'Done',
 
 class ProjectTaskSubtask(models.Model):
     _name = "project.task.subtask"
-    _inherit = ['ir.needaction_mixin']
-    state = fields.Selection([(k, v) for k, v in SUBTASK_STATES.items()],
+    _inherit = ['mail.activity.mixin']
+    state = fields.Selection([(k, v) for k, v in list(SUBTASK_STATES.items())],
                              'Status', required=True, copy=False, default='todo')
     name = fields.Char(required=True, string="Description")
     reviewer_id = fields.Many2one('res.users', 'Created by', readonly=True, default=lambda self: self.env.user)
@@ -52,7 +51,7 @@ class ProjectTaskSubtask(models.Model):
 
     @api.multi
     def write(self, vals):
-        old_names = dict(zip(self.mapped('id'), self.mapped('name')))
+        old_names = dict(list(zip(self.mapped('id'), self.mapped('name'))))
         result = super(ProjectTaskSubtask, self).write(vals)
         for r in self:
             if vals.get('state'):
@@ -129,16 +128,16 @@ class Task(models.Model):
                         tmp_list[index] = tmp_list[index][:bounding_length] + '...'
                 tmp_subtask_name = " ".join(tmp_list)
                 if subtask.state == 'todo' and record.env.user == subtask.user_id and record.env.user == subtask.reviewer_id:
-                    tmp_string3 = escape(u': {0}'.format(tmp_subtask_name))
-                    result_string3 += u'<li><b>TODO</b>{}</li>'.format(tmp_string3)
+                    tmp_string3 = escape(': {0}'.format(tmp_subtask_name))
+                    result_string3 += '<li><b>TODO</b>{}</li>'.format(tmp_string3)
                 elif subtask.state == 'todo' and record.env.user == subtask.user_id:
-                    tmp_string1_1 = escape(u'{0}'.format(subtask.reviewer_id.name))
-                    tmp_string1_2 = escape(u'{0}'.format(tmp_subtask_name))
-                    result_string1 += u'<li><b>TODO</b> from <em>{0}</em>: {1}</li>'.format(tmp_string1_1, tmp_string1_2)
+                    tmp_string1_1 = escape('{0}'.format(subtask.reviewer_id.name))
+                    tmp_string1_2 = escape('{0}'.format(tmp_subtask_name))
+                    result_string1 += '<li><b>TODO</b> from <em>{0}</em>: {1}</li>'.format(tmp_string1_1, tmp_string1_2)
                 elif subtask.state == 'todo' and record.env.user == subtask.reviewer_id:
-                    tmp_string2_1 = escape(u'{0}'.format(subtask.user_id.name))
-                    tmp_string2_2 = escape(u'{0}'.format(tmp_subtask_name))
-                    result_string2 += u'<li>TODO for <em>{0}</em>: {1}</li>'.format(tmp_string2_1, tmp_string2_2)
+                    tmp_string2_1 = escape('{0}'.format(subtask.user_id.name))
+                    tmp_string2_2 = escape('{0}'.format(tmp_subtask_name))
+                    result_string2 += '<li>TODO for <em>{0}</em>: {1}</li>'.format(tmp_string2_1, tmp_string2_2)
             record.kanban_subtasks = '<ul>' + result_string1 + result_string3 + result_string2 + '</ul>'
 
     @api.multi

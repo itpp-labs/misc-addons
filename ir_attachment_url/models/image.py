@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from odoo import tools
 import re
 
@@ -26,15 +25,16 @@ def updated_image_resize_images(vals, big_name='image', medium_name='image_mediu
 
 def is_url(value):
     if value:
-        return re.findall(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', value)
+        return isinstance(value, str) and re.findall(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', value)
 
 
 super_image_resize_image = tools.image_resize_image
 
 
 def updated_image_resize_image(base64_source, size=(1024, 1024), encoding='base64', filetype=None, avoid_if_small=False):
-    if is_url(base64_source):
-        return base64_source
+    source_for_check = base64_source.decode("utf-8") if isinstance(base64_source, bytes) else base64_source
+    if is_url(source_for_check):
+        return source_for_check
     return super_image_resize_image(base64_source, size=size, encoding=encoding, filetype=filetype, avoid_if_small=avoid_if_small)
 
 
@@ -66,6 +66,8 @@ def updated_image_get_resized_images(base64_source, return_big=False, return_med
         because we rewrite image_resize_image function.
     """
     return_dict = dict()
+    if isinstance(base64_source, tools.pycompat.text_type):
+        base64_source = base64_source.encode('ascii')
     if return_big:
         return_dict[big_name] = updated_image_resize_image_big(base64_source, avoid_if_small=avoid_resize_big)
     if return_medium:

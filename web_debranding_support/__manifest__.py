@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Backend debranding + Support branding",
     'version': '1.0.0',

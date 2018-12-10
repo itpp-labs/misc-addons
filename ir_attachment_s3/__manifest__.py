@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 {
     "name": """S3 Attachment Storage""",
     "summary": """Upload attachments on Amazon S3""",
     "category": "Tools",
     "images": [],
-    "version": "10.0.1.2.0",
+    "version": "11.0.1.2.0",
     "application": False,
 
     "author": "IT-Projects LLC, Ildar Nasyrov",
@@ -14,12 +13,13 @@
     "currency": "EUR",
 
     "depends": [
+        'base_setup',
         'ir_attachment_url',
     ],
     "external_dependencies": {"python": ['boto3'], "bin": []},
     "data": [
-        "views/ir_attachment_s3.xml",
         "security/ir.model.access.csv",
+        "views/res_config_settings_views.xml",
     ],
     "qweb": [
     ],

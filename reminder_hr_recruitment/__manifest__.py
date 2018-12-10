@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Reminders and Agenda for Job Applications",
     'version': '1.0.0',
@@ -13,5 +12,5 @@
     'data': [
         'views.xml',
     ],
-    'installable': True,
+    'installable': False,
 }
