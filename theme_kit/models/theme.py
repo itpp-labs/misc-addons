@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2016,2018 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
@@ -9,7 +8,7 @@ from odoo.addons.base.ir.ir_qweb.assetsbundle import AssetsBundle, LessStyleshee
 
 class Theme(models.Model):
     _name = "theme_kit.theme"
-    name = fields.Char('Name')
+    name = fields.Char('Name', required=True)
     top_panel_id = fields.Many2one('theme_kit.top_panel', string="Color Schemes for Top Panel")
     left_panel_id = fields.Many2one('theme_kit.left_panel', string="Color Schemes for Left Panel")
     content_id = fields.Many2one('theme_kit.content', string="Color Schemes for Content")
@@ -55,7 +54,7 @@ class Theme(models.Model):
 class ThemeTopPanel(models.Model):
     _name = "theme_kit.top_panel"
 
-    name = fields.Char('Name')
+    name = fields.Char('Name', required=True)
 
     top_panel_bg = fields.Char('Background color', help="Menu Bar color for Top Panel")
     top_panel_bg_active = fields.Boolean(default=False, help="Menu Bar color for Top Panel")
@@ -257,7 +256,7 @@ class ThemeTopPanel(models.Model):
 class ThemeLeftPanel(models.Model):
     _name = "theme_kit.left_panel"
 
-    name = fields.Char('Name')
+    name = fields.Char('Name', required=True)
 
     left_panel_bg = fields.Char('Background color', help="Background Color for Left Menu Bar")
     left_panel_bg_active = fields.Boolean(default=False, help="Background Color for Left Menu Bar")
@@ -402,7 +401,7 @@ class ThemeLeftPanel(models.Model):
 class ThemeContent(models.Model):
     _name = "theme_kit.content"
 
-    name = fields.Char('Name')
+    name = fields.Char('Name', required=True)
 
     content_bg = fields.Char('Background color', help="Color for Main page")
     content_bg_active = fields.Boolean(default=False, help="Color for Main page")

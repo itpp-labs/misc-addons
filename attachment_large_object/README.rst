@@ -52,10 +52,10 @@ Maintainers
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/misc-addons/10.0
+Demo: http://runbot.it-projects.info/demo/misc-addons/11.0
 
-.. HTML Description: https://apps.odoo.com/apps/modules/10.0/attachment_large_object/
+.. HTML Description: https://apps.odoo.com/apps/modules/11.0/attachment_large_object/
 
 Changelog: `<doc/changelog.rst>`_
 
-Tested on Odoo 10.0 ce038f5d1531107a1e45fd867de42e82940babdb
+Tested on Odoo 11.0 8787f5acee9b5d2cad15b97804522dc04717a1c1

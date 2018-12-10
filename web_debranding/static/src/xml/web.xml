@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--Copyright 2015-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    Copyright 2016 Stanislav Krotov <https://it-projects.info/team/ufaks>
+    Copyright 2016 Gabbasov Dinar <https://it-projects.info/team/GabbasovDinar>
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).-->
 <templates>
-
     <t t-extend="mail.client_action">
       <t t-jquery=".o_mail_request_permission" t-operation="inner">
         Your permission is required to <a href="#"> enable desktop notifications</a>.
@@ -15,14 +18,25 @@
       </t>
     </t>
 
-    <t t-extend="UserMenu">
-      <!-- It supports versions before and after this commit https://github.com/odoo/odoo/commit/bcca4a44c79d94db320ffe6f8311fcbb7ff81421 -->
+    <t t-extend="UserMenu.Actions">
         <t t-jquery="a[data-menu='documentation']" t-operation="replace"></t>
         <t t-jquery="a[data-menu='support']" t-operation="replace"></t>
         <t t-jquery="a[data-menu='account']" t-operation="replace"></t>
         <t t-jquery="a[data-menu='settings']" t-operation="after">
             <li><a href="?debug" data-menu="debug">Developer mode</a></li>
+            <li><a href="?debug=assets" data-menu="debugassets"><em>Developer mode<br/> (with assets)</em></a></li>
         </t>
+        <!-- It leads to warning in Odoo EE in browser console, because such selector doesn't exist there -->
         <t t-jquery="li.divider" t-operation="replace"></t>
     </t>
+
+<!-- enterprise: hide database expiration panel -->
+<!-- WARNING: running odoo instance with uncommented lines below may be illegal -->
+<!--
+   <t t-extend="WebClient.database_expiration_panel">
+       <t t-jquery=".database_expiration_panel">
+           $(this).empty();
+       </t>
+   </t>
+-->
 </templates>

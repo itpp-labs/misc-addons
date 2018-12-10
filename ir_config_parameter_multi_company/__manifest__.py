@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Context-dependent values in System Parameters""",
     "summary": """Adds multi-company and multi-website support for dozens features""",
     "category": "Extra Tools",
     # "live_test_url": "",
     "images": [],
-    "version": "10.0.3.0.0",
+    "version": "11.0.5.0.0",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",

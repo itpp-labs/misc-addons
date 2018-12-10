@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "FIX field limit in importing csv",
     'version': '1.0.0',
