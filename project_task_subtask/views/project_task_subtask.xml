@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    Copyright 2017-2018 manawi <https://github.com/manawi>
+    Copyright 2017-2018 Karamov Ilmir <https://it-projects.info/team/ilmir-k>
+    Copyright 2017-2018 iledarn <https://github.com/iledarn>
+    Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+    License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). -->
 <odoo>
     <record id="view_task_form2" model="ir.ui.view">
       <field name="name">project.task.form</field>

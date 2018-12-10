@@ -1,3 +1,10 @@
+# Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2017-2018 manawi <https://github.com/manawi>
+# Copyright 2017-2018 Karamov Ilmir <https://it-projects.info/team/ilmir-k>
+# Copyright 2017-2018 iledarn <https://github.com/iledarn>
+# Copyright 2017 Nicolas JEUDY <https://github.com/njeudy>
+# Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 from odoo import models, fields, api
 from odoo.tools import html_escape as escape
