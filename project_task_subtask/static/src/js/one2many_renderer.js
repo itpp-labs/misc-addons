@@ -10,7 +10,8 @@ odoo.define('project_task_subtask.one2many_renderer', function(require){
         check_task_tree_mode: function(){
             if (this.view &&
             this.view.arch.tag === 'tree' &&
-            this.record && this.record.model === "project.task"
+            this.record && this.record.model === "project.task" &&
+            this.name === 'subtask_ids'
             ) {
                 return true;
             }
@@ -57,7 +58,11 @@ odoo.define('project_task_subtask.one2many_renderer', function(require){
                 } else if (d.data.state === 'done') {
                     d.index += 400000;
                 } else {
-                    d.index += 700000;
+                    // makes cancelled subtasks stay last in line
+                    d.index += (name_index.length + 2) * 1000000;
+                    if (d.data.user_id.data.id !== user_id) {
+                        d.index += (_.indexOf(name_index, d.data.user_id.data.display_name) + 1) * 1000000;
+                    }
                 }
             });
             data = _.sortBy(data, 'index');
