@@ -150,7 +150,10 @@ class Task(models.Model):
     @api.multi
     def _compute_completion_xml(self):
         for record in self:
-            if not ( record.subtask_ids and record.subtask_ids.filtered(lambda x: x.user_id.id == record.env.user.id) ):
+            active_subtasks = record.subtask_ids and \
+                              record.subtask_ids.filtered(lambda x: x.user_id.id == record.env.user.id and
+                                                                    x.state != 'cancelled')
+            if not active_subtasks:
                 record.completion_xml = """
                     <div class="task_progress">
                     </div>
@@ -159,7 +162,7 @@ class Task(models.Model):
 
             completion = record.task_completion()
             color = 'bg-success-full'
-            if completion <= 50:
+            if completion < 50:
                 color = 'bg-danger-full'
             record.completion_xml = """
             <div class="task_progress">
