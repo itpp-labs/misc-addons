@@ -15,7 +15,7 @@
     <field name="name">web_iframe_pages.page.tree</field>
     <field name="model">web_iframe_pages.page</field>
     <field name="arch" type="xml">
-        <tree string="IFrame" editable="top">
+        <tree editable="top">
             <field name="menu_id_parent_id" context="{'default_iframe_pages_group':True}"/>
             <field name="menu_id_name"/>
             <field name="link"/>

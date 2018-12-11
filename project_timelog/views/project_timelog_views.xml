@@ -8,7 +8,7 @@
             <field name="priority" eval="999"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='timesheet_ids']/tree" position="replace">
-                    <tree editable="bottom" string="Timesheet Activities" default_order="date">
+                    <tree editable="bottom" default_order="date">
                         <field name="name" attrs="{'readonly': [('status', '=', 'nonactive')]}"/>
                         <field name="status" invisible="1"/>
                         <field name="user_current" invisible="1"/>
@@ -105,7 +105,7 @@
             <field name="name">timelog</field>
             <field name="model">project.timelog</field>
             <field name="arch" type="xml">
-                <tree string="My timelog" create="false" edit="true" >
+                <tree create="false" edit="true" >
                     <field name="work_id" string="Subtask"/>
                     <field name="start_datetime" />
                     <field name="end_datetime" />
@@ -120,7 +120,7 @@
             <field name="name">timelog</field>
             <field name="model">project.timelog</field>
             <field name="arch" type="xml">
-                <tree string="Timelog" create="false" edit="true" >
+                <tree create="false" edit="true" >
                     <field name="user_id" string="User"/>
                     <field name="work_id" sting="Subtask"/>
                     <field name="start_datetime" />
@@ -218,7 +218,7 @@
             <field name="name">account.analytic.line.ext.tree</field>
             <field name="model">account.analytic.line</field>
             <field name="arch" type="xml">
-                <tree string="Project Task Work">
+                <tree>
                     <field name="user_id" invisible="1"/>
                     <field name="name" readonly="1"/>
                     <field name="account_id" readonly="1"/>
