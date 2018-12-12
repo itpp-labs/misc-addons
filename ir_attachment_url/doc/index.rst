@@ -27,9 +27,9 @@ Odoo parameters
 Usage
 =====
 
-* Go to Sales >> Products menu
+* Go to Sales >> Products >> Products
 * Open a product
 * Upload image to this product or specify image URL
 * Save the changes
-* Go to Settings >> Database Structure >> Attachments menu
+* Go to Settings >> Technical >> Database Structure >> Attachments
 * See related attachment form that contains URL of the image

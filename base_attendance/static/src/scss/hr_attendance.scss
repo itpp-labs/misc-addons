@@ -11,22 +11,21 @@
     font-size: 1.2em;
     margin-right: .3em;
     display: inline-block;
-    color: @odoo-brand-secondary;
-
+    color: #f0eeee;
     &.oe_hr_attendance_status_green {
-        color: @brand-success;
+        color: theme-color('success');
     }
     &.oe_hr_attendance_status_red {
-        color: @brand-danger;
+        color: theme-color('danger');
     }
 }
 
 .o_form_view .oe_button_box .oe_stat_button .o_button_icon {
     &.oe_hr_attendance_status_green {
-        color: @brand-success !important;
+        color: theme-color('success') !important;
     }
     &.oe_hr_attendance_status_red {
-        color: @brand-danger !important;
+        color: theme-color('danger') !important;
     }
 }
 
@@ -41,8 +40,8 @@
     right: 0px;
     top: 0px;
     bottom: auto;
-    
-    @media (min-width: @screen-xs-max) {
+
+    @include media-breakpoint-up(xs) {
         transform: translate(50%, -50%);
     }
 }
@@ -71,16 +70,16 @@
     background: white;
     border: 1px solid #d5d5d5;
     text-align: center;
-    margin: 5px 0px 5px 0px;   
+    margin: 5px 0px 5px 0px;
 }
 
 .o_hr_attendance_kiosk_mode_container {
-    .o-flex-display();
-    .o-flex-flow(column, nowrap);
-    .o-justify-content(center);
-    .o-align-items(center);
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
 
-    @media (min-width: @screen-xs-max) {
+    @include media-breakpoint-up(xs) {
         background: url("../../../../web_enterprise/static/src/img/application-switcher-bg.jpg") no-repeat center center fixed;
         background-size: cover;
         position: absolute;
@@ -92,7 +91,7 @@
 }
 
 .o_hr_attendance_warning_message {
-    color: @brand-warning;
+    color: theme-color('warning');
 }
 .o_hr_attendance_random_message {
     font-style: italic;
@@ -134,7 +133,7 @@
         margin-bottom: 0;
     }
 
-    @media (min-width: @screen-xs-max) {
+    @include media-breakpoint-up(xs) {
         flex: 0 0 auto;
         width: 550px;
         border-radius: 10px;
@@ -152,7 +151,7 @@
     top: 20px;
     right: 20px;
 
-    @media (min-width: @screen-xs-max) {
+    @include media-breakpoint-up(xs) {
         flex: 0 0 auto;
         border-radius: 3px;
         background-color: rgba(255,255,255,0.5);
@@ -161,12 +160,12 @@
 }
 
 .o_hr_attendance_message_container {
-    .o-flex-display();
-    .o-flex-flow(column, nowrap);
-    .o-justify-content(center);
-    .o-align-items(center);
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
 
-    @media (min-width: @screen-xs-max) {
+    @include media-breakpoint-up(xs) {
         background: url("../../../../web_enterprise/static/src/img/application-switcher-bg.jpg") no-repeat center center fixed;
         background-size: cover;
         position: absolute;
@@ -213,7 +212,7 @@
         margin-bottom: 0;
     }
 
-    @media (min-width: @screen-xs-max) {
+    @include media-breakpoint-up(xs) {
         flex: 0 0 auto;
         width: 550px;
         border-radius: 10px;

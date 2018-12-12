@@ -8,9 +8,8 @@ _logger = logging.getLogger(__name__)
 
 
 class WebsiteDependentMixin(models.AbstractModel):
-    """Mixin Class with helpers to convert previously normal fields to website-depedent"""
-
     _name = 'website_dependent.mixin'
+    _description = 'Mixin Class with helpers to convert previously normal fields to website-depedent'
 
     def _prop_label(self, field_name, company=None, website=None):
         self.ensure_one()

@@ -21,7 +21,7 @@ from openerp.tools import html2text
 import re
 import base64
 
-from openerp.addons.base.ir.ir_mail_server import encode_rfc2822_address_header, encode_header, encode_header_param
+from openerp.addons.base.models.ir_mail_server import encode_rfc2822_address_header, encode_header, encode_header_param
 
 
 class ResUsers(models.Model):
@@ -112,7 +112,7 @@ class IrMailServer(models.Model):
     def build_email(self, email_from, email_to, subject, body, email_cc=None, email_bcc=None, reply_to=False,
                     attachments=None, message_id=None, references=None, object_id=False, subtype='plain', headers=None,
                     body_alternative=None, subtype_alternative='plain'):
-        """ copy-pasted from openerp/addons/base/ir/ir_mail_server.py::build_email """
+        """ copy-pasted from openerp/addons/base/models/ir_mail_server.py::build_email """
 
         ftemplate = '__image-%s__'
         fcounter = 0

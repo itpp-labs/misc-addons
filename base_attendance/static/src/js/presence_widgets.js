@@ -4,14 +4,14 @@
 odoo.define('base_attendance.presence_widgets', function (require) {
 "use strict";
 
+var AbstractAction = require('web.AbstractAction');
 var core = require('web.core');
-var Widget = require('web.Widget');
 
 var QWeb = core.qweb;
 var _t = core._t;
 
 
-var MyAttendances = Widget.extend({
+var MyAttendances = AbstractAction.extend({
     events: {
         "click .o_hr_attendance_sign_in_out_icon": function() {
             this.$('.o_hr_attendance_sign_in_out_icon').attr("disabled", "disabled");

@@ -3,7 +3,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 from odoo import models, fields, api
-from odoo.addons.base.ir.ir_qweb.assetsbundle import AssetsBundle, LessStylesheetAsset
+from odoo.addons.base.models.assetsbundle import AssetsBundle, LessStylesheetAsset
 
 
 class Theme(models.Model):

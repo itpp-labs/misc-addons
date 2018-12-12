@@ -10,7 +10,7 @@ class TestHrAttendance(TransactionCase):
 
     def setUp(self):
         super(TestHrAttendance, self).setUp()
-        self.test_partner_attendance = self.env['res.partner'].search([('name', '=', 'Thomas Passot')])
+        self.test_partner_attendance = self.env.ref('base.partner_demo')
 
     def test_partner_attendance_state(self):
         # Make sure the attendance of the partner will display correctly
