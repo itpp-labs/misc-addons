@@ -167,7 +167,7 @@ class Task(models.Model):
             record.completion_xml = """
             <div class="task_progress">
                 <div class="progress_info">
-                    Your Checklist Status:
+                    Your Checklist:
                 </div>
                 <div class ="o_kanban_counter_progress progress task_progress_bar">
                     <div data-filter="done"
