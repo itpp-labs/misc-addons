@@ -1,3 +1,7 @@
+`3.0.1`
+-------
+- **Fix:** Incorrect website priority after odoo updates https://github.com/odoo/odoo/commit/b6d32de31e0e18a506ae06dc27561d1d078f3ab1
+
 `3.0.0`
 -------
 - **New:** set website value automatically in case 1 company = 1 website
