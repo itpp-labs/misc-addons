@@ -39,6 +39,8 @@ Roadmap
   websites at the same time by using different browser tabs. It also fixes
   problem of using superuser's configuration when ``sudo()`` is used.
 
+* TODO: Since odoo 12, there is another switcher at ``[[ Website ]] >> Dashboard`` menu. It has to be syncronized with the switcher of this module, i.e. hide default one and use value of this module switcher.
+
 Credits
 =======
 
@@ -75,4 +77,4 @@ Changelog: `<doc/changelog.rst>`_
 
 Notifications on updates: `via Atom <https://github.com/it-projects-llc/misc-addons/commits/10.0/web_website.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/it-projects-llc/misc-addons/commits/10.0/web_website.atom>`_
 
-Tested on Odoo 10.0 2da4eb58989af1fc0280f5fec12deca2aa6eae88
+Tested on Odoo 12.0 d75de9ae5370869eaa220f5fdfb335d1b7e40acf

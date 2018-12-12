@@ -44,12 +44,12 @@ Maintainers
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/misc-addons/10.0
+Demo: http://runbot.it-projects.info/demo/misc-addons/12.0
 
-HTML Description: https://apps.odoo.com/apps/modules/10.0/ir_config_parameter_multi_company/
+HTML Description: https://apps.odoo.com/apps/modules/12.0/ir_config_parameter_multi_company/
 
 Usage instructions: `<doc/index.rst>`_
 
 Changelog: `<doc/changelog.rst>`_
 
-Tested on Odoo 11.0 8787f5acee9b5d2cad15b97804522dc04717a1c1
+Tested on Odoo 12.0 80cef9e8c52ff7dc0715a7478a2288d3de7065df

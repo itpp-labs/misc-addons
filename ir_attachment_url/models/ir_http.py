@@ -20,40 +20,14 @@ class IrHttp(models.AbstractModel):
     _inherit = 'ir.http'
 
     @classmethod
-    def _find_field_attachment(cls, env, m, f, id):
-        domain = [
-            ('res_model', '=', m),
-            ('res_field', '=', f),
-            ('res_id', '=', id),
-            ('type', '=', 'url'),
-        ]
-        return env['ir.attachment'].sudo().search(domain)
-
-    @classmethod
-    def find_field_attachment(cls, env, model, field, obj):
-        is_attachment = env[model]._fields[field].attachment
-        is_product = model == 'product.product' and field.startswith('image')
-        if not (is_attachment or is_product):
-            return None
-
-        att = cls._find_field_attachment(env, model, field, obj.id)
-
-        if not att and model == 'product.product':
-            # Special case. Product.product's image are computed and
-            # use product.template's image in most cases. But due to
-            # this computation odoo pass binary data (by downloading it
-            # from s3) instead of url. So, make a workaround for it
-            att = cls._find_field_attachment(env, 'product.template', field, obj.product_tmpl_id.id)
-        return att
-
-    @classmethod
-    def binary_content(cls, xmlid=None, model='ir.attachment', id=None, field='datas', unique=False, filename=None, filename_field='datas_fname', download=False, mimetype=None, default_mimetype='application/octet-stream', access_token=None, env=None):
+    def binary_content(cls, xmlid=None, model='ir.attachment', id=None, field='datas',
+                       unique=False, filename=None, filename_field='datas_fname', download=False,
+                       mimetype=None, default_mimetype='application/octet-stream',
+                       access_token=None, related_id=None, access_mode=None, env=None):
         """ Get file, attachment or downloadable content
-
         If the ``xmlid`` and ``id`` parameter is omitted, fetches the default value for the
         binary field (via ``default_get``), otherwise fetches the field for
         that precise record.
-
         :param str xmlid: xmlid of the record
         :param str model: name of the model to fetch the binary from
         :param int id: id of the record from which to fetch the binary
@@ -63,6 +37,8 @@ class IrHttp(models.AbstractModel):
         :param str filename_field: if not create an filename with model-id-field
         :param bool download: apply headers to download the file
         :param str mimetype: mintype of the field (for headers)
+        :param related_id: the id of another record used for custom_check
+        :param  access_mode: if truthy, will call custom_check to fetch the object that contains the binary.
         :param str default_mimetype: default mintype if no mintype found
         :param str access_token: optional token for unauthenticated access
                                  only available  for ir.attachment
@@ -73,10 +49,9 @@ class IrHttp(models.AbstractModel):
         # get object and content
         obj = None
         if xmlid:
-            obj = env.ref(xmlid, False)
+            obj = cls._xmlid_to_obj(env, xmlid)
         elif id and model in env.registry:
             obj = env[model].browse(int(id))
-
         # obj exists
         if not obj or not obj.exists() or field not in obj:
             return (404, [], None)
@@ -84,7 +59,10 @@ class IrHttp(models.AbstractModel):
         # access token grant access
         if model == 'ir.attachment' and access_token:
             obj = obj.sudo()
-            if not consteq(obj.access_token or u'', access_token):
+            if access_mode:
+                if not cls._check_access_mode(env, id, access_mode, model, access_token=access_token, related_id=related_id):
+                    return (403, [], None)
+            elif not consteq(obj.access_token or u'', access_token):
                 return (403, [], None)
 
         # check read access
@@ -109,7 +87,8 @@ class IrHttp(models.AbstractModel):
                     if module_resource_path.startswith(module_path):
                         with open(module_resource_path, 'rb') as f:
                             content = base64.b64encode(f.read())
-                        # 'last_update' variable removed for lint error fix
+                        # lint error fix (unused variable)
+                        # last_update = pycompat.text_type(os.path.getmtime(module_resource_path))
 
             if not module_resource_path:
                 module_resource_path = obj.url
@@ -118,12 +97,19 @@ class IrHttp(models.AbstractModel):
                 status = 301
                 content = module_resource_path
         else:
-            # begin redefined part of original binary_content of odoo/base/addons/ir/ir_http
-            att = env['ir.http'].find_field_attachment(env, model, field, obj)
-            if att:
-                content = att.url
-                status = 301
-
+            # begin redefined part of original binary_content of odoo/base/addons/models/ir_http
+            is_attachment = env[model]._fields[field].attachment
+            if is_attachment:
+                domain = [
+                    ('res_model', '=', model),
+                    ('res_field', '=', field),
+                    ('res_id', '=', obj.id),
+                    ('type', '=', 'url'),
+                ]
+                att = env['ir.attachment'].sudo().search(domain)
+                if att:
+                    content = att.url
+                    status = 301
             if not content:
                 content = obj[field] or ''
             # end redefined part of original binary_content

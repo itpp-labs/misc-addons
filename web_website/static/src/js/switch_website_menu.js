@@ -3,14 +3,24 @@
 odoo.define('web_website.SwitchWebsiteMenu', function(require) {
 "use strict";
 
+var config = require('web.config');
 var session = require('web.session');
 var SystrayMenu = require('web.SystrayMenu');
 var Widget = require('web.Widget');
 var core = require('web.core');
+
 var _t = core._t;
 
 var SwitchWebsiteMenu = Widget.extend({
     template: 'SwitchWebsiteMenu',
+    events: {
+        'click .dropdown-item[data-menu]': '_onClick',
+    },
+    init: function () {
+        this._super.apply(this, arguments);
+        this.isMobile = config.device.isMobile;
+        this._onClick = _.debounce(this._onClick, 1500, true);
+    },
     willStart: function() {
         if (!session.user_websites) {
             return $.Deferred().reject();
@@ -19,46 +29,53 @@ var SwitchWebsiteMenu = Widget.extend({
     },
     start: function() {
         var self = this;
-        this.$el.on('click', '.dropdown-menu li a[data-menu]', _.debounce(function(ev) {
-            ev.preventDefault();
-            var website_id = $(ev.currentTarget).data('website-id') || false;  // write method ignores undefinded
-            self._rpc({
-                    model: 'res.users',
-                    method: 'write',
-                    args: [[session.uid], {'backend_website_id': website_id}],
-                })
-                .then(function() {
-                    location.reload();
-                });
-        }, 1500, true));
-
         var all_websites_text =  _t('All Websites');
         var topbar = self.$('.oe_topbar_name');
         var current_website = session.user_websites.current_website;
-        if (current_website)
-            self.$('.oe_topbar_name').text(current_website[1]);
-        else
-            self.$('.oe_topbar_name').html('<em>' + all_websites_text + '</em>');
 
         var websites_list = '';
+
+        if (this.isMobile) {
+            websites_list = '<li class="bg-info">' +
+                _t('Tap on the list to change website') + '</li>';
+        }
+        else if (current_website){
+            self.$('.oe_topbar_name').text(current_website[1]);
+        } else {
+            self.$('.oe_topbar_name').html('<em>' + all_websites_text + '</em>');
+        }
 
         var websites = session.user_websites.allowed_websites;
         websites.unshift(false);
         _.each(websites, function(website) {
             var a = '';
             if (!website && !current_website || website[0] === session.user_websites.current_website[0]) {
-                a = '<i class="fa fa-check o_current_company"></i>';
+                a = '<i class="fa fa-check mr8"></i>';
             } else {
                 a = '<span class="o_company"/>';
             }
             if (!website){
-                websites_list += '<li><a href="#" class="all_websites" data-menu="website">' + a + '<em>' + all_websites_text + '</em></a></li>';
+                websites_list += '<a href="#" class="dropdown-item all_websites" data-menu="website">' + a + '<em>' + all_websites_text + '</em></a>';
             } else {
-                websites_list += '<li><a href="#" data-menu="website" data-website-id="' + website[0] + '">' + a + website[1] + '</a></li>';
+                websites_list += '<a href="#" class="dropdown-item" data-menu="website" data-website-id="' + website[0] + '">' + a + website[1] + '</a>';
             }
         });
         self.$('.dropdown-menu').html(websites_list);
         return this._super();
+    },
+    //--------------------------------------------------------------------------
+    // Handlers
+    //--------------------------------------------------------------------------
+    _onClick: function (ev) {
+        ev.preventDefault();
+        var website_id = $(ev.currentTarget).data('website-id') || false;  // write method ignores undefinded
+        this._rpc({
+            model: 'res.users',
+            method: 'write',
+            args: [[session.uid], {'backend_website_id': website_id}],
+        }).then(function() {
+            location.reload();
+        });
     },
 });
 
