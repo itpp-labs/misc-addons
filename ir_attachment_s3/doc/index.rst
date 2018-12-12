@@ -5,13 +5,41 @@
 Installation
 ============
 
-* `Install <https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html>`__ this module in a usual way
 * `Using this quickstart instruction <https://boto3.readthedocs.io/en/latest/guide/quickstart.html>`__ install boto3 library and get credentials for it
 * `Using this instruction <http://mikeferrier.com/2011/10/27/granting-access-to-a-single-s3-bucket-using-amazon-iam>`__ grant access to your s3 bucket
 * Set your S3 bucket as public
 * Optionaly, add following parameter to prevent heavy logs from boto3 library:
 
     --log-handler=boto3.resources.action:WARNING
+
+
+IAM
+---
+
+Minimal access policy for s3 credentials are as following::
+
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:CreateBucket",
+                "s3:GetBucketLocation",
+                "s3:PutObjectAcl"
+            ],
+            "Resource": [
+                "arn:aws:s3:::YOUBUCKETNAMEHERE",
+                "arn:aws:s3:::YOUBUCKETNAMEHERE/*"
+            ]
+        }
+    ]
+  }
+  
+  
+You can also remove ``"s3:CreateBucket"`` if bucket already exists.
 
 Configuration
 =============
