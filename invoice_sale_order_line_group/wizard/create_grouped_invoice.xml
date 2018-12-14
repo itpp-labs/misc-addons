@@ -23,14 +23,14 @@
           <notebook invisible="1">
             <page string="Invoiced">
               <field name="invoiced_line_ids" mode="tree" nolabel="1">
-                <tree string="Invoiced lines" editable="False" create="0" delete="false">
+                <tree editable="False" create="0" delete="false">
                   <field name="write_date"/>
                 </tree>
               </field>
             </page>
             <page string="Draft">
               <field name="draft_line_ids" mode="tree" nolabel="1">
-                <tree string="Draft lines" editable="False" create="0" delete="false">
+                <tree editable="False" create="0" delete="false">
                   <field name="write_date"/>
                 </tree>
               </field>
