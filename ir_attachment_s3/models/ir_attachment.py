@@ -37,9 +37,6 @@ class IrAttachment(models.Model):
         res = config_obj.sudo().get_param(param_name)
         if not res:
             res = os.environ.get(os_var_name)
-            if res:
-                config_obj.sudo().set_param(param_name, res)
-                _logger.info('parameter {} has been created from env {}'.format(param_name, os_var_name))
         return res
 
     @api.model

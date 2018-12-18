@@ -1,3 +1,8 @@
+`1.2.1`
+-------
+
+- **FIX:** The Odoo System parameters saving from the Environment variables removed because then we cannot change parameters through environment variables
+
 `1.2.0`
 -------
 
