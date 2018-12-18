@@ -2,9 +2,9 @@
 # Copyright 2017 Artyom Losev
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 {
-    "name": """Hidden Layouts for Sale Orders""",
+    "name": """Separate Layouts for Sale Orders""",
     "summary": """
-        Use layouts within specific Sale Order only""",
+        Display the layouts (sections) within the Sale Orders they were created for""",
     "category": "Sale",
     "images": ['images/sale_layout_hidden_section.png'],
     "version": "10.0.1.0.0",
