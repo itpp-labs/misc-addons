@@ -6,7 +6,9 @@
  Sale Layout Hidden Section
 ============================
 
-This module allows to use layouts (sections) within specific Sale Order only.
+In Odoo all the layouts are the corresponding sections, which used to group the PDF report data. By default, all such layouts are displayed for every existing Sale Orders and there are no possibility to display a specific one. So it is inconvenient, because some of the layouts may not suit for some set of sale orders. 
+
+The module eliminates this disadvantage, because allows to use layouts only within Sale Order they created for.
 
 Credits
 =======
