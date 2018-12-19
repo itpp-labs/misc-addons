@@ -111,7 +111,7 @@ class IrProperty(models.Model):
         website_id = self._context.get('website_id', None)
         field = self.env[model]._fields[name]
         field_id = self.env['ir.model.fields']._get(model, name).id
-        company_id = self._context.get('force_company') or self.env['res.company']._company_default_get(model, field_id).id
+        company_id = self._context.get('force_company') or self.env['res.company']._company_default_get(model, field_id).id or None
 
         if field.type == 'many2one':
             comodel = self.env[field.comodel_name]
