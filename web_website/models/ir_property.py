@@ -108,7 +108,8 @@ class IrProperty(models.Model):
         # It has the same idea and structure, but sql request and set record value method are changed
         if not ids:
             return {}
-        website_id = self._context.get('website_id', None)
+        # it's important, that website_id cannot be False -- otherwise, an error is raised on SQL request
+        website_id = self._context.get('website_id') or None
         field = self.env[model]._fields[name]
         field_id = self.env['ir.model.fields']._get(model, name).id
         company_id = self._context.get('force_company') or self.env['res.company']._company_default_get(model, field_id).id or None
