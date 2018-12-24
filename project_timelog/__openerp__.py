@@ -8,7 +8,7 @@
     "author": "IT-Projects LLC, Dinar Gabbasov",
     'website': "https://twitter.com/gabbasov_dinar",
     "license": "GPL-3",
-    "price": 390,
+    "price": 189,
     "currency": "EUR",
 
     "depends": [
