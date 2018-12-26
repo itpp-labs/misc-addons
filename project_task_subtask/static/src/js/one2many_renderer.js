@@ -10,7 +10,8 @@ odoo.define('project_task_subtask.one2many_renderer', function(require){
         check_task_tree_mode: function(){
             if (this.view &&
             this.view.arch.tag === 'tree' &&
-            this.record && this.record.model === "project.task"
+            this.record && this.record.model === "project.task" &&
+            this.name === 'subtask_ids'
             ) {
                 return true;
             }
