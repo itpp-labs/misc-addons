@@ -6,7 +6,7 @@
          <field name="name">sendandlog.tree</field>
          <field name="model">sms_sg.sendandlog</field>
          <field name="arch" type="xml">
-                <tree string="Course Tree">
+                <tree>
                     <field name="msg"/>
                     <field name="phone"/>
                     <field name="response_content"/>

@@ -68,7 +68,7 @@
             <field name="name">project_tags.project_tag.tree</field>
             <field name="model">project_tags.project_tag</field>
             <field name="arch" type="xml">
-                <tree string="project_tag"
+                <tree
                     >
                     <field name="name"
                         />
