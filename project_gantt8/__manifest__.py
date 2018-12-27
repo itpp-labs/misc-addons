@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Gantt view for Projects""",
     "summary": """Restores feature from odoo 8.0""",
@@ -26,7 +25,7 @@
     "post_load": None,
     "pre_init_hook": None,
     "post_init_hook": None,
-    "installable": True,
+    "installable": False,
     "auto_install": False,
     "application": False,
 }

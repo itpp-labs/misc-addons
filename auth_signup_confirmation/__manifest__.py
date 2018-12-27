@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Email confirmation on sign up',
     'summary': """New user is able to login only after confirming his/her email""",
@@ -12,6 +11,6 @@
         'auth_signup',
     ],
     'data': ['data/config.xml', 'views/thankyou.xml', 'data/email.xml'],
-    'installable': True,
+    'installable': False,
     'post_init_hook': 'init_auth',
 }

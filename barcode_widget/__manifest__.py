@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Barcode Widget',
     'version': '1.0.1',
@@ -23,7 +22,7 @@
     'test': [],
     'demo': [],
 
-    'installable': True,
+    'installable': False,
     'active': False,
     'application': True,
 }

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import random
 import openerp
 from openerp import api

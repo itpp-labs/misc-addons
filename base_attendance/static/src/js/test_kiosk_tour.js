@@ -17,7 +17,11 @@ odoo.define('base_attendance.tour', function (require) {
             '.oe_hr_attendance_status.fa.fa-user.oe_hr_attendance_status_' + color,
             content: 'Select Partner',
         }, {
-            trigger: '.fa.btn-primary.o_hr_attendance_sign_in_out_icon.fa-sign-out.fa-sign-out',
+            trigger: 'body.o_web_client.o_fullscreen',
+            content: 'Dummy action in order to prevent a freaky issue',
+        }, {
+            extra_trigger: 'body.o_web_client.o_fullscreen:not(.oe_wait)',
+            trigger: '.fa.btn-primary.o_hr_attendance_sign_in_out_icon',
             content: 'Check in',
         }, {
             trigger: 'button:contains("ok")',

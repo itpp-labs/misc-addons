@@ -2,6 +2,7 @@
 # Copyright 2017 Dinar Gabbasov <https://www.it-projects.info/team/GabbasovDinar>
 # Copyright 2018 Rafis Bikbov <https://www.it-projects.info/team/RafiZz>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+from odoo import fields
 import mimetypes
 import requests
 
@@ -31,7 +32,7 @@ def get_mimetype_and_optional_content_by_url(url):
 
 class Binary(fields.Binary):
 
-    def write(self, records, value):
+    def write(self, records, value, create=False):
         domain = [
             ('res_model', '=', records._name),
             ('res_field', '=', self.name),
@@ -73,7 +74,7 @@ class Binary(fields.Binary):
                 else:
                     atts.unlink()
         else:
-            super(Binary, self).write(records, value)
+            super(Binary, self).write(records, value, create=create)
 
 
 fields.Binary = Binary

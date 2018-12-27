@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Sale order with tax information hidden",
     'author': "IT-Projects LLC, Ildar Nasyrov",
@@ -11,4 +10,5 @@
         'security/security.xml',
         'views/view.xml',
     ],
+    'installable': False,
 }
