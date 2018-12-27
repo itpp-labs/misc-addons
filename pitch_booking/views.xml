@@ -51,7 +51,7 @@
             <field name="name">pitch.tree</field>
             <field name="model">pitch_booking.pitch</field>
             <field name="arch" type="xml">
-                <tree string="Pitches">
+                <tree>
                     <field name="name"/>
                     <field name="venue_id"/>
                 </tree>
@@ -78,7 +78,7 @@
             <field name="name">venue.tree</field>
             <field name="model">pitch_booking.venue</field>
             <field name="arch" type="xml">
-                <tree string="Venues">
+                <tree>
                     <field name="name"/>
                 </tree>
             </field>

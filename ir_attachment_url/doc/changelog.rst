@@ -1,3 +1,9 @@
+`1.1.7`
+-------
+
+- **Fix**  When a link to a picture that does not have an extension is written in a binary field, its mimetype is not determined, which leads to an "binascii.Error: decoding with base64 codec failed (Error: Incorrect padding)"
+- **Improvement:**  The `index_content` field is filled for attachments when a link to a file is written in a binary field.
+
 `1.1.6`
 -------
 

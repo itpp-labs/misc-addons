@@ -22,6 +22,9 @@ class BinaryExtended(Binary):
 
         res = super(BinaryExtended, self).content_image(xmlid, model, id, field, filename_field, unique, filename, mimetype, download, width, height)
 
+        # TODO: if model=="product.product" and field in ('image', 'image_small', 'image_medium')
+        # we need to make similar trick, because those fields are computed resizes of image_variant
+        # with sizes 64*64, 128*128, 1024*1024
         if not (res.status_code == 301 and (width or height)):
             return res
 

@@ -10,7 +10,7 @@
         <field name="name">res.partner.attendance.tree</field>
         <field name="model">res.partner.attendance</field>
         <field name="arch" type="xml">
-            <tree string="Partner attendances">
+            <tree>
                 <field name="partner_id"/>
                 <field name="check_in"/>
                 <field name="check_out"/>
