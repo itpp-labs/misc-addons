@@ -37,6 +37,18 @@
                   </div>
                 </div>
                 <div class="content-group">
+                  <div class="mt16 row">
+                    <label for="s3_minio" string="Use Minio?" class="col-xs-3 col-md-3 o_light_label"/>
+                    <field name="s3_minio" class="oe_inline"/>
+                  </div>
+                </div>
+                <div class="content-group" attrs="{'invisible':[('s3_minio', '=', False)]}">
+                  <div class="mt16 row">
+                    <label for="s3_url" string="Minio URL" class="col-xs-3 col-md-3 o_light_label"/>
+                    <field name="s3_url" class="oe_inline" attrs="{'required':[('s3_minio', '!=', False)]}"/>
+                  </div>
+                </div>
+                <div class="content-group">
                   <div class="mt16">
                     <button name="upload_existing" type="object" string="Upload existing attachments"/>
                   </div>

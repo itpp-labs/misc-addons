@@ -1,3 +1,8 @@
+`1.3.0`
+-------
+
+- **NEW:** Allow using Minio instead of Amazon S3
+
 `1.2.0`
 -------
 

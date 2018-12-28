@@ -6,6 +6,7 @@ import os
 import hashlib
 import logging
 
+from botocore.config import Config
 from odoo import api, models, _, fields
 from odoo.tools.safe_eval import safe_eval
 
@@ -45,11 +46,20 @@ class IrAttachment(models.Model):
 
     @api.model
     def _get_s3_object_url(self, s3, s3_bucket_name, key_name):
-        bucket_location = s3.meta.client.get_bucket_location(Bucket=s3_bucket_name)
-        location_constraint = bucket_location.get('LocationConstraint')
-        domain_part = 's3' + '-' + location_constraint if location_constraint else 's3'
-        object_url = "https://{0}.amazonaws.com/{1}/{2}".format(
-            domain_part,
+
+        is_minio = self._get_s3_settings('s3.minio', 'S3_MINIO')
+        url = self._get_s3_settings('s3.url', 'S3_URL')
+
+        if is_minio and url:
+            url_start = url
+        else:
+            bucket_location = s3.meta.client.get_bucket_location(Bucket=s3_bucket_name)
+            location_constraint = bucket_location.get('LocationConstraint')
+            domain_part = 's3' + '-' + location_constraint if location_constraint else 's3'
+            url_start = "https://{0}.amazonaws.com".format(domain_part)
+
+        object_url = "{0}/{1}/{2}".format(
+            url_start,
             s3_bucket_name,
             key_name)
         return object_url
@@ -59,6 +69,14 @@ class IrAttachment(models.Model):
         access_key_id = self._get_s3_settings('s3.access_key_id', 'S3_ACCESS_KEY_ID')
         secret_key = self._get_s3_settings('s3.secret_key', 'S3_SECRET_KEY')
         bucket_name = self._get_s3_settings('s3.bucket', 'S3_BUCKET')
+        is_minio = self._get_s3_settings('s3.minio', 'S3_MINIO')
+        if is_minio:
+            url = self._get_s3_settings('s3.url', 'S3_URL')
+            if not url:
+                raise UserWarning(_('The URL is mandatory when Minio is used'))
+            config = Config(signature_version='s3v4')
+        else:
+            url = config = None
 
         if not access_key_id or not secret_key or not bucket_name:
             _logger.info(_('Amazon S3 credentials are not defined properly. Attachments won\'t be saved on S3.'))
@@ -68,6 +86,8 @@ class IrAttachment(models.Model):
             's3',
             aws_access_key_id=access_key_id,
             aws_secret_access_key=secret_key,
+            endpoint_url=url,
+            config=config,
             )
         bucket = s3.Bucket(bucket_name)
         if not bucket:

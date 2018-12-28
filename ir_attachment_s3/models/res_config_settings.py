@@ -15,6 +15,9 @@ class ResConfigSettings(models.TransientModel):
                                help="""Specify valid odoo search domain here,
                                e.g. [('res_model', 'in', ['product.image'])] -- store data of product.image only.
                                Empty condition means all models""")
+    s3_minio = fields.Boolean(string='Use Minio')
+    s3_url = fields.Char(string='Minio URL',
+                         help="Minio URL with scheme prefix (https://, http://)")
 
     @api.model
     def get_values(self):
@@ -24,12 +27,16 @@ class ResConfigSettings(models.TransientModel):
         s3_access_key_id = ICPSudo.get_param("s3.access_key_id", default='')
         s3_secret_key = ICPSudo.get_param("s3.secret_key", default='')
         s3_condition = ICPSudo.get_param("s3.condition", default='')
+        s3_minio = ICPSudo.get_param("s3.minio", default=False)
+        s3_url = ICPSudo.get_param("s3.url", default='')
 
         res.update(
             s3_bucket=s3_bucket,
             s3_access_key_id=s3_access_key_id,
             s3_secret_key=s3_secret_key,
-            s3_condition=s3_condition
+            s3_condition=s3_condition,
+            s3_minio=s3_minio,
+            s3_url=s3_url,
         )
         return res
 
@@ -41,6 +48,8 @@ class ResConfigSettings(models.TransientModel):
         ICPSudo.set_param("s3.access_key_id", self.s3_access_key_id or '')
         ICPSudo.set_param("s3.secret_key", self.s3_secret_key or '')
         ICPSudo.set_param("s3.condition", self.s3_condition or '')
+        ICPSudo.set_param("s3.minio", self.s3_url or False)
+        ICPSudo.set_param("s3.url", self.s3_url or '')
 
     def upload_existing(self):
         condition = self.s3_condition and safe_eval(self.s3_condition, mode="eval") or []
@@ -70,7 +79,9 @@ class ResConfigSettings(models.TransientModel):
                         ContentType=attach.mimetype,
                         )
                 except Exception as e:
-                    raise exceptions.UserError(e.message)
+                    raise exceptions.UserError(e.message
+                                               if hasattr(e, 'message')
+                                               else str(e))
 
                 vals = {
                     'file_size': len(bin_data),

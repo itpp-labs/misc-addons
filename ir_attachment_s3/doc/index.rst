@@ -62,6 +62,8 @@ Configuration
   * ``s3.condition``: only the attachments that meet the condition will be sent to s3 (e.g. ``[('res_model', 'in', ['product.image'])]``) - it is actually the way of specifying the models with ``fields.Binary`` fields that should be stored on s3 instead of local file storage or db. Don't specify anything if you want to store all your attachment data from ``fields.Binary`` and also ordinary attachments on s3.
   * ``s3.access_key_id``: S3 access key ID
   * ``s3.secret_key``: S3 secret access key
+  * ``s3.minio``: true if the files are saved to Minio instead of S3, false otherwise
+  * ``s3.url``: Minio URL
 
 The settings are also available from the ``Settings >> Technical >> Database Structure >> S3 Settings``.
 
