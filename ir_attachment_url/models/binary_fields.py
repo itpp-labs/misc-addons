@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 Dinar Gabbasov <https://www.it-projects.info/team/GabbasovDinar>
 # Copyright 2018 Rafis Bikbov <https://www.it-projects.info/team/RafiZz>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
@@ -6,7 +5,6 @@ from odoo import fields
 import mimetypes
 import requests
 
-from odoo import fields
 from odoo.tools.mimetypes import guess_mimetype
 from . import image
 
