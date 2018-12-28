@@ -5,7 +5,7 @@
             <field name="name">Update Rates service</field>
             <field name="model">currency.rate.update.service</field>
             <field name="arch" type="xml">
-                <tree string="Rates">
+                <tree>
                     <field name="service"/>
                     <field name="currency_to_update"/>
 
