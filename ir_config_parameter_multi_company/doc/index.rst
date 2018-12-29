@@ -14,7 +14,7 @@ Configuration
 * Open menu ``[[ Settings ]] >> General Settings``
 * Activate **[x] Multi Company - Manage multiple companies**
 * Click ``[Apply]``
-* Open menu ``[[ Settings ]] >> Users >> Users``
+* Open menu ``[[ Settings ]] >> Users & Companies >> Users``
 * Select your user
 * Add some companies to **Allowed Companies** field
 
@@ -72,7 +72,7 @@ All system parameters created before module installation (as well as just create
   * **param2** = *value22* (value for companyB)
   * **param3** = *value3* (via default value)
 
-For understanding how multi-website values work see Documentation of `web_website <https://apps.odoo.com/apps/modules/10.0/web_website/>`__ 
+For understanding how multi-website values work see Documentation of `web_website <https://apps.odoo.com/apps/modules/12.0/web_website/>`__
 
 Company Properties
 ------------------

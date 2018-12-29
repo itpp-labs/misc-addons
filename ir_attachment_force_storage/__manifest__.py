@@ -7,7 +7,7 @@
     'website': 'https://yelizariev.github.io',
     'depends': ['attachment_large_object'],
     'data': [
-        'pre_install.yml'
+        'pre_install.xml'
     ],
     "auto_install": False,
     'installable': True,

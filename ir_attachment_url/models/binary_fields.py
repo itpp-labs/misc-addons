@@ -30,7 +30,7 @@ def get_mimetype_and_optional_content_by_url(url):
 
 class Binary(fields.Binary):
 
-    def write(self, records, value, create=False):
+    def write(self, records, value):
         domain = [
             ('res_model', '=', records._name),
             ('res_field', '=', self.name),
@@ -72,7 +72,7 @@ class Binary(fields.Binary):
                 else:
                     atts.unlink()
         else:
-            super(Binary, self).write(records, value, create=create)
+            super(Binary, self).write(records, value)
 
 
 fields.Binary = Binary

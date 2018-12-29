@@ -4,7 +4,7 @@
 <odoo>
 
     <!-- test_ui is assumed that root has multi-website access -->
-    <record id="base.user_root" model="res.users">
+    <record id="base.user_admin" model="res.users">
         <field name="groups_id" eval="[(4,ref('web_website.group_multi_website'))]"/>
     </record>
 

@@ -1,3 +1,5 @@
+# Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 from openerp import api
 from openerp import models
 from openerp.exceptions import AccessError
@@ -43,6 +45,11 @@ class IrConfigParameter(models.Model):
         if storage_value:
             self._attachment_force_storage(storage_value)
         return res
+
+    @api.model
+    def set_init_value_for_ir_attachment_location(self):
+        if not self.get_param("ir_attachment.location"):
+            self.set_param("ir_attachment.location", "postgresql:lobject")
 
 
 class IrAttachment(models.Model):

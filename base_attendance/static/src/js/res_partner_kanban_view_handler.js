@@ -10,7 +10,7 @@ KanbanRecord.include({
 
      _openRecord: function () {
         if (this.modelName === 'res.partner' && this.$el.parents('.o_res_partner_attendance_kanban').length) {
-                                            // needed to diffentiate : check in/out kanban view of employees <-> standard employee kanban view
+            // needed to diffentiate : check in/out kanban view of employees <-> standard employee kanban view
             var action = {
                 type: 'ir.actions.client',
                 name: 'Confirm',
