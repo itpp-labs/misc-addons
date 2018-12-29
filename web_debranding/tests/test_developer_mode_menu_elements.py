@@ -30,6 +30,7 @@ class TestUi(odoo.tests.HttpCase):
                             } else {
                                 console.log('ok');
                             }
+                            })
                         }, 1000);
         """
         self.browser_js(url, code, login="demo", ready='odoo.isReady === true')
