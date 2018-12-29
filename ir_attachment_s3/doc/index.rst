@@ -65,6 +65,17 @@ Configuration
 
 The settings are also available from the ``Settings >> Technical >> Database Structure >> S3 Settings``.
 
+* You can also set these parameters using environment variables
+
+  Mapping Environment variables to Odoo System parameters:
+
+  * ``S3_BUCKET``: it is ``s3.bucket`` parameter
+  * ``S3_CONDITION``: it is ``s3.condition`` parameter
+  * ``S3_ACCESS_KEY_ID``: it is ``s3.access_key_id`` parameter
+  * ``S3_SECRET_KEY``: it is ``s3.secret_key`` parameter
+
+  NOTE: if you simultaneously set parameters both in the Environment variables and in the Odoo System parameters, then the Odoo System parameters have the highest priority.
+
 Usage
 =====
 
