@@ -22,6 +22,9 @@ class TestUi(odoo.tests.HttpCase):
                                 console.log('page is loading');
                                 return;
                             }
+                            setTimeout(function(){
+                            // request ..../res.users/is_admin may take some time
+                            // TODO: add a way to check that it's a time to check result (variable on loading in web_debranding/static/src/js/user_menu.js ?)
                             if ($('a[data-menu="debug"]').length > 0 || $('a[data-menu="debugassets"]').length > 0) {
                                 console.log('error', 'Developer mode menu elements are displayed for not admin user');
                             } else {

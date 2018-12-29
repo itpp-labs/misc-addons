@@ -1,0 +1,19 @@
+<!--Copyright 2018 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
+    Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).-->
+<template>
+
+    <t t-name="DropAttachments.select_files_button">
+        <label for="file-upload" class="btn btn-default btn-sm custom-file-upload" style="display: none;">
+            <i class="fa fa-cloud-upload"></i> Select Images
+            <input id="file-upload" type="file" multiple="multiple" class="o_button_select_files btn btn-primary btn-sm o_form_input_file" accept="image/*" style="display: none;"/>
+        </label>
+    </t>
+
+    <t t-extend="KanbanView.buttons">
+        <t t-jquery="button.o-kanban-button-new" t-operation="after">
+            <t t-call="DropAttachments.select_files_button"/>
+        </t>
+    </t>
+
+</template>
