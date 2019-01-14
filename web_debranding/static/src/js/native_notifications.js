@@ -15,8 +15,9 @@ odoo.define('web_debranding.native_notifications', function (require) {
             if (title === _t('Yay, push notifications are enabled!') || title === _t('Permission denied')) {
                 content = content.replace(/Odoo/ig, odoo.debranding_new_name);
             }
+
             if (window.Notification && Notification.permission === "granted") {
-                if (BusService.isMasterTab()) {
+                if (this.isMasterTab()) {
                     this._sendNativeNotification(title, content, callback);
                 }
             } else {
