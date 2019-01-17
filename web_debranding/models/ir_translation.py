@@ -57,7 +57,10 @@ def debrand(env, source, is_code=False):
 
 
 def debrand_bytes(env, source):
-    return bytes(debrand(env, source.decode('utf-8')), 'utf-8')
+    if source:
+        return bytes(debrand(env, source.decode('utf-8')), 'utf-8')
+    else:
+        return bytes('', 'utf-8')
 
 
 class IrTranslation(models.Model):
