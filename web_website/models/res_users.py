@@ -52,7 +52,7 @@ class ResUsers(models.Model):
 
     def write(self, vals):
         if 'company_id' in vals and 'backend_website_id' not in vals:
-            websites = self._search_company_websites(vals['company_id'])
+            websites = self._search_company_websites([vals['company_id']])
             if len(websites) == 1:
                 vals['backend_website_id'] = websites.id
             else:
