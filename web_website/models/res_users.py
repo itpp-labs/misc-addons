@@ -34,14 +34,19 @@ class ResUsers(models.Model):
         return super(ResUsers, self)._get_company()
 
     @api.model
-    def _search_company_websites(self, company_id):
+    def _search_company_websites(self, company_ids):
         return self.env['website'].search([
-            ('company_id', 'in', [False] + [company_id])
+            ('company_id', 'in', [False] + company_ids)
         ])
 
+    @api.onchange('company_ids')
     def _compute_backend_website_ids(self):
+        public_user = self.env.ref('base.public_user')
         for r in self:
-            websites = self._search_company_websites(r.company_id.id)
+            if public_user.id == r.id:
+                websites = self._search_company_websites(r.company_ids.ids)
+            else:
+                websites = self._search_company_websites([r.company_id.id])
             r.backend_website_ids = websites
             r.backend_websites_count = len(websites)
 
