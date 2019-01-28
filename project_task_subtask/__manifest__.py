@@ -29,6 +29,7 @@
         'security/project_security.xml'
     ],
     "qweb": [
+        'static/src/xml/templates.xml'
     ],
     "demo": [
         'demo/project_task_subtask_demo.xml'

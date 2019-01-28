@@ -5,14 +5,17 @@ odoo.define('project_task_subtask.one2many_renderer', function(require){
     var FieldOne2Many = require('web.relational_fields').FieldOne2Many;
     var BasicModel = require('web.BasicModel');
 
+    var core = require('web.core');
+    var QWeb = core.qweb;
+
     FieldOne2Many.include({
 
         check_task_tree_mode: function(){
             if (this.view &&
-            this.view.arch.tag === 'tree' &&
-            this.record && this.record.model === "project.task" &&
-            this.name === 'subtask_ids'
-            ) {
+                this.view.arch.tag === 'tree' &&
+                this.record && this.record.model === "project.task" &&
+                this.name === 'subtask_ids'
+                ) {
                 return true;
             }
             return false;
@@ -69,11 +72,12 @@ odoo.define('project_task_subtask.one2many_renderer', function(require){
             _.each(new_rows, function(r){
                 data.push(r);
             });
+            this.default_sorting = this.value.data;
             this.value.data = data;
         },
 
         _render: function () {
-            if (this.check_task_tree_mode()) {
+            if (this.check_task_tree_mode() && this.getParent().list_is_sorted) {
                 this.sort_data();
             }
             return this._super(arguments);
@@ -82,9 +86,49 @@ odoo.define('project_task_subtask.one2many_renderer', function(require){
         reset: function (record, ev, fieldChanged) {
             var self = this;
             return this._super.apply(this, arguments).then(function(res){
-                if (self.check_task_tree_mode()) {
+                if (self.check_task_tree_mode() && self.getParent().list_is_sorted) {
                     self._render();
                 }
+            });
+        },
+
+        _renderControlPanel: function () {
+            var self = this;
+            if (this.check_task_tree_mode()) {
+                this.$buttons = QWeb.render("SubtaskSortButtons", {});
+                return this._super(arguments).done(function(res){
+                    self._update_custom_sort_buttons();
+                });
+            }
+            return this._super(arguments);
+        },
+
+        _update_custom_sort_buttons: function() {
+            var self = this;
+            var sort_button = this.$el.find('.o_pager_sort');
+            var unsort_button = this.$el.find('.o_pager_unsort');
+
+            var sorting = this.getParent().list_is_sorted || false;
+
+            if (sorting) {
+                sort_button.hide();
+            } else {
+                unsort_button.hide();
+            }
+            this.default_sorting = this.value.data;
+
+            sort_button.off().on('click', function(e){
+                self.getParent().list_is_sorted = true;
+                sort_button.hide();
+                unsort_button.show();
+                self._render();
+            });
+            unsort_button.off().on('click', function(e){
+                self.getParent().list_is_sorted = false;
+                sort_button.show();
+                unsort_button.hide();
+                self.value.data = self.default_sorting;
+                self._render();
             });
         },
 

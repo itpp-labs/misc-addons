@@ -2,7 +2,7 @@
 -------
 
 **Improvement:** Status bar on tasks for project.task kanban view
-**Improvement:** Automatically sorting subtasks
+**Improvement:** Button to sort subtasks
 
 `1.0.2`
 -------
