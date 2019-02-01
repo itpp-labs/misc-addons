@@ -15,7 +15,7 @@ Removes references to odoo.com:
 2. Replaces "Odoo" in page title
 3. Replaces "Odoo" in help message for empty list. 
 
-   Some list views has word Odoo when search return empty result. E.g. search random string at menu ``[[ Settings ]] >> Users & Copanies >> Companies`` that return empty result -- it has Odoo word
+   Some list views has word Odoo when search return empty result. E.g. search random string at menu ``[[ Settings ]] >> Users & Companies >> Companies`` that return empty result -- it has Odoo word
 
     Create and manage the companies that will be managed by **Odoo** from here. Shops or subsidiaries can be created and maintained from here.
 
@@ -24,7 +24,7 @@ Removes references to odoo.com:
 6. *(feature is not required in 11.0+ versions)*
 7. Replaces "Odoo" in Dialog Box
 
-   E.g. try to remove Administrator via menu ``[[ Settings ]] >> Users & Copanies >> Users``. It will show warning
+   E.g. try to remove Administrator via menu ``[[ Settings ]] >> Users & Companies >> Users``. It will show warning
 
     You can not remove the admin user as it is used internally for resources created by **Odoo** (updates, module installation, ...)
 

@@ -26,11 +26,15 @@ class TestUi(odoo.tests.HttpCase):
                                 console.log('page is loading');
                                 return;
                             }
+                            setTimeout(function(){
+                            // request ..../res.users/is_admin may take some time
+                            // TODO: add a way to check that it's a time to check result (variable on loading in web_debranding/static/src/js/user_menu.js ?)
                             if ($('li a[data-menu="debug"]').length > 0 || $('li a[data-menu="debugassets"]').length > 0) {
-                                console.log('error', 'Developer mode menu elements are displayed for not admin user');
+                                console.log('error', 'Developer mode menu elements are displayed for non-admin user');
                             } else {
                                 console.log('ok');
                             }
+                            }, 1000);
                         }, 1000);
                     })
         """

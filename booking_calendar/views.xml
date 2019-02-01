@@ -75,7 +75,7 @@
             <field name="name">sale.order.line.tree</field>
             <field name="model">sale.order.line</field>
             <field name="arch" type="xml">
-              <tree string="Booking Tree" colors="red:overlap">
+              <tree colors="red:overlap">
                 <field name="order_id"/>
                 <field name="product_id"/>
                 <field name="name"/>

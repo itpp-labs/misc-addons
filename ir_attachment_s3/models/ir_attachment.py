@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016-2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
 # Copyright 2016-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 import base64
