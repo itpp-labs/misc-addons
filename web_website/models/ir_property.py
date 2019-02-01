@@ -114,6 +114,10 @@ class IrProperty(models.Model):
         field_id = self.env['ir.model.fields']._get(model, name).id
         company_id = self._context.get('force_company') or self.env['res.company']._company_default_get(model, field_id).id or None
 
+        # for some reason html field type is missed in TYPE2FIELD https://github.com/odoo/odoo/pull/26556/files
+        if field.type == 'html':
+            TYPE2FIELD['html'] = 'value_text'
+
         if field.type == 'many2one':
             comodel = self.env[field.comodel_name]
             model_pos = len(model) + 2

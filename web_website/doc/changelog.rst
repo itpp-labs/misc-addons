@@ -1,3 +1,7 @@
+`3.0.3`
+-------
+- **Fix:** Error related to incorrect getting properties for html fields
+
 `3.0.2`
 -------
 - **Fix:** Error related to incorrect SQL request
