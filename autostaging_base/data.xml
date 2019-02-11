@@ -1,8 +1,13 @@
+# Copyright 2015 Ildar Nasyrov <https://it-projects.info/>
+# Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
+# License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).
 <?xml version="1.0" encoding="utf-8"?>
+<!--Copyright 2015 Ildar Nasyrov <https://it-projects.info/>
+    Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
+    License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).-->
 <openerp>
     <data>
-        <!-- Cron job for automatically move -->
-        <record forcecreate="True" id="ir_cron_autostaging"
+        <record  id="ir_cron_autostaging" forcecreate="True"
                 model="ir.cron">
             <field name="name">Autostaging</field>
             <field eval="True" name="active" />
@@ -11,9 +16,9 @@
             <field name="interval_type">days</field>
             <field name="numbercall">-1</field>
             <field eval="False" name="doall" />
-            <field eval="'autostaging.card'" name="model" />
-            <field eval="'_cron_move_cards'" name="function" />
-            <field eval="'()'" name="args" />
+            <field name="model_id" ref="model_autostaging_card"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_move_cards()</field>
         </record>
     </data>
 </openerp>

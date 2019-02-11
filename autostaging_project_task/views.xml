@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Copyright 2015 Ildar Nasyrov <https://it-projects.info/>
+    Copyright 2015-2016 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
+    License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html). -->
 <openerp>
   <data>
         <record id="mt_autostaging" model="mail.message.subtype">
