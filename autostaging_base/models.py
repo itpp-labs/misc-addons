@@ -1,9 +1,12 @@
-
-from openerp import models, fields, api
+# Copyright 2015 Ildar Nasyrov <https://it-projects.info/>
+# Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
+# License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).
+from odoo import models, fields, api
 import datetime
 import time
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
-from openerp.exceptions import ValidationError
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from odoo.exceptions import ValidationError
 from odoo.tools.translate import _
 
 
@@ -112,7 +115,7 @@ class AutostagingCard(models.AbstractModel):
 
     def _get_model_list(self):
         res = []
-        for r in self.env['ir.model.fields'].search([('name', '=', 'next_stage_related')]):
+        for r in self.env['ir.model.fields'].search([('name', '=', 'autostaging_next_stage_related')]):
             res.append(r.model_id.model)
         return res
 
@@ -128,9 +131,9 @@ class AutostagingCard(models.AbstractModel):
                   (self._field_folder_id, '=', False),
                   '&', '&',
                   ((self._field_stage_id + '.autostaging_enabled'), '=', True),
-                  ((self._field_stage_id + '.next_stage'), '!=', False),
+                  ((self._field_stage_id + '.autostaging_next_stage'), '!=', False),
                   ('autostaging_date', '<=', time.strftime('%Y-%m-%d'))]
         cards = self.search(domain)
         for card in cards:
             card.with_context(autostaging=True).write(
-                {self._field_stage_id: getattr(card, self._field_stage_id).next_stage.id})
+                {self._field_stage_id: getattr(card, self._field_stage_id).autostaging_next_stage.id})
