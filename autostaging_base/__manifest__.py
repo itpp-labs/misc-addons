@@ -4,7 +4,11 @@
 # License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).
 {
     "name": """Autostaging (technical core)""",
+<<<<<<< HEAD
     "summary": """Change stages automatically after a specified time""",
+=======
+    "summary": """Change stages of tasks automatically after a specified time""",
+>>>>>>> 4d562bde183d21444bf5d9e0d81d3adba6f90322
     "category": "Autostaging",
     # "live_test_url": "http://apps.it-projects.info/shop/product/DEMO-URL?version=11.0",
     "images": [],

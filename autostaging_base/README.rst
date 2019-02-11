@@ -8,7 +8,11 @@
 
 Change stages of tasks automatically after a specified time
 
+<<<<<<< HEAD
 The tasks which are not modified within the idle timeout automatically moved to the next stage
+=======
+The tasks which are not modified within the idle timeout automatically moved to the next stage (may be used with project.task or crm.lead)
+>>>>>>> 4d562bde183d21444bf5d9e0d81d3adba6f90322
 
 Credits
 =======
