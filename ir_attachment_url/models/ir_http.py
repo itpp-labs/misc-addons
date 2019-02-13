@@ -115,6 +115,7 @@ class IrHttp(models.AbstractModel):
             if att:
                 content = att.url
                 status = 301
+                mimetype = att.mimetype
 
             if not content:
                 content = obj[field] or ''
@@ -129,7 +130,9 @@ class IrHttp(models.AbstractModel):
                 filename = "%s-%s-%s" % (obj._name, obj.id, field)
 
         # mimetype
-        mimetype = 'mimetype' in obj and obj.mimetype or False
+        # redefined: in the original function there is no condition
+        if not mimetype:
+            mimetype = 'mimetype' in obj and obj.mimetype or False
         if not mimetype:
             if filename:
                 mimetype = mimetypes.guess_type(filename)[0]
