@@ -21,6 +21,12 @@ class TestProductTmplImage(HttpCase):
     def test_getting_product_variant_image_fields_urls(self):
         env = api.Environment(self.registry.test_cr, self.uid, {})
 
+        ir_attachment_save_option = env['ir.config_parameter'].get_param('ir_attachment.save_option', default='url')
+        if ir_attachment_save_option != 'url':
+            _logger.warning('This test only works if the module has no add-ons! '
+                            '(ir_attachment.save_option = %s)' % ir_attachment_save_option)
+            return
+
         product_tmpl = env['product.template'].create({
             'name': 'Test template',
             'image': self._get_original_image_url(1024),
@@ -43,6 +49,10 @@ class TestProductTmplImage(HttpCase):
         product_tmpl_image_attachment = env['ir.http'].find_field_attachment(env, 'product.template', 'image', product_tmpl)
         product_tmpl_image_medium_attachment = env['ir.http'].find_field_attachment(env, 'product.template', 'image_medium', product_tmpl)
         product_tmpl_image_small_attachment = env['ir.http'].find_field_attachment(env, 'product.template', 'image_small', product_tmpl)
+
+        self.assertTrue(product_tmpl_image_attachment)
+        self.assertTrue(product_tmpl_image_medium_attachment)
+        self.assertTrue(product_tmpl_image_small_attachment)
 
         self.authenticate('demo', 'demo')
 

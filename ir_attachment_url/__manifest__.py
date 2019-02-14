@@ -18,7 +18,9 @@
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
+        "data/ir_attachment_url_data.xml",
         "views/ir_attachment_url_template.xml",
+        "views/ir_attachment_res_config.xml",
         "demo/ir_attachment.xml",
     ],
     "qweb": [
