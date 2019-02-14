@@ -2,6 +2,7 @@
 # Copyright 2017 Dinar Gabbasov <https://www.it-projects.info/team/GabbasovDinar>
 # Copyright 2018 Rafis Bikbov <https://www.it-projects.info/team/RafiZz>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+import base64
 import mimetypes
 import requests
 
@@ -44,8 +45,13 @@ class Binary(fields.Binary):
                 'type': 'binary',
             })
         if value and image.is_url(value):
+            save_option = records.env['ir.config_parameter'].get_param('ir_attachment.save_option', default='url')
             with records.env.norecompute():
-                if value:
+                if value and save_option != 'url':
+                    r = requests.get(value)
+                    base64source = base64.b64encode(r.content)
+                    super(Binary, self).write(records, base64source)
+                elif value:
                     mimetype, content = get_mimetype_and_optional_content_by_url(value)
                     index_content = records.env['ir.attachment']._index(content, None, mimetype)
 
