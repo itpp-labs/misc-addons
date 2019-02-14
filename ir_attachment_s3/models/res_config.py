@@ -5,6 +5,14 @@ from odoo.tools.safe_eval import safe_eval
 from odoo import models, fields, exceptions, _
 
 
+class S3IrAttachmentSettings(models.TransientModel):
+    _inherit = 'ir.attachment.config.settings'
+
+    ir_attachment_save_option = fields.Selection(
+        selection_add=[('s3', 'Save as a link to the file saved to s3')],
+    )
+
+
 class S3Settings(models.TransientModel):
     _name = 's3.config.settings'
     _inherit = 'res.config.settings'
