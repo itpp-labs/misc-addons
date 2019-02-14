@@ -3,13 +3,19 @@ import base64
 import requests
 import werkzeug
 
-from odoo.http import request
+from odoo.http import request, route
 from odoo import http, SUPERUSER_ID
 from odoo.addons.web.controllers.main import binary_content
 from odoo.exceptions import AccessError
 
 from odoo.addons.mail.controllers.main import MailController
 from ..models.image import is_url
+
+SIZES_MAP = {
+    'image_small': (64, 64),
+    'image_medium': (128, 128),
+    'image': (1024, 1024),
+}
 
 
 class MailControllerExtended(MailController):
