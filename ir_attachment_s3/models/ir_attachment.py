@@ -5,13 +5,14 @@ import os
 import hashlib
 import logging
 
-from odoo import api, models, _, fields
+from odoo import api, models, _, fields, tools, exceptions
 from odoo.tools.safe_eval import safe_eval
 
 _logger = logging.getLogger(__name__)
 
 try:
     import boto3
+    import botocore
 except:
     _logger.debug('boto3 package is required which is not \
     found on your installation')
@@ -98,12 +99,15 @@ class IrAttachment(models.Model):
             fname = hashlib.sha1(bin_data).hexdigest()
 
             bucket_name = self._get_s3_settings('s3.bucket', 'S3_BUCKET')
-            s3.Bucket(bucket_name).put_object(
-                Key=fname,
-                Body=bin_data,
-                ACL='public-read',
-                ContentType=attach.mimetype,
+            try:
+                s3.Bucket(bucket_name).put_object(
+                    Key=fname,
+                    Body=bin_data,
+                    ACL='public-read',
+                    ContentType=attach.mimetype,
                 )
+            except botocore.exceptions.ClientError as e:
+                raise exceptions.UserError(str(e))
 
             vals = {
                 'file_size': len(bin_data),
@@ -119,3 +123,44 @@ class IrAttachment(models.Model):
         resized_to_remove.mapped('resized_attachment_id').unlink()
         resized_to_remove.unlink()
         super(IrAttachment, self - s3_records)._inverse_datas()
+
+    @api.model
+    def _get_context_variants_for_resized_att_creating(self):
+        return {
+            's3': {'force_s3': True},
+        }
+
+    def _get_context_for_resized_att_creating(self):
+        save_option = self.env['ir.config_parameter'].get_param('ir_attachment.save_option', default='url')
+        return self._get_context_variants_for_resized_att_creating().get(save_option) or {}
+
+    @api.model
+    def _get_resized_from_cache(self, width, height):
+        return self.env['ir.attachment.resized'].sudo().search([
+            ('attachment_id', '=', self.id),
+            ('width', '=', width),
+            ('height', '=', height),
+        ])
+
+    @api.model
+    def _set_resized_to_cache(self, width, height, field=None):
+        content = self.datas
+        content = tools.image_resize_image(base64_source=content, size=(width or None, height or None), encoding='base64', filetype='PNG')
+        new_resized_attachment_data = {
+            'name': '%sx%s %s' % (width, height, self.name),
+            'datas': content,
+        }
+        if field:
+            new_resized_attachment_data.update({
+                'res_model': self.res_model,
+                'res_field': field,
+                'res_id': self.res_id,
+            })
+        context = self._get_context_for_resized_att_creating()
+        resized_attachment = self.env['ir.attachment'].with_context(context).sudo().create(new_resized_attachment_data)
+        return self.env['ir.attachment.resized'].sudo().create({
+            'attachment_id': self.id,
+            'width': width,
+            'height': height,
+            'resized_attachment_id': resized_attachment.id,
+        })

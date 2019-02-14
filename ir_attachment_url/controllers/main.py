@@ -3,13 +3,19 @@ import base64
 import requests
 import werkzeug
 
-from odoo.http import request
+from odoo.http import request, route
 from odoo import http, SUPERUSER_ID
-from odoo.addons.web.controllers.main import binary_content
+from odoo.addons.web.controllers.main import binary_content, Binary
 from odoo.exceptions import AccessError
 
 from odoo.addons.mail.controllers.main import MailController
 from ..models.image import is_url
+
+SIZES_MAP = {
+    'image_small': (64, 64),
+    'image_medium': (128, 128),
+    'image': (1024, 1024),
+}
 
 
 class MailControllerExtended(MailController):
@@ -44,3 +50,14 @@ class MailControllerExtended(MailController):
         response.status = str(status)
 
         return response
+
+
+class BinaryExtended(Binary):
+
+    def redirect_to_url(self, url):
+        return werkzeug.utils.redirect(url, code=301)
+
+    @route()
+    def content_image(self, xmlid=None, model='ir.attachment', id=None, field='datas', filename_field='datas_fname', unique=None, filename=None, mimetype=None, download=None, width=0, height=0):
+        res = super(BinaryExtended, self).content_image(xmlid, model, id, field, filename_field, unique, filename, mimetype, download, width, height)
+        return res
