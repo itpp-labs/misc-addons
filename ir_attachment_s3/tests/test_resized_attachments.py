@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from odoo import api
+from odoo import api, exceptions
 from odoo.tests.common import HttpCase
 
 _logger = logging.getLogger(__name__)
@@ -70,6 +70,27 @@ class TestResizedAttachments(HttpCase):
         urls = [self.original_image_url, redirected_image_url, redirected_image_medium_url, redirected_image_small_url]
         self.assertEqual(len(urls), len(set(urls)), 'Duplicates in URLs: %s' % urls)
 
-    # TODO
     def test_unlink_resized_attachments_when_parent_unlink(self):
-        return
+        env = api.Environment(self.registry.test_cr, self.uid, {})
+
+        ir_att_model = env['ir.attachment']
+        ir_att_resized_model = env['ir.attachment.resized']
+
+        original_att = ir_att_model.create({'name': 'test att'})
+        resized_att = ir_att_model.create({'name': 'resized test att'})
+
+        ir_att_resized = ir_att_resized_model.create({
+            'attachment_id': original_att.id,
+            'resized_attachment_id': resized_att.id,
+        })
+
+        self.assertTrue(original_att.unlink())
+
+        with self.assertRaises(exceptions.MissingError):
+            original_att.write({'name': 'foo'})
+
+        with self.assertRaises(exceptions.MissingError):
+            ir_att_resized.write({'width': 1})
+
+        with self.assertRaises(exceptions.MissingError):
+            resized_att.write({'name': 'bar'})
