@@ -27,11 +27,23 @@ class IrAttachmentResized(models.Model):
     height = fields.Integer()
     resized_attachment_id = fields.Many2one('ir.attachment', ondelete='cascade')
 
+    @api.multi
+    def unlink(self):
+        resized_att_id = self.resized_attachment_id
+        super(IrAttachmentResized, self).unlink()
+        return resized_att_id.unlink()
+
 
 class IrAttachment(models.Model):
     _inherit = 'ir.attachment'
 
     resized_ids = fields.One2many('ir.attachment.resized', 'attachment_id')
+
+    @api.multi
+    def unlink(self):
+        resized_ids = self.resized_ids
+        super(IrAttachment, self).unlink()
+        return resized_ids.unlink() if resized_ids else True
 
     def _get_s3_settings(self, param_name, os_var_name):
         config_obj = self.env['ir.config_parameter']
