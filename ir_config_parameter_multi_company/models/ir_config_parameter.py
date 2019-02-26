@@ -5,8 +5,6 @@ from odoo.addons.base.models.ir_config_parameter import IrConfigParameter as IrC
 
 _logger = logging.getLogger(__name__)
 
-DATABASE_SECRET_KEY = 'database.secret'
-
 # params that has to be shared across all companies
 SHARED_KEYS = [
     'database.expiration_date',
