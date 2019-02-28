@@ -1,3 +1,6 @@
+/* Copyright (c) 2004-2015 Odoo S.A.
+   Copyright 2016 Pavel Romanchenko
+   License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl-3.0.html).*/
 odoo.define('web_gantt8.gantt', function (require) {
 "use strict";
 var core = require('web.core');
