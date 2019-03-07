@@ -99,7 +99,7 @@ class HrAttendance(models.Model):
                 ], order='check_in desc', limit=1)
                 if last_attendance_before_check_out and last_attendance_before_check_in != last_attendance_before_check_out:
                     raise exceptions.ValidationError(_("Cannot create new attendance record for %(partner_name)s, the partner was already checked in on %(datetime)s") % {
-                        'partner_name': attendance.partner.name,
+                        'partner_name': attendance.partner_id.name,
                         'datetime': fields.Datetime.to_string(fields.Datetime.context_timestamp(self, fields.Datetime.from_string(last_attendance_before_check_out.check_in))),
                     })
 
