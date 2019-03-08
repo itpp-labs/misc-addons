@@ -65,7 +65,7 @@ class HrPartner(models.Model):
     def attendance_manual(self, next_action, entered_pin=None):
         self.ensure_one()
         if not (entered_pin is None) or \
-                self.env['res.users'].browse(SUPERUSER_ID).has_group('hr_partner_attendance.group_hr_attendance_use_pin'):
+                self.env['res.users'].browse(SUPERUSER_ID).has_group('base_attendance.group_hr_attendance_use_pin'):
             if entered_pin != self.pin:
                 return {'warning': _('Wrong PIN')}
         return self.attendance_action(next_action)

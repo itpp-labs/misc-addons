@@ -11,6 +11,7 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
+
 class HrAttendance(models.Model):
     _name = "res.partner.attendance"
     _description = "Attendance"

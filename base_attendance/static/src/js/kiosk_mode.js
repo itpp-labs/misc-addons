@@ -87,7 +87,7 @@ var KioskMode = Widget.extend(BarcodeHandlerMixin, {
     start_clock: function() {
         this.clock_start = setInterval(function() {
             this.$(".o_hr_attendance_clock").text(new Date().toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'}));
-        }, 700);
+        }, 900);
         // First clock refresh before interval to avoid delay
         this.$(".o_hr_attendance_clock").text(new Date().toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'}));
     },
