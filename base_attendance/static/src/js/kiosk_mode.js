@@ -8,6 +8,7 @@ var core = require('web.core');
 var Model = require('web.Model');
 var Widget = require('web.Widget');
 var Session = require('web.session');
+var local_storage = require('web.local_storage');
 var BarcodeHandlerMixin = require('barcodes.BarcodeHandlerMixin');
 
 var QWeb = core.qweb;
@@ -27,7 +28,25 @@ var KioskMode = Widget.extend(BarcodeHandlerMixin, {
         // We added a local variable for this._super in order to fix the nextLINT error
         //"Expected an assignment or function call and instead saw an expression. [Error/no-unused-expressions]"
         var init_super = this._super;
+
+        action.target = 'fullscreen';
+        var hex_scanner_is_used = action.context.hex_scanner_is_used;
+        if (typeof hex_scanner_is_used === 'undefined') {
+            hex_scanner_is_used = this.get_from_storage('hex_scanner_is_used') || false;
+        } else {
+            this.save_locally('hex_scanner_is_used', Boolean(hex_scanner_is_used));
+        }
+        this.hex_scanner_is_used = hex_scanner_is_used;
+
         BarcodeHandlerMixin.init.apply(this, arguments);
+    },
+
+    save_locally: function(key, value) {
+        local_storage.setItem('est.' + key, JSON.stringify(value));
+    },
+
+    get_from_storage: function(key) {
+        return JSON.parse(local_storage.getItem('est.' + key));
     },
 
     start: function () {
@@ -49,20 +68,26 @@ var KioskMode = Widget.extend(BarcodeHandlerMixin, {
     on_barcode_scanned: function(barcode) {
         var self = this;
         var hr_employee = new Model('res.partner');
-        hr_employee.call('attendance_scan', [barcode, ]).
-            then(function (result) {
-                if (result.action) {
-                    self.do_action(result.action);
-                } else if (result.warning) {
-                    self.do_warn(result.warning);
-                }
-            });
+        var res_barcode = barcode;
+        if (this.hex_scanner_is_used) {
+            res_barcode = parseInt(barcode, 16).toString();
+            if (res_barcode.length % 2) {
+                res_barcode = '0' + res_barcode;
+            }
+        }
+        hr_employee.call('attendance_scan', [res_barcode, ]).then(function (result) {
+            if (result.action) {
+                self.do_action(result.action);
+            } else if (result.warning) {
+                self.do_warn(result.warning);
+            }
+        });
     },
 
     start_clock: function() {
         this.clock_start = setInterval(function() {
             this.$(".o_hr_attendance_clock").text(new Date().toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'}));
-        }, 700);
+        }, 900);
         // First clock refresh before interval to avoid delay
         this.$(".o_hr_attendance_clock").text(new Date().toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'}));
     },
