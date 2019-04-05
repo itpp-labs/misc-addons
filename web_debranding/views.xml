@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-  <data>
     <template id="login_layout" inherit_id="web.login_layout" priority="8">
        <xpath expr="//div[@t-if='not disable_footer']" position="replace"></xpath>
     </template>
@@ -15,6 +14,5 @@
            </t>
        </xpath>
     </template>
-  </data>
 
 </odoo>
