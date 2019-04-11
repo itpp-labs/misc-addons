@@ -3,14 +3,15 @@
 # * ir_attachment_s3
 # 
 # Translators:
-# Randall <randall_castro@me.com>, 2018
+# Randall <randall_castro@me.com>, 2019
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-09 17:52+0000\n"
-"PO-Revision-Date: 2018-05-09 17:52+0000\n"
-"Last-Translator: Randall <randall_castro@me.com>, 2018\n"
+"PO-Revision-Date: 2017-06-23 13:43+0000\n"
+"Last-Translator: Randall <randall_castro@me.com>, 2019\n"
 "Language-Team: Spanish (Costa Rica) (https://www.transifex.com/it-projects-llc/teams/76080/es_CR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -97,22 +98,24 @@ msgstr "ID llave acceso S3"
 #. module: ir_attachment_s3
 #: model:ir.model.fields,field_description:ir_attachment_s3.field_s3_config_settings_s3_bucket
 msgid "S3 bucket name"
-msgstr ""
+msgstr "Nombre Bucket S3"
 
 #. module: ir_attachment_s3
 #: model:ir.model.fields,field_description:ir_attachment_s3.field_s3_config_settings_s3_condition
 msgid "S3 condition"
-msgstr ""
+msgstr "Condición S3"
 
 #. module: ir_attachment_s3
 #: model:ir.model.fields,field_description:ir_attachment_s3.field_s3_config_settings_s3_secret_key
 msgid "S3 secret key"
-msgstr ""
+msgstr "LLave secreta S3"
 
 #. module: ir_attachment_s3
 #: model:ir.ui.view,arch_db:ir_attachment_s3.view_s3_config_settings
 msgid "Settings needed to store odoo attachments on Amazon AWS S3 bucket"
 msgstr ""
+"Configuraciones necesarias para almacenar los archivos adjuntos de odoo en "
+"Amazon AWS S3 Bucket"
 
 #. module: ir_attachment_s3
 #: code:addons/ir_attachment_s3/models/res_config.py:68
@@ -121,6 +124,8 @@ msgid ""
 "Some of the S3 connection credentials are missing.\n"
 " Don't forget to click the ``[Apply]`` button after any changes you've made"
 msgstr ""
+"Faltan algunas de las credenciales de conexión al S3.\n"
+"No olvide hacer clic en el botón `` [Aplicar] `` después de cualquier cambio que haya realizado"
 
 #. module: ir_attachment_s3
 #: model:ir.model.fields,help:ir_attachment_s3.field_s3_config_settings_s3_condition
@@ -129,11 +134,14 @@ msgid ""
 "                               e.g. [('res_model', 'in', ['product.image'])] -- store data of product.image only.\n"
 "                               Empty condition means all models"
 msgstr ""
+"Especifique el dominio de odoo de búsqueda válido aquí,\n"
+"p.ej. [('res_model', 'in', ['product.image'])] -- almacena datos de product.image solamente.\n"
+"Condición vacía significa todos los modelos"
 
 #. module: ir_attachment_s3
 #: model:ir.ui.view,arch_db:ir_attachment_s3.view_s3_config_settings
 msgid "Upload existing attachments"
-msgstr ""
+msgstr "Cargar adjuntos existentes"
 
 #. module: ir_attachment_s3
 #: model:ir.model.fields,help:ir_attachment_s3.field_s3_config_settings_s3_bucket

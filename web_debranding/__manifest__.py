@@ -18,8 +18,6 @@
         'mail_base',
     ],
     'data': [
-        'security/web_debranding_security.xml',
-        'security/ir.model.access.csv',
         'data.xml',
         'views.xml',
         'js.xml',
