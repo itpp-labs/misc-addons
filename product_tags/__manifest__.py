@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 #
 #    OpenERP, Open Source Management Solution
@@ -36,5 +35,5 @@
         'security/ir.model.access.csv',
         'product_view.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

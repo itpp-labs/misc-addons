@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
-    <t t-extend="HiddenInputFile">
-        <t t-jquery="input[name='ufile']:eq(1)" t-operation="replace">
-            <input t-if="widget.widget=='image'" type="file" class="o_form_input_file" name="ufile"/>
-        </t>
-    </t>
+    <!--<t t-extend="HiddenInputFile">-->
+        <!--<t t-jquery="input[name='ufile']:eq(1)" t-operation="replace">-->
+            <!--<input t-if="widget.image_only" type="file" class="o_input_file" name="ufile" accept="image/*"/>-->
+        <!--</t>-->
+    <!--</t>-->
 
     <t t-extend="FieldBinaryImage-img">
         <t t-jquery="img" t-operation="replace">
@@ -69,15 +69,16 @@
             </t>
             <!--IMAGE-->
             <t t-if="!widget.media_type or (widget.media_type and widget.media_type=='image')">
-                <img class="img img-responsive media-image m-dotted"
-                     t-attf-onclick="$('#ImageModal{{ widget.media_id }}').arcticmodal()"
+                <img class="img img-responsive"
+                     t-attf-onclick="$('#ImageModal_{{ widget.media_id }}_{{ widget.name }}').arcticmodal()"
                      t-att-src='url'
                      t-att-border="widget.readonly ? 0 : 1"
                      t-att-name="widget.name"
-                     t-att-width="widget.node.attrs.img_width || widget.node.attrs.width"
-                     t-att-height="widget.node.attrs.img_height || widget.node.attrs.height"/>
+                     t-att-width="widget.nodeOptions.size ? widget.nodeOptions.size[0] : widget.attrs.img_width || widget.attrs.width"
+                     t-att-height="widget.nodeOptions.size ? widget.nodeOptions.size[1] : widget.attrs.img_height || widget.attrs.height"/>
+
                 <div class="g-hidden">
-                    <div class="box-modal" t-attf-id="ImageModal{{ widget.media_id }}">
+                    <div class="box-modal" t-attf-id="ImageModal_{{ widget.media_id }}_{{ widget.name }}">
                         <div class="box-modal_close arcticmodal-close">X</div>
                         <img class="o_image img img-responsive"
                              t-att-src='url'

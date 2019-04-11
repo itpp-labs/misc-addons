@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) 2004-2015 Odoo S.A.
 # Copyright 2018-2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
@@ -8,7 +7,7 @@
     "category": "Extra Tools",
     # "live_test_url": "",
     "images": [],
-    "version": "10.0.1.1.0",
+    "version": "11.0.1.1.0",
     "application": False,
 
     "author": "IT-Projects LLC, Kolushov Alexandr",
@@ -19,7 +18,6 @@
     "currency": "EUR",
 
     "depends": [
-        'report',
         'barcodes'
     ],
     "external_dependencies": {"python": [], "bin": []},

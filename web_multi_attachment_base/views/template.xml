@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright 2018 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
+    Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).-->
+<odoo>
+    <template id="assets_backend" name="website_sale_attachments_assets" inherit_id="web.assets_backend">
+        <xpath expr="//link[last()]" position="after">
+            <script type="text/javascript" src="/web_multi_attachment_base/static/src/js/kanban_view.js"></script>
+            <link rel="stylesheet" href="/web_multi_attachment_base/static/src/css/drop_attachments.css"/>
+        </xpath>
+    </template>
+</odoo>

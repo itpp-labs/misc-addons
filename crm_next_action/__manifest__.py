@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Log / Notify Next Action changes',
     'version': '1.0.0',
@@ -11,5 +10,5 @@
     'depends': ['crm'],
     'images': ['images/lead.png'],
     'data': ['data.xml'],
-    'installable': True
+    'installable': False
 }

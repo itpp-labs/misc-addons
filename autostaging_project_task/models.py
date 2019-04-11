@@ -1,6 +1,9 @@
-# -*- coding: utf-8 -*-
-
-from openerp import models, fields
+# Copyright 2015-2017 Ildar Nasyrov <https://it-projects.info/>
+# Copyright 2015-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2016 manawi <https://github.com/manawi>
+# Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
+# License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).
+from odoo import models, fields
 
 
 class ProjectProjectAutostaging(models.Model):
@@ -21,8 +24,8 @@ class ProjectTaskAutostaging(models.Model):
     _inherit = ['project.task', 'autostaging.card']
     _field_folder_id = 'project_id'
     _field_stage_id = 'stage_id'
-
-    autostaging_next_stage = fields.Many2one('project.task.type', string='Autostaging next stage', related='stage_id.autostaging_next_stage')
+    _state = 'kanban_state'
+    autostaging_card_next_stage = fields.Many2one('project.task.type', string='Autostaging next stage', related='stage_id.autostaging_next_stage')
     _track = {
         'stage_id': {
             'ProjectTaskAutostaging.mt_autostaging':

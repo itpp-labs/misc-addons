@@ -10,5 +10,5 @@
     'depends': ['account'],
     'data': ['views.xml'],
     'demo': [],
-    'installable': True,
+    'installable': False,
 }

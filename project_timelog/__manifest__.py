@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": """Time Tracker""",
     "summary": """Adds Start/Stop buttons to task work lines. Allows to see statistics on Calendar, Graph, Tree views and more""",

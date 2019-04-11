@@ -23,7 +23,7 @@ Website Switcher
 ----------------
 Once you activated **Multi Websites for Backend**, will see *Website Switcher* in top right-hand corner.
 
-Technically, it changes value of a technical field at User record. It means, that you can work only with one website in a momen, you cannot use two different browser tabs/windows to work with a different websites.
+Technically, it changes value of a technical field at User record. It means, that you can work only with one website in a moment, you cannot use two different browser tabs/windows to work with a different websites.
 
 Company Properties
 ------------------

@@ -1,15 +1,12 @@
-/* Copyright (c) 2004-2015 Odoo S.A.
+/* Copyright (c) 2004-2018 Odoo S.A.
    Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). */
 odoo.define('base_attendance.kiosk_confirm', function (require) {
 "use strict";
 
 var core = require('web.core');
-var Model = require('web.Model');
 var Widget = require('web.Widget');
-
 var QWeb = core.qweb;
-var _t = core._t;
 
 
 var KioskConfirm = Widget.extend({
@@ -20,16 +17,18 @@ var KioskConfirm = Widget.extend({
         "click .o_hr_attendance_sign_in_out_icon": function () {
             var self = this;
             this.$('.o_hr_attendance_sign_in_out_icon').attr("disabled", "disabled");
-            var hr_partner = new Model('res.partner');
-            hr_partner.call('attendance_manual', [[this.partner_id], this.next_action]).
-            then(function(result) {
-                if (result.action) {
-                    self.do_action(result.action);
-                } else if (result.warning) {
-                    self.do_warn(result.warning);
-                    self.$('.o_hr_attendance_sign_in_out_icon').removeAttr("disabled");
-                }
-            });
+            this._rpc({
+                    model: 'res.partner',
+                    method: 'attendance_manual',
+                    args: [[this.partner_id], this.next_action],
+                }).then(function(result) {
+                    if (result.action) {
+                        self.do_action(result.action);
+                    } else if (result.warning) {
+                        self.do_warn(result.warning);
+                        self.$('.o_hr_attendance_sign_in_out_icon').removeAttr("disabled");
+                    }
+                });
         },
         'click .o_hr_attendance_pin_pad_button_0': function() {
             this.$('.o_hr_attendance_PINbox').val(this.$('.o_hr_attendance_PINbox').val() + 0);
@@ -67,18 +66,21 @@ var KioskConfirm = Widget.extend({
         'click .o_hr_attendance_pin_pad_button_ok': function() {
             var self = this;
             this.$('.o_hr_attendance_pin_pad_button_ok').attr("disabled", "disabled");
-            var hr_partner = new Model('res.partner');
-            hr_partner.call('attendance_manual', [[this.partner_id], this.next_action, this.$('.o_hr_attendance_PINbox').val()]).
-            then(function(result) {
-                if (result.action) {
-                    self.do_action(result.action);
-                } else if (result.warning) {
-                    self.do_warn(result.warning);
-                    setTimeout( function() {
-                        self.$('.o_hr_attendance_pin_pad_button_ok').removeAttr("disabled");
-                    }, 500);
-                }
-            });
+            this._rpc({
+                    model: 'res.partner',
+                    method: 'attendance_manual',
+                    args: [[self.partner], this.next_action, this.$('.o_hr_attendance_PINbox').val()],
+                }).then(function(result) {
+                    if (result.action) {
+                        self.do_action(result.action);
+                    } else if (result.warning) {
+                        self.do_warn(result.warning);
+                        self.$('.o_hr_attendance_PINbox').val('');
+                        setTimeout( function() {
+                            self.$('.o_hr_attendance_pin_pad_button_ok').removeAttr("disabled");
+                        }, 500);
+                    }
+                });
         },
     },
 
@@ -88,12 +90,11 @@ var KioskConfirm = Widget.extend({
         this.partner_id = action.partner_id;
         this.partner_name = action.partner_name;
         this.partner_state = action.partner_state;
-        var self = this;
     },
 
     start: function () {
         var self = this;
-        self.session.user_has_group('base_attendance.group_hr_attendance_use_pin').then(function(has_group){
+        this.getSession().user_has_group('base_attendance.group_hr_attendance_use_pin').then(function(has_group){
             self.use_pin = has_group;
             self.$el.html(QWeb.render("BaseAttendanceKioskConfirm", {widget: self}));
             self.start_clock();

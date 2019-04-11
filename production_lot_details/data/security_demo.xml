@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--# Copyright 2017 Stanislav Krotov <https://www.it-projects.info/team/ufaks>
+    # Copyright 2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). -->
+
 <odoo>
-    <data>
 
         <record model="res.groups" id="base.group_user">
             <field name="implied_ids" eval="[
@@ -8,5 +11,4 @@
             ]"/>
         </record>
 
-    </data>
 </odoo>

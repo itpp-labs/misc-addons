@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Resource booking calendar backend",
     'version': '1.0.0',
