@@ -4,6 +4,7 @@
 - **New:** Autocheckout option - closes shifts after defined time
 - **New:** Option to support HEX barcode scanners in **Kiosk Mode**
 - **Fix:** Error related to incorrect attribute name
+- **Fix:** Error message even for correct partner PIN codes
 
 `1.0.1`
 -------

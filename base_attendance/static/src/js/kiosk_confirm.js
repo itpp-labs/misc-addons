@@ -69,7 +69,7 @@ var KioskConfirm = Widget.extend({
             this._rpc({
                     model: 'res.partner',
                     method: 'attendance_manual',
-                    args: [[self.partner], this.next_action, this.$('.o_hr_attendance_PINbox').val()],
+                    args: [[self.partner_id], this.next_action, this.$('.o_hr_attendance_PINbox').val()],
                 }).then(function(result) {
                     if (result.action) {
                         self.do_action(result.action);
