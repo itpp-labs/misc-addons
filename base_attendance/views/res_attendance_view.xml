@@ -41,14 +41,14 @@
             <search string="Partner Attendance Search">
                 <field name="partner_id"/>
                 <filter name="today" string="Today" domain="[('check_in', '&gt;=', datetime.datetime.now().replace(hour=0, minute=0, second=0)),('check_in', '&lt;=', datetime.datetime.now().replace(hour=23, minute=59, second=59))]" />
-                <filter string="Current Month" domain="[('check_in', '&gt;=', datetime.datetime.now().strftime('%Y-%m-01'))]" />
+                <filter name="month" string="Current Month" domain="[('check_in', '&gt;=', datetime.datetime.now().strftime('%Y-%m-01'))]" />
                 <separator/>
-                <filter string="No Check Out" domain="[('check_out', '=', False)]" />
+                <filter name="no_check_out" string="No Check Out" domain="[('check_out', '=', False)]" />
                 <separator/>
                 <group expand="0" string="Group By">
-                    <filter name="Partner" string="Partner" context="{'group_by':'partner_id'}"/>
+                    <filter name="partner" string="Partner" context="{'group_by':'partner_id'}"/>
                     <separator/>
-                    <filter name="groupby_name" string="Month" context="{'group_by':'check_in'}"/>
+                    <filter name="group_by_name" string="Month" context="{'group_by':'check_in'}"/>
                 </group>
             </search>
         </field>
@@ -149,7 +149,7 @@ action = {
 
     <!--Partner kanban view specifically for base_attendance (to check in/out) -->
     <record id="res_partner_kiosk_attendance_view" model="ir.ui.view">
-        <field name="name">res.partner.kanban</field>
+        <field name="name">res.partner.kanban.attendance</field>
         <field name="model">res.partner</field>
         <field name="priority">99</field>
         <field name="arch" type="xml">
@@ -158,33 +158,33 @@ action = {
                 <field name="id"/>
                 <templates>
                     <t t-name="kanban-box">
-                    <div class="oe_kanban_global_click">
-                        <div class="o_kanban_image">
-                            <img t-att-src="kanban_image('res.partner', 'image_medium', record.id.raw_value)"/>
-                        </div>
-                        <div class="oe_kanban_details">
-                            <div id="textbox">
-                                <div class="pull-right" t-if="record.attendance_state.raw_value == 'checked_in'">
-                                    <span class="oe_hr_attendance_status fa fa-user oe_hr_attendance_status_green"></span>
-                                </div>
-                                <div class="pull-right" t-if="record.attendance_state.raw_value == 'checked_out'">
-                                    <span class="oe_hr_attendance_status fa fa-user oe_hr_attendance_status_red"></span>
-                                </div>
-                                <strong>
-                                    <field name="name"/>
-                                </strong>
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img alt="Checked Image" t-att-src="kanban_image('res.partner', 'image_medium', record.id.raw_value)"/>
                             </div>
-                            <ul>
-                                <li t-if="record.parent_id.raw_value and !record.function.raw_value"><field name="parent_id"/></li>
-                                <li t-if="!record.parent_id.raw_value and record.function.raw_value"><field name="function"/></li>
-                                <li t-if="record.parent_id.raw_value and record.function.raw_value"><field name="function"/> at <field name="parent_id"/></li>
-                                <li t-if="record.city.raw_value and !record.country_id.raw_value"><field name="city"/></li>
-                                <li t-if="!record.city.raw_value and record.country_id.raw_value"><field name="country_id"/></li>
-                                <li t-if="record.city.raw_value and record.country_id.raw_value"><field name="city"/>, <field name="country_id"/></li>
-                                <li t-if="record.email.raw_value" class="o_text_overflow"><field name="email"/></li>
-                            </ul>
+                            <div class="oe_kanban_details">
+                                <div id="textbox">
+                                    <div class="pull-right" t-if="record.attendance_state.raw_value == 'checked_in'">
+                                        <span class="oe_hr_attendance_status fa fa-user oe_hr_attendance_status_green" aria-label="Green Status" title="Green Status"></span>
+                                    </div>
+                                    <div class="pull-right" t-if="record.attendance_state.raw_value == 'checked_out'">
+                                        <span class="oe_hr_attendance_status fa fa-user oe_hr_attendance_status_red" aria-label="Red Status" title="Red Status"></span>
+                                    </div>
+                                    <strong>
+                                        <field name="name"/>
+                                    </strong>
+                                </div>
+                                <ul>
+                                    <li t-if="record.parent_id.raw_value and !record.function.raw_value"><field name="parent_id"/></li>
+                                    <li t-if="!record.parent_id.raw_value and record.function.raw_value"><field name="function"/></li>
+                                    <li t-if="record.parent_id.raw_value and record.function.raw_value"><field name="function"/> at <field name="parent_id"/></li>
+                                    <li t-if="record.city.raw_value and !record.country_id.raw_value"><field name="city"/></li>
+                                    <li t-if="!record.city.raw_value and record.country_id.raw_value"><field name="country_id"/></li>
+                                    <li t-if="record.city.raw_value and record.country_id.raw_value"><field name="city"/>, <field name="country_id"/></li>
+                                    <li t-if="record.email.raw_value" class="o_text_overflow"><field name="email"/></li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
                     </t>
                 </templates>
             </kanban>
@@ -204,12 +204,12 @@ action = {
                 </div>
                 <div class="col-xs-1" style="padding:0px">
                     <field name="attendance_state" invisible="1"/>
-                <div class="pull-right" t-if="record.attendance_state.raw_value == 'checked_in'">
-                    <span class="fa fa-user oe_hr_attendance_status oe_hr_attendance_status_green"></span>
-                </div>
-                <div class="pull-right" t-if="record.attendance_state.raw_value == 'checked_out'">
-                    <span class="fa fa-user oe_hr_attendance_status oe_hr_attendance_status_red"></span>
-                </div>
+                    <div class="pull-right" t-if="record.attendance_state.raw_value == 'checked_in'">
+                        <span class="fa fa-user oe_hr_attendance_status oe_hr_attendance_status_green" aria-label="Green Status" title="Green Status"></span>
+                    </div>
+                    <div class="pull-right" t-if="record.attendance_state.raw_value == 'checked_out'">
+                        <span class="fa fa-user oe_hr_attendance_status oe_hr_attendance_status_red" aria-label="Red Status" title="Red Status"></span>
+                    </div>
                 </div>
             </xpath>
         </field>
@@ -250,8 +250,8 @@ action = {
                 <button name="%(base_attendance_action_partner_attendances)d"
                     class="oe_stat_button"
                     type="action" attrs="{'invisible': [('attendance_state', '=', False)]}">
-                    <div class="fa fa-fw fa-user o_button_icon oe_hr_attendance_status_green oe_hr_attendance_status" attrs="{'invisible': [('attendance_state', '=', 'checked_out')]}"/>
-                    <div class="fa fa-fw fa-user o_button_icon oe_hr_attendance_status_red oe_hr_attendance_status" attrs="{'invisible': [('attendance_state', '=', 'checked_in')]}"/>
+                    <div class="fa fa-fw fa-user o_button_icon oe_hr_attendance_status_green oe_hr_attendance_status" aria-label="Green Status" title="Green Status" attrs="{'invisible': [('attendance_state', '=', 'checked_out')]}"/>
+                    <div class="fa fa-fw fa-user o_button_icon oe_hr_attendance_status_red oe_hr_attendance_status" aria-label="Red Status" title="Red Status" attrs="{'invisible': [('attendance_state', '=', 'checked_in')]}"/>
                     <div class="o_stat_info">
                         <span class="o_stat_text">Attendance</span>
                     </div>

@@ -10,6 +10,8 @@
         <record id="base.main_partner" model="res.partner">
             <field name="image"></field>
         </record>
-
-
+        <record id="base.partner_root" model="res.partner">
+            <field name="name">Bot</field>
+            <field name="email">bot@example.com</field>
+        </record>
 </odoo>
