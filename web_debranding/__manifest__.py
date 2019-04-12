@@ -6,7 +6,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 {
     'name': "Backend debranding",
-    'version': '11.0.1.0.26',
+    'version': '12.0.1.0.26',
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'LGPL-3',
     'category': 'Debranding',
@@ -17,15 +17,13 @@
     'depends': [
         'web',
         'mail',
-        'web_planner',
-        'access_apps',
         'access_settings_menu',
     ],
     'data': [
         'data.xml',
         'views.xml',
         'js.xml',
-        'pre_install.yml',
+        'pre_install.xml',
     ],
     'qweb': [
         'static/src/xml/web.xml',

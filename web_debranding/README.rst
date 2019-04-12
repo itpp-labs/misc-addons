@@ -8,10 +8,7 @@
 
 Removes references to odoo.com:
 
-1. Deletes Odoo label in footer, i.e.
-
-    Powered by Odoo     
-
+1. *(feature is not required in 12.0+ versions)*
 2. Replaces "Odoo" in page title
 3. Replaces "Odoo" in help message for empty list. 
 
@@ -43,16 +40,18 @@ Removes references to odoo.com:
 11. Disables server requests to odoo.com (publisher_warranty_url) - optional. Works only for non-enterprise versions of odoo, check `note <#enterprise-users-notice>`__ below.
 12. *(feature is a part of p.5)*
 13. Deletes Share block and branded parts of other blocks at ``[[ Settings ]] >> Dashboard``
-14. Replaces "Odoo" in planner
-15. Replaces footer in planner to a custom one.
+14. *(feature is not required in 12.0+ versions)*
+15. *(feature is not required in 12.0+ versions)*
 16. Deletes "Odoo" in a request message for permission desktop notifications (yellow block at ``Discuss`` page). Replaces "Odoo" and icon in desktop notifications
 17. [ENTERPRISE] Deletes odoo logo in application switcher
 18. Hides Enterprise features in Settings
 19. Replaces "Odoo" in all backend qweb templates
 
-    This provides a big part of debranding. You can find examples at menu ``[[ Settings ]] >> Dashboard`` in *Implementation* section
+    This provides a big part of debranding. You can find examples in any tree view if you click ``[Import]`` button (e.g. at menu ``[[ Settings ]] >> Users & Companies >> Users``), then paste next code in browser javascript console:
+    ``$('.oe_import_with_file').removeClass('d-none').siblings('.o_view_nocontent').hide().parent().find('.oe_import_noheaders.text-muted').show()``
 
-     Follow these implementation guides to get the most out of **Odoo**.
+     If the file contains the column names, **Odoo** can try auto-detecting the field corresponding to the column. This makes imports simpler especially when the file has many columns.
+
 
 20. Replaces "odoo.com" in hints, examples, etc.
 
@@ -66,8 +65,8 @@ Removes references to odoo.com:
 
 22. [ENTERPRISE] Replaces icons for mobile devices with custom url
 23. Replaces links to `documentation <https://www.odoo.com/documentation>`__ (e.g. "Help" in Import tool, "How-to" in paypal, etc.) to custom website
-24. Removes official videos in planner
-25. Replaces "Odoo" in *application installed* mails
+24. *(feature is not required in 12.0+ versions)*
+25. *(feature is not required in 12.0+ versions)*
 
 Configuration
 =============
@@ -81,21 +80,20 @@ module openf ``[[ Settings ]] >> Technical >> Parameters >> System Parameters`` 
 * ``web_debranding.new_documentation_website`` (website with documentation instead of official one)
 * ``web_debranding.favicon_url``
 * ``web_debranding.send_publisher_warranty_url`` - set 0 to disable server requests to odoo.com and 1 otherwise (useful for enterprise contractors). Works only for non-enterprise versions of odoo, check `note <#enterprise-users-notice>`__ below.
-* ``web_debranding.planner_footer``
 * ``web_debranding.icon_url`` - icon for mobile devices. recommended size :192x192
 * ``web_debranding.apple_touch_icon_url`` - icon for IOS Safari. recommended size :152x152
 
 
-Note. More user friendly way to configure the module is available in `Brand Kit <https://apps.odoo.com/apps/modules/9.0/theme_kit/>`__.
+Note. More user friendly way to configure the module is available in `Brand Kit <https://apps.odoo.com/apps/modules/11.0/theme_kit/>`__.
 
 Further debranding
 ==================
 
 * open addons/mail/data/mail_data.xml and edit Template "Notification Email" -- delete "using Odoo"
-* open addons/website_livechat/website_livechat_data.xml and edit in "im_livechat_channel_data_website" record YourWebsiteWithOdoo.com string
+* open addons/website_livechat/data/website_livechat_data.xml and edit in "im_livechat_channel_data_website" record YourWebsiteWithOdoo.com string
 * install **website_debranding** module if module "Website Builder" is installed in your system
 * install **pos_debranding** module if module "POS" is installed in your system
-* delete "Odoo.com Accounts" record at Settings\\Users\\OAuth Providers if module "OAuth2 Authentication" is installed. in your system
+* delete "Odoo.com Accounts" record at Settings\\Users & Companies\\OAuth Providers if module "OAuth2 Authentication" is installed in your system
 * to debrand **/web/database/manager**:
 
   * edit addons/web/views/database_manager.html file:
@@ -103,8 +101,9 @@ Further debranding
     * delete or modify <title> tag
     * delete or modify favicon
     * delete or modify <img> tag with logo2.png
-    * delete or modify paragraph <p>Fill in this form to create an Odoo database...</p>
     * delete or modify warning <div class="alert alert-warning">Warning, your Odoo database ...</div>
+    * delete or modify <small class="text-muted">To enhance your experience, some data may be sent to Odoo online services. See our <a href="https://www.odoo.com/privacy">Privacy Policy</a>.</small>
+    * delete or modify <p class="form-text">In order to avoid conflicts between databases, Odoo needs ...</p>
 
 Auto-debrand new databases
 ==========================
@@ -119,17 +118,17 @@ To automatically install this module for every new databases set **'auto_install
 * base_setup (built-in)
 * bus (built-in)
 
-Tested on Odoo 11.0 88ccc406035297210cadd5c6278f6f813899001e
+Tested on Odoo 12.0 e774b2cb1c29fdd407aedc1f5c959d9725d2b514
 
 Enterprise users notice
 =======================
 
-* `Terms of Odoo Enterprise Subscription Agreement <https://www.odoo.com/documentation/user/9.0/legal/terms/enterprise.html#customer-obligations>`_ don't allow to disable server requests to odoo.com. For this reason feature #11 doesn't work in Enterprise version.
+* `Terms of Odoo Enterprise Subscription Agreement <https://www.odoo.com/documentation/user/12.0/legal/terms/enterprise.html#customer-obligations>`_ don't allow to disable server requests to odoo.com. For this reason feature #11 doesn't work in Enterprise version.
 
 Note
 ====
 
-* You can also use our new extended `Brand Kit module <https://www.odoo.com/apps/modules/10.0/theme_kit>`_ to brand your odoo instance and create your theme in few clicks.
+* You can also use our new extended `Brand Kit module <https://www.odoo.com/apps/modules/11.0/theme_kit>`_ to brand your odoo instance and create your theme in few clicks.
 
 Need our service?
 =================

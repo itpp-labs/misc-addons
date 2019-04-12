@@ -23,11 +23,11 @@
         <t t-jquery="a[data-menu='support']" t-operation="replace"></t>
         <t t-jquery="a[data-menu='account']" t-operation="replace"></t>
         <t t-jquery="a[data-menu='settings']" t-operation="after">
-            <li><a href="?debug" data-menu="debug">Developer mode</a></li>
-            <li><a href="?debug=assets" data-menu="debugassets"><em>Developer mode<br/> (with assets)</em></a></li>
+            <a class="dropdown-item" href="?debug" data-menu="debug" role="menuitem">Developer mode</a>
+            <a class="dropdown-item" href="?debug=assets" data-menu="debugassets" role="menuitem"><em>Developer mode<br/> (with assets)</em></a>
         </t>
         <!-- It leads to warning in Odoo EE in browser console, because such selector doesn't exist there -->
-        <t t-jquery="li.divider" t-operation="replace"></t>
+        <t t-jquery="div.dropdown-divider" t-operation="replace"></t>
     </t>
 
 <!-- enterprise: hide database expiration panel -->

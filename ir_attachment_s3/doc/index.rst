@@ -65,6 +65,34 @@ Configuration
 
 The settings are also available from the ``Settings >> Technical >> Database Structure >> S3 Settings``.
 
+S3
+--
+
+Minimal access policy for s3 credentials are as following::
+
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:CreateBucket",
+                "s3:GetBucketLocation",
+                "s3:PutObjectAcl"
+            ],
+            "Resource": [
+                "arn:aws:s3:::YOUBUCKETNAMEHERE",
+                "arn:aws:s3:::YOUBUCKETNAMEHERE/*"
+            ]
+        }
+    ]
+  }
+  
+  
+You can also remove ``"s3:CreateBucket"`` if bucket already exists. 
+
 Usage
 =====
 
