@@ -22,12 +22,12 @@ msgstr ""
 #: code:addons/ir_config_parameter_multi_company/models/ir_config_parameter.py:7
 #, python-format
 msgid "Default value for \"%s\""
-msgstr ""
+msgstr "Valor por defecto para \"%s\""
 
 #. module: ir_config_parameter_multi_company
 #: model:ir.model,name:ir_config_parameter_multi_company.model_res_users
 msgid "Users"
-msgstr ""
+msgstr "Usuarios"
 
 #. module: ir_config_parameter_multi_company
 #: model:ir.model,name:ir_config_parameter_multi_company.model_ir_config_parameter
@@ -37,4 +37,4 @@ msgstr "ir.config_parameter"
 #. module: ir_config_parameter_multi_company
 #: model:ir.model,name:ir_config_parameter_multi_company.model_ir_property
 msgid "ir.property"
-msgstr ""
+msgstr "ir.property"

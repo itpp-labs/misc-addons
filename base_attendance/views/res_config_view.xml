@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright (c) 2004-2015 Odoo S.A.
-     Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+     Copyright 2018-2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
      License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).-->
 <odoo>
     <record id="hr_attendance_view_config" model="ir.ui.view">
@@ -14,7 +14,9 @@
                     <button string="Cancel" type="object" name="cancel" class="oe_link" special="cancel"/>
                 </header>
                 <group string="Settings">
+                    <field name="hex_scanner_is_used"/>
                     <field name="group_attendance_use_pin" widget="radio"/>
+                    <field name="shift_autocheckout"/>
                 </group>
             </form>
         </field>

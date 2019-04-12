@@ -57,6 +57,14 @@ Also it is possible to use barcodes to check partners attendance
 * Open menu ``[[ Partner Attendances ]] >> Kiosk Mode``
 * Scan a partner's barcode to check him in or out, it depends on the actual partner's presence
 
+Auto Checkout
+-------------
+
+Restriction on the maximum partner attendance time. Each ten minutes odoo checks for opened partner session, if a session lasts more then defined time it will be closed.
+
+* Open menu ``[[ Partner Attendances ]] >> Configuration``
+* Set ``AutoCheckout`` field in minutes.
+
 Installation
 ============
 

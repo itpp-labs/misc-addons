@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright (c) 2004-2015 Odoo S.A.
-     Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+     Copyright 2018-2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
      License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).-->
 <odoo>
 
@@ -124,10 +124,22 @@
         <field name="view_id"></field>  <!-- force empty -->
     </record>
 
-    <record id="hr_attendance_action_kiosk_mode" model="ir.actions.client">
-        <field name="name">Attendances</field>
-        <field name="tag">base_attendance_kiosk_mode</field>
-        <field name="target">fullscreen</field>
+    <record model="ir.actions.server" id="hr_attendance_action_kiosk_mode">
+        <field name="name">Get to the Kiosk Mode</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_res_partner_attendance"/>
+        <field name="state">code</field>
+        <field name="code">
+hex_scanner_is_used = model.env["ir.config_parameter"].get_param("base_attendance.hex_scanner_is_used",default=False)
+action = {
+    'type': 'ir.actions.client',
+    'tag': 'base_attendance_kiosk_mode',
+    'target': 'fullscreen',
+    'context': {
+        'hex_scanner_is_used': hex_scanner_is_used
+    },
+}
+        </field>
     </record>
 
     <record id="hr_attendance_action_greeting_message" model="ir.actions.client">
@@ -266,4 +278,19 @@
     <menuitem id="menu_hr_attendance_kiosk_mode" name="Kiosk Mode" parent="menu_hr_attendance_manage_attendances" sequence="20" groups="base_attendance.group_hr_attendance_user" action="hr_attendance_action_kiosk_mode"/>
 
     <menuitem id="menu_hr_attendance_report" name="Reports" parent="menu_base_attendance_root" sequence="30" groups="base_attendance.group_hr_attendance_user" action="hr_attendance_action_graph"/>
+
+    <!--IR CRON-->
+
+    <record model="ir.cron" id="base_attendance_autocheckout">
+        <field name="name">Partner Shift Autocheckout</field>
+        <field name="active" eval="False"/>
+        <field name="interval_number">10</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="model_res_partner_attendance"/>
+        <field name="state">code</field>
+        <field name="code">model.autocheckout_close_shifts()</field>
+    </record>
+
 </odoo>

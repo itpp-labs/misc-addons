@@ -22,8 +22,6 @@
         'access_settings_menu',
     ],
     'data': [
-        'security/web_debranding_security.xml',
-        'security/ir.model.access.csv',
         'data.xml',
         'views.xml',
         'js.xml',

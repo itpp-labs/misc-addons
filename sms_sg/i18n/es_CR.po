@@ -3,14 +3,15 @@
 # * sms_sg
 # 
 # Translators:
-# Randall Castro <rcastro@treintaycinco.com>, 2018
+# Randall <randall_castro@me.com>, 2019
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-21 23:16+0000\n"
-"PO-Revision-Date: 2018-04-21 23:16+0000\n"
-"Last-Translator: Randall Castro <rcastro@treintaycinco.com>, 2018\n"
+"POT-Creation-Date: 2018-05-09 17:52+0000\n"
+"PO-Revision-Date: 2017-06-23 13:44+0000\n"
+"Last-Translator: Randall <randall_castro@me.com>, 2019\n"
 "Language-Team: Spanish (Costa Rica) (https://www.transifex.com/it-projects-llc/teams/76080/es_CR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +22,7 @@ msgstr ""
 #. module: sms_sg
 #: model:ir.ui.view,arch_db:sms_sg.course_tree_view
 msgid "Course Tree"
-msgstr ""
+msgstr "Árbol Curso"
 
 #. module: sms_sg
 #: model:ir.model.fields,field_description:sms_sg.field_sms_sg_sendandlog_create_uid
@@ -61,29 +62,29 @@ msgstr "Última actualización el"
 #. module: sms_sg
 #: model:ir.model.fields,field_description:sms_sg.field_sms_sg_sendandlog_msg
 msgid "Msg"
-msgstr ""
+msgstr "Mensaje"
 
 #. module: sms_sg
 #: model:ir.model.fields,field_description:sms_sg.field_sms_sg_sendandlog_phone
 msgid "Phone"
-msgstr ""
+msgstr "Teléfono"
 
 #. module: sms_sg
 #: model:ir.model.fields,field_description:sms_sg.field_sms_sg_sendandlog_response_content
 msgid "Response content"
-msgstr ""
+msgstr "Contenido respuesta"
 
 #. module: sms_sg
 #: model:ir.ui.menu,name:sms_sg.menu_sms
 msgid "Sms"
-msgstr ""
+msgstr "SMS"
 
 #. module: sms_sg
 #: model:ir.actions.act_window,name:sms_sg.action_view_smslog
 msgid "Sms log"
-msgstr ""
+msgstr "Registro de SMS"
 
 #. module: sms_sg
 #: model:ir.model,name:sms_sg.model_sms_sg_sendandlog
 msgid "sms_sg.sendandlog"
-msgstr ""
+msgstr "sms_sg.sendandlog"
