@@ -4,12 +4,13 @@
 # 
 # Translators:
 # Randall <randall_castro@me.com>, 2018
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-30 21:57+0000\n"
-"PO-Revision-Date: 2018-04-30 21:57+0000\n"
+"PO-Revision-Date: 2017-11-30 07:15+0000\n"
 "Last-Translator: Randall <randall_castro@me.com>, 2018\n"
 "Language-Team: Spanish (Costa Rica) (https://www.transifex.com/it-projects-llc/teams/76080/es_CR/)\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +32,7 @@ msgstr ""
 #: code:addons/web_debranding/static/src/xml/web.xml:24
 #, python-format
 msgid "Developer mode"
-msgstr "Modo desarrollador"
+msgstr ""
 
 #. module: web_debranding
 #. openerp-web
@@ -39,43 +40,43 @@ msgstr "Modo desarrollador"
 #: code:addons/web_debranding/static/src/js/user_menu.js:20
 #, python-format
 msgid "Developer mode is already activated"
-msgstr "El modo desarrollador ya se encuentra activado"
+msgstr ""
 
 #. module: web_debranding
 #: model:ir.model,name:web_debranding.model_mail_message
 msgid "Message"
-msgstr "Mensaje"
+msgstr ""
 
 #. module: web_debranding
 #: model:ir.model,name:web_debranding.model_web_planner
 msgid "Planner"
-msgstr "Planificador"
+msgstr ""
 
 #. module: web_debranding
 #: code:addons/web_debranding/models/ir_config_parameter.py:5
 #: code:addons/web_debranding/models/ir_config_parameter.py:6
 #, python-format
 msgid "Software"
-msgstr "Software"
+msgstr ""
 
 #. module: web_debranding
 #. openerp-web
 #: code:addons/web_debranding/static/src/xml/web.xml:5
 #, python-format
 msgid "Your permission is required to"
-msgstr "Se requieren permisos para"
+msgstr ""
 
 #. module: web_debranding
 #. openerp-web
 #: code:addons/web_debranding/static/src/xml/web.xml:6
 #, python-format
 msgid "enable desktop notifications"
-msgstr "Habilitar notificaciones de escritorio"
+msgstr ""
 
 #. module: web_debranding
 #: model:ir.model,name:web_debranding.model_ir_actions_act_window
 msgid "ir.actions.act_window"
-msgstr "ir.actions.act_window"
+msgstr ""
 
 #. module: web_debranding
 #: model:ir.model,name:web_debranding.model_ir_config_parameter
@@ -85,7 +86,7 @@ msgstr "ir.config_parameter"
 #. module: web_debranding
 #: model:ir.model,name:web_debranding.model_ir_translation
 msgid "ir.translation"
-msgstr "ir.translation"
+msgstr ""
 
 #. module: web_debranding
 #: model:ir.model,name:web_debranding.model_ir_ui_view
@@ -95,4 +96,4 @@ msgstr ""
 #. module: web_debranding
 #: model:ir.model,name:web_debranding.model_publisher_warranty_contract
 msgid "publisher_warranty.contract"
-msgstr "publisher_warranty.contract"
+msgstr ""

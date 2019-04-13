@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Randall <randall_castro@me.com>, 2018
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
@@ -53,7 +53,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:ir_attachment_s3.field_theme_kit_config_s3_bucket
 #: model:ir.ui.view,arch_db:ir_attachment_s3.res_config_settings_view_form
 msgid "S3 bucket name"
-msgstr "Nombre Bucket S3"
+msgstr ""
 
 #. module: ir_attachment_s3
 #: model:ir.model.fields,field_description:ir_attachment_s3.field_res_config_settings_s3_condition
@@ -61,7 +61,7 @@ msgstr "Nombre Bucket S3"
 #: model:ir.model.fields,field_description:ir_attachment_s3.field_theme_kit_config_s3_condition
 #: model:ir.ui.view,arch_db:ir_attachment_s3.res_config_settings_view_form
 msgid "S3 condition"
-msgstr "Condición S3"
+msgstr ""
 
 #. module: ir_attachment_s3
 #: model:ir.model.fields,field_description:ir_attachment_s3.field_res_config_settings_s3_secret_key
@@ -69,7 +69,7 @@ msgstr "Condición S3"
 #: model:ir.model.fields,field_description:ir_attachment_s3.field_theme_kit_config_s3_secret_key
 #: model:ir.ui.view,arch_db:ir_attachment_s3.res_config_settings_view_form
 msgid "S3 secret key"
-msgstr "LLave secreta S3"
+msgstr ""
 
 #. module: ir_attachment_s3
 #: model:ir.actions.act_window,name:ir_attachment_s3.ir_attachment_s3_config_settings_action
@@ -83,8 +83,6 @@ msgid ""
 "Some of the S3 connection credentials are missing.\n"
 " Don't forget to click the ``[Apply]`` button after any changes you've made"
 msgstr ""
-"Faltan algunas de las credenciales de conexión al S3.\n"
-"No olvide hacer clic en el botón `` [Aplicar] `` después de cualquier cambio que haya realizado"
 
 #. module: ir_attachment_s3
 #: model:ir.model.fields,help:ir_attachment_s3.field_res_config_settings_s3_condition
@@ -95,14 +93,11 @@ msgid ""
 "                               e.g. [('res_model', 'in', ['product.image'])] -- store data of product.image only.\n"
 "                               Empty condition means all models"
 msgstr ""
-"Especifique el dominio de odoo de búsqueda válido aquí,\n"
-"p.ej. [('res_model', 'in', ['product.image'])] -- almacena datos de product.image solamente.\n"
-"Condición vacía significa todos los modelos"
 
 #. module: ir_attachment_s3
 #: model:ir.ui.view,arch_db:ir_attachment_s3.res_config_settings_view_form
 msgid "Upload existing attachments"
-msgstr "Cargar adjuntos existentes"
+msgstr ""
 
 #. module: ir_attachment_s3
 #: model:ir.model.fields,help:ir_attachment_s3.field_res_config_settings_s3_bucket
