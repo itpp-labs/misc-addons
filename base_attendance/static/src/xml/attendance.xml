@@ -44,13 +44,13 @@
                             <h2>Please enter your PIN to check in</h2>
                         </t>
                         <div class="row">
-                            <div class="col-sm-8 col-sm-offset-2">
+                            <div class="col-8 offset-2">
                                 <div class="row" >
-                                    <div class="col-xs-4 col-xs-offset-4"><input class="o_hr_attendance_PINbox" type="password" disabled="true"/></div>
+                                    <div class="col-4 offset-4"><input class="o_hr_attendance_PINbox" type="password" disabled="true"/></div>
                                 </div>
                                 <div class="row o_hr_attendance_pin_pad">
                                     <t t-foreach="['1', '2', '3', '4', '5', '6', '7', '8', '9', 'C', '0', 'ok']" t-as="btn_name">
-                                        <div class="col-xs-4 o_hr_attendance_pin_pad_border">
+                                        <div class="col-4 o_hr_attendance_pin_pad_border">
                                             <a t-attf-class="btn btn-primary btn-block btn-lg o_hr_attendance_btn-round-corners {{ 'o_hr_attendance_pin_pad_button_' + btn_name }}"><t t-esc="btn_name"/></a>
                                         </div>
                                     </t>
