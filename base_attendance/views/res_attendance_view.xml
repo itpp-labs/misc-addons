@@ -130,7 +130,7 @@
         <field name="model_id" ref="model_res_partner_attendance"/>
         <field name="state">code</field>
         <field name="code">
-hex_scanner_is_used = model.env["ir.config_parameter"].get_param("base_attendance.hex_scanner_is_used",default=False)
+hex_scanner_is_used = model.env["ir.config_parameter"].sudo().get_param("base_attendance.hex_scanner_is_used",default=False)
 action = {
     'type': 'ir.actions.client',
     'tag': 'base_attendance_kiosk_mode',
@@ -273,11 +273,11 @@ action = {
 
     <menuitem id="menu_hr_attendance_view_attendances" name="Attendances" parent="menu_hr_attendance_manage_attendances" sequence="10" groups="base_attendance.group_res_attendance" action="hr_attendance_action"/>
 
-    <menuitem id="menu_hr_attendance_view_partners_kanban" name="Partners" parent="menu_hr_attendance_manage_attendances" sequence="15" groups="base_attendance.group_hr_attendance_user" action="base.action_partner_form"/>
+    <menuitem id="menu_hr_attendance_view_partners_kanban" name="Partners" parent="menu_hr_attendance_manage_attendances" sequence="15" groups="base_attendance.group_hr_attendance_manager" action="base.action_partner_form"/>
 
-    <menuitem id="menu_hr_attendance_kiosk_mode" name="Kiosk Mode" parent="menu_hr_attendance_manage_attendances" sequence="20" groups="base_attendance.group_hr_attendance_user" action="hr_attendance_action_kiosk_mode"/>
+    <menuitem id="menu_hr_attendance_kiosk_mode" name="Kiosk Mode" parent="menu_hr_attendance_manage_attendances" sequence="20" groups="base_attendance.group_hr_attendance_manager" action="hr_attendance_action_kiosk_mode"/>
 
-    <menuitem id="menu_hr_attendance_report" name="Reports" parent="menu_base_attendance_root" sequence="30" groups="base_attendance.group_hr_attendance_user" action="hr_attendance_action_graph"/>
+    <menuitem id="menu_hr_attendance_report" name="Reports" parent="menu_base_attendance_root" sequence="30" groups="base_attendance.group_hr_attendance_manager" action="hr_attendance_action_graph"/>
 
     <!--IR CRON-->
 

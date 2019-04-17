@@ -4,7 +4,6 @@
 
 from datetime import datetime
 from odoo import models, fields, api, exceptions, _
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 import logging
 
 _logger = logging.getLogger(__name__)
