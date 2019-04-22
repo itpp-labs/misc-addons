@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
+# Copyright 2017 Ilmir Karamov <https://it-projects.info/team/ilmir-k>
+# Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
+# License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).
 {
     "name": """Project Task To-Do List""",
     "summary": """Use To-Do List to be ensure that all your tasks are performed and to make easy control over them""",
     "category": """Project Management""",
     "images": ['images/todolist_main.png'],
-    "version": "1.0.0",
+    "version": "8.0.1.1.0",
     "application": False,
 
     "author": "IT-Projects LLC, Manaev Rafael",
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info",
-    "license": "GPL-3",
+    "license": "LGPL-3",
     "price": 69.00,
     "currency": "EUR",
 

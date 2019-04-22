@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!-- Copyright 2017 Ilmir Karamov <https://it-projects.info/team/ilmir-k>
+     Copyright 2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+     Copyright 2017 manawi <https://github.com/manawi>
+     License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html). -->
 <openerp>
   <data>
     <record id="subtasks_subtype" model="mail.message.subtype">

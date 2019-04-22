@@ -21,6 +21,8 @@ Features:
  * default filter: "My", "TODO"
  * optional group by: "Project", "Task", "User", "State"
 
+* Added group "Allow edit others tasks"
+
 Credits
 =======
 

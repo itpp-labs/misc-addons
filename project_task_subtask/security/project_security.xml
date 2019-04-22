@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!-- Copyright 2017 Ilmir Karamov <https://it-projects.info/team/ilmir-k>
+     Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
+     License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html). -->
  <openerp>
-   <data>
+   <data noupdate="1">
+
+        <record id="project_subtask_rule" model="res.groups">
+            <field name="name">Allow edit others tasks</field>
+            <field name="category_id" ref="base.module_category_usability"/>
+            <field name="comment">The user will have access to edit others tasks.</field>
+        </record>
 
    </data>
  </openerp>
