@@ -6,7 +6,7 @@
 # Randall <randall_castro@me.com>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-30 21:57+0000\n"
 "PO-Revision-Date: 2018-04-30 21:57+0000\n"
@@ -533,13 +533,8 @@ msgid "Left Panel Hover Item Font Active"
 msgstr ""
 
 #. module: theme_kit
-#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_main_menu_active
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_menu_active
 msgid "Left Panel Main Menu Active"
-msgstr ""
-
-#. module: theme_kit
-#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_sub_menu_active
-msgid "Left Panel Sub Menu Active"
 msgstr ""
 
 #. module: theme_kit
@@ -577,13 +572,13 @@ msgid "Logo"
 msgstr ""
 
 #. module: theme_kit
-#: model:ir.model.fields,help:theme_kit.field_theme_kit_left_panel_left_panel_main_menu
-#: model:ir.model.fields,help:theme_kit.field_theme_kit_left_panel_left_panel_main_menu_active
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_left_panel_left_panel_menu
+#: model:ir.model.fields,help:theme_kit.field_theme_kit_left_panel_left_panel_menu_active
 msgid "Main Menu Font colo for Left Menu Bar"
 msgstr ""
 
 #. module: theme_kit
-#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_main_menu
+#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_menu
 msgid "Main Menu Font color"
 msgstr ""
 
@@ -676,17 +671,6 @@ msgstr ""
 #: model:ir.model.fields,help:theme_kit.field_theme_kit_content_content_statusbar_font_color
 #: model:ir.model.fields,help:theme_kit.field_theme_kit_content_content_statusbar_font_color_active
 msgid "Status Bar Font color"
-msgstr ""
-
-#. module: theme_kit
-#: model:ir.model.fields,help:theme_kit.field_theme_kit_left_panel_left_panel_sub_menu
-#: model:ir.model.fields,help:theme_kit.field_theme_kit_left_panel_left_panel_sub_menu_active
-msgid "Sub Menu Font colo for Left Menu Bar"
-msgstr ""
-
-#. module: theme_kit
-#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_sub_menu
-msgid "Sub Menu Font color"
 msgstr ""
 
 #. module: theme_kit

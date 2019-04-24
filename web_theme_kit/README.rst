@@ -28,7 +28,7 @@ Maintainers
 -----------
 * `IT-Projects LLC <https://it-projects.info>`__
 
-      To get a guaranteed support you are kindly requested to purchase the module at `odoo apps store <https://apps.odoo.com/apps/modules/11.0/theme_kit/>`__.
+      To get a guaranteed support you are kindly requested to purchase the module at `odoo apps store <https://apps.odoo.com/apps/modules/12.0/theme_kit/>`__.
 
       Thank you for understanding!
 
@@ -37,12 +37,12 @@ Maintainers
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/misc-addons/11.0
+Demo: http://runbot.it-projects.info/demo/misc-addons/12.0
 
-HTML Description: https://apps.odoo.com/apps/modules/11.0/theme_kit/
+HTML Description: https://apps.odoo.com/apps/modules/12.0/theme_kit/
 
 Usage instructions: `<doc/index.rst>`_
 
 Changelog: `<doc/changelog.rst>`_
 
-Tested on Odoo 11.0 88ccc406035297210cadd5c6278f6f813899001e
+Tested on Odoo 12.0 530f364547af1cc4ccfa9baa66cd70e564bc62cb
