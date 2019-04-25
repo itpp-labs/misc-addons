@@ -24,7 +24,7 @@ class BaseConfigSettings(models.TransientModel):
         config_parameters = self.env["ir.config_parameter"].sudo()
         for record in self:
             config_parameters.set_param("base_attendance.shift_autocheckout",
-                                                      record.shift_autocheckout or '0')
+                                        record.shift_autocheckout or '0')
             config_parameters.set_param("base_attendance.hex_scanner_is_used", record.hex_scanner_is_used)
         self.checkout_shifts()
 
