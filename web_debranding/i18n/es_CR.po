@@ -31,7 +31,7 @@ msgstr ""
 #: code:addons/web_debranding/static/src/xml/web.xml:24
 #, python-format
 msgid "Developer mode"
-msgstr ""
+msgstr "Modo desarrollador"
 
 #. module: web_debranding
 #. openerp-web
@@ -39,43 +39,43 @@ msgstr ""
 #: code:addons/web_debranding/static/src/js/user_menu.js:20
 #, python-format
 msgid "Developer mode is already activated"
-msgstr ""
+msgstr "El modo desarrollador ya se encuentra activado"
 
 #. module: web_debranding
 #: model:ir.model,name:web_debranding.model_mail_message
 msgid "Message"
-msgstr ""
+msgstr "Mensaje"
 
 #. module: web_debranding
 #: model:ir.model,name:web_debranding.model_web_planner
 msgid "Planner"
-msgstr ""
+msgstr "Planificador"
 
 #. module: web_debranding
 #: code:addons/web_debranding/models/ir_config_parameter.py:5
 #: code:addons/web_debranding/models/ir_config_parameter.py:6
 #, python-format
 msgid "Software"
-msgstr ""
+msgstr "Software"
 
 #. module: web_debranding
 #. openerp-web
 #: code:addons/web_debranding/static/src/xml/web.xml:5
 #, python-format
 msgid "Your permission is required to"
-msgstr ""
+msgstr "Se requieren permisos para"
 
 #. module: web_debranding
 #. openerp-web
 #: code:addons/web_debranding/static/src/xml/web.xml:6
 #, python-format
 msgid "enable desktop notifications"
-msgstr ""
+msgstr "Habilitar notificaciones de escritorio"
 
 #. module: web_debranding
 #: model:ir.model,name:web_debranding.model_ir_actions_act_window
 msgid "ir.actions.act_window"
-msgstr ""
+msgstr "ir.actions.act_window"
 
 #. module: web_debranding
 #: model:ir.model,name:web_debranding.model_ir_config_parameter
@@ -85,7 +85,7 @@ msgstr "ir.config_parameter"
 #. module: web_debranding
 #: model:ir.model,name:web_debranding.model_ir_translation
 msgid "ir.translation"
-msgstr ""
+msgstr "ir.translation"
 
 #. module: web_debranding
 #: model:ir.model,name:web_debranding.model_ir_ui_view
@@ -95,4 +95,4 @@ msgstr ""
 #. module: web_debranding
 #: model:ir.model,name:web_debranding.model_publisher_warranty_contract
 msgid "publisher_warranty.contract"
-msgstr ""
+msgstr "publisher_warranty.contract"

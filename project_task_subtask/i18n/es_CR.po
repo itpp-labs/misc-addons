@@ -22,44 +22,44 @@ msgstr ""
 #: model:mail.message.subtype,name:project_task_subtask.all_subtask_subtype
 #: model:mail.message.subtype,name:project_task_subtask.subtasks_subtype
 msgid "All checklist updates"
-msgstr ""
+msgstr "Todas las actualizaciones de la lista de verificación"
 
 #. module: project_task_subtask
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_user_id
 msgid "Assigned to"
-msgstr ""
+msgstr "Asignado a"
 
 #. module: project_task_subtask
 #: selection:project.task.subtask,state:0
 msgid "Cancelled"
-msgstr ""
+msgstr "Cancelado"
 
 #. module: project_task_subtask
 #: model:ir.ui.view,arch_db:project_task_subtask.view_task_form2
 msgid "Change state to CANCELLED"
-msgstr ""
+msgstr "Cambiar estado a CANCELADO"
 
 #. module: project_task_subtask
 #: model:ir.ui.view,arch_db:project_task_subtask.view_task_form2
 msgid "Change state to DONE"
-msgstr ""
+msgstr "Cambiar estado a TERMINADO"
 
 #. module: project_task_subtask
 #: model:ir.ui.view,arch_db:project_task_subtask.view_task_form2
 msgid "Change state to TODO"
-msgstr ""
+msgstr "Cambiar estado a POR HACER"
 
 #. module: project_task_subtask
 #: model:ir.ui.view,arch_db:project_task_subtask.view_task_form2
 msgid "Change state to WAITING"
-msgstr ""
+msgstr "Cambiar estado a ESPERANDO"
 
 #. module: project_task_subtask
 #: model:ir.actions.act_window,name:project_task_subtask.action_view_subtask
 #: model:ir.ui.menu,name:project_task_subtask.menu_action_view_subtask
 #: model:ir.ui.view,arch_db:project_task_subtask.view_task_form2
 msgid "Checklist"
-msgstr ""
+msgstr "Lista de Verificación"
 
 #. module: project_task_subtask
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_create_uid
@@ -74,7 +74,7 @@ msgstr "Creado en"
 #. module: project_task_subtask
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_deadline
 msgid "Deadline"
-msgstr ""
+msgstr "Tiempo Entrega"
 
 #. module: project_task_subtask
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_default_user
@@ -85,7 +85,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_name
 #: model:ir.ui.view,arch_db:project_task_subtask.project_task_subtask_view_search
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
 #. module: project_task_subtask
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_display_name
@@ -95,17 +95,17 @@ msgstr "Mostrar Nombre"
 #. module: project_task_subtask
 #: selection:project.task.subtask,state:0
 msgid "Done"
-msgstr ""
+msgstr "Terminado"
 
 #. module: project_task_subtask
 #: model:ir.ui.view,arch_db:project_task_subtask.project_task_subtask_view_search
 msgid "Filter"
-msgstr ""
+msgstr "Filtro"
 
 #. module: project_task_subtask
 #: model:ir.ui.view,arch_db:project_task_subtask.project_task_subtask_view_search
 msgid "Group By"
-msgstr ""
+msgstr "Agrupar por"
 
 #. module: project_task_subtask
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_hide_button
@@ -140,7 +140,7 @@ msgstr "Última Actualización en"
 #. module: project_task_subtask
 #: model:ir.ui.view,arch_db:project_task_subtask.project_task_subtask_view_search
 msgid "My"
-msgstr ""
+msgstr "Mi"
 
 #. module: project_task_subtask
 #: code:addons/project_task_subtask/models/project_task_subtask.py:60
@@ -148,6 +148,7 @@ msgstr ""
 #, python-format
 msgid "Only users related to that subtask can change state."
 msgstr ""
+"Sólo los usuarios relacionados a la sub tarea pueden cambiarla de estado"
 
 #. module: project_task_subtask
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_project_id_2779
@@ -158,22 +159,22 @@ msgstr ""
 #. module: project_task_subtask
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_recolor
 msgid "Recolor"
-msgstr ""
+msgstr "Cambiar Color"
 
 #. module: project_task_subtask
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_reviewer_id
 msgid "Reviewer"
-msgstr ""
+msgstr "Revisado Por"
 
 #. module: project_task_subtask
 #: model:ir.ui.view,arch_db:project_task_subtask.project_task_subtask_view_search
 msgid "State"
-msgstr ""
+msgstr "Estado"
 
 #. module: project_task_subtask
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_state
 msgid "Status"
-msgstr ""
+msgstr "Estatus"
 
 #. module: project_task_subtask
 #: model:mail.message.subtype,description:project_task_subtask.all_subtask_subtype
@@ -182,22 +183,25 @@ msgid ""
 "Subscribe to checklist updates of other users. By default you are notified "
 "on checklist items to and from you only."
 msgstr ""
+"Suscríbete a las actualizaciones de la lista de verificación de otros "
+"usuarios. De forma predeterminada, se le notifica solo en los elementos de "
+"la lista de verificación."
 
 #. module: project_task_subtask
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_ids
 msgid "Subtask"
-msgstr ""
+msgstr "Sub tarea"
 
 #. module: project_task_subtask
 #: model:ir.ui.view,arch_db:project_task_subtask.view_id
 msgid "Subtask Message"
-msgstr ""
+msgstr "Mensaje Sub tarea"
 
 #. module: project_task_subtask
 #: model:ir.ui.view,arch_db:project_task_subtask.project_task_subtask_view_search
 #: selection:project.task.subtask,state:0
 msgid "TODO"
-msgstr ""
+msgstr "Por Hacer"
 
 #. module: project_task_subtask
 #: model:ir.model,name:project_task_subtask.model_project_task
@@ -207,36 +211,26 @@ msgid "Task"
 msgstr ""
 
 #. module: project_task_subtask
-#: model:ir.ui.view,arch_db:project_task_subtask.view_task_form2
-msgid "Task Work"
-msgstr ""
-
-#. module: project_task_subtask
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_task_state
 msgid "Task state"
-msgstr ""
+msgstr "Estado tarea"
 
 #. module: project_task_subtask
 #: model:project.task.subtask,task_state:project_task_subtask.project_task_subtask_1
 msgid "To Do"
-msgstr ""
+msgstr "Por Hacer"
 
 #. module: project_task_subtask
 #: model:ir.ui.view,arch_db:project_task_subtask.project_task_subtask_view_search
 msgid "User"
-msgstr ""
+msgstr "Usuario"
 
 #. module: project_task_subtask
 #: selection:project.task.subtask,state:0
 msgid "Waiting"
-msgstr ""
+msgstr "Esperando"
 
 #. module: project_task_subtask
 #: model:ir.model,name:project_task_subtask.model_project_task_subtask
 msgid "project.task.subtask"
-msgstr ""
-
-#. module: project_task_subtask
-#: model:ir.ui.view,arch_db:project_task_subtask.subtask_list_view
-msgid "subtask_list_form"
-msgstr ""
+msgstr "project.task.subtask"

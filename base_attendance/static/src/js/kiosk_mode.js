@@ -8,6 +8,7 @@ var AbstractAction = require('web.AbstractAction');
 var ajax = require('web.ajax');
 var core = require('web.core');
 var Session = require('web.session');
+var local_storage = require('web.local_storage');
 
 var QWeb = core.qweb;
 
@@ -16,6 +17,26 @@ var KioskMode = AbstractAction.extend({
         "click .o_hr_attendance_button_partners": function(){
             this.do_action('base_attendance.res_partner_action_kanban_view');
         },
+    },
+
+    init: function (parent, action) {
+        action.target = 'fullscreen';
+        var hex_scanner_is_used = action.context.hex_scanner_is_used;
+        if (typeof hex_scanner_is_used === 'undefined') {
+            hex_scanner_is_used = this.get_from_storage('hex_scanner_is_used') || false;
+        } else {
+            this.save_locally('hex_scanner_is_used', Boolean(hex_scanner_is_used));
+        }
+        this.hex_scanner_is_used = hex_scanner_is_used;
+        this._super(parent, action);
+    },
+
+    save_locally: function(key, value) {
+        local_storage.setItem('est.' + key, JSON.stringify(value));
+    },
+
+    get_from_storage: function(key) {
+        return JSON.parse(local_storage.getItem('est.' + key));
     },
 
     start: function () {
@@ -39,10 +60,17 @@ var KioskMode = AbstractAction.extend({
 
     _onBarcodeScanned: function(barcode) {
         var self = this;
+        var res_barcode = barcode;
+        if (this.hex_scanner_is_used) {
+            res_barcode = parseInt(barcode, 16).toString();
+            if (res_barcode.length % 2) {
+                res_barcode = '0' + res_barcode;
+            }
+        }
         this._rpc({
                 model: 'res.partner',
                 method: 'attendance_scan',
-                args: [barcode, ],
+                args: [res_barcode, ],
             }).then(function (result) {
                 if (result.action) {
                     self.do_action(result.action);
@@ -55,7 +83,7 @@ var KioskMode = AbstractAction.extend({
     start_clock: function() {
         this.clock_start = setInterval(function() {
             this.$(".o_hr_attendance_clock").text(new Date().toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'}));
-        }, 700);
+        }, 900);
         // First clock refresh before interval to avoid delay
         this.$(".o_hr_attendance_clock").text(new Date().toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'}));
     },

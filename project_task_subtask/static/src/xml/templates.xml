@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).-->
+<template xml:space="preserve">
+    <t t-name="SubtaskSortButtons">
+        <button aria-label="Sort" class="btn btn-sm btn-primary o_pager_sort" type="button">Sort</button>
+        <button aria-label="Unsort" class="btn btn-sm btn-default o_pager_unsort" type="button">Unsort</button>
+    </t>
+
+</template>

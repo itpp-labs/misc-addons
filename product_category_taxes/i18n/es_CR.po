@@ -3,14 +3,15 @@
 # * product_category_taxes
 # 
 # Translators:
-# Randall <randall_castro@me.com>, 2018
+# Randall <randall_castro@me.com>, 2019
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-09 17:52+0000\n"
-"PO-Revision-Date: 2018-05-09 17:52+0000\n"
-"Last-Translator: Randall <randall_castro@me.com>, 2018\n"
+"PO-Revision-Date: 2017-06-23 13:43+0000\n"
+"Last-Translator: Randall <randall_castro@me.com>, 2019\n"
 "Language-Team: Spanish (Costa Rica) (https://www.transifex.com/it-projects-llc/teams/76080/es_CR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,12 +22,12 @@ msgstr ""
 #. module: product_category_taxes
 #: model:ir.model.fields,field_description:product_category_taxes.field_product_category_taxes_id
 msgid "Customer Taxes"
-msgstr ""
+msgstr "Impuestos Cliente"
 
 #. module: product_category_taxes
 #: model:ir.model,name:product_category_taxes.model_product_category
 msgid "Product Category"
-msgstr ""
+msgstr "Categoría Producto"
 
 #. module: product_category_taxes
 #: model:ir.model,name:product_category_taxes.model_product_template
@@ -36,17 +37,17 @@ msgstr "Plantilla Producto"
 #. module: product_category_taxes
 #: model:ir.model.fields,field_description:product_category_taxes.field_product_category_product_template_ids
 msgid "Products Templates"
-msgstr ""
+msgstr "Plantillas de Productos"
 
 #. module: product_category_taxes
 #: model:ir.ui.view,arch_db:product_category_taxes.product_category_taxes_form
 msgid "Taxes"
-msgstr ""
+msgstr "Impuestos"
 
 #. module: product_category_taxes
 #: model:ir.model.fields,field_description:product_category_taxes.field_product_category_supplier_taxes_id
 msgid "Vendor Taxes"
-msgstr ""
+msgstr "Impuestos Proveedor"
 
 #. module: product_category_taxes
 #: model:ir.model.fields,help:product_category_taxes.field_product_category_taxes_id
@@ -54,6 +55,8 @@ msgid ""
 "When you set the product category for your product, these taxes will be "
 "copied to the product customer taxes."
 msgstr ""
+"Cuando configure la categoría de producto para su producto, estos impuestos "
+"se copiarán a los impuestos del cliente del producto."
 
 #. module: product_category_taxes
 #: model:ir.model.fields,help:product_category_taxes.field_product_category_supplier_taxes_id
@@ -61,3 +64,5 @@ msgid ""
 "When you set the product category for your product, these taxes will be "
 "copied to the product vendor taxes."
 msgstr ""
+"Cuando configure la categoría de producto para su producto, estos impuestos "
+"se copiarán a los impuestos del proveedor del producto."

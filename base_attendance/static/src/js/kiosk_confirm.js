@@ -69,7 +69,7 @@ var KioskConfirm = AbstractAction.extend({
             this._rpc({
                     model: 'res.partner',
                     method: 'attendance_manual',
-                    args: [[this.partner], this.next_action, this.$('.o_hr_attendance_PINbox').val()],
+                    args: [[self.partner_id], this.next_action, this.$('.o_hr_attendance_PINbox').val()],
                 }).then(function(result) {
                     if (result.action) {
                         self.do_action(result.action);
@@ -105,7 +105,7 @@ var KioskConfirm = AbstractAction.extend({
     start_clock: function () {
         this.clock_start = setInterval(function() {
             this.$(".o_hr_attendance_clock").text(new Date().toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'}));
-        }, 500);
+        }, 900);
         // First clock refresh before interval to avoid delay
         this.$(".o_hr_attendance_clock").text(new Date().toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'}));
     },

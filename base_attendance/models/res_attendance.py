@@ -1,8 +1,12 @@
 # Copyright (c) 2004-2015 Odoo S.A.
-# Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+# Copyright 2018-2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
+from datetime import datetime
 from odoo import models, fields, api, exceptions, _
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class HrAttendance(models.Model):
@@ -95,7 +99,7 @@ class HrAttendance(models.Model):
                 ], order='check_in desc', limit=1)
                 if last_attendance_before_check_out and last_attendance_before_check_in != last_attendance_before_check_out:
                     raise exceptions.ValidationError(_("Cannot create new attendance record for %(partner_name)s, the partner was already checked in on %(datetime)s") % {
-                        'partner_name': attendance.partner.name,
+                        'partner_name': attendance.partner_id.name,
                         'datetime': fields.Datetime.to_string(fields.Datetime.context_timestamp(self, fields.Datetime.from_string(last_attendance_before_check_out.check_in))),
                     })
 
@@ -105,3 +109,14 @@ class HrAttendance(models.Model):
         # [W8106(method-required-super), HrAttendance.copy] Missing `super` call in "copy" method.
         super(HrAttendance, self).copy()
         raise exceptions.UserError(_('You cannot duplicate an attendance.'))
+
+    @api.multi
+    def autocheckout_close_shifts(self):
+        max_interval = float(self.env["ir.config_parameter"].get_param("base_attendance.shift_autocheckout", default=0))
+        if max_interval:
+            shifts = self.search([('check_out', '=', False)]).filtered(
+                lambda x: (datetime.today() - x.check_in).total_seconds() / 3600 >= max_interval / 60)
+            _logger.info("partner session autologout for: %s, interval: %s", shifts.ids, max_interval)
+            shifts.write({
+                'check_out': fields.Datetime.now(),
+            })

@@ -20,7 +20,6 @@
         'access_settings_menu',
     ],
     'data': [
-        'security/ir.model.access.csv',
         'data.xml',
         'views.xml',
         'js.xml',
