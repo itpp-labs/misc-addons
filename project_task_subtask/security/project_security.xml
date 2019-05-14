@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-
- <openerp>
-   <data>
+<!--Copyright 2017 Karamov Ilmir <https://it-projects.info/team/ilmir-k>
+    License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). -->
+ <odoo>
 
      <!-- <record model="ir.rule" id="project_description_subtask_rule"> -->
      <!--   <field name="name">Project: only reviewer can change description</field> -->
@@ -34,5 +34,4 @@
      <!--   <field name="domain_force">[('uid','!=','reviewer_id')]</field> -->
      <!-- </record> -->
 
-   </data>
- </openerp>
+ </odoo>

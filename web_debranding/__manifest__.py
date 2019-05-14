@@ -6,7 +6,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 {
     'name': "Backend debranding",
-    'version': '12.0.1.0.26',
+    'version': '12.0.1.0.27',
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'LGPL-3',
     'category': 'Debranding',
@@ -20,7 +20,6 @@
         'access_settings_menu',
     ],
     'data': [
-        'security/ir.model.access.csv',
         'data.xml',
         'views.xml',
         'js.xml',
