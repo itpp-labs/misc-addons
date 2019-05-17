@@ -2,15 +2,11 @@
    :target: https://www.gnu.org/licenses/lgpl
    :alt: License: LGPL-3
 
-============================
- Pad on Leads\Opportunities
-============================
+======================================
+ Pad support in Lead's Internal notes
+======================================
 
-Adds a pad to the lead in CRM to the description tab.
-
-Allows to collaborative edit internal notes and saves the change history.
-
-This module can add padding to the text inside the pad widget in other modules.
+This module allows collaborative editing with *html support* in Lead's Internal notes and maintains the versions history.
 
 Credits
 =======
