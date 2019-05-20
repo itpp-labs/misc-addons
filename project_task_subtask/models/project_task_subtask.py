@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
-
+# Copyright 2017 Ilmir Karamov <https://it-projects.info/team/ilmir-k>
+# Copyright 2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2017 manawi <https://github.com/manawi>
+# Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
+# License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).
 from openerp import models, fields, api
 from openerp.tools import html_escape as escape
 from openerp.exceptions import Warning as UserError
@@ -34,8 +38,13 @@ class ProjectTaskSubtask(models.Model):
 
     @api.multi
     def _compute_hide_button(self):
+        group = self.env.ref('project_task_subtask.project_subtask_rule')
         for record in self:
-            if self.env.user not in [record.reviewer_id, record.user_id]:
+            if self.env.user in [record.reviewer_id, record.user_id]:
+                record.hide_button = False
+            elif group in self.env.user.groups_id:
+                record.hide_button = False
+            else:
                 record.hide_button = True
 
     @api.multi
@@ -53,17 +62,20 @@ class ProjectTaskSubtask(models.Model):
     def write(self, vals):
         old_names = dict(zip(self.mapped('id'), self.mapped('name')))
         result = super(ProjectTaskSubtask, self).write(vals)
-        for r in self:
+        group = self.env.ref('project_task_subtask.project_subtask_rule')
+        for subtask in self:
             if vals.get('state'):
-                r.task_id.send_subtask_email(r.name, r.state, r.reviewer_id.id, r.user_id.id)
-                if self.env.user != r.reviewer_id and self.env.user != r.user_id:
-                    raise UserError(_('Only users related to that subtask can change state.'))
+                subtask.task_id.send_subtask_email(subtask.name, subtask.state, subtask.reviewer_id.id, subtask.user_id.id)
+                if self.env.user != subtask.reviewer_id and self.env.user != subtask.user_id and group not in self.env.user.groups_id:
+                    raise UserError(_('Only users related to that subtask or users with special rights can change state.'))
             if vals.get('name'):
-                r.task_id.send_subtask_email(r.name, r.state, r.reviewer_id.id, r.user_id.id, old_name=old_names[r.id])
-                if self.env.user != r.reviewer_id and self.env.user != r.user_id:
-                    raise UserError(_('Only users related to that subtask can change state.'))
+                subtask.task_id.send_subtask_email(subtask.name, subtask.state, subtask.reviewer_id.id, subtask.user_id.id, old_name=old_names[subtask.id])
+                if self.env.user != subtask.reviewer_id and self.env.user != subtask.user_id and group not in self.env.user.groups_id:
+                    raise UserError(_('Only users related to that subtask or users with special rights can change state.'))
             if vals.get('user_id'):
-                r.task_id.send_subtask_email(r.name, r.state, r.reviewer_id.id, r.user_id.id)
+                subtask.task_id.send_subtask_email(subtask.name, subtask.state, subtask.reviewer_id.id, subtask.user_id.id)
+                if self.env.user != subtask.reviewer_id and group not in self.env.user.groups_id:
+                    raise UserError(_('Only reviewer of this subtask or users with special rights can change executor.'))
         return result
 
     @api.model
@@ -164,11 +176,15 @@ class Task(models.Model):
                 body = '<p>' + escape(user.name) + ', <br><strong>' + state + '</strong>: ' + escape(subtask_name)
                 partner_ids = [user.partner_id.id]
             elif self.env.user == user:
-                body = '<p>' + escape(reviewer.name) + ', <em style="color:#999">I updated checklist item assigned to me:</em> <br><strong>' + state + '</strong>: ' + escape(subtask_name)
+                body = '<p>' + escape(reviewer.name) + ', <em style="color:#999">I updated To-Do List item assigned to me:</em> <br><strong>' + state + '</strong>: ' + escape(subtask_name)
                 partner_ids = [reviewer.partner_id.id]
             else:
-                body = '<p>' + escape(user.name) + ', ' + escape(reviewer.name) + ', <em style="color:#999">I updated checklist item, now its assigned to ' + escape(user.name) + ': </em> <br><strong>' + state + '</strong>: ' + escape(subtask_name)
-                partner_ids = [user.partner_id.id, reviewer.partner_id.id]
+                if user.id == reviewer.id:
+                    body = '<p>' + escape(reviewer.name) + ', <em style="color:#999">I updated Subtask assigned to ' + escape(user.name) + ': </em> <br><strong>' + state + '</strong>: ' + escape(subtask_name)
+                    partner_ids = [user.partner_id.id]
+                else:
+                    body = '<p>' + escape(reviewer.name) + ', ' + escape(user.name) + ', <em style="color:#999">I updated Subtask assigned to ' + escape(user.name) + ': </em> <br><strong>' + state + '</strong>: ' + escape(subtask_name)
+                    partner_ids = [user.partner_id.id, reviewer.partner_id.id]
             if old_name:
                 body = body + '<br><em style="color:#999">Updated from</em><br><strong>' + state + '</strong>: ' + escape(old_name) + '</p>'
             else:

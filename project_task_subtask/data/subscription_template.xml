@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!-- Copyright 2017 Ilmir Karamov <https://it-projects.info/team/ilmir-k>
+     Copyright 2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+     Copyright 2017 manawi <https://github.com/manawi>
+     License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html). -->
 <openerp>
   <data>
     <record id="subtasks_subtype" model="mail.message.subtype">
-      <field name="name">All checklist updates</field>
+      <field name="name">All To-Do List updates</field>
       <field name="res_model">project.task</field>
-      <field name="description">Subscribe to checklist updates of other users. By default you are notified on checklist items to and from you only.</field>
+      <field name="description">Subscribe to To-Do List updates of other users. By default you are notified on To-Do List items to and from you only.</field>
       <field name="default" eval="False"/>
     </record>
 
     <record id="all_subtask_subtype" model="mail.message.subtype">
-    <field name="name">All checklist updates</field>
-    <field name="description">Subscribe to checklist updates of other users. By default you are notified on checklist items to and from you only.</field>
+    <field name="name">All To-Do List updates</field>
+    <field name="description">Subscribe to To-Do List updates of other users. By default you are notified on To-Do List items to and from you only.</field>
     <field name="sequence">10</field>
     <field name="res_model">project.project</field>
     <field name="parent_id" eval="ref('subtasks_subtype')"/>
