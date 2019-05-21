@@ -42,6 +42,6 @@ Usage instructions: `<doc/index.rst>`_
 
 Changelog: `<doc/changelog.rst>`_
 
-Notifications on updates: `via Atom <https://github.com/it-projects-llc/addons-dev/commits/12.0/pad_crm.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/it-projects-llc/addons-dev/commits/12.0/pad_crm.atom>`_
+Notifications on updates: `via Atom <https://github.com/it-projects-llc/misc-addons/commits/12.0/pad_crm.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/it-projects-llc/misc-addons/commits/12.0/pad_crm.atom>`_
 
 Tested on Odoo 12.0 a54b65bbb2f582136b0a358a4a576d3c38b0369e
