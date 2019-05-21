@@ -1,6 +1,6 @@
 import datetime
-from openerp import http
-from openerp.http import request
+from odoo import http
+from odoo.http import request
 
 
 class TimelogController(http.Controller):
@@ -33,16 +33,14 @@ class TimelogController(http.Controller):
         # 1. get common time of current work (current day)
         log_timer = 0
         if timelogs and timelogs[0].start_datetime is not False:
-            date_object = datetime.datetime.strptime(timelogs[0].start_datetime, "%Y-%m-%d %H:%M:%S")
-            if date_object.day == datetime.datetime.now().day:
+            if timelogs[0].start_datetime.day == datetime.datetime.now().day:
                 log_timer = int(round(subtask.unit_amount * 3600, 0))
 
         timer_status = False
         if timelogs and timelogs[-1].end_datetime is False:
             timer_status = True
-            start_datetime = datetime.datetime.strptime(timelogs[-1].start_datetime, "%Y-%m-%d %H:%M:%S")
             end_datetime = datetime.datetime.now()
-            current_time = (end_datetime - start_datetime).total_seconds()
+            current_time = (end_datetime - timelogs[-1].start_datetime).total_seconds()
             log_timer = int(round(current_time, 0)) + log_timer
 
         # 2. All time in current task for current user
@@ -79,15 +77,13 @@ class TimelogController(http.Controller):
         week_timer = 0
         today = datetime.datetime.today()
 
-        first_weekday = config.get_param("project_timelog.first_weekday")
-
+        first_weekday = config.sudo().get_param("project_timelog.first_weekday")
         if first_weekday == 'monday':
             first_day_of_week = today - datetime.timedelta(datetime.datetime.weekday(today))
             last_day_of_week = today + datetime.timedelta(6 - datetime.datetime.weekday(today))
         elif first_weekday == 'sunday':
             first_day_of_week = today - datetime.timedelta(1 + datetime.datetime.weekday(today))
             last_day_of_week = today + datetime.timedelta(5 - datetime.datetime.weekday(today))
-
         timelog_this_week = timelog_obj.search([("user_id", "=", user.id), ("start_datetime", ">=", first_day_of_week.strftime('%Y-%m-%d 00:00:00')), ("start_datetime", "<=", last_day_of_week.strftime('%Y-%m-%d 23:59:59'))])
         if timelog_this_week:
             week_work_ids = []
@@ -128,19 +124,17 @@ class TimelogController(http.Controller):
 
         timer_stopline = False
         if task.datetime_stopline:
-            stopline_date = datetime.datetime.strptime(task.datetime_stopline, "%Y-%m-%d %H:%M:%S")
-            if stopline_date <= datetime.datetime.today():
+            if task.datetime_stopline <= datetime.datetime.today():
                 timer_stopline = True
 
         # get configs for timer
-        time_subtasks = int(round(float(config.get_param("project_timelog.time_subtasks"))*convert_sec, 0))
+        time_subtasks = int(round(float(config.sudo().get_param("project_timelog.time_subtasks"))*convert_sec, 0))
         time_warning_subtasks = time_subtasks - int(
-            round(float(config.get_param("project_timelog.time_warning_subtasks")) * convert_sec, 0))
-        normal_time_day = int(round(float(config.get_param("project_timelog.normal_time_day")) * convert_sec, 0))
-        good_time_day = int(round(float(config.get_param("project_timelog.good_time_day")) * convert_sec, 0))
-        normal_time_week = int(round(float(config.get_param("project_timelog.normal_time_week")) * convert_sec, 0))
-        good_time_week = int(round(float(config.get_param("project_timelog.good_time_week")) * convert_sec, 0))
-
+            round(float(config.sudo().get_param("project_timelog.time_warning_subtasks")) * convert_sec, 0))
+        normal_time_day = int(round(float(config.sudo().get_param("project_timelog.normal_time_day")) * convert_sec, 0))
+        good_time_day = int(round(float(config.sudo().get_param("project_timelog.good_time_day")) * convert_sec, 0))
+        normal_time_week = int(round(float(config.sudo().get_param("project_timelog.normal_time_week")) * convert_sec, 0))
+        good_time_week = int(round(float(config.sudo().get_param("project_timelog.good_time_week")) * convert_sec, 0))
         end_datetime_status = True
         if timelogs and timelogs[-1].end_datetime is False:
             end_datetime_status = False

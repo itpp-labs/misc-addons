@@ -1,40 +1,40 @@
 odoo.define('project_timelog.timelog', function(require){
 
-    var bus = require('bus.bus');
+    var bus = require('web.Bus');
     var session = require('web.session');
     var Widget = require('web.Widget');
     var WebClient = require('web.WebClient');
-    var Model = require('web.Model');
+    var ServiceProviderMixin = require('web.ServiceProviderMixin');
+    var AbstractWebClient = require('web.AbstractWebClient');
+    var rpc = require('web.rpc');
     var core = require('web.core');
     var _t = core._t;
-    var ActionManager = require('web.ActionManager');
     var TimeLog = {};
-
-    // prevent bus to be started by chat_manager.js
-    bus.ERROR_DELAY = 10000;
-    // fake value to ignore start_polling call
-    bus.bus.activated = true;
+    var Menu = require('web.Menu');
 
 
-    WebClient.include({
-       show_application: function() {
-           var timelog_widget = new TimeLog.TimelogWidget(this);
-           timelog_widget.appendTo(this.$el.parents().find('.oe_timelog_placeholder'));
-           this._super();
+    Menu.include({
+       start: function() {
+            var res = this._super();
+            this.timelog_widget = new TimeLog.Widget(this);
+            return res;
        }
     });
-    TimeLog.Manager = Widget.extend({
+
+    TimeLog.Manager = Widget.extend(ServiceProviderMixin, {
         init: function (widget) {
             this._super();
+            this.bus = ServiceProviderMixin.services.bus_service;
+            this.bus._isActive = null;
+            var channel = JSON.stringify([session.db,"project.timelog",String(session.uid)]);
+            this.bus.addChannel(channel);
+            this.bus.onNotification(this, this.on_notification);
+            var is_master = this.bus._isMasterTab;
+            this.bus._isMasterTab = true;
+            this.bus.startPolling();
+            this.bus._isMasterTab = is_master;
             this.stopline_audio_stop = true;
             this.widget = widget;
-            var channel = JSON.stringify([session.db,"project.timelog",String(session.uid)]);
-
-            this.bus = bus.bus;
-            this.bus.add_channel(channel);
-            this.bus.on("notification", this, this.on_notification);
-            this.bus.activated = false;
-            this.bus.start_polling();
         },
         on_notification: function (notification) {
             for (var i = 0; i < notification.length; i++) {
@@ -71,7 +71,7 @@ odoo.define('project_timelog.timelog', function(require){
                     this.widget.change_audio("stop");
                 }
                 if (message.play_a_sound && !this.widget.stopline) {
-                    $('#clock0').css('color','rgb(152, 152, 152)');
+                    $('#clock0').css('color','rgb(197, 197, 197)');
                 } else if (this.widget.stopline) {
                     $('#clock0').css('color','red');
                 }
@@ -105,7 +105,7 @@ odoo.define('project_timelog.timelog', function(require){
         },
     });
 
-    TimeLog.TimelogWidget = Widget.extend({
+    TimeLog.Widget = Widget.extend(ServiceProviderMixin, {
         init: function(parent){
             this._super(parent);
             var self = this;
@@ -242,7 +242,7 @@ odoo.define('project_timelog.timelog', function(require){
 
             if (!color) {
                 if (this.status === 'stopped') {
-                    color = "gray";
+                    color = "rgb(197, 197, 197)";
                 } else {
                     color = "white";
                 }
@@ -288,8 +288,11 @@ odoo.define('project_timelog.timelog', function(require){
             if (this.finish_status) {
                 return false;
             }
-            var model = new Model('account.analytic.line');
-            model.call("stop_timer", [this.config.work_id, true, false]).then(function(){
+            rpc.query({
+                model: 'account.analytic.line',
+                method: 'stop_timer',
+                args: [this.config.work_id, true, false],
+            }).then(function(){
                 self.finish_status = true;
                 var element = document.getElementById("clock0");
                 self.startAnim(element, 500, 10*500);
@@ -417,18 +420,26 @@ odoo.define('project_timelog.timelog', function(require){
             if (this.finish_status) {
                 return false;
             }
-            var model_subtask = new Model('account.analytic.line');
+            var action = false;
             if (this.status === "running") {
-                model_subtask.call("stop_timer", [this.config.work_id]);
-                $('#clock0').css('color','gray');
+                action = 'stop_timer';
             } else if (this.status === "stopped") {
-                model_subtask.call("play_timer", [this.config.work_id]);
-                $('#clock0').css('color','white');
+                action = 'play_timer';
             }
+            rpc.query({
+                model: 'account.analytic.line',
+                method: action,
+                args: [this.config.work_id],
+            }).then(function(){
+                if (action === 'stop_timer') {
+                    $('#clock0').css('color','rgb(197, 197, 197)');
+                } else if (action === 'play_timer') {
+                    $('#clock0').css('color','white');
+                }
+            });
         },
         go_to: function(event, status) {
             var id = this.config.task_id;
-            var parent = this.getParent();
             var action = false;
             var context = false;
             if (status === 'task') {
@@ -475,23 +486,13 @@ odoo.define('project_timelog.timelog', function(require){
                     }
                 };
             }
-            parent.action_manager.do_action(action);
+            this.do_action(action);
         },
         show_notify_message: function(message) {
-            var sticky = false;
-            var parent = this.getParent();
-            parent.action_manager.do_notify(_t('Notification'), message, sticky);
+            this.do_notify(_t('Notification'), message, false);
         },
         show_warn_message: function(message){
-            var sticky = false;
-            var parent = this.getParent();
-            parent.action_manager.do_warn(_t('Warning'), message, sticky);
+            this.do_warn(_t('Warning'), message, false);
         }
     });
-    function WarnMessage (parent, action) {
-        var params = action.params || {};
-        parent.do_warn(params.title, params.text);
-    }
-    core.action_registry.add("action_warn", WarnMessage);
-    return TimeLog;
 });

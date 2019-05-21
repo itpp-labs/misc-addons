@@ -1,9 +1,9 @@
 import datetime
-from openerp import models, fields, api
-from openerp.exceptions import Warning as UserError
-from openerp.tools.translate import _
-from openerp.addons.bus.models.bus_presence import AWAY_TIMER
-from openerp.addons.bus.models.bus_presence import DISCONNECTION_TIMER
+from odoo import models, fields, api
+from odoo.exceptions import Warning as UserError
+from odoo.tools.translate import _
+from odoo.addons.bus.models.bus_presence import AWAY_TIMER
+from odoo.addons.bus.models.bus_presence import DISCONNECTION_TIMER
 
 
 class ProjectTimelog(models.Model):
@@ -11,17 +11,17 @@ class ProjectTimelog(models.Model):
     _description = "project timelog"
     _rec_name = 'work_id'
 
-    work_id = fields.Many2one("account.analytic.line", "Task", required=True, index=True)
+    work_id = fields.Many2one("account.analytic.line", "Sub Task", required=True, index=True)
     task_name = fields.Char(related='work_id.task_id.name', store=True)
-    task_id = fields.Many2one(related='work_id.task_id')
+    task_id = fields.Many2one(related='work_id.task_id', string="Task")
     work_name = fields.Char(related='work_id.name', store=True)
     project_name = fields.Char(related='work_id.task_id.project_id.name', store=True)
     start_datetime = fields.Datetime(string="Start date", default=datetime.datetime.now())
     end_datetime = fields.Datetime(string="End date")
-    end_datetime_active = fields.Datetime(string="End date", help="End tate. Equal to now if timer is not stopped yet.", compute="_compute_end_datetime_active")
+    end_datetime_active = fields.Datetime(string="Timer End date", help="End date. Equal to now if timer is not stopped yet.", compute="_compute_end_datetime_active")
     duration = fields.Float(string="Duration", compute="_compute_duration", store=True)
     corrected_duration = fields.Float(string="Corrected duration", compute="_compute_corrected_duration", store=True)
-    corrected_duration_active = fields.Float(string="Corrected duration", store="True")
+    corrected_duration_active = fields.Float(string="Timer Corrected duration", store="True")
     user_id = fields.Many2one("res.users", string="User name", index=True)
     stage_id = fields.Many2one("project.task.type", string="Stage")
     time_correction = fields.Float('Time Correction', default=0.00)
@@ -102,8 +102,7 @@ class Task(models.Model):
     def clear_stopline_datetime(self):
         tasks = self.env["project.task"].search(["datetime_stopline", "!=", False])
         for task in tasks:
-            datetime_stopline = datetime.datetime.strptime(task.datetime_stopline, "%Y-%m-%d %H:%M:%S")
-            if datetime_stopline.day < datetime.datetime.today().day:
+            if task.datetime_stopline.day < datetime.datetime.today().day:
                 task.write({"datetime_stopline": False})
 
     @api.model
@@ -113,13 +112,12 @@ class Task(models.Model):
             task = u.active_task_id
             if task.datetime_stopline is False:
                 return False
-            stopline_date = datetime.datetime.strptime(task.datetime_stopline, "%Y-%m-%d %H:%M:%S")
-            if stopline_date <= datetime.datetime.today():
+            if task.datetime_stopline <= datetime.datetime.today():
                 u.active_work_id.sudo(u).stop_timer(play_a_sound=False, stopline=True)
                 if u.active_work_id.status is not 'nonactive':
                     u.active_work_id.sudo(u).write({'status': 'nonactive'})
             else:
-                warning_time = stopline_date - datetime.timedelta(minutes=20)
+                warning_time = task.datetime_stopline - datetime.timedelta(minutes=20)
                 notifications = []
                 time = {
                     'year': warning_time.year,
@@ -156,7 +154,7 @@ class Task(models.Model):
                     if existing_work.user_id.id == w.user_id.id:
                         new_work = existing_work
                         if new_work.timelog_ids[0].end_datetime is not False:   # there are timelogs yesterday
-                            date_object = datetime.datetime.strptime(new_work.timelog_ids[0].end_datetime, "%Y-%m-%d %H:%M:%S")
+                            date_object = new_work.timelog_ids[0].end_datetime
                             if date_object is not False and date_object.day != current_date.day:
                                 subtask_name = str(current_date.day) + '.' + str(current_date.month) + '.' + str(current_date.year) + ' ' + w.name
                     else:
@@ -211,13 +209,13 @@ class Users(models.Model):
         for r in status:
             r.active_work_id.sudo(r).stop_timer(play_a_sound=False)
         user = self.search([("active_work_id.status", "=", "play")])
-        time_subtask = int(round(float(self.env["ir.config_parameter"].get_param('project_timelog.time_subtasks'))*3600, 0))
+        time_subtask = int(round(float(self.env["ir.config_parameter"].sudo().get_param('project_timelog.time_subtasks'))*3600, 0))
         for u in user:
             all_timelog = u.active_work_id.timelog_ids
             sum_time = datetime.timedelta(0)
             for id in all_timelog:
-                date_start_object = datetime.datetime.strptime(id.start_datetime, "%Y-%m-%d %H:%M:%S")
-                date_end_object = id.end_datetime and datetime.datetime.strptime(id.end_datetime, "%Y-%m-%d %H:%M:%S") or datetime.datetime.now()
+                date_start_object = id.start_datetime
+                date_end_object = id.end_datetime or datetime.datetime.now()
                 sum_time = sum_time + (date_end_object-date_start_object)
             sum_time = int(round(sum_time.total_seconds(), 0))
             if sum_time >= time_subtask:
@@ -239,15 +237,11 @@ class AccountAnalyticLine(models.Model):
     status = fields.Char(string="Status", default="active")
     task_allow_logs = fields.Boolean(related='stage_id.allow_log_time', readonly=True)
     user_current = fields.Boolean(compute="_compute_user_current", default=True)
-    project_id = fields.Many2one(readonly=True, related='task_id.project_id', store=True)
-
+    unit_amount_computed = fields.Float(string='Time Spent', compute="_compute_unit_amount", default=0)
+    combined_name = fields.Char('Task and Summary', compute="_compute_combined_name")
     _sql_constraints = [
         ('name_task_uniq', 'unique (name,stage_id,task_id)', 'The name of the subtask must be unique per stage!')
     ]
-
-    unit_amount_computed = fields.Float(string='Time Spent', compute="_compute_unit_amount", default=0)
-
-    combined_name = fields.Char('Task and Summary', compute="_compute_combined_name")
 
     @api.multi
     def _compute_combined_name(self):
@@ -319,13 +313,12 @@ class AccountAnalyticLine(models.Model):
 
         datetime_stopline = project_task.datetime_stopline
         if datetime_stopline is not False and self.task_id.id == self.env.user.active_task_id:
-            stopline_date = datetime.datetime.strptime(datetime_stopline, "%Y-%m-%d %H:%M:%S")
-            if stopline_date <= datetime.datetime.now():
+            if datetime_stopline <= datetime.datetime.now():
                 return self.show_warning_message(title=_("Error."),
                                                  message=_("Unable to create logs until it is modified or deleted stopline."))
         stage = project_task.stage_id.id
         corrected_duration = self.env["project.timelog"].search([("work_id", "=", self.id), ("user_id", "=", self.env.user.id)])
-        config = self.env["ir.config_parameter"].get_param("project_timelog.time_subtasks")
+        config = self.env["ir.config_parameter"].sudo().get_param("project_timelog.time_subtasks")
 
         sum_timelog = 0.0
         if corrected_duration and config:
@@ -340,8 +333,7 @@ class AccountAnalyticLine(models.Model):
         first_timelog = self.env["project.timelog"].search([("work_id", "=", self.id)])
 
         if first_timelog and first_timelog[0].end_datetime is not False:
-            date_object = datetime.datetime.strptime(first_timelog[0].end_datetime, "%Y-%m-%d %H:%M:%S")
-            if date_object is not False and date_object.day != current_date.day:
+            if first_timelog[0].end_datetime is not False and first_timelog[0].end_datetime.day != current_date.day:
                 # there are timelogs yesterday
                 return self.show_warning_message(title=_("Error."),
                                                  message=_("Yesterday's timelogs."))
