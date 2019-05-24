@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).
 #
 #
 #    OpenERP, Open Source Management Solution

@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+# Copyright 2014-2016 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2015 s0x90 <https://github.com/s0x90>
+# Copyright 2016 x620 <https://github.com/x620>
+# Copyright 2016 manawi <https://github.com/manawi>
+# Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
+# License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).
 #
 #
 #    OpenERP, Open Source Management Solution
@@ -19,28 +25,28 @@
 #
 #
 
-from openerp import fields, models
+
+from odoo import fields, models
 
 
 class ProjectProject(models.Model):
     _inherit = "project.project"
 
-        # restricted field. Allowed group members only.
+    # restricted field. Allowed group members only.
     description = fields.Text('description', groups="project_description.group_access_to_project_description")
-
 
 
 class AccountAnalyticAccount(models.Model):
     _inherit = 'account.analytic.account'
 
-    def name_get(self, cr, uid, ids, context=None):
+    def name_get(self):
         res = []
-        if not ids:
+        if not self.ids:
             return res
-        if isinstance(ids, (int, long)):
-            ids = [ids]
-        for id in ids:
-            elmt = self.browse(cr, uid, id, context=context)
+        if isinstance(self.ids, (int, long)):
+            self.ids = [self.ids]
+        for id in self.ids:
+            elmt = self.browse(id)
             res.append((id, elmt.name))
         return res
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Copyright 2015 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    Copyright 2015 s0x90 <https://github.com/s0x90>
+    License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).-->
 <openerp>
 <data noupdate="0">
 <record id="group_access_to_project_description" model="res.groups">
