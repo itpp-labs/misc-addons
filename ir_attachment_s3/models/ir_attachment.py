@@ -41,7 +41,7 @@ class IrAttachment(models.Model):
 
     @api.multi
     def unlink(self):
-        resized_ids = self.resized_ids
+        resized_ids = self.mapped('resized_ids')
         super(IrAttachment, self).unlink()
         return resized_ids.unlink() if resized_ids else True
 
@@ -107,9 +107,14 @@ class IrAttachment(models.Model):
         for attach in self & s3_records:  # datas field has got empty somehow in the result of ``s3_records = self.sudo().search([('id', 'in', self.ids)] + condition)`` search for non-superusers but it is in original recordset. Here we use original (with datas) in case it intersects with the search result
             resized_to_remove |= attach.sudo().resized_ids
             value = attach.datas
+            if attach.res_field == 'image_medium':
+                value = tools.image_resize_image(base64_source=attach.datas, size=(128, 128),
+                                                 encoding='base64', filetype='PNG')
+            elif attach.res_field == 'image_small':
+                value = tools.image_resize_image(base64_source=attach.datas, size=(64, 64),
+                                                 encoding='base64', filetype='PNG')
             bin_data = value and value.decode('base64') or ''
             fname = hashlib.sha1(bin_data).hexdigest()
-
             bucket_name = self._get_s3_settings('s3.bucket', 'S3_BUCKET')
             try:
                 s3.Bucket(bucket_name).put_object(
@@ -158,6 +163,7 @@ class IrAttachment(models.Model):
     def _set_resized_to_cache(self, width, height, field=None):
         content = self.datas
         content = tools.image_resize_image(base64_source=content, size=(width or None, height or None), encoding='base64', filetype='PNG')
+
         new_resized_attachment_data = {
             'name': '%sx%s %s' % (width, height, self.name),
             'datas': content,
@@ -165,7 +171,7 @@ class IrAttachment(models.Model):
         if field:
             new_resized_attachment_data.update({
                 'res_model': self.res_model,
-                'res_field': field,
+                'res_field': self.res_field,
                 'res_id': self.res_id,
             })
         context = self._get_context_for_resized_att_creating()
