@@ -1,23 +1,17 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * web_debranding
+#	* web_debranding
 #
-# Translators:
-# Randall <randall_castro@me.com>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-30 21:57+0000\n"
-"PO-Revision-Date: 2018-04-30 21:57+0000\n"
-"Last-Translator: Randall <randall_castro@me.com>, 2018\n"
-"Language-Team: Spanish (Costa Rica) (https://www.transifex.com/it-projects-"
-"llc/teams/76080/es_CR/)\n"
-"Language: es_CR\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: \n"
 
 #. module: web_debranding
 #. openerp-web
@@ -42,7 +36,7 @@ msgstr ""
 #: code:addons/web_debranding/static/src/xml/web.xml:27
 #, python-format
 msgid "Developer mode"
-msgstr "Modo desarrollador"
+msgstr ""
 
 #. module: web_debranding
 #. openerp-web
@@ -50,7 +44,7 @@ msgstr "Modo desarrollador"
 #: code:addons/web_debranding/static/src/js/user_menu.js:42
 #, python-format
 msgid "Developer mode is already activated"
-msgstr "El modo desarrollador ya se encuentra activado"
+msgstr ""
 
 #. module: web_debranding
 #: selection:res.users,odoobot_state:0
@@ -65,7 +59,7 @@ msgstr ""
 #. module: web_debranding
 #: model:ir.model,name:web_debranding.model_mail_message
 msgid "Message"
-msgstr "Mensaje"
+msgstr ""
 
 #. module: web_debranding
 #: selection:res.users,odoobot_state:0
@@ -101,16 +95,15 @@ msgstr ""
 
 #. module: web_debranding
 #: model:ir.model,name:web_debranding.model_publisher_warranty_contract
-#, fuzzy
 msgid "Publisher Warranty Contract"
-msgstr "publisher_warranty.contract"
+msgstr ""
 
 #. module: web_debranding
 #: code:addons/web_debranding/models/ir_config_parameter.py:12
 #: code:addons/web_debranding/models/ir_config_parameter.py:13
 #, python-format
 msgid "Software"
-msgstr "Software"
+msgstr ""
 
 #. module: web_debranding
 #: model:ir.model,name:web_debranding.model_ir_config_parameter
@@ -119,9 +112,8 @@ msgstr ""
 
 #. module: web_debranding
 #: model:ir.model,name:web_debranding.model_ir_translation
-#, fuzzy
 msgid "Translation"
-msgstr "ir.translation"
+msgstr ""
 
 #. module: web_debranding
 #: model:ir.model,name:web_debranding.model_res_users
@@ -145,20 +137,12 @@ msgstr ""
 #: code:addons/web_debranding/static/src/xml/web.xml:8
 #, python-format
 msgid "Your permission is required to"
-msgstr "Se requieren permisos para"
+msgstr ""
 
 #. module: web_debranding
 #. openerp-web
 #: code:addons/web_debranding/static/src/xml/web.xml:9
 #, python-format
 msgid "enable desktop notifications"
-msgstr "Habilitar notificaciones de escritorio"
+msgstr ""
 
-#~ msgid "Planner"
-#~ msgstr "Planificador"
-
-#~ msgid "ir.actions.act_window"
-#~ msgstr "ir.actions.act_window"
-
-#~ msgid "ir.config_parameter"
-#~ msgstr "ir.config_parameter"
