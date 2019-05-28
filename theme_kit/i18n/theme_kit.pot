@@ -1,23 +1,17 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * theme_kit
+#	* theme_kit
 #
-# Translators:
-# Translation Bot <i18n-bot@it-projects.info>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-20 23:53+0000\n"
-"PO-Revision-Date: 2018-04-20 23:53+0000\n"
-"Last-Translator: Translation Bot <i18n-bot@it-projects.info>, 2018\n"
-"Language-Team: French (https://www.transifex.com/it-projects-llc/teams/76080/"
-"fr/)\n"
-"Language: fr\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: \n"
 
 #. module: theme_kit
 #: model:ir.ui.view,arch_db:theme_kit.view_config
@@ -41,25 +35,18 @@ msgstr ""
 
 #. module: theme_kit
 #: model:ir.ui.view,arch_db:theme_kit.view_config
-msgid ""
-"<em>[System Name]</em> Warning - Warning<br/>\n"
-"                                                            You can not "
-"remove the admin user as it is used internally for resources created by "
-"<em>[System Name]</em> (updates, module installation, ...)"
+msgid "<em>[System Name]</em> Warning - Warning<br/>\n"
+"                                                            You can not remove the admin user as it is used internally for resources created by <em>[System Name]</em> (updates, module installation, ...)"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.ui.view,arch_db:theme_kit.view_config
-msgid ""
-"<em>[System Name]</em> has now the permission to send you native "
-"notifications on this device."
+msgid "<em>[System Name]</em> has now the permission to send you native notifications on this device."
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.ui.view,arch_db:theme_kit.view_config
-msgid ""
-"<em>[System Name]</em> helps you easily track all activities related to a "
-"customer; discussions, history of business opportunities, documents, etc."
+msgid "<em>[System Name]</em> helps you easily track all activities related to a customer; discussions, history of business opportunities, documents, etc."
 msgstr ""
 
 #. module: theme_kit
@@ -105,8 +92,7 @@ msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,help:theme_kit.field_theme_kit_config_page_title
-msgid ""
-"Anything you want to see in page title, e.g.\n"
+msgid "Anything you want to see in page title, e.g.\n"
 "* CompanyName\n"
 "* CompanyName's Portal\n"
 "* CompanyName's Operation System\n"
@@ -347,7 +333,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_theme_create_uid
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_create_uid
 msgid "Created by"
-msgstr "Créé par"
+msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_config_create_date
@@ -356,7 +342,7 @@ msgstr "Créé par"
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_theme_create_date
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_create_date
 msgid "Created on"
-msgstr "Créé le"
+msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_theme_custom_css
@@ -390,7 +376,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_theme_display_name
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_display_name
 msgid "Display Name"
-msgstr "Nom affiché"
+msgstr ""
 
 #. module: theme_kit
 #: model:ir.ui.view,arch_db:theme_kit.view_config
@@ -409,9 +395,7 @@ msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,help:theme_kit.field_theme_kit_config_company_logo
-msgid ""
-"Due to browser cache, old logo may be still shown. To fix that, clear "
-"browser cache"
+msgid "Due to browser cache, old logo may be still shown. To fix that, clear browser cache"
 msgstr ""
 
 #. module: theme_kit
@@ -480,7 +464,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_theme_id
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_config___last_update
@@ -489,7 +473,7 @@ msgstr "ID"
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_theme___last_update
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel___last_update
 msgid "Last Modified on"
-msgstr "Dernière Modification le"
+msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_config_write_uid
@@ -498,7 +482,7 @@ msgstr "Dernière Modification le"
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_theme_write_uid
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_write_uid
 msgid "Last Updated by"
-msgstr "Dernière mise à jour par"
+msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_config_write_date
@@ -507,7 +491,7 @@ msgstr "Dernière mise à jour par"
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_theme_write_date
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_write_date
 msgid "Last Updated on"
-msgstr "Dernière mise à jour le"
+msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_active_item_bg_active
@@ -623,11 +607,11 @@ msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,help:theme_kit.field_theme_kit_config_new_documentation_website
-msgid ""
-"Replaces links to documentation to custom website e.g.\n"
+msgid "Replaces links to documentation to custom website e.g.\n"
 "* \"Help\" in Import tool\n"
 "* \"How-to\" in paypal\n"
 "* etc.\n"
+""
 msgstr ""
 
 #. module: theme_kit
@@ -782,8 +766,7 @@ msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,help:theme_kit.field_theme_kit_config_system_name
-msgid ""
-"e.g.\n"
+msgid "e.g.\n"
 "* CompanyName's Portal\n"
 "* CompanyName's Operation System\n"
 "* etc.\n"
@@ -840,5 +823,3 @@ msgstr ""
 msgid "theme_kit.top_panel"
 msgstr ""
 
-#~ msgid "or"
-#~ msgstr "ou"
