@@ -1,24 +1,17 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * project_task_subtask
+#	* project_task_subtask
 #
-# Translators:
-# Translation Bot <i18n-bot@it-projects.info>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-24 07:50+0000\n"
-"PO-Revision-Date: 2017-07-24 07:50+0000\n"
-"Last-Translator: Translation Bot <i18n-bot@it-projects.info>, 2017\n"
-"Language-Team: Slovenian (https://www.transifex.com/it-projects-llc/"
-"teams/76080/sl/)\n"
-"Language: sl\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
-"%100==4 ? 2 : 3);\n"
+"Plural-Forms: \n"
 
 #. module: project_task_subtask
 #: model:mail.message.subtype,name:project_task_subtask.all_subtask_subtype
@@ -77,12 +70,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_create_uid
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_reviewer_id
 msgid "Created by"
-msgstr "Ustvaril"
+msgstr ""
 
 #. module: project_task_subtask
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_create_date
 msgid "Created on"
-msgstr "Ustvarjeno"
+msgstr ""
 
 #. module: project_task_subtask
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_deadline
@@ -128,7 +121,7 @@ msgstr ""
 #. module: project_task_subtask
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: project_task_subtask
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_kanban_subtasks
@@ -143,12 +136,12 @@ msgstr ""
 #. module: project_task_subtask
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_write_uid
 msgid "Last Updated by"
-msgstr "Zadnjič posodobil"
+msgstr ""
 
 #. module: project_task_subtask
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_write_date
 msgid "Last Updated on"
-msgstr "Zadnjič posodobljeno"
+msgstr ""
 
 #. module: project_task_subtask
 #: model:ir.ui.view,arch_db:project_task_subtask.project_task_subtask_view_search
@@ -193,9 +186,7 @@ msgstr ""
 #. module: project_task_subtask
 #: model:mail.message.subtype,description:project_task_subtask.all_subtask_subtype
 #: model:mail.message.subtype,description:project_task_subtask.subtasks_subtype
-msgid ""
-"Subscribe to checklist updates of other users. By default you are notified "
-"on checklist items to and from you only."
+msgid "Subscribe to checklist updates of other users. By default you are notified on checklist items to and from you only."
 msgstr ""
 
 #. module: project_task_subtask
@@ -219,7 +210,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_task_id
 #: model:ir.ui.view,arch_db:project_task_subtask.project_task_subtask_view_search
 msgid "Task"
-msgstr "Opravilo"
+msgstr ""
 
 #. module: project_task_subtask
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_task_state
@@ -252,3 +243,4 @@ msgstr ""
 #: model:ir.model,name:project_task_subtask.model_project_task_subtask
 msgid "project.task.subtask"
 msgstr ""
+
