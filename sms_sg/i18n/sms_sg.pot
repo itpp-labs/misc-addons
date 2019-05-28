@@ -1,89 +1,80 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * sms_sg
-#
-# Translators:
-# Randall <randall_castro@me.com>, 2019
+#	* sms_sg
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-09 17:52+0000\n"
-"PO-Revision-Date: 2017-06-23 13:44+0000\n"
-"Last-Translator: Randall <randall_castro@me.com>, 2019\n"
-"Language-Team: Spanish (Costa Rica) (https://www.transifex.com/it-projects-"
-"llc/teams/76080/es_CR/)\n"
-"Language: es_CR\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: \n"
 
 #. module: sms_sg
 #: model:ir.model.fields,field_description:sms_sg.field_sms_sg_sendandlog_create_uid
 msgid "Created by"
-msgstr "Creado por"
+msgstr ""
 
 #. module: sms_sg
 #: model:ir.model.fields,field_description:sms_sg.field_sms_sg_sendandlog_create_date
 msgid "Created on"
-msgstr "Creado el"
+msgstr ""
 
 #. module: sms_sg
 #: model:ir.model.fields,field_description:sms_sg.field_sms_sg_sendandlog_display_name
 msgid "Display Name"
-msgstr "Mostrar Nombre"
+msgstr ""
 
 #. module: sms_sg
 #: model:ir.model.fields,field_description:sms_sg.field_sms_sg_sendandlog_id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: sms_sg
 #: model:ir.model.fields,field_description:sms_sg.field_sms_sg_sendandlog___last_update
 msgid "Last Modified on"
-msgstr "Última modificación el"
+msgstr ""
 
 #. module: sms_sg
 #: model:ir.model.fields,field_description:sms_sg.field_sms_sg_sendandlog_write_uid
 msgid "Last Updated by"
-msgstr "Última actualización por"
+msgstr ""
 
 #. module: sms_sg
 #: model:ir.model.fields,field_description:sms_sg.field_sms_sg_sendandlog_write_date
 msgid "Last Updated on"
-msgstr "Última actualización el"
+msgstr ""
 
 #. module: sms_sg
 #: model:ir.model.fields,field_description:sms_sg.field_sms_sg_sendandlog_msg
 msgid "Msg"
-msgstr "Mensaje"
+msgstr ""
 
 #. module: sms_sg
 #: model:ir.model.fields,field_description:sms_sg.field_sms_sg_sendandlog_phone
 msgid "Phone"
-msgstr "Teléfono"
+msgstr ""
 
 #. module: sms_sg
 #: model:ir.model.fields,field_description:sms_sg.field_sms_sg_sendandlog_response_content
 msgid "Response content"
-msgstr "Contenido respuesta"
+msgstr ""
 
 #. module: sms_sg
 #: model:ir.ui.menu,name:sms_sg.menu_sms
 msgid "Sms"
-msgstr "SMS"
+msgstr ""
 
 #. module: sms_sg
 #: model:ir.actions.act_window,name:sms_sg.action_view_smslog
 msgid "Sms log"
-msgstr "Registro de SMS"
+msgstr ""
 
 #. module: sms_sg
 #: model:ir.model,name:sms_sg.model_sms_sg_sendandlog
 msgid "sms_sg.sendandlog"
-msgstr "sms_sg.sendandlog"
+msgstr ""
 
-#~ msgid "Course Tree"
-#~ msgstr "Árbol Curso"
