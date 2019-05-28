@@ -1,0 +1,196 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* web_website
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: web_website
+#. openerp-web
+#: code:addons/web_website/static/src/js/switch_website_menu.js:35
+#, python-format
+msgid "All Websites"
+msgstr ""
+
+#. module: web_website
+#: model:ir.ui.view,arch_db:web_website.view_users_form
+msgid "Allowed Websites"
+msgstr ""
+
+#. module: web_website
+#: model:ir.model.fields,field_description:web_website.field_res_users_backend_website_ids
+msgid "Backend Website"
+msgstr ""
+
+#. module: web_website
+#: model:ir.model.fields,field_description:web_website.field_res_users_backend_websites_count
+msgid "Backend Websites Count"
+msgstr ""
+
+#. module: web_website
+#: model:ir.model.fields,help:web_website.field_res_users_backend_website_ids
+msgid "Computed automatically based on Current Company field"
+msgstr ""
+
+#. module: web_website
+#: model:ir.model.fields,field_description:web_website.field_test_company_dependent_create_uid
+#: model:ir.model.fields,field_description:web_website.field_test_website_dependent_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: web_website
+#: model:ir.model.fields,field_description:web_website.field_test_company_dependent_create_date
+#: model:ir.model.fields,field_description:web_website.field_test_website_dependent_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: web_website
+#: model:ir.model.fields,field_description:web_website.field_res_users_backend_website_id
+msgid "Current Backend Website"
+msgstr ""
+
+#. module: web_website
+#: model:ir.ui.view,arch_db:web_website.view_users_form
+msgid "Current Website"
+msgstr ""
+
+#. module: web_website
+#: code:addons/web_website/models/res_users.py:78
+#, python-format
+msgid "Current website doesn't belong to Current Company"
+msgstr ""
+
+#. module: web_website
+#: model:ir.model.fields,field_description:web_website.field_test_company_dependent_display_name
+#: model:ir.model.fields,field_description:web_website.field_test_website_dependent_display_name
+#: model:ir.model.fields,field_description:web_website.field_website_dependent_mixin_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: web_website
+#: model:ir.model.fields,field_description:web_website.field_test_company_dependent_foo
+#: model:ir.model.fields,field_description:web_website.field_test_website_dependent_foo
+msgid "Foo"
+msgstr ""
+
+#. module: web_website
+#: model:ir.model,name:web_website.model_ir_http
+msgid "HTTP routing"
+msgstr ""
+
+#. module: web_website
+#: model:ir.model.fields,field_description:web_website.field_test_company_dependent_id
+#: model:ir.model.fields,field_description:web_website.field_test_website_dependent_id
+#: model:ir.model.fields,field_description:web_website.field_website_dependent_mixin_id
+msgid "ID"
+msgstr ""
+
+#. module: web_website
+#: model:ir.model.fields,field_description:web_website.field_test_company_dependent___last_update
+#: model:ir.model.fields,field_description:web_website.field_test_website_dependent___last_update
+#: model:ir.model.fields,field_description:web_website.field_website_dependent_mixin___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: web_website
+#: model:ir.model.fields,field_description:web_website.field_test_company_dependent_write_uid
+#: model:ir.model.fields,field_description:web_website.field_test_website_dependent_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: web_website
+#: model:ir.model.fields,field_description:web_website.field_test_company_dependent_write_date
+#: model:ir.model.fields,field_description:web_website.field_test_website_dependent_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: web_website
+#: model:ir.model.fields,field_description:web_website.field_res_config_settings_group_multi_website
+#: model:ir.model.fields,field_description:web_website.field_test_config_settings_group_multi_website
+#: model:ir.model.fields,field_description:web_website.field_theme_kit_config_group_multi_website
+#: model:ir.ui.view,arch_db:web_website.res_config_settings_view_form
+msgid "Multi Website for Backend"
+msgstr ""
+
+#. module: web_website
+#: model:ir.ui.view,arch_db:web_website.view_users_form
+msgid "Multi Websites"
+msgstr ""
+
+#. module: web_website
+#: model:res.groups,name:web_website.group_multi_website
+msgid "Multi Websites for Backend"
+msgstr ""
+
+#. module: web_website
+#: model:ir.ui.view,arch_db:web_website.res_config_settings_view_form
+msgid "Multi-website"
+msgstr ""
+
+#. module: web_website
+#: model:ir.model.fields,field_description:web_website.field_test_website_dependent_name
+msgid "Name"
+msgstr ""
+
+#. module: web_website
+#: model:ir.model.fields,help:web_website.field_res_config_settings_group_multi_website
+#: model:ir.model.fields,help:web_website.field_test_config_settings_group_multi_website
+#: model:ir.model.fields,help:web_website.field_theme_kit_config_group_multi_website
+#: model:ir.ui.view,arch_db:web_website.res_config_settings_view_form
+msgid "Show Website Switcher in backend"
+msgstr ""
+
+#. module: web_website
+#: model:ir.model.fields,field_description:web_website.field_test_company_dependent_user_id
+#: model:ir.model.fields,field_description:web_website.field_test_website_dependent_user_id
+msgid "User"
+msgstr ""
+
+#. module: web_website
+#: model:ir.model,name:web_website.model_res_users
+msgid "Users"
+msgstr ""
+
+#. module: web_website
+#: model:ir.model.fields,field_description:web_website.field_ir_property_website_id
+msgid "Website"
+msgstr ""
+
+#. module: web_website
+#: model:ir.ui.view,arch_db:web_website.view_users_form
+msgid "Websites count"
+msgstr ""
+
+#. module: web_website
+#: model:ir.model,name:web_website.model_ir_property
+msgid "ir.property"
+msgstr ""
+
+#. module: web_website
+#: model:ir.model,name:web_website.model_res_config_settings
+msgid "res.config.settings"
+msgstr ""
+
+#. module: web_website
+#: model:ir.model,name:web_website.model_test_company_dependent
+msgid "test.company_dependent"
+msgstr ""
+
+#. module: web_website
+#: model:ir.model,name:web_website.model_test_website_dependent
+msgid "test.website_dependent"
+msgstr ""
+
+#. module: web_website
+#: model:ir.model,name:web_website.model_website_dependent_mixin
+msgid "website_dependent.mixin"
+msgstr ""
+
