@@ -1,28 +1,22 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * product_details
+#	* product_details
 #
-# Translators:
-# Randall <randall_castro@me.com>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-09 17:52+0000\n"
-"PO-Revision-Date: 2018-05-09 17:52+0000\n"
-"Last-Translator: Randall <randall_castro@me.com>, 2018\n"
-"Language-Team: Spanish (Costa Rica) (https://www.transifex.com/it-projects-"
-"llc/teams/76080/es_CR/)\n"
-"Language: es_CR\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: \n"
 
 #. module: product_details
 #: model:ir.model.fields,field_description:product_details.field_product_product_details_model_exists
 msgid "Details Model Exists"
-msgstr "Detalle existente de modelo"
+msgstr ""
 
 #. module: product_details
 #: model:ir.model.fields,field_description:product_details.field_product_product_details_model
@@ -32,7 +26,7 @@ msgstr ""
 #. module: product_details
 #: model:ir.model,name:product_details.model_product_template
 msgid "Product Template"
-msgstr "Plantilla Producto"
+msgstr ""
 
 #. module: product_details
 #: model:ir.model.fields,field_description:product_details.field_product_product_details_model_record
@@ -40,8 +34,3 @@ msgstr "Plantilla Producto"
 msgid "Record"
 msgstr ""
 
-#~ msgid "Detail Model"
-#~ msgstr "Detalle de Modelo"
-
-#~ msgid "Details"
-#~ msgstr "Detalles"
