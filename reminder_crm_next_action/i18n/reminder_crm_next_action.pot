@@ -4,10 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0\n"
+"Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-27 05:13+0000\n"
-"PO-Revision-Date: 2015-06-27 05:13+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,12 +19,12 @@ msgid "Lead/Opportunity"
 msgstr ""
 
 #. module: reminder_crm_next_action
-#: field:crm.lead,reminder_event_id:0
-msgid "Reminder Calendar Event"
+#: model:ir.model.fields,field_description:reminder_crm_next_action.field_crm_lead_reminder_alarm_ids
+msgid "Next Action Reminders"
 msgstr ""
 
 #. module: reminder_crm_next_action
-#: view:crm.lead:reminder_crm_next_action.crm_case_form_view_oppor
+#: model:ir.ui.view,arch_db:reminder_crm_next_action.crm_case_form_view_oppor
 msgid "Reminders"
 msgstr ""
 
