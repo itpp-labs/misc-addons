@@ -2,11 +2,12 @@ language: python
 
 python:
   - "2.7"
-  
+
 sudo: false
 cache: pip
 
 addons:
+  postgresql: "9.5"
   apt:
     packages:
       - expect-dev  # provides unbuffer utility
@@ -14,19 +15,16 @@ addons:
 
 env:
   global:
-  - VERSION="10.0" TESTS="0" LINT_CHECK="0" TRANSIFEX="0" UNIT_TEST="0"
+  - VERSION="10.0" TESTS="0" LINT_CHECK="0" UNIT_TEST="0"
   - PYLINT_ODOO_JSLINTRC="/home/travis/maintainer-quality-tools/travis/cfg/.jslintrc"
-  - TRANSIFEX_USER='i18n-bot@it-projects.info'
-  - secure: "SoW2Blve4jUApyF5UfM5NvGQ6ZV4OH6wMUGbcTemx+dMqNZTyTlUDxmVOFgau7M/igcgmmdYcsxmWKR0n40VSaAvtBKSdL7J3Ad7xVBpC1zq6LLrrDmZUL1pCWQUpl1znxcq72H+VmnllgdewU1703cVce2wUWmByGjEEV/VnIqjUfXfzh28ZL4hMr/Kkstr2MCBHMP2n/LZJqBCa5CWyH2U+gxDhQ3zNKudZbHgdkLWYhGSlnVsqTxsxTLaIcXOdDIesT5JYHByQhqVNAuURZuT9RFq9+GWAcFbc4luGhkRhfoZGa7VOAwEwdYNTIip01xgiChL2GfvBEoi8sPKVY4UNKhkWoU6j7IxVVvXnVVlbflpNhQkLnsZD6Yd4r3ZnD+3o8oOb9H69yOOABlsBb90wwE+XMB2fikftXTNfeKeRLKiAGorTe4jwQoqN9Mbd/aTIXzYeFOJu+zwjoFbp8wY0lGYQm4e7VFkf5cRr7YQ0kYLu8LbwhIGmJVppJhA7tsWncLkHxAZ56Up1+nkw8W4bsetkWuNw+Y5XOIXjfmEJ7nR3kSL3vDHKU5C7M674KVtjmCjabc7Rgs/+iXlf0WFVXlXUOOr/2PHfO3kq8zL3PcrehfHPR70wxPFgu7kw9Nl835Ve4J2yuG01NSJvzNr+pLk9mkVNhLoOiKonmI=" # TRANSIFEX_PASSWORD
   - secure: "XOCxrgoBUfKMZUjixvCt6S9bslkRBOH7Wjd5N9UvH02rbpcKf9jPEvp9g0iJS2HsO52U86H8z9H8Kt5dLerhUuxl6aZKLpftwujgZ2eivsqHN+oFHS9pN8u1G1YLa7pC2JkO4bGlF8phnL+g7+OelBkXJw8tBu2MKfS2t1Qqw5RPYIJfLUHo5kvCal3tiVy0gmMUouGi/jY8bD0TxyzWjC3UA72BcHp9hYg2rNEQhyLgrT51G0TiQ2X6qmGRBQ40+FSvot78xJNJdeYNPHqT77u9C9OWlFqslLd2aEj4P6n9co/MOK/B5GS1VYaQGRYLrWx5Mb3VFrmO5XbJFQwI2/gY56ghpm3cz/pQpJ8mSVa9T1FASZTo9BQEEBNkgynEa7BpnvD/msHGdYovCY2IKpDqjlb9FHBhg3FOOy/8IOizDlgKPIcrFEzKPNcvViIwPHU7iKIkgCAFMRvPsAetYHbQg/ZHVvlcfL1bHIZuglCxCREN/ncrZFbiSBylrSnRxndd1A/PHQV11gy4fnMMOTc9tIopgRRjIGeAhlP2UNU92Y/RSSRLqkJ0P92xxBK2I3bToeMm3p3DJE9BZb6uoSpTu8jq8kHLTXoWLLm8zrIs6arhQurqXPTV80rFuX+TZGhbbiMn5YfjuYfS9bwd7+WSEeRf2cDEpR/5JeyjYO4=" # s3 credentials
   - secure: "Zt8Kuoq6oWV+E2pCAa7fyWAdm1pRvmoQFCmWMkxz/T4IqdZWfv+eYtJihU9aFAEvFXssyyh8iMHIuVI0T/bBEwXk1eKMl+nCNsLHUp3HSMvRqa992ATFUH2gJIideN6KkKnpHKKqlRqTBwwiSFJFB+nmcAQ2fTuDmsFLH+v2g2todruScT14PIKthWpwfu86QKFevCK5qiI+4XXOjxDOdDZhzRQ0VEzJy0wr3J6H7EtZEuH7jKiHqEb2eIPKOTiRC3w7TNfuc/YpyVKY8YNVP5lDDMrYP1gcsUsiLDscp9fsGuxk4PyXPJsCMtCa02OpyAB1XiUeudBEnQsfR6zxQEoWf0wMzbv4rqgNM0mMOyCSrqSKWlsRLUF2r7IuXBYPxLvrn4ZMce8EdtYvKKYPST//1mrZ+V3CqCEOa/PXblto0DxQk+Zjt300P74XZR909h4sykUK8hAY+EN+oikiinVdC6sDJFvcULKG9NGgUqAkRO11BdCrRG6wA1bpb23vZr2/FfXGN9DIcnkBVAMo7eHXh4LU9D9u/PYA8Nb3jFasO97JBv9b+oYMkdjF/aeF/go6i175jwPwzcrn32QRZn2Eno0WIqUKh3VFr2xBrPHHG52wffVxV0868P1+OQZNJ5P4ZVO/ogHIr9m2J337wy+hy+zG2cxwz22lUntqVB4=" # s3 credentials
   - secure: "IFd+iJjl2lUql3Bc7MVWk+0J5wz977v6KYXolh6APbiDoBJ5MNtr8leDe1thf3LjKM590Hq1/Q05COaJVYxo/6+GZh90un/8MGTuQ/nOAbyozhHWPj5MHeOkDWowlJxlNRqNXttpT9EuhJpRJbC9uXUXeFnf1EYAluyB+V3M4SX94kgGEVp71kp7E20lcWOR4oGslYBO4uvpPudtG8xA7jaXVSvpYuBbX07SzdPvniIVjJ6mLGSmnxGkcjJJmLXyUSyVFlJYbXtrLu2t1iechyQBhZpyyHD0k+0vaf/0b4AAzR9oyosJUZ5j9RmxX+mYEldSlayEkrfD8BDHdeqzHvXJe0VCo9w80NxsHEDUbwPIZp/D7tofmNjL3hq67/HjSSjQrI8XBjzrvUwG8xT4pf0yzFCvRvpzQPbNfNLDYAM4o1X016TjtuLjI4+w4UxcSVzjF5LVfBotSL+ok1GtllYy40Bf/76EFrrQoy7EmSDZaID1aUx0DptdlX4CsKb6inTIDIXcAH2AyMtLjAVfxfEuV5X1UJRsxGvpkIvunPtpcyds9DBBrUOEXSoZUyLCNbQGawfJt1hgT2eyYcxotXnF20Bcqy24qpNzJoBTsiE8VAeS8xRv3RVwMIgXDTkn0vX9U4XMNu7XtSg0eYQoMgimHJdAepbYseUwAf/B+x4=" # s3 credentials
 
   matrix:
   - LINT_CHECK="1"
-  - TESTS="1" ODOO_REPO="odoo/odoo"
+  - TESTS="1" ODOO_REPO="odoo/odoo" MAKEPOT="1"
   - TESTS="1" ODOO_REPO="OCA/OCB"
-  - TRANSIFEX="1"
 
 virtualenv:
   system_site_packages: true

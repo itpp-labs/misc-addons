@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * project_task_subtask
-# 
+#
 # Translators:
 # Dinar <gabbasov@it-projects.info>, 2017
 msgid ""
@@ -11,12 +11,15 @@ msgstr ""
 "POT-Creation-Date: 2017-11-22 11:27+0000\n"
 "PO-Revision-Date: 2017-11-22 11:27+0000\n"
 "Last-Translator: Dinar <gabbasov@it-projects.info>, 2017\n"
-"Language-Team: Russian (https://www.transifex.com/it-projects-llc/teams/76080/ru/)\n"
+"Language-Team: Russian (https://www.transifex.com/it-projects-llc/"
+"teams/76080/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: project_task_subtask
 #: model:mail.message.subtype,name:project_task_subtask.all_subtask_subtype
@@ -50,6 +53,11 @@ msgid "Change state to TODO"
 msgstr ""
 
 #. module: project_task_subtask
+#: model:ir.ui.view,arch_db:project_task_subtask.view_task_form2
+msgid "Change state to WAITING"
+msgstr ""
+
+#. module: project_task_subtask
 #: model:ir.actions.act_window,name:project_task_subtask.action_view_subtask
 #: model:ir.ui.menu,name:project_task_subtask.menu_action_view_subtask
 #: model:ir.ui.view,arch_db:project_task_subtask.view_task_form2
@@ -58,6 +66,7 @@ msgstr ""
 
 #. module: project_task_subtask
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_create_uid
+#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_reviewer_id
 msgid "Created by"
 msgstr ""
 
@@ -67,12 +76,18 @@ msgid "Created on"
 msgstr ""
 
 #. module: project_task_subtask
+#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_deadline
+msgid "Deadline"
+msgstr ""
+
+#. module: project_task_subtask
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_default_user
 msgid "Default user"
 msgstr ""
 
 #. module: project_task_subtask
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_name
+#: model:ir.ui.view,arch_db:project_task_subtask.project_task_subtask_view_search
 msgid "Description"
 msgstr ""
 
@@ -132,8 +147,8 @@ msgid "My"
 msgstr ""
 
 #. module: project_task_subtask
-#: code:addons/project_task_subtask/models/project_task_subtask.py:60
-#: code:addons/project_task_subtask/models/project_task_subtask.py:64
+#: code:addons/project_task_subtask/models/project_task_subtask.py:61
+#: code:addons/project_task_subtask/models/project_task_subtask.py:65
 #, python-format
 msgid "Only users related to that subtask can change state."
 msgstr ""
@@ -147,11 +162,6 @@ msgstr ""
 #. module: project_task_subtask
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_recolor
 msgid "Recolor"
-msgstr ""
-
-#. module: project_task_subtask
-#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_reviewer_id
-msgid "Reviewer"
 msgstr ""
 
 #. module: project_task_subtask
@@ -196,11 +206,6 @@ msgid "Task"
 msgstr ""
 
 #. module: project_task_subtask
-#: model:ir.ui.view,arch_db:project_task_subtask.view_task_form2
-msgid "Task Work"
-msgstr ""
-
-#. module: project_task_subtask
 #: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_task_state
 msgid "Task state"
 msgstr ""
@@ -223,9 +228,4 @@ msgstr ""
 #. module: project_task_subtask
 #: model:ir.model,name:project_task_subtask.model_project_task_subtask
 msgid "project.task.subtask"
-msgstr ""
-
-#. module: project_task_subtask
-#: model:ir.ui.view,arch_db:project_task_subtask.subtask_list_view
-msgid "subtask_list_form"
 msgstr ""
