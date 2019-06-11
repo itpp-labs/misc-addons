@@ -1,3 +1,7 @@
+`3.0.4`
+-------
+- **Fix:** Incorrect return data in get_multi in case of 'many2one' field, id instead of a record
+
 `3.0.3`
 -------
 - **Fix:** Error related to incorrect getting properties for html fields
