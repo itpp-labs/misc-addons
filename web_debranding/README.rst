@@ -68,24 +68,6 @@ Removes references to odoo.com:
 24. *(feature is not required in 12.0+ versions)*
 25. *(feature is not required in 12.0+ versions)*
 
-Configuration
-=============
-
-By default the module replaces "Odoo" to "Software". To configure
-module openf ``[[ Settings ]] >> Technical >> Parameters >> System Parameters`` and modify
-
-* ``web_debranding.new_title`` (put space in value if you don't need Brand in Title)
-* ``web_debranding.new_name`` (your Brand)
-* ``web_debranding.new_website`` (your website)
-* ``web_debranding.new_documentation_website`` (website with documentation instead of official one)
-* ``web_debranding.favicon_url``
-* ``web_debranding.send_publisher_warranty_url`` - set 0 to disable server requests to odoo.com and 1 otherwise (useful for enterprise contractors). Works only for non-enterprise versions of odoo, check `note <#enterprise-users-notice>`__ below.
-* ``web_debranding.icon_url`` - icon for mobile devices. recommended size :192x192
-* ``web_debranding.apple_touch_icon_url`` - icon for IOS Safari. recommended size :152x152
-
-
-Note. More user friendly way to configure the module is available in `Brand Kit <https://apps.odoo.com/apps/modules/11.0/theme_kit/>`__.
-
 Credits
 =======
 
