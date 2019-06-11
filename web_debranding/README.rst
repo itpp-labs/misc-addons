@@ -3,7 +3,7 @@
    :alt: License: LGPL-3
 
 ====================
- Backend debranding
+ Website debranding
 ====================
 
 Removes references to odoo.com:
