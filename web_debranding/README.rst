@@ -1,4 +1,4 @@
-Backend debranding
+Website debranding
 ==================
 
 Removes references to odoo.com:
@@ -29,72 +29,28 @@ Removes references to odoo.com:
 24. Removes official videos in planner
 25. Replaces "Odoo" in *application installed* mails
 
-Configuration
-=============
+Credits
+=======
 
-By default the module replaces "Odoo" to "Software". To configure
-module open Settings\\System Parameters and modify
+Contributors
+------------
+* `Ivan Yelizariev <https://it-projects.info/team/yelizariev>`__
 
-* ``web_debranding.new_title`` (put space in value if you don't need Brand in Title)
-* ``web_debranding.new_name`` (your Brand)
-* ``web_debranding.new_website`` (your website)
-* ``web_debranding.new_documentation_website`` (website with documentation instead of official one)
-* ``web_debranding.favicon_url``
-* ``web_debranding.send_publisher_warranty_url`` - set 0 to disable server requests to odoo.com and 1 otherwise (useful for enterprise contractors). Works only for non-enterprise versions of odoo, check `note <#enterprise-users-notice>`__ below.
-* ``web_debranding.planner_footer``
-* ``web_debranding.icon_url`` - icon for mobile devices. recommended size :192x192
-* ``web_debranding.apple_touch_icon_url`` - icon for IOS Safari. recommended size :152x152
+Sponsors
+--------
+* `IT-Projects LLC <https://it-projects.info>`__
+
+Further information
+===================
+
+Demo: http://runbot.it-projects.info/demo/website-addons/10.0
+
+HTML Description: https://www.odoo.com/apps/modules/10.0/web_debranding/
+
+Usage instructions: `<doc/index.rst>`__
+
+Changelog: `<doc/changelog.rst>`__
 
 
-Note. More user friendly way to configure the module is available in `Brand Kit <https://apps.odoo.com/apps/modules/9.0/theme_kit/>`__.
+Tested on Odoo 10.0 d7b9d141b7c40cfd3f9a53a0aa9e73551ddd01a5
 
-Further debranding
-==================
-
-* open addons/mail/data/mail_data.xml and edit Template "Notification Email" -- delete "using Odoo"
-* open addons/website_livechat/website_livechat_data.xml and edit in "im_livechat_channel_data_website" record YourWebsiteWithOdoo.com string
-* install **website_debranding** module if module "Website Builder" is installed in your system
-* install **pos_debranding** module if module "POS" is installed in your system
-* delete "Odoo.com Accounts" record at Settings\\Users\\OAuth Providers if module "OAuth2 Authentication" is installed. in your system
-* to debrand **/web/database/manager**:
-
-  * edit addons/web/views/database_manager.html file:
-
-    * delete or modify <title> tag
-    * delete or modify favicon
-    * delete or modify <img> tag with logo2.png
-    * delete or modify paragraph <p>Fill in this form to create an Odoo database...</p>
-    * delete or modify warning <div class="alert alert-warning">Warning, your Odoo database ...</div>
-
-Auto-debrand new databases
-==========================
-To automatically install this module for every new databases set **'auto_install': True** in __openerp__.py files of following modules:
-
-* web_debranding
-* ir_rule_protected
-* access_restricted
-* access_apps
-* access_settings_menu
-* mail (built-in)
-* base_setup (built-in)
-* bus (built-in)
-
-Tested on Odoo 10.0 b2804b1d2ae5fd7ec5c0eca79a8db77476badc84
-
-Enterprise users notice
-=======================
-
-* `Terms of Odoo Enterprise Subscription Agreement <https://www.odoo.com/documentation/user/9.0/legal/terms/enterprise.html#customer-obligations>`_ don't allow to disable server requests to odoo.com. For this reason feature #11 doesn't work in Enterprise version.
-
-Note
-====
-
-* You can also use our new extended `Brand Kit module <https://www.odoo.com/apps/modules/10.0/theme_kit>`_ to brand your odoo instance and create your theme in few clicks.
-
-Need our service?
-=================
-
-Contact us by `email <mailto:apps@it-projects.info>`__ or fill out `request form <https://www.it-projects.info/page/website.contactus>`__:
-
-* apps@it-projects.info
-* https://www.it-projects.info/page/website.contactus
