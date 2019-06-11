@@ -86,56 +86,27 @@ module openf ``[[ Settings ]] >> Technical >> Parameters >> System Parameters`` 
 
 Note. More user friendly way to configure the module is available in `Brand Kit <https://apps.odoo.com/apps/modules/11.0/theme_kit/>`__.
 
-Further debranding
-==================
+Credits
+=======
 
-* open addons/mail/data/mail_data.xml and edit Template "Notification Email" -- delete "using Odoo"
-* open addons/website_livechat/data/website_livechat_data.xml and edit in "im_livechat_channel_data_website" record YourWebsiteWithOdoo.com string
-* install **website_debranding** module if module "Website Builder" is installed in your system
-* install **pos_debranding** module if module "POS" is installed in your system
-* delete "Odoo.com Accounts" record at Settings\\Users & Companies\\OAuth Providers if module "OAuth2 Authentication" is installed in your system
-* to debrand **/web/database/manager**:
+Contributors
+------------
+* `Ivan Yelizariev <https://it-projects.info/team/yelizariev>`__
 
-  * edit addons/web/views/database_manager.html file:
+Sponsors
+--------
+* `IT-Projects LLC <https://it-projects.info>`__
 
-    * delete or modify <title> tag
-    * delete or modify favicon
-    * delete or modify <img> tag with logo2.png
-    * delete or modify warning <div class="alert alert-warning">Warning, your Odoo database ...</div>
-    * delete or modify <small class="text-muted">To enhance your experience, some data may be sent to Odoo online services. See our <a href="https://www.odoo.com/privacy">Privacy Policy</a>.</small>
-    * delete or modify <p class="form-text">In order to avoid conflicts between databases, Odoo needs ...</p>
+Further information
+===================
 
-Auto-debrand new databases
-==========================
-To automatically install this module for every new databases set **'auto_install': True** in __openerp__.py files of following modules:
+Demo: http://runbot.it-projects.info/demo/misc-addons/12.0
 
-* web_debranding
-* ir_rule_protected
-* access_restricted
-* access_apps
-* access_settings_menu
-* mail (built-in)
-* base_setup (built-in)
-* bus (built-in)
+HTML Description: https://www.odoo.com/apps/modules/12.0/web_debranding/
 
-Tested on Odoo 12.0 e774b2cb1c29fdd407aedc1f5c959d9725d2b514
+Usage instructions: `<doc/index.rst>`__
 
-Enterprise users notice
-=======================
+Changelog: `<doc/changelog.rst>`__
 
-* `Terms of Odoo Enterprise Subscription Agreement <https://www.odoo.com/documentation/user/12.0/legal/terms/enterprise.html#customer-obligations>`_ don't allow to disable server requests to odoo.com. For this reason feature #11 doesn't work in Enterprise version.
 
-Note
-====
-
-* You can also use our new extended `Brand Kit module <https://www.odoo.com/apps/modules/11.0/theme_kit>`_ to brand your odoo instance and create your theme in few clicks.
-
-Need our service?
-=================
-
-Contact us by `email <mailto:apps@it-projects.info>`__ or fill out `request form <https://www.it-projects.info/page/website.contactus>`__:
-
-* Email: apps@it-projects.info
-* Form: https://www.it-projects.info/page/website.contactus
-* Facebook: https://m.me/itprojectsllc
-* Skype: skype@it-projects.info
+Tested on Odoo 12.0 288662a9de7420deaf7b13c9a8b1b1b92e15ec1f
