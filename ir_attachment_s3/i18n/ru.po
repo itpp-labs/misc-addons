@@ -4,12 +4,13 @@
 # 
 # Translators:
 # Dinar <gabbasov@it-projects.info>, 2017
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-22 11:27+0000\n"
-"PO-Revision-Date: 2017-11-22 11:27+0000\n"
+"POT-Creation-Date: 2018-05-09 17:52+0000\n"
+"PO-Revision-Date: 2017-06-23 13:43+0000\n"
 "Last-Translator: Dinar <gabbasov@it-projects.info>, 2017\n"
 "Language-Team: Russian (https://www.transifex.com/it-projects-llc/teams/76080/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -124,8 +125,8 @@ msgstr ""
 #: model:ir.model.fields,help:ir_attachment_s3.field_s3_config_settings_s3_condition
 msgid ""
 "Specify valid odoo search domain here,\n"
-"                               i.e. [('res_model', 'in', ['product.image'])].\n"
-"                               According to this only data of model product.image will be sored on S3"
+"                               e.g. [('res_model', 'in', ['product.image'])] -- store data of product.image only.\n"
+"                               Empty condition means all models"
 msgstr ""
 
 #. module: ir_attachment_s3
