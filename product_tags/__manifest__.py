@@ -3,6 +3,7 @@
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2013 Julius Network Solutions SARL <contact@julius.fr>
 #    Copyright (C) 2015 credativ ltd. <info@credativ.co.uk>
+#    Copyright (c) 2019 Matteo Bilotta <mbilotta@linkgroup.it>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -21,19 +22,19 @@
 
 {
     "name": "Product Tags",
-    "version": "10.0.1.0.1",
+    "version": "12.0.1.1.0",
     "author": "Julius Network Solutions",
     "website": "http://julius.fr",
-    "category": "Sales Management",
+    "category": "Sales",
     "depends": [
         'product',
-        'sale',
+        'sale'
     ],
     'license': 'AGPL-3',
-    "demo": [],
     "data": [
         'security/ir.model.access.csv',
-        'product_view.xml',
-    ],
-    'installable': False,
+
+        'views/product_tag_view.xml',
+        'views/product_template_view.xml'
+    ]
 }

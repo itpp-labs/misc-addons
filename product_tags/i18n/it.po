@@ -1,0 +1,147 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_tags
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e-20190417\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-06-21 13:41+0000\n"
+"PO-Revision-Date: 2019-06-21 15:42+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: it\n"
+"X-Generator: Poedit 2.2.3\n"
+
+#. module: product_tags
+#: model_terms:ir.ui.view,arch_db:product_tags.product_tag_form_view
+msgid "Accessories & Supplies"
+msgstr "Accessori & Forniture"
+
+#. module: product_tags
+#: model:ir.model.fields,field_description:product_tags.field_product_tag__active
+msgid "Active"
+msgstr "Attivo"
+
+#. module: product_tags
+#: model_terms:ir.ui.view,arch_db:product_tags.product_tag_search_view
+msgid "Archived"
+msgstr "Archiviati"
+
+#. module: product_tags
+#: model:ir.model.fields,field_description:product_tags.field_product_tag__child_ids
+msgid "Child tags"
+msgstr "Tag figli"
+
+#. module: product_tags
+#: model_terms:ir.actions.act_window,help:product_tags.product_tag_action
+msgid "Click to create a new product tag."
+msgstr "Clicca per creare un nuovo tag di prodotto."
+
+#. module: product_tags
+#: model:ir.model.fields,field_description:product_tags.field_product_tag__color
+msgid "Color index"
+msgstr "Indice colore"
+
+#. module: product_tags
+#: model:ir.model.fields,field_description:product_tags.field_product_tag__create_uid
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: product_tags
+#: model:ir.model.fields,field_description:product_tags.field_product_tag__create_date
+msgid "Created on"
+msgstr "Creato il"
+
+#. module: product_tags
+#: model:ir.model.fields,field_description:product_tags.field_product_tag__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: product_tags
+#: model_terms:ir.ui.view,arch_db:product_tags.product_tag_form_view
+msgid "Electronics"
+msgstr "Elettronica"
+
+#. module: product_tags
+#: model:ir.model.fields,field_description:product_tags.field_product_tag__id
+msgid "ID"
+msgstr "ID"
+
+#. module: product_tags
+#: model:ir.model.fields,field_description:product_tags.field_product_tag__image
+msgid "Image"
+msgstr "Immagine"
+
+#. module: product_tags
+#: model:ir.model.fields,field_description:product_tags.field_product_tag____last_update
+msgid "Last Modified on"
+msgstr "Ultima modifica il"
+
+#. module: product_tags
+#: model:ir.model.fields,field_description:product_tags.field_product_tag__write_uid
+msgid "Last Updated by"
+msgstr "Ultimo aggiornamento di"
+
+#. module: product_tags
+#: model:ir.model.fields,field_description:product_tags.field_product_tag__write_date
+msgid "Last Updated on"
+msgstr "Ultimo aggiornamento il"
+
+#. module: product_tags
+#: model:ir.model.fields,field_description:product_tags.field_product_tag__parent_id
+msgid "Parent tag"
+msgstr "Tag superiore"
+
+#. module: product_tags
+#: model:ir.model,name:product_tags.model_product_template
+msgid "Product Template"
+msgstr "Modello prodotto"
+
+#. module: product_tags
+#: model:ir.model,name:product_tags.model_product_tag
+msgid "Product tags"
+msgstr "Tag prodotti"
+
+#. module: product_tags
+#: model:ir.model.fields,field_description:product_tags.field_product_tag__name
+msgid "Tag Name"
+msgstr "Nome tag"
+
+#. module: product_tags
+#: model:ir.actions.act_window,name:product_tags.product_tag_action
+#: model:ir.model.fields,field_description:product_tags.field_product_product__tag_ids
+#: model:ir.model.fields,field_description:product_tags.field_product_template__tag_ids
+#: model:ir.ui.menu,name:product_tags.product_tag_menu_sale
+#: model_terms:ir.ui.view,arch_db:product_tags.product_template_search_view
+msgid "Tags"
+msgstr "Tag"
+
+#. module: product_tags
+#: model_terms:ir.ui.view,arch_db:product_tags.product_template_form_view
+msgid "Tags..."
+msgstr "Tags..."
+
+#. module: product_tags
+#: model:ir.model.fields,help:product_tags.field_product_tag__active
+msgid "The active field allows you to hide the tag without removing it."
+msgstr "Il campo \"Attivo\" ti consente di nascondere il tag prodotto senza rimuoverlo fisicamente."
+
+#. module: product_tags
+#: model_terms:ir.actions.act_window,help:product_tags.product_tag_action
+msgid ""
+"With product tags you can categorize your products\n"
+"                    regardless of the category they belong to."
+msgstr ""
+"Con i tag prodotti puoi categorizzare i tuoi prodotti\n"
+"                    indipendentemente dalla categoria a cui appartengono."
+
+#. module: product_tags
+#: code:addons/product_tags/models/product.py:45
+#, python-format
+msgid "You cannot create recursive product tags."
+msgstr "Non puoi creare tag prodotti ricorsivi."

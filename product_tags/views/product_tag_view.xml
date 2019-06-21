@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="product_tag_form_view" model="ir.ui.view">
+        <field name="name">product.tag.form</field>
+        <field name="model">product.tag</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object" class="oe_stat_button" name="toggle_active" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options="{'terminology': 'archive'}" />
+                        </button>
+                    </div>
+                    <field name="image" class="oe_avatar" widget="image" />
+                    <div class="oe_title">
+                        <label class="oe_edit_only" for="name" />
+                        <h1>
+                            <field name="name" default_focus="true" placeholder="Accessories &amp; Supplies" />
+                        </h1>
+                        <div name="post_title" class="o_row">
+                            <field name="parent_id" placeholder="Electronics" />
+                        </div>
+                    </div>
+                    <group />
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_tag_tree_view" model="ir.ui.view">
+        <field name="name">product.tag.tree</field>
+        <field name="model">product.tag</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="display_name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_tag_search_view" model="ir.ui.view">
+        <field name="name">product.tag.search</field>
+        <field name="model">product.tag</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="parent_id" operator="child_of" />
+                <separator />
+                <filter name="inactive" string="Archived" domain="[('active', '=', False)]" />
+            </search>
+        </field>
+    </record>
+
+    <record id="product_tag_action" model="ir.actions.act_window">
+        <field name="name">Tags</field>
+        <field name="res_model">product.tag</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="product_tag_search_view" />
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new product tag.
+            </p>
+            <p>
+                With product tags you can categorize your products
+                regardless of the category they belong to.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="product_tag_menu_sale"
+              parent="sale.prod_config_main"
+              groups="base.group_no_one"
+              action="product_tag_action"
+              sequence="3" />
+
+</odoo>
