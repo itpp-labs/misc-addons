@@ -1,0 +1,704 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* base_attendance
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: base_attendance
+#: code:addons/base_attendance/models/res_attendance.py:62
+#, python-format
+msgid "\"Check Out\" time cannot be earlier than \"Check In\" time."
+msgstr ""
+
+#. module: base_attendance
+#: code:addons/base_attendance/models/res_attendance.py:33
+#, python-format
+msgid "%(partner_name)s from %(check_in)s"
+msgstr ""
+
+#. module: base_attendance
+#: code:addons/base_attendance/models/res_attendance.py:40
+#, python-format
+msgid "%(worked_time)s by %(partner_name)s from %(check_in)s to %(check_out)s"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/js/greeting_message.js:126
+#, python-format
+msgid "An apple a day keeps the doctor away"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/js/greeting_message.js:115
+#, python-format
+msgid "Another good day's work! See you soon!"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_config
+msgid "Apply"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.model,name:base_attendance.model_res_partner_attendance
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance_state
+#: model:ir.model.fields,field_description:base_attendance.field_res_users_attendance_state
+#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_graph
+#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_pivot
+msgid "Attendance"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.actions.act_window,name:base_attendance.hr_attendance_action_graph
+#: model:ir.actions.act_window,name:base_attendance.hr_attendance_action_graph_filtered
+msgid "Attendance Analysis"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_pin
+#: model:ir.model.fields,field_description:base_attendance.field_res_users_pin
+msgid "Attendance PIN"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.actions.act_window,name:base_attendance.action_hr_attendance_settings
+msgid "Attendance Settings"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.ui.view,arch_db:base_attendance.view_partner_form_inherit_base_attendance
+msgid "Attendance information"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.actions.act_window,name:base_attendance.hr_attendance_action
+#: model:ir.ui.menu,name:base_attendance.menu_hr_attendance_view_attendances
+msgid "Attendances"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.model.fields,field_description:base_attendance.field_base_config_settings_shift_autocheckout
+msgid "Autocheckout "
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_config
+msgid "Cancel"
+msgstr ""
+
+#. module: base_attendance
+#: code:addons/base_attendance/models/res_attendance.py:92
+#, python-format
+msgid "Cannot create new attendance record for %(partner_name)s, the partner hasn't checked out since %(datetime)s"
+msgstr ""
+
+#. module: base_attendance
+#: code:addons/base_attendance/models/res_attendance.py:79
+#: code:addons/base_attendance/models/res_attendance.py:105
+#, python-format
+msgid "Cannot create new attendance record for %(partner_name)s, the partner was already checked in on %(datetime)s"
+msgstr ""
+
+#. module: base_attendance
+#: code:addons/base_attendance/models/res_partner.py:95
+#, python-format
+msgid "Cannot perform check in or check out on multiple partners."
+msgstr ""
+
+#. module: base_attendance
+#: code:addons/base_attendance/models/res_partner.py:109
+#, python-format
+msgid "Cannot perform check out on %(empl_name)s, could not find corresponding check in. Your attendances have probably been modified manually by human resources."
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance_check_in
+msgid "Check In"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance_check_out
+msgid "Check Out"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/xml/attendance.xml:35
+#, python-format
+msgid "Check in"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/xml/attendance.xml:31
+#, python-format
+msgid "Check out"
+msgstr ""
+
+#. module: base_attendance
+#: selection:res.partner,attendance_state:0
+msgid "Checked in"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/xml/attendance.xml:91
+#, python-format
+msgid "Checked in at"
+msgstr ""
+
+#. module: base_attendance
+#: selection:res.partner,attendance_state:0
+msgid "Checked out"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/xml/attendance.xml:79
+#, python-format
+msgid "Checked out at"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/js/test_kiosk_tour.js:34
+#, python-format
+msgid "Click to enter Kiosk"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/js/test_kiosk_tour.js:30
+#, python-format
+msgid "Click to enter menu attendances"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/xml/attendance.xml:15
+#: model:ir.ui.view,arch_db:base_attendance.print_partner_badge
+#, python-format
+msgid "Company Logo"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.ui.menu,name:base_attendance.menu_hr_attendance_settings
+#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_config
+msgid "Configuration"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.actions.act_window,help:base_attendance.res_partner_action_kanban_view
+msgid "Create a few partners to be able to select a partner here and perform his check in / check out."
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_filter
+msgid "Current Month"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.actions.act_window,name:base_attendance.res_partner_action_kanban_view
+msgid "Customers"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/js/greeting_message.js:131
+#, python-format
+msgid "Early to bed and early to rise, makes a man healthy, wealthy and wise"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/js/greeting_message.js:124
+#, python-format
+msgid "Eat breakfast as a king, lunch as a merchant and supper as a beggar"
+msgstr ""
+
+#. module: base_attendance
+#: model:res.groups,name:base_attendance.group_hr_attendance_use_pin
+msgid "Enable PIN use (for Partner Attendance)"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.model.fields,help:base_attendance.field_base_config_settings_group_attendance_use_pin
+msgid "Enable or disable partner PIN identification at check in"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/xml/attendance.xml:63
+#, python-format
+msgid "Error: could not find corresponding partner."
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/js/greeting_message.js:79
+#, python-format
+msgid "First come, first served"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.actions.server,name:base_attendance.hr_attendance_action_kiosk_mode
+msgid "Get to the Kiosk Mode"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/js/greeting_message.js:94
+#, python-format
+msgid "Glad to have you back, it's been a while!"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/js/greeting_message.js:85
+#, python-format
+msgid "Good afternoon"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/js/greeting_message.js:87
+#, python-format
+msgid "Good evening"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/js/greeting_message.js:82
+#, python-format
+msgid "Good morning"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/js/greeting_message.js:73
+#: code:addons/base_attendance/static/src/js/greeting_message.js:89
+#, python-format
+msgid "Good night"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/xml/attendance.xml:82
+#, python-format
+msgid "Goodbye"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_filter
+msgid "Group By"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.model.fields,field_description:base_attendance.field_base_config_settings_hex_scanner_is_used
+msgid "HEX Scanner"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/js/greeting_message.js:129
+#, python-format
+msgid "Have a good afternoon"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/js/greeting_message.js:120
+#, python-format
+msgid "Have a good day!"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/js/greeting_message.js:133
+#, python-format
+msgid "Have a good evening"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/js/greeting_message.js:122
+#, python-format
+msgid "Have a nice lunch!"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.module.category,description:base_attendance.module_category_attendance
+msgid "Helps you manage the partner attendances."
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance_id
+msgid "ID"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/js/greeting_message.js:96
+#, python-format
+msgid "If a job is worth doing, it is worth doing well!"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/xml/attendance.xml:102
+#, python-format
+msgid "Invalid request, please return to the main menu."
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.ui.menu,name:base_attendance.menu_hr_attendance_kiosk_mode
+msgid "Kiosk Mode"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_last_attendance_id
+#: model:ir.model.fields,field_description:base_attendance.field_res_users_last_attendance_id
+msgid "Last attendance id"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.ui.menu,name:base_attendance.menu_hr_attendance_manage_attendances
+msgid "Manage Attendances"
+msgstr ""
+
+#. module: base_attendance
+#: model:res.groups,name:base_attendance.group_hr_attendance_manager
+msgid "Manager"
+msgstr ""
+
+#. module: base_attendance
+#: model:res.groups,name:base_attendance.group_manual_attendance
+msgid "Manual Attendances"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.model.fields,help:base_attendance.field_base_config_settings_shift_autocheckout
+msgid "Maximum Shift Time in Minutes"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.actions.client,name:base_attendance.hr_attendance_action_greeting_message
+msgid "Message"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_filter
+msgid "Month"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_filter
+msgid "No Check Out"
+msgstr ""
+
+#. module: base_attendance
+#: code:addons/base_attendance/models/res_partner.py:62
+#, python-format
+msgid "No partner corresponding to barcode %(barcode)s"
+msgstr ""
+
+#. module: base_attendance
+#: model:res.groups,name:base_attendance.group_hr_attendance_user
+msgid "Officer"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.model.fields,help:base_attendance.field_res_partner_pin
+#: model:ir.model.fields,help:base_attendance.field_res_users_pin
+msgid "PIN used to Check In/Out in Kiosk Mode (if enabled in Configuration)."
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.model,name:base_attendance.model_res_partner
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance_partner_id
+#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_filter
+msgid "Partner"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.module.category,name:base_attendance.module_category_attendance
+msgid "Partner Attendance"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_filter
+msgid "Partner Attendance Search"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.ui.menu,name:base_attendance.menu_base_attendance_root
+msgid "Partner Attendances"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.ui.view,arch_db:base_attendance.print_partner_badge
+msgid "Partner Image"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.model.fields,field_description:base_attendance.field_base_config_settings_group_attendance_use_pin
+msgid "Partner PIN"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_form
+msgid "Partner attendances"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.ui.view,arch_db:base_attendance.view_partner_form_inherit_base_attendance
+msgid "Partner's Name"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.ui.menu,name:base_attendance.menu_hr_attendance_view_partners_kanban
+msgid "Partners"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_partners_attendance_ids
+#: model:ir.model.fields,field_description:base_attendance.field_res_users_partners_attendance_ids
+msgid "Partners attendance ids"
+msgstr ""
+
+#. module: base_attendance
+#: selection:base.config.settings,group_attendance_use_pin:0
+msgid "Partners do not need to enter their PIN to check in manually in the \"Kiosk Mode\"."
+msgstr ""
+
+#. module: base_attendance
+#: selection:base.config.settings,group_attendance_use_pin:0
+msgid "Partners must enter their PIN to check in manually in the \"Kiosk Mode\"."
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/xml/attendance.xml:44
+#, python-format
+msgid "Please enter your PIN to check in"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/xml/attendance.xml:41
+#, python-format
+msgid "Please enter your PIN to check out"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.actions.act_window,help:base_attendance.hr_attendance_action
+msgid "Please make sure you're using the correct filter if you expected to see any."
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/xml/attendance.xml:64
+#, python-format
+msgid "Please return to the main menu."
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.actions.report.xml,name:base_attendance.hr_partner_print_badge
+msgid "Print Badge"
+msgstr ""
+
+#. module: base_attendance
+#: model:res.groups,name:base_attendance.group_res_attendance
+msgid "Read Only"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.ui.menu,name:base_attendance.menu_hr_attendance_report
+msgid "Reports"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/xml/attendance.xml:16
+#, python-format
+msgid "Scan your badge"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/xml/attendance.xml:18
+#, python-format
+msgid "Select Partner"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_config
+msgid "Settings"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.model.fields,help:base_attendance.field_base_config_settings_hex_scanner_is_used
+msgid "Some devices scan regular barcodes as hexadecimal. This option decode those types of barcodes"
+msgstr ""
+
+#. module: base_attendance
+#: code:addons/base_attendance/models/res_partner.py:53
+#, python-format
+msgid "The PIN must be a sequence of digits."
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.actions.act_window,help:base_attendance.hr_attendance_action
+msgid "The attendance records of your partners will be displayed here."
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/js/greeting_message.js:77
+#, python-format
+msgid "The early bird catches the worm"
+msgstr ""
+
+#. module: base_attendance
+#: model:res.groups,comment:base_attendance.group_manual_attendance
+msgid "The user will gain access to manage partners attendance."
+msgstr ""
+
+#. module: base_attendance
+#: model:res.groups,comment:base_attendance.group_res_attendance
+msgid "The user will gain access to see attendances menu."
+msgstr ""
+
+#. module: base_attendance
+#: model:res.groups,comment:base_attendance.group_hr_attendance_use_pin
+msgid "The user will have to enter his PIN to check in and out manually at the company screen."
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.actions.act_window,help:base_attendance.res_partner_action_kanban_view
+msgid "To create partner go to the Partners menu."
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_filter
+msgid "Today"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/js/greeting_message.js:111
+#, python-format
+msgid "Warning! Last check in was over 12 hours ago.<br/>If this isn't right, please contact Human Resources."
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/xml/attendance.xml:28
+#: code:addons/base_attendance/static/src/xml/attendance.xml:94
+#, python-format
+msgid "Welcome"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/xml/attendance.xml:14
+#, python-format
+msgid "Welcome to"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance_worked_hours
+msgid "Worked Hours"
+msgstr ""
+
+#. module: base_attendance
+#: code:addons/base_attendance/models/res_partner.py:70
+#, python-format
+msgid "Wrong PIN"
+msgstr ""
+
+#. module: base_attendance
+#: code:addons/base_attendance/models/res_attendance.py:115
+#, python-format
+msgid "You cannot duplicate an attendance."
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.ui.view,arch_db:base_attendance.res_partner_attendance_view
+msgid "at"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.model,name:base_attendance.model_base_config_settings
+msgid "base.config.settings"
+msgstr ""
+
+#. module: base_attendance
+#: model:ir.model.fields,help:base_attendance.field_res_partner_partners_attendance_ids
+#: model:ir.model.fields,help:base_attendance.field_res_users_partners_attendance_ids
+msgid "list of attendances for the employee"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/xml/attendance.xml:105
+#, python-format
+msgid "ok"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/xml/attendance.xml:17
+#, python-format
+msgid "or"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/js/presence_widgets.js:21
+#: code:addons/base_attendance/static/src/js/presence_widgets.js:41
+#, python-format
+msgid "partner presence<br/>green: checked in<br/>red: checked out"
+msgstr ""
+
