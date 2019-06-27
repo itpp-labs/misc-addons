@@ -1,5 +1,5 @@
 # Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
-# Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+# Copyright 2018-2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 import logging
 from odoo import models, fields, api
@@ -184,31 +184,38 @@ class IrProperty(models.Model):
         default_value = result.pop(None, None)
         default_company_id = default_value and default_value[2]
         default_website_id = default_value and default_value[3]
-        for id in ids:
-            if id not in result:
+        for ID in ids:
+            if ID not in result:
                 # 5 Company, Resource and Website are empty (i.e. only Field is matched)
-                result[id] = default_value
+                result[ID] = default_value
             else:
-                result_website_id = result[id][3]
+                result_website_id = result[ID][3]
                 if result_website_id:
                     # 1 Website and Resource are matched
                     continue
                 if default_website_id:
                     # 2 Website is matched, Resource is empty
-                    result[id] = default_value
+                    result[ID] = default_value
                 # No properties with website
-                result_company_id = result[id][2]
+                result_company_id = result[ID][2]
                 if result_company_id:
                     # 3 Company and Resource are matched, Website is empty
                     continue
                 # no property for res and company
                 if default_company_id:
                     # 4 Company is matched, Resource and Website are empty
-                    result[id] = default_value
+                    result[ID] = default_value
+
+        if field.type == 'many2one':
+            def clean(data):
+                return data and self.env[field.comodel_name].browse(data[1])
+        else:
+            def clean(data):
+                return data and data[1]
 
         for key, value in result.items():
             # set data to appropriate form
-            result[key] = value and value[1]
+            result[key] = clean(value)
         # result format: {id: val, ...}
         return result
 
