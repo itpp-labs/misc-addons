@@ -6,7 +6,7 @@
  Website debranding
 ====================
 
-Removes references to odoo.com:
+Removes references to `odoo.com <https://www.odoo.com/>`__:
 
 1. Deletes Odoo label in footer, i.e.
 
