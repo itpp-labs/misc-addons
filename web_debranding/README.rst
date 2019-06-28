@@ -3,7 +3,7 @@
    :alt: License: LGPL-3
 
 ====================
- Website debranding
+ Backend debranding
 ====================
 
 Removes references to odoo.com:
@@ -65,8 +65,6 @@ Removes references to odoo.com:
 
 22. [ENTERPRISE] Replaces icons for mobile devices with custom url
 23. Replaces links to `documentation <https://www.odoo.com/documentation>`__ (e.g. "Help" in Import tool, "How-to" in paypal, etc.) to custom website
-24. *(feature is not required in 12.0+ versions)*
-25. *(feature is not required in 12.0+ versions)*
 
 Credits
 =======
@@ -79,6 +77,18 @@ Sponsors
 --------
 * `IT-Projects LLC <https://it-projects.info>`__
 
+Maintainers
+-----------
+* `IT-Projects LLC <https://it-projects.info>`__
+
+      To get a guaranteed support
+      you are kindly requested to purchase the module
+      at `odoo apps store <https://apps.odoo.com/apps/modules/{VERSION}/{TECHNICAL_NAME}/>`__.
+
+      Thank you for understanding!
+
+      `IT-Projects Team <https://www.it-projects.info/team>`__
+
 Further information
 ===================
 
@@ -90,5 +100,6 @@ Usage instructions: `<doc/index.rst>`__
 
 Changelog: `<doc/changelog.rst>`__
 
+Notifications on updates: `via Atom <https://github.com/it-projects-llc/misc-addons/commits/12.0/web_debranding.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/it-projects-llc/misc-addons/commits/12.0/web_debranding.atom>`_
 
 Tested on Odoo 12.0 288662a9de7420deaf7b13c9a8b1b1b92e15ec1f
