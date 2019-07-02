@@ -20,7 +20,7 @@ odoo.define('project_timelog.timelog', function(require){
        show_application: function() {
            var timelog_widget = new TimeLog.TimelogWidget(this);
            timelog_widget.appendTo(this.$el.parents().find('.oe_timelog_placeholder'));
-           this._super();
+           return this._super();
        }
     });
     TimeLog.Manager = Widget.extend({
