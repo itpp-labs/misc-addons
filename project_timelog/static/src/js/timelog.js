@@ -120,6 +120,7 @@ odoo.define('project_timelog.timelog', function(require){
 
             }
             this.status = 'stopped';
+            this.buttons_activated = false;
 
             // check connection with server
             window.Offline.options = {checks: {xhr: {url: '/timelog/connection'}}};
@@ -176,6 +177,9 @@ odoo.define('project_timelog.timelog', function(require){
             });
         },
         activate_click: function() {
+            if (this.buttons_activated) {
+                return;
+            }
             var self = this;
             $( "#clock0" ).click(function() {
                 self.timer_pause();
@@ -192,6 +196,7 @@ odoo.define('project_timelog.timelog', function(require){
             $( "#clock3" ).click(function(event) {
                 self.go_to(event, 'week');
             });
+            this.buttons_activated = true;
         },
         add_favicon: function() {
             if (this.status === 'stopped') {
