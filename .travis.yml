@@ -2,11 +2,12 @@ language: python
 
 python:
   - "3.5"
-  
+
 sudo: false
 cache: pip
 
 addons:
+  postgresql: "9.5"
   apt:
     packages:
       - expect-dev  # provides unbuffer utility
@@ -14,23 +15,19 @@ addons:
 
 env:
   global:
-  - VERSION="11.0" TESTS="0" LINT_CHECK="0" TRANSIFEX="0" UNIT_TEST="0"
+  - VERSION="11.0" TESTS="0" LINT_CHECK="0" UNIT_TEST="0"
   # * about ir_config_parameter_multi_company:
   #
   #   ir_config_parameter_multi_company makes field *value* at ir.config_parameter company_dependent,
   #   but registry may not know it, if module is not loaded yet during testing. It leads to error "column value doesn't exist".
   #   Adding the module to server-wide modules avoids this problem.
   - OPTIONS="--load=web,ir_config_parameter_multi_company"
-  - EXCLUDE="hw_printer_network"
   - PYLINT_ODOO_JSLINTRC="/home/travis/maintainer-quality-tools/travis/cfg/.jslintrc"
-  - TRANSIFEX_USER='i18n-bot@it-projects.info'
-  - secure: "SoW2Blve4jUApyF5UfM5NvGQ6ZV4OH6wMUGbcTemx+dMqNZTyTlUDxmVOFgau7M/igcgmmdYcsxmWKR0n40VSaAvtBKSdL7J3Ad7xVBpC1zq6LLrrDmZUL1pCWQUpl1znxcq72H+VmnllgdewU1703cVce2wUWmByGjEEV/VnIqjUfXfzh28ZL4hMr/Kkstr2MCBHMP2n/LZJqBCa5CWyH2U+gxDhQ3zNKudZbHgdkLWYhGSlnVsqTxsxTLaIcXOdDIesT5JYHByQhqVNAuURZuT9RFq9+GWAcFbc4luGhkRhfoZGa7VOAwEwdYNTIip01xgiChL2GfvBEoi8sPKVY4UNKhkWoU6j7IxVVvXnVVlbflpNhQkLnsZD6Yd4r3ZnD+3o8oOb9H69yOOABlsBb90wwE+XMB2fikftXTNfeKeRLKiAGorTe4jwQoqN9Mbd/aTIXzYeFOJu+zwjoFbp8wY0lGYQm4e7VFkf5cRr7YQ0kYLu8LbwhIGmJVppJhA7tsWncLkHxAZ56Up1+nkw8W4bsetkWuNw+Y5XOIXjfmEJ7nR3kSL3vDHKU5C7M674KVtjmCjabc7Rgs/+iXlf0WFVXlXUOOr/2PHfO3kq8zL3PcrehfHPR70wxPFgu7kw9Nl835Ve4J2yuG01NSJvzNr+pLk9mkVNhLoOiKonmI=" # TRANSIFEX_PASSWORD
 
   matrix:
   - LINT_CHECK="1"
-  - TESTS="1" ODOO_REPO="odoo/odoo"
+  - TESTS="1" ODOO_REPO="odoo/odoo" MAKEPOT="1"
   - TESTS="1" ODOO_REPO="OCA/OCB"
-  - TRANSIFEX="1"
 
 install:
   - pip install anybox.testing.openerp
@@ -46,3 +43,7 @@ after_success:
 
 notifications:
   email: false
+  webhooks:
+    on_failure: change
+  urls:
+    - "https://ci.it-projects.info/travis/on_failure/change"

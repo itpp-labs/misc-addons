@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * theme_kit
-# 
+#
 # Translators:
 # Randall <randall_castro@me.com>, 2018
 msgid ""
@@ -11,11 +11,12 @@ msgstr ""
 "POT-Creation-Date: 2018-04-30 21:57+0000\n"
 "PO-Revision-Date: 2018-04-30 21:57+0000\n"
 "Last-Translator: Randall <randall_castro@me.com>, 2018\n"
-"Language-Team: Spanish (Costa Rica) (https://www.transifex.com/it-projects-llc/teams/76080/es_CR/)\n"
+"Language-Team: Spanish (Costa Rica) (https://www.transifex.com/it-projects-"
+"llc/teams/76080/es_CR/)\n"
+"Language: es_CR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: es_CR\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: theme_kit
@@ -42,7 +43,9 @@ msgstr ""
 #: model:ir.ui.view,arch_db:theme_kit.view_config
 msgid ""
 "<em>[System Name]</em> Warning - Warning<br/>\n"
-"                                                            You can not remove the admin user as it is used internally for resources created by <em>[System Name]</em> (updates, module installation, ...)"
+"                                                            You can not "
+"remove the admin user as it is used internally for resources created by "
+"<em>[System Name]</em> (updates, module installation, ...)"
 msgstr ""
 
 #. module: theme_kit
@@ -203,7 +206,6 @@ msgstr ""
 
 #. module: theme_kit
 #: model:ir.ui.menu,name:theme_kit.theme_menu
-#: model:ir.ui.view,arch_db:theme_kit.theme_view_tree
 msgid "Color Schemes"
 msgstr ""
 

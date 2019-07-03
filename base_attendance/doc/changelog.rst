@@ -1,7 +1,12 @@
-`1.1.1`
+`1.1.2`
 -------
 
 - **Fix:** Error when printing partner's badge
+
+`1.1.1`
+-------
+
+- **Fix:** Security issues for ``Attendance Manager`` group on opening the **Kiosk Mode**
 
 `1.1.0`
 -------
