@@ -302,7 +302,6 @@ odoo.define('project_timelog.timelog', function(require){
                 var element = document.getElementById("clock0");
                 self.startAnim(element, 500, 10*500);
                 var id = self.config.task_id;
-                var parent = self.getParent();
                 var action = {
                     res_id: id,
                     res_model: "project.task",
@@ -313,7 +312,7 @@ odoo.define('project_timelog.timelog', function(require){
                         action_buttons: true,
                     }
                 };
-                parent.action_manager.do_action(action);
+                this.do_action(action);
                 self.end_datetime_status = true;
                 self.stop_timer();
             });
