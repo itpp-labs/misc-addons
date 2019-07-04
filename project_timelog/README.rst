@@ -20,6 +20,7 @@ Credits
 Contributors
 ------------
 * `Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>`__
+* `Eugene Molotov <https://it-projects.info/team/molotov>`__
 
 Sponsors
 --------

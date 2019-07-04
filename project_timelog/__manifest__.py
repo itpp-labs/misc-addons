@@ -6,8 +6,8 @@
     "version": "12.0.1.0.0",
     "application": False,
 
-    "author": "IT-Projects LLC, Dinar Gabbasov",
-    "website": "https://twitter.com/gabbasov_dinar",
+    "author": "IT-Projects LLC",
+    "website": "https://www.it-projects.info/",
     "license": "LGPL-3",
     "price": 390.00,
     "currency": "EUR",
