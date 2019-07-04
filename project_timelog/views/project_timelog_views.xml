@@ -186,12 +186,9 @@
                         <filter name="group_projects" string="Projects" domain="[]" context="{'group_by':'project_name'}"/>
                         <filter name="group_tasks" string="Tasks" domain="[]" context="{'group_by':'task_name'}"/>
                         <filter name="group_subtasks" string="Subtasks" domain="[]" context="{'group_by':'work_id'}"/>
-                        <filter name="group_months" string="Months" domain="[]" context="{'group_by':'start_datetime:month'}" help="Months"/>
-                        <filter name="group_weeks" string="Weeks Monday" domain="[]" context="{'group_by':'start_datetime:week'}" help="Week"/>
-                        <filter name="group_weeks_sunday" string="Weeks Sunday" domain="[]" context="{'group_by':'start_datetime:week_sunday'}" help="Week Sunday"/>
-                        <filter name="group_days" string="Days" domain="[]" context="{'group_by':'start_datetime:day'}" help="Day"/>
+                        <filter name="group_start_date" string="Start Date" domain="[]" context="{'group_by':'start_datetime'}" help="Start date"/>
                         <filter name="group_users" string="Users" context="{'group_by':'user_id'}" groups="project.group_project_manager"/>
-                        <filter name="groupby_create_date" string="Creation Date" context = "{'group_by': 'create_date:week'}"/>
+                        <filter name="group_create_date" string="Creation date" context = "{'group_by': 'create_date'}"/>
 
                     </group>
                 </search>
