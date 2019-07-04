@@ -12,10 +12,11 @@ Configuration
 
 By default the module replaces ``Odoo`` to ``Software``.
 
-* Open ``[[ Settings ]] >> Technical >> Parameters >> System Parameters`` and modify:
+* Switch to Developer mode
+* Open ``[[ General Settings ]] >> Technical >> Parameters >> System Parameters`` and modify:
 
-  * ``web_debranding.new_title`` (put space in value if you don't need Brand in Title)
-  * ``eb_debranding.new_name`` (your Brand)
+  * ``web_debranding.new_title`` (put space in *Value field* if you don't need Brand in Title)
+  * ``web_debranding.new_name`` (your Brand)
   * ``web_debranding.new_website`` (your website)
   * ``web_debranding.new_documentation_website`` (website with documentation instead of official one)
   * ``web_debranding.favicon_url``
