@@ -3,7 +3,7 @@
    :alt: License: LGPL-3
 
 ====================
- Website debranding
+ Backend debranding
 ====================
 
 Removes references to `odoo.com <https://www.odoo.com/>`__:
@@ -92,9 +92,9 @@ Maintainers
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/website-addons/11.0
+Demo: http://runbot.it-projects.info/demo/website-addons/10.0
 
-HTML Description: https://www.odoo.com/apps/modules/11.0/web_debranding/
+HTML Description: https://www.odoo.com/apps/modules/10.0/web_debranding/
 
 Usage instructions: `<doc/index.rst>`__
 
@@ -102,4 +102,4 @@ Changelog: `<doc/changelog.rst>`__
 
 Notifications on updates: `via Atom <https://github.com/it-projects-llc/misc-addons/commits/10.0/web_debranding.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/it-projects-llc/misc-addons/commits/10.0/web_debranding.atom>`_
 
-Tested on Odoo 11.0 c7171795f891335e8a8b6d5a6b796c28cea77fea
+Tested on Odoo 10.0 d7b9d141b7c40cfd3f9a53a0aa9e73551ddd01a5
