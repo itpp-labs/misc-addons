@@ -213,9 +213,9 @@ class Users(models.Model):
         for u in user:
             all_timelog = u.active_work_id.timelog_ids
             sum_time = datetime.timedelta(0)
-            for id in all_timelog:
-                date_start_object = id.start_datetime
-                date_end_object = id.end_datetime or datetime.datetime.now()
+            for timelog in all_timelog:
+                date_start_object = timelog.start_datetime
+                date_end_object = timelog.end_datetime or datetime.datetime.now()
                 sum_time = sum_time + (date_end_object-date_start_object)
             sum_time = int(round(sum_time.total_seconds(), 0))
             if sum_time >= time_subtask:
