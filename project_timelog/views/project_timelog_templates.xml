@@ -1,5 +1,4 @@
 <odoo>
-    <data>
         <template id="assets_backend" name="Project timelog assets" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
                 <link rel="stylesheet" type="text/less" href="/project_timelog/static/src/css/timer_button.css"/>
@@ -9,5 +8,4 @@
                 <script type="text/javascript" src="/project_timelog/static/src/js/tour.js"></script>
             </xpath>
         </template>
-    </data>
 </odoo>
