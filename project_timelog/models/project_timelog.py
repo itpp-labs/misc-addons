@@ -100,7 +100,7 @@ class Task(models.Model):
 
     @api.model
     def clear_stopline_datetime(self):
-        tasks = self.env["project.task"].search(["datetime_stopline", "!=", False])
+        tasks = self.env["project.task"].search([("datetime_stopline", "!=", False)])
         for task in tasks:
             if task.datetime_stopline.day < datetime.datetime.today().day:
                 task.write({"datetime_stopline": False})
