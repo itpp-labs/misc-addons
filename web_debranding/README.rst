@@ -3,7 +3,7 @@
    :alt: License: LGPL-3
 
 ====================
- Website debranding
+ Backend debranding
 ====================
 
 Removes references to `odoo.com <https://www.odoo.com/>`__:
