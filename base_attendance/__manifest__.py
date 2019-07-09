@@ -6,7 +6,7 @@
     "summary": """Manage partner attendances""",
     "category": "Extra Tools",
     # "live_test_url": "",
-    "images": [],
+    "images": ['images/base_attendance.jpg'],
     "version": "12.0.1.1.1",
     "application": False,
 

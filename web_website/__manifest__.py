@@ -6,7 +6,7 @@
     "summary": """Technical module to switch Websites in Backend similarly to Company Switcher""",
     "category": "Hidden",
     # "live_test_url": "",
-    "images": [],
+    "images": ['images/web_website.jpg'],
     "version": "12.0.3.0.3",
     "application": False,
 
