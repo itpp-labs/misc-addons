@@ -17,7 +17,7 @@ from odoo.modules import get_module_resource
 import io
 import base64
 
-from ..models.ir_translation import debrand, debrand_bytes
+from ..models.ir_translation import debrand
 
 db_monodb = http.db_monodb
 
@@ -81,7 +81,7 @@ class WebClientCustom(WebClient):
         content, checksum = controllers_main.concat_xml(files)
         if request.context['lang'] == 'en_US':
             # request.env could be not available
-            content = debrand_bytes(request.session.db and request.env or None, content)
+            content = debrand(request.session.db and request.env or None, content)
 
         return controllers_main.make_conditional(
             request.make_response(content, [('Content-Type', 'text/xml')]),
