@@ -1,30 +1,11 @@
-<openerp>
-    <data>
+<odoo>
         <template id="assets_backend" name="Project timelog assets" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
                 <link rel="stylesheet" type="text/less" href="/project_timelog/static/src/css/timer_button.css"/>
                 <link rel="stylesheet" type="text/css" href="/project_timelog/static/src/css/timer.css"/>
                 <script type="text/javascript" src="/project_timelog/static/src/js/timelog.js"></script>
                 <script type="text/javascript" src="/project_timelog/static/lib/online.js"></script>
-                <script type="text/javascript" src="/project_timelog/static/src/js/test.js"></script>
+                <script type="text/javascript" src="/project_timelog/static/src/js/tour.js"></script>
             </xpath>
         </template>
-
-        <template id="timer_navbar" inherit_id="web.menu" priority="1">
-            <xpath expr="//ul[@class='nav navbar-nav navbar-right oe_systray']" position="after">
-                <ul class="nav navbar-nav navbar-right timelog oe_timelog_placeholder">
-                    <li class="timelog" id="timelog_timer">
-                          <div id="clock0" class="clock">
-                          </div>
-                          <div id="clock1" class="clock">
-                          </div>
-                          <div id="clock2" class="clock">
-                          </div>
-                          <div id="clock3" class="clock">
-                          </div>
-                    </li>
-                </ul>
-            </xpath>
-        </template>
-    </data>
-</openerp>
+</odoo>
