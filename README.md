@@ -21,4 +21,3 @@ List of repositories:
 Donation
 ========
 Feel free to support our efforts by purchasing [our modules at app store](https://apps.odoo.com/apps/modules/browse?price=Paid&order=Newest&author=IT-Projects+LLC)
-
