@@ -6,16 +6,14 @@
  Skype field for partners
 ==========================
 
-Adds skype field to partner form. When you click on skype address, chat window is opened.
-
-Further information and discussion: http://yelizariev.github.io/odoo/module/2015/03/31/skype.html
+This module adds a Skype field along with a widget to integrate Skype chat window of the contact account while clicking on it.
 
 Credits
 =======
 
 Contributors
 ------------
-* 'Ivan Yelizariev <yelizariev@it-projects.info>'__
+* `Ivan Yelizariev <yelizariev@it-projects.info>`__
 
 Sponsors
 --------
@@ -35,6 +33,8 @@ Maintainers
 
 Further information
 ===================
+
+Further information and discussion: http://yelizariev.github.io/odoo/module/2015/03/31/skype.html
 
 Demo: http://runbot.it-projects.info/demo/misc-addons/11.0
 

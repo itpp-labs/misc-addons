@@ -17,3 +17,5 @@ Usage
 * Specify Skype field 
 * Click on ``[Save]`` button
 * On the form view click on skype address to open chat window.
+
+RESULT: Skype chat window of the contact account integrated while clicking on it.
