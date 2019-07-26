@@ -16,7 +16,7 @@ By default the module replaces ``Odoo`` to ``Software``.
 * Open ``[[ General Settings ]] >> Technical >> Parameters >> System Parameters`` and modify:
 
   * ``web_debranding.new_title`` (put space in *Value field* if you don't need Brand in Title)
-  * ``eb_debranding.new_name`` (your Brand)
+  * ``web_debranding.new_name`` (your Brand)
   * ``web_debranding.new_website`` (your website)
   * ``web_debranding.new_documentation_website`` (website with documentation instead of official one)
   * ``web_debranding.favicon_url``
@@ -31,8 +31,8 @@ Further debranding
 
 * Open *addons/mail/data/mail_data.xml* and edit Template **Notification Email** - delete ``using Odoo``
 * Open *addons/website_livechat/data/website_livechat_data.xml* and edit in ``im_livechat_channel_data_website`` record *YourWebsiteWithOdoo.com* string
-* Install ``website_debranding`` `module <https://apps.odoo.com/apps/modules/10.0/website_debranding/>`__ if module *Website Builder* has been already installed in your system
-* Install ``pos_debranding`` `module <https://apps.odoo.com/apps/modules/10.0/pos_debranding/>`__ if module `POS` has been already installed in your system
+* Install `website_debranding <https://apps.odoo.com/apps/modules/10.0/website_debranding/>`__ if module *Website Builder* has been already installed in your system
+* Install `pos_debranding <https://apps.odoo.com/apps/modules/10.0/pos_debranding/>`__ if module `POS` has been already installed in your system
 * Delete *Odoo.com Accounts* record at *Settings\Users & Companies\OAuth Providers* if module ``OAuth2 Authentication`` has been already installed in your system
 * To debrand ``/web/database/manager``:
 
