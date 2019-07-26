@@ -31,8 +31,8 @@ Further debranding
 
 * Open *addons/mail/data/mail_data.xml* and edit Template **Notification Email** - delete ``using Odoo``
 * Open *addons/website_livechat/data/website_livechat_data.xml* and edit in ``im_livechat_channel_data_website`` record *YourWebsiteWithOdoo.com* string
-* Install ``website_debranding`` module if module *Website Builder* has been already installed in your system
-* Install ``pos_debranding`` module if module `POS` has been already installed in your system
+* Install ``website_debranding`` `module <https://apps.odoo.com/apps/modules/10.0/website_debranding/>`__ if module *Website Builder* has been already installed in your system
+* Install ``pos_debranding`` `module <https://apps.odoo.com/apps/modules/10.0/pos_debranding/>`__ if module `POS` has been already installed in your system
 * Delete *Odoo.com Accounts* record at *Settings\Users & Companies\OAuth Providers* if module ``OAuth2 Authentication`` has been already installed in your system
 * To debrand ``/web/database/manager``:
 
