@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 import datetime
+import json
+import re
+import requests
+import urllib3
 from openerp import models, fields, api
 from openerp.exceptions import Warning as UserError
 from openerp.tools.translate import _
@@ -93,6 +97,12 @@ class Task(models.Model):
             'project_timelog.mt_timelog_stopline': lambda self, cr, uid, obj, ctx=None: bool(obj.datetime_stopline),
         },
     }
+
+    def get_requests(self, url_request, data):
+        res = requests.post(url_request, data)
+        return res
+
+
 
     @api.model
     def clear_stopline_datetime(self):
@@ -204,6 +214,7 @@ class ProjectWork(models.Model):
                                           related='task_id.project_id.analytic_account_id',
                                           readonly=True)
     combined_name = fields.Char('Task and Summary', compute="_compute_combined_name")
+    create_date = fields.Datetime(string='Creation Date', required=True, default=fields.Datetime.now)
 
     @api.multi
     def _compute_combined_name(self):
@@ -226,6 +237,7 @@ class ProjectWork(models.Model):
                 return False
             sum_timelog = 0.00
             timelog = r.env.user.active_work_id.timelog_ids
+
             if not timelog:
                 return False
             if timelog[-1].end_datetime is False:
@@ -330,6 +342,7 @@ class ProjectWork(models.Model):
 
         if first_timelog and first_timelog[0].end_datetime is not False:
             date_object = datetime.datetime.strptime(first_timelog[0].end_datetime, "%Y-%m-%d %H:%M:%S")
+
             if date_object is not False and date_object.day != current_date.day:
                 # there are timelogs yesterday
                 return {
@@ -343,6 +356,11 @@ class ProjectWork(models.Model):
                     }
                 }
 
+        # date_object = datetime.datetime.strptime(first_timelog[0].start_datetime, "%Y-%m-%d %H:%M:%S")
+        # if date_object.day == current_date.day:
+        #     print('|----------------date_object------------|')
+        #     print(date_object)
+        #     print('|----------------date_object------------|')
         self.write({'status': 'play'})
 
         # record data for current user (last active timer)

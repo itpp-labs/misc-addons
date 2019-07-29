@@ -22,6 +22,20 @@ Sponsors
 --------
 * `IT-Projects LLC <https://it-projects.info>`_
 
+Script
+======
+
+.. code-block:: python
+
+    base_url = obj.env['ir.config_parameter'].get_param('web.base.url')
+    url_task = base_url + '/web#id=%s&' % obj.user_id.id + 'model=project.task'
+    value1 = url_task
+    value2 = obj.create_date
+    value3 = obj.task_name
+    data = {'value1': value1, 'value2': value2, 'value3': value3}
+    url_request = 'https://maker.ifttt.com/trigger/%s/with/key/cCTNCS_cSDRVWPdMoYXPPQ' % event
+    obj.get_requests(url_request, data)
+
 Further information
 ===================
 
