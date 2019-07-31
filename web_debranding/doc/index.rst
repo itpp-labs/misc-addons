@@ -62,7 +62,7 @@ To automatically install this module for every new databases set 'auto_install':
 Usage
 =====
 
-* Open `Odoo <https://www.odoo.com/>`__
+* Open *Backend*
 * Perform usual workflow
 
-RESULT: No more reference to Odoo(icon, name). *Possible exceptions may be messages.*
+RESULT: No more reference to `Odoo <https://www.odoo.com/>`__. *Possible exceptions may be Mails.*
