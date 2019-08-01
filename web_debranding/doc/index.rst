@@ -61,7 +61,6 @@ To automatically install this module for every new databases set 'auto_install':
 
 Usage
 =====
-
 * Open *Backend*
 * Perform usual workflow
 

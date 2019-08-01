@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-    <data>
+<odoo>
         <record id="view_config_settings" model="ir.ui.view">
             <field name="name">timelog settings</field>
             <field name="model">timelog.config.settings</field>
@@ -50,6 +49,10 @@
                                 <label for="good_time_week"/>
                                 <field name="good_time_week" class="oe_inline" widget="float_time"/>
                             </div>
+                            <div>
+                                <label for="first_weekday"/>
+                                <field name="first_weekday" class="oe_inline" required="1"/>
+                            </div>
                         </div>
                     </group>
                 </form>
@@ -64,7 +67,6 @@
             <field name="target">inline</field>
         </record>
 
-        <menuitem id="base.menu_timelog_config" name="Timelog" parent="base.menu_config"
-            sequence="15" action="action_config_settings"/>
-    </data>
-</openerp>
+        <menuitem id="main_menu" name="Timelog" parent="base.menu_administration" sequence="1" groups="base.group_no_one"/>
+        <menuitem id="menu_timelog_config" name="Settings" parent="main_menu" sequence="1" action="action_config_settings"/>
+</odoo>
