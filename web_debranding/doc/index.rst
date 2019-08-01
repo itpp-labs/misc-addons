@@ -61,8 +61,7 @@ To automatically install this module for every new databases set 'auto_install':
 
 Usage
 =====
+* Open *Backend*
+* Perform usual workflow
 
-* Go to your Website home page.
-* Enable or disable ``[[Customize]] >> Footer Copyright >> Remove Odoo Promotional Link``. It should be enabled by default.
-
-RESULT: Odoo references are removed from your Website.
+RESULT: No more reference to `Odoo <https://www.odoo.com/>`__. *Possible exceptions may be Mails.*
