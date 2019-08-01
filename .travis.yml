@@ -44,3 +44,4 @@ notifications:
     on_failure: change
   urls:
     - "https://ci.it-projects.info/travis/on_failure/change"
+  - CHECK_TAGS="1"
