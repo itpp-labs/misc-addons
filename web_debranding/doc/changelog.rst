@@ -2,6 +2,8 @@
 --------
 
 **Fix:** debrand_bytes now accepts bytes and str types
+**Fix:** fixed "OdooBot has a request" item in notifications
+**Fix:** included mail_channel fixes
 
 `1.0.27`
 --------
