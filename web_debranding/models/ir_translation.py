@@ -4,6 +4,7 @@
 # Copyright 2017 Nicolas JEUDY <https://github.com/njeudy>
 # Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
+# Copyright 2019 Eugene Molotov <https://it-projects.info/team/molotov>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 import re
@@ -57,7 +58,9 @@ def debrand(env, source, is_code=False):
 
 
 def debrand_bytes(env, source):
-    return bytes(debrand(env, source.decode('utf-8')), 'utf-8')
+    if type(source) is bytes:
+        source = source.decode('utf-8')
+    return bytes(debrand(env, source), 'utf-8')
 
 
 class IrTranslation(models.Model):

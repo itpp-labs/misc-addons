@@ -1,3 +1,8 @@
+`1.0.28`
+--------
+
+**Fix:** debrand_bytes now accepts bytes and str types
+
 `1.0.27`
 --------
 

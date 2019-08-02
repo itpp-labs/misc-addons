@@ -3,10 +3,11 @@
 # Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
 # Copyright 2018 WohthaN <https://github.com/WohthaN>
+# Copyright 2019 Eugene Molotov <https://github.com/em230418>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 {
     'name': "Backend debranding",
-    'version': '12.0.1.0.27',
+    'version': '12.0.1.0.28',
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'LGPL-3',
     'category': 'Debranding',
