@@ -9,13 +9,53 @@
 <section class="oe_container">
     <div class="oe_row oe_spaced">
         <div class="oe_span12">
-            <p>
+            <h3 class="oe_slogan">
                 Build and enhance your Brand by removing references to <a href="https://www.odoo.com/"> odoo.com </a> and customizing company logo, favicon, page title, etc.
-            </p>
+            </h3>
         </div>
-        <div class="oe_row_img oe_centered">
-            <img class="oe_demo oe_picture oe_screenshot" src="debranding11.png"/>
+    </div>
+</section>
+
+
+<section class="oe_container">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="Group.png" alt="First slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="Group2.png" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="Group3.png" alt="Third slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="Group4.png" alt="Forth slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="Group5.png" alt="Fiveth slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="Group6.png" alt="Sixth slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="Group7.png" alt="Seventh slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="Group8.png" alt="Eighth slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="Group9.png" alt="Nineth slide">
+            </div>
         </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
     </div>
 </section>
 
@@ -41,13 +81,13 @@
                 <li> <i>(feature is a part of p.5)</i> </li>
                 <li> Deletes Share block and branded parts of other blocks at ``[[ Settings ]] >> Dashboard``</li>
                 <li> Replaces "Odoo" in planner </li>
-                <li> Replaces footer in planner to a custom one. </li>
+                <li> Replaces footer in planner to a custom one </li>
                 <li> Deletes "Odoo" in a request message for permission desktop notifications. Replaces "Odoo" and icon in desktop notifications </li>
                 <li> [ENTERPRISE] Deletes odoo logo in application switcher </li>
                 <li> Hides Enterprise features in Settings </li>
                 <li> Replaces "Odoo" in all backend qweb templates (e.g. FAQ in import tool) </li>
                 <li> Replaces "odoo.com" in hints, examples, etc. </li>
-                <li> Rename "OdooBot" to "Bot". Use company's logo as bot avatar </li>
+                <li> <i>(feature is not required in 11.0+ versions)</i> </li>
                 <li> [ENTERPRISE] Replaces icons for android and apple devices with custom url </li>
                 <li> Replaces links to <a href="https://www.odoo.com/documentation"> documentation </a> (e.g. "Help" in Import tool, "How-to" in paypal, etc.) to custom website </li>
                 <li> Removes official videos in planner </li>
@@ -60,12 +100,28 @@
 
 <section class="oe_container">
     <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <div class="alert alert-danger oe_mt32" style="padding:0.3em 0.6em; font-size: 150%;">
+                Within Backend debranding we hide <i>menu Apps</i> that is disabled for User after installing the module.
+                Only <a href="https://odoo-development.readthedocs.io/en/latest/odoo/usage/login-as-superuser.html">Super User</a> can enable them.</p>
+                Also we hide buttons for the modules installation. <i>For example in the menu Inventory -> Settings some options disappear.</i></p>
+                You can return them only through the <a href="https://odoo-development.readthedocs.io/en/latest/odoo/usage/login-as-superuser.html">Super User</a>.
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
         <div class="oe_span8">
             <h2>Need our service?</h2>
             <p class="oe_mt32">Contact us by <a href="mailto:apps@it-projects.info">email</a> or fill out <a href="https://www.it-projects.info/page/website.contactus " target="_blank">request form</a></p>
             <ul>
                 <li><a href="mailto:apps@it-projects.info">apps@it-projects.info <i class="fa fa-envelope-o"></i></a></li>
                 <li><a href="https://www.it-projects.info/page/website.contactus " target="_blank">https://www.it-projects.info/page/website.contactus <i class="fa fa-list-alt"></i></a></li>
+                <li><a href="https://m.me/itprojectsllc" target="_blank">https://m.me/itprojectsllc <i class="fa fa-facebook-square"></i></a></li>
+                <li>skype@it-projects.info <i class="fa fa-skype"></i></li>
             </ul>
         </div>
         <div class="oe_span4">
@@ -81,27 +137,27 @@
                             border: 3px dashed #75526b;
                             float: left;
                             padding: 4px 12px;
-                            -webkit-transform: rotate(6deg);
-                            -o-transform: rotate(6deg);
-                            -moz-transform: rotate(6deg);
-                            -ms-transform: rotate(6deg);">
+                            -webkit-transform: rotate(-4deg);
+                            -o-transform: rotate(-4deg);
+                            -moz-transform: rotate(-4deg);
+                            -ms-transform: rotate(-4deg);">
                     Tested on Odoo<br/>11.0 community
                 </div>
                 <div style="margin-top: 15px;
-                   position: relative;
-                   font-family:'Vollkorn', serif;
-                   font-size: 16px;
-                   line-height: 25px;
-                   text-transform: uppercase;
-                   font-weight: bold;
-                   color: #75526b;
-                   border: 3px dashed #75526b;
-                   float: left;
-                   padding: 4px 12px;
-                   -webkit-transform: rotate(-7deg);
-                   -o-transform: rotate(-7deg);
-                   -moz-transform: rotate(-7deg);
-                   -ms-transform: rotate(-7deg);">
+                            position: relative;
+                            font-family:'Vollkorn', serif;
+                            font-size: 16px;
+                            line-height: 25px;
+                            text-transform: uppercase;
+                            font-weight: bold;
+                            color: #75526b;
+                            border: 3px dashed #75526b;
+                            float: left;
+                            padding: 4px 12px;
+                            -webkit-transform: rotate(-7deg);
+                            -o-transform: rotate(-7deg);
+                            -moz-transform: rotate(-7deg);
+                            -ms-transform: rotate(-7deg);">
                     Tested on Odoo<br/>11.0 enterprise
                 </div>
             </div>
