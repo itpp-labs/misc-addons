@@ -96,4 +96,3 @@ RESULT: No more Odoo word in hints, examples, etc. *There is a placeholder for f
 * Send ``/help`` to the chat
 
 RESULT: The message from the Bot open menu has been received.
-
