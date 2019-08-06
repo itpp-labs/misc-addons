@@ -56,7 +56,7 @@ Maintainers
 
       To get a guaranteed support
       you are kindly requested to purchase the module 
-      at `odoo apps store <https://apps.odoo.com/apps/modules/10.0/web_website/>`__.
+      at `odoo apps store <https://apps.odoo.com/apps/modules/11.0/web_website/>`__.
 
       Thank you for understanding!
 
@@ -65,14 +65,14 @@ Maintainers
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/misc-addons/10.0
+Demo: http://runbot.it-projects.info/demo/misc-addons/11.0
 
-HTML Description: https://apps.odoo.com/apps/modules/10.0/web_website/
+HTML Description: https://apps.odoo.com/apps/modules/11.0/web_website/
 
 Usage instructions: `<doc/index.rst>`_
 
 Changelog: `<doc/changelog.rst>`_
 
-Notifications on updates: `via Atom <https://github.com/it-projects-llc/misc-addons/commits/10.0/web_website.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/it-projects-llc/misc-addons/commits/10.0/web_website.atom>`_
+Notifications on updates: `via Atom <https://github.com/it-projects-llc/misc-addons/commits/11.0/web_website.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/it-projects-llc/misc-addons/commits/11.0/web_website.atom>`_
 
-Tested on Odoo 10.0 2da4eb58989af1fc0280f5fec12deca2aa6eae88
+Tested on Odoo 11.0 aefbd6da12748f078a197e5e3ae0c1cd68b2e6c5

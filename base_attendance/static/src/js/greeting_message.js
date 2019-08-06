@@ -27,7 +27,7 @@ var GreetingMessage = Widget.extend({
         // to the (likely) appropriate menu, according to the user access rights
         if(!action.attendance) {
             this.activeBarcode = false;
-            this.getSession().user_has_group('base_attendance.group_hr_attendance_user').then(function(has_group) {
+            this.getSession().user_has_group('base_attendance.group_hr_attendance_manager').then(function(has_group) {
                 if(has_group) {
                     self.next_action = 'base_attendance.hr_attendance_action_kiosk_mode';
                 } else {

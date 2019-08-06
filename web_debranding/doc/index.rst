@@ -83,8 +83,7 @@ RESULT: Full list of debranded phrases can be found.
 
 RESULT: *Use external pads in Odoo Notes. Extract and analyze Odoo data from Google Spreadsheet.*
 
-* ``[[ Settings ]] >> Dashboard``
-* *Implementation* section
+* ``[[ Settings ]] >> Dashboard >> *Implementation* section``
 
 RESULT: No more Odoo word in all backend qweb templates. *Follow these implementation guides to get the most out of Odoo.*
 
@@ -96,4 +95,4 @@ RESULT: No more Odoo word in hints, examples, etc. *There is a placeholder for f
 * ``[[ Discuss ]] >> CHANNELS >> #general``
 * Send /help to the chat
 
-RESULT: Receive a message from the Bot open menu.
+RESULT: The message from the Bot open menu has been received.

@@ -4,6 +4,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 import logging
+from odoo.tools import mute_logger
 from odoo import models, api
 
 from .ir_translation import debrand
@@ -68,7 +69,7 @@ class View(models.Model):
             return view.id
 
         try:
-            with self.env.cr.savepoint():
+            with self.env.cr.savepoint(), mute_logger('odoo.models'):
                 view = self.env['ir.ui.view'].create({
                     'name': name,
                     'type': type,

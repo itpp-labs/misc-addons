@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * autostaging_project_task
-# 
+#
 # Translators:
 # Randall Castro <rcastro@treintaycinco.com>, 2018
 msgid ""
@@ -11,11 +11,12 @@ msgstr ""
 "POT-Creation-Date: 2018-04-21 23:15+0000\n"
 "PO-Revision-Date: 2018-04-21 23:15+0000\n"
 "Last-Translator: Randall Castro <rcastro@treintaycinco.com>, 2018\n"
-"Language-Team: Spanish (Costa Rica) (https://www.transifex.com/it-projects-llc/teams/76080/es_CR/)\n"
+"Language-Team: Spanish (Costa Rica) (https://www.transifex.com/it-projects-"
+"llc/teams/76080/es_CR/)\n"
+"Language: es_CR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: es_CR\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: autostaging_project_task
@@ -33,7 +34,13 @@ msgid "Autostaging"
 msgstr "Puesta en marcha"
 
 #. module: autostaging_project_task
-#: model:ir.model.fields,field_description:autostaging_project_task.field_project_task_autostaging_next_stage
+#: model:ir.ui.view,arch_db:autostaging_project_task.view_project_form_autostaging_enabled
+#, fuzzy
+msgid "Autostaging enabled"
+msgstr "Puesta en marcha"
+
+#. module: autostaging_project_task
+#: model:ir.model.fields,field_description:autostaging_project_task.field_project_task_autostaging_card_next_stage
 #: model:ir.model.fields,field_description:autostaging_project_task.field_project_task_type_autostaging_next_stage
 msgid "Autostaging next stage"
 msgstr "Puesta en marcha siguiente etapa"

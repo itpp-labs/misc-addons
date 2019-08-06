@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    Copyright 2017-2018 manawi <https://github.com/manawi>
+    Copyright 2017-2018 Karamov Ilmir <https://it-projects.info/team/ilmir-k>
+    Copyright 2017-2018 iledarn <https://github.com/iledarn>
+    Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+    License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). -->
 <odoo>
     <record id="view_task_form2" model="ir.ui.view">
       <field name="name">project.task.form</field>
@@ -17,7 +23,7 @@
                   <field name="hide_button" invisible='True'/>
                   <button name="change_state_done" string="Change state to DONE" type="object" icon="fa-check" attrs="{'invisible': ['|', ('state', 'in',['done', 'cancelled']), ('hide_button', '=', True)]}"/>
                   <button name="change_state_todo" string="Change state to TODO" type="object" icon="fa-caret-square-o-right" attrs="{'invisible': [ '|',('state', '=', 'todo'), ('hide_button', '=', True)]}"/>
-                  <button name="change_state_waiting" type="object" string="Change state to WAITING" icon="fa-pause" attrs="{'invisible': [ '|',('state', '=', 'waiting'), ('hide_button', '=', True)]}"/>
+                  <button name="change_state_waiting" type="object" string="Change state to Waiting" icon="fa-pause" attrs="{'invisible': [ '|',('state', '=', 'waiting'), ('hide_button', '=', True)]}"/>
                   <button name="change_state_cancelled" type="object" string="Change state to CANCELLED" icon="fa-ban" attrs="{'invisible': [ '|',('state', '=', 'cancelled'), ('hide_button', '=', True)]}"/>
                   <field name="reviewer_id"/>
                   <field name="deadline"/>
@@ -34,11 +40,14 @@
       <field name="inherit_id" ref="project.view_task_kanban"/>
       <field name="arch" type="xml">
         <xpath expr="//field[@name ='tag_ids']" position="after">
-          <field name="subtask_ids"/>
-          <field name="kanban_subtasks" invisible="1"/>
+            <field name="completion" invisible="1"/>
+            <field name="subtask_ids" invisible="1"/>
+            <field name="kanban_subtasks" invisible="1"/>
+            <field name="completion_xml" invisible="1"/>
         </xpath>
         <xpath expr="//div[hasclass('o_kanban_record_bottom')]" position="before">
           <div>
+             <t t-raw="record.completion_xml.raw_value"/>
              <t t-raw="record.kanban_subtasks.raw_value"/>
           </div>
         </xpath>
