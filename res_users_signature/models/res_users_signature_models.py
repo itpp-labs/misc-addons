@@ -1,38 +1,49 @@
-from openerp import fields as old_fields
-from openerp import api, models, fields, tools
+# Copyright 2014 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2019 Anvar Kildebekov <https://it-projects.info/team/fedoranvar>
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+from odoo import api, models, fields, tools
 try:
-    from openerp.addons.email_template.email_template import mako_template_env
+    from odoo.addons.mail.models.mail_template import mako_template_env
 except ImportError:
-    try:
-        from openerp.addons.mail.mail_template import mako_template_env
-    except ImportError:
-        pass
+    pass
 
-from openerp.loglevels import ustr
+from odoo.loglevels import ustr
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.utils import COMMASPACE
 from email.utils import formatdate
 from email.utils import make_msgid
-from email import Encoders
-from openerp.tools import html2text
+from email import encoders
 
+import html2text
 import re
 import base64
 
-from openerp.addons.base.models.ir_mail_server import encode_rfc2822_address_header, encode_header, encode_header_param
+from bs4 import BeautifulSoup
+
+from odoo.addons.base.models.ir_mail_server import encode_rfc2822_address_header, encode_header, encode_header_param
+
+VALID_TAGS = ['p', 'img']
+
+
+def sanitize_html(value):
+
+    soup = BeautifulSoup(value, "lxml").html.body
+
+    for tag in soup.findAll(True):
+        if tag.name not in VALID_TAGS:
+            tag.extract()
+
+    return soup.renderContents().decode()
 
 
 class ResUsers(models.Model):
     _inherit = 'res.users'
+    signature_id = fields.Many2one('res.users.signature', string='Signature template',
+                                   help='Keep empty to edit signature manually')
+    signature = fields.Html('Signature', sanitize=True)
 
-    signature_id = fields.Many2one('res.users.signature', string='Signature template', help='Keep empty to edit signature manually')
-
-        'signature': old_fields.Html('Signature', sanitize=False)
-
-
-    @api.one
     @api.onchange('signature_id')
     def render_signature_id(self):
         if not self.signature_id:
@@ -46,20 +57,21 @@ class ResUsers(models.Model):
     def write(self, vals):
         res = super(ResUsers, self).write(vals)
         for r in self:
-            if any([k in vals for k in ['company_id']]):
+            if any([k in vals for k in ['signature_id', 'company_id', 'name', 'phone', 'email']]):
                 r.render_signature_id()
         return res
 
 
 class ResUsersSignature(models.Model):
     _name = 'res.users.signature'
+    _description = 'Users signatures'
 
     name = fields.Char('Name')
     comment = fields.Text('Internal note')
-    template = fields.Html('Template', sanitize=False, help='''You can use variables:
+    template = fields.Html('Template', sanitize=True, help='''You can use variables:
 * ${user.name}
 * ${user.function} (job position)
-* ${user.partner_id.company_id.name} (company in a partner form)
+* ${user.partner_id.company_id.name} (company in a partner form)p
 * ${user.company_id.name} (current company)
 * ${user.email}
 * ${user.phone}
@@ -77,6 +89,8 @@ You can use control structures:
 
     @api.multi
     def write(self, vals):
+        if 'template' in vals:
+            vals['template'] = sanitize_html(vals['template'])
         res = super(ResUsersSignature, self).write(vals)
         for r in self:
             r.action_update_signature()
@@ -85,13 +99,10 @@ You can use control structures:
     @api.multi
     def action_update_signature(self):
         for r in self:
-            r.action_update_signature_one()
+            if r.user_ids:
+                for i in r.user_ids.ids:
+                    r.user_ids.browse(i).render_signature_id()
         return True
-
-    @api.multi
-    def action_update_signature_one(self):
-        self.ensure_one()
-        self.user_ids.render_signature_id()
 
 
 class ResPartner(models.Model):
@@ -112,7 +123,7 @@ class IrMailServer(models.Model):
     def build_email(self, email_from, email_to, subject, body, email_cc=None, email_bcc=None, reply_to=False,
                     attachments=None, message_id=None, references=None, object_id=False, subtype='plain', headers=None,
                     body_alternative=None, subtype_alternative='plain'):
-        """ copy-pasted from openerp/addons/base/models/ir_mail_server.py::build_email """
+        """ copy-pasted from odoo/addons/base/models/ir_mail_server.py::build_email """
 
         ftemplate = '__image-%s__'
         fcounter = 0
@@ -130,7 +141,6 @@ class IrMailServer(models.Model):
             e = match.end()
             data = body[s + len('"data:image/png;base64,'):e - 1]
             new_body += body[pos:s]
-
             fname = ftemplate % fcounter
             fcounter += 1
             attachments.append((fname, base64.b64decode(data)))
@@ -184,7 +194,7 @@ class IrMailServer(models.Model):
             msg['Bcc'] = encode_rfc2822_address_header(COMMASPACE.join(email_bcc))
         msg['Date'] = formatdate()
         # Custom headers may override normal headers or provide additional ones
-        for key, value in headers.iteritems():
+        for key, value in headers.items():
             msg[ustr(key).encode('utf-8')] = encode_header(value)
 
         if subtype == 'html' and not body_alternative and html2text:
@@ -212,11 +222,11 @@ class IrMailServer(models.Model):
 
                 # The default RFC2231 encoding of Message.add_header() works in Thunderbird but not GMail
                 # so we fix it by using RFC2047 encoding for the filename instead.
-                part.set_param('name', filename_rfc2047)
+                part.sudo().set_param('name', filename_rfc2047)
                 part.add_header('Content-Disposition', 'attachment', filename=filename_rfc2047)
                 part.add_header('Content-ID', '<%s>' % filename_rfc2047)  # NEW STUFF
 
                 part.set_payload(fcontent)
-                Encoders.encode_base64(part)
+                encoders.encode_base64(part)
                 msg.attach(part)
         return msg

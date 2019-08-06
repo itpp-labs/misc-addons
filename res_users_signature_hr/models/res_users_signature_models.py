@@ -1,5 +1,7 @@
-from openerp import api
-from openerp import models
+# Copyright 2014 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+from odoo import api
+from odoo import models
 
 
 class HrEmployee(models.Model):
