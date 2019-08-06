@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Copyright 2014 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    Copyright 2017 Ilmir Karamov <https://it-projects.info/team/ilmir-k>
+    Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
+    License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).-->
 <openerp>
     <data>
         <template id="assets_backend" name="skype assets" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
                 <script type="text/javascript" src="/res_partner_skype/static/src/js/skype.js"></script>
+            </xpath>
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/res_partner_skype/static/src/js/test_res_partner_skype.js"></script>
             </xpath>
         </template>
     </data>
