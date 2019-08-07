@@ -2,7 +2,7 @@
  Import Settings
 =================
 
-The module allows to save import settings to don't specify columns to fields mapping each time.Put some short introduction first.
+The module allows to save import settings to don't specify columns to fields mapping each time.
 
 Credits
 =======

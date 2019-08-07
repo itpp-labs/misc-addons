@@ -4,7 +4,7 @@
     "summary": """Adds Start/Stop buttons to task work lines. Allows to see statistics on Calendar, Graph, Tree views and more""",
     "category": "Project",
     "images": ["images/timelog.png"],
-    "version": "9.0.1.0.0",
+    "version": "10.0.1.0.0",
     "application": False,
 
     "author": "IT-Projects LLC, Dinar Gabbasov",
@@ -14,9 +14,8 @@
     "currency": "EUR",
 
     "depends": [
-        "project_issue_sheet",
+        "hr_timesheet",
         "base_action_rule",
-        "bus",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
@@ -37,5 +36,5 @@
     "post_init_hook": None,
 
     "auto_install": False,
-    "installable": False,
+    "installable": True,
 }
