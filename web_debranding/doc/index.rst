@@ -68,7 +68,9 @@ Usage
 
 * Search random string at menu ``[[ Settings ]] >> Users & Copanies >> Companies``
 
-  RESULT: No more Odoo word when search return empty result. *Create and manage the companies that will be managed by* **Your Brand** *from here.nShops or subsidiaries can be created and maintained from here.*
+  RESULT: No more Odoo word when search return empty result. 
+  
+    Create and manage the companies that will be managed by **Your Brand** from here. Shops or subsidiaries can be created and maintained from here.
 
 * Remove Administrator via menu ``[[ Settings ]] >> Users & Copanies >> Users``
 
