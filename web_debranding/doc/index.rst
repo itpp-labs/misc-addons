@@ -64,17 +64,21 @@ Usage
 
 * Open *Backend*
 
-  RESULT: No more label in footer *Powered by Odoo*.
+    Powered by Odoo
+    
+  RESULT: No more label in footer.
 
 * Search random string at menu ``[[ Settings ]] >> Users & Copanies >> Companies``
+  
+    Create and manage the companies that will be managed by *Your Brand* from here. Shops or subsidiaries can be created and maintained from here.
 
   RESULT: No more Odoo word when search return empty result. 
-  
-    Create and manage the companies that will be managed by **Your Brand** from here. Shops or subsidiaries can be created and maintained from here.
 
 * Remove Administrator via menu ``[[ Settings ]] >> Users & Copanies >> Users``
-
-  RESULT: No more Odoo word in Dialog box. *You can not remove the admin user as it is used internally for resources created by* **Your Brand** *(updates, module installation, ...).*
+  
+    You can not remove the admin user as it is used internally for resources created by* **Your Brand** *(updates, module installation, ...).
+    
+  RESULT: No more Odoo word in Dialog box. 
 
 * ``[[ Settings ]] >> Translations >> Application Terms``
 * Click ``Generate Missing Terms``
@@ -83,18 +87,24 @@ Usage
 
 * ``[[ Settings ]] >> General Settings``.
 
-  RESULT: *Use external pads in Odoo Notes. Extract and analyze Odoo data from Google Spreadsheet.*
+    Use external pads in Odoo Notes. Extract and analyze Odoo data from Google Spreadsheet.
+    
+  RESULT: No more Odoo word within phrases.
 
 * ``[[ Settings ]] >> Dashboard >> *Implementation* section``
+  
+    Follow these implementation guides to get the most out of Odoo.
 
-  RESULT: No more Odoo word in all backend qweb templates. *Follow these implementation guides to get the most out of Odoo.*
+  RESULT: No more Odoo word in all backend qweb templates. 
 
 * ``[[ Settings ]] >> Dashboard >> Companies``
 * Create a new Company
+  
+    There is a placeholder for the Website field *www.odoo.com*
 
-  RESULT: No more Odoo word in hints, examples, etc. *There is a placeholder for field Website www.odoo.com*
+  RESULT: No more Odoo word in hints, examples, etc. 
 
 * ``[[ Discuss ]] >> CHANNELS >> #general``
-* Send /help to the chat
+* Send ``/help`` to the chat
 
   RESULT: The message from the Bot open menu has been received.
