@@ -64,35 +64,35 @@ Usage
 
 * Open *Backend*
 
-RESULT: No more label in footer *Powered by Odoo*.
+  RESULT: No more label in footer *Powered by Odoo*.
 
 * Search random string at menu ``[[ Settings ]] >> Users & Copanies >> Companies``
 
-RESULT: No more Odoo word when search return empty result. *Create and manage the companies that will be managed by* **Your Brand** *from here.nShops or subsidiaries can be created and maintained from here.*
+  RESULT: No more Odoo word when search return empty result. *Create and manage the companies that will be managed by* **Your Brand** *from here.nShops or subsidiaries can be created and maintained from here.*
 
 * Remove Administrator via menu ``[[ Settings ]] >> Users & Copanies >> Users``
 
-RESULT: No more Odoo word in Dialog box. *You can not remove the admin user as it is used internally for resources created by* **Your Brand** *(updates, module installation, ...).*
+  RESULT: No more Odoo word in Dialog box. *You can not remove the admin user as it is used internally for resources created by* **Your Brand** *(updates, module installation, ...).*
 
 * ``[[ Settings ]] >> Translations >> Application Terms``
 * Click ``Generate Missing Terms``
 
-RESULT: Full list of debranded phrases can be found.
+  RESULT: Full list of debranded phrases can be found.
 
 * ``[[ Settings ]] >> General Settings``.
 
-RESULT: *Use external pads in Odoo Notes. Extract and analyze Odoo data from Google Spreadsheet.*
+  RESULT: *Use external pads in Odoo Notes. Extract and analyze Odoo data from Google Spreadsheet.*
 
 * ``[[ Settings ]] >> Dashboard >> *Implementation* section``
 
-RESULT: No more Odoo word in all backend qweb templates. *Follow these implementation guides to get the most out of Odoo.*
+  RESULT: No more Odoo word in all backend qweb templates. *Follow these implementation guides to get the most out of Odoo.*
 
 * ``[[ Settings ]] >> Dashboard >> Companies``
 * Create a new Company
 
-RESULT: No more Odoo word in hints, examples, etc. *There is a placeholder for field Website www.odoo.com*
+  RESULT: No more Odoo word in hints, examples, etc. *There is a placeholder for field Website www.odoo.com*
 
 * ``[[ Discuss ]] >> CHANNELS >> #general``
 * Send /help to the chat
 
-RESULT: The message from the Bot open menu has been received.
+  RESULT: The message from the Bot open menu has been received.
