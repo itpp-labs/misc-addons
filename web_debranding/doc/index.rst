@@ -64,36 +64,48 @@ Usage
 
 * Open *Backend*
 
+RESULT: Odoo is replaced to Your Brand in footer, Dialog Box, within phrases, empty messages, all backend qweb templates, hints, examples, Settings and Bot open menu (*you will be able to receive messages from your company Bot instead of Odoo Bot*). 
+Furthermore, this module provides a full list of debranded phrases. 
+
+Examples
+========
+
+* Update the footer title
+
     Powered by Odoo
     
-* Search random string at menu ``[[ Settings ]] >> Users & Copanies >> Companies``
+* Search a random string at the menu ``[[ Settings ]] >> {Users & Copanies} >> {Companies}``
   
     Create and manage the companies that will be managed by Odoo from here. Shops or subsidiaries can be created and maintained from here.
 
-* Remove Administrator via menu ``[[ Settings ]] >> Users & Copanies >> Users``
+* Remove Administrator via menu ``[[ Settings ]] >> {Users & Copanies} >> {Users}``
   
     You can not remove the admin user as it is used internally for resources created by Odoo (updates, module installation, ...).
 
-* ``[[ Settings ]] >> Dashboard >> Companies``
+* ``[[ Settings ]] >> {Dashboard} >> {Companies}``
 * Create a new Company
-* Go to the placeholder for the Website
+* Update a placeholder for the Website field 
   
     e.g. `www.odoo.com <https://www.odoo.com/>`__
 
-* ``[[ Settings ]] >> Translations >> Application Terms``
-* Click ``Generate Missing Terms``
-
-* ``[[ Settings ]] >> General Settings``.
+* Open menu``[[ Settings ]] >> {General Settings}``.
 
     Use external pads in Odoo Notes. 
     Extract and analyze Odoo data from Google Spreadsheet.
 
-* ``[[ Settings ]] >> Dashboard >> *Implementation* section``
+Full list of debranded phrases can be found the following way:
+
+* Open menu ``[[ Settings ]] >> {Translations} >> {Application Terms}``
+* Click on ``[{Generate Missing Terms}]``
+* Choose the language
+* Click on ``[{Update}]``
+
+
+* Open menu ``[[ Settings ]] >> {Dashboard} >> {*Implementation* section}``
   
     Follow these implementation guides to get the most out of Odoo.
 
-* ``[[ Discuss ]] >> CHANNELS >> #general``
-* Send ``/help`` to the chat
+To receive a message from the Bot open menu:
 
-**RESULT:** Odoo is replaced to Your Brand in footer, Dialog Box, within phrases, empty messages, all backend qweb templates, hints, examples, Settings and Bot open menu (*you will be able to receive messages from your company Bot instead of Odoo Bot*). 
-Furthermore, this module provides a full list of debranded phrases. 
+* Open menu ``[[ Discuss ]] >> {CHANNELS} >> {#general}``
+* Send ``/help`` to the chat
