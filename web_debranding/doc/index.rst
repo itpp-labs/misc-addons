@@ -66,45 +66,34 @@ Usage
 
     Powered by Odoo
     
-  RESULT: No more label in footer.
-
 * Search random string at menu ``[[ Settings ]] >> Users & Copanies >> Companies``
   
-    Create and manage the companies that will be managed by *Your Brand* from here. Shops or subsidiaries can be created and maintained from here.
-
-  RESULT: No more Odoo word when search return empty result. 
+    Create and manage the companies that will be managed by Odoo from here. Shops or subsidiaries can be created and maintained from here.
 
 * Remove Administrator via menu ``[[ Settings ]] >> Users & Copanies >> Users``
   
-    You can not remove the admin user as it is used internally for resources created by* **Your Brand** *(updates, module installation, ...).
-    
-  RESULT: No more Odoo word in Dialog box. 
+    You can not remove the admin user as it is used internally for resources created by Odoo (updates, module installation, ...).
+
+* ``[[ Settings ]] >> Dashboard >> Companies``
+* Create a new Company
+* Go to the placeholder for the Website
+  
+    e.g. `www.odoo.com <https://www.odoo.com/>`__
 
 * ``[[ Settings ]] >> Translations >> Application Terms``
 * Click ``Generate Missing Terms``
 
-  RESULT: Full list of debranded phrases can be found.
-
 * ``[[ Settings ]] >> General Settings``.
 
-    Use external pads in Odoo Notes. Extract and analyze Odoo data from Google Spreadsheet.
-    
-  RESULT: No more Odoo word within phrases.
+    Use external pads in Odoo Notes. 
+    Extract and analyze Odoo data from Google Spreadsheet.
 
 * ``[[ Settings ]] >> Dashboard >> *Implementation* section``
   
     Follow these implementation guides to get the most out of Odoo.
 
-  RESULT: No more Odoo word in all backend qweb templates. 
-
-* ``[[ Settings ]] >> Dashboard >> Companies``
-* Create a new Company
-  
-    There is a placeholder for the Website field *www.odoo.com*
-
-  RESULT: No more Odoo word in hints, examples, etc. 
-
 * ``[[ Discuss ]] >> CHANNELS >> #general``
 * Send ``/help`` to the chat
 
-  RESULT: The message from the Bot open menu has been received.
+**RESULT:** Odoo is replaced to Your Brand in footer, Dialog Box, within phrases, empty messages, all backend qweb templates, hints, examples, Settings and Bot open menu (*you will be able to receive messages from your company Bot instead of Odoo Bot*). 
+Furthermore, this module provides a full list of debranded phrases. 
