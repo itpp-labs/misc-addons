@@ -64,13 +64,16 @@ Usage
 
 * Open *Backend*
 
-RESULT: Odoo is replaced to Your Brand in footer, Dialog Box, within phrases, empty messages, all backend qweb templates, hints, examples, Settings and Bot open menu (*you will be able to receive messages from your company Bot instead of Odoo Bot*). 
-Furthermore, this module provides a full list of debranded phrases. 
+RESULT: Odoo is replaced to Your Brand in footer, Dialog Box, within phrases, empty messages, all backend qweb templates, hints, examples, Settings and Bot open menu (*Odoo Bot -> Bot*), etc.
+
+Full list of debranded phrases can be found the following way ``[[ Settings ]] >> {Translations} >> {Application Terms}``.
+
+The cases above, listed by way of the following examples: 
 
 Examples
 ========
 
-* Update the footer title
+* The module deletes Odoo label in footer
 
     Powered by Odoo
     
@@ -83,8 +86,7 @@ Examples
     You can not remove the admin user as it is used internally for resources created by Odoo (updates, module installation, ...).
 
 * ``[[ Settings ]] >> {Dashboard} >> {Companies}``
-* Create a new Company
-* Update a placeholder for the Website field 
+* When you create new company it shows placeholder for field Website
   
     e.g. `www.odoo.com <https://www.odoo.com/>`__
 
@@ -93,19 +95,22 @@ Examples
     Use external pads in Odoo Notes. 
     Extract and analyze Odoo data from Google Spreadsheet.
 
-Full list of debranded phrases can be found the following way:
-
-* Open menu ``[[ Settings ]] >> {Translations} >> {Application Terms}``
-* Click on ``[{Generate Missing Terms}]``
-* Choose the language
-* Click on ``[{Update}]``
-
-
 * Open menu ``[[ Settings ]] >> {Dashboard} >> {*Implementation* section}``
   
     Follow these implementation guides to get the most out of Odoo.
 
-To receive a message from the Bot open menu:
-
 * Open menu ``[[ Discuss ]] >> {CHANNELS} >> {#general}``
 * Send ``/help`` to the chat
+
+    OdooBot - now
+
+    You are in channel #general.
+
+    You can mention someone by typing @username, this will grab its attention.
+    
+    You can mention a channel by typing #channel.
+    
+    You can execute a command by typing /command.
+    
+    You can insert canned responses in your message by typing :shortcut.
+
