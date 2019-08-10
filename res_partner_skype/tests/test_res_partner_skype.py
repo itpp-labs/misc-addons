@@ -22,4 +22,4 @@ class TestUi(odoo.tests.HttpCase):
         self.phantom_js("/web",
                         "odoo.__DEBUG__.services['web_tour.tour'].run('tour_res_partner_skype', 1000)",
                         "odoo.__DEBUG__.services['web_tour.tour'].tours.tour_res_partner_skype.ready",
-                        login="admin", timeout=140)
+                        login="admin", timeout=300)
