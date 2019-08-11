@@ -88,7 +88,7 @@ Examples
 * ``[[ Settings ]] >> Dashboard >> Companies``
 * When you create new company it shows placeholder for field Website
   
-    e.g. `www.odoo.com <https://www.odoo.com/>`__
+    e.g. www.odoo.com
 
 * Open menu``[[ Settings ]] >> General Settings``.
 
