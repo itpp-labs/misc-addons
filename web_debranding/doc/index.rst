@@ -64,36 +64,52 @@ Usage
 
 * Open *Backend*
 
+RESULT: Odoo is replaced to Your Brand in footer, Dialog Box, within phrases, empty messages, all backend qweb templates, hints, examples, Settings and Bot open menu (*Odoo Bot -> Bot*), etc.
+
+Other debranded phrases can be found the following way ``[[ Settings ]] >> Translations >> Application Terms``.
+
+The cases above, listed by way of the following examples:
+
+Examples
+========
+
+* The module deletes Odoo label in footer
+
     Powered by Odoo
-    
-* Search random string at menu ``[[ Settings ]] >> Users & Copanies >> Companies``
-  
+
+* Search a random string at the menu ``[[ Settings ]] >> Users & Copanies >> Companies``
+
     Create and manage the companies that will be managed by Odoo from here. Shops or subsidiaries can be created and maintained from here.
 
 * Remove Administrator via menu ``[[ Settings ]] >> Users & Copanies >> Users``
-  
+
     You can not remove the admin user as it is used internally for resources created by Odoo (updates, module installation, ...).
 
 * ``[[ Settings ]] >> Dashboard >> Companies``
-* Create a new Company
-* Go to the placeholder for the Website
-  
-    e.g. `www.odoo.com <https://www.odoo.com/>`__
+* When you create new company it shows placeholder for field Website
 
-* ``[[ Settings ]] >> Translations >> Application Terms``
-* Click ``Generate Missing Terms``
+    e.g. www.odoo.com
 
-* ``[[ Settings ]] >> General Settings``.
+* Open menu``[[ Settings ]] >> General Settings``
 
-    Use external pads in Odoo Notes. 
+    Use external pads in Odoo Notes.
     Extract and analyze Odoo data from Google Spreadsheet.
 
-* ``[[ Settings ]] >> Dashboard >> *Implementation* section``
-  
+* Open menu ``[[ Settings ]] >> Dashboard >> *Implementation* section``
+
     Follow these implementation guides to get the most out of Odoo.
 
-* ``[[ Discuss ]] >> CHANNELS >> #general``
+* Open menu ``[[ Discuss ]] >> CHANNELS >> #general``
 * Send ``/help`` to the chat
 
-**RESULT:** Odoo is replaced to Your Brand in footer, Dialog Box, within phrases, empty messages, all backend qweb templates, hints, examples, Settings and Bot open menu (*you will be able to receive messages from your company Bot instead of Odoo Bot*). 
-Furthermore, this module provides a full list of debranded phrases. 
+    OdooBot - now
+
+    You are in channel #general.
+
+    You can mention someone by typing @username, this will grab its attention.
+
+    You can mention a channel by typing #channel.
+
+    You can execute a command by typing /command.
+
+    You can insert canned responses in your message by typing :shortcut.
