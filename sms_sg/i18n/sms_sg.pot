@@ -1,0 +1,80 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sms_sg
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sms_sg
+#: model:ir.model.fields,field_description:sms_sg.field_sms_sg_sendandlog_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: sms_sg
+#: model:ir.model.fields,field_description:sms_sg.field_sms_sg_sendandlog_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: sms_sg
+#: model:ir.model.fields,field_description:sms_sg.field_sms_sg_sendandlog_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: sms_sg
+#: model:ir.model.fields,field_description:sms_sg.field_sms_sg_sendandlog_id
+msgid "ID"
+msgstr ""
+
+#. module: sms_sg
+#: model:ir.model.fields,field_description:sms_sg.field_sms_sg_sendandlog___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: sms_sg
+#: model:ir.model.fields,field_description:sms_sg.field_sms_sg_sendandlog_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: sms_sg
+#: model:ir.model.fields,field_description:sms_sg.field_sms_sg_sendandlog_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: sms_sg
+#: model:ir.model.fields,field_description:sms_sg.field_sms_sg_sendandlog_msg
+msgid "Msg"
+msgstr ""
+
+#. module: sms_sg
+#: model:ir.model.fields,field_description:sms_sg.field_sms_sg_sendandlog_phone
+msgid "Phone"
+msgstr ""
+
+#. module: sms_sg
+#: model:ir.model.fields,field_description:sms_sg.field_sms_sg_sendandlog_response_content
+msgid "Response content"
+msgstr ""
+
+#. module: sms_sg
+#: model:ir.ui.menu,name:sms_sg.menu_sms
+msgid "Sms"
+msgstr ""
+
+#. module: sms_sg
+#: model:ir.actions.act_window,name:sms_sg.action_view_smslog
+msgid "Sms log"
+msgstr ""
+
+#. module: sms_sg
+#: model:ir.model,name:sms_sg.model_sms_sg_sendandlog
+msgid "sms_sg.sendandlog"
+msgstr ""
+

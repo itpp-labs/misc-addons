@@ -3,6 +3,8 @@
 odoo.define('base_attendance.tour', function (require) {
     "use strict";
 
+    var TourManager = require("web_tour.TourManager");
+    TourManager = new TourManager();
     var tour = require("web_tour.tour");
     var core = require('web.core');
     var _t = core._t;
@@ -25,7 +27,7 @@ odoo.define('base_attendance.tour', function (require) {
         }];
     }
 
-    var steps = [{
+    var steps = [TourManager.STEPS.MENU_MORE, {
             trigger: 'a.oe_menu_toggler:contains("Attendance")',
             content: _t("Click to enter menu attendances"),
             position: 'bottom',

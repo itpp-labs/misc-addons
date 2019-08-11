@@ -20,7 +20,7 @@ odoo.define('project_timelog.timelog', function(require){
        show_application: function() {
            var timelog_widget = new TimeLog.TimelogWidget(this);
            timelog_widget.appendTo(this.$el.parents().find('.oe_timelog_placeholder'));
-           this._super();
+           return this._super();
        }
     });
     TimeLog.Manager = Widget.extend({
@@ -450,10 +450,14 @@ odoo.define('project_timelog.timelog', function(require){
                 };
             } else {
                 context = {
-                    'search_default_week': 1,
                     'search_default_group_tasks': 1,
                     'search_default_group_subtasks': 1,
                 };
+                if (this.config.first_weekday === 'sunday') {
+                    context.search_default_week_sunday = 1;
+                } else {
+                    context.search_default_week = 1;
+                }
             }
             if (!action) {
                 action = {
