@@ -32,6 +32,13 @@ msgstr ""
 
 #. module: web_debranding
 #. openerp-web
+#: code:addons/web_debranding/static/src/js/bot.js:33
+#, python-format
+msgid "Bot has a request"
+msgstr ""
+
+#. module: web_debranding
+#. openerp-web
 #: code:addons/web_debranding/static/src/xml/web.xml:26
 #: code:addons/web_debranding/static/src/xml/web.xml:27
 #, python-format
@@ -52,6 +59,11 @@ msgid "Disabled"
 msgstr ""
 
 #. module: web_debranding
+#: model:ir.model,name:web_debranding.model_mail_channel
+msgid "Discussion Channel"
+msgstr ""
+
+#. module: web_debranding
 #: selection:res.users,odoobot_state:0
 msgid "Idle"
 msgstr ""
@@ -64,6 +76,13 @@ msgstr ""
 #. module: web_debranding
 #: selection:res.users,odoobot_state:0
 msgid "Not initialized"
+msgstr ""
+
+#. module: web_debranding
+#. openerp-web
+#: code:addons/web_debranding/static/src/js/bot.js:32
+#, python-format
+msgid "OdooBot has a request"
 msgstr ""
 
 #. module: web_debranding
@@ -99,8 +118,8 @@ msgid "Publisher Warranty Contract"
 msgstr ""
 
 #. module: web_debranding
-#: code:addons/web_debranding/models/ir_config_parameter.py:12
 #: code:addons/web_debranding/models/ir_config_parameter.py:13
+#: code:addons/web_debranding/models/ir_config_parameter.py:14
 #, python-format
 msgid "Software"
 msgstr ""
