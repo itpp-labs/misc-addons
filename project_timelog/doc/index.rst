@@ -48,41 +48,85 @@ Consider the following example. Let's say we need to send a webhook when one of 
     * The user turned on the timer for the first time of the day.
     * The user switched to another task
 
-Follow these steps:
-    * `Activate Developer Mode <https://odoo-development.readthedocs.io/en/latest/odoo/usage/debug-mode.html>`__
-    * Open menu ``[[ Settings ]] >> Technical >> Automation >> Automated Actions``.
-    * Create new record and set field **Model** to *Analytic Line*.
-    * Set field **Trigger Condition** to *On Creation*.
-    * Set field **Action To Do** to *Execute Python Code*.
-    * Paste the following code:
+You'll need:
+    * `Odoo <https://www.odoo.com/>`__ with admin access to setup `Outgoing Webhooks <https://apps.odoo.com/apps/modules/12.0/base_automation_webhook/>`__.
+    * `IFTTT <https://ifttt.com/>`__ account to setup `Webhooks <https://ifttt.com/maker_webhooks>`__.
 
-.. code-block:: python
 
-    WEBHOOK = "https://maker.ifttt.com/trigger/test_event/with/key/kOMjJanpjiwWqj9Ow-bB33iSqGpG-kgFgPP8hd7-70l"
+Prepare IFTTT Webhook URL
+    * Open Webhook page at `IFTTT <https://ifttt.com/maker_webhooks>`__
+    * Click Documentation
+    * Choose some event name, e.g. ``timelog_event``
+    * Copy the url. It has following format: `https://maker.ifttt.com/trigger/EVENT_NAME/with/key/SOME-KEY`
 
-    base_url = env['ir.config_parameter'].get_param('web.base.url')
-    task_url = base_url + '/web#id={}&model=project.task'.format(record.task_id.id)
-    today = datetime.datetime.now().date()
-    user = record.user_id.name
+Register Webhook:
+    * Open Odoo
+    * Install `Outgoing Webhooks <https://apps.odoo.com/apps/modules/12.0/base_automation_webhook/>`__ module
+    * Create an Automated Action with the following values (see `Module Documentation <https://apps.odoo.com/apps/modules/12.0/base_automation_webhook/>`__ for details):
+        * **Model**: Analytic Line (``account.analytic.line``).
+        * **Trigger condition**: *On creation*.
+        * **Action To Do**: *Execute Python Code*.
+        * **Python Code**:
 
-    sum_time = sum(subtask.unit_amount for subtask in record.task_id.timesheet_ids)
-    duration_seconds = sum_time * 60
-    hours, minutes = divmod(duration_seconds, 60)
-    duration = '%02d:%02d'%(hours, minutes)
+        .. code-block:: python
 
-    timesheets = records.search([('user_id', '=', record.user_id.id), ('date', '=', today)]).sorted(key=lambda r: r.create_date)
+            WEBHOOK = "https://maker.ifttt.com/trigger/EVENT-NAME/with/key/SOME-KEY"
 
-    send_request = False
-    if len(timesheets) == 1:
-      # First task of the day
-      send_request = True
-    elif len(timesheets) > 1 and timesheets[-2].task_id != record.task_id:
-      # user switched to another subtask
-      send_request = True
+            base_url = env['ir.config_parameter'].sudo().get_param('web.base.url')
+            task_url = base_url + '/web#id={}&model=project.task'.format(record.task_id.id)
+            today = datetime.datetime.now().date()
+            user = record.user_id.name
 
-    if send_request:
-        data = {'value1': user, 'value2': task_url, 'value3': duration}
-        requests.post(WEBHOOK, data, timeout=2)
+            sum_time = record.task_id.effective_hours
+            td = datetime.timedelta(hours=sum_time)
+            dt = datetime.datetime.min + td
+            duration = '{:%H:%M}'.format(dt)
+
+            previous_timesheet = records.search([
+                ('user_id', '=', record.user_id.id),
+                ('date', '=', today),
+                ('id', '!=', record.id)
+            ], order='create_date desc', limit=1)
+
+            send_request = False
+            if not previous_timesheet:
+              # First task of the day
+              send_request = True
+            elif previous_timesheet and previous_timesheet.task_id != record.task_id:
+              # user switched to another subtask
+              send_request = True
+
+            if send_request:
+                data = {'value1': user, 'value2': task_url, 'value3': duration}
+                requests.post(WEBHOOK, data, timeout=2)
+
+
+    It should look like this:
+
+.. image:: automated_action.png
+
+
+Prepare IFTTT applet:
+    * Open url: https://ifttt.com/create
+    * **This**: search and select *Webhooks*
+
+      * Choose *Receive a web request*
+      * Set **Event Name** (in our example, ``timelog_event``)
+
+    * **That**: search and select *Notifications*
+
+      * Choose *Send a notification from the IFTTT app*
+
+        * **User**: ``{{Value1}}<br>``
+        * **Task**: ``{{Value2}}<br>``
+        * **Total duration**: ``{{Value3}}``
+
+.. image:: ifttt-applet.png
+
+Try it out:
+    * Now to check that everything is working go to ``Project >> Task >> Timesheets``
+    * Click the ``Edit`` button and add some line
+    * Save and you'll receive a notification from IFTTT
 
 
 Uninstallation
