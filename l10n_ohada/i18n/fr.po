@@ -1,0 +1,67 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * l10n_ohada
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-07 14:56+0000\n"
+"PO-Revision-Date: 2019-09-08 21:00+0200\n"
+"Last-Translator: Bassirou Ndaw\n"
+"Language-Team: French (http://www.transifex.com/odoo/odoo-12/language/fr/)\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 2.2.3\n"
+
+#. module: l10n_ohada
+#: model:account.account.type,name:l10n_ohada.account_type_special
+msgid "Special accounts"
+msgstr "Comptes spéciaux"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_l10n_ohada
+msgid "OHADA - Accounting"
+msgstr "Comptabilité - OHADA"
+
+#. module: base
+#: model:ir.module.module,description:base.module_l10n_ohada
+msgid ""
+"\n"
+"Accounting Chart for OHADA\n"
+"==========================\n"
+"\n"
+"This module implements the accounting chart for OHADA countries. It includes:\n"
+"    - the new SYSCOHADA chart of accounts as of 2018,\n"
+"    - fonctional enhancements of the CoA for the automatic creation of financial statements which is done in the module l10n_ohada_reports,\n"
+"    - a basic chart of taxes,\n"
+"    - a basic chart for social declarations,\n"
+"    - the automatic determination of accounts and taxes in invoicing.\n"
+"\n"
+"Countries members of OHADA are:\n"
+"-------------------------------\n"
+"    Benin, Burkina Faso, Cameroon, Central African Republic, Comoros, Congo,\n"
+"    Ivory Coast, Gabon, Guinea, Guinea Bissau, Equatorial Guinea, Mali, Niger,\n"
+"    Democratic replic of Congo, Senegal, Chad, Togo.\n"
+"    "
+msgstr ""
+"Plan de Comptes Général OHADA\n"
+"=============================\n"
+"\n"
+"Ce module met en œuvre le plan comptable de l'OHADA. Il comprend :\n"
+"    - le nouveau plan des comptes SYSCOHADA à partir de 2018,\n"
+"    - des améliorations fonctionnelles de la charte de comptes destinées à la création automatique des états financiers qui est faite par le module l10n_ohada_reports,\n"
+"    - un tableau basic pour la création des décalarations fiscales,\n"
+"    - un tableau basic pour la création des déclarations sociales,\n"
+"    - la détermination automatique des comptes et impôts dans la facturation.\n"
+"\n"
+"Les pays membres de l'OHADA sont :\n"
+"----------------------------------\n"
+"    Bénin, Burkina Faso, Cameroun, République Centrafricaine, Comores, Congo,\n"
+"    Côte d'Ivoire, Gabon, Guinée, Guinée Bissau, Guinée Equatoriale, Mali, Niger,\n"
+"    Réplique Démocratique du Congo , Sénégal, Tchad, Togo.\n"
+"    "

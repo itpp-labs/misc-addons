@@ -1,0 +1,2405 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* ohada_reports
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-12-19 09:12+0000\n"
+"PO-Revision-Date: 2018-12-19 09:12+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_followup_report.py:240
+#, python-format
+msgid "%s Payment Reminder"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.line_template_general_ledger_report
+msgid "&amp;nbsp;"
+msgstr ""
+
+#. module: ohada_reports
+#. openerp-web
+#: code:addons/ohada_reports/static/src/xml/account_report_template.xml:30
+#, python-format
+msgid "&times;"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/ohada_report.py:582
+#, python-format
+msgid "(No Group)"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/ohada_financial_report.py:355
+#: code:addons/ohada_reports/models/ohada_financial_report.py:357
+#, python-format
+msgid "(copy)"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_aged_partner_balance.py:22
+#, python-format
+msgid "1 - 30"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_aged_partner_balance.py:22
+#, python-format
+msgid "31 - 60"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_aged_partner_balance.py:22
+#, python-format
+msgid "61 - 90"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_aged_partner_balance.py:22
+#, python-format
+msgid "91 - 120"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_analytic
+msgid "<b>Accounts</b><br/>"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.template_followup_report
+msgid "<b>Next Reminder Date:</b>"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_analytic
+msgid "<b>Tags</b><br/>"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.main_template
+msgid "<br/>\n"
+"                <span>You can visualize their impact by activating the option to view unposted entries, or post them to remove this warning.</span>"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.filter_info_template
+msgid "<br/>\n"
+"                Analytic Accounts:"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.filter_info_template
+msgid "<br/>Companies:"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.template_followup_report
+msgid "<i class=\"fa fa-circle\" style=\"color: green;\"/> Good Debtor"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.template_followup_report
+msgid "<i class=\"fa fa-circle\" style=\"color: grey;\"/> Normal Debtor"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.template_followup_report
+msgid "<i class=\"fa fa-circle\" style=\"color: red;\"/> Bad Debtor"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.template_followup_report
+msgid "<i class=\"fa fa-envelope\" role=\"img\" aria-label=\"Email\"/>"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.main_template
+msgid "<i class=\"fa fa-fw fa-pencil o_account_reports_edit_summary_pencil\" role=\"img\" aria-label=\"Edit Summary\" title=\"Edit Summary\"/>"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.template_followup_report
+msgid "<i class=\"fa fa-mobile fa-fw\" role=\"img\" aria-label=\"Mobile\" title=\"Mobile\"/>"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.template_followup_report
+msgid "<i class=\"fa fa-phone fa-fw\" role=\"img\" aria-label=\"Phone\" title=\"Phone\"/>"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_comparison
+msgid "<span class=\"fa fa-bar-chart\"/> Comparison:"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_journals
+msgid "<span class=\"fa fa-book\"/>\n"
+"            Journals:"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_date_filter
+msgid "<span class=\"fa fa-calendar\" title=\"Dates\" role=\"img\" aria-label=\"Dates\"/>"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.template_aged_partner_balance_line_report
+msgid "<span class=\"fa fa-circle color-green trust-partner\" role=\"img\" aria-label=\"Balance is good\" title=\"Balance is good\"/>"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.line_template_partner_ledger_report
+msgid "<span class=\"fa fa-circle color-green trust-partner\" role=\"img\" aria-label=\"Partner ledger is good\" title=\"Partner ledger is good\"/>"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.template_aged_partner_balance_line_report
+msgid "<span class=\"fa fa-circle color-red trust-partner\" role=\"img\" aria-label=\"Balance is bad\" title=\"Balance is bad\"/>"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.line_template_partner_ledger_report
+msgid "<span class=\"fa fa-circle color-red trust-partner\" role=\"img\" aria-label=\"Partner ledger is bad\" title=\"Partner ledger is bad\"/>"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.template_aged_partner_balance_line_report
+msgid "<span class=\"fa fa-circle color-transparent trust-partner\" role=\"img\" aria-label=\"Balance is normal\" title=\"Balance is normal\"/>"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.line_template_partner_ledger_report
+msgid "<span class=\"fa fa-circle color-transparent trust-partner\" role=\"img\" aria-label=\"Partner ledger is normal\" title=\"Partner ledger is normal\"/>"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_multi_company
+msgid "<span class=\"fa fa-filter\"/>\n"
+"            Companies:"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_ir_filters
+msgid "<span class=\"fa fa-filter\"/>\n"
+"            Filters:"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_extra_options
+msgid "<span class=\"fa fa-filter\"/> Options:"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.followup_search_template
+msgid "<span class=\"fa fa-filter\"/> Partners:"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_analytic
+msgid "<span class=\"fa fa-folder-open\"/> Analytic"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_partner
+msgid "<span class=\"fa fa-folder-open\"/> Partners"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.res_config_settings_view_form
+msgid "<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-specific.\" groups=\"base.group_multi_company\"/>"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_account_type
+msgid "<span class=\"fa fa-user\"/>\n"
+"            Account:"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.footnotes_template
+msgid "<span class=\"o_account_reports_footnote_icons\"><i class=\"fa fa-fw fa-trash-o\" role=\"img\" aria-label=\"Delete\" title=\"Delete\"/></span>"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.res_config_settings_view_form
+msgid "<span class=\"o_form_label\">Payment Follow-up</span>\n"
+"                        <span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-specific.\" role=\"img\" aria-label=\"Values set here are company-specific.\" groups=\"base.group_multi_company\"/>"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.res_partner_view_form
+msgid "<span class=\"o_stat_text\">Due</span>"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.main_template
+msgid "<span class=\"searchIcon\"><i class=\"fa fa-search\" role=\"img\" aria-label=\"Search\" title=\"Search\"/></span>"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.account_reports_journal_dashboard_kanban_view_account_manager
+msgid "<span title=\"Latest Statement\">Latest Statement</span>"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.template_followup_report
+msgid "<strong>Warning!</strong> No action needs to be taken for this partner."
+msgstr ""
+
+#. module: ohada_reports
+#: sql_constraint:ohada.financial.html.report.line:0
+msgid "A report line with the same code already exists."
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_total_assets0
+msgid "ASSETS"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_aged_partner_balance.py:21
+#: code:addons/ohada_reports/models/account_partner_ledger.py:31
+#, python-format
+msgid "Account"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model,name:ohada_reports.model_account_analytic_report
+msgid "Account Analytic Report"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model,name:ohada_reports.model_account_chart_template
+msgid "Account Chart Template"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model,name:ohada_reports.model_account_report
+#: model_terms:ir.ui.view,arch_db:ohada_reports.view_ohada_financial_report_form
+#: model_terms:ir.ui.view,arch_db:ohada_reports.view_ohada_financial_report_tree
+msgid "Account Report"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model,name:ohada_reports.model_ohada_financial_html_report_line
+msgid "Account Report (HTML Line)"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model,name:ohada_reports.model_ohada_financial_html_report
+msgid "Account Report (HTML)"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model,name:ohada_reports.model_account_report_footnote
+msgid "Account Report Footnote"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_analytic_report.py:79
+#, python-format
+msgid "Accounts without a group"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_extra_options
+msgid "Accrual Basis"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.filter_info_template
+msgid "Accrual Basis<br/>"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report_line__action_id
+msgid "Action"
+msgstr ""
+
+#. module: ohada_reports
+#. openerp-web
+#: code:addons/ohada_reports/static/src/js/ohada_reports.js:360
+#: model_terms:ir.ui.view,arch_db:ohada_reports.main_template
+#, python-format
+msgid "Add a note"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_res_company__totals_below_sections
+#: model:ir.model.fields,field_description:ohada_reports.field_res_config_settings__totals_below_sections
+msgid "Add totals below sections"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_cashsummary_prepayments_received0
+msgid "Advance Payments received from customers"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_cashsummary_cash_paid0
+msgid "Advance payments made to suppliers"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model,name:ohada_reports.model_account_aged_partner
+msgid "Aged Partner Balances"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_aged_partner_balance.py:118
+#: model:ir.actions.client,name:ohada_reports.action_account_report_ap
+#: model:ir.model,name:ohada_reports.model_account_aged_payable
+#: model:ir.ui.menu,name:ohada_reports.menu_action_account_report_aged_payable
+#, python-format
+msgid "Aged Payable"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.account_reports_journal_dashboard_kanban_view
+msgid "Aged Payables"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_aged_partner_balance.py:98
+#: model:ir.actions.client,name:ohada_reports.action_account_report_ar
+#: model:ir.model,name:ohada_reports.model_account_aged_receivable
+#: model:ir.ui.menu,name:ohada_reports.menu_action_account_report_aged_receivable
+#, python-format
+msgid "Aged Receivable"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.account_reports_journal_dashboard_kanban_view
+msgid "Aged Receivables"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_journals
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_multi_company
+msgid "All"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report__analytic
+msgid "Allow analytic filters"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report__cash_basis
+msgid "Allow cash basis mode"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report__comparison
+msgid "Allow comparison"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report__show_journal_filter
+msgid "Allow filtering by journals"
+msgstr ""
+
+#. module: ohada_reports
+#: selection:ohada.financial.html.report.line,show_domain:0
+msgid "Always"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_bank_reconciliation_report.py:24
+#, python-format
+msgid "Amount"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_partner_ledger.py:40
+#, python-format
+msgid "Amount Currency"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.filter_info_template
+msgid "Analytic Accounts:"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.line_caret_options
+msgid "Analytic Entries"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_analytic_report.py:29
+#: model:ir.actions.client,name:ohada_reports.action_account_report_analytic
+#: model:ir.ui.menu,name:ohada_reports.menu_action_report_account_analytic
+#, python-format
+msgid "Analytic Report"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.filter_info_template
+msgid "Analytic Tags:"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.line_template
+msgid "Annotate"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report__applicable_filters_ids
+msgid "Applicable Filters"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_comparison
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_date_filter
+msgid "Apply"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/ohada_report.py:770
+#, python-format
+msgid "As of %s"
+msgstr ""
+
+#. module: ohada_reports
+#: selection:ohada.financial.html.report.line,special_date_changer:0
+msgid "At the beginning of the period"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.line_caret_options
+msgid "Audit"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.ui.menu,name:ohada_reports.account_reports_audit_reports_menu
+msgid "Audit Reports"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.template_followup_report
+msgid "Auto"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.view_ohada_financial_report_form
+msgid "Available Filters & Options"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_executivesummary_avgcre0
+msgid "Average creditors days"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_executivesummary_avdebt0
+msgid "Average debtors days"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.template_followup_report
+msgid "Bad debtor"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_analytic_report.py:25
+#: code:addons/ohada_reports/models/account_consolidated_journals.py:29
+#: code:addons/ohada_reports/models/account_general_ledger.py:35
+#: code:addons/ohada_reports/models/account_partner_ledger.py:42
+#, python-format
+msgid "Balance"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report,name:ohada_reports.ohada_financial_report_balancesheet0
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_executivesummary_balancesheet0
+#: model:ir.actions.client,name:ohada_reports.ohada_financial_html_report_action_2
+#: model:ir.actions.client,name:ohada_reports.action_account_report_bs
+#: model:ir.ui.menu,name:ohada_reports.ohada_financial_html_report_menu_2
+msgid "Balance Sheet"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_bank_reconciliation_report.py:211
+#: code:addons/ohada_reports/models/account_bank_reconciliation_report.py:212
+#: model:ir.actions.client,name:ohada_reports.action_account_report_bank_reconciliation
+#: model:ir.actions.client,name:ohada_reports.action_account_report_bank_reconciliation_with_journal
+#, python-format
+msgid "Bank Reconciliation"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model,name:ohada_reports.model_account_bank_reconciliation_report
+msgid "Bank Reconciliation Report"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_bank_view0
+msgid "Bank and Cash Accounts"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_general_ledger.py:432
+#, python-format
+msgid "Base Amount"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report__date_range
+msgid "Based on date ranges"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_executivesummary_cash0
+msgid "Cash"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.filter_info_template
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_extra_options
+msgid "Cash Basis"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_extra_options
+msgid "Cash Basis Method"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report,name:ohada_reports.ohada_financial_report_cashsummary0
+#: model:ir.actions.client,name:ohada_reports.ohada_financial_html_report_action_3
+#: model:ir.actions.client,name:ohada_reports.action_account_report_cs
+#: model:ir.ui.menu,name:ohada_reports.ohada_financial_html_report_menu_3
+msgid "Cash Flow Statement"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_cashsummary_opening_balance0
+msgid "Cash and cash equivalents, beginning of period"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_cashsummary_closing_balance0
+msgid "Cash and cash equivalents, closing balance"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_cashsummary_financing0
+msgid "Cash flows from financing activities"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_cashsummary_investing0
+msgid "Cash flows from investing & extraordinary activities"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_cashsummary_operating0
+msgid "Cash flows from operating activities"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_cashsummary_unclassified0
+msgid "Cash flows from unclassified activities"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_cashsummary_financing_in0
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_cashsummary_investing_in0
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_cashsummary_unclassified_in0
+msgid "Cash in"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_cashsummary_financing_out0
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_cashsummary_investing_out0
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_cashsummary_unclassified_out0
+msgid "Cash out"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_cashsummary_cash_spent0
+msgid "Cash paid for operating activities"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_executivesummary_cash_received0
+msgid "Cash received"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_cashsummary_cash_received0
+msgid "Cash received from operating activities"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_executivesummary_cash_spent0
+msgid "Cash spent"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_executivesummary_cash_surplus0
+msgid "Cash surplus"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.line_template_followup_report
+msgid "Change expected payment date"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model,name:ohada_reports.model_account_coa_report
+msgid "Chart of Account Report"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report_line__children_ids
+msgid "Children"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.view_ohada_financial_report_line_form
+msgid "Children Lines"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_executivesummary_closing_bank_balance0
+msgid "Closing bank balance"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report_line__code
+msgid "Code"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_followup_report.py:32
+#: code:addons/ohada_reports/models/account_general_ledger.py:30
+#, python-format
+msgid "Communication"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model,name:ohada_reports.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.filter_info_template
+#: model_terms:ir.ui.view,arch_db:ohada_reports.main_template
+msgid "Companies:"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report__company_id
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report_manager__company_id
+msgid "Company"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.view_ohada_financial_report_line_form
+msgid "Computation"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_cashsummary_regulator0
+msgid "Computation Error: unexplained difference"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model,name:ohada_reports.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_consolidated_journals.py:26
+#: model:ir.actions.client,name:ohada_reports.action_account_report_cj
+#: model:ir.ui.menu,name:ohada_reports.menu_action_account_report_cj
+#, python-format
+msgid "Consolidated Journals"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model,name:ohada_reports.model_account_consolidated_journal
+msgid "Consolidated Journals Report"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model,name:ohada_reports.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.view_ohada_financial_report_line_form
+msgid "Cosmetics"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_cost_sales0
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_executivesummary_direct_costs0
+msgid "Cost of Revenue"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_followup_report.py:248
+#, python-format
+msgid "Could not send mail to partner because it does not have any email address defined"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report__create_uid
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report_line__create_uid
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report_footnote__create_uid
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report_manager__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report__create_date
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report_line__create_date
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report_footnote__create_date
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report_manager__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/ohada_financial_report.py:93
+#, python-format
+msgid "Crebit"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_consolidated_journals.py:50
+#: code:addons/ohada_reports/models/ohada_financial_report.py:142
+#: code:addons/ohada_reports/models/account_general_ledger.py:34
+#: code:addons/ohada_reports/models/account_partner_ledger.py:38
+#: code:addons/ohada_reports/models/account_report_coa.py:32
+#: code:addons/ohada_reports/models/account_report_coa.py:37
+#: code:addons/ohada_reports/models/account_report_coa.py:41
+#: code:addons/ohada_reports/models/account_report_coa.py:43
+#, python-format
+msgid "Credit"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_general_ledger.py:32
+#, python-format
+msgid "Currency"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_current_assets0
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_current_assets_view0
+msgid "Current Assets"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_current_liabilities0
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_current_liabilities1
+msgid "Current Liabilities"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_current_year_earnings_line_2
+msgid "Current Year Allocated Earnings"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_current_year_earnings_line_1
+msgid "Current Year Earnings"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_current_year_earnings0
+msgid "Current Year Unallocated Earnings"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_executivesummary_ca_to_l0
+msgid "Current assets to liabilities"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_bank_reconciliation_report.py:155
+#, python-format
+msgid "Current balance of account %s"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_bank_reconciliation_report.py:157
+#, python-format
+msgid "Current balance of accounts %s"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_comparison
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_date_filter
+msgid "Custom"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/res_partner.py:87
+#, python-format
+msgid "Customer Ledger"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.followup_filter_info_template
+msgid "Customer ref:"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.actions.client,name:ohada_reports.action_account_followup
+msgid "Customers Statement"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_bank_reconciliation_report.py:22
+#: code:addons/ohada_reports/models/account_followup_report.py:29
+#: code:addons/ohada_reports/models/account_general_ledger.py:29
+#, python-format
+msgid "Date"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_comparison
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_date_filter
+msgid "Date :"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.template_followup_report
+msgid "Date at which Odoo will remind you to take care of that follow-up if you choose \"remind me later\" button."
+msgstr ""
+
+#. module: ohada_reports
+#. openerp-web
+#: code:addons/ohada_reports/static/src/js/ohada_reports.js:225
+#: code:addons/ohada_reports/static/src/js/ohada_reports.js:275
+#, python-format
+msgid "Date cannot be empty"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,help:ohada_reports.field_account_move_line__next_action_date
+msgid "Date where the next action should be taken for a receivable item. Usually, automatically set when sending reminders through the customer statement."
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.followup_filter_info_template
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_comparison
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_date_filter
+msgid "Date:"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_res_config_settings__days_between_two_followups
+msgid "Days between two follow-ups"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_consolidated_journals.py:29
+#: code:addons/ohada_reports/models/ohada_financial_report.py:134
+#: code:addons/ohada_reports/models/account_general_ledger.py:33
+#: code:addons/ohada_reports/models/account_partner_ledger.py:36
+#: code:addons/ohada_reports/models/account_report_coa.py:31
+#: code:addons/ohada_reports/models/account_report_coa.py:36
+#: code:addons/ohada_reports/models/account_report_coa.py:40
+#: code:addons/ohada_reports/models/account_report_coa.py:42
+#, python-format
+msgid "Debit"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_depreciation0
+msgid "Depreciation"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_detailed_net_profit0
+msgid "Detailed Net Profit"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_consolidated_journals.py:86
+#, python-format
+msgid "Details per month"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.account_reports_journal_dashboard_kanban_view_account_manager
+msgid "Difference"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_bank_reconciliation_report.py:190
+#, python-format
+msgid "Difference between Virtual GL Balance and Last Bank Statement Ending Balance.\n"
+"\n"
+"If non-zero, it could be due to\n"
+"  1) some bank statements being not yet encoded into Odoo\n"
+"  2) payments double-encoded"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_account_aged_partner__display_name
+#: model:ir.model.fields,field_description:ohada_reports.field_account_aged_payable__display_name
+#: model:ir.model.fields,field_description:ohada_reports.field_account_aged_receivable__display_name
+#: model:ir.model.fields,field_description:ohada_reports.field_account_analytic_report__display_name
+#: model:ir.model.fields,field_description:ohada_reports.field_account_bank_reconciliation_report__display_name
+#: model:ir.model.fields,field_description:ohada_reports.field_account_coa_report__display_name
+#: model:ir.model.fields,field_description:ohada_reports.field_account_consolidated_journal__display_name
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report__display_name
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report_line__display_name
+#: model:ir.model.fields,field_description:ohada_reports.field_account_followup_report__display_name
+#: model:ir.model.fields,field_description:ohada_reports.field_account_general_ledger__display_name
+#: model:ir.model.fields,field_description:ohada_reports.field_account_generic_tax_report__display_name
+#: model:ir.model.fields,field_description:ohada_reports.field_account_partner_ledger__display_name
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report__display_name
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report_footnote__display_name
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report_manager__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,help:ohada_reports.field_ohada_financial_html_report__hierarchy_option
+msgid "Display the hierarchy choice in the report options"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report_line__domain
+msgid "Domain"
+msgstr ""
+
+#. module: ohada_reports
+#. openerp-web
+#: code:addons/ohada_reports/static/src/xml/account_report_template.xml:16
+#, python-format
+msgid "Done"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_followup_report.py:30
+#: code:addons/ohada_reports/models/account_partner_ledger.py:33
+#, python-format
+msgid "Due Date"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.res_config_settings_view_form
+msgid "Duration between two reminders"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_equity0
+msgid "EQUITY"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report__hierarchy_option
+msgid "Enable the hierarchy option"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_comparison
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_date_filter
+msgid "End Date :"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_date_filter
+msgid "End of Last Financial Year"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_date_filter
+msgid "End of Last Month"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_date_filter
+msgid "End of Last Quarter"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_followup_report.py:34
+#, python-format
+msgid "Excluded"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report,name:ohada_reports.ohada_financial_report_executivesummary0
+#: model:ir.actions.client,name:ohada_reports.ohada_financial_html_report_action_4
+#: model:ir.ui.menu,name:ohada_reports.ohada_financial_html_report_menu_4
+msgid "Executive Summary"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_followup_report.py:33
+#, python-format
+msgid "Expected Date"
+msgstr ""
+
+#. module: ohada_reports
+#. openerp-web
+#: code:addons/ohada_reports/static/src/xml/account_report_template.xml:55
+#: model:ir.model.fields,field_description:ohada_reports.field_account_move_line__expected_pay_date
+#, python-format
+msgid "Expected Payment Date"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/res_partner.py:147
+#, python-format
+msgid "Expected pay date has been changed from %s to %s for invoice %s"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,help:ohada_reports.field_account_move_line__expected_pay_date
+msgid "Expected payment date as manually set through the customer statement (e.g: if you had the customer on the phone and want to remember the date he promised he would pay)"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_executivesummary_expenses0
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_expense0
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_less_expenses0
+msgid "Expenses"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/ohada_report.py:701
+#, python-format
+msgid "Export (XLSX)"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.filter_info_template
+msgid "Filter:"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,help:ohada_reports.field_ohada_financial_html_report__applicable_filters_ids
+msgid "Filters that can be used to filter and group lines in this report."
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report_line__financial_report_id
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report_manager__financial_report_id
+msgid "Financial Report"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.actions.act_window,name:ohada_reports.action_ohada_financial_report_tree
+#: model:ir.ui.menu,name:ohada_reports.menu_ohada_financial_reports_tree
+msgid "Financial Reports"
+msgstr ""
+
+#. module: ohada_reports
+#: selection:ohada.financial.html.report.line,figure_type:0
+msgid "Float"
+msgstr ""
+
+#. module: ohada_reports
+#: selection:ohada.financial.html.report.line,show_domain:0
+msgid "Foldable"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.line_template
+msgid "Folded"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model,name:ohada_reports.model_account_followup_report
+msgid "Follow-up Report"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.actions.act_window,name:ohada_reports.action_view_list_customer_statements
+#: model:ir.ui.menu,name:ohada_reports.customer_statements_menu
+msgid "Follow-up Reports"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.customer_statements_tree_view
+msgid "Follow-up Reports Tree View"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_followup_report.py:235
+#, python-format
+msgid "Follow-up email sent to %s"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_followup_report.py:257
+#, python-format
+msgid "Follow-up letter printed"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.account_reports_journal_dashboard_kanban_view
+msgid "Follow-up reports"
+msgstr ""
+
+#. module: ohada_reports
+#. openerp-web
+#: code:addons/ohada_reports/static/src/xml/account_report_template.xml:35
+#, python-format
+msgid "Follow-ups Done / Total Follow-ups"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_followup_report.py:180
+#, python-format
+msgid "Followup Report"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_res_partner__followup_status
+msgid "Followup status"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report_manager__footnotes_ids
+msgid "Footnotes"
+msgstr ""
+
+#. module: ohada_reports
+#: selection:ohada.financial.html.report.line,special_date_changer:0
+msgid "Force given dates for all accounts and account types"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report_line__formulas
+msgid "Formulas"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/ohada_report.py:783
+#, python-format
+msgid "From %s \n"
+" to  %s"
+msgstr ""
+
+#. module: ohada_reports
+#: selection:ohada.financial.html.report.line,special_date_changer:0
+msgid "From the beginning"
+msgstr ""
+
+#. module: ohada_reports
+#: selection:ohada.financial.html.report.line,special_date_changer:0
+msgid "From the beginning of the fiscal year"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_date_filter
+msgid "From:"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_general_ledger.py:453
+#: model:ir.actions.client,name:ohada_reports.action_account_report_general_ledger
+#: model:ir.ui.menu,name:ohada_reports.menu_action_account_report_general_ledger
+#: model_terms:ir.ui.view,arch_db:ohada_reports.line_caret_options
+#, python-format
+msgid "General Ledger"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model,name:ohada_reports.model_account_general_ledger
+msgid "General Ledger Report"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/ohada_report.py:160
+#, python-format
+msgid "General Report"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.actions.client,name:ohada_reports.action_account_report_gt
+#: model:ir.model,name:ohada_reports.model_account_generic_tax_report
+msgid "Generic Tax Report"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.template_followup_report
+msgid "Good debtor"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_gross_profit0
+msgid "Gross Profit"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_executivesummary_gross_profit0
+msgid "Gross profit"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_executivesummary_gpmargin0
+msgid "Gross profit margin (gross profit / operating income)"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report_line__groupby
+msgid "Group by"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/ohada_financial_report.py:291
+#: code:addons/ohada_reports/models/ohada_financial_report.py:867
+#: code:addons/ohada_reports/models/ohada_financial_report.py:981
+#, python-format
+msgid "Groupby should be a field from account.move.line"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/ohada_financial_report.py:831
+#, python-format
+msgid "Groupby should be a journal item field"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report_line__hide_if_zero
+msgid "Hide If Zero"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_extra_options
+msgid "Hierarchy"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_extra_options
+msgid "Hierarchy and Subtotals"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_account_aged_partner__id
+#: model:ir.model.fields,field_description:ohada_reports.field_account_aged_payable__id
+#: model:ir.model.fields,field_description:ohada_reports.field_account_aged_receivable__id
+#: model:ir.model.fields,field_description:ohada_reports.field_account_analytic_report__id
+#: model:ir.model.fields,field_description:ohada_reports.field_account_bank_reconciliation_report__id
+#: model:ir.model.fields,field_description:ohada_reports.field_account_coa_report__id
+#: model:ir.model.fields,field_description:ohada_reports.field_account_consolidated_journal__id
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report__id
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report_line__id
+#: model:ir.model.fields,field_description:ohada_reports.field_account_followup_report__id
+#: model:ir.model.fields,field_description:ohada_reports.field_account_general_ledger__id
+#: model:ir.model.fields,field_description:ohada_reports.field_account_generic_tax_report__id
+#: model:ir.model.fields,field_description:ohada_reports.field_account_partner_ledger__id
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report__id
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report_footnote__id
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report_manager__id
+msgid "ID"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.followup_search_template
+msgid "In Need of Action"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.customer_statements_search_view
+#: selection:res.partner,followup_status:0
+msgid "In need of action"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_extra_options
+msgid "Include Unposted Entries"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_extra_options
+msgid "Include unposted entries"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_executivesummary_income0
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_totalincome0
+msgid "Income"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_general_ledger.py:308
+#: code:addons/ohada_reports/models/account_partner_ledger.py:35
+#: code:addons/ohada_reports/models/account_report_coa.py:50
+#: model_terms:ir.ui.view,arch_db:ohada_reports.template_coa_table_header
+#, python-format
+msgid "Initial Balance"
+msgstr ""
+
+#. module: ohada_reports
+#. openerp-web
+#: code:addons/ohada_reports/static/src/xml/account_report_template.xml:43
+#, python-format
+msgid "Insert foot note here"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_account_move_line__internal_note
+msgid "Internal Note"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report_line__green_on_positive
+msgid "Is growth good when positive"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_aged_partner_balance.py:21
+#: code:addons/ohada_reports/models/account_partner_ledger.py:30
+#, python-format
+msgid "JRNL"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model,name:ohada_reports.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.line_caret_options
+msgid "Journal Items"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/ohada_report.py:309
+#, python-format
+msgid "Journal Items (%s)"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.actions.server,name:ohada_reports.action_journal_items
+msgid "Journal Items by tax"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_consolidated_journals.py:29
+#, python-format
+msgid "Journal Name (Code)"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.actions.act_window,name:ohada_reports.action_account_print_journal_menu
+#: model:ir.ui.menu,name:ohada_reports.menu_print_journal
+msgid "Journals Audit"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.filter_info_template
+msgid "Journals:"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_liabilities_view0
+msgid "LIABILITIES"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_liabilities_and_equity_view0
+msgid "LIABILITIES + EQUITY"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_bank_reconciliation_report.py:188
+#, python-format
+msgid "Last Bank Statement Ending Balance"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_date_filter
+msgid "Last Financial Year"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_account_aged_partner____last_update
+#: model:ir.model.fields,field_description:ohada_reports.field_account_aged_payable____last_update
+#: model:ir.model.fields,field_description:ohada_reports.field_account_aged_receivable____last_update
+#: model:ir.model.fields,field_description:ohada_reports.field_account_analytic_report____last_update
+#: model:ir.model.fields,field_description:ohada_reports.field_account_bank_reconciliation_report____last_update
+#: model:ir.model.fields,field_description:ohada_reports.field_account_coa_report____last_update
+#: model:ir.model.fields,field_description:ohada_reports.field_account_consolidated_journal____last_update
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report____last_update
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report_line____last_update
+#: model:ir.model.fields,field_description:ohada_reports.field_account_followup_report____last_update
+#: model:ir.model.fields,field_description:ohada_reports.field_account_general_ledger____last_update
+#: model:ir.model.fields,field_description:ohada_reports.field_account_generic_tax_report____last_update
+#: model:ir.model.fields,field_description:ohada_reports.field_account_partner_ledger____last_update
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report____last_update
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report_footnote____last_update
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report_manager____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_date_filter
+msgid "Last Month"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_date_filter
+msgid "Last Quarter"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report__write_uid
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report_line__write_uid
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report_footnote__write_uid
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report_manager__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report__write_date
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report_line__write_date
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report_footnote__write_date
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report_manager__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report_line__level
+msgid "Level"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report_footnote__line
+msgid "Line"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report__line_ids
+msgid "Lines"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_general_ledger.py:384
+#: code:addons/ohada_reports/models/account_partner_ledger.py:206
+#, python-format
+msgid "Load more... (%s remaining)"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.view_ohada_financial_report_line_form
+msgid "Main Info"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model,name:ohada_reports.model_account_report_manager
+msgid "Manage Summary and Footnotes of Reports"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report_footnote__manager_id
+msgid "Manager"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.template_followup_report
+msgid "Manual"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_partner_ledger.py:34
+#, python-format
+msgid "Matching Number"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report__generated_menu_id
+msgid "Menu Item"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.res_config_settings_view_form
+msgid "Minimum"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model,name:ohada_reports.model_ir_module_module
+msgid "Module"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_generic_tax_report.py:19
+#: code:addons/ohada_reports/models/account_generic_tax_report.py:22
+#, python-format
+msgid "NET"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_general_ledger.py:431
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report__name
+#, python-format
+msgid "Name"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_net_assets0
+msgid "Net Assets"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_executivesummary_profit0
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_net_profit0
+msgid "Net Profit"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_executivesummary_net_assets0
+msgid "Net assets"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_cashsummary_net_increase0
+msgid "Net increase in cash and cash equivalents"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_executivesummary_npmargin0
+msgid "Net profit margin (net profit / income)"
+msgstr ""
+
+#. module: ohada_reports
+#: selection:ohada.financial.html.report.line,show_domain:0
+msgid "Never"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_account_move_line__next_action_date
+#: model:ir.model.fields,field_description:ohada_reports.field_res_partner__payment_next_action_date
+msgid "Next Action Date"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/res_partner.py:154
+#, python-format
+msgid "Next action date: "
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_comparison
+msgid "No Comparison"
+msgstr ""
+
+#. module: ohada_reports
+#: selection:ohada.financial.html.report.line,figure_type:0
+msgid "No Unit"
+msgstr ""
+
+#. module: ohada_reports
+#: selection:res.partner,followup_status:0
+msgid "No action needed"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/ohada_report.py:933
+#, python-format
+msgid "No comparison"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.actions.act_window,help:ohada_reports.action_view_list_customer_statements
+msgid "No follow-up to send!"
+msgstr ""
+
+#. module: ohada_reports
+#. openerp-web
+#: code:addons/ohada_reports/static/src/xml/account_report_template.xml:23
+#, python-format
+msgid "No followup to send!"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.template_followup_report
+msgid "Normal debtor"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_aged_partner_balance.py:21
+#, python-format
+msgid "Not due on: %s"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,help:ohada_reports.field_account_move_line__internal_note
+msgid "Note you can set through the customer statement about a receivable journal item"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_res_company__days_between_two_followups
+msgid "Number of days between two follow-ups"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_comparison
+msgid "Number of periods :"
+msgstr ""
+
+#. module: ohada_reports
+#. openerp-web
+#: code:addons/ohada_reports/static/src/xml/account_report_template.xml:13
+#, python-format
+msgid "Odoo will remind you to take care of this follow-up on the next reminder date."
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_aged_partner_balance.py:22
+#, python-format
+msgid "Older"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_extra_options
+msgid "Only Show Unreconciled Entries"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_income0
+msgid "Operating Income"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_bank_reconciliation_report.py:163
+#, python-format
+msgid "Operations to Process"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_other_income0
+msgid "Other Income"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.customer_statements_search_view
+msgid "Overdue Invoices"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/res_partner.py:174
+#, python-format
+msgid "Overdue Payments for %s"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report_line__parent_id
+msgid "Parent"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report__parent_id
+msgid "Parent Menu"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report_line__parent_path
+msgid "Parent Path"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_analytic_report.py:24
+#: code:addons/ohada_reports/models/account_general_ledger.py:31
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report_manager__partner_id
+#, python-format
+msgid "Partner"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.filter_info_template
+msgid "Partner Categories:"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_partner_ledger.py:228
+#: code:addons/ohada_reports/models/res_partner.py:83
+#: code:addons/ohada_reports/models/res_partner.py:185
+#: model:ir.actions.client,name:ohada_reports.action_account_report_partner_ledger
+#: model:ir.model,name:ohada_reports.model_account_partner_ledger
+#: model:ir.ui.menu,name:ohada_reports.menu_action_account_report_partner_ledger
+#, python-format
+msgid "Partner Ledger"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_res_partner__partner_ledger_label
+msgid "Partner Ledger Label"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.ui.menu,name:ohada_reports.account_reports_partners_reports_menu
+msgid "Partner Reports"
+msgstr ""
+
+#. module: ohada_reports
+#. openerp-web
+#: code:addons/ohada_reports/static/src/js/ohada_reports.js:410
+#, python-format
+msgid "Partners"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.filter_info_template
+msgid "Partners:"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_partner_ledger.py:19
+#, python-format
+msgid "Payable"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_current_liabilities_payable
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_executivesummary_creditors0
+msgid "Payables"
+msgstr ""
+
+#. module: ohada_reports
+#: selection:ohada.financial.html.report.line,figure_type:0
+msgid "Percents"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_executivesummary_performance0
+msgid "Performance"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/ohada_report.py:886
+#, python-format
+msgid "Please specify a start and end date."
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/ohada_report.py:884
+#, python-format
+msgid "Please specify an end date."
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_fixed_assets_view0
+msgid "Plus Fixed Assets"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_non_current_assets_view0
+msgid "Plus Non-current Assets"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_non_current_liabilities0
+msgid "Plus Non-current Liabilities"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_executivesummary_position0
+msgid "Position"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.filter_info_template
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_extra_options
+msgid "Posted Entries Only"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_prepayements0
+msgid "Prepayments"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_comparison
+msgid "Previous Period"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_previous_year_earnings0
+msgid "Previous Years Unallocated Earnings"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.actions.report,name:ohada_reports.action_report_followup
+msgid "Print Follow-up Letter"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report_line__print_on_new_page
+msgid "Print On New Page"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/ohada_report.py:701
+#, python-format
+msgid "Print Preview"
+msgstr ""
+
+#. module: ohada_reports
+#. openerp-web
+#: code:addons/ohada_reports/static/src/xml/account_report_template.xml:7
+#, python-format
+msgid "Print letter"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.actions.server,name:ohada_reports.action_account_reports_customer_statements_do_followup
+msgid "Process Follow-ups"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.actions.client,name:ohada_reports.action_account_report_pnl
+msgid "Profit And Loss"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report,name:ohada_reports.ohada_financial_report_profitandloss0
+#: model:ir.actions.client,name:ohada_reports.ohada_financial_html_report_action_1
+#: model:ir.ui.menu,name:ohada_reports.ohada_financial_html_report_menu_1
+msgid "Profit and Loss"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_executivesummary_profitability0
+msgid "Profitability"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_partner_ledger.py:18
+#, python-format
+msgid "Receivable"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_executivesummary_debtors0
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_receivable0
+msgid "Receivables"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.account_reports_journal_dashboard_kanban_view
+msgid "Reconciliation Report"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_partner_ledger.py:32
+#, python-format
+msgid "Ref"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_aged_partner_balance.py:21
+#: code:addons/ohada_reports/models/account_analytic_report.py:23
+#: code:addons/ohada_reports/models/account_bank_reconciliation_report.py:23
+#, python-format
+msgid "Reference"
+msgstr ""
+
+#. module: ohada_reports
+#. openerp-web
+#: code:addons/ohada_reports/static/src/xml/account_report_template.xml:13
+#, python-format
+msgid "Remind me later"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.view_ohada_financial_report_form
+msgid "Report Definition"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.view_ohada_financial_report_line_form
+msgid "Report Line"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.view_ohada_financial_report_form
+#: model_terms:ir.ui.view,arch_db:ohada_reports.view_ohada_financial_report_line_tree
+msgid "Report Lines"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report_manager__report_name
+msgid "Report Name"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.res_config_settings_view_form
+msgid "Reporting"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_retained_earnings0
+msgid "Retained Earnings"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_executivesummary_return_investment0
+msgid "Return on investments (net profit / assets)"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_comparison
+msgid "Same Period Last Year"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.main_template
+#: model_terms:ir.ui.view,arch_db:ohada_reports.template_followup_report
+msgid "Save"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.main_template
+msgid "Search account"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report_line__name
+msgid "Section Name"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.template_followup_report
+msgid "Select this option if you want to manually define the next reminder date."
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.template_followup_report
+msgid "Send an email"
+msgstr ""
+
+#. module: ohada_reports
+#. openerp-web
+#: code:addons/ohada_reports/static/src/xml/account_report_template.xml:10
+#, python-format
+msgid "Send by email"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report_line__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,help:ohada_reports.field_ohada_financial_html_report__tax_report
+msgid "Set to True to automatically filter out journal items that have the boolean field 'tax_exigible' set to False"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_report_executivesummary_st_cash_forecast0
+msgid "Short term cash forecast"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report__debit_credit
+msgid "Show Credit and Debit Columns"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report_line__show_domain
+msgid "Show Domain"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report__unfold_all_filter
+msgid "Show unfold all filter"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_followup_report.py:31
+#, python-format
+msgid "Source Document"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report_line__special_date_changer
+msgid "Special Date Changer"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_comparison
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_date_filter
+msgid "Start Date :"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report_manager__summary
+msgid "Summary"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_generic_tax_report.py:20
+#: code:addons/ohada_reports/models/account_generic_tax_report.py:23
+#, python-format
+msgid "TAX"
+msgstr ""
+
+#. module: ohada_reports
+#. openerp-web
+#: code:addons/ohada_reports/static/src/js/ohada_reports.js:417
+#, python-format
+msgid "Tags"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_general_ledger.py:445
+#, python-format
+msgid "Tax Amount"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_general_ledger.py:436
+#, python-format
+msgid "Tax Declaration"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_generic_tax_report.py:153
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report__tax_report
+#: model:ir.ui.menu,name:ohada_reports.menu_action_account_report_gt
+#, python-format
+msgid "Tax Report"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_account_report_footnote__text
+msgid "Text"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,help:ohada_reports.field_res_partner__payment_next_action_date
+msgid "The date before which no action should be taken."
+msgstr ""
+
+#. module: ohada_reports
+#. openerp-web
+#: code:addons/ohada_reports/static/src/xml/account_report_template.xml:30
+#, python-format
+msgid "The follow-up report was successfully emailed!"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,help:ohada_reports.field_ohada_financial_html_report__generated_menu_id
+msgid "The menu item generated for this report, or None if there isn't any."
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.template_followup_report
+msgid "The next reminder date is computed based on what you have defined in the accounting settings."
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.main_template
+msgid "There are"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_date_filter
+msgid "This Financial Year"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_date_filter
+msgid "This Month"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_date_filter
+msgid "This Quarter"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.res_config_settings_view_form
+msgid "This allows you to choose the position of totals in your financial reports."
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_date_filter
+msgid "Today"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_aged_partner_balance.py:22
+#: code:addons/ohada_reports/models/account_aged_partner_balance.py:80
+#: code:addons/ohada_reports/models/account_consolidated_journals.py:85
+#: code:addons/ohada_reports/models/ohada_financial_report.py:1108
+#: code:addons/ohada_reports/models/ohada_financial_report.py:1193
+#: code:addons/ohada_reports/models/account_general_ledger.py:426
+#: code:addons/ohada_reports/models/account_partner_ledger.py:262
+#: code:addons/ohada_reports/models/account_report_coa.py:52
+#: code:addons/ohada_reports/models/account_report_coa.py:113
+#: model_terms:ir.ui.view,arch_db:ohada_reports.customer_statements_tree_view
+#: model_terms:ir.ui.view,arch_db:ohada_reports.template_coa_table_header
+#, python-format
+msgid "Total"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_general_ledger.py:394
+#, python-format
+msgid "Total "
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_followup_report.py:35
+#: code:addons/ohada_reports/models/account_followup_report.py:108
+#: model:ir.model.fields,field_description:ohada_reports.field_res_partner__total_due
+#, python-format
+msgid "Total Due"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_followup_report.py:119
+#: model:ir.model.fields,field_description:ohada_reports.field_res_partner__total_overdue
+#, python-format
+msgid "Total Overdue"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_bank_reconciliation_report.py:42
+#, python-format
+msgid "Total Virtual GL Balance"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_report_coa.py:149
+#: model:ir.actions.client,name:ohada_reports.action_account_report_coa
+#: model:ir.ui.menu,name:ohada_reports.menu_action_account_report_coa
+#, python-format
+msgid "Trial Balance"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_ohada_financial_html_report_line__figure_type
+msgid "Type"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ohada.financial.html.report.line,name:ohada_reports.ohada_financial_unaffected_earnings0
+msgid "Unallocated Earnings"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/ohada_financial_report.py:45
+#: code:addons/ohada_reports/models/ohada_financial_report.py:905
+#, python-format
+msgid "Undefined"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_bank_reconciliation_report.py:189
+#, python-format
+msgid "Unexplained Difference"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_extra_options
+msgid "Unfold"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_extra_options
+msgid "Unfold All"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.line_template
+msgid "Unfolded"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_extra_options
+msgid "Unreconciled"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,field_description:ohada_reports.field_res_partner__unreconciled_aml_ids
+msgid "Unreconciled Aml"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_bank_reconciliation_report.py:166
+#, python-format
+msgid "Unreconciled Bank Statement Lines"
+msgstr ""
+
+#. module: ohada_reports
+#: selection:ohada.financial.html.report.line,special_date_changer:0
+msgid "Use given dates"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_bank_reconciliation_report.py:174
+#, python-format
+msgid "Validated Payments not Linked with a Bank Statement Line"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/res_partner.py:85
+#, python-format
+msgid "Vendor Ledger"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.line_caret_options
+msgid "View Bank Statement"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.line_caret_options
+msgid "View Bill"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.line_caret_options
+#: model_terms:ir.ui.view,arch_db:ohada_reports.line_template_followup_report
+msgid "View Invoice"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.line_template_aged_payable_report
+#: model_terms:ir.ui.view,arch_db:ohada_reports.line_template_aged_receivable_report
+#: model_terms:ir.ui.view,arch_db:ohada_reports.line_template_followup_report
+#: model_terms:ir.ui.view,arch_db:ohada_reports.line_template_general_ledger_report
+#: model_terms:ir.ui.view,arch_db:ohada_reports.line_template_partner_ledger_report
+msgid "View Journal Entry"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.line_caret_options
+msgid "View Partner"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.line_caret_options
+msgid "View Payment"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/account_bank_reconciliation_report.py:151
+#, python-format
+msgid "Virtual GL Balance"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,help:ohada_reports.field_ohada_financial_html_report_line__print_on_new_page
+msgid "When checked this line and everything after it will be printed on a new page."
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,help:ohada_reports.field_res_company__totals_below_sections
+#: model:ir.model.fields,help:ohada_reports.field_res_config_settings__totals_below_sections
+#: model_terms:ir.ui.view,arch_db:ohada_reports.res_config_settings_view_form
+msgid "When ticked, totals and subtotals appear below the sections of the report."
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.filter_info_template
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_extra_options
+msgid "With Draft Entries"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.followup_search_template
+msgid "With Overdue Invoices"
+msgstr ""
+
+#. module: ohada_reports
+#: selection:res.partner,followup_status:0
+msgid "With overdue invoices"
+msgstr ""
+
+#. module: ohada_reports
+#. openerp-web
+#: code:addons/ohada_reports/static/src/js/followup_form/followup_form_controller.js:69
+#, python-format
+msgid "You are done with the follow-ups!<br/>You have skipped %s partner(s)."
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/res_partner.py:147
+#, python-format
+msgid "any"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.res_config_settings_view_form
+msgid "days between each reminder"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,help:ohada_reports.field_ohada_financial_html_report__analytic
+msgid "display the analytic filters"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,help:ohada_reports.field_ohada_financial_html_report__comparison
+msgid "display the comparison filter"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,help:ohada_reports.field_ohada_financial_html_report__show_journal_filter
+msgid "display the journal filter in the report"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,help:ohada_reports.field_ohada_financial_html_report__cash_basis
+msgid "display the option to switch to cash basis mode"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,help:ohada_reports.field_ohada_financial_html_report__unfold_all_filter
+msgid "display the unfold all options in report"
+msgstr ""
+
+#. module: ohada_reports
+#: code:addons/ohada_reports/models/ohada_financial_report.py:923
+#, python-format
+msgid "n/a"
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,help:ohada_reports.field_account_report_manager__report_name
+msgid "name of the model of the report"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.main_template
+msgid "prior or included in this period."
+msgstr ""
+
+#. module: ohada_reports
+#: model:ir.model.fields,help:ohada_reports.field_ohada_financial_html_report__date_range
+msgid "specify if the report use date_range or single date"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.search_template_date_filter
+msgid "to:"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.main_template
+msgid "unposted Journal Entries"
+msgstr ""
+
+#. module: ohada_reports
+#: model_terms:ir.ui.view,arch_db:ohada_reports.line_template_general_ledger_report
+msgid "⇒ journal items"
+msgstr ""
+

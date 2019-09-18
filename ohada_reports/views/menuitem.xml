@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!--<record id="action_account_ohada_dashboard" model="ir.actions.act_window">-->
+        <!--<field name="name">OHADA Dashboard</field>-->
+        <!--<field name="res_model">account.journal</field>-->
+        <!--<field name="view_type">form</field>-->
+        <!--<field name="view_mode">kanban,form</field>-->
+        <!--<field name="view_id" ref="ohada_journal_dashboard_kanban_view"/>-->
+        <!--<field name="usage">menu</field>-->
+        <!--<field name="context">{'search_default_dashboard':1}</field>-->
+        <!--<field name="domain">[('belongs_to_company', '=', True)]</field>-->
+        <!--<field name="help" type="html">-->
+            <!--<p class="o_view_nocontent_neutral_face">-->
+                <!--This is the accounting dashboard-->
+            <!--</p><p>-->
+                <!--If you have not installed a chart of account, please install one first.<br/>-->
+               <!--<a type="action" name="%(account.open_account_charts_modules)d" tabindex="-1">Browse available countries.</a>-->
+            <!--</p>-->
+        <!--</field>-->
+    <!--</record>-->
+	<!-- Hide the Odoo menu Reporting -> assign it to ERGOBIT Supervisor  -->
+	<!--
+	<menuitem 
+		id="account.account_reports_legal_statements_menu" 
+		name="Generic Statements" 
+		parent="account.menu_finance_reports" 
+		sequence="1" 
+		groups="ergobase.group_ergobit_supervisor"/>
+	-->
+
+	<!--OHADA main menu items-->
+	<menuitem
+		id="menu_ohada"
+		name="SYSCOHADA"
+		web_icon="l10n_ohada,static/description/icon.png"
+		parent="account_accountant.menu_accounting"
+		sequence="21"
+        groups="account.group_account_manager,account.group_account_user"/>
+	<!--<menuitem-->
+		<!--id="menu_ohada_dashboard"-->
+		<!--action="action_account_ohada_dashboard"-->
+		<!--name="Dashboard"-->
+		<!--parent="menu_ohada"-->
+        <!--groups="account.group_account_manager,account.group_account_user"-->
+		<!--sequence="1"/>-->
+    <menuitem 
+		id="menu_ohada_configuration" 
+		name="OHADA Reporting" 
+		parent="account.menu_finance_configuration" 
+		sequence="4" 
+		groups="account.group_account_manager"/>
+
+	<!--OHADA sub menu items-->
+    <menuitem 
+		id="menu_ohada_legal_statements_main" 
+		name="Generic Statements" 
+		parent="menu_ohada"
+		sequence="10" 
+		groups="account.group_account_user"/>
+    <menuitem 
+		id="menu_ohada_legal_statements_note" 
+		name="Annexed Notes" 
+		parent="menu_ohada" 
+		sequence="20" 
+		groups="account.group_account_manager"/>
+    <menuitem 
+		id="menu_ohada_legal_statements_sheet" 
+		name="Data sheets" 
+		parent="menu_ohada" 
+		sequence="30" 
+		groups="account.group_account_manager"/>
+</odoo>
