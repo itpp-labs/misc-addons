@@ -32,5 +32,6 @@
     "post_load": 'post_load',
     'auto_install': False,
     'uninstall_hook': 'uninstall_hook',
-    'installable': True
+    'installable': True,
+    'saas_demo_title': 'Backend debranding demo',
 }
