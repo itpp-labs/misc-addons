@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id='sale_deal_product_details_form_view' model='ir.ui.view'>
+        <field name="name">product.template</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product_details.product_details_product_template_form_view"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='details_res_id']" position="attributes">
+                    <attribute name="readonly">True</attribute>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="service_standard_job_bundle_form_view" model="ir.ui.view">
+            <field name="name">service.standard_job.inherit</field>
+            <field name="model">service.standard_job</field>
+            <field name="inherit_id" ref="major_unit.service_standard_job_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="before">
+                    <div>
+                        <group>
+
+                            <group>
+                                <field name="standard_job_type"/>
+                                <field name="standard_job_image" widget="image"/>
+                                <field name="job_description"/>
+                                <field name="priority" widget="priority"/>
+                            </group>
+                        </group>
+                    </div>
+                </xpath>
+                <xpath expr="//sheet/div" position="inside">
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="toggle_active" style="text-align: center;" type="object">
+                            <field name="active_job" options="{&quot;terminology&quot;: { &quot;string_true&quot;: &quot;Active&quot;, &quot;hover_true&quot;: &quot;Inactive&quot;, &quot;string_false&quot;: &quot;Inactive&quot;, &quot;hover_false&quot;: &quot;Active&quot; }}" widget="boolean_button"/>
+                        </button>
+                        <button class="oe_stat_button" name="toggle_publish" style="text-align: center;" type="object">
+                            <field name="publish_job" options="{&quot;terminology&quot;: { &quot;string_true&quot;: &quot;Publish&quot;, &quot;hover_true&quot;: &quot;Draft&quot;, &quot;string_false&quot;: &quot;Draft&quot;, &quot;hover_false&quot;: &quot;Publish&quot; }}" widget="boolean_button"/>
+                        </button>
+                    </div>
+                </xpath>
+                <xpath expr="//page[2]" position="after">
+                    <page string="Document">
+                        <field name="document" widget="pdf_viewer"/>
+                    </page>
+                </xpath>
+
+
+                <xpath expr="//field[@name='product_ids']" position="after">
+                    <group class="oe_subtotal_footer oe_right">
+                        <div class="oe_subtotal_footer_separator oe_inline o_td_label"/>
+                        <field class="oe_subtotal_footer_separator" name="bundle_amount_total" nolabel="1"/>
+                    </group>
+                </xpath>
+                
+            </field>
+        </record>
+    </data>
+</odoo>

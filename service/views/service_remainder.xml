@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+        <record id="send_service_remainder" model="mail.template">
+            <field name="name">Service Remainder</field>
+            <field name="email_from">saumildemo1234@gmail.com</field>
+            <field name="subject">Service Remainder</field>
+            <field name="auto_delete" eval="True" />
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ${(object.partner_id.name)}, </p>
+                    <p>This is just a helpful reminder to schedule your service. The service should happen at 600 miles or Six months. If you have already had your service, congrats !!</p> 
+                </div>
+                ]]>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="product_category_not_saleable" model="product.category">
+            <field name="parent_id" ref="product.product_category_all"/>
+            <field name="name">Not Saleable</field>
+        </record>
+
+        <record id="product_category_vehicles" model="product.category">
+            <field name="parent_id" ref="product_category_not_saleable"/>
+            <field name="name">Vehicles</field>
+        </record>
+
+        <record id="quartet_product_category_major_units" model="product.category">
+            <field name="parent_id" ref="product.product_category_1"/>
+            <field name="name">Major Units</field>
+            <field name="property_account_income_categ_id" ref="major_unit.account_account_sales_new_vehicles" />
+            <field name="property_account_expense_categ_id" ref="major_unit.account_account_cos_new_vehicles" />
+            <field name="property_stock_account_output_categ_id" ref="major_unit.account_account_inventory_new_vehicles" />
+        </record>
+
+        <record id="product_details_models" model="ir.config_parameter">
+            <field name="key">product_details_models</field>
+            <field name="value">major_unit.major_unit</field>
+        </record>
+
+    </data>
+</odoo>

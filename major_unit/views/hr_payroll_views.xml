@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_category_commission_tree" model="ir.ui.view">
+        <field name="name">hr.category_commission.tree</field>
+        <field name="model">hr.category_commission</field>
+        <field name="arch" type="xml">
+            <tree string="Commissions For Vehicle Categories" editable="bottom">
+                <field name="category_id" options="{'no_open': True}" required="1" context="{'show_attribute': False}"/>
+                <field name="commission" required="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_category_commission" model="ir.actions.act_window">
+        <field name="name">Commissions For Vehicle Categories</field>
+        <field name="res_model">hr.category_commission</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="hr_category_commission_tree"/>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add a new commission for vehicle category.
+          </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_action_hr_category_commission"
+        action="action_category_commission"
+        parent="hr_payroll.menu_hr_payroll_configuration"
+        sequence="15"
+    />
+
+    <record id="hr_mu_special_commission_tree" model="ir.ui.view">
+        <field name="name">hr.mu_special_commission.tree</field>
+        <field name="model">hr.mu_special_commission</field>
+        <field name="arch" type="xml">
+            <tree string="Commissions For Special Major Unit" editable="bottom">
+                <field name="major_unit_id" required="1"/>
+                <field name="commission" required="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_mu_special_commission" model="ir.actions.act_window">
+        <field name="name">Commissions For Special Major Unit</field>
+        <field name="res_model">hr.mu_special_commission</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="hr_mu_special_commission_tree"/>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add a new commission for certain special major unit.
+          </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_action_hr_mu_special_commission"
+        action="action_mu_special_commission"
+        parent="hr_payroll.menu_hr_payroll_configuration"
+        sequence="16"
+    />
+
+</odoo>

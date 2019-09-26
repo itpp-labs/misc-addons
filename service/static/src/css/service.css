@@ -1,0 +1,42 @@
+.openerp .oe_kanban_view .oe_kanban_service_dashboard {
+  /* Customize width and height of kanban according bootstrap3 */
+  width: 357px;
+  min-height: 80px !important;
+}
+.openerp .oe_kanban_view .oe_kanban_service_dashboard .oe_kanban_content div:first-child {
+  margin-right: 0px;
+}
+.openerp .oe_kanban_view .oe_deadline {
+  padding-left: 0.5em;
+}
+.openerp .oe_service_kanban_view {
+  margin-left: 0px;
+  margin-right: -2px;
+}
+.openerp .oe_margin_top_16 {
+  margin-top: 16px;
+}
+
+table.table.table-condensed-service {
+    margin-bottom: 0;
+    table-layout: fixed;
+    border-spacing: 10px 0px;
+    border-collapse: separate;
+    margin-top: 8px;
+}
+
+.table > tbody > tr > td.o_main,.table > tbody > tr > td.o_text {
+    vertical-align: middle;
+    text-align: center;
+    border-top: 1px solid #fff;
+    width: 25%;
+    height: 33px;
+}
+
+.o_sales_dashboard {background-color: #fff;padding-bottom: 7px;} 
+.table > tbody > tr > td span.o_highlight {font-size: 20px;}
+.o_kanban_view.o_kanban_ungrouped{padding: 0px;}
+.o_kanban_view.o_kanban_ungrouped .o_kanban_record{margin: 8px;}
+/*.oe_kanban_color_0.o_kanban_record:nth-child(odd) {margin-right: 15px;}
+.oe_kanban_color_0.o_kanban_record:nth-child(even) {margin-left: 15px;}
+*/

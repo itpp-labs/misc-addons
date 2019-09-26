@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_workorders_tree" model="ir.ui.view">
+            <field name="name">drm.workorders.tree</field>
+            <field name="model">drm.workorders</field>
+            <field name="type">tree</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree decoration-danger="date_planned_start&lt;current_date and state not in ('done','cancel')" decoration-info="state=='ready'" decoration-muted="state in ('progress')" decoration-success="state in ('done','cancel')" default_order="date_planned_start desc" string="Work Orders">
+                    <field name="name"/>
+                    <field name="repair_order_id"/>
+                    <field invisible="1" name="date_planned_start"/>
+                    <field name="vehicle_id"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="standard_job_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_workorders_form" model="ir.ui.view">
+            <field name="name">drm.workorders.form</field>
+            <field name="model">drm.workorders</field>
+            <field name="type">form</field>
+            <field eval="3" name="priority"/>
+            <field name="arch" type="xml">
+                <header>
+                    <button attrs="{'invisible': ['|',('state', '!=', 'pending'),('is_pause', '=', True)]}" name="button_ready" string="Ready" type="object"/>
+                    <button attrs="{'invisible': ['|',('state', '!=', 'ready'),('is_pause', '=', True)]}" class="btn-success" name="button_start" string="Start Working" type="object"/>
+                    <button attrs="{'invisible': [('state', '!=', 'ready'),('is_pause', '!=', True)]}" class="btn-success" name="button_start" string="Resume" type="object"/>
+                    <button attrs="{'invisible': ['|','|',('is_complete', '=', True), ('state', '!=', 'progress'), ('working_state', '=', 'blocked'),]}" class="btn-success" name="button_finish" string="Done" type="object"/>
+                    <button attrs="{'invisible': ['|','|','|',('is_complete', '=', True),  ('state', '!=', 'progress'), ('working_state', '=', 'blocked'),('is_pause', '=', True)]}" class="btn-warning" name="button_pending" string="Pause" type="object"/>
+                    <button attrs="{'invisible': ['|','|',('is_complete', '=', True),  ('state', '!=', 'progress'), ('working_state', '=', 'blocked'),]}" class="btn-danger" context="{'default_workcenter_id': workcenter_id}" name="%(act_drm_block_workcenter_wo)d" string="Block" type="action"/>
+                    <button attrs="{'invisible': ['|','|',('is_complete', '=', True),  ('state', '!=', 'progress'), ('working_state', '!=', 'blocked'),]}" class="btn-danger" name="button_unblock" string="Unblock" type="object"/>
+                    <field name="state" statusbar_visible="pending,ready,progress,done,cancel" widget="statusbar"/>
+                </header>
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="customer_id"/>
+                                <field name="name"/>
+                                <field name="repair_order_id" domain="[('state', '!=', 'done')]"/>
+                                <field name="vehicle_id" />
+                                <field name="standard_job_id"/>
+                            </group>
+                            <group>
+                                <field name="workcenter_id"/>
+                                <field name="mechanic_id"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="date_planned_start"/>
+                                <field invisible="1" name="is_complete"/>
+                                <field invisible="1" name="working_state"/>
+                                <field invisible="1" name="is_pause"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page attrs="{'invisible': [('worksheet', '=', False)]}" string="Work Instruction">
+                                <field name="worksheet" widget="pdf_viewer"/>
+                            </page>
+                            <page string="Time Tracking">
+                                <group>
+                                    <group>
+                                        <label for="date_planned_start" string="Planned Date"/>
+                                        <div class="o_row">from                                             
+                                            
+                                            
+                                            
+                                            <field name="date_planned_start"/>
+                                            <div attrs="{'invisible': [('date_planned_finished', '=', False)]}">
+                                                to   
+                                            
+                                                
+                                                
+                                                <field name="date_planned_finished"/></div>
+                                        </div>
+                                        <label for="date_start" string="Effective Date"/>
+                                        <div class="o_row">
+                                            <field name="date_start" readonly="1"/>
+                                            <div attrs="{'invisible': [('date_finished', '=', False)]}">to
+                      
+                    
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                <field name="date_finished" readonly="1"/></div>
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <label for="duration_expected"/>
+                                        <div>
+                                            <field class="oe_inline" name="duration_expected" widget="float_time"/>minutes</div>
+                                        <label for="duration"/>
+                                        <div>
+                                            <button class="oe_inline label label-default" style="pointer-events: none;">
+                                                <field name="duration" widget="mrp_time_counter"/>
+                                            </button>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <field name="time_ids" nolabel="1" readonly="1">
+                                        <tree>
+                                            <field name="date_start"/>
+                                            <field name="date_end"/>
+                                            <field name="duration" widget="float_time"/>
+                                            <field name="user_id"/>
+                                        </tree>
+                                        <form>
+                                            <group>
+                                                <group>
+                                                    <field name="date_start"/>
+                                                    <field name="date_end"/>
+                                                    <field name="duration" widget="float_time"/>
+                                                </group>
+                                                <group>
+                                                    <field name="user_id"/>
+                                                </group>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="lift_calendar1" model="ir.ui.view">
+            <field name="name">drm.lift.calendar.calendar</field>
+            <field name="model">drm.workorders</field>
+            <field eval="1" name="priority"/>
+            <field name="arch" type="xml">
+                <calendar color="customer_id" date_start="start_date" date_stop="end_date" string="Lift">
+                    <field name="customer_id"/>
+                    <field name="repair_order_id"/>
+                    <field name="name"/>
+                    <field name="workcenter_id"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </calendar>
+            </field>
+        </record>
+        <record id="workorders_actions" model="ir.actions.act_window">
+            <field name="name">Work Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">drm.workorders</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,calendar,form</field>
+            <field name="context">{}</field>
+        </record>
+        <record id="workorders_action_tree" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="workorders_actions"/>
+            <field eval="10" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_workorders_tree"/>
+        </record>
+        <record id="workorders_action_form" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="workorders_actions"/>
+            <field eval="20" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_workorders_form"/>
+        </record>
+        <menuitem action="workorders_actions" id="work_order_system_menu" name="Work Order" parent="service_general_menu" sequence="2"/>
+    </data>
+</odoo>

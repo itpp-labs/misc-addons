@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="lift_1" model="drm.lift">
+            <field name="name">Car Lift</field>
+            <field name="location">ground level 1</field>
+            <field name="description">Hydraulic fluid is pumped between the two cylinders through the overhead (or optional in-floor) stainless steel hydraulic lines (not rubber hoses).</field>
+        </record>
+        <record id="lift_2" model="drm.lift">
+            <field name="name">Wheel Lift</field>
+            <field name="location">ground level 2</field>
+            <field name="description">Hydraulic fluid is pumped between the two cylinders through the overhead (or optional in-floor) stainless steel hydraulic lines (not rubber hoses).</field>
+        </record>
+        <record id="lift_3" model="drm.lift">
+            <field name="name">Truck Lift</field>
+            <field name="location">ground level 3</field>
+            <field name="description">Hydraulic fluid is pumped between the two cylinders through the overhead (or optional in-floor) stainless steel hydraulic lines (not rubber hoses).</field>
+        </record>
+    </data>
+</odoo>

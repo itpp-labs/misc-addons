@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Top menu item -->
+    <menuitem name="Service" id="menu_service_root" web_icon="service,static/description/icon.png"/>
+
+    <menuitem id="menu_service_service" name="Service" parent="menu_service_root" sequence="10"/>
+
+    <menuitem id="menu_service_repair_orders" name="Repair Orders" parent="menu_service_root" sequence="20"/>
+
+    <menuitem id="menu_service_jobs" name="Jobs" parent="menu_service_root" sequence="30"/>
+
+    <menuitem id="menu_service_scheduling" name="Scheduling" parent="menu_service_root" sequence="40"/>
+
+    <menuitem id="menu_service_reports" name="Reports" parent="menu_service_root" sequence="50"/>
+
+    <menuitem id="menu_service_config" name="Configuration" parent="menu_service_root" sequence="60"/>
+
+</odoo>

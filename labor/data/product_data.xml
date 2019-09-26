@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="quartet_product_other" model="product.labor">
+            <field name="parent_id" ref="product.product_labor"/>
+            <field name="name">Labor</field>
+        </record>
+
+    </data>
+</odoo>

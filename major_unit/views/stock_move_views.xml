@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="open_major_unit_parts_moves" model="ir.actions.act_window">
+        <field name="name">Major Unit Parts</field>
+        <field name="res_model">stock.move</field>
+        <field name="view_id" ref="stock.view_move_tree"/>
+   </record>
+
+</odoo>

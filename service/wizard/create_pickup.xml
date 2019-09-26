@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_create_ride" model="ir.ui.view">
+            <field name="name">res.partner.create.pickups.form</field>
+            <field name="model">res.partner.create.pickups</field>
+            <field name="arch" type="xml">
+                <form string="Create Ride Pickup">
+                    <group>
+                        <field name="name"/>
+                        <field name="order_id"/>
+                        <field name="customer_vehicle"/>
+                        <field name="mechanic_id"/>
+                        <field name="choose"/>
+                        <field attrs="{'readonly': True}" name="process_type"/>
+                    </group>
+                    <footer>
+                        <button class="btn-primary" name="create_new" string="Create" type="object"/>
+                        <button class="btn-default" special="cancel" string="_Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_view_create_ride_pickup" model="ir.actions.act_window">
+            <field name="name">Create PickUp/ Delivery</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner.create.pickups</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_create_ride"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

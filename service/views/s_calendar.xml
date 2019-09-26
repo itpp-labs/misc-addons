@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+	<data>
+		<template>
+           <xpath expr="//t/div[@class='o_calendar_filter']" position="after">
+                   <div>Hello Sandeep</div>
+           </xpath>
+       </template>
+   </data>
+</odoo>

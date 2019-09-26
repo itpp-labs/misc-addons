@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="quartet_stock_production_lot_1" model="stock.production.lot">
+            <field name="name">1000000000001</field>
+            <field name="product_id" ref="quartet_product_product_1_1"/>
+        </record>
+
+        <record id="quartet_stock_production_lot_2" model="stock.production.lot">
+            <field name="name">1000000000002</field>
+            <field name="product_id" ref="quartet_product_product_1_1"/>
+        </record>
+
+        <record id="quartet_stock_production_lot_3" model="stock.production.lot">
+            <field name="name">1000000000003</field>
+            <field name="product_id" ref="quartet_product_product_1_1"/>
+        </record>
+
+        <record id="quartet_stock_production_lot_4" model="stock.production.lot">
+            <field name="name">1000000000004</field>
+            <field name="product_id" ref="quartet_product_product_1_2"/>
+        </record>
+
+        <record id="quartet_stock_production_lot_5" model="stock.production.lot">
+            <field name="name">1000000000005</field>
+            <field name="product_id" ref="quartet_product_product_1_1"/>
+        </record>
+
+        <record id="quartet_stock_production_lot_6" model="stock.production.lot">
+            <field name="name">1000000000006</field>
+            <field name="product_id" ref="quartet_product_product_1_2"/>
+        </record>
+
+        <record id="quartet_stock_production_lot_7" model="stock.production.lot">
+            <field name="name">1000000000007</field>
+            <field name="product_id" ref="quartet_product_product_1_3"/>
+        </record>
+
+        <record id="quartet_stock_inventory_1" model="stock.inventory">
+            <field name="name">Quartet Demo Inventory</field>
+        </record>
+
+        <record id="quartet_stock_inventory_line_1" model="stock.inventory.line">
+            <field name="product_id" ref="quartet_product_product_1_1"/>
+            <field name="product_uom_id" ref="product.product_uom_unit"/>
+            <field name="inventory_id" ref="quartet_stock_inventory_1"/>
+            <field name="prod_lot_id" ref="quartet_stock_production_lot_1"/>
+            <field name="product_qty">1</field>
+            <field name="location_id" ref="stock.stock_location_14"/>
+        </record>
+
+        <record id="quartet_stock_inventory_line_2" model="stock.inventory.line">
+            <field name="product_id" ref="quartet_product_product_1_1"/>
+            <field name="product_uom_id" ref="product.product_uom_unit"/>
+            <field name="inventory_id" ref="quartet_stock_inventory_1"/>
+            <field name="prod_lot_id" ref="quartet_stock_production_lot_2"/>
+            <field name="product_qty">1</field>
+            <field name="location_id" ref="stock.stock_location_14"/>
+        </record>
+
+        <record id="quartet_stock_inventory_line_3" model="stock.inventory.line">
+            <field name="product_id" ref="quartet_product_product_1_1"/>
+            <field name="product_uom_id" ref="product.product_uom_unit"/>
+            <field name="inventory_id" ref="quartet_stock_inventory_1"/>
+            <field name="prod_lot_id" ref="quartet_stock_production_lot_3"/>
+            <field name="product_qty">1</field>
+            <field name="location_id" ref="stock.stock_location_14"/>
+        </record>
+
+        <record id="quartet_stock_inventory_line_4" model="stock.inventory.line">
+            <field name="product_id" ref="quartet_product_product_1_2"/>
+            <field name="product_uom_id" ref="product.product_uom_unit"/>
+            <field name="inventory_id" ref="quartet_stock_inventory_1"/>
+            <field name="prod_lot_id" ref="quartet_stock_production_lot_4"/>
+            <field name="product_qty">1</field>
+            <field name="location_id" ref="stock.stock_location_14"/>
+        </record>
+
+        <function model="stock.inventory" name="action_done">
+            <function eval="[[('id', '=', ref('quartet_stock_inventory_1'))]]" model="stock.inventory" name="search"/>
+        </function>
+
+    </data>
+</odoo>

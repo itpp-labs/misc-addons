@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="view_customer_ride_form" model="ir.ui.view">
+			<field name="name">major_unit.rides.major_unit.form</field>
+			<field name="model">major_unit.major_unit</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="major_unit.view_major_unit_form"/>
+			<field name="arch" type="xml">
+				<!-- <xpath expr="//div[@name='button_box']" position="after">
+					<field class="oe_avatar" name="image" options="{&quot;preview_image&quot;: &quot;image&quot;, &quot;size&quot;: [90, 90]}" widget="image"/>
+				</xpath> -->
+				<!-- 	        	<xpath expr="//notebook" position="before"><label for="partner_id" class="oe_edit_only"/><h1><field name="partner_id" /></h1></xpath>-->
+				<xpath expr="//notebook" position="before">
+					<div>
+						<group colspan="2">
+							<group>
+								<field name="partner_id"/>
+								<!-- <field name='miles'/><field name='miles_date'/>-->
+								<field name="mileage"/>
+								<field name="make"/>
+								<field name="year"/>
+							</group>
+							<group>
+								<field name="purchase_date"/>
+								<field name="vehical_registration_no"/>
+								<field name="model"/>
+								<field name="vehicle_number_plate"/>
+							</group>
+						</group>
+					</div>
+				</xpath>
+				<xpath expr="//notebook/page[@name='general']" position="inside">
+					<group>
+						<field name="cr_store_id"/>
+						<field name="cr_sales_adviser"/>
+						<field name="last_service_date"/>
+					</group>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

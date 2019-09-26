@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data>
+      <record id="view_service_inspection_tree" model="ir.ui.view">
+         <field name="name">service.res.partner.tree</field>
+         <field name="model">service.inspection</field>
+         <field name="type">tree</field>
+         <field eval="8" name="priority"/>
+         <field name="arch" type="xml">
+            <tree>
+               <field name="partner_id"/>
+               <field name="repair_order_id"/>
+               <field name="date"/>
+               <field name="state"/>
+            </tree>
+         </field>
+      </record>
+      <record id="view_service_inspection_form" model="ir.ui.view">
+         <field name="name">service.res.partner.form</field>
+         <field name="model">service.inspection</field>
+         <field name="type">form</field>
+         <field eval="3" name="priority"/>
+         <field name="arch" type="xml">
+            <header groups="service.group_service_manager,service.group_service" position="inside">
+               <button attrs="{'invisible': [('state', 'in', ('progress','done','cancel'))]}" class="oe_highlight" name="action_inspect_confirm" string="Confirm" type="object"/>
+               <button attrs="{'invisible': [('state', 'in', ('draft','done','cancel'))]}" class="oe_highlight" name="action_inspect_progress" string="Inspection Done" type="object"/>
+               <button attrs="{'invisible': [('state', 'in', ('done'))]}" class="oe_highlight" name="action_cancel" string="Cancel" type="object"/>
+               <field name="state" statusbar_visible="draft,progress,done,cancel" widget="statusbar"/>
+            </header>
+            <form>
+               <sheet>
+                  <separator colspan="4" string="Service Inspection Order"/>
+                  <group colspan="3">
+                     <group>
+                        <field name="repair_order_id"/>
+                        <field name="date"/>
+                        <field name="partner_id" readonly="1"/>
+                        <field name="major_unit_id" readonly="1"/>
+                     </group>
+                     <group>
+                        <field name="service_advisor_id"/>
+                        <field name="technician_id"/>
+                        <field name="date_promised"/>
+                     </group>
+                  </group>
+                  <group>
+                     <group>
+                        <field name="year"/>
+                        <field name="make"/>
+                        <field name="models"/>
+                        <field name="licence_number"/>
+                     </group>
+                     <group>
+                        <field name="vin"/>
+                        <field name="mileage"/>
+                        <field name="color"/>
+                     </group>
+                  </group>
+                  <notebook>
+                     <page autofocus="autofocus" string="30 Point Vehicle Checks Form">
+                        <group>
+                           <div>
+                              <label string="Description" style="margin-left:2%;"/>
+                              <label string="Inspected" style="margin-left:11%;"/>
+                              <label string="Approved" style="margin-left:2%;"/>
+                              <label string="Notes" style="margin-left:6%;"/>
+                           </div>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Battery"/>
+                              <div>
+                                 <field name="battery_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="battery_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="battery" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Brake Disk Thickness"/>
+                              <div>
+                                 <field name="brake_thickness_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="brake_thickness_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="brake_thickness" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Brake"/>
+                              <div>
+                                 <field name="brake_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="brake_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="brake" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Carbs"/>
+                              <div>
+                                 <field name="carbs_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="carbs_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="carbs" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Chain"/>
+                              <div>
+                                 <field name="chain_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="chain_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="chain" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Charging System"/>
+                              <div>
+                                 <field name="charging_system_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="charging_system_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="charging_system" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Control/Cable"/>
+                              <div>
+                                 <field name="control_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="control_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="control" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Cooling System"/>
+                              <div>
+                                 <field name="cooling_system_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="cooling_system_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="cooling_system" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Engine Oil"/>
+                              <div>
+                                 <field name="engine_oil_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="engine_oil_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="engine_oil" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Exhaust Syatem"/>
+                              <div>
+                                 <field name="exhaust_system_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="exhaust_system_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="exhaust_system" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Final Drive"/>
+                              <div>
+                                 <field name="final_drive_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="final_drive_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="final_drive" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Fuel Line"/>
+                              <div>
+                                 <field name="fuel_line_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="fuel_line_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="fuel_line" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Head Light"/>
+                              <div>
+                                 <field name="headlight_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="headlight_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="headlight" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Hydraulic Fluid"/>
+                              <div>
+                                 <field name="hydraulic_fluid_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="hydraulic_fluid_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="hydraulic_fluid" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Iginition System"/>
+                              <div>
+                                 <field name="iginition_system_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="iginition_system_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="iginition_system" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Instructions"/>
+                              <div>
+                                 <field name="instruments_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="instruments_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="instruments" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Oil Leak"/>
+                              <div>
+                                 <field name="oil_leak_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="oil_leak_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="oil_leak" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Pivot Bearing"/>
+                              <div>
+                                 <field name="pivot_bearing_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="pivot_bearing_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="pivot_bearing" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Stand"/>
+                              <div>
+                                 <field name="stand_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="stand_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="stand" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Sight Glass"/>
+                              <div>
+                                 <field name="sight_glass_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="sight_glass_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="sight_glass" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Starter"/>
+                              <div>
+                                 <field name="starter_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="starter_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="starter" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Steerting Dumpener "/>
+                              <div>
+                                 <field name="steering_dumpener_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="steering_dumpener_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="steering_dumpener" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Steering Head Bearing"/>
+                              <div>
+                                 <field name="steering_head_bearing_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="steering_head_bearing_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="steering_head_bearing" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Tail Light"/>
+                              <div>
+                                 <field name="taillight_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="taillight_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="taillight" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Throttle Action"/>
+                              <div>
+                                 <field name="throttle_action_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="throttle_action_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="throttle_action" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Tires"/>
+                              <div>
+                                 <field name="tires_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="tires_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="tires" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Transmission"/>
+                              <div>
+                                 <field name="transmission_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="transmission_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="transmission" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Tune"/>
+                              <div>
+                                 <field name="tune_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="tune_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="tune" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Turn Signal"/>
+                              <div>
+                                 <field name="turn_signal_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="turn_signal_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="turn_signal" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Miscellaneous"/>
+                              <div>
+                                 <field name="miscellaneous_inspection" nolabel="1" style="margin-left:2%;"/>
+                                 <field name="miscellaneous_approved" nolabel="1" style="margin-left:2%;"/>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="miscellaneous" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                           <group colspan="3">
+                              <label class="oe_inline" string="Notes"/>
+                              <div>
+                                 <div class="o_form_field" style="margin-left:2%; width:80%;">
+                                    <field name="notes" nolabel="1"/>
+                                 </div>
+                              </div>
+                           </group>
+                        </group>
+                     </page>
+                     <page string="Standard Jobs">
+                        <button attrs="{'invisible': [('state', 'in', ('done','cancel'))]}" name="%(major_unit.action_view_apply_standard_job)d" string="Standard Jobs" type="action" context="{'major_unit_id': major_unit_id}"/>
+                        <field colspan="4" mode="tree,kanban" name="standard_job_ids" nolabel="1">
+                           <tree decoration-danger="state in ('rejected')" decoration-info="state=='suggested'" decoration-success="state in ('approved')">
+                              <field name="sequence" widget="handle"/>
+                              <field name="standard_job_id" readonly="1"/>
+                              <field name="product_id"/>
+                              <field name="quantity"/>
+                              <field name="qty_available" readonly="1"/>
+                              <field name="unit_price" readonly="1"/>
+                              <field name="taxes_id" readonly="1"/>
+                              <field name="price" readonly="1"/>
+                              <field name="state" readonly="1"/>
+                           </tree>
+                        </field>
+                     </page>
+                     <page string="Images">
+                        <field mode="kanban" name="vehicle_service_image">
+                           <kanban>
+                              <!-- <field attrs="{'readonly': True}" name="name"/> -->
+                              <field name="image"/>
+                              <field name="description"/>
+                              <templates>
+                                 <t t-name="kanban-box">
+                                    <div>
+                                       <a class="fa fa-times pull-right" t-if="!read_only_mode" type="delete"/>
+                                       <div class="o_kanban_image">
+                                          <a type="open">
+                                             <img t-att-src="'data:image/png;base64,'+record.image.raw_value" t-if="record.image.raw_value"/>
+                                          </a>
+                                       </div>
+                                       <div class="oe_kanban_details">
+                                          <a type="open">
+                                             <field name="name"/>
+                                          </a>
+                                       </div>
+                                    </div>
+                                 </t>
+                              </templates>
+                           </kanban>
+                           <form string="Vehicle Service Image">
+                              <sheet>
+                                 <group>
+                                    <!-- <field attrs="{'readonly': True}" name="name"/> -->
+                                    <field name="image" widget="image"/>
+                                    <field name="description"/>
+                                 </group>
+                              </sheet>
+                           </form>
+                        </field>
+                     </page>
+                  </notebook>
+               </sheet>
+            </form>
+         </field>
+      </record>
+      <record id="view_inspect_kanban" model="ir.ui.view">
+         <field name="name">service.inspection.kanban</field>
+         <field name="model">service.inspection</field>
+         <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+               <field name="partner_id"/>
+               <field name="repair_order_id"/>
+               <field name="state"/>
+               <field name="technician_id"/>
+               <templates>
+                  <t t-name="kanban-box">
+                     <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                        <div class="row">
+                           <div class="col-xs-6 text-muted">
+                              <span>
+                                 <t t-esc="record.partner_id.value"/>
+                              </span>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-xs-6 text-muted">
+                              <span>
+                                 <t t-esc="record.repair_order_id.value"/>
+                              </span>
+                           </div>
+                           <div class="col-xs-6">
+                              <span>
+                                 <t t-esc="record.state.value"/>
+                                 <t t-esc="record.technician_id.value"/>
+                              </span>
+                           </div>
+                        </div>
+                     </div>
+                  </t>
+               </templates>
+            </kanban>
+         </field>
+      </record>
+      <record id="view_task_30point_service_serach" model="ir.ui.view">
+         <field name="name">30point.service.user.search</field>
+         <field name="model">service.inspection</field>
+         <field name="arch" type="xml">
+            <search string="Service Reports">
+               <field filter_domain="['|','|',('name','ilike',self),('repair_order_id','ilike',self),('major_unit_id.name','ilike',self)]" name="name" string="30Point Check"/>
+               <field name="state"/>
+               <filter domain="[('state','in', ('confirm', 'Confirm'))]" name="Confirm" string="Confirm"/>
+               <filter domain="[('state','in', ('progress', 'Progress'))]" name="Progress" string="Progress"/>
+               <filter domain="[('state','in', ('done', 'Finished'))]" name="Finished" string="Finished"/>
+               <filter domain="[('state','in', ('cancel', 'Cancelled'))]" name="Cancelled" string="Cancelled"/>
+               <group expand="1" string="Group By">
+                  <filter context="{'group_by':'partner_id'}" name="customer" string="Customer"/>
+                  <filter context="{'group_by':'major_unit_id'}" name="vechile" string="Vehicle"/>
+                  <separator/>
+               </group>
+            </search>
+         </field>
+      </record>
+      <record id="service_inspections" model="ir.actions.act_window">
+         <field name="name">30 Point Inspection</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="res_model">service.inspection</field>
+         <field name="view_type">form</field>
+         <field name="view_mode">tree,form</field>
+         <field name="search_view_id" ref="view_task_30point_service_serach"/>
+         <field name="domain">[]</field>
+         <field name="context">{}</field>
+      </record>
+      <record id="service_action_form1" model="ir.actions.act_window.view">
+         <field name="act_window_id" ref="service_inspections"/>
+         <field eval="20" name="sequence"/>
+         <field name="view_mode">form</field>
+         <field name="view_id" ref="view_service_inspection_form"/>
+      </record>
+      <record id="service_action_tree" model="ir.actions.act_window.view">
+         <field name="act_window_id" ref="service_inspections"/>
+         <field eval="10" name="sequence"/>
+         <field name="view_mode">tree</field>
+         <field name="view_id" ref="view_service_inspection_tree"/>
+      </record>
+      <menuitem action="service_inspections" groups="service.group_service,service.group_service_manager,service.group_service_user" id="service_inspection" name="30 Point Vehicle Checks" parent="service_general_menu" sequence="3"/>
+   </data>
+</odoo>

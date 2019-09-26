@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_service_order_document">
+        <t t-call="report.external_layout">
+            <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})"/>
+            <div class="page">
+                
+                <div style="margin-top:30%;">
+                <h2>
+                    <span t-if="doc.state not in ['QUOTE']">Order # </span>
+                    <span t-if="doc.state in ['APPROVE']">Quotation # </span>
+                    <span t-field="doc.name"/>
+                </h2>
+            </div>
+                <div class="row mt32 mb32" id="informations">
+                    <div class="col-xs-3" t-if="doc.name">
+                        <strong>Order Number:</strong>
+                        <p t-field="doc.name"/>
+                    </div>
+                    <div class="col-xs-3" t-if="doc.partner_id.name">
+                        <strong>Name:</strong>
+                        <p t-field="doc.partner_id.name"/>
+                    </div>
+                </div>
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Parts/Labor</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Taxes</th>
+                            <th>Sub Total</th>
+                        </tr>
+                    </thead>
+                    <tbody class="sale_tbody">
+                        <t t-as="l" t-foreach="doc.product_ids">
+                            <tr>
+                                <td>
+                                    <span t-field="l.product_id.name"/>
+                                </td>
+                                <td>
+                                    <span t-field="l.quantity"/>
+                                </td>
+                                <td>
+                                    <span t-field="l.unit_price"/>
+                                </td>
+                                <td>
+                                    <span t-field="l.taxes_id.name"/>
+                                </td>
+                                <td>
+                                    <span t-field="l.price"/>
+                                </td>
+
+                                
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+
+
+            <div class="row" name="total">
+                <div class="col-xs-4 pull-right">
+                    <table class="table table-condensed">
+                        <tr class="border-black">
+                            <td><strong>Total Without Taxes</strong></td>
+                            <td class="text-right">
+                                <span t-field="doc.amount_untaxed"
+                                   />
+                            </td>
+                        </tr>
+                        
+                        <tr class="border-black">
+                            <td><strong>Total</strong></td>
+                            <td class="text-right">
+                                <span t-field="doc.amount_total"
+                                   />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+
+
+            </div>
+        </t>
+    </template>
+    <template id="report_serviceorder">
+        <t t-call="report.html_container">
+            <t t-as="doc" t-foreach="docs">
+                <t t-call="service.report_service_order_document" t-lang="doc.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

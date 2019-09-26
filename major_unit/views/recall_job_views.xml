@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="service_recall_job_tree_view" model="ir.ui.view">
+        <field name="name">service.recall_job.tree</field>
+        <field name="model">service.standard_job</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="recall_job_search" model="ir.ui.view">
+        <field name="name">service.standard_job.search</field>
+        <field name="model">service.standard_job</field>
+        <field name="arch" type="xml">
+            <search string="Recall Jobs">
+                <filter name="recall" string="Recall Jobs" domain="[('recall', '=', True)]"/>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="service_recall_job_action" model="ir.actions.act_window">
+        <field name="name">Recall Jobs</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">service.standard_job</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="service_recall_job_tree_view"/>
+        <field name="context">{"search_default_recall":1}</field>
+        <field name="search_view_id" ref="recall_job_search"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create a new Recall Job.
+            </p>
+        </field>
+    </record>
+
+    <!-- <menuitem id="menu_service_recall_job_action" action="service_recall_job_action" -->
+    <!--           parent="major_unit.menu_service_jobs" sequence="11"/> -->
+
+</odoo>

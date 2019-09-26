@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="service_repair_order_action" model="ir.actions.act_window">
+        <field name="name">Repair Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">service.repair_order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_type">form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create a new Repair Order.
+            </p>
+        </field>
+    </record>
+
+    <!-- <menuitem id="menu_service_repair_order_action" action="service_repair_order_action" -->
+    <!--           parent="major_unit.menu_service_repair_orders" sequence="11"/> -->
+
+    <record id="view_repair_order_form" model="ir.ui.view">
+        <field name="name">service.repair_order.form</field>
+        <field name="model">service.repair_order</field>
+        <field name="arch" type="xml">
+            <form string="Repair Order">
+                <header>
+                    <button name="action_confirm" states="draft" type="object" string="Confirm" class="oe_highlight"/>
+                    <button name="%(action_view_apply_standard_job)d" string="Select Standard Jobs" type="action"
+                            context="{'major_unit_id': major_unit_id}"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="major_unit_id"/>
+                        </group>
+                        <group></group>
+                    </group>
+                    <notebook>
+                        <page string="Parts and Labor">
+                            <field name="product_ids">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="product_id"/>
+                                    <field name="standard_job_id" readonly="1"/>
+                                    <field name="quantity"/>
+                                    <field name="qty_available" readonly="1"/>
+                                    <field name="unit_price" readonly="1"/>
+                                    <field name="taxes_id" readonly="1"/>
+                                    <field name="price" readonly="1"/>
+                                </tree>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="amount_untaxed"/>
+                                <field name="amount_tax"/>
+                                <div class="oe_subtotal_footer_separator oe_inline o_td_label"/>
+                                <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator"/>
+                            </group>
+                        </page>
+                        <!--<page string="Suggested Jobs">
+                            <field name="suggested_job_ids" readonly="1">
+                                <tree>
+                                    <field name="price" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>-->
+                        <page string="Other">
+                            <group>
+                                <group>
+                                    <field name="part_location_id"/>
+                                </group>
+                                <group></group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+</odoo>

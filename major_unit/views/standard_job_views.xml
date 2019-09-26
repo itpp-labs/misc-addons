@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_recall_job_image_form">
+        <field name="name">recall.job.image.form</field>
+        <field name="model">recall_job.image</field>
+        <field name="arch" type="xml">
+            <form string="Photos">
+                <sheet>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label class="oe_edit_only" for="name" string="Image Name"/>
+                        <h1><field name="name" placeholder="Image Name" required="True"/></h1>
+                        <field name="recall_job_id" invisible="1"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="standard_job_search" model="ir.ui.view">
+        <field name="name">service.standard_job.search</field>
+        <field name="model">service.standard_job</field>
+        <field name="arch" type="xml">
+            <search string="Standard Jobs">
+                <filter name="standard" string="Standard Jobs" domain="[('recall', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="service_standard_job_tree_view" model="ir.ui.view">
+        <field name="name">service.standard_job.tree</field>
+        <field name="model">service.standard_job</field>
+        <field name="priority">1</field>
+        <field name="domain">[('recall', '=', False)]</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="service_standard_job_product_form_view" model="ir.ui.view">
+        <field name="name">service.standard_job_product.form</field>
+        <field name="model">service.standard_job.product</field>
+        <field name="arch" type="xml">
+            <form>
+            <group>
+                <group>
+                    <field name="product_id" domain="[('details_model', 'in', ['product.template.details', 'accessories', 'labor','other'])]"/>
+                    <field name="categ_id" readonly="1"/>
+                </group>
+                <group>
+                    <field name="unit_price" readonly="1"/>
+                    <field name="quantity"/>
+                    <field name="sequence"/>
+                </group>
+            </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="service_standard_job_form_view" model="ir.ui.view">
+        <field name="name">service.standard_job.form</field>
+        <field name="model">service.standard_job</field>
+        <field name="arch" type="xml">
+
+            <form string="Standard Jobs">
+                <header>
+                    <!--<button name="action_confirm" states="draft" type="object" string="Confirm"/>
+                    <field name="state" widget="statusbar"/>-->
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label class="oe_edit_only" for="name" string="Description"/>
+                        <h1>
+                            <field name="name" placeholder="Job Description"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="recall"/>
+                    </group>
+                    <group attrs="{'invisible': [('recall', '=', False)]}">
+                        <field name="manufacturer" attrs="{'required':[('recall', '=', True)]}"/>
+                        <field name="claim_id" attrs="{'required':[('recall', '=', True)]}"/>
+                        <field name="defect_type" attrs="{'required':[('recall', '=', True)]}"/>
+                        <field name="defect_group" attrs="{'required':[('recall', '=', True)]}"/>
+                        <field name="defect_code" attrs="{'required':[('recall', '=', True)]}"/>
+                        <field name="cause"/>
+                    </group>
+                    <notebook>
+                        <page string="Fitment" attrs="{'invisible': [('recall', '=', True)]}">
+                                <field name="fitment_ids"/>
+                                <!--<group>
+                                    <field name="year_ids" widget="many2many_tags" context="{'show_attribute': False}" attrs="{'readonly': [('year_all', '=', True)]}"/>
+                                    <field name="make_ids" widget="many2many_tags" context="{'show_attribute': False}" attrs="{'readonly': [('make_all', '=', True)]}"/>
+                                    <field name="model_ids" widget="many2many_tags" context="{'show_attribute': False}" attrs="{'readonly': [('model_all', '=', True)]}"/>
+                                </group> -->
+                        </page>
+                        <page string="Products">
+                            <field name="product_ids">
+                                <tree>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="categ_id" readonly="1"/>
+                                    <field name="attribute_value_ids" readonly="1"/>
+                                    <field name="unit_price" readonly="1"/>
+                                    <field name="price" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page attrs="{'invisible': [('recall', '=', False)]}" string="Instruction">
+                            <field name="instruction" widget="pdf_viewer"/>
+                        </page>
+                        <page attrs="{'invisible': [('recall', '=', False)]}" string="Photos">
+                            <field name="recall_job_image_ids" mode="kanban" context="{'default_name': name, 'default_recall_job_id': active_id}">
+                                <kanban string="Photos">
+                                    <field name="name"/>
+                                    <field name="image" />
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div class="oe_kanban_global_click">
+                                                <a type="delete" class="fa fa-times pull-right"/>
+                                                <div class="o_kanban_image">
+                                                    <img t-att-src="'data:image/png;base64,'+record.image.raw_value"/>
+                                                </div>
+                                                <div class="oe_kanban_details">
+                                                    <field name="name"/>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                        </page>
+
+                        <!--
+                        <page string="Labor">
+                            <field name="labor_ids">
+                                <tree>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="labor_id"/>
+                                    <field name="quantity"/>
+                                    <field name="attribute_value_ids" readonly="1"/>
+                                    <field name="list_price" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>-->
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="service_standard_job_action" model="ir.actions.act_window">
+        <field name="name">Standard Jobs</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">service.standard_job</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_type">form</field>
+        <field name="context">{"search_default_standard":1}</field>
+        <field name="view_id" ref="service_standard_job_tree_view"/>
+        <field name="search_view_id" ref="standard_job_search"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create a new Standard Job.
+            </p>
+        </field>
+    </record>
+
+    <!-- <menuitem id="menu_service_standard_job_action" action="service_standard_job_action" -->
+    <!--           parent="major_unit.menu_service_jobs" sequence="11"/> -->
+
+</odoo>

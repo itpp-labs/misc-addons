@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_confirm_suggested_job" model="ir.ui.view">
+            <field name="name">Confirm Suggested Jobs</field>
+            <field name="model">confirm.suggested.job</field>
+            <field name="arch" type="xml">
+                <form string="Confirm Suggested Jobs">
+                    <group>
+                        <field name="standard_job_line_ids">
+                            <tree editable="bottom">
+                                <field name="confirm"/>
+                                <field name="product_id"/>
+                                <field name="standard_job_id"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button class="btn-primary" name="confirm_suggested_job" string="_Apply" type="object"/>
+                        <button class="btn-default" special="cancel" string="_Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_view_confirm_suggested_job" model="ir.actions.act_window">
+            <field name="name">Confirm Suggested Jobs</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">confirm.suggested.job</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_confirm_suggested_job"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,60 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+        <!-- Email Templates menu -->
+        <record id="email_template_pickup_service" model="mail.template">
+            <field name="name">Pickup and Delivery - Send by Email</field>
+            <field name="email_from">${(object.user_id.email and '%s &lt;%s&gt;' % (object.user_id.name, object.user_id.email) or '')|safe}</field>
+            <field name="subject">${object.company_id.name} ${object.state in ('draft', 'sent') and 'Quotation' or 'Order'} (Ref ${object.name or 'n/a' })</field>
+            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="model_id" ref="model_service_repair_order"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_template" ref="report_service_order"/>
+            <field name="report_name">${(object.name or '').replace('/','_')}${object.state == 'draft' and '_draft' or ''}</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="body_html">
+
+                <![CDATA[
+
+<p>Dear ${object.partner_id.name}
+% set access_action = object.with_context(force_website=True).get_access_action()
+% set doc_name = 'quotation' if object.state in ('draft', 'sent') else 'order confirmation'
+% set is_online = access_action and access_action['type'] == 'ir.actions.act_url'
+% set access_name = is_online and object.template_id and 'Accept and pay %s online' % doc_name or 'View %s' % doc_name
+
+% if object.partner_id.parent_id:
+
+    (<i>${object.partner_id.parent_id.name}</i>)
+% endif
+,</p>
+<p>
+Here is your ${doc_name} <strong>${object.name}</strong>
+% if object.origin:
+(with reference: ${object.origin} )
+% endif
+amounting in <strong>${object.amt_total} ${object.pricelist_id.currency_id.name}</strong>
+from ${object.company_id.name}.
+</p>
+
+    <br/><br/>
+% if is_online:
+    <center>
+        <br/><br/>
+        <span style="color:#888888">(or view attached PDF)</span>
+    </center>
+    <br/>
+% endif
+
+<p>You can reply to this email if you have any questions.</p>
+<p>Thank you,</p>
+
+<p style="color:#eeeeee;">
+% if object.user_id and object.user_id.signature:
+    ${object.user_id.signature | safe}
+% endif
+</p>
+]]></field>
+        </record>
+
+    </data>
+</odoo>

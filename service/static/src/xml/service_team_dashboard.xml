@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <!--
+        This template is the ribbon at the top of the salesteam dashboard that adds
+        some figures to it. We call this rubbon the "SalesDashboard".
+    -->
+    <t t-name="service.Dashboard">
+        <div t-if="show_demo or values and values['technician_flag']" class="o_sales_dashboard">
+             <div t-attf-class="#{show_demo ? 'o_demo' : ''}">
+                 <!-- style="width:50%;margin-bottom:10px;" -->
+                <table class="table table-condensed-service" >
+                     <tr>                        
+                        <td class="o_text" style="width:15%;text-align:right" >
+                            <div class="o_highlight" style="font-size:1.2em"> Load Percent</div>
+                        </td>
+                        <td class="o_main" title="Total" style="background-color:#CBCBCB;border:2px solid white;padding:0px;height:40px;" colspan="2">
+                            <div t-attf-style="width:{{values['load_percent']}};height:100%;background-color:{{values['load_color']}};border-bottom:1px solid white;z-index: 0;color:white;">
+                                <span class="o_highlight" style="z-index: 1;position: absolute;"><t t-esc="values['load_percent']"/></span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div t-attf-class="#{show_demo ? 'o_demo' : ''}" style="width:50%;margin-bottom:10px;">
+                <table class="table table-condensed-service">
+                     <tr>
+                        <td class="o_text">
+                            <div class="o_highlight" style="font-size:1.1em;text-align:right"> Efficiency</div>
+                        </td>
+                        <td class="o_main" title="Total">
+                           <a href="#" class="o_dashboard_action" name="service.service_action">
+                                <span class="o_highlight">
+                                    <t t-if="!show_demo">
+                                        <t t-esc="values['efficiency']"/>%
+                                    </t>
+                                    <t t-if="show_demo">
+                                        0
+                                    </t>
+                                </span><br/>
+                            </a>
+                        </td>
+                         <td class="o_main" title="Total" style="opacity:0;"></td>
+                          <td class="o_main" title="Total" style="opacity:0;"></td>
+                    </tr>
+                </table>
+            </div>
+            <div t-attf-class="#{show_demo ? 'o_demo' : ''}" style="width:45%;display: inline-block;">
+                <table class="table table-condensed-service">
+                    <tr>
+                        <td class="o_text">
+                            <div class="o_highlight" style="font-size:1.1em"> Technicians</div>
+                        </td>
+                        <td class="o_main" title="work" >
+                           <a href="#" class="o_dashboard_action" name="service.service_technicians_action" style="font-size:15px;">
+                                <span class="o_highlight">
+                                    <t t-if="!show_demo">
+                                        <t t-esc="values['work_assigned']"/>
+                                    </t>
+                                    <t t-if="show_demo">
+                                        0
+                                    </t>
+                                </span><br/>
+                                Total
+                            </a>
+                        </td>
+                        <td class="o_main" title="Done" style="background-color:#5B9D4B">
+                           <a href="#" class="o_dashboard_action" name="service.service_technicians_action">
+                                <span class="o_highlight">
+                                    <t t-if="!show_demo">
+                                        <t t-esc="values['counts_technicians_work_done']"/>
+                                    </t>
+                                    <t t-if="show_demo">
+                                        0
+                                    </t>
+                                </span><br/>
+                                Done 
+                            </a>
+                        </td>
+                        <td class="o_main" title="Pending" style="background-color:#E97837" >
+                           <a href="#" class="o_dashboard_action" name="service.service_technicians_action">
+                                <span class="o_highlight">
+                                    <t t-if="!show_demo">
+                                        <t t-esc="values['counts_technicians_work_pending']"/>
+                                    </t>
+                                    <t t-if="show_demo">
+                                        0
+                                    </t>
+                                </span><br/>
+                                Pending 
+                            </a>
+                        </td>
+                        <td class="o_main" title="Pending" style="background-color:#E97837" >
+                           <a href="#" class="o_dashboard_action" name="service.service_technicians_action">
+                                <span class="o_highlight">
+                                    <t t-if="!show_demo">
+                                        <t t-esc="values['counts_technicians_work_cancel']"/>
+                                    </t>
+                                    <t t-if="show_demo">
+                                        0
+                                    </t>
+                                </span><br/>
+                                Cancelled 
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div t-attf-class="#{show_demo ? 'o_demo' : ''}" style="width:45%">
+                 <table class="hidden-xs table table-condensed-service">
+                     <tr>
+                        <td class="o_text">
+                            <div class="o_highlight" style="font-size:1.1em"> Work Orders</div>
+                        </td>
+                        <td class="o_main" title="Total">
+                           <a href="#" class="o_dashboard_action" name="service.workorders_actions">
+                                <span class="o_highlight">
+                                    <t t-if="!show_demo">
+                                        <t t-esc="values['count_orders_work']"/>
+                                    </t>
+                                    <t t-if="show_demo">
+                                        0
+                                    </t>
+                                </span><br/>
+                                Total
+                            </a>
+                        </td>
+                        <td class="o_main" title="Done" style="background-color:#5B9D4B">
+                           <a href="#" class="o_dashboard_action" name="service.workorders_actions">
+                                <span class="o_highlight">
+                                    <t t-if="!show_demo">
+                                        <t t-esc="values['count_work_done']"/>
+                                    </t>
+                                    <t t-if="show_demo">
+                                        0
+                                    </t>
+                                </span><br/>
+                                Done
+                            </a>
+                        </td>
+                        <td class="o_main" title="Pending" style="background-color:#E97837">
+                           <a href="#" class="o_dashboard_action" name="service.workorders_actions">
+                                <span class="o_highlight">
+                                    <t t-if="!show_demo">
+                                        <t t-esc="values['orders_work_pending']"/>
+                                    </t>
+                                    <t t-if="show_demo">
+                                        0
+                                    </t>
+                                </span><br/>
+                                Pending
+                            </a>
+                        </td>
+                        <td class="o_main" title="Cancelled" style="background-color:#E8451E">
+                           <a href="#" class="o_dashboard_action" name="service.workorders_actions">
+                                <span class="o_highlight">
+                                    <t t-if="!show_demo">
+                                        <t t-esc="values['orders_work_cancel']"/>
+                                    </t>
+                                    <t t-if="show_demo">
+                                        0
+                                    </t>
+                                </span><br/>
+                                Cancelled
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div t-if="show_demo" class="o_welcome_message">
+                <div class="o_welcome_image">
+                    <i class="fa fa-smile-o fa-5x"></i>
+                </div>
+                <div class="o_welcome_content">
+                    <h2>Hi there!</h2>
+                    <h4>Great sales journeys start with a clean pipeline.</h4>
+                    <h4>Create a few opportunities in it.</h4>
+                    <a class="btn btn-primary o_dashboard_action" name="crm.action_your_pipeline">My Pipeline</a>
+                </div>
+            </div>
+        </div>
+
+        <div t-else="" class="o_sales_dashboard">
+            <div t-attf-class="#{show_demo ? 'o_demo' : ''}" style="width:100%;margin-bottom:10px;">
+                <table class="table table-condensed-service">
+                     <tr>
+                        <td style="width:15%;text-align:right" class="o_text">
+                            <div class="o_highlight" style="font-size:1.2em"> Load Percent</div>
+                        </td>
+                        <td class="o_main" title="Total" style="background-color:#CBCBCB;border:2px solid white;padding:0px;height:40px;" colspan="2">
+                            <div t-attf-style="width:{{values['load_percent']}};height:100%;background-color:{{values['load_color']}};border-bottom:1px solid white;z-index: 0;color:white;">
+                                <span class="o_highlight" style="z-index: 1;position: absolute;"><t t-esc="values['load_percent']"/></span>
+                            </div>
+                        </td>
+                        <td style="width:15%;border-top: 0px solid #fff;">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div t-attf-class="#{show_demo ? 'o_demo' : ''}" style="width:45%;display: inline-block;">
+                <table class="table table-condensed-service">
+                    <tr>
+                        <td class="o_text">
+                            <div class="o_highlight" style="font-size:1.1em"> Repair Orders</div>
+                        </td>
+                        <td class="o_main" title="Total" style="background-color:#7c7bad;">
+                           <a href="#" class="o_dashboard_action" name="service.service_action" style="color:white;">
+                                <span class="o_highlight">
+                                    <t t-if="!show_demo">
+                                        <t t-esc="values['count_orders_repair']"/>
+                                    </t>
+                                    <t t-if="show_demo">
+                                        0
+                                    </t>
+                                </span><br/>
+                                Total
+                            </a>
+                        </td>
+                        <td class="o_main" title="Done" style="background-color:#5B9D4B">
+                           <a href="#" class="o_dashboard_action" name="service.service_action" style="color:white;">
+                                <span class="o_highlight">
+                                    <t t-if="!show_demo">
+                                        <t t-esc="values['count_repair_done']"/>
+                                    </t>
+                                    <t t-if="show_demo">
+                                        0
+                                    </t>
+                                </span><br/>
+                                Done
+                            </a>
+                        </td>
+                        <td class="o_main" title="Pending" style="background-color:#E97837" >
+                             <a href="#" class="o_dashboard_action" name="service.service_action" style="color:white;">
+                                <span class="o_highlight">
+                                    <t t-if="!show_demo">
+                                        <t t-esc="values['orders_repair_pending']"/>
+                                    </t>
+                                    <t t-if="show_demo">
+                                        0
+                                    </t>
+                                </span><br/>
+                                Pending
+                            </a>
+                        </td>
+                        <td class="o_main" title="Cancelled" style="background-color:#E8451E">
+                             <a href="#" class="o_dashboard_action" name="service.service_action" style="color:white;">
+                                <span class="o_highlight">
+                                    <t t-if="!show_demo">
+                                        <t t-esc="values['orders_repair_cancel']"/>
+                                    </t>
+                                    <t t-if="show_demo">
+                                        0
+                                    </t>
+                                </span><br/>
+                                Cancelled
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="o_text">
+                            <div class="o_highlight" style="font-size:1.1em"> Technicians</div>
+                        </td>
+                        <td class="o_main" title="Technicians" style="background-color:#7c7bad;">
+                           <a href="#" class="o_dashboard_action" name="service.service_technicians_action" style="font-size:15px;color:white;">
+                                <span class="o_highlight">
+                                    <t t-if="!show_demo">
+                                        <t t-esc="values['counts_technicians']"/>
+                                    </t>
+                                    <t t-if="show_demo">
+                                        0
+                                    </t>
+                                </span><br/>
+                                Techs
+                            </a>
+                        </td>
+                        <td class="o_main" title="work" style="background-color:#7c7bad;">
+                           <a href="#" class="o_dashboard_action" name="service.service_technicians_action" style="font-size:15px;color:white;">
+                                <span class="o_highlight">
+                                    <t t-if="!show_demo">
+                                        <t t-esc="values['work_assigned']"/>
+                                    </t>
+                                    <t t-if="show_demo">
+                                        0
+                                    </t>
+                                </span><br/>
+                                Total
+                            </a>
+                        </td>
+                        <td class="o_main" title="Done" style="background-color:#5B9D4B">
+                           <a href="#" class="o_dashboard_action" name="service.service_technicians_action" style="color:white;">
+                                <span class="o_highlight">
+                                    <t t-if="!show_demo">
+                                        <t t-esc="values['counts_technicians_work_done']"/>
+                                    </t>
+                                    <t t-if="show_demo">
+                                        0
+                                    </t>
+                                </span><br/>
+                                Done 
+                            </a>
+                        </td>
+                        <td class="o_main" title="Pending" style="background-color:#E97837" >
+                           <a href="#" class="o_dashboard_action" name="service.service_technicians_action" style="color:white;">
+                                <span class="o_highlight">
+                                    <t t-if="!show_demo">
+                                        <t t-esc="values['counts_technicians_work_pending']"/>
+                                    </t>
+                                    <t t-if="show_demo">
+                                        0
+                                    </t>
+                                </span><br/>
+                                Pending 
+                            </a>
+                        </td>
+                        <td class="o_main" title="Pending" style="background-color:#E97837" >
+                           <a href="#" class="o_dashboard_action" name="service.service_technicians_action" style="color:white;">
+                                <span class="o_highlight">
+                                    <t t-if="!show_demo">
+                                        <t t-esc="values['counts_technicians_work_cancel']"/>
+                                    </t>
+                                    <t t-if="show_demo">
+                                        0
+                                    </t>
+                                </span><br/>
+                                Cancelled 
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div t-attf-class="#{show_demo ? 'o_demo' : ''}" style="width:45%;vertical-align: top;display:inline-block;">
+                 <table class="hidden-xs table table-condensed-service">
+                     <tr>
+                        <td class="o_text">
+                            <div class="o_highlight" style="font-size:1.1em"> Work Orders</div>
+                        </td>
+                        <td class="o_main" title="Total" style="background-color:#7c7bad;">
+                           <a href="#" class="o_dashboard_action" name="service.workorders_actions" style="color:white;">
+                                <span class="o_highlight">
+                                    <t t-if="!show_demo">
+                                        <t t-esc="values['count_orders_work']"/>
+                                    </t>
+                                    <t t-if="show_demo">
+                                        0
+                                    </t>
+                                </span><br/>
+                                Total
+                            </a>
+                        </td>
+                        <td class="o_main" title="Done" style="background-color:#5B9D4B">
+                           <a href="#" class="o_dashboard_action" name="service.workorders_actions" style="color:white;">
+                                <span class="o_highlight">
+                                    <t t-if="!show_demo">
+                                        <t t-esc="values['count_work_done']"/>
+                                    </t>
+                                    <t t-if="show_demo">
+                                        0
+                                    </t>
+                                </span><br/>
+                                Done
+                            </a>
+                        </td>
+                        <td class="o_main" title="Pending" style="background-color:#E97837">
+                           <a href="#" class="o_dashboard_action" name="service.workorders_actions" style="color:white;">
+                                <span class="o_highlight">
+                                    <t t-if="!show_demo">
+                                        <t t-esc="values['orders_work_pending']"/>
+                                    </t>
+                                    <t t-if="show_demo">
+                                        0
+                                    </t>
+                                </span><br/>
+                                Pending
+                            </a>
+                        </td>
+                        <td class="o_main" title="Cancelled" style="background-color:#E8451E">
+                           <a href="#" class="o_dashboard_action" name="service.workorders_actions" style="color:white;">
+                                <span class="o_highlight">
+                                    <t t-if="!show_demo">
+                                        <t t-esc="values['orders_work_cancel']"/>
+                                    </t>
+                                    <t t-if="show_demo">
+                                        0
+                                    </t>
+                                </span><br/>
+                                Cancelled
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div t-if="show_demo" class="o_welcome_message">
+                <div class="o_welcome_image">
+                    <i class="fa fa-smile-o fa-5x"></i>
+                </div>
+                <div class="o_welcome_content">
+                    <h2>Hi there!</h2>
+                    <h4>Great sales journeys start with a clean pipeline.</h4>
+                    <h4>Create a few opportunities in it.</h4>
+                    <a class="btn btn-primary o_dashboard_action" name="crm.action_your_pipeline">My Pipeline</a>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

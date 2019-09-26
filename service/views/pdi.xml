@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!--<record id="pdi_calendar1" model="ir.ui.view">-->
+            <!--<field name="name">service.repair_order.calendar</field>-->
+            <!--<field name="model">service.repair_order</field>-->
+            <!--<field eval="2" name="priority"/>-->
+            <!--<field name="arch" type="xml">-->
+<!--&lt;!&ndash;  <calendar color="mechanic_id" date_start="start_date" date_stop="end_date" display="Repair Type:[repair_type], Mechanic Name:[mechanic_id], Miles In:[miles_in] miles" string="Repair Orders"> &ndash;&gt;-->
+                <!--<calendar color="mechanic_id" date_start="start_date" date_stop="end_date" string="Repair Orders">-->
+                    <!--<field name="mechanic_id"/>-->
+                    <!--<field name="miles_in"/>-->
+                    <!--<field name="major_unit_id"/>-->
+                    <!--<field name="repair_type"/>-->
+                <!--</calendar>-->
+            <!--</field>-->
+        <!--</record>-->
+        <!--<record id="service_type_action" model="ir.actions.act_window">-->
+            <!--<field name="name">Internal</field>-->
+            <!--<field name="type">ir.actions.act_window</field>-->
+            <!--<field name="res_model">service.repair_order</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form,calendar</field>-->
+            <!--<field name="domain">[('repair_type','=','pdi'),('state', '!=', 'done')]</field>-->
+            <!--<field name="context">{'default_repair_type': 'pdi'}</field>-->
+        <!--</record>-->
+        <menuitem action="service_type_action" id="service_type_menu" name="Internal Job" parent="booking_system_repairs_menu" sequence="4" />
+         </data>
+</odoo>

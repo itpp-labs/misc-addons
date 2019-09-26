@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="product_vehicle_custom_view" model="ir.ui.view">
+			<field name="name">product.vehicle.details.custom.form</field>
+			<field name="model">product.template</field>
+			<field name="inherit_id" ref="product.product_template_only_form_view"/>
+			<field eval="20" name="priority"/>
+			<field name="arch" type="xml">
+
+				<xpath expr="//field[@name='company_id']" position="after">
+
+					<field attrs="{'invisible':[('details_model','!=','labor')]}" name="job_code"/>
+					<field attrs="{'invisible':[('details_model','!=','labor')]}" name="hours"/>
+					<field attrs="{'invisible':[('details_model','!=','labor')]}" name="job_description"/>
+					<field attrs="{'invisible':[('details_model','!=','labor')]}" name="charge_by"/>
+					<field attrs="{'invisible':[('details_model','!=','labor')]}" name="labor_rate"/>
+
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

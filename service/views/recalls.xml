@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<menuitem action="service_standard_job_action" id="service_standard_jobs_menu" name="Standard Jobs" parent="service_jobs_menu"/>
+    <!--<record id="service_recall_action" model="ir.actions.act_window">-->
+        <!--<field name="name">Recall</field>-->
+        <!--<field name="type">ir.actions.act_window</field>-->
+        <!--<field name="res_model">service.repair_order</field>-->
+        <!--<field name="view_type">form</field>-->
+        <!--<field name="view_mode">tree,form</field>-->
+        <!--<field name="domain">[('state', '=', 'DELIVER')]</field>-->
+        <!--<field name="context">{}</field>-->
+    <!--</record>-->
+    <menuitem action="major_unit.service_recall_job_action" id="service_recall_jobs_menu" name="Recall Jobs" parent="service_jobs_menu"/>
+</odoo>

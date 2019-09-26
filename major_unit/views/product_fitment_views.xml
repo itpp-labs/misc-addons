@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_fitment_view_tree" model="ir.ui.view">
+        <field name="name">product.fitment.tree</field>
+        <field name="model">product.fitment</field>
+        <field name="arch" type="xml">
+            <tree string="Fitment">
+                <field name="name"/>
+                <field name="make_attr_value_id"/>
+                <field name="model_attr_value_id"/>
+                <field name="year_attr_value_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_fitment_view_form" model="ir.ui.view">
+        <field name="name">product.fitment.form</field>
+        <field name="model">product.fitment</field>
+        <field name="arch" type="xml">
+            <form string="Fitment">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <!--<field name="type" widget="radio"/>-->
+                        <field name="part_accessory_ids" widget="many2many_tags" domain="[('type', '=', 'product')]" />
+                        <!--<field name="standard_jobs_ids" widget="many2many_tags" attrs="{'invisible': [('type', '!=', 'job')]}"/>-->
+                        <field name="make_attr_value_id" context="{'show_attribute': False}"/>
+                        <field name="model_attr_value_id" context="{'show_attribute': False}" attrs="{'invisible': [('make_attr_value_id', '=', False)]}"/>
+                        <field name="year_attr_value_ids" widget="many2many_tags" context="{'show_attribute': False}" attrs="{'invisible': [('model_attr_value_id', '=', False)]}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_fitment_view_form_common" model="ir.ui.view">
+        <field name="name">product.fitment.form</field>
+        <field name="model">product.fitment</field>
+        <field name="priority">2</field>
+        <field name="arch" type="xml">
+            <form string="Fitment">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="make_attr_value_id" context="{'show_attribute': False}"/>
+                        <field name="model_attr_value_id" context="{'show_attribute': False}" attrs="{'invisible': [('make_attr_value_id', '=', False)]}"/>
+                        <field name="year_attr_value_ids" widget="many2many_tags" context="{'show_attribute': False}" attrs="{'invisible': [('model_attr_value_id', '=', False)]}"/>
+                    </group>
+                    <notebook>
+                        <page string="Parts and Accessories">
+                            <field name="part_accessory_ids"/>
+                        </page>
+                        <page string="Standard Jobs">
+                            <field name="standard_jobs_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_fitment_action" model="ir.actions.act_window">
+        <field name="name">Fitments</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.fitment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="product_fitment_view_tree"/>
+    </record>
+
+    <menuitem action="product_fitment_action" id="product_fitment_menu" parent="sale.prod_config_main" groups="product.group_product_variant"/>
+
+</odoo>

@@ -1,0 +1,16 @@
+<odoo>
+	<data noupdate="1">
+		<record id="service_email_schedular" model="ir.cron">
+			<field name="name">Service Email Scheduler</field>
+			<!-- <field name="user_id" ref="base.user_root"/> -->
+			<field name="active">True</field>
+			<field name="interval_number">1</field>
+			<field name="interval_type">days</field>
+			<field name="numbercall">-1</field>
+			<field name="doal" eval="False"/>
+			<field name="model" eval="'sale.order'" />
+			<field name="function" eval="'service_scheduler'" />
+		</record>
+	</data>
+</odoo>
+

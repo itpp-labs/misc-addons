@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data>
+      <record id="inspection_action_view_create" model="ir.actions.act_window">
+         <field name="name">30 Point Vehicle Inspection Form</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="res_model">service.inspection</field>
+         <field name="view_type">form</field>
+         <field name="view_mode">form</field>
+         <field name="view_id" ref="view_service_inspection_form"/>
+         <field name="target">new</field>
+      </record>
+      <record id="pickup_action_view_create" model="ir.actions.act_window">
+         <field name="name">Pickup Form</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="res_model">drm.pickup</field>
+         <field name="view_type">form</field>
+         <field name="view_mode">form</field>
+         <field name="view_id" ref="pickup_action_form"/>
+         <field name="target">new</field>
+      </record>
+   </data>
+</odoo>

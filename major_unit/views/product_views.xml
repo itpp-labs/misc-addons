@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="major_unit_product_template_form_view" model="ir.ui.view">
+    <field name="name">product.template</field>
+    <field name="model">product.template</field>
+    <field name="inherit_id" ref="stock.product_template_form_view_procurement_button"/>
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//button[@name='%(stock.action_stock_level_forecast_report_template)d']" position="after">
+          <button type="object" name="action_open_major_units" attrs="{'invisible':[('details_model', 'not in', ['vehicle', 'nadanew.vehicle.product'])]}" class="oe_stat_button" icon="fa-building-o">
+            <field name="major_unit_qty" widget="statinfo" string="Major Units"/>
+          </button>
+        </xpath>
+        <xpath expr="//field[@name='type']" position="attributes">
+          <attribute name="attrs">{'readonly': [('details_model', '=', 'labor')]}</attribute>
+        </xpath>
+      </data>
+    </field>
+  </record>
+  <record id="major_unit_product_product_form_view" model="ir.ui.view">
+    <field name="name">product.product</field>
+    <field name="model">product.product</field>
+    <field name="inherit_id" ref="stock.product_form_view_procurement_button"/>
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//page[last()]" position="after">
+          <page string="Fitments" attrs="{'invisible':[('details_model', 'not in', ['product.template.details', 'accessories', 'labor', 'tires'])]}">
+            <field name="fitment_ids" mode="tree">
+              <tree string="Fitments">
+                <field name="make_attr_value_id"/>
+                <field name="model_attr_value_id"/>
+                <field name="year_attr_value_ids" widget="many2many_tags"/>
+              </tree>
+            </field>
+          </page>
+        </xpath>
+        <xpath expr="//button[@name='%(stock.action_stock_level_forecast_report_product)d']" position="after">
+          <button type="object" name="action_open_major_units" attrs="{'invisible':[('details_model', 'not in', ['vehicle', 'nadanew.vehicle.product'])]}" class="oe_stat_button" icon="fa-building-o">
+            <field name="major_unit_qty" widget="statinfo" string="Major Units"/>
+          </button>
+          <button string="Fitting Parts" type="object" name="action_open_parts_accessories" attrs="{'invisible':[('details_model', 'not in', ['vehicle', 'nadanew.vehicle.product'])]}" class="oe_stat_button" icon="fa-th">
+                    </button>
+          <button string="Fitting Vehicles" type="object" name="action_open_vehicles" attrs="{'invisible':[('details_model', 'not in', ['product.template.details', 'accessories'])]}" class="oe_stat_button" icon="fa-motorcycle">
+                    </button>
+        </xpath>
+        <xpath expr="//field[@name='details_model']" position="attributes">
+          <attribute name="attrs">{'readonly': [('id', '!=', False)]}</attribute>
+        </xpath>
+        <xpath expr="//field[@name='details_res_id']" position="attributes">
+          <attribute name="attrs">{'readonly': [('id', '!=', False)], 'invisible':[('details_model_exists', '=', False)]}</attribute>
+        </xpath>
+        <xpath expr="//field[@name='type']" position="attributes">
+          <attribute name="attrs">{'readonly': [('details_model', '=', 'labor')]}</attribute>
+        </xpath>
+      </data>
+    </field>
+  </record>
+  <record id="product_template_search_view_major_unit" model="ir.ui.view">
+    <field name="name">product.product.search.major_unit.form</field>
+    <field name="model">product.product</field>
+    <field name="inherit_id" ref="product.product_search_form_view"/>
+    <field name="arch" type="xml">
+      <filter name="filter_to_sell" position="before">
+        <filter name="filter_to_major_unit" string="Major Units" domain="[('details_model', '=', 'major_unit.major_unit')]"/>
+      </filter>
+    </field>
+  </record>
+  <record model="ir.actions.act_window" id="open_parts_accessories">
+    <field name="name">Fitting Parts and Accessories</field>
+    <field name="res_model">product.product</field>
+  </record>
+  <record model="ir.actions.act_window" id="open_vehicles">
+    <field name="name">Fitting Vehicles</field>
+    <field name="res_model">product.product</field>
+  </record>
+  <record model="ir.ui.view" id="view_product_image_form">
+    <field name="name">product.image.form</field>
+    <field name="model">product.image</field>
+    <field name="inherit_id" ref="website_sale.view_product_image_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='image']" position="after">
+        <field name="media_type" invisible="1"/>
+        <field name="media_video_ID" invisible="1"/>
+        <field name="media_video_service" invisible="1"/>
+      </xpath>
+      <xpath expr="//field[@name='image']" position="attributes">
+        <attribute name="media">True</attribute>
+      </xpath>
+    </field>
+  </record>
+
+  <record id="product_template_form_view" model="ir.ui.view">
+    <field name="name">product.template.common.form</field>
+    <field name="model">product.template</field>
+    <field name="inherit_id" ref="product.product_template_form_view"/>
+    <field name="arch" type="xml">
+      <xpath expr="//div[@class='oe_title']/h1" position="replace">
+        <h3><field name="name" placeholder="Product Name"/></h3>
+      </xpath>
+    </field>
+  </record>
+</odoo>

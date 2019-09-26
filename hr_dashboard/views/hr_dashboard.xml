@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Default View for Hr Dashboard, which is extended to make Dashboard View -->
+        <record model="ir.ui.view" id="hr_dashboard_view">
+            <field name="name">Hr Dashboard</field>
+            <field name="model">hr.dashboard</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <!--<field name="name"/>-->
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Client Action For Menu HRDashboard -->
+        <record id="action_hr_dashboard" model="ir.actions.client">
+            <field name="name">Dashboard</field>
+            <field name="tag">hr_dashboard.dashboard</field>
+        </record>
+
+        <!-- Menu HR Dashbaord -->
+        <menuitem id="menu_hr_dashboard"
+                  name="HR Dashboard"
+                  action="action_hr_dashboard"
+                  groups="hr.group_hr_user"
+                  sequence="1"/>
+
+        <!-- HR Dashboard Assests. We are making changes on assets backend -->
+        <template id="assets_backend" name="Hr assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/hr_dashboard/static/src/js/hr_dashboard.js"/>
+                <script type="text/javascript" src="/hr_dashboard/static/lib/charts/Chart.min.js"/>
+                <script type="text/javascript" src="/hr_dashboard/static/lib/charts/Chart.bundle.min.js"/>
+                <!-- Datatable scripts -->
+                <script type="text/javascript" src="/hr_dashboard/static/lib/dataTables/datatables.min.js"/>
+                <script type="text/javascript" src="/hr_dashboard/static/lib/dataTables/dataTables.buttons.min.js"/>
+                <script type="text/javascript" src="/hr_dashboard/static/lib/dataTables/buttons.flash.min.js"/>
+                <script type="text/javascript" src="/hr_dashboard/static/lib/dataTables/buttons.html5.min.js"/>
+                <script type="text/javascript" src="/hr_dashboard/static/lib/dataTables/buttons.print.min.js"/>
+                <script type="text/javascript" src="/hr_dashboard/static/lib/dataTables/pdfmake.min.js"/>
+                <script type="text/javascript" src="/hr_dashboard/static/lib/dataTables/vfs_fonts.js"/>
+                <script type="text/javascript" src="/hr_dashboard/static/lib/dataTables/jszip.min.js"/>
+                <script type="text/javascript" src="/hr_dashboard/static/lib/dataTables/buttons.bootstrap.min.js"/>
+                <script type="text/javascript" src="/hr_dashboard/static/lib/dataTables/buttons.bootstrap4.min.js"/>
+                <script type="text/javascript" src="/hr_dashboard/static/lib/dataTables/buttons.colVis.min.js"/>
+                <!-- Scripts to export html to pdf -->
+                <script type="text/javascript" src="/hr_dashboard/static/lib/jsPdf/jspdf.min.js"/>
+                <script type="text/javascript" src="/hr_dashboard/static/lib/jsPdf/jspdf.debug.js"/>
+                <!-- Css scripts for dashboard view and table -->
+                <link rel="stylesheet" href="/hr_dashboard/static/src/css/dashboard.css"/>
+                <link rel="stylesheet" href="/hr_dashboard/static/lib/dataTables/datatables.min.css"/>
+                <link rel="stylesheet" href="/hr_dashboard/static/lib/dataTables/buttons.dataTables.min.css"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

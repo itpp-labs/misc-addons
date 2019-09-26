@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="res.groups" id="base.group_user">
+            <field name="implied_ids" eval="[
+                (4, ref('stock.group_production_lot')),
+                (4, ref('product.group_product_variant')),
+                (4, ref('stock.group_stock_multi_locations')),
+                (4, ref('stock.group_stock_multi_warehouses')),
+                (4, ref('hr_rule_input_compute.group_hr_rule_input_compute')),
+                (4, ref('website_sale.group_website_multi_image')),
+            ]"/>
+        </record>
+
+    </data>
+</odoo>

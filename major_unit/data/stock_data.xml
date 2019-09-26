@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="stock_location_major_units" model="stock.location">
+            <field name="name">Major Units</field>
+            <field name="location_id" ref="stock.stock_location_locations_virtual"/>
+            <field name="usage">production</field>
+        </record>
+
+    </data>
+</odoo>

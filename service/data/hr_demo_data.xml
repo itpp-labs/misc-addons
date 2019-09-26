@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+    <!--Department-->
+
+      <record id="dep_technician" model="hr.department">
+          <field name="name">Technician</field>
+      </record>
+
+	<!--Jobs-->
+
+        <record id="job_technician" model="hr.job">
+          <field name="name">Technician</field>
+          <field name="department_id" ref="dep_technician"/>
+          <field name="description">Demonstration of different Odoo services for each client and convincing the client about functionality of the application.
+			The candidate should have excellent communication skills.
+			Relationship building and influencing skills
+			Expertise in New Client Acquisition (NCAs) and Relationship Management.
+			Gathering market and customer information.
+			Coordinating with the sales and support team for adopting different strategies
+			Reviewing progress and identifying opportunities and new areas for development.
+			Building strong relationships with clients / customers for business growth profitability.
+			Keep regular interaction with key clients for better extraction and expansion.
+			</field>
+            <field name="requirements">MBA in Marketing is must.
+			Good Communication skills.
+			Only Fresher's can apply.
+			Candidate should be ready to work in young and dynamic environment..
+			Candidate should be able to work in “start- up” fast paced environment,hands on attitude.
+			Honest,approachable and fun team player.
+			Result driven.
+			Excellent analytical skills, ability to think logically and "out of the box"</field>
+      	</record>
+
+
+		<record id="employee_category_tech" model="hr.employee.category">
+		          <field name="name">Technician</field>
+		          <field name="color" eval="6"/>
+		</record>
+
+
+		 <record id="employee_anto" model="hr.employee">
+          <field name="name">Antoine Langlais</field>
+          <field name="department_id" ref="dep_technician"/>
+          
+          <field name="category_ids" eval="[(6, 0, [ref('employee_category_tech')])]"/>
+          <field name="work_location">Building 1, Second Floor</field>
+          <field name="work_phone">+3281813700</field>
+          <field name="work_email">antoine@openerp.com</field>         
+	      </record>
+  </data>
+</odoo>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="service_standard_job_form_view" model="ir.ui.view">
+        <field name="name">service.standard_job.form</field>
+        <field name="model">service.standard_job</field>
+        <field name="arch" type="xml">
+            <form string="Standard Jobs">
+                <header>
+                    <!--<button name="action_confirm" states="draft" type="object" string="Confirm"/><field name="state" widget="statusbar"/>-->
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label class="oe_edit_only" for="name" string="Description"/>
+                        <h1>
+                            <field name="name" placeholder="Standard Job Description"/>
+                        </h1>
+                    </div>
+                    <field name="repair_type"/>
+                    
+                    <notebook>
+                        <page string="General">
+                            <group>
+                                <!-- <field name="vehicle_ids"/> -->
+                                <!--<group><field name="year_ids" widget="many2many_tags" context="{'show_attribute': False}" attrs="{'readonly': [('year_all', '=', True)]}"/><field name="make_ids" widget="many2many_tags" context="{'show_attribute': False}" attrs="{'readonly': [('make_all', '=', True)]}"/><field name="model_ids" widget="many2many_tags" context="{'show_attribute': False}" attrs="{'readonly': [('model_all', '=', True)]}"/></group><group><field name="year_all"/><field name="make_all"/><field name="model_all"/></group>-->
+                            </group>
+                        </page>
+                        <page string="Products">
+                            <field name="product_ids">
+                                <tree>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="categ_id" readonly="1"/>
+                                    <field name="attribute_value_ids" readonly="1"/>
+                                    <field name="unit_price" readonly="1"/>
+                                    <field name="price" readonly="1"/>
+                                </tree>
+
+
+                            </field>
+                            <!-- <group class="oe_subtotal_footer oe_right">
+                                <div class="oe_subtotal_footer_separator oe_inline o_td_label"/>
+                                <field class="oe_subtotal_footer_separator" name="bundle_amount_total" nolabel="1"/>
+                            </group> -->
+                        </page>
+                       
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="service_standard_job_action" model="ir.actions.act_window">
+        <field name="name">Standard Jobs</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">service.standard_job</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_type">form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create a new Standard Job.
+            </p>
+        </field>
+    </record>
+    <menuitem groups="service.group_service,service.group_service_manager,service.group_service_user" id="service_jobs_menu" name="Jobs" parent="menu_service_root" sequence="5"/>
+    <menuitem action="service_standard_job_action" id="service_standard_jobs_menu" name="Standard Jobs" parent="service_jobs_menu"/>
+    <!-- <record id="service_recall_action" model="ir.actions.act_window">
+        <field name="name">Recall</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">service.repair_order</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', '=', 'DELIVER')]</field>
+        <field name="context">{}</field>
+    </record>
+    <menuitem action="service_recall_action" id="service_recall_jobs_menu" name="Recalls" parent="service_jobs_menu"/> -->
+</odoo>
