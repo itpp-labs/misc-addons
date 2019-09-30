@@ -6,7 +6,7 @@
                 <link rel="stylesheet" type="text/css" href="/project_timelog/static/src/css/timer.css"/>
                 <script type="text/javascript" src="/project_timelog/static/src/js/timelog.js"></script>
                 <script type="text/javascript" src="/project_timelog/static/lib/online.js"></script>
-                <script type="text/javascript" src="/project_timelog/static/src/js/test.js"></script>
+                <script type="text/javascript" src="/project_timelog/static/src/js/tour.js"></script>
             </xpath>
         </template>
 
