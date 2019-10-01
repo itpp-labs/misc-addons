@@ -7,7 +7,7 @@
     "category": "Discuss",
     # "live_test_url": "http://apps.it-projects.info/shop/product/DEMO-URL?version=12.0",
     "images": ['images/partner.png'],
-    "version": "11.0.1.0.1",
+    "version": "12.0.1.0.1",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",
