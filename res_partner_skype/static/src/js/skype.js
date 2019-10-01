@@ -1,25 +1,29 @@
+/*  Copyright 2014 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    Copyright 2016 x620 <https://github.com/x620>
+    Copyright 2017 Ilmir Karamov <https://it-projects.info/team/ilmir-k>
+    Copyright 2017 ArtyomLosev <https://github.com/ArtyomLosev>
+    Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
+    License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html). */
 odoo.define('res_partner_skype.widget', function (require) {
 'use strict';
 
-var core = require('web.core');
-var FieldChar = core.form_widget_registry.get('char');
 
-var FieldSkype = FieldChar.extend({
-    template: 'FieldSkype',
+var fieldRegistry = require('web.field_registry');
+var basicFields = require('web.basic_fields');
+var FieldEmail = basicFields.FieldEmail;
+
+
+var FieldSkype = FieldEmail.extend({
+    description: "skype",
     prefix: 'skype',
-    init: function() {
-        this._super.apply(this, arguments);
-        this.clickable = true;
-    },
 
-    render_value: function() {
-        this._super();
-        if (this.get("effective_readonly") && this.clickable) {
-            this.$el.attr('href', this.prefix + ':' + this.get('value') + '?'+(this.options.type || 'call'));
-        }
-    }
+    _renderReadonly: function() {
+        this.$el.text(this.value)
+            .addClass('o_form_uri o_text_overflow')
+            .attr('href', this.prefix + ':' + this.value + '?call');
+    },
 });
 
-core.form_widget_registry.add('skype', FieldSkype);
+fieldRegistry.add('skype', FieldSkype);
 
 });

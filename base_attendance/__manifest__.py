@@ -7,7 +7,7 @@
     "category": "Extra Tools",
     # "live_test_url": "",
     "images": [],
-    "version": "12.0.1.1.1",
+    "version": "12.0.1.1.2",
     "application": False,
 
     "author": "IT-Projects LLC, Kolushov Alexandr",
