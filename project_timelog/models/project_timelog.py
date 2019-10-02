@@ -281,6 +281,7 @@ class AccountAnalyticLine(models.Model):
     @api.model
     def create(self, vals):
         task = self.env['project.task'].browse(vals.get('task_id'))
+        vals['project_id'] = task.project_id.id
         vals['stage_id'] = task.stage_id.id
         if not task.stage_id.allow_log_time:
             raise UserError(_('Creating new subtask in state "%s" is forbidden.') % task.stage_id.name)

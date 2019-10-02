@@ -1,4 +1,4 @@
-td[data-field="play_timer"] button {
+.log-start-timer {
   position: relative;
   border: 1px solid #00CA16 !important;
   width: 25px;
@@ -6,7 +6,7 @@ td[data-field="play_timer"] button {
   background-color: transparent !important;
 }
 
-td[data-field="play_timer"] button:before {
+.log-start-timer:before {
   position: absolute;
   left: 8px;
   top: 4px;
@@ -17,7 +17,7 @@ td[data-field="play_timer"] button:before {
   border-bottom: 8px solid transparent;
 }
 
-td[data-field="stop_timer"] button {
+.log-stop-timer {
   position: relative;
   border: 1px solid #E40000 !important;
   width: 25px;
@@ -25,7 +25,7 @@ td[data-field="stop_timer"] button {
   background-color: transparent !important;
 }
 
-td[data-field="stop_timer"] button:before {
+.log-stop-timer:before {
   width: 6px;
   height: 15px;
   background: #E40000;
@@ -35,7 +35,7 @@ td[data-field="stop_timer"] button:before {
   left: 4px;
 }
 
-td[data-field="stop_timer"] button:after {
+.log-stop-timer:after {
   width: 6px;
   height: 15px;
   background: #E40000;

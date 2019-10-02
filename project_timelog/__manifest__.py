@@ -14,7 +14,7 @@
 
     "depends": [
         "hr_timesheet",
-        "base_action_rule",
+        "base_automation",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [

@@ -4,7 +4,6 @@ odoo.define('project_timelog.timelog', function(require){
     var session = require('web.session');
     var Widget = require('web.Widget');
     var WebClient = require('web.WebClient');
-    var Model = require('web.Model');
     var core = require('web.core');
     var _t = core._t;
     var ActionManager = require('web.ActionManager');
