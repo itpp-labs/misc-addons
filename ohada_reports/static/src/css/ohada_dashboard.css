@@ -2,6 +2,22 @@
     color: #FFFFFF;
     background-color: #00A09D;
     border-color: #00A09D;
+    margin-left:10px;
+    margin-top:10px;
+    width:120px;
+}
+.list-left{
+    list-style-type: none;
+    display: inline;
+    float:left;
+    color:#777777
+}
+.list-right{
+    list-style-type: none;
+    display: inline;
+    float:right;
+    margin-right:5px;
+    color: #00438b;
 }
 /*-------------------------------------------------------------------*/
 .oh_dashboards{
@@ -176,7 +192,7 @@ rect:hover {  fill:#934da5; }
     padding: 0px !important;
 
 }
-.container-fluid.o_hr_dashboard {
+.container-fluid.o_ohada_dashboard {
     padding: 0px !important;
 }
 .employee-prof {
@@ -774,7 +790,7 @@ h4 .stat-count {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     will-change: transform, box-shadow;
     box-shadow: 0 10px 40px 0 rgba(62,57,107,0.07), 0 2px 9px 0 rgba(62,57,107,0.06);
-    height: 300px;
+    height: 240px;
     overflow-y: auto;
     margin-bottom: 15px;
 }
@@ -922,7 +938,7 @@ h4 .stat-count {
 
 
 .row.main-section {
-    margin-right: 200px; !important;
+    margin-right: 200px !important;
 }
 /* width */
 .hr_notification::-webkit-scrollbar {

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="HrDashboardMain">
+        <div class="oh_dashboards">
+            <div class="container-fluid o_ohada_dashboard">
+            </div>
+        </div>
+    </t>
+
+    <t t-name="ManagerDashboard">
+        <div class="ohada_dashboard_main">
+            <div class="row main-section" style="padding-top:20px;">
+                <div class="col-md-2 col-sm-2 dummy"></div>
+                <div class="col-sm-10 col-lg-10  monthly_leave_graph_view">
+                    <div class="oh-card text-color">
+                        <div class="oh-card-body pb-0">
+                            <h4 class="mb-0">
+                            </h4>
+                            <ul style="float:right;padding-left: 0;" class="stat-head">
+                                <li style="list-style-type: none;display: inline;">ERGOBIT Consulting</li>
+                                <li style="list-style-type: none;display: inline;margin-left:150px;">2019</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4 col-lg-4" style="float:left;">
+                            <div class="hr_notification" >
+                                <div class="col-xs-12">
+                                    <div class="col-sm-12 col-lg-12" style="padding:0;">
+                                        <button class="btn btn-color-ee">IMPORT DATA</button>
+                                        <button class="btn btn-color-ee">PRINT BUNDLE</button>
+                                        <button class="btn btn-color-ee">CLOSE PERIOD</button>
+                                        <button class="btn btn-color-ee">SIGN &amp; PAY</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4" style="float:left;">
+                            <div class="hr_notification" >
+                                <ul style="margin-left:-30px;margin-top:10px;">
+                                    <li class="list-left">Status of fiscal year</li>
+                                    <li class="list-right">[posted]</li>
+                                </ul>
+                                <div style="clear:both;"></div>
+                                <ul style="margin-left:-30px;margin-top:5px;">
+                                    <li class="list-left">Status of journal entries</li>
+                                    <li class="list-right">[open]</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4" style="float:left;">
+                            <div class="hr_notification" >
+                                <ul style="margin-left:-30px;margin-top:10px;">
+                                    <li class="list-left">Fiscal result</li>
+                                    <li class="list-right">[amount]</li>
+                                </ul>
+                                <div style="clear:both;"></div>
+                                <ul style="margin-left:-30px;margin-top:5px;">
+                                    <li class="list-left">Income tax rate</li>
+                                    <li class="list-right">[amount]</li>
+                                </ul>
+                                <div style="clear:both;"></div>
+                                <ul style="margin-left:-30px;margin-top:5px;">
+                                    <li class="list-left">Income tax</li>
+                                    <li class="list-right">[amount]</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div style="clear:both;"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row main-section">
+                <div class="col-md-2 col-sm-2 dummy"></div>
+                <div class="col-sm-10 col-lg-10  monthly_leave_graph_view">
+                    <div class="oh-card text-color">
+                        <div class="oh-card-body pb-0">
+                            <h4 class="mb-0">
+                            </h4>
+                            <p class="stat-head" style="padding : 0px;">Cover page data sheets</p>
+                        </div>
+                        <div style="margin-left:10px;margin-bottom:15px;">
+                            <button class="btn btn-color-ee">COVER PAGE</button>
+                            <button class="btn btn-color-ee">SHEET R1</button>
+                            <button class="btn btn-color-ee">SHEET R2</button>
+                            <button class="btn btn-color-ee">SHEET R3</button>
+                            <button class="btn btn-color-ee">SHEET R4</button>
+                            <div style="clear:both;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row main-section">
+                <div class="col-md-2 col-sm-2 dummy"></div>
+                <div class="col-md-4 col-lg-3">
+                    <div class="hr_notification_big" >
+                        <div class="oh-card-body pb-0" style="padding:0;">
+                            <h4 class="mb-0">
+                            </h4>
+                            <p class="stat-head" style="padding : 0px;color: #00438b;margin-top:15px;color:#00A09D;">Balance sheet</p>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="hr_notification" style="height:80px;width:235px !important;margin-left:10px;">
+                                <ul style="margin-left:-30px;margin-top:5px;">
+                                    <li class="list-left">Total assets</li>
+                                    <li class="list-right">[amount]</li>
+                                </ul>
+                                <div style="clear:both;"></div>
+                                <ul style="margin-left:-30px;margin-top:5px;">
+                                    <li class="list-left">Total liabilities</li>
+                                    <li class="list-right">[amount]</li>
+                                </ul>
+                                <div style="clear:both;"></div>
+                                <ul style="margin-left:-30px;margin-top:5px;">
+                                    <li class="list-left">Difference</li>
+                                    <li class="list-right">[amount]</li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <div class="leave_graph" style="margin-top:-30px !important;margin-left:30px;" />
+
+                     </div>
+                </div>
+                <div class="col-md-4 col-lg-3">
+                    <div class="col-xs-12  hr_notification_big" style="padding: 0;">
+                        <div class="oh-card-body pb-0" style="padding:0;">
+                            <h4 class="mb-0">
+                            </h4>
+                            <p class="stat-head" style="padding : 0px;color: #00438b;margin-top:15px;color:#00A09D;">Profit  &amp; lost</p>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="hr_notification" style="height:80px;width:235px !important;margin-left:10px;">
+                                <ul style="margin-left:-30px;margin-top:5px;">
+                                    <li class="list-left">Net profit N</li>
+                                    <li class="list-right">[amount]</li>
+                                </ul>
+                                <div style="clear:both;"></div>
+                                <ul style="margin-left:-30px;margin-top:5px;">
+                                    <li class="list-left">Net profit N-1</li>
+                                    <li class="list-right">[amount]</li>
+                                </ul>
+                                <div style="clear:both;"></div>
+                                <ul style="margin-left:-30px;margin-top:5px;">
+                                    <li class="list-left">Variation</li>
+                                    <li class="list-right">[amount]</li>
+                                </ul>
+                            </div>
+                            <div class="leave_graph2" style="margin-top:-30px !important;margin-left:30px;" />
+                        </div>
+                     </div>
+                </div>
+                <div class="col-md-4 col-lg-4">
+                    <div class="col-xs-12  hr_notification_big" style="padding: 0;">
+                        <div class="oh-card-body pb-0" style="padding:0;">
+                            <h4 class="mb-0">
+                            </h4>
+                            <p class="stat-head" style="padding : 0px;color: #00438b;margin-top:15px;color:#00A09D;">Cashflow statement</p>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="hr_notification" style="height:80px;width:335px !important;margin-left:10px;">
+                                <ul style="margin-left:-30px;margin-top:5px;">
+                                    <li class="list-left">Cash closing balance N</li>
+                                    <li class="list-right">[amount]</li>
+                                </ul>
+                                <div style="clear:both;"></div>
+                                <ul style="margin-left:-30px;margin-top:5px;">
+                                    <li class="list-left">Cash closing balance N-1</li>
+                                    <li class="list-right">[amount]</li>
+                                </ul>
+                                <div style="clear:both;"></div>
+                                <ul style="margin-left:-30px;margin-top:5px;">
+                                    <li class="list-left">Variation</li>
+                                    <li class="list-right">[amount]</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="monthly_join_resign_trend">
+                            <div class="join_resign_trend" style="margin-top:-20px !important;margin-left:-5px;padding:0px;" />
+                        </div>
+                     </div>
+
+                </div>
+            </div>
+            <div class="row main-section">
+                <div class="col-md-2 col-sm-2 dummy"></div>
+                <div class="col-sm-10 col-lg-10  monthly_leave_graph_view">
+                    <div class="oh-card text-color">
+                        <div class="oh-card-body pb-0">
+                            <h4 class="mb-0">
+                            </h4>
+                            <p class="stat-head" style="padding : 0px;">Cover page data sheets</p>
+                        </div>
+                        <div style="margin-left:10px;">
+                            <button class="btn btn-color-ee">NOTE 1</button>
+                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 2</button>
+                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 3A</button>
+                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 3B</button>
+                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 3C</button>
+                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 3D</button>
+                            <div style="clear:both;"></div>
+                        </div>
+                        <div style="margin-left:10px;">
+                            <button class="btn btn-color-ee">NOTE 3E</button>
+                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 4</button>
+                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 5</button>
+                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 6</button>
+                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 7</button>
+                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 8</button>
+                            <div style="clear:both;"></div>
+                        </div>
+                        <div style="margin-left:10px;margin-bottom:15px;">
+                            <button class="btn btn-color-ee">NOTE 8A</button>
+                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 9</button>
+                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 10</button>
+                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 11</button>
+                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 12</button>
+                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 13</button>
+                            <div style="clear:both;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+    <t t-name="OhadaWarning">
+        <div>
+            <p>Error : Could not load data</p>
+            <p>Please contact system admin for the setup</p>
+        </div>
+    </t>
+
+</templates>

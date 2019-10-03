@@ -41,14 +41,7 @@ var HrDashboard = AbstractAction.extend(ControlPanelMixin, {
 
     init: function(parent, context) {
         this._super(parent, context);
-
-        this.date_range = 'week';  // possible values : 'week', 'month', year'
-        this.date_from = moment().subtract(1, 'week');
-        this.date_to = moment();
         this.dashboards_templates = ['ManagerDashboard'];
-        this.employee_birthday = [];
-        this.upcoming_events = [];
-        this.announcements = [];
     },
 
     willStart: function() {
@@ -62,7 +55,6 @@ var HrDashboard = AbstractAction.extend(ControlPanelMixin, {
         var self = this;
         this.set("title", 'Dashboard');
         return this._super().then(function() {
-//            self.update_cp();
             self.render_dashboards();
             self.render_graphs();
             self.$el.parent().addClass('oe_background_grey');
@@ -78,15 +70,6 @@ var HrDashboard = AbstractAction.extend(ControlPanelMixin, {
         }).done(function(result) {
             self.login_employee =  result[0];
         });
-//        var def2 = self._rpc({
-//            model: "hr.employee",
-//            method: "get_upcoming",
-//        })
-//        .done(function (res) {
-//            self.employee_birthday = res['birthday'];
-//            self.upcoming_events = res['event'];
-//            self.announcements = res['announcement'];
-//        });
         return $.when(def1);
     },
 
@@ -94,23 +77,20 @@ var HrDashboard = AbstractAction.extend(ControlPanelMixin, {
         var self = this;
         if (this.login_employee){
             _.each(this.dashboards_templates, function(template) {
-                self.$('.o_hr_dashboard').append(QWeb.render(template, {widget: self}));
+                self.$('.o_ohada_dashboard').append(QWeb.render(template, {widget: self}));
             });
             }
         else{
-            self.$('.o_hr_dashboard').append(QWeb.render('EmployeeWarning', {widget: self}));
+            self.$('.o_ohada_dashboard').append(QWeb.render('OhadaWarning', {widget: self}));
             }
     },
 
     render_graphs: function(){
         var self = this;
         if (this.login_employee){
-//            self.render_department_employee();
             self.render_leave_graph();
             self.render_leave_graph2();
             self.update_join_resign_trends();
-//            self.update_monthly_attrition();
-//            self.update_leave_trend();
         }
     },
 
@@ -120,8 +100,9 @@ var HrDashboard = AbstractAction.extend(ControlPanelMixin, {
         var colors = ['#7C7BAD'];
         var color = d3.scale.ordinal().range(colors);
         rpc.query({
-            model: "hr.employee",
-            method: "join_resign_trends",
+            model: 'account.account',
+            method: 'search_read',
+            fields: ['code'],
         }).then(function (data) {
             var data = [{'name': "Join", 'values':[{count: 1, l_month: "N3"},{count: 5, l_month: "N2"},{count: 4, l_month: "N1"},{count: 6, l_month: "N"}]}]
             data.forEach(function(d) {
@@ -163,12 +144,6 @@ var HrDashboard = AbstractAction.extend(ControlPanelMixin, {
                 .attr("transform", "translate(0," + height + ")")
                 .call(xAxis);
 
-            // Add the Y Axis
-//            svg.append("g")
-//                .attr("class", "y axis")
-//                .call(yAxis);
-
-
             var line = d3.svg.line()
                 .x(function(d) {return x(d.l_month); })
                 .y(function(d) {return y(d.count); });
@@ -196,31 +171,23 @@ var HrDashboard = AbstractAction.extend(ControlPanelMixin, {
                 .attr("cx", function(d) { return x(d.l_month)})
                 .attr("cy", function(d) { return y(d.count)})
                 .attr("r", 3);
-
-//            var legend = d3.select(elem[0]).append("div").attr('class','legend');
-
-//            var tr = legend.selectAll("div").data(data).enter().append("div");
-
-//            tr.append("span").attr('class','legend_col').append("svg").attr("width", '16').attr("height", '16').append("rect")
-//                .attr("width", '16').attr("height", '16')
-//                .attr("fill",function(d, i){ return color(i) });
-//
-//            tr.append("span").attr('class','legend_col').text(function(d){ return d.name;});
         });
     },
 
 
     render_leave_graph2:function(){
         var self = this;
-//        var color = d3.scale.category10();
         var colors = ['#7C7BAD'];
         var color = d3.scale.ordinal().range(colors);
         rpc.query({
-                model: "hr.employee",
-                method: "get_department_leave",
+                model: 'account.account',
+                method: 'search_read',
+                fields: ['code'],
             }).then(function (data) {
-                var fData = data[0];
-                var dept = data[1];
+//                var fData = data[0];
+//                var dept = data[1];
+                var fData = [{'l_month': "May 2019", 'leave': {Administration: 0, Management: 0, Sales: 0}},{'l_month': "May 2019", 'leave': {Administration: 0, Management: 0, Sales: 0}},{'l_month': "May 2019", 'leave': {Administration: 0, Management: 0, Sales: 0}}];
+                var dept = ["Administration", "Sales", "Management"];
                 var id = self.$('.leave_graph2')[0];
                 var barColor = '#7C7BAD';
                 // compute total for each state.
@@ -285,12 +252,6 @@ var HrDashboard = AbstractAction.extend(ControlPanelMixin, {
                         // call update functions of pie-chart and legend.
                     }
 
-//                    function mouseout(d){    // utility function to be called on mouseout.
-//                        // reset the pie-chart and legend.
-//                        pC.update(tF);
-//                        leg.update(tF);
-//                    }
-
                     // create function to update the bars. This will be used by pie-chart.
                     hG.update = function(nD, color){
                         // update the domain of the y-axis map to reflect change in frequencies.
@@ -319,7 +280,7 @@ var HrDashboard = AbstractAction.extend(ControlPanelMixin, {
                 });
 
                 // calculate total frequency by state for all segment.
-                var sF = fData.map(function(d){return [d.l_month,d.total];});
+//                var sF = fData.map(function(d){return [d.l_month,d.total];});
                 var sF = [['N3',1], ['N2',6], ['N1',3], ['N',2]];
                 var hG = histoGram(sF); // create the histogram.
         });
@@ -331,11 +292,14 @@ var HrDashboard = AbstractAction.extend(ControlPanelMixin, {
         var colors = ['#7C7BAD'];
         var color = d3.scale.ordinal().range(colors);
         rpc.query({
-                model: "hr.employee",
-                method: "get_department_leave",
+                model: 'account.account',
+                method: 'search_read',
+                fields: ['code'],
             }).then(function (data) {
-                var fData = data[0];
-                var dept = data[1];
+//                var fData = data[0];
+//                var dept = data[1];
+                var fData = [{'l_month': "May 2019", 'leave': {Administration: 0, Management: 0, Sales: 0}},{'l_month': "May 2019", 'leave': {Administration: 0, Management: 0, Sales: 0}},{'l_month': "May 2019", 'leave': {Administration: 0, Management: 0, Sales: 0}}];
+                var dept = ["Administration", "Sales", "Management"];
                 var id = self.$('.leave_graph')[0];
                 var barColor = '#7C7BAD';
                 // compute total for each state.
@@ -392,20 +356,6 @@ var HrDashboard = AbstractAction.extend(ControlPanelMixin, {
                         .attr("y", function(d) { return y(d[1])-5; })
                         .attr("text-anchor", "middle");
 
-//                    function mouseover(d){  // utility function to be called on mouseover.
-//                        // filter for selected state.
-//                        var st = fData.filter(function(s){ return s.l_month == d[0];})[0],
-//                            nD = d3.keys(st.leave).map(function(s){ return {type:s, leave:st.leave[s]};});
-//
-//                        // call update functions of pie-chart and legend.
-//                    }
-
-//                    function mouseout(d){    // utility function to be called on mouseout.
-//                        // reset the pie-chart and legend.
-//                        pC.update(tF);
-//                        leg.update(tF);
-//                    }
-
                     // create function to update the bars. This will be used by pie-chart.
                     hG.update = function(nD, color){
                         // update the domain of the y-axis map to reflect change in frequencies.
@@ -428,13 +378,8 @@ var HrDashboard = AbstractAction.extend(ControlPanelMixin, {
                     return hG;
                 }
 
-                // calculate total frequency by segment for all state.
-//                var tF = dept.map(function(d){
-//                    return {type:d, leave: d3.sum(fData.map(function(t){ return t.leave[d];}))};
-//                });
-
                 // calculate total frequency by state for all segment.
-                var sF = fData.map(function(d){return [d.l_month,d.total];});
+//                var sF = fData.map(function(d){return [d.l_month,d.total];});
                 var sF = [['N3',5], ['N2',1], ['N1',4], ['N',1]];
                 var hG = histoGram(sF); // create the histogram.
         });
@@ -444,7 +389,7 @@ var HrDashboard = AbstractAction.extend(ControlPanelMixin, {
 });
 
 
-core.action_registry.add('hr_dashboard', HrDashboard);
+core.action_registry.add('ohada_dashboard', HrDashboard);
 
 return HrDashboard;
 

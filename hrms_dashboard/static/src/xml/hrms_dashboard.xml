@@ -6,279 +6,145 @@
             </div>
         </div>
     </t>
-    <t t-name="kanban-box">
-        <div t-attf-class="#{kanban_color(record.color.raw_value)}">
-            <t t-value="JSON.parse(record.kanban_dashboard.raw_value)" t-set="dashboard"/>
-            <t t-value="record.type.raw_value" t-set="journal_type"/>
-            <t t-call="JournalTop"/>
-            <div class="container o_kanban_card_content">
-                <div class="row">
-                    <t t-if="(journal_type == 'bank' || journal_type == 'cash')" t-call="JournalBodyBankCash"/>
-                    <t t-if="journal_type == 'sale' || journal_type == 'purchase'" t-call="JournalBodySalePurchase"/>
-                    <t t-if="journal_type == 'general' || journal_type == 'situation'">
-                        <div class="col-6 o_kanban_primary_left">
-                            <button type="object" name="open_action" context="{'action_name': 'action_move_journal_line', 'view_no_maturity': 1}" class="btn btn-primary">
-                                <span>Journal Entries</span>
-                            </button>
-                        </div>
-                    </t>
-                </div>
-                <t t-if="journal_type == 'bank' || journal_type == 'cash' || journal_type == 'sale' || journal_type == 'purchase'" t-call="JournalBodyGraph"/>
-            </div><div class="container o_kanban_card_manage_pane dropdown-menu" role="menu">
-                <t t-call="JournalManage"/>
-            </div>
-        </div>
-    </t>
-    <t t-name="LoginEmployeeDetails">
-        <div class="row main-section">
-            <div class="col-md-2 col-sm-2 dummy"></div>
-            <div class="col-md-2 col-sm-2 employee-prof">
-                <div class="oh-card">
-                <div class="oh-media">
-                <div class="employee-icon">
-                <img class="align-self-center mr-3" alt=""
-                    t-att-src="'data:image/png;base64,'+widget.login_employee['image']"/>
-                </div>
-                <div class="media-body employee-name">
-                <h2 class="text-color display-6"><t t-esc="widget.login_employee['name']"/> </h2>
-
-                <t t-if="widget.login_employee['job_id']">
-                    <p class="text-light"><t t-esc="widget.login_employee['job_id'][1]"/></p>
-                </t>
-                    <t t-if="!widget.login_employee['job_id']">
-                        <p class="text-light" style="color:#b6b6b6 !important">Add job title</p>
-                    </t>
-                </div>
-                <div class="employee-details">
-                    <div class="employee-gender">
-                        <t t-if="widget.login_employee['gender'] == 'male'">
-                            <p><i class="fa fa-mars"></i></p>
-                            <p class="text-light">Male</p>
-                        </t>
-                        <t t-if="widget.login_employee['gender'] == 'female'">
-                            <p><i class="fa fa-venus"></i></p>
-                            <p class="text-light">Female</p>
-                        </t>
-                        <t t-if="widget.login_employee['gender'] == 'other'">
-                            Other
-                            <p class="text-light">Other</p>
-                        </t>
-                        <t t-if="!widget.login_employee['gender']">
-                            <p class="text-light" style="color:#b6b6b6 !important">Gender</p>
-                            <p class="text-light" style="color:#b6b6b6 !important">---</p>
-                        </t>
-
-                    </div>
-                    <div class="employee-age">
-                        <t t-if="widget.login_employee['age']">
-                            <p class="text-light"><t t-esc="widget.login_employee['age']"/></p>
-                            <p>Age</p>
-                        </t>
-                        <t t-if="!widget.login_employee['age']">
-                            <p class="text-light" style="color:#b6b6b6 !important">DOB</p>
-                            <p style="color:#b6b6b6 !important">--/--/----</p>
-                        </t>
-                    </div>
-                    <div class="employee-experience">
-                        <t t-if="widget.login_employee['experience']">
-                            <p class="text-light">Joined </p>
-                            <p><t t-esc="widget.login_employee['experience']"/></p>
-                            <p>Ago</p>
-                        </t>
-                        <t t-if="!widget.login_employee['experience']">
-                            <p class="text-light" style="color:#b6b6b6 !important">Joined</p>
-                            <p class="text-light" style="color:#b6b6b6 !important">Date</p>
-                            <p class="text-light" style="color:#b6b6b6 !important">--/--/----</p>
-                        </t>
-                    </div>
-                    <div class="employee-country">
-                        <t t-if="widget.login_employee['country_id']">
-                            <p class="text-light"><t t-esc="widget.login_employee['country_id'][1]"/></p>
-                            <p class="text-light">Nationality</p>
-                        </t>
-                        <t t-if="!widget.login_employee['country_id']">
-                            <p class="text-light" style="color:#b6b6b6 !important">Nationality</p>
-                            <p style="color:#b6b6b6 !important">- - -</p>
-                        </t>
-                    </div>
-                    <div class="employee-mobile">
-                        <t t-if="widget.login_employee['personal_mobile']">
-                            <p class="text-light"><t t-esc="widget.login_employee['personal_mobile']"/></p>
-                            <p>Mobile</p>
-                        </t>
-                        <t t-if="!widget.login_employee['personal_mobile']">
-                            <p class="text-light" style="color:#b6b6b6 !important">Mobile</p>
-                            <p style="color:#b6b6b6 !important">- - -</p>
-                        </t>
-                    </div>
-                </div>
-                </div></div>
-            </div>
-            <div class="col-md-2 col-sm-6 hr_payslip oh-payslip">
-                <div class="oh-card">
-                    <div class="oh-card-body">
-                        <div class="stat-widget-one">
-                            <div class="stat-icon"><i class="fa fa-money"/></div>
-                            <div class="stat-content">
-                                <div class="stat-text">Payslips</div>
-                                <div class="stat-digit"><t t-esc="widget.login_employee['payslip_count']"/></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2 col-sm-6 hr_timesheets oh-payslip oh-timesheets">
-                <div class="oh-card">
-                    <div class="oh-card-body">
-                        <div class="stat-widget-one">
-                            <div class="stat-icon"><i class="fa fa-clock-o"/></div>
-                            <div class="stat-content">
-                                <div class="stat-text">Timesheets</div>
-                                <div class="stat-digit"><t t-esc="widget.login_employee['emp_timesheets']"/></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2 col-sm-6 hr_contract oh-payslip oh-contracts">
-                <div class="oh-card">
-                    <div class="oh-card-body">
-                        <div class="stat-widget-one">
-                            <div class="stat-icon"><i class="fa fa-fw fa-book"/></div>
-                            <div class="stat-content">
-                                <div class="stat-text">Contracts</div>
-                                <div class="stat-digit"><t t-esc="widget.login_employee['contracts_count']"/></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2 col-sm-6 login_broad_factor oh-payslip oh-broad-factor">
-                <div class="oh-card">
-                    <div class="oh-card-body">
-                        <div class="stat-widget-one">
-                            <div class="stat-icon"><i class="fa fa-bar-chart"/></div>
-                            <div class="stat-content">
-                                <div class="stat-text">Broad Factor</div>
-                                <div class="stat-digit"><t t-esc="widget.login_employee['broad_factor']"/></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2 col-sm-2 hr_attendance_login">
-                <div class="oh-card">
-                    <div class="oh-card-body">
-                        <div class="stat-widget-one">
-                            <t t-if="widget.login_employee['attendance_state'] =='checked_out'">
-                                <div class="stat-icon hr_attendance_btn">
-                                    <i class="fa fa-sign-in o_hr_attendance_sign_in_out_icon"/>
-                                </div>
-                                <div class="stat-content">
-                                    <div class="stat-text">Check In</div>
-                                </div>
-                            </t>
-                            <t t-if="widget.login_employee['attendance_state'] =='checked_in'">
-                                <div class="stat-icon hr_attendance_btn">
-                                    <i class="fa fa-sign-out o_hr_attendance_sign_in_out_icon"/>
-                                </div>
-                                <div class="stat-content">
-                                    <div class="stat-text">Check out</div>
-                                </div>
-                            </t>
-                        </div>
-                    </div>
-                </div>
-                </div>
-        </div>
-
-    </t>
 
     <t t-name="ManagerDashboard">
         <div class="employee_dashboard_main">
+            <div class="row main-section" style="padding-top:20px;">
+                <div class="col-md-2 col-sm-2 dummy"></div>
+                <div class="col-sm-10 col-lg-10  monthly_leave_graph_view">
+                    <div class="oh-card text-color">
+                        <div class="oh-card-body pb-0">
+                            <h4 class="mb-0">
+                            </h4>
+                            <ul style="float:right;padding-left: 0;" class="stat-head">
+                                <li style="list-style-type: none;display: inline;">ERGOBIT Consulting</li>
+                                <li style="list-style-type: none;display: inline;margin-left:150px;">2019</li>
+                            </ul>
+                            <!--<p class="stat-head" style="padding : 0px;">ERGOBIT Consulting</p>-->
+                            <!--<p style="padding : 0px;float:right;">ERGOBIT Consulting</p>-->
+                        </div>
+                        <div class="col-md-4 col-lg-4" style="float:left;">
+                            <div class="hr_notification" >
+                                <div class="col-xs-12">
+                                    <div class="col-sm-12 col-lg-12" style="padding:0;">
+                                        <button class="btn btn-color-ee" style="margin-left:10px;margin-top:10px;width:120px;">IMPORT DATA</button>
+                                        <button class="btn btn-color-ee" style="margin-left:10px;margin-top:10px;width:120px;">PRINT BUNDLE</button>
+                                        <button class="btn btn-color-ee" style="margin-left:10px;margin-top:10px;width:120px;">CLOSE PERIOD</button>
+                                        <button class="btn btn-color-ee" style="margin-left:10px;margin-top:10px;width:120px;">SIGN &amp; PAY</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4" style="float:left;">
+                            <div class="hr_notification" >
+                                <div style="margin-left:10px;margin-top:5px;color:#777777;">Status of fiscal year</div>
+                                <div style="margin-left:10px;">[open]</div>
+                                <div style="margin-left:10px;margin-top:5px;color:#777777;">Status of journal entries</div>
+                                <div style="margin-left:10px;">[posted]</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4" style="float:left;">
+                            <div class="hr_notification" style="height:140px;">
+                                <div style="margin-left:10px;margin-top:5px;color:#777777;">Fiscal result</div>
+                                <div style="margin-left:10px;">[amount]</div>
+                                <div style="margin-left:10px;margin-top:5px;color:#777777;">Income tax rate</div>
+                                <div style="margin-left:10px;">[amount]</div>
+                                <div style="margin-left:10px;margin-top:5px;color:#777777;">Income tax</div>
+                                <div style="margin-left:10px;">[amount]</div>
+                            </div>
+                        </div>
+                        <div style="clear:both;"></div>
+                    </div>
+                </div>
 
+            </div>
             <div class="row main-section">
                 <div class="col-md-2 col-sm-2 dummy"></div>
-                <div class="col-sm-3 col-lg-3" style="padding-left: 0px;">
-                <div class="col-sm-12 col-lg-12 leave-manager">
-                    <div class="row" style="margin:0px">
-                    <div class="col-sm-6 col-lg-6 hr_leave_request_approve" >
-                        <div class=" text-color">
-                            <div class="oh-card-body pb-0">
-                                <p class="stat-title">Leave Requests</p>
-                                <h4 class="mb-0">
-                                    <p class="stat-count"><t t-esc="widget.login_employee.leaves_to_approve"/></p>
-                                </h4>
-                            </div>
+                <div class="col-sm-10 col-lg-10  monthly_leave_graph_view">
+                    <div class="oh-card text-color">
+                        <div class="oh-card-body pb-0">
+                            <h4 class="mb-0">
+                            </h4>
+                            <p class="stat-head" style="padding : 0px;">Cover page data sheets</p>
+                        </div>
+                        <div style="margin-left:10px;margin-bottom:15px;">
+                        <button class="btn btn-color-ee" style="margin-left:10px;margin-top:10px;width:120px;">COVER PAGE</button>
+                        <button class="btn btn-color-ee" style="margin-left:10px;margin-top:10px;width:120px;">SHEET R1</button>
+                        <button class="btn btn-color-ee" style="margin-left:10px;margin-top:10px;width:120px;">SHEET R2</button>
+                        <button class="btn btn-color-ee" style="margin-left:10px;margin-top:10px;width:120px;">SHEET R3</button>
+                        <button class="btn btn-color-ee" style="margin-left:10px;margin-top:10px;width:120px;">SHEET R4</button>
+                        <div style="clear:both;"></div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-lg-6" style="padding:0px">
-                        <div class="row" style="margin:0px">
-                        <div class="col-sm-12 col-lg-12 leaves_request_today">
-                            <div class=" text-color">
-                                <div class="oh-card-body">
-                                     <p class="stat-title">Today</p>
-                                    <h4 class="mb-0">
-                                        <p class="stat-count"><t t-esc="widget.login_employee.leaves_today"/></p>
-                                    </h4>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12 col-lg-12 leaves_request_month">
-                            <div class=" text-color">
-                                <div class="oh-card-body">
-                                    <p class="stat-title">This Month</p>
-                                    <h4 class="mb-0">
-
-                                    <p class="stat-count"><t t-esc="widget.login_employee.leaves_this_month"/></p>
-                                    </h4>
-
-                                </div>
-                            </div>
-                        </div>
-                            </div>
-                    </div>
-                        </div>
                 </div>
-                <div class="col-sm-12 col-lg-12" style="padding-right: 0;">
-                    <div class="row" style="margin:0px">
-                    <div class="col-sm-12 col-lg-12 hr_leave_allocations_approve">
-                        <div class="oh-card text-color">
-                            <div class="oh-card-body pb-0">
-                                <p class="stat-title">Leave Allocation Requests</p>
-                                 <h4 class="mb-0">
-                                    <p class="stat-count"><t t-esc="widget.login_employee.leaves_alloc_req"/></p>
-                                </h4>
-                            </div>
+            </div>
+            <div class="row main-section">
+                <div class="col-md-2 col-sm-2 dummy"></div>
+                <div class="col-md-4 col-lg-3">
+                    <div class="hr_notification_big" >
+                        <div class="oh-card-body pb-0" style="padding:0;">
+                            <h4 class="mb-0">
+                            </h4>
+                            <p class="stat-head" style="padding : 0px;color: #00438b;margin-top:15px;color:#00A09D;">Balance sheet</p>
                         </div>
-                    </div>
-                    <div class="col-sm-12 col-lg-12 hr_job_application_approve">
-                        <div class="oh-card text-color">
-                            <div class="oh-card-body pb-0">
-                                <p class="stat-title">Job Applications</p>
-                                <h4 class="mb-0">
-                                    <p class="stat-count"><t t-esc="widget.login_employee.job_applications"/></p>
-                                </h4>
+                        <div class="col-xs-12">
+                            <div class="hr_notification" style="height:140px;width:235px !important;margin-left:10px;">
+                                <div style="margin-left:10px;margin-top:5px;color:#777777;">Total assets</div>
+                                <div style="margin-left:10px;color: #00438b;">[amount]</div>
+                                <div style="margin-left:10px;margin-top:5px;color:#777777;">Total liabilities</div>
+                                <div style="margin-left:10px;color: #00438b;">[amount]</div>
+                                <div style="margin-left:10px;margin-top:5px;color:#777777;">Difference</div>
+                                <div style="margin-left:10px;color: #00438b;">[amount]</div>
+                            </div>
 
+                        </div>
+
+                        <div class="leave_graph" style="margin-top:-30px !important;margin-left:30px;" />
+
+                     </div>
+                </div>
+                <div class="col-md-4 col-lg-3">
+                    <div class="col-xs-12  hr_notification_big" style="padding: 0;">
+                        <div class="oh-card-body pb-0" style="padding:0;">
+                            <h4 class="mb-0">
+                            </h4>
+                            <p class="stat-head" style="padding : 0px;color: #00438b;margin-top:15px;color:#00A09D;">Profit  &amp; lost</p>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="hr_notification" style="height:140px;width:235px !important;margin-left:10px;">
+                                <div style="margin-left:10px;margin-top:5px;color:#777777;">Net profit N</div>
+                                <div style="margin-left:10px;color: #00438b;">[amount]</div>
+                                <div style="margin-left:10px;margin-top:5px;color:#777777;">Net profit N-1</div>
+                                <div style="margin-left:10px;color: #00438b;">[amount]</div>
+                                <div style="margin-left:10px;margin-top:5px;color:#777777;">Variation</div>
+                                <div style="margin-left:10px;color: #00438b;">[amount]</div>
+                            </div>
+                            <div class="leave_graph2" style="margin-top:-30px !important;margin-left:30px;" />
+                        </div>
+                     </div>
+                </div>
+                <div class="col-md-4 col-lg-4">
+                    <div class="col-xs-12  hr_notification_big" style="padding: 0;">
+                        <div class="oh-card-body pb-0" style="padding:0;">
+                            <h4 class="mb-0">
+                            </h4>
+                            <p class="stat-head" style="padding : 0px;color: #00438b;margin-top:15px;color:#00A09D;">Cashflow statement</p>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="hr_notification" style="height:140px;width:335px !important;margin-left:10px;">
+                                <div style="margin-left:10px;margin-top:5px;color:#777777;">Cash closing balance N</div>
+                                <div style="margin-left:10px;color: #00438b;">[amount]</div>
+                                <div style="margin-left:10px;margin-top:5px;color:#777777;">Cash closing balance N-1</div>
+                                <div style="margin-left:10px;color: #00438b;">[amount]</div>
+                                <div style="margin-left:10px;margin-top:5px;color:#777777;">Variation</div>
+                                <div style="margin-left:10px;color: #00438b;">[amount]</div>
                             </div>
                         </div>
-                    </div>
+                        <div class="monthly_join_resign_trend">
+                            <div class="join_resign_trend" style="margin-top:-20px !important;margin-left:-5px;padding:0px;" />
                         </div>
-                </div>
-                </div>
-                <div class="col-sm-7 col-lg-7">
-                    <div class="col-sm-12 col-lg-12  graph_view" style="padding:0">
-                        <div class="text-color hr-chart-1">
-                            <div class="oh-card-body pb-0">
-                                <h4 class="mb-0">
-                                </h4>
-                                <div class="oh-ribbon"><span>Department Employees</span></div>
-                            </div>
-                            <div class="emp_graph"/>
-                        </div>
-                    </div>
+                     </div>
+
                 </div>
             </div>
             <div class="row main-section">
@@ -288,156 +154,42 @@
                         <div class="oh-card-body pb-0">
                             <h4 class="mb-0">
                             </h4>
-                            <p class="stat-head" style="padding : 0px;">Monthly Leave Analysis</p>
-
+                            <p class="stat-head" style="padding : 0px;">Cover page data sheets</p>
+                            <!--<p class="stat-head" style="padding : 0px;">ERGOBIT Consulting</p>-->
+                            <!--<p style="padding : 0px;float:right;">ERGOBIT Consulting</p>-->
                         </div>
-                        <div class="leave_graph" />
-                    </div>
-                </div>
-
-                <!--<div class="col-sm-10 col-lg-10  broad_factor_graph">-->
-                    <!--<div class="oh-card text-color">-->
-                        <!--<div class="oh-card-body pb-0">-->
-                            <!--<h4 class="mb-0">-->
-                            <!--</h4>-->
-                            <!--<p class="stat-head" style="padding : 0px;">Leave Broad-Factor-->
-                            <!--<button id="broad_factor_pdf" class="btn btn-default"-->
-                                <!--data-placement="bottom" title="Download Pdf!">-->
-                                 <!--Download PDF-->
-                            <!--</button>-->
-                            <!--</p>-->
-                        <!--</div>-->
-                        <!--<div class="leave_broad_factor" style="padding-left:10px;height:300px;"/>-->
-                    <!--</div>-->
-                <!--</div>-->
-            </div>
-            <div class="row main-section">
-                <div class="col-md-2 col-sm-2 dummy"></div>
-
-                <div class="col-sm-5 col-lg-5 monthly_join_resign_trend">
-                    <div class="oh-card text-color">
-                        <div class="oh-card-body pb-0">
-                            <h4 class="mb-0">
-                            </h4>
-                            <p class="stat-head" style="padding : 0px;">Monthly Join/Resign Analysis</p>
-
+                        <div style="margin-left:10px;margin-bottom:15px;">
+                            <button class="btn btn-color-ee" style="margin-left:10px;margin-top:10px;width:120px;">NOTE 1</button>
+                            <button class="btn btn-color-ee" style="margin-left:15px;margin-top:10px;width:120px;">NOTE 2</button>
+                            <button class="btn btn-color-ee" style="margin-left:15px;margin-top:10px;width:120px;">NOTE 3A</button>
+                            <button class="btn btn-color-ee" style="margin-left:15px;margin-top:10px;width:120px;">NOTE 3B</button>
+                            <button class="btn btn-color-ee" style="margin-left:15px;margin-top:10px;width:120px;">NOTE 3C</button>
+                            <button class="btn btn-color-ee" style="margin-left:15px;margin-top:10px;width:120px;">NOTE 3D</button>
+                            <div style="clear:both;"></div>
                         </div>
-                        <div class="join_resign_trend" />
-                    </div>
-                </div>
-
-                <div class="col-sm-5 col-lg-5  monthly_attrition_rate">
-                    <div class="oh-card text-color">
-                        <div class="oh-card-body pb-0">
-                            <h4 class="mb-0">
-                            </h4>
-                            <p class="stat-head" style="padding : 0px;">Attrition Rate</p>
-
+                        <div style="margin-left:10px;margin-bottom:15px;">
+                            <button class="btn btn-color-ee" style="margin-left:10px;margin-top:5px;width:120px;">NOTE 3E</button>
+                            <button class="btn btn-color-ee" style="margin-left:15px;margin-top:5px;width:120px;">NOTE 4</button>
+                            <button class="btn btn-color-ee" style="margin-left:15px;margin-top:5px;width:120px;">NOTE 5</button>
+                            <button class="btn btn-color-ee" style="margin-left:15px;margin-top:5px;width:120px;">NOTE 6</button>
+                            <button class="btn btn-color-ee" style="margin-left:15px;margin-top:5px;width:120px;">NOTE 7</button>
+                            <button class="btn btn-color-ee" style="margin-left:15px;margin-top:5px;width:120px;">NOTE 8</button>
+                            <div style="clear:both;"></div>
                         </div>
-                        <div class="attrition_rate" />
+                        <div style="margin-left:10px;margin-bottom:15px;">
+                            <button class="btn btn-color-ee" style="margin-left:10px;margin-top:5px;width:120px;">NOTE 8A</button>
+                            <button class="btn btn-color-ee" style="margin-left:15px;margin-top:5px;width:120px;">NOTE 9</button>
+                            <button class="btn btn-color-ee" style="margin-left:15px;margin-top:5px;width:120px;">NOTE 10</button>
+                            <button class="btn btn-color-ee" style="margin-left:15px;margin-top:5px;width:120px;">NOTE 11</button>
+                            <button class="btn btn-color-ee" style="margin-left:15px;margin-top:5px;width:120px;">NOTE 12</button>
+                            <button class="btn btn-color-ee" style="margin-left:15px;margin-top:5px;width:120px;">NOTE 13</button>
+                            <div style="clear:both;"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </t>
-    <t t-name="EmployeeDashboard">
-        <div class="row main-section">
-            <div class="col-md-2 col-sm-2 dummy"></div>
-            <div class="col-md-4 col-lg-3">
-                <div class="hr_notification" >
-                    <div class="hr_notification_head">
-                    Upcoming Birthdays
-                    </div>
-                    <div class="col-xs-12">
-                        <t t-foreach="widget.employee_birthday" t-as="employee">
-                        <div class="col-sm-12 col-lg-12" style="padding:0;">
-                            <div class="text-color">
-                                <div class="">
-                                <div class="media">
-                                <a href="#" style="float: left;padding-right: 6%;">
-                                <img class="align-self-center rounded-circle mr-3" alt=""
-                                    t-att-src="widget.get_emp_image_url(employee[0])"/>
-                                </a>
-                                <div class="media-body">
-                                <h2 class="text-color display-6" style="font-size: 15px;"><t t-esc="employee[1]"/> </h2>
-                                <p><t t-esc="employee[3]"/></p>
-                                <p class="text-light"><t t-esc="employee[2]"/></p>
-                                </div></div></div></div>
-                            </div>
-                        </t>
-                    </div>
-                 </div>
-            </div>
-            <div class="col-md-4 col-lg-3">
-                <div class="col-xs-12  hr_notification" style="padding: 0;">
-                    <div class="col-xs-12" style="padding:0;">
-                        <div class="hr_notification_head">
-                        Upcoming Events
-                        </div>
-                    </div>
-                    <div class="col-xs-12">
-                        <t t-foreach="widget.upcoming_events" t-as="event">
-                        <div class="col-sm-12 col-lg-12" style="padding:0;">
-                            <div class="text-color">
-                                <div class="">
-                                <div class="media">
-                                <div class="media-body">
-                                <h2 class="text-color display-6" style="font-size: 15px;"><t t-esc="event[0]"/> </h2>
-                                <p>Date : <t t-esc="event[1]"/> - <t t-esc="event[2]"/></p>
-                                <t t-if="event[3]">
-                                    <p >Venue : <t t-esc="event[3]"/></p>
-                                </t>
-                                <t t-if="event[4]">
-                                    <p >Online</p>
-                                </t>
-                                </div></div></div></div>
-                            </div>
-                        </t>
-                    </div>
-                 </div>
-            </div>
-            <div class="col-md-4 col-lg-4">
-                <div class="col-xs-12  hr_notification" style="padding: 0;">
-                    <div class="col-xs-12" style="padding:0;">
-                        <div class="hr_notification_head">
-                        Announcements
-                        </div>
-                    </div>
-                    <div class="col-xs-12">
-                        <t t-foreach="widget.announcements" t-as="announcement">
-                        <div class="col-sm-12 col-lg-12" style="padding:0;">
-                            <div class="text-color">
-                                <div class="">
-                                <div class="media">
-                                <div class="media-body">
-                                <h2 class="text-color display-6" style="font-size: 15px;"><t t-esc="announcement[0]"/> </h2>
-                                <p><t t-esc="announcement[1]"/></p>
-                                </div></div></div></div>
-                            </div>
-                        </t>
-                    </div>
-                 </div>
-            </div>
-        </div>
-        <div class="row main-section">
-             <div class="col-md-2 col-sm-2 dummy"></div>
-             <div class="col-md-10 col-lg-10 col-sm-10" >
-                <div class="col-xs-12 monthly_leave_trend" style="padding:0px;">
-                    <div class="oh-card text-color">
-                        <div class="oh-card-body pb-0">
-                            <h4 class="mb-0">
-                            </h4>
-                            <p class="stat-head" style="padding : 0px;">My Leave Analysis</p>
-
-                        </div>
-                        <div class="leave_trend" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </t>
-
     <t t-name="EmployeeWarning">
         <div>
             <p>Error : Could not find employee linked to user</p>
