@@ -34,6 +34,6 @@
     'qweb': [
         "static/src/xml/attendance.xml",
     ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
 }
