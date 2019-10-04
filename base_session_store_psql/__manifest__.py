@@ -24,6 +24,6 @@
     "post_load": 'post_load',
     "pre_init_hook": None,
     "post_init_hook": None,
-    "installable": True,
+    "installable": False,
     "auto_install": False,
 }

@@ -44,9 +44,9 @@ Maintainers
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/misc-addons/12.0
+Demo: http://runbot.it-projects.info/demo/misc-addons/13.0
 
-HTML Description: https://apps.odoo.com/apps/modules/12.0/ir_config_parameter_multi_company/
+HTML Description: https://apps.odoo.com/apps/modules/13.0/ir_config_parameter_multi_company/
 
 Usage instructions: `<doc/index.rst>`_
 
