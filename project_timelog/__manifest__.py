@@ -35,5 +35,5 @@
     "post_init_hook": None,
 
     "auto_install": False,
-    "installable": True,
+    "installable": False,  # https://github.com/it-projects-llc/misc-addons/issues/818
 }
