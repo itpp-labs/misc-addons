@@ -25,7 +25,7 @@ Maintainers
 
       To get a guaranteed support
       you are kindly requested to purchase the module
-      at `odoo apps store <https://apps.odoo.com/apps/modules/12.0/web_debranding/>`__.
+      at `odoo apps store <https://apps.odoo.com/apps/modules/13.0/web_debranding/>`__.
 
       Thank you for understanding!
 
@@ -35,14 +35,14 @@ Maintainers
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/website-addons/12.0
+Demo: http://runbot.it-projects.info/demo/website-addons/13.0
 
-HTML Description: https://www.odoo.com/apps/modules/12.0/web_debranding/
+HTML Description: https://www.odoo.com/apps/modules/13.0/web_debranding/
 
 Usage instructions: `<doc/index.rst>`__
 
 Changelog: `<doc/changelog.rst>`__
 
-Notifications on updates: `via Atom <https://github.com/it-projects-llc/misc-addons/commits/12.0/web_debranding.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/it-projects-llc/misc-addons/commits/12.0/web_debranding.atom>`_
+Notifications on updates: `via Atom <https://github.com/it-projects-llc/misc-addons/commits/13.0/web_debranding.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/it-projects-llc/misc-addons/commits/13.0/web_debranding.atom>`_
 
 Tested on Odoo 12.0 288662a9de7420deaf7b13c9a8b1b1b92e15ec1f

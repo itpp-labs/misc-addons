@@ -18,7 +18,7 @@ Sponsors
 Further information
 ===================
 
-HTML Description: https://apps.odoo.com/apps/modules/12.0/ir_attachment_url/
+HTML Description: https://apps.odoo.com/apps/modules/13.0/ir_attachment_url/
 
 Usage instructions: `<doc/index.rst>`_
 
