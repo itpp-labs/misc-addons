@@ -91,7 +91,7 @@ class ProjectTimelog(models.Model):
 class Task(models.Model):
     _inherit = "project.task"
 
-    datetime_stopline = fields.Datetime(string="Stopline", select=True, track_visibility='onchange', copy=False)
+    datetime_stopline = fields.Datetime(string="Stopline", index=True, track_visibility='onchange', copy=False)
     _track = {
         'datetime_stopline': {
             'project_timelog.mt_timelog_stopline': lambda self, cr, uid, obj, ctx=None: bool(obj.datetime_stopline),
@@ -201,7 +201,7 @@ class Users(models.Model):
             WHERE user_id IN %s""", ("%s seconds" % DISCONNECTION_TIMER, "%s seconds" % AWAY_TIMER, tuple(ids)))
         res = dict(((status['id'], status['status']) for status in self.env.cr.dictfetchall()))
         if operator == '=':
-            value_ids = [id for id in ids if res.get(id, 'offline') == value]
+            value_ids = [vid for vid in ids if res.get(id, 'offline') == value]
         return [('id', 'in', value_ids)]
 
     # This function is called every 5 minutes
@@ -215,9 +215,9 @@ class Users(models.Model):
         for u in user:
             all_timelog = u.active_work_id.timelog_ids
             sum_time = datetime.timedelta(0)
-            for id in all_timelog:
-                date_start_object = datetime.datetime.strptime(id.start_datetime, "%Y-%m-%d %H:%M:%S")
-                date_end_object = id.end_datetime and datetime.datetime.strptime(id.end_datetime, "%Y-%m-%d %H:%M:%S") or datetime.datetime.now()
+            for tid in all_timelog:
+                date_start_object = datetime.datetime.strptime(tid.start_datetime, "%Y-%m-%d %H:%M:%S")
+                date_end_object = tid.end_datetime and datetime.datetime.strptime(tid.end_datetime, "%Y-%m-%d %H:%M:%S") or datetime.datetime.now()
                 sum_time = sum_time + (date_end_object-date_start_object)
             sum_time = int(round(sum_time.total_seconds(), 0))
             if sum_time >= time_subtask:
@@ -281,6 +281,7 @@ class AccountAnalyticLine(models.Model):
     @api.model
     def create(self, vals):
         task = self.env['project.task'].browse(vals.get('task_id'))
+        vals['project_id'] = task.project_id.id
         vals['stage_id'] = task.stage_id.id
         if not task.stage_id.allow_log_time:
             raise UserError(_('Creating new subtask in state "%s" is forbidden.') % task.stage_id.name)

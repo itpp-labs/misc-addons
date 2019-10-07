@@ -73,12 +73,22 @@ class TimelogController(http.Controller):
             if timer_status:
                 day_timer = day_timer + current_time
 
+        config = request.env["ir.config_parameter"]
+
         # 4. All time this week
         week_timer = 0
         today = datetime.datetime.today()
-        monday = today - datetime.timedelta(datetime.datetime.weekday(today))
-        sunday = today + datetime.timedelta(6 - datetime.datetime.weekday(today))
-        timelog_this_week = timelog_obj.search([("user_id", "=", user.id), ("start_datetime", ">=", monday.strftime('%Y-%m-%d 00:00:00')), ("start_datetime", "<=", sunday.strftime('%Y-%m-%d 23:59:59'))])
+
+        first_weekday = config.get_param("project_timelog.first_weekday")
+
+        if first_weekday == 'monday':
+            first_day_of_week = today - datetime.timedelta(datetime.datetime.weekday(today))
+            last_day_of_week = today + datetime.timedelta(6 - datetime.datetime.weekday(today))
+        elif first_weekday == 'sunday':
+            first_day_of_week = today - datetime.timedelta(1 + datetime.datetime.weekday(today))
+            last_day_of_week = today + datetime.timedelta(5 - datetime.datetime.weekday(today))
+
+        timelog_this_week = timelog_obj.search([("user_id", "=", user.id), ("start_datetime", ">=", first_day_of_week.strftime('%Y-%m-%d 00:00:00')), ("start_datetime", "<=", last_day_of_week.strftime('%Y-%m-%d 23:59:59'))])
         if timelog_this_week:
             week_work_ids = []
             for r in timelog_this_week:
@@ -99,24 +109,21 @@ class TimelogController(http.Controller):
         if timelogs_other_users:
             another_users = []
             for u in timelogs_other_users:
-                another_users.append({
-                    'id': u.user_id.id,
-                    'name': u.user_id.name
-                })
+                another_users.append(u.user_id.id)
             another_users = list(set(another_users))
-            for u in another_users:
-                res = timelog_obj.search([("user_id", "=", u['id']), ("work_id.task_id", "=", task.id)])
+            for user_id in another_users:
+                res = timelog_obj.search([("user_id", "=", user_id), ("work_id.task_id", "=", task.id)])
                 sum_another_timelog = 0
                 for i in res:
                     sum_another_timelog = sum_another_timelog + i.corrected_duration
                 sum_another_timelog = 3600 * sum_another_timelog
                 sum_another_timelog = datetime.timedelta(seconds=round(sum_another_timelog, 0))
-                second_timer_info.append(u['name'] + ": " + str(sum_another_timelog) + "\n")
+                current_user = request.env['res.users'].browse(user_id)
+                second_timer_info.append(current_user.name + ": " + str(sum_another_timelog) + "\n")
 
             for r in second_timer_info:
                 desctiption_timer = desctiption_timer + r
 
-        config = request.env["ir.config_parameter"]
         convert_sec = 3600
 
         timer_stopline = False
@@ -164,7 +171,9 @@ class TimelogController(http.Controller):
             "task_name": task_name,
 
             "timelog_id": last_timelog,
-            "end_datetime_status": end_datetime_status
+            "end_datetime_status": end_datetime_status,
+
+            "first_weekday": first_weekday,
         }
 
     @http.route('/timelog/connection', type='http', auth="public")

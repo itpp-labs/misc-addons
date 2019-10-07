@@ -10,9 +10,8 @@
             <field name="interval_number">5</field>
             <field name="interval_type">minutes</field>
             <field name="numbercall">-1</field>
-            <field name="model" eval="'res.users'" />
-            <field name="function" eval="'check_stop_timer'" />
-            <field name="args" eval="" />
+            <field name="model_id" ref="model_res_users" />
+            <field name="code">model.check_stop_timer()</field>
             <field name="priority" eval="4" />
         </record>
 
@@ -25,9 +24,8 @@
             <field name="interval_type">days</field>
             <field name="numbercall">-1</field>
             <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 00:00:00')" />
-            <field name="model" eval="'account.analytic.line'" />
-            <field name="function" eval="'subtask_new_status'" />
-            <field name="args" eval="" />
+            <field name="model_id" ref="model_account_analytic_line" />
+            <field name="code">model.subtask_new_status()</field>
             <field name="priority" eval="5" />
         </record>
 
@@ -40,9 +38,8 @@
             <field name="interval_type">days</field>
             <field name="numbercall">-1</field>
             <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 00:00:00')" />
-            <field name="model" eval="'project.task'" />
-            <field name="function" eval="'clear_stopline_datetime'" />
-            <field name="args" eval="" />
+            <field name="model_id" ref="model_project_task" />
+            <field name="code">model.clear_stopline_datetime()</field>
             <field name="priority" eval="5" />
         </record>
 
@@ -54,9 +51,8 @@
             <field name="interval_number">1</field>
             <field name="interval_type">minutes</field>
             <field name="numbercall">-1</field>
-            <field name="model">project.task</field>
-            <field name="function">stopline_timer</field>
-            <field name="args">()</field>
+            <field name="model_id" ref="model_project_task" />
+            <field name="code">model.stopline_timer()</field>
             <field name="priority" eval="4" />
         </record>
 
@@ -77,7 +73,6 @@
 
         <record id="action_auto_stop_timer" model="ir.actions.server">
             <field name="name">Auto stop timer for user</field>
-            <field name="condition">True</field>
             <field name="type">ir.actions.server</field>
             <field name="model_id" ref="model_project_task"/>
             <field name="state">code</field>
@@ -86,13 +81,6 @@
             </field>
         </record>
 
-        <record id="rule_auto_stop_timer" model="base.action.rule">
-            <field name="name">Set timer info</field>
-            <field eval="True" name="active" />
-            <field name="model_id" ref="model_project_task"/>
-            <field name="kind">on_write</field>
-            <field name="server_action_ids"
-                   eval="[(4, ref('action_auto_stop_timer'))]"/>
-        </record>
+        <function model="timelog.config.settings" name="init_timer_parametrs"/>
     </data>
 </openerp>
