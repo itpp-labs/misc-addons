@@ -19,7 +19,7 @@ class TestUi(odoo.tests.HttpCase):
 
         # without a delay there might be problems on the steps whilst opening a POS
         # caused by a not yet loaded button's action
-        self.phantom_js("/web",
+        self.phantom_js("/web#id=9&view_type=form&model=res.partner",
                         "odoo.__DEBUG__.services['web_tour.tour'].run('tour_res_partner_skype', 1000)",
                         "odoo.__DEBUG__.services['web_tour.tour'].tours.tour_res_partner_skype.ready",
                         login="admin", timeout=300)
