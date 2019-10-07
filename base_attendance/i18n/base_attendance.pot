@@ -180,14 +180,14 @@ msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/test_kiosk_tour.js:38
+#: code:addons/base_attendance/static/src/js/test_kiosk_tour.js:40
 #, python-format
 msgid "Click to enter Kiosk"
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/test_kiosk_tour.js:34
+#: code:addons/base_attendance/static/src/js/test_kiosk_tour.js:36
 #, python-format
 msgid "Click to enter menu attendances"
 msgstr ""
