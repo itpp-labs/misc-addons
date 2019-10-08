@@ -1,3 +1,8 @@
+`1.1.2`
+-------
+
+- **Fix:** Error when printing partner's badge
+
 `1.1.1`
 -------
 

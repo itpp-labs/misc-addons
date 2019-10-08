@@ -8,17 +8,22 @@ odoo.define('project_timelog.tour', function(require) {
         url: "/web",
         test: true,
     }, [{
-        trigger: '.o_app[data-menu-xmlid="project.menu_main_pm"], .oe_menu_toggler[data-menu-xmlid="project.menu_main_pm"]',
-        content: "Click the Project menu",
-        position: "bottom"
-    },{
-        trigger: '.oe_menu_text:contains("Task"):first',
-        content: "Click the Task menu",
-        position: "bottom"
+        trigger: 'a.full[href="#"]',
+        content: "Click to open app list",
+        position: 'bottom',
+    }, {
+        trigger: 'a.dropdown-item.o_app:contains("Project")',
+        content: "Click to enter Project",
+        position: 'bottom',
     }, {
         trigger: '.o_kanban_record:first',
+        content: "Click on the Project card",
+        position: "bottom",
+    }, {
+        extra_trigger: '.breadcrumb:contains("Tasks")',
+        trigger: '.o_kanban_record:first',
         content: "Click on the Task card",
-        position: "bottom"
+        position: "bottom",
     }, {
         trigger: '.nav.nav-tabs a:contains("Timesheets")',
         content: 'Go to the Timesheet tab',
@@ -28,24 +33,26 @@ odoo.define('project_timelog.tour', function(require) {
         content: "Click the button of edit",
         position: "bottom"
     }, {
-        trigger: '.tab-pane.active .o_form_field_x2many_list_row_add a',
+        trigger: '.tab-pane.active .o_field_x2many_list_row_add a',
         content: 'Add new item',
         position: "bottom"
     }, {
-        trigger: ".o_list_editable .o_form_input.o_form_field.o_form_required",
+        trigger: ".o_editable_list .o_input.o_field_widget.o_required_modifier",
         content: "Add item description",
         position: "bottom",
-        run: "text Test Subtask",
+        // random is to evade unique constraint on subtask
+        run: "text Test Subtask " + Math.random().toString(36).slice(2),
     }, {
         trigger: ".o_form_button_save",
         content: "Save change",
         position: "bottom"
     }, {
-        trigger: 'td[data-field="play_timer"] button',
+        trigger: 'button.log-start-timer:last',
+        extra_trigger: '.o_form_button_edit:contains("Edit")',
         content: "Play timer",
-        position: "bottom"
+        position: "bottom",
     }, {
-        trigger: 'td[data-field="stop_timer"] button',
+        trigger: 'button.log-stop-timer:last',
         content: "Stop timer",
         position: "bottom"
     }
