@@ -52,9 +52,11 @@ class IrHttp(models.AbstractModel):
                        mimetype=None, default_mimetype='application/octet-stream',
                        access_token=None, related_id=None, access_mode=None, env=None):
         """ Get file, attachment or downloadable content
+
         If the ``xmlid`` and ``id`` parameter is omitted, fetches the default value for the
         binary field (via ``default_get``), otherwise fetches the field for
         that precise record.
+
         :param str xmlid: xmlid of the record
         :param str model: name of the model to fetch the binary from
         :param int id: id of the record from which to fetch the binary
@@ -87,14 +89,15 @@ class IrHttp(models.AbstractModel):
         if model == 'ir.attachment' and access_token:
             obj = obj.sudo()
             if access_mode:
-                if not cls._check_access_mode(env, id, access_mode, model, access_token=access_token, related_id=related_id):
+                if not cls._check_access_mode(env, id, access_mode, model, access_token=access_token,
+                                             related_id=related_id):  # noqa: E128
                     return (403, [], None)
             elif not consteq(obj.access_token or u'', access_token):
                 return (403, [], None)
 
         # check read access
         try:
-            obj['__last_update']
+            last_update = obj['__last_update']
         except AccessError:
             return (403, [], None)
 
@@ -103,7 +106,7 @@ class IrHttp(models.AbstractModel):
         # attachment by url check
         module_resource_path = None
         if model == 'ir.attachment' and obj.type == 'url' and obj.url:
-            url_match = re.match(r"^/(\w+)/(.+)$", obj.url)
+            url_match = re.match("^/(\w+)/(.+)$", obj.url)  # noqa: W605
             if url_match:
                 module = url_match.group(1)
                 module_path = get_module_path(module)
@@ -114,7 +117,7 @@ class IrHttp(models.AbstractModel):
                     if module_resource_path.startswith(module_path):
                         with open(module_resource_path, 'rb') as f:
                             content = base64.b64encode(f.read())
-                        # 'last_update' variable removed for lint error fix
+                        last_update = pycompat.text_type(os.path.getmtime(module_resource_path))  # noqa: F841
 
             if not module_resource_path:
                 module_resource_path = obj.url
@@ -137,9 +140,9 @@ class IrHttp(models.AbstractModel):
         if not filename:
             if filename_field in obj:
                 filename = obj[filename_field]
-            elif module_resource_path:
+            if not filename and module_resource_path:
                 filename = os.path.basename(module_resource_path)
-            else:
+            if not filename:
                 filename = "%s-%s-%s" % (obj._name, obj.id, field)
 
         # mimetype
@@ -153,6 +156,13 @@ class IrHttp(models.AbstractModel):
                 mimetype = attach_mimetype and attach_mimetype[0]['mimetype']
             if not mimetype:
                 mimetype = guess_mimetype(base64.b64decode(content), default=default_mimetype)
+
+        # extension
+        _, existing_extension = os.path.splitext(filename)
+        if not existing_extension:
+            extension = mimetypes.guess_extension(mimetype)
+            if extension:
+                filename = "%s%s" % (filename, extension)
 
         headers += [('Content-Type', mimetype), ('X-Content-Type-Options', 'nosniff')]
 
