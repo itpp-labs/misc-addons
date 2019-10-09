@@ -13,7 +13,7 @@
     "author": "IT-Projects LLC, Artyom Losev",
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info",
-    "price": 29.00,
+    "price": 14.00,
     "currency": 'EUR',
 
     "license": "LGPL-3",
