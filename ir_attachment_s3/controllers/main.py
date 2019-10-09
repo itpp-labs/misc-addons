@@ -48,9 +48,7 @@ class BinaryExtended(Binary):
                 image_variant_attachment = env['ir.http']._find_field_attachment(env, model, 'image_variant', obj.id)
                 if image_variant_attachment:
                     w, h = SIZES_MAP[field]
-                    resized_attachment = \
-                        image_variant_attachment._get_resized_from_cache(w, h) or \
-                        image_variant_attachment._set_resized_to_cache(w, h, field=field)
+                    resized_attachment = image_variant_attachment._get_or_create_resized_in_cache(w, h, field=field)
                     attachment = resized_attachment.resized_attachment_id
 
         if not attachment and model != 'ir.attachment':
@@ -74,8 +72,6 @@ class BinaryExtended(Binary):
         if height > 500:
             height = 500
 
-        resized_attachment = \
-            attachment._get_resized_from_cache(width, height) or \
-            attachment._set_resized_to_cache(width, height)
+        resized_attachment = attachment._get_or_create_resized_in_cache(width, height)
         url = resized_attachment.resized_attachment_id.url
         return redirect(url)

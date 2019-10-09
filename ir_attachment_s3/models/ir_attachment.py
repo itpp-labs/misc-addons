@@ -152,6 +152,10 @@ class IrAttachment(models.Model):
         return self._get_context_variants_for_resized_att_creating().get(save_option) or {}
 
     @api.model
+    def _get_or_create_resized_in_cache(self, width, height, field=None):
+        return self._get_resized_from_cache(width, height) or self._set_resized_to_cache(width, height, field)
+
+    @api.model
     def _get_resized_from_cache(self, width, height):
         return self.env['ir.attachment.resized'].sudo().search([
             ('attachment_id', '=', self.id),
