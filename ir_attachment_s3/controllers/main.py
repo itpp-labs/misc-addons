@@ -6,7 +6,7 @@ import werkzeug
 
 from odoo.http import request, route
 from odoo.addons.web.controllers.main import Binary
-from odoo.addons.ir_attachment_url.controllers.main import SIZES_MAP
+from odoo.addons.ir_attachment_url.models.image import SIZES_MAP
 
 _logger = logging.getLogger(__name__)
 

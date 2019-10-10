@@ -11,12 +11,6 @@ from odoo.exceptions import AccessError
 from odoo.addons.mail.controllers.main import MailController
 from ..models.image import is_url
 
-SIZES_MAP = {
-    'image_small': (64, 64),
-    'image_medium': (128, 128),
-    'image': (1024, 1024),
-}
-
 
 class MailControllerExtended(MailController):
 
