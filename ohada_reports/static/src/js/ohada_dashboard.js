@@ -23,7 +23,6 @@ var HrDashboard = AbstractAction.extend(ControlPanelMixin, {
         '/web/static/src/js/libs/nvd3.js'
     ],
     events: {
-        'click .hr_leave_request_approve': 'leaves_to_approve',
         'click .hr_leave_allocations_approve': 'leave_allocations_to_approve',
         'click .hr_timesheets': 'hr_timesheets',
         'click .hr_job_application_approve': 'job_applications_to_approve',
@@ -64,18 +63,17 @@ var HrDashboard = AbstractAction.extend(ControlPanelMixin, {
     fetch_data: function() {
         var self = this;
         var def1 =  this._rpc({
-                model: 'account.account',
-                method: 'search_read',
-                fields: ['code'],
+                model: 'ohada.financial.html.report',
+                method: 'get_link',
         }).done(function(result) {
-            self.login_employee =  result[0];
+            self.link_ids =  result;
         });
         return $.when(def1);
     },
 
     render_dashboards: function() {
         var self = this;
-        if (this.login_employee){
+        if (this.link_ids){
             _.each(this.dashboards_templates, function(template) {
                 self.$('.o_ohada_dashboard').append(QWeb.render(template, {widget: self}));
             });
@@ -87,11 +85,22 @@ var HrDashboard = AbstractAction.extend(ControlPanelMixin, {
 
     render_graphs: function(){
         var self = this;
-        if (this.login_employee){
+        if (this.link_ids){
             self.render_leave_graph();
             self.render_leave_graph2();
             self.update_join_resign_trends();
         }
+    },
+
+    get_link: function() {
+        var self = this;
+        var def1 =  this._rpc({
+                model: 'ohada.financial.html.report',
+                method: 'get_link',
+        }).done(function(result) {
+            console.log(result)
+        });
+        return $.when(def1);
     },
 
 

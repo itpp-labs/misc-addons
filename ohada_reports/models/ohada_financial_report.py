@@ -12,6 +12,7 @@ from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, ValidationError
 from odoo.osv import expression
 from odoo.tools.pycompat import izip
+import wdb
 
 
 class ReportOhadaFinancialReport(models.Model):
@@ -49,6 +50,18 @@ class ReportOhadaFinancialReport(models.Model):
     #    def _code_constrains(self):
     #        if self.code and self.code.strip().lower() in __builtins__.keys():
     #            raise ValidationError('The code "%s" is invalid on report with name "%s"' % (self.code, self.name))
+
+    @api.model
+    def get_link(self):
+        wdb.set_trace()
+        link_ids = dict()
+        reports = ['ohada_reports.action_account_report_cs',
+                   'ohada_reports.action_account_report_ohada_balancesheet',
+                   'ohada_reports.action_account_report_pnl',]
+        link_ids['menu_id'] = self.env.ref('account_accountant.menu_accounting').id
+        for i in reports:
+            link_ids[self.env.ref(i).name] = self.env.ref(i).id
+        return link_ids
 
     def _get_column_name(self, field_content, field):
         comodel_name = self.env['account.move.line']._fields[field].comodel_name
@@ -351,6 +364,7 @@ class ReportOhadaFinancialReport(models.Model):
 
     @api.multi
     def _get_lines(self, options, line_id=None):
+        wdb.set_trace()
         line_obj = self.line_ids
         if line_id:
             line_obj = self.env['ohada.financial.html.report.line'].search([('id', '=', line_id)])

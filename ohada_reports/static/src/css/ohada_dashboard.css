@@ -10,14 +10,14 @@
     list-style-type: none;
     display: inline;
     float:left;
-    color:#777777
+    color:#00A09D;
 }
 .list-right{
     list-style-type: none;
     display: inline;
     float:right;
     margin-right:5px;
-    color: #00438b;
+    color: #666666;
 }
 /*-------------------------------------------------------------------*/
 .oh_dashboards{

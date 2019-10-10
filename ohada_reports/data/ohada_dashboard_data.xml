@@ -1,6 +1,6 @@
 <odoo>
     <data>
-        <template id="account_reports_backend" inherit_id="web.assets_backend" active="True">
+        <template id="ohada_dashboard_backend" inherit_id="web.assets_backend" active="True">
             <xpath expr="." position="inside">
                 <script type="text/javascript" src="/ohada_reports/static/src/js/ohada_dashboard.js"></script>
                 <link rel="stylesheet" type="text/scss" href="/ohada_reports/static/src/css/ohada_dashboard.css"/>

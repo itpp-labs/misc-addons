@@ -9,6 +9,7 @@
 
     <t t-name="ManagerDashboard">
         <div class="ohada_dashboard_main">
+            <t t-set="menu_id" t-value="widget.link_ids['menu_id']"/>
             <div class="row main-section" style="padding-top:20px;">
                 <div class="col-md-2 col-sm-2 dummy"></div>
                 <div class="col-sm-10 col-lg-10  monthly_leave_graph_view">
@@ -36,7 +37,7 @@
                         <div class="col-md-4 col-lg-4" style="float:left;">
                             <div class="hr_notification" >
                                 <ul style="margin-left:-30px;margin-top:10px;">
-                                    <li class="list-left">Status of fiscal year</li>
+                                    <li class="list-left"><a name="create_invoice" type="object">Status of fiscal year</a></li>
                                     <li class="list-right">[posted]</li>
                                 </ul>
                                 <div style="clear:both;"></div>
@@ -96,7 +97,7 @@
                         <div class="oh-card-body pb-0" style="padding:0;">
                             <h4 class="mb-0">
                             </h4>
-                            <p class="stat-head" style="padding : 0px;color: #00438b;margin-top:15px;color:#00A09D;">Balance sheet</p>
+                            <a class="stat-head" style="padding:0px;color: #00438b;margin-top:15px;color:#00A09D;cursor:pointer;" t-att-href="'/web#action=' + widget.link_ids['Balance Sheet'] + '&amp;' + 'menu_id=' + menu_id">Balance sheet</a>
                         </div>
                         <div class="col-xs-12">
                             <div class="hr_notification" style="height:80px;width:235px !important;margin-left:10px;">
@@ -115,11 +116,8 @@
                                     <li class="list-right">[amount]</li>
                                 </ul>
                             </div>
-
                         </div>
-
                         <div class="leave_graph" style="margin-top:-30px !important;margin-left:30px;" />
-
                      </div>
                 </div>
                 <div class="col-md-4 col-lg-3">
@@ -127,7 +125,7 @@
                         <div class="oh-card-body pb-0" style="padding:0;">
                             <h4 class="mb-0">
                             </h4>
-                            <p class="stat-head" style="padding : 0px;color: #00438b;margin-top:15px;color:#00A09D;">Profit  &amp; lost</p>
+                            <a class="stat-head" style="padding:0px;color: #00438b;margin-top:15px;color:#00A09D;cursor:pointer;" t-att-href="'/web#action=' + widget.link_ids['Profit And Loss'] + '&amp;' + 'menu_id=' + menu_id">Profit  &amp; lost</a>
                         </div>
                         <div class="col-xs-12">
                             <div class="hr_notification" style="height:80px;width:235px !important;margin-left:10px;">
@@ -155,7 +153,7 @@
                         <div class="oh-card-body pb-0" style="padding:0;">
                             <h4 class="mb-0">
                             </h4>
-                            <p class="stat-head" style="padding : 0px;color: #00438b;margin-top:15px;color:#00A09D;">Cashflow statement</p>
+                            <a class="stat-head" style="padding:0px;color: #00438b;margin-top:15px;color:#00A09D;cursor:pointer;" t-att-href="'/web#action=' + widget.link_ids['Cash Flow Statement'] + '&amp;' + 'menu_id=' + menu_id">Cashflow statement</a>
                         </div>
                         <div class="col-xs-12">
                             <div class="hr_notification" style="height:80px;width:335px !important;margin-left:10px;">
