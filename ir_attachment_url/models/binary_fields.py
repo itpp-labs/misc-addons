@@ -45,7 +45,7 @@ class Binary(fields.Binary):
                 'type': 'binary',
             })
         if value and image.is_url(value):
-            save_option = records.env['ir.config_parameter'].get_param('ir_attachment.save_option', default='url')
+            save_option = records.env['ir.config_parameter'].get_param('ir_attachment_url.storage', default='url')
             with records.env.norecompute():
                 if value and save_option != 'url':
                     r = requests.get(value)

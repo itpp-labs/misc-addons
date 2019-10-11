@@ -21,10 +21,10 @@ class TestResizedAttachments(HttpCase):
     def test_getting_cached_images_url_instead_computing(self):
         env = api.Environment(self.registry.test_cr, self.uid, {})
 
-        ir_attachment_save_option = env['ir.config_parameter'].get_param('ir_attachment.save_option', default='url')
-        if ir_attachment_save_option != 's3':
-            _logger.warning('This test only works if "ir_attachment.save_option" = "s3"! '
-                            '(ir_attachment.save_option = %s)' % ir_attachment_save_option)
+        ir_attachment_url_storage = env['ir.config_parameter'].get_param('ir_attachment_url.storage', default='url')
+        if ir_attachment_url_storage != 's3':
+            _logger.warning('This test only works if "ir_attachment_url.storage" = "s3"! '
+                            '(ir_attachment_url_storage = %s)' % ir_attachment_url_storage)
             return
 
         product_tmpl = env['product.template'].create({

@@ -13,7 +13,7 @@
                     </header>
                     <div>
                         <group string="ir.attachment settings">
-                            <field name="ir_attachment_save_option" />
+                            <field name="ir_attachment_url_storage" />
                         </group>
                     </div>
 

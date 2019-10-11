@@ -148,8 +148,8 @@ class IrAttachment(models.Model):
         }
 
     def _get_context_for_resized_att_creating(self):
-        save_option = self.env['ir.config_parameter'].get_param('ir_attachment.save_option', default='url')
-        return self._get_context_variants_for_resized_att_creating().get(save_option) or {}
+        url_storage = self.env['ir.config_parameter'].get_param('ir_attachment_url.storage', default='url')
+        return self._get_context_variants_for_resized_att_creating().get(url_storage) or {}
 
     @api.model
     def _get_or_create_resized_in_cache(self, width, height, field=None):

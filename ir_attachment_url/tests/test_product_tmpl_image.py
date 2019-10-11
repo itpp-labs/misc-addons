@@ -21,10 +21,10 @@ class TestProductTmplImage(HttpCase):
     def test_getting_product_variant_image_fields_urls(self):
         env = api.Environment(self.registry.test_cr, self.uid, {})
 
-        ir_attachment_save_option = env['ir.config_parameter'].get_param('ir_attachment.save_option', default='url')
-        if ir_attachment_save_option != 'url':
+        ir_attachment_url_storage = env['ir.config_parameter'].get_param('ir_attachment_url.storage', default='url')
+        if ir_attachment_url_storage != 'url':
             _logger.warning('This test only works if the module has no add-ons! '
-                            '(ir_attachment.save_option = %s)' % ir_attachment_save_option)
+                            '(ir_attachment_url_storage = %s)' % ir_attachment_url_storage)
             return
 
         product_tmpl = env['product.template'].create({

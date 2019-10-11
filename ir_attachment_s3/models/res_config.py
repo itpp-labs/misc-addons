@@ -8,7 +8,7 @@ from odoo import models, fields, exceptions, _
 class S3IrAttachmentSettings(models.TransientModel):
     _inherit = 'ir.attachment.config.settings'
 
-    ir_attachment_save_option = fields.Selection(
+    ir_attachment_url_storage = fields.Selection(
         selection_add=[('s3', 'Save as a link to the file saved to s3')],
     )
 
