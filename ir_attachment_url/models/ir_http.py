@@ -115,6 +115,11 @@ class IrHttp(models.AbstractModel):
             if att:
                 content = att.url
                 status = 301
+                # yelizariev:
+                # Why do we redefine mimetype variable passed to the method? Can original mimetype has not a Non wrong value?
+                # em230418:
+                # in original binary_content method, mimetype is redefined without any condition:
+                # https://github.com/odoo/odoo/blob/98a137e4b1f631a10d46b5e0cb21bb83ed7e861f/odoo/addons/base/ir/ir_http.py#L312
                 mimetype = att.mimetype
 
             if not content:
