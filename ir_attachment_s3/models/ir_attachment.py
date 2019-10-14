@@ -30,6 +30,7 @@ class IrAttachmentResized(models.Model):
 
     @api.multi
     def unlink(self):
+        # we also unlink resized_attachment_id
         resized_att_id = self.resized_attachment_id
         super(IrAttachmentResized, self).unlink()
         return resized_att_id.unlink()
@@ -44,6 +45,8 @@ class IrAttachment(models.Model):
     def unlink(self):
         resized_ids = self.mapped('resized_ids')
         super(IrAttachment, self).unlink()
+        # we also need to delete, resized attachments if given
+        # to escape RecursionError, we need to check it first
         return resized_ids.unlink() if resized_ids else True
 
     def _get_s3_settings(self, param_name, os_var_name):
