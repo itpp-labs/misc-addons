@@ -20,11 +20,11 @@ class IrHttp(models.AbstractModel):
     _inherit = 'ir.http'
 
     @classmethod
-    def _find_field_attachment(cls, env, m, f, id):
+    def _find_field_attachment(cls, env, m, f, res_id):
         domain = [
             ('res_model', '=', m),
             ('res_field', '=', f),
-            ('res_id', '=', id),
+            ('res_id', '=', res_id),
             ('type', '=', 'url'),
         ]
         return env['ir.attachment'].sudo().search(domain)
@@ -47,7 +47,7 @@ class IrHttp(models.AbstractModel):
         return att
 
     @classmethod
-    def binary_content(cls, xmlid=None, model='ir.attachment', id=None, field='datas', unique=False, filename=None, filename_field='datas_fname', download=False, mimetype=None, default_mimetype='application/octet-stream', env=None):
+    def binary_content(cls, xmlid=None, model='ir.attachment', id=None, field='datas', unique=False, filename=None, filename_field='datas_fname', download=False, mimetype=None, default_mimetype='application/octet-stream', env=None):  # pylint: disable=redefined-builtin
         """ Get file, attachment or downloadable content
 
         If the ``xmlid`` and ``id`` parameter is omitted, fetches the default value for the

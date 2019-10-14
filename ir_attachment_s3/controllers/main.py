@@ -18,7 +18,19 @@ def redirect(url):
 class BinaryExtended(Binary):
 
     @route()
-    def content_image(self, xmlid=None, model='ir.attachment', id=None, field='datas', filename_field='datas_fname', unique=None, filename=None, mimetype=None, download=None, width=0, height=0):
+    def content_image(self, xmlid=None, model='ir.attachment', id=None, field='datas', filename_field='datas_fname', unique=None, filename=None, mimetype=None, download=None, width=0, height=0):  # pylint: disable=redefined-builtin
+        """
+        Overrided content_image creates resized images (if required) and returns public s3 link of them
+
+        When it works?
+        - if given object is product image (see is_product_product_image var)
+        - if base content_image method returns 301 (redirect) response and width or height given
+
+        How resizing works?
+        - Tries to get resized image from s3 storage. If it does not exists - it is created, stored in cache and returned
+        - If given object is product image, new sizes are base on SIZES_MAP and given field value
+        - If not, it resizes using given width and height
+        """
 
         res = super(BinaryExtended, self).content_image(xmlid, model, id, field, filename_field, unique, filename, mimetype, download, width, height)
 
