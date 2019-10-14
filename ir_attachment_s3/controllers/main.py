@@ -71,8 +71,8 @@ class BinaryExtended(Binary):
             _logger.error('Attachment is not found')
             return res
 
-        # if not need to resize
-        if not (width and height):
+        # if neither width nor height is not given, we don't need to resize
+        if not width and not height:
             return redirect(attachment.url)
 
         # FIX SIZES
