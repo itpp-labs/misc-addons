@@ -34,7 +34,7 @@ class MailControllerExtended(MailController):
                 pass
 
         if status == 301 and is_url(content):
-            r = requests.get(content)
+            r = requests.get(content, timeout=5)
             image_base64 = r.content
         else:
             image_base64 = base64.b64decode(content)

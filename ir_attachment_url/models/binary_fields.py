@@ -17,12 +17,12 @@ def get_mimetype_and_optional_content_by_url(url):
 
     # head request for content-type header getting
     if not mimetype:
-        with requests.head(url) as r:
+        with requests.head(url, timeout=5) as r:
             mimetype = getattr(r, 'headers', {}).get('Content-Type')
 
     index_content = mimetype and mimetype.split('/')[0]
     if not mimetype or index_content == 'text':
-        with requests.get(url) as r:
+        with requests.get(url, timeout=5) as r:
             content = getattr(r, 'content')
             if not mimetype and content:
                 mimetype = guess_mimetype(content)
@@ -48,7 +48,7 @@ class Binary(fields.Binary):
             save_option = records.env['ir.config_parameter'].get_param('ir_attachment_url.storage', default='url')
             with records.env.norecompute():
                 if value and save_option != 'url':
-                    r = requests.get(value)
+                    r = requests.get(value, timeout=5)
                     base64source = base64.b64encode(r.content)
                     super(Binary, self).write(records, base64source)
                 elif value:
