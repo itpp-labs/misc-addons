@@ -178,7 +178,7 @@ class IrAttachment(models.Model):
         if field:
             new_resized_attachment_data.update({
                 'res_model': self.res_model,
-                'res_field': self.res_field,
+                'res_field': field,
                 'res_id': self.res_id,
             })
         context = self._get_context_for_resized_att_creating()
