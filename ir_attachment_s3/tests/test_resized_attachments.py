@@ -23,8 +23,11 @@ class TestResizedAttachments(HttpCase):
 
         ir_attachment_url_storage = env['ir.config_parameter'].get_param('ir_attachment_url.storage', default='url')
         if ir_attachment_url_storage != 's3':
-            _logger.warning('This test only works if "ir_attachment_url.storage" = "s3"! '
-                            '(ir_attachment_url_storage = %s)' % ir_attachment_url_storage)
+            self.skipTest('This test only works if "ir_attachment_url.storage" = "s3"! (ir_attachment_url_storage = %s)' % ir_attachment_url_storage)
+            return
+
+        if not env['ir.attachment']._get_s3_resource():
+            self.skipTest('Bad S3 credidentials given')
             return
 
         product_tmpl = env['product.template'].create({
