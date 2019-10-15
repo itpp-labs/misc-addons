@@ -51,14 +51,19 @@ class BinaryExtended(Binary):
         elif id and model in env.registry:
             obj = env[model].browse(int(id))
 
+        # detect attachment
         attachment = None
         if model == 'ir.attachment':
+            # given object is attachment itself
             attachment = obj
         elif is_product_product_image:
+            # given object is product image
+            # so it get's attachment from product image and resizes it (or gets resized from s3, if exists)
             attachment = env['ir.http']._find_field_attachment(env, model, field, obj.id)
             if not attachment:
                 image_variant_attachment = env['ir.http']._find_field_attachment(env, model, 'image_variant', obj.id)
                 if image_variant_attachment:
+                    print("!", image_variant_attachment)
                     w, h = SIZES_MAP[field]
                     resized_attachment = image_variant_attachment._get_or_create_resized_in_cache(w, h, field=field)
                     attachment = resized_attachment.resized_attachment_id
@@ -71,7 +76,7 @@ class BinaryExtended(Binary):
             _logger.error('Attachment is not found')
             return res
 
-        # if neither width nor height is not given, we don't need to resize
+        # if neither width nor height is not given, just return url
         if not width and not height:
             return redirect(attachment.url)
 
