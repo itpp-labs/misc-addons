@@ -9,7 +9,7 @@ class S3IrAttachmentSettings(models.TransientModel):
     _inherit = 'ir.attachment.config.settings'
 
     ir_attachment_url_storage = fields.Selection(
-        selection_add=[('s3', 'Save as a link to the file saved to s3')],
+        selection_add=[('s3', 'S3 Storage')],
     )
 
 
