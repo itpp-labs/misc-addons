@@ -63,7 +63,6 @@ class BinaryExtended(Binary):
             if not attachment:
                 image_variant_attachment = env['ir.http']._find_field_attachment(env, model, 'image_variant', obj.id)
                 if image_variant_attachment:
-                    print("!", image_variant_attachment)
                     w, h = SIZES_MAP[field]
                     resized_attachment = image_variant_attachment._get_or_create_resized_in_cache(w, h, field=field)
                     attachment = resized_attachment.resized_attachment_id
