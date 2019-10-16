@@ -7,7 +7,6 @@ import logging
 
 from odoo import api, models, _, fields, tools, exceptions
 from odoo.tools.safe_eval import safe_eval
-from odoo.addons.ir_attachment_url.models.image import SIZES_MAP
 
 _logger = logging.getLogger(__name__)
 
@@ -111,11 +110,6 @@ class IrAttachment(models.Model):
         for attach in self & s3_records:  # datas field has got empty somehow in the result of ``s3_records = self.sudo().search([('id', 'in', self.ids)] + condition)`` search for non-superusers but it is in original recordset. Here we use original (with datas) in case it intersects with the search result
             resized_to_remove |= attach.sudo().resized_ids
             value = attach.datas
-            for field, size in SIZES_MAP.items():
-                if attach.res_field != field:
-                    continue
-                value = tools.image_resize_image(base64_source=attach.datas, size=size,
-                                                 encoding='base64', filetype='PNG')
             bin_data = value and value.decode('base64') or ''
             fname = hashlib.sha1(bin_data).hexdigest()
             bucket_name = self._get_s3_settings('s3.bucket', 'S3_BUCKET')
