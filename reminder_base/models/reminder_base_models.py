@@ -17,7 +17,6 @@ class Reminder(models.AbstractModel):
     reminder_alarm_ids = fields.Many2many('calendar.alarm', string='Reminders',
                                           related='reminder_event_id.alarm_ids')
 
-    @api.multi
     def _get_reminder_event_name(self):
         return '%s: %s' % (self._description, self.display_name)
 
@@ -41,12 +40,10 @@ class Reminder(models.AbstractModel):
         domain = [(self._reminder_date_field, '!=', False)]
         self.search(domain)._do_update_reminder()
 
-    @api.multi
     def _update_reminder(self, vals):
         for r in self:
             r._update_reminder_one(vals)
 
-    @api.multi
     def _update_reminder_one(self, vals):
         self.ensure_one()
         if self._context.get('do_not_update_reminder'):
@@ -64,12 +61,10 @@ class Reminder(models.AbstractModel):
             return
         self._do_update_reminder(update_date=self._reminder_date_field in vals)
 
-    @api.multi
     def _do_update_reminder(self, update_date=True):
         for r in self:
             r._do_update_reminder_one(update_date=True)
 
-    @api.multi
     def _do_update_reminder_one(self, update_date=True):
         self.ensure_one()
         vals = {}
@@ -131,7 +126,6 @@ class Reminder(models.AbstractModel):
         res._update_reminder(vals)
         return res
 
-    @api.multi
     def write(self, vals):
         r_vals = vals.copy()
         reminders_without_event = self.filtered(lambda r: not r.reminder_event_id)
@@ -147,7 +141,6 @@ class CalendarEvent(models.Model):
     reminder_res_model = fields.Char('Related Document Model for reminding')
     reminder_res_id = fields.Integer('Related Document ID for reminding')
 
-    @api.multi
     def open_reminder_object(self):
         r = self[0]
         target = self._context.get('target', 'current')
@@ -180,7 +173,6 @@ class ReminderAdminWizard(models.TransientModel):
         return res
 
     @api.onchange('model')
-    @api.multi
     def _compute_events_count(self):
         for r in self:
             count = 0
@@ -188,13 +180,11 @@ class ReminderAdminWizard(models.TransientModel):
                 count = self.env['calendar.event'].search_count([('reminder_res_model', '=', r.model)])
             r.events_count = count
 
-    @api.multi
     def action_execute(self):
         for r in self:
             r.action_execute_one()
         return True
 
-    @api.multi
     def action_execute_one(self):
         self.ensure_one()
         if self.action == 'delete':

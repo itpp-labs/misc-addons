@@ -33,7 +33,6 @@ class ProductTemplate(models.Model):
                 vals['supplier_taxes_id'] = new_taxes['supplier_taxes_id']
         return super(ProductTemplate, self).create(vals)
 
-    @api.multi
     def write(self, vals):
         if vals.get('categ_id'):
             old_category_taxes = self.env.context.get('old_category_taxes')
@@ -62,7 +61,6 @@ class ProductCategory(models.Model):
     )
     product_template_ids = fields.One2many('product.template', 'categ_id', string="Products Templates")
 
-    @api.multi
     def write(self, vals):
         old_category_taxes = dict()
         if vals.get('taxes_id') or vals.get('supplier_taxes_id'):

@@ -17,7 +17,6 @@ class Import(models.TransientModel):
             res['matches'] = {r.column_number: [str(r.field_name)] for r in settings.line_ids}
         return res
 
-    @api.multi
     def do(self, fields, options, dryrun=False):
         res = super(Import, self).do(fields, options, dryrun=dryrun)
         if not dryrun and options['save_settings']:
@@ -40,7 +39,6 @@ class Import(models.TransientModel):
                 k += 1
         return res
 
-    @api.multi
     def _read_file(self, options):
         res = super(Import, self)._read_file(options)
         get_hook = self.get_map(options)

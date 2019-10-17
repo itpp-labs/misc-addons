@@ -22,7 +22,6 @@ class HrAttendance(models.Model):
     check_out = fields.Datetime(string="Check Out")
     worked_hours = fields.Float(string='Worked Hours', compute='_compute_worked_hours', store=True, readonly=True)
 
-    @api.multi
     def name_get(self):
         result = []
         for attendance in self:
@@ -103,14 +102,12 @@ class HrAttendance(models.Model):
                         'datetime': fields.Datetime.to_string(fields.Datetime.context_timestamp(self, fields.Datetime.from_string(last_attendance_before_check_out.check_in))),
                     })
 
-    @api.multi
     def copy(self):
         # super here is called by the reason of LINT error:
         # [W8106(method-required-super), HrAttendance.copy] Missing `super` call in "copy" method.
         super(HrAttendance, self).copy()
         raise exceptions.UserError(_('You cannot duplicate an attendance.'))
 
-    @api.multi
     def autocheckout_close_shifts(self):
         max_interval = float(self.env["ir.config_parameter"].get_param("base_attendance.shift_autocheckout", default=0))
         if max_interval:

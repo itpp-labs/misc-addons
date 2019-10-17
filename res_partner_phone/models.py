@@ -9,7 +9,6 @@ class ResPartnerPhone(models.Model):
     def _compute_display_name(self):
         return super(ResPartnerPhone, self)._compute_display_name()
 
-    @api.multi
     def name_get(self):
         result = dict(super(ResPartnerPhone, self).name_get())
         records = self.browse(list(result.keys()))

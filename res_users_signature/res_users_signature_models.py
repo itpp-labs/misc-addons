@@ -42,7 +42,6 @@ class ResUsers(models.Model):
         if html != self.signature:
             self.signature = html
 
-    @api.multi
     def write(self, vals):
         res = super(ResUsers, self).write(vals)
         for r in self:
@@ -75,20 +74,17 @@ You can use control structures:
 ''')
     user_ids = fields.One2many('res.users', 'signature_id', string='Users')
 
-    @api.multi
     def write(self, vals):
         res = super(ResUsersSignature, self).write(vals)
         for r in self:
             r.action_update_signature()
         return res
 
-    @api.multi
     def action_update_signature(self):
         for r in self:
             r.action_update_signature_one()
         return True
 
-    @api.multi
     def action_update_signature_one(self):
         self.ensure_one()
         self.user_ids.render_signature_id()
@@ -97,7 +93,6 @@ You can use control structures:
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    @api.multi
     def write(self, vals):
         res = super(ResPartner, self).write(vals)
         for r in self:

@@ -18,7 +18,6 @@ class HrPublicHolidaysImportIcs(models.TransientModel):
     ics_file = fields.Binary(string='Selected file', filters="*.ics", required=True)
     ics_file_name = fields.Char()
 
-    @api.multi
     def import_ics(self):
         ics = base64.b64decode(self.ics_file)
         lines = []

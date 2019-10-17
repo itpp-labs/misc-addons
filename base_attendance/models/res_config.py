@@ -18,7 +18,6 @@ class BaseConfigSettings(models.TransientModel):
                                          help='Some devices scan regular barcodes as hexadecimal. '
                                               'This option decode those types of barcodes')
 
-    @api.multi
     def set_values(self):
         super(BaseConfigSettings, self).set_values()
         config_parameters = self.env["ir.config_parameter"].sudo()
@@ -28,7 +27,6 @@ class BaseConfigSettings(models.TransientModel):
             config_parameters.set_param("base_attendance.hex_scanner_is_used", record.hex_scanner_is_used)
         self.checkout_shifts()
 
-    @api.multi
     def get_values(self):
         res = super(BaseConfigSettings, self).get_values()
         config_parameters = self.env["ir.config_parameter"].sudo()
