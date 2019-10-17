@@ -23,14 +23,12 @@ class IrConfigParameter(models.Model):
             self._attachment_force_storage(default_value)
         return res
 
-    @api.multi
     def _get_storage_value(self):
         for r in self:
             if self.key == STORAGE_KEY:
                 return r.value
         return None
 
-    @api.multi
     def write(self, vals):
         storage_value = self._get_storage_value()
         res = super(IrConfigParameter, self).write(vals)
@@ -38,7 +36,6 @@ class IrConfigParameter(models.Model):
             self._attachment_force_storage(storage_value)
         return res
 
-    @api.multi
     def unlink(self):
         storage_value = self._get_storage_value()
         res = super(IrConfigParameter, self).unlink()

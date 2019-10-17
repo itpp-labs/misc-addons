@@ -7,7 +7,6 @@ class ir_actions_todo(models.Model):
 
     repeat = fields.Boolean(string='Repeat', repeat=False)
 
-    @api.multi
     def action_launch(self, context=None):
         res = super(ir_actions_todo, self).action_launch(context=context)
         for wizard in self:

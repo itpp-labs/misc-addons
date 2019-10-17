@@ -51,7 +51,6 @@ class SaleOrderTheCage(models.Model):
 
     expiring_reminder = fields.Boolean(default=False)
 
-    @api.multi
     def write(self, vals):
         result = super(SaleOrderTheCage, self).write(vals)
         for r in self:
@@ -67,7 +66,6 @@ class SaleOrderTheCage(models.Model):
                     self.env['sms_sg.sendandlog'].send_sms(phone, msg)
         return result
 
-    @api.multi
     def remove_generated_lines(self):
         records = self.env['sale.order.line'].search([('order_id', '=', self[0].id), ('automatic', '=', True)])
         records.button_cancel()
@@ -92,7 +90,6 @@ class SaleOrderLine(models.Model):
     def _on_change_booking_start(self):
         self.booking_reminder = False
 
-    @api.multi
     def write(self, vals):
         result = super(SaleOrderLine, self).write(vals)
         for r in self:
@@ -100,13 +97,11 @@ class SaleOrderLine(models.Model):
                 r.send_booking_time()
         return result
 
-    @api.multi
     def send_booking_time(self):
         for r in self:
             r.send_booking_time_one()
         return True
 
-    @api.multi
     def send_booking_time_one(self):
         self.ensure_one()
         if self.booking_start and self.booking_end:
@@ -133,7 +128,6 @@ class SaleOrderLine(models.Model):
 
         return states
 
-    @api.multi
     @api.depends('order_id.state', 'booking_state')
     def _compute_line_active(self):
         for line in self:
@@ -192,7 +186,6 @@ class LinesWizard(models.TransientModel):
     booking_id = fields.Many2one('thecage_data.generate_booking_wizard')
     overlap = fields.Boolean(default=False)
 
-    @api.multi
     def find_overlaps(self, pitch_id, booking_start, booking_end):
         overlaps = 0
         overlaps = self.env['sale.order.line'].search_count(['&', '|', '&', ('booking_start', '>=', booking_start), ('booking_start', '<', booking_end),
@@ -204,7 +197,6 @@ class LinesWizard(models.TransientModel):
                                                               ('pitch_id', '=', pitch_id)])
         return overlaps
 
-    @api.multi
     @api.onchange('pitch_id', 'booking_start', 'booking_end')
     def _on_change_overlap(self):
         for line in self:
@@ -263,7 +255,6 @@ class GenerateBookingWizard(models.TransientModel):
         dt = self.booking_start and datetime.strptime(self.booking_start, DTF)
         self.day_of_week = dt and date(dt.year, dt.month, dt.day).weekday()
 
-    @api.multi
     def clear_booking_lines(self):
         self.write({'line_ids': [(5, 0, 0)]})
         return {
@@ -275,7 +266,6 @@ class GenerateBookingWizard(models.TransientModel):
             'target': 'new'
         }
 
-    @api.multi
     def generate_booking_lines(self):
         booking_start = datetime.strptime(self.booking_start, DTF)
         booking_end = datetime.strptime(self.booking_end, DTF)
@@ -303,7 +293,6 @@ class GenerateBookingWizard(models.TransientModel):
             'target': 'new'
         }
 
-    @api.multi
     def add_booking_lines(self):
         for line in self[0].line_ids:
             if line.overlap:
@@ -324,7 +313,6 @@ class GenerateBookingWizard(models.TransientModel):
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
-    @api.multi
     def invoice_validate(self):
         for invoice_obj in self.filtered(lambda r: r.type == 'out_refund'):
             for invoice_line_obj in invoice_obj.invoice_line:

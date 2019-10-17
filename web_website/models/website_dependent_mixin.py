@@ -97,7 +97,6 @@ class WebsiteDependentMixin(models.AbstractModel):
 
         self.env.cr.execute("UPDATE %s SET %s=%%s WHERE id = %s" % (self._table, field.name, self.id), (value,))
 
-    @api.multi
     def _create_default_value(self, field, prop_value):
         """Set company-independent default value"""
         self.ensure_one()

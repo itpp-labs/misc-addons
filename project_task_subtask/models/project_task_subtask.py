@@ -33,19 +33,16 @@ class ProjectTaskSubtask(models.Model):
     recolor = fields.Boolean(compute='_compute_recolor')
     deadline = fields.Datetime(string="Deadline")
 
-    @api.multi
     def _compute_recolor(self):
         for record in self:
             if self.env.user == record.user_id and record.state == 'todo':
                 record.recolor = True
 
-    @api.multi
     def _compute_hide_button(self):
         for record in self:
             if self.env.user not in [record.reviewer_id, record.user_id]:
                 record.hide_button = True
 
-    @api.multi
     def _compute_reviewer_id(self):
         for record in self:
             record.reviewer_id = record.create_uid
@@ -56,7 +53,6 @@ class ProjectTaskSubtask(models.Model):
             return [('state', '=', 'todo'), ('user_id', '=', self.env.uid)]
         return []
 
-    @api.multi
     def write(self, vals):
         old_names = dict(list(zip(self.mapped('id'), self.mapped('name'))))
         result = super(ProjectTaskSubtask, self).write(vals)
@@ -81,22 +77,18 @@ class ProjectTaskSubtask(models.Model):
         task.send_subtask_email(vals['name'], vals['state'], vals['reviewer_id'], vals['user_id'])
         return result
 
-    @api.multi
     def change_state_done(self):
         for record in self:
             record.state = 'done'
 
-    @api.multi
     def change_state_todo(self):
         for record in self:
             record.state = 'todo'
 
-    @api.multi
     def change_state_cancelled(self):
         for record in self:
             record.state = 'cancelled'
 
-    @api.multi
     def change_state_waiting(self):
         for record in self:
             record.state = 'waiting'
@@ -110,7 +102,6 @@ class Task(models.Model):
     completion = fields.Integer('Completion', compute='_compute_completion')
     completion_xml = fields.Text(compute='_compute_completion_xml')
 
-    @api.multi
     def _compute_default_user(self):
         for record in self:
             if self.env.user != record.user_id and self.env.user != record.create_uid:
@@ -123,7 +114,6 @@ class Task(models.Model):
                 elif self.env.user == record.create_uid and self.env.user == record.user_id:
                     record.default_user = self.env.user
 
-    @api.multi
     def _compute_kanban_subtasks(self):
         for record in self:
             result_string_td = ''
@@ -142,12 +132,10 @@ class Task(models.Model):
             record.kanban_subtasks = '<div class="kanban_subtasks"><ul>' + \
                                      result_string_td + result_string_wt + '</ul></div>'
 
-    @api.multi
     def _compute_completion(self):
         for record in self:
             record.completion = record.task_completion()
 
-    @api.multi
     def _compute_completion_xml(self):
         for record in self:
             active_subtasks = record.subtask_ids and record.subtask_ids.filtered(
@@ -190,7 +178,6 @@ class Task(models.Model):
         user_done_task_ids = user_task_ids.filtered(lambda x: x.state == 'done')
         return (len(user_done_task_ids) / len(user_task_ids)) * 100
 
-    @api.multi
     def send_subtask_email(self, subtask_name, subtask_state, subtask_reviewer_id, subtask_user_id, old_name=None):
         for r in self:
             body = ''
@@ -228,7 +215,6 @@ class Task(models.Model):
                            body=body,
                            partner_ids=partner_ids)
 
-    @api.multi
     def copy(self, default=None):
         task = super(Task, self).copy(default)
         for subtask in self.subtask_ids:

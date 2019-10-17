@@ -25,7 +25,6 @@ class IrConfigParameter(models.Model):
         res._force_default(FIELD_NAME, vals.get('value'))
         return res
 
-    @api.multi
     def write(self, vals):
         res = super(IrConfigParameter, self).write(vals)
         value = vals.get('value')

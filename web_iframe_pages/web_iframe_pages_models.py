@@ -38,13 +38,11 @@ class Page(models.Model):
 
     link = fields.Char('Link')
 
-    @api.multi
     def update_menu(self):
         for r in self:
             r.update_menu_one()
         return True
 
-    @api.multi
     def update_menu_one(self):
         self.ensure_one()
         if not self.menu_id:
@@ -61,13 +59,11 @@ class Page(models.Model):
         res.update_menu()
         return res
 
-    @api.multi
     def write(self, vals):
         res = super(Page, self).write(vals)
         self.update_menu()
         return res
 
-    @api.multi
     def unlink(self):
         self.menu_id.unlink()
         return super(Page, self).unlink()

@@ -40,7 +40,6 @@ class ProductTag(models.Model):
     _parent_order = 'name'
     _order = 'parent_left'
 
-    @api.multi
     def name_get(self):
         """ Return the tags' display name, including their direct parent. """
         res = {}

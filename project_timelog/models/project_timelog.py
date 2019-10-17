@@ -26,25 +26,21 @@ class ProjectTimelog(models.Model):
     stage_id = fields.Many2one("project.task.type", string="Stage")
     time_correction = fields.Float('Time Correction', default=0.00)
 
-    @api.multi
     @api.depends("end_datetime")
     def _compute_end_datetime_active(self):
         for r in self:
             r.end_datetime_active = r.end_datetime or datetime.datetime.now()
 
-    @api.multi
     @api.depends("start_datetime", "end_datetime")
     def _compute_duration(self):
         for r in self:
             r.duration = self._duration(r.start_datetime, r.end_datetime)
 
-    @api.multi
     @api.depends("start_datetime", "end_datetime", "time_correction")
     def _compute_corrected_duration(self):
         for r in self:
             r.corrected_duration = r.duration + r.time_correction
 
-    @api.multi
     def _recompute_corrected_duration_active(self):
         for r in self:
             if r.end_datetime:
@@ -67,7 +63,6 @@ class ProjectTimelog(models.Model):
         delta = end_datetime - start_datetime
         return delta.total_seconds() / 3600.0
 
-    @api.multi
     def write(self, vals):
         if 'time_correction' in vals:
             user = self.env.user
@@ -131,7 +126,6 @@ class Task(models.Model):
                 self.env["bus.bus"].sendmany(notifications)
                 return True
 
-    @api.multi
     def set_stage_timer(self):
         for r in self:
             works = r.timesheet_ids.filtered(lambda x: x.status == "play")
@@ -243,12 +237,10 @@ class AccountAnalyticLine(models.Model):
         ('name_task_uniq', 'unique (name,stage_id,task_id)', 'The name of the subtask must be unique per stage!')
     ]
 
-    @api.multi
     def _compute_combined_name(self):
         for r in self:
             r.combined_name = "%s: %s" % (r.task_id.name, r.name)
 
-    @api.multi
     def _compute_user_current(self):
         for r in self:
             if r.user_id.id == r.env.user.id:
@@ -256,7 +248,6 @@ class AccountAnalyticLine(models.Model):
             else:
                 r.user_current = False
 
-    @api.multi
     @api.depends("timelog_ids.end_datetime", "timelog_ids.time_correction")
     def _compute_unit_amount(self):
         for r in self:
@@ -287,14 +278,12 @@ class AccountAnalyticLine(models.Model):
             vals['unit_amount_computed'] = 0.00
         return super(AccountAnalyticLine, self).create(vals)
 
-    @api.multi
     def write(self, vals):
         unit_amount_computed = vals['unit_amount_computed'] if 'unit_amount_computed' in vals else self.unit_amount_computed
         if 'unit_amount' in vals and ('task_id' in vals or self.task_id) and vals['unit_amount'] > unit_amount_computed:
             vals['unit_amount'] = self.unit_amount
         return super(AccountAnalyticLine, self).write(vals)
 
-    @api.multi
     def play_timer(self):
         if self.env.user.id != self.user_id.id:
             return self.show_warning_message(title=_("Warning."),
@@ -360,7 +349,6 @@ class AccountAnalyticLine(models.Model):
         notifications.append([channel, message])
         self.env["bus.bus"].sendmany(notifications)
 
-    @api.multi
     def stop_timer(self, status=False, play_a_sound=True, stopline=False):
         for r in self:
             if r.env.user.id != r.user_id.id:

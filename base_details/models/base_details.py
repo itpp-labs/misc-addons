@@ -44,7 +44,6 @@ class BaseDetails(models.AbstractModel):
             self.details_model_exists = False
             self.details_model_record = False
 
-    @api.multi
     @api.depends('details_model')
     def _compute_existence(self):
         for rec in self:
@@ -53,7 +52,6 @@ class BaseDetails(models.AbstractModel):
             else:
                 rec.details_model_exists = False
 
-    @api.multi
     @api.onchange('details_model_exists', 'details_model_record')
     def _compute_res_id(self):
         for rec in self:
@@ -71,7 +69,6 @@ class BaseDetailsRecord(models.AbstractModel):
     _name = 'base_details_record'
     _base_details_model = 'UPDATE_THIS'
 
-    @api.multi
     def _base_details_reversed(self):
         reversed_records = self.env[self._base_details_model].search_read([
             ('details_model', '=', self._name),

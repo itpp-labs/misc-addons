@@ -21,7 +21,6 @@ class WebsiteDependent(models.Model):
             res._force_default(f, vals.get(f))
         return res
 
-    @api.multi
     def write(self, vals):
         res = super(WebsiteDependent, self).write(vals)
 

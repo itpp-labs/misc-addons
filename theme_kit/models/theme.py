@@ -17,7 +17,6 @@ class Theme(models.Model):
 
     code = fields.Text('Code', help='technical computed field', compute='_compute_code')
 
-    @api.multi
     def _compute_code(self):
         for r in self:
             code = ''
@@ -79,7 +78,6 @@ class ThemeTopPanel(models.Model):
 
     less = fields.Text('less', help='technical computed field', compute='_compute_less')
 
-    @api.multi
     def _compute_less(self):
         for r in self:
             code = ''
@@ -281,7 +279,6 @@ class ThemeLeftPanel(models.Model):
 
     less = fields.Text('less', help='technical computed field', compute='_compute_less')
 
-    @api.multi
     def _compute_less(self):
         for r in self:
             # double {{ will be formated as single {
@@ -446,7 +443,6 @@ class ThemeContent(models.Model):
     content_footer_color_active = fields.Boolean(default=False, help="Footer color")
     less = fields.Text('less', help='technical computed field', compute='_compute_less')
 
-    @api.multi
     def _compute_less(self):
         for r in self:
             code = ''

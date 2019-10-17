@@ -9,7 +9,6 @@ class Preview(models.AbstractModel):
     media_video_ID = fields.Char("Video ID", compute="_compute_video_ID")
     media_video_service = fields.Char("Video Service", compute="_compute_video_service")
 
-    @api.multi
     def _compute_type(self):
         for r in self:
             attachment = self.env["ir.attachment"]
@@ -21,7 +20,6 @@ class Preview(models.AbstractModel):
             else:
                 r.media_type = att.mimetype
 
-    @api.multi
     def _compute_video_ID(self):
         for r in self:
             attachment = self.env["ir.attachment"]
@@ -31,7 +29,6 @@ class Preview(models.AbstractModel):
             if att.mimetype == 'application/octet-stream' and att.url:
                 r.media_video_ID = self.youtube_url_validation(att.url) or self.vimeo_url_validation(att.url)
 
-    @api.multi
     def _compute_video_service(self):
         for r in self:
             attachment = self.env["ir.attachment"]
