@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 # Copyright 2016-2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
 # Copyright 2016-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2019 Alexandr Kolushov <https://it-projects.info/team/KolushovAlexandr>
+# Copyright 2019 Rafis Bikbov <https://it-projects.info/team/RafiZz>
+# Copyright 2019 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
+# Copyright 2019 Eugene Molotov <https://it-projects.info/team/em230418>
 import os
 import hashlib
 import logging
