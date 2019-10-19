@@ -7,7 +7,7 @@
     'website': "http://it-projects.info",
     'category': 'Project',
     'version': '1.0.0',
-    'price': 15.00,
+    'price': 9.00,
     'currency': 'EUR',
     'images': ['images/task_order.png'],
     'depends': ['project'],
