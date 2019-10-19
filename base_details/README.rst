@@ -20,6 +20,7 @@ Contributors
 Sponsors
 --------
 * `IT-Projects LLC <https://it-projects.info>`__
+* This module is not maintainable since Odoo 12.0, because lack of interests from customers
 
 Maintainers
 -----------
