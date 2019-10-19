@@ -7,3 +7,6 @@ E.g::
     <field name="model" widget="polymorphic" polymorphic="object_id" />
     <field name="object_id" />
 
+Maintainers
+------------
+This module is not maintainable since Odoo 11.0, because lack of interests from customers.
