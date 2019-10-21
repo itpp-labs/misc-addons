@@ -1,7 +1,7 @@
 .btn-color-ee{
     color: #FFFFFF;
-    background-color: #00A09D;
-    border-color: #00A09D;
+    background-color: #54293c;
+    border-color: #54293c;
     margin-left:10px;
     margin-top:10px;
     width:120px;
@@ -10,7 +10,7 @@
     list-style-type: none;
     display: inline;
     float:left;
-    color:#00A09D;
+    color:#54293c;
 }
 .list-right{
     list-style-type: none;
@@ -100,7 +100,7 @@
     text-align: center;
     color: rgba(255, 255, 255, 0.81);
 }
-.hr_birthday {
+.ohada_birthday {
     font-size: 28px;
     text-align: center;
     padding: 20px 0;
@@ -433,7 +433,7 @@ rect:hover {  fill:#934da5; }
     margin: 15px;
 
 }
-.hr_leave_request_approve {
+.ohada_leave_request_approve {
     padding: 0;
     padding-bottom: 0em;
     padding-top: 0em;
@@ -458,11 +458,11 @@ rect:hover {  fill:#934da5; }
     will-change: transform, box-shadow;
 
 }
-.hr_leave_request_approve:hover, .leaves_request_month:hover, .leaves_request_today:hover{
+.ohada_leave_request_approve:hover, .leaves_request_month:hover, .leaves_request_today:hover{
     transform: translateY(-2px) translateZ(0) !important;
     box-shadow: 0 10px 10px 0 rgba(62, 57, 107, 0.12), 0 0 0 transparent !important;
 }
-.hr_leave_request_approve p {
+.ohada_leave_request_approve p {
     font-size: 14px;
     color: #ff8762;
     margin-left: 1rem;
@@ -506,7 +506,7 @@ h4 .stat-count {
     width: 23%;
 
 }
-.hr_leave_request_approve h4 {
+.ohada_leave_request_approve h4 {
 
     padding: 5.2rem 0;
     margin: 0;
@@ -530,7 +530,7 @@ h4 .stat-count {
     color: #fff;
 
 }
-.leaves_request_today  h4 .stat-count ,.leaves_request_month h4 .stat-count , .hr_leave_request_approve h4 .stat-count
+.leaves_request_today  h4 .stat-count ,.leaves_request_month h4 .stat-count , .ohada_leave_request_approve h4 .stat-count
 {
     color:#fff !important;
 }
@@ -560,7 +560,7 @@ h4 .stat-count {
     margin-bottom: 10px;
     margin-left: 24px;
     width: 100%;
-    color: #00A09D;
+    color: #54293c;
 }
 .emp_graph {
     padding-left: 90px;
@@ -568,7 +568,7 @@ h4 .stat-count {
     padding-bottom: 65px;
     text-align: center !important;
 }
-.hr_leave_allocations_approve p {
+.ohada_leave_allocations_approve p {
     font-size: 14px;
     color: #ff8762;
     margin-left: 1rem;
@@ -578,7 +578,7 @@ h4 .stat-count {
     float: left;
     font-weight: bold;
 }
-.hr_leave_allocations_approve h4 {
+.ohada_leave_allocations_approve h4 {
 
     padding: 2.5rem 0;
     margin: 0;
@@ -587,7 +587,7 @@ h4 .stat-count {
     width: 26%;
     float: left;
 }
-.hr_leave_allocations_approve .stat-count {
+.ohada_leave_allocations_approve .stat-count {
 
     font-size: 17px;
     text-align: center;
@@ -598,7 +598,7 @@ h4 .stat-count {
     margin: 0;
 
 }
-.hr_leave_allocations_approve {
+.ohada_leave_allocations_approve {
 
     padding: 0;
     padding-top: 0px;
@@ -612,7 +612,7 @@ h4 .stat-count {
     height: 80px;
 
 }
-.hr_leave_allocations_approve:hover{
+.ohada_leave_allocations_approve:hover{
     transform: translateY(-2px) translateZ(0) !important;
     box-shadow: 0 10px 10px 0 rgba(62, 57, 107, 0.12), 0 0 0 transparent !important;
 }
@@ -630,7 +630,7 @@ h4 .stat-count {
     padding: 0;
 
 }
-.hr_job_application_approve {
+.ohada_job_application_approve {
     padding: 0;
         padding-top: 0px;
         padding-bottom: 0px;
@@ -648,7 +648,7 @@ h4 .stat-count {
     height: 80px;
 
 }
-.hr_job_application_approve p {
+.ohada_job_application_approve p {
     font-size: 14px;
     color: #70cac1;
     margin-left: 1rem;
@@ -658,7 +658,7 @@ h4 .stat-count {
     float: left;
     font-weight: bold;
 }
-.hr_job_application_approve h4 {
+.ohada_job_application_approve h4 {
 
     padding: 2.5rem 0;
     margin: 0;
@@ -668,7 +668,7 @@ h4 .stat-count {
     float: left;
 
 }
-.hr_job_application_approve .stat-count {
+.ohada_job_application_approve .stat-count {
 
     font-size: 17px !important;
     color: #fff !important;
@@ -681,11 +681,11 @@ h4 .stat-count {
     width: 100% !important;
 
 }
-.hr_job_application_approve:hover{
+.ohada_job_application_approve:hover{
     transform: translateY(-2px) translateZ(0) !important;
     box-shadow: 0 10px 10px 0 rgba(62, 57, 107, 0.12), 0 0 0 transparent !important;
 }
-.hr_attendance_login .oh-card {
+.ohada_attendance_login .oh-card {
     margin: 0;
         margin-bottom: 0px;
     margin-bottom: 0px;
@@ -695,33 +695,33 @@ h4 .stat-count {
     will-change: transform, box-shadow;
     box-shadow: 0 10px 40px 0 rgba(62,57,107,0.07), 0 2px 9px 0 rgba(62,57,107,0.06);
 }
-.hr_attendance_login .stat-widget-one {
+.ohada_attendance_login .stat-widget-one {
     background: none;
 }
-.hr_attendance_login .stat-widget-one .stat-icon {
+.ohada_attendance_login .stat-widget-one .stat-icon {
     text-align: center;
     padding-top: 9px;
 }
-.hr_attendance_login .stat-content {
+.ohada_attendance_login .stat-content {
     width: 100%;
     color: #fff !important;
 }
-.hr_attendance_login .stat-widget-one .stat-text {
+.ohada_attendance_login .stat-widget-one .stat-text {
     margin: 0;
     text-align: center;
     width: 100% !important;
     padding: 0;
     color: #fff;
 }
-.hr_attendance_login .stat-widget-one .stat-icon .fa {
+.ohada_attendance_login .stat-widget-one .stat-icon .fa {
     font-size: 50px;
 }
-.hr_attendance_login .stat-widget-one .stat-icon .fa {
+.ohada_attendance_login .stat-widget-one .stat-icon .fa {
     font-size: 50px;
     margin: 0px;
     box-shadow: none;
 }
-.hr_attendance_login {
+.ohada_attendance_login {
     margin-top: 1.5%;
 }
 .monthly_leave_graph_view .oh-card {
@@ -764,19 +764,19 @@ h4 .stat-count {
     transform: translateY(-2px) translateZ(0) !important;
     box-shadow: 0 10px 10px 0 rgba(62, 57, 107, 0.12), 0 0 0 transparent !important;
 }
-.hr_birthday {
+.ohada_birthday {
     font-size: 17px;
     text-align: center;
     padding: 20px 0;
     color: #00438b;
     font-weight: 300;
 }
-.hr_notification img {
+.ohada_notification img {
     width: 40px;
     height: 40px;
     border-radius: 100%;
 }
-.hr_notification {
+.ohada_notification {
     background: #fff;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     will-change: transform, box-shadow;
@@ -785,7 +785,7 @@ h4 .stat-count {
     overflow-y: auto;
     margin-bottom: 15px;
 }
-.hr_notification_big {
+.ohada_notification_big {
     background: #fff;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     will-change: transform, box-shadow;
@@ -794,21 +794,21 @@ h4 .stat-count {
     overflow-y: auto;
     margin-bottom: 15px;
 }
-.hr_notification .media {
+.ohada_notification .media {
     border-bottom: 1px solid #e6e6e6;
     padding-bottom: 6px;
     margin-bottom: 10px;
 }
-.hr_notification .text-color.display-6 {
+.ohada_notification .text-color.display-6 {
     margin: 0px 0 3px;
     color: #2d2d2d;
 }
-.hr_notification p {
+.ohada_notification p {
     margin: 0 0 1px;
     color: #666;
     font-size: 10px;
 }
-.hr_notification_head {
+.ohada_notification_head {
     font-size: 17px;
     text-align: center;
     padding: 12px 0;
@@ -941,22 +941,22 @@ h4 .stat-count {
     margin-right: 200px !important;
 }
 /* width */
-.hr_notification::-webkit-scrollbar {
+.ohada_notification::-webkit-scrollbar {
   width: 4px;
 }
 
 /* Track */
-.hr_notification::-webkit-scrollbar-track {
+.ohada_notification::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
 
 /* Handle */
-.hr_notification::-webkit-scrollbar-thumb {
+.ohada_notification::-webkit-scrollbar-thumb {
   background: #5ebade;
 }
 
 /* Handle on hover */
-.hr_notification::-webkit-scrollbar-thumb:hover {
+.ohada_notification::-webkit-scrollbar-thumb:hover {
   background: #598da1;
 }
 

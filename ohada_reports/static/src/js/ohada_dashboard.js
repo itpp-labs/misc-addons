@@ -12,8 +12,8 @@ var web_client = require('web.web_client');
 var _t = core._t;
 var QWeb = core.qweb;
 
-var HrDashboard = AbstractAction.extend(ControlPanelMixin, {
-    template: 'HrDashboardMain',
+var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
+    template: 'OhadaDashboardMain',
     cssLibs: [
         '/web/static/lib/nvd3/nv.d3.css'
     ],
@@ -23,19 +23,7 @@ var HrDashboard = AbstractAction.extend(ControlPanelMixin, {
         '/web/static/src/js/libs/nvd3.js'
     ],
     events: {
-        'click .hr_leave_allocations_approve': 'leave_allocations_to_approve',
-        'click .hr_timesheets': 'hr_timesheets',
-        'click .hr_job_application_approve': 'job_applications_to_approve',
-        'click .hr_payslip':'hr_payslip',
-        'click .hr_contract':'hr_contract',
-        'click .hr_employee':'hr_employee',
-        'click .leaves_request_month':'leaves_request_month',
-        'click .leaves_request_today':'leaves_request_today',
-        "click .o_hr_attendance_sign_in_out_icon": function() {
-            this.$('.o_hr_attendance_sign_in_out_icon').attr("disabled", "disabled");
-            this.update_attendance();
-        },
-        'click #broad_factor_pdf': 'generate_broad_factor_report',
+        'click .approve': 'to_approve',
     },
 
     init: function(parent, context) {
@@ -121,7 +109,7 @@ var HrDashboard = AbstractAction.extend(ControlPanelMixin, {
               });
             });
             var margin = {top: 30, right: 0, bottom: 30, left: 0},
-                width = 360 - margin.left - margin.right,
+                width = 235 - margin.left - margin.right,
                 height = 100 - margin.top - margin.bottom;
 
             // Set the ranges
@@ -398,8 +386,8 @@ var HrDashboard = AbstractAction.extend(ControlPanelMixin, {
 });
 
 
-core.action_registry.add('ohada_dashboard', HrDashboard);
+core.action_registry.add('ohada_dashboard', OhadaDashboard);
 
-return HrDashboard;
+return OhadaDashboard;
 
 });

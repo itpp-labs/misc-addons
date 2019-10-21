@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
-    <t t-name="HrDashboardMain">
+    <t t-name="OhadaDashboardMain">
         <div class="oh_dashboards">
             <div class="container-fluid o_ohada_dashboard">
             </div>
@@ -23,7 +23,7 @@
                             </ul>
                         </div>
                         <div class="col-md-4 col-lg-4" style="float:left;">
-                            <div class="hr_notification" >
+                            <div class="ohada_notification" >
                                 <div class="col-xs-12">
                                     <div class="col-sm-12 col-lg-12" style="padding:0;">
                                         <button class="btn btn-color-ee">IMPORT DATA</button>
@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <div class="col-md-4 col-lg-4" style="float:left;">
-                            <div class="hr_notification" >
+                            <div class="ohada_notification" >
                                 <ul style="margin-left:-30px;margin-top:10px;">
                                     <li class="list-left"><a name="create_invoice" type="object">Status of fiscal year</a></li>
                                     <li class="list-right">[posted]</li>
@@ -48,7 +48,7 @@
                             </div>
                         </div>
                         <div class="col-md-4 col-lg-4" style="float:left;">
-                            <div class="hr_notification" >
+                            <div class="ohada_notification" >
                                 <ul style="margin-left:-30px;margin-top:10px;">
                                     <li class="list-left">Fiscal result</li>
                                     <li class="list-right">[amount]</li>
@@ -92,15 +92,15 @@
             </div>
             <div class="row main-section">
                 <div class="col-md-2 col-sm-2 dummy"></div>
-                <div class="col-md-4 col-lg-3">
-                    <div class="hr_notification_big" >
+                <div class="col-md-5 col-lg-auto">
+                    <div class="ohada_notification_big" >
                         <div class="oh-card-body pb-0" style="padding:0;">
                             <h4 class="mb-0">
                             </h4>
-                            <a class="stat-head" style="padding:0px;color: #00438b;margin-top:15px;color:#00A09D;cursor:pointer;" t-att-href="'/web#action=' + widget.link_ids['Balance Sheet'] + '&amp;' + 'menu_id=' + menu_id">Balance sheet</a>
+                            <a class="stat-head" style="padding:0px;color:#54293c;margin-top:15px;cursor:pointer;" t-att-href="'/web#action=' + widget.link_ids['Balance sheet'] + '&amp;' + 'menu_id=' + menu_id">Balance sheet</a>
                         </div>
                         <div class="col-xs-12">
-                            <div class="hr_notification" style="height:80px;width:235px !important;margin-left:10px;">
+                            <div class="ohada_notification" style="height:80px;width:282px !important;margin-left:10px;">
                                 <ul style="margin-left:-30px;margin-top:5px;">
                                     <li class="list-left">Total assets</li>
                                     <li class="list-right">[amount]</li>
@@ -120,15 +120,15 @@
                         <div class="leave_graph" style="margin-top:-30px !important;margin-left:30px;" />
                      </div>
                 </div>
-                <div class="col-md-4 col-lg-3">
-                    <div class="col-xs-12  hr_notification_big" style="padding: 0;">
+                <div class="col-md-4 col-lg-auto">
+                    <div class="col-xs-12  ohada_notification_big" style="padding: 0;">
                         <div class="oh-card-body pb-0" style="padding:0;">
                             <h4 class="mb-0">
                             </h4>
-                            <a class="stat-head" style="padding:0px;color: #00438b;margin-top:15px;color:#00A09D;cursor:pointer;" t-att-href="'/web#action=' + widget.link_ids['Profit And Loss'] + '&amp;' + 'menu_id=' + menu_id">Profit  &amp; lost</a>
+                            <a class="stat-head" style="padding:0px;color:#54293c;margin-top:15px;cursor:pointer;" t-att-href="'/web#action=' + widget.link_ids['Profit And Loss'] + '&amp;' + 'menu_id=' + menu_id">Profit  &amp; lost</a>
                         </div>
                         <div class="col-xs-12">
-                            <div class="hr_notification" style="height:80px;width:235px !important;margin-left:10px;">
+                            <div class="ohada_notification" style="height:80px;width:282px !important;margin-left:10px;">
                                 <ul style="margin-left:-30px;margin-top:5px;">
                                     <li class="list-left">Net profit N</li>
                                     <li class="list-right">[amount]</li>
@@ -148,15 +148,15 @@
                         </div>
                      </div>
                 </div>
-                <div class="col-md-4 col-lg-4">
-                    <div class="col-xs-12  hr_notification_big" style="padding: 0;">
+                <div class="col-md-4 col-lg-auto">
+                    <div class="col-xs-12  ohada_notification_big" style="padding: 0;">
                         <div class="oh-card-body pb-0" style="padding:0;">
                             <h4 class="mb-0">
                             </h4>
-                            <a class="stat-head" style="padding:0px;color: #00438b;margin-top:15px;color:#00A09D;cursor:pointer;" t-att-href="'/web#action=' + widget.link_ids['Cash Flow Statement'] + '&amp;' + 'menu_id=' + menu_id">Cashflow statement</a>
+                            <a class="stat-head" style="padding:0px;color:#54293c;margin-top:15px;cursor:pointer;" t-att-href="'/web#action=' + widget.link_ids['Cash Flow Statement'] + '&amp;' + 'menu_id=' + menu_id">Cashflow statement</a>
                         </div>
                         <div class="col-xs-12">
-                            <div class="hr_notification" style="height:80px;width:335px !important;margin-left:10px;">
+                            <div class="ohada_notification" style="height:80px;width:282px !important;margin-left:10px;">
                                 <ul style="margin-left:-30px;margin-top:5px;">
                                     <li class="list-left">Cash closing balance N</li>
                                     <li class="list-right">[amount]</li>

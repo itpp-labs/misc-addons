@@ -10,7 +10,7 @@ import ast
 import dateparser           #B+
 
 from dateutil.relativedelta import relativedelta
-import wdb
+
 
 try:
     from odoo.tools.misc import xlsxwriter
@@ -650,7 +650,6 @@ class OhadaReport(models.AbstractModel):
 
     @api.multi
     def get_html(self, options, line_id=None, additional_context=None):
-        # wdb.set_trace()
         '''
         return the html value of report, or html value of unfolded line
         * if line_id is set, the template used will be the line_template
