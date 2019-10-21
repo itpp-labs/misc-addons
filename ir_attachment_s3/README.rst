@@ -11,7 +11,10 @@ Credits
 
 Contributors
 ------------
-* Ildar Nasyrov <iledarn@it-projects.info>
+* `Ildar Nasyrov <https://it-projects.info/team/iledarn>`
+* `Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>`
+* `Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>`
+* `Eugene Molotov <https://it-projects.info/team/em230418>`
 
 Sponsors
 --------
@@ -36,4 +39,4 @@ Usage instructions: `<doc/index.rst>`_
 
 Changelog: `<doc/changelog.rst>`_
 
-Tested on Odoo 10.0 f05e8655ee4ee7205c67006ca5a8cb30ed445c81
+Tested on Odoo 10.0 98a137e4b1f631a10d46b5e0cb21bb83ed7e861f

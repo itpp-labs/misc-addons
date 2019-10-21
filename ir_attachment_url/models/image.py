@@ -5,6 +5,12 @@
 from odoo import tools
 import re
 
+SIZES_MAP = {
+    'image_small': (64, 64),
+    'image_medium': (128, 128),
+    'image': (1024, 1024),
+}
+
 
 super_image_resize_images = tools.image_resize_images
 

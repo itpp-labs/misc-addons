@@ -4,7 +4,7 @@
     "summary": """Use attachment URL and upload data to external storage""",
     "category": "Tools",
     "images": [],
-    "version": "10.0.1.1.7",
+    "version": "10.0.1.1.8",
     "application": False,
 
     "author": "IT-Projects LLC, Ildar Nasyrov",
@@ -18,7 +18,9 @@
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
+        "data/ir_attachment_url_data.xml",
         "views/ir_attachment_url_template.xml",
+        "views/ir_attachment_res_config.xml",
         "demo/ir_attachment.xml",
     ],
     "qweb": [

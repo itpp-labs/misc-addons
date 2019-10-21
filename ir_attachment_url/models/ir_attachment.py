@@ -13,7 +13,7 @@ class IrAttachment(models.Model):
         url_records = self.filtered(lambda r: r.type == 'url' and r.url)
         for attach in url_records:
             if not bin_size:
-                r = requests.get(attach.url)
+                r = requests.get(attach.url, timeout=5)
                 attach.datas = base64.b64encode(r.content)
             else:
                 attach.datas = "1.00 Kb"
