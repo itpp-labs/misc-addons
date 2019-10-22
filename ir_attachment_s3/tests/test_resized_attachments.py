@@ -52,9 +52,17 @@ class TestResizedAttachments(HttpCase):
 
         self.authenticate('demo', 'demo')
 
-        redirected_image_url = self.url_open(odoo_image_url, timeout=30).geturl()
-        redirected_image_medium_url = self.url_open(odoo_image_medium_url, timeout=30).geturl()
-        redirected_image_small_url = self.url_open(odoo_image_small_url, timeout=30).geturl()
+        redirected_image = self.url_open(odoo_image_url, timeout=30)
+        redirected_image_medium = self.url_open(odoo_image_medium_url, timeout=30)
+        redirected_image_small = self.url_open(odoo_image_small_url, timeout=30)
+
+        self.assertEqual(redirected_image.getcode(), 200)
+        self.assertEqual(redirected_image_medium.getcode(), 200)
+        self.assertEqual(redirected_image_small.getcode(), 200)
+
+        redirected_image_url = redirected_image.geturl()
+        redirected_image_medium_url = redirected_image_medium.geturl()
+        redirected_image_small_url = redirected_image_small.geturl()
 
         # Attachments must be created during the execution of requests that are written above.
         product_product_image_variant_attachment = env['ir.http']._find_field_attachment(env, 'product.product', 'image_variant', product_product.id)
