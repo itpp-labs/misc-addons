@@ -54,14 +54,14 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
                 model: 'ohada.financial.html.report',
                 method: 'get_link',
         }).done(function(result) {
-            self.link_ids =  result;
+            self.data =  result;
         });
         return $.when(def1);
     },
 
     render_dashboards: function() {
         var self = this;
-        if (this.link_ids){
+        if (this.data){
             _.each(this.dashboards_templates, function(template) {
                 self.$('.o_ohada_dashboard').append(QWeb.render(template, {widget: self}));
             });
@@ -73,7 +73,7 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
 
     render_graphs: function(){
         var self = this;
-        if (this.link_ids){
+        if (this.data){
             self.render_leave_graph();
             self.render_leave_graph2();
             self.update_join_resign_trends();

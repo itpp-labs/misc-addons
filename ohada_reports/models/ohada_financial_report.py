@@ -12,7 +12,7 @@ from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, ValidationError
 from odoo.osv import expression
 from odoo.tools.pycompat import izip
-
+import wdb
 
 
 class ReportOhadaFinancialReport(models.Model):
@@ -53,14 +53,50 @@ class ReportOhadaFinancialReport(models.Model):
 
     @api.model
     def get_link(self):
-        link_ids = dict()
+        # wdb.set_trace()
+        data = dict()
+        options = {'ir_filters': None,
+                   'date': {'date_to': '2019-12-31', 'string': '2019', 'filter': 'this_year',
+                            'date_from': '2019-01-01'}}
+
+        bz_id = self.env.ref('ohada_reports.account_financial_report_balancesheet_BZ').id
+        dz_id = self.env.ref('ohada_reports.account_financial_report_balancesheet_DZ').id
+        xl_id = self.env.ref('ohada_reports.account_financial_report_ohada_profitlost_XI').id
+        zh_id = self.env.ref('ohada_reports.account_financial_report_ohada_cashflow_ZH').id
+
+        # wdb.set_trace()
+        # 1st
+        data['bz'] = self._get_lines(options, bz_id)[0]['columns'][0]['no_format_name']
+        data['dz'] = self._get_lines(options, dz_id)[0]['columns'][0]['no_format_name']
+        data['dif_1'] = '$ {:,.2f}'.format(data['bz'] + data['dz'])
+        data['bz'] = '$ {:,.2f}'.format(data['bz'])
+        data['dz'] = '$ {:,.2f}'.format(data['dz'])
+
+        # 2nd
+        data['xl'] = self._get_lines(options, xl_id)[0]['columns'][0]['no_format_name']
+        data['xl-1'] = self._get_lines({'ir_filters': None,
+                                        'date': {'date_to': '2018-12-31', 'string': '2018', 'filter': 'this_year',
+                                                 'date_from': '2018-01-01'}}, xl_id)[0]['columns'][0]['no_format_name']
+        data['xl_dif'] = '$ {:,.2f}'.format(data['xl'] - data['xl-1'])
+        data['xl'] = '$ {:,.2f}'.format(data['xl'])
+        data['xl-1'] = '$ {:,.2f}'.format(data['xl-1'])
+
+        # 3st
+        data['zh'] = self._get_lines(options, zh_id)[0]['columns'][0]['no_format_name']
+        data['zh-1'] = self._get_lines({'ir_filters': None,
+                                        'date': {'date_to': '2018-12-31', 'string': '2018', 'filter': 'this_year',
+                                                 'date_from': '2018-01-01'}}, zh_id)[0]['columns'][0]['no_format_name']
+        data['zh_dif'] = '$ {:,.2f}'.format(data['zh'] - data['zh-1'])
+        data['zh'] = '$ {:,.2f}'.format(data['zh'])
+        data['zh-1'] = '$ {:,.2f}'.format(data['zh-1'])
+
         reports = ['ohada_reports.action_account_report_cs',
                    'ohada_reports.action_account_report_ohada_balancesheet',
                    'ohada_reports.action_account_report_pnl',]
-        link_ids['menu_id'] = self.env.ref('account_accountant.menu_accounting').id
+        data['menu_id'] = self.env.ref('account_accountant.menu_accounting').id
         for i in reports:
-            link_ids[self.env.ref(i).name] = self.env.ref(i).id
-        return link_ids
+            data[self.env.ref(i).name] = self.env.ref(i).id
+        return data
 
     def _get_column_name(self, field_content, field):
         comodel_name = self.env['account.move.line']._fields[field].comodel_name
@@ -363,6 +399,7 @@ class ReportOhadaFinancialReport(models.Model):
 
     @api.multi
     def _get_lines(self, options, line_id=None):
+        # wdb.set_trace()
         line_obj = self.line_ids
         if line_id:
             line_obj = self.env['ohada.financial.html.report.line'].search([('id', '=', line_id)])

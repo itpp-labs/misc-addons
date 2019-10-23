@@ -9,7 +9,7 @@
 
     <t t-name="ManagerDashboard">
         <div class="ohada_dashboard_main">
-            <t t-set="menu_id" t-value="widget.link_ids['menu_id']"/>
+            <t t-set="menu_id" t-value="widget.data['menu_id']"/>
             <div class="row main-section" style="padding-top:20px;">
                 <div class="col-md-2 col-sm-2 dummy"></div>
                 <div class="col-sm-10 col-lg-10  monthly_leave_graph_view">
@@ -97,23 +97,23 @@
                         <div class="oh-card-body pb-0" style="padding:0;">
                             <h4 class="mb-0">
                             </h4>
-                            <a class="stat-head" style="padding:0px;color:#54293c;margin-top:15px;cursor:pointer;" t-att-href="'/web#action=' + widget.link_ids['Balance sheet'] + '&amp;' + 'menu_id=' + menu_id">Balance sheet</a>
+                            <a class="stat-head" style="padding:0px;color:#54293c;margin-top:15px;cursor:pointer;" t-att-href="'/web#action=' + widget.data['Balance sheet'] + '&amp;' + 'menu_id=' + menu_id">Balance sheet</a>
                         </div>
                         <div class="col-xs-12">
                             <div class="ohada_notification" style="height:80px;width:282px !important;margin-left:10px;">
                                 <ul style="margin-left:-30px;margin-top:5px;">
                                     <li class="list-left">Total assets</li>
-                                    <li class="list-right">[amount]</li>
+                                    <li class="list-right"><t t-esc="widget.data['bz']"/></li>
                                 </ul>
                                 <div style="clear:both;"></div>
                                 <ul style="margin-left:-30px;margin-top:5px;">
                                     <li class="list-left">Total liabilities</li>
-                                    <li class="list-right">[amount]</li>
+                                    <li class="list-right"><t t-esc="widget.data['dz']"/></li>
                                 </ul>
                                 <div style="clear:both;"></div>
                                 <ul style="margin-left:-30px;margin-top:5px;">
                                     <li class="list-left">Difference</li>
-                                    <li class="list-right">[amount]</li>
+                                    <li class="list-right"><t t-esc="widget.data['dif_1']"/></li>
                                 </ul>
                             </div>
                         </div>
@@ -125,23 +125,23 @@
                         <div class="oh-card-body pb-0" style="padding:0;">
                             <h4 class="mb-0">
                             </h4>
-                            <a class="stat-head" style="padding:0px;color:#54293c;margin-top:15px;cursor:pointer;" t-att-href="'/web#action=' + widget.link_ids['Profit And Loss'] + '&amp;' + 'menu_id=' + menu_id">Profit  &amp; lost</a>
+                            <a class="stat-head" style="padding:0px;color:#54293c;margin-top:15px;cursor:pointer;" t-att-href="'/web#action=' + widget.data['Profit And Loss'] + '&amp;' + 'menu_id=' + menu_id">Profit  &amp; lost</a>
                         </div>
                         <div class="col-xs-12">
                             <div class="ohada_notification" style="height:80px;width:282px !important;margin-left:10px;">
                                 <ul style="margin-left:-30px;margin-top:5px;">
                                     <li class="list-left">Net profit N</li>
-                                    <li class="list-right">[amount]</li>
+                                    <li class="list-right"><t t-esc="widget.data['xl']"/></li>
                                 </ul>
                                 <div style="clear:both;"></div>
                                 <ul style="margin-left:-30px;margin-top:5px;">
                                     <li class="list-left">Net profit N-1</li>
-                                    <li class="list-right">[amount]</li>
+                                    <li class="list-right"><t t-esc="widget.data['xl-1']"/></li>
                                 </ul>
                                 <div style="clear:both;"></div>
                                 <ul style="margin-left:-30px;margin-top:5px;">
                                     <li class="list-left">Variation</li>
-                                    <li class="list-right">[amount]</li>
+                                    <li class="list-right"><t t-esc="widget.data['xl_dif']"/></li>
                                 </ul>
                             </div>
                             <div class="leave_graph2" style="margin-top:-30px !important;margin-left:30px;" />
@@ -153,29 +153,32 @@
                         <div class="oh-card-body pb-0" style="padding:0;">
                             <h4 class="mb-0">
                             </h4>
-                            <a class="stat-head" style="padding:0px;color:#54293c;margin-top:15px;cursor:pointer;" t-att-href="'/web#action=' + widget.link_ids['Cash Flow Statement'] + '&amp;' + 'menu_id=' + menu_id">Cashflow statement</a>
+                            <a class="stat-head" style="padding:0px;color:#54293c;margin-top:15px;cursor:pointer;" t-att-href="'/web#action=' + widget.data['Cash Flow Statement'] + '&amp;' + 'menu_id=' + menu_id">Cashflow statement</a>
                         </div>
                         <div class="col-xs-12">
                             <div class="ohada_notification" style="height:80px;width:282px !important;margin-left:10px;">
                                 <ul style="margin-left:-30px;margin-top:5px;">
                                     <li class="list-left">Cash closing balance N</li>
-                                    <li class="list-right">[amount]</li>
+                                    <li class="list-right"><t t-esc="widget.data['zh']"/></li>
                                 </ul>
                                 <div style="clear:both;"></div>
                                 <ul style="margin-left:-30px;margin-top:5px;">
                                     <li class="list-left">Cash closing balance N-1</li>
-                                    <li class="list-right">[amount]</li>
+                                    <li class="list-right"><t t-esc="widget.data['zh-1']"/></li>
                                 </ul>
                                 <div style="clear:both;"></div>
                                 <ul style="margin-left:-30px;margin-top:5px;">
                                     <li class="list-left">Variation</li>
-                                    <li class="list-right">[amount]</li>
+                                    <li class="list-right"><t t-esc="widget.data['zh_dif']"/></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="monthly_join_resign_trend">
                             <div class="join_resign_trend" style="margin-top:-20px !important;margin-left:-5px;padding:0px;" />
                         </div>
+                        <t t-name="JournalBodyGraph">
+                            <field name="widget.data['test_data']" t-att-graph_type="_.contains(['cash','bank'],journal_type) ? 'line' : 'bar'" widget="dashboard_graph"/>
+                        </t>
                      </div>
 
                 </div>

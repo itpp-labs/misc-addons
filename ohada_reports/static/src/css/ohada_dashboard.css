@@ -126,9 +126,9 @@ rect:hover {  fill:#934da5; }
 
 .axis path,
 .axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
+    fill: none;
+    stroke: #e5e5e5;
+    shape-rendering: crispEdges;
 }
 
 .x.axis path {  display: none; }
@@ -151,8 +151,8 @@ rect:hover {  fill:#934da5; }
 .broad_factor_graph .axis path,
 .broad_factor_graph .axis line {
 	fill: none;
-	stroke: black;
-	shape-rendering: crispEdges;
+    stroke: #e5e5e5;
+    shape-rendering: crispEdges;
 }
 .broad_factor_graph .axis text {
 	font-family: sans-serif;
