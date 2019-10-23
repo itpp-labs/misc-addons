@@ -1,6 +1,7 @@
 # Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2019 Eugene Molotov <https://it-projects.info/team/em230418>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
-from odoo import models, api
+from odoo import models
 import logging
 
 
@@ -10,6 +11,19 @@ _logger = logging.getLogger(__name__)
 class WebsiteDependentMixin(models.AbstractModel):
     _name = 'website_dependent.mixin'
     _description = 'Mixin Class with helpers to convert previously normal fields to website-depedent'
+
+    def with_context(self, *args, **kwargs):
+        res = super(WebsiteDependentMixin, self).with_context(*args, **kwargs)
+        self.invalidate_cache(fnames=self._get_website_dependent_field_names())
+        return res
+
+    def _get_website_dependent_field_names(self):
+        return filter(
+            lambda field_name: self._fields[field_name].website_dependent
+            if hasattr(self._fields[field_name], 'website_dependent')
+            else False,
+            self._fields.keys()
+        )
 
     def _prop_label(self, field_name, company=None, website=None):
         self.ensure_one()
