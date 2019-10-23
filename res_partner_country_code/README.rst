@@ -11,4 +11,10 @@ Known issues
 
 * raise unknown error from "Search more" button in country dropdown list (see https://github.com/odoo/odoo/pull/8483 )
 
+Maintainers
+-----------
+* `IT-Projects LLC <https://it-projects.info>`__
+
+	  This module is not maintainable since Odoo 9.0
+    
 Tested on Odoo 8.0 c345d294b12f3ac3e3c8b549e0633686d017d0fe
