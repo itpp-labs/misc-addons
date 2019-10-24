@@ -36,6 +36,9 @@ class BinaryExtended(Binary):
 
         res = super(BinaryExtended, self).content_image(xmlid, model, id, field, filename_field, unique, filename, mimetype, download, width, height)
 
+        if request.env['ir.config_parameter'].sudo().get_param('ir_attachment_url.storage') != 's3':
+            return res
+
         is_product_product_image = model == 'product.product' and field in ('image', 'image_small', 'image_medium')
         if not (res.status_code == 301 and (width or height)) and not is_product_product_image:
             return res

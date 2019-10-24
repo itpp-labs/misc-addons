@@ -1,3 +1,8 @@
+`1.2.2`
+-------
+
+- **Fix:** Executing S3 controller when ir_attachment_url.storage config is not s3
+
 `1.2.1`
 -------
 
