@@ -101,7 +101,7 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
             method: 'search_read',
             fields: ['code'],
         }).then(function (data) {
-            var data = [{'name': "Join", 'values':[{count: 1, l_month: "N3"},{count: 5, l_month: "N2"},{count: 4, l_month: "N1"},{count: 6, l_month: "N"}]}]
+            var data = [{'name': "Join", 'values':[{count: 1, l_month: "2016"},{count: 5, l_month: "2017"},{count: 4, l_month: "2018"},{count: 6, l_month: "2019"}]}]
             data.forEach(function(d) {
               d.values.forEach(function(d) {
                 d.l_month = d.l_month;
@@ -278,7 +278,7 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
 
                 // calculate total frequency by state for all segment.
 //                var sF = fData.map(function(d){return [d.l_month,d.total];});
-                var sF = [['N3',1], ['N2',6], ['N1',3], ['N',2]];
+                var sF = [['2016',1], ['2017',6], ['2018',3], ['2019',2]];
                 var hG = histoGram(sF); // create the histogram.
         });
     },
@@ -377,7 +377,7 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
 
                 // calculate total frequency by state for all segment.
 //                var sF = fData.map(function(d){return [d.l_month,d.total];});
-                var sF = [['N3',5], ['N2',1], ['N1',4], ['N',1]];
+                var sF = [['2016',5], ['2017',1], ['2018',4], ['2019',1]];
                 var hG = histoGram(sF); // create the histogram.
         });
     },

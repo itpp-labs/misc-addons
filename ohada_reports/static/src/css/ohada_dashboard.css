@@ -1,22 +1,28 @@
 .btn-color-ee{
     color: #FFFFFF;
-    background-color: #54293c;
-    border-color: #54293c;
+    background-color: #00A09D;
+    border-color: #00A09D;
     margin-left:10px;
     margin-top:10px;
     width:120px;
+}
+.btn-color-ee:focus,
+.btn-color-ee.focus,
+.btn-color-ee:hover{
+    background-color: #007a77;
+    border-color: #007a77;
 }
 .list-left{
     list-style-type: none;
     display: inline;
     float:left;
-    color:#54293c;
+    color:#008784;
 }
 .list-right{
     list-style-type: none;
     display: inline;
     float:right;
-    margin-right:5px;
+    margin-right:15px;
     color: #666666;
 }
 /*-------------------------------------------------------------------*/
@@ -223,13 +229,7 @@ rect:hover {  fill:#934da5; }
     box-shadow: none;
     background: none;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    will-change: transform, box-shadow;
-
-}
-.oh-card:hover {
-
-    transform: translateY(-2px) translateZ(0) !important;
-    box-shadow: 0 10px 10px 0 rgba(62, 57, 107, 0.12), 0 0 0 transparent !important;
+    border: 1px solid #ced4da;
 
 }
 .employee-prof .employee-icon {
@@ -555,12 +555,15 @@ h4 .stat-count {
 }
 .stat-head {
     text-align: left !important;
-    font-weight: 500;
     font-size: 16px;
     margin-bottom: 10px;
-    margin-left: 24px;
+    margin-left: 22px;
     width: 100%;
-    color: #54293c;
+    color: #008784;
+    font-weight: 560;
+}
+.stat-head:hover{
+    color: #007a77;
 }
 .emp_graph {
     padding-left: 90px;
@@ -728,7 +731,6 @@ h4 .stat-count {
     background: #fff;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     will-change: transform, box-shadow;
-    box-shadow: 0 10px 40px 0 rgba(62,57,107,0.07), 0 2px 9px 0 rgba(62,57,107,0.06);
     padding: 15px;
 }
 .broad_factor_graph .oh-card {
@@ -736,7 +738,6 @@ h4 .stat-count {
     background: #fff;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     will-change: transform, box-shadow;
-    box-shadow: 0 10px 40px 0 rgba(62,57,107,0.07), 0 2px 9px 0 rgba(62,57,107,0.06);
     padding: 15px;
 }
 .leave_broad_factor {
@@ -753,7 +754,6 @@ h4 .stat-count {
     border-radius: 30px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     will-change: transform, box-shadow;
-    box-shadow: 0 10px 40px 0 rgba(62,57,107,0.07), 0 2px 9px 0 rgba(62,57,107,0.06);
     border: 1px solid #4ec3b7;
     color: #757575;
     padding-top: 9px;
@@ -762,14 +762,6 @@ h4 .stat-count {
 }
 #broad_factor_pdf:hover{
     transform: translateY(-2px) translateZ(0) !important;
-    box-shadow: 0 10px 10px 0 rgba(62, 57, 107, 0.12), 0 0 0 transparent !important;
-}
-.ohada_birthday {
-    font-size: 17px;
-    text-align: center;
-    padding: 20px 0;
-    color: #00438b;
-    font-weight: 300;
 }
 .ohada_notification img {
     width: 40px;
@@ -779,20 +771,20 @@ h4 .stat-count {
 .ohada_notification {
     background: #fff;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    will-change: transform, box-shadow;
-    box-shadow: 0 10px 40px 0 rgba(62,57,107,0.07), 0 2px 9px 0 rgba(62,57,107,0.06);
     height: 90px;
     overflow-y: auto;
     margin-bottom: 15px;
+    padding-left: 5px;
+    width:280px !important;
 }
 .ohada_notification_big {
     background: #fff;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     will-change: transform, box-shadow;
-    box-shadow: 0 10px 40px 0 rgba(62,57,107,0.07), 0 2px 9px 0 rgba(62,57,107,0.06);
     height: 240px;
     overflow-y: auto;
     margin-bottom: 15px;
+    border: 1px solid #ced4da;
 }
 .ohada_notification .media {
     border-bottom: 1px solid #e6e6e6;
