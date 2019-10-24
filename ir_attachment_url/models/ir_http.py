@@ -20,11 +20,11 @@ class IrHttp(models.AbstractModel):
     _inherit = 'ir.http'
 
     @classmethod
-    def _find_field_attachment(cls, env, m, f, id):
+    def _find_field_attachment(cls, env, m, f, res_id):
         domain = [
             ('res_model', '=', m),
             ('res_field', '=', f),
-            ('res_id', '=', id),
+            ('res_id', '=', res_id),
             ('type', '=', 'url'),
         ]
         return env['ir.attachment'].sudo().search(domain)
@@ -47,7 +47,7 @@ class IrHttp(models.AbstractModel):
         return att
 
     @classmethod
-    def binary_content(cls, xmlid=None, model='ir.attachment', id=None, field='datas', unique=False, filename=None, filename_field='datas_fname', download=False, mimetype=None, default_mimetype='application/octet-stream', access_token=None, env=None):
+    def binary_content(cls, xmlid=None, model='ir.attachment', id=None, field='datas', unique=False, filename=None, filename_field='datas_fname', download=False, mimetype=None, default_mimetype='application/octet-stream', access_token=None, env=None):  # pylint: disable=redefined-builtin
         """ Get file, attachment or downloadable content
 
         If the ``xmlid`` and ``id`` parameter is omitted, fetches the default value for the
@@ -123,6 +123,12 @@ class IrHttp(models.AbstractModel):
             if att:
                 content = att.url
                 status = 301
+                # yelizariev:
+                # Why do we redefine mimetype variable passed to the method? Can original mimetype has not a Non wrong value?
+                # em230418:
+                # in original binary_content method, mimetype is redefined without any condition:
+                # https://github.com/odoo/odoo/blob/98a137e4b1f631a10d46b5e0cb21bb83ed7e861f/odoo/addons/base/ir/ir_http.py#L312
+                mimetype = att.mimetype
 
             if not content:
                 content = obj[field] or ''
@@ -138,7 +144,9 @@ class IrHttp(models.AbstractModel):
                 filename = "%s-%s-%s" % (obj._name, obj.id, field)
 
         # mimetype
-        mimetype = 'mimetype' in obj and obj.mimetype or False
+        # redefined: in the original function there is no condition
+        if not mimetype:
+            mimetype = 'mimetype' in obj and obj.mimetype or False
         if not mimetype:
             if filename:
                 mimetype = mimetypes.guess_type(filename)[0]

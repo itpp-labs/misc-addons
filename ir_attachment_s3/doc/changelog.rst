@@ -1,3 +1,9 @@
+`1.2.1`
+-------
+
+- **FIX:** Stop saving s3-related environtment variables to Odoo parameters
+- **Improvement:** Correct handling with resizing product images
+
 `1.2.0`
 -------
 
