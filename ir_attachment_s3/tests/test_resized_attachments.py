@@ -24,10 +24,7 @@ class TestResizedAttachments(HttpCase):
     def test_getting_cached_images_url_instead_computing(self):
         env = api.Environment(self.registry.test_cr, self.uid, {})
 
-        ir_attachment_url_storage = env['ir.config_parameter'].get_param('ir_attachment_url.storage', default='url')
-        if ir_attachment_url_storage != 's3':
-            self.skipTest('This test only works if "ir_attachment_url.storage" = "s3"! (ir_attachment_url_storage = %s)' % ir_attachment_url_storage)
-            return
+        env['ir.config_parameter'].set_param('ir_attachment_url.storage', 's3')
 
         if not env['ir.attachment']._get_s3_resource():
             self.skipTest('Bad S3 credidentials given')
