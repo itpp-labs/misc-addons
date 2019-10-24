@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2019 Rafis Bikbov <https://it-projects.info/team/RafiZz>
 # Copyright 2019 Alexandr Kolushov <https://it-projects.info/team/KolushovAlexandr>
 # Copyright 2019 Eugene Molotov <https://it-projects.info/team/em230418>
@@ -56,13 +55,13 @@ class TestResizedAttachments(HttpCase):
         redirected_image_medium = self.url_open(odoo_image_medium_url, timeout=30)
         redirected_image_small = self.url_open(odoo_image_small_url, timeout=30)
 
-        self.assertEqual(redirected_image.getcode(), 200)
-        self.assertEqual(redirected_image_medium.getcode(), 200)
-        self.assertEqual(redirected_image_small.getcode(), 200)
+        self.assertEqual(redirected_image.status_code, 200)
+        self.assertEqual(redirected_image_medium.status_code, 200)
+        self.assertEqual(redirected_image_small.status_code, 200)
 
-        redirected_image_url = redirected_image.geturl()
-        redirected_image_medium_url = redirected_image_medium.geturl()
-        redirected_image_small_url = redirected_image_small.geturl()
+        redirected_image_url = redirected_image.url
+        redirected_image_medium_url = redirected_image_medium.url
+        redirected_image_small_url = redirected_image_small.url
 
         # Attachments must be created during the execution of requests that are written above.
         product_product_image_variant_attachment = env['ir.http']._find_field_attachment(env, 'product.product', 'image_variant', product_product.id)

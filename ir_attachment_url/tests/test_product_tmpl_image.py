@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2019 Rafis Bikbov <https://it-projects.info/team/RafiZz>
 # Copyright 2019 Alexandr Kolushov <https://it-projects.info/team/KolushovAlexandr>
 # Copyright 2019 Eugene Molotov <https://it-projects.info/team/em230418>
@@ -61,6 +60,6 @@ class TestProductTmplImage(HttpCase):
 
         self.authenticate('demo', 'demo')
 
-        self.assertEqual(self.url_open(odoo_image_url).geturl(), product_tmpl_image_attachment.url)
-        self.assertEqual(self.url_open(odoo_image_medium_url).geturl(), product_tmpl_image_medium_attachment.url)
-        self.assertEqual(self.url_open(odoo_image_small_url).geturl(), product_tmpl_image_small_attachment.url)
+        self.assertEqual(self.url_open(odoo_image_url).url, product_tmpl_image_attachment.url)
+        self.assertEqual(self.url_open(odoo_image_medium_url).url, product_tmpl_image_medium_attachment.url)
+        self.assertEqual(self.url_open(odoo_image_small_url).url, product_tmpl_image_small_attachment.url)
