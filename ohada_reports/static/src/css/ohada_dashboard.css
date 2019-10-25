@@ -126,7 +126,7 @@ body .text-color {
 path {  stroke: #fff; }
 path:hover {  opacity:0.9; }
 rect:hover {  fill:#934da5; }
-.axis {  font: 10px sans-serif; }
+.axis {  font: 10px sans-serif; margin_left:30px;}
 .legend tr{    border-bottom:1px solid grey; }
 .legend tr:first-child{    border-top:1px solid grey; }
 
@@ -137,7 +137,7 @@ rect:hover {  fill:#934da5; }
     shape-rendering: crispEdges;
 }
 
-.x.axis path {  display: none; }
+.x.axis path {display: none;}
 .legend{
     border-collapse: collapse;
     border-spacing: 0px;
@@ -553,7 +553,7 @@ h4 .stat-count {
     transform: translateY(-2px) translateZ(0) !important;
     box-shadow: 0 10px 10px 0 rgba(62, 57, 107, 0.12), 0 0 0 transparent !important;
 }
-.stat-head {
+.ul-head{
     text-align: left !important;
     font-size: 16px;
     margin-bottom: 10px;
@@ -562,8 +562,26 @@ h4 .stat-count {
     color: #008784;
     font-weight: 560;
 }
+.li-head{
+    list-style-type: none;
+    display: inline;
+    cursor: pointer;
+}
+.li-head:hover{
+    color: #003a3f;
+}
+.stat-head {
+    text-align: left !important;
+    font-size: 16px;
+    margin-bottom: 10px;
+    margin-left: 22px;
+    width: 100%;
+    color: #008784;
+    font-weight: 560;
+    cursor: pointer;
+}
 .stat-head:hover{
-    color: #007a77;
+    color: #003a3f;
 }
 .emp_graph {
     padding-left: 90px;
