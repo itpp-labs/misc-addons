@@ -91,6 +91,9 @@ class IrAttachment(models.Model):
         return s3
 
     def _inverse_datas(self):
+        if self.env['ir.config_parameter'].sudo().get_param('ir_attachment_url.storage') != 's3':
+            return super(IrAttachment, self)._inverse_datas()
+
         condition = self._get_s3_settings('s3.condition', 'S3_CONDITION')
         if condition and not self.env.context.get('force_s3'):
             condition = safe_eval(condition, mode="eval")

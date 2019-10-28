@@ -2,6 +2,7 @@
 -------
 
 - **Fix:** Executing S3 controller when ir_attachment_url.storage config is not s3
+- **Fix:** Executing _inverse_datas when ir_attachment_url.storage config is not s3
 
 `1.2.1`
 -------
