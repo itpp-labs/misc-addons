@@ -1,15 +1,14 @@
 // Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+// Copyrigth 2019 Eugene Molotov <https://it-projects.info/team/em230418>
 // License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 odoo.define('web_website.tour', function(require) {
 "use strict";
 
 var tour = require("web_tour.tour");
-var base = require("web_editor.base");
 
 var options = {
     test: true,
     url: '/web#',
-    wait_for: base.ready()
 };
 
 var tour_name = 'web_website.tour';

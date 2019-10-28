@@ -77,4 +77,4 @@ Changelog: `<doc/changelog.rst>`_
 
 Notifications on updates: `via Atom <https://github.com/it-projects-llc/misc-addons/commits/13.0/web_website.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/it-projects-llc/misc-addons/commits/13.0/web_website.atom>`_
 
-Tested on Odoo 12.0 d75de9ae5370869eaa220f5fdfb335d1b7e40acf
+Tested on Odoo 13.0 8ebb5bdb4b63927a302f0d057b2f4db535d93829

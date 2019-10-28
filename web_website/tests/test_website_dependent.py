@@ -1,4 +1,5 @@
 # Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2019 Eugene Molotov <https://it-projects.info/team/em230418>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 import logging
 
@@ -240,12 +241,12 @@ class TestFields(common.TransactionCase):
         # create/modify a record, and check the value for each user
         record = self.env[MODEL].create({'foo': 'main'})
         record.invalidate_cache()
-        self.assertEqual(record.sudo(user0).foo, 'main')
-        self.assertEqual(record.sudo(user1).foo, 'default')
-        self.assertEqual(record.sudo(user2).foo, 'default')
+        self.assertEqual(record.with_user(user0).foo, 'main')
+        self.assertEqual(record.with_user(user1).foo, 'default')
+        self.assertEqual(record.with_user(user2).foo, 'default')
 
-        record.sudo(user1).foo = 'alpha'
+        record.with_user(user1).foo = 'alpha'
         record.invalidate_cache()
-        self.assertEqual(record.sudo(user0).foo, 'main')
-        self.assertEqual(record.sudo(user1).foo, 'alpha')
-        self.assertEqual(record.sudo(user2).foo, 'default')
+        self.assertEqual(record.with_user(user0).foo, 'main')
+        self.assertEqual(record.with_user(user1).foo, 'alpha')
+        self.assertEqual(record.with_user(user2).foo, 'default')
