@@ -15,6 +15,9 @@
 
         <record id="ohada_financial_report_profitandloss0" model="ohada.financial.html.report">
             <field name="name">Profit and Loss</field>
+            <field name="shortname">Profit &amp; Lost</field>
+            <field name="code">PL</field>
+            <field name="type">main</field>
             <field name="debit_credit" eval="False"/>
             <field name="analytic" eval="True"/>
             <field name="cash_basis" eval="True"/>
@@ -131,6 +134,9 @@
 
         <record id="ohada_financial_report_balancesheet0" model="ohada.financial.html.report">
             <field name="name">Balance Sheet</field>
+            <field name="shortname">Balance sheet</field>
+            <field name="code">BS</field>
+            <field name="type">main</field>
             <field name="cash_basis" eval="True"/>
             <field name="debit_credit" eval="False"/>
             <field name="date_range" eval="False"/>
@@ -361,6 +367,9 @@
 
         <record id="ohada_financial_report_cashsummary0" model="ohada.financial.html.report">
             <field name="name">Cash Flow Statement</field>
+            <field name="shortname">Cashflow</field>
+            <field name="code">CF</field>
+            <field name="type">main</field>
             <field name="unfold_all_filter" eval="True"/>
             <field name="show_journal_filter" eval="True"/>
             <field name='parent_id' ref='menu_ohada_legal_statements_main'/>

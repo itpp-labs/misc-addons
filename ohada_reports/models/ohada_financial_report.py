@@ -13,7 +13,8 @@ from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, ValidationError
 from odoo.osv import expression
 from odoo.tools.pycompat import izip
-import wdb
+from odoo.http import request
+# import wdb
 
 
 class ReportOhadaFinancialReport(models.Model):
@@ -22,6 +23,7 @@ class ReportOhadaFinancialReport(models.Model):
     _inherit = "ohada.report"
 
     name = fields.Char(translate=True)
+    shortname = fields.Char(translate=True)
     code = fields.Char('Code')
     debit_credit = fields.Boolean('Show Credit and Debit Columns')
     line_ids = fields.One2many('ohada.financial.html.report.line', 'financial_report_id', string='Lines')
@@ -41,6 +43,13 @@ class ReportOhadaFinancialReport(models.Model):
     tax_report = fields.Boolean('Tax Report', help="Set to True to automatically filter out journal items that have the boolean field 'tax_exigible' set to False")
     applicable_filters_ids = fields.Many2many('ir.filters', domain="[('model_id', '=', 'account.move.line')]",
                                               help='Filters that can be used to filter and group lines in this report.')
+    type = fields.Selection([('main', 'Main'),
+                             ('note', 'Note'),
+                             ('sheet', 'Sheet'),
+                             ('cover', 'Cover')],
+                            default='main')
+    sequence = fields.Integer()
+
 
     #    _sql_constraints = [
     #        ('code_uniq', 'unique (code)', "A report with the same code already exists."),
@@ -71,6 +80,7 @@ class ReportOhadaFinancialReport(models.Model):
                                 'date_from': '2019-01-01'}}
 
         data['years'] = ['2019', '2018', '2017', '2016']
+        data['company_name'] = self.env['res.users'].browse(request.session.uid).company_id.name
 
         bz_id = self.env.ref('ohada_reports.account_financial_report_balancesheet_BZ').id
         dz_id = self.env.ref('ohada_reports.account_financial_report_balancesheet_DZ').id
@@ -151,7 +161,7 @@ class ReportOhadaFinancialReport(models.Model):
 
         reports = ['ohada_reports.action_account_report_cs',
                    'ohada_reports.action_account_report_ohada_balancesheet',
-                   'ohada_reports.action_account_report_pnl',]
+                   'ohada_reports.account_financial_report_ohada_profitlost',]
 
         data['menu_id'] = self.env.ref('account_accountant.menu_accounting').id
 

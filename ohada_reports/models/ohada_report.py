@@ -26,6 +26,7 @@ from odoo.tools.misc import formatLang, format_date, get_user_companies
 from odoo.addons.web.controllers.main import clean_action
 from odoo.tools.safe_eval import safe_eval
 from odoo.exceptions import UserError
+import wdb
 
 _logger = logging.getLogger(__name__)
 
@@ -657,6 +658,7 @@ class OhadaReport(models.AbstractModel):
         we don't want to reload all lines, just get the one we unfolded.
         '''
         # Check the security before updating the context to make sure the options are safe.
+        # wdb.set_trace()
         self._check_report_security(options)
 
         # Prevent inconsistency between options and context.

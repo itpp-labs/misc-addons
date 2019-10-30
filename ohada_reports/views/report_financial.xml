@@ -301,9 +301,12 @@
                 <button class="btn btn-primary js_account_report_save_summary">Save</button>
             </div>
             <div class="table-responsive">
-                <table class="o_account_reports_table">
+                <table>
                     <t t-call="{{model._get_templates()['main_table_header_template']}}"/>
-                    <tbody>
+                </table>
+                <table class="o_account_reports_table">
+                    <!--<t t-call="{{model._get_templates()['main_table_header_template']}}"/>-->
+                    <tbody class="ohada_table">
                         <t t-if="lines.get('lines')">
                             <t t-call="{{model._get_templates()['line_template']}}"/>
                         </t>

@@ -1,3 +1,24 @@
+@font-face{
+    font-family: 'NimbusSanL-Regu';
+    src: url(../fonts/NimbusSanL-Regu.ttf);
+}
+@font-face{
+    font-family: 'NimbusSanL-Bold';
+    src: url(../fonts/NimbusSanL-Bold.ttf);
+}
+
+.account_report_line_name {
+    vertical-align: middle;
+}
+.ohada_table {
+    border-top-style: double;
+    border-left-style: double;
+    border-right-style: double;
+    border-bottom-style: double;
+    border-color: #001E5A;
+    color: #001E5A;
+    font-family: NimbusSanL-Regu;
+}
 .o_foldable_menu {
     &.o_closed_menu {
         display: none;
@@ -33,12 +54,14 @@
         border-width: 3px;
         font-weight: bold;
         // border-top-style: $border-top-style;
-        border-bottom-style: double;
+        background-color: #CDEBFF;
+        text-align: center;
+        vertical-align: middle;
     }
     .o_account_reports_table {
         white-space: nowrap;
         margin-bottom: 128px;
-        tbody tr:not(.o_account_reports_level0):hover {
+        tbody tr:not(.o_account_reports_level0, .o_account_reports_level1):hover {
             background-color: #f0f0f0;
         }
     }
@@ -60,6 +83,7 @@
     }
     .o_account_report_line {
         white-space: nowrap;
+        border: 1px solid #001E5A;
     }
     .o_account_report_summary {
         padding-left: 5px;
@@ -97,6 +121,7 @@
         .number {
             text-align: right;
             width: 6%;
+            border: 1px solid #e6e6e6;
         }
         .date {
             text-align: center;
@@ -219,7 +244,8 @@
     }
     .o_account_reports_level0, .o_account_reports_level1, .o_account_reports_level2, .o_account_reports_domain_total, .total {
         .text-muted {
-            color: #666666 !important;
+            color: #001E5A !important;
+            border-color: #001E5A;
         }
     }
     .o_foldable_total {
@@ -238,20 +264,26 @@
     }
     .o_account_reports_level0 {
         & td {
-            padding-top: 32px;
+            padding-top: 10px;
+            padding-bottom: 10px;
         }
         > td.o_account_report_line_indent.o_foldable_total > span:last-child {
             margin-left: 10px;
         }
     }
     .o_account_reports_level1 {
-        border-width: 2px;
-        border-bottom-style: solid;
         font-weight: bold;
+        background-color: #FFDCDC;
+        text-align: center;
+        vertical-align: middle;
+        & td {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
     }
     .o_account_reports_level2 {
         border-bottom: 1px solid #bbb;
-        font-weight: bold;
+        font-weight: normal;
         > td.o_account_report_line_indent > span:last-child {
             margin-left: 15px;
         }
