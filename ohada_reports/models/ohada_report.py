@@ -658,7 +658,6 @@ class OhadaReport(models.AbstractModel):
         we don't want to reload all lines, just get the one we unfolded.
         '''
         # Check the security before updating the context to make sure the options are safe.
-        # wdb.set_trace()
         self._check_report_security(options)
 
         # Prevent inconsistency between options and context.
@@ -666,9 +665,11 @@ class OhadaReport(models.AbstractModel):
 
         templates = self._get_templates()
         report_manager = self._get_report_manager(options)
+        # wdb.set_trace()
         report = {'name': self._get_report_name(),
-                'summary': report_manager.summary,
-                'company_name': self.env.user.company_id.name,}
+                  'summary': report_manager.summary,
+                  'company_name': self.env.user.company_id.name,
+                  'type': self.type,}
         lines = self._get_lines(options, line_id=line_id)
 
         if options.get('hierarchy'):

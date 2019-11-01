@@ -14,7 +14,7 @@ from odoo.exceptions import UserError, ValidationError
 from odoo.osv import expression
 from odoo.tools.pycompat import izip
 from odoo.http import request
-# import wdb
+import wdb
 
 
 class ReportOhadaFinancialReport(models.Model):
@@ -47,7 +47,7 @@ class ReportOhadaFinancialReport(models.Model):
                              ('note', 'Note'),
                              ('sheet', 'Sheet'),
                              ('cover', 'Cover')],
-                            default='main')
+                            default=False)
     sequence = fields.Integer()
 
 
@@ -208,6 +208,7 @@ class ReportOhadaFinancialReport(models.Model):
         - when a split in the row above happened
 
         '''
+        # wdb.set_trace()
         if not options.get('groups', {}).get('ids'):
             return False
 
@@ -567,9 +568,10 @@ class OhadaFinancialReportLine(models.Model):
     reference = fields.Char(string="Référence")
     flag = fields.Char(string="Flag", size=10)
     note_report_ids = fields.Many2many(comodel_name='ohada.financial.html.report', relation='financial_report_report_note', column1='financial_report', column2='report_note', string='Note Reports')
-    note = fields.Char(string="Note", compute='_get_note_displayed', readonly=True, help="Note displayed in reports")
+    note = fields.Char(string="Note", help="Note displayed in reports")
     displayed_sign = fields.Char(string="Displayed Sign", size=3)
     hidden_line = fields.Boolean(default=False)
+    symbol = fields.Char(string="Symbol")
 
     _sql_constraints = [
         ('code_uniq', 'unique (code)', "A report line with the same code already exists."),
@@ -1087,7 +1089,7 @@ class OhadaFinancialReportLine(models.Model):
             if currency_id.is_zero(value['name']):
                 # don't print -0.0 in reports
                 value['name'] = abs(value['name'])
-                value['class'] = 'number text-muted'
+                value['class'] = 'number'
             if not currency_id or (currency_id and (currency_id.name != 'XOF' or currency_id.symbol == 'CFA')): #E+
                 value['name'] = formatLang(self.env, value['name'], digits=0)                                   #E+
             else: #E+   
@@ -1314,11 +1316,13 @@ class OhadaFinancialReportLine(models.Model):
                 continue
 
             # Post-processing ; creating line dictionnary, building comparison, computing total for extended, formatting
+            # wdb.set_trace()
             vals = {
                 'id': line.id,
                 'name': line.name,
                 'reference': line.reference,        #E+
                 'note': line.note,                  #E+
+                'symbol': line.symbol,
                 'level': line.level,
                 'class': '',
                 'columns': [{'name': l} for l in res['line']],

@@ -8,6 +8,7 @@
     <record id="account_financial_report_ohada_balancesheet" model="ohada.financial.html.report">
         <field name="name">Balance Sheet</field>
         <field name="debit_credit" eval="True"/>
+        <field name="type">main</field>
 <!--    <field name="cash_basis" eval="False"/>
         <field name="date_range" eval="False"/>     -->        
         <field name="unfold_all_filter" eval="True"/>
@@ -25,14 +26,14 @@
         <field name="sequence" eval="1"/>
         <field name="level" eval="8" />
     </record>    
-    <record id="account_financial_report_ohada_balancesheet_control_line" model="ohada.financial.html.report.line">
-        <field name="name"></field>
-        <field name="code">_bs_02</field>
-        <field name="reference">Ligne de contrôle</field>
-        <field name="financial_report_id" ref="account_financial_report_ohada_balancesheet"/>
-        <field name="sequence" eval="2"/>
-        <field name="level" eval="1" />
-    </record>
+    <!--<record id="account_financial_report_ohada_balancesheet_control_line" model="ohada.financial.html.report.line">-->
+        <!--<field name="name"></field>-->
+        <!--<field name="code">_bs_02</field>-->
+        <!--<field name="reference">Ligne de contrôle</field>-->
+        <!--<field name="financial_report_id" ref="account_financial_report_ohada_balancesheet"/>-->
+        <!--<field name="sequence" eval="2"/>-->
+        <!--<field name="level" eval="1" />-->
+    <!--</record>-->
     <record id="account_financial_report_ohada_balancesheet_actif_passif" model="ohada.financial.html.report.line">
         <field name="name">ACTIF&#160;&#160;-&#160;&#160;PASSIF</field>
         <field name="code">ACTIF_PASSIF_TOTAL</field>
@@ -73,9 +74,9 @@
     -->
 
     <record id="account_financial_report_ohada_balancesheet_assets" model="ohada.financial.html.report.line">
-        <field name="name"> </field>
+        <field name="name">ACTIF</field>
         <field name="code">ACTIF</field>
-        <field name="reference">ACTIF</field>
+        <field name="reference">REF</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_balancesheet"/>
         <field name="sequence" eval="5"/>
         <field name="level" eval="0" />
@@ -938,9 +939,9 @@
     </record>    
 
     <record id="account_financial_report_ohada_balancesheet_liabilitites" model="ohada.financial.html.report.line">
-        <field name="name"> </field>
+        <field name="name">PASSIF</field>
         <field name="code">PASSIF</field>
-        <field name="reference">PASSIF</field>
+        <field name="reference">REF</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_balancesheet"/>
         <field name="sequence" eval="205"/>
         <field name="level" eval="0" />
@@ -1315,25 +1316,27 @@
     
     <record id="account_financial_report_ohada_profitlost" model="ohada.financial.html.report">
         <field name="name">Profit and Lost</field>
+        <field name="type">main</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="hierarchy_option" eval="False"/>
         <field name='parent_id' ref='ohada_reports.menu_ohada_legal_statements_main'/>
     </record>
 
-    <record id="account_financial_report_ohada_profitlost_spacer_1" model="ohada.financial.html.report.line">
-        <field name="name">&#160;</field>
-        <field name="code">_pl_1</field>
-        <field name="reference"></field>
-        <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
-        <field name="sequence" eval="1"/>
-        <field name="level" eval="8" />
-    </record>    
+    <!--<record id="account_financial_report_ohada_profitlost_spacer_1" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Tested</field>-->
+        <!--<field name="code">_pl_1</field>-->
+        <!--<field name="reference"></field>-->
+        <!--<field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>-->
+        <!--<field name="sequence" eval="1"/>-->
+        <!--<field name="level" eval="8" />-->
+    <!--</record>    -->
     
     <record id="account_financial_report_ohada_profitlost_" model="ohada.financial.html.report.line">
-        <field name="name">&#160;</field>
+        <field name="name">LIBELLES</field>
         <field name="code">_</field>
-        <field name="reference"/>
-        <field name="note"/>
+        <field name="reference">REF</field>
+        <field name="note">NOTE</field>
+        <field name="symbol"> </field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="formulas"/>
         <field name="level" eval="0" />
@@ -1345,6 +1348,7 @@
         <field name="code">_TA</field>
         <field name="reference">TA</field>
         <field name="note">21</field>
+        <field name="symbol">+</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '701%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1358,6 +1362,7 @@
         <field name="code">_RA</field>
         <field name="reference">RA</field>
         <field name="note">22</field>
+        <field name="symbol">-</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '601%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1371,6 +1376,7 @@
         <field name="code">_RB</field>
         <field name="reference">RB</field>
         <field name="note">6</field>
+        <field name="symbol">+/-</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '6031%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1383,7 +1389,8 @@
         <field name="name">MARGE COMMERCIALE &#160;&#160;&#160; (Somme TA à RB)</field>
         <field name="code">_XA</field>
         <field name="reference">XA</field>
-        <field name="note"/>
+        <field name="note"> </field>
+        <field name="symbol"> </field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="formulas">balance = _TA.balance + _RA.balance + _RB.balance</field>
         <field name="level" eval="0" />
@@ -1396,6 +1403,7 @@
         <field name="code">_TB</field>
         <field name="reference">TB</field>
         <field name="note">21</field>
+        <field name="symbol">+</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="['|', '|', ('account_id.code', '=like', '702%'), ('account_id.code', '=like', '703%'), ('account_id.code', '=like', '704%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1409,6 +1417,7 @@
         <field name="code">_TC</field>
         <field name="reference">TC</field>
         <field name="note">21</field>
+        <field name="symbol">+</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="['|', ('account_id.code', '=like', '705%'), ('account_id.code', '=like', '706%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1422,6 +1431,7 @@
         <field name="code">_TD</field>
         <field name="reference">TD</field>
         <field name="note">21</field>
+        <field name="symbol">+</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '707%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1434,7 +1444,8 @@
         <field name="name">CHIFFRE D'AFFAIRES &#160;&#160;&#160; (A + B + C + D)</field>
         <field name="code">_XB</field>
         <field name="reference">XB</field>
-        <field name="note"/>
+        <field name="note"> </field>
+        <field name="symbol"> </field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="formulas">balance = _TA.balance + _TB.balance + _TC.balance + _TD.balance</field>
         <field name="level" eval="0" />
@@ -1447,6 +1458,7 @@
         <field name="code">_TE</field>
         <field name="reference">TE</field>
         <field name="note">6</field>
+        <field name="symbol">+/-</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '73%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1460,6 +1472,7 @@
         <field name="code">_TF</field>
         <field name="reference">TF</field>
         <field name="note">6</field>
+        <field name="symbol">+</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '72%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1473,6 +1486,7 @@
         <field name="code">_TG</field>
         <field name="reference">TG</field>
         <field name="note">6</field>
+        <field name="symbol">+</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '71%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1486,6 +1500,7 @@
         <field name="code">_TH</field>
         <field name="reference">TH</field>
         <field name="note">21</field>
+        <field name="symbol">+</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '75%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1499,6 +1514,7 @@
         <field name="code">_TI</field>
         <field name="reference">TI</field>
         <field name="note">12</field>
+        <field name="symbol">+</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '781%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1512,6 +1528,7 @@
         <field name="code">_RC</field>
         <field name="reference">RC</field>
         <field name="note">22</field>
+        <field name="symbol">-</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '602%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1525,6 +1542,7 @@
         <field name="code">_RD</field>
         <field name="reference">RD</field>
         <field name="note">6</field>
+        <field name="symbol">+/-</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '6032%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1538,6 +1556,7 @@
         <field name="code">_RE</field>
         <field name="reference">RE</field>
         <field name="note">22</field>
+        <field name="symbol">-</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="['|', '|', ('account_id.code', '=like', '604%'), ('account_id.code', '=like', '605%'), ('account_id.code', '=like', '608%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1551,6 +1570,7 @@
         <field name="code">_RF</field>
         <field name="reference">RF</field>
         <field name="note">22</field>
+        <field name="symbol">+/-</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '6033%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1564,6 +1584,7 @@
         <field name="code">_RG</field>
         <field name="reference">RG</field>
         <field name="note">6</field>
+        <field name="symbol">-</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '61%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1577,6 +1598,7 @@
         <field name="code">_RH</field>
         <field name="reference">RH</field>
         <field name="note">23</field>
+        <field name="symbol">-</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="['|', ('account_id.code', '=like', '62%'), ('account_id.code', '=like', '63%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1590,6 +1612,7 @@
         <field name="code">_RI</field>
         <field name="reference">RI</field>
         <field name="note">24</field>
+        <field name="symbol">-</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '64%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1603,6 +1626,7 @@
         <field name="code">_RJ</field>
         <field name="reference">RJ</field>
         <field name="note">25</field>
+        <field name="symbol">-</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '65%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1615,7 +1639,8 @@
         <field name="name">VALEUR AJOUTEE &#160;&#160;&#160; (XB + RA + RB) + (Somme TE à RJ)</field>
         <field name="code">_XC</field>
         <field name="reference">XC</field>
-        <field name="note"/>
+        <field name="note"> </field>
+        <field name="symbol"> </field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="formulas">balance = _XB.balance + _RA.balance + _RB.balance + _TE.balance + _TF.balance + _TG.balance + _TH.balance + _TI.balance + _RC.balance + _RD.balance + _RE.balance + _RF.balance + _RG.balance + _RH.balance + _RI.balance + _RJ.balance</field>
         <field name="level" eval="0" />
@@ -1628,6 +1653,7 @@
         <field name="code">_RK</field>
         <field name="reference">RK</field>
         <field name="note">27</field>
+        <field name="symbol">-</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '66%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1641,6 +1667,7 @@
         <field name="code">_XD</field>
         <field name="reference">XD</field>
         <field name="note">28</field>
+        <field name="symbol"> </field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="formulas">balance = _XC.balance + _RK.balance</field>
         <field name="level" eval="0" />
@@ -1652,7 +1679,8 @@
         <field name="name">Reprises d'amortissements, provisions et aux dépréciations</field>
         <field name="code">_TJ</field>
         <field name="reference">TJ</field>
-        <field name="note">28</field> 
+        <field name="note">28</field>
+        <field name="symbol">+</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="['|', '|', ('account_id.code', '=like', '791%'), ('account_id.code', '=like', '798%'), ('account_id.code', '=like', '799%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1666,6 +1694,7 @@
         <field name="code">_RL</field>
         <field name="reference">RL</field>
         <field name="note">3C&amp;28</field>
+        <field name="symbol">-</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="['|', ('account_id.code', '=like', '681%'), ('account_id.code', '=like', '891%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1678,7 +1707,8 @@
         <field name="name">RESULTAT D'EXPLOITATION &#160;&#160;&#160; (XD + TJ + RL)</field>
         <field name="code">_XE</field>
         <field name="reference">XE</field>
-        <field name="note"/>
+        <field name="note"> </field>
+        <field name="symbol"> </field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="formulas">balance = _XD.balance + _TJ.balance + _RL.balance</field>
         <field name="level" eval="0" />
@@ -1690,7 +1720,8 @@
         <field name="name">Revenus financiers et assimilés</field>
         <field name="code">_TK</field>
         <field name="reference">TK</field>
-        <field name="note">29</field> 
+        <field name="note">29</field>
+        <field name="symbol">+</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '77%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1703,7 +1734,8 @@
         <field name="name">Reprises de provisions et de dépréciations financières</field>
         <field name="code">_TL</field>
         <field name="reference">TL</field>
-        <field name="note">28</field> 
+        <field name="note">28</field>
+        <field name="symbol">+</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '797%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1716,7 +1748,8 @@
         <field name="name">Transfert de charges financières</field>
         <field name="code">_TM</field>
         <field name="reference">TM</field>
-        <field name="note">12</field> 
+        <field name="note">12</field>
+        <field name="symbol">+</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '787%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1729,7 +1762,8 @@
         <field name="name">Frais financiers et charges assimilées</field>
         <field name="code">_RM</field>
         <field name="reference">RM</field>
-        <field name="note">29</field> 
+        <field name="note">29</field>
+        <field name="symbol">-</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '67%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1742,7 +1776,8 @@
         <field name="name">Dotations aux provisions et aux dépréciations financières</field>
         <field name="code">_RN</field>
         <field name="reference">RN</field>
-        <field name="note">3C&amp;28</field> 
+        <field name="note">3C&amp;28</field>
+        <field name="symbol">-</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '697%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1755,7 +1790,8 @@
         <field name="name">RESULTAT FINANCIER &#160;&#160;&#160; (Somme TK à RN)</field>
         <field name="code">_XF</field>
         <field name="reference">XF</field>
-        <field name="note"/>
+        <field name="note"> </field>
+        <field name="symbol"> </field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="formulas">balance = _TK.balance + _TL.balance + _TM.balance + _RM.balance + _RN.balance</field>
         <field name="level" eval="0" />
@@ -1766,7 +1802,8 @@
         <field name="name">RESULTAT DES ACTIVITÉS ORDINAIRES &#160;&#160;&#160; (XE + XF)</field>
         <field name="code">_XG</field>
         <field name="reference">XG</field>
-        <field name="note">3C&amp;28</field> 
+        <field name="note">3C&amp;28</field>
+        <field name="symbol"> </field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="formulas">balance = _XE.balance + _XF.balance</field>
         <field name="level" eval="1" />
@@ -1778,7 +1815,8 @@
         <field name="name">Produits des cessions d'immobilisation</field>
         <field name="code">_TN</field>
         <field name="reference">TN</field>
-        <field name="note">3D</field> 
+        <field name="note">3D</field>
+        <field name="symbol">+</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '82%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1791,7 +1829,8 @@
         <field name="name">Autres produits HAO</field>
         <field name="code">_TO</field>
         <field name="reference">TO</field>
-        <field name="note">30</field> 
+        <field name="note">30</field>
+        <field name="symbol">+</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="['|', '|', ('account_id.code', '=like', '84%'), ('account_id.code', '=like', '86%'), ('account_id.code', '=like', '88%')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1804,7 +1843,8 @@
         <field name="name">Valeurs comptables des cessions d'immobilisation</field>
         <field name="code">_RO</field>
         <field name="reference">RO</field>
-        <field name="note">3D</field> 
+        <field name="note">3D</field>
+        <field name="symbol">-</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '81')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1817,7 +1857,8 @@
         <field name="name">Valeurs comptables des cessions d'immobilisation</field>
         <field name="code">_RP</field>
         <field name="reference">RP</field>
-        <field name="note">30</field> 
+        <field name="note">30</field>
+        <field name="symbol">-</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="['|', ('account_id.code', '=like', '83'), ('account_id.code', '=like', '85')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1830,7 +1871,8 @@
         <field name="name">RESULTAT DES ACTIVITÉS ORDINAIRES &#160;&#160;&#160; (Somme TN à RP)</field>
         <field name="code">_XH</field>
         <field name="reference">XH</field>
-        <field name="note"/> 
+        <field name="note"> </field>
+        <field name="symbol"> </field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="formulas">balance = _TN.balance + _TO.balance + _RO.balance + _RP.balance</field>
         <field name="level" eval="1" />
@@ -1842,7 +1884,8 @@
         <field name="name">Participation des travailleurs</field>
         <field name="code">_RQ</field>
         <field name="reference">RQ</field>
-        <field name="note">30</field> 
+        <field name="note">30</field>
+        <field name="symbol">-</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '87')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1855,7 +1898,8 @@
         <field name="name">Impôts sur le résultat</field>
         <field name="code">_RS</field>
         <field name="reference">RS</field>
-        <field name="note">37</field> 
+        <field name="note">37</field>
+        <field name="symbol">-</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '89')]" />
         <field name="formulas">balance = -sum.balance</field>
@@ -1868,7 +1912,8 @@
         <field name="name">RESULTAT NET &#160;&#160;&#160; (XG + XH + RQ + RS)</field>
         <field name="code">_XI</field>
         <field name="reference">XI</field> 
-        <field name="note"/>
+        <field name="note"> </field>
+        <field name="symbol"> </field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="formulas">balance = _XG.balance + _XH.balance + _RQ.balance + _RS.balance</field>
         <field name="level" eval="0" />
@@ -2696,5 +2741,378 @@
         </xpath>
     </template>
 
+<!-- ==========================================NEW REPORTS=========================================================== -->
+<!-- ===================================TRANSPORT IT AFTER TESTING=================================================== -->
+    <!--<record id="account_financial_report_ohada_balancesheet_liabilitites0" model="ohada.financial.html.report">-->
+        <!--<field name="name">Balance Sheet - Liabilitites</field>-->
+        <!--<field name="debit_credit" eval="True"/>-->
+        <!--<field name="type">main</field>-->
+<!--&lt;!&ndash;    <field name="cash_basis" eval="False"/>-->
+        <!--<field name="date_range" eval="False"/>     &ndash;&gt;-->
+        <!--<field name="unfold_all_filter" eval="True"/>-->
+        <!--<field name="hierarchy_option" eval="False"/>-->
+        <!--<field name='parent_id' ref='ohada_reports.menu_ohada_legal_statements_main'/>-->
+    <!--</record>-->
 
+    <!--<record id="account_financial_report_ohada_balancesheet_liabilitites0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">PASSIF</field>-->
+        <!--<field name="code">PASSIF0</field>-->
+        <!--<field name="reference">REF</field>-->
+        <!--<field name="financial_report_id" ref="account_financial_report_ohada_balancesheet_liabilitites0"/>-->
+        <!--<field name="sequence" eval="205"/>-->
+        <!--<field name="level" eval="0" />-->
+        <!--<field name="print_on_new_page" eval="True"/>-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_balancesheet_CA0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Capital</field>-->
+        <!--<field name="code">_CA0</field>-->
+        <!--<field name="reference">CA</field>-->
+        <!--<field name="note">13</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="domain">['|', '|', '|', ('account_id.code', '=like', '101%'), ('account_id.code', '=like', '102%'), ('account_id.code', '=like', '103%'), ('account_id.code', '=like', '104%')]</field>-->
+        <!--<field name="formulas">debit = sum.debit; credit = sum.credit; balance = sum.balance</field>-->
+        <!--<field name="groupby">account_id</field>-->
+        <!--<field name="sequence" eval="220"/>-->
+        <!--<field name="level" eval="2" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_balancesheet_CB0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Apporteurs, capital non appelé &#160; &#160; &#160; &#160; &#160; (-)</field>-->
+        <!--<field name="code">_CB0</field>-->
+        <!--<field name="reference">CB</field>-->
+        <!--<field name="note">13</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="domain">[('account_id.code', '=like', '109%')]</field>-->
+        <!--<field name="formulas">debit = sum.debit; credit = sum.credit; balance = sum.balance</field>-->
+        <!--<field name="groupby">account_id</field>-->
+        <!--<field name="sequence" eval="225"/>-->
+        <!--<field name="level" eval="2" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_balancesheet_CD0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Primes liées au capital social</field>-->
+        <!--<field name="code">_CD0</field>-->
+        <!--<field name="reference">CD</field>-->
+        <!--<field name="note">14</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="domain">[('account_id.code', '=like', '105%')]</field>-->
+        <!--<field name="formulas">debit = sum.debit; credit = sum.credit; balance = sum.balance</field>-->
+        <!--<field name="groupby">account_id</field>-->
+        <!--<field name="sequence" eval="230"/>-->
+        <!--<field name="level" eval="2" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_balancesheet_CE0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Écarts de réevaluation</field>-->
+        <!--<field name="code">_CE0</field>-->
+        <!--<field name="reference">CE</field>-->
+        <!--<field name="note">3e</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="domain">[('account_id.code', '=like', '105%')]</field>-->
+        <!--<field name="formulas">debit = sum.debit; credit = sum.credit; balance = sum.balance</field>-->
+        <!--<field name="groupby">account_id</field>-->
+        <!--<field name="sequence" eval="235"/>-->
+        <!--<field name="level" eval="2" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_balancesheet_CF0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Réserves indisponibles</field>-->
+        <!--<field name="code">_CF0</field>-->
+        <!--<field name="reference">CF</field>-->
+        <!--<field name="note">14</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="domain">['|', '|', ('account_id.code', '=like', '111%'), ('account_id.code', '=like', '112%'), ('account_id.code', '=like', '113%')]</field>-->
+        <!--<field name="formulas">debit = sum.debit; credit = sum.credit; balance = sum.balance</field>-->
+        <!--<field name="groupby">account_id</field>-->
+        <!--<field name="sequence" eval="240"/>-->
+        <!--<field name="level" eval="2" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_balancesheet_CG0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Réserves libres</field>-->
+        <!--<field name="code">_CG0</field>-->
+        <!--<field name="reference">CG</field>-->
+        <!--<field name="note">14</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="domain">[('account_id.code', '=like', '118%')]</field>-->
+        <!--<field name="formulas">debit = sum.debit; credit = sum.credit; balance = sum.balance</field>-->
+        <!--<field name="groupby">account_id</field>-->
+        <!--<field name="sequence" eval="245"/>-->
+        <!--<field name="level" eval="2" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_balancesheet_CH0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Report à nouveau &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; (+ ou -)</field>-->
+        <!--<field name="code">_CH0</field>-->
+        <!--<field name="reference">CH</field>-->
+        <!--<field name="note">14</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="domain">[('account_id.code', '=like', '12%')]</field>-->
+        <!--<field name="formulas">debit = sum.debit; credit = sum.credit; balance = sum.balance</field>-->
+        <!--<field name="groupby">account_id</field>-->
+        <!--<field name="sequence" eval="250"/>-->
+        <!--<field name="level" eval="2" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_balancesheet_CJ0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Résultat net de l'exercice &#160;&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; (bénéfice + ou perte -)</field>-->
+        <!--<field name="code">_CJ0</field>-->
+        <!--<field name="reference">CJ</field>-->
+        <!--<field name="note"></field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="formulas">balance = _XI.balance - sum.balance</field>-->
+
+<!--&lt;!&ndash;-->
+        <!--<field name="domain">['|', ('account_id.code', '=like', '131%'), ('account_id.code', '=like', '139%')]</field>-->
+        <!--<field name="formulas">debit = sum.debit; credit = sum.credit; balance = sum.balance</field>-->
+<!--&ndash;&gt;-->
+        <!--<field name="groupby">account_id</field>-->
+        <!--<field name="sequence" eval="255"/>-->
+        <!--<field name="level" eval="2" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_balancesheet_CL0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Subventions d'investissement</field>-->
+        <!--<field name="code">_CL0</field>-->
+        <!--<field name="reference">CL</field>-->
+        <!--<field name="note">15</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="domain">[('account_id.code', '=like', '14%')]</field>-->
+        <!--<field name="formulas">debit = sum.debit; credit = sum.credit; balance = sum.balance</field>-->
+        <!--<field name="groupby">account_id</field>-->
+        <!--<field name="sequence" eval="260"/>-->
+        <!--<field name="level" eval="2" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_balancesheet_CM0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Provisions réglementées</field>-->
+        <!--<field name="code">_CM0</field>-->
+        <!--<field name="reference">CM</field>-->
+        <!--<field name="note">15</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="domain">[('account_id.code', '=like', '15%')]</field>-->
+        <!--<field name="formulas">debit = sum.debit; credit = sum.credit; balance = sum.balance</field>-->
+        <!--<field name="groupby">account_id</field>-->
+        <!--<field name="sequence" eval="265"/>-->
+        <!--<field name="level" eval="2" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_ohada_balancesheet_CP0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">TOTAL CAPITAUX PROPRES ET RESSOURCES ASSIMILÉES</field>-->
+        <!--<field name="code">_CP0</field>-->
+        <!--<field name="reference">CP</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="formulas">debit = _CA.debit + _CB.debit + _CD.debit + _CE.debit + _CF.debit + _CG.debit + _CH.debit + _CJ.debit + _CL.debit + _CM.debit; credit = _CA.credit + _CB.credit + _CD.credit + _CE.credit + _CF.credit + _CG.credit + _CH.credit + _CJ.credit + _CL.credit + _CM.credit; balance = _CA.balance + _CB.balance + _CD.balance + _CE.balance + _CF.balance + _CG.balance + _CH.balance + _CJ.balance + _CL.balance + _CM.balance</field>-->
+        <!--<field name="sequence" eval="270"/>-->
+        <!--<field name="level" eval="1" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_balancesheet_DA0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Emprunts et dettes financières</field>-->
+        <!--<field name="code">_DA0</field>-->
+        <!--<field name="reference">DA</field>-->
+        <!--<field name="note">16</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="domain">['|', '|', '|', '|', ('account_id.code', '=like', '16%'), ('account_id.code', '=like', '181%'), ('account_id.code', '=like', '182%'), ('account_id.code', '=like', '183%'), ('account_id.code', '=like', '184%')]</field>-->
+        <!--<field name="formulas">debit = sum.debit; credit = sum.credit; balance = sum.balance</field>-->
+        <!--<field name="groupby">account_id</field>-->
+        <!--<field name="sequence" eval="275"/>-->
+        <!--<field name="level" eval="2" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_balancesheet_DB0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Dettes de location acquisition</field>-->
+        <!--<field name="code">_DB0</field>-->
+        <!--<field name="reference">DB</field>-->
+        <!--<field name="note">16</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="domain">[('account_id.code', '=like', '17%')]</field>-->
+        <!--<field name="formulas">debit = sum.debit; credit = sum.credit; balance = sum.balance</field>-->
+        <!--<field name="groupby">account_id</field>-->
+        <!--<field name="sequence" eval="280"/>-->
+        <!--<field name="level" eval="2" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_balancesheet_DC0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Provisions pour risques et charges</field>-->
+        <!--<field name="code">_DC0</field>-->
+        <!--<field name="reference">DC</field>-->
+        <!--<field name="note">16</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="domain">[('account_id.code', '=like', '19%')]</field>-->
+        <!--<field name="formulas">debit = sum.debit; credit = sum.credit; balance = sum.balance</field>-->
+        <!--<field name="groupby">account_id</field>-->
+        <!--<field name="sequence" eval="285"/>-->
+        <!--<field name="level" eval="2" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_ohada_balancesheet_DD0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">TOTAL DETTES FINANCIERES ET RESSOURCES ASSIMILEES</field>-->
+        <!--<field name="code">_DD0</field>-->
+        <!--<field name="reference">DD</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="formulas">debit = _DA.debit + _DB.debit + _DC.debit; credit = _DA.credit + _DB.credit + _DC.credit; balance = _DA.balance + _DB.balance + _DC.balance</field>-->
+        <!--<field name="sequence" eval="290"/>-->
+        <!--<field name="level" eval="1" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_ohada_balancesheet_DF0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">TOTAL RESSOURCES STABLES</field>-->
+        <!--<field name="code">_DF0</field>-->
+        <!--<field name="reference">DF</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="formulas">debit = _CP.debit + _DD.debit; credit = _CP.credit +_DD.credit; balance = _CP.balance + _DD.balance</field>-->
+        <!--<field name="sequence" eval="291"/>-->
+        <!--<field name="level" eval="0" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_balancesheet_DH0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Dettes circulantes HOA</field>-->
+        <!--<field name="code">_DH0</field>-->
+        <!--<field name="reference">DH</field>-->
+        <!--<field name="note">5</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="domain">['|', '|', '|', ('account_id.code', '=like', '481%'), ('account_id.code', '=like', '482%'), ('account_id.code', '=like', '484%'), ('account_id.code', '=like', '4998%')]</field>-->
+        <!--<field name="formulas">debit = sum.debit; credit = sum.credit; balance = sum.balance</field>-->
+        <!--<field name="groupby">account_id</field>-->
+        <!--<field name="sequence" eval="295"/>-->
+        <!--<field name="level" eval="2" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_balancesheet_DI0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Clients, avances reçues</field>-->
+        <!--<field name="code">_DI0</field>-->
+        <!--<field name="reference">DI</field>-->
+        <!--<field name="note">7</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="domain">[('account_id.code', '=like', '419%')]</field>-->
+        <!--<field name="formulas">debit = sum.debit; credit = sum.credit; balance = sum.balance</field>-->
+        <!--<field name="groupby">account_id</field>-->
+        <!--<field name="sequence" eval="300"/>-->
+        <!--<field name="level" eval="2" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_balancesheet_DJ0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Fournisseurs d'exploitation</field>-->
+        <!--<field name="code">_DJ0</field>-->
+        <!--<field name="reference">DJ</field>-->
+        <!--<field name="note">17</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="domain">[('account_id.code', '=like', '40%'), ('account_id.code', 'not like', '409%')]</field>-->
+        <!--<field name="formulas">debit = sum.debit; credit = sum.credit; balance = sum.balance</field>-->
+        <!--<field name="groupby">account_id</field>-->
+        <!--<field name="sequence" eval="305"/>-->
+        <!--<field name="level" eval="2" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_balancesheet_DK0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Dettes fiscales et sociales</field>-->
+        <!--<field name="code">_DK0</field>-->
+        <!--<field name="reference">DK</field>-->
+        <!--<field name="note">18</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="domain">['|', '|', ('account_id.code', '=like', '42%'), ('account_id.code', '=like', '43%'), ('account_id.code', '=like', '44%')]</field>-->
+        <!--<field name="formulas">debit = sum.debit; credit = sum.credit; balance = -sum_if_neg.balance</field>-->
+        <!--<field name="groupby">account_id</field>-->
+        <!--<field name="show_domain">foldable</field>-->
+        <!--<field name="sequence" eval="310"/>-->
+        <!--<field name="level" eval="2" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_balancesheet_DM0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Autres dettes</field>-->
+        <!--<field name="code">_DM0</field>-->
+        <!--<field name="reference">DM</field>-->
+        <!--<field name="note">19</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="domain">['|', '|', '|', ('account_id.code', '=like', '185%'), ('account_id.code', '=like', '45%'), ('account_id.code', '=like', '46%'), ('account_id.code', '=like', '47%'), '&amp;', ('account_id.code', 'not like', '479%')]</field>-->
+        <!--<field name="formulas">debit = sum.debit; credit = sum.credit; balance = -sum_if_neg.balance</field>-->
+        <!--<field name="groupby">account_id</field>-->
+        <!--<field name="show_domain">foldable</field>-->
+        <!--<field name="sequence" eval="315"/>-->
+        <!--<field name="level" eval="2" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_balancesheet_DN0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Provisions pour risques à court terme</field>-->
+        <!--<field name="code">_DN0</field>-->
+        <!--<field name="reference">DN</field>-->
+        <!--<field name="note">19</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="domain">['|', ('account_id.code', '=like', '499%'), ('account_id.code', '=like', '599%'), '&amp;', ('account_id.code', 'not like', '4998%'), ]</field>-->
+        <!--<field name="formulas">debit = sum.debit; credit = sum.credit; balance = sum.balance</field>-->
+        <!--<field name="groupby">account_id</field>-->
+        <!--<field name="sequence" eval="320"/>-->
+        <!--<field name="level" eval="2" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_ohada_balancesheet_DP0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">TOTAL PASSIF CIRCULANT</field>-->
+        <!--<field name="code">_DP0</field>-->
+        <!--<field name="reference">DP</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="formulas">debit = _DH.debit + _DI.debit + _DJ.debit + _DK.debit + _DM.debit + _DN.debit; credit = _DH.credit + _DI.credit + _DJ.credit + _DK.credit + _DM.credit + _DN.credit; balance = _DH.balance + _DI.balance + _DJ.balance + _DK.balance + _DM.balance + _DN.balance</field>-->
+        <!--<field name="sequence" eval="325"/>-->
+        <!--<field name="level" eval="0" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_balancesheet_DQ0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Banques, crédit d'escompte et de trésorerie</field>-->
+        <!--<field name="code">_DQ0</field>-->
+        <!--<field name="reference">DQ</field>-->
+        <!--<field name="note">20</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="domain">['|', ('account_id.code', '=like', '564%'), ('account_id.code', '=like', '565%')]</field>-->
+        <!--<field name="formulas">debit = sum.debit; credit = sum.credit; balance = sum.balance</field>-->
+        <!--<field name="groupby">account_id</field>-->
+        <!--<field name="sequence" eval="330"/>-->
+        <!--<field name="level" eval="2" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_balancesheet_DR0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Banques, établissements financiers et crédit de trésorerie</field>-->
+        <!--<field name="code">_DR0</field>-->
+        <!--<field name="reference">DR</field>-->
+        <!--<field name="note">20</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="domain">['|', '|', '|', ('account_id.code', '=like', '52%'), ('account_id.code', '=like', '53%'), ('account_id.code', '=like', '561%'), ('account_id.code', '=like', '566%')]</field>-->
+        <!--<field name="formulas">debit = sum.debit; credit = sum.credit; balance = -sum_if_neg.balance</field>-->
+        <!--<field name="groupby">account_id</field>-->
+        <!--<field name="show_domain">foldable</field>-->
+        <!--<field name="sequence" eval="335"/>-->
+        <!--<field name="level" eval="2" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_ohada_balancesheet_DT0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">TOTAL TRESORERIE PASSIF</field>-->
+        <!--<field name="code">_DT0</field>-->
+        <!--<field name="reference">DT</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="formulas">debit = _DQ.debit + _DR.debit; credit = _DQ.credit + _DR.credit; balance = _DQ.balance + _DR.balance</field>-->
+        <!--<field name="sequence" eval="340"/>-->
+        <!--<field name="level" eval="0" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_balancesheet_DV0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Écart de conversion - Passif</field>-->
+        <!--<field name="code">_DV0</field>-->
+        <!--<field name="reference">DV</field>-->
+        <!--<field name="note">12</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="formulas">debit = sum.debit; credit = sum.credit; balance = sum.balance</field>-->
+        <!--<field name="domain">[('account_id.code', '=like', '479%')]</field>-->
+        <!--<field name="sequence" eval="345"/>-->
+        <!--<field name="level" eval="1" />-->
+    <!--</record>-->
+
+    <!--<record id="account_financial_report_balancesheet_DZ0" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">TOTAL GENERAL PASSIF</field>-->
+        <!--<field name="code">_DZ0</field>-->
+        <!--<field name="reference">DZ</field>-->
+        <!--<field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>-->
+        <!--<field name="formulas">debit = _DF.debit + _DP.debit + _DT.debit + _DV.debit; credit = _DF.credit + _DP.credit + _DT.credit + _DV.credit; balance = _DF.balance + _DP.balance + _DT.balance + _DV.balance</field>-->
+        <!--<field name="sequence" eval="350"/>-->
+        <!--<field name="level" eval="0" />-->
+    <!--</record>-->
 </odoo>

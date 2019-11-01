@@ -11,10 +11,7 @@
     vertical-align: middle;
 }
 .ohada_table {
-    border-top-style: double;
-    border-left-style: double;
-    border-right-style: double;
-    border-bottom-style: double;
+    border-style: double;
     border-color: #001E5A;
     color: #001E5A;
     font-family: NimbusSanL-Regu;
@@ -121,7 +118,7 @@
         .number {
             text-align: right;
             width: 6%;
-            border: 1px solid #e6e6e6;
+            border: 1px solid #001E5A;
         }
         .date {
             text-align: center;
@@ -131,7 +128,7 @@
                 border-bottom: none;
             }
             th:not(:first-child) {
-                border: 1px solid #e6e6e6;
+                border: 1px solid #001E5A;
                 text-align: center;
                 border-collapse: separate;
                 padding-right: 2px;
@@ -249,7 +246,7 @@
         }
     }
     .o_foldable_total {
-        color: #666666 !important;
+        color: #001E5A !important;
     }
     .o_account_reports_totals_below_sections.o_js_account_report_parent_row_unfolded {
         .o_account_report_column_value {
@@ -282,7 +279,7 @@
         }
     }
     .o_account_reports_level2 {
-        border-bottom: 1px solid #bbb;
+        border-bottom: 1px solid #001E5A;
         font-weight: normal;
         > td.o_account_report_line_indent > span:last-child {
             margin-left: 15px;
@@ -294,7 +291,7 @@
         }
     }
     .o_account_reports_level3 {
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid #001E5A;
         > td.o_account_report_line_indent > span:last-child {
             margin-left: 30px;
         }
@@ -308,7 +305,7 @@
         .o_account_reports_caret_icon {
             margin-left: 15px;
         }
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid #001E5A;
         > td.o_account_report_line_indent > span:last-child {
             margin-left: 40px;
         }
@@ -319,7 +316,7 @@
         }
     }
     .o_account_reports_level5 {
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid #001E5A;
         > td.o_account_report_line_indent > span:last-child {
             margin-left: 50px;
         }
@@ -330,7 +327,7 @@
         }
     }
     .o_account_reports_level6 {
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid #001E5A;
         > td.o_account_report_line_indent > span:last-child {
             margin-left: 60px;
         }
@@ -341,7 +338,7 @@
         }
     }
     .o_account_reports_level7 {
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid #001E5A;
         > td.o_account_report_line_indent > span:last-child {
             margin-left: 70px;
         }
@@ -352,19 +349,19 @@
         }
     }
     .o_account_reports_level8 {
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid #001E5A;
         > td.o_account_report_line_indent > span:last-child {
             margin-left: 80px;
         }
     }
     .o_account_reports_level9 {
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid #001E5A;
         > td.o_account_report_line_indent > span:last-child {
             margin-left: 90px;
         }
     }
     .o_account_reports_default_style {
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid #001E5A;
         > td.o_account_report_line_indent > span:last-child {
             margin-left: 50px;
         }
