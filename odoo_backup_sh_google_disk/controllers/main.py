@@ -18,7 +18,7 @@ class NewBackupController(BackupController):
         last_month_domain = [('date', '>=', datetime.strftime(date_list[0], DEFAULT_SERVER_DATE_FORMAT))]
         values = request.env['odoo_backup_sh.remote_storage'].search(last_month_domain).sorted(key='date')
         google_drive_usage_values = {
-            r.date: r.google_drive_used_remote_storage for r in values
+            datetime.strptime(r.date, DEFAULT_SERVER_DATE_FORMAT).date(): r.google_drive_used_remote_storage for r in values
         }
         for date in date_list:
             if date not in google_drive_usage_values:
