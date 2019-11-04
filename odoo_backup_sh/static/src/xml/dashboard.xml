@@ -6,13 +6,16 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 <templates id="template" xml:space="preserve">
 
     <t t-name="odoo_backup_sh.BackupDashboardMain">
-        <div class="container-fluid o_backup_dashboard">
-            <div class="row o_dashboard_common">
-                <div class="col-12 o_box">
-                    <div t-if="widget.dashboard_can_backup()" class="o_inner_box o_dashboard_action_add_database" title="Add new database in the dashboard.">
+        <div class="o_backup_dashboard">
+            <div class="o_backup_dashboard_header">
+
+                <a t-if="widget.dashboard_can_backup()" href="#" class="o_box_item o_dashboard_action_add_database" title="Add new database in the dashboard.">
+                    <div class="o_inner_box o_primary">
+
                         <i class="fa fa-database fa-3x"/><br/>
                         Add Database
                     </div>
+                </a>
                     <!--
                         See update_info method to undestand meaning of the button.
                         It's normally not needed for the user. 
@@ -26,61 +29,70 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
                   <t t-if="widget.dashboard_basic()">
                     <!--
-                    <div class="o_inner_box o_dashboard_action o_dashboard_configure_s3_credentials" title="Set S3 credentials" name="odoo_backup_sh.action_backup_settings">
+                    <a href="#" class="o_box_item o_dashboard_action o_dashboard_configure_s3_credentials" title="Set S3 credentials" name="odoo_backup_sh.action_backup_settings">
+                    <div class="o_inner_box o_primary">
                         <i class="fab fa-aws fa-3x"/><br/>
                         Configure S3
-                    </div>
+                    </div></a>
                     -->
-                    <div class="o_inner_box o_dashboard_get_s3_credentials" title="Purchase S3 access via odoo.com">
+                    <a href="#" class="o_box_item o_dashboard_get_s3_credentials" title="Purchase S3 access via odoo.com">
+                    <div class="o_inner_box o_primary">
                         <i class="fab fa-aws fa-3x"/><br/>
                         Get S3 storage
-                    </div>
-                    <a target="_blank" t-att-href="widget.modules.odoo_backup_sh_dropbox.url" class="o_inner_box o_dashboard_use_dropbox" title="Install module to save backups to your Dropbox">
+                    </div></a>
+                    <a target="_blank" t-att-href="widget.modules.odoo_backup_sh_dropbox.url" class="o_box_item o_dashboard_use_dropbox" title="Install module to save backups to your Dropbox">
+                    <div class="o_inner_box o_primary">
                         <i class="fa fa-dropbox fa-3x"/><br/>
                         Use Dropbox
-                    </a>
-                    <a target="_blank" t-att-href="widget.modules.odoo_backup_sh_dropbox.url" class="o_inner_box o_dashboard_use_google_disk" title="Install module to save backups to your Google Drive">
+                    </div></a>
+                    <a target="_blank" t-att-href="widget.modules.odoo_backup_sh_dropbox.url" class="o_box_item o_dashboard_use_google_disk" title="Install module to save backups to your Google Drive">
+                    <div class="o_inner_box o_primary">
                         <i class="fab fa-google-drive fa-3x"/><br/>
                         Use Google Drive
-                    </a>
+                    </div></a>
                   </t>
                   <t t-if="widget.dashboard_configure_dropbox()">
-                    <div class="o_inner_box o_dashboard_action o_dashboard_configure_dropbox" title="" name="odoo_backup_sh.action_backup_settings">
+                    <a href="#" class="o_box_item o_dashboard_action o_dashboard_configure_dropbox" title="" name="odoo_backup_sh.action_backup_settings">
+                    <div class="o_inner_box o_primary">
                         <i class="fa fa-dropbox fa-3x"/><br/>
                         Configure Dropbox
-                    </div>
+                    </div></a>
                   </t>
                   <t t-if="widget.dashboard_configure_google_disk()">
-                    <div class="o_inner_box o_dashboard_action o_dashboard_configure_google_disk" title="" name="odoo_backup_sh.action_backup_settings">
+                    <a href="#" class="o_box_item o_dashboard_action o_dashboard_configure_google_disk" title="" name="odoo_backup_sh.action_backup_settings">
+                    <div class="o_inner_box o_primary">
                         <i class="fab fa-google-drive fa-3x"/><br/>
                         Configure Google Drive
-                    </div>
+                    </div></a>
                   </t>
                   <t t-if="widget.dashboard_offer_iap()">
-                    <div class="o_inner_box o_dashboard_get_s3_credentials" title="Purchase S3 access via odoo.com">
+                    <a href="#" class="o_box_item o_dashboard_get_s3_credentials" title="Purchase S3 access via odoo.com">
+                    <div class="o_inner_box o_primary">
                         <i class="fab fa-aws fa-3x"/><br/>
                         Extra backups to S3
-                    </div>
+                    </div></a>
                   </t>
                   <t t-if="widget.dashboard_iap()">
-                    <a target="_blank" t-att-href="widget.up_balance_url" class="o_inner_box o_dashboard_action" title="Up to the balance.">
+                    <a target="_blank" t-att-href="widget.up_balance_url" class="o_box_item o_dashboard_action" title="Up to the balance.">
+                    <div class="o_inner_box o_primary">
                         <i class="fa fa-money fa-3x"/><br/>
                         Go to Balance
-                    </a>
+                    </div></a>
                   </t>
                   <t t-if="widget.dashboard_offer_extra_module()">
-                    <a target="_blank" t-att-href="widget.modules.odoo_backup_sh_dropbox.url" class="o_inner_box o_dashboard_use_dropbox" title="Install module to save backups to your Dropbox">
+                    <a target="_blank" t-att-href="widget.modules.odoo_backup_sh_dropbox.url" class="o_box_item o_dashboard_use_dropbox" title="Install module to save backups to your Dropbox">
+                    <div class="o_inner_box o_primary">
                         <i class="fa fa-dropbox fa-3x"/><br/>
                         Extra backups to Dropbox
-                    </a>
-                    <a target="_blank" t-att-href="widget.modules.odoo_backup_sh_google_disk.url" class="o_inner_box o_dashboard_use_google_disk" title="Install module to save backups to your Google Drive">
+                    </div></a>
+                    <a target="_blank" t-att-href="widget.modules.odoo_backup_sh_google_disk.url" class="o_box_item o_dashboard_use_google_disk" title="Install module to save backups to your Google Drive">
+                    <div class="o_inner_box o_primary">
                         <i class="fab fa-google-drive fa-3x"/><br/>
                         Extra backups to Google Drive
-                    </a>
+                    </div></a>
 
                   </t>
 
-                </div>
             </div>
             <div class="o_backup_dashboard_note_section">
               <t t-if="widget.show_nocontent_msg">
