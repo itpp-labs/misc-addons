@@ -44,7 +44,7 @@ If you already have S3 bucket with IAM credentials, you can setup your personal 
 * Set following fields:
 
   * **S3 Bucket**
-  * **Path**, e.g. ``odoo-backups``. Note that the folder must exist
+  * **Path**, e.g. ``odoo-backups``. Note that the folder must exist. Keep empty to save backups directly to the bucket root folder
   * **Access Key ID**
   * **Secret Access Key**
 
