@@ -28,18 +28,18 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
                     -->
 
                   <t t-if="widget.dashboard_basic()">
-                    <!--
                     <a href="#" class="o_box_item o_dashboard_action o_dashboard_configure_s3_credentials" title="Set S3 credentials" name="odoo_backup_sh.action_backup_settings">
                     <div class="o_inner_box o_primary">
                         <i class="fab fa-aws fa-3x"/><br/>
                         Configure S3
                     </div></a>
-                    -->
+                    <!-- IAP is disabled
                     <a href="#" class="o_box_item o_dashboard_get_s3_credentials" title="Purchase S3 access via odoo.com">
                     <div class="o_inner_box o_primary">
                         <i class="fab fa-aws fa-3x"/><br/>
                         Get S3 storage
                     </div></a>
+                    -->
                     <a target="_blank" t-att-href="widget.modules.odoo_backup_sh_dropbox.url" class="o_box_item o_dashboard_use_dropbox" title="Install module to save backups to your Dropbox">
                     <div class="o_inner_box o_primary">
                         <i class="fa fa-dropbox fa-3x"/><br/>
@@ -65,13 +65,15 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
                         Configure Google Drive
                     </div></a>
                   </t>
+                  <!-- iap is disabled
                   <t t-if="widget.dashboard_offer_iap()">
                     <a href="#" class="o_box_item o_dashboard_get_s3_credentials" title="Purchase S3 access via odoo.com">
                     <div class="o_inner_box o_primary">
                         <i class="fab fa-aws fa-3x"/><br/>
                         Extra backups to S3
                     </div></a>
-                  </t>
+                    </t>
+                    -->
                   <t t-if="widget.dashboard_iap()">
                     <a target="_blank" t-att-href="widget.up_balance_url" class="o_box_item o_dashboard_action" title="Up to the balance.">
                     <div class="o_inner_box o_primary">

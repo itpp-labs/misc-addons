@@ -18,33 +18,16 @@ Installation
 Configuration
 =============
 
-Database manager
-----------------
+S3 Storage
+----------
 
-* To enable the ability to restore databases from your remote backups in a new odoo instance:
-
-
-  * Add ``odoo_backup_sh`` to `--load parameter <https://odoo-development.readthedocs.io/en/latest/admin/server_wide_modules.html>`__, e.g.::
-
-    ./odoo-bin --workers=2 --load web,odoo_backup_sh --config=/path/to/odoo.conf
-
-  * Use Odoo-backup.sh service (not your personal S3 credentials):
-
-    * Open the menu ``[[ Backups ]] >> Dashboard``
-    * Click ``[Get S3 Credentials]``
-    * After redireсtion please login in `Odoo.com <https://www.odoo.com/web/login>`__
-    * You will be redirected back to the Dashboard with a link to purchase *Credits*. Once it's done, open Backup Dashboard again and click ``[Get S3 Credentials]`` one more time
-
-Personal S3 Storage
--------------------
-
-If you already have S3 bucket with IAM credentials, you can setup your personal S3 storage for backups:
-
+* `Create S3 bucket <https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html>`__ and `setup credentials <https://docs.aws.amazon.com/en_pv/AmazonS3/latest/dev/intro-managing-access-s3-resources.html>`__ for it
+* Go to your Odoo
 * Open the menu ``[[ Backups ]] >> Settings``
 * Set following fields:
 
   * **S3 Bucket**
-  * **Path**, e.g. ``odoo-backups``. Note that the folder must exist. Keep empty to save backups directly to the bucket root folder
+  * **Path**, e.g. ``odoo-backups``. Note that the folder must exist. Keep empty to save backups directly to the root folder
   * **Access Key ID**
   * **Secret Access Key**
 
@@ -85,19 +68,6 @@ Manual backups
 * Click on ``[Make Backup now]``
 
 RESULT: Backup is created. *Note, that the manual backup creation may take some time before being ready*.
-
-
-Database manager: restore database
-----------------------------------
-
-* Proceed to the Database Manager: ``/web/database/manager``
-* Click on ``Restore via Odoo-backup.sh`` button
-* Choose the backup that you want to restore
-* In the open Pop-up window enter Master Password, fill the Database Name*
-* In order to avoid conflicts between databases choose if this database was moved or copied
-* Click on ``Continue`` button
-
-RESULT: Backup is restored in one click without any additional manipulations such as "downloading-uploading process".
 
 Downloading backups to computer
 -------------------------------

@@ -11,6 +11,8 @@ Backing up Odoo databases to S3 bucket.
 In-App Purchase
 ===============
 
+IAP IS TEMPORARLY DISABLED.
+
 **odoo-backup.sh** provides s3 credentials. Payments for the service is managed by proprietary module, which implements `In-App Purchase <https://www.odoo.com/documentation/11.0/webservices/iap.html>`__ -- payments platform provided by *Odoo S.A.*.
 
 Personal cloud
