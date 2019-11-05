@@ -15,7 +15,7 @@ class ResConfigSettings(models.TransientModel):
     odoo_backup_sh_amazon_bucket_name = fields.Char("S3 Bucket", config_parameter='odoo_backup_sh.s3_bucket_name', default='')
     odoo_backup_sh_amazon_access_key_id = fields.Char("Access Key ID", config_parameter='odoo_backup_sh.aws_access_key_id', default='')
     odoo_backup_sh_amazon_secret_access_key = fields.Char("Secret Access Key", config_parameter='odoo_backup_sh.aws_secret_access_key', default='')
-    odoo_backup_sh_private_s3_dir = fields.Char("Path", config_parameter='odoo_backup_sh.private_s3_dir', default='')
+    odoo_backup_sh_private_s3_dir = fields.Char("Path", config_parameter='odoo_backup_sh.private_s3_dir', default='', help="Folder in S3 Bucket, e.g. odoo-backups")
     odoo_backup_sh_odoo_oauth_uid = fields.Char("Odoo OAuth", config_parameter='odoo_backup_sh.odoo_oauth_uid', default='')
     private_s3_dir_changed = fields.Boolean(default=False)
 

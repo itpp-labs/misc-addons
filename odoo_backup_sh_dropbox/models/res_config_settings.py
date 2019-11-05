@@ -7,7 +7,7 @@ class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
     dropbox_access_token = fields.Char(string="Dropbox Access Token")
-    dropbox_folder_path = fields.Char(string="Dropbox Folder Path", help="The Full Path to upload a Backup")
+    dropbox_folder_path = fields.Char(string="Dropbox Folder Path", help="The Full Path to upload a Backup. E.g. /ProductionBackups")
 
     def set_values(self):
         super(ResConfigSettings, self).set_values()
