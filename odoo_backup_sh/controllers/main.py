@@ -8,6 +8,7 @@ import jinja2
 import logging
 import os
 import random
+import re
 import requests
 import string
 import tempfile
@@ -52,14 +53,15 @@ class BackupDatabase(web.controllers.main.Database):
     def _render_template(self, **d):
         res = super(BackupDatabase, self)._render_template(**d)
         # Show button 'Restore via Odoo-backup.sh' on web/database/manager and web/database/selector pages
-        place_for_backup_button = res.find(
-            '<button type="button" data-toggle="modal" data-target=".o_database_restore"'
-        )
-        if place_for_backup_button == -1:
-            place_for_backup_button = res.find(
-                '<a role="button" data-toggle="modal" data-target=".o_database_restore" class="btn btn-link">'
-            )
-        if place_for_backup_button != -1:
+        place_for_backup_button = re.search('Set Master Password</button>.*\n.*</div>', res)
+        if place_for_backup_button:
+            place_for_backup_button = place_for_backup_button.end()
+        else:
+            place_for_backup_button = re.search(
+                '<a role="button" data-toggle="modal" data-target=".o_database_restore" class="btn btn-link">', res)
+            if place_for_backup_button:
+                place_for_backup_button = place_for_backup_button.start()
+        if place_for_backup_button:
             d['list_db'] = config['list_db']
             d['databases'] = []
             try:
@@ -292,7 +294,7 @@ class BackupController(http.Controller):
         last_month_domain = [('date', '>=', datetime.strftime(date_list[0], DEFAULT_SERVER_DATE_FORMAT))]
         values = request.env['odoo_backup_sh.remote_storage'].search(last_month_domain).sorted(key='date')
         usage_values = {
-            datetime.strptime(r.date, DEFAULT_SERVER_DATE_FORMAT).date(): r.total_used_remote_storage for r in values
+            r.date: r.total_used_remote_storage for r in values
         }
         for date in date_list:
             if date not in usage_values:
@@ -310,7 +312,7 @@ class BackupController(http.Controller):
             }]
         }
         s3_usage_values = {
-            datetime.strptime(r.date, DEFAULT_SERVER_DATE_FORMAT).date(): r.s3_used_remote_storage for r in values
+            r.date: r.s3_used_remote_storage for r in values
         }
         for date in date_list:
             if date not in s3_usage_values:
@@ -337,7 +339,7 @@ class BackupController(http.Controller):
                     ('database', '=', b_config['database']),
                     ('upload_datetime', '>=', datetime.strftime(last_week_dates[0], DEFAULT_SERVER_DATETIME_FORMAT)),
                     ('storage_service', '=', b_config['storage_service'])]):
-                graph_values[datetime.strptime(backup.upload_datetime, DEFAULT_SERVER_DATETIME_FORMAT).date()] += backup.backup_size
+                graph_values[backup.upload_datetime.date()] += backup.backup_size
             b_config['graph'] = [{
                 'key': 'Backups of Last 7 Days',
                 'values': [{

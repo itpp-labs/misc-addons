@@ -9,7 +9,7 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
         <xpath expr="." position="inside">
             <link rel="stylesheet" type="text/css" href="/odoo_backup_sh/static/lib/fontawesome/css/brands.css"/>
             <link rel="stylesheet" type="text/css" href="/odoo_backup_sh/static/lib/fontawesome/css/extract.css"/>
-            <link rel="stylesheet" href="/odoo_backup_sh/static/src/less/dashboard.less"/>
+            <link rel="stylesheet" type="text/scss" href="/odoo_backup_sh/static/src/scss/dashboard.scss"/>
             <script type="text/javascript" src="/odoo_backup_sh/static/src/js/dashboard.js"/>
         </xpath>
     </template>

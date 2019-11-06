@@ -14,9 +14,9 @@ odoo.define("odoo_backup_sh.tour", function (require) {
             test: true,
         },
         [
-            tour.STEPS.MENU_MORE,
+            tour.STEPS.SHOW_APPS_MENU_ITEM,
             {
-                trigger: '[data-menu-xmlid="odoo_backup_sh.menu_backup_root"]',
+                trigger: '.o_app[data-menu-xmlid="odoo_backup_sh.menu_backup_root"]',
                 content: _t('Want a better way to <b>manage your databases backups</b>? <i>It starts here.</i>'),
                 position: "right",
                 edition: 'community'
@@ -28,7 +28,7 @@ odoo.define("odoo_backup_sh.tour", function (require) {
             },
             {
                 // Check that at least one button in dashboard is visible
-                trigger: '.o_backup_dashboard a',
+                trigger: '.o_dashboard_common .o_inner_box',
                 run: function () {
                     // empty
                 },
