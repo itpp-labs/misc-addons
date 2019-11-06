@@ -15,7 +15,7 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
                     </div>
                     <!--
                         See update_info method to undestand meaning of the button.
-                        It's normally not needed for the user. 
+                        It's normally not needed for the user.
                         It's call automatically after every cron backup
 
                     <div class="o_inner_box o_dashboard_action_update_info" title="Update backups information.">
@@ -38,7 +38,7 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
                         <i class="fa fa-dropbox fa-3x"/><br/>
                         Use Dropbox
                     </a>
-                    <a target="_blank" t-att-href="widget.modules.odoo_backup_sh_dropbox.url" class="o_inner_box o_dashboard_use_google_disk" title="Install module to save backups to your Google Drive">
+                    <a target="_blank" t-att-href="widget.modules.odoo_backup_sh_google_disk.url" class="o_inner_box o_dashboard_use_google_disk" title="Install module to save backups to your Google Drive">
                         <i class="fab fa-google-drive fa-3x"/><br/>
                         Use Google Drive
                     </a>
