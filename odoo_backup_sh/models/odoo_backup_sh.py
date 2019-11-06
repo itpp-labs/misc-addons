@@ -574,20 +574,12 @@ class BackupConfig(models.Model):
     @api.model
     def install_simulation(self):
         # when installing with demo data we create new simulation backup config (for creating simulation records)
-        vals = {
+        config = self.create({
             'database': self._cr.dbname,
             'encrypt_backups': False,
             'storage_service': S3_STORAGE,
             'backup_simulation': True
-        }
-        domain = [(k, '=', v) for k, v in vals.items()]
-        if self.with_context(active_test=False).search(domain):
-            # Already initialized
-
-            # Seems that this check is needed in odoo 11, cause in odoo 12
-            # <function> in demo is called only on module installation
-            return
-        config = self.create(vals)
+        })
         config.install_demo_data()
 
     @api.multi
@@ -678,7 +670,7 @@ class BackupInfo(models.Model):
         for r in self:
             r.backup_filename = compute_backup_filename(
                 r.database,
-                datetime.strptime(r.upload_datetime, DEFAULT_SERVER_DATETIME_FORMAT),
+                r.upload_datetime,
                 r.encrypted,
             )
 
@@ -686,7 +678,7 @@ class BackupInfo(models.Model):
         for r in self:
             r.backup_info_filename = compute_backup_info_filename(
                 r.database,
-                datetime.strptime(r.upload_datetime, DEFAULT_SERVER_DATETIME_FORMAT),
+                r.upload_datetime,
             )
 
     backup_path = fields.Char()
