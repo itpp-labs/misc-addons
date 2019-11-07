@@ -106,7 +106,6 @@ class HrPartner(models.Model):
                                              'Your attendances have probably been modified manually by human resources.') % {'empl_name': self.name, })
             return attendance
 
-    @api.model_cr_context
     def _init_column(self, column_name):
         """ Initialize the value of the given column for existing rows.
             Overridden here because we need to have different default values

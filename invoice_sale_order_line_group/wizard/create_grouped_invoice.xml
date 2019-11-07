@@ -52,7 +52,6 @@
       <field name="name">Create grouped Invoice</field>
       <field name="type">ir.actions.act_window</field>
       <field name="res_model">sale_line.grouped_invoice_wizard</field>
-      <field name="view_type">form</field>
       <field name="view_mode">form</field>
       <field name="view_id" ref="view_sale_order_line_make_grouped_invoice"/>
       <field name="target">new</field>
