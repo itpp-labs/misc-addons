@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: odoo_backup_sh_google_disk
-#: model:ir.ui.view,arch_db:odoo_backup_sh_google_disk.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:odoo_backup_sh_google_disk.res_config_settings_view_form
 msgid "<i class=\"fa fa-fw fa-arrow-right\"/>Documentation"
 msgstr ""
 
@@ -24,9 +24,13 @@ msgid "Backup Configurations"
 msgstr ""
 
 #. module: odoo_backup_sh_google_disk
-#: model:ir.model.fields,help:odoo_backup_sh_google_disk.field_res_config_settings_google_service_account_key
-#: model:ir.model.fields,help:odoo_backup_sh_google_disk.field_test_config_settings_google_service_account_key
-#: model:ir.model.fields,help:odoo_backup_sh_google_disk.field_theme_kit_config_google_service_account_key
+#: model:ir.model,name:odoo_backup_sh_google_disk.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: odoo_backup_sh_google_disk
+#: model:ir.model.fields,help:odoo_backup_sh_google_disk.field_res_config_settings__google_service_account_key
+#: model:ir.model.fields,help:odoo_backup_sh_google_disk.field_test_config_settings__google_service_account_key
 msgid "Credentials in json format"
 msgstr ""
 
@@ -36,22 +40,29 @@ msgid "Delete Remote Backups Wizard"
 msgstr ""
 
 #. module: odoo_backup_sh_google_disk
+#: selection:odoo_backup_sh.backup_info,storage_service:0
+#: selection:odoo_backup_sh.config,storage_service:0
+msgid "Dropbox"
+msgstr ""
+
+#. module: odoo_backup_sh_google_disk
 #. openerp-web
 #: code:addons/odoo_backup_sh_google_disk/static/src/xml/dashboard.xml:10
 #: code:addons/odoo_backup_sh_google_disk/static/src/xml/dashboard.xml:16
+#: selection:odoo_backup_sh.backup_info,storage_service:0
+#: selection:odoo_backup_sh.config,storage_service:0
 #, python-format
 msgid "Google Drive"
 msgstr ""
 
 #. module: odoo_backup_sh_google_disk
-#: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_res_config_settings_google_disk_folder_id
-#: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_test_config_settings_google_disk_folder_id
-#: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_theme_kit_config_google_disk_folder_id
+#: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_res_config_settings__google_disk_folder_id
+#: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_test_config_settings__google_disk_folder_id
 msgid "Google Drive Folder ID"
 msgstr ""
 
 #. module: odoo_backup_sh_google_disk
-#: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_odoo_backup_sh_remote_storage_google_drive_used_remote_storage
+#: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_odoo_backup_sh_remote_storage__google_drive_used_remote_storage
 msgid "Google Drive Usage, MB"
 msgstr ""
 
@@ -66,19 +77,25 @@ msgid "Remote Storage Usage"
 msgstr ""
 
 #. module: odoo_backup_sh_google_disk
-#: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_res_config_settings_google_service_account_key
-#: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_test_config_settings_google_service_account_key
-#: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_theme_kit_config_google_service_account_key
+#: selection:odoo_backup_sh.backup_info,storage_service:0
+#: selection:odoo_backup_sh.config,storage_service:0
+msgid "S3"
+msgstr ""
+
+#. module: odoo_backup_sh_google_disk
+#: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_res_config_settings__google_service_account_key
+#: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_test_config_settings__google_service_account_key
 msgid "Service Account Key"
 msgstr ""
 
 #. module: odoo_backup_sh_google_disk
-#: model:ir.model,name:odoo_backup_sh_google_disk.model_ir_config_parameter
-msgid "ir.config_parameter"
+#: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_odoo_backup_sh_backup_info__storage_service
+#: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_odoo_backup_sh_config__storage_service
+msgid "Storage Service"
 msgstr ""
 
 #. module: odoo_backup_sh_google_disk
-#: model:ir.model,name:odoo_backup_sh_google_disk.model_res_config_settings
-msgid "res.config.settings"
+#: model:ir.model,name:odoo_backup_sh_google_disk.model_ir_config_parameter
+msgid "System Parameter"
 msgstr ""
 
