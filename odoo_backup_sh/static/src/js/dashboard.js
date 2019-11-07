@@ -7,13 +7,13 @@ odoo.define('odoo_backup_sh.dashboard', function (require) {
 
 var AbstractAction = require('web.AbstractAction');
 var ajax = require('web.ajax');
-var ControlPanelMixin = require('web.ControlPanelMixin');
 var core = require('web.core');
 var QWeb = core.qweb;
 var _t = core._t;
 
-var Dashboard = AbstractAction.extend(ControlPanelMixin, {
-    template: 'odoo_backup_sh.BackupDashboardMain',
+var Dashboard = AbstractAction.extend({
+    hasControlPanel: true,
+    contentTemplate: 'odoo_backup_sh.BackupDashboardMain',
     need_control_panel: false,
     cssLibs: [
         '/web/static/lib/nvd3/nv.d3.css'

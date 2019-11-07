@@ -131,7 +131,6 @@ class BackupInfo(models.Model):
 
     storage_service = fields.Selection(selection_add=[(DROPBOX_STORAGE, 'Dropbox')])
 
-    @api.multi
     def download_backup_action(self, backup=None):
         self.assert_user_can_download_backup()
         if backup is None:
@@ -155,12 +154,10 @@ class BackupRemoteStorage(models.Model):
 
     dropbox_used_remote_storage = fields.Integer(string='Dropbox Usage, MB', readonly=True)
 
-    @api.multi
     def compute_total_used_remote_storage(self):
         self.compute_dropbox_used_remote_storage()
         super(BackupRemoteStorage, self).compute_total_used_remote_storage()
 
-    @api.multi
     def compute_dropbox_used_remote_storage(self):
         amount = sum(self.env['odoo_backup_sh.backup_info'].search([('storage_service', '=', DROPBOX_STORAGE)]).mapped('backup_size'))
         today_record = self.search([('date', '=', datetime.strftime(datetime.now(), DEFAULT_SERVER_DATE_FORMAT))])
@@ -176,7 +173,6 @@ class BackupRemoteStorage(models.Model):
 class DeleteRemoteBackupWizard(models.TransientModel):
     _inherit = "odoo_backup_sh.delete_remote_backup_wizard"
 
-    @api.multi
     def delete_remove_backup_button(self):
         record_ids = []
         if self._context.get('active_model') == 'odoo_backup_sh.backup_info':

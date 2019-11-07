@@ -7,7 +7,6 @@ odoo.define('odoo_backup_sh_google_disk.dashboard', function (require) {
 
     var Dashboard = require('odoo_backup_sh.dashboard');
     var ajax = require('web.ajax');
-    var ControlPanelMixin = require('web.ControlPanelMixin');
     var core = require('web.core');
     var Widget = require('web.Widget');
     var QWeb = core.qweb;
