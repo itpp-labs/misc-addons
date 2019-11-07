@@ -799,7 +799,7 @@ h4 .stat-count {
     background: #fff;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     will-change: transform, box-shadow;
-    height: 240px;
+    height: 250px;
     overflow-y: auto;
     margin-bottom: 15px;
     border: 1px solid #ced4da;

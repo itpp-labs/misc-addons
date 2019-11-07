@@ -108,7 +108,7 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
 
     update_join_resign_trends: function(){
         var elem = this.$('.join_resign_trend');
-        var colors = ['#001E5A'];
+        var colors = ['#934da5'];
         var color = d3.scale.ordinal().range(colors);
         var data = [{'values': this.data['di_data']['CS']}]
         data.forEach(function(d) {
@@ -182,12 +182,12 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
 
     render_leave_graph2:function(){
         var self = this;
-        var colors = ['#001E5A'];
+        var colors = ['#934da5'];
         var color = d3.scale.ordinal().range(colors);
         var fData = [{'l_month': "May 2019", 'leave': {Administration: 0, Management: 0, Sales: 0}},{'l_month': "May 2019", 'leave': {Administration: 0, Management: 0, Sales: 0}},{'l_month': "May 2019", 'leave': {Administration: 0, Management: 0, Sales: 0}}];
         var dept = ["Administration", "Sales", "Management"];
         var id = self.$('.leave_graph2')[0];
-        var barColor = '#001E5A';
+        var barColor = '#934da5';
         // compute total for each state.
         fData.forEach(function(d){
             var total = 0;
@@ -201,7 +201,7 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
         function histoGram(fD){
             var hG={},    hGDim = {t: 60, r: 0, b: 30, l: 0};
             hGDim.w = 230 - hGDim.l - hGDim.r,
-            hGDim.h = 140 - hGDim.t - hGDim.b;
+            hGDim.h = 120 - hGDim.t - hGDim.b;
 
             //create svg for histogram.
             var hGsvg = d3.select(id).append("svg")
@@ -287,12 +287,12 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
     render_leave_graph:function(){
         var self = this;
 //        var color = d3.scale.category10();
-        var colors = ['#001E5A'];
+        var colors = ['#934da5'];
         var color = d3.scale.ordinal().range(colors);
         var fData = [{'l_month': "May 2019", 'leave': {Administration: 0, Management: 0, Sales: 0}},{'l_month': "May 2019", 'leave': {Administration: 0, Management: 0, Sales: 0}},{'l_month': "May 2019", 'leave': {Administration: 0, Management: 0, Sales: 0}}];
         var dept = ["Administration", "Sales", "Management"];
         var id = self.$('.leave_graph')[0];
-        var barColor = '#001E5A';
+        var barColor = '#934da5';
         // compute total for each state.
         fData.forEach(function(d){
             var total = 0;
@@ -306,7 +306,7 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
         function histoGram(fD){
             var hG={},    hGDim = {t: 60, r: 0, b: 30, l: 0};
             hGDim.w = 230 - hGDim.l - hGDim.r,
-            hGDim.h = 140 - hGDim.t - hGDim.b;
+            hGDim.h = 120 - hGDim.t - hGDim.b;
 
             //create svg for histogram.
             var hGsvg = d3.select(id).append("svg")

@@ -446,6 +446,7 @@ class OhadaReport(models.AbstractModel):
         '''
         return a dictionary of informations that will be needed by the js widget, manager_id, footnotes, html of report and searchview, ...
         '''
+        # wdb.set_trace()
         options = self._get_options(options)
         # apply date and date_comparison filter
         self._apply_date_filter(options)
@@ -669,7 +670,10 @@ class OhadaReport(models.AbstractModel):
         report = {'name': self._get_report_name(),
                   'summary': report_manager.summary,
                   'company_name': self.env.user.company_id.name,
-                  'type': self.type,}
+                  'type': self.type,
+                  'vat': self.env.user.company_id.vat,
+                  'year': datetime.datetime.now().year,
+                  'header': self.header and self.header + ' ' + str(datetime.datetime.now().year),}
         lines = self._get_lines(options, line_id=line_id)
 
         if options.get('hierarchy'):
@@ -972,15 +976,28 @@ class OhadaReport(models.AbstractModel):
         if not options.get('comparison') or not options['comparison'].get('filter'):
             return
         cmp_filter = options['comparison']['filter']
-
+        # wdb.set_trace()
         if cmp_filter == 'no_comparison':
+            if self.name == 'Balance Sheet - Assets':
+                options['comparison']['string'] = _('No comparison')
+                options['comparison']['periods'] = []
+                if self.has_single_date_filter(options):
+                    options['comparison']['date'] = ""
+                else:
+                    options['comparison']['date_from'] = ""
+                    options['comparison']['date_to'] = ""
+                return
+
+            periods = []
+            number_period = 1
+            for index in range(0, number_period):
+                period_vals = self._get_dates_previous_period(options, period_vals)
+                periods.append(create_vals(period_vals))
+
+            if len(periods) > 0:
+                options['comparison'].update(periods[0])
+            options['comparison']['periods'] = periods
             options['comparison']['string'] = _('No comparison')
-            options['comparison']['periods'] = []
-            if self.has_single_date_filter(options):
-                options['comparison']['date'] = ""
-            else:
-                options['comparison']['date_from'] = ""
-                options['comparison']['date_to'] = ""
             return
 
         if cmp_filter == 'custom':
@@ -993,7 +1010,7 @@ class OhadaReport(models.AbstractModel):
             vals = create_vals(self._get_dates_period(options, date_from, date_to))
             options['comparison']['periods'] = [vals]
             return
-
+        # wdb.set_trace()
         periods = []
         number_period = options['comparison'].get('number_period', 1) or 0
         for index in range(0, number_period):
@@ -1004,7 +1021,7 @@ class OhadaReport(models.AbstractModel):
             periods.append(create_vals(period_vals))
 
         if len(periods) > 0:
-            options['comparison'].update(periods[0])
+            options['comparison'].update(periods[-1])
         options['comparison']['periods'] = periods
 
     def print_pdf(self, options):
@@ -1032,6 +1049,7 @@ class OhadaReport(models.AbstractModel):
         # This scenario happens when you want to print a PDF report for the first time, as the
         # assets are not in cache and must be generated. To workaround this issue, we manually
         # commit the writes in the `ir.attachment` table. It is done thanks to a key in the context.
+        wdb.set_trace()
         if not config['test_enable']:
             self = self.with_context(commit_assetsbundle=True)
 

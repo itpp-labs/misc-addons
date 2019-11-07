@@ -49,7 +49,7 @@ class ReportOhadaFinancialReport(models.Model):
                              ('cover', 'Cover')],
                             default=False)
     sequence = fields.Integer()
-
+    header = fields.Char(default=False)
 
     #    _sql_constraints = [
     #        ('code_uniq', 'unique (code)', "A report with the same code already exists."),
@@ -79,7 +79,7 @@ class ReportOhadaFinancialReport(models.Model):
                        'date': {'date_to': '2019-12-31', 'string': '2019', 'filter': 'this_year',
                                 'date_from': '2019-01-01'}}
 
-        data['years'] = ['2019', '2018', '2017', '2016']
+        data['years'] = [year, year-1, year-2, year-3]
         data['company_name'] = self.env['res.users'].browse(request.session.uid).company_id.name
 
         bz_id = self.env.ref('ohada_reports.account_financial_report_balancesheet_BZ').id
@@ -568,10 +568,12 @@ class OhadaFinancialReportLine(models.Model):
     reference = fields.Char(string="Référence")
     flag = fields.Char(string="Flag", size=10)
     note_report_ids = fields.Many2many(comodel_name='ohada.financial.html.report', relation='financial_report_report_note', column1='financial_report', column2='report_note', string='Note Reports')
-    note = fields.Char(string="Note", help="Note displayed in reports")
+    note = fields.Char(string="Note", help="Note displayed in reports", default='none')
     displayed_sign = fields.Char(string="Displayed Sign", size=3)
     hidden_line = fields.Boolean(default=False)
-    symbol = fields.Char(string="Symbol")
+    symbol = fields.Char(string="Symbol", default='none')
+    header = fields.Char(string="Header", default=None)
+    letter = fields.Char(string="letter", default=None)
 
     _sql_constraints = [
         ('code_uniq', 'unique (code)', "A report line with the same code already exists."),
@@ -1127,6 +1129,7 @@ class OhadaFinancialReportLine(models.Model):
             return {'name': _('n/a')}
 
     def _split_formulas(self):
+
         result = {}
         if self.formulas:
             for f in self.formulas.split(';'):
@@ -1289,7 +1292,6 @@ class OhadaFinancialReportLine(models.Model):
             debit_credit = len(comparison_table) == 1
             domain_ids = {'line'}
             k = 0
-
             for period in comparison_table:
                 date_from = period.get('date_from', False)
                 date_to = period.get('date_to', False) or period.get('date', False)
@@ -1316,7 +1318,7 @@ class OhadaFinancialReportLine(models.Model):
                 continue
 
             # Post-processing ; creating line dictionnary, building comparison, computing total for extended, formatting
-            # wdb.set_trace()
+
             vals = {
                 'id': line.id,
                 'name': line.name,
@@ -1329,8 +1331,9 @@ class OhadaFinancialReportLine(models.Model):
                 'unfoldable': len(domain_ids) > 1 and line.show_domain != 'always',
                 'unfolded': line.id in options.get('unfolded_lines', []) or line.show_domain == 'always',
                 'page_break': line.print_on_new_page,
+                'letter': line.letter,
             }
-
+            # wdb.set_trace()
             if financial_report.tax_report and line.domain and not line.action_id:
                 vals['caret_options'] = 'tax.report.line'
 
@@ -1339,6 +1342,7 @@ class OhadaFinancialReportLine(models.Model):
             domain_ids.remove('line')
             lines = [vals]
             groupby = line.groupby or 'aml'
+
             if line.id in options.get('unfolded_lines', []) or line.show_domain == 'always':
                 if line.groupby:
                     domain_ids = sorted(list(domain_ids), key=lambda k: line._get_gb_name(k))
@@ -1360,7 +1364,10 @@ class OhadaFinancialReportLine(models.Model):
                     lines.append(vals)
 
             for vals in lines:
-                if len(comparison_table) == 2 and not options.get('groups'):
+                if len(comparison_table) == 2 and options['comparison']['filter'] == 'no_comparison':
+                    for i in [0, 1]:
+                        vals['columns'][i] = line._format(vals['columns'][i])
+                elif len(comparison_table) == 2 and not options.get('groups'):
                     vals['columns'].append(line._build_cmp(vals['columns'][0]['name'], vals['columns'][1]['name']))
                     for i in [0, 1]:
                         vals['columns'][i] = line._format(vals['columns'][i])
@@ -1368,6 +1375,22 @@ class OhadaFinancialReportLine(models.Model):
                     vals['columns'] = [line._format(v) for v in vals['columns']]
                 if not line.formulas:
                     vals['columns'] = [{'name': ''} for k in vals['columns']]
+
+            if line.reference == 'REF':
+                # wdb.set_trace()
+                # line.header = line.header.split(',')
+                vals['columns'][0]['name'] = ['EXERPRICE', 'au 31/12/' + line._context['date_from'][0:4]]
+                if len(vals['columns']) > 1 and line._context.get('periods') != None \
+                        and options['comparison']['filter'] == 'no_comparison' or len(options['comparison']['periods']) > 1:
+                    for i in range(len(vals['columns'][1:])):
+                        vals['columns'][i+1]['name'] = ['EXERPRICE', 'au 31/12/' + line._context['periods'][i]['string']]
+                elif len(vals['columns']) > 1 and line._context.get('periods') != None:
+                    for i in range(len(vals['columns'][1:])-1):
+                        vals['columns'][i+1]['name'] = ['EXERPRICE', 'au 31/12/' + line._context['periods'][i]['string']]
+                if financial_report.name == 'Balance Sheet - Assets' and options['comparison']['periods'] == []:
+                    vals['columns'] = []
+                    vals['columns'].append({'name': ['EXERPRICE', 'au 31/12/2019']})
+                    vals['colspan0'] = 3
 
             if len(lines) == 1:
                 new_lines = line.children_ids._get_lines(financial_report, currency_table, options, linesDicts)
@@ -1377,6 +1400,23 @@ class OhadaFinancialReportLine(models.Model):
                     result = lines + new_lines
             else:
                 result = lines
+            # wdb.set_trace()
+            if result[0]['note'] == 'NET':
+                if financial_report.name == 'Balance Sheet - Assets' and options['comparison']['periods'] == []:
+                    result[0]['columns'][0]['name'] = 'BRUT'
+                    result[0]['columns'][1]['name'] = 'AMORT. ET DEPREC.'
+                    result[0]['columns'][2]['name'] = 'NET'
+                elif len(result[0]['columns']) > 1 and options['comparison']['filter'] == 'no_comparison' or \
+                        len(options['comparison']['periods']) > 1:
+                    for i in range(len(result[0]['columns'])):
+                        result[0]['columns'][i]['name'] = 'NET'
+                elif len(result[0]['columns']) > 1:
+                    for i in range(len(result[0]['columns']) - 1):
+                        result[0]['columns'][i]['name'] = 'NET'
+                    result[0]['columns'][-1]['name'] = '%'
+                else:
+                    result[0]['columns'][0]['name'] = 'NET'
+
             final_result_table += result
 
         return final_result_table

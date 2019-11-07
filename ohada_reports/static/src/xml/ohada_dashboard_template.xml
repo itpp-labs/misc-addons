@@ -104,15 +104,15 @@
             <div class="row main-section">
                 <div class="col-md-2 col-sm-2 dummy"></div>
                 <div class="col-md-5 col-lg-4" style="max-width:27.77%">
-                    <div class="ohada_notification_big" >
-                        <div style="background-color: #934da5;width:3px;height:100%;float:left;"></div>
+                    <div class="ohada_notification_big" style="border-left:3px solid #934da5;">
+                        <!--<div style="background-color: #934da5;width:3px;height:100%;float:left;"></div>-->
                         <div class="oh-card-body pb-0" style="padding:0;">
                             <h4 class="mb-0">
                             </h4>
-                            <a class="stat-head" style="padding:0px;margin-top:15px;cursor:pointer;" t-att-href="'/web#action=' + widget.data['Balance sheet'] + '&amp;' + 'menu_id=' + menu_id">Balance sheet</a>
+                            <a class="stat-head" style="padding:0px;margin-top:15px;cursor:pointer;margin-left: 12px;" t-att-href="'/web#action=' + widget.data['Balance sheet'] + '&amp;' + 'menu_id=' + menu_id">Balance sheet</a>
                         </div>
                         <div class="col-xs-12">
-                            <div class="ohada_notification" style="height:80px;margin-left:10px;">
+                            <div class="ohada_notification" style="height:80px;">
                                 <ul style="margin-left:-30px;margin-top:5px;">
                                     <li class="list-left">Total assets</li>
                                     <li class="list-right"><t t-esc="widget.data['bz']"/></li>
@@ -129,19 +129,19 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="leave_graph" style="margin-top:-50px !important;margin-left:30px;" />
+                        <div class="leave_graph" style="margin-top:-30px !important;margin-left:30px;" />
                      </div>
                 </div>
                 <div class="col-md-4 col-lg-4" style="max-width:27.77%">
-                    <div class="col-xs-12  ohada_notification_big" style="padding: 0;">
-                        <div style="background-color: #934da5;width:3px;height:100%;float:left;"></div>
+                    <div class="col-xs-12  ohada_notification_big" style="padding: 0;border-left:3px solid #934da5;">
+                        <!--<div style="background-color: #934da5;width:3px;height:100%;float:left;"></div>-->
                         <div class="oh-card-body pb-0" style="padding:0;">
                             <h4 class="mb-0">
                             </h4>
-                            <a class="stat-head" style="padding:0px;margin-top:15px;cursor:pointer;" t-att-href="'/web#action=' + widget.data['Profit And Loss'] + '&amp;' + 'menu_id=' + menu_id">Profit  &amp; lost</a>
+                            <a class="stat-head" style="padding:0px;margin-top:15px;cursor:pointer;margin-left: 12px;" t-att-href="'/web#action=' + widget.data['Profit And Loss'] + '&amp;' + 'menu_id=' + menu_id">Profit  &amp; lost</a>
                         </div>
                         <div class="col-xs-12">
-                            <div class="ohada_notification" style="height:80px;margin-left:10px;">
+                            <div class="ohada_notification" style="height:80px;">
                                 <ul style="margin-left:-30px;margin-top:5px;">
                                     <li class="list-left">Net profit <t t-esc="widget.data['this_year']"/></li>
                                     <li class="list-right"><t t-esc="widget.data['xl']"/></li>
@@ -157,20 +157,20 @@
                                     <li class="list-right"><t t-esc="widget.data['xl_dif']"/></li>
                                 </ul>
                             </div>
-                            <div class="leave_graph2" style="margin-top:-50px !important;margin-left:30px;" />
+                            <div class="leave_graph2" style="margin-top:-30px !important;margin-left:30px;" />
                         </div>
                      </div>
                 </div>
                 <div class="col-md-4 col-lg-4" style="max-width:27.77%">
-                    <div class="col-xs-12  ohada_notification_big" style="padding: 0;">
-                        <div style="background-color: #934da5;width:3px;height:100%;float:left;"></div>
+                    <div class="col-xs-12  ohada_notification_big" style="padding: 0;border-left:3px solid #934da5;">
+                        <!--<div style="background-color: #934da5;width:3px;height:100%;float:left;"></div>-->
                         <div class="oh-card-body pb-0" style="padding:0;">
                             <h4 class="mb-0">
                             </h4>
-                            <a class="stat-head" style="padding:0px;margin-top:15px;cursor:pointer;" t-att-href="'/web#action=' + widget.data['Cash Flow Statement'] + '&amp;' + 'menu_id=' + menu_id">Cashflow statement</a>
+                            <a class="stat-head" style="padding:0px;margin-top:15px;cursor:pointer;margin-left: 12px;" t-att-href="'/web#action=' + widget.data['Cash Flow Statement'] + '&amp;' + 'menu_id=' + menu_id">Cashflow statement</a>
                         </div>
-                        <div class="col-xs-12">
-                            <div class="ohada_notification" style="height:80px; margin-left:10px;">
+                        <div class="col-xs-12" style="max-width: 96%;">
+                            <div class="ohada_notification" style="height:80px;">
                                 <ul style="margin-left:-30px;margin-top:5px;">
                                     <li class="list-left">Cash closing balance <t t-esc="widget.data['this_year']"/></li>
                                     <li class="list-right"><t t-esc="widget.data['zh']"/></li>
@@ -188,7 +188,7 @@
                             </div>
                         </div>
                         <div class="monthly_join_resign_trend">
-                            <div class="join_resign_trend" style="margin-top:-20px !important;margin-left:20px;padding:0px;" />
+                            <div class="join_resign_trend" style="margin-top:-10px !important;margin-left:20px;padding:0px;" />
                         </div>
                      </div>
 
