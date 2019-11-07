@@ -6,7 +6,7 @@
 # Randall <randall_castro@me.com>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-30 21:57+0000\n"
 "PO-Revision-Date: 2018-04-30 21:57+0000\n"
