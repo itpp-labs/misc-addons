@@ -105,7 +105,6 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
     <record id='odoo_backup_sh_backup_action' model='ir.actions.act_window'>
         <field name="name">Backups</field>
         <field name="res_model">odoo_backup_sh.backup_info</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form,graph</field>
         <field name="context">{
             'search_default_group_database': 1,
@@ -167,7 +166,6 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
     <record id='action_backup_notifications' model='ir.actions.act_window'>
         <field name="name">Notifications</field>
         <field name="res_model">odoo_backup_sh.notification</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 
@@ -322,7 +320,6 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
     <record id='action_backup_config' model='ir.actions.act_window'>
         <field name="name">Backup Configurations</field>
         <field name="res_model">odoo_backup_sh.config</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 
@@ -342,8 +339,8 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
     </record>
 
     <act_window id="delete_remote_backup_wizard_action" name="Delete Remote Backups"
-                src_model="odoo_backup_sh.backup_info" res_model="odoo_backup_sh.delete_remote_backup_wizard"
-                view_type="form" view_mode="form" key2="client_action_multi" target="new"/>
+                binding_model="odoo_backup_sh.backup_info" res_model="odoo_backup_sh.delete_remote_backup_wizard"
+                view_mode="form"  target="new"/>
 
     <menuitem name="Backups" id="menu_backup_root" sequence="100" web_icon="odoo_backup_sh,static/description/icon.png" groups="odoo_backup_sh.group_user" />
     <menuitem name="Dashboard" action="odoo_backup_sh.ir_actions_server_backup_dashboard" parent="menu_backup_root"

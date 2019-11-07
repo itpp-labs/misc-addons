@@ -8,11 +8,11 @@
     "category": "Backup",
     # "live_test_url": "",
     "images": ['images/odoo-backup.sh.jpg'],
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
 
     "author": "IT-Projects LLC",
     "support": "apps@it-projects.info",
-    "website": "https://apps.odoo.com/apps/modules/12.0/odoo_backup_sh/",
+    "website": "https://apps.odoo.com/apps/modules/13.0/odoo_backup_sh/",
     "license": "LGPL-3",
     # "price": 1.00,
     # "currency": "EUR",
