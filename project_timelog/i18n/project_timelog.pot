@@ -24,6 +24,11 @@ msgid "Access Key"
 msgstr ""
 
 #. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__odoo_backup_sh_amazon_access_key_id
+msgid "Access Key ID"
+msgstr ""
+
+#. module: project_timelog
 #: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__alias_domain
 msgid "Alias Domain"
 msgstr ""
@@ -87,6 +92,16 @@ msgstr ""
 #. module: project_timelog
 #: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__shift_autocheckout
 msgid "Autocheckout "
+msgstr ""
+
+#. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__available_module_odoo_backup_sh_dropbox
+msgid "Available Module Odoo Backup Sh Dropbox"
+msgstr ""
+
+#. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__available_module_odoo_backup_sh_google_disk
+msgid "Available Module Odoo Backup Sh Google Disk"
 msgstr ""
 
 #. module: project_timelog
@@ -203,6 +218,11 @@ msgid "Creation date"
 msgstr ""
 
 #. module: project_timelog
+#: model:ir.model.fields,help:project_timelog.field_timelog_config_settings__google_service_account_key
+msgid "Credentials in json format"
+msgstr ""
+
+#. module: project_timelog
 #: code:addons/project_timelog/models/project_timelog.py:312
 #, python-format
 msgid "Current task stage different from the stage subtasks."
@@ -293,6 +313,21 @@ msgid "Document Template"
 msgstr ""
 
 #. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__module_odoo_backup_sh_dropbox
+msgid "Dropbox"
+msgstr ""
+
+#. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__dropbox_access_token
+msgid "Dropbox Access Token"
+msgstr ""
+
+#. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__dropbox_folder_path
+msgid "Dropbox Folder Path"
+msgstr ""
+
+#. module: project_timelog
 #: model:ir.model.fields,field_description:project_timelog.field_project_timelog__duration
 #: model_terms:ir.ui.view,arch_db:project_timelog.view_my_timelog
 #: model_terms:ir.ui.view,arch_db:project_timelog.view_my_timelog_form
@@ -376,6 +411,11 @@ msgid "Favicon"
 msgstr ""
 
 #. module: project_timelog
+#: model:ir.model.fields,help:project_timelog.field_timelog_config_settings__odoo_backup_sh_private_s3_dir
+msgid "Folder in S3 Bucket, e.g. odoo-backups"
+msgstr ""
+
+#. module: project_timelog
 #: model:ir.model.fields,help:project_timelog.field_timelog_config_settings__report_footer
 msgid "Footer text displayed at the bottom of all reports."
 msgstr ""
@@ -413,6 +453,16 @@ msgstr ""
 #. module: project_timelog
 #: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__google_management_client_secret
 msgid "Google Client Secret"
+msgstr ""
+
+#. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__module_odoo_backup_sh_google_disk
+msgid "Google Drive"
+msgstr ""
+
+#. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__google_disk_folder_id
+msgid "Google Drive Folder ID"
 msgstr ""
 
 #. module: project_timelog
@@ -613,6 +663,11 @@ msgid "Number of languages"
 msgstr ""
 
 #. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__odoo_backup_sh_odoo_oauth_uid
+msgid "Odoo OAuth"
+msgstr ""
+
+#. module: project_timelog
 #: model:ir.actions.server,name:project_timelog.ir_cron_check_stop_timer_ir_actions_server
 #: model:ir.cron,cron_name:project_timelog.ir_cron_check_stop_timer
 #: model:ir.cron,name:project_timelog.ir_cron_check_stop_timer
@@ -661,6 +716,11 @@ msgid "Partners must enter their PIN to check in manually in the \"Kiosk Mode\".
 msgstr ""
 
 #. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__odoo_backup_sh_private_s3_dir
+msgid "Path"
+msgstr ""
+
+#. module: project_timelog
 #: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__module_crm_phone_validation
 msgid "Phone Formatting"
 msgstr ""
@@ -679,6 +739,11 @@ msgstr ""
 #. module: project_timelog
 #: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__snailmail_color
 msgid "Print In Color"
+msgstr ""
+
+#. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__private_s3_dir_changed
+msgid "Private S3 Dir Changed"
 msgstr ""
 
 #. module: project_timelog
@@ -704,6 +769,21 @@ msgstr ""
 #. module: project_timelog
 #: model_terms:ir.ui.view,arch_db:project_timelog.timelog_search_view
 msgid "Projects"
+msgstr ""
+
+#. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__odoo_backup_sh_amazon_bucket_name
+msgid "S3 Bucket"
+msgstr ""
+
+#. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__odoo_backup_sh_amazon_secret_access_key
+msgid "Secret Access Key"
+msgstr ""
+
+#. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__google_service_account_key
+msgid "Service Account Key"
 msgstr ""
 
 #. module: project_timelog
@@ -936,6 +1016,11 @@ msgid "Template user for new users created through signup"
 msgstr ""
 
 #. module: project_timelog
+#: model:ir.model.fields,help:project_timelog.field_timelog_config_settings__dropbox_folder_path
+msgid "The Full Path to upload a Backup. E.g. /ProductionBackups"
+msgstr ""
+
+#. module: project_timelog
 #: sql_constraint:account.analytic.line:0
 msgid "The name of the subtask must be unique per stage!"
 msgstr ""
@@ -1093,6 +1178,16 @@ msgstr ""
 #. module: project_timelog
 #: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__module_web_unsplash
 msgid "Unsplash Image Library"
+msgstr ""
+
+#. module: project_timelog
+#: model:ir.model.fields,help:project_timelog.field_timelog_config_settings__module_odoo_backup_sh_dropbox
+msgid "Use Dropbox to store Database"
+msgstr ""
+
+#. module: project_timelog
+#: model:ir.model.fields,help:project_timelog.field_timelog_config_settings__module_odoo_backup_sh_google_disk
+msgid "Use Google Drive to store Database"
 msgstr ""
 
 #. module: project_timelog
