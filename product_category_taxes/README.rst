@@ -12,6 +12,6 @@ This module has LGPL-3 license.
 
 Maintainers
 -----------
-This module is not maintainable since Odoo 11.0.
+This module is not maintained since Odoo 11.0.
 
 Tested on Odoo 9.0 2ec9a9c99294761e56382bdcd766e90b8bc1bb38
