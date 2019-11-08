@@ -38,7 +38,7 @@ Maintainers
 
       `IT-Projects Team <https://www.it-projects.info/team>`__
       
-      This module is not maintainable since Odoo 12.0      
+      This module is not maintained since Odoo 12.0      
 
 Further information
 ===================
