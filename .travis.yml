@@ -21,7 +21,9 @@ env:
   #   ir_config_parameter_multi_company makes field *value* at ir.config_parameter company_dependent,
   #   but registry may not know it, if module is not loaded yet during testing. It leads to error "column value doesn't exist".
   #   Adding the module to server-wide modules avoids this problem.
-  - OPTIONS="--load=web,ir_config_parameter_multi_company"
+  # * about ir_attachment_url
+  #   without running as server side module can lead to errored tests
+  - OPTIONS="--load=web,ir_attachment_url,ir_config_parameter_multi_company"
   - PYLINT_ODOO_JSLINTRC="/home/travis/maintainer-quality-tools/travis/cfg/.jslintrc"
 
   matrix:

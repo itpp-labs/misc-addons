@@ -5,7 +5,7 @@
 
 import logging
 
-from odoo import api
+from odoo import api, conf
 from odoo.tests.common import HttpCase
 
 _logger = logging.getLogger(__name__)
@@ -23,6 +23,8 @@ class TestProductTmplImage(HttpCase):
         return '/web/image?model={}&id={}&field={}'.format(model, record_id, field)
 
     def test_getting_product_variant_image_fields_urls(self):
+        assert 'ir_attachment_url' in conf.server_wide_modules, "ir_attachment_url is not in server_wide_modules. Please add it via --load parameter"
+
         env = api.Environment(self.registry.test_cr, self.uid, {})
 
         env['ir.config_parameter'].set_param('ir_attachment_url.storage', 'url')
