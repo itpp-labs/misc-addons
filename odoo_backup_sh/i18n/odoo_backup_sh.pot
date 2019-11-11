@@ -43,11 +43,7 @@ msgid "<strong>Save</strong> this page and come back here to set up the feature.
 msgstr ""
 
 #. module: odoo_backup_sh
-#: model:ir.model.fields,help:odoo_backup_sh.field_odoo_backup_sh_config_cron_website_published
-msgid "A code server action can be executed from the website, using a dedicated controller. The address is <base>/website/action/<website_path>. Set this field as True to allow users to run this action. If it is set to False the action cannot be run through the website."
-msgstr ""
-
-#. module: odoo_backup_sh
+#: model:ir.model.fields,field_description:odoo_backup_sh.field_ir_attachment_config_settings_odoo_backup_sh_amazon_access_key_id
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_res_config_settings_odoo_backup_sh_amazon_access_key_id
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_test_config_settings_odoo_backup_sh_amazon_access_key_id
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_theme_kit_config_odoo_backup_sh_amazon_access_key_id
@@ -125,6 +121,7 @@ msgid "Auto/manual backup, auto rotation, remote storage for your backups, detai
 msgstr ""
 
 #. module: odoo_backup_sh
+#: model:ir.model.fields,field_description:odoo_backup_sh.field_ir_attachment_config_settings_available_module_odoo_backup_sh_dropbox
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_res_config_settings_available_module_odoo_backup_sh_dropbox
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_test_config_settings_available_module_odoo_backup_sh_dropbox
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_theme_kit_config_available_module_odoo_backup_sh_dropbox
@@ -132,15 +129,11 @@ msgid "Available Module Odoo Backup Sh Dropbox"
 msgstr ""
 
 #. module: odoo_backup_sh
+#: model:ir.model.fields,field_description:odoo_backup_sh.field_ir_attachment_config_settings_available_module_odoo_backup_sh_google_disk
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_res_config_settings_available_module_odoo_backup_sh_google_disk
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_test_config_settings_available_module_odoo_backup_sh_google_disk
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_theme_kit_config_available_module_odoo_backup_sh_google_disk
 msgid "Available Module Odoo Backup Sh Google Disk"
-msgstr ""
-
-#. module: odoo_backup_sh
-#: model:ir.model.fields,field_description:odoo_backup_sh.field_odoo_backup_sh_config_cron_website_published
-msgid "Available on the Website"
 msgstr ""
 
 #. module: odoo_backup_sh
@@ -425,6 +418,7 @@ msgid "Download backup"
 msgstr ""
 
 #. module: odoo_backup_sh
+#: model:ir.model.fields,field_description:odoo_backup_sh.field_ir_attachment_config_settings_module_odoo_backup_sh_dropbox
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_res_config_settings_module_odoo_backup_sh_dropbox
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_test_config_settings_module_odoo_backup_sh_dropbox
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_theme_kit_config_module_odoo_backup_sh_dropbox
@@ -508,6 +502,7 @@ msgid "Finish configuration"
 msgstr ""
 
 #. module: odoo_backup_sh
+#: model:ir.model.fields,help:odoo_backup_sh.field_ir_attachment_config_settings_odoo_backup_sh_private_s3_dir
 #: model:ir.model.fields,help:odoo_backup_sh.field_res_config_settings_odoo_backup_sh_private_s3_dir
 #: model:ir.model.fields,help:odoo_backup_sh.field_test_config_settings_odoo_backup_sh_private_s3_dir
 #: model:ir.model.fields,help:odoo_backup_sh.field_theme_kit_config_odoo_backup_sh_private_s3_dir
@@ -532,6 +527,7 @@ msgid "Go to Balance"
 msgstr ""
 
 #. module: odoo_backup_sh
+#: model:ir.model.fields,field_description:odoo_backup_sh.field_ir_attachment_config_settings_module_odoo_backup_sh_google_disk
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_res_config_settings_module_odoo_backup_sh_google_disk
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_test_config_settings_module_odoo_backup_sh_google_disk
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_theme_kit_config_module_odoo_backup_sh_google_disk
@@ -595,11 +591,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_odoo_backup_sh_notification_id
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_odoo_backup_sh_remote_storage_id
 msgid "ID"
-msgstr ""
-
-#. module: odoo_backup_sh
-#: model:ir.model.fields,help:odoo_backup_sh.field_odoo_backup_sh_config_cron_xml_id
-msgid "ID of the action if defined in a XML file"
 msgstr ""
 
 #. module: odoo_backup_sh
@@ -799,6 +790,7 @@ msgid "Odoo Backup sh Usage, MB"
 msgstr ""
 
 #. module: odoo_backup_sh
+#: model:ir.model.fields,field_description:odoo_backup_sh.field_ir_attachment_config_settings_odoo_backup_sh_odoo_oauth_uid
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_res_config_settings_odoo_backup_sh_odoo_oauth_uid
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_test_config_settings_odoo_backup_sh_odoo_oauth_uid
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_theme_kit_config_odoo_backup_sh_odoo_oauth_uid
@@ -831,6 +823,7 @@ msgid "Paste your S3 credentials here"
 msgstr ""
 
 #. module: odoo_backup_sh
+#: model:ir.model.fields,field_description:odoo_backup_sh.field_ir_attachment_config_settings_odoo_backup_sh_private_s3_dir
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_res_config_settings_odoo_backup_sh_private_s3_dir
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_test_config_settings_odoo_backup_sh_private_s3_dir
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_theme_kit_config_odoo_backup_sh_private_s3_dir
@@ -843,6 +836,7 @@ msgid "Priority"
 msgstr ""
 
 #. module: odoo_backup_sh
+#: model:ir.model.fields,field_description:odoo_backup_sh.field_ir_attachment_config_settings_private_s3_dir_changed
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_res_config_settings_private_s3_dir_changed
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_test_config_settings_private_s3_dir_changed
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_theme_kit_config_private_s3_dir_changed
@@ -892,6 +886,7 @@ msgid "S3"
 msgstr ""
 
 #. module: odoo_backup_sh
+#: model:ir.model.fields,field_description:odoo_backup_sh.field_ir_attachment_config_settings_odoo_backup_sh_amazon_bucket_name
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_res_config_settings_odoo_backup_sh_amazon_bucket_name
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_test_config_settings_odoo_backup_sh_amazon_bucket_name
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_theme_kit_config_odoo_backup_sh_amazon_bucket_name
@@ -925,6 +920,7 @@ msgid "Schedules and Rotations"
 msgstr ""
 
 #. module: odoo_backup_sh
+#: model:ir.model.fields,field_description:odoo_backup_sh.field_ir_attachment_config_settings_odoo_backup_sh_amazon_secret_access_key
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_res_config_settings_odoo_backup_sh_amazon_secret_access_key
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_test_config_settings_odoo_backup_sh_amazon_secret_access_key
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_theme_kit_config_odoo_backup_sh_amazon_secret_access_key
@@ -1018,11 +1014,6 @@ msgstr ""
 #. module: odoo_backup_sh
 #: sql_constraint:odoo_backup_sh.config:0
 msgid "The daily limit must be positive!"
-msgstr ""
-
-#. module: odoo_backup_sh
-#: model:ir.model.fields,help:odoo_backup_sh.field_odoo_backup_sh_config_cron_website_url
-msgid "The full URL to access the server action through the website."
 msgstr ""
 
 #. module: odoo_backup_sh
@@ -1156,6 +1147,7 @@ msgid "Use Dropbox"
 msgstr ""
 
 #. module: odoo_backup_sh
+#: model:ir.model.fields,help:odoo_backup_sh.field_ir_attachment_config_settings_module_odoo_backup_sh_dropbox
 #: model:ir.model.fields,help:odoo_backup_sh.field_res_config_settings_module_odoo_backup_sh_dropbox
 #: model:ir.model.fields,help:odoo_backup_sh.field_test_config_settings_module_odoo_backup_sh_dropbox
 #: model:ir.model.fields,help:odoo_backup_sh.field_theme_kit_config_module_odoo_backup_sh_dropbox
@@ -1171,6 +1163,7 @@ msgid "Use Google Drive"
 msgstr ""
 
 #. module: odoo_backup_sh
+#: model:ir.model.fields,help:odoo_backup_sh.field_ir_attachment_config_settings_module_odoo_backup_sh_google_disk
 #: model:ir.model.fields,help:odoo_backup_sh.field_res_config_settings_module_odoo_backup_sh_google_disk
 #: model:ir.model.fields,help:odoo_backup_sh.field_test_config_settings_module_odoo_backup_sh_google_disk
 #: model:ir.model.fields,help:odoo_backup_sh.field_theme_kit_config_module_odoo_backup_sh_google_disk
@@ -1207,16 +1200,6 @@ msgstr ""
 #: model:ir.ui.view,arch_db:odoo_backup_sh.odoo_backup_sh_config_form
 msgid "Warning: Don't forget the encryption password.\n"
 "                            Without it you cannot restore the database from the encrypted backup."
-msgstr ""
-
-#. module: odoo_backup_sh
-#: model:ir.model.fields,field_description:odoo_backup_sh.field_odoo_backup_sh_config_cron_website_path
-msgid "Website Path"
-msgstr ""
-
-#. module: odoo_backup_sh
-#: model:ir.model.fields,field_description:odoo_backup_sh.field_odoo_backup_sh_config_cron_website_url
-msgid "Website Url"
 msgstr ""
 
 #. module: odoo_backup_sh
