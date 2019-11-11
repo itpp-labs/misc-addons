@@ -94,6 +94,7 @@ msgid "Attendances"
 msgstr ""
 
 #. module: base_attendance
+#: model:ir.model.fields,field_description:base_attendance.field_ir_attachment_config_settings_shift_autocheckout
 #: model:ir.model.fields,field_description:base_attendance.field_res_config_settings_shift_autocheckout
 #: model:ir.model.fields,field_description:base_attendance.field_test_config_settings_shift_autocheckout
 #: model:ir.model.fields,field_description:base_attendance.field_theme_kit_config_shift_autocheckout
@@ -256,6 +257,7 @@ msgid "Enable PIN use (for Partner Attendance)"
 msgstr ""
 
 #. module: base_attendance
+#: model:ir.model.fields,help:base_attendance.field_ir_attachment_config_settings_group_attendance_use_pin
 #: model:ir.model.fields,help:base_attendance.field_res_config_settings_group_attendance_use_pin
 #: model:ir.model.fields,help:base_attendance.field_test_config_settings_group_attendance_use_pin
 #: model:ir.model.fields,help:base_attendance.field_theme_kit_config_group_attendance_use_pin
@@ -337,6 +339,7 @@ msgid "Group By"
 msgstr ""
 
 #. module: base_attendance
+#: model:ir.model.fields,field_description:base_attendance.field_ir_attachment_config_settings_hex_scanner_is_used
 #: model:ir.model.fields,field_description:base_attendance.field_res_config_settings_hex_scanner_is_used
 #: model:ir.model.fields,field_description:base_attendance.field_test_config_settings_hex_scanner_is_used
 #: model:ir.model.fields,field_description:base_attendance.field_theme_kit_config_hex_scanner_is_used
@@ -437,6 +440,7 @@ msgid "Manual Attendances"
 msgstr ""
 
 #. module: base_attendance
+#: model:ir.model.fields,help:base_attendance.field_ir_attachment_config_settings_shift_autocheckout
 #: model:ir.model.fields,help:base_attendance.field_res_config_settings_shift_autocheckout
 #: model:ir.model.fields,help:base_attendance.field_test_config_settings_shift_autocheckout
 #: model:ir.model.fields,help:base_attendance.field_theme_kit_config_shift_autocheckout
@@ -503,6 +507,7 @@ msgid "Partner Image"
 msgstr ""
 
 #. module: base_attendance
+#: model:ir.model.fields,field_description:base_attendance.field_ir_attachment_config_settings_group_attendance_use_pin
 #: model:ir.model.fields,field_description:base_attendance.field_res_config_settings_group_attendance_use_pin
 #: model:ir.model.fields,field_description:base_attendance.field_test_config_settings_group_attendance_use_pin
 #: model:ir.model.fields,field_description:base_attendance.field_theme_kit_config_group_attendance_use_pin
@@ -538,6 +543,7 @@ msgid "Partners Attendance"
 msgstr ""
 
 #. module: base_attendance
+#: selection:ir.attachment.config.settings,group_attendance_use_pin:0
 #: selection:res.config.settings,group_attendance_use_pin:0
 #: selection:test.config.settings,group_attendance_use_pin:0
 #: selection:theme_kit.config,group_attendance_use_pin:0
@@ -545,6 +551,7 @@ msgid "Partners do not need to enter their PIN to check in manually in the \"Kio
 msgstr ""
 
 #. module: base_attendance
+#: selection:ir.attachment.config.settings,group_attendance_use_pin:0
 #: selection:res.config.settings,group_attendance_use_pin:0
 #: selection:test.config.settings,group_attendance_use_pin:0
 #: selection:theme_kit.config,group_attendance_use_pin:0
@@ -612,6 +619,7 @@ msgid "Settings"
 msgstr ""
 
 #. module: base_attendance
+#: model:ir.model.fields,help:base_attendance.field_ir_attachment_config_settings_hex_scanner_is_used
 #: model:ir.model.fields,help:base_attendance.field_res_config_settings_hex_scanner_is_used
 #: model:ir.model.fields,help:base_attendance.field_test_config_settings_hex_scanner_is_used
 #: model:ir.model.fields,help:base_attendance.field_theme_kit_config_hex_scanner_is_used
