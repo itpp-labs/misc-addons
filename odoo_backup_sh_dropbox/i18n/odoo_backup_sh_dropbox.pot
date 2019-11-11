@@ -37,6 +37,7 @@ msgid "Dropbox"
 msgstr ""
 
 #. module: odoo_backup_sh_dropbox
+#: model:ir.model.fields,field_description:odoo_backup_sh_dropbox.field_ir_attachment_config_settings_dropbox_access_token
 #: model:ir.model.fields,field_description:odoo_backup_sh_dropbox.field_res_config_settings_dropbox_access_token
 #: model:ir.model.fields,field_description:odoo_backup_sh_dropbox.field_test_config_settings_dropbox_access_token
 #: model:ir.model.fields,field_description:odoo_backup_sh_dropbox.field_theme_kit_config_dropbox_access_token
@@ -44,6 +45,7 @@ msgid "Dropbox Access Token"
 msgstr ""
 
 #. module: odoo_backup_sh_dropbox
+#: model:ir.model.fields,field_description:odoo_backup_sh_dropbox.field_ir_attachment_config_settings_dropbox_folder_path
 #: model:ir.model.fields,field_description:odoo_backup_sh_dropbox.field_res_config_settings_dropbox_folder_path
 #: model:ir.model.fields,field_description:odoo_backup_sh_dropbox.field_test_config_settings_dropbox_folder_path
 #: model:ir.model.fields,field_description:odoo_backup_sh_dropbox.field_theme_kit_config_dropbox_folder_path
@@ -66,6 +68,7 @@ msgid "Remote Storage Usage"
 msgstr ""
 
 #. module: odoo_backup_sh_dropbox
+#: model:ir.model.fields,help:odoo_backup_sh_dropbox.field_ir_attachment_config_settings_dropbox_folder_path
 #: model:ir.model.fields,help:odoo_backup_sh_dropbox.field_res_config_settings_dropbox_folder_path
 #: model:ir.model.fields,help:odoo_backup_sh_dropbox.field_test_config_settings_dropbox_folder_path
 #: model:ir.model.fields,help:odoo_backup_sh_dropbox.field_theme_kit_config_dropbox_folder_path
