@@ -24,6 +24,7 @@ msgid "Backup Configurations"
 msgstr ""
 
 #. module: odoo_backup_sh_google_disk
+#: model:ir.model.fields,help:odoo_backup_sh_google_disk.field_ir_attachment_config_settings_google_service_account_key
 #: model:ir.model.fields,help:odoo_backup_sh_google_disk.field_res_config_settings_google_service_account_key
 #: model:ir.model.fields,help:odoo_backup_sh_google_disk.field_test_config_settings_google_service_account_key
 #: model:ir.model.fields,help:odoo_backup_sh_google_disk.field_theme_kit_config_google_service_account_key
@@ -44,6 +45,7 @@ msgid "Google Drive"
 msgstr ""
 
 #. module: odoo_backup_sh_google_disk
+#: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_ir_attachment_config_settings_google_disk_folder_id
 #: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_res_config_settings_google_disk_folder_id
 #: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_test_config_settings_google_disk_folder_id
 #: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_theme_kit_config_google_disk_folder_id
@@ -66,6 +68,7 @@ msgid "Remote Storage Usage"
 msgstr ""
 
 #. module: odoo_backup_sh_google_disk
+#: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_ir_attachment_config_settings_google_service_account_key
 #: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_res_config_settings_google_service_account_key
 #: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_test_config_settings_google_service_account_key
 #: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_theme_kit_config_google_service_account_key
