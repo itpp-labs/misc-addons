@@ -113,6 +113,7 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: web_website
+#: model:ir.model.fields,field_description:web_website.field_ir_attachment_config_settings_group_multi_website
 #: model:ir.model.fields,field_description:web_website.field_res_config_settings_group_multi_website
 #: model:ir.model.fields,field_description:web_website.field_test_config_settings_group_multi_website
 #: model:ir.model.fields,field_description:web_website.field_theme_kit_config_group_multi_website
@@ -141,6 +142,7 @@ msgid "Name"
 msgstr ""
 
 #. module: web_website
+#: model:ir.model.fields,help:web_website.field_ir_attachment_config_settings_group_multi_website
 #: model:ir.model.fields,help:web_website.field_res_config_settings_group_multi_website
 #: model:ir.model.fields,help:web_website.field_test_config_settings_group_multi_website
 #: model:ir.model.fields,help:web_website.field_theme_kit_config_group_multi_website
