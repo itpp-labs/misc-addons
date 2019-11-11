@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: ir_attachment_s3
-#: code:addons/ir_attachment_s3/models/ir_attachment.py:63
+#: code:addons/ir_attachment_s3/models/ir_attachment.py:80
 #, python-format
 msgid "Amazon S3 credentials are not defined properly. Attachments won't be saved on S3."
 msgstr ""
@@ -85,6 +85,7 @@ msgid "S3 Settings"
 msgstr ""
 
 #. module: ir_attachment_s3
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_ir_attachment_config_settings_s3_access_key_id
 #: model:ir.model.fields,field_description:ir_attachment_s3.field_res_config_settings_s3_access_key_id
 #: model:ir.model.fields,field_description:ir_attachment_s3.field_test_config_settings_s3_access_key_id
 #: model:ir.model.fields,field_description:ir_attachment_s3.field_theme_kit_config_s3_access_key_id
@@ -93,6 +94,7 @@ msgid "S3 access key id"
 msgstr ""
 
 #. module: ir_attachment_s3
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_ir_attachment_config_settings_s3_bucket
 #: model:ir.model.fields,field_description:ir_attachment_s3.field_res_config_settings_s3_bucket
 #: model:ir.model.fields,field_description:ir_attachment_s3.field_test_config_settings_s3_bucket
 #: model:ir.model.fields,field_description:ir_attachment_s3.field_theme_kit_config_s3_bucket
@@ -101,6 +103,7 @@ msgid "S3 bucket name"
 msgstr ""
 
 #. module: ir_attachment_s3
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_ir_attachment_config_settings_s3_condition
 #: model:ir.model.fields,field_description:ir_attachment_s3.field_res_config_settings_s3_condition
 #: model:ir.model.fields,field_description:ir_attachment_s3.field_test_config_settings_s3_condition
 #: model:ir.model.fields,field_description:ir_attachment_s3.field_theme_kit_config_s3_condition
@@ -109,6 +112,7 @@ msgid "S3 condition"
 msgstr ""
 
 #. module: ir_attachment_s3
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_ir_attachment_config_settings_s3_secret_key
 #: model:ir.model.fields,field_description:ir_attachment_s3.field_res_config_settings_s3_secret_key
 #: model:ir.model.fields,field_description:ir_attachment_s3.field_test_config_settings_s3_secret_key
 #: model:ir.model.fields,field_description:ir_attachment_s3.field_theme_kit_config_s3_secret_key
@@ -122,13 +126,14 @@ msgid "Settings"
 msgstr ""
 
 #. module: ir_attachment_s3
-#: code:addons/ir_attachment_s3/models/res_config_settings.py:56
+#: code:addons/ir_attachment_s3/models/res_config_settings.py:67
 #, python-format
 msgid "Some of the S3 connection credentials are missing.\n"
 " Don't forget to click the ``[Apply]`` button after any changes you've made"
 msgstr ""
 
 #. module: ir_attachment_s3
+#: model:ir.model.fields,help:ir_attachment_s3.field_ir_attachment_config_settings_s3_condition
 #: model:ir.model.fields,help:ir_attachment_s3.field_res_config_settings_s3_condition
 #: model:ir.model.fields,help:ir_attachment_s3.field_test_config_settings_s3_condition
 #: model:ir.model.fields,help:ir_attachment_s3.field_theme_kit_config_s3_condition
@@ -153,6 +158,7 @@ msgid "Width"
 msgstr ""
 
 #. module: ir_attachment_s3
+#: model:ir.model.fields,help:ir_attachment_s3.field_ir_attachment_config_settings_s3_bucket
 #: model:ir.model.fields,help:ir_attachment_s3.field_res_config_settings_s3_bucket
 #: model:ir.model.fields,help:ir_attachment_s3.field_test_config_settings_s3_bucket
 #: model:ir.model.fields,help:ir_attachment_s3.field_theme_kit_config_s3_bucket
@@ -162,6 +168,11 @@ msgstr ""
 #. module: ir_attachment_s3
 #: model:ir.model,name:ir_attachment_s3.model_ir_attachment
 msgid "ir.attachment"
+msgstr ""
+
+#. module: ir_attachment_s3
+#: model:ir.model,name:ir_attachment_s3.model_ir_attachment_config_settings
+msgid "ir.attachment.config.settings"
 msgstr ""
 
 #. module: ir_attachment_s3
