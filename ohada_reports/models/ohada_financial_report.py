@@ -1389,7 +1389,7 @@ class OhadaFinancialReportLine(models.Model):
                         vals['columns'][i+1]['name'] = ['EXERPRICE', 'au 31/12/' + line._context['periods'][i]['string']]
                 if financial_report.name == 'Balance Sheet - Assets' and options['comparison']['periods'] == []:
                     vals['columns'] = []
-                    vals['columns'].append({'name': ['EXERPRICE', 'au 31/12/2019']})
+                    vals['columns'].append({'name': ['EXERPRICE', 'au 31/12/' + line._context['date_from'][0:4]]})
                     vals['colspan0'] = 3
 
             if len(lines) == 1:
