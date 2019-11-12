@@ -32,7 +32,7 @@ class Binary(fields.Binary):
 
     def write(self, records, value):
         domain = [
-            ('res_model', '=', records._name),
+            ('res_model', '=', self.model_name),
             ('res_field', '=', self.name),
             ('res_id', 'in', records.ids),
         ]
