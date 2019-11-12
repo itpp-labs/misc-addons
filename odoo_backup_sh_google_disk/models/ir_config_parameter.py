@@ -16,6 +16,7 @@ try:
     from googleapiclient.discovery import build
     from googleapiclient.discovery_cache.base import Cache
 except ImportError as err:
+    Cache = object
     _logger.debug(err)
 
 # all scopes you can find: here https://developers.google.com/identity/protocols/googlescopes
