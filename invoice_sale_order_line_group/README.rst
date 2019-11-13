@@ -15,6 +15,12 @@ Sponsors
 --------
 * `IT-Projects LLC <https://it-projects.info>`__
 
+Maintainers
+-----------
+* `IT-Projects LLC <https://it-projects.info>`__
+
+	  This module is not maintained since Odoo 9.0
+   
 Further information
 ===================
 
