@@ -15,3 +15,9 @@ Extra features for tours:
     if you are developer, don't forget to change url ``/web?res_partner_mails_count=tutorial#...`` back to ``/web#...`` whenever you want to relaunch the Tour (usually by uninstalling and installing your module).
 
 * fix ignoring step's title if there is title in step's element
+
+Maintainers
+-----------
+* `IT-Projects LLC <https://it-projects.info>`__
+
+	  This module is not maintained since Odoo 10.0
