@@ -99,7 +99,7 @@ class BackupConfig(models.Model):
     storage_service = fields.Selection(selection=[(S3_STORAGE, 'S3')], default=S3_STORAGE, required=True)
     unlimited_time_frame = fields.Char(default="hour")
     common_rotation = fields.Selection(selection=ROTATION_OPTIONS, default='unlimited')
-    max_backups = fields.Integer(readonly=True, compute=lambda self: 0)
+    max_backups = fields.Integer(readonly=True, store=False)
     backup_simulation = fields.Boolean(string="Demo Backup Simulation", default=False,
                                        help="If the setting is enabled then new backups of current database will not "
                                             "be sent to the storage server")

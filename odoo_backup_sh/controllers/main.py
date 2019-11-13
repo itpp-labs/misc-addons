@@ -340,20 +340,12 @@ class BackupController(http.Controller):
                     ('upload_datetime', '>=', datetime.strftime(last_week_dates[0], DEFAULT_SERVER_DATETIME_FORMAT)),
                     ('storage_service', '=', b_config['storage_service'])]):
                 graph_values[backup.upload_datetime.date()] += backup.backup_size
-            b_config['graph'] = [{
-                'key': 'Backups of Last 7 Days',
-                'values': [{
-                    'label': 'Today' if date == last_week_dates[-1] else datetime.strftime(date, '%d %b'),
-                    'value': graph_values[date],
-                } for date in last_week_dates]
-            }]
             b_config.update({
                 'backups_number': request.env['odoo_backup_sh.backup_info'].search_count([
                     ('database', '=', b_config['database']), ('storage_service', '=', b_config['storage_service'])]),
                 'graph': [{
-                    'key': 'Backups of Last 7 Days',
                     'values': [{
-                        'label': 'Today' if date == last_week_dates[-1] else datetime.strftime(date, '%d %b'),
+                        'label': fields.Date.to_string(date),
                         'value': graph_values[date],
                     } for date in last_week_dates]
                 }]
