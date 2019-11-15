@@ -77,7 +77,7 @@ def updated_image_get_resized_images(base64_source, return_big=False, return_med
     size_big = sizes.get(big_name, (1024, 1024))
     size_medium = sizes.get(medium_name, (128, 128))
     size_small = sizes.get(small_name, (64, 64))
-    if isinstance(base64_source, tools.pycompat.text_type):
+    if isinstance(base64_source, str):
         base64_source = base64_source.encode('ascii')
     if return_big:
         return_dict[big_name] = updated_image_resize_image_big(base64_source, avoid_if_small=avoid_resize_big, size=size_big)

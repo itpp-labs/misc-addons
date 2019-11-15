@@ -38,7 +38,6 @@
             <field name="name">Import Settings</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">base_import_map.map</field>
-            <field name="view_type">form</field>
             <field name="view_id" ref="base_import_map.base_import_map_tree"/>
             <field name="view_mode">tree,form</field>
         </record>

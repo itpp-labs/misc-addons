@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--Copyright (c) 2004-2015 Odoo S.A.
-    Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+    Copyright 2018-2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).-->
 <odoo>
 
@@ -10,10 +10,12 @@
         model="res.partner"
         report_type="qweb-html"
         name="base_attendance.print_partner_badge"
-        file="base_attendance.print_partner_badge"/>
+        file="base_attendance.print_partner_badge"
+        print_report_name="'Print Badge - %s' % (object.name).replace('/', '')"
+    />
 
     <template id="print_partner_badge">
-        <t t-call="report.html_container">
+        <t t-call="web.basic_layout">
             <div class="page">
                 <t t-foreach="docs" t-as="partner">
                     <div class="col-sm-6">
@@ -22,12 +24,12 @@
                                 <table style="width:77pt; height:150pt">
                                     <tr style="height:30%">
                                         <td align="center" valign="center">
-                                            <img t-if="partner.company_id and partner.company_id.logo" t-att-src="'data:image/png;base64,%s' % (partner.company_id.logo,)" style="max-height:45pt;max-width:90%" alt="Company Logo"/>
+                                            <img t-if="partner.company_id and partner.company_id.logo" t-att-src="'data:image/png;base64,%s' % to_text(partner.company_id.logo,)" style="max-height:45pt;max-width:90%" alt="Company Logo"/>
                                         </td>
                                     </tr>
                                     <tr style="height:70%;">
                                         <td align="center" valign="center">
-                                            <img t-if="partner.image" t-att-src="'data:image/png;base64,%s' % (partner.image,)" style="max-height:85pt;max-width:90%" alt="Partner Image"/>
+                                            <img t-if="partner.image" t-att-src="'data:image/png;base64,%s' % to_text(partner.image,)" style="max-height:85pt;max-width:90%" alt="Partner Image"/>
                                         </td>
                                     </tr>
                                 </table>

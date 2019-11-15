@@ -27,7 +27,6 @@
 <record id="action_menu_configuration_pages" model="ir.actions.act_window">
     <field name="name">Pages</field>
     <field name="res_model">web_iframe_pages.page</field>
-    <field name="view_type">form</field>
     <field name="view_mode">tree</field>
     <field name="view_id" ref="view_page_tree"/>
     <field name="help">Manage and customize iframe items here.</field>
