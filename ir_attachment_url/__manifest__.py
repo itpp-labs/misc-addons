@@ -14,6 +14,7 @@
 
     "depends": [
         "web",
+        "product",
     ],
     "external_dependencies": {"python": [], "bin": []},
     "data": [

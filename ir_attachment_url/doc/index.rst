@@ -33,3 +33,7 @@ Usage
 * Save the changes
 * Go to Settings >> Technical >> Database Structure >> Attachments
 * See related attachment form that contains URL of the image
+
+Notes
+=====
+* ``product`` dependency is only required for testing module
