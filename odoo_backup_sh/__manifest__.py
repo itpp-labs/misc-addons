@@ -8,7 +8,7 @@
     "category": "Backup",
     # "live_test_url": "",
     "images": ['images/odoo-backup.sh.jpg'],
-    "version": "11.0.1.0.0",
+    "version": "11.0.1.0.1",
 
     "author": "IT-Projects LLC",
     "support": "apps@it-projects.info",
