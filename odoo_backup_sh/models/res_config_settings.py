@@ -24,24 +24,7 @@ class ResConfigSettings(models.TransientModel):
         IrModule = self.env['ir.module.module']
         for m in ['odoo_backup_sh_google_disk', 'odoo_backup_sh_dropbox']:
             res['available_module_' + m] = bool(IrModule.sudo().search([('name', '=', m)], limit=1))
-        get_param = self.env['ir.config_parameter'].get_param
-        res.update(
-            odoo_backup_sh_amazon_bucket_name=get_param('odoo_backup_sh.s3_bucket_name'),
-            odoo_backup_sh_amazon_access_key_id=get_param('odoo_backup_sh.aws_access_key_id'),
-            odoo_backup_sh_amazon_secret_access_key=get_param('odoo_backup_sh.aws_secret_access_key'),
-            odoo_backup_sh_private_s3_dir=get_param('odoo_backup_sh.private_s3_dir'),
-            odoo_backup_sh_odoo_oauth_uid=get_param('odoo_backup_sh.odoo_oauth_uid')
-        )
         return res
-
-    def set_values(self):
-        super(ResConfigSettings, self).set_values()
-        set_param = self.env['ir.config_parameter'].set_param
-        set_param('odoo_backup_sh.s3_bucket_name', self.odoo_backup_sh_amazon_bucket_name)
-        set_param('odoo_backup_sh.aws_access_key_id', self.odoo_backup_sh_amazon_access_key_id)
-        set_param('odoo_backup_sh.aws_secret_access_key', self.odoo_backup_sh_amazon_secret_access_key)
-        set_param('odoo_backup_sh.odoo_oauth_uid', self.odoo_backup_sh_odoo_oauth_uid)
-        set_param('odoo_backup_sh.private_s3_dir', self.odoo_backup_sh_private_s3_dir)
 
     @api.onchange('odoo_backup_sh_amazon_access_key_id')
     def switch_to_private_s3(self):

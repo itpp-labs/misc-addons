@@ -361,10 +361,10 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
                               <field name="odoo_backup_sh_amazon_bucket_name" nolabel="1"/>
 
                               <label for="odoo_backup_sh_private_s3_dir" class="col-4 col-lg-4 o_light_label"
-                                     attrs="{'invisible': [('odoo_backup_sh_odoo_oauth_uid', 'not in', [False, ''])]}"
+                                     attrs="{'invisible': [('odoo_backup_sh_odoo_oauth_uid', '!=', '')]}"
 />
                               <field name="odoo_backup_sh_private_s3_dir" nolabel="1"
-                                     attrs="{'invisible': [('odoo_backup_sh_odoo_oauth_uid', 'not in', [False, ''])]}"
+                                     attrs="{'invisible': [('odoo_backup_sh_odoo_oauth_uid', '!=', '')]}"
                                      />
 
                               <label for="odoo_backup_sh_amazon_access_key_id" string="Access Key ID" class="col-4 col-lg-4 o_light_label"/>
