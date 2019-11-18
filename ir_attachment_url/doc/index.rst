@@ -32,6 +32,8 @@ Usage
 * Upload image to this product or specify image URL
 * Save the changes
 * Go to Settings >> Technical >> Database Structure >> Attachments
+* Open "Advanced Search" (loupe icon)
+* In filters set "URL" and custom filter "Resource Field" is set
 * See related attachment form that contains URL of the image
 
 Notes
