@@ -43,11 +43,6 @@ msgid "<strong>Save</strong> this page and come back here to set up the feature.
 msgstr ""
 
 #. module: odoo_backup_sh
-#: model:ir.model.fields,help:odoo_backup_sh.field_odoo_backup_sh_config_cron__website_published
-msgid "A code server action can be executed from the website, using a dedicated controller. The address is <base>/website/action/<website_path>. Set this field as True to allow users to run this action. If it is set to False the action cannot be run through the website."
-msgstr ""
-
-#. module: odoo_backup_sh
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_res_config_settings__odoo_backup_sh_amazon_access_key_id
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_test_config_settings__odoo_backup_sh_amazon_access_key_id
 #: model_terms:ir.ui.view,arch_db:odoo_backup_sh.res_config_settings_view_form
@@ -163,11 +158,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_res_config_settings__available_module_odoo_backup_sh_google_disk
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_test_config_settings__available_module_odoo_backup_sh_google_disk
 msgid "Available Module Odoo Backup Sh Google Disk"
-msgstr ""
-
-#. module: odoo_backup_sh
-#: model:ir.model.fields,field_description:odoo_backup_sh.field_odoo_backup_sh_config_cron__website_published
-msgid "Available on the Website"
 msgstr ""
 
 #. module: odoo_backup_sh
@@ -649,11 +639,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_odoo_backup_sh_notification__id
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_odoo_backup_sh_remote_storage__id
 msgid "ID"
-msgstr ""
-
-#. module: odoo_backup_sh
-#: model:ir.model.fields,help:odoo_backup_sh.field_odoo_backup_sh_config_cron__xml_id
-msgid "ID of the action if defined in a XML file"
 msgstr ""
 
 #. module: odoo_backup_sh
@@ -1196,11 +1181,6 @@ msgid "The daily limit must be positive!"
 msgstr ""
 
 #. module: odoo_backup_sh
-#: model:ir.model.fields,help:odoo_backup_sh.field_odoo_backup_sh_config_cron__website_url
-msgid "The full URL to access the server action through the website."
-msgstr ""
-
-#. module: odoo_backup_sh
 #: sql_constraint:odoo_backup_sh.config:0
 msgid "The hourly limit must be positive!"
 msgstr ""
@@ -1406,26 +1386,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:odoo_backup_sh.odoo_backup_sh_config_form
 msgid "Warning: Don't forget the encryption password.\n"
 "                            Without it you cannot restore the database from the encrypted backup."
-msgstr ""
-
-#. module: odoo_backup_sh
-#: model:ir.model.fields,field_description:odoo_backup_sh.field_odoo_backup_sh_notification__website_message_ids
-msgid "Website Messages"
-msgstr ""
-
-#. module: odoo_backup_sh
-#: model:ir.model.fields,field_description:odoo_backup_sh.field_odoo_backup_sh_config_cron__website_path
-msgid "Website Path"
-msgstr ""
-
-#. module: odoo_backup_sh
-#: model:ir.model.fields,field_description:odoo_backup_sh.field_odoo_backup_sh_config_cron__website_url
-msgid "Website Url"
-msgstr ""
-
-#. module: odoo_backup_sh
-#: model:ir.model.fields,help:odoo_backup_sh.field_odoo_backup_sh_notification__website_message_ids
-msgid "Website communication history"
 msgstr ""
 
 #. module: odoo_backup_sh
