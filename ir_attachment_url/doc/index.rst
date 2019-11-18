@@ -27,11 +27,15 @@ Odoo parameters
 Usage
 =====
 
-* Go to Sales >> Products menu
+* Go to Sales >> Products >> Products
 * Open a product
 * Upload image to this product or specify image URL
 * Save the changes
-* Go to Settings >> Database Structure >> Attachments menu
+* Go to Settings >> Technical >> Database Structure >> Attachments
 * Open "Advanced Search" (loupe icon)
 * In filters set "URL" and custom filter "Resource Field" is set
 * See related attachment form that contains URL of the image
+
+Notes
+=====
+* ``product`` dependency is only required for testing module

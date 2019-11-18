@@ -20,17 +20,21 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: ir_attachment_force_storage
-#: code:addons/ir_attachment_force_storage/models.py:54
+#: model:ir.model,name:ir_attachment_force_storage.model_ir_attachment
+#, fuzzy
+msgid "Attachment"
+msgstr "ir.attachment"
+
+#. module: ir_attachment_force_storage
+#: code:addons/ir_attachment_force_storage/models.py:61
 #, python-format
 msgid "Only administrators can execute this action."
 msgstr "Sólo administradores pueden ejecutar esta acción."
 
 #. module: ir_attachment_force_storage
-#: model:ir.model,name:ir_attachment_force_storage.model_ir_attachment
-msgid "ir.attachment"
-msgstr "ir.attachment"
-
-#. module: ir_attachment_force_storage
 #: model:ir.model,name:ir_attachment_force_storage.model_ir_config_parameter
-msgid "ir.config_parameter"
-msgstr "ir.config_parameter"
+msgid "System Parameter"
+msgstr ""
+
+#~ msgid "ir.config_parameter"
+#~ msgstr "ir.config_parameter"

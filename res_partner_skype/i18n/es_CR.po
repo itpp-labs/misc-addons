@@ -33,7 +33,7 @@ msgid "Partner"
 msgstr "Cliente"
 
 #. module: res_partner_skype
-#: model:ir.model.fields,field_description:res_partner_skype.field_res_partner_skype
-#: model:ir.model.fields,field_description:res_partner_skype.field_res_users_skype
+#: model:ir.model.fields,field_description:res_partner_skype.field_res_partner__skype
+#: model:ir.model.fields,field_description:res_partner_skype.field_res_users__skype
 msgid "Skype"
 msgstr "Skype"

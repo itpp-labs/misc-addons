@@ -2,15 +2,13 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 import logging
 
-from odoo.tests import common
+from odoo.tests import common, tagged
 
 _logger = logging.getLogger(__name__)
 
 
+@tagged('at_install', 'post_install')
 class TestFields(common.TransactionCase):
-
-    at_install = True
-    post_install = True
 
     def setUp(self):
         super(TestFields, self).setUp()

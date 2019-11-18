@@ -20,6 +20,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: ir_attachment_url
+#: model:ir.model,name:ir_attachment_url.model_ir_attachment
+#, fuzzy
+msgid "Attachment"
+msgstr "ir.attachment"
+
+#. module: ir_attachment_url
 #. openerp-web
 #: code:addons/ir_attachment_url/static/src/js/ir_attachment_url.js:66
 #, python-format
@@ -28,7 +34,7 @@ msgstr ""
 
 #. module: ir_attachment_url
 #: model:ir.model,name:ir_attachment_url.model_ir_http
-msgid "HTTP routing"
+msgid "HTTP Routing"
 msgstr ""
 
 #. module: ir_attachment_url
@@ -51,8 +57,3 @@ msgstr ""
 #, python-format
 msgid "Link"
 msgstr ""
-
-#. module: ir_attachment_url
-#: model:ir.model,name:ir_attachment_url.model_ir_attachment
-msgid "ir.attachment"
-msgstr "ir.attachment"

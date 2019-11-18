@@ -4,17 +4,41 @@ odoo.define('web_debranding.bot', function (require) {
     "use strict";
 
     require('web_debranding.dialog');
-    var chat_manager = require('mail.chat_manager');
+    var Message = require('mail.model.Message');
     var session = require('web.session');
-    var ODOOBOT_ID = "ODOOBOT";
+    var MailBotService = require('mail_bot.MailBotService');
+    var core = require('web.core');
+    var _t = core._t;
 
-    var make_message_super = chat_manager.make_message;
-    chat_manager.make_message = function(data){
-            var msg = make_message_super(data);
-            if (msg.author_id === ODOOBOT_ID) {
-                msg.avatar_src = '/web/binary/company_logo?company_id=' + session.company_id;
-                msg.displayed_author = 'Bot';
+    Message.include({
+        _getAuthorName: function () {
+            if (this._isOdoobotAuthor()) {
+                return "Bot";
             }
-            return msg;
-    };
+            return this._super.apply(this, arguments);
+        },
+        getAvatarSource: function () {
+            if (this._isOdoobotAuthor()) {
+                return '/web/binary/company_logo?company_id=' + session.company_id;
+            }
+            return this._super.apply(this, arguments);
+        }
+    });
+
+    MailBotService.include({
+        getPreviews: function (filter) {
+            var previews = this._super.apply(this, arguments);
+            previews.map(function(preview)  {
+                if (preview.title == _t("OdooBot has a request")) {
+                    preview.title = _t("Bot has a request");
+                }
+                if (preview.imageSRC == "/mail/static/src/img/odoobot.png") {
+                    preview.imageSRC = '/web/binary/company_logo?company_id=' + session.company_id;
+                }
+                return preview;
+            });
+            return previews;
+        },
+    });
+
 });

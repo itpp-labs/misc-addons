@@ -4,15 +4,15 @@
 odoo.define('base_attendance.kiosk_mode', function (require) {
 "use strict";
 
+var AbstractAction = require('web.AbstractAction');
 var ajax = require('web.ajax');
 var core = require('web.core');
-var Widget = require('web.Widget');
 var Session = require('web.session');
 var local_storage = require('web.local_storage');
 
 var QWeb = core.qweb;
 
-var KioskMode = Widget.extend({
+var KioskMode = AbstractAction.extend({
     events: {
         "click .o_hr_attendance_button_partners": function(){
             this.do_action('base_attendance.res_partner_action_kanban_view');

@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -14,13 +14,13 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: autostaging_project_task
-#: model:ir.ui.view,arch_db:autostaging_project_task.view_project_task_type_form_autostaging
+#: model_terms:ir.ui.view,arch_db:autostaging_project_task.view_project_task_type_form_autostaging
 msgid "<span>days</span>"
 msgstr ""
 
 #. module: autostaging_project_task
-#: model:ir.ui.view,arch_db:autostaging_project_task.view_project_task_form_autostaging
-#: model:ir.ui.view,arch_db:autostaging_project_task.view_project_task_type_form_autostaging
+#: model_terms:ir.ui.view,arch_db:autostaging_project_task.view_project_task_form_autostaging
+#: model_terms:ir.ui.view,arch_db:autostaging_project_task.view_project_task_type_form_autostaging
 #: model:mail.message.subtype,description:autostaging_project_task.mt_autostaging
 #: model:mail.message.subtype,name:autostaging_project_task.mt_autostaging
 #: model:mail.message.subtype,name:autostaging_project_task.mt_autostaging_project
@@ -28,13 +28,13 @@ msgid "Autostaging"
 msgstr ""
 
 #. module: autostaging_project_task
-#: model:ir.ui.view,arch_db:autostaging_project_task.view_project_form_autostaging_enabled
+#: model_terms:ir.ui.view,arch_db:autostaging_project_task.view_project_form_autostaging_enabled
 msgid "Autostaging enabled"
 msgstr ""
 
 #. module: autostaging_project_task
-#: model:ir.model.fields,field_description:autostaging_project_task.field_project_task_autostaging_card_next_stage
-#: model:ir.model.fields,field_description:autostaging_project_task.field_project_task_type_autostaging_next_stage
+#: model:ir.model.fields,field_description:autostaging_project_task.field_project_task__autostaging_card_next_stage
+#: model:ir.model.fields,field_description:autostaging_project_task.field_project_task_type__autostaging_next_stage
 msgid "Autostaging next stage"
 msgstr ""
 

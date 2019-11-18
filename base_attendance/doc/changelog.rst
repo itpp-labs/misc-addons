@@ -6,6 +6,7 @@
 `1.1.1`
 -------
 
+- **Fix:** Broken pin pad in the **Kiosk Mode**
 - **Fix:** Security issues for ``Attendance Manager`` group on opening the **Kiosk Mode**
 
 `1.1.0`

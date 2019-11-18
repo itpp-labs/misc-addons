@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * ir_attachment_s3
-#
+# 
 # Translators:
 # Translation Bot <i18n-bot@it-projects.info>, 2017
 msgid ""
@@ -11,17 +11,20 @@ msgstr ""
 "POT-Creation-Date: 2017-07-24 07:50+0000\n"
 "PO-Revision-Date: 2017-07-24 07:50+0000\n"
 "Last-Translator: Translation Bot <i18n-bot@it-projects.info>, 2017\n"
-"Language-Team: Slovenian (https://www.transifex.com/it-projects-llc/"
-"teams/76080/sl/)\n"
-"Language: sl\n"
+"Language-Team: Slovenian (https://www.transifex.com/it-projects-llc/teams/76080/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
-"%100==4 ? 2 : 3);\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
 #. module: ir_attachment_s3
-#: code:addons/ir_attachment_s3/models/ir_attachment.py:63
+#: model:ir.ui.view,arch_db:ir_attachment_s3.view_s3_config_settings
+msgid "AWS S3 Access"
+msgstr ""
+
+#. module: ir_attachment_s3
+#: code:addons/ir_attachment_s3/models/ir_attachment.py:49
 #, python-format
 msgid ""
 "Amazon S3 credentials are not defined properly. Attachments won't be saved "
@@ -29,109 +32,88 @@ msgid ""
 msgstr ""
 
 #. module: ir_attachment_s3
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_ir_attachment_resized_attachment_id
-msgid "Attachment"
+#: model:ir.ui.view,arch_db:ir_attachment_s3.view_s3_config_settings
+msgid "Apply"
 msgstr ""
 
 #. module: ir_attachment_s3
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_ir_attachment_resized_create_uid
+#: model:ir.ui.view,arch_db:ir_attachment_s3.view_s3_config_settings
+msgid "Attachments Domain"
+msgstr ""
+
+#. module: ir_attachment_s3
+#: model:ir.ui.view,arch_db:ir_attachment_s3.view_s3_config_settings
+msgid "Cancel"
+msgstr ""
+
+#. module: ir_attachment_s3
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_s3_config_settings_create_uid
 msgid "Created by"
 msgstr "Ustvaril"
 
 #. module: ir_attachment_s3
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_ir_attachment_resized_create_date
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_s3_config_settings_create_date
 msgid "Created on"
 msgstr "Ustvarjeno"
 
 #. module: ir_attachment_s3
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_ir_attachment_resized_display_name
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_s3_config_settings_display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: ir_attachment_s3
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_ir_attachment_resized_height
-msgid "Height"
-msgstr ""
-
-#. module: ir_attachment_s3
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_ir_attachment_resized_id
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_s3_config_settings_id
 msgid "ID"
 msgstr "ID"
 
 #. module: ir_attachment_s3
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_ir_attachment_resized___last_update
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_s3_config_settings___last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: ir_attachment_s3
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_ir_attachment_resized_write_uid
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_s3_config_settings_write_uid
 msgid "Last Updated by"
 msgstr "Zadnjič posodobil"
 
 #. module: ir_attachment_s3
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_ir_attachment_resized_write_date
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_s3_config_settings_write_date
 msgid "Last Updated on"
 msgstr "Zadnjič posodobljeno"
 
 #. module: ir_attachment_s3
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_ir_attachment_resized_ids
-msgid "Resized"
-msgstr ""
-
-#. module: ir_attachment_s3
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_ir_attachment_resized_resized_attachment_id
-msgid "Resized Attachment"
-msgstr ""
-
-#. module: ir_attachment_s3
-#: model:ir.ui.view,arch_db:ir_attachment_s3.res_config_settings_view_form
-msgid "S3 Attachment Strorage"
-msgstr ""
-
-#. module: ir_attachment_s3
+#: model:ir.actions.act_window,name:ir_attachment_s3.action_s3_settings
 #: model:ir.ui.menu,name:ir_attachment_s3.menu_s3_settings
 msgid "S3 Settings"
 msgstr ""
 
 #. module: ir_attachment_s3
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_res_config_settings_s3_access_key_id
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_test_config_settings_s3_access_key_id
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_theme_kit_config_s3_access_key_id
-#: model:ir.ui.view,arch_db:ir_attachment_s3.res_config_settings_view_form
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_s3_config_settings_s3_access_key_id
 msgid "S3 access key id"
 msgstr ""
 
 #. module: ir_attachment_s3
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_res_config_settings_s3_bucket
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_test_config_settings_s3_bucket
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_theme_kit_config_s3_bucket
-#: model:ir.ui.view,arch_db:ir_attachment_s3.res_config_settings_view_form
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_s3_config_settings_s3_bucket
 msgid "S3 bucket name"
 msgstr ""
 
 #. module: ir_attachment_s3
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_res_config_settings_s3_condition
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_test_config_settings_s3_condition
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_theme_kit_config_s3_condition
-#: model:ir.ui.view,arch_db:ir_attachment_s3.res_config_settings_view_form
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_s3_config_settings_s3_condition
 msgid "S3 condition"
 msgstr ""
 
 #. module: ir_attachment_s3
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_res_config_settings_s3_secret_key
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_test_config_settings_s3_secret_key
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_theme_kit_config_s3_secret_key
-#: model:ir.ui.view,arch_db:ir_attachment_s3.res_config_settings_view_form
+#: model:ir.model.fields,field_description:ir_attachment_s3.field_s3_config_settings_s3_secret_key
 msgid "S3 secret key"
 msgstr ""
 
 #. module: ir_attachment_s3
-#: model:ir.actions.act_window,name:ir_attachment_s3.ir_attachment_s3_config_settings_action
-msgid "Settings"
+#: model:ir.ui.view,arch_db:ir_attachment_s3.view_s3_config_settings
+msgid "Settings needed to store odoo attachments on Amazon AWS S3 bucket"
 msgstr ""
 
 #. module: ir_attachment_s3
-#: code:addons/ir_attachment_s3/models/res_config_settings.py:56
+#: code:addons/ir_attachment_s3/models/res_config.py:68
 #, python-format
 msgid ""
 "Some of the S3 connection credentials are missing.\n"
@@ -139,35 +121,20 @@ msgid ""
 msgstr ""
 
 #. module: ir_attachment_s3
-#: model:ir.model.fields,help:ir_attachment_s3.field_res_config_settings_s3_condition
-#: model:ir.model.fields,help:ir_attachment_s3.field_test_config_settings_s3_condition
-#: model:ir.model.fields,help:ir_attachment_s3.field_theme_kit_config_s3_condition
+#: model:ir.model.fields,help:ir_attachment_s3.field_s3_config_settings_s3_condition
 msgid ""
 "Specify valid odoo search domain here,\n"
-"                               e.g. [('res_model', 'in', ['product.image'])] "
-"-- store data of product.image only.\n"
-"                               Empty condition means all models"
+"                               i.e. [('res_model', 'in', ['product.image'])].\n"
+"                               According to this only data of model product.image will be sored on S3"
 msgstr ""
 
 #. module: ir_attachment_s3
-#: model:ir.ui.view,arch_db:ir_attachment_s3.res_config_settings_view_form
+#: model:ir.ui.view,arch_db:ir_attachment_s3.view_s3_config_settings
 msgid "Upload existing attachments"
 msgstr ""
 
 #. module: ir_attachment_s3
-#: model:ir.model,name:ir_attachment_s3.model_ir_attachment_resized
-msgid "Url to resized image"
-msgstr ""
-
-#. module: ir_attachment_s3
-#: model:ir.model.fields,field_description:ir_attachment_s3.field_ir_attachment_resized_width
-msgid "Width"
-msgstr ""
-
-#. module: ir_attachment_s3
-#: model:ir.model.fields,help:ir_attachment_s3.field_res_config_settings_s3_bucket
-#: model:ir.model.fields,help:ir_attachment_s3.field_test_config_settings_s3_bucket
-#: model:ir.model.fields,help:ir_attachment_s3.field_theme_kit_config_s3_bucket
+#: model:ir.model.fields,help:ir_attachment_s3.field_s3_config_settings_s3_bucket
 msgid "i.e. 'attachmentbucket'"
 msgstr ""
 
@@ -177,9 +144,11 @@ msgid "ir.attachment"
 msgstr ""
 
 #. module: ir_attachment_s3
-#: model:ir.model,name:ir_attachment_s3.model_res_config_settings
-msgid "res.config.settings"
-msgstr ""
+#: model:ir.ui.view,arch_db:ir_attachment_s3.view_s3_config_settings
+msgid "or"
+msgstr "ali"
 
-#~ msgid "or"
-#~ msgstr "ali"
+#. module: ir_attachment_s3
+#: model:ir.model,name:ir_attachment_s3.model_s3_config_settings
+msgid "s3.config.settings"
+msgstr ""

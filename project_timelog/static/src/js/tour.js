@@ -8,23 +8,22 @@ odoo.define('project_timelog.tour', function(require) {
         url: "/web",
         test: true,
     }, [{
-        trigger: '.o_app[data-menu-xmlid="project.menu_main_pm"], .oe_menu_toggler[data-menu-xmlid="project.menu_main_pm"]',
-        content: "Click the Project menu",
-        position: "bottom"
-    },{
-        trigger: '.oe_menu_text:contains("Task"):first',
-        content: "Click the Task menu",
-        position: "bottom"
+        trigger: 'a.full[href="#"]',
+        content: "Click to open app list",
+        position: 'bottom',
     }, {
+        trigger: 'a.dropdown-item.o_app:contains("Project")',
+        content: "Click to enter Project",
+        position: 'bottom',
+    }, {
+        trigger: '.o_kanban_record:first',
+        content: "Click on the Project card",
+        position: "bottom",
+    }, {
+        extra_trigger: '.breadcrumb:contains("Tasks")',
         trigger: '.o_kanban_record:first',
         content: "Click on the Task card",
         position: "bottom",
-        run: function() {
-            // give time to fully load
-            setTimeout(function() {
-                $('.o_kanban_record:first').trigger("click");
-            }, 2000);
-        }
     }, {
         trigger: '.nav.nav-tabs a:contains("Timesheets")',
         content: 'Go to the Timesheet tab',

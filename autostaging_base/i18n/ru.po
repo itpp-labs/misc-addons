@@ -29,75 +29,69 @@ msgid "Autostaging"
 msgstr ""
 
 #. module: autostaging_base
-#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_card_autostaging_enabled
-#: model:ir.model.fields,field_description:autostaging_base.field_project_task_autostaging_enabled
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_card__autostaging_enabled
 msgid "Autostaging Enabled"
 msgstr ""
 
 #. module: autostaging_base
-#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_card_autostaging_date
-#: model:ir.model.fields,field_description:autostaging_base.field_project_task_autostaging_date
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_card__autostaging_date
 msgid "Autostaging date"
 msgstr ""
 
 #. module: autostaging_base
-#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_folder_autostaging_enabled
-#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_stage_autostaging_enabled
-#: model:ir.model.fields,field_description:autostaging_base.field_project_project_autostaging_enabled
-#: model:ir.model.fields,field_description:autostaging_base.field_project_task_type_autostaging_enabled
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_folder__autostaging_enabled
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_stage__autostaging_enabled
 msgid "Autostaging enabled"
 msgstr ""
 
 #. module: autostaging_base
-#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_stage_autostaging_idle_timeout
-#: model:ir.model.fields,field_description:autostaging_base.field_project_task_type_autostaging_idle_timeout
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_stage__autostaging_idle_timeout
 msgid "Autostagint idle timeout"
 msgstr ""
 
 #. module: autostaging_base
-#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_card_autostaging_days_left
-#: model:ir.model.fields,field_description:autostaging_base.field_project_task_autostaging_days_left
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_card__autostaging_days_left
 msgid "Days left"
 msgstr ""
 
 #. module: autostaging_base
-#: code:addons/autostaging_base/models.py:42
+#: code:addons/autostaging_base/models.py:44
 #, python-format
 msgid "Days limit field value must be greater than 0"
 msgstr ""
 
 #. module: autostaging_base
-#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_card_display_name
-#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_folder_display_name
-#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_stage_display_name
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_card__display_name
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_folder__display_name
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_stage__display_name
 msgid "Display Name"
 msgstr "Отображаемое имя"
 
 #. module: autostaging_base
-#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_card_id
-#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_folder_id
-#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_stage_id
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_card__id
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_folder__id
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_stage__id
 msgid "ID"
 msgstr "ID"
 
 #. module: autostaging_base
-#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_card___last_update
-#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_folder___last_update
-#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_stage___last_update
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_card____last_update
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_folder____last_update
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_stage____last_update
 msgid "Last Modified on"
 msgstr "Последний раз редактировалось"
 
 #. module: autostaging_base
 #: model:ir.model,name:autostaging_base.model_autostaging_card
-msgid "autostaging.card"
+msgid "autostaging_card"
 msgstr ""
 
 #. module: autostaging_base
 #: model:ir.model,name:autostaging_base.model_autostaging_folder
-msgid "autostaging.folder"
+msgid "autostaging_folder"
 msgstr ""
 
 #. module: autostaging_base
 #: model:ir.model,name:autostaging_base.model_autostaging_stage
-msgid "autostaging.stage"
+msgid "autostaging_stage"
 msgstr ""
