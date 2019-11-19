@@ -5,6 +5,7 @@
     'name': 'Signature templates for user emails',
     'external_dependencies': {
         'python': [
+            'bs4',
             'html2text',
         ],
     },
