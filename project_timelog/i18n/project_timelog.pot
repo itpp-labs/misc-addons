@@ -55,6 +55,12 @@ msgid "Allow users to import data from CSV/XLS/XLSX/ODS files"
 msgstr ""
 
 #. module: project_timelog
+#: model:ir.model.fields,help:project_timelog.field_timelog_config_settings__group_sale_pricelist
+msgid "Allows to manage different prices based on rules per category of customers.\n"
+"                Example: 10% for retailers, promotion of 5 EUR on this product, etc."
+msgstr ""
+
+#. module: project_timelog
 #: model:ir.model.fields,help:project_timelog.field_timelog_config_settings__group_multi_currency
 msgid "Allows to work in a multi currency environment"
 msgstr ""
@@ -543,6 +549,11 @@ msgid "Insufficient credit"
 msgstr ""
 
 #. module: project_timelog
+#: selection:timelog.config.settings,product_weight_in_lbs:0
+msgid "Kilogram"
+msgstr ""
+
+#. module: project_timelog
 #: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__module_auth_ldap
 msgid "LDAP Authentication"
 msgstr ""
@@ -732,6 +743,11 @@ msgid "Please, stop previous timer."
 msgstr ""
 
 #. module: project_timelog
+#: selection:timelog.config.settings,product_weight_in_lbs:0
+msgid "Pound"
+msgstr ""
+
+#. module: project_timelog
 #: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__snailmail_duplex
 msgid "Print Both sides"
 msgstr ""
@@ -744,6 +760,11 @@ msgstr ""
 #. module: project_timelog
 #: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__private_s3_dir_changed
 msgid "Private S3 Dir Changed"
+msgstr ""
+
+#. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__group_stock_packaging
+msgid "Product Packagings"
 msgstr ""
 
 #. module: project_timelog
@@ -863,10 +884,22 @@ msgid "Share partners to all companies"
 msgstr ""
 
 #. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__company_share_product
+msgid "Share product to all companies"
+msgstr ""
+
+#. module: project_timelog
 #: model:ir.model.fields,help:project_timelog.field_timelog_config_settings__company_share_partner
 msgid "Share your partners to all companies defined in your instance.\n"
 " * Checked : Partners are visible for every companies, even if a company is defined on the partner.\n"
 " * Unchecked : Each company can see only its partner (partners where company is defined). Partners not related to a company are visible for all companies."
+msgstr ""
+
+#. module: project_timelog
+#: model:ir.model.fields,help:project_timelog.field_timelog_config_settings__company_share_product
+msgid "Share your product to all companies defined in your instance.\n"
+" * Checked : Product are visible for every company, even if a company is defined on the partner.\n"
+" * Unchecked : Each company can see only its product (product where company is defined). Product not related to a company are visible for all companies."
 msgstr ""
 
 #. module: project_timelog
@@ -882,6 +915,16 @@ msgstr ""
 #. module: project_timelog
 #: model:ir.model.fields,help:project_timelog.field_timelog_config_settings__group_multi_website
 msgid "Show Website Switcher in backend"
+msgstr ""
+
+#. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__group_product_pricelist
+msgid "Show pricelists On Products"
+msgstr ""
+
+#. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__group_pricelist_item
+msgid "Show pricelists to customers"
 msgstr ""
 
 #. module: project_timelog
@@ -1176,6 +1219,11 @@ msgid "Unable to create logs until it is modified or deleted stopline."
 msgstr ""
 
 #. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__group_uom
+msgid "Units of Measure"
+msgstr ""
+
+#. module: project_timelog
 #: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__module_web_unsplash
 msgid "Unsplash Image Library"
 msgstr ""
@@ -1198,6 +1246,11 @@ msgstr ""
 #. module: project_timelog
 #: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__module_auth_oauth
 msgid "Use external authentication providers (OAuth)"
+msgstr ""
+
+#. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__group_sale_pricelist
+msgid "Use pricelists to adapt your price per customers"
 msgstr ""
 
 #. module: project_timelog
@@ -1226,6 +1279,11 @@ msgstr ""
 #: model:ir.model,name:project_timelog.model_res_users
 #: model_terms:ir.ui.view,arch_db:project_timelog.timelog_search_view
 msgid "Users"
+msgstr ""
+
+#. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__group_product_variant
+msgid "Variants and Options"
 msgstr ""
 
 #. module: project_timelog
@@ -1261,6 +1319,11 @@ msgstr ""
 #. module: project_timelog
 #: model_terms:ir.ui.view,arch_db:project_timelog.view_config_settings
 msgid "Week"
+msgstr ""
+
+#. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__product_weight_in_lbs
+msgid "Weight unit of measure"
 msgstr ""
 
 #. module: project_timelog

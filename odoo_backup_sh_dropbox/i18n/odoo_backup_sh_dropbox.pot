@@ -44,12 +44,14 @@ msgid "Dropbox"
 msgstr ""
 
 #. module: odoo_backup_sh_dropbox
+#: model:ir.model.fields,field_description:odoo_backup_sh_dropbox.field_ir_attachment_config_settings__dropbox_access_token
 #: model:ir.model.fields,field_description:odoo_backup_sh_dropbox.field_res_config_settings__dropbox_access_token
 #: model:ir.model.fields,field_description:odoo_backup_sh_dropbox.field_test_config_settings__dropbox_access_token
 msgid "Dropbox Access Token"
 msgstr ""
 
 #. module: odoo_backup_sh_dropbox
+#: model:ir.model.fields,field_description:odoo_backup_sh_dropbox.field_ir_attachment_config_settings__dropbox_folder_path
 #: model:ir.model.fields,field_description:odoo_backup_sh_dropbox.field_res_config_settings__dropbox_folder_path
 #: model:ir.model.fields,field_description:odoo_backup_sh_dropbox.field_test_config_settings__dropbox_folder_path
 msgid "Dropbox Folder Path"
@@ -94,6 +96,7 @@ msgid "System Parameter"
 msgstr ""
 
 #. module: odoo_backup_sh_dropbox
+#: model:ir.model.fields,help:odoo_backup_sh_dropbox.field_ir_attachment_config_settings__dropbox_folder_path
 #: model:ir.model.fields,help:odoo_backup_sh_dropbox.field_res_config_settings__dropbox_folder_path
 #: model:ir.model.fields,help:odoo_backup_sh_dropbox.field_test_config_settings__dropbox_folder_path
 msgid "The Full Path to upload a Backup. E.g. /ProductionBackups"

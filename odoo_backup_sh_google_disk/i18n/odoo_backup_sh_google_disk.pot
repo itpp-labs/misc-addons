@@ -29,6 +29,7 @@ msgid "Config Settings"
 msgstr ""
 
 #. module: odoo_backup_sh_google_disk
+#: model:ir.model.fields,help:odoo_backup_sh_google_disk.field_ir_attachment_config_settings__google_service_account_key
 #: model:ir.model.fields,help:odoo_backup_sh_google_disk.field_res_config_settings__google_service_account_key
 #: model:ir.model.fields,help:odoo_backup_sh_google_disk.field_test_config_settings__google_service_account_key
 msgid "Credentials in json format"
@@ -56,6 +57,7 @@ msgid "Google Drive"
 msgstr ""
 
 #. module: odoo_backup_sh_google_disk
+#: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_ir_attachment_config_settings__google_disk_folder_id
 #: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_res_config_settings__google_disk_folder_id
 #: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_test_config_settings__google_disk_folder_id
 msgid "Google Drive Folder ID"
@@ -83,6 +85,7 @@ msgid "S3"
 msgstr ""
 
 #. module: odoo_backup_sh_google_disk
+#: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_ir_attachment_config_settings__google_service_account_key
 #: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_res_config_settings__google_service_account_key
 #: model:ir.model.fields,field_description:odoo_backup_sh_google_disk.field_test_config_settings__google_service_account_key
 msgid "Service Account Key"
