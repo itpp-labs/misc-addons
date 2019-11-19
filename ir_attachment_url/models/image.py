@@ -11,7 +11,11 @@ SIZES_MAP = {
 }
 
 
-super_image_resize_images = tools.image_resize_images
+# TODO: https://github.com/odoo/odoo/commit/df189fd6ab749de47ceba35c547db4f903965016
+# commit above refactored image tools
+# need to rewrite everything
+# super_image_resize_images = tools.image_resize_images
+super_image_resize_image = None
 
 
 def updated_image_resize_images(vals, big_name='image', medium_name='image_medium', small_name='image_small', sizes=None):
@@ -38,9 +42,6 @@ def updated_image_resize_images(vals, big_name='image', medium_name='image_mediu
 def is_url(value):
     if value:
         return isinstance(value, str) and re.findall(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', value)
-
-
-super_image_resize_image = tools.image_resize_image
 
 
 def updated_image_resize_image(base64_source, size=(1024, 1024), encoding='base64', filetype=None, avoid_if_small=False, upper_limit=False):
@@ -83,7 +84,7 @@ def updated_image_get_resized_images(base64_source, return_big=False, return_med
     size_big = sizes.get(big_name, (1024, 1024))
     size_medium = sizes.get(medium_name, (128, 128))
     size_small = sizes.get(small_name, (64, 64))
-    if isinstance(base64_source, tools.pycompat.text_type):
+    if isinstance(base64_source, str):
         base64_source = base64_source.encode('ascii')
     if return_big:
         return_dict[big_name] = updated_image_resize_image_big(base64_source, avoid_if_small=avoid_resize_big, size=size_big)

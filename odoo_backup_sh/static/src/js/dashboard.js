@@ -1,27 +1,46 @@
 // Copyright 2018 Stanislav Krotov <https://it-projects.info/team/ufaks>
 // Copyright 2019 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
+// Copyright 2019 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 // License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
-
 odoo.define('odoo_backup_sh.dashboard', function (require) {
 'use strict';
 
+// see https://eslint.org/docs/rules/no-undef
+/*global moment, Chart*/
 var AbstractAction = require('web.AbstractAction');
 var ajax = require('web.ajax');
-var ControlPanelMixin = require('web.ControlPanelMixin');
 var core = require('web.core');
+var time = require('web.time');
+var field_utils = require('web.field_utils');
 var QWeb = core.qweb;
 var _t = core._t;
 
-var Dashboard = AbstractAction.extend(ControlPanelMixin, {
-    template: 'odoo_backup_sh.BackupDashboardMain',
-    need_control_panel: false,
-    cssLibs: [
-        '/web/static/lib/nvd3/nv.d3.css'
-    ],
+function DATE_FORMAT(){
+    return time.getLangDateFormat();
+}
+function LANG_CODE(){
+    return _t.database.parameters.code;
+}
+var COLORS = ["#1f77b4", "#aec7e8"];
+var FORMAT_OPTIONS = {
+    // allow to decide if utils.human_number should be used
+    humanReadable: function (value) {
+        return Math.abs(value) >= 1000;
+    },
+    // with the choices below, 1236 is represented by 1.24k
+    minDigits: 1,
+    decimals: 2,
+    // avoid comma separators for thousands in numbers when human_number is used
+    formatterCallback: function (str) {
+        return str;
+    },
+};
+
+var Dashboard = AbstractAction.extend({
+    hasControlPanel: false,
+    contentTemplate: 'odoo_backup_sh.BackupDashboardMain',
     jsLibs: [
-        '/web/static/lib/nvd3/d3.v3.js',
-        '/web/static/lib/nvd3/nv.d3.js',
-        '/web/static/src/js/libs/nvd3.js'
+        '/web/static/lib/Chart/Chart.js',
     ],
     events: {
         'click .o_dashboard_action': 'on_dashboard_action',
@@ -46,7 +65,7 @@ var Dashboard = AbstractAction.extend(ControlPanelMixin, {
         var self = this;
         return self._rpc({
                 route: '/odoo_backup_sh/fetch_dashboard_data',
-            }).done(function(results) {
+            }).then(function(results) {
                 self.remote_storage_usage_graph_values = results.remote_storage_usage_graph_values;
                 self.services_storage_usage_graph_values = results.services_storage_usage_graph_values;
                 self.configs = results.configs;
@@ -124,17 +143,21 @@ var Dashboard = AbstractAction.extend(ControlPanelMixin, {
         })*/
 
     },
-    start: function() {
-        var self = this;
-        return this._super().then(function() {
-            self.set_service('total');
-            if (!self.show_nocontent_msg) {
-                self.render_remote_storage_usage_graph();
-            }
-            self.render_backup_config_cards();
-        });
+    on_attach_callback: function () {
+        this._isInDom = true;
+        this.render_graphs();
+        this._super.apply(this, arguments);
     },
-
+    on_detach_callback: function () {
+        this._isInDom = false;
+        this._super.apply(this, arguments);
+    },
+    render_graphs: function(){
+        if (!this.show_nocontent_msg) {
+            this.render_remote_storage_usage_graph();
+        }
+        this.render_backup_config_cards();
+    },
     set_active_button: function($el) {
         $el.parent().find('.btn-primary').removeClass('btn-primary').addClass('btn-secondary');
         $el.removeClass('btn-secondary');
@@ -159,10 +182,18 @@ var Dashboard = AbstractAction.extend(ControlPanelMixin, {
     },
 
     get_service: function() {
-        return this.service;
+        return this.service || 'total';
     },
-
+    formatValue: function (value) {
+        var formatter = field_utils.format.float;
+        var formatedValue = formatter(value, null, FORMAT_OPTIONS);
+        return formatedValue;
+    },
+    capitalize: function (value){
+        return value.charAt(0).toUpperCase() + value.slice(1);
+    },
     render_remote_storage_usage_graph: function(chart_values) {
+        var chart_id = 'odoo_backup_sh-chart-total-usage';
         this.$('#graph_remote_storage_usage').empty();
         var service = this.get_service();
         var title;
@@ -183,42 +214,92 @@ var Dashboard = AbstractAction.extend(ControlPanelMixin, {
         chart_values = chart_values || this.remote_storage_usage_graph_values;
         var self = this;
 
-        nv.addGraph(function() {
-            var chart = nv.models.lineChart()
-                .x(function(d) {
-                    return self.getDate(d);
-                })
-                .y(function(d) {
-                    return self.getValue(d);
-                })
-                .forceY([0])
-                .useInteractiveGuideline(true)
-                .showLegend(false)
-                .showYAxis(true)
-                .showXAxis(true);
-            var tick_values = self.getPrunedTickValues(chart_values[0].values, 5);
+        var $canvasContainer = $('<div/>', {class: 'o_graph_canvas_container'});
+        this.$canvas = $('<canvas/>').attr('id', chart_id);
+        $canvasContainer.append(this.$canvas);
+        this.$('#graph_remote_storage_usage').append($canvasContainer);
 
-            chart.xAxis
-                .tickFormat(function(d) {
-                    return d3.time.format("%m/%d/%y")(new Date(d));
-                })
-                .tickValues(_.map(tick_values, function(d) {
-                    return self.getDate(d);
-                }))
-                .rotateLabels(-45);
+        var labels = chart_values[0].values.map(function (date) {
+            return moment(date[0], "YYYY-MM-DD", 'en');
+            //return moment(date[0], "MM/DD/YYYY", 'en');
+        });
 
-            chart.yAxis
-                .axisLabel('Usage Value, MB')
-                .tickFormat(d3.format('.02f'));
+        var datasets = chart_values.map(function (group, index) {
+            return {
+                label: group.key,
+                data: group.values.map(function (value) {
+                    return value[1];
+                }),
+                dates: group.values.map(function (value) {
+                    return value[0];
+                }),
+                fill: false,
+                borderColor: COLORS[index],
+            };
+        });
 
-            d3.select('#graph_remote_storage_usage')
-                .append("svg")
-                .attr("height", '24em')
-                .datum(chart_values)
-                .call(chart);
+        var ctx = document.getElementById(chart_id);
 
-            nv.utils.windowResize(chart.update);
-            return chart;
+        this.chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: datasets,
+            },
+            options: {
+                legend: {
+                    display: false,
+                },
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        type: 'linear',
+                        ticks: {
+                            beginAtZero: true,
+                            callback: this.formatValue.bind(this),
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: _t('Usage Value, MB'),
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            callback: function (moment) {
+                                return moment.format(DATE_FORMAT());
+                            },
+                        }
+                    }],
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                    bodyFontColor: 'rgba(0,0,0,1)',
+                    titleFontSize: 13,
+                    titleFontColor: 'rgba(0,0,0,1)',
+                    backgroundColor: 'rgba(255,255,255,0.6)',
+                    borderColor: 'rgba(0,0,0,0.2)',
+                    borderWidth: 2,
+                    callbacks: {
+                        title: function (tooltipItems, data) {
+                            return data.datasets[0].label;
+                        },
+                        label: function (tooltipItem, data) {
+                            var moment = data.labels[tooltipItem.index];
+                            var date = tooltipItem.datasetIndex === 0 ? moment
+                                : moment.subtract(1, self.date_range);
+                            return date.format(DATE_FORMAT()) + ': ' + self.formatValue(tooltipItem.yLabel);
+                        },
+                        labelColor: function (tooltipItem, chart) {
+                            var dataset = chart.data.datasets[tooltipItem.datasetIndex];
+                            return {
+                                borderColor: dataset.borderColor,
+                                backgroundColor: dataset.borderColor,
+                            };
+                        },
+                    }
+                }
+            }
         });
     },
 
@@ -232,34 +313,104 @@ var Dashboard = AbstractAction.extend(ControlPanelMixin, {
     },
 
     render_backup_config_card_graph: function(db_name, service) {
+        var chart_id = 'odoo_backup_sh-' + service + '-' + db_name;
         var chart_values = this.configs.filter(function (config) {
             return config.database === db_name && config.storage_service === service;
         })[0].graph;
+        var self = this;
 
-        nv.addGraph(function() {
-            var chart = nv.models.discreteBarChart()
-                .x(function(d) {
-                    return d.label;
-                })
-                .y(function(d) {
-                    return d.value;
-                })
-                .showValues(true)
-                .showYAxis(false)
-                .color(['#7c7bad'])
-                .margin({'left': 0, 'right': 0, 'top': 10, 'bottom': 42});
+        var div_to_display = 'div[data-db_name="' + db_name + '"][data-service="' + service + '"] .backup_config_card_graph';
 
-            chart.xAxis
-                .axisLabel('Backups of Last 7 Days, MB');
+        this.$(div_to_display).empty();
+        var $canvasContainer = $('<div/>', {class: 'o_graph_canvas_container'});
+        this.$canvas = $('<canvas/>').attr('id', chart_id);
+        $canvasContainer.append(this.$canvas);
+        this.$(div_to_display).append($canvasContainer);
 
-            d3.select('div[data-db_name="' + db_name + '"][data-service="' + service + '"] .backup_config_card_graph')
-                .append("svg")
-                .attr("height", '10em')
-                .datum(chart_values)
-                .call(chart);
+        var labels = chart_values[0].values.map(function (date) {
+            return moment(date.label, "YYYY-MM-DD", 'en');
+        });
 
-            nv.utils.windowResize(chart.update);
-            return chart;
+        // var color = 'rgb(124, 123, 173)';
+        var color = COLORS[1];
+        var datasets = chart_values.map(function (group, index) {
+            return {
+                label: group.key,
+                data: group.values.map(function (value) {
+                    return value.value;
+                }),
+                dates: group.values.map(function (value) {
+                    return value.label;
+                }),
+                fill: false,
+                borderColor: color,
+                backgroundColor: color
+            };
+        });
+
+        console.log(_t.database.parameters);
+        var ctx = document.getElementById(chart_id);
+        this.chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: datasets,
+            },
+            options: {
+                legend: {
+                    display: false,
+                },
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        type: 'linear',
+                        ticks: {
+                            beginAtZero: true,
+                            callback: this.formatValue.bind(this),
+                        },
+                    }],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: _t('Backups of the Last 7 Days')
+                        },
+                        ticks: {
+                            callback: function (moment) {
+                                // capitalize for non-english locales like russian
+                                return self.capitalize(moment.locale((LANG_CODE())).format('dddd'));
+                            },
+                        }
+                    }],
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                    bodyFontColor: 'rgba(0,0,0,1)',
+                    titleFontSize: 13,
+                    titleFontColor: 'rgba(0,0,0,1)',
+                    backgroundColor: 'rgba(255,255,255,0.6)',
+                    borderColor: 'rgba(0,0,0,0.2)',
+                    borderWidth: 2,
+                    callbacks: {
+                        title: function (tooltipItems, data) {
+                            return data.datasets[0].label;
+                        },
+                        label: function (tooltipItem, data) {
+                            var moment = data.labels[tooltipItem.index];
+                            var date = tooltipItem.datasetIndex === 0 ? moment
+                                : moment.subtract(1, self.date_range);
+                            return date.format(DATE_FORMAT()) + ': ' + self.formatValue(tooltipItem.yLabel);
+                        },
+                        labelColor: function (tooltipItem, chart) {
+                            var dataset = chart.data.datasets[tooltipItem.datasetIndex];
+                            return {
+                                borderColor: dataset.borderColor,
+                                backgroundColor: dataset.borderColor,
+                            };
+                        },
+                    }
+                }
+            }
         });
     },
     o_dashboard_get_s3_credentials: function(ev){

@@ -1,5 +1,6 @@
 # Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+# Copyright 2019 Eugene Molotov <https://it-projects.info/team/em234018>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 {
     "name": """Website Switcher in Backend""",
@@ -7,14 +8,14 @@
     "category": "Hidden",
     # "live_test_url": "",
     "images": [],
-    "version": "12.0.3.0.4",
+    "version": "13.0.3.0.4",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info/team/yelizariev",
     "license": "LGPL-3",
-    "price": 30.00,
+    "price": 15.00,
     "currency": "EUR",
 
     "depends": [

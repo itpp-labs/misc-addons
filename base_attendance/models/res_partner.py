@@ -60,7 +60,6 @@ class HrPartner(models.Model):
         return partner and partner.attendance_action('base_attendance.hr_attendance_action_kiosk_mode') or \
             {'warning': _('No partner corresponding to barcode %(barcode)s') % {'barcode': barcode}}
 
-    @api.multi
     def attendance_manual(self, next_action, entered_pin=None):
         self.ensure_one()
         if not (entered_pin is None) or \
@@ -69,7 +68,6 @@ class HrPartner(models.Model):
                 return {'warning': _('Wrong PIN')}
         return self.attendance_action(next_action)
 
-    @api.multi
     def attendance_action(self, next_action):
         """ Changes the attendance of the partner.
             Returns an action to the check in/out message,
@@ -84,7 +82,6 @@ class HrPartner(models.Model):
         action_message['attendance'] = modified_attendance.read()[0]
         return {'action': action_message}
 
-    @api.multi
     def attendance_action_change(self):
         """ Check In/Check Out action
             Check In: create a new attendance record
@@ -109,7 +106,6 @@ class HrPartner(models.Model):
                                              'Your attendances have probably been modified manually by human resources.') % {'empl_name': self.name, })
             return attendance
 
-    @api.model_cr_context
     def _init_column(self, column_name):
         """ Initialize the value of the given column for existing rows.
             Overridden here because we need to have different default values

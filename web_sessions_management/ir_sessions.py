@@ -79,7 +79,6 @@ class IrSessions(models.Model):
         expiration_date = date_last_activity + timedelta(seconds=self.expiration_seconds)
         self.expiration_date = datetime.strftime(expiration_date, DEFAULT_SERVER_DATETIME_FORMAT)
 
-    @api.multi
     def action_close_session(self):
         redirect = self._close_session()
 
@@ -92,7 +91,6 @@ class IrSessions(models.Model):
                 'url': url
             }
 
-    @api.multi
     def _close_session(self, logout_type=None):
         redirect = False
         for r in self:
@@ -112,7 +110,6 @@ class IrSessions(models.Model):
             root.session_store.save(session)
         return redirect
 
-    @api.multi
     def _on_session_logout(self, logout_type=None):
         self.write({'logged_in': False,
                 date_logout = fields.Datetime.now()

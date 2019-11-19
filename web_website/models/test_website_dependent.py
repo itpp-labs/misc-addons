@@ -8,6 +8,7 @@ FIELDS = ['foo', 'user_id']
 class WebsiteDependent(models.Model):
     _inherit = 'website_dependent.mixin'
     _name = 'test.website_dependent'
+    _description = 'Model for testing web_website module'
 
     name = fields.Char()
     foo = fields.Char(company_dependent=True, website_dependent=True)
@@ -21,7 +22,6 @@ class WebsiteDependent(models.Model):
             res._force_default(f, vals.get(f))
         return res
 
-    @api.multi
     def write(self, vals):
         res = super(WebsiteDependent, self).write(vals)
 

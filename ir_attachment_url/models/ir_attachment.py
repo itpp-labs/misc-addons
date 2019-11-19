@@ -39,6 +39,5 @@ class IrAttachment(models.Model):
 
         super(IrAttachment, self - url_records)._compute_datas()
 
-    @api.multi
     def _filter_protected_attachments(self):
         return self.filtered(lambda r: r.res_model not in ['ir.ui.view', 'ir.ui.menu'] or not r.name.startswith('/web/content/'))

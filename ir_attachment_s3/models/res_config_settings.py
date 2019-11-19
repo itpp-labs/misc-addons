@@ -44,7 +44,6 @@ class S3Settings(models.TransientModel):
         )
         return res
 
-    @api.multi
     def set_values(self):
         super(S3Settings, self).set_values()
         ICPSudo = self.env['ir.config_parameter'].sudo()

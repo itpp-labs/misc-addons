@@ -1,24 +1,32 @@
 // Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+// Copyrigth 2019 Eugene Molotov <https://it-projects.info/team/em230418>
 // License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 odoo.define('web_website.tour', function(require) {
 "use strict";
 
-    var tour = require('web_tour.tour');
-    var base = require("web_editor.base");
+var tour = require("web_tour.tour");
 
-    tour.register('web_website.tour', {
-        url: "/web",
-        test: true,
-        wait_for: base.ready(),
-    }, [{
-        content: "Toggle Website Switcher",
-        trigger: '.o_switch_website_menu > a',
-    }, {
-        content: "Click Website localhost",
-        trigger: '.o_switch_website_menu a[data-website-id=1]',
-    }, {
-        content: "Wait when page is reloaded",
-        trigger: '.o_switch_website_menu > a:contains(My Website)',
-    },
-    ]);
+var options = {
+    test: true,
+    url: '/web#',
+};
+
+var tour_name = 'web_website.tour';
+tour.register(tour_name, options,
+    [
+        {
+            content: "Toggle Website Switcher",
+            trigger: '.o_switch_website_menu > a',
+        },
+        {
+            content: "Click Website localhost",
+            trigger: '.o_switch_website_menu a[data-website-id=1]',
+        },
+        {
+            content: "Wait when page is reloaded",
+            trigger: '.o_switch_website_menu > a:contains(My Website)',
+        },
+    ]
+);
+
 });

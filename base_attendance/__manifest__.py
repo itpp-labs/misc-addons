@@ -14,7 +14,7 @@
     "support": "apps@it-projects.info",
     "website": "https://www.odoo.com/apps/modules/12.0/base_attendance/",
     "license": "LGPL-3",
-    "price": 60.00,
+    "price": 30.00,
     "currency": "EUR",
 
     "depends": [
@@ -34,6 +34,6 @@
     'qweb': [
         "static/src/xml/attendance.xml",
     ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
 }

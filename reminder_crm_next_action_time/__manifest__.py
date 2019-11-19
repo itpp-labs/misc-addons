@@ -10,7 +10,7 @@
     "support": "apps@it-projects.info",
     "website": "https://twitter.com/gabbasov_dinar",
     "license": "GPL-3",
-    "price": 21.00,
+    "price": 11.00,
     "currency": "EUR",
 
     "depends": [

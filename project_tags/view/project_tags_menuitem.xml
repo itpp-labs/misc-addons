@@ -27,7 +27,6 @@
         <record id="action_project_tags_project_tag_project_tags" model="ir.actions.act_window">
             <field name="name">Project Tags</field>
             <field name="res_model">project_tags.project_tag</field>
-            <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_project_tags_project_tag_tree"/>
             <field name="search_view_id" ref="view_project_tags_project_tag_filter"/>

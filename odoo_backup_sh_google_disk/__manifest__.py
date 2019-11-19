@@ -6,12 +6,12 @@
     "category": "Backup",
     # "live_test_url": "",
     "images": ['images/google drive backing up.jpg'],
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "application": False,
 
     "author": "IT-Projects LLC, Dinar Gabbasov",
     "support": "apps@it-projects.info",
-    "website": "https://apps.odoo.com/apps/modules/12.0/odoo_backup_sh_google_disk/",
+    "website": "https://apps.odoo.com/apps/modules/13.0/odoo_backup_sh_google_disk/",
     "license": "LGPL-3",
     "price": 119.00,
     "currency": "EUR",
@@ -19,7 +19,7 @@
     "depends": [
         "odoo_backup_sh",
     ],
-    "external_dependencies": {"python": ["googleapiclient"], "bin": []},
+    "external_dependencies": {"python": ["google-api-python-client"], "bin": []},
     "data": [
         "views/odoo_backup_sh_views.xml",
         "views/odoo_backup_sh_google_drive_templates.xml",

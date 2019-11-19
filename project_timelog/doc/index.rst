@@ -42,14 +42,14 @@ Forced completion of the task
 Webhooks
 ========
 
-This section is about how you can implement integration with third-party services using the module `Outgoing Webhooks <https://apps.odoo.com/apps/modules/12.0/base_automation_webhook/>`__ (need to install additionally), for example, send notifications about user actions to telegram group through `IFTTT <https://ifttt.com>`__.
+This section is about how you can implement integration with third-party services using the module `Outgoing Webhooks <https://apps.odoo.com/apps/modules/13.0/base_automation_webhook/>`__ (need to install additionally), for example, send notifications about user actions to telegram group through `IFTTT <https://ifttt.com>`__.
 
 Consider the following example. Let's say we need to send a webhook when one of these following events occurs:
     * The user turned on the timer for the first time of the day.
     * The user switched to another task
 
 You'll need:
-    * `Odoo <https://www.odoo.com/>`__ with admin access to setup `Outgoing Webhooks <https://apps.odoo.com/apps/modules/12.0/base_automation_webhook/>`__.
+    * `Odoo <https://www.odoo.com/>`__ with admin access to setup `Outgoing Webhooks <https://apps.odoo.com/apps/modules/13.0/base_automation_webhook/>`__.
     * `IFTTT <https://ifttt.com/>`__ account to setup `Webhooks <https://ifttt.com/maker_webhooks>`__.
 
 
@@ -61,8 +61,8 @@ Prepare IFTTT Webhook URL
 
 Register Webhook:
     * Open Odoo
-    * Install `Outgoing Webhooks <https://apps.odoo.com/apps/modules/12.0/base_automation_webhook/>`__ module
-    * Create an Automated Action with the following values (see `Module Documentation <https://apps.odoo.com/apps/modules/12.0/base_automation_webhook/>`__ for details):
+    * Install `Outgoing Webhooks <https://apps.odoo.com/apps/modules/13.0/base_automation_webhook/>`__ module
+    * Create an Automated Action with the following values (see `Module Documentation <https://apps.odoo.com/apps/modules/13.0/base_automation_webhook/>`__ for details):
         * **Model**: Analytic Line (``account.analytic.line``).
         * **Trigger condition**: *On creation*.
         * **Action To Do**: *Execute Python Code*.

@@ -13,15 +13,15 @@ In-App Purchase
 
 IAP IS TEMPORARLY DISABLED.
 
-**odoo-backup.sh** provides s3 credentials. Payments for the service is managed by proprietary module, which implements `In-App Purchase <https://www.odoo.com/documentation/12.0/webservices/iap.html>`__ -- payments platform provided by *Odoo S.A.*.
+**odoo-backup.sh** provides s3 credentials. Payments for the service is managed by proprietary module, which implements `In-App Purchase <https://www.odoo.com/documentation/13.0/webservices/iap.html>`__ -- payments platform provided by *Odoo S.A.*.
 
 Personal cloud
 ==============
 
 Additionally to the cloud provided by **odoo-backup.sh** it's possible to store backups on a personal cloud. In that case user has to arrange credentials himself. Supported cloud providers and protocols are as following:
 
-* `Dropbox <https://apps.odoo.com/apps/modules/12.0/odoo_backup_sh_dropbox/>`_
-* `Google Drive <https://apps.odoo.com/apps/modules/12.0/odoo_backup_sh_google_disk/>`_
+* `Dropbox <https://apps.odoo.com/apps/modules/13.0/odoo_backup_sh_dropbox/>`_
+* `Google Drive <https://apps.odoo.com/apps/modules/13.0/odoo_backup_sh_google_disk/>`_
 
 *You need to get corresponding modules to use personal cloud.*
 
@@ -212,7 +212,7 @@ Maintainers
 
       To get a guaranteed support
       you are kindly requested to purchase the module
-      at `odoo apps store <https://apps.odoo.com/apps/modules/12.0/odoo_backup_sh/>`__.
+      at `odoo apps store <https://apps.odoo.com/apps/modules/13.0/odoo_backup_sh/>`__.
 
       Thank you for understanding!
 
@@ -221,9 +221,9 @@ Maintainers
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/misc-addons/12.0
+Demo: http://runbot.it-projects.info/demo/misc-addons/13.0
 
-HTML Description: https://apps.odoo.com/apps/modules/12.0/odoo_backup_sh/
+HTML Description: https://apps.odoo.com/apps/modules/13.0/odoo_backup_sh/
 
 Usage instructions: `<doc/index.rst>`_
 

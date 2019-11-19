@@ -25,7 +25,6 @@ class IrConfigParameter(models.Model):
         res._force_default(FIELD_NAME, vals.get('value'))
         return res
 
-    @api.multi
     def write(self, vals):
         res = super(IrConfigParameter, self).write(vals)
         value = vals.get('value')
@@ -47,7 +46,6 @@ class IrConfigParameter(models.Model):
                 website = self.env['website'].browse(website_id)
                 company_id = website.company_id.id
             else:
-                # Warning. Since odoo 11.0 it means that by default Administrator's company value is used
                 company_id = self.env.user.company_id.id
             self = self.with_context(force_company=company_id)
 

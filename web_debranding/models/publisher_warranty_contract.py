@@ -14,7 +14,6 @@ _logger = logging.getLogger(__name__)
 class PublisherWarrantyContract(models.AbstractModel):
     _inherit = 'publisher_warranty.contract'
 
-    @api.multi
     def update_notification(self, cron_mode=True):
         is_enterprise = version_info[5] == 'e'
         _logger.debug('is_enterprise=%s', is_enterprise)

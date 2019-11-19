@@ -99,7 +99,7 @@ class BackupConfig(models.Model):
     storage_service = fields.Selection(selection=[(S3_STORAGE, 'S3')], default=S3_STORAGE, required=True)
     unlimited_time_frame = fields.Char(default="hour")
     common_rotation = fields.Selection(selection=ROTATION_OPTIONS, default='unlimited')
-    max_backups = fields.Integer(readonly=True, compute=lambda self: 0)
+    max_backups = fields.Integer(readonly=True, store=False)
     backup_simulation = fields.Boolean(string="Demo Backup Simulation", default=False,
                                        help="If the setting is enabled then new backups of current database will not "
                                             "be sent to the storage server")
@@ -168,25 +168,21 @@ class BackupConfig(models.Model):
             self.max_backups = max_backups
 
     @api.depends('config_cron_ids', 'config_cron_ids.ir_cron_id.active')
-    @api.multi
     def _compute_active(self):
         for backup_config in self:
             backup_config.active = backup_config.config_cron_ids and any(backup_config.config_cron_ids.mapped('active'))
 
-    @api.multi
     def _inverse_active(self):
         for backup_config in self:
             backup_config.config_cron_ids.write({
                 'active': backup_config.active
             })
 
-    @api.multi
     def write(self, vals):
         if vals.get('common_rotation') == 'disabled':
             raise UserError(_("You cannot save the settings where all rotation options are disabled."))
         return super(BackupConfig, self).write(vals)
 
-    @api.multi
     def unlink(self):
         self.mapped('config_cron_ids').unlink()
         return super(BackupConfig, self).unlink()
@@ -566,7 +562,6 @@ class BackupConfig(models.Model):
                 _logger.exception('Failed to create backup')
                 raise UserError(_("Failed to create backup: %s") % e)
 
-    @api.multi
     def action_create_simulation_data(self):
         self.install_demo_data()
         return True
@@ -582,7 +577,6 @@ class BackupConfig(models.Model):
         })
         config.install_demo_data()
 
-    @api.multi
     def install_demo_data(self):
         # create lot of backup info files (fake backups)
         info_obj = self.env['odoo_backup_sh.backup_info']
@@ -599,7 +593,6 @@ class BackupConfig(models.Model):
             })
             upload_datetime -= relativedelta(hours=4)
 
-    @api.multi
     def action_list_backups(self):
         return {
             'type': 'ir.actions.act_window',
@@ -638,7 +631,6 @@ class BackupConfigCron(models.Model):
         })
         return res
 
-    @api.multi
     def unlink(self):
         ir_cron_ids = [r.ir_cron_id.id for r in self]
         res = super(BackupConfigCron, self).unlink()
@@ -692,7 +684,6 @@ class BackupInfo(models.Model):
         self.env['odoo_backup_sh.remote_storage'].compute_total_used_remote_storage()
         return res
 
-    @api.multi
     def unlink(self):
         res = super(BackupInfo, self).unlink()
         self.env['odoo_backup_sh.remote_storage'].compute_total_used_remote_storage()
@@ -702,7 +693,6 @@ class BackupInfo(models.Model):
         if not self.user_has_groups('odoo_backup_sh.group_manager'):
             raise AccessError(_("Current user is not in Backup manager group"))
 
-    @api.multi
     def download_backup_action(self, backup=None):
         self.assert_user_can_download_backup()
 
@@ -736,13 +726,11 @@ class BackupNotification(models.Model):
     message = fields.Text('Message', readonly=True)
     is_read = fields.Boolean('Is Read', readonly=True)
 
-    @api.multi
     def toggle_is_read(self):
         self.write({'is_read': not self.is_read})
         self.activity_ids.unlink()
         return True
 
-    @api.multi
     def create_mail_activity_record(self):
         self.env['mail.activity'].create({
             'res_id': self.id,
@@ -780,7 +768,6 @@ class BackupRemoteStorage(models.Model):
     total_used_remote_storage = fields.Integer(string='Total Usage, MB', readonly=True)
     s3_used_remote_storage = fields.Integer(string='Odoo Backup sh Usage, MB', readonly=True)
 
-    @api.multi
     def compute_total_used_remote_storage(self):
         _logger.debug('compute_total_used_remote_storage...')
         self.compute_s3_used_remote_storage()
@@ -795,7 +782,6 @@ class BackupRemoteStorage(models.Model):
                 'total_used_remote_storage': amount
             })
 
-    @api.multi
     def compute_s3_used_remote_storage(self):
         amount = sum(self.env['odoo_backup_sh.backup_info'].search([('storage_service', '=', S3_STORAGE)]).mapped('backup_size'))
         today_record = self.search([('date', '=', datetime.strftime(datetime.now(), DEFAULT_SERVER_DATE_FORMAT))])
@@ -812,7 +798,6 @@ class DeleteRemoteBackupWizard(models.TransientModel):
     _name = "odoo_backup_sh.delete_remote_backup_wizard"
     _description = "Delete Remote Backups Wizard"
 
-    @api.multi
     def delete_remove_backup_button(self):
         record_ids = []
         if self._context.get('active_model') == 'odoo_backup_sh.backup_info':

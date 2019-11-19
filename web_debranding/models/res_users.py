@@ -9,7 +9,6 @@ class ResUsers(models.Model):
 
     odoobot_state = fields.Selection(string="Bot Status")
 
-    @api.multi
     def is_admin(self):
         # By default Python functions starting with _ are considered private methods.
         # Private methods (such as _is_admin) cannot be called remotely

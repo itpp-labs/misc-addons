@@ -5,7 +5,7 @@
     'license': 'LGPL-3',
     'website': "https://it-projects.info",
     'version': '1.1.0',
-    'price': 15.00,
+    'price': 9.00,
     'currency': 'EUR',
     'category': 'Project',
     'images': ['images/task_search.png'],

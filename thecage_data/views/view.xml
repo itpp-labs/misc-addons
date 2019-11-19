@@ -98,7 +98,6 @@
             <field name="name">Generate Booking Lines</field>
             <field name="res_model">thecage_data.generate_booking_wizard</field>
             <field name="view_mode">form</field>
-            <field name="view_type">form</field>
             <field name="view_id" ref="thecage_generate_booking_form"/>
             <field name="target">new</field>
       </record>

@@ -21,7 +21,6 @@ class IrProperty(models.Model):
 
     website_id = fields.Many2one('website', 'Website')
 
-    @api.multi
     def _update_values(self, values):
         """Support for html fields.
 
@@ -234,7 +233,6 @@ class IrProperty(models.Model):
             create_website_dependent=True,
         )).set_multi(name, model, values, default_value=default_value)
 
-    @api.multi
     def _update_db_value_website_dependent(self, field):
         """Update db value if it's a default value"""
         for r in self:
