@@ -1,3 +1,6 @@
+# Copyright 2019 Rafis Bikbov <https://it-projects.info/team/RafiZz>
+# Copyright 2019 Alexandr Kolushov <https://it-projects.info/team/KolushovAlexandr>
+# Copyright 2019 Eugene Molotov <https://it-projects.info/team/em230418>
 import base64
 import hashlib
 
@@ -5,7 +8,15 @@ from odoo.tools.safe_eval import safe_eval
 from odoo import models, fields, api, exceptions, _
 
 
-class ResConfigSettings(models.TransientModel):
+class S3IrAttachmentSettings(models.TransientModel):
+    _inherit = 'ir.attachment.config.settings'
+
+    ir_attachment_url_storage = fields.Selection(
+        selection_add=[('s3', 'S3 Storage')],
+    )
+
+
+class S3Settings(models.TransientModel):
     _inherit = 'res.config.settings'
 
     s3_bucket = fields.Char(string='S3 bucket name', help="i.e. 'attachmentbucket'")
@@ -18,7 +29,7 @@ class ResConfigSettings(models.TransientModel):
 
     @api.model
     def get_values(self):
-        res = super(ResConfigSettings, self).get_values()
+        res = super(S3Settings, self).get_values()
         ICPSudo = self.env['ir.config_parameter'].sudo()
         s3_bucket = ICPSudo.get_param("s3.bucket", default='')
         s3_access_key_id = ICPSudo.get_param("s3.access_key_id", default='')
@@ -34,7 +45,7 @@ class ResConfigSettings(models.TransientModel):
         return res
 
     def set_values(self):
-        super(ResConfigSettings, self).set_values()
+        super(S3Settings, self).set_values()
         ICPSudo = self.env['ir.config_parameter'].sudo()
         ICPSudo.set_param("s3.bucket", self.s3_bucket or '')
         ICPSudo.set_param("s3.access_key_id", self.s3_access_key_id or '')

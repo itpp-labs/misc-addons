@@ -11,7 +11,10 @@ Credits
 
 Contributors
 ------------
-* Ildar Nasyrov <iledarn@it-projects.info>
+* `Ildar Nasyrov <https://it-projects.info/team/iledarn>`
+* `Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>`
+* `Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>`
+* `Eugene Molotov <https://it-projects.info/team/em230418>`
 
 Sponsors
 --------
@@ -21,7 +24,7 @@ Maintainers
 -----------
 * `IT-Projects LLC <https://it-projects.info>`__
 
-      To get a guaranteed support you are kindly requested to purchase the module at `odoo apps store <https://apps.odoo.com/apps/modules/10.0/ir_attachment_s3/>`__.
+      To get a guaranteed support you are kindly requested to purchase the module at `odoo apps store <https://apps.odoo.com/apps/modules/11.0/ir_attachment_s3/>`__.
 
       Thank you for understanding!
 
@@ -30,10 +33,10 @@ Maintainers
 Further information
 ===================
 
-HTML Description: https://apps.odoo.com/apps/modules/10.0/ir_attachment_s3/
+HTML Description: https://apps.odoo.com/apps/modules/11.0/ir_attachment_s3/
 
 Usage instructions: `<doc/index.rst>`_
 
 Changelog: `<doc/changelog.rst>`_
 
-Tested on Odoo 10.0 f05e8655ee4ee7205c67006ca5a8cb30ed445c81
+Tested on Odoo 11.0 2aeedd044d775c772e811316be301634bcc991b8
