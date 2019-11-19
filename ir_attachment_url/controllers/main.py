@@ -4,7 +4,9 @@ import werkzeug
 
 from odoo.http import request
 from odoo import http, SUPERUSER_ID
-from odoo.addons.web.controllers.main import binary_content
+# TODO: https://github.com/odoo/odoo/commit/7d85ab1eac6dbf33d56c6a1f8bf7e9e12bb8008e
+# from odoo.addons.web.controllers.main import binary_content
+binary_content = None
 from odoo.exceptions import AccessError
 
 from odoo.addons.mail.controllers.main import MailController
