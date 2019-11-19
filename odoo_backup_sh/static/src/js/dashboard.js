@@ -164,7 +164,22 @@ var Dashboard = AbstractAction.extend(ControlPanelMixin, {
 
     render_remote_storage_usage_graph: function(chart_values) {
         this.$('#graph_remote_storage_usage').empty();
-        this.$('h2[class="graph_title"]').text(_t(this.get_service() + ' remote storage usage'));
+        var service = this.get_service();
+        var title;
+        if (service === 'total'){
+            title = _t('total remote storage usage');
+        } else {
+            if (service === 'odoo_backup_sh'){
+                service = _t('S3');
+            } else if (service === 'dropbox'){
+                service = _t('Dropbox');
+            } else if (service === 'google_drive'){
+                service = _t('Google Drive');
+            }
+            title = _.str.sprintf(_t('%s remote storage usage'), service);
+        }
+
+        this.$('h2[class="graph_title"]').text(title);
         chart_values = chart_values || this.remote_storage_usage_graph_values;
         var self = this;
 
