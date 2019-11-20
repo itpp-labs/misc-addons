@@ -6,6 +6,25 @@
 * It is useful in cases where your database was crashed, because you will be able to easily restore all attachments from external storage at any time.
 * The possibility to use one external storage for any number of databases.
 
+Roadmap
+=======
+
+* Create new module `ir_attachment_image` and move following classes, methods from this module to new one:
+
+  * class `BinaryExtended` (excluding s3-related check)
+  * class `IrAttachmentResized`
+  * partially class `IrAttachment`. Leave s3-related methods here and `_inverse_datas`
+  * method `test_getting_cached_images_url_instead_computing`. Probably this modules's test must override test from `ir_attachment_image`
+
+* Refactoring:
+
+  * `S3Setting.upload_existing` and `IrAttachment._inverse_datas` look almost equal
+
+* In settings add options:
+
+  * condition, if object in s3 must be stored as public (as it does now)
+  * condition, if object in s3 must be stored as private and think about, how to return it to user, 'cos you cannot use link to that. Possibly read from bucket and return and uncomment this: https://github.com/it-projects-llc/misc-addons/pull/775/files#r302856876
+
 Credits
 =======
 
