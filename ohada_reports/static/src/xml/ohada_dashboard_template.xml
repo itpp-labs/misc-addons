@@ -39,7 +39,7 @@
                                 <div class="col-xs-12">
                                     <div class="col-sm-12 col-lg-12" style="padding:0;">
                                         <button class="btn btn-color-ee">IMPORT DATA</button>
-                                        <button class="btn btn-color-ee">PRINT BUNDLE</button>
+                                        <button type="object" class="btn btn-color-ee print_bundle">PRINT BUNDLE</button>
                                         <button class="btn btn-color-ee">CLOSE PERIOD</button>
                                         <button class="btn btn-color-ee">SIGN &amp; PAY</button>
                                     </div>

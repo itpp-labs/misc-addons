@@ -7,6 +7,7 @@
         <field name="name">Note 6 - Stocks et encours</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
+        <field name="type">note</field>
         <field name="header">STOCKS ET EN COURS(1)</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
@@ -17,6 +18,7 @@
     <record id="ohada_financial_report_note6_spacer1" model="ohada.financial.html.report.line">
         <field name="name">LIBELLES</field>
         <field name="code">_n6_1</field>
+        <field name="header" eval="True"/>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_note6"/>
         <field name="sequence" eval="1"/>

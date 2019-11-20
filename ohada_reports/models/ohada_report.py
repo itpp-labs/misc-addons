@@ -658,6 +658,7 @@ class OhadaReport(models.AbstractModel):
         otherwise it uses the main_template. Reason is for efficiency, when unfolding a line in the report
         we don't want to reload all lines, just get the one we unfolded.
         '''
+        # wdb.set_trace()
         # Check the security before updating the context to make sure the options are safe.
         self._check_report_security(options)
 
@@ -680,17 +681,17 @@ class OhadaReport(models.AbstractModel):
             lines = self._create_hierarchy(lines)
 
         footnotes_to_render = []
-        if self.env.context.get('print_mode', False):
-            # we are in print mode, so compute footnote number and include them in lines values, otherwise, let the js compute the number correctly as
-            # we don't know all the visible lines.
-            footnotes = dict([(str(f.line), f) for f in report_manager.footnotes_ids])
-            number = 0
-            for line in lines:
-                f = footnotes.get(str(line.get('id')))
-                if f:
-                    number += 1
-                    line['footnote'] = str(number)
-                    footnotes_to_render.append({'id': f.id, 'number': number, 'text': f.text})
+        # if self.env.context.get('print_mode', False):
+        #     # we are in print mode, so compute footnote number and include them in lines values, otherwise, let the js compute the number correctly as
+        #     # we don't know all the visible lines.
+        #     footnotes = dict([(str(f.line), f) for f in report_manager.footnotes_ids])
+        #     number = 0
+        #     for line in lines:
+        #         f = footnotes.get(str(line.get('id')))
+        #         if f:
+        #             number += 1
+        #             line['footnote'] = str(number)
+        #             footnotes_to_render.append({'id': f.id, 'number': number, 'text': f.text})
 
         rcontext = {'report': report,
                     'lines': {'columns_header': self.get_header(options), 'lines': lines},
@@ -698,6 +699,7 @@ class OhadaReport(models.AbstractModel):
                     'context': self.env.context,
                     'model': self,
                 }
+        # wdb.set_trace()
         if additional_context and type(additional_context) == dict:
             rcontext.update(additional_context)
         if self.env.context.get('analytic_account_ids'):
@@ -712,11 +714,11 @@ class OhadaReport(models.AbstractModel):
             render_template,
             values=dict(rcontext),
         )
-        if self.env.context.get('print_mode', False):
-            for k,v in self._replace_class().items():
-                html = html.replace(k, v)
-            # append footnote as well
-            html = html.replace(b'<div class="js_account_report_footnotes"></div>', self.get_html_footnotes(footnotes_to_render))
+        # if self.env.context.get('print_mode', False):
+        #     for k,v in self._replace_class().items():
+        #         html = html.replace(k, v)
+        #     # append footnote as well
+        #     html = html.replace(b'<div class="js_account_report_footnotes"></div>', self.get_html_footnotes(footnotes_to_render))
         return html
 
     @api.multi
@@ -979,13 +981,36 @@ class OhadaReport(models.AbstractModel):
         # wdb.set_trace()
         if cmp_filter == 'no_comparison':
             if self.name == 'Balance Sheet - Assets':
+                periods = []
+                number_period = 1
+                for index in range(0, number_period):
+                    if cmp_filter == 'previous_period':
+                        period_vals = self._get_dates_previous_period(options, period_vals)
+                    else:
+                        period_vals = self._get_dates_previous_year(options, period_vals)
+                    periods.append(create_vals(period_vals))
+
+                if len(periods) > 0:
+                    options['comparison'].update(periods[-1])
+                options['comparison']['periods'] = periods
+                options['comparison']['filter'] = 'no_comparison'
                 options['comparison']['string'] = _('No comparison')
-                options['comparison']['periods'] = []
-                if self.has_single_date_filter(options):
-                    options['comparison']['date'] = ""
-                else:
-                    options['comparison']['date_from'] = ""
-                    options['comparison']['date_to'] = ""
+                return
+            if self.type == 'note':
+                periods = []
+                number_period = 1
+                for index in range(0, number_period):
+                    if cmp_filter == 'previous_period':
+                        period_vals = self._get_dates_previous_period(options, period_vals)
+                    else:
+                        period_vals = self._get_dates_previous_year(options, period_vals)
+                    periods.append(create_vals(period_vals))
+
+                if len(periods) > 0:
+                    options['comparison'].update(periods[-1])
+                options['comparison']['periods'] = periods
+                options['comparison']['filter'] = 'previous_period'
+                options['comparison']['string'] = _('No comparison')
                 return
 
             periods = []
@@ -1049,14 +1074,13 @@ class OhadaReport(models.AbstractModel):
         # This scenario happens when you want to print a PDF report for the first time, as the
         # assets are not in cache and must be generated. To workaround this issue, we manually
         # commit the writes in the `ir.attachment` table. It is done thanks to a key in the context.
-        # wdb.set_trace()
 
         if not config['test_enable']:
             self = self.with_context(commit_assetsbundle=True)
 
         # base_url = self.env['ir.config_parameter'].sudo().get_param('report.url') or self.env['ir.config_parameter'].sudo().get_param('web.base.url')
         base_url = 'http://127.0.0.1:8069'
-
+        # wdb.set_trace()
         rcontext = {
             'mode': 'print',
             'base_url': base_url,
@@ -1067,7 +1091,9 @@ class OhadaReport(models.AbstractModel):
             "ohada_reports.print_template",
             values=dict(rcontext),
         )
-        body_html = self.with_context(print_mode=True).get_html(options)
+
+        # body_html = self.with_context(print_mode=True).get_html(options)
+        body_html = self.get_html(options)
 
         body = body.replace(b'<body class="o_account_reports_body_print">', b'<body class="o_account_reports_body_print">' + body_html)
         if minimal_layout:
@@ -1148,29 +1174,34 @@ class OhadaReport(models.AbstractModel):
         """
         return {}
 
-    def get_xlsx(self, options, response):
+    def get_xlsx(self, options, response, print_bundle=False, workbook=None):
         output = io.BytesIO()
-        workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+        if print_bundle == False:
+            workbook = xlsxwriter.Workbook(output, {'in_memory': True})
         sheet = workbook.add_worksheet(self._get_report_name()[:31])
 
+
+        top_border = workbook.add_format({'bottom': 6, 'border_color': '#001E5A'})
+        bottom_border = workbook.add_format({'top': 6, 'border_color': '#001E5A'})
+        right_border = workbook.add_format({'left': 6, 'border_color': '#001E5A'})
+        left_border = workbook.add_format({'right': 6, 'border_color': '#001E5A'})
         date_default_col1_style = workbook.add_format({'font_name': 'Arial', 'font_size': 12, 'font_color': '#001E5A', 'indent': 2, 'num_format': 'yyyy-mm-dd'})
         date_default_style = workbook.add_format({'font_name': 'NimbusSanL', 'font_size': 12, 'font_color': '#001E5A', 'num_format': 'yyyy-mm-dd'})
         default_col1_style = workbook.add_format({'font_name': 'NimbusSanL', 'font_size': 12, 'font_color': '#001E5A', 'indent': 2})
         default_style = workbook.add_format({'font_name': 'NimbusSanL', 'font_size': 12, 'font_color': '#001E5A'})
         title_style = workbook.add_format({'font_name': 'NimbusSanL', 'bold': True, 'bottom': 2})
         super_col_style = workbook.add_format({'font_name': 'NimbusSanL', 'bold': True, 'align': 'center'})
-        level_0_style = workbook.add_format({'valign': 'vcenter', 'border_color': '#001E5A', 'shrink': True, 'align': 'center', 'bg_color': '#CDEBFF', 'font_name': 'NimbusSanL', 'bold': True, 'font_size': 13, 'border': 1, 'font_color': '#001E5A'})
-        level_1_style = workbook.add_format({'valign': 'vcenter', 'border_color': '#001E5A', 'border': 1, 'align': 'center', 'bold': True, 'bg_color':'#FFDCDC','font_name': 'NimbusSanL', 'font_size': 13, 'bottom': 1, 'font_color': '#001E5A'})
-        level_2_col1_style = workbook.add_format({'border_color': '#001E5A', 'border': 1, 'font_name': 'NimbusSanL', 'font_size': 12, 'font_color': '#001E5A', 'indent': 1})
-        level_2_col1_total_style = workbook.add_format({'border_color': '#001E5A', 'border': 1, 'font_name': 'NimbusSanL', 'font_size': 12, 'font_color': '#001E5A'})
-        level_2_style = workbook.add_format({'border_color': '#001E5A', 'border': 1, 'font_name': 'NimbusSanL', 'font_size': 12, 'font_color': '#001E5A'})
-        level_3_col1_style = workbook.add_format({'border_color': '#001E5A', 'border': 1, 'font_name': 'NimbusSanL', 'font_size': 12, 'font_color': '#001E5A', 'indent': 2})
-        level_3_col1_total_style = workbook.add_format({'border_color': '#001E5A', 'border': 1, 'font_name': 'NimbusSanL', 'font_size': 12, 'font_color': '#001E5A', 'indent': 1})
-        level_3_style = workbook.add_format({'border_color': '#001E5A', 'border': 1, 'font_name': 'NimbusSanL', 'font_size': 12, 'font_color': '#001E5A'})
+        level_0_style = workbook.add_format({'valign': 'vcenter', 'border_color': '#001E5A', 'shrink': True, 'align': 'center', 'bg_color': '#CDEBFF', 'font_name': 'NimbusSanL', 'bold': True, 'font_size': 8, 'border': 1, 'font_color': '#001E5A'})
+        level_1_style = workbook.add_format({'valign': 'vcenter', 'border_color': '#001E5A', 'border': 1, 'align': 'center', 'bold': True, 'bg_color':'#FFDCDC','font_name': 'NimbusSanL', 'font_size': 8, 'bottom': 1, 'font_color': '#001E5A'})
+        level_2_col1_style = workbook.add_format({'border_color': '#001E5A', 'border': 1, 'font_name': 'NimbusSanL', 'font_size': 8, 'font_color': '#001E5A', 'indent': 1})
+        level_2_col1_total_style = workbook.add_format({'border_color': '#001E5A', 'border': 1, 'font_name': 'NimbusSanL', 'font_size': 8, 'font_color': '#001E5A'})
+        level_2_style = workbook.add_format({'border_color': '#001E5A', 'border': 1, 'font_name': 'NimbusSanL', 'font_size': 8, 'font_color': '#001E5A'})
+        level_3_col1_style = workbook.add_format({'border_color': '#001E5A', 'border': 1, 'font_name': 'NimbusSanL', 'font_size': 8, 'font_color': '#001E5A', 'indent': 2})
+        level_3_col1_total_style = workbook.add_format({'border_color': '#001E5A', 'border': 1, 'font_name': 'NimbusSanL', 'font_size': 8, 'font_color': '#001E5A', 'indent': 1})
+        level_3_style = workbook.add_format({'border_color': '#001E5A', 'border': 1, 'font_name': 'NimbusSanL', 'font_size': 8, 'font_color': '#001E5A'})
 
         #Set the first column width to 50
 
-        # wdb.set_trace()
         super_columns = self._get_super_columns(options)
         y_offset = bool(super_columns.get('columns')) and 1 or 0
 
@@ -1207,27 +1238,13 @@ class OhadaReport(models.AbstractModel):
             lines = self._create_hierarchy(lines)
 
         if lines[0].get('reference'):
-            sheet.set_column(1, 1, 5)
-            sheet.set_column(2, 2, 90)
+            sheet.set_column(1, 1, 3)
+            sheet.set_column(2, 2, 50)
+            sheet.set_row(7, 50)
+            sheet.set_row(8, 30)
         else:
-            sheet.set_column(1, 1, 90)
-
-        # make header of table
-        wdb.set_trace()
-        header = {
-            'year': options['date']['date_from'][0:4],
-            'company': self.env.user.company_id.name,
-            'vat': self.env.user.company_id.vat,
-            'title': self.header and self.header + ' ' + options['date']['date_from'][0:4],
-        }
-        left_style = workbook.add_format(
-            {'align': 'left', 'font_name': 'NimbusSanL', 'font_size': 13, 'font_color': '#001E5A'})
-        right_style = workbook.add_format(
-            {'align': 'right', 'font_name': 'NimbusSanL', 'font_size': 13, 'font_color': '#001E5A'})
-        title_style = workbook.add_format(
-            {'align': 'center', 'font_name': 'NimbusSanL', 'font_size': 13, 'font_color': '#001E5A', 'bold': True,})
-
-
+            sheet.set_column(1, 1, 50)
+            sheet.set_row(7, 50)
 
         #write all data rows
         for y in range(0, len(lines)):
@@ -1258,14 +1275,13 @@ class OhadaReport(models.AbstractModel):
             if lines[y].get('note') == 'NET':
                 for x in range(1, len(lines[y]['columns']) + 1):
                     cell = lines[y]['columns'][x - 1]
-                    # wdb.set_trace()
                     loc_style = copy.copy(style)
                     loc_style.set_align('center')
                     workbook.formats.append(loc_style)
                     sheet.write(y + y_offset, net_x, cell.get('name', ''), loc_style)
                     net_x += 1
             else:
-                if lines[y].get('reference'):
+                if lines[y].get('reference') or lines[0].get('reference'):
                     loc_style = copy.copy(style)
                     loc_style.set_align('left')
                     workbook.formats.append(loc_style)
@@ -1280,10 +1296,10 @@ class OhadaReport(models.AbstractModel):
                 # write the first column, with a specific style to manage the indentation
                 cell_name = lines[y]['name']
                 if lines[y].get('reference') == 'REF':
-                    sheet.merge_range(y + y_offset, x_index, y + y_offset + 1, x_index, cell_name, col1_style)
+                    sheet.merge_range(y + y_offset, x_index, y + y_offset + 1, x_index, cell_name, style)
                     x_index += 1
                 else:
-                    sheet.write(y + y_offset, x_index, cell_name, col1_style)
+                    sheet.write(y + y_offset, x_index, cell_name, style)
                     x_index += 1
 
                 if lines[y].get('symbol') != 'none':
@@ -1298,7 +1314,7 @@ class OhadaReport(models.AbstractModel):
                         sheet.write(y + y_offset, x_index, cell_name, loc_style)
                         x_index += 1
 
-                if lines[y].get('note'):
+                if lines[y].get('note') != 'none' and lines[y].get('note') != None:
                     loc_style = copy.copy(style)
                     loc_style.set_align('center')
                     workbook.formats.append(loc_style)
@@ -1313,33 +1329,66 @@ class OhadaReport(models.AbstractModel):
                 # write all the remaining cells
                 for x in range(1, len(lines[y]['columns']) + 1):
                     cell = lines[y]['columns'][x - 1]
-                    if lines[y].get('reference') == 'REF':
+                    if lines[y].get('reference') == 'REF' or lines[y].get('header') is True:
                         if x == 1:
                             net_x = x_index
                         loc_style = copy.copy(style)
                         loc_style.set_align('center')
                         workbook.formats.append(loc_style)
+                        sheet.set_column(y + y_offset, x_index, 10)
                     else:
                         loc_style = copy.copy(style)
                         loc_style.set_align('right')
                         workbook.formats.append(loc_style)
-                    if isinstance(cell.get('name', ''), list):
+
+                    if lines[y].get('reference') == 'REF' and self.name == 'Balance Sheet - Assets' and x == 1\
+                            and options['comparison']['filter'] == 'no_comparison':
+                        cell_name = str()
+                        for i in cell.get('name', ''):
+                            cell_name += i
+                            cell_name += '\n'
+                        sheet.merge_range(y + y_offset, x_index, y + y_offset, x_index + 2, cell_name, loc_style)
+                        x_index += 3
+                    elif isinstance(cell.get('name', ''), list):
                         cell_name = str()
                         for i in cell.get('name', ''):
                             cell_name += i
                             cell_name += '\n'
                         sheet.write(y + y_offset, x_index, cell_name, loc_style)
                         x_index += 1
-
                     else:
                         sheet.write(y + y_offset, x_index, cell.get('name', ''), loc_style)
                         x_index += 1
+        # make header above the table
+        header = {
+            'year': options['date']['date_from'][0:4],
+            'company': self.env.user.company_id.name,
+            'vat': self.env.user.company_id.vat,
+            'title': self.header and self.header + ' ' + options['date']['date_from'][0:4],
+        }
+        left_style = workbook.add_format(
+            {'align': 'left', 'font_name': 'NimbusSanL', 'font_size': 13, 'font_color': '#001E5A'})
+        right_style = workbook.add_format(
+            {'align': 'right', 'font_name': 'NimbusSanL', 'font_size': 13, 'font_color': '#001E5A'})
+        title_style = workbook.add_format(
+            {'align': 'center', 'font_name': 'NimbusSanL', 'font_size': 13, 'font_color': '#001E5A',
+             'bold': True, })
+        sheet.write(2, 1, 'Désignation Entité : ' + header['year'], left_style)
+        sheet.write(2, x_index - 1, 'Exercice clos le : ' + '31/12/' + header['year'], right_style)
+        sheet.write(3, 1, "Numéro d'identification : " + (header.get('vat') or ''), left_style)
+        sheet.write(3, x_index - 1, 'Durée (en mois) : 12', right_style)
+        sheet.merge_range(5, 1, 5, x_index - 1, header['title'], title_style)
+
+        #make double border
+        sheet.merge_range(6, 1, 6, x_index - 1, '', top_border)
+        sheet.merge_range(len(lines) + 7, 1, len(lines) + 7, x_index - 1, '', bottom_border)
+        sheet.merge_range(7, 0, len(lines) + 6, 0, '', left_border)
+        sheet.merge_range(7, x_index, len(lines) + 6, x_index, '', right_border)
+
+        sheet.hide_gridlines(2)
+        if print_bundle == True:
+            return
         wdb.set_trace()
-        sheet.merge_range(2, 1, 2, 2, 'Désignation Entité : ' + header['year'], left_style)
-        sheet.merge_range(2, x_index - 3, 2, x_index - 1, 'Exercice clos le : ' + '31/12/' + header['year'], right_style)
-        sheet.merge_range(3, 1, 3, 2, "Numéro d'identification : " + header['vat'], left_style)
-        sheet.merge_range(3, x_index - 3, 3, x_index - 1, 'Durée (en mois) : 12', right_style)
-        sheet.merge_range(5, 1, 5, x_index, header['title'], title_style)
         workbook.close()
         output.seek(0)
         response.stream.write(output.read())

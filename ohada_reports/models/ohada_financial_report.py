@@ -3,6 +3,14 @@
 import copy
 import ast
 import datetime
+import base64
+import io
+
+try:
+    from odoo.tools.misc import xlsxwriter
+except ImportError:
+    # TODO saas-17: remove the try/except to directly import from misc
+    import xlsxwriter
 
 from odoo import models, fields, api, _
 from odoo.tools.safe_eval import safe_eval
@@ -13,7 +21,8 @@ from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, ValidationError
 from odoo.osv import expression
 from odoo.tools.pycompat import izip
-from odoo.http import request
+from odoo import http
+from odoo.http import content_disposition, request
 import wdb
 
 
@@ -60,6 +69,139 @@ class ReportOhadaFinancialReport(models.Model):
     #    def _code_constrains(self):
     #        if self.code and self.code.strip().lower() in __builtins__.keys():
     #            raise ValidationError('The code "%s" is invalid on report with name "%s"' % (self.code, self.name))
+    @api.model
+    def print_bundle_xlsx(self, response):
+        output = io.BytesIO()
+        workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+        options = {'ir_filters': None,
+                   'date': {'date_to': '2019-12-31', 'string': '2019', 'filter': 'this_year',
+                            'date_from': '2019-01-01'},
+                   'comparison': {
+                       'date_from': '2018-01-01',
+                       'date_to': '2018-12-31',
+                       'filter': 'no_comparison',
+                       'number_period': 1,
+                       'periods': [{
+                           'date_from': '2018-01-01',
+                           'date_to': '2018-12-31',
+                           'string': '2018',
+                       }],
+                       'string': 'No comparison', },
+                   }
+        for report in self.env['ohada.financial.html.report'].search([('type', '=', 'main')]):
+            report.get_xlsx(options, response, print_bundle=True, workbook=workbook)
+        options['comparison']['filter'] = 'previous_period'
+        for report in self.env['ohada.financial.html.report'].search([('type', '=', 'cover')]):
+            report.get_xlsx(options, response, print_bundle=True, workbook=workbook)
+        for report in self.env['ohada.financial.html.report'].search([('type', '=', 'sheet')]):
+            report.get_xlsx(options, response, print_bundle=True, workbook=workbook)
+        for report in self.env['ohada.financial.html.report'].search([('type', '=', 'note')]):
+            report.get_xlsx(options, response, print_bundle=True, workbook=workbook)
+
+        workbook.close()
+        output.seek(0)
+        response.stream.write(output.read())
+        output.close()
+        return response
+
+    @api.model
+    def print_bundle_pdf(self, minimal_layout=True):
+        options = {'ir_filters': None,
+                   'date': {'date_to': '2019-12-31', 'string': '2019', 'filter': 'this_year',
+                            'date_from': '2019-01-01'},
+                   'comparison': {
+                       'date_from': '2018-01-01',
+                       'date_to': '2018-12-31',
+                       'filter': 'no_comparison',
+                       'number_period': 1,
+                       'periods': [{
+                           'date_from': '2018-01-01',
+                           'date_to': '2018-12-31',
+                           'string': '2018',
+                       }],
+                       'string': 'No comparison',},
+                   }
+
+        # base_url = self.env['ir.config_parameter'].sudo().get_param('report.url') or self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        base_url = 'http://127.0.0.1:8069'
+
+        rcontext = {
+            'mode': 'print',
+            'base_url': base_url,
+            'company': self.env.user.company_id,
+        }
+
+        body = self.env['ir.ui.view'].render_template(
+            "ohada_reports.print_template",
+            values=dict(rcontext),
+        )
+
+        body_html = b''
+
+        for report in self.env['ohada.financial.html.report'].search([('type', '=', 'main')]):
+            body_html += report.get_html(options)
+        options['comparison']['filter'] = 'previous_period'
+        for report in self.env['ohada.financial.html.report'].search([('type', '=', 'cover')]):
+            body_html += report.get_html(options)
+        for report in self.env['ohada.financial.html.report'].search([('type', '=', 'sheet')]):
+            body_html += report.get_html(options)
+        for report in self.env['ohada.financial.html.report'].search([('type', '=', 'note')]):
+            body_html += report.get_html(options)
+
+        body = body.replace(b'<body class="o_account_reports_body_print">',
+                            b'<body class="o_account_reports_body_print">' + body_html)
+        if minimal_layout:
+            header = ''
+            footer = self.env['ir.actions.report'].render_template("ohada_reports.internal_layout_ohada",
+                                                                   values=rcontext)
+            spec_paperformat_args = {'data-report-margin-top': 10, 'data-report-header-spacing': 10}
+            footer = self.env['ir.actions.report'].render_template("web.minimal_layout",
+                                                                   values=dict(rcontext, subst=True, body=footer))
+        else:
+            rcontext.update({
+                'css': '',
+                'o': self.env.user,
+                'res_company': self.env.user.company_id,
+            })
+            header = self.env['ir.actions.report'].render_template("web.external_layout", values=rcontext)
+            header = header.decode('utf-8')  # Ensure that headers and footer are correctly encoded
+            spec_paperformat_args = {}
+            # Default header and footer in case the user customized web.external_layout and removed the header/footer
+            headers = header.encode()
+            footer = b''
+            # parse header as new header contains header, body and footer
+            try:
+                root = lxml.html.fromstring(header)
+                match_klass = "//div[contains(concat(' ', normalize-space(@class), ' '), ' {} ')]"
+
+                for node in root.xpath(match_klass.format('header')):
+                    headers = lxml.html.tostring(node)
+                    headers = self.env['ir.actions.report'].render_template("web.minimal_layout",
+                                                                            values=dict(rcontext, subst=True,
+                                                                                        body=headers))
+
+                for node in root.xpath(match_klass.format('footer')):
+                    footer = lxml.html.tostring(node)
+                    footer = self.env['ir.actions.report'].render_template("web.minimal_layout",
+                                                                           values=dict(rcontext, subst=True,
+                                                                                       body=footer))
+
+            except lxml.etree.XMLSyntaxError:
+                headers = header.encode()
+                footer = b''
+            header = headers
+
+        landscape = False
+        if len(self.with_context(print_mode=True).get_header(options)[-1]) > 5:
+            landscape = True
+        # wdb.set_trace()
+        pdf = self.env['ir.actions.report']._run_wkhtmltopdf(
+            [body],
+            header=header, footer=footer,
+            landscape=landscape,
+            specific_paperformat_args=spec_paperformat_args
+        )
+        return base64.encodebytes(pdf)
 
     @api.model
     def get_link(self, year=None):
@@ -76,8 +218,8 @@ class ReportOhadaFinancialReport(models.Model):
             data['this_year'] = datetime.now().year
             data['prev_year'] = datetime.now().year - 1
             options = {'ir_filters': None,
-                       'date': {'date_to': '2019-12-31', 'string': '2019', 'filter': 'this_year',
-                                'date_from': '2019-01-01'}}
+                       'date': {'date_to': str(year)+'-12-31', 'string': str(year), 'filter': 'this_year',
+                                'date_from': str(year)+'-01-01'}}
 
         data['years'] = [year, year-1, year-2, year-3]
         data['company_name'] = self.env['res.users'].browse(request.session.uid).company_id.name
@@ -268,6 +410,7 @@ class ReportOhadaFinancialReport(models.Model):
         return column_hierarchy
 
     def _get_columns_name(self, options):
+        # wdb.set_trace()
         columns = [{'name': ''}]
         if self.debit_credit and not options.get('comparison', {}).get('periods', False):
             columns += [{'name': _('Debit'), 'class': 'number'}, {'name': _('Credit'), 'class': 'number'}]
@@ -572,7 +715,7 @@ class OhadaFinancialReportLine(models.Model):
     displayed_sign = fields.Char(string="Displayed Sign", size=3)
     hidden_line = fields.Boolean(default=False)
     symbol = fields.Char(string="Symbol", default='none')
-    header = fields.Char(string="Header", default=None)
+    header = fields.Boolean(default=False)
     letter = fields.Char(string="letter", default=None)
 
     _sql_constraints = [
@@ -1281,6 +1424,7 @@ class OhadaFinancialReportLine(models.Model):
                 1) add fields reference and note in the lines
                 2) hide balance sheet lines for gross and depreciation values using field hidden_line
         '''
+        # wdb.set_trace()
         final_result_table = []
         comparison_table = [options.get('date')]
         comparison_table += options.get('comparison') and options['comparison'].get('periods', []) or []
@@ -1290,6 +1434,9 @@ class OhadaFinancialReportLine(models.Model):
         for line in self:
             res = []
             debit_credit = len(comparison_table) == 1
+            # wdb.set_trace()
+            if financial_report.name == 'Balance Sheet - Assets' and options['comparison']['filter'] == 'no_comparison':
+                debit_credit = len(comparison_table) == 2
             domain_ids = {'line'}
             k = 0
             for period in comparison_table:
@@ -1332,6 +1479,7 @@ class OhadaFinancialReportLine(models.Model):
                 'unfolded': line.id in options.get('unfolded_lines', []) or line.show_domain == 'always',
                 'page_break': line.print_on_new_page,
                 'letter': line.letter,
+                'header': line.header,
             }
             # wdb.set_trace()
             if financial_report.tax_report and line.domain and not line.action_id:
@@ -1362,10 +1510,10 @@ class OhadaFinancialReportLine(models.Model):
                     if line.financial_report_id.name == 'Aged Receivable':
                         vals['trust'] = self.env['res.partner'].browse([domain_id]).trust
                     lines.append(vals)
-
+            # wdb.set_trace()
             for vals in lines:
                 if len(comparison_table) == 2 and options['comparison']['filter'] == 'no_comparison':
-                    for i in [0, 1]:
+                    for i in range(len(vals['columns'])):
                         vals['columns'][i] = line._format(vals['columns'][i])
                 elif len(comparison_table) == 2 and not options.get('groups'):
                     vals['columns'].append(line._build_cmp(vals['columns'][0]['name'], vals['columns'][1]['name']))
@@ -1377,20 +1525,32 @@ class OhadaFinancialReportLine(models.Model):
                     vals['columns'] = [{'name': ''} for k in vals['columns']]
 
             if line.reference == 'REF':
-                # wdb.set_trace()
-                # line.header = line.header.split(',')
                 vals['columns'][0]['name'] = ['EXERPRICE', 'au 31/12/' + line._context['date_from'][0:4]]
-                if len(vals['columns']) > 1 and line._context.get('periods') != None \
+                if financial_report.name == 'Balance Sheet - Assets' and options['comparison']['filter'] == 'no_comparison':
+                    vals['columns'][1]['name'] = ['EXERPRICE', 'au 31/12/' + line._context['periods'][0]['string']]
+                    del vals['columns'][3]
+                    del vals['columns'][2]
+                    vals['colspan0'] = 3
+                elif len(vals['columns']) > 1 and line._context.get('periods') != None \
                         and options['comparison']['filter'] == 'no_comparison' or len(options['comparison']['periods']) > 1:
                     for i in range(len(vals['columns'][1:])):
                         vals['columns'][i+1]['name'] = ['EXERPRICE', 'au 31/12/' + line._context['periods'][i]['string']]
                 elif len(vals['columns']) > 1 and line._context.get('periods') != None:
                     for i in range(len(vals['columns'][1:])-1):
                         vals['columns'][i+1]['name'] = ['EXERPRICE', 'au 31/12/' + line._context['periods'][i]['string']]
-                if financial_report.name == 'Balance Sheet - Assets' and options['comparison']['periods'] == []:
-                    vals['columns'] = []
-                    vals['columns'].append({'name': ['EXERPRICE', 'au 31/12/' + line._context['date_from'][0:4]]})
-                    vals['colspan0'] = 3
+
+            elif line.header == True and financial_report.type == 'note':
+                vals['columns'][0]['name'] = 'ANNEE ' + line._context['date_from'][0:4]
+                if len(vals['columns']) > 1 and line._context.get('periods') != None \
+                        and options['comparison']['filter'] == 'no_comparison' or len(
+                    options['comparison']['periods']) > 1:
+                    for i in range(len(vals['columns'][1:])):
+                        vals['columns'][i + 1]['name'] = 'ANNEE ' + line._context['periods'][i]['string']
+                    vals['columns'][- 1]['name'] = 'Variation en %'
+                elif len(vals['columns']) > 1 and line._context.get('periods') != None:
+                    for i in range(len(vals['columns'][1:]) - 1):
+                        vals['columns'][i + 1]['name'] = 'ANNEE ' + line._context['periods'][i]['string']
+                    vals['columns'][- 1]['name'] = 'Variation en %'
 
             if len(lines) == 1:
                 new_lines = line.children_ids._get_lines(financial_report, currency_table, options, linesDicts)
@@ -1400,12 +1560,12 @@ class OhadaFinancialReportLine(models.Model):
                     result = lines + new_lines
             else:
                 result = lines
-            # wdb.set_trace()
             if result[0]['note'] == 'NET':
-                if financial_report.name == 'Balance Sheet - Assets' and options['comparison']['periods'] == []:
+                if financial_report.name == 'Balance Sheet - Assets' and options['comparison']['filter'] == 'no_comparison':
                     result[0]['columns'][0]['name'] = 'BRUT'
                     result[0]['columns'][1]['name'] = 'AMORT. ET DEPREC.'
                     result[0]['columns'][2]['name'] = 'NET'
+                    result[0]['columns'][3]['name'] = 'NET'
                 elif len(result[0]['columns']) > 1 and options['comparison']['filter'] == 'no_comparison' or \
                         len(options['comparison']['periods']) > 1:
                     for i in range(len(result[0]['columns'])):

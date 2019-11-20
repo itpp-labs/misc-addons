@@ -16,7 +16,6 @@
         <field name="hierarchy_option" eval="False"/>
         <field name='parent_id' ref='ohada_reports.menu_ohada_legal_statements_main'/>
     </record>
-
     
     <!-- CONTROL LINE -->
     <!--<record id="account_financial_report_ohada_balancesheet_spacer_01" model="ohada.financial.html.report.line">-->
@@ -82,7 +81,7 @@
         <field name="code">ACTIF</field>
         <field name="reference">REF</field>
         <field name="note">NOTE</field>
-        <field name="header">BRUT, AMORT. ET DEPREC, NET</field>
+        <field name="header" eval="True"/>
         <field name="financial_report_id" ref="account_financial_report_ohada_balancesheet"/>
         <field name="sequence" eval="5"/>
         <field name="level" eval="0" />
@@ -1388,8 +1387,8 @@
         <field name="name">Profit and Lost</field>
         <field name="type">main</field>
         <field name="header">COMPTE DE RESULTAT AU 31 DECEMBRE</field>
-        <field name="unfold_all_filter" eval="True"/>
-        <field name="hierarchy_option" eval="False"/>
+        <!--<field name="unfold_all_filter" eval="True"/>-->
+        <!--<field name="hierarchy_option" eval="False"/>-->
         <field name='parent_id' ref='ohada_reports.menu_ohada_legal_statements_main'/>
     </record>
 
@@ -1407,7 +1406,7 @@
         <field name="code">_</field>
         <field name="reference">REF</field>
         <field name="note">NOTE</field>
-        <field name="header">NET</field>
+        <field name="header" eval="True"/>
         <field name="symbol"> </field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="formulas"/>
@@ -2023,20 +2022,20 @@
         <field name='parent_id' ref='ohada_reports.menu_ohada_legal_statements_main'/>
     </record>
 
-    <record id="account_financial_report_ohada_cashflow_spacer_01" model="ohada.financial.html.report.line">
-        <field name="name">&#160;</field>
-        <field name="code">_cf_01</field>
-        <field name="reference"></field>
-        <field name="financial_report_id" ref="account_financial_report_ohada_cashflow"/>
-        <field name="sequence" eval="1"/>
-        <field name="level" eval="8" />
-    </record>    
+    <!--<record id="account_financial_report_ohada_cashflow_spacer_01" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">&#160;</field>-->
+        <!--<field name="code">_cf_01</field>-->
+        <!--<field name="reference"></field>-->
+        <!--<field name="financial_report_id" ref="account_financial_report_ohada_cashflow"/>-->
+        <!--<field name="sequence" eval="1"/>-->
+        <!--<field name="level" eval="8" />-->
+    <!--</record>    -->
     
     <record id="account_financial_report_ohada_cashflow_ZA" model="ohada.financial.html.report.line">
         <field name="name">Trésorerie nette au 1er Janvier &#xA; (Trésorerie actif N-1&#160;&#160;-&#160;&#160;Trésorerie passif N-1)</field>
         <field name="code">_ZA</field>
         <field name="reference">ZA</field>
-        <field name="note">A</field>
+        <!--<field name="note">A</field>-->
         <field name="financial_report_id" ref="account_financial_report_ohada_cashflow"/>
         <field name="domain">[('account_id.code', '=like', '4726%')]</field>
 <!--
@@ -2051,14 +2050,14 @@
         <field name="special_date_changer">to_beginning_of_period</field>   
     </record>
 
-    <record id="account_financial_report_ohada_cashflow_spacer_06" model="ohada.financial.html.report.line">
-        <field name="name">&#160;</field>
-        <field name="code">_cf_06</field>
-        <field name="reference"></field>
-        <field name="financial_report_id" ref="account_financial_report_ohada_cashflow"/>
-        <field name="sequence" eval="7"/>
-        <field name="level" eval="8" />
-    </record>    
+    <!--<record id="account_financial_report_ohada_cashflow_spacer_06" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">&#160;</field>-->
+        <!--<field name="code">_cf_06</field>-->
+        <!--<field name="reference"></field>-->
+        <!--<field name="financial_report_id" ref="account_financial_report_ohada_cashflow"/>-->
+        <!--<field name="sequence" eval="7"/>-->
+        <!--<field name="level" eval="8" />-->
+    <!--</record>    -->
 
     <record id="account_financial_report_ohada_cashflow_02" model="ohada.financial.html.report.line">
         <field name="name">Flux de trésorerie provenant des activités opérationnelles</field>
@@ -2158,7 +2157,7 @@
         <field name="name">Flux de trésorerie provenant des activités opérationnelles (somme FA à FE)</field>
         <field name="code">_ZB</field>
         <field name="reference">ZB</field>
-        <field name="note">B</field>
+        <!--<field name="note">B</field>-->
         <field name="financial_report_id" ref="account_financial_report_ohada_cashflow"/>
         <field name="formulas">balance = _FA.balance + _FB.balance + _FC.balance + _FD.balance + _FE.balance</field>
         <field name="level" eval="0" />
@@ -2166,14 +2165,14 @@
         <field name="special_date_changer">strict_range</field>
     </record>
 
-    <record id="account_financial_report_ohada_cashflow_spacer_51" model="ohada.financial.html.report.line">
-        <field name="name">&#160;</field>
-        <field name="code">_cf_51</field>
-        <field name="reference"></field>
-        <field name="financial_report_id" ref="account_financial_report_ohada_cashflow"/>
-        <field name="sequence" eval="51"/>
-        <field name="level" eval="8" />
-    </record>    
+    <!--<record id="account_financial_report_ohada_cashflow_spacer_51" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">&#160;</field>-->
+        <!--<field name="code">_cf_51</field>-->
+        <!--<field name="reference"></field>-->
+        <!--<field name="financial_report_id" ref="account_financial_report_ohada_cashflow"/>-->
+        <!--<field name="sequence" eval="51"/>-->
+        <!--<field name="level" eval="8" />-->
+    <!--</record>    -->
 
     <record id="account_financial_report_ohada_cashflow_04" model="ohada.financial.html.report.line">
         <field name="name">Flux de trésorerie provenant des activités d'investissement</field>
@@ -2245,7 +2244,7 @@
         <field name="name">Flux de trésorerie provenant des activités d'investissement (somme FF à FJ)</field>
         <field name="code">_ZC</field>
         <field name="reference">ZC</field>
-        <field name="note">C</field>
+        <!--<field name="note">C</field>-->
         <field name="financial_report_id" ref="account_financial_report_ohada_cashflow"/>
         <field name="formulas">balance = _FF.balance + _FG.balance + _FH.balance + _FI.balance + _FJ.balance</field>
         <field name="level" eval="0" />
@@ -2253,14 +2252,14 @@
         <field name="special_date_changer">strict_range</field>
     </record>
 
-    <record id="account_financial_report_ohada_cashflow_spacer_91" model="ohada.financial.html.report.line">
-        <field name="name">&#160;</field>
-        <field name="code">_cf_91</field>
-        <field name="reference"></field>
-        <field name="financial_report_id" ref="account_financial_report_ohada_cashflow"/>
-        <field name="sequence" eval="91"/>
-        <field name="level" eval="8" />
-    </record>        
+    <!--<record id="account_financial_report_ohada_cashflow_spacer_91" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">&#160;</field>-->
+        <!--<field name="code">_cf_91</field>-->
+        <!--<field name="reference"></field>-->
+        <!--<field name="financial_report_id" ref="account_financial_report_ohada_cashflow"/>-->
+        <!--<field name="sequence" eval="91"/>-->
+        <!--<field name="level" eval="8" />-->
+    <!--</record>        -->
     
     <record id="account_financial_report_ohada_cashflow_05" model="ohada.financial.html.report.line">
         <field name="name">Flux de trésorerie provenant du financement par les capitaux propres</field>
@@ -2321,7 +2320,7 @@
         <field name="name">Flux de trésorerie provenant des capitaux propres &#160;&#160; (somme FK à FN)</field>
         <field name="code">_ZD</field>
         <field name="reference">ZD</field>
-        <field name="note">D</field>
+        <!--<field name="note">D</field>-->
         <field name="financial_report_id" ref="account_financial_report_ohada_cashflow"/>
         <field name="formulas">balance = _FK.balance + _FL.balance + _FM.balance + _FN.balance</field>
         <field name="level" eval="0" />
@@ -2329,13 +2328,13 @@
         <field name="special_date_changer">strict_range</field>
     </record>
 
-    <record id="account_financial_report_ohada_cashflow_06" model="ohada.financial.html.report.line">
-        <field name="name">&#160;</field>
-        <field name="code">&#160;&#160;&#160;&#160;&#160;&#160;</field>
-        <field name="financial_report_id" ref="account_financial_report_ohada_cashflow"/>
-        <field name="level" eval="6" />
-        <field name="sequence" eval="121"/>
-    </record>
+    <!--<record id="account_financial_report_ohada_cashflow_06" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">&#160;</field>-->
+        <!--<field name="code">&#160;&#160;&#160;&#160;&#160;&#160;</field>-->
+        <!--<field name="financial_report_id" ref="account_financial_report_ohada_cashflow"/>-->
+        <!--<field name="level" eval="6" />-->
+        <!--<field name="sequence" eval="121"/>-->
+    <!--</record>-->
     
     <record id="account_financial_report_ohada_cashflow_07" model="ohada.financial.html.report.line">
         <field name="name">Trésorerie provenant des capitaux étrangers</field>
@@ -2385,7 +2384,7 @@
         <field name="name">Flux de trésorerie provenant des capitaux étrangers &#160;&#160; (somme FO à FQ)</field>
         <field name="code">_ZE</field>
         <field name="reference">ZE</field>
-        <field name="note">E</field>
+        <!--<field name="note">E</field>-->
         <field name="financial_report_id" ref="account_financial_report_ohada_cashflow"/>
         <field name="formulas">balance = _FO.balance + _FP.balance + _FQ.balance</field>
         <field name="level" eval="1" />
@@ -2393,19 +2392,19 @@
         <field name="special_date_changer">strict_range</field>
     </record>
 
-    <record id="account_financial_report_ohada_cashflow_08" model="ohada.financial.html.report.line">
-        <field name="name">&#160;</field>
-        <field name="code">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</field>
-        <field name="financial_report_id" ref="account_financial_report_ohada_cashflow"/>
-        <field name="level" eval="6" />
-        <field name="sequence" eval="146"/>
-    </record>
+    <!--<record id="account_financial_report_ohada_cashflow_08" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">&#160;</field>-->
+        <!--<field name="code">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</field>-->
+        <!--<field name="financial_report_id" ref="account_financial_report_ohada_cashflow"/>-->
+        <!--<field name="level" eval="6" />-->
+        <!--<field name="sequence" eval="146"/>-->
+    <!--</record>-->
     
     <record id="account_financial_report_ohada_cashflow_ZF" model="ohada.financial.html.report.line">
         <field name="name">Flux de trésorerie provenant des activités de financement (D + E)</field>
         <field name="code">_ZF</field>
         <field name="reference">ZF</field>
-        <field name="note">F</field>
+        <!--<field name="note">F</field>-->
         <field name="financial_report_id" ref="account_financial_report_ohada_cashflow"/>
         <field name="formulas">balance = _ZD.balance + _ZE.balance</field>
         <field name="level" eval="0" />
@@ -2413,20 +2412,20 @@
         <field name="special_date_changer">strict_range</field>
     </record>
 
-    <record id="account_financial_report_ohada_cashflow_spacer_151" model="ohada.financial.html.report.line">
-        <field name="name">&#160;</field>
-        <field name="code">_cf_151</field>
-        <field name="reference"></field>
-        <field name="financial_report_id" ref="account_financial_report_ohada_cashflow"/>
-        <field name="sequence" eval="151"/>
-        <field name="level" eval="8" />
-    </record>    
+    <!--<record id="account_financial_report_ohada_cashflow_spacer_151" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">&#160;</field>-->
+        <!--<field name="code">_cf_151</field>-->
+        <!--<field name="reference"></field>-->
+        <!--<field name="financial_report_id" ref="account_financial_report_ohada_cashflow"/>-->
+        <!--<field name="sequence" eval="151"/>-->
+        <!--<field name="level" eval="8" />-->
+    <!--</record>    -->
     
     <record id="account_financial_report_ohada_cashflow_ZG" model="ohada.financial.html.report.line">
         <field name="name">VARIATION DE LA TRESORERIE NETTE DE LA PÉRIODE (B + C + F)</field>
         <field name="code">_ZG</field>
         <field name="reference">ZG</field>
-        <field name="note">G</field>
+        <!--<field name="note">G</field>-->
         <field name="financial_report_id" ref="account_financial_report_ohada_cashflow"/>
         <field name="formulas">balance = _ZB.balance + _ZC.balance + _ZF.balance</field>
         <field name="level" eval="1" />
@@ -2434,20 +2433,20 @@
         <field name="special_date_changer">strict_range</field>
     </record>
 
-    <record id="account_financial_report_ohada_cashflow_spacer_156" model="ohada.financial.html.report.line">
-        <field name="name">&#160;</field>
-        <field name="code">_cf_156</field>
-        <field name="reference"></field>
-        <field name="financial_report_id" ref="account_financial_report_ohada_cashflow"/>
-        <field name="sequence" eval="156"/>
-        <field name="level" eval="8" />
-    </record>    
+    <!--<record id="account_financial_report_ohada_cashflow_spacer_156" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">&#160;</field>-->
+        <!--<field name="code">_cf_156</field>-->
+        <!--<field name="reference"></field>-->
+        <!--<field name="financial_report_id" ref="account_financial_report_ohada_cashflow"/>-->
+        <!--<field name="sequence" eval="156"/>-->
+        <!--<field name="level" eval="8" />-->
+    <!--</record>    -->
     
     <record id="account_financial_report_ohada_cashflow_ZH" model="ohada.financial.html.report.line">
         <field name="name">Trésorerie nette au 31 Décembre (G + A)</field>
         <field name="code">_ZH</field>
         <field name="reference">ZH</field>
-        <field name="note">H</field>
+        <!--<field name="note">H</field>-->
         <field name="financial_report_id" ref="account_financial_report_ohada_cashflow"/>        
         <field name="domain" eval="[('account_id.internal_type', '=', 'liquidity')]" />
         <field name="formulas">balance = _ZG.balance + _ZA.balance</field>

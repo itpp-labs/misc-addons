@@ -7,7 +7,7 @@ from odoo.addons.web.controllers.main import _serialize_exception
 from odoo.tools import html_escape
 
 import json
-
+import wdb
 
 class FinancialReportController(http.Controller):
 
@@ -20,6 +20,15 @@ class FinancialReportController(http.Controller):
             report_obj = report_obj.browse(int(financial_id))
         report_name = report_obj.get_report_filename(options)
         try:
+            if output_format == 'xlsx_bundle':
+                response = request.make_response(
+                    None,
+                    headers=[
+                        ('Content-Type', 'application/vnd.ms-excel'),
+                        ('Content-Disposition', content_disposition('general_report.xlsx'))
+                    ]
+                )
+                report_obj.print_bundle_xlsx(response)
             if output_format == 'xlsx':
                 response = request.make_response(
                     None,

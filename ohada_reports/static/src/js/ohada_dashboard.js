@@ -8,6 +8,8 @@ var core = require('web.core');
 var rpc = require('web.rpc');
 var session = require('web.session');
 var web_client = require('web.web_client');
+var framework = require('web.framework');
+var crash_manager = require('web.crash_manager');
 
 var _t = core._t;
 var QWeb = core.qweb;
@@ -24,6 +26,7 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
     ],
     events: {
         'change .o_mrp_bom_report_variants': 'change_year',
+        'click .print_bundle': 'print_bundle',
     },
 
     change_year: function(ev) {
@@ -32,6 +35,44 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
             self._updateTemplateBody();
         });
     },
+    print_bundle: function() {
+        framework.blockUI();
+        var def = $.Deferred();
+        session.get_file({
+            url: '/ohada_reports',
+            data: {"model": "ohada.financial.html.report",
+                   "options": '{"all_entries": false, "unfolded_lines": []}',
+                   "financial_id": 3,
+                   "output_format": "xlsx_bundle"},
+            success: def.resolve.bind(def),
+            error: function () {
+                crash_manager.rpc_error.apply(crash_manager, arguments);
+                def.reject();
+            },
+            complete: framework.unblockUI,
+        });
+        return def;
+    },
+//    print_bundle: function() {
+//        this._rpc({
+//                model: 'ohada.financial.html.report',
+//                method: 'print_bundle_xlsx',
+//                args: [],}).then(function(data) {
+//                    var binaryString = window.atob(data);
+//                    var binaryLen = binaryString.length;
+//                    var bytes = new Uint8Array(binaryLen);
+//                    for (var i = 0; i < binaryLen; i++) {
+//                       var ascii = binaryString.charCodeAt(i);
+//                       bytes[i] = ascii;
+//                    }
+//                    var blob = new Blob([bytes], {type: "application/pdf"});
+//                    var link = document.createElement('a');
+//                    link.href = window.URL.createObjectURL(blob);
+//                    var fileName = 'report';
+//                    link.download = fileName;
+//                    link.click();
+//                });
+//    },
 
     _updateTemplateBody: function () {
         this.$el.empty();
