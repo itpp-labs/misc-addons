@@ -2,9 +2,9 @@
    :target: https://www.gnu.org/licenses/lgpl
    :alt: License: LGPL-3
 
-===========================================
- Inventory adjustment via barcode scanning
-===========================================
+==============================
+ Adjust inventory via barcode
+==============================
 
 The module allows to proceed inventory adjustments via barcode scanning
 

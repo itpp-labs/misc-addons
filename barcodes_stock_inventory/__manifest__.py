@@ -3,11 +3,11 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 {
-    "name": """Inventory adjustment via barcode scanning""",
+    "name": """Adjust inventory via barcode""",
     "summary": """The module allows to proceed inventory adjustments via barcode scanning""",
     "category": "Warehouse",
     # "live_test_url": "",
-    "images": [],
+    "images": ['images/barcodes_stock_inventory.jpg'],
     "version": "10.0.1.0.0",
     "application": False,
 
