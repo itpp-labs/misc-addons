@@ -1,3 +1,25 @@
+#modal-backdrop{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background-color: #000;
+    opacity: 0.5;
+    display:none;
+}
+.popup {
+  position: fixed;
+  background-color:#fff;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  top: 150px;
+  margin-left: -100px;
+  left: 50%;
+  display: none;
+  z-index: 2010;
+}
+/*-------------------------------------------------------------------*/
 .btn-color-ee{
     color: #FFFFFF;
     background-color: #00A09D;
@@ -200,6 +222,7 @@ rect:hover {  fill:#934da5; }
 }
 .container-fluid.o_ohada_dashboard {
     padding: 0px !important;
+    justify-content: center;
 }
 .employee-prof {
 

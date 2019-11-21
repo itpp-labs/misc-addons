@@ -8,7 +8,24 @@
     </t>
 
     <t t-name="ManagerDashboard">
-        <div class="ohada_dashboard_main o_ohada_dashboard">
+        <div class="ohada_dashboard_main o_ohada_dashboard" style="z-index:2;">
+            <div id="myForm" class="popup">
+                <div class="modal-header">
+                    <h5 class="modal-title">Print bundle report</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-label="Close">&amp;times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p style="color:#008784;">Company: <span style="color:#666666;"><t t-esc="widget.data['company_name']"/></span></p>
+                    <p style="color:#008784;">Fiscal year: <span style="color:#666666;"><t t-esc="widget.data['this_year']"/></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-color-ee export_pdf" data-dismiss="modal">Export pdf</button>
+                    <button type="button" class="btn btn-color-ee export_xlsx" data-dismiss="modal">Export xlsx</button>
+                </div>
+            </div>
+            <div id="modal-backdrop"></div>
             <t t-set="menu_id" t-value="widget.data['menu_id']"/>
             <div class="row main-section" style="padding-top:20px;">
                 <div class="col-md-2 col-sm-2 dummy"></div>
@@ -235,11 +252,18 @@
             </div>
         </div>
     </t>
+    <!--<t t-name="OhadaPopup">-->
+        <!--<div class="popup">-->
+            <!--<h2>Popup</h2>-->
+            <!--<p>Text of popup</p>-->
+        <!--</div>-->
+    <!--</t>-->
     <t t-name="OhadaWarning">
         <div>
             <p>Error : Could not load data</p>
             <p>Please contact system admin for the setup</p>
         </div>
     </t>
+
 
 </templates>
