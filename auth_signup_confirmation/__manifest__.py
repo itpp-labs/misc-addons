@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Email confirmation on sign up',
+    'name': 'Confirm SignUp by Email',
     'summary': """New user is able to login only after confirming his/her email""",
     'version': '1.0.1',
     'author': 'IT-Projects LLC',
