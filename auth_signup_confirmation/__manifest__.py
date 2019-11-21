@@ -5,6 +5,7 @@
     'version': '1.0.1',
     'author': 'IT-Projects LLC',
     'website': "https://it-projects.info",
+    "images": ['images/auth_signup_confirmation.jpg'],
     'license': 'LGPL-3',
     "price": 80.00,
     "currency": "EUR",
