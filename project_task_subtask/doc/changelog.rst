@@ -1,3 +1,8 @@
+`1.1.1`
+-------
+
+**Fix:** "TypeError: this.$buttons.find is not a function" when open a task
+
 `1.1.0`
 -------
 
