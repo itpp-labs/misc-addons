@@ -227,11 +227,14 @@ class TestFields(common.TransactionCase):
         self.env.user.company_id = company0
         # create one user per company
         user0 = self.env['res.users'].create({'name': 'Foo', 'login': 'foo',
-                                              'company_id': company0.id, 'company_ids': []})
+                                              'company_id': company0.id,
+                                              'company_ids': [(6, 0, [company0.id, company1.id, company2.id])]})
         user1 = self.env['res.users'].create({'name': 'Bar', 'login': 'bar',
-                                              'company_id': company1.id, 'company_ids': []})
+                                              'company_id': company1.id,
+                                              'company_ids': [(6, 0, [company0.id, company1.id, company2.id])]})
         user2 = self.env['res.users'].create({'name': 'Baz', 'login': 'baz',
-                                              'company_id': company2.id, 'company_ids': []})
+                                              'company_id': company2.id,
+                                              'company_ids': [(6, 0, [company0.id, company1.id, company2.id])]})
         # create a default value for the company-dependent field
         field = self.env['ir.model.fields'].search([('model', '=', MODEL),
                                                     ('name', '=', 'foo')])
