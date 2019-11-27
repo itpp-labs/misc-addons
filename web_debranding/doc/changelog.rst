@@ -1,3 +1,8 @@
+`1.0.27`
+--------
+
+**Fix:** error on res.config form opening
+
 `1.0.26`
 --------
 
