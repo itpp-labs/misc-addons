@@ -136,7 +136,7 @@
             <field name="name">Balance Sheet</field>
             <field name="shortname">Balance sheet</field>
             <field name="code">BS</field>
-            <field name="type">main</field>
+            <field name="type"></field>
             <field name="cash_basis" eval="True"/>
             <field name="debit_credit" eval="False"/>
             <field name="date_range" eval="False"/>

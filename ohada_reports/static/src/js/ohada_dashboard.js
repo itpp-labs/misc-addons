@@ -30,6 +30,10 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
         'click .close': 'close_popup',
         'click .export_pdf': 'print_bundle_pdf',
         'click .export_xlsx': 'print_bundle_xlsx',
+        'click .print_bs_pdf': 'print_bs_pdf',
+        'click .print_lands_bs_pdf': 'print_lands_bs_pdf',
+        'click .print_pl_pdf': 'print_pl_pdf',
+        'click .print_cf_pdf': 'print_cf_pdf'
     },
     close_popup: function(){
         document.getElementById("myForm").style.display = "none";
@@ -40,6 +44,83 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
         this.fetch_data(parseInt(ev['currentTarget']['value'])).then(function() {
             self._updateTemplateBody();
         });
+    },
+    print_lands_bs_pdf: function() {
+        var self = this;
+        framework.blockUI();
+        var def = $.Deferred();
+        session.get_file({
+            url: '/ohada_reports',
+            data: {"model": 'ohada.financial.html.report',
+                    "options": JSON.stringify(self.data['options']),
+                    "financial_id": self.data['bs_id'],
+                    "output_format": "pdf",
+                    "horizontal": "True"},
+            success: def.resolve.bind(def),
+            error: function () {
+                crash_manager.rpc_error.apply(crash_manager, arguments);
+                def.reject();
+            },
+            complete: framework.unblockUI,
+        });
+        return def;
+    },
+    print_bs_pdf: function() {
+        var self = this;
+        framework.blockUI();
+        var def = $.Deferred();
+        session.get_file({
+            url: '/ohada_reports',
+            data: {"model": 'ohada.financial.html.report',
+                    "options": JSON.stringify(self.data['options']),
+                    "financial_id": self.data['bs_id'],
+                    "output_format": "pdf"},
+            success: def.resolve.bind(def),
+            error: function () {
+                crash_manager.rpc_error.apply(crash_manager, arguments);
+                def.reject();
+            },
+            complete: framework.unblockUI,
+        });
+        return def;
+    },
+    print_pl_pdf: function() {
+        var self = this;
+        framework.blockUI();
+        var def = $.Deferred();
+        session.get_file({
+            url: '/ohada_reports',
+            data: {"model": 'ohada.financial.html.report',
+                    "options": JSON.stringify(self.data['options']),
+                    "financial_id": self.data['pl_id'],
+                    "output_format": "pdf"},
+            success: def.resolve.bind(def),
+            error: function () {
+                crash_manager.rpc_error.apply(crash_manager, arguments);
+                def.reject();
+            },
+            complete: framework.unblockUI,
+        });
+        return def;
+    },
+    print_cf_pdf: function() {
+        var self = this;
+        framework.blockUI();
+        var def = $.Deferred();
+        session.get_file({
+            url: '/ohada_reports',
+            data: {"model": 'ohada.financial.html.report',
+                    "options": JSON.stringify(self.data['options']),
+                    "financial_id": self.data['cf_id'],
+                    "output_format": "pdf"},
+            success: def.resolve.bind(def),
+            error: function () {
+                crash_manager.rpc_error.apply(crash_manager, arguments);
+                def.reject();
+            },
+            complete: framework.unblockUI,
+        });
+        return def;
     },
     print_bundle: function() {
         document.getElementById("myForm").style.display = "block";
@@ -66,24 +147,23 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
     },
 
     print_bundle_pdf: function() {
-        this._rpc({
-                model: 'ohada.financial.html.report',
-                method: 'print_bundle_pdf',
-                args: [],}).then(function(data) {
-                    var binaryString = window.atob(data);
-                    var binaryLen = binaryString.length;
-                    var bytes = new Uint8Array(binaryLen);
-                    for (var i = 0; i < binaryLen; i++) {
-                       var ascii = binaryString.charCodeAt(i);
-                       bytes[i] = ascii;
-                    }
-                    var blob = new Blob([bytes], {type: "application/pdf"});
-                    var link = document.createElement('a');
-                    link.href = window.URL.createObjectURL(blob);
-                    var fileName = 'report';
-                    link.download = fileName;
-                    link.click();
-                });
+        self = this;
+        framework.blockUI();
+        var def = $.Deferred();
+        session.get_file({
+            url: '/ohada_reports',
+            data: {"model": "ohada.financial.html.report",
+                   "options": '{"all_entries": false, "unfolded_lines": []}',
+                   "financial_id": 3,
+                   "output_format": "pdf_bundle"},
+            success: def.resolve.bind(def),
+            error: function () {
+                crash_manager.rpc_error.apply(crash_manager, arguments);
+                def.reject();
+            },
+            complete: framework.unblockUI,
+        });
+        return def;
     },
 
     _updateTemplateBody: function () {

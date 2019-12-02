@@ -127,7 +127,17 @@
                             <h4 class="mb-0">
                             </h4>
                             <a class="stat-head" style="padding:0px;margin-top:15px;cursor:pointer;margin-left: 12px;" t-att-href="'/web#action=' + widget.data['Balance sheet'] + '&amp;' + 'menu_id=' + menu_id">Balance sheet</a>
-                        </div>
+                            <!--<a class="oh_dropdown_menu" style="padding:10px 15px 10px 15px;cursor: pointer;"><i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/></a>-->
+                            <div class="dropdown">
+                              <button style="border:none;padding:10px 15px;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/>
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item print_bs_pdf" style="cursor:pointer;">Export report</a>
+                                <a class="dropdown-item print_lands_bs_pdf" style="cursor:pointer;">Export landscape report</a>
+                              </div>
+                            </div>
+                                                    </div>
                         <div class="col-xs-12">
                             <div class="ohada_notification" style="height:80px;">
                                 <ul style="margin-left:-30px;margin-top:5px;">
@@ -156,6 +166,14 @@
                             <h4 class="mb-0">
                             </h4>
                             <a class="stat-head" style="padding:0px;margin-top:15px;cursor:pointer;margin-left: 12px;" t-att-href="'/web#action=' + widget.data['Profit And Loss'] + '&amp;' + 'menu_id=' + menu_id">Profit  &amp; lost</a>
+                            <div class="dropdown">
+                              <button style="border:none;padding:10px 15px;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/>
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item print_pl_pdf" style="cursor:pointer;">Export report</a>
+                              </div>
+                            </div>
                         </div>
                         <div class="col-xs-12">
                             <div class="ohada_notification" style="height:80px;">
@@ -185,6 +203,14 @@
                             <h4 class="mb-0">
                             </h4>
                             <a class="stat-head" style="padding:0px;margin-top:15px;cursor:pointer;margin-left: 12px;" t-att-href="'/web#action=' + widget.data['Cash Flow Statement'] + '&amp;' + 'menu_id=' + menu_id">Cashflow statement</a>
+                            <div class="dropdown">
+                              <button style="border:none;padding:10px 15px;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/>
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item print_cf_pdf" style="cursor:pointer;">Export report</a>
+                              </div>
+                            </div>
                         </div>
                         <div class="col-xs-12" style="max-width: 96%;">
                             <div class="ohada_notification" style="height:80px;">

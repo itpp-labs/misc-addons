@@ -20,7 +20,15 @@ class FinancialReportController(http.Controller):
             report_obj = report_obj.browse(int(financial_id))
         report_name = report_obj.get_report_filename(options)
         try:
-            if output_format == 'xlsx_bundle':
+            if output_format == 'pdf_bundle':
+                response = request.make_response(
+                    report_obj.print_bundle_pdf(),
+                    headers=[
+                        ('Content-Type', 'application/pdf'),
+                        ('Content-Disposition', content_disposition('general_report.pdf'))
+                    ]
+                )
+            elif output_format == 'xlsx_bundle':
                 response = request.make_response(
                     None,
                     headers=[
@@ -29,7 +37,7 @@ class FinancialReportController(http.Controller):
                     ]
                 )
                 report_obj.print_bundle_xlsx(response)
-            if output_format == 'xlsx':
+            elif output_format == 'xlsx':
                 response = request.make_response(
                     None,
                     headers=[
@@ -38,7 +46,15 @@ class FinancialReportController(http.Controller):
                     ]
                 )
                 report_obj.get_xlsx(options, response)
-            if output_format == 'pdf':
+            elif output_format == 'pdf' and kw.get('horizontal') == 'True':
+                response = request.make_response(
+                    report_obj.get_pdf(options, horizontal=True),
+                    headers=[
+                        ('Content-Type', 'application/pdf'),
+                        ('Content-Disposition', content_disposition(report_name + '.pdf'))
+                    ]
+                )
+            elif output_format == 'pdf':
                 response = request.make_response(
                     report_obj.get_pdf(options),
                     headers=[
@@ -46,7 +62,7 @@ class FinancialReportController(http.Controller):
                         ('Content-Disposition', content_disposition(report_name + '.pdf'))
                     ]
                 )
-            if output_format == 'xml':
+            elif output_format == 'xml':
                 content = report_obj.get_xml(options)
                 response = request.make_response(
                     content,
@@ -56,7 +72,7 @@ class FinancialReportController(http.Controller):
                         ('Content-Length', len(content))
                     ]
                 )
-            if output_format == 'xaf':
+            elif output_format == 'xaf':
                 content = report_obj.get_xaf(options)
                 response = request.make_response(
                     content,
@@ -66,7 +82,7 @@ class FinancialReportController(http.Controller):
                         ('Content-Length', len(content))
                     ]
                 )
-            if output_format == 'txt':
+            elif output_format == 'txt':
                 content = report_obj.get_txt(options)
                 response = request.make_response(
                     content,
@@ -76,7 +92,7 @@ class FinancialReportController(http.Controller):
                         ('Content-Length', len(content))
                     ]
                 )
-            if output_format == 'csv':
+            elif output_format == 'csv':
                 content = report_obj.get_csv(options)
                 response = request.make_response(
                     content,
@@ -86,7 +102,7 @@ class FinancialReportController(http.Controller):
                         ('Content-Length', len(content))
                     ]
                 )
-            if output_format == 'zip':
+            elif output_format == 'zip':
                 content = report_obj._get_zip(options)
                 response = request.make_response(
                     content,

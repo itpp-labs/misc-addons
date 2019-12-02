@@ -19,6 +19,10 @@
   display: none;
   z-index: 2010;
 }
+
+.oh-card-body > .dropdown > .dropdown-toggle:after {
+    display: none !important;
+}
 /*-------------------------------------------------------------------*/
 .btn-color-ee{
     color: #FFFFFF;
@@ -823,9 +827,9 @@ h4 .stat-count {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     will-change: transform, box-shadow;
     height: 250px;
-    overflow-y: auto;
     margin-bottom: 15px;
     border: 1px solid #ced4da;
+    overflow-y: hidden;
 }
 .ohada_notification .media {
     border-bottom: 1px solid #001E5A;

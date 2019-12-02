@@ -19,6 +19,7 @@
     border-color: #001E5A;
     color: #001E5A;
     font-family: NimbusSanL-Regu;
+
 }
 .o_foldable_menu {
     &.o_closed_menu {
@@ -265,8 +266,8 @@
     }
     .o_account_reports_level0 {
         & td {
-            padding-top: 3px;
-            padding-bottom: 3px;
+            padding-top: 2px;
+            padding-bottom: 2px;
         }
         > td.o_account_report_line_indent.o_foldable_total > span:last-child {
             margin-left: 10px;
@@ -278,13 +279,16 @@
         text-align: center;
         vertical-align: middle;
         & td {
-            padding-top: 3px;
-            padding-bottom: 3px;
+            padding-top: 2px;
+            padding-bottom: 2px;
         }
     }
     .o_account_reports_level2 {
         border-bottom: 1px solid #001E5A;
         font-weight: normal;
+        > td > span {
+            min-height:10px;
+        }
         > td.o_account_report_line_indent > span:last-child {
             margin-left: 15px;
         }
@@ -292,6 +296,10 @@
             > td > span:last-child {
                 margin-left: 0px;
             }
+        }
+        & td {
+            padding-top: 2px;
+            padding-bottom: 2px;
         }
     }
     .o_account_reports_level3 {
@@ -303,6 +311,10 @@
             > td.o_account_report_line_indent > span:last-child {
                 margin-left: 15px;
             }
+        }
+        & td {
+            padding-top: 2px;
+            padding-bottom: 2px;
         }
     }
     .o_account_reports_level4 {

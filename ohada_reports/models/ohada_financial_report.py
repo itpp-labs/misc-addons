@@ -195,13 +195,13 @@ class ReportOhadaFinancialReport(models.Model):
         if len(self.with_context(print_mode=True).get_header(options)[-1]) > 5:
             landscape = True
         # wdb.set_trace()
-        pdf = self.env['ir.actions.report']._run_wkhtmltopdf(
+        return self.env['ir.actions.report']._run_wkhtmltopdf(
             [body],
             header=header, footer=footer,
             landscape=landscape,
             specific_paperformat_args=spec_paperformat_args
         )
-        return base64.encodebytes(pdf)
+        # return base64.encodebytes(pdf)
 
     @api.model
     def get_link(self, year=None):
@@ -210,18 +210,32 @@ class ReportOhadaFinancialReport(models.Model):
         if year:
             data['this_year'] = year
             data['prev_year'] = year - 1
-            options = {'ir_filters': None,
-                       'date': {'date_to': str(year)+'-12-31', 'string': str(year), 'filter': 'this_year',
-                                'date_from': str(year)+'-01-01'}}
         else:
             year = datetime.now().year
             data['this_year'] = datetime.now().year
             data['prev_year'] = datetime.now().year - 1
-            options = {'ir_filters': None,
-                       'date': {'date_to': str(year)+'-12-31', 'string': str(year), 'filter': 'this_year',
-                                'date_from': str(year)+'-01-01'}}
 
-        data['years'] = [year, year-1, year-2, year-3]
+        options = {'ir_filters': None,
+                   'date': {'date_to': str(year)+'-12-31', 'string': str(year), 'filter': 'this_year',
+                            'date_from': str(year)+'-01-01'}}
+        # wdb.set_trace()
+        
+        data['options'] = {'ir_filters': None,
+                            'date': {'date_to': str(year)+'-12-31', 'string': str(year), 'filter': 'this_year',
+                                'date_from': str(year)+'-01-01'},
+                            'comparison': {
+                               'date_from': str(year-1)+'-01-01',
+                               'date_to': str(year-1)+'-12-31',
+                               'filter': 'no_comparison',
+                               'number_period': 1,
+                               'periods': [{
+                                   'date_from': str(year-1)+'-01-01',
+                                   'date_to': str(year-1)+'-12-31',
+                                   'string': str(year-1),
+                               }],
+                           'string': 'No comparison', },
+                       }
+        data['years'] = [datetime.now().year, datetime.now().year-1, datetime.now().year-2, datetime.now().year-3]
         data['company_name'] = self.env['res.users'].browse(request.session.uid).company_id.name
 
         bz_id = self.env.ref('ohada_reports.account_financial_report_balancesheet_BZ').id
@@ -229,6 +243,9 @@ class ReportOhadaFinancialReport(models.Model):
         xl_id = self.env.ref('ohada_reports.account_financial_report_ohada_profitlost_XI').id
         zh_id = self.env.ref('ohada_reports.account_financial_report_ohada_cashflow_ZH').id
 
+        data['bs_id'] = self.env.ref('ohada_reports.ohada_financial_report_balancesheet0').id
+        data['pl_id'] = self.env.ref('ohada_reports.account_financial_report_ohada_profitlost').id
+        data['cf_id'] = self.env.ref('ohada_reports.account_financial_report_ohada_cashflow').id
         # wdb.set_trace()
         # 1st
         data['bz'] = data['bz_d'] = self._get_lines(options, bz_id)[0]['columns'][0]['no_format_name']
@@ -1523,7 +1540,6 @@ class OhadaFinancialReportLine(models.Model):
                     vals['columns'] = [line._format(v) for v in vals['columns']]
                 if not line.formulas:
                     vals['columns'] = [{'name': ''} for k in vals['columns']]
-
             if line.reference == 'REF':
                 vals['columns'][0]['name'] = ['EXERPRICE', 'au 31/12/' + line._context['date_from'][0:4]]
                 if financial_report.name == 'Balance Sheet - Assets' and options['comparison']['filter'] == 'no_comparison':
