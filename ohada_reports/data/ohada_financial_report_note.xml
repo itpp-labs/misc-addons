@@ -155,17 +155,17 @@
 
 
 
-    <!-- OHADA Financial Note Actions -->
-    <record id="action_report_ohada_note6" model="ir.actions.client">
-        <field name="name">Note 6 - Stocks et encours</field>
-        <field name="tag">ohada_report</field>
-        <field name="context" eval="{'model': 'ohada.financial.html.report', 'id': ref('ohada_financial_report_note6')}" />
-    </record>
+    <!--&lt;!&ndash; OHADA Financial Note Actions &ndash;&gt;-->
+    <!--<record id="action_report_ohada_note6" model="ir.actions.client">-->
+        <!--<field name="name">Note 6 - Stocks et encours</field>-->
+        <!--<field name="tag">ohada_report</field>-->
+        <!--<field name="context" eval="{'model': 'ohada.financial.html.report', 'id': ref('ohada_financial_report_note6')}" />-->
+    <!--</record>-->
 
     <!-- OHADA Financial Note Links Actions -->
-    <record id="ohada_financial_report_note6" model="ohada.financial.html.report.line">
-        <field name="action_id" ref='action_report_ohada_note6' />
-    </record>
+    <!--<record id="ohada_financial_report_note6" model="ohada.financial.html.report.line">-->
+        <!--<field name="action_id" ref='action_report_ohada_note6' />-->
+    <!--</record>-->
 
      <!-- NOTE 21 -->
     <record id="ohada_financial_report_note21" model="ohada.financial.html.report">
@@ -848,5 +848,5 @@
         <field name="groupby">account_id</field>
         <field name="note_6" eval="True" />
     </record>
-    
+
 </odoo>

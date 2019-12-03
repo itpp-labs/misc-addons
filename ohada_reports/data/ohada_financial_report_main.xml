@@ -2799,7 +2799,7 @@
         <field name="context" eval="{'model': 'ohada.financial.html.report', 'id': ref('account_financial_report_ohada_balancesheet')}" />
     </record>
     <record id="action_account_report_ohada_profitlost" model="ir.actions.client">
-        <field name="name">Profilt and lost</field>
+        <field name="name">Profit and lost</field>
         <field name="tag">ohada_report</field>
         <field name="context" eval="{'model': 'ohada.financial.html.report', 'id': ref('account_financial_report_ohada_profitlost')}" />
     </record>

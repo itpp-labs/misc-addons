@@ -221,6 +221,8 @@ var accountReportsWidget = AbstractAction.extend(ControlPanelMixin, {
         this.render_footnotes();
         this.render_searchview_buttons();
         this.update_cp();
+        document.getElementsByClassName('o_cp_buttons')[0].style.display = 'block';
+        document.getElementsByClassName('o_cp_right')[0].style.display = 'block';
     },
     render_template: function() {
         this.$el.html(this.main_html);

@@ -126,7 +126,7 @@
                         <div class="oh-card-body pb-0" style="padding:0;">
                             <h4 class="mb-0">
                             </h4>
-                            <a class="stat-head" style="padding:0px;margin-top:15px;cursor:pointer;margin-left: 12px;" t-att-href="'/web#action=' + widget.data['Balance sheet'] + '&amp;' + 'menu_id=' + menu_id">Balance sheet</a>
+                            <a class="stat-head" style="padding:0px;margin-top:15px;cursor:pointer;margin-left: 12px;" t-att-href="'/web#action=' + widget.data['Balance Sheet'] + '&amp;' + 'menu_id=' + menu_id">Balance sheet</a>
                             <!--<a class="oh_dropdown_menu" style="padding:10px 15px 10px 15px;cursor: pointer;"><i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/></a>-->
                             <div class="dropdown">
                               <button style="border:none;padding:10px 15px;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -165,7 +165,7 @@
                         <div class="oh-card-body pb-0" style="padding:0;">
                             <h4 class="mb-0">
                             </h4>
-                            <a class="stat-head" style="padding:0px;margin-top:15px;cursor:pointer;margin-left: 12px;" t-att-href="'/web#action=' + widget.data['Profit And Loss'] + '&amp;' + 'menu_id=' + menu_id">Profit  &amp; lost</a>
+                            <a class="stat-head" style="padding:0px;margin-top:15px;cursor:pointer;margin-left: 12px;" t-att-href="'/web#action=' + widget.data['Profit and lost'] + '&amp;' + 'menu_id=' + menu_id">Profit  &amp; lost</a>
                             <div class="dropdown">
                               <button style="border:none;padding:10px 15px;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/>
@@ -246,31 +246,10 @@
                             </h4>
                             <p class="stat-head" style="padding : 0px;">Cover page data sheets</p>
                         </div>
-                        <div style="margin-left:10px;">
-                            <button class="btn btn-color-ee">NOTE 1</button>
-                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 2</button>
-                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 3A</button>
-                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 3B</button>
-                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 3C</button>
-                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 3D</button>
-                            <div style="clear:both;"></div>
-                        </div>
-                        <div style="margin-left:10px;">
-                            <button class="btn btn-color-ee">NOTE 3E</button>
-                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 4</button>
-                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 5</button>
-                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 6</button>
-                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 7</button>
-                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 8</button>
-                            <div style="clear:both;"></div>
-                        </div>
-                        <div style="margin-left:10px;margin-bottom:15px;">
-                            <button class="btn btn-color-ee">NOTE 8A</button>
-                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 9</button>
-                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 10</button>
-                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 11</button>
-                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 12</button>
-                            <button class="btn btn-color-ee" style="margin-left:10px;">NOTE 13</button>
+                        <div>
+                            <t t-foreach="widget.data['notes']" t-as="note">
+                                <a t-att-href="'/web#action=' + note['action_id'] + '&amp;' + 'menu_id=' + menu_id"><button class="btn btn-color-ee" style="margin-left:10px;"><t t-esc="note['name']"/></button></a>
+                            </t>
                             <div style="clear:both;"></div>
                         </div>
                     </div>
@@ -278,12 +257,6 @@
             </div>
         </div>
     </t>
-    <!--<t t-name="OhadaPopup">-->
-        <!--<div class="popup">-->
-            <!--<h2>Popup</h2>-->
-            <!--<p>Text of popup</p>-->
-        <!--</div>-->
-    <!--</t>-->
     <t t-name="OhadaWarning">
         <div>
             <p>Error : Could not load data</p>

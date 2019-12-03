@@ -1074,8 +1074,6 @@ class OhadaReport(models.AbstractModel):
         # assets are not in cache and must be generated. To workaround this issue, we manually
         # commit the writes in the `ir.attachment` table. It is done thanks to a key in the context.
 
-
-        # wdb.set_trace()
         if not config['test_enable']:
             self = self.with_context(commit_assetsbundle=True)
 
@@ -1092,7 +1090,10 @@ class OhadaReport(models.AbstractModel):
             "ohada_reports.print_template",
             values=dict(rcontext),
         )
+
         if self.name == 'Balance Sheet' and horizontal is False:
+            if not options['date'].get('date_from'):
+                options = self.make_temp_options(int(options['date']['date'][0:4]))
             body_html = b''
             body_html += self.env.ref('ohada_reports.account_financial_report_ohada_balancesheet').get_html(options)
             body_html += self.env.ref('ohada_reports.account_financial_report_ohada_balancesheet_liabilitites0').get_html(options)
@@ -1374,16 +1375,8 @@ class OhadaReport(models.AbstractModel):
             self.x_index = x_index
         # wdb.set_trace()
         if self.name == 'Balance Sheet':
-            options = {'all_entries': False, 'analytic': None, 'cash_basis': None,
-                       'comparison': {
-                           'date_from': '2018-01-01', 'date_to': '2018-12-31', 'filter': 'no_comparison',
-                           'number_period': 1,
-                           'periods': [{'date_from': '2018-01-01', 'date_to': '2018-12-31', 'string': '2018'}],
-                           'string': 'No comparison',
-                       },
-                       'date': {'date_from': '2019-01-01', 'date_to': '2019-12-31', 'filter': 'this_year',
-                                'string': '2019'}, 'hierarchy': None, 'ir_filters': None, 'journals': None,
-                       'partner': None, 'unfold_all': False, 'unfolded_lines': [], 'unposted_in_period': False}
+            if not options['date'].get('date_from'):
+                options = self.make_temp_options(int(options['date']['date'][0:4]))
             ctx = self._set_context(options)
             ctx.update({'no_format': True, 'print_mode': True, 'prefetch_fields': False})
             lines = self.env.ref('ohada_reports.account_financial_report_ohada_balancesheet').with_context(ctx)._get_lines(options)
@@ -1458,6 +1451,26 @@ class OhadaReport(models.AbstractModel):
     def get_txt(self, options):
         return False
 
+    def make_temp_options(self, year=False):
+        if year is False:
+            year = datetime.now().year
+        options = {'ir_filters': None,
+                   'date': {'date_to': str(year) + '-12-31', 'string': str(year), 'filter': 'this_year',
+                            'date_from': str(year) + '-01-01'},
+                   'comparison': {
+                       'date_from': str(year - 1) + '-01-01',
+                       'date_to': str(year - 1) + '-12-31',
+                       'filter': 'no_comparison',
+                       'number_period': 1,
+                       'periods': [{
+                           'date_from': str(year - 1) + '-01-01',
+                           'date_to': str(year - 1) + '-12-31',
+                           'string': str(year - 1),
+                       }],
+                       'string': 'No comparison', },
+                   }
+        return options
+
     def get_html_bs(self, options, line_id=None, additional_context=None):
         '''
         return the html value of report, or html value of unfolded line
@@ -1465,16 +1478,8 @@ class OhadaReport(models.AbstractModel):
         otherwise it uses the main_template. Reason is for efficiency, when unfolding a line in the report
         we don't want to reload all lines, just get the one we unfolded.
         '''
-
-        options = {'all_entries':	False, 'analytic':	None, 'cash_basis':	None,
-                    'comparison':	{
-                        'date_from':	'2018-01-01', 'date_to':	'2018-12-31', 'filter':	'no_comparison', 'number_period': 1,
-                        'periods': [{'date_from': '2018-01-01', 'date_to':	'2018-12-31', 'string':	'2018'}],
-                        'string': 'No comparison',
-                          },
-                    'date':	{'date_from':	'2019-01-01', 'date_to':	'2019-12-31', 'filter':	'this_year',
-                             'string':	'2019'}, 'hierarchy': None, 'ir_filters':	None,'journals': None,
-                    'partner': None, 'unfold_all':	False, 'unfolded_lines': [], 'unposted_in_period': False}
+        if not options['date'].get('date_from'):
+            options = self.make_temp_options(int(options['date']['date'][0:4]))
         g_rcontext=dict()
         g_rcontext['lines'] = []
         reports = [self.env.ref('ohada_reports.account_financial_report_ohada_balancesheet'),
@@ -1522,7 +1527,6 @@ class OhadaReport(models.AbstractModel):
         g_rcontext['report'] = rcontext['report']
         g_rcontext['options'] = rcontext['options']
         g_rcontext['model'] = rcontext['model']
-        # wdb.set_trace()
         html = self.env['ir.ui.view'].render_template(
             render_template,
             values=dict(g_rcontext),

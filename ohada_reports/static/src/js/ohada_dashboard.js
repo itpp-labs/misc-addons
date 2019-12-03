@@ -35,6 +35,19 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
         'click .print_pl_pdf': 'print_pl_pdf',
         'click .print_cf_pdf': 'print_cf_pdf'
     },
+
+    fetch_data: function(year=false) {
+        var self = this;
+        var def1 = this._rpc({
+                model: 'ohada.dashboard',
+                method: 'fetch_data',
+                args: [year],
+        }).done(function(result) {
+            self.data =  result;
+        });
+        return $.when(def1);
+    },
+
     close_popup: function(){
         document.getElementById("myForm").style.display = "none";
         document.getElementById("modal-backdrop").style.display = "none";
@@ -133,7 +146,7 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
         session.get_file({
             url: '/ohada_reports',
             data: {"model": "ohada.financial.html.report",
-                   "options": '{"all_entries": false, "unfolded_lines": []}',
+                   "options": JSON.stringify(self.data['options']),
                    "financial_id": 3,
                    "output_format": "xlsx_bundle"},
             success: def.resolve.bind(def),
@@ -153,7 +166,7 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
         session.get_file({
             url: '/ohada_reports',
             data: {"model": "ohada.financial.html.report",
-                   "options": '{"all_entries": false, "unfolded_lines": []}',
+                   "options": JSON.stringify(self.data['options']),
                    "financial_id": 3,
                    "output_format": "pdf_bundle"},
             success: def.resolve.bind(def),
@@ -171,6 +184,10 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
         this.$el.append(core.qweb.render('ManagerDashboard', {widget: this}));
         this.render_graphs();
         document.getElementById("myForm").style.display = "none";
+        if (document.getElementsByClassName('o_cp_buttons')[0]){
+            document.getElementsByClassName('o_cp_buttons')[0].style.display = 'none';
+            document.getElementsByClassName('o_cp_right')[0].style.display = 'none';
+        };
     },
 
     init: function(parent, context) {
@@ -192,19 +209,11 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
             self.render_dashboards();
             self.render_graphs();
             self.$el.parent().addClass('oe_background_grey');
+            if (document.getElementsByClassName('o_cp_buttons')[0]){
+                document.getElementsByClassName('o_cp_buttons')[0].style.display = 'none';
+                document.getElementsByClassName('o_cp_right')[0].style.display = 'none';
+            };
         });
-    },
-
-    fetch_data: function(year=false) {
-        var self = this;
-        var def1 = this._rpc({
-                model: 'ohada.financial.html.report',
-                method: 'get_link',
-                args: [year],
-        }).done(function(result) {
-            self.data =  result;
-        });
-        return $.when(def1);
     },
 
     render_dashboards: function() {
@@ -227,18 +236,6 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
             self.update_join_resign_trends();
         }
     },
-
-    get_link: function() {
-        var self = this;
-        var def1 =  this._rpc({
-                model: 'ohada.financial.html.report',
-                method: 'get_link',
-        }).done(function(result) {
-            console.log(result)
-        });
-        return $.when(def1);
-    },
-
 
     update_join_resign_trends: function(){
         var elem = this.$('.join_resign_trend');

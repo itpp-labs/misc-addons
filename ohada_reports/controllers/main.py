@@ -22,7 +22,7 @@ class FinancialReportController(http.Controller):
         try:
             if output_format == 'pdf_bundle':
                 response = request.make_response(
-                    report_obj.print_bundle_pdf(),
+                    report_obj.print_bundle_pdf(options),
                     headers=[
                         ('Content-Type', 'application/pdf'),
                         ('Content-Disposition', content_disposition('general_report.pdf'))
@@ -36,7 +36,7 @@ class FinancialReportController(http.Controller):
                         ('Content-Disposition', content_disposition('general_report.xlsx'))
                     ]
                 )
-                report_obj.print_bundle_xlsx(response)
+                report_obj.print_bundle_xlsx(options, response)
             elif output_format == 'xlsx':
                 response = request.make_response(
                     None,
