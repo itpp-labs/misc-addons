@@ -1,8 +1,7 @@
 import odoo.tests
 
 
-@odoo.tests.common.at_install(True)
-@odoo.tests.common.post_install(True)
+@odoo.tests.tagged("at_install", "post_install")
 class TestUi(odoo.tests.HttpCase):
 
     def test_res_partner_skype(self):
