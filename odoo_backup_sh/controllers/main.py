@@ -368,14 +368,16 @@ class BackupController(http.Controller):
                 'configured_iap': bool(cloud_params.get('odoo_backup_sh.odoo_oauth_uid') or False)
             }
         }
-        modules_search = request.env['ir.module.module'].search([('name', 'in', list(EXTRA_MODULES.keys()))])
         version = '%s.%s' % (version_info[0], version_info[1])
+        for m_name in EXTRA_MODULES.keys():
+            modules[m_name] = {
+                'url': "https://apps.odoo.com/apps/modules/%s/%s/" % (version, m_name)
+            }
+
+        modules_search = request.env['ir.module.module'].search([('name', 'in', list(EXTRA_MODULES.keys()))])
         for m in modules_search:
             installed = m.state == 'installed'
-            modules[m.name] = {
-                'url': "https://apps.odoo.com/apps/modules/%s/%s/" % (version, m.name),
-                'installed': installed
-            }
+            modules[m.name]['installed'] = installed
             if installed:
                 modules[m.name]['configured'] = bool(EXTRA_MODULES[m.name](request.env))
 
