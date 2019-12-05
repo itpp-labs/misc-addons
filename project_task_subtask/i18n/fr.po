@@ -150,7 +150,7 @@ msgid "Only users related to that subtask can change state."
 msgstr ""
 
 #. module: project_task_subtask
-#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_project_id
+#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_project_id_4692
 #: model:ir.ui.view,arch_db:project_task_subtask.project_task_subtask_view_search
 msgid "Project"
 msgstr ""
