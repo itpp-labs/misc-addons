@@ -1,3 +1,8 @@
+`1.0.2`
+-------
+
+- **Fix:** Dashboard error when additional modules are not in module list
+
 `1.0.1`
 -------
 
