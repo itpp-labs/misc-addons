@@ -11,6 +11,6 @@
     'website': 'https://yelizariev.github.io',
     'depends': ['res_users_signature', 'hr'],
     'data': [],
-    'installable': True,
+    'installable': False,
     'auto_install': True,
 }
