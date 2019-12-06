@@ -47,10 +47,10 @@ class IrHttp(models.AbstractModel):
         return att
 
     @classmethod
-    def binary_content(cls, xmlid=None, model='ir.attachment', id=None, field='datas',
+    def binary_content(cls, xmlid=None, model='ir.attachment', id=None, field='datas',  # pylint: disable=redefined-builtin
                        unique=False, filename=None, filename_field='datas_fname', download=False,
                        mimetype=None, default_mimetype='application/octet-stream',
-                       access_token=None, related_id=None, access_mode=None, env=None):  # pylint: disable=redefined-builtin
+                       access_token=None, related_id=None, access_mode=None, env=None):
         """ Get file, attachment or downloadable content
         If the ``xmlid`` and ``id`` parameter is omitted, fetches the default value for the
         binary field (via ``default_get``), otherwise fetches the field for

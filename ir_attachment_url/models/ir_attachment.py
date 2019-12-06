@@ -3,6 +3,7 @@ import base64
 from odoo import api, models
 from . import image
 
+
 class IrAttachment(models.Model):
     _inherit = 'ir.attachment'
 

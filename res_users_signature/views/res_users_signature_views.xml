@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<openerp>
-    <data>
+<!--# Copyright 2019 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    # Copyright 2019 Anvar kildebekov <https://it-projects.info/team/fedoranvar>
+    # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).-->
+<odoo>
 
         <record id="view_users_form" model="ir.ui.view">
             <field name="name">res.users.form</field>
@@ -58,21 +59,14 @@
             </field>
         </record>
 
-
-        <record id="action_update_signature_multi" model="ir.actions.server">
+        <record id="ir_update_signature_multi" model="ir.actions.server">
             <field name="name">Update signatures</field>
             <field name="model_id" ref="model_res_users_signature"/>
+            <field name="binding_model_id" ref="model_res_users_signature"/>
             <field name="state">code</field>
             <field name="code">
                 self.action_update_signature(cr, uid, context['active_ids'], context=context)
             </field>
-        </record>
-
-        <record id="ir_update_signature_multi" model="ir.values">
-            <field eval="'client_action_multi'" name="key2"/>
-            <field eval="'res.users.signature'" name="model"/>
-            <field name="name">Update signatures</field>
-            <field eval="'ir.actions.server,%d'%action_update_signature_multi" name="value"/>
         </record>
 
         <record id="action_res_users_signature" model="ir.actions.act_window">
@@ -85,5 +79,4 @@
 
         <menuitem action="action_res_users_signature" id="menu_action_res_users_signature" parent="base.menu_users"/>
 
-    </data>
-</openerp>
+</odoo>

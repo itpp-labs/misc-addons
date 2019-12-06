@@ -1,31 +1,40 @@
-Allows create signature templates for users. For example,
+====================================
+ Signature templates for user email
+====================================
 
-    ---
+Add templated signature for users
 
-    <p>${user.name}, ${user.function} of ${user.partner_id.company_id.name}</p>
+Credits
+=======
 
-    <p>${user.phone}, 
+Contributors
+------------
+* `Ivan Yelizariev <https://it-projects.info/team/yelizariev>`__
+* `Anvar Kildebekov <https://it-projects.info/team/fedoranvar>`__
 
-    % if user.mobile
+Sponsors
+--------
+* `IT-Projects LLC <https://it-projects.info>`__
 
-    ${user.mobile}, 
+Maintainers
+-----------
+* `IT-Projects LLC <https://it-projects.info>`__
 
-    % endif
+      To get a guaranteed support you are kindly requested to purchase the module at `odoo apps store <https://apps.odoo.com/apps/modules/12.0/res_users_signature/>`__.
 
-    ${user.email}</p>
+      Thank you for understanding!
 
-    <p><img src="data:image/png;base64,${user.company_id.logo_web}"/></p>
+      `IT-Projects Team <https://www.it-projects.info/team>`__
 
-Will be converted to 
+Further information
+===================
 
-    ---
+Demo: http://runbot.it-projects.info/demo/12.0/misc-addons
 
-    <p>Bob, sale manager of You Company</p>
+HTML Description: https://apps.odoo.com/apps/modules/12.0/res_users_signature/
 
-    <p>+123456789, sales@example.com</p>
+Usage instructions: `<doc/index.rst>`_
 
-    <p><img src="data:image/png;base64,ABCDE....12345="/></p>
+Changelog: `<doc/changelog.rst>`_
 
-Tested on 8.0 ab7b5d7732a7c222a0aea45bd173742acd47242d
-
-Further information and discussion: https://yelizariev.github.io/odoo/module/2015/03/17/email-signature-template.html
+Tested on Odoo 12.0 32c2666d189047db66eb7b1392ea34b086fd341e
