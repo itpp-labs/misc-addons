@@ -3,10 +3,11 @@
 # Copyright 2018-2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
 # Copyright 2018 WohthaN <https://github.com/WohthaN>
+# Copyright 2019 Eugene Molotov <https://github.com/em230418>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 {
     'name': "Backend debranding",
-    'version': '11.0.1.0.27',
+    'version': '12.0.1.0.28',
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'LGPL-3',
     'category': 'Debranding',
@@ -17,15 +18,13 @@
     'depends': [
         'web',
         'mail',
-        'web_planner',
-        'access_apps',
         'access_settings_menu',
     ],
     'data': [
         'data.xml',
         'views.xml',
         'js.xml',
-        'pre_install.yml',
+        'pre_install.xml',
     ],
     'qweb': [
         'static/src/xml/web.xml',
@@ -33,5 +32,6 @@
     "post_load": 'post_load',
     'auto_install': False,
     'uninstall_hook': 'uninstall_hook',
-    'installable': True
+    'installable': True,
+    'saas_demo_title': 'Backend debranding demo',
 }

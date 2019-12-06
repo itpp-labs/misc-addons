@@ -65,16 +65,33 @@ Configuration
 
 The settings are also available from the ``Settings >> Technical >> Database Structure >> S3 Settings``.
 
-* You can also set these parameters using environment variables
+S3
+--
 
-  Mapping Environment variables to Odoo System parameters:
+Minimal access policy for s3 credentials are as following::
 
-  * ``S3_BUCKET``: it is ``s3.bucket`` parameter
-  * ``S3_CONDITION``: it is ``s3.condition`` parameter
-  * ``S3_ACCESS_KEY_ID``: it is ``s3.access_key_id`` parameter
-  * ``S3_SECRET_KEY``: it is ``s3.secret_key`` parameter
-
-  NOTE: if you simultaneously set parameters both in the Environment variables and in the Odoo System parameters, then the Odoo System parameters have the highest priority.
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:CreateBucket",
+                "s3:GetBucketLocation",
+                "s3:PutObjectAcl"
+            ],
+            "Resource": [
+                "arn:aws:s3:::YOUBUCKETNAMEHERE",
+                "arn:aws:s3:::YOUBUCKETNAMEHERE/*"
+            ]
+        }
+    ]
+  }
+  
+  
+You can also remove ``"s3:CreateBucket"`` if bucket already exists. 
 
 Usage
 =====

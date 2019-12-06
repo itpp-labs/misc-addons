@@ -5,14 +5,13 @@
 import logging
 
 from odoo import api, exceptions
-from odoo.tests.common import HttpCase
+from odoo.tests.common import HttpCase, tagged
 
 _logger = logging.getLogger(__name__)
 
 
+@tagged('post_install', '-at_install')
 class TestResizedAttachments(HttpCase):
-    at_install = False
-    post_install = True
 
     def setUp(self):
         super(TestResizedAttachments, self).setUp()

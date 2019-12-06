@@ -21,5 +21,6 @@ msgstr ""
 
 #. module: attachment_large_object
 #: model:ir.model,name:attachment_large_object.model_ir_attachment
-msgid "ir.attachment"
+#, fuzzy
+msgid "Attachment"
 msgstr "ir.attachment"

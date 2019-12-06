@@ -1,59 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-    <data noupdate="1">
-    <!--<data>-->
+<odoo noupdate="0">
         <!--if user offline then timer will stop-->
         <record id="ir_cron_check_stop_timer" model="ir.cron">
             <field name="name">Offline stop timer</field>
             <field name="active" eval="True" />
-            <field name="user_id" ref="base.user_root" />
-            <field name="interval_number">5</field>
-            <field name="interval_type">minutes</field>
-            <field name="numbercall">-1</field>
-            <field name="model_id" ref="model_res_users" />
+            <field name="model_id" ref="model_res_users"/>
+            <field name="state">code</field>
             <field name="code">model.check_stop_timer()</field>
-            <field name="priority" eval="4" />
+            <field name="user_id" ref="base.user_root"/>
+            <field name='interval_number'>5</field>
+            <field name='interval_type'>minutes</field>
+            <field name="numbercall">-1</field>
         </record>
 
         <!--new status for yesterday's timelogs-->
         <record id="ir_cron_nonactive_new_timer_status" model="ir.cron">
             <field name="name">Nonactive new status</field>
             <field name="active" eval="True" />
-            <field name="user_id" ref="base.user_root" />
-            <field name="interval_number">1</field>
-            <field name="interval_type">days</field>
+            <field name="model_id" ref="model_account_analytic_line"/>
+            <field name="state">code</field>
+            <field name="code">model.subtask_new_status()</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name='interval_number'>1</field>
+            <field name='interval_type'>days</field>
             <field name="numbercall">-1</field>
             <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 00:00:00')" />
-            <field name="model_id" ref="model_account_analytic_line" />
-            <field name="code">model.subtask_new_status()</field>
-            <field name="priority" eval="5" />
         </record>
 
         <!--clear stopline for yesterday's date-->
         <record id="ir_cron_clear_stopline_datetime" model="ir.cron">
             <field name="name">Clear stopline datetime</field>
             <field name="active" eval="True" />
-            <field name="user_id" ref="base.user_root" />
-            <field name="interval_number">1</field>
-            <field name="interval_type">days</field>
+            <field name="model_id" ref="model_project_task"/>
+            <field name="state">code</field>
+            <field name="code">model.clear_stopline_datetime()</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name='interval_number'>1</field>
+            <field name='interval_type'>days</field>
             <field name="numbercall">-1</field>
             <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 00:00:00')" />
-            <field name="model_id" ref="model_project_task" />
-            <field name="code">model.clear_stopline_datetime()</field>
-            <field name="priority" eval="5" />
         </record>
 
         <!--if stopline is not false. If date/time in stopline is current date/time then timer will stop-->
         <record id="ir_cron_stopline" model="ir.cron">
             <field name="name">Stopline</field>
             <field name="active" eval="True" />
-            <field name="user_id" ref="base.user_root" />
-            <field name="interval_number">1</field>
-            <field name="interval_type">minutes</field>
-            <field name="numbercall">-1</field>
-            <field name="model_id" ref="model_project_task" />
+            <field name="model_id" ref="model_project_task"/>
+            <field name="state">code</field>
             <field name="code">model.stopline_timer()</field>
-            <field name="priority" eval="4" />
+            <field name="user_id" ref="base.user_root"/>
+            <field name='interval_number'>1</field>
+            <field name='interval_type'>minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 00:00:00')" />
         </record>
 
         <record id="mt_timelog_stopline" model="mail.message.subtype">
@@ -71,16 +70,16 @@
             <field name="relation_field">project_id</field>
         </record>
 
-        <record id="action_auto_stop_timer" model="ir.actions.server">
-            <field name="name">Auto stop timer for user</field>
-            <field name="type">ir.actions.server</field>
-            <field name="model_id" ref="model_project_task"/>
+        <record id="rule_auto_stop_timer" model="base.automation">
+            <field name="name">Set timer info</field>
+            <field name="model_id" ref="project_timelog.model_project_task"/>
             <field name="state">code</field>
             <field name="code">
-                obj.set_stage_timer()
+                record.set_stage_timer()
             </field>
+            <field name="trigger">on_write</field>
+            <field name="active" eval="True"/>
         </record>
 
         <function model="timelog.config.settings" name="init_timer_parametrs"/>
-    </data>
-</openerp>
+</odoo>

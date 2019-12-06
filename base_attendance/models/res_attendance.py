@@ -3,9 +3,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 from datetime import datetime
-
 from odoo import models, fields, api, exceptions, _
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -48,8 +46,7 @@ class HrAttendance(models.Model):
     def _compute_worked_hours(self):
         for attendance in self:
             if attendance.check_out:
-                delta = datetime.strptime(attendance.check_out, DEFAULT_SERVER_DATETIME_FORMAT) - datetime.strptime(
-                    attendance.check_in, DEFAULT_SERVER_DATETIME_FORMAT)
+                delta = attendance.check_out - attendance.check_in
                 attendance.worked_hours = delta.total_seconds() / 3600.0
 
     @api.constrains('check_in', 'check_out')
@@ -118,8 +115,7 @@ class HrAttendance(models.Model):
         max_interval = float(self.env["ir.config_parameter"].get_param("base_attendance.shift_autocheckout", default=0))
         if max_interval:
             shifts = self.search([('check_out', '=', False)]).filtered(
-                lambda x: (datetime.today() - datetime.strptime(x.check_in, DEFAULT_SERVER_DATETIME_FORMAT)).
-                total_seconds() / 3600 >= max_interval / 60)
+                lambda x: (datetime.today() - x.check_in).total_seconds() / 3600 >= max_interval / 60)
             _logger.info("partner session autologout for: %s, interval: %s", shifts.ids, max_interval)
             shifts.write({
                 'check_out': fields.Datetime.now(),

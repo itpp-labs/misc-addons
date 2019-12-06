@@ -1,13 +1,12 @@
 import logging
 
-from openerp.tests.common import HttpCase
+from odoo.tests.common import HttpCase, tagged
 
 _logger = logging.getLogger(__name__)
 
 
+@tagged('post_install', '-at_install')
 class TestDataGet(HttpCase):
-    at_install = False
-    post_install = True
 
     def test_data_get(self):
         test_attachment = self.env.ref('ir_attachment_url.test_url_attachment')

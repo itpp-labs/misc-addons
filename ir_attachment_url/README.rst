@@ -18,10 +18,10 @@ Sponsors
 Further information
 ===================
 
-HTML Description: https://apps.odoo.com/apps/modules/11.0/ir_attachment_url/
+HTML Description: https://apps.odoo.com/apps/modules/12.0/ir_attachment_url/
 
 Usage instructions: `<doc/index.rst>`_
 
 Changelog: `<doc/changelog.rst>`_
 
-Tested on Odoo 11.0 2aeedd044d775c772e811316be301634bcc991b8
+Tested on Odoo 12.0 46b82f76b68646e24692b4aaee6187b39209c08c

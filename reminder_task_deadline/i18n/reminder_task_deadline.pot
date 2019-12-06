@@ -4,8 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-06-27 05:18+0000\n"
+"PO-Revision-Date: 2015-06-27 05:18+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -14,7 +16,12 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: reminder_task_deadline
-#: model:ir.ui.view,arch_db:reminder_task_deadline.reminder_task_deadline_view_form
+#: field:project.task,reminder_event_id:0
+msgid "Reminder Calendar Event"
+msgstr ""
+
+#. module: reminder_task_deadline
+#: view:project.task:reminder_task_deadline.view_task_form2
 msgid "Reminders"
 msgstr ""
 

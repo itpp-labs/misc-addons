@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * base_import_map
-#
+# 
 # Translators:
 # Randall <randall_castro@me.com>, 2018
 msgid ""
@@ -11,12 +11,11 @@ msgstr ""
 "POT-Creation-Date: 2018-04-30 21:57+0000\n"
 "PO-Revision-Date: 2018-04-30 21:57+0000\n"
 "Last-Translator: Randall <randall_castro@me.com>, 2018\n"
-"Language-Team: Spanish (Costa Rica) (https://www.transifex.com/it-projects-"
-"llc/teams/76080/es_CR/)\n"
-"Language: es_CR\n"
+"Language-Team: Spanish (Costa Rica) (https://www.transifex.com/it-projects-llc/teams/76080/es_CR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: es_CR\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: base_import_map
@@ -26,8 +25,7 @@ msgid ""
 "Update values of the file. Use variable ``row`` to update values in a row."
 msgstr ""
 "\n"
-"Actualizar valores del archivo. Use la variable ``celda`` para actualizar "
-"los valores en la celda."
+"Actualizar valores del archivo. Use la variable ``celda`` para actualizar los valores en la celda."
 
 #. module: base_import_map
 #: model:ir.model.fields,field_description:base_import_map.field_base_import_map_line_column_number

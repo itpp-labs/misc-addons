@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -14,17 +14,17 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: ir_config_parameter_multi_company
-#: model:ir.model,name:ir_config_parameter_multi_company.model_res_users
-msgid "Users"
+#: model:ir.model,name:ir_config_parameter_multi_company.model_ir_property
+msgid "Company Property"
 msgstr ""
 
 #. module: ir_config_parameter_multi_company
 #: model:ir.model,name:ir_config_parameter_multi_company.model_ir_config_parameter
-msgid "ir.config_parameter"
+msgid "System Parameter"
 msgstr ""
 
 #. module: ir_config_parameter_multi_company
-#: model:ir.model,name:ir_config_parameter_multi_company.model_ir_property
-msgid "ir.property"
+#: model:ir.model.fields,field_description:ir_config_parameter_multi_company.field_ir_config_parameter__value
+msgid "Value"
 msgstr ""
 

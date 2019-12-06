@@ -1,9 +1,9 @@
 # Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
-# Copyright 2018-2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+# Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 import logging
 from odoo import models, fields, api
-from odoo.addons.base.res.ir_property import TYPE2FIELD
+from odoo.addons.base.models.ir_property import TYPE2FIELD
 
 
 _logger = logging.getLogger(__name__)

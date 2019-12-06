@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -14,53 +14,73 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: base_attendance
-#: code:addons/base_attendance/models/res_attendance.py:61
+#: code:addons/base_attendance/models/res_attendance.py:58
 #, python-format
 msgid "\"Check Out\" time cannot be earlier than \"Check In\" time."
 msgstr ""
 
 #. module: base_attendance
-#: code:addons/base_attendance/models/res_attendance.py:32
+#: code:addons/base_attendance/models/res_attendance.py:30
 #, python-format
 msgid "%(partner_name)s from %(check_in)s"
 msgstr ""
 
 #. module: base_attendance
-#: code:addons/base_attendance/models/res_attendance.py:39
+#: code:addons/base_attendance/models/res_attendance.py:37
 #, python-format
 msgid "%(worked_time)s by %(partner_name)s from %(check_in)s to %(check_out)s"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.ui.view,arch_db:base_attendance.view_partner_form_inherit_base_attendance
+#: model_terms:ir.ui.view,arch_db:base_attendance.res_partner_kanban_view
+msgid "<span class=\"fa fa-user oe_hr_attendance_status oe_hr_attendance_status_green\" aria-label=\"Green Status\" title=\"Green Status\"/>"
+msgstr ""
+
+#. module: base_attendance
+#: model_terms:ir.ui.view,arch_db:base_attendance.res_partner_kanban_view
+msgid "<span class=\"fa fa-user oe_hr_attendance_status oe_hr_attendance_status_red\" aria-label=\"Red Status\" title=\"Red Status\"/>"
+msgstr ""
+
+#. module: base_attendance
+#: model_terms:ir.ui.view,arch_db:base_attendance.view_partner_form_inherit_base_attendance
 msgid "<span class=\"o_stat_text\">Attendance</span>"
 msgstr ""
 
 #. module: base_attendance
+#: model_terms:ir.ui.view,arch_db:base_attendance.res_partner_kiosk_attendance_view
+msgid "<span class=\"oe_hr_attendance_status fa fa-user oe_hr_attendance_status_green\" aria-label=\"Green Status\" title=\"Green Status\"/>"
+msgstr ""
+
+#. module: base_attendance
+#: model_terms:ir.ui.view,arch_db:base_attendance.res_partner_kiosk_attendance_view
+msgid "<span class=\"oe_hr_attendance_status fa fa-user oe_hr_attendance_status_red\" aria-label=\"Red Status\" title=\"Red Status\"/>"
+msgstr ""
+
+#. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:133
+#: code:addons/base_attendance/static/src/js/greeting_message.js:134
 #, python-format
 msgid "An apple a day keeps the doctor away"
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:122
+#: code:addons/base_attendance/static/src/js/greeting_message.js:123
 #, python-format
 msgid "Another good day's work! See you soon!"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_config
+#: model_terms:ir.ui.view,arch_db:base_attendance.hr_attendance_view_config
 msgid "Apply"
 msgstr ""
 
 #. module: base_attendance
 #: model:ir.model,name:base_attendance.model_res_partner_attendance
-#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance_state
-#: model:ir.model.fields,field_description:base_attendance.field_res_users_attendance_state
-#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_graph
-#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_pivot
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner__attendance_state
+#: model:ir.model.fields,field_description:base_attendance.field_res_users__attendance_state
+#: model_terms:ir.ui.view,arch_db:base_attendance.hr_attendance_view_graph
+#: model_terms:ir.ui.view,arch_db:base_attendance.hr_attendance_view_pivot
 msgid "Attendance"
 msgstr ""
 
@@ -71,8 +91,8 @@ msgid "Attendance Analysis"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.model.fields,field_description:base_attendance.field_res_partner_pin
-#: model:ir.model.fields,field_description:base_attendance.field_res_users_pin
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner__pin
+#: model:ir.model.fields,field_description:base_attendance.field_res_users__pin
 msgid "Attendance PIN"
 msgstr ""
 
@@ -82,7 +102,7 @@ msgid "Attendance Settings"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.ui.view,arch_db:base_attendance.view_partner_form_inherit_base_attendance
+#: model_terms:ir.ui.view,arch_db:base_attendance.view_partner_form_inherit_base_attendance
 msgid "Attendance information"
 msgstr ""
 
@@ -94,27 +114,25 @@ msgid "Attendances"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.model.fields,field_description:base_attendance.field_ir_attachment_config_settings_shift_autocheckout
-#: model:ir.model.fields,field_description:base_attendance.field_res_config_settings_shift_autocheckout
-#: model:ir.model.fields,field_description:base_attendance.field_test_config_settings_shift_autocheckout
-#: model:ir.model.fields,field_description:base_attendance.field_theme_kit_config_shift_autocheckout
+#: model:ir.model.fields,field_description:base_attendance.field_res_config_settings__shift_autocheckout
+#: model:ir.model.fields,field_description:base_attendance.field_test_config_settings__shift_autocheckout
 msgid "Autocheckout "
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_config
+#: model_terms:ir.ui.view,arch_db:base_attendance.hr_attendance_view_config
 msgid "Cancel"
 msgstr ""
 
 #. module: base_attendance
-#: code:addons/base_attendance/models/res_attendance.py:91
+#: code:addons/base_attendance/models/res_attendance.py:88
 #, python-format
 msgid "Cannot create new attendance record for %(partner_name)s, the partner hasn't checked out since %(datetime)s"
 msgstr ""
 
 #. module: base_attendance
-#: code:addons/base_attendance/models/res_attendance.py:78
-#: code:addons/base_attendance/models/res_attendance.py:104
+#: code:addons/base_attendance/models/res_attendance.py:75
+#: code:addons/base_attendance/models/res_attendance.py:101
 #, python-format
 msgid "Cannot create new attendance record for %(partner_name)s, the partner was already checked in on %(datetime)s"
 msgstr ""
@@ -132,12 +150,12 @@ msgid "Cannot perform check out on %(empl_name)s, could not find corresponding c
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance_check_in
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance__check_in
 msgid "Check In"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance_check_out
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance__check_out
 msgid "Check Out"
 msgstr ""
 
@@ -153,6 +171,11 @@ msgstr ""
 #: code:addons/base_attendance/static/src/xml/attendance.xml:31
 #, python-format
 msgid "Check out"
+msgstr ""
+
+#. module: base_attendance
+#: model_terms:ir.ui.view,arch_db:base_attendance.res_partner_kiosk_attendance_view
+msgid "Checked Image"
 msgstr ""
 
 #. module: base_attendance
@@ -181,49 +204,68 @@ msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/test_kiosk_tour.js:40
+#: code:addons/base_attendance/static/src/js/test_kiosk_tour.js:45
 #, python-format
 msgid "Click to enter Kiosk"
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/test_kiosk_tour.js:36
+#: code:addons/base_attendance/static/src/js/test_kiosk_tour.js:38
 #, python-format
 msgid "Click to enter menu attendances"
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
+#: code:addons/base_attendance/static/src/js/test_kiosk_tour.js:42
+#, python-format
+msgid "Click to open Manage Attendances menu"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
+#: code:addons/base_attendance/static/src/js/test_kiosk_tour.js:34
+#, python-format
+msgid "Click to open app list"
+msgstr ""
+
+#. module: base_attendance
+#. openerp-web
 #: code:addons/base_attendance/static/src/xml/attendance.xml:15
-#: model:ir.ui.view,arch_db:base_attendance.print_partner_badge
+#: model_terms:ir.ui.view,arch_db:base_attendance.print_partner_badge
 #, python-format
 msgid "Company Logo"
 msgstr ""
 
 #. module: base_attendance
+#: model:ir.model,name:base_attendance.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: base_attendance
 #: model:ir.ui.menu,name:base_attendance.menu_hr_attendance_settings
-#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_config
+#: model_terms:ir.ui.view,arch_db:base_attendance.hr_attendance_view_config
 msgid "Configuration"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.actions.act_window,help:base_attendance.res_partner_action_kanban_view
+#: model_terms:ir.actions.act_window,help:base_attendance.res_partner_action_kanban_view
 msgid "Create a few partners to be able to select a partner here and perform his check in / check out."
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance_create_uid
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance_create_date
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance__create_date
 msgid "Created on"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_filter
+#: model_terms:ir.ui.view,arch_db:base_attendance.hr_attendance_view_filter
 msgid "Current Month"
 msgstr ""
 
@@ -233,20 +275,20 @@ msgid "Customers"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance_display_name
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:138
+#: code:addons/base_attendance/static/src/js/greeting_message.js:139
 #, python-format
 msgid "Early to bed and early to rise, makes a man healthy, wealthy and wise"
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:131
+#: code:addons/base_attendance/static/src/js/greeting_message.js:132
 #, python-format
 msgid "Eat breakfast as a king, lunch as a merchant and supper as a beggar"
 msgstr ""
@@ -257,10 +299,8 @@ msgid "Enable PIN use (for Partner Attendance)"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.model.fields,help:base_attendance.field_ir_attachment_config_settings_group_attendance_use_pin
-#: model:ir.model.fields,help:base_attendance.field_res_config_settings_group_attendance_use_pin
-#: model:ir.model.fields,help:base_attendance.field_test_config_settings_group_attendance_use_pin
-#: model:ir.model.fields,help:base_attendance.field_theme_kit_config_group_attendance_use_pin
+#: model:ir.model.fields,help:base_attendance.field_res_config_settings__group_attendance_use_pin
+#: model:ir.model.fields,help:base_attendance.field_test_config_settings__group_attendance_use_pin
 msgid "Enable or disable partner PIN identification at check in"
 msgstr ""
 
@@ -280,7 +320,7 @@ msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:86
+#: code:addons/base_attendance/static/src/js/greeting_message.js:87
 #, python-format
 msgid "First come, first served"
 msgstr ""
@@ -292,36 +332,36 @@ msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:101
+#: code:addons/base_attendance/static/src/js/greeting_message.js:102
 #, python-format
 msgid "Glad to have you back, it's been a while!"
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:92
+#: code:addons/base_attendance/static/src/js/greeting_message.js:93
 #, python-format
 msgid "Good afternoon"
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:94
+#: code:addons/base_attendance/static/src/js/greeting_message.js:95
 #, python-format
 msgid "Good evening"
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:89
+#: code:addons/base_attendance/static/src/js/greeting_message.js:90
 #, python-format
 msgid "Good morning"
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:80
-#: code:addons/base_attendance/static/src/js/greeting_message.js:96
+#: code:addons/base_attendance/static/src/js/greeting_message.js:81
+#: code:addons/base_attendance/static/src/js/greeting_message.js:97
 #, python-format
 msgid "Good night"
 msgstr ""
@@ -334,42 +374,45 @@ msgid "Goodbye"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_filter
+#: model_terms:ir.ui.view,arch_db:base_attendance.view_partner_form_inherit_base_attendance
+msgid "Green Status"
+msgstr ""
+
+#. module: base_attendance
+#: model_terms:ir.ui.view,arch_db:base_attendance.hr_attendance_view_filter
 msgid "Group By"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.model.fields,field_description:base_attendance.field_ir_attachment_config_settings_hex_scanner_is_used
-#: model:ir.model.fields,field_description:base_attendance.field_res_config_settings_hex_scanner_is_used
-#: model:ir.model.fields,field_description:base_attendance.field_test_config_settings_hex_scanner_is_used
-#: model:ir.model.fields,field_description:base_attendance.field_theme_kit_config_hex_scanner_is_used
+#: model:ir.model.fields,field_description:base_attendance.field_res_config_settings__hex_scanner_is_used
+#: model:ir.model.fields,field_description:base_attendance.field_test_config_settings__hex_scanner_is_used
 msgid "HEX Scanner"
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:136
+#: code:addons/base_attendance/static/src/js/greeting_message.js:137
 #, python-format
 msgid "Have a good afternoon"
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:127
+#: code:addons/base_attendance/static/src/js/greeting_message.js:128
 #, python-format
 msgid "Have a good day!"
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:140
+#: code:addons/base_attendance/static/src/js/greeting_message.js:141
 #, python-format
 msgid "Have a good evening"
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:129
+#: code:addons/base_attendance/static/src/js/greeting_message.js:130
 #, python-format
 msgid "Have a nice lunch!"
 msgstr ""
@@ -380,13 +423,13 @@ msgid "Helps you manage the partner attendances."
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance_id
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance__id
 msgid "ID"
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:103
+#: code:addons/base_attendance/static/src/js/greeting_message.js:104
 #, python-format
 msgid "If a job is worth doing, it is worth doing well!"
 msgstr ""
@@ -404,23 +447,23 @@ msgid "Kiosk Mode"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.model.fields,field_description:base_attendance.field_res_partner_last_attendance_id
-#: model:ir.model.fields,field_description:base_attendance.field_res_users_last_attendance_id
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner__last_attendance_id
+#: model:ir.model.fields,field_description:base_attendance.field_res_users__last_attendance_id
 msgid "Last Attendance"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance___last_update
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance_write_uid
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance_write_date
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance__write_date
 msgid "Last Updated on"
 msgstr ""
 
@@ -440,10 +483,8 @@ msgid "Manual Attendances"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.model.fields,help:base_attendance.field_ir_attachment_config_settings_shift_autocheckout
-#: model:ir.model.fields,help:base_attendance.field_res_config_settings_shift_autocheckout
-#: model:ir.model.fields,help:base_attendance.field_test_config_settings_shift_autocheckout
-#: model:ir.model.fields,help:base_attendance.field_theme_kit_config_shift_autocheckout
+#: model:ir.model.fields,help:base_attendance.field_res_config_settings__shift_autocheckout
+#: model:ir.model.fields,help:base_attendance.field_test_config_settings__shift_autocheckout
 msgid "Maximum Shift Time in Minutes"
 msgstr ""
 
@@ -453,17 +494,17 @@ msgid "Message"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_filter
+#: model_terms:ir.ui.view,arch_db:base_attendance.hr_attendance_view_filter
 msgid "Month"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_filter
+#: model_terms:ir.ui.view,arch_db:base_attendance.hr_attendance_view_filter
 msgid "No Check Out"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.actions.act_window,help:base_attendance.base_attendance_action_partner_attendances
+#: model_terms:ir.actions.act_window,help:base_attendance.base_attendance_action_partner_attendances
 msgid "No attendance records to display."
 msgstr ""
 
@@ -474,15 +515,15 @@ msgid "No partner corresponding to barcode %(barcode)s"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.model.fields,help:base_attendance.field_res_partner_pin
-#: model:ir.model.fields,help:base_attendance.field_res_users_pin
+#: model:ir.model.fields,help:base_attendance.field_res_partner__pin
+#: model:ir.model.fields,help:base_attendance.field_res_users__pin
 msgid "PIN used to Check In/Out in Kiosk Mode (if enabled in Configuration)."
 msgstr ""
 
 #. module: base_attendance
 #: model:ir.model,name:base_attendance.model_res_partner
-#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance_partner_id
-#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_filter
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance__partner_id
+#: model_terms:ir.ui.view,arch_db:base_attendance.hr_attendance_view_filter
 msgid "Partner"
 msgstr ""
 
@@ -492,7 +533,7 @@ msgid "Partner Attendance"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_filter
+#: model_terms:ir.ui.view,arch_db:base_attendance.hr_attendance_view_filter
 msgid "Partner Attendance Search"
 msgstr ""
 
@@ -502,15 +543,13 @@ msgid "Partner Attendances"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.ui.view,arch_db:base_attendance.print_partner_badge
+#: model_terms:ir.ui.view,arch_db:base_attendance.print_partner_badge
 msgid "Partner Image"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.model.fields,field_description:base_attendance.field_ir_attachment_config_settings_group_attendance_use_pin
-#: model:ir.model.fields,field_description:base_attendance.field_res_config_settings_group_attendance_use_pin
-#: model:ir.model.fields,field_description:base_attendance.field_test_config_settings_group_attendance_use_pin
-#: model:ir.model.fields,field_description:base_attendance.field_theme_kit_config_group_attendance_use_pin
+#: model:ir.model.fields,field_description:base_attendance.field_res_config_settings__group_attendance_use_pin
+#: model:ir.model.fields,field_description:base_attendance.field_test_config_settings__group_attendance_use_pin
 msgid "Partner PIN"
 msgstr ""
 
@@ -522,12 +561,12 @@ msgid "Partner Shift Autocheckout"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_form
+#: model_terms:ir.ui.view,arch_db:base_attendance.hr_attendance_view_form
 msgid "Partner attendances"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.ui.view,arch_db:base_attendance.view_partner_form_inherit_base_attendance
+#: model_terms:ir.ui.view,arch_db:base_attendance.view_partner_form_inherit_base_attendance
 msgid "Partner's Name"
 msgstr ""
 
@@ -537,24 +576,20 @@ msgid "Partners"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.model.fields,field_description:base_attendance.field_res_partner_partners_attendance_ids
-#: model:ir.model.fields,field_description:base_attendance.field_res_users_partners_attendance_ids
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner__partners_attendance_ids
+#: model:ir.model.fields,field_description:base_attendance.field_res_users__partners_attendance_ids
 msgid "Partners Attendance"
 msgstr ""
 
 #. module: base_attendance
-#: selection:ir.attachment.config.settings,group_attendance_use_pin:0
 #: selection:res.config.settings,group_attendance_use_pin:0
 #: selection:test.config.settings,group_attendance_use_pin:0
-#: selection:theme_kit.config,group_attendance_use_pin:0
 msgid "Partners do not need to enter their PIN to check in manually in the \"Kiosk Mode\"."
 msgstr ""
 
 #. module: base_attendance
-#: selection:ir.attachment.config.settings,group_attendance_use_pin:0
 #: selection:res.config.settings,group_attendance_use_pin:0
 #: selection:test.config.settings,group_attendance_use_pin:0
-#: selection:theme_kit.config,group_attendance_use_pin:0
 msgid "Partners must enter their PIN to check in manually in the \"Kiosk Mode\"."
 msgstr ""
 
@@ -573,7 +608,7 @@ msgid "Please enter your PIN to check out"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.actions.act_window,help:base_attendance.hr_attendance_action
+#: model_terms:ir.actions.act_window,help:base_attendance.hr_attendance_action
 msgid "Please make sure you're using the correct filter if you expected to see any."
 msgstr ""
 
@@ -592,6 +627,11 @@ msgstr ""
 #. module: base_attendance
 #: model:res.groups,name:base_attendance.group_res_attendance
 msgid "Read Only"
+msgstr ""
+
+#. module: base_attendance
+#: model_terms:ir.ui.view,arch_db:base_attendance.view_partner_form_inherit_base_attendance
+msgid "Red Status"
 msgstr ""
 
 #. module: base_attendance
@@ -614,15 +654,13 @@ msgid "Select Partner"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_config
+#: model_terms:ir.ui.view,arch_db:base_attendance.hr_attendance_view_config
 msgid "Settings"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.model.fields,help:base_attendance.field_ir_attachment_config_settings_hex_scanner_is_used
-#: model:ir.model.fields,help:base_attendance.field_res_config_settings_hex_scanner_is_used
-#: model:ir.model.fields,help:base_attendance.field_test_config_settings_hex_scanner_is_used
-#: model:ir.model.fields,help:base_attendance.field_theme_kit_config_hex_scanner_is_used
+#: model:ir.model.fields,help:base_attendance.field_res_config_settings__hex_scanner_is_used
+#: model:ir.model.fields,help:base_attendance.field_test_config_settings__hex_scanner_is_used
 msgid "Some devices scan regular barcodes as hexadecimal. This option decode those types of barcodes"
 msgstr ""
 
@@ -633,13 +671,13 @@ msgid "The PIN must be a sequence of digits."
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.actions.act_window,help:base_attendance.hr_attendance_action
+#: model_terms:ir.actions.act_window,help:base_attendance.hr_attendance_action
 msgid "The attendance records of your partners will be displayed here."
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:84
+#: code:addons/base_attendance/static/src/js/greeting_message.js:85
 #, python-format
 msgid "The early bird catches the worm"
 msgstr ""
@@ -660,18 +698,18 @@ msgid "The user will have to enter his PIN to check in and out manually at the c
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.actions.act_window,help:base_attendance.res_partner_action_kanban_view
+#: model_terms:ir.actions.act_window,help:base_attendance.res_partner_action_kanban_view
 msgid "To create partner go to the Partners menu."
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.ui.view,arch_db:base_attendance.hr_attendance_view_filter
+#: model_terms:ir.ui.view,arch_db:base_attendance.hr_attendance_view_filter
 msgid "Today"
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:118
+#: code:addons/base_attendance/static/src/js/greeting_message.js:119
 #, python-format
 msgid "Warning! Last check in was over 12 hours ago.<br/>If this isn't right, please contact Human Resources."
 msgstr ""
@@ -692,7 +730,7 @@ msgid "Welcome to"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance_worked_hours
+#: model:ir.model.fields,field_description:base_attendance.field_res_partner_attendance__worked_hours
 msgid "Worked Hours"
 msgstr ""
 
@@ -703,19 +741,19 @@ msgid "Wrong PIN"
 msgstr ""
 
 #. module: base_attendance
-#: code:addons/base_attendance/models/res_attendance.py:114
+#: code:addons/base_attendance/models/res_attendance.py:111
 #, python-format
 msgid "You cannot duplicate an attendance."
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.ui.view,arch_db:base_attendance.res_partner_kiosk_attendance_view
+#: model_terms:ir.ui.view,arch_db:base_attendance.res_partner_kiosk_attendance_view
 msgid "at"
 msgstr ""
 
 #. module: base_attendance
-#: model:ir.model.fields,help:base_attendance.field_res_partner_partners_attendance_ids
-#: model:ir.model.fields,help:base_attendance.field_res_users_partners_attendance_ids
+#: model:ir.model.fields,help:base_attendance.field_res_partner__partners_attendance_ids
+#: model:ir.model.fields,help:base_attendance.field_res_users__partners_attendance_ids
 msgid "list of attendances for the employee"
 msgstr ""
 
@@ -731,10 +769,5 @@ msgstr ""
 #: code:addons/base_attendance/static/src/xml/attendance.xml:17
 #, python-format
 msgid "or"
-msgstr ""
-
-#. module: base_attendance
-#: model:ir.model,name:base_attendance.model_res_config_settings
-msgid "res.config.settings"
 msgstr ""
 

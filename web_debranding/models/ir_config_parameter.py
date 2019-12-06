@@ -3,6 +3,7 @@
 # Copyright 2017 ArtyomLosev <https://github.com/ArtyomLosev>
 # Copyright 2017 Ilmir Karamov <https://it-projects.info/team/ilmir-k>
 # Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+# Copyright 2019 Eugene Molotov <https://github.com/em230418>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 from odoo import models, api
@@ -15,7 +16,6 @@ PARAMS = [
     ('web_debranding.new_documentation_website', ''),
     ('web_debranding.favicon_url', ''),
     ('web_debranding.send_publisher_warranty_url', '0'),
-    ('web_debranding.planner_footer', ''),
     ('web_debranding.icon_url', ''),
     ('web_debranding.apple_touch_icon_url', ''),
 

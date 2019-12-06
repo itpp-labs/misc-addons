@@ -6,14 +6,13 @@
 import logging
 
 from odoo import api, conf
-from odoo.tests.common import HttpCase
+from odoo.tests.common import HttpCase, tagged
 
 _logger = logging.getLogger(__name__)
 
 
+@tagged('post_install', '-at_install')
 class TestProductTmplImage(HttpCase):
-    at_install = False
-    post_install = True
 
     def _get_original_image_url(self, px=1024):
         return 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Gullfoss%2C_an_iconic_waterfall_of_Iceland.jpg/{}px-Gullfoss%2C_an_iconic_waterfall_of_Iceland.jpg'\

@@ -1,0 +1,83 @@
+<!--# Copyright 2019 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+    # Copyright 2019 Anvar kildebekov <https://it-projects.info/team/fedoranvar>
+    # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).-->
+<odoo>
+
+        <record id="view_users_form" model="ir.ui.view">
+            <field name="name">res.users.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='signature']" position="replace">
+                    <field name="signature_id"/>
+                    <field name="signature" attrs="{'readonly':[('signature_id', '!=', False)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_users_form_simple_modif" model="ir.ui.view">
+            <field name="name">res.users.preferences.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='signature']" position="replace">
+                    <field name="partner_id" invisible="1"/>
+                    <field name="signature_id"/>
+                    <field name="signature" attrs="{'readonly':[('signature_id', '!=', False)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_res_users_signature_tree">
+            <field name="name">res.users.signature.tree</field>
+            <field name="model">res.users.signature</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="comment"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_res_users_signature">
+            <field name="name">res.users.signature.form</field>
+            <field name="model">res.users.signature</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Signature">
+                    <header>
+                        <button name="action_update_signature" string="Update signatures" type="object"/>
+                    </header>
+                    <group>
+                        <field name="name" class="oe_inline"/>
+                        <field name="comment" class="oe_inline"/>
+                        <field name="user_ids" widget="many2many_tags" class="oe_inline"/>
+                    </group>
+                    <field name="template" />
+                </form>
+            </field>
+        </record>
+
+        <record id="ir_update_signature_multi" model="ir.actions.server">
+            <field name="name">Update signatures</field>
+            <field name="model_id" ref="model_res_users_signature"/>
+            <field name="binding_model_id" ref="model_res_users_signature"/>
+            <field name="state">code</field>
+            <field name="code">
+                self.action_update_signature(cr, uid, context['active_ids'], context=context)
+            </field>
+        </record>
+
+        <record id="action_res_users_signature" model="ir.actions.act_window">
+            <field name="name">Signatures</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.users.signature</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_res_users_signature_tree"/>
+            <field name="help">Create and manage signature templates</field>
+        </record>
+
+        <menuitem action="action_res_users_signature" id="menu_action_res_users_signature" parent="base.menu_users"/>
+
+</odoo>

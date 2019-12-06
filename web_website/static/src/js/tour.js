@@ -12,13 +12,13 @@ odoo.define('web_website.tour', function(require) {
         wait_for: base.ready(),
     }, [{
         content: "Toggle Website Switcher",
-        trigger: '.navbar-right .o_switch_website_menu > a',
+        trigger: '.o_switch_website_menu > a',
     }, {
         content: "Click Website localhost",
         trigger: '.o_switch_website_menu a[data-website-id=1]',
     }, {
         content: "Wait when page is reloaded",
-        trigger: '.o_switch_website_menu > a:contains(Website localhost)',
+        trigger: '.o_switch_website_menu > a:contains(My Website)',
     },
     ]);
 });

@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -18,6 +18,23 @@ msgstr ""
 #: code:addons/web_debranding/static/src/xml/web.xml:27
 #, python-format
 msgid "(with assets)"
+msgstr ""
+
+#. module: web_debranding
+#: model:ir.model,name:web_debranding.model_ir_actions_act_window
+msgid "Action Window"
+msgstr ""
+
+#. module: web_debranding
+#: model:ir.model.fields,field_description:web_debranding.field_res_users__odoobot_state
+msgid "Bot Status"
+msgstr ""
+
+#. module: web_debranding
+#. openerp-web
+#: code:addons/web_debranding/static/src/js/bot.js:33
+#, python-format
+msgid "Bot has a request"
 msgstr ""
 
 #. module: web_debranding
@@ -37,25 +54,101 @@ msgid "Developer mode is already activated"
 msgstr ""
 
 #. module: web_debranding
+#: selection:res.users,odoobot_state:0
+msgid "Disabled"
+msgstr ""
+
+#. module: web_debranding
+#: model:ir.model,name:web_debranding.model_mail_channel
+msgid "Discussion Channel"
+msgstr ""
+
+#. module: web_debranding
+#: selection:res.users,odoobot_state:0
+msgid "Idle"
+msgstr ""
+
+#. module: web_debranding
 #: model:ir.model,name:web_debranding.model_mail_message
 msgid "Message"
 msgstr ""
 
 #. module: web_debranding
-#: model:ir.model,name:web_debranding.model_web_planner
-msgid "Planner"
+#: selection:res.users,odoobot_state:0
+msgid "Not initialized"
 msgstr ""
 
 #. module: web_debranding
-#: code:addons/web_debranding/models/ir_config_parameter.py:12
+#. openerp-web
+#: code:addons/web_debranding/static/src/js/bot.js:32
+#, python-format
+msgid "OdooBot has a request"
+msgstr ""
+
+#. module: web_debranding
+#: selection:res.users,odoobot_state:0
+msgid "Onboarding attachement"
+msgstr ""
+
+#. module: web_debranding
+#: selection:res.users,odoobot_state:0
+msgid "Onboarding command"
+msgstr ""
+
+#. module: web_debranding
+#: selection:res.users,odoobot_state:0
+msgid "Onboarding emoji"
+msgstr ""
+
+#. module: web_debranding
+#: selection:res.users,odoobot_state:0
+msgid "Onboarding ping"
+msgstr ""
+
+#. module: web_debranding
+#. openerp-web
+#: code:addons/web_debranding/static/src/js/native_notifications.js:15
+#, python-format
+msgid "Permission denied"
+msgstr ""
+
+#. module: web_debranding
+#: model:ir.model,name:web_debranding.model_publisher_warranty_contract
+msgid "Publisher Warranty Contract"
+msgstr ""
+
+#. module: web_debranding
 #: code:addons/web_debranding/models/ir_config_parameter.py:13
+#: code:addons/web_debranding/models/ir_config_parameter.py:14
 #, python-format
 msgid "Software"
 msgstr ""
 
 #. module: web_debranding
+#: model:ir.model,name:web_debranding.model_ir_config_parameter
+msgid "System Parameter"
+msgstr ""
+
+#. module: web_debranding
+#: model:ir.model,name:web_debranding.model_ir_translation
+msgid "Translation"
+msgstr ""
+
+#. module: web_debranding
 #: model:ir.model,name:web_debranding.model_res_users
 msgid "Users"
+msgstr ""
+
+#. module: web_debranding
+#: model:ir.model,name:web_debranding.model_ir_ui_view
+msgid "View"
+msgstr ""
+
+#. module: web_debranding
+#. openerp-web
+#: code:addons/web_debranding/static/src/js/native_notifications.js:15
+#, python-format
+msgid "Yay, push notifications are enabled!"
 msgstr ""
 
 #. module: web_debranding
@@ -70,30 +163,5 @@ msgstr ""
 #: code:addons/web_debranding/static/src/xml/web.xml:9
 #, python-format
 msgid "enable desktop notifications"
-msgstr ""
-
-#. module: web_debranding
-#: model:ir.model,name:web_debranding.model_ir_actions_act_window
-msgid "ir.actions.act_window"
-msgstr ""
-
-#. module: web_debranding
-#: model:ir.model,name:web_debranding.model_ir_config_parameter
-msgid "ir.config_parameter"
-msgstr ""
-
-#. module: web_debranding
-#: model:ir.model,name:web_debranding.model_ir_translation
-msgid "ir.translation"
-msgstr ""
-
-#. module: web_debranding
-#: model:ir.model,name:web_debranding.model_ir_ui_view
-msgid "ir.ui.view"
-msgstr ""
-
-#. module: web_debranding
-#: model:ir.model,name:web_debranding.model_publisher_warranty_contract
-msgid "publisher_warranty.contract"
 msgstr ""
 

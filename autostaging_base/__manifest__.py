@@ -6,9 +6,9 @@
     "name": """Autostaging (technical core)""",
     "summary": """Change stages automatically after a specified time""",
     "category": "Hidden",
-    # "live_test_url": "http://apps.it-projects.info/shop/product/DEMO-URL?version=11.0",
+    # "live_test_url": "http://apps.it-projects.info/shop/product/DEMO-URL?version=12.0",
     "images": [],
-    "version": "11.0.1.0.0",
+    "version": "12.0.1.0.0",
     "application": False,
 
     "author": "IT-Projects LLC, Ildar Nasyrov",

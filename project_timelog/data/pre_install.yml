@@ -1,3 +1,0 @@
--
-  !python {model: timelog.config.settings}: |
-    self.init_timer_parametrs()

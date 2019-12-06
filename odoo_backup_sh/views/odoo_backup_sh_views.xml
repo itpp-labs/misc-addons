@@ -225,28 +225,48 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
                         <field name="unlimited_time_frame" invisible="1"/>
                         <field name="common_rotation" invisible="1"/>
                         <group col="4" colspan="4">
+                          <group>
                             <field name="hourly_rotation"/>
+                          </group>
+                          <group>
                             <field name="hourly_limit" attrs="{'invisible': [('hourly_rotation', '!=', 'limited')]}"/>
+                          </group>
                         </group>
 
                         <group col="4" colspan="4" attrs="{'invisible': [('common_rotation', '!=', 'limited'), ('unlimited_time_frame', '=', 'hour')]}">
+                          <group>
                             <field name="daily_rotation"/>
+                          </group>
+                          <group>
                             <field name="daily_limit" attrs="{'invisible': [('daily_rotation', '!=', 'limited')]}"/>
+                          </group>
                         </group>
 
                         <group col="4" colspan="4" attrs="{'invisible': [('common_rotation', '!=', 'limited'), ('unlimited_time_frame', 'in', ['hour', 'day'])]}">
+                          <group>
                             <field name="weekly_rotation"/>
+                          </group>
+                          <group>
                             <field name="weekly_limit" attrs="{'invisible': [('weekly_rotation', '!=', 'limited')]}"/>
+                          </group>
                         </group>
 
                         <group col="4" colspan="4" attrs="{'invisible': [('common_rotation', '!=', 'limited'), ('unlimited_time_frame', 'in', ['day', 'hour', 'week'])]}">
+                          <group>
                             <field name="monthly_rotation"/>
+                          </group>
+                          <group>
                             <field name="monthly_limit" attrs="{'invisible': [('monthly_rotation', '!=', 'limited')]}"/>
+                          </group>
                         </group>
 
                         <group col="4" colspan="4" attrs="{'invisible': [('common_rotation', '!=', 'limited'), ('unlimited_time_frame', 'in', ['day', 'hour', 'week', 'month'])]}">
+                          <group>
                             <field name="yearly_rotation"/>
+                          </group>
+                          <group>
                             <field name="yearly_limit" attrs="{'invisible': [('yearly_rotation', '!=', 'limited')]}"/>
+                          </group>
                         </group>
                         <p colspan="4" attrs="{'invisible': [('common_rotation', '!=', 'unlimited')]}">
                             Unlilmited option is enabled. Number of backups will increase <b>infinitly</b>.<br/>
@@ -361,10 +381,10 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
                               <field name="odoo_backup_sh_amazon_bucket_name" nolabel="1"/>
 
                               <label for="odoo_backup_sh_private_s3_dir" class="col-4 col-lg-4 o_light_label"
-                                     attrs="{'invisible': [('odoo_backup_sh_odoo_oauth_uid', 'not in', [False, ''])]}"
+                                     attrs="{'invisible': [('odoo_backup_sh_odoo_oauth_uid', '!=', '')]}"
 />
                               <field name="odoo_backup_sh_private_s3_dir" nolabel="1"
-                                     attrs="{'invisible': [('odoo_backup_sh_odoo_oauth_uid', 'not in', [False, ''])]}"
+                                     attrs="{'invisible': [('odoo_backup_sh_odoo_oauth_uid', '!=', '')]}"
                                      />
 
                               <label for="odoo_backup_sh_amazon_access_key_id" string="Access Key ID" class="col-4 col-lg-4 o_light_label"/>
