@@ -449,11 +449,9 @@ msgstr ""
 #. module: odoo_backup_sh
 #. openerp-web
 #: code:addons/odoo_backup_sh/static/src/js/dashboard.js:175
-#: model:ir.model.fields,field_description:odoo_backup_sh.field_ir_attachment_config_settings_module_odoo_backup_sh_dropbox
-#: model:ir.model.fields,field_description:odoo_backup_sh.field_res_config_settings_module_odoo_backup_sh_dropbox
-#: model:ir.model.fields,field_description:odoo_backup_sh.field_test_config_settings_module_odoo_backup_sh_dropbox
-#: model:ir.model.fields,field_description:odoo_backup_sh.field_theme_kit_config_module_odoo_backup_sh_dropbox
-#: model:ir.ui.view,arch_db:odoo_backup_sh.res_config_settings_view_form
+#: model:ir.model.fields,field_description:odoo_backup_sh.field_res_config_settings__module_odoo_backup_sh_dropbox
+#: model:ir.model.fields,field_description:odoo_backup_sh.field_test_config_settings__module_odoo_backup_sh_dropbox
+#: model_terms:ir.ui.view,arch_db:odoo_backup_sh.res_config_settings_view_form
 #: selection:odoo_backup_sh.backup_info,storage_service:0
 #: selection:odoo_backup_sh.config,storage_service:0
 #, python-format
@@ -579,11 +577,9 @@ msgstr ""
 #. module: odoo_backup_sh
 #. openerp-web
 #: code:addons/odoo_backup_sh/static/src/js/dashboard.js:177
-#: model:ir.model.fields,field_description:odoo_backup_sh.field_ir_attachment_config_settings_module_odoo_backup_sh_google_disk
-#: model:ir.model.fields,field_description:odoo_backup_sh.field_res_config_settings_module_odoo_backup_sh_google_disk
-#: model:ir.model.fields,field_description:odoo_backup_sh.field_test_config_settings_module_odoo_backup_sh_google_disk
-#: model:ir.model.fields,field_description:odoo_backup_sh.field_theme_kit_config_module_odoo_backup_sh_google_disk
-#: model:ir.ui.view,arch_db:odoo_backup_sh.res_config_settings_view_form
+#: model:ir.model.fields,field_description:odoo_backup_sh.field_res_config_settings__module_odoo_backup_sh_google_disk
+#: model:ir.model.fields,field_description:odoo_backup_sh.field_test_config_settings__module_odoo_backup_sh_google_disk
+#: model_terms:ir.ui.view,arch_db:odoo_backup_sh.res_config_settings_view_form
 #: selection:odoo_backup_sh.backup_info,storage_service:0
 #: selection:odoo_backup_sh.config,storage_service:0
 #, python-format
