@@ -390,6 +390,11 @@ msgstr ""
 
 #. module: ir_attachment_url
 #: selection:ir.attachment.config.settings,ir_attachment_url_storage:0
+msgid "S3 Storage"
+msgstr ""
+
+#. module: ir_attachment_url
+#: selection:ir.attachment.config.settings,ir_attachment_url_storage:0
 msgid "Save as original link"
 msgstr ""
 
