@@ -1,5 +1,6 @@
 # Copyright 2017 Dinar Gabbasov <https://www.it-projects.info/team/GabbasovDinar>
 # Copyright 2018 Rafis Bikbov <https://www.it-projects.info/team/RafiZz>
+# Copyright 2019 Eugene Molotov <https://www.it-projects.info/team/em230418>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 from odoo import fields
 import mimetypes
@@ -29,6 +30,42 @@ def get_mimetype_and_optional_content_by_url(url):
 
 
 class Binary(fields.Binary):
+
+    # based on https://github.com/odoo/odoo/blob/bba7a6b2c46320af150f34359f742ee4e0116e66/odoo/fields.py#L1853-L1872
+    def create(self, record_values):
+        assert self.attachment
+        if not record_values:
+            return
+        # create the attachments that store the values
+        env = record_values[0][0].env
+
+        # redefined part starts here
+        url_record_values = []
+        other_record_values = []
+        for pair in record_values:
+            value = pair[1]
+            if image.is_url(value):
+                url_record_values.append(pair)
+            else:
+                other_record_values.append(pair)
+
+        with env.norecompute():
+            env['ir.attachment'].sudo().with_context(
+                binary_field_real_user=env.user,
+            ).create([{
+                'name': self.name,
+                'res_model': self.model_name,
+                'res_field': self.name,
+                'res_id': record.id,
+                'type': 'url',  # it is not binary like in original method
+                'url': value,  # also using url field instead of datas
+            }
+                for record, value in url_record_values
+                if value
+            ])
+        # calling original create method for non URLs
+        super(Binary, self).create(other_record_values)
+        # redefined part ends here
 
     def write(self, records, value):
         domain = [

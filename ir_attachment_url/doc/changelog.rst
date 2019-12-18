@@ -1,3 +1,9 @@
+`1.1.10`
+-------
+
+- **Improvement:** Define attachment type as URL immediately if URL given
+
+
 `1.1.9`
 -------
 
