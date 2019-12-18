@@ -798,6 +798,26 @@ msgid "S3 Bucket"
 msgstr ""
 
 #. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__s3_access_key_id
+msgid "S3 access key id"
+msgstr ""
+
+#. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__s3_bucket
+msgid "S3 bucket name"
+msgstr ""
+
+#. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__s3_condition
+msgid "S3 condition"
+msgstr ""
+
+#. module: project_timelog
+#: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__s3_secret_key
+msgid "S3 secret key"
+msgstr ""
+
+#. module: project_timelog
 #: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__odoo_backup_sh_amazon_secret_access_key
 msgid "Secret Access Key"
 msgstr ""
@@ -935,6 +955,13 @@ msgstr ""
 #. module: project_timelog
 #: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__specific_user_account
 msgid "Specific User Account"
+msgstr ""
+
+#. module: project_timelog
+#: model:ir.model.fields,help:project_timelog.field_timelog_config_settings__s3_condition
+msgid "Specify valid odoo search domain here,\n"
+"                               e.g. [('res_model', 'in', ['product.image'])] -- store data of product.image only.\n"
+"                               Empty condition means all models"
 msgstr ""
 
 #. module: project_timelog
@@ -1347,6 +1374,11 @@ msgstr ""
 #. module: project_timelog
 #: model:ir.model.fields,field_description:project_timelog.field_timelog_config_settings__social_youtube
 msgid "Youtube Account"
+msgstr ""
+
+#. module: project_timelog
+#: model:ir.model.fields,help:project_timelog.field_timelog_config_settings__s3_bucket
+msgid "i.e. 'attachmentbucket'"
 msgstr ""
 
 #. module: project_timelog
