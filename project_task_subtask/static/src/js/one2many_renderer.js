@@ -1,4 +1,4 @@
-/*  Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+/*  Copyright 2018-2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). */
 odoo.define('project_task_subtask.one2many_renderer', function(require){
 
@@ -95,7 +95,10 @@ odoo.define('project_task_subtask.one2many_renderer', function(require){
         _renderControlPanel: function () {
             var self = this;
             if (this.check_task_tree_mode()) {
-                this.$buttons = QWeb.render("SubtaskSortButtons", {});
+                if (!this.$buttons) {
+                    this.$buttons = $('<div/>');
+                }
+                this.$buttons[0].innerHTML += QWeb.render("SubtaskSortButtons", {});
                 return this._super(arguments).done(function(res){
                     self._update_custom_sort_buttons();
                 });
