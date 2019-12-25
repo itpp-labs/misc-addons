@@ -28,7 +28,7 @@ from odoo.tools.safe_eval import safe_eval
 from odoo.exceptions import UserError
 
 import html2text
-import wdb
+
 
 _logger = logging.getLogger(__name__)
 
@@ -1095,8 +1095,8 @@ class OhadaReport(models.AbstractModel):
         if not config['test_enable']:
             self = self.with_context(commit_assetsbundle=True)
 
-        # base_url = self.env['ir.config_parameter'].sudo().get_param('report.url') or self.env['ir.config_parameter'].sudo().get_param('web.base.url')
-        base_url = 'http://127.0.0.1:8069'
+        base_url = self.env['ir.config_parameter'].sudo().get_param('report.url') or self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        # base_url = 'http://127.0.0.1:8069'
 
         rcontext = {
             'mode': 'print',
