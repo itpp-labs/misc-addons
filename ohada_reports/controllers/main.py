@@ -7,7 +7,7 @@ from odoo.addons.web.controllers.main import _serialize_exception
 from odoo.tools import html_escape
 
 import json
-import wdb
+
 
 class FinancialReportController(http.Controller):
 
@@ -22,10 +22,10 @@ class FinancialReportController(http.Controller):
         try:
             if output_format == 'pdf_bundle':
                 response = request.make_response(
-                    report_obj.print_bundle_pdf(options),
+                    report_obj.print_bundle_pdf(options, kw.get('bundle_items')),
                     headers=[
                         ('Content-Type', 'application/pdf'),
-                        ('Content-Disposition', content_disposition('general_report.pdf'))
+                        ('Content-Disposition', content_disposition('bundle_report.pdf'))
                     ]
                 )
             elif output_format == 'xlsx_bundle':
@@ -33,10 +33,10 @@ class FinancialReportController(http.Controller):
                     None,
                     headers=[
                         ('Content-Type', 'application/vnd.ms-excel'),
-                        ('Content-Disposition', content_disposition('general_report.xlsx'))
+                        ('Content-Disposition', content_disposition('bundle_report.xlsx'))
                     ]
                 )
-                report_obj.print_bundle_xlsx(options, response)
+                report_obj.print_bundle_xlsx(options, response, kw.get('bundle_items'))
             elif output_format == 'xlsx':
                 response = request.make_response(
                     None,

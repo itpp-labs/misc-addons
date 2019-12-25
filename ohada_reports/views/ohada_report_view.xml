@@ -40,6 +40,9 @@
                             <field name="line_ids" nolabel="1"/>
                         </group>
                     </sheet>
+                    <field name="description" position="after">
+                        <field name="description_pad" widget="pad"/>
+                    </field>
                 </form>
             </field>
         </record>

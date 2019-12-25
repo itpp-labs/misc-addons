@@ -1,4 +1,4 @@
-odoo.define('hrms_dashboard.Dashboard', function (require) {
+odoo.define('ohada_dashboard.Dashboard', function (require) {
 "use strict";
 
 var AbstractAction = require('web.AbstractAction');
@@ -13,6 +13,7 @@ var crash_manager = require('web.crash_manager');
 
 var _t = core._t;
 var QWeb = core.qweb;
+
 
 var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
     template: 'OhadaDashboardMain',
@@ -33,7 +34,23 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
         'click .print_bs_pdf': 'print_bs_pdf',
         'click .print_lands_bs_pdf': 'print_lands_bs_pdf',
         'click .print_pl_pdf': 'print_pl_pdf',
-        'click .print_cf_pdf': 'print_cf_pdf'
+        'click .print_cf_pdf': 'print_cf_pdf',
+        'click .open_report': 'open_report',
+    },
+
+    open_report: function(event) {
+        var self = this;
+        event.stopPropagation();
+        event.preventDefault();
+        return self.do_action({
+            name: event.target.getAttribute('name'),
+            tag: 'ohada_report',
+            type: 'ir.actions.client',
+            context: {
+                id : parseInt(event.target.getAttribute('report-id')),
+                model : 'ohada.financial.html.report',
+            },
+        },{on_reverse_breadcrumb: function(){ return self.update_cp();}});
     },
 
     fetch_data: function(year=false) {
@@ -46,6 +63,11 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
             self.data =  result;
         });
         return $.when(def1);
+    },
+
+    update_cp: function() {
+        var self = this;
+        this.update_control_panel();
     },
 
     close_popup: function(){
@@ -141,6 +163,14 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
     },
 
     print_bundle_xlsx: function() {
+        var self = this;
+        var checked_reports = [];
+        this.$('.bundle_item input:checked').each(function() {
+            checked_reports.push($(this)[0].dataset['recordId']);
+        });
+        if(checked_reports.length == 0){
+            return true;
+        }
         framework.blockUI();
         var def = $.Deferred();
         session.get_file({
@@ -148,7 +178,8 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
             data: {"model": "ohada.financial.html.report",
                    "options": JSON.stringify(self.data['options']),
                    "financial_id": 3,
-                   "output_format": "xlsx_bundle"},
+                   "output_format": "xlsx_bundle",
+                   "bundle_items": checked_reports},
             success: def.resolve.bind(def),
             error: function () {
                 crash_manager.rpc_error.apply(crash_manager, arguments);
@@ -160,15 +191,23 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
     },
 
     print_bundle_pdf: function() {
-        self = this;
+        var self = this;
+        var checked_reports = [];
+        this.$('.bundle_item input:checked').each(function() {
+            checked_reports.push($(this)[0].dataset['recordId']);
+        });
+        if(checked_reports.length == 0){
+            return true;
+        }
         framework.blockUI();
         var def = $.Deferred();
         session.get_file({
             url: '/ohada_reports',
             data: {"model": "ohada.financial.html.report",
                    "options": JSON.stringify(self.data['options']),
-                   "financial_id": 3,
-                   "output_format": "pdf_bundle"},
+                   "output_format": "pdf_bundle",
+                   "financial_id": 1,
+                   "bundle_items": checked_reports},
             success: def.resolve.bind(def),
             error: function () {
                 crash_manager.rpc_error.apply(crash_manager, arguments);
@@ -184,10 +223,7 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
         this.$el.append(core.qweb.render('ManagerDashboard', {widget: this}));
         this.render_graphs();
         document.getElementById("myForm").style.display = "none";
-        if (document.getElementsByClassName('o_cp_buttons')[0]){
-            document.getElementsByClassName('o_cp_buttons')[0].style.display = 'none';
-            document.getElementsByClassName('o_cp_right')[0].style.display = 'none';
-        };
+        this.update_cp();
     },
 
     init: function(parent, context) {
@@ -209,10 +245,7 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
             self.render_dashboards();
             self.render_graphs();
             self.$el.parent().addClass('oe_background_grey');
-            if (document.getElementsByClassName('o_cp_buttons')[0]){
-                document.getElementsByClassName('o_cp_buttons')[0].style.display = 'none';
-                document.getElementsByClassName('o_cp_right')[0].style.display = 'none';
-            };
+            self.update_cp();
         });
     },
 

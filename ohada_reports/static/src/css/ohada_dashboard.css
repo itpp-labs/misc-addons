@@ -32,9 +32,7 @@
     margin-top:10px;
     width:120px;
 }
-.btn-color-ee:focus,
-.btn-color-ee.focus,
-.btn-color-ee:hover{
+.btn-color-ee:active{
     background-color: #007a77;
     border-color: #007a77;
 }
@@ -592,22 +590,16 @@ h4 .stat-count {
 .li-head{
     list-style-type: none;
     display: inline;
-    cursor: pointer;
-}
-.li-head:hover{
-    color: #003a3f;
 }
 .stat-head {
     text-align: left !important;
     font-size: 16px;
     margin-bottom: 10px;
     margin-left: 22px;
-    width: 100%;
     color: #008784;
     font-weight: 560;
-    cursor: pointer;
 }
-.stat-head:hover{
+a.stat-head:hover{
     color: #003a3f;
 }
 .emp_graph {
@@ -975,7 +967,8 @@ h4 .stat-count {
 
 
 .row.main-section {
-    margin-right: 200px !important;
+    margin-right: 5px !important;
+    margin-left: 5px !important;
 }
 /* width */
 .ohada_notification::-webkit-scrollbar {

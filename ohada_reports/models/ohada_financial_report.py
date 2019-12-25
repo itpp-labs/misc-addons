@@ -59,6 +59,11 @@ class ReportOhadaFinancialReport(models.Model):
                             default=False)
     sequence = fields.Integer()
     header = fields.Char(default=False)
+    double_report = fields.Boolean(default=False)
+    secondary = fields.Boolean(default=False)
+    description = fields.Text('Notes', track_visibility=False)
+    description_pad = fields.Char('Description PAD', pad_content_field='description')
+
 
     #    _sql_constraints = [
     #        ('code_uniq', 'unique (code)', "A report with the same code already exists."),
@@ -69,20 +74,30 @@ class ReportOhadaFinancialReport(models.Model):
     #    def _code_constrains(self):
     #        if self.code and self.code.strip().lower() in __builtins__.keys():
     #            raise ValidationError('The code "%s" is invalid on report with name "%s"' % (self.code, self.name))
+
     @api.model
-    def print_bundle_xlsx(self, options, response):
+    def write_description(self, id, **kw):
+        wdb.set_trace()
+        self = self.env.browse(id)
+        self.description = kw['summary']
+        return True
+
+    @api.model
+    def print_bundle_xlsx(self, options, response, reports_ids=None):
+        reports_ids = reports_ids.split(',')
         output = io.BytesIO()
         workbook = xlsxwriter.Workbook(output, {'in_memory': True})
 
-        for report in self.env['ohada.financial.html.report'].search([('type', '=', 'main')]):
-            report.get_xlsx(options, response, print_bundle=True, workbook=workbook)
-        options['comparison']['filter'] = 'previous_period'
-        for report in self.env['ohada.financial.html.report'].search([('type', '=', 'cover')]):
-            report.get_xlsx(options, response, print_bundle=True, workbook=workbook)
-        for report in self.env['ohada.financial.html.report'].search([('type', '=', 'sheet')]):
-            report.get_xlsx(options, response, print_bundle=True, workbook=workbook)
-        for report in self.env['ohada.financial.html.report'].search([('type', '=', 'note')]):
-            report.get_xlsx(options, response, print_bundle=True, workbook=workbook)
+        for report_id in reports_ids:
+            if report_id != 'notes':
+                self.env['ohada.financial.html.report'].browse(int(report_id)).get_xlsx(options, response,
+                                                                                                     print_bundle=True,
+                                                                                                     workbook=workbook)
+            else:
+                options['comparison']['filter'] = 'previous_period'
+                for report in self.env['ohada.financial.html.report'].search([('type', '=', 'note'), ('secondary', '=', False)]):
+                    report.get_xlsx(options, response, print_bundle=True, workbook=workbook)
+
 
         workbook.close()
         output.seek(0)
@@ -91,10 +106,10 @@ class ReportOhadaFinancialReport(models.Model):
         return response
 
     @api.model
-    def print_bundle_pdf(self, options, minimal_layout=True):
+    def print_bundle_pdf(self, options, reports_ids=None, minimal_layout=True):
         # base_url = self.env['ir.config_parameter'].sudo().get_param('report.url') or self.env['ir.config_parameter'].sudo().get_param('web.base.url')
         base_url = 'http://127.0.0.1:8069'
-
+        reports_ids = reports_ids.split(',')
         rcontext = {
             'mode': 'print',
             'base_url': base_url,
@@ -107,19 +122,19 @@ class ReportOhadaFinancialReport(models.Model):
         )
 
         body_html = b''
-
-        for report in self.env['ohada.financial.html.report'].search([('type', '=', 'main')]):
-            body_html += report.get_html(options)
-        options['comparison']['filter'] = 'previous_period'
-        for report in self.env['ohada.financial.html.report'].search([('type', '=', 'cover')]):
-            body_html += report.get_html(options)
-        for report in self.env['ohada.financial.html.report'].search([('type', '=', 'sheet')]):
-            body_html += report.get_html(options)
-        for report in self.env['ohada.financial.html.report'].search([('type', '=', 'note')]):
-            body_html += report.get_html(options)
+        for report_id in reports_ids:
+            if report_id != 'notes':
+                body_html += self.env['ohada.financial.html.report'].browse(int(report_id)).get_html(options)
+            else:
+                options['comparison']['filter'] = 'previous_period'
+                for report in self.env['ohada.financial.html.report'].search([('type', '=', 'note'), ('secondary', '=', False)]):
+                    body_html += report.get_html(options)
 
         body = body.replace(b'<body class="o_account_reports_body_print">',
                             b'<body class="o_account_reports_body_print">' + body_html)
+        body = body.replace(b'<table style="margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;"',
+                            b'<table style="font-size:8px !important;margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;"')
+
         if minimal_layout:
             header = ''
             footer = self.env['ir.actions.report'].render_template("ohada_reports.internal_layout_ohada",
@@ -376,7 +391,7 @@ class ReportOhadaFinancialReport(models.Model):
         module = self._context.get('install_module', 'ohada_reports')
         IMD = self.env['ir.model.data']
         for report in self:
-            if not report.generated_menu_id:
+            if not report.generated_menu_id and report.secondary != True:
                 action_vals = {
                     'name': report._get_report_name(),
                     'tag': 'ohada_report',
@@ -578,10 +593,13 @@ class OhadaFinancialReportLine(models.Model):
     symbol = fields.Char(string="Symbol", default='none')
     header = fields.Boolean(default=False)
     letter = fields.Char(string="letter", default=None)
+    note_id = fields.Char(string="note action id", default='none')
+    table_spacer = fields.Boolean(default=False)
 
     _sql_constraints = [
         ('code_uniq', 'unique (code)', "A report line with the same code already exists."),
     ]
+
 
     @api.one
     @api.constrains('code')
@@ -1285,7 +1303,6 @@ class OhadaFinancialReportLine(models.Model):
                 1) add fields reference and note in the lines
                 2) hide balance sheet lines for gross and depreciation values using field hidden_line
         '''
-        # wdb.set_trace()
         final_result_table = []
         comparison_table = [options.get('date')]
         comparison_table += options.get('comparison') and options['comparison'].get('periods', []) or []
@@ -1326,12 +1343,12 @@ class OhadaFinancialReportLine(models.Model):
                 continue
 
             # Post-processing ; creating line dictionnary, building comparison, computing total for extended, formatting
-
             vals = {
                 'id': line.id,
                 'name': line.name,
                 'reference': line.reference,        #E+
-                'note': line.note,                  #E+
+                'note': line.note,
+                'note_id': line.note_id,
                 'symbol': line.symbol,
                 'level': line.level,
                 'class': '',
@@ -1341,7 +1358,9 @@ class OhadaFinancialReportLine(models.Model):
                 'page_break': line.print_on_new_page,
                 'letter': line.letter,
                 'header': line.header,
+                'table_spacer': line.table_spacer,
             }
+
             # wdb.set_trace()
             if financial_report.tax_report and line.domain and not line.action_id:
                 vals['caret_options'] = 'tax.report.line'
@@ -1398,19 +1417,40 @@ class OhadaFinancialReportLine(models.Model):
                 elif len(vals['columns']) > 1 and line._context.get('periods') != None:
                     for i in range(len(vals['columns'][1:])-1):
                         vals['columns'][i+1]['name'] = ['EXERPRICE', 'au 31/12/' + line._context['periods'][i]['string']]
-
             elif line.header == True and financial_report.type == 'note':
-                vals['columns'][0]['name'] = 'ANNEE ' + line._context['date_from'][0:4]
+                vals['columns'][0]['name'] = ['ANNEE ' + line._context['date_from'][0:4]]
                 if len(vals['columns']) > 1 and line._context.get('periods') != None \
                         and options['comparison']['filter'] == 'no_comparison' or len(
                     options['comparison']['periods']) > 1:
                     for i in range(len(vals['columns'][1:])):
-                        vals['columns'][i + 1]['name'] = 'ANNEE ' + line._context['periods'][i]['string']
-                    vals['columns'][- 1]['name'] = 'Variation en %'
+                        vals['columns'][i + 1]['name'] = ['ANNEE ' + line._context['periods'][i]['string']]
+                    vals['columns'][- 1]['name'] = ['Variation en %']
                 elif len(vals['columns']) > 1 and line._context.get('periods') != None:
                     for i in range(len(vals['columns'][1:]) - 1):
-                        vals['columns'][i + 1]['name'] = 'ANNEE ' + line._context['periods'][i]['string']
-                    vals['columns'][- 1]['name'] = 'Variation en %'
+                        vals['columns'][i + 1]['name'] = ['ANNEE ' + line._context['periods'][i]['string']]
+                    vals['columns'][- 1]['name'] = ['Variation en %']
+            #==============================DELETE============================
+            if line.header is True and financial_report.type == 'note' and financial_report.name == 'Note 4':
+                header_list = [["Créances à un", "an au plus"], ["Créances à plus", "d'un an à deux", "ans au plus"],
+                               ["Créances à plus", "de deux ans au", "plus"]]
+                for i in header_list:
+                    vals['columns'].append({'name': i})
+            elif financial_report.type == 'note' and financial_report.name == 'Note 4':
+                for i in range(3):
+                    vals['columns'].append({'name': 0})
+
+            if line.header is True and financial_report.type == 'note' and financial_report.name == 'Note 4_1':
+                vals['columns'] = []
+                header_list = [["Localisation", "(Ville/Pays)"], ["Valeur" ,"d'acquisition"], ["% détenu"],
+                               ["Montants des", "capitaux propres", "filiale"], ["Résultat dernier", "exercice filiale"]]
+
+                for i in header_list:
+                    vals['columns'].append({'name': i})
+            elif financial_report.type == 'note' and financial_report.name == 'Note 4_1':
+                for i in range(2):
+                    vals['columns'].append({'name': ' '})
+
+            # ===============================================================
 
             if len(lines) == 1:
                 new_lines = line.children_ids._get_lines(financial_report, currency_table, options, linesDicts)
@@ -1420,6 +1460,9 @@ class OhadaFinancialReportLine(models.Model):
                     result = lines + new_lines
             else:
                 result = lines
+            if line.note != 'NET' and line.note != ' ':
+                # wdb.set_trace()
+                line.note_id = str(self.env['ir.actions.client'].search([('name', '=', 'Note '+line.note)]).id)
             if result[0]['note'] == 'NET':
                 if financial_report.name == 'Balance Sheet - Assets' and options['comparison']['filter'] == 'no_comparison':
                     result[0]['columns'][0]['name'] = 'BRUT'
@@ -1701,17 +1744,19 @@ class OhadaFinancialReportLine(models.Model):
                                  {'l_month': str(year), 'count': data['zh_d']}]
 
         data['menu_id'] = self.env.ref('account_accountant.menu_accounting').id
-
+        data['print_bundle_reports'] = []
+        for i in self.env['ohada.financial.html.report'].search([('type', '=', 'main')]):
+            data['print_bundle_reports'].append({'name': i.name, 'id': i.id})
+        data['print_bundle_reports'].append({'name': 'Notes', 'id': 'notes'})
         data['notes'] = []
-        for report in self.env['ohada.financial.html.report'].search([('type', '=', 'note')]):
-            data['notes'].append({'name': report.name[0:8].replace("-", "").rstrip().upper(),
-                                  'action_id': self.env['ir.actions.client'].search([('name', '=', report.name)]).id})
+        for report in self.env['ohada.financial.html.report'].search([('type', '=', 'note'), ('secondary', '=', False)]):
+            data['notes'].append({'name': report.name.upper(), 'id': report.id, 'report_name': report.name})
 
-        reports = ['ohada_reports.action_account_report_cs',
-                   'ohada_reports.action_account_report_bs',
-                   'ohada_reports.action_account_report_ohada_profitlost', ]
-
-        for i in reports:
-            data[self.env.ref(i).name] = self.env.ref(i).id
+        data['Cash Flow Statement'] = {'name': 'Tableau des flux de trésorerie',
+                                        'id': self.env.ref('ohada_reports.account_financial_report_ohada_cashflow').id}
+        data['Profit and lost'] = {'name': 'Profit and Lost',
+                                    'id': self.env.ref('ohada_reports.account_financial_report_ohada_profitlost').id}
+        data['Balance Sheet'] = {'name': 'Balance Sheet',
+                                    'id': self.env.ref('ohada_reports.ohada_financial_report_balancesheet0').id}
 
         return data

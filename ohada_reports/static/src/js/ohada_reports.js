@@ -13,6 +13,7 @@ var field_utils = require('web.field_utils');
 var RelationalFields = require('web.relational_fields');
 var StandaloneFieldManagerMixin = require('web.StandaloneFieldManagerMixin');
 var Widget = require('web.Widget');
+var translate = require('web_editor.translate');
 
 var QWeb = core.qweb;
 var _t = core._t;
@@ -120,7 +121,8 @@ var accountReportsWidget = AbstractAction.extend(ControlPanelMixin, {
         'click .o_account_reports_summary': 'edit_summary',
         'click .js_account_report_save_summary': 'save_summary',
         'click .o_account_reports_footnote_icons': 'delete_footnote',
-        'click .js_account_reports_add_footnote': 'add_edit_footnote',
+        'click .js_account_reports_add_footnote': 'add_footnote',
+        'click .js_account_reports_edit_footnote': 'edit_footnote',
         'click .js_account_report_foldable': 'fold_unfold',
         'click [action]': 'trigger_action',
         'click .o_account_reports_load_more span': 'load_more',
@@ -154,10 +156,28 @@ var accountReportsWidget = AbstractAction.extend(ControlPanelMixin, {
             var persist_key = 'report:'+this.report_model+':'+this.financial_id+':'+session.company_id;
             this.report_options = JSON.parse(sessionStorage.getItem(persist_key)) || this.report_options;
         }
+        var options = $.summernote.options;
+        options.toolbar = [
+            ['font', ['bold', 'italic', 'underline', 'clear']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['history', ['undo', 'redo']],
+        ];
         return this._super.apply(this, arguments);
     },
     start: function() {
         var self = this;
+        if (this.financial_id == false) {
+            return this.do_action({
+                name: 'Dashboard',
+                tag: 'ohada_dashboard',
+                type: 'ir.actions.client',
+                context: {
+                    model : 'ohada.dashboard',
+                },
+            });
+        }
         var extra_info = this._rpc({
                 model: self.report_model,
                 method: 'get_report_informations',
@@ -221,8 +241,6 @@ var accountReportsWidget = AbstractAction.extend(ControlPanelMixin, {
         this.render_footnotes();
         this.render_searchview_buttons();
         this.update_cp();
-        document.getElementsByClassName('o_cp_buttons')[0].style.display = 'block';
-        document.getElementsByClassName('o_cp_right')[0].style.display = 'block';
     },
     render_template: function() {
         this.$el.html(this.main_html);
@@ -467,9 +485,11 @@ var accountReportsWidget = AbstractAction.extend(ControlPanelMixin, {
         $(e.target).parents('.o_account_reports_body').find('.o_account_reports_summary').hide();
         $(e.target).parents('.o_account_reports_body').find('textarea[name="summary"]').focus();
     },
+
     save_summary: function(e) {
         var self = this;
-        var text = $(e.target).siblings().val().replace(/[ \t]+/g, ' ');
+        var text = $("#summernote").code()
+//        var text = $(e.target).siblings().val().replace(/[ \t]+/g, ' ');
         return this._rpc({
                 model: 'ohada.report.manager',
                 method: 'write',
@@ -487,6 +507,9 @@ var accountReportsWidget = AbstractAction.extend(ControlPanelMixin, {
                         return value.replace(/\n/g, '<br>\n');
                     });
                 }
+                $("#summernote").destroy();
+                document.getElementById("save_summary").style.display = "none";
+                document.getElementById("edit_a_note2").style.display = "block";
                 return $(e.target).parent().siblings('.o_account_reports_summary').find('> .o_account_report_summary').html($content);
             });
     },
@@ -521,57 +544,78 @@ var accountReportsWidget = AbstractAction.extend(ControlPanelMixin, {
                 return self.$el.find('.js_account_report_footnotes').html(result);
             });
     },
-    add_edit_footnote: function(e) {
-        // open dialog window with either empty content or the footnote text value
-        var self = this;
-        var line_id = $(e.target).data('id');
-        // check if we already have some footnote for this line
-        var existing_footnote = _.filter(self.footnotes, function(footnote) {
-            return ''+footnote.line === ''+line_id;
-        })
-        var text = '';
-        if (existing_footnote.length !== 0) {
-            text = existing_footnote[0].text;
+    edit_footnote: function(e) {
+        $('#summernote').summernote({
+            placeholder: 'Enter text here',
+            tabsize: 2,
+            height: 100
+        });
+        document.getElementById("save_summary").style.display = "block";
+        if (document.getElementById("edit_a_note")){
+            document.getElementById("edit_a_note").style.display = "none";
         }
-        var $content = $(QWeb.render('accountReports.footnote_dialog', {text: text, line: line_id}));
-        var save = function() {
-            var footnote_text = $('.js_account_reports_footnote_note').val().replace(/[ \t]+/g, ' ');
-            if (!footnote_text && existing_footnote.length === 0) {return;}
-            if (existing_footnote.length !== 0) {
-                if (!footnote_text) {
-                    return self.$el.find('.footnote[data-id="'+existing_footnote[0].id+'"] .o_account_reports_footnote_icons').click();
-                }
-                // replace text of existing footnote
-                return this._rpc({
-                        model: 'ohada.report.footnote',
-                        method: 'write',
-                        args: [existing_footnote[0].id, {text: footnote_text}],
-                        context: this.odoo_context,
-                    })
-                    .then(function(result){
-                        _.each(self.footnotes, function(footnote) {
-                            if (footnote.id === existing_footnote[0].id){
-                                footnote.text = footnote_text;
-                            }
-                        });
-                        return self.render_footnotes();
-                    });
-            }
-            else {
-                // new footnote
-                return this._rpc({
-                        model: 'ohada.report.footnote',
-                        method: 'create',
-                        args: [{line: line_id, text: footnote_text, manager_id: self.report_manager_id}],
-                        context: this.odoo_context,
-                    })
-                    .then(function(result){
-                        self.footnotes.push({id: result, line: line_id, text: footnote_text});
-                        return self.render_footnotes();
-                    });
-            }
-        };
-        new Dialog(this, {title: 'Annotate', size: 'medium', $content: $content, buttons: [{text: 'Save', classes: 'btn-primary', close: true, click: save}, {text: 'Cancel', close: true}]}).open();
+        if (document.getElementById("edit_a_note2")){
+            document.getElementById("edit_a_note2").style.display = "none";
+        }
+    },
+    add_footnote: function(e) {
+        $('#summernote').summernote({
+            placeholder: 'Enter text here',
+            tabsize: 2,
+            height: 100
+        });
+        document.getElementById("save_summary").style.display = "block";
+        document.getElementById("add_a_note").style.display = "none";
+//        // open dialog window with either empty content or the footnote text value
+//        var self = this;
+//        var line_id = $(e.target).data('id');
+//        // check if we already have some footnote for this line
+//        var existing_footnote = _.filter(self.footnotes, function(footnote) {
+//            return ''+footnote.line === ''+line_id;
+//        })
+//        var text = '';
+//        if (existing_footnote.length !== 0) {
+//            text = existing_footnote[0].text;
+//        }
+//        var $content = $(QWeb.render('accountReports.footnote_dialog', {text: text, line: line_id}));
+//        var save = function() {
+//            var footnote_text = $('.js_account_reports_footnote_note').val().replace(/[ \t]+/g, ' ');
+//            if (!footnote_text && existing_footnote.length === 0) {return;}
+//            if (existing_footnote.length !== 0) {
+//                if (!footnote_text) {
+//                    return self.$el.find('.footnote[data-id="'+existing_footnote[0].id+'"] .o_account_reports_footnote_icons').click();
+//                }
+//                // replace text of existing footnote
+//                return this._rpc({
+//                        model: 'ohada.report.footnote',
+//                        method: 'write',
+//                        args: [existing_footnote[0].id, {text: footnote_text}],
+//                        context: this.odoo_context,
+//                    })
+//                    .then(function(result){
+//                        _.each(self.footnotes, function(footnote) {
+//                            if (footnote.id === existing_footnote[0].id){
+//                                footnote.text = footnote_text;
+//                            }
+//                        });
+//                        return self.render_footnotes();
+//                    });
+//            }
+//            else {
+//                // new footnote
+//                return this._rpc({
+//                        model: 'ohada.report.footnote',
+//                        method: 'create',
+//                        args: [{line: line_id, text: footnote_text, manager_id: self.report_manager_id}],
+//                        context: this.odoo_context,
+//                    })
+//                    .then(function(result){
+//                        self.footnotes.push({id: result, line: line_id, text: footnote_text});
+//                        return self.render_footnotes();
+//                    });
+//            }
+//        };
+//        new Dialog(this, {title: 'Annotate', size: 'medium', $content: $content, buttons: [{text: 'Save', classes: 'btn-primary', close: true, click: save}, {text: 'Cancel', close: true}]}).open();
     },
     delete_footnote: function(e) {
         var self = this;

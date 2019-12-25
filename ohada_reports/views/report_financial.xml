@@ -153,6 +153,13 @@
     </div>
 </template>
 
+<template id="my_layout" inherit_id="web.report_layout">
+    <xpath expr="//head" position="after">
+
+        <link href="ohada_reports/static/src/scss/ohada_financial_report.scss" rel="stylesheet"/>
+    </xpath>
+</template>
+
 <template id="line_template">
     <t t-foreach="lines['lines']" t-as="line">
         <t t-set="trclass" t-value="''"/>
@@ -210,14 +217,8 @@
             </t>
             <t t-if="line.get('reference') == 'REF'">
                 <td rowspan="2" t-att-data-id="line['id']" t-att-class="'o_account_report_line o_account_report_line_indent ' + (line.get('unfoldable') and 'js_account_report_foldable' or '')" t-att-data-unfolded="line.get('unfolded', False)" t-att-colspan="line.get('colspan', '1')"
-                t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)"
+                t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)" style="text-align:center;"
                 >
-                        <!--<t t-if="line.get('unfoldable')">-->
-                            <!--<span t-att-data-id="line['id']" class="o_account_reports_caret_icon">-->
-                                <!--<i class="fa fa-caret-down" t-if="line.get('unfolded')" role="img" aria-label="Unfolded" title="Unfolded"/>-->
-                                <!--<i class="fa fa-caret-right" t-if="not line.get('unfolded')" role="img" aria-label="Folded" title="Folded"/>-->
-                            <!--</span>-->
-                        <!--</t>-->
                         <t t-if="not line.get('caret_options')">
                                 <span class="account_report_line_name" t-att-title="line.get('title_hover')">
                                     <a t-if="line.get('action_id')" t-att-data-id="line['id']" t-att-data-action-id="line['action_id']" t-att-action="line.get('action', 'execute_action')">
@@ -252,46 +253,55 @@
                 </td>
             </t>
             <t t-else="line.get('note') != 'NET'">
-                <td t-att-data-id="line['id']" t-att-class="'o_account_report_line o_account_report_line_indent ' + (line.get('unfoldable') and 'js_account_report_foldable' or '')" t-att-data-unfolded="line.get('unfolded', False)" t-att-colspan="line.get('colspan', '1')"
-                t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)"
-                >
-                        <t t-if="not line.get('caret_options')">
-                                <span class="account_report_line_name" t-att-title="line.get('title_hover')">
-                                    <a t-if="line.get('action_id')" t-att-data-id="line['id']" t-att-data-action-id="line['action_id']" t-att-action="line.get('action', 'execute_action')">
-                                        <t t-esc="line.get('name')"/>
-                                    </a>
-                                    <t t-if="not line.get('action_id')" t-esc="line.get('name')"/>
-                                    <span class="js_account_report_line_footnote" t-att-data-id="line['id']">
-                                        <sup t-if="line.get('footnote')"><b class="o_account_reports_footnote_sup"><a t-att-href="'#footnote'+line['footnote']"></a><t t-esc="line['footnote']"/></b></sup>
+                <t t-if="line.get('header') == true">
+                    <td rowspan="1" t-att-data-id="line['id']" t-att-class="'o_account_report_line o_account_report_line_indent ' + (line.get('unfoldable') and 'js_account_report_foldable' or '')" t-att-data-unfolded="line.get('unfolded', False)" t-att-colspan="line.get('colspan', '1')"
+                    t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)" style="text-align:center;padding-top:25px;padding-bottom:25px;"
+                    >
+                        <span><t t-esc="line.get('name')"/></span>
+                    </td>
+                </t>
+                <t t-else="">
+                    <td t-att-data-id="line['id']" t-att-class="'o_account_report_line o_account_report_line_indent ' + (line.get('unfoldable') and 'js_account_report_foldable' or '')" t-att-data-unfolded="line.get('unfolded', False)" t-att-colspan="line.get('colspan', '1')"
+                    t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)"
+                    >
+                            <t t-if="not line.get('caret_options')">
+                                    <span class="account_report_line_name" t-att-title="line.get('title_hover')" style="margin-left:15px;">
+                                        <a t-if="line.get('action_id')" t-att-data-id="line['id']" t-att-data-action-id="line['action_id']" t-att-action="line.get('action', 'execute_action')">
+                                            <t t-esc="line.get('name')"/>
+                                        </a>
+                                        <t t-if="not line.get('action_id')" t-esc="line.get('name')"/>
+                                        <span class="js_account_report_line_footnote" t-att-data-id="line['id']">
+                                            <sup t-if="line.get('footnote')"><b class="o_account_reports_footnote_sup"><a t-att-href="'#footnote'+line['footnote']"></a><t t-esc="line['footnote']"/></b></sup>
+                                        </span>
                                     </span>
+                                    <t t-if="line.get('letter')">
+                                        <span t-att-data-id="line['id']" style="float:right;margin-right:10px;font-weight:bold;">
+                                            <t t-esc="line.get('letter')"/>
+                                        </span>
+                                    </t>
+                            </t>
+                            <t t-if="line.get('unfoldable')">
+                                <span t-att-data-id="line['id']" class="o_account_reports_caret_icon">
+                                    <i class="fa fa-caret-down" t-if="line.get('unfolded')" role="img" aria-label="Unfolded" title="Unfolded"/>
+                                    <i class="fa fa-caret-right" t-if="not line.get('unfolded')" role="img" aria-label="Folded" title="Folded"/>
                                 </span>
-                                <t t-if="line.get('letter')">
-                                    <span t-att-data-id="line['id']" style="float:right;margin-right:10px;font-weight:bold;">
-                                        <t t-esc="line.get('letter')"/>
-                                    </span>
-                                </t>
-                        </t>
-                        <t t-if="line.get('unfoldable')">
-                            <span t-att-data-id="line['id']" class="o_account_reports_caret_icon">
-                                <i class="fa fa-caret-down" t-if="line.get('unfolded')" role="img" aria-label="Unfolded" title="Unfolded"/>
-                                <i class="fa fa-caret-right" t-if="not line.get('unfolded')" role="img" aria-label="Folded" title="Folded"/>
-                            </span>
-                        </t>
-                        <t t-if="line.get('caret_options')">
-                            <div class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href='#'>
-                                    <span t-att-data-id="line['id']" t-att-class="domainClass" t-att-title="line.get('title_hover')">
-                                        <t t-esc="line.get('name')"/>
-                                    </span>
-                                </a>
-                                <span class="js_account_report_line_footnote" t-att-data-id="line['id']"><sup t-if="line.get('footnote')"><b class="o_account_reports_footnote_sup"><a t-att-href="'#footnote'+line['footnote']"></a><t t-esc="line['footnote']"/></b></sup></span>
-                                <div class="dropdown-menu o_account_reports_domain_dropdown" role="menu">
-                                    <t t-call="ohada_reports.line_caret_options"/>
-                                    <a role="menuitem" tabindex="-1" t-att-data-id="line['id']" class="dropdown-item js_account_reports_add_footnote">Annotate</a>
+                            </t>
+                            <t t-if="line.get('caret_options')">
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href='#'>
+                                        <span t-att-data-id="line['id']" t-att-class="domainClass" t-att-title="line.get('title_hover')">
+                                            <t t-esc="line.get('name')"/>
+                                        </span>
+                                    </a>
+                                    <span class="js_account_report_line_footnote" t-att-data-id="line['id']"><sup t-if="line.get('footnote')"><b class="o_account_reports_footnote_sup"><a t-att-href="'#footnote'+line['footnote']"></a><t t-esc="line['footnote']"/></b></sup></span>
+                                    <div class="dropdown-menu o_account_reports_domain_dropdown" role="menu">
+                                        <t t-call="ohada_reports.line_caret_options"/>
+                                        <a role="menuitem" tabindex="-1" t-att-data-id="line['id']" class="dropdown-item js_account_reports_add_footnote">Annotate</a>
+                                    </div>
                                 </div>
-                            </div>
-                        </t>
-                </td>
+                            </t>
+                    </td>
+                </t>
             </t>
 
 
@@ -327,9 +337,16 @@
                 <t t-if="line.get('note') != 'none'">
                     <t t-if="line.get('note')">
                         <td class="o_account_report_line o_account_report_line_indent" style="width:70px !important;text-align:center;">
-                            <span style="margin:auto;" class="account_report_line_name" >
-                                <t t-esc="line.get('note')"/>
-                            </span>
+                            <t t-if="line.get('note_id') != 'False' and line.get('note_id') != 'none'">
+                                <a style="cursor:pointer;" role="menuitem" t-att-data-id="line.get('note_id')" t-att-data-note="line.get('note')" action="open_notes" class="account_report_line_name" >
+                                    <t t-esc="line.get('note')"/>
+                                </a>
+                            </t>
+                            <t t-else="">
+                                <span style="margin:auto;" class="account_report_line_name" >
+                                    <t t-esc="line.get('note')"/>
+                                </span>
+                            </t>
                         </td>
                     </t>
                 </t>
@@ -350,10 +367,10 @@
             <t t-set="column_index" t-value="0"/>
             <t t-foreach="line.get('columns')" t-as="column">
                 <t t-set="hierarchies_enabled" t-value="len(lines.get('columns_header', [])) > 1"/>
-                <t t-if="line.get('reference') == 'REF'">
+                <t t-if="line.get('reference') == 'REF' or line.get('header') == True">
                     <t t-if="report['name'] == 'Balance Sheet - Assets' and column_index == 0">
                         <!--<t t-if="column_index == 0">-->
-                            <td t-att-colspan="line.get('colspan0')" style="width:90px !important;text-align:center;padding:10px;" t-att-class="'o_account_report_line ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_account_report_line_indent')">
+                            <td t-att-colspan="line.get('colspan0')" style="width:90px !important;text-align:center !important;padding:10px;" t-att-class="'o_account_report_line ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_account_report_line_indent')">
                                 <t t-foreach="column.get('name')" t-as="name">
                                     <span style="margin:auto;padding:15px;" class="o_account_report_column_value" t-att-title="column.get('title')">
                                         <t t-esc="name"/>
@@ -364,7 +381,7 @@
                         <!--</t>-->
                     </t>
                     <t t-else="">
-                        <td style="width:90px !important;text-align:center;padding:10px;" t-att-class="'o_account_report_line ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_account_report_line_indent')">
+                        <td style="width:90px !important;text-align:center !important;padding:10px;" t-att-class="'o_account_report_line ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_account_report_line_indent')">
                             <t t-foreach="column.get('name')" t-as="name">
                                 <span style="margin:auto;padding:15px;" class="o_account_report_column_value" t-att-title="column.get('title')">
                                     <t t-esc="name"/>
@@ -375,8 +392,8 @@
                     </t>
                 </t>
                 <t t-else="">
-                    <t t-if="line.get('header') == true">
-                        <td t-att-class="'o_account_report_line ' + (line.get('unfoldable') and ' ' or '') + ('' if hierarchies_enabled else ' o_account_report_line_indent')" style="text-align:center;padding:20px;">
+                    <t t-if="line.get('header') == True">
+                        <td t-att-class="'o_account_report_line ' + (line.get('unfoldable') and ' ' or '') + ('' if hierarchies_enabled else ' o_account_report_line_indent')" style="text-align:center !important;padding:20px;">
                             <span class="o_account_report_column_value" style="margin:auto;padding:10px;" t-att-title="column.get('title')">
                                 <t t-esc="column.get('name')"/>
                             </span>
@@ -443,50 +460,79 @@
                 <tr><td><span style="font-weight:bold;">Désignation Entité : <span t-esc="report.get('company_name')"/></span></td><td style="text-align:right;"><span style="font-weight:bold;">Exercice clos le : <span>31/12/<t t-esc="report.get('year')"/></span></span></td></tr>
                 <tr><td><span style="font-weight:bold;">Numéro d'identification : <span t-esc="report.get('vat')"/></span></td><td style="text-align:right;"><span style="font-weight:bold;">Durée (en mois) :  12</span></td></tr>
                 <br/>
-                <tr><td colspan="2">&#160;</td></tr>
+                <tr><td style="text-align:center;" colspan="2"><t t-if="report.get('type') == 'note'"><h4><t t-esc="report.get('name')"/></h4></t></td></tr>
                 <tr><td style="text-align:center;" colspan="2"><h4><t t-esc="report.get('header')"/></h4></td></tr>
             </table>
             <div class="table-responsive">
-                <t t-if="report['name'] == 'Balance Sheet'">
-                    <div>
-                        <table style="margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;float:left;" class="o_account_reports_table">
-                            <tbody class="ohada_table">
-                                <t t-call="{{model._get_templates()['bs_line_template']}}"/>
-                            </tbody>
-                        </table>
-                        <table style="margin-bottom:10px;color:#001E5A;font-weight:normal;float:left;" class="o_account_reports_table page">
-                           <tbody class="ohada_table">
-                                <t t-call="{{model._get_templates()['bs2_line_template']}}"/>
-                            </tbody>
-                        </table>
-                    </div>
-                </t>
-                <t t-else="">
+                <t t-if="report.get('double_report') == True">
+                    <t t-set="lines" t-value="lines_notes[0]"/>
                     <table style="margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;" class="o_account_reports_table">
-                        <tbody class="ohada_table">
-                            <t t-if="lines.get('lines')">
-                                <t t-call="{{model._get_templates()['line_template']}}"/>
-                            </t>
-                        </tbody>
+                            <tbody class="ohada_table">
+                                <t t-if="lines.get('lines')">
+                                    <t t-call="{{model._get_templates()['line_template']}}"/>
+                                </t>
+                            </tbody>
+                    </table>
+                    <table style="color:#001E5A;font-family:NimbusSanL-Regu;width:100%;margin-bottom:0px;margin-top:50px;">
+                        <tr><td style="text-align:center;" colspan="2"><h4><t t-esc="report.get('header_2')"/></h4></td></tr>
+                    </table>
+                    <t t-set="lines" t-value="lines_notes[1]"/>
+                    <table style="margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;" class="o_account_reports_table">
+                            <tbody class="ohada_table">
+                                <t t-if="lines.get('lines')">
+                                    <t t-call="{{model._get_templates()['line_template']}}"/>
+                                </t>
+                            </tbody>
                     </table>
                 </t>
+                <t t-else="">
+                    <t t-if="report['name'] == 'Balance Sheet'">
+                        <div>
+                            <table style="margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;float:left;" class="o_account_reports_table">
+                                <tbody class="ohada_table">
+                                    <t t-call="{{model._get_templates()['bs_line_template']}}"/>
+                                </tbody>
+                            </table>
+                            <table style="margin-bottom:10px;color:#001E5A;font-weight:normal;float:left;" class="o_account_reports_table page">
+                               <tbody class="ohada_table">
+                                    <t t-call="{{model._get_templates()['bs2_line_template']}}"/>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <table style="margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;" class="o_account_reports_table">
+                            <tbody class="ohada_table">
+                                <t t-if="lines.get('lines')">
+                                    <t t-call="{{model._get_templates()['line_template']}}"/>
+                                </t>
+                            </tbody>
+                        </table>
+                    </t>
+                </t>
             </div>
-            <div class="o_account_reports_summary_edit no_print">
-                <textarea name="summary"><t t-if="report.get('summary')" t-esc="report['summary']" /></textarea>
-                <button class="btn btn-primary js_account_report_save_summary">Save</button>
+            <div class="o_account_report_summary no_print" style="margin-bottom:0px;color:#001E5A;font-family:NimbusSanL-Regu;">
+                <span t-if="not report.get('summary')" id="add_a_note" class="js_account_reports_add_footnote" name='summary' style="cursor:pointer;">Add a note</span>
             </div>
-            <div class="o_account_reports_summary no_print">
-                <i class="fa fa-fw fa-pencil o_account_reports_edit_summary_pencil no_print" role="img" aria-label="Edit Summary" title="Edit Summary"></i>
+            <div id="summernote"><span t-if="report.get('summary')"><t t-esc="report['summary']" t-options="{'widget': 'html'}"/></span></div>
+            <button t-if="report.get('summary')" id="edit_a_note" class="btn btn-primary js_account_reports_edit_footnote no_print" name='summary'>Edit a note</button>
+            <button id="edit_a_note2" class="btn btn-primary js_account_reports_edit_footnote no_print" name='summary' style="display:none;">Edit a note</button>
+            <button class="btn btn-primary js_account_report_save_summary" id="save_summary" style="display:none;margin-top:10px;">Save</button>
+            <div style="height:100px;" class="no_print"/>
+            <!--<div class="o_account_reports_summary_edit no_print">-->
+                <!--<textarea name="summary"><t t-if="report.get('summary')" t-esc="report['summary']" /></textarea>-->
+                <!--<button class="btn btn-primary js_account_report_save_summary">Save</button>-->
+            <!--</div>-->
+            <!--<div class="o_account_reports_summary">-->
+                <!--<i class="fa fa-fw fa-pencil o_account_reports_edit_summary_pencil no_print" role="img" aria-label="Edit Summary" title="Edit Summary"></i>-->
 
-                <div class="o_account_report_summary" style="margin-bottom:0px;color:#001E5A;font-family:NimbusSanL-Regu;" role="alert">
-                    <span t-if="report.get('summary')"><t t-esc="report['summary']" t-options="{'widget': 'text'}"/></span>
-                    <input t-if="not report.get('summary')" type='text' class="o_input no_print" name='summary' placeholder='Add a note'/>
-                </div>
-                <div style="height:100px;" class="no_print">
-
-                </div>
-            </div>
-            <div class="js_account_report_footnotes no_print"/>
+                <!--<div class="o_account_report_summary" style="margin-bottom:0px;color:#001E5A;font-family:NimbusSanL-Regu;" role="alert">-->
+                    <!--<span t-if="report.get('summary')"><t t-esc="report['summary']" t-options="{'widget': 'text'}"/></span>-->
+                    <!--<input t-if="not report.get('summary')" type='text' class="o_input no_print" name='summary' placeholder='Add a note'/>-->
+                <!--</div>-->
+                <!--<div style="height:100px;" class="no_print"/>-->
+            <!--</div>-->
+            <!--<div class="js_account_report_footnotes no_print"/>-->
 
         </div>
     </div>
@@ -619,7 +665,7 @@
 </template>
 
 <template id="bs_line_template">
-    <t t-set="lines" t-value="lines[0]['Balance Sheet - Assets']"/>
+    <t t-set="lines" t-value="lines['Balance Sheet - Assets']"/>
     <t t-foreach="lines['lines']" t-as="line">
         <t t-set="trclass" t-value="''"/>
         <t t-set="domainClass" t-value="'o_account_reports_domain_line_2'"/>
@@ -676,7 +722,7 @@
             </t>
             <t t-if="line.get('reference') == 'REF'">
                 <td rowspan="2" t-att-data-id="line['id']" t-att-class="'o_account_report_line o_account_report_line_indent ' + (line.get('unfoldable') and 'js_account_report_foldable' or '')" t-att-data-unfolded="line.get('unfolded', False)" t-att-colspan="line.get('colspan', '1')"
-                t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)"
+                t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)" style="text-align:center;"
                 >
                         <!--<t t-if="line.get('unfoldable')">-->
                             <!--<span t-att-data-id="line['id']" class="o_account_reports_caret_icon">-->
@@ -793,9 +839,16 @@
                 <t t-if="line.get('note') != 'none'">
                     <t t-if="line.get('note')">
                         <td class="o_account_report_line o_account_report_line_indent" style="width:70px !important;text-align:center;">
-                            <span style="margin:auto;" class="account_report_line_name" >
-                                <t t-esc="line.get('note')"/>
-                            </span>
+                            <t t-if="line.get('note_id') != 'False' and line.get('note_id') != 'none'">
+                                <a style="cursor:pointer;" role="menuitem" t-att-data-id="line.get('note_id')" t-att-data-note="line.get('note')" action="open_notes" class="account_report_line_name" >
+                                    <t t-esc="line.get('note')"/>
+                                </a>
+                            </t>
+                            <t t-else="">
+                                <span style="margin:auto;" class="account_report_line_name" >
+                                    <t t-esc="line.get('note')"/>
+                                </span>
+                            </t>
                         </td>
                     </t>
                 </t>
@@ -805,7 +858,7 @@
             <t t-foreach="line.get('columns')" t-as="column">
                 <t t-set="hierarchies_enabled" t-value="len(lines.get('columns_header', [])) > 1"/>
                 <t t-if="line.get('reference') == 'REF'">
-                    <t t-if="report['name'] == 'Balance Sheet' and column_index == 0">
+                    <t t-if="column_index == 0">
                         <!--<t t-if="column_index == 0">-->
                             <td t-att-colspan="line.get('colspan0')" style="width:90px !important;text-align:center;padding:10px;" t-att-class="'o_account_report_line ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_account_report_line_indent')">
                                 <t t-foreach="column.get('name')" t-as="name">
@@ -852,7 +905,7 @@
     </t>
 </template>
 <template id="bs2_line_template">
-    <t t-set="lines" t-value="lines[1]['Balance Sheet - Liabilitites']"/>
+    <t t-set="lines" t-value="lines['Balance Sheet - Liabilitites']"/>
     <t t-foreach="lines['lines']" t-as="line">
         <t t-set="trclass" t-value="''"/>
         <t t-set="domainClass" t-value="'o_account_reports_domain_line_2'"/>
@@ -907,7 +960,7 @@
             </t>
             <t t-if="line.get('reference') == 'REF'">
                 <td rowspan="2" t-att-data-id="line['id']" t-att-class="'o_account_report_line o_account_report_line_indent ' + (line.get('unfoldable') and 'js_account_report_foldable' or '')" t-att-data-unfolded="line.get('unfolded', False)" t-att-colspan="line.get('colspan', '1')"
-                t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)"
+                t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)" style="text-align:center;"
                 >
                         <!--<t t-if="line.get('unfoldable')">-->
                             <!--<span t-att-data-id="line['id']" class="o_account_reports_caret_icon">-->
@@ -1024,9 +1077,16 @@
                 <t t-if="line.get('note') != 'none'">
                     <t t-if="line.get('note')">
                         <td class="o_account_report_line o_account_report_line_indent" style="width:70px !important;text-align:center;">
-                            <span style="margin:auto;" class="account_report_line_name" >
-                                <t t-esc="line.get('note')"/>
-                            </span>
+                            <t t-if="line.get('note_id') != 'False' and line.get('note_id') != 'none'">
+                                <a style="cursor:pointer;" role="menuitem" t-att-data-id="line.get('note_id')" t-att-data-note="line.get('note')" action="open_notes" class="account_report_line_name" >
+                                    <t t-esc="line.get('note')"/>
+                                </a>
+                            </t>
+                            <t t-else="">
+                                <span style="margin:auto;" class="account_report_line_name" >
+                                    <t t-esc="line.get('note')"/>
+                                </span>
+                            </t>
                         </td>
                     </t>
                 </t>
