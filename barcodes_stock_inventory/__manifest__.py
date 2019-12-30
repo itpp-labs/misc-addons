@@ -4,7 +4,7 @@
 
 {
     "name": """Adjust inventory via barcode""",
-    "summary": """The module allows to proceed inventory adjustments via barcode scanning""",
+    "summary": """The module allows proceeding inventory adjustments via barcode scanning""",
     "category": "Warehouse",
     # "live_test_url": "",
     "images": ['images/barcodes_stock_inventory.jpg'],

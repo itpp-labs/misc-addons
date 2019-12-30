@@ -30,6 +30,8 @@ Usage
 * When the work is done click ``[Validate Inventory]``
 * Click ``[Save]``
 
+RESULT: Inventory adjustments via barcode scanning are passed.
+
 Other operations via barcode scanner
 ------------------------------------
 

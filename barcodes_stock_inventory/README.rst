@@ -6,7 +6,7 @@
  Adjust inventory via barcode
 ==============================
 
-The module allows to proceed inventory adjustments via barcode scanning
+The module allows proceeding inventory adjustments via barcode scanning.
 
 By using a barcode scanner you may:
 
