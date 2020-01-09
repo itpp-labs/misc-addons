@@ -25,6 +25,9 @@ tour.register(tour_name, options,
         {
             content: "Wait when page is reloaded",
             trigger: '.o_switch_website_menu > a:contains(My Website)',
+            // Mail module is installed as a part of depencies.
+            // It's assumed, that Discuss menu is the default menu
+            extra_trigger: '.o_mail_discuss_sidebar',
         },
     ]
 );
