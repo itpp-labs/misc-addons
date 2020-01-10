@@ -9,12 +9,20 @@
 Roadmap
 =======
 
+* Rewrite this module from scratch. Module must include:
+
+  * Storing s3-related settings: bucket, access key and access password.
+  * Methods for reading, writing and deleting objects from s3 bucket. Those methods can be used in other modules
+  * Working with s3 objects like binary data, so take away `ir_attachment_url` dependency
+  * `ir_attachment` model must have `s3_store_fname` field. Non-falsy value means, that attachment is stored in s3
+
 * Create new module `ir_attachment_image` and move following classes, methods from this module to new one:
 
   * class `BinaryExtended` (excluding s3-related check)
   * class `IrAttachmentResized`
   * partially class `IrAttachment`. Leave s3-related methods here and `_inverse_datas`
   * method `test_getting_cached_images_url_instead_computing`. Probably this modules's test must override test from `ir_attachment_image`
+  * `ir_attachment_s3` is dependency of `ir_attachment_image`
 
 * Refactoring:
 
