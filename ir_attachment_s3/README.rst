@@ -33,6 +33,15 @@ Roadmap
   * condition, if object in s3 must be stored as public (as it does now)
   * condition, if object in s3 must be stored as private and think about, how to return it to user, 'cos you cannot use link to that. Possibly read from bucket and return and uncomment this: https://github.com/it-projects-llc/misc-addons/pull/775/files#r302856876
 
+* Fix these bugs (possible in ir_attachment_url):
+
+  * After loading image url to existing product variant, image does not change in backend
+  * Set image with url, then upload other image as binary file (s3), backend shows old image. It can be fixed with clearing cache. Reason: there is no 'unique' parameter in image source attribute (<img src)
+  * Using `website_sale` addon. Upload main image to product variant. Then
+
+    * in list of products old image is shown (bug)
+    * in product page main image is shown as main, previous main image is extra (maybe not a bug, but don't know how to remove previous main image)
+
 Credits
 =======
 
