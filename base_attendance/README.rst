@@ -46,4 +46,4 @@ Changelog: `<doc/changelog.rst>`_
 
 Notifications on updates: `via Atom <https://github.com/it-projects-llc/pos-addons/commits/13.0/base_attendance.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/it-projects-llc/pos-addons/commits/13.0/base_attendance.atom>`_
 
-Tested on Odoo 12.0 b0844a4882e7ed089a861da357fed96dfc4abe55
+Tested on Odoo 13.0 c37a16c9dfd09038925034b90ab49e1ab674e714

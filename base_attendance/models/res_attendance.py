@@ -102,10 +102,7 @@ class HrAttendance(models.Model):
                         'datetime': fields.Datetime.to_string(fields.Datetime.context_timestamp(self, fields.Datetime.from_string(last_attendance_before_check_out.check_in))),
                     })
 
-    def copy(self):
-        # super here is called by the reason of LINT error:
-        # [W8106(method-required-super), HrAttendance.copy] Missing `super` call in "copy" method.
-        super(HrAttendance, self).copy()
+    def copy(self):  # pylint: disable=copy-wo-api-one, method-required-super
         raise exceptions.UserError(_('You cannot duplicate an attendance.'))
 
     def autocheckout_close_shifts(self):

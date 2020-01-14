@@ -28,7 +28,7 @@ class HrPartner(models.Model):
 
     partners_attendance_ids = fields.One2many('res.partner.attendance', 'partner_id',
                                               help='list of attendances for the employee')
-    last_attendance_id = fields.Many2one('res.partner.attendance', compute='_compute_last_attendance_id')
+    last_attendance_id = fields.Many2one('res.partner.attendance', compute='_compute_last_attendance_id', store=True)
     attendance_state = fields.Selection(string="Attendance", compute='_compute_attendance_state',
                                         selection=[('checked_out', "Checked out"), ('checked_in', "Checked in")])
 

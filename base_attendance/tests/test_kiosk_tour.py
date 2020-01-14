@@ -4,8 +4,7 @@
 import odoo.tests
 
 
-@odoo.tests.common.at_install(True)
-@odoo.tests.common.post_install(True)
+@odoo.tests.tagged('at_install', 'post_install')
 class TestKiosk(odoo.tests.HttpCase):
 
     def test_kiosk(self):

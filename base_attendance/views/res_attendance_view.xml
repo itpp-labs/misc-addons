@@ -240,7 +240,7 @@ action = {
                     <field name="name" placeholder="Partner's Name"/>
                 </div>
             </field>
-            <xpath expr="//button[hasclass('oe_stat_button')]" position="before">
+            <xpath expr="//field[@name='active']" position="before">
                 <field name="attendance_state" invisible="1"/>
 
                 <button name="%(base_attendance_action_partner_attendances)d"

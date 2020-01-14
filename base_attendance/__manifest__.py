@@ -7,7 +7,7 @@
     "category": "Extra Tools",
     # "live_test_url": "",
     "images": [],
-    "version": "12.0.1.1.2",
+    "version": "13.0.1.1.2",
     "application": False,
 
     "author": "IT-Projects LLC, Kolushov Alexandr",
@@ -34,6 +34,6 @@
     'qweb': [
         "static/src/xml/attendance.xml",
     ],
-    'installable': False,
+    'installable': True,
     'auto_install': False,
 }
