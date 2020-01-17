@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Fiscal Position: Entité du groupe -->         
+    <record id="fiscal_position_template_grp" model="account.fiscal.position.template">
+        <field name="name">Entité du groupe</field>
+        <field name="chart_template_id" ref="ohada_chart_template"/>
+    </record>
+    <record id="fiscal_position_template_grp_t1" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_grp"/>
+        <field name="tax_src_id" ref="tva_col_10_sales"/>
+    </record>
+    <record id="fiscal_position_template_grp_t2" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_grp"/>
+        <field name="tax_src_id" ref="tva_col_10_sales_ttc"/>
+    </record>    
+    <record id="fiscal_position_template_grp_t3" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_grp"/>
+        <field name="tax_src_id" ref="tva_col_18_sales"/>
+    </record>
+    <record id="fiscal_position_template_grp_t4" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_grp"/>
+        <field name="tax_src_id" ref="tva_col_18_sales_ttc"/>
+    </record>    
+    <record id="fiscal_position_template_grp_a1" model="account.fiscal.position.account.template">
+        <field name="position_id" ref="fiscal_position_template_grp"/>
+        <field name="account_src_id" ref="l10n_ohada.pcg_6011" />
+        <field name="account_dest_id" ref="l10n_ohada.pcg_6013" />
+    </record>
+    <record id="fiscal_position_template_grp_a2" model="account.fiscal.position.account.template">
+        <field name="position_id" ref="fiscal_position_template_grp"/>
+        <field name="account_src_id" ref="l10n_ohada.pcg_6021" />
+        <field name="account_dest_id" ref="l10n_ohada.pcg_6013" />
+    </record>
+    <record id="fiscal_position_template_grp_a3" model="account.fiscal.position.account.template">
+        <field name="position_id" ref="fiscal_position_template_grp"/>
+        <field name="account_src_id" ref="l10n_ohada.pcg_6022" />
+        <field name="account_dest_id" ref="l10n_ohada.pcg_6013" />
+    </record>
+    <record id="fiscal_position_template_grp_a4" model="account.fiscal.position.account.template">
+        <field name="position_id" ref="fiscal_position_template_grp"/>
+        <field name="account_src_id" ref="l10n_ohada.pcg_7011" />
+        <field name="account_dest_id" ref="l10n_ohada.pcg_7013" />
+    </record>
+    <record id="fiscal_position_template_grp_a5" model="account.fiscal.position.account.template">
+        <field name="position_id" ref="fiscal_position_template_grp"/>
+        <field name="account_src_id" ref="l10n_ohada.pcg_7012" />
+        <field name="account_dest_id" ref="l10n_ohada.pcg_7013" />
+    </record>
+    
+        
+    <!-- Fiscal Position: Import/Export -->  
+    <record id="fiscal_position_template_hreg" model="account.fiscal.position.template">
+        <field name="name">Import/Export</field>
+        <field name="chart_template_id" ref="ohada_chart_template"/>
+    </record>    
+    <record id="fiscal_position_tax_template_hreg_exo_10" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_hreg"/>
+        <field name="tax_src_id" ref="tva_col_10_sales"/>
+        <field name="tax_dest_id" ref="tva_col_18_sales_exonerated"/>
+    </record>
+    <record id="fiscal_position_tax_template_hreg_exo_10_ttc" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_hreg"/>
+        <field name="tax_src_id" ref="tva_col_10_sales_ttc"/>
+        <field name="tax_dest_id" ref="tva_col_18_sales_exonerated"/>
+    </record>
+    <record id="fiscal_position_tax_template_hreg_exo_18" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_hreg"/>
+        <field name="tax_src_id" ref="tva_col_18_sales"/>
+        <field name="tax_dest_id" ref="tva_col_18_sales_exonerated"/>
+    </record>
+    <record id="fiscal_position_tax_template_hreg_exo_18_ttc" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_hreg"/>
+        <field name="tax_src_id" ref="tva_col_18_sales_ttc"/>
+        <field name="tax_dest_id" ref="tva_col_18_sales_exonerated"/>
+    </record>
+    <record id="fiscal_position_tax_template_hreg_exo_18_svc" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_hreg"/>
+        <field name="tax_src_id" ref="tva_col_18_sales_service"/>
+        <field name="tax_dest_id" ref="tva_col_18_sales_exonerated"/>
+    </record>
+    <record id="fiscal_position_tax_template_hreg_exo_18_bdg" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_hreg"/>
+        <field name="tax_src_id" ref="tva_col_18_sales_building"/>
+        <field name="tax_dest_id" ref="tva_col_18_sales_exonerated"/>
+    </record>
+    <record id="fiscal_position_tax_template_hreg_exo_18_inv" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_hreg"/>
+        <field name="tax_src_id" ref="tva_col_18_sales_to_invoice"/>
+        <field name="tax_dest_id" ref="tva_col_18_sales_exonerated"/>
+    </record>
+    <record id="fiscal_position_tax_template_hreg_exo_18_div" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_hreg"/>
+        <field name="tax_src_id" ref="tva_col_18_sales_op_divers"/>
+        <field name="tax_dest_id" ref="tva_col_18_sales_exonerated"/>
+    </record>
+    <record id="fiscal_position_template_hreg_1" model="account.fiscal.position.account.template">
+        <field name="position_id" ref="fiscal_position_template_hreg"/>
+        <field name="account_src_id" ref="l10n_ohada.pcg_7011" />
+        <field name="account_dest_id" ref="l10n_ohada.pcg_7012" />
+    </record>
+    <record id="fiscal_position_template_hreg_2" model="account.fiscal.position.account.template">
+        <field name="position_id" ref="fiscal_position_template_hreg"/>
+        <field name="account_src_id" ref="l10n_ohada.pcg_7021" />
+        <field name="account_dest_id" ref="l10n_ohada.pcg_7022" />
+    </record>
+    <record id="fiscal_position_template_hreg_3" model="account.fiscal.position.account.template">
+        <field name="position_id" ref="fiscal_position_template_hreg"/>
+        <field name="account_src_id" ref="l10n_ohada.pcg_6011" />
+        <field name="account_dest_id" ref="l10n_ohada.pcg_6012" />
+    </record>
+    <record id="fiscal_position_template_hreg_4" model="account.fiscal.position.account.template">
+        <field name="position_id" ref="fiscal_position_template_hreg"/>
+        <field name="account_src_id" ref="l10n_ohada.pcg_6021" />
+        <field name="account_dest_id" ref="l10n_ohada.pcg_6022" />
+    </record>
+
+        
+    <!-- Fiscal Position: Exonéré de TVA -->  
+    <record id="fiscal_position_template_exo" model="account.fiscal.position.template">
+        <field name="name">Exonéré de TVA (Vente)</field>
+        <field name="chart_template_id" ref="ohada_chart_template"/>
+    </record>
+    <record id="fiscal_position_tax_template_exo_10" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_exo"/>
+        <field name="tax_src_id" ref="tva_col_10_sales"/>
+        <field name="tax_dest_id" ref="tva_col_18_sales_exonerated"/>
+    </record>
+    <record id="fiscal_position_tax_template_exo_10_ttc" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_exo"/>
+        <field name="tax_src_id" ref="tva_col_10_sales_ttc"/>
+        <field name="tax_dest_id" ref="tva_col_18_sales_exonerated"/>
+    </record>
+    <record id="fiscal_position_tax_template_exo_18" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_exo"/>
+        <field name="tax_src_id" ref="tva_col_18_sales"/>
+        <field name="tax_dest_id" ref="tva_col_18_sales_exonerated"/>
+    </record>
+    <record id="fiscal_position_tax_template_exo_18_ttc" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_exo"/>
+        <field name="tax_src_id" ref="tva_col_18_sales_ttc"/>
+        <field name="tax_dest_id" ref="tva_col_18_sales_exonerated"/>
+    </record>
+    <record id="fiscal_position_tax_template_exo_18_svc" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_exo"/>
+        <field name="tax_src_id" ref="tva_col_18_sales_service"/>
+        <field name="tax_dest_id" ref="tva_col_18_sales_exonerated"/>
+    </record>
+    <record id="fiscal_position_tax_template_exo_18_bdg" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_exo"/>
+        <field name="tax_src_id" ref="tva_col_18_sales_building"/>
+        <field name="tax_dest_id" ref="tva_col_18_sales_exonerated"/>
+    </record>
+    <record id="fiscal_position_tax_template_exo_18_inv" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_exo"/>
+        <field name="tax_src_id" ref="tva_col_18_sales_to_invoice"/>
+        <field name="tax_dest_id" ref="tva_col_18_sales_exonerated"/>
+    </record>
+    <record id="fiscal_position_tax_template_exo_18_div" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_exo"/>
+        <field name="tax_src_id" ref="tva_col_18_sales_op_divers"/>
+        <field name="tax_dest_id" ref="tva_col_18_sales_exonerated"/>
+    </record>
+        
+        
+    <!-- Fiscal Position: Suspension de TVA (Vente) -->  
+    <record id="fiscal_position_template_susp" model="account.fiscal.position.template">
+        <field name="name">Suspension de TVA (Vente)</field>
+        <field name="chart_template_id" ref="ohada_chart_template"/>
+    </record>
+    <record id="fiscal_position_tax_template_susp_10" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_susp"/>
+        <field name="tax_src_id" ref="tva_col_10_sales"/>
+        <field name="tax_dest_id" ref="tva_col_18_sales_suspended"/>
+    </record>
+    <record id="fiscal_position_tax_template_susp_10_ttc" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_susp"/>
+        <field name="tax_src_id" ref="tva_col_10_sales_ttc"/>
+        <field name="tax_dest_id" ref="tva_col_18_sales_suspended"/>
+    </record>
+    <record id="fiscal_position_tax_template_susp_18" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_susp"/>
+        <field name="tax_src_id" ref="tva_col_18_sales"/> 
+        <field name="tax_dest_id" ref="tva_col_18_sales_suspended"/>
+    </record>
+    <record id="fiscal_position_tax_template_susp_18_ttc" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_susp"/>
+        <field name="tax_src_id" ref="tva_col_18_sales_ttc"/>
+        <field name="tax_dest_id" ref="tva_col_18_sales_suspended"/>
+    </record>
+    <record id="fiscal_position_tax_template_susp_18_svc" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_susp"/>
+        <field name="tax_src_id" ref="tva_col_18_sales_service"/>
+        <field name="tax_dest_id" ref="tva_col_18_sales_suspended"/>
+    </record>
+    <record id="fiscal_position_tax_template_susp_18_bdg" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_susp"/>
+        <field name="tax_src_id" ref="tva_col_18_sales_building"/>
+        <field name="tax_dest_id" ref="tva_col_18_sales_suspended"/>
+    </record>
+    <record id="fiscal_position_tax_template_susp_18_inv" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_susp"/>
+        <field name="tax_src_id" ref="tva_col_18_sales_to_invoice"/>
+        <field name="tax_dest_id" ref="tva_col_18_sales_suspended"/>
+    </record>
+    <record id="fiscal_position_tax_template_susp_18_div" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_susp"/>
+        <field name="tax_src_id" ref="tva_col_18_sales_op_divers"/>
+        <field name="tax_dest_id" ref="tva_col_18_sales_suspended"/>
+    </record>
+
+    
+    <!-- Fiscal Position: Précompté de TVA -->  
+    <record id="fiscal_position_template_prec" model="account.fiscal.position.template">
+        <field name="name">Précompté de TVA (Achat)</field>
+        <field name="chart_template_id" ref="ohada_chart_template"/>
+    </record>
+    <record id="fiscal_position_tax_template_prec_10_1" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_prec"/>
+        <field name="tax_src_id" ref="tva_acq_10_purchase"/>
+        <field name="tax_dest_id" ref="tva_acq_10_purchase"/>
+    </record>    
+    <record id="fiscal_position_tax_template_prec_10_2" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_prec"/>
+        <field name="tax_src_id" ref="tva_acq_10_purchase"/>
+        <field name="tax_dest_id" ref="tva_col_10_purchase_prec"/>
+    </record> 
+    <record id="fiscal_position_tax_template_prec_10_ttc_1" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_prec"/>
+        <field name="tax_src_id" ref="tva_acq_10_purchase_ttc"/>
+        <field name="tax_dest_id" ref="tva_acq_10_purchase_ttc"/>
+    </record>
+    <record id="fiscal_position_tax_template_prec_10_ttc_2" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_prec"/>
+        <field name="tax_src_id" ref="tva_acq_10_purchase_ttc"/>
+        <field name="tax_dest_id" ref="tva_col_10_purchase_prec"/>
+    </record>   
+    <record id="fiscal_position_tax_template_prec_18_1" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_prec"/>
+        <field name="tax_src_id" ref="tva_acq_18_purchase"/>
+        <field name="tax_dest_id" ref="tva_acq_18_purchase"/>
+    </record>
+    <record id="fiscal_position_tax_template_prec_18_2" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_prec"/>
+        <field name="tax_src_id" ref="tva_acq_18_purchase"/>
+        <field name="tax_dest_id" ref="tva_col_18_purchase_prec"/>
+    </record>
+    <record id="fiscal_position_tax_template_prec_18_ttc_1" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_prec"/>
+        <field name="tax_src_id" ref="tva_acq_18_purchase_ttc"/>
+        <field name="tax_dest_id" ref="tva_acq_18_purchase_ttc"/>
+    </record>
+    <record id="fiscal_position_tax_template_prec_18_ttc_2" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_prec"/>
+        <field name="tax_src_id" ref="tva_acq_18_purchase_ttc"/>
+        <field name="tax_dest_id" ref="tva_col_18_purchase_prec"/>
+    </record>
+    
+    
+    <!-- Fiscal Position: Prestataire de Service -->         
+    <record id="fiscal_position_template_service" model="account.fiscal.position.template">
+        <field name="name">BRS Prestation de Service</field>
+        <field name="chart_template_id" ref="ohada_chart_template"/>
+    </record>    
+    <record id="fiscal_position_template_prest_t1" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_service"/>
+        <field name="tax_src_id" ref="tva_acq_18_purchase"/>
+        <field name="tax_dest_id" ref="brs_col_service_5"/>   
+    </record>
+    <record id="fiscal_position_template_prest_t2" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_service"/>
+        <field name="tax_src_id" ref="tva_acq_18_purchase_ttc"/>
+        <field name="tax_dest_id" ref="brs_col_service_5_ttc"/>   
+    </record>    
+    <record id="fiscal_position_template_prest_a1" model="account.fiscal.position.account.template">
+        <field name="position_id" ref="fiscal_position_template_service"/>
+        <field name="account_src_id" ref="l10n_ohada.pcg_6011" />
+        <field name="account_dest_id" ref="l10n_ohada.pcg_6611" />
+    </record>
+
+
+    <!-- Fiscal Position: Loyeur -->         
+    <record id="fiscal_position_template_rent" model="account.fiscal.position.template">
+        <field name="name">BRS Location</field>
+        <field name="chart_template_id" ref="ohada_chart_template"/>
+    </record>    
+    <record id="fiscal_position_template_rent_t1" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_rent"/>
+        <field name="tax_src_id" ref="tva_acq_18_purchase"/>
+        <field name="tax_dest_id" ref="brs_col_rent_5"/>   
+    </record>
+    <record id="fiscal_position_template_rent_t2" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_rent"/>
+        <field name="tax_src_id" ref="tva_acq_18_purchase_ttc"/>
+        <field name="tax_dest_id" ref="brs_col_rent_5_ttc"/>   
+    </record>    
+    <record id="fiscal_position_template_rent_a1" model="account.fiscal.position.account.template">
+        <field name="position_id" ref="fiscal_position_template_rent"/>
+        <field name="account_src_id" ref="l10n_ohada.pcg_6011" />
+        <field name="account_dest_id" ref="l10n_ohada.pcg_6222" />
+    </record>
+    
+    
+</odoo>

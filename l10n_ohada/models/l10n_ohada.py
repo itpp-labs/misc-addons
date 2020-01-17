@@ -19,7 +19,7 @@ class AccountChartTemplate(models.Model):
             -> so late creation of transfer account can be done with prefix 585
     '''
     transfer_account_code_prefix = fields.Char(string='Prefix of the main transfer accounts', required=False)
-    check_transfer_account_code_prefix = fields.Char(string='Prefix of the check transfer accounts', required=True)
+    check_transfer_account_code_prefix = fields.Char(string='Prefix of the check transfer accounts', required=False)
     
     def _get_account_vals(self, company, account_template, code_acc, tax_template_ref):        
         vals = super(AccountChartTemplate, self)._get_account_vals(company, account_template, code_acc, tax_template_ref)
@@ -52,7 +52,7 @@ class AccountChartTemplate(models.Model):
             })                    
         return journals
        
-    def XXXload_for_current_company(self, sale_tax_rate, purchase_tax_rate):
+    def load_for_current_company(self, sale_tax_rate, purchase_tax_rate):
         self.ensure_one()
         res = super(AccountChartTemplate, self).load_for_current_company(sale_tax_rate, purchase_tax_rate)        
         # do not use `request.env` here, it can cause deadlocks

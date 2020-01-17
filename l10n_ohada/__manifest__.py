@@ -1,23 +1,17 @@
 # -*- coding: utf-8 -*-
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 # Copyright (c) 2018 ERGOBIT Consulting - www.ergobit.org
-# See LICENSE file for full copyright and licensing details.
 # contact: info@ergobit.org
 
 {
     'name': 'OHADA - Accounting',
-    'summary': 'Chart of accounts & chart of taxes',
-    'category': 'Accounting',
-    'author' : 'ERGOBIT',
+    'category': 'Localization',
+    'author' : 'ERGOBIT', 
     'description': """
 Accounting Chart for OHADA
 ================================
 
-This module implements the accounting chart for OHADA countries. It includes:
-    - the new SYSCOHADA chart of accounts as of 2018,
-    - fonctional enhancements of the CoA to prepare automatic financial statements which is done in module l10n_ohada_reports,
-    - a basic chart of taxes,
-    - a basic chart for social declarations,
-    - automatic determination accounts and taxes in invoicing.
+This module implements the accounting chart for OHADA countries.
 
 Countries that belong to OHADA are the following:
 --------------------------------------------------
@@ -26,25 +20,23 @@ Countries that belong to OHADA are the following:
     Replica of Democratic Congo, Senegal, Chad, Togo.
     
     """,
-    'category': 'Accounting',
     'depends' : [
         'account', 
         'base_vat', 
     ],
-    # 'data': [
-    #     'data/res.country.group.csv',
-    #     'data/menuitem.xml',
-    #     'data/account_chart_template_data.xml',
-    #     'data/account_tax_data.xml',
-    #     'data/account_tax_template_data.xml',
-    #     'data/account_brs_template_data.xml',
-    #     'data/fiscal_position_template_data.xml',
-    #     'data/account_chart_load_template.xml',
-    #
-    #     'views/account_view.xml',
-    #     'views/res_config_settings_views.xml',
-    # ],
-    'auto_install': False,
+    'data': [
+        # 'data/res.country.group.csv',
+        'data/account_chart_template_data.xml',
+        'data/account_tax_data.xml',
+        'data/account_tax_template_data.xml',
+        'data/account_brs_template_data.xml',        
+        'data/fiscal_position_template_data.xml',
+        'data/account_chart_load_template.xml',
+        
+        'views/account_view.xml',        
+    ],
+    'demo': [],
     'installable': True,
-    'license': 'OPL-1',
+    'auto_install': False,
+    #'licence': 'OPL-1',
 }
