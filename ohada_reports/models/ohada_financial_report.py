@@ -23,7 +23,7 @@ from odoo.osv import expression
 from odoo.tools.pycompat import izip
 from odoo import http
 from odoo.http import content_disposition, request
-
+import wdb
 
 class ReportOhadaFinancialReport(models.Model):
     _name = "ohada.financial.html.report"
@@ -60,8 +60,7 @@ class ReportOhadaFinancialReport(models.Model):
     header = fields.Char(default=False)
     double_report = fields.Boolean(default=False)
     secondary = fields.Boolean(default=False)
-    description = fields.Text('Notes', track_visibility=False)
-    description_pad = fields.Char('Description PAD', pad_content_field='description')
+
 
 
     #    _sql_constraints = [
@@ -590,9 +589,9 @@ class OhadaFinancialReportLine(models.Model):
     hidden_line = fields.Boolean(default=False)
     symbol = fields.Char(string="Symbol", default='none')
     header = fields.Boolean(default=False)
+    header_columns = fields.Char(default=False)
     letter = fields.Char(string="letter", default=None)
     note_id = fields.Char(string="note action id", default='none')
-    table_spacer = fields.Boolean(default=False)
 
     _sql_constraints = [
         ('code_uniq', 'unique (code)', "A report line with the same code already exists."),
@@ -1148,6 +1147,13 @@ class OhadaFinancialReportLine(models.Model):
         else:
             return {'name': _('n/a')}
 
+    def _build_abs(self, balance, comp):
+        res = round(balance - comp)
+        if (res > 0) != (self.green_on_positive and comp > 0):
+            return {'name': str(res), 'class': 'number color-red'}
+        else:
+            return {'name': str(res), 'class': 'number color-green'}
+
     def _split_formulas(self):
 
         result = {}
@@ -1356,7 +1362,6 @@ class OhadaFinancialReportLine(models.Model):
                 'page_break': line.print_on_new_page,
                 'letter': line.letter,
                 'header': line.header,
-                'table_spacer': line.table_spacer,
             }
 
             # wdb.set_trace()
@@ -1394,9 +1399,15 @@ class OhadaFinancialReportLine(models.Model):
                     for i in range(len(vals['columns'])):
                         vals['columns'][i] = line._format(vals['columns'][i])
                 elif len(comparison_table) == 2 and not options.get('groups'):
-                    vals['columns'].append(line._build_cmp(vals['columns'][0]['name'], vals['columns'][1]['name']))
-                    for i in [0, 1]:
-                        vals['columns'][i] = line._format(vals['columns'][i])
+                    if financial_report.name in ['Note 15A', 'Note 16A', 'Note 18', 'Note 19'] and line.header is not True:
+                        vals['columns'].append(line._build_abs(vals['columns'][0]['name'], vals['columns'][1]['name']))
+                        vals['columns'].append(line._build_cmp(vals['columns'][0]['name'], vals['columns'][1]['name']))
+                        for i in [0, 1]:
+                            vals['columns'][i] = line._format(vals['columns'][i])
+                    else:
+                        vals['columns'].append(line._build_cmp(vals['columns'][0]['name'], vals['columns'][1]['name']))
+                        for i in [0, 1]:
+                            vals['columns'][i] = line._format(vals['columns'][i])
                 else:
                     vals['columns'] = [line._format(v) for v in vals['columns']]
                 if not line.formulas:
@@ -1426,16 +1437,53 @@ class OhadaFinancialReportLine(models.Model):
                 elif len(vals['columns']) > 1 and line._context.get('periods') != None:
                     for i in range(len(vals['columns'][1:]) - 1):
                         vals['columns'][i + 1]['name'] = ['ANNEE ' + line._context['periods'][i]['string']]
-                    vals['columns'][- 1]['name'] = ['Variation en %']
+                    if financial_report.name in ['Note 15A', 'Note 16A', 'Note 18', 'Note 19']:
+                        # wdb.set_trace()
+                        vals['columns'][- 1]['name'] = ['Variation en valeur', 'absolue']
+                        vals['columns'].append({'name': ['Variation en %']})
+                    else:
+                        vals['columns'][- 1]['name'] = ['Variation en %']
+            # wdb.set_trace()
+            # if line.header_columns and len(comparison_table) == 2:
+            #     header_list = list(map(lambda x: list(x.split('\\n')), line.header_columns.split('|')))
+            #     for i in header_list:
+            #         vals['columns'].append({'name': i})
             #==============================DELETE============================
-            if line.header is True and financial_report.type == 'note' and financial_report.name == 'Note 4':
+            if line.header is True and financial_report.name in ['Note 4', 'Note 7', 'Note 8', 'Note 17', 'Note 15A', 'Note 16A', 'Note 18', 'Note 19'] and  len(comparison_table) == 2:
                 header_list = [["Créances à un", "an au plus"], ["Créances à plus", "d'un an à deux", "ans au plus"],
                                ["Créances à plus", "de deux ans au", "plus"]]
                 for i in header_list:
                     vals['columns'].append({'name': i})
-            elif financial_report.type == 'note' and financial_report.name == 'Note 4':
+            elif line.header is True and financial_report.name in ['Note 15B'] and  len(comparison_table) == 2:
+                header_list = [["Régime fiscale"], ["Échéance"]]
+                for i in header_list:
+                    vals['columns'].append({'name': i})
+            elif financial_report.name in ['Note 4', 'Note 7', 'Note 8', 'Note 17', 'Note 15A', 'Note 16A', 'Note 18', 'Note 19'] and len(comparison_table) == 2:
+                # wdb.set_trace()
+                amount_of_periods = 4
+                amount_of_group_ids = len(options.get('groups', {}).get('ids') or []) or 1
+                linesDicts = [[{} for _ in range(0, amount_of_group_ids)] for _ in range(0, amount_of_periods)]
+                comparison_table = [options.get('date')]
+                comparison_table += options.get('comparison') and options['comparison'].get('periods', []) or []
                 for i in range(3):
-                    vals['columns'].append({'name': 0})
+                    date_from = str(int(options.get('date')['string']) - (i + 1)) + '-01-01'
+                    date_to = str(int(options.get('date')['string']) - (i + 1)) + '-12-31'
+                    date_from, date_to, strict_range = line.with_context(date_from=date_from,
+                                                                         date_to=date_to)._compute_date_range()
+
+                    r = line.with_context(date_from=date_from,
+                                          date_to=date_to,
+                                          strict_range=strict_range)._eval_formula(financial_report,
+                                                                                   debit_credit,
+                                                                                   currency_table,
+                                                                                   linesDicts[k],
+                                                                                   groups=options.get('groups'))
+
+                    vals['columns'].append(line._format({'name': r[0]['line']['balance']}))
+            elif financial_report.name in ['Note 15B'] and len(comparison_table) == 2:
+                vals['columns'].append({'name': " "})
+                vals['columns'].append({'name': " "})
+
 
             if line.header is True and financial_report.type == 'note' and financial_report.name == 'Note 4_1':
                 vals['columns'] = []
@@ -1477,6 +1525,9 @@ class OhadaFinancialReportLine(models.Model):
                     result[0]['columns'][-1]['name'] = '%'
                 else:
                     result[0]['columns'][0]['name'] = 'NET'
+
+            if financial_report.name == 'Note 2':
+                vals['columns'] = []
 
             final_result_table += result
 
@@ -1617,7 +1668,7 @@ class IrModuleModule(models.Model):
 
         return res
 
-class OhadaFinancialReportLine(models.Model):
+class OhadaDashboard(models.Model):
     _name = "ohada.dashboard"
     _description = "OHADA Dashboard"
 

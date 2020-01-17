@@ -5,12 +5,13 @@
     <!-- Balance sheet -->
    <record id="ohada_financial_report_balancesheet0" model="ohada.financial.html.report">
         <field name="name">Balance Sheet</field>
-        <field name="cash_basis" eval="True"/>
+        <!--<field name="cash_basis" eval="True"/>-->
         <field name="header">BILAN AU 31 DECEMBRE</field>
         <field name="debit_credit" eval="False"/>
-        <field name="date_range" eval="False"/>
+        <!--<field name="date_range" eval="False"/>-->
         <field name="analytic" eval="True"/>
         <field name="unfold_all_filter" eval="True"/>
+        <field name="hierarchy_option" eval="False"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_main'/>
     </record>
     <record id="ohada_financial_report_total_assets0" model="ohada.financial.html.report.line">

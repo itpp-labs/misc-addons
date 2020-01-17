@@ -463,7 +463,7 @@
                 <tr><td style="text-align:center;" colspan="2"><t t-if="report.get('type') == 'note'"><h4><t t-esc="report.get('name')"/></h4></t></td></tr>
                 <tr><td style="text-align:center;" colspan="2"><h4><t t-esc="report.get('header')"/></h4></td></tr>
             </table>
-            <div class="table-responsive">
+            <div class="table-responsive" style="font-size:10px;">
                 <t t-if="report.get('double_report') == True">
                     <t t-set="lines" t-value="lines_notes[0]"/>
                     <table style="margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;" class="o_account_reports_table">

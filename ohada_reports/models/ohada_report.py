@@ -28,6 +28,7 @@ from odoo.tools.safe_eval import safe_eval
 from odoo.exceptions import UserError
 
 import html2text
+import wdb
 
 
 _logger = logging.getLogger(__name__)
@@ -1520,7 +1521,7 @@ class OhadaReport(models.AbstractModel):
 
     def make_temp_options(self, year=False):
         if year is False:
-            year = datetime.now().year
+            year = datetime.datetime.now().year
         options = {'ir_filters': None,
                    'date': {'date_to': str(year) + '-12-31', 'string': str(year), 'filter': 'this_year',
                             'date_from': str(year) + '-01-01'},
@@ -1545,17 +1546,14 @@ class OhadaReport(models.AbstractModel):
         otherwise it uses the main_template. Reason is for efficiency, when unfolding a line in the report
         we don't want to reload all lines, just get the one we unfolded.
         '''
-
-        def get_financial_report(line):
+        # wdb.set_trace()
+        def get_financial_report_id(line):
             if line.financial_report_id.id is False:
-                return get_financial_report(line.parent_id)
+                return get_financial_report_id(line.parent_id)
             else:
                 return line.financial_report_id
-
         if options.get('unfolded_lines'):
             unfolded_lines = options['unfolded_lines']
-        if not options['date'].get('date_from'):
-            options = self.make_temp_options(int(options['date']['date'][0:4]))
         if line_id is not None:
             options['unfolded_lines'] = unfolded_lines
         g_rcontext=dict()
@@ -1610,7 +1608,7 @@ class OhadaReport(models.AbstractModel):
         g_rcontext['bsa_name'] = 'Balance Sheet - Assets'
         g_rcontext['menu_id'] = str(self.env.ref('account_accountant.menu_accounting').id)
         if line_id is not None:
-            g_rcontext['lines'] = g_rcontext['lines'].get(get_financial_report(self.env['ohada.financial.html.report.line'].browse(line_id)).name)
+            g_rcontext['lines'] = g_rcontext['lines'].get(get_financial_report_id(self.env['ohada.financial.html.report.line'].browse(line_id)).name)
         html = self.env['ir.ui.view'].render_template(
             render_template,
             values=dict(g_rcontext),

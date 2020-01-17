@@ -347,7 +347,12 @@
         }
     }
     .o_account_reports_level5 {
-        border-bottom: 1px solid #001E5A;
+        border-width: 3px;
+        font-weight: bold;
+        // border-top-style: $border-top-style;
+        background-color: #CDEBFF;
+        text-align: center;
+        vertical-align: middle;
         > td.o_account_report_line_indent > span:last-child {
             margin-left: 50px;
         }
@@ -362,8 +367,12 @@
     }
     .o_account_reports_level6 {
         border-bottom: 1px solid #001E5A;
+        font-weight: normal;
         > td.o_account_report_line_indent > span:last-child {
             margin-left: 60px;
+        }
+        .o_account_report_line{
+            height: 200px;
         }
         &.total {
             > td.o_account_report_line_indent > span:last-child {
