@@ -254,7 +254,7 @@
             </t>
             <t t-else="line.get('note') != 'NET'">
                 <t t-if="line.get('header') == true">
-                    <td rowspan="1" t-att-data-id="line['id']" t-att-class="'o_account_report_line o_account_report_line_indent ' + (line.get('unfoldable') and 'js_account_report_foldable' or '')" t-att-data-unfolded="line.get('unfolded', False)" t-att-colspan="line.get('colspan', '1')"
+                    <td t-att-rowspan="line.get('rowspan', 1)" t-att-data-id="line['id']" t-att-class="'o_account_report_line o_account_report_line_indent ' + (line.get('unfoldable') and 'js_account_report_foldable' or '')" t-att-data-unfolded="line.get('unfolded', False)" t-att-colspan="line.get('colspan', '1')"
                     t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)" style="text-align:center;padding-top:25px;padding-bottom:25px;"
                     >
                         <span><t t-esc="line.get('name')"/></span>
@@ -336,7 +336,7 @@
             <t t-else="">
                 <t t-if="line.get('note') != 'none'">
                     <t t-if="line.get('note')">
-                        <td class="o_account_report_line o_account_report_line_indent" style="width:70px !important;text-align:center;">
+                        <td t-att-rowspan="line.get('rowspan', 1)" class="o_account_report_line o_account_report_line_indent" style="width:70px !important;text-align:center;">
                             <t t-if="line.get('note_id') != 'False' and line.get('note_id') != 'none'">
                                 <a style="cursor:pointer;" role="menuitem" t-att-data-id="line.get('note_id')" t-att-data-note="line.get('note')" action="open_notes" class="account_report_line_name" >
                                     <t t-esc="line.get('note')"/>
@@ -381,14 +381,26 @@
                         <!--</t>-->
                     </t>
                     <t t-else="">
-                        <td style="width:90px !important;text-align:center !important;padding:10px;" t-att-class="'o_account_report_line ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_account_report_line_indent')">
-                            <t t-foreach="column.get('name')" t-as="name">
-                                <span style="margin:auto;padding:15px;" class="o_account_report_column_value" t-att-title="column.get('title')">
-                                    <t t-esc="name"/>
-                                </span>
-                                <br/>
-                            </t>
-                        </td>
+                        <t t-if="report['name'] == 'Note 1' and column_index == 1">
+                            <td t-att-colspan="line.get('colspan0')" style="width:90px !important;text-align:center !important;padding:10px;" t-att-class="'o_account_report_line ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_account_report_line_indent')">
+                                <t t-foreach="column.get('name')" t-as="name">
+                                    <span style="margin:auto;padding:15px;" class="o_account_report_column_value" t-att-title="column.get('title')">
+                                        <t t-esc="name"/>
+                                    </span>
+                                    <br/>
+                                </t>
+                            </td>
+                        </t>
+                        <t t-else="">
+                            <td t-att-rowspan="line.get('rowspan', 1)" style="width:90px !important;text-align:center !important;padding:10px;" t-att-class="'o_account_report_line ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_account_report_line_indent')">
+                                <t t-foreach="column.get('name')" t-as="name">
+                                    <span style="margin:auto;padding:15px;" class="o_account_report_column_value" t-att-title="column.get('title')">
+                                        <t t-esc="name"/>
+                                    </span>
+                                    <br/>
+                                </t>
+                            </td>
+                        </t>
                     </t>
                 </t>
                 <t t-else="">
@@ -859,16 +871,14 @@
                 <t t-set="hierarchies_enabled" t-value="len(lines.get('columns_header', [])) > 1"/>
                 <t t-if="line.get('reference') == 'REF'">
                     <t t-if="column_index == 0">
-                        <!--<t t-if="column_index == 0">-->
-                            <td t-att-colspan="line.get('colspan0')" style="width:90px !important;text-align:center;padding:10px;" t-att-class="'o_account_report_line ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_account_report_line_indent')">
-                                <t t-foreach="column.get('name')" t-as="name">
-                                    <span style="margin:auto;padding:15px;" class="o_account_report_column_value" t-att-title="column.get('title')">
-                                        <t t-esc="name"/>
-                                    </span>
-                                    <br/>
-                                </t>
-                            </td>
-                        <!--</t>-->
+                        <td t-att-colspan="line.get('colspan0')" style="width:90px !important;text-align:center;padding:10px;" t-att-class="'o_account_report_line ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_account_report_line_indent')">
+                            <t t-foreach="column.get('name')" t-as="name">
+                                <span style="margin:auto;padding:15px;" class="o_account_report_column_value" t-att-title="column.get('title')">
+                                    <t t-esc="name"/>
+                                </span>
+                                <br/>
+                            </t>
+                        </td>
                     </t>
                     <t t-else="">
                         <td style="width:90px !important;text-align:center;padding:10px;" t-att-class="'o_account_report_line ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_account_report_line_indent')">
