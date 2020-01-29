@@ -1,4 +1,4 @@
-# Copyright 2015-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2015-2020 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2017 Ilmir Karamov <https://it-projects.info/team/ilmir-k>
 # Copyright 2018-2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
@@ -7,7 +7,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 {
     'name': "Backend debranding",
-    'version': '12.0.1.0.28',
+    'version': '12.0.1.0.29',
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'LGPL-3',
     'category': 'Debranding',

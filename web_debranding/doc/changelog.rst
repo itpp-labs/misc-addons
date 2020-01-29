@@ -1,3 +1,8 @@
+`1.0.29`
+--------
+
+- **Fix:** error in Discuss menu on first usage
+
 `1.0.28`
 --------
 
