@@ -254,11 +254,36 @@
             </t>
             <t t-else="line.get('note') != 'NET'">
                 <t t-if="line.get('header') == true">
-                    <td t-att-rowspan="line.get('rowspan', 1)" t-att-data-id="line['id']" t-att-class="'o_account_report_line o_account_report_line_indent ' + (line.get('unfoldable') and 'js_account_report_foldable' or '')" t-att-data-unfolded="line.get('unfolded', False)" t-att-colspan="line.get('colspan', '1')"
-                    t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)" style="text-align:center;padding-top:25px;padding-bottom:25px;"
-                    >
-                        <span><t t-esc="line.get('name')"/></span>
-                    </td>
+                    <t t-if="report['name'] == 'Note 3B' or report['name'] == 'Note 3C' or report['name'] == 'Note 3D'">
+                        <t t-if="line.get('sequence') == 1">
+                            <td rowspan="2" t-att-data-id="line['id']" t-att-class="'o_account_report_line o_account_report_line_indent ' + (line.get('unfoldable') and 'js_account_report_foldable' or '')" t-att-data-unfolded="line.get('unfolded', False)" t-att-colspan="line.get('colspan', '1')"
+                            t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)" style="text-align:center;padding-top:25px;padding-bottom:25px;"
+                            >
+                                <t t-foreach="line.get('name')" t-as="name">
+                                    <span><t t-esc="name"/></span>
+                                    <br/>
+                                </t>
+                            </td>
+                        </t>
+                        <t t-else="">
+                            <td t-att-data-id="line['id']" t-att-class="'o_account_report_line o_account_report_line_indent ' + (line.get('unfoldable') and 'js_account_report_foldable' or '')" t-att-data-unfolded="line.get('unfolded', False)" t-att-colspan="line.get('colspan', '1')"
+                            t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)" style="text-align:center;padding-top:25px;padding-bottom:25px;"
+                            >
+                                <t t-foreach="line.get('name')" t-as="name">
+                                    <span><t t-esc="name"/></span>
+                                    <br/>
+                                </t>
+                            </td>
+                        </t>
+                    </t>
+                    <t t-else="">
+                        <td t-att-rowspan="line.get('rowspan', 1)" t-att-data-id="line['id']" t-att-class="'o_account_report_line o_account_report_line_indent ' + (line.get('unfoldable') and 'js_account_report_foldable' or '')" t-att-data-unfolded="line.get('unfolded', False)" t-att-colspan="line.get('colspan', '1')"
+                        t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)" style="text-align:center;padding-top:25px;padding-bottom:25px;"
+                        >
+                            <span><t t-esc="line.get('name')"/></span>
+                        </td>
+                    </t>
+
                 </t>
                 <t t-else="">
                     <td t-att-data-id="line['id']" t-att-class="'o_account_report_line o_account_report_line_indent ' + (line.get('unfoldable') and 'js_account_report_foldable' or '')" t-att-data-unfolded="line.get('unfolded', False)" t-att-colspan="line.get('colspan', '1')"
@@ -383,6 +408,16 @@
                     <t t-else="">
                         <t t-if="report['name'] == 'Note 1' and column_index == 1">
                             <td t-att-colspan="line.get('colspan0')" style="width:90px !important;text-align:center !important;padding:10px;" t-att-class="'o_account_report_line ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_account_report_line_indent')">
+                                <t t-foreach="column.get('name')" t-as="name">
+                                    <span style="margin:auto;padding:15px;" class="o_account_report_column_value" t-att-title="column.get('title')">
+                                        <t t-esc="name"/>
+                                    </span>
+                                    <br/>
+                                </t>
+                            </td>
+                        </t>
+                        <t t-elif="report['name'] == 'Note 3B'">
+                            <td t-att-rowspan="column.get('rowspan', 1)" t-att-colspan="column.get('colspan', 1)" style="width:90px !important;text-align:center !important;padding:10px;" t-att-class="'o_account_report_line ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_account_report_line_indent')">
                                 <t t-foreach="column.get('name')" t-as="name">
                                     <span style="margin:auto;padding:15px;" class="o_account_report_column_value" t-att-title="column.get('title')">
                                         <t t-esc="name"/>

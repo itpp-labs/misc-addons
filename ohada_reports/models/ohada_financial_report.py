@@ -1366,6 +1366,7 @@ class OhadaFinancialReportLine(models.Model):
                 'header': line.header,
                 'colspan': line.colspan,
                 'rowspan': line.rowspan,
+                'sequence': line.sequence,
             }
 
             # wdb.set_trace()
@@ -1452,16 +1453,15 @@ class OhadaFinancialReportLine(models.Model):
                     for i in range(len(header_list)):
                         vals['columns'].append({'name': header_list[i]})
                 elif financial_report.name == "Note 3B" and line.sequence == 1:
-                    header_list = [["NATURE DU", "CONTRAT", "(I ; M ; A) [1]"],
-                                   ["A"],
-                                   ["AUGMENTATIONS  B"],
-                                   ["DIMINUTIONS  B"],
-                                   ["D = A + B - C"]]
-                    vals['columns'] = []
-                    for i in range(len(header_list)):
-                        vals['columns'].append({'name': header_list[i]})
+                    vals['name'] = ['LIBELLES']
+                    vals['columns'] = [{'name': ["NATURE DU", "CONTRAT", "(I ; M ; A) [1]"], 'colspan': 1, 'rowspan': 2},
+                                       {'name': ["A"], 'colspan': 1, 'rowspan': 1},
+                                       {'name': ["AUGMENTATIONS  B"], 'colspan': 3, 'rowspan': 1},
+                                       {'name': ["DIMINUTIONS  B"], 'colspan': 2, 'rowspan': 1},
+                                       {'name': ["D = A + B - C"], 'colspan': 1, 'rowspan': 1}]
                 elif financial_report.name == "Note 3B" and line.sequence == 2:
-                    subheader_list = [["MOUVEMENTS", "BRUTS À", "L'OUVERTURE", "DE L EXERCICE"],
+                    vals['name'] = ["MOUVEMENTS", "BRUTS À", "L'OUVERTURE", "DE L EXERCICE"]
+                    subheader_list = [
                                      ["ACQUISITIONS,", "APPORTS,", "CREATIONS"],
                                      ["VIREMENTS DE", "POSTE À", "POSTE"],
                                      ["Suite à une", "réévaluation", "pratiquée au cours", "de l'exercice"],
@@ -1472,6 +1472,7 @@ class OhadaFinancialReportLine(models.Model):
                     for i in range(len(subheader_list)):
                         vals['columns'].append({'name': subheader_list[i]})
                 elif financial_report.name == "Note 3C" and line.sequence == 1:
+                    vals['name'] = ['LIBELLES']
                     header_list = [["A"],
                                    ["B"],
                                    ["C"],
@@ -1480,7 +1481,8 @@ class OhadaFinancialReportLine(models.Model):
                     for i in range(len(header_list)):
                         vals['columns'].append({'name': header_list[i]})
                 elif financial_report.name == "Note 3C" and line.sequence == 2:
-                    subheader_list = [["AMORTISSEMENTS", "CUMULES À", "L'OUVERTURE DE", "L'EXERCICE"],
+                    vals['name'] = ["AMORTISSEMENTS", "CUMULES À", "L'OUVERTURE DE", "L'EXERCICE"]
+                    subheader_list = [
                                       ["AUGMENTATIONS:", "DOTATIONS DE", "L'EXERCICE"],
                                       ["DIMINUTIONS:", "AMORTISSEMENTS", "RELATIFS AUX", "SORTIES DE", "L'ACTIF"],
                                       ["CUMULS DES", "AMORTISSEMENTS", "À LA CLÔTURE DE", "L'EXERCICE"]]
@@ -1488,6 +1490,7 @@ class OhadaFinancialReportLine(models.Model):
                     for i in range(len(subheader_list)):
                         vals['columns'].append({'name': subheader_list[i]})
                 elif financial_report.name == "Note 3D" and line.sequence == 1:
+                    vals['name'] = ['LIBELLES']
                     header_list = [["MONTANT BRUT"],
                                    ["AMORTISSEMENTS", "PRATIQUES"],
                                    ["VALEUR", "COMPTABLE", "NETTE"],
@@ -1497,7 +1500,8 @@ class OhadaFinancialReportLine(models.Model):
                     for i in range(len(header_list)):
                         vals['columns'].append({'name': header_list[i]})
                 elif financial_report.name == "Note 3D" and line.sequence == 2:
-                    subheader_list = [["A"],
+                    vals['name'] = ["A"]
+                    subheader_list = [
                                       ["B"],
                                       ["C = A - B"],
                                       ["D"],
@@ -1505,7 +1509,7 @@ class OhadaFinancialReportLine(models.Model):
                     vals['columns'] = []
                     for i in range(len(subheader_list)):
                         vals['columns'].append({'name': subheader_list[i]})
-                elif financial_report.name == "Note 3E" and line.sequence == 1:
+                elif financial_report.name == "Note 3E" and line.sequence == 2:
                     header_list = [["Montants côuts historiques"],
                                    ["Amortissements supplémentaires"]]
                     vals['columns'] = []
@@ -1529,6 +1533,7 @@ class OhadaFinancialReportLine(models.Model):
                             vals['columns'][- 1]['name'] = ['Variation en %']
 
             # ============= For Notes 4, 7, 8, 17, 15A, 16A, 18, 19 =====================
+
             if line.header is True and financial_report.name in ['Note 4', 'Note 7', 'Note 8', 'Note 17', 'Note 15A', 'Note 16A', 'Note 18', 'Note 19'] and  len(comparison_table) == 2:
                 header_list = [["Créances à un", "an au plus"], ["Créances à plus", "d'un an à deux", "ans au plus"],
                                ["Créances à plus", "de deux ans au", "plus"]]
@@ -1587,7 +1592,6 @@ class OhadaFinancialReportLine(models.Model):
             else:
                 result = lines
             if line.note != 'NET' and line.note != ' ':
-                # wdb.set_trace()
                 line.note_id = str(self.env['ir.actions.client'].search([('name', '=', 'Note '+line.note)]).id)
             if result[0]['note'] == 'NET':
                 if financial_report.name == 'Balance Sheet - Assets' and options['comparison']['filter'] == 'no_comparison':
@@ -1605,8 +1609,10 @@ class OhadaFinancialReportLine(models.Model):
                     result[0]['columns'][-1]['name'] = '%'
                 else:
                     result[0]['columns'][0]['name'] = 'NET'
+
+            # ==================== for special notes =================================================================
+
             if financial_report.name == "Note 1" and line.sequence == 2:
-                # wdb.set_trace()
                 del vals['note']
                 vals['name'] = 'Hypothèque'
                 vals['columns'][0]['name'] = 'Nantissements'
@@ -1623,6 +1629,26 @@ class OhadaFinancialReportLine(models.Model):
                 vals['columns'].append({'name': ' '})
             elif financial_report.name == 'Note 2':
                 vals['columns'] = []
+            elif financial_report.name == 'Note 3A' and line.sequence > 2:
+                vals['columns'] = []
+                for i in range(7):
+                    vals['columns'].append({'name': ' '})
+            elif financial_report.name == 'Note 3B' and line.sequence > 2:
+                vals['columns'] = []
+                for i in range(7):
+                    vals['columns'].append({'name': ' '})
+            elif financial_report.name == 'Note 3C' and line.sequence > 2:
+                vals['columns'] = []
+                for i in range(4):
+                    vals['columns'].append({'name': ' '})
+            elif financial_report.name == 'Note 3D' and line.sequence > 2:
+                vals['columns'] = []
+                for i in range(5):
+                    vals['columns'].append({'name': ' '})
+            elif financial_report.name == 'Note 3E' and not line.sequence == 2:
+                vals['columns'] = []
+                for i in range(2):
+                    vals['columns'].append({'name': ' '})
 
             final_result_table += result
 
