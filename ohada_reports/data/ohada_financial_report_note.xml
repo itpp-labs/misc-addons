@@ -6361,7 +6361,7 @@
         <field name="name">Note 16B Bis</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
-        <field name="double_report" eval="False"/>
+        <field name="double_report" eval="True"/>
         <field name="type">note</field>
         <field name="header">VALEURS A ENCAISSER</field>
         <field name="unfold_all_filter" eval="True"/>
@@ -6370,8 +6370,9 @@
     </record>
 
     <record id="ohada_financial_report_note16b_bis_header" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAMEIBELLES</field>
+        <field name="name">DUMMY LINE NAME</field>
         <field name="code">_n16b_bis_1</field>
+        <field name="colspan" eval="3"/>
         <field name="header" eval="True"/>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_note16b_bis"/>
@@ -6380,8 +6381,9 @@
     </record>
 
     <record id="ohada_financial_report_note16b_bis_1" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAME</field>
-        <field name="code">1_N16b_bis_1</field>
+        <field name="name">LIBELLES</field>
+        <field name="code">2_N16b_bis_1</field>
+        <field name="header" eval="True"/>
         <field name="financial_report_id" ref="ohada_financial_report_note16b_bis"/>
         <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
         <field name="formulas">balance = sum.balance</field>
@@ -6439,9 +6441,10 @@
     </record>
 
     <record id="ohada_financial_report_note16b_bis_1_header" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAMEIBELLES</field>
+        <field name="name">DUMMY LINE NAME</field>
         <field name="code">_n16b_bis_1_1</field>
         <field name="header" eval="True"/>
+        <field name="colspan" eval="3"/>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_note16b_bis_1"/>
         <field name="sequence" eval="1"/>
@@ -6449,10 +6452,11 @@
     </record>
 
     <record id="ohada_financial_report_note16b_bis_1_1" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAME</field>
+        <field name="name">LIBELLES</field>
         <field name="code">N16b_bis_1_1</field>
         <field name="financial_report_id" ref="ohada_financial_report_note16b_bis_1"/>
         <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
+        <field name="header" eval="True"/>
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="0" />
         <field name="sequence" eval="2"/>
@@ -6529,7 +6533,7 @@
     </record>
 
     <record id="ohada_financial_report_note31_header" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAMEIBELLES</field>
+        <field name="name">DUMMY LINE NAME</field>
         <field name="code">_n31_1</field>
         <field name="header" eval="True"/>
         <field name="reference"></field>
@@ -6795,7 +6799,7 @@
     </record>
 
     <record id="ohada_financial_report_note32_header" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAMEIBELLES</field>
+        <field name="name">DUMMY LINE NAME</field>
         <field name="code">_n32_1</field>
         <field name="header" eval="True"/>
         <field name="reference"></field>
@@ -6810,6 +6814,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note32"/>
         <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="header" eval="True"/>
         <field name="level" eval="0" />
         <field name="sequence" eval="2"/>
         <field name="groupby">account_id</field>
@@ -7140,7 +7145,7 @@
     </record>
 
     <record id="ohada_financial_report_note34_header" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAMEIBELLES</field>
+        <field name="name">DUMMY LINE NAME</field>
         <field name="code">_n34_1</field>
         <field name="header" eval="True"/>
         <field name="reference"></field>
@@ -7406,7 +7411,7 @@
     </record>
 
     <record id="ohada_financial_report_note35_header" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAMEIBELLES</field>
+        <field name="name">DUMMY LINE NAME</field>
         <field name="code">_n35_1</field>
         <field name="header" eval="True"/>
         <field name="reference"></field>
@@ -7606,7 +7611,7 @@
     </record>
 
     <record id="ohada_financial_report_note28_header" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAMEIBELLES</field>
+        <field name="name">DUMMY LINE NAME</field>
         <field name="code">_n28_1</field>
         <field name="header" eval="True"/>
         <field name="reference"></field>
@@ -7850,7 +7855,7 @@
     </record>
 
     <record id="ohada_financial_report_note37_header" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAMEIBELLES</field>
+        <field name="name">DUMMY LINE NAME</field>
         <field name="code">_n37_1</field>
         <field name="header" eval="True"/>
         <field name="reference"></field>
@@ -8193,7 +8198,7 @@
     </record>
 
     <record id="ohada_financial_report_note8a_header" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAMEIBELLES</field>
+        <field name="name">DUMMY LINE NAME</field>
         <field name="code">_n8a_1</field>
         <field name="header" eval="True"/>
         <field name="reference"></field>
@@ -8382,7 +8387,7 @@
     </record>
 
     <record id="ohada_financial_report_note12_header" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAMEIBELLES</field>
+        <field name="name">DUMMY LINE NAME</field>
         <field name="code">_n12_1</field>
         <field name="header" eval="True"/>
         <field name="reference"></field>
@@ -8495,7 +8500,7 @@
     </record>
 
     <record id="ohada_financial_report_note12_1_header" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAMEIBELLES</field>
+        <field name="name">DUMMY LINE NAME</field>
         <field name="code">_n12_1_1</field>
         <field name="header" eval="True"/>
         <field name="reference"></field>
@@ -8607,7 +8612,7 @@
     </record>
 
     <record id="ohada_financial_report_note36_header" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAMEIBELLES</field>
+        <field name="name">DUMMY LINE NAME</field>
         <field name="code">_n36_1</field>
         <field name="header" eval="True"/>
         <field name="reference"></field>
@@ -8952,7 +8957,7 @@
         <field name="name">Note 16B</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
-        <field name="double_report" eval="False"/>
+        <field name="double_report" eval="True"/>
         <field name="type">note</field>
         <field name="header">VALEURS A ENCAISSER</field>
         <field name="unfold_all_filter" eval="True"/>
@@ -8961,7 +8966,7 @@
     </record>
 
     <record id="ohada_financial_report_note16b_header" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAMEIBELLES</field>
+        <field name="name">DUMMY LINE NAME</field>
         <field name="code">_n16b_1</field>
         <field name="header" eval="True"/>
         <field name="reference"></field>
@@ -9054,6 +9059,7 @@
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
+        <field name='secondary' eval="True"/>
         <field name="type">note</field>
         <field name="header">VALEURS A ENCAISSER</field>
         <field name="unfold_all_filter" eval="True"/>
@@ -9062,7 +9068,7 @@
     </record>
 
     <record id="ohada_financial_report_note16b_1_header" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAMEIBELLES</field>
+        <field name="name">DUMMY LINE NAME</field>
         <field name="code">_n16b_1_1</field>
         <field name="header" eval="True"/>
         <field name="reference"></field>
@@ -9167,6 +9173,7 @@
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
+        <field name='secondary' eval="True"/>
         <field name="header">VALEURS A ENCAISSER</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
@@ -9174,7 +9181,7 @@
     </record>
 
     <record id="ohada_financial_report_note16b_2_header" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAMEIBELLES</field>
+        <field name="name">DUMMY LINE NAME</field>
         <field name="code">_n16b_2_1</field>
         <field name="header" eval="True"/>
         <field name="reference"></field>
@@ -9235,6 +9242,242 @@
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="2" />
         <field name="sequence" eval="6"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <!--NOTE 27B (domains and report header not correct)-->
+
+    <record id="ohada_financial_report_note27b" model="ohada.financial.html.report">
+        <field name="name">Note 27B</field>
+        <field name="debit_credit" eval="False"/>
+        <field name="analytic" eval="True"/>
+        <field name="double_report" eval="True"/>
+        <field name="type">note</field>
+        <field name="header">VALEURS A ENCAISSER</field>
+        <field name="unfold_all_filter" eval="True"/>
+        <field name="show_journal_filter" eval="True"/>
+        <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
+    </record>
+
+    <record id="ohada_financial_report_note27b_header" model="ohada.financial.html.report.line">
+        <field name="name">DUMMY LINE NAME</field>
+        <field name="code">_n27b_1</field>
+        <field name="header" eval="True"/>
+        <field name="reference"></field>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b"/>
+        <field name="sequence" eval="1"/>
+        <field name="level" eval="0" />
+    </record>
+
+    <record id="ohada_financial_report_note27b_1" model="ohada.financial.html.report.line">
+        <field name="name">DUMMY LINE NAME</field>
+        <field name="code">N27b_1</field>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b"/>
+        <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
+        <field name="formulas">balance = sum.balance</field>
+        <field name="level" eval="0" />
+        <field name="sequence" eval="2"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note27b_2" model="ohada.financial.html.report.line">
+        <field name="name">DUMMY LINE NAME</field>
+        <field name="code">N27b_2</field>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b"/>
+        <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
+        <field name="formulas">balance = sum.balance</field>
+        <field name="level" eval="0" />
+        <field name="sequence" eval="3"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note27b_3" model="ohada.financial.html.report.line">
+        <field name="name">DUMMY LINE NAME</field>
+        <field name="code">N27b_3</field>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b"/>
+        <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
+        <field name="formulas">balance = sum.balance</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="4"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note27b_4" model="ohada.financial.html.report.line">
+        <field name="name">DUMMY LINE NAME</field>
+        <field name="code">N27b_4</field>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b"/>
+        <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
+        <field name="formulas">balance = sum.balance</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="5"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note27b_5" model="ohada.financial.html.report.line">
+        <field name="name">DUMMY LINE NAME</field>
+        <field name="code">N27b_5</field>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b"/>
+        <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
+        <field name="formulas">balance = sum.balance</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="6"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note27b_6" model="ohada.financial.html.report.line">
+        <field name="name">DUMMY LINE NAME</field>
+        <field name="code">N27b_6</field>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b"/>
+        <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
+        <field name="formulas">balance = sum.balance</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="7"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note27b_7" model="ohada.financial.html.report.line">
+        <field name="name">DUMMY LINE NAME</field>
+        <field name="code">N27b_7</field>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b"/>
+        <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
+        <field name="formulas">balance = sum.balance</field>
+        <field name="level" eval="0" />
+        <field name="sequence" eval="8"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note27b_8" model="ohada.financial.html.report.line">
+        <field name="name">DUMMY LINE NAME</field>
+        <field name="code">N27b_8</field>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b"/>
+        <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
+        <field name="formulas">balance = sum.balance</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="9"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note27b_9" model="ohada.financial.html.report.line">
+        <field name="name">DUMMY LINE NAME</field>
+        <field name="code">N27b_9</field>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b"/>
+        <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
+        <field name="formulas">balance = sum.balance</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="10"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <!--NOTE 27B_1 (domains and report header not correct)-->
+
+    <record id="ohada_financial_report_note27b_1" model="ohada.financial.html.report">
+        <field name="name">Note 27B_1</field>
+        <field name="debit_credit" eval="False"/>
+        <field name="analytic" eval="True"/>
+        <field name="double_report" eval="False"/>
+        <field name='secondary' eval="True"/>
+        <field name="type">note</field>
+        <field name="header"> </field>
+        <field name="unfold_all_filter" eval="True"/>
+        <field name="show_journal_filter" eval="True"/>
+        <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
+    </record>
+
+    <record id="ohada_financial_report_note27b_1_header" model="ohada.financial.html.report.line">
+        <field name="name">DUMMY LINE NAME</field>
+        <field name="code">_n27b_1_1</field>
+        <field name="header" eval="True"/>
+        <field name="reference"></field>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>
+        <field name="sequence" eval="1"/>
+        <field name="level" eval="0" />
+    </record>
+
+    <record id="ohada_financial_report_note27b_1_1" model="ohada.financial.html.report.line">
+        <field name="name">DUMMY LINE NAME</field>
+        <field name="code">N27b_1_1</field>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>
+        <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
+        <field name="formulas">balance = sum.balance</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="2"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note27b_1_2" model="ohada.financial.html.report.line">
+        <field name="name">DUMMY LINE NAME</field>
+        <field name="code">N27b_1_2</field>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>
+        <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
+        <field name="formulas">balance = sum.balance</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="3"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note27b_1_3" model="ohada.financial.html.report.line">
+        <field name="name">DUMMY LINE NAME</field>
+        <field name="code">N27b_1_3</field>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>
+        <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
+        <field name="formulas">balance = sum.balance</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="4"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note27b_1_4" model="ohada.financial.html.report.line">
+        <field name="name">DUMMY LINE NAME</field>
+        <field name="code">N27b_1_4</field>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>
+        <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
+        <field name="formulas">balance = sum.balance</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="5"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note27b_1_5" model="ohada.financial.html.report.line">
+        <field name="name">DUMMY LINE NAME</field>
+        <field name="code">N27b_1_5</field>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>
+        <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
+        <field name="formulas">balance = sum.balance</field>
+        <field name="level" eval="0" />
+        <field name="sequence" eval="6"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note27b_1_6" model="ohada.financial.html.report.line">
+        <field name="name">DUMMY LINE NAME</field>
+        <field name="code">N27b_1_6</field>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>
+        <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
+        <field name="formulas">balance = sum.balance</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="7"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note27b_1_7" model="ohada.financial.html.report.line">
+        <field name="name">DUMMY LINE NAME</field>
+        <field name="code">N27b_1_7</field>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>
+        <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
+        <field name="formulas">balance = sum.balance</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="8"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note27b_1_8" model="ohada.financial.html.report.line">
+        <field name="name">DUMMY LINE NAME</field>
+        <field name="code">N27b_1_8</field>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>
+        <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
+        <field name="formulas">balance = sum.balance</field>
+        <field name="level" eval="0" />
+        <field name="sequence" eval="9"/>
         <field name="groupby">account_id</field>
     </record>
 

@@ -1649,6 +1649,7 @@ class OhadaReport(models.AbstractModel):
         otherwise it uses the main_template. Reason is for efficiency, when unfolding a line in the report
         we don't want to reload all lines, just get the one we unfolded.
         '''
+        # wdb.set_trace()
         if not options['date'].get('date_from'):
             options = self.make_temp_options(int(options['date']['date'][0:4]))
         g_rcontext=dict()

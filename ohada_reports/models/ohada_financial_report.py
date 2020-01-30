@@ -1515,7 +1515,36 @@ class OhadaFinancialReportLine(models.Model):
                     vals['columns'] = []
                     for i in range(len(header_list)):
                         vals['columns'].append({'name': header_list[i]})
-                elif line.sequence == 1:
+                elif financial_report.name in ["Note 13", "Note 31"] and line.sequence == 1:
+                    header_list = [["DUMMY LINE NAME"],
+                                   ["DUMMY LINE NAME"],
+                                   ["DUMMY LINE NAME"],
+                                   ["DUMMY LINE NAME"],
+                                   ["DUMMY LINE NAME"]]
+                    vals['columns'] = []
+                    for i in range(len(header_list)):
+                        vals['columns'].append({'name': header_list[i]})
+                elif (financial_report.name == "Note 16B Bis" or financial_report.name == "Note 16B Bis_1") and line.sequence == 1:
+                    vals['name'] = "DUMMY LINE NAME"
+                    vals['columns'] = []
+                elif financial_report.name == "Note 32" and line.sequence in [1, 2]:
+                    header_list = [["DUMMY LINE NAME"],
+                                   ["DUMMY LINE NAME"],
+                                   ["DUMMY LINE NAME"],
+                                   ["DUMMY LINE NAME"],
+                                   ["DUMMY LINE NAME"],
+                                   ["DUMMY LINE NAME"],
+                                   ["DUMMY LINE NAME"],
+                                   ["DUMMY LINE NAME"],
+                                   ["DUMMY LINE NAME"],
+                                   ["DUMMY LINE NAME"],
+                                   ["DUMMY LINE NAME"],
+                                   ["DUMMY LINE NAME"],
+                                   ["DUMMY LINE NAME"]]
+                    vals['columns'] = []
+                    for i in range(len(header_list)):
+                        vals['columns'].append({'name': header_list[i]})
+                elif line.sequence == 1 or ((financial_report.name == "Note 16B Bis" or financial_report.name == "Note 16B Bis_1") and line.sequence == 2):
                     vals['columns'][0]['name'] = ['ANNEE ' + line._context['date_from'][0:4]]
                     if len(vals['columns']) > 1 and line._context.get('periods') != None \
                             and options['comparison']['filter'] == 'no_comparison' or len(
@@ -1610,45 +1639,58 @@ class OhadaFinancialReportLine(models.Model):
                 else:
                     result[0]['columns'][0]['name'] = 'NET'
 
-            # ==================== for special notes =================================================================
-
-            if financial_report.name == "Note 1" and line.sequence == 2:
-                del vals['note']
-                vals['name'] = 'Hypothèque'
-                vals['columns'][0]['name'] = 'Nantissements'
-                vals['columns'].append({'name': 'Gages/Autres'})
-            elif financial_report.name == 'Note 1' and line.sequence == 26:
-                vals['columns'].append({'name': ['Engagements', 'donnés']})
-                vals['columns'].append({'name': ['Engagements', 'recus']})
-            elif financial_report.name == 'Note 1' and line.sequence > 25:
-                vals['columns'].append({'name': ' '})
-                vals['columns'].append({'name': ' '})
-            elif financial_report.name == 'Note 1' and line.header is not True:
-                vals['columns'].append({'name': ' '})
-                vals['columns'].append({'name': ' '})
-                vals['columns'].append({'name': ' '})
-            elif financial_report.name == 'Note 2':
-                vals['columns'] = []
-            elif financial_report.name == 'Note 3A' and line.sequence > 2:
-                vals['columns'] = []
-                for i in range(7):
+            # ==================== temporary solution for special notes =============================================
+            if financial_report.type == 'note':
+                if financial_report.name == "Note 1" and line.sequence == 2:
+                    del vals['note']
+                    vals['name'] = 'Hypothèque'
+                    vals['columns'][0]['name'] = 'Nantissements'
+                    vals['columns'].append({'name': 'Gages/Autres'})
+                elif financial_report.name == 'Note 1' and line.sequence == 26:
+                    vals['columns'].append({'name': ['Engagements', 'donnés']})
+                    vals['columns'].append({'name': ['Engagements', 'recus']})
+                elif financial_report.name == 'Note 1' and line.sequence > 25:
                     vals['columns'].append({'name': ' '})
-            elif financial_report.name == 'Note 3B' and line.sequence > 2:
-                vals['columns'] = []
-                for i in range(7):
                     vals['columns'].append({'name': ' '})
-            elif financial_report.name == 'Note 3C' and line.sequence > 2:
-                vals['columns'] = []
-                for i in range(4):
+                elif financial_report.name == 'Note 1' and line.header is not True:
                     vals['columns'].append({'name': ' '})
-            elif financial_report.name == 'Note 3D' and line.sequence > 2:
-                vals['columns'] = []
-                for i in range(5):
                     vals['columns'].append({'name': ' '})
-            elif financial_report.name == 'Note 3E' and not line.sequence == 2:
-                vals['columns'] = []
-                for i in range(2):
                     vals['columns'].append({'name': ' '})
+                elif financial_report.name in ['Note 2', "Note 35"]:
+                    vals['columns'] = []
+                elif financial_report.name in ['Note 3A', 'Note 3B'] and line.sequence > 2:
+                    vals['columns'] = []
+                    for i in range(7):
+                        vals['columns'].append({'name': ' '})
+                elif financial_report.name == 'Note 3C' and line.sequence > 2:
+                    vals['columns'] = []
+                    for i in range(4):
+                        vals['columns'].append({'name': ' '})
+                elif (financial_report.name == 'Note 3D' and line.sequence > 2) or (financial_report.name in ['Note 13', 'Note 31'] and line.sequence > 1) or financial_report.name == "Note 12":
+                    vals['columns'] = []
+                    for i in range(5):
+                        vals['columns'].append({'name': ' '})
+                elif financial_report.name == 'Note 3E' and not line.sequence == 2:
+                    vals['columns'] = []
+                    for i in range(2):
+                        vals['columns'].append({'name': ' '})
+                elif (financial_report.name == "Note 16B Bis" or financial_report.name == "Note 16B Bis_1") and line.sequence != 1:
+                    vals['columns'].pop()
+                elif financial_report.name == "Note 32":
+                    vals['columns'] = []
+                    for i in range(13):
+                        vals['columns'].append({'name': ' '})
+                elif financial_report.name in ["Note 33", "Note 28"]:
+                    vals['columns'] = []
+                    for i in range(8):
+                        vals['columns'].append({'name': ' '})
+                elif financial_report.name == "Note 37":
+                    vals['columns'] = []
+                    vals['columns'].append({'name': ' '})
+                elif financial_report.name == 'Note 8A':
+                    vals['columns'] = []
+                    for i in range(3):
+                        vals['columns'].append({'name': ' '})
 
             final_result_table += result
 
