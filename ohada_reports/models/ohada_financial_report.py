@@ -1666,7 +1666,7 @@ class OhadaFinancialReportLine(models.Model):
                     vals['columns'] = []
                     for i in range(4):
                         vals['columns'].append({'name': ' '})
-                elif (financial_report.name == 'Note 3D' and line.sequence > 2) or (financial_report.name in ['Note 13', 'Note 31'] and line.sequence > 1) or financial_report.name == "Note 12":
+                elif (financial_report.name == 'Note 3D' and line.sequence > 2) or (financial_report.name in ['Note 13', 'Note 31'] and line.sequence > 1) or financial_report.name in ["Note 12", "Note 36"]:
                     vals['columns'] = []
                     for i in range(5):
                         vals['columns'].append({'name': ' '})
@@ -1674,13 +1674,13 @@ class OhadaFinancialReportLine(models.Model):
                     vals['columns'] = []
                     for i in range(2):
                         vals['columns'].append({'name': ' '})
-                elif (financial_report.name == "Note 16B Bis" or financial_report.name == "Note 16B Bis_1") and line.sequence != 1:
+                elif (financial_report.name in ["Note 16B Bis", "Note 16B Bis_1"]  and line.sequence != 1) or financial_report.name in ["Note 16B", "Note 16B_1"]:
                     vals['columns'].pop()
-                elif financial_report.name == "Note 32":
+                elif financial_report.name in ["Note 32", "Note 27B"]:
                     vals['columns'] = []
                     for i in range(13):
                         vals['columns'].append({'name': ' '})
-                elif financial_report.name in ["Note 33", "Note 28"]:
+                elif financial_report.name in ["Note 33", "Note 28", "Note 27B_1"]:
                     vals['columns'] = []
                     for i in range(8):
                         vals['columns'].append({'name': ' '})
