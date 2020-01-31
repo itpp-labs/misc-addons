@@ -1,12 +1,12 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* web_website
+# 	* web_website
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: <>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -15,7 +15,7 @@ msgstr ""
 
 #. module: web_website
 #. openerp-web
-#: code:addons/web_website/static/src/js/switch_website_menu.js:32
+#: code:addons/web_website/static/src/js/switch_website_menu.js:0
 #, python-format
 msgid "All Websites"
 msgstr ""
@@ -73,7 +73,7 @@ msgid "Current Website"
 msgstr ""
 
 #. module: web_website
-#: code:addons/web_website/models/res_users.py:78
+#: code:addons/web_website/models/res_users.py:0
 #, python-format
 msgid "Current website doesn't belong to Current Company"
 msgstr ""
@@ -87,7 +87,7 @@ msgstr ""
 
 #. module: web_website
 #. openerp-web
-#: code:addons/web_website/static/src/xml/qweb.xml:8
+#: code:addons/web_website/static/src/xml/qweb.xml:0
 #, python-format
 msgid "Dropdown menu"
 msgstr ""
@@ -131,13 +131,18 @@ msgstr ""
 
 #. module: web_website
 #: model:ir.model,name:web_website.model_website_dependent_mixin
-msgid "Mixin Class with helpers to convert previously normal fields to website-depedent"
+msgid ""
+"Mixin Class with helpers to convert previously normal fields to website-"
+"depedent"
 msgstr ""
 
 #. module: web_website
-#: model:ir.model.fields,field_description:web_website.field_ir_attachment_config_settings__group_multi_website
+#: model:ir.model,name:web_website.model_test_website_dependent
+msgid "Model for testing web_website module"
+msgstr ""
+
+#. module: web_website
 #: model:ir.model.fields,field_description:web_website.field_res_config_settings__group_multi_website
-#: model:ir.model.fields,field_description:web_website.field_test_config_settings__group_multi_website
 #: model_terms:ir.ui.view,arch_db:web_website.res_config_settings_view_form
 msgid "Multi Website for Backend"
 msgstr ""
@@ -163,16 +168,14 @@ msgid "Name"
 msgstr ""
 
 #. module: web_website
-#: model:ir.model.fields,help:web_website.field_ir_attachment_config_settings__group_multi_website
 #: model:ir.model.fields,help:web_website.field_res_config_settings__group_multi_website
-#: model:ir.model.fields,help:web_website.field_test_config_settings__group_multi_website
 #: model_terms:ir.ui.view,arch_db:web_website.res_config_settings_view_form
 msgid "Show Website Switcher in backend"
 msgstr ""
 
 #. module: web_website
 #. openerp-web
-#: code:addons/web_website/static/src/js/switch_website_menu.js:40
+#: code:addons/web_website/static/src/js/switch_website_menu.js:0
 #, python-format
 msgid "Tap on the list to change website"
 msgstr ""
@@ -202,9 +205,3 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:web_website.view_users_form
 msgid "Websites count"
 msgstr ""
-
-#. module: web_website
-#: model:ir.model,name:web_website.model_test_website_dependent
-msgid "test.website_dependent"
-msgstr ""
-
