@@ -4,7 +4,7 @@
     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). */
 odoo.define('web_debranding.dashboard', function (require) {
 "use strict";
-
+    // Перед тем как выпиливать, надо понять что этот код делал
     var dashboard = require('web_settings_dashboard');
     dashboard.Dashboard.include({
         start: function(){

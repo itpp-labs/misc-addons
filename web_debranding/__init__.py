@@ -3,7 +3,7 @@
 from . import models
 from . import controllers
 
-from openerp import SUPERUSER_ID, api
+from odoo import SUPERUSER_ID, api
 
 MODULE = '_web_debranding'
 

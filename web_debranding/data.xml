@@ -8,7 +8,7 @@
             <field name="value">web_debranding</field>
         </record>
         <record id="base.main_partner" model="res.partner">
-            <field name="image"></field>
+            <field name="image_1920"></field>
         </record>
         <record id="base.partner_root" model="res.partner">
             <field name="name">Bot</field>

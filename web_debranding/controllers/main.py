@@ -69,30 +69,30 @@ class BinaryCustom(Binary):
         return response
 
 
-class WebClientCustom(WebClient):
-
-    @http.route('/web/webclient/qweb', type='http', auth="none")
-    def qweb(self, mods=None, db=None):
-        files = [f[0] for f in controllers_main.manifest_glob('qweb', addons=mods, db=db)]
-        last_modified = controllers_main.get_last_modified(files)
-        if request.httprequest.if_modified_since and request.httprequest.if_modified_since >= last_modified:
-            return controllers_main.werkzeug.wrappers.Response(status=304)
-
-        content, checksum = controllers_main.concat_xml(files)
-        if request.context['lang'] == 'en_US':
-            # request.env could be not available
-            content = debrand_bytes(request.session.db and request.env or None, content)
-
-        return controllers_main.make_conditional(
-            request.make_response(content, [('Content-Type', 'text/xml')]),
-            last_modified, checksum)
-
-    @http.route('/web/webclient/translations', type='json', auth="none")
-    def translations(self, mods=None, lang=None):
-        res = super(WebClientCustom, self).translations(mods, lang)
-
-        for module_key, module_vals in res['modules'].items():
-            for message in module_vals['messages']:
-                message['id'] = debrand(request.env, message['id'])
-                message['string'] = debrand(request.env, message['string'])
-        return res
+# class WebClientCustom(WebClient):
+#
+#     @http.route('/web/webclient/qweb', type='http', auth="none")
+#     def qweb(self, mods=None, db=None):
+#         files = [f[0] for f in controllers_main.manifest_glob('qweb', addons=mods, db=db)]
+#         last_modified = controllers_main.get_last_modified(files)
+#         if request.httprequest.if_modified_since and request.httprequest.if_modified_since >= last_modified:
+#             return controllers_main.werkzeug.wrappers.Response(status=304)
+#
+#         content, checksum = controllers_main.concat_xml(files)
+#         if request.context['lang'] == 'en_US':
+#             # request.env could be not available
+#             content = debrand_bytes(request.session.db and request.env or None, content)
+#
+#         return controllers_main.make_conditional(
+#             request.make_response(content, [('Content-Type', 'text/xml')]),
+#             last_modified, checksum)
+#
+#     @http.route('/web/webclient/translations', type='json', auth="none")
+#     def translations(self, mods=None, lang=None):
+#         res = super(WebClientCustom, self).translations(mods, lang)
+#
+#         for module_key, module_vals in res['modules'].items():
+#             for message in module_vals['messages']:
+#                 message['id'] = debrand(request.env, message['id'])
+#                 message['string'] = debrand(request.env, message['string'])
+#         return res
