@@ -29,7 +29,7 @@
             </t>
             <div role="separator" class="dropdown-divider"></div>
             <a role="menuitem" class="dropdown-item js_foldable_trigger o_closed_menu" data-filter='custom_filter_date'>Custom</a>
-            <div class="o_foldable_menu o_closed_menu o_account_report_search" data-filter='custom_filter_date'>
+            <div class="o_foldable_menu o_closed_menu o_ohada_report_search" data-filter='custom_filter_date'>
                 <t t-if="options['date'].get('date_from') != None">
                     <label class="custom-date" for="date_from">Start Date :</label>
                     <div class="form-group custom-date">
@@ -65,21 +65,21 @@
             <a role="menuitem" title="No Comparison" data-filter="no_comparison" class="dropdown-item js_account_report_date_cmp_filter">No Comparison</a>
             <div role="separator" class="dropdown-divider"></div>
             <a role="menuitem" class="dropdown-item js_foldable_trigger o_closed_menu" data-filter='previous_period_filter'>Previous Period</a>
-            <div class="o_foldable_menu o_closed_menu o_account_report_search" data-filter='previous_period_filter'>
+            <div class="o_foldable_menu o_closed_menu o_ohada_report_search" data-filter='previous_period_filter'>
                 <label for="periods_number">Number of periods :</label><br />
                 <input type="number" name="periods_number" t-att-value="options['comparison'].get('number_period')"/><br />
                 <button type="button" class="btn btn-primary js_account_report_date_cmp_filter" data-filter='previous_period'>Apply</button>
             </div>
             <div role="separator" class="dropdown-divider"></div>
             <a role="menuitem" class="dropdown-item js_foldable_trigger o_closed_menu" data-filter='same_last_year_filter'>Same Period Last Year</a>
-            <li class="o_foldable_menu o_closed_menu o_account_report_search" data-filter='same_last_year_filter'>
+            <li class="o_foldable_menu o_closed_menu o_ohada_report_search" data-filter='same_last_year_filter'>
                 <label for="periods_number">Number of periods :</label><br />
                 <input type="number" name="periods_number" t-att-value="options['comparison'].get('number_period')"/><br />
                 <button type="button" class="btn btn-primary js_account_report_date_cmp_filter" data-filter='same_last_year'>Apply</button>
             </li>
             <div role="separator" class="dropdown-divider"></div>
             <a role="menuitem" class="dropdown-item js_foldable_trigger o_closed_menu" data-filter='custom_cmp_filter'>Custom</a>
-            <div class="o_foldable_menu o_closed_menu o_account_report_search" data-filter='custom_cmp_filter'>
+            <div class="o_foldable_menu o_closed_menu o_ohada_report_search" data-filter='custom_cmp_filter'>
                 <t t-if="options['comparison'].get('date_from') != None">
                     <label class="custom-date" for="date_from_cmp">Start Date :</label>
                     <div class="form-group custom-date">
@@ -198,17 +198,17 @@
             <span class="fa fa-folder-open"/> Analytic
         </a>
         <div class="dropdown-menu o_filters_menu" role="menu">
-            <div t-if="options.get('analytic_accounts') != None" class="o_account_report_search" role="menuitem">
+            <div t-if="options.get('analytic_accounts') != None" class="o_ohada_report_search" role="menuitem">
                 <b>Accounts</b><br />
-                <select class="js_account_reports_analytic_auto_complete o_account_report_select" data-filter="analytic_accounts" multiple="multiple">
+                <select class="js_account_reports_analytic_auto_complete o_ohada_report_select" data-filter="analytic_accounts" multiple="multiple">
                     <t t-foreach="analytic_accounts" t-as="a">
                         <option t-att-value="a[0]"><t t-esc="a[1]" /></option>
                     </t>
                 </select>
             </div>
-            <div t-if="options.get('analytic_tags') != None" class="o_account_report_search" role="menuitem">
+            <div t-if="options.get('analytic_tags') != None" class="o_ohada_report_search" role="menuitem">
                 <b>Tags</b><br />
-                <select class="js_account_reports_analytic_auto_complete o_account_report_select" data-filter="analytic_tags" multiple="multiple">
+                <select class="js_account_reports_analytic_auto_complete o_ohada_report_select" data-filter="analytic_tags" multiple="multiple">
                     <t t-foreach="analytic_tags" t-as="t">
                         <option t-att-value="t[0]"><t t-esc="t[1]" /></option>
                     </t>
@@ -249,36 +249,36 @@
             <span class="fa fa-folder-open"/> Partners
         </a>
         <ul class="dropdown-menu o_filters_menu" role="menu">
-            <li class="o_account_report_search js_account_partner_m2m"/>
+            <li class="o_ohada_report_search js_account_partner_m2m"/>
         </ul>
     </template>
 
     <template id="search_template">
-        <div class="btn-group o_dropdown o_account_reports_filter_date" t-if="options.get('date') != None">
+        <div class="btn-group o_dropdown o_ohada_reports_filter_date" t-if="options.get('date') != None">
             <t t-call="ohada_reports.search_template_date_filter"/>
         </div>
-        <div class="btn-group o_dropdown o_account_reports_filter_date_cmp" t-if="options.get('comparison') != None">
+        <div class="btn-group o_dropdown o_ohada_reports_filter_date_cmp" t-if="options.get('comparison') != None">
             <t t-call="ohada_reports.search_template_comparison"/>
         </div>
-        <div class="btn-group o_dropdown o_account_reports_filter_multi_company" t-if="options.get('multi_company') != None">
+        <div class="btn-group o_dropdown o_ohada_reports_filter_multi_company" t-if="options.get('multi_company') != None">
             <t t-call="ohada_reports.search_template_multi_company"/>
         </div>
-        <div class="btn-group o_dropdown o_account_reports_filter_journals" t-if="options.get('journals') != None">
+        <div class="btn-group o_dropdown o_ohada_reports_filter_journals" t-if="options.get('journals') != None">
             <t t-call="ohada_reports.search_template_journals"/>
         </div>
-        <div class="btn-group o_dropdown o_account_reports_filter_account_type" t-if="options.get('account_type') != None">
+        <div class="btn-group o_dropdown o_ohada_reports_filter_account_type" t-if="options.get('account_type') != None">
             <t t-call="ohada_reports.search_template_account_type"/>
         </div>
-        <div class="btn-group o_dropdown o_account_reports_filter_analytic" t-if="options.get('analytic') != None or options.get('analytic_tags') != None">
+        <div class="btn-group o_dropdown o_ohada_reports_filter_analytic" t-if="options.get('analytic') != None or options.get('analytic_tags') != None">
             <t t-call="ohada_reports.search_template_analytic"/>
         </div>
-        <div class="btn-group o_dropdown o_account_reports_filter_ir_filters" t-if="options.get('ir_filters') != None">
+        <div class="btn-group o_dropdown o_ohada_reports_filter_ir_filters" t-if="options.get('ir_filters') != None">
             <t t-call="ohada_reports.search_template_ir_filters"/>
         </div>
-        <div class="btn-group o_dropdown o_account_reports_filter_partner" t-if="options.get('partner')">
+        <div class="btn-group o_dropdown o_ohada_reports_filter_partner" t-if="options.get('partner')">
             <t t-call="ohada_reports.search_template_partner"/>
         </div>
-        <div class="btn-group o_dropdown o_account_reports_filter_bool" t-if="options.get('cash_basis') != None or options.get('all_entries') != None or options.get('unfold_all') != None">
+        <div class="btn-group o_dropdown o_ohada_reports_filter_bool" t-if="options.get('cash_basis') != None or options.get('all_entries') != None or options.get('unfold_all') != None">
             <t t-call="ohada_reports.search_template_extra_options"/>
         </div>
     </template>

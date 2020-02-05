@@ -117,15 +117,15 @@ var M2MFilters = Widget.extend(StandaloneFieldManagerMixin, {
 var accountReportsWidget = AbstractAction.extend(ControlPanelMixin, {
 
     events: {
-        'input .o_account_reports_filter_input': 'filter_accounts',
-        'click .o_account_reports_summary': 'edit_summary',
+        'input .o_ohada_reports_filter_input': 'filter_accounts',
+        'click .o_ohada_reports_summary': 'edit_summary',
         'click .js_account_report_save_summary': 'save_summary',
-        'click .o_account_reports_footnote_icons': 'delete_footnote',
+        'click .o_ohada_reports_footnote_icons': 'delete_footnote',
         'click .js_account_reports_add_footnote': 'add_footnote',
         'click .js_account_reports_edit_footnote': 'edit_footnote',
         'click .js_account_report_foldable': 'fold_unfold',
         'click [action]': 'trigger_action',
-        'click .o_account_reports_load_more span': 'load_more',
+        'click .o_ohada_reports_load_more span': 'load_more',
     },
 
     custom_events: {
@@ -244,11 +244,11 @@ var accountReportsWidget = AbstractAction.extend(ControlPanelMixin, {
     },
     render_template: function() {
         this.$el.html(this.main_html);
-        this.$el.find('.o_account_reports_summary_edit').hide();
+        this.$el.find('.o_ohada_reports_summary_edit').hide();
         this._add_line_classes();
     },
     _add_line_classes: function() {
-        this.$('.o_account_report_line').filter(function () {
+        this.$('.o_ohada_report_line').filter(function () {
             return $(this).data('unfolded') === 'True';
         }).parent().addClass('o_js_account_report_parent_row_unfolded');
         this.$('tr[data-parent-id]').addClass('o_js_account_report_inner_row');
@@ -257,9 +257,9 @@ var accountReportsWidget = AbstractAction.extend(ControlPanelMixin, {
         var self = this;
         var query = e.target.value.trim().toLowerCase();
         this.filterOn = false;
-        this.$('.o_account_reports_level2').each(function(index, el) {
+        this.$('.o_ohada_reports_level2').each(function(index, el) {
             var $accountReportLineFoldable = $(el);
-            var line_id = $accountReportLineFoldable.find('.o_account_report_line').data('id');
+            var line_id = $accountReportLineFoldable.find('.o_ohada_report_line').data('id');
             var $childs = self.$('tr[data-parent-id="'+line_id+'"]');
             var lineText = $accountReportLineFoldable.find('.account_report_line_name')
                 // Only the direct text node, not text situated in other child nodes
@@ -271,18 +271,18 @@ var accountReportsWidget = AbstractAction.extend(ControlPanelMixin, {
                 return str.toLowerCase().startsWith(query);
             });
 
-            $accountReportLineFoldable.toggleClass('o_account_reports_filtered_lines', !queryFound);
-            $childs.toggleClass('o_account_reports_filtered_lines', !queryFound);
+            $accountReportLineFoldable.toggleClass('o_ohada_reports_filtered_lines', !queryFound);
+            $childs.toggleClass('o_ohada_reports_filtered_lines', !queryFound);
 
             if (!queryFound) {
                 self.filterOn = true;
             }
         });
         if (this.filterOn) {
-            this.$('.o_account_reports_level1.total').hide();
+            this.$('.o_ohada_reports_level1.total').hide();
         }
         else {
-            this.$('.o_account_reports_level1.total').show();
+            this.$('.o_ohada_reports_level1.total').show();
         }
         this.report_options['filter_accounts'] = query;
         this.render_footnotes();
@@ -475,15 +475,15 @@ var accountReportsWidget = AbstractAction.extend(ControlPanelMixin, {
         return this.$buttons;
     },
     edit_summary: function(e) {
-        var $textarea = $(e.target).parents('.o_account_reports_body').find('textarea[name="summary"]');
-        var height = Math.max($(e.target).parents('.o_account_reports_body').find('.o_account_report_summary').height(), 100); // Compute the height that will be needed
+        var $textarea = $(e.target).parents('.o_ohada_reports_body').find('textarea[name="summary"]');
+        var height = Math.max($(e.target).parents('.o_ohada_reports_body').find('.o_ohada_report_summary').height(), 100); // Compute the height that will be needed
         // TODO master: remove replacing <br /> (this was kept for existing data)
         var text = $textarea.val().replace(new RegExp('<br />', 'g'), '\n'); // Remove unnecessary spaces and line returns
         $textarea.height(height); // Give it the right height
         $textarea.val(text);
-        $(e.target).parents('.o_account_reports_body').find('.o_account_reports_summary_edit').show();
-        $(e.target).parents('.o_account_reports_body').find('.o_account_reports_summary').hide();
-        $(e.target).parents('.o_account_reports_body').find('textarea[name="summary"]').focus();
+        $(e.target).parents('.o_ohada_reports_body').find('.o_ohada_reports_summary_edit').show();
+        $(e.target).parents('.o_ohada_reports_body').find('.o_ohada_reports_summary').hide();
+        $(e.target).parents('.o_ohada_reports_body').find('textarea[name="summary"]').focus();
     },
 
     save_summary: function(e) {
@@ -497,8 +497,8 @@ var accountReportsWidget = AbstractAction.extend(ControlPanelMixin, {
                 context: this.odoo_context,
             })
             .then(function(result){
-                self.$el.find('.o_account_reports_summary_edit').hide();
-                self.$el.find('.o_account_reports_summary').show();
+                self.$el.find('.o_ohada_reports_summary_edit').hide();
+                self.$el.find('.o_ohada_reports_summary').show();
                 if (!text) {
                     var $content = $("<input type='text' class='o_input' name='summary'/>");
                     $content.attr('placeholder', _t('Add a note'));
@@ -510,7 +510,7 @@ var accountReportsWidget = AbstractAction.extend(ControlPanelMixin, {
                 $("#summernote").destroy();
                 document.getElementById("save_summary").style.display = "none";
                 document.getElementById("edit_a_note2").style.display = "block";
-                return $(e.target).parent().siblings('.o_account_reports_summary').find('> .o_account_report_summary').html($content);
+                return $(e.target).parent().siblings('.o_ohada_reports_summary').find('> .o_ohada_report_summary').html($content);
             });
     },
     render_footnotes: function() {
@@ -521,13 +521,13 @@ var accountReportsWidget = AbstractAction.extend(ControlPanelMixin, {
         var number = 1;
         var footnote_to_render = [];
         _.each($dom_footnotes, function(el) {
-            if ($(el).parents('.o_account_reports_filtered_lines').length > 0) {
+            if ($(el).parents('.o_ohada_reports_filtered_lines').length > 0) {
                 return;
             }
             var line_id = $(el).data('id');
             var footnote = _.filter(self.footnotes, function(footnote) {return ''+footnote.line === ''+line_id;});
             if (footnote.length !== 0) {
-                $(el).html('<sup><b class="o_account_reports_footnote_sup"><a href="#footnote'+number+'">'+number+'</a></b></sup>');
+                $(el).html('<sup><b class="o_ohada_reports_footnote_sup"><a href="#footnote'+number+'">'+number+'</a></b></sup>');
                 footnote[0].number = number;
                 number += 1;
                 footnote_to_render.push(footnote[0]);
@@ -583,7 +583,7 @@ var accountReportsWidget = AbstractAction.extend(ControlPanelMixin, {
 //            if (!footnote_text && existing_footnote.length === 0) {return;}
 //            if (existing_footnote.length !== 0) {
 //                if (!footnote_text) {
-//                    return self.$el.find('.footnote[data-id="'+existing_footnote[0].id+'"] .o_account_reports_footnote_icons').click();
+//                    return self.$el.find('.footnote[data-id="'+existing_footnote[0].id+'"] .o_ohada_reports_footnote_icons').click();
 //                }
 //                // replace text of existing footnote
 //                return this._rpc({
@@ -636,7 +636,7 @@ var accountReportsWidget = AbstractAction.extend(ControlPanelMixin, {
     },
     fold_unfold: function(e) {
         var self = this;
-        if ($(e.target).hasClass('caret') || $(e.target).parents('.o_account_reports_footnote_sup').length > 0){return;}
+        if ($(e.target).hasClass('caret') || $(e.target).parents('.o_ohada_reports_footnote_sup').length > 0){return;}
         e.stopPropagation();
         e.preventDefault();
         var line = $(e.target).parents('td');
@@ -712,7 +712,7 @@ var accountReportsWidget = AbstractAction.extend(ControlPanelMixin, {
                 context: this.odoo_context,
             })
             .then(function (result){
-                var $tr = $line.parents('.o_account_reports_load_more');
+                var $tr = $line.parents('.o_ohada_reports_load_more');
                 $tr.after(result);
                 $tr.remove();
                 self._add_line_classes();

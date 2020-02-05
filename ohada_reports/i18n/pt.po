@@ -143,7 +143,7 @@ msgstr ""
 #. module: ohada_reports
 #: model_terms:ir.ui.view,arch_db:ohada_reports.main_template
 msgid ""
-"<i class=\"fa fa-fw fa-pencil o_account_reports_edit_summary_pencil\" "
+"<i class=\"fa fa-fw fa-pencil o_ohada_reports_edit_summary_pencil\" "
 "role=\"img\" aria-label=\"Edit Summary\" title=\"Edit Summary\"/>"
 msgstr ""
 
@@ -275,7 +275,7 @@ msgstr ""
 #. module: ohada_reports
 #: model_terms:ir.ui.view,arch_db:ohada_reports.footnotes_template
 msgid ""
-"<span class=\"o_account_reports_footnote_icons\"><i class=\"fa fa-fw fa-"
+"<span class=\"o_ohada_reports_footnote_icons\"><i class=\"fa fa-fw fa-"
 "trash-o\" role=\"img\" aria-label=\"Delete\" title=\"Delete\"/></span>"
 msgstr ""
 

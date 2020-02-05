@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+
     <!--NOTE 1-->
 
     <record id="ohada_financial_report_note1" model="ohada.financial.html.report">
-        <field name="name">Note 1</field>
+        <field name="name">Note 1 : Dettes garanties par des sûretés réelles</field>
+        <field name="shortname">Note 1</field>
+        <field name="code">N1</field>
+        <field name="header">DETTES GARANTIES PAR DES SURETES REELLES</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">DETTES GARANTIES PAR DES SURETES REELLES</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -397,12 +400,14 @@
     <!--NOTE 2-->
 
     <record id="ohada_financial_report_note2" model="ohada.financial.html.report">
-        <field name="name">Note 2</field>
+        <field name="name">Note 2 : Informations obligatoires</field>
+        <field name="shortname">Note 2</field>
+        <field name="code">N2</field>
+        <field name="header">INFORMATIONS OBLIGATOIRES</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">INFORMATIONS OBLIGATOIRES</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -483,12 +488,14 @@
     <!--NOTE 3A-->
 
     <record id="ohada_financial_report_note3a" model="ohada.financial.html.report">
-        <field name="name">Note 3A</field>
+        <field name="name">Note 3A : Immolisation brute</field>
+        <field name="shortname">Note 3A</field>
+        <field name="code">N3A</field>
+        <field name="header">IMMOBILISATION BRUTE</field>
         <field name="debit_credit" eval="True"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">IMMOBILISATION BRUTE</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -503,15 +510,6 @@
         <field name="sequence" eval="1"/>
         <field name="level" eval="0" />
     </record>
-
-    <!--<record id="ohada_financial_report_note3a_1" model="ohada.financial.html.report.line">-->
-        <!--<field name="name"> </field>-->
-        <!--<field name="code">N3a_1</field>-->
-        <!--<field name="financial_report_id" ref="ohada_financial_report_note3a"/>-->
-        <!--<field name="level" eval="0" />-->
-        <!--<field name="sequence" eval="2"/>-->
-        <!--<field name="groupby">account_id</field>-->
-    <!--</record>-->
 
     <record id="ohada_financial_report_note3a_2" model="ohada.financial.html.report.line">
         <field name="name">IMMOBILISATIONS INCORPORELLES</field>
@@ -706,12 +704,14 @@
     <!--NOTE 3B-->
 
     <record id="ohada_financial_report_note3b" model="ohada.financial.html.report">
-        <field name="name">Note 3B</field>
+        <field name="name">Note 3B : Biens pris en location acquisition</field>
+        <field name="shortname">Note 3B</field>
+        <field name="code">N3B</field>
+        <field name="header">BIENS PRIS EN LOCATION ACQUISITION</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">BIENS PRIS EN LOCATION ACQUISITION</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -875,12 +875,14 @@
     <!--NOTE 3C-->
 
     <record id="ohada_financial_report_note3c" model="ohada.financial.html.report">
-        <field name="name">Note 3C</field>
+        <field name="name">Note 3C : Immobilisations (Amortissements)</field>
+        <field name="shortname">Note 3C</field>
+        <field name="code">N3C</field>
+        <field name="header">IMMOBILISATIONS (AMORTISSEMENTS)</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">IMMOBILISATIONS (AMORTISSEMENTS)</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -1052,12 +1054,14 @@
     <!--NOTE 3D-->
 
     <record id="ohada_financial_report_note3d" model="ohada.financial.html.report">
-        <field name="name">Note 3D</field>
+        <field name="name">Note 3D : Immobilisations - Plus-values et moins-values de cession</field>
+        <field name="shortname">Note 3D</field>
+        <field name="code">N3D</field>
+        <field name="header">IMMOBILISATIONS : PLUS-VALUES ET MOINS-VALUES DE CESSION</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">IMMOBILISATIONS : PLUS-VALUES ET MOINS-VALUES DE CESSION</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -1229,21 +1233,24 @@
     <!--NOTE 3E-->
 
     <record id="ohada_financial_report_note3e" model="ohada.financial.html.report">
-        <field name="name">Note 3E</field>
+        <field name="name">Note 3E : Informations sur les réévaluations effectuées par l'entité</field>
+        <field name="shortname">Note 3E</field>
+        <field name="code">N3E</field>
+        <field name="header">INFORMATIONS SUR LES REEVALUATIONS EFFECTUÉES PAR L'ENTITE</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">INFORMATIONS SUR LES REEVALUATIONS EFFECTUÉES PAR L'ENTITE</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
     </record>
 
     <record id="ohada_financial_report_note3e_header" model="ohada.financial.html.report.line">
-        <field name="name">Nature et date des révaluations :</field>
+        <field name="name">Nature et date des révaluations:</field>
         <field name="code">_n3e_1</field>
         <field name="header" eval="False"/>
+        <field name="colspan">3</field>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="sequence" eval="1"/>
@@ -1445,6 +1452,7 @@
         <field name="code">N3e_22</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="2" />
+        <field name="colspan">3</field>
         <field name="sequence" eval="23"/>
         <field name="groupby">account_id</field>
     </record>
@@ -1454,6 +1462,7 @@
         <field name="code">N3e_23</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="2" />
+        <field name="colspan">3</field>
         <field name="sequence" eval="24"/>
         <field name="groupby">account_id</field>
     </record>
@@ -1461,6 +1470,7 @@
     <record id="ohada_financial_report_note3e_24" model="ohada.financial.html.report.line">
         <field name="name">TOTAL GENERAL</field>
         <field name="code">N3e_24</field>
+        <field name="colspan">2</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="0" />
         <field name="sequence" eval="25"/>
@@ -1470,12 +1480,14 @@
     <!-- NOTE 4 -->
 
     <record id="ohada_financial_report_note4" model="ohada.financial.html.report">
-        <field name="name">Note 4</field>
+        <field name="name">Note 4 : Immobilisations financières</field>
+        <field name="shortname">Note 4</field>
+        <field name="code">N4</field>
+        <field name="header">IMMOBILISATIONS FINANCIERES</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="True"/>
         <field name="type">note</field>
-        <field name="header">IMMOBILISATIONS FINANCIERES</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -1568,7 +1580,6 @@
         <field name="groupby">account_id</field>
     </record>
 
-
     <record id="ohada_financial_report_note4_total_brut" model="ohada.financial.html.report.line">
         <field name="name">TOTAL BRUT</field>
         <field name="code">N4_TOT</field>
@@ -1609,10 +1620,12 @@
         <field name="level" eval="0" />
     </record>
 
-    <!-- NOTE 4_1 -->
+    <!-- NOTE 4.1 -->
 
     <record id="ohada_financial_report_note4_1" model="ohada.financial.html.report">
-        <field name="name">Note 4_1</field>
+        <field name="name">Note 4.1</field>
+        <field name="shortname">Note 4.1</field>
+        <field name="code">N4_1</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="type">note</field>
@@ -1680,12 +1693,14 @@
     <!-- NOTE 5 -->
 
     <record id="ohada_financial_report_note5" model="ohada.financial.html.report">
-        <field name="name">Note 5</field>
+        <field name="name">Note 5 : Actif circulant HAO</field>
+        <field name="shortname">Note 5</field>
+        <field name="header">ACTIF CIRCULANT HAO</field>
+        <field name="code">N5</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="type">note</field>
         <field name="double_report" eval="True"/>
-        <field name="header">ACTIF CIRCULANT HAO</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -1752,10 +1767,12 @@
         <field name="groupby">account_id</field>
     </record>
 
-    <!-- NOTE 5_1 -->
+    <!-- NOTE 5.1 -->
 
     <record id="ohada_financial_report_note5_1" model="ohada.financial.html.report">
-        <field name="name">Note 5_1</field>
+        <field name="name">Note 5.1</field>
+        <field name="shortname">Note 5.1</field>
+        <field name="code">N5_1</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="type">note</field>
@@ -1830,7 +1847,9 @@
     <!-- NOTE 6 -->
 
     <record id="ohada_financial_report_note6" model="ohada.financial.html.report">
-        <field name="name">Note 6</field>
+        <field name="name">Note 6 : Stocks et encours</field>
+        <field name="shortname">Note 6</field>
+        <field name="code">N6</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="type">note</field>
@@ -1982,12 +2001,14 @@
     <!--NOTE 7-->
 
     <record id="ohada_financial_report_note7" model="ohada.financial.html.report">
-        <field name="name">Note 7</field>
+        <field name="name">Note 7 : Clients produits à recevoir</field>
+        <field name="shortname">Note 7</field>
+        <field name="code">N7</field>
+        <field name="header">Clients produits à recevoir</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">CLIENTS PRODUITS À RECEVOIR</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -2168,12 +2189,14 @@
     <!--NOTE 8-->
 
     <record id="ohada_financial_report_note8" model="ohada.financial.html.report">
-        <field name="name">Note 8</field>
+        <field name="name">Note 8 : Autres créances</field>
+        <field name="shortname">Note 8</field>
+        <field name="code">N8</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">AUTRES CREANCES</field>
+        <field name="header">Autres créances</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -2334,19 +2357,21 @@
     <!--NOTE 8A (domains and report header not correct)-->
 
     <record id="ohada_financial_report_note8a" model="ohada.financial.html.report">
-        <field name="name">Note 8A</field>
+        <field name="name">Note 8A : Tableau d'étalements des charges immobilisées et des provisions pour charges à répartir</field>
+        <field name="shortname">Note 8A</field>
+        <field name="code">N8A</field>
+        <field name="header">Tableau d'étalements des charges immobilisées et des provisions pour charges à répartir</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">VALEURS A ENCAISSER</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
     </record>
 
     <record id="ohada_financial_report_note8a_header" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAME</field>
+        <field name="name">LIBELLES</field>
         <field name="code">_n8a_1</field>
         <field name="header" eval="True"/>
         <field name="reference"></field>
@@ -2523,7 +2548,9 @@
     <!--NOTE 9-->
 
     <record id="ohada_financial_report_note9" model="ohada.financial.html.report">
-        <field name="name">Note 9</field>
+        <field name="name">Note 9 : Titres de placement</field>
+        <field name="shortname">Note 9</field>
+        <field name="code">N9</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
@@ -2655,12 +2682,14 @@
     <!--NOTE 10-->
 
     <record id="ohada_financial_report_note10" model="ohada.financial.html.report">
-        <field name="name">Note 10</field>
+        <field name="name">Note 10 : Valeurs à encaiser</field>
+        <field name="shortname">Note 10</field>
+        <field name="code">N10</field>
+        <field name="header">VALEURS A ENCAISSER</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">VALEURS À ENCAISSER</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -2776,12 +2805,14 @@
     <!--NOTE 11-->
 
     <record id="ohada_financial_report_note11" model="ohada.financial.html.report">
-        <field name="name">Note 11</field>
+        <field name="name">Note 11 : Banques, Chèques postaux et Chèques</field>
+        <field name="shortname">Note 11</field>
+        <field name="code">N11</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">BANQUES, CHEQUES POSTAUX ET CHÈQUES</field>
+        <field name="header">DISPONIBILITÉS</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -2963,19 +2994,21 @@
     <!--NOTE 12 (domains and report header not correct)-->
 
     <record id="ohada_financial_report_note12" model="ohada.financial.html.report">
-        <field name="name">Note 12</field>
+        <field name="name">Note 12 : Ecarts de conversion et transferts de charges</field>
+        <field name="shortname">Note 12</field>
+        <field name="code">N12</field>
+        <field name="header">Ecarts de conversion</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="True"/>
         <field name="type">note</field>
-        <field name="header">VALEURS A ENCAISSER</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
     </record>
 
     <record id="ohada_financial_report_note12_header" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAME</field>
+        <field name="name">LIBELLES</field>
         <field name="code">_n12_1</field>
         <field name="header" eval="True"/>
         <field name="reference"></field>
@@ -3075,20 +3108,22 @@
     <!--NOTE 12_1 (domains and report header not correct)-->
 
     <record id="ohada_financial_report_note12_1" model="ohada.financial.html.report">
-        <field name="name">Note 12_1</field>
+        <field name="name">Note 12.1</field>
+        <field name="shortname">Note 12.1</field>
+        <field name="code">N12_1</field>
+        <field name="header">Transferts de charges</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name='secondary' eval="True"/>
         <field name="type">note</field>
-        <field name="header">VALEURS A ENCAISSER</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
     </record>
 
     <record id="ohada_financial_report_note12_1_header" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAME</field>
+        <field name="name">LIBELLES</field>
         <field name="code">_n12_1_1</field>
         <field name="header" eval="True"/>
         <field name="reference"></field>
@@ -3188,19 +3223,21 @@
     <!--NOTE 13 (domains is not correct)-->
 
     <record id="ohada_financial_report_note13" model="ohada.financial.html.report">
-        <field name="name">Note 13</field>
+        <field name="name">Note 13 : Capital</field>
+        <field name="shortname">Note 13</field>
+        <field name="code">N13</field>
+        <field name="header">Capital</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">CAPITAL</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
     </record>
 
     <record id="ohada_financial_report_note13_header" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAME</field>
+        <field name="name">LIBELLES</field>
         <field name="code">_n13_1</field>
         <field name="header" eval="True"/>
         <field name="reference"></field>
@@ -3323,7 +3360,9 @@
     <!--NOTE 14-->
 
     <record id="ohada_financial_report_note14" model="ohada.financial.html.report">
-        <field name="name">Note 14</field>
+        <field name="name">Note 14 : Primes et réserves</field>
+        <field name="shortname">Note 14</field>
+        <field name="code">N14</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
@@ -3499,12 +3538,14 @@
     <!--NOTE 15A-->
 
     <record id="ohada_financial_report_note15a" model="ohada.financial.html.report">
-        <field name="name">Note 15A</field>
+        <field name="name">Note 15A : Subventions et provisions réglementées</field>
+        <field name="shortname">Note 15A</field>
+        <field name="code">N15A</field>
+        <field name="header">Subventions et provisions réglementées</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">SUBVENTIONS ET PROVISIONS REGLEMENTEES</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -3758,16 +3799,17 @@
     </record>
 
 
-
     <!--NOTE 15B (domains not correct)-->
 
     <record id="ohada_financial_report_note15b" model="ohada.financial.html.report">
-        <field name="name">Note 15B</field>
+        <field name="name">Note 15B : Autres fonds propores</field>
+        <field name="shortname">Note 15B</field>
+        <field name="code">N15B</field>
+        <field name="header">Autres fonds propores(1)</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">AUTRES FONDS PROPRES (1)</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -3851,12 +3893,14 @@
     <!--NOTE 16A-->
 
     <record id="ohada_financial_report_note16a" model="ohada.financial.html.report">
-        <field name="name">Note 16A</field>
+        <field name="name">Note 16A : Dettes financières et ressources assimilées</field>
+        <field name="shortname">Note 16A</field>
+        <field name="code">N16A</field>
+        <field name="header">Dettes financières et ressources assimilées</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">DETTES FINANCIERES ET RESSOURCES ASSIMILEES</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -4214,12 +4258,14 @@
     <!--NOTE 16B (domains and report header not correct)-->
 
     <record id="ohada_financial_report_note16b" model="ohada.financial.html.report">
-        <field name="name">Note 16B</field>
+        <field name="name">Note 16B : Engagements de retraite et avantages assimilés (méthode actuarielle)</field>
+        <field name="shortname">Note 16B</field>
+        <field name="code">N16B</field>
+        <field name="header">Engagements de retraite et avantages assimilés</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="True"/>
         <field name="type">note</field>
-        <field name="header">VALEURS A ENCAISSER</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -4315,13 +4361,15 @@
     <!--NOTE 16B_1 (domains and report header not correct)-->
 
     <record id="ohada_financial_report_note16b_1" model="ohada.financial.html.report">
-        <field name="name">Note 16B_1</field>
+        <field name="name">Note 16B.1</field>
+        <field name="shortname">Note 16B.1</field>
+        <field name="code">N16B_1</field>
+        <field name="header"> </field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name='secondary' eval="True"/>
         <field name="type">note</field>
-        <field name="header">VALEURS A ENCAISSER</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -4428,13 +4476,15 @@
     <!--NOTE 16B_2 (domains and report header not correct)-->
 
     <record id="ohada_financial_report_note16b_2" model="ohada.financial.html.report">
-        <field name="name">Note 16B_2</field>
+        <field name="name">Note 16B.2</field>
+        <field name="shortname">Note 16B.2</field>
+        <field name="code">N16B_2</field>
+        <field name="header"> </field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
         <field name='secondary' eval="True"/>
-        <field name="header">VALEURS A ENCAISSER</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -4508,19 +4558,21 @@
     <!--NOTE 16B Bis (domains and report header not correct)-->
 
     <record id="ohada_financial_report_note16b_bis" model="ohada.financial.html.report">
-        <field name="name">Note 16B Bis</field>
+        <field name="name">Note 16B Bis : Engagements de retraite et avantages assimilés (méthode actuarielle)</field>
+        <field name="shortname">Note 16B Bis</field>
+        <field name="code">N16BB</field>
+        <field name="header">Engagements de retraite et avantages assimilés (méthode actuarielle)</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="True"/>
         <field name="type">note</field>
-        <field name="header">VALEURS A ENCAISSER</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
     </record>
 
     <record id="ohada_financial_report_note16b_bis_header" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAME</field>
+        <field name="name">ACTIF PASSIF NET COMPTABILISE AU TITRE DES REGIMES FINANCES</field>
         <field name="code">_n16b_bis_1</field>
         <field name="colspan" eval="3"/>
         <field name="header" eval="True"/>
@@ -4578,20 +4630,21 @@
     <!--NOTE 16B Bis_1 (domains and report header not correct)-->
 
     <record id="ohada_financial_report_note16b_bis_1" model="ohada.financial.html.report">
-        <field name="name">Note 16B Bis_1</field>
+        <field name="name">Note 16B Bis.2</field>
+        <field name="shortname">Note 16B Bis.2</field>
+        <field name="code">N16BB_1</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name='secondary' eval="True"/>
         <field name="type">note</field>
-        <field name="header">VALEURS A ENCAISSER</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
     </record>
 
     <record id="ohada_financial_report_note16b_bis_1_header" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAME</field>
+        <field name="name">VALEUR ACTUARIELLE DES ACTIFS DU REGIME</field>
         <field name="code">_n16b_bis_1_1</field>
         <field name="header" eval="True"/>
         <field name="colspan" eval="3"/>
@@ -4672,12 +4725,14 @@
     <!--NOTE 16C (domains and report header not correct)-->
 
     <record id="ohada_financial_report_note16c" model="ohada.financial.html.report">
-        <field name="name">Note 16c</field>
+        <field name="name">Note 16C : Actifs et passifs éventuels</field>
+        <field name="shortname">Note 16C</field>
+        <field name="code">N16C</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">VALEURS A ENCAISSER</field>
+        <field name="header">ACTIFS ET PASSIFS EVENTUELS</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -4784,7 +4839,9 @@
     <!--NOTE 17-->
 
     <record id="ohada_financial_report_note17" model="ohada.financial.html.report">
-        <field name="name">Note 17</field>
+        <field name="name">Note 17 : Fournisseurs d'exploitation</field>
+        <field name="shortname">Note 17</field>
+        <field name="code">N17</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
@@ -4927,12 +4984,14 @@
     <!--NOTE 18-->
 
     <record id="ohada_financial_report_note18" model="ohada.financial.html.report">
-        <field name="name">Note 18</field>
+        <field name="name">Note 18 : Dettes fiscales et sociales</field>
+        <field name="shortname">Note 18</field>
+        <field name="code">N18</field>
+        <field name="header">Dettes fiscales et sociales</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">DETTES FISCALES ET SOCIALES</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -5111,12 +5170,14 @@
      <!--NOTE 19-->
 
     <record id="ohada_financial_report_note19" model="ohada.financial.html.report">
-        <field name="name">Note 19</field>
+        <field name="name">Note 19 : Autres dettes et provisions pour risques à court terme</field>
+        <field name="shortname">Note 19</field>
+        <field name="code">N19</field>
+        <field name="header">Autres dettes et provisions pour risques à court terme</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">VALEURS A ENCAISSER</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -5352,7 +5413,9 @@
     <!--NOTE 20-->
 
     <record id="ohada_financial_report_note20" model="ohada.financial.html.report">
-        <field name="name">Note 20</field>
+        <field name="name">Note 20 : Banques, crédits d'escompte et de trésorerie</field>
+        <field name="shortname">Note 20</field>
+        <field name="code">N20</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
@@ -5493,22 +5556,11 @@
     </record>
 
 
-
-    <!--&lt;!&ndash; OHADA Financial Note Actions &ndash;&gt;-->
-    <!--<record id="action_report_ohada_note6" model="ir.actions.client">-->
-        <!--<field name="name">Note 6 - Stocks et encours</field>-->
-        <!--<field name="tag">ohada_report</field>-->
-        <!--<field name="context" eval="{'model': 'ohada.financial.html.report', 'id': ref('ohada_financial_report_note6')}" />-->
-    <!--</record>-->
-
-    <!-- OHADA Financial Note Links Actions -->
-    <!--<record id="ohada_financial_report_note6" model="ohada.financial.html.report.line">-->
-        <!--<field name="action_id" ref='action_report_ohada_note6' />-->
-    <!--</record>-->
-
      <!-- NOTE 21 -->
     <record id="ohada_financial_report_note21" model="ohada.financial.html.report">
-        <field name="name">Note 21</field>
+        <field name="name">Note 21 : Chiffre d'affaire et autres produits</field>
+        <field name="shortname">Note 21</field>
+        <field name="code">N21</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="type">note</field>
@@ -5799,7 +5851,9 @@
 
     <!-- NOTE 22 -->
     <record id="ohada_financial_report_note22" model="ohada.financial.html.report">
-        <field name="name">Note 22</field>
+        <field name="name">Note 22 : Achats</field>
+        <field name="shortname">Note 22</field>
+        <field name="code">N22</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="type">note</field>
@@ -6096,7 +6150,9 @@
 
     <!-- NOTE 23 -->
     <record id="ohada_financial_report_note23" model="ohada.financial.html.report">
-        <field name="name">Note 23</field>
+        <field name="name">Note 23 : Transports</field>
+        <field name="shortname">Note 23</field>
+        <field name="code">N23</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="type">note</field>
@@ -6193,12 +6249,14 @@
     <!--NOTE 24-->
 
     <record id="ohada_financial_report_note24" model="ohada.financial.html.report">
-        <field name="name">Note 24</field>
+        <field name="name">Note 24 : Services extérieurs</field>
+        <field name="shortname">Note 24</field>
+        <field name="code">N24</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">SERVICES EXTERIEURS</field>
+        <field name="header">SERVICES EXTÉRIEURS</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -6389,15 +6447,16 @@
         <field name="groupby">account_id</field>
     </record>
 
-    <!--NOTE 25-->
-
+     <!-- NOTE 25 -->
     <record id="ohada_financial_report_note25" model="ohada.financial.html.report">
-        <field name="name">Note 25</field>
+        <field name="name">Note 25 : Services extérieurs</field>
+        <field name="shortname">Note 25</field>
+        <field name="code">N25</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">IMPÔTS ET TAXES</field>
+        <field name="header">IMPOTS ET TAXES</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -6481,7 +6540,9 @@
     <!--NOTE 26-->
 
     <record id="ohada_financial_report_note26" model="ohada.financial.html.report">
-        <field name="name">Note 26</field>
+        <field name="name">Note 26 : Autres charges</field>
+        <field name="shortname">Note 26</field>
+        <field name="code">N26</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
@@ -6626,7 +6687,9 @@
     <!--NOTE 27A-->
 
     <record id="ohada_financial_report_note27a" model="ohada.financial.html.report">
-        <field name="name">Note 27A</field>
+        <field name="name">Note 27A : Charges de personnel</field>
+        <field name="shortname">Note 27A</field>
+        <field name="code">N27A</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
@@ -6726,12 +6789,14 @@
     <!--NOTE 27B (domains and report header not correct)-->
 
     <record id="ohada_financial_report_note27b" model="ohada.financial.html.report">
-        <field name="name">Note 27B</field>
+        <field name="name">Note 27B : Effectifs, masse salariale et personnel extérieur</field>
+        <field name="shortname">Note 27B</field>
+        <field name="code">N27B</field>
+        <field name="header">Effectifs, masse salariale et personnel extérieur</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="True"/>
         <field name="type">note</field>
-        <field name="header">VALEURS A ENCAISSER</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -6849,7 +6914,9 @@
     <!--NOTE 27B_1 (domains and report header not correct)-->
 
     <record id="ohada_financial_report_note27b_1" model="ohada.financial.html.report">
-        <field name="name">Note 27B_1</field>
+        <field name="name">Note 27B.1</field>
+        <field name="shortname">Note 27B.1</field>
+        <field name="code">N27B_1</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
@@ -6962,12 +7029,14 @@
     <!--NOTE 28 (domains and report header not correct)-->
 
     <record id="ohada_financial_report_note28" model="ohada.financial.html.report">
-        <field name="name">Note 28</field>
+        <field name="name">Note 28 : Provisions et dépréciations inscrites au bilan</field>
+        <field name="shortname">Note 28</field>
+        <field name="code">N28</field>
+        <field name="header">Provisions et dépréciations inscrites au bilan</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">VALEURS A ENCAISSER</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -7206,7 +7275,9 @@
     <!--NOTE 29-->
 
     <record id="ohada_financial_report_note29" model="ohada.financial.html.report">
-        <field name="name">Note 29</field>
+        <field name="name">Note 29 : Charges et revenus financiers</field>
+        <field name="shortname">Note 29</field>
+        <field name="code">N29</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
@@ -7479,12 +7550,14 @@
     <!--NOTE 30-->
 
     <record id="ohada_financial_report_note30" model="ohada.financial.html.report">
-        <field name="name">Note 30</field>
+        <field name="name">Note 30 : Autres charges et produits HAO</field>
+        <field name="shortname">Note 30</field>
+        <field name="code">N30</field>
+        <field name="header">Autres charges et produits HAO</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">AUTRES CHARGES ET PRODUITS HAO</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -7709,12 +7782,14 @@
     <!--NOTE 31 (domains and report header not correct)-->
 
     <record id="ohada_financial_report_note31" model="ohada.financial.html.report">
-        <field name="name">Note 31</field>
+        <field name="name">Note 31 : Répartition du résultat et autres élements caractéristiques des cinq derniers exercices</field>
+        <field name="shortname">Note 31</field>
+        <field name="code">N31</field>
+        <field name="header">Répartition du résultat et autres élements caractéristiques des cinq derniers exercices</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">VALEURS A ENCAISSER</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -7975,12 +8050,14 @@
     <!--NOTE 32 (domains and report header not correct)-->
 
     <record id="ohada_financial_report_note32" model="ohada.financial.html.report">
-        <field name="name">Note 32</field>
+        <field name="name">Note 32 : Production de l'exercice</field>
+        <field name="shortname">Note 32</field>
+        <field name="code">N32</field>
+        <field name="header">Production de l'exercice</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">VALEURS A ENCAISSER</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -8121,12 +8198,14 @@
     <!--NOTE 33 (domains and report header not correct)-->
 
     <record id="ohada_financial_report_note33" model="ohada.financial.html.report">
-        <field name="name">Note 33</field>
+        <field name="name">Note 33 : Achats destinés à la production</field>
+        <field name="shortname">Note 33</field>
+        <field name="code">N33</field>
+        <field name="header">Achats destinés à la production</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">VALEURS A ENCAISSER</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -8136,6 +8215,7 @@
         <field name="name">DUMMY LINE NAME</field>
         <field name="code">_n33_1</field>
         <field name="header" eval="True"/>
+        <field name="rowspan">4</field>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_note33"/>
         <field name="sequence" eval="1"/>
@@ -8147,6 +8227,7 @@
         <field name="code">N33_1</field>
         <field name="financial_report_id" ref="ohada_financial_report_note33"/>
         <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
+        <field name="header" eval="True"/>
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="0" />
         <field name="sequence" eval="2"/>
@@ -8159,6 +8240,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note33"/>
         <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="header" eval="True"/>
         <field name="level" eval="0" />
         <field name="sequence" eval="3"/>
         <field name="groupby">account_id</field>
@@ -8170,7 +8252,8 @@
         <field name="financial_report_id" ref="ohada_financial_report_note33"/>
         <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
         <field name="formulas">balance = sum.balance</field>
-        <field name="level" eval="2" />
+        <field name="header" eval="True"/>
+        <field name="level" eval="8" />
         <field name="sequence" eval="4"/>
         <field name="groupby">account_id</field>
     </record>
@@ -8321,12 +8404,14 @@
         <!--NOTE 34 (domains and report header not correct)-->
 
     <record id="ohada_financial_report_note34" model="ohada.financial.html.report">
-        <field name="name">Note 34</field>
+        <field name="name">Note 34 : Fiche de synthèse des principaux indicateurs financiers</field>
+        <field name="shortname">Note 34</field>
+        <field name="code">N34</field>
+        <field name="header">Fiche de synthèse des principaux indicateurs financiers</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">VALEURS A ENCAISSER</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -8587,12 +8672,14 @@
         <!--NOTE 35 (domains and report header not correct)-->
 
     <record id="ohada_financial_report_note35" model="ohada.financial.html.report">
-        <field name="name">Note 35</field>
+        <field name="name">Note 35 : Liste des informations sociales, environnementales et sociétales à fournir</field>
+        <field name="shortname">Note 35</field>
+        <field name="code">N35</field>
+        <field name="header">Liste des informations sociales, environnementales et sociétales à fournir</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">VALEURS A ENCAISSER</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -8788,12 +8875,14 @@
     <!--NOTE 36 (domains and report header not correct)-->
 
     <record id="ohada_financial_report_note36" model="ohada.financial.html.report">
-        <field name="name">Note 36</field>
+        <field name="name">Note 36 : Table des codes</field>
+        <field name="shortname">Note 36</field>
+        <field name="code">N36</field>
+        <field name="header">Table des codes</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">VALEURS A ENCAISSER</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -9143,12 +9232,14 @@
     <!--NOTE 37 (domains and report header not correct)-->
 
     <record id="ohada_financial_report_note37" model="ohada.financial.html.report">
-        <field name="name">Note 37</field>
+        <field name="name">Note 37 : Détermination impôts sur le résultat</field>
+        <field name="shortname">Note 37</field>
+        <field name="code">N37</field>
+        <field name="header">Détermination impôts sur le résultat</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
-        <field name="header">VALEURS A ENCAISSER</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>

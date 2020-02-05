@@ -6,10 +6,18 @@
     font-family: 'NimbusSanL-Bold';
     src: url(../fonts/NimbusSanL-Bold.ttf);
 }
+$ohada-primary-color: #001E5A;
+$ohada-secondary-color: #CDEBFF;
+$ohada-highlight-color: #F7E1E1;
+$ohada-font-light: 'NimbusSanL-Regu';
+$ohada-font-regular: 'NimbusSanL-Regu';
+$ohada-font-bold: 'NimbusSanL-Bold';
+//$ohada-font-size-small: 8.5pt;
+//$ohada-font-size-regular: 9.5pt;
+//$ohada-font-size-total: 10pt;
 
-
-.o_account_report_line .dropdown-toggle{
-    color: #001E5A;
+.o_ohada_report_line .dropdown-toggle{
+    color: $ohada-primary-color;
 }
 
 .account_report_line_name {
@@ -17,10 +25,9 @@
 }
 .ohada_table {
     border-style: double;
-    border-color: #001E5A;
-    color: #001E5A;
-    font-family: NimbusSanL-Regu;
-
+    border-color: $ohada-primary-color;
+    color: $ohada-primary-color;
+    font-family: $ohada-font-regular;
 }
 .o_foldable_menu {
     &.o_closed_menu {
@@ -40,39 +47,39 @@
 }
 
 .o_form_view {
-    .o_account_reports_page {
+    .o_ohada_reports_page {
         .o_input {
             width: 100%;
         }
     }
 }
 
-.o_account_reports_page {
+.o_ohada_reports_page {
     background-color: $o-view-background-color;
     color: $o-main-text-color;
 
     padding-bottom: 125px;
     @include o-webclient-padding($top: $o-sheet-vpadding, $bottom: $o-sheet-vpadding);
-    .o_account_reports_level0 {
+    .o_ohada_reports_level0 {
         border-width: 3px;
         font-weight: bold;
         // border-top-style: $border-top-style;
-        background-color: #CDEBFF;
+        background-color: $ohada-secondary-color;
         text-align: left;
         vertical-align: middle;
     }
-    .o_account_reports_table {
+    .o_ohada_reports_table {
         white-space: nowrap;
         margin-bottom: 0px;
-        tbody tr:not(.o_account_reports_level0, .o_account_reports_level1):hover {
+        tbody tr:not(.o_ohada_reports_level0, .o_ohada_reports_level1, .o_ohada_reports_level8):hover {
             background-color: #f0f0f0;
         }
     }
-    &.o_account_reports_followup {
+    &.o_ohada_reports_followup {
         padding-top: 0px;
     }
 
-    .o_account_followup_blocked {
+    .o_ohada_followup_blocked {
         background-color: LightGray;
     }
     a {
@@ -81,20 +88,20 @@
     .o_reports_date_to {
         margin-left: 20px;
     }
-    .o_account_report_column_header {
+    .o_ohada_report_column_header {
         padding-left: 15px;
     }
-    .o_account_report_line {
+    .o_ohada_report_line {
         white-space: nowrap;
-        border: 1px solid #001E5A;
+        border: 1px solid $ohada-primary-color;
     }
-    .o_account_report_summary {
+    .o_ohada_report_summary {
         padding-left: 5px;
     }
-    .o_account_report_summary > span {
+    .o_ohada_report_summary > span {
         white-space: pre-wrap;
     }
-    .o_account_reports_summary_edit {
+    .o_ohada_reports_summary_edit {
         padding-bottom: 40px;
         padding-top: 15px;
     }
@@ -117,24 +124,24 @@
     .print_only {
         display: none;
     }
-    .o_account_reports_table {
+    .o_ohada_reports_table {
 
         width: 100%;
 
         .number {
             text-align: right;
             width: 6%;
-            border: 1px solid #001E5A;
+            border: 1px solid $ohada-primary-color;
         }
         .date {
             text-align: center;
         }
-        .o_account_reports_header_hierarchy {
+        .o_ohada_reports_header_hierarchy {
             th {
                 border-bottom: none;
             }
             th:not(:first-child) {
-                border: 1px solid #001E5A;
+                border: 1px solid $ohada-primary-color;
                 text-align: center;
                 border-collapse: separate;
                 padding-right: 2px;
@@ -147,87 +154,87 @@
             display: none;
         }
     }
-    p.o_account_reports_contact_info {
+    p.o_ohada_reports_contact_info {
         min-height: 30px;
     }
     .o_input {
         width: 70%;
     }
-    .o_account_reports_edit_summary_pencil {
+    .o_ohada_reports_edit_summary_pencil {
         margin-left: -15px;
         position: absolute;
     }
     table > tbody > tr > td ~ td > span {
-        margin-left: 15px;
+        margin-left: 15px;                           //E 15
     }
-    .o_account_reports_summary {
+    .o_ohada_reports_summary {
         margin-bottom: 20px;
         @include o-account-reports-i-fa-toggle;
     }
-    .o_account_reports_unfolded td + td span {
+    .o_ohada_reports_unfolded td + td span {
         visibility: hidden;
     }
-    div.o_account_reports_saved_summary {
+    div.o_ohada_reports_saved_summary {
         padding-left: 5px;
     }
-    div.o_account_reports_summary, .o_account_reports_web_action, .o_change_trust,
-    span.o_account_reports_web_action, div.o_account_reports_saved_summary span,
-    td.o_account_reports_unfoldable, td.o_account_reports_foldable, span.partner_id, span.move_line_id, input[type=checkbox] {
+    div.o_ohada_reports_summary, .o_ohada_reports_web_action, .o_change_trust,
+    span.o_ohada_reports_web_action, div.o_ohada_reports_saved_summary span,
+    td.o_ohada_reports_unfoldable, td.o_ohada_reports_foldable, span.partner_id, span.move_line_id, input[type=checkbox] {
         cursor: pointer;
     }
     p.footnote > .text {
         white-space: pre-wrap;
     }
-    p.footnote > .o_account_reports_footnote_icons, p.o_account_reports_footnote_edit > .o_account_reports_footnote_icons {
+    p.footnote > .o_ohada_reports_footnote_icons, p.o_ohada_reports_footnote_edit > .o_ohada_reports_footnote_icons {
         visibility: hidden;
     }
-    p.footnote:hover > .o_account_reports_footnote_icons {
+    p.footnote:hover > .o_ohada_reports_footnote_icons {
         visibility: visible;
     }
-    .o_account_reports_footnote_icons {
+    .o_ohada_reports_footnote_icons {
         position: absolute;
         margin-left: 3px;
     }
-    .o_account_reports_caret_icon {
+    .o_ohada_reports_caret_icon {
         position: absolute;
     }
     tr[data-parent-id] {
         border-bottom: 1px solid #eee;
     }
-    .o_account_reports_domain_line_0 {
+    .o_ohada_reports_domain_line_0 {
         margin-left: 0px;
     }
-    .o_account_reports_domain_line_1 {
+    .o_ohada_reports_domain_line_1 {
         margin-left: 15px;
     }
-    .o_account_reports_domain_line_2 {
+    .o_ohada_reports_domain_line_2 {
         margin-left: 30px;
     }
-    .o_account_reports_domain_line_3 {
+    .o_ohada_reports_domain_line_3 {
         margin-left: 40px;
     }
-    .o_account_reports_domain_line_4 {
+    .o_ohada_reports_domain_line_4 {
         margin-left: 50px;
     }
-    .o_account_reports_domain_line_5 {
+    .o_ohada_reports_domain_line_5 {
         margin-left: 60px;
     }
-    .o_account_reports_domain_line_6 {
+    .o_ohada_reports_domain_line_6 {
         margin-left: 70px;
     }
-    .o_account_reports_domain_line_7 {
+    .o_ohada_reports_domain_line_7 {
         margin-left: 80px;
     }
-    .o_account_reports_domain_line_8 {
+    .o_ohada_reports_domain_line_8 {
         margin-left: 90px;
     }
-    .o_account_reports_domain_line_9 {
+    .o_ohada_reports_domain_line_9 {
         margin-left: 100px;
     }
-    tr.o_account_reports_domain_total {
+    tr.o_ohada_reports_domain_total {
         font-weight: bold;
     }
-    tr.o_account_reports_initial_balance {
+    tr.o_ohada_reports_initial_balance {
         > td > span:last-child {
             margin-left: 30px;
         }
@@ -235,52 +242,56 @@
     tr.hierarchy_total {
         font-weight: bold;
     }
-    b.o_account_reports_footnote_sup {
+    b.o_ohada_reports_footnote_sup {
         margin-top: 10px;
         color: $o-main-text-color;
     }
-    ul.o_account_reports_domain_dropdown {
+    ul.o_ohada_reports_domain_dropdown {
         margin-left: 70px
     }
     .total {
         font-weight: bold;
     }
-    .o_account_reports_level0, .o_account_reports_level1, .o_account_reports_level2, .o_account_reports_domain_total, .total {
+    .o_ohada_reports_level0, .o_ohada_reports_level1, .o_ohada_reports_level2, .o_ohada_reports_domain_total, .total {
         .text-muted {
-            color: #001E5A !important;
-            border-color: #001E5A;
+            color: $ohada-primary-color !important;
+            border-color: $ohada-primary-color;
         }
     }
     .o_foldable_total {
-        color: #001E5A !important;
+        color: $ohada-primary-color !important;
     }
-    .o_account_reports_totals_below_sections.o_js_account_report_parent_row_unfolded {
-        .o_account_report_column_value {
+    .o_ohada_reports_totals_below_sections.o_js_account_report_parent_row_unfolded {
+        .o_ohada_report_column_value {
             visibility: hidden;
         }
         td.number.o_foldable_total {
             border-bottom: none;
         }
     }
+/*
     td.o_foldable_total {
-        font-weight: bold;
+        font-weight: bold;        //E-
     }
-    .o_account_reports_level0 {
+*/
+    .o_ohada_reports_level0 {
+/*
         & td {
             min-height:10px;
             padding-top: 2px;
             padding-bottom: 2px;
         }
-        > td.o_account_report_line_indent.o_foldable_total > span:last-child {
+*/
+        > td.o_ohada_report_line_indent.o_foldable_total > span:last-child {
             margin-left: 10px;
         }
         > td > span {
             min-height:10px;
         }
     }
-    .o_account_reports_level1 {
+    .o_ohada_reports_level1 {
         font-weight: bold;
-        background-color: #FFDCDC;
+        background-color: $ohada-highlight-color;
         text-align: left;
         vertical-align: middle;
         & td {
@@ -292,13 +303,13 @@
             min-height:10px;
         }
     }
-    .o_account_reports_level2 {
-        border-bottom: 1px solid #001E5A;
+    .o_ohada_reports_level2 {
+        border-bottom: 1px solid $ohada-primary-color;
         font-weight: normal;
         > td > span {
             min-height:10px;
         }
-        > td.o_account_report_line_indent > span:last-child {
+        > td.o_ohada_report_line_indent > span:last-child {
             margin-left: 15px;
         }
         &.total {
@@ -311,13 +322,13 @@
             padding-bottom: 2px;
         }
     }
-    .o_account_reports_level3 {
-        border-bottom: 1px solid #001E5A;
-        > td.o_account_report_line_indent > span:last-child {
+    .o_ohada_reports_level3 {
+        border-bottom: 1px solid $ohada-primary-color;
+        > td.o_ohada_report_line_indent > span:last-child {
             margin-left: 30px;
         }
         &.total {
-            > td.o_account_report_line_indent > span:last-child {
+            > td.o_ohada_report_line_indent > span:last-child {
                 margin-left: 15px;
             }
         }
@@ -329,16 +340,16 @@
             min-height:10px;
         }
     }
-    .o_account_reports_level4 {
-        .o_account_reports_caret_icon {
+    .o_ohada_reports_level4 {
+        .o_ohada_reports_caret_icon {
             margin-left: 15px;
         }
-        border-bottom: 1px solid #001E5A;
-        > td.o_account_report_line_indent > span:last-child {
+        border-bottom: 1px solid $ohada-primary-color;
+        > td.o_ohada_report_line_indent > span:last-child {
             margin-left: 40px;
         }
         &.total {
-            > td.o_account_report_line_indent > span:last-child {
+            > td.o_ohada_report_line_indent > span:last-child {
                 margin-left: 30px;
             }
         }
@@ -346,18 +357,13 @@
             min-height:10px;
         }
     }
-    .o_account_reports_level5 {
-        border-width: 3px;
-        font-weight: bold;
-        // border-top-style: $border-top-style;
-        background-color: #CDEBFF;
-        text-align: center;
-        vertical-align: middle;
-        > td.o_account_report_line_indent > span:last-child {
+    .o_ohada_reports_level5 {
+        border-bottom: 1px solid $ohada-primary-color;
+        > td.o_ohada_report_line_indent > span:last-child {
             margin-left: 50px;
         }
         &.total {
-            > td.o_account_report_line_indent > span:last-child {
+            > td.o_ohada_report_line_indent > span:last-child {
                 margin-left: 40px;
             }
         }
@@ -365,17 +371,13 @@
             min-height:10px;
         }
     }
-    .o_account_reports_level6 {
-        border-bottom: 1px solid #001E5A;
-        font-weight: normal;
-        > td.o_account_report_line_indent > span:last-child {
+    .o_ohada_reports_level6 {
+        border-bottom: 1px solid $ohada-primary-color;
+        > td.o_ohada_report_line_indent > span:last-child {
             margin-left: 60px;
         }
-        .o_account_report_line{
-            height: 200px;
-        }
         &.total {
-            > td.o_account_report_line_indent > span:last-child {
+            > td.o_ohada_report_line_indent > span:last-child {
                 margin-left: 50px;
             }
         }
@@ -383,103 +385,103 @@
             min-height:10px;
         }
     }
-    .o_account_reports_level7 {
-        border-width: 3px;
-        font-weight: bold;
-        // border-top-style: $border-top-style;
-        background-color: #CDEBFF;
-        text-align: center !important;
-        vertical-align: middle;
-        > td {
-            text-align: center !important;
+    .o_ohada_reports_level7 {
+        border-bottom: 1px solid $ohada-primary-color;
+        > td.o_ohada_report_line_indent > span:last-child {
+            margin-left: 70px;
         }
         &.total {
-            > td.o_account_report_line_indent > span:last-child {
+            > td.o_ohada_report_line_indent > span:last-child {
                 margin-left: 60px;
             }
         }
     }
-    .o_account_reports_level8 {
-        border-bottom: 1px solid #001E5A;
-        > td.o_account_report_line_indent > span:last-child {
+    .o_ohada_reports_level8 {
+        border-width: 3px;
+        font-weight: bold;
+        background-color: $ohada-secondary-color;
+        text-align: left;
+        vertical-align: middle;
+        height: 150px;
+        > td.o_ohada_report_line_indent > span:last-child {
             margin-left: 80px;
         }
         > td > span {
             min-height:10px;
         }
     }
-    .o_account_reports_level9 {
-        border-bottom: 1px solid #001E5A;
-        > td.o_account_report_line_indent > span:last-child {
+    .o_ohada_reports_level9 {
+        border-bottom: 1px solid $ohada-primary-color;
+        > td.o_ohada_report_line_indent > span:last-child {
             margin-left: 90px;
         }
         > td > span {
             min-height:10px;
         }
     }
-    .o_account_reports_default_style {
-        border-bottom: 1px solid #001E5A;
-        > td.o_account_report_line_indent > span:last-child {
+    .o_ohada_reports_default_style {
+        border-bottom: 1px solid $ohada-primary-color;
+        > td.o_ohada_report_line_indent > span:last-child {
             margin-left: 50px;
         }
-        &.o_account_reports_domain_total {
-            > td.o_account_report_line_indent > span:last-child {
+        &.o_ohada_reports_domain_total {
+            > td.o_ohada_report_line_indent > span:last-child {
                 margin-left: 30px;
             }
         }
     }
-    .o_account_reports_followup_not_clicked {
-        .o_account_reports_followup_skip {
+    .o_ohada_reports_followup_not_clicked {
+        .o_ohada_reports_followup_skip {
             display: inline-block;
         }
-        .o_account_reports_followup_done {
+        .o_ohada_reports_followup_done {
             display: none;
         }
     }
-    .o_account_reports_followup_clicked {
-        .o_account_reports_followup_skip {
+    .o_ohada_reports_followup_clicked {
+        .o_ohada_reports_followup_skip {
             display: none;
         }
-        .o_account_reports_followup_done {
+        .o_ohada_reports_followup_done {
             display: inline-block;
         }
     }
-    .o_account_reports_history {
+    .o_ohada_reports_history {
         min-width: 300px;
     }
 }
 
 .o_form_view {
-    .o_account_reports_no_print {
-        .o_account_reports_table {
+    .o_ohada_reports_no_print {
+        .o_ohada_reports_table {
             margin-bottom: 0px;
         }
     }
 }
 
-.o_account-progress-bar-content {
+.o_ohada-progress-bar-content {
     color: black;
     position: absolute;
     width: 100%;
 }
-.o_account-progress {
+.o_ohada-progress {
     position: relative;
 }
-.o_account_reports_history [summary="o_followup_letter_display_none"] {
+.o_ohada_reports_history [summary="o_followup_letter_display_none"] {
     display: none;
 }
 
-.o_account_report_search {
+.o_ohada_report_search {
     margin-left: 10px;
     margin-right: 10px;
-    .o_account_report_select {
+    .o_ohada_report_select {
         min-width: 100px;
     }
 }
 
 // Filters lines
 // -----------------------------------------
-.o_account_reports_filter_input_wrapper {
+.o_ohada_reports_filter_input_wrapper {
     position: relative;
     float: right;
     width: 150px;
@@ -491,24 +493,24 @@
         right: 10px;
     }
 }
-    .o_account_reports_filter_input {
+    .o_ohada_reports_filter_input {
     border: none;
     border-bottom: 1px black solid;
 }
-    .o_account_reports_filtered_lines {
+    .o_ohada_reports_filtered_lines {
     display: none;
 }
 
 // Summary to be edited
 // -----------------------------------------
-.o_account_reports_summary {
+.o_ohada_reports_summary {
     display: inline-block;
     position: relative;
 
-    .o_account_report_summary {
+    .o_ohada_report_summary {
         padding: 10px 0;
 
-        &, > span, .o_input, .o_account_reports_edit_summary_pencil {
+        &, > span, .o_input, .o_ohada_reports_edit_summary_pencil {
             transition: all .2s ease 0s;
         }
         > span {
@@ -524,25 +526,25 @@
         padding: 10px;
     }
 
-    .o_account_reports_edit_summary_pencil {
+    .o_ohada_reports_edit_summary_pencil {
         @include o-position-absolute(20px, $left: 0);
         visibility: hidden;
         opacity: 0;
     }
 
     &:hover {
-        .o_account_reports_edit_summary_pencil {
+        .o_ohada_reports_edit_summary_pencil {
             visibility: visible;
             opacity: 1;
         }
 
-        .o_account_report_summary .o_input, .o_account_report_summary span {
+        .o_ohada_report_summary .o_input, .o_ohada_report_summary span {
             padding-right: 0;
         }
     }
 }
 
-.o_account_reports_summary_edit {
+.o_ohada_reports_summary_edit {
     padding-bottom: 25px;
     padding-top: 10px;
 
@@ -555,6 +557,6 @@
 
 // Print mode report summary
 // -----------------------------------------
-p.o_account_reports_contact_info {
+p.o_ohada_reports_contact_info {
     min-height: 30px;
 }

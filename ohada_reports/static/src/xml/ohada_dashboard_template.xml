@@ -41,8 +41,7 @@
                 <div class="col-md-2 col-sm-2 dummy"></div>
                 <div class="col-sm-12 col-md-12 col-lg-12  monthly_leave_graph_view">
                     <div class="oh-card text-color">
-                        <div class="oh-card-body pb-0">
-
+                        <div class="oh-card-body pb-0" style="padding-bottom:10px;">
                             <ul style="float:right;padding-left:0;" class="ul-head">
                                 <li class="li-head"><t t-esc="widget.data['company_name']"/></li>
                                 <li class="li-head" style="margin-left:100px;">
@@ -76,12 +75,12 @@
                             <div class="ohada_notification" style="margin-left:-10px">
                                 <ul style="margin-left:-30px;margin-top:10px;">
                                     <li class="list-left"><a name="create_invoice" type="object">Status of fiscal year</a></li>
-                                    <li class="list-right">[posted]</li>
+                                    <li class="list-right">[open]</li>
                                 </ul>
                                 <div style="clear:both;"></div>
                                 <ul style="margin-left:-30px;margin-top:5px;">
                                     <li class="list-left">Status of journal entries</li>
-                                    <li class="list-right">[open]</li>
+                                    <li class="list-right">[posted]</li>
                                 </ul>
                             </div>
                         </div>
@@ -112,10 +111,9 @@
                 <div class="col-sm-12 col-md-12 col-lg-12  monthly_leave_graph_view">
                     <div class="oh-card text-color">
                         <div class="oh-card-body pb-0">
-
-                            <p class="stat-head" style="padding : 0px;">Cover page data sheets</p>
+                            <p class="stat-head" style="padding : 0px;">Cover Page &amp; Data Sheets</p>
                         </div>
-                        <div style="margin-left:10px;margin-bottom:15px;">
+                        <div style="padding-bottom:20px;">
                             <button class="btn btn-color-ee">COVER PAGE</button>
                             <button class="btn btn-color-ee">SHEET R1</button>
                             <button class="btn btn-color-ee">SHEET R2</button>
@@ -127,11 +125,10 @@
                 </div>
             </div>
             <div class="row main-section">
-
                 <div class="col-md-6 col-lg-4 col-sm-12">
                     <div class="ohada_notification_big" style="border-left:3px solid #934da5;">
                         <div class="oh-card-body pb-0" style="padding:0;">
-                            <a class="stat-head open_report" t-att-report-id="widget.data['Balance Sheet']['id']" t-att-name="widget.data['Balance Sheet']['name']" style="padding:0px;margin-top:15px;cursor:pointer;margin-left: 12px;" href="javascript:;">Balance sheet</a>
+                            <a class="stat-head open_report" t-att-report-id="widget.data['Balance Sheet']['id']" t-att-name="widget.data['Balance Sheet']['name']" style="padding:0px;margin-top:15px;cursor:pointer;margin-left: 12px;" href="javascript:;">Balance Sheet</a>
                             <div class="dropdown">
                               <button style="border:none;padding:10px 15px;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/>
@@ -166,8 +163,8 @@
                     <div class="col-xs-12  ohada_notification_big" style="padding: 0;border-left:3px solid #934da5;">
                         <!--<div style="background-color: #934da5;width:3px;height:100%;float:left;"></div>-->
                         <div class="oh-card-body pb-0" style="padding:0;">
-                            <a class="stat-head open_report" t-att-report-id="widget.data['Profit and lost']['id']" t-att-name="widget.data['Profit and lost']['name']" style="padding:0px;margin-top:15px;cursor:pointer;margin-left: 12px;" href="javascript:;">Profit  &amp; lost</a>
-                            <!--<a class="stat-head" style="padding:0px;margin-top:15px;cursor:pointer;margin-left: 12px;" t-att-href="'/web#action=' + widget.data['Profit and lost'] + '&amp;' + 'menu_id=' + menu_id">Profit  &amp; lost</a>-->
+                            <a class="stat-head open_report" t-att-report-id="widget.data['Profit and lost']['id']" t-att-name="widget.data['Profit and lost']['name']" style="padding:0px;margin-top:15px;cursor:pointer;margin-left: 12px;" href="javascript:;">Profit  &amp; Loss</a>
+                            <!--<a class="stat-head" style="padding:0px;margin-top:15px;cursor:pointer;margin-left: 12px;" t-att-href="'/web#action=' + widget.data['Profit and lost'] + '&amp;' + 'menu_id=' + menu_id">Profit  &amp; Loss</a>-->
                             <div class="dropdown">
                               <button style="border:none;padding:10px 15px;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/>
@@ -200,10 +197,8 @@
                 </div>
                 <div class="col-md-12 col-lg-4 col-sm-12">
                     <div class="col-xs-12  ohada_notification_big" style="padding: 0;border-left:3px solid #934da5;">
-                        <!--<div style="background-color: #934da5;width:3px;height:100%;float:left;"></div>-->
                         <div class="oh-card-body pb-0" style="padding:0;">
-                            <a class="stat-head open_report" t-att-report-id="widget.data['Cash Flow Statement']['id']" t-att-name="widget.data['Cash Flow Statement']['name']" style="padding:0px;margin-top:15px;cursor:pointer;margin-left: 12px;" href="javascript:;">Cashflow statement</a>
-                            <!--<a class="stat-head" style="padding:0px;margin-top:15px;cursor:pointer;margin-left: 12px;" t-att-href="'/web#action=' + widget.data['Cash Flow Statement'] + '&amp;' + 'menu_id=' + menu_id">Cashflow statement</a>-->
+                            <a class="stat-head open_report" t-att-report-id="widget.data['Cash Flow Statement']['id']" t-att-name="widget.data['Cash Flow Statement']['name']" style="padding:0px;margin-top:15px;cursor:pointer;margin-left: 12px;" href="javascript:;">Cashflow</a>
                             <div class="dropdown">
                               <button style="border:none;padding:10px 15px;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/>
@@ -243,18 +238,18 @@
                 <div class="col-sm-12 col-md-12 col-lg-12  monthly_leave_graph_view">
                     <div class="oh-card text-color">
                         <div class="oh-card-body pb-0">
-
-                            <p class="stat-head" style="padding : 0px;">Cover page data sheets</p>
+                            <p class="stat-head" style="padding : 0px;">Annexed Notes</p>
                         </div>
-                        <div>
+                        <div style="padding-bottom:20px;">
                             <t t-foreach="widget.data['notes']" t-as="note">
-                                <button class="btn btn-color-ee open_report" t-att-report-id="note['id']" t-att-name="note['report_name']" href="javascript:;" style="margin-left:10px;"><t t-esc="note['name']"/></button>
+                                <button class="btn btn-color-ee open_report" t-att-report-id="note['id']" t-att-name="note['report_name']" t-att-title="note['report_name']" href="javascript:;" style="margin-left:10px;"><t t-esc="note['shortname']"/></button>
                             </t>
                             <div style="clear:both;"></div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </t>
     <t t-name="OhadaWarning">

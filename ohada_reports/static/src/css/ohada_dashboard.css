@@ -727,7 +727,6 @@ a.stat-head:hover{
 }
 .ohada_attendance_login .oh-card {
     margin: 0;
-        margin-bottom: 0px;
     margin-bottom: 0px;
     background: #134c8a;
     padding-bottom: 7px;
@@ -968,7 +967,7 @@ a.stat-head:hover{
 
 .row.main-section {
     margin-right: 5px !important;
-    margin-left: 5px !important;
+    margin-left: 0px !important;
 }
 /* width */
 .ohada_notification::-webkit-scrollbar {

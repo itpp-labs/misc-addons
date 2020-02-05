@@ -1,0 +1,199 @@
+<odoo>
+    <data>
+        <!--columns for note 33-->
+        <record id="ohada_custom_columns_note33_1" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note33_header"/>
+        </record>
+
+            <record id="ohada_cell_style_note33_1_1" model="ohada.cell.style">
+                <field name="name">Vertical line</field>
+                <field name="column_id" ref="ohada_custom_columns_note33_1"/>
+                <field name="colspan">1</field>
+                <field name="rowspan">4</field>
+                <field name="rotate">90</field>
+            </record>
+
+            <record id="ohada_cell_style_note33_1_2" model="ohada.cell.style">
+                <field name="name">ACHATS HORIZONTAL LINE</field>
+                <field name="column_id" ref="ohada_custom_columns_note33_1"/>
+                <field name="colspan">6</field>
+                <field name="rowspan">1</field>
+            </record>
+
+            <record id="ohada_cell_style_note33_1_3" model="ohada.cell.style">
+                <field name="name">Vertical line</field>
+                <field name="column_id" ref="ohada_custom_columns_note33_1"/>
+                <field name="colspan">1</field>
+                <field name="rowspan">3</field>
+                <field name="rotate">90</field>
+            </record>
+
+        <record id="ohada_custom_columns_note33_2" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note33_1"/>
+            <field name="line_name" eval="False"/>
+        </record>
+
+            <record id="ohada_cell_style_note33_2_1" model="ohada.cell.style">
+                <field name="name">HORIZONTAL line</field>
+                <field name="column_id" ref="ohada_custom_columns_note33_2"/>
+                <field name="colspan">2</field>
+                <field name="rowspan">2</field>
+            </record>
+
+            <record id="ohada_cell_style_note33_2_2" model="ohada.cell.style">
+                <field name="name">DOUBLE HORIZONTAL LINE</field>
+                <field name="column_id" ref="ohada_custom_columns_note33_2"/>
+                <field name="colspan">4</field>
+                <field name="rowspan">1</field>
+            </record>
+
+        <record id="ohada_custom_columns_note33_3" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note33_2"/>
+            <field name="line_name" eval="False"/>
+        </record>
+
+            <record id="ohada_cell_style_note33_3_1" model="ohada.cell.style">
+                <field name="name">DOUBLE HORIZONTAL line</field>
+                <field name="column_id" ref="ohada_custom_columns_note33_3"/>
+                <field name="colspan">2</field>
+                <field name="rowspan">1</field>
+            </record>
+
+            <record id="ohada_cell_style_note33_3_2" model="ohada.cell.style">
+                <field name="name">DOUBLE HORIZONTAL LINE</field>
+                <field name="column_id" ref="ohada_custom_columns_note33_3"/>
+                <field name="colspan">2</field>
+                <field name="rowspan">1</field>
+            </record>
+
+        <record id="ohada_custom_columns_note33_4" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note33_3"/>
+            <field name="line_name" eval="False"/>
+        </record>
+
+            <record id="ohada_cell_style_note33_4_1" model="ohada.cell.style">
+                <field name="name">vertical line</field>
+                <field name="column_id" ref="ohada_custom_columns_note33_4"/>
+                <field name="rotate">90</field>
+            </record>
+
+            <record id="ohada_cell_style_note33_4_2" model="ohada.cell.style">
+                <field name="name">vertical line</field>
+                <field name="column_id" ref="ohada_custom_columns_note33_4"/>
+                <field name="rotate">90</field>
+            </record>
+
+            <record id="ohada_cell_style_note33_4_3" model="ohada.cell.style">
+                <field name="name">vertical line</field>
+                <field name="column_id" ref="ohada_custom_columns_note33_4"/>
+                <field name="rotate">90</field>
+            </record>
+
+            <record id="ohada_cell_style_note33_4_4" model="ohada.cell.style">
+                <field name="name">vertical line</field>
+                <field name="column_id" ref="ohada_custom_columns_note33_4"/>
+                <field name="rotate">90</field>
+            </record>
+
+            <record id="ohada_cell_style_note33_4_5" model="ohada.cell.style">
+                <field name="name">vertical line</field>
+                <field name="column_id" ref="ohada_custom_columns_note33_4"/>
+                <field name="rotate">90</field>
+            </record>
+
+            <record id="ohada_cell_style_note33_4_6" model="ohada.cell.style">
+                <field name="name">vertical line</field>
+                <field name="column_id" ref="ohada_custom_columns_note33_4"/>
+                <field name="rotate">90</field>
+            </record>
+
+            <record id="ohada_cell_style_note33_4_7" model="ohada.cell.style">
+                <field name="name">vertical line</field>
+                <field name="column_id" ref="ohada_custom_columns_note33_4"/>
+                <field name="rotate">90</field>
+            </record>
+
+        <!--columns for note 3D-->
+        <record id="ohada_custom_columns_note3d_1" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note3d_1"/>
+            <field name="line_name" eval="False"/>
+        </record>
+
+            <record id="ohada_cell_style_note3d_1_1" model="ohada.cell.style">
+                <field name="name">A</field>
+                <field name="column_id" ref="ohada_custom_columns_note3d_1"/>
+            </record>
+
+            <record id="ohada_cell_style_note3d_1_2" model="ohada.cell.style">
+                <field name="name">B</field>
+                <field name="column_id" ref="ohada_custom_columns_note3d_1"/>
+            </record>
+
+            <record id="ohada_cell_style_note3d_1_3" model="ohada.cell.style">
+                <field name="name">C = A - B</field>
+                <field name="column_id" ref="ohada_custom_columns_note3d_1"/>
+            </record>
+
+            <record id="ohada_cell_style_note3d_1_4" model="ohada.cell.style">
+                <field name="name">D</field>
+                <field name="column_id" ref="ohada_custom_columns_note3d_1"/>
+            </record>
+
+            <record id="ohada_cell_style_note3d_1_5" model="ohada.cell.style">
+                <field name="name">E = D - C</field>
+                <field name="column_id" ref="ohada_custom_columns_note3d_1"/>
+            </record>
+
+        <!--columns for note 3E-->
+        <record id="ohada_custom_columns_note3e_1" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note3e_header"/>
+            <field name="line_name" eval="True"/>
+        </record>
+
+            <!--<record id="ohada_cell_style_note3e_1_1" model="ohada.cell.style">-->
+                <!--<field name="name">Nature et date des révaluations:</field>-->
+                <!--<field name="column_id" ref="ohada_custom_columns_note3e_1"/>-->
+                <!--<field name="colspan">3</field>-->
+            <!--</record>-->
+
+        <record id="ohada_custom_columns_note3e_2" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note3e_22"/>
+            <field name="line_name" eval="True"/>
+        </record>
+
+            <!--<record id="ohada_cell_style_note3e_2_1" model="ohada.cell.style">-->
+                <!--<field name="name">Méthode de réévaluation utilisée:</field>-->
+                <!--<field name="column_id" ref="ohada_custom_columns_note3e_2"/>-->
+                <!--<field name="colspan">3</field>-->
+            <!--</record>-->
+
+        <record id="ohada_custom_columns_note3e_3" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note3e_23"/>
+            <field name="line_name" eval="True"/>
+        </record>
+
+            <!--<record id="ohada_cell_style_note3e_3_1" model="ohada.cell.style">-->
+                <!--<field name="name">Traitement fiscal de l'écart de réévaluation et de amortissements supplémentires:</field>-->
+                <!--<field name="column_id" ref="ohada_custom_columns_note3e_3"/>-->
+                <!--<field name="colspan">3</field>-->
+            <!--</record>-->
+
+        <record id="ohada_custom_columns_note3e_4" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note3e_24"/>
+            <field name="line_name" eval="True"/>
+        </record>
+
+            <!--<record id="ohada_cell_style_note3e_4_1" model="ohada.cell.style">-->
+                <!--<field name="name">TOTAL GENERAL</field>-->
+                <!--<field name="column_id" ref="ohada_custom_columns_note3e_4"/>-->
+                <!--<field name="colspan">2</field>-->
+            <!--</record>-->
+
+            <record id="ohada_cell_style_note3e_4_2" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note3e_4"/>
+            </record>
+
+
+    </data>
+</odoo>

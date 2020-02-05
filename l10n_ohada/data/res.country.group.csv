@@ -1,0 +1,7 @@
+id,name,country_ids/id
+2,UEMOA,"base.bj,base.bf,base.gw,base.ci,base.ml,base.ne,base.sn,base.tg"
+3,CEMAC,"base.cm,base.cd,base.ga,base.gq,base.cf,base.td"
+4,COMORES,base.km
+5,OHADA,"base.bj,base.bf,base.gw,base.ci,base.ml,base.ne,base.sn,base.tg,base.cm,base.cd,base.ga,base.gq,base.cf,base.td,base.km,base.cg,base.gn"
+6,Zone Franc,"base.bj,base.bf,base.gw,base.ci,base.ml,base.ne,base.sn,base.tg,base.cm,base.cd,base.ga,base.gq,base.cf,base.td,base.km"
+7,CEDEAO,"base.bj,base.bf,base.cv,base.ci,base.gm,base.gh,base.gn,base.gw,base.lr,base.ml,base.ne,base.ng,base.sn,base.sl,base.tg"

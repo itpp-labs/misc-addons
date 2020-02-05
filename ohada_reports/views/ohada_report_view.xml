@@ -15,10 +15,12 @@
                         </div>
                         <group string="Report Definition">
                             <group>
-                                <field name="date_range"/>
+                                <field name="shortname"/>
+                                <field name="code"/>
                                 <field name="tax_report"/>
                             </group>
                             <group>
+                                <field name="date_range"/>
                                 <field name="debit_credit"/>
                                 <field name="generated_menu_id"/>
                             </group>
@@ -40,6 +42,9 @@
                             <field name="line_ids" nolabel="1"/>
                         </group>
                     </sheet>
+                    <field name="description" position="after">
+                        <field name="description_pad" widget="pad"/>
+                    </field>
                 </form>
             </field>
         </record>

@@ -39,18 +39,21 @@
 		<field name="name">Capital souscrit, non appelé</field>
 		<field name="code">1011</field>
 		<field name="user_type_id" ref="account.data_account_type_equity" />
+		<field name="group_id" ref="l10n_ohada.gc_101" />
 		<field name="chart_template_id" ref="ohada_chart_template" />
 	</record>
 	<record id="pcg_1012" model="account.account.template">
 		<field name="name">Capital souscrit, appelé, non versé</field>
 		<field name="code">1012</field>
 		<field name="user_type_id" ref="account.data_account_type_equity" />
+		<field name="group_id" ref="l10n_ohada.gc_101" />
 		<field name="chart_template_id" ref="ohada_chart_template" />
 	</record>
 	<record id="pcg_1013" model="account.account.template">
 		<field name="name">Capital souscrit, appelé, versé, non amorti</field>
 		<field name="code">1013</field>
 		<field name="user_type_id" ref="account.data_account_type_equity" />
+		<field name="group_id" ref="l10n_ohada.gc_101" />
 		<field name="chart_template_id" ref="ohada_chart_template" />
 	</record>
 	<record id="pcg_1014" model="account.account.template">
@@ -772,7 +775,8 @@
 		<field name="code">1984</field>
 		<field name="user_type_id" ref="account.data_account_type_current_liabilities" />
 		<field name="chart_template_id" ref="ohada_chart_template" />
-		<field name="note">(*) FACT - ref. FF et FG du TFT: ce compte n'est pas lu par les états financiers SYSCOHADA. Veuillez utiliser les sous-comptes pour distinguer les immobilisations corporelles des incorporelles</field>	</record>
+		<field name="note">(*) FACT - ref. FF et FG du TFT: ce compte n'est pas lu par les états financiers SYSCOHADA. Veuillez utiliser les sous-comptes pour distinguer les immobilisations corporelles des incorporelles</field>
+	</record>
 	<record id="pcg_19841" model="account.account.template">
 		<field name="name">Provisions pour démantèlement et remises en état - immobilisations incorporelles</field>
 		<field name="code">19841</field>
@@ -5679,14 +5683,6 @@
 		<field name="user_type_id" ref="account.data_account_type_expenses" />
 		<field name="chart_template_id" ref="ohada_chart_template" />
 	</record>
-<!--
-	<record id="pcg_654" model="account.account.template">
-		<field name="name">VALEUR COMPTABLE DES CESSIONS COURANTES D'IMMOBILISATIONS</field>
-		<field name="code">654</field>
-		<field name="user_type_id" ref="account.data_account_type_expenses" />
-		<field name="chart_template_id" ref="ohada_chart_template" />
-	</record>
--->
 	<record id="pcg_6541" model="account.account.template">
 		<field name="name">Immobilisations incorporelles</field>
 		<field name="code">6541</field>
@@ -5700,7 +5696,7 @@
 		<field name="chart_template_id" ref="ohada_chart_template" />
 	</record>
 	<record id="pcg_656" model="account.account.template">
-		<field name="name">PERTES DE CHANGE SUR CRÉANCES ET DETTES COMMERCIALES</field>
+		<field name="name">Perte de change sur créances et dettes commerciales</field>
 		<field name="code">656</field>
 		<field name="user_type_id" ref="account.data_account_type_expenses" />
 		<field name="chart_template_id" ref="ohada_chart_template" />
@@ -6786,40 +6782,46 @@
 		<field name="chart_template_id" ref="ohada_chart_template" />
 	</record>
 	<record id="pcg_811" model="account.account.template">
-		<field name="name">IMMOBILISATIONS INCORPORELLES</field>
+		<field name="name">IMMOBILISATIONS INCORPORELLES(*)</field>
 		<field name="code">811</field>
 		<field name="user_type_id" ref="account.data_account_type_expenses" />
 		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="note">(*) FACT - Note 3D: Ce compte n'est pas lu par les états financiers SYSCOHADA. Veuillez impérativement créer des sous-comptes en utilisant le 2ème et 3ème chiffre du compte d'immobilisation correspondant comme 4ème et 5ème chiffre du sous-compte créé (par ex. 821??).</field>
 	</record>
 	<record id="pcg_812" model="account.account.template">
-		<field name="name">IMMOBILISATIONS CORPORELLES</field>
+		<field name="name">IMMOBILISATIONS CORPORELLES(*)</field>
 		<field name="code">812</field>
 		<field name="user_type_id" ref="account.data_account_type_expenses" />
 		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="note">(*) FACT - Note 3D: Ce compte n'est pas lu par les états financiers SYSCOHADA. Veuillez impérativement créer des sous-comptes en utilisant le 2ème et 3ème chiffre du compte d'immobilisation correspondant comme 4ème et 5ème chiffre du sous-compte créé (par ex. 821??).</field>
 	</record>
 	<record id="pcg_816" model="account.account.template">
-		<field name="name">IMMOBILISATIONS FINANCIÈRES</field>
+		<field name="name">IMMOBILISATIONS FINANCIÈRES(*)</field>
 		<field name="code">816</field>
 		<field name="user_type_id" ref="account.data_account_type_expenses" />
 		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="note">(*) FACT - Note 3D: Ce compte n'est pas lu par les états financiers SYSCOHADA. Veuillez impérativement créer des sous-comptes en utilisant le 2ème et 3ème chiffre du compte d'immobilisation correspondant comme 4ème et 5ème chiffre du sous-compte créé (par ex. 821??).</field>
 	</record>
 	<record id="pcg_821" model="account.account.template">
-		<field name="name">IMMOBILISATIONS INCORPORELLES</field>
+		<field name="name">IMMOBILISATIONS INCORPORELLES(*)</field>
 		<field name="code">821</field>
 		<field name="user_type_id" ref="account.data_account_type_revenue" />
 		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="note">(*) FACT - Note 3D: Ce compte n'est pas lu par les états financiers SYSCOHADA. Veuillez impérativement créer des sous-comptes en utilisant le 2ème et 3ème chiffre du compte d'immobilisation correspondant comme 4ème et 5ème chiffre du sous-compte créé (par ex. 821??).</field>
 	</record>
 	<record id="pcg_822" model="account.account.template">
-		<field name="name">IMMOBILISATIONS CORPORELLES</field>
+		<field name="name">IMMOBILISATIONS CORPORELLES(*)</field>
 		<field name="code">822</field>
 		<field name="user_type_id" ref="account.data_account_type_revenue" />
 		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="note">(*) FACT - Note 3D: Ce compte n'est pas lu par les états financiers SYSCOHADA. Veuillez impérativement créer des sous-comptes en utilisant le 2ème et 3ème chiffre du compte d'immobilisation correspondant comme 4ème et 5ème chiffre du sous-compte créé (par ex. 821??).</field>
 	</record>
 	<record id="pcg_826" model="account.account.template">
-		<field name="name">IMMOBILISATIONS FINANCIÈRES</field>
+		<field name="name">IMMOBILISATIONS FINANCIÈRES(*)</field>
 		<field name="code">826</field>
 		<field name="user_type_id" ref="account.data_account_type_revenue" />
 		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="note">(*) FACT - Note 3D: Ce compte n'est pas lu par les états financiers SYSCOHADA. Veuillez impérativement créer des sous-comptes en utilisant le 2ème et 3ème chiffre du compte d'immobilisation correspondant comme 4ème et 5ème chiffre du sous-compte créé (par ex. 821??).</field>
 	</record>
 	<record id="pcg_831" model="account.account.template">
 		<field name="name">CHARGES H.A.O. CONSTATÉES</field>
@@ -7305,6 +7307,12 @@
 	<record id="pcg_9920" model="account.account.template">
 		<field name="name">Compte d'équilibre pour les imports de données</field>
 		<field name="code">9920</field>
+		<field name="user_type_id" ref="l10n_ohada.account_type_special" />
+		<field name="chart_template_id" ref="ohada_chart_template" />
+	</record>
+	<record id="pcg_9930" model="account.account.template">
+		<field name="name">Compte d'équilibre pour les reports à nouveaux</field>
+		<field name="code">9930</field>
 		<field name="user_type_id" ref="l10n_ohada.account_type_special" />
 		<field name="chart_template_id" ref="ohada_chart_template" />
 	</record>

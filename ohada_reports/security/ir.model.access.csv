@@ -6,3 +6,7 @@ access_ohada_financial_html_report_line_invoice,ohada.financial.html.report.line
 access_account_report_invoice,ohada.report_manager,ohada_reports.model_ohada_report_manager,account.group_account_invoice,1,1,1,1
 access_account_report_footnote,ohada.report_footnote,ohada_reports.model_ohada_report_footnote,account.group_account_user,1,1,1,1
 access_account_report_footnote_invoice,ohada.report_footnote,ohada_reports.model_ohada_report_footnote,account.group_account_invoice,1,0,0,0
+access_ohada_custom_columns,ohada.custom.columns,ohada_reports.model_ohada_custom_columns,account.group_account_manager,1,1,1,1
+access_ohada_custom_columns_invoice,ohada.custom.columns invoice,ohada_reports.model_ohada_custom_columns,account.group_account_invoice,1,0,0,0
+access_ohada_cell_style,ohada.cell.style,ohada_reports.model_ohada_cell_style,account.group_account_manager,1,1,1,1
+access_ohada_cell_style_invoice,ohada.cell.style invoice,ohada_reports.model_ohada_cell_style,account.group_account_invoice,1,0,0,0

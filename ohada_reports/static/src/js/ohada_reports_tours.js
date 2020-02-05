@@ -8,7 +8,7 @@ Tour.register('account_followup_reports_widgets', {
     url: '/web#action=ohada_reports.action_view_list_customer_statements',
     },
      [
-        {
+        { 
             content: 'wait for web client',
             trigger: ".o_list_view",
             extra_trigger: ".breadcrumb",
@@ -31,7 +31,7 @@ Tour.register('account_followup_reports_widgets', {
         },
         {
             content: 'send by mail',
-            trigger: '.o_account_reports_followup_send_mail_button',
+            trigger: '.o_ohada_reports_followup_send_mail_button',
             run: 'click'
         },
         {
@@ -46,7 +46,7 @@ Tour.register('account_followup_reports_widgets', {
         },
         {
             content: 'Click the Do it later button',
-            trigger: '.o_account_reports_followup_do_it_later_button',
+            trigger: '.o_ohada_reports_followup_do_it_later_button',
             run: 'click'
         },
      ]

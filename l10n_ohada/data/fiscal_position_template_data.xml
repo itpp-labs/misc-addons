@@ -272,6 +272,16 @@
         <field name="tax_src_id" ref="tva_acq_18_purchase_ttc"/>
         <field name="tax_dest_id" ref="brs_col_service_5_ttc"/>   
     </record>    
+    <record id="fiscal_position_template_prest_t3" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_service"/>
+        <field name="tax_src_id" ref="tva_acq_10_purchase"/>
+        <field name="tax_dest_id" ref="brs_col_service_5"/>   
+    </record>
+    <record id="fiscal_position_template_prest_t4" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_service"/>
+        <field name="tax_src_id" ref="tva_acq_10_purchase_ttc"/>
+        <field name="tax_dest_id" ref="brs_col_service_5_ttc"/>   
+    </record>    
     <record id="fiscal_position_template_prest_a1" model="account.fiscal.position.account.template">
         <field name="position_id" ref="fiscal_position_template_service"/>
         <field name="account_src_id" ref="l10n_ohada.pcg_6011" />
@@ -292,6 +302,16 @@
     <record id="fiscal_position_template_rent_t2" model="account.fiscal.position.tax.template">
         <field name="position_id" ref="fiscal_position_template_rent"/>
         <field name="tax_src_id" ref="tva_acq_18_purchase_ttc"/>
+        <field name="tax_dest_id" ref="brs_col_rent_5_ttc"/>   
+    </record>    
+    <record id="fiscal_position_template_rent_t3" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_rent"/>
+        <field name="tax_src_id" ref="tva_acq_10_purchase"/>
+        <field name="tax_dest_id" ref="brs_col_rent_5"/>   
+    </record>
+    <record id="fiscal_position_template_rent_t4" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fiscal_position_template_rent"/>
+        <field name="tax_src_id" ref="tva_acq_10_purchase_ttc"/>
         <field name="tax_dest_id" ref="brs_col_rent_5_ttc"/>   
     </record>    
     <record id="fiscal_position_template_rent_a1" model="account.fiscal.position.account.template">
