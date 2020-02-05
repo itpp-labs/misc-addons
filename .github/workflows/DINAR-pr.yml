@@ -1,0 +1,75 @@
+name: "DINAR"
+
+on:
+  pull_request:
+
+jobs:
+  pre-commit:
+    name: "pre-commit"
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+      with:
+        path: REPO
+    - uses: actions/setup-python@v1
+      with:
+        python-version: '3.7.x'
+    - name: Check Python Version
+      run: echo "::set-env name=PY::$(python --version --version | sha256sum | cut -d' ' -f1)"
+    - uses: actions/cache@v1
+      with:
+        path: ~/.cache/pre-commit
+        key: pre-commit|${{ env.PY }}|${{ hashFiles('.pre-commit-config.yaml') }}
+    - uses: pre-commit/action@v1.0.1
+
+  review:
+    name: "Quick Review"
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+      with:
+        path: REPO
+    - name: Checkout DINAR
+      uses: actions/checkout@v2
+      with:
+        path: DINAR
+        repository: itpp-labs/DINAR
+        ref: master  # TODO: use fixed version
+    - uses: actions/setup-python@v1
+      with:
+        python-version: '3.7.x'
+    - name: Install python tools
+      run: |
+        pip install plumbum
+    - name: Analyze PR
+      run: |
+        # sets environment variables that available in next steps via $ {{ env.PR_... }} notation
+        cd REPO
+        python ../DINAR/workflow-files/analyze-pr.py ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}
+    - uses: marocchino/sticky-pull-request-comment@v1.2.1
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        #if: "env.PR_UPDATED_MODULES_INSTALLABLE != ''"
+        message: |
+
+          To test updates run:
+
+              WORKDIR=/tmp/DINAR/${{ github.repository }}/${{ github.event.number }}/
+              mkdir -p $WORKDIR
+              cd $WORKDIR
+              # TODO use fixed version instead of master
+              curl https://raw.githubusercontent.com/itpp-labs/DINAR/master/local-files/docker-compose.yml > docker-compose.yml
+              export REGISTRY=docker.pkg.github.com REPOSITORY=${{ github.repository }} VERSION=${{ github.event.pull_request.base.ref }}
+              git clone --depth=1 --branch $VERSION git@github.com:${{ github.repository }} pr-files
+              # Version in PR
+              REVISION=${{ github.event.pull_request.head.sha}}
+              # Version after merging
+              REVISION=pull/${{ github.event.number}}/merge
+              git -C pr-files fetch origin $REVISION
+              git -C pr-files checkout FETCH_HEAD
+              docker-compose pull
+              docker-compose run odoo -i ${{ env.PR_UPDATED_MODULES_INSTALLABLE }} -d itpp-runbot --stop-after-init
+              docker-compose up
+
+          > Sent by [DINAR :construction_worker_man:](https://github.com/itpp-labs/DINAR) via `.github/workflows/DINAR-pr.yml`
