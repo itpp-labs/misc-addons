@@ -32,7 +32,7 @@ class ResUsers(models.Model):
 
     signature_id = fields.Many2one('res.users.signature', string='Signature template', help='Keep empty to edit signature manually')
 
-        'signature': old_fields.Html('Signature', sanitize=False)
+    signature = fields.Html('Signature', sanitize=False)
 
 
     @api.one
