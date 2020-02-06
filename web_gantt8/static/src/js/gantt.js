@@ -1,5 +1,6 @@
 odoo.define('web_gantt8.gantt', function (require) {
 "use strict";
+/*global GanttProjectInfo,GanttTaskInfo,GanttTaskInfo,GanttChart*/
 var core = require('web.core');
 var View = require('web.View');
 var Model = require('web.DataModel');
@@ -60,7 +61,7 @@ var GanttView = View.extend({
         });
     },
     reload: function() {
-        if (this.last_domains !== undefined) {
+        if (typeof this.last_domains !== "undefined") {
 return this.do_search(this.last_domains, this.last_contexts, this.last_group_bys);
 }
     },
@@ -70,8 +71,8 @@ return this.do_search(this.last_domains, this.last_contexts, this.last_group_bys
         return this.dataset.name_get(ids).then(function(names) {
             var ntasks = _.map(tasks, function(task) {
                 return _.extend({__name: _.detect(names, function(name) {
- return name[0] == task.id;
-})[1]}, task);
+                    return name[0] === task.id;
+                })[1]}, task);
             });
             return self.on_data_loaded_2(ntasks, group_bys);
         });
@@ -85,7 +86,7 @@ return this.do_search(this.last_domains, this.last_contexts, this.last_group_bys
             group_bys = [group_bys[0]];
         }
         // if there is no group by, simulate it
-        if (group_bys.length == 0) {
+        if (group_bys.length === 0) {
             group_bys = ["_pseudo_group_by"];
             _.each(tasks, function(el) {
                 el._pseudo_group_by = "Gantt View";
@@ -94,24 +95,24 @@ return this.do_search(this.last_domains, this.last_contexts, this.last_group_bys
         }
 
         // get the groups
-        var split_groups = function(tasks, group_bys) {
-            if (group_bys.length === 0) {
-return tasks;
+        var split_groups = function(tasks_, group_bys_) {
+            if (group_bys_.length === 0) {
+return tasks_;
 }
             var groups = [];
-            _.each(tasks, function(task) {
-                var group_name = task[_.first(group_bys)];
-                var group = _.find(groups, function(group) {
- return _.isEqual(group.name, group_name);
+            _.each(tasks_, function(task) {
+                var group_name = task[_.first(group_bys_)];
+                var group = _.find(groups, function(group_) {
+ return _.isEqual(group_.name, group_name);
 });
-                if (group === undefined) {
-                    group = {name:group_name, tasks: [], __is_group: true};
+                if (typeof group === "undefined") {
+                    group = {name:group_name, tasks_: [], __is_group: true};
                     groups.push(group);
                 }
                 group.tasks.push(task);
             });
             _.each(groups, function(group) {
-                group.tasks = split_groups(group.tasks, _.rest(group_bys));
+                group.tasks = split_groups(group.tasks, _.rest(group_bys_));
             });
             return groups;
         };
@@ -131,18 +132,18 @@ return tasks;
                 var task_infos = _.compact(_.map(task.tasks, function(sub_task) {
                     return generate_task_info(sub_task, level + 1);
                 }));
-                if (task_infos.length == 0) {
+                if (task_infos.length === 0) {
 return;
 }
                 task_start = _.reduce(_.pluck(task_infos, "task_start"), function(date, memo) {
-                    return memo === undefined || date < memo ? date : memo;
-                }, undefined);
+                    return typeof memo === "undefined" || date < memo ? date : memo;
+                });
                 task_stop = _.reduce(_.pluck(task_infos, "task_stop"), function(date, memo) {
-                    return memo === undefined || date > memo ? date : memo;
-                }, undefined);
+                    return typeof memo === "undefined" || date > memo ? date : memo;
+                });
                 duration = (task_stop.getTime() - task_start.getTime()) / (1000 * 60 * 60);
                 var group_name = task.name ? formats.format_value(task.name, self.fields[group_bys[level]]) : "-";
-                if (level == 0) {
+                if (level === 0) {
                     group = new GanttProjectInfo(_.uniqueId("gantt_project_"), group_name, task_start);
                     _.each(task_infos, function(el) {
                         group.addTask(el.task_info);
@@ -167,7 +168,8 @@ return;
                     if (!task_stop) {
 task_stop = task_start;
 }
-                } else { // we assume date_duration is defined
+                } else {
+                    // we assume date_duration is defined
                     var tmp = formats.format_value(task[self.fields_view.arch.attrs.date_delay],
                         self.fields[self.fields_view.arch.attrs.date_delay]);
                     if (!tmp) {
@@ -244,7 +246,8 @@ return generate_task_info(e, 0);
         if (self.fields_view.arch.attrs.date_stop) {
             data[self.fields_view.arch.attrs.date_stop] =
                 time.auto_date_to_str(end, self.fields[self.fields_view.arch.attrs.date_stop].type);
-        } else { // we assume date_duration is defined
+        } else {
+            // we assume date_duration is defined
             data[self.fields_view.arch.attrs.date_delay] = duration;
         }
         this.dataset.write(itask.id, data);
