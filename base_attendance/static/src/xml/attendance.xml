@@ -85,7 +85,7 @@
                         </h2>
                         <h3 class="o_hr_attendance_random_message"></h3>
                         <h2 class="o_hr_attendance_warning_message"></h2>
-                        
+
                     </t>
                     <t t-if="!widget.attendance.check_out">
                         <h1 class="o_hr_attendance_validation checkin">

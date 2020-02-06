@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
-from openerp import api
-from openerp import models
+from odoo import api, models
 
 
 class HrEmployee(models.Model):
-    _inherit = 'hr.employee'
+    _inherit = "hr.employee"
 
     @api.multi
     def write(self, vals):

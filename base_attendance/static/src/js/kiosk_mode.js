@@ -53,10 +53,10 @@ var KioskMode = Widget.extend(BarcodeHandlerMixin, {
         var self = this;
         self.session = Session;
         var res_company = new Model('res.company');
-        res_company.query(['name']).
-           filter([['id', '=', self.session.company_id]]).
-           all().
-           then(function (companies){
+        res_company.query(['name'])
+           .filter([['id', '=', self.session.company_id]])
+           .all()
+           .then(function (companies){
                 self.company_name = companies[0].name;
                 self.company_image_url = self.session.url('/web/image', {model: 'res.company', id: self.session.company_id, field: 'logo',});
                 self.$el.html(QWeb.render("BaseAttendanceKioskMode", {widget: self}));

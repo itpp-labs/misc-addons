@@ -1,22 +1,24 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from odoo import models, fields, api, _, tools
-from odoo.addons.base.ir.ir_config_parameter import IrConfigParameter as IrConfigParameterOriginal, _default_parameters
+from odoo import _, api, fields, models, tools
+
+from odoo.addons.base.ir.ir_config_parameter import (
+    IrConfigParameter as IrConfigParameterOriginal,
+    _default_parameters,
+)
 
 _logger = logging.getLogger(__name__)
 PROP_NAME = _('Default value for "%s"')
 
-DATABASE_SECRET_KEY = 'database.secret'
+DATABASE_SECRET_KEY = "database.secret"
 
 # params that has to be shared across all companies
-SHARED_KEYS = [
-    'database.expiration_date',
-]
+SHARED_KEYS = ["database.expiration_date"]
 
 
 class IrConfigParameter(models.Model):
-    _inherit = 'ir.config_parameter'
+    _inherit = "ir.config_parameter"
 
     value = fields.Text(company_dependent=True, website_dependent=True)
 
@@ -24,13 +26,13 @@ class IrConfigParameter(models.Model):
     def create(self, vals):
         res = super(IrConfigParameter, self).create(vals)
         # make value company independent
-        res._force_default(vals.get('value'))
+        res._force_default(vals.get("value"))
         return res
 
     @api.multi
     def write(self, vals):
         res = super(IrConfigParameter, self).write(vals)
-        value = vals.get('value')
+        value = vals.get("value")
         if value:
             for r in self:
                 if r.key in SHARED_KEYS:
@@ -40,13 +42,13 @@ class IrConfigParameter(models.Model):
     def _force_default(self, value):
         """Remove company-dependent values and keeps only default one"""
         self.ensure_one()
-        Prop = self.env['ir.property']
-        domain = Prop._get_domain('value', self._name)
+        Prop = self.env["ir.property"]
+        domain = Prop._get_domain("value", self._name)
 
         # find all props
-        props = Prop.search(domain + [
-            ('res_id', '=', '%s,%s' % (self._name, self.id)),
-        ])
+        props = Prop.search(
+            domain + [("res_id", "=", "{},{}".format(self._name, self.id))]
+        )
 
         default_prop = None
         if len(props) == 0:
@@ -61,14 +63,12 @@ class IrConfigParameter(models.Model):
             # remove rest properties
             (props - default_prop).unlink()
 
-        vals = {
-            'name': PROP_NAME % self.key
-        }
+        vals = {"name": PROP_NAME % self.key}
         if default_prop.company_id:
-            vals['company_id'] = None
+            vals["company_id"] = None
 
         if default_prop.get_by_record() != value:
-            vals['value'] = value
+            vals["value"] = value
 
         default_prop.write(vals)
         self._update_db_value(value)
@@ -79,7 +79,9 @@ class IrConfigParameter(models.Model):
         """Store value in db column. We can use it only directly,
         because ORM treat value as computed multi-company field"""
         self.ensure_one()
-        self.env.cr.execute("UPDATE ir_config_parameter SET value=%s WHERE id = %s", (value, self.id, ))
+        self.env.cr.execute(
+            "UPDATE ir_config_parameter SET value=%s WHERE id = %s", (value, self.id)
+        )
 
     @api.model
     def reset_database_secret(self):
@@ -89,11 +91,11 @@ class IrConfigParameter(models.Model):
 
     @api.model
     def get_param(self, key, default=False):
-        company_id = self.env.context.get('company_id')
+        company_id = self.env.context.get("company_id")
         if not company_id:
-            website_id = self.env.context.get('website_id')
+            website_id = self.env.context.get("website_id")
             if website_id:
-                website = self.env['website'].browse(website_id)
+                website = self.env["website"].browse(website_id)
                 company_id = website.company_id and website.company_id.id
 
         if not company_id:
@@ -112,9 +114,9 @@ class IrConfigParameter(models.Model):
         return res
 
     @api.model
-    @tools.ormcache_context('self._uid', 'key', keys=("force_company",))
+    @tools.ormcache_context("self._uid", "key", keys=("force_company",))
     def _get_param(self, key):
-        _logger.debug('_get_param(%s) context: %s', key, self.env.context)
+        _logger.debug("_get_param(%s) context: %s", key, self.env.context)
         # call undecorated super method. See odoo/tools/cache.py::ormcache and http://decorator.readthedocs.io/en/stable/tests.documentation.html#getting-the-source-code
         return IrConfigParameterOriginal._get_param.__wrapped__(self, key)
 
@@ -123,23 +125,25 @@ class IrConfigParameter(models.Model):
         """Set company-independent default value"""
         self.ensure_one()
         domain = [
-            ('company_id', '=', False),
-            ('res_id', '=', '%s,%s' % (self._name, self.id))
+            ("company_id", "=", False),
+            ("res_id", "=", "{},{}".format(self._name, self.id)),
         ]
 
-        existing = self.env['ir.property'].search(domain)
+        existing = self.env["ir.property"].search(domain)
         if existing:
             # already exists
             return existing
 
-        _logger.debug('Create default value for %s', self.key)
-        return self.env['ir.property'].create({
-            'fields_id': self.env.ref('base.field_ir_config_parameter_value').id,
-            'res_id': '%s,%s' % (self._name, self.id),
-            'name': PROP_NAME % self.key,
-            'value': value,
-            'type': 'text',
-        })
+        _logger.debug("Create default value for %s", self.key)
+        return self.env["ir.property"].create(
+            {
+                "fields_id": self.env.ref("base.field_ir_config_parameter_value").id,
+                "res_id": "{},{}".format(self._name, self.id),
+                "name": PROP_NAME % self.key,
+                "value": value,
+                "type": "text",
+            }
+        )
 
     def _auto_init(self):
         cr = self.env.cr
@@ -155,10 +159,12 @@ class IrConfigParameter(models.Model):
         # rename "value_tmp" back to "value_tmp"
         cr.execute("ALTER TABLE ir_config_parameter RENAME COLUMN value_tmp TO value")
 
-        for r in self.env['ir.config_parameter'].sudo().search([]):
-            cr.execute("SELECT key,value FROM ir_config_parameter WHERE id = %s", (r.id, ))
+        for r in self.env["ir.config_parameter"].sudo().search([]):
+            cr.execute(
+                "SELECT key,value FROM ir_config_parameter WHERE id = %s", (r.id,)
+            )
             res = cr.dictfetchone()
-            value = res.get('value')
+            value = res.get("value")
             # value may be empty after migration from previous module version
             if value:
                 # create default value if it doesn't exist
