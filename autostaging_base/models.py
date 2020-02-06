@@ -1,11 +1,11 @@
 import datetime
 import time
 
-from odoo.tools.translate import _
-
 from openerp import api, fields, models
 from openerp.exceptions import ValidationError
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
+
+from odoo.tools.translate import _
 
 
 class AutostagingFolder(models.AbstractModel):

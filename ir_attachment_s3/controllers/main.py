@@ -5,12 +5,12 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 import logging
 
+import werkzeug
+
 from odoo.http import request, route
 
 from odoo.addons.ir_attachment_url.models.image import SIZES_MAP
 from odoo.addons.web.controllers.main import Binary
-
-import werkzeug
 
 _logger = logging.getLogger(__name__)
 

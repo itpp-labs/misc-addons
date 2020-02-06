@@ -1,4 +1,5 @@
 import functools
+
 from cStringIO import StringIO
 
 import odoo

@@ -3,10 +3,10 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 import mimetypes
 
+import requests
+
 from odoo import fields
 from odoo.tools.mimetypes import guess_mimetype
-
-import requests
 
 from . import image
 
