@@ -106,12 +106,12 @@ jobs:
         export DB_VERSION=10
         export REPOSITORY=${{ github.repository	}}
 
-        export DOODBA_WITHOUT_DEMO=false
-        export IMAGE_DB=${{ github.repository	}}/dinar-db:$ODOO_VERSION
-        export IMAGE_ODOO=${{ github.repository	}}/dinar-odoo:$ODOO_VERSION
-        bash DINAR/workflow-files/images-with-preinstalled-modules.sh
-
         export DOODBA_WITHOUT_DEMO=all
         export IMAGE_DB=${{ github.repository	}}/dinar-db:$ODOO_VERSION-nodemo
         export IMAGE_ODOO=${{ github.repository	}}/dinar-odoo:$ODOO_VERSION-nodemo
+        bash DINAR/workflow-files/images-with-preinstalled-modules.sh
+
+        export DOODBA_WITHOUT_DEMO=false
+        export IMAGE_DB=${{ github.repository	}}/dinar-db:$ODOO_VERSION
+        export IMAGE_ODOO=${{ github.repository	}}/dinar-odoo:$ODOO_VERSION
         bash DINAR/workflow-files/images-with-preinstalled-modules.sh
