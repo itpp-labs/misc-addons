@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": "Oil odometer field on Vehicle form",
     "summary": """add Last oil change field""",

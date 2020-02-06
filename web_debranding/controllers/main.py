@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import functools
 
 from cStringIO import StringIO

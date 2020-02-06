@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": "FIX field limit in importing csv",
     "vesion": "10.0.1.0.0",

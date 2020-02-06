@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2016-2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
 # Copyright 2017 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
 # Copyright 2016-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": """Gantt view from odoo 8""",
     "summary": """Ported view from odoo 8""",

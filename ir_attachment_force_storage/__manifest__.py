@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": "Force move attachments to DB storage",
     "vesion": "10.0.1.0.0",

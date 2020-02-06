@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": "Show project's name with partner's name ",
     "vesion": "10.0.1.0.0",

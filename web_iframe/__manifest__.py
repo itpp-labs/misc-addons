@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": "IFrame pages (technical core)",
     "vesion": "10.0.1.0.0",

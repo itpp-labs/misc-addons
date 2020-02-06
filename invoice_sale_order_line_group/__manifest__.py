@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": """Invoice multiorder lines""",
     "summary": """Choose different sale order lines from list and create one invoice per partner from them""",

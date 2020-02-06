@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": """Base Details""",
     "summary": """Allows to add reference in any models""",

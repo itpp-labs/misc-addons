@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import operator
 
 from odoo import api, fields, models

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from odoo import api, fields, models
 from odoo.exceptions import Warning as UserError
 from odoo.tools import html_escape as escape

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from openerp import api, models
 from openerp.exceptions import AccessError
 from openerp.tools.translate import _

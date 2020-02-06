@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": "Auto-fill partner's country by top-lever domain of email address",
     "vesion": "10.0.1.0",

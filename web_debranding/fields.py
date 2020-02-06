@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from odoo.fields import _String
 
 from .models.ir_translation import debrand

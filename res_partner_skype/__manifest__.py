@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": "Skype field in partner form",
     "vesion": "10.0.1.0.1",

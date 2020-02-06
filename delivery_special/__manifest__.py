@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": "Special delivery",
     "vesion": "10.0.1.0.0",

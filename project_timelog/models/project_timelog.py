@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import datetime
 
 from openerp import api, fields, models

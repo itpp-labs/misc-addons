@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": "Project Task Order",
     "summary": """Order tasks by kanban state:

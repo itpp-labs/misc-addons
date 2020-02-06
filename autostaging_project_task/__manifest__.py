@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": "Autostaging project task",
     "summary": "Change stages of tasks automatically after a specified time",

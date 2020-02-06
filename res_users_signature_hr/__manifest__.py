@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": "Signature templates for user emails (HR)",
     "vesion": "10.0.1.0.0",

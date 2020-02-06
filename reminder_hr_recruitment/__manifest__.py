@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": "Reminders and Agenda for Job Applications",
     "vesion": "10.0.1.0.0",

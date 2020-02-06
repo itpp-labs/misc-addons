@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": """Extra grouping options""",
     "summary": """Adds grouping by hours""",

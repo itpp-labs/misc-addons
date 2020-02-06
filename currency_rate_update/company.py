@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #
 #
 #    Copyright (c) 2009 CamptoCamp. All rights reserved.

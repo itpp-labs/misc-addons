@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from openerp import http
 from openerp.addons.auth_signup_confirmation.controllers.auth_signup_confirmation import (
     AuthConfirm,

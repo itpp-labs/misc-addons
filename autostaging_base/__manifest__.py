@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": "Autostaging (technical core)",
     "author": "IT-Projects LLC, Ildar Nasyrov",

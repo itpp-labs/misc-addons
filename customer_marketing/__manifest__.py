@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": """Customer Marketing""",
     "summary": """Allows to store detailed information about customers""",

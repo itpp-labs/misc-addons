@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": """Store sessions in postgresql""",
     "summary": """Fixes "Session Expired" issue in destributed deployment""",

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2019 Rafis Bikbov <https://it-projects.info/team/RafiZz>
 # Copyright 2019 Alexandr Kolushov <https://it-projects.info/team/KolushovAlexandr>

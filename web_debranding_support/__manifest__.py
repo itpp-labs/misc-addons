@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": "Backend debranding + Support branding",
     "vesion": "10.0.1.0.0",

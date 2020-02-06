@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": "Email confirmation on sign up (CRM extension)",
     "summary": "Automatically creates a lead for every new user",

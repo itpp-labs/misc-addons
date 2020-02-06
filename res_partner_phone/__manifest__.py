@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": "phone and mobile in display_name for searching",
     "author": "IT-Projects LLC, Ildar Nasyrov",

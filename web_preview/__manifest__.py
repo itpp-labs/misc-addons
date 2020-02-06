@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": """Preview Media Files""",
     "summary": """Open attached images in popup""",

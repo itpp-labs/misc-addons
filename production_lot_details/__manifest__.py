@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": """Production Lot Details""",
     "summary": """Allows to add links with details for production lots.""",

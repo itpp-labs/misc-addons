@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name": "Attachment Url",
     "summary": """Use attachment URL and upload data to external storage""",
