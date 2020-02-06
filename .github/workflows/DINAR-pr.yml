@@ -45,7 +45,7 @@ jobs:
       run: |
         # sets environment variables that available in next steps via $ {{ env.PR_... }} notation
         cd REPO
-        python ../DINAR/workflow-files/analyze-pr.py ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}
+        python ../DINAR/workflow-files/analyze-pr.py origin/${{ github.event.pull_request.base.ref }}
     - name: HOW TO RUN LOCALLY
       #if: "env.PR_UPDATED_MODULES_INSTALLABLE != ''"
       run: |
