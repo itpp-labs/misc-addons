@@ -99,7 +99,7 @@ class WebClientCustom(WebClient):
     def translations(self, mods=None, lang=None):
         res = super(WebClientCustom, self).translations(mods, lang)
 
-        for module_key, module_vals in res["modules"].iteritems():
+        for _module_key, module_vals in res["modules"].iteritems():
             for message in module_vals["messages"]:
                 message["id"] = debrand(request.env, message["id"])
                 message["string"] = debrand(request.env, message["string"])
