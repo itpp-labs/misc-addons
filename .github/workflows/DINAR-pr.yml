@@ -40,12 +40,12 @@ jobs:
         python-version: '3.7.x'
     - name: Install python tools
       run: |
-        pip install plumbum
+        pip install plumbum PyGithub
     - name: Analyze PR
       run: |
         # sets environment variables that available in next steps via $ {{ env.PR_... }} notation
         cd REPO
-        python ../DINAR/workflow-files/analyze-pr.py ${{ github.event.pull_request.base.repo.ssh_url }} ${{ github.event.pull_request.base.ref }}
+        python ../DINAR/workflow-files/analyze-pr.py ${{ secrets.GITHUB_TOKEN }} ${{ github.repository }} ${{ github.event.number }}
     - name: HOW TO RUN LOCALLY
       #if: "env.PR_UPDATED_MODULES_INSTALLABLE != ''"
       run: |
