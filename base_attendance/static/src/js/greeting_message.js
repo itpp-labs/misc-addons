@@ -142,8 +142,8 @@ var GreetingMessage = Widget.extend(BarcodeHandlerMixin, {
             clearTimeout(this.return_to_main_menu);
         }
         var res_partner = new Model('res.partner');
-        res_partner.call('attendance_scan', [barcode, ]).
-            then(function (result) {
+        res_partner.call('attendance_scan', [barcode, ])
+            .then(function (result) {
                 if (result.action) {
                     self.do_action(result.action);
                 } else if (result.warning) {

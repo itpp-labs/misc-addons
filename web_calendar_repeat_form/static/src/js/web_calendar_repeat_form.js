@@ -4,7 +4,7 @@ openerp.web_calendar_repeat_form = function (session) {
         view_loading: function(fv) {
             this.prev_data = {};
             this.repeat_form = false;
-            var res =  this._super(fv);
+            var res = this._super(fv);
             if (this.quick_create_instance == 'instance.web_calendar_repeat_form.QuickCreateRepeated') {
                 this.repeat_form = true;
             }

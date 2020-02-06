@@ -21,8 +21,8 @@ var KioskConfirm = Widget.extend({
             var self = this;
             this.$('.o_hr_attendance_sign_in_out_icon').attr("disabled", "disabled");
             var hr_partner = new Model('res.partner');
-            hr_partner.call('attendance_manual', [[this.partner_id], this.next_action]).
-            then(function(result) {
+            hr_partner.call('attendance_manual', [[this.partner_id], this.next_action])
+            .then(function(result) {
                 if (result.action) {
                     self.do_action(result.action);
                 } else if (result.warning) {
@@ -68,8 +68,8 @@ var KioskConfirm = Widget.extend({
             var self = this;
             this.$('.o_hr_attendance_pin_pad_button_ok').attr("disabled", "disabled");
             var hr_partner = new Model('res.partner');
-            hr_partner.call('attendance_manual', [[this.partner_id], this.next_action, this.$('.o_hr_attendance_PINbox').val()]).
-            then(function(result) {
+            hr_partner.call('attendance_manual', [[this.partner_id], this.next_action, this.$('.o_hr_attendance_PINbox').val()])
+            .then(function(result) {
                 if (result.action) {
                     self.do_action(result.action);
                 } else if (result.warning) {

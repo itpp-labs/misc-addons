@@ -22,19 +22,20 @@ var SwitchWebsiteMenu = Widget.extend({
         var self = this;
         this.$el.on('click', '.dropdown-menu li a[data-menu]', _.debounce(function(ev) {
             ev.preventDefault();
-            var website_id = $(ev.currentTarget).data('website-id') || false;  // write method ignores undefinded
+            var website_id = $(ev.currentTarget).data('website-id') || false; // write method ignores undefinded
             new Model('res.users').call('write', [[session.uid], {'backend_website_id': website_id}]).then(function() {
                 location.reload();
             });
         }, 1500, true));
 
-        var all_websites_text =  _t('All Websites');
+        var all_websites_text = _t('All Websites');
         var topbar = self.$('.oe_topbar_name');
         var current_website = session.user_websites.current_website;
-        if (current_website)
-            self.$('.oe_topbar_name').text(current_website[1]);
-        else
-            self.$('.oe_topbar_name').html('<em>' + all_websites_text + '</em>');
+        if (current_website) {
+self.$('.oe_topbar_name').text(current_website[1]);
+} else {
+self.$('.oe_topbar_name').html('<em>' + all_websites_text + '</em>');
+}
 
         var websites_list = '';
 

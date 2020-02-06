@@ -34,7 +34,7 @@ openerp.web_calendar_quick_navigation = function (session) {
                     'monthes': monthPeriod
                 })));
             }
-            $(element).on ('click', 'div.quick_monthes a', function() {
+            $(element).on('click', 'div.quick_monthes a', function() {
                 view.calendar.gotoDate($(this).data('year'), $(this).data('month'), 1);
             });
         },
@@ -49,8 +49,8 @@ openerp.web_calendar_quick_navigation = function (session) {
                 weekPeriod.push({
                     current: i == ts,
                     date: i,
-                    name: view.calendar.formatDate(d, 'ddMMM') + '-'
-                        + view.calendar.formatDate(dE, 'ddMMM')
+                    name: view.calendar.formatDate(d, 'ddMMM') + '-' +
+                        view.calendar.formatDate(dE, 'ddMMM')
                 });
             }
             if ($(element).find('div.quick_weeks').length) {
@@ -62,7 +62,7 @@ openerp.web_calendar_quick_navigation = function (session) {
                     'weeks': weekPeriod
                 })));
             }
-            $(element).on ('click', 'div.quick_weeks a', function() {
+            $(element).on('click', 'div.quick_weeks a', function() {
                 d = new Date();
                 d.setTime(parseInt($(this).data('date')));
                 view.calendar.gotoDate(d.getFullYear(), d.getMonth(), d.getDate());
