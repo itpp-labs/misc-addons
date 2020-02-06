@@ -6,11 +6,11 @@ class ProjectTaskOrder(models.Model):
     _inherit = "project.task"
 
     kanban_state_num = fields.Integer(
-        "Kanban state num", compute="_kanban_num", store=True
+        "Kanban state num", compute="_compute_kanban_state_num", store=True
     )
 
     @api.depends("kanban_state")
-    def _kanban_num(self):
+    def _compute_kanban_state_num(self):
         for r in self:
             if r.kanban_state == "normal":
                 r.kanban_state_num = 0
