@@ -139,8 +139,8 @@ msgid "My"
 msgstr ""
 
 #. module: project_task_subtask
-#: code:addons/project_task_subtask/models/project_task_subtask.py:61
-#: code:addons/project_task_subtask/models/project_task_subtask.py:65
+#: code:addons/project_task_subtask/models/project_task_subtask.py:77
+#: code:addons/project_task_subtask/models/project_task_subtask.py:89
 #, python-format
 msgid "Only users related to that subtask can change state."
 msgstr ""
