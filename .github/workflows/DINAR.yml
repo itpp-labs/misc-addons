@@ -115,4 +115,3 @@ jobs:
         export IMAGE_DB=${{ github.repository	}}/dinar-db:$ODOO_VERSION-nodemo
         export IMAGE_ODOO=${{ github.repository	}}/dinar-odoo:$ODOO_VERSION-nodemo
         bash DINAR/workflow-files/images-with-preinstalled-modules.sh
-
