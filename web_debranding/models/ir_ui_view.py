@@ -22,6 +22,7 @@ class View(models.Model):
         res["arch"] = debrand(self.env, res["arch"])
         return res
 
+
     @api.model
     def _create_debranding_views(self):
 
