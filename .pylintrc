@@ -21,7 +21,7 @@ disable=all
 # config as a blocking check.
 
 enable=anomalous-backslash-in-string,
-    api-one-deprecated,
+    #api-one-deprecated,
     api-one-multi-together,
     assignment-from-none,
     attribute-deprecated,
