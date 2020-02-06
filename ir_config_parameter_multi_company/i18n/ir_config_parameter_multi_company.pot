@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: ir_config_parameter_multi_company
-#: code:addons/ir_config_parameter_multi_company/models/ir_config_parameter.py:8
+#: code:addons/ir_config_parameter_multi_company/models/ir_config_parameter.py:12
 #, python-format
 msgid "Default value for \"%s\""
 msgstr ""
