@@ -90,20 +90,20 @@ msgid "Created on"
 msgstr ""
 
 #. module: project_timelog
-#: code:addons/project_timelog/models/project_timelog.py:287
+#: code:addons/project_timelog/models/project_timelog.py:390
 #, python-format
 msgid "Creating new subtask in state \"%s\" is forbidden."
 msgstr ""
 
 #. module: project_timelog
-#: code:addons/project_timelog/models/project_timelog.py:319
+#: code:addons/project_timelog/models/project_timelog.py:440
 #, python-format
 msgid "Current task stage different from the stage subtasks."
 msgstr ""
 
 #. module: project_timelog
-#: code:addons/project_timelog/models/project_timelog.py:308
-#: code:addons/project_timelog/models/project_timelog.py:378
+#: code:addons/project_timelog/models/project_timelog.py:422
+#: code:addons/project_timelog/models/project_timelog.py:528
 #, python-format
 msgid "Current user is not match user with solved task."
 msgstr ""
@@ -114,7 +114,7 @@ msgid "Date"
 msgstr ""
 
 #. module: project_timelog
-#: code:addons/project_timelog/models/project_timelog.py:80
+#: code:addons/project_timelog/models/project_timelog.py:102
 #, python-format
 msgid "Dates cannot be changed. Use Time Correction field instead."
 msgstr ""
@@ -171,11 +171,11 @@ msgid "End tate. Equal to now if timer is not stopped yet."
 msgstr ""
 
 #. module: project_timelog
-#: code:addons/project_timelog/models/project_timelog.py:310
-#: code:addons/project_timelog/models/project_timelog.py:315
-#: code:addons/project_timelog/models/project_timelog.py:318
-#: code:addons/project_timelog/models/project_timelog.py:325
-#: code:addons/project_timelog/models/project_timelog.py:347
+#: code:addons/project_timelog/models/project_timelog.py:426
+#: code:addons/project_timelog/models/project_timelog.py:432
+#: code:addons/project_timelog/models/project_timelog.py:439
+#: code:addons/project_timelog/models/project_timelog.py:453
+#: code:addons/project_timelog/models/project_timelog.py:485
 #, python-format
 msgid "Error."
 msgstr ""
@@ -202,7 +202,7 @@ msgid "ID"
 msgstr ""
 
 #. module: project_timelog
-#: code:addons/project_timelog/models/project_timelog.py:316
+#: code:addons/project_timelog/models/project_timelog.py:433
 #, python-format
 msgid "In the current state of the task can not be created timelogs."
 msgstr ""
@@ -256,7 +256,7 @@ msgid "Notification"
 msgstr ""
 
 #. module: project_timelog
-#: code:addons/project_timelog/models/project_timelog.py:77
+#: code:addons/project_timelog/models/project_timelog.py:93
 #, python-format
 msgid "Only manager can enter positive time."
 msgstr ""
@@ -267,7 +267,7 @@ msgid "Partner"
 msgstr ""
 
 #. module: project_timelog
-#: code:addons/project_timelog/models/project_timelog.py:311
+#: code:addons/project_timelog/models/project_timelog.py:426
 #, python-format
 msgid "Please, stop previous timer."
 msgstr ""
@@ -457,7 +457,7 @@ msgid "The time when you start the timer"
 msgstr ""
 
 #. module: project_timelog
-#: code:addons/project_timelog/models/project_timelog.py:384
+#: code:addons/project_timelog/models/project_timelog.py:535
 #, python-format
 msgid "The timer already has stopped."
 msgstr ""
@@ -540,7 +540,7 @@ msgid "Total time, before taking into account errors"
 msgstr ""
 
 #. module: project_timelog
-#: code:addons/project_timelog/models/project_timelog.py:326
+#: code:addons/project_timelog/models/project_timelog.py:454
 #, python-format
 msgid "Unable to create logs until it is modified or deleted stopline."
 msgstr ""
@@ -576,9 +576,9 @@ msgid "Warning"
 msgstr ""
 
 #. module: project_timelog
-#: code:addons/project_timelog/models/project_timelog.py:307
-#: code:addons/project_timelog/models/project_timelog.py:377
-#: code:addons/project_timelog/models/project_timelog.py:383
+#: code:addons/project_timelog/models/project_timelog.py:421
+#: code:addons/project_timelog/models/project_timelog.py:527
+#: code:addons/project_timelog/models/project_timelog.py:535
 #, python-format
 msgid "Warning."
 msgstr ""
@@ -610,7 +610,7 @@ msgid "Work"
 msgstr ""
 
 #. module: project_timelog
-#: code:addons/project_timelog/models/project_timelog.py:348
+#: code:addons/project_timelog/models/project_timelog.py:485
 #, python-format
 msgid "Yesterday's timelogs."
 msgstr ""
