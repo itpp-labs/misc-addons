@@ -18,7 +18,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-# pylint: disable=sql-injection
+# pylint: disable=sql-injection,invalid-commit
 import pickle
 from contextlib import closing
 
