@@ -14,19 +14,19 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: base_attendance
-#: code:addons/base_attendance/models/res_attendance.py:62
+#: code:addons/base_attendance/models/res_attendance.py:112
 #, python-format
 msgid "\"Check Out\" time cannot be earlier than \"Check In\" time."
 msgstr ""
 
 #. module: base_attendance
-#: code:addons/base_attendance/models/res_attendance.py:33
+#: code:addons/base_attendance/models/res_attendance.py:50
 #, python-format
 msgid "%(partner_name)s from %(check_in)s"
 msgstr ""
 
 #. module: base_attendance
-#: code:addons/base_attendance/models/res_attendance.py:40
+#: code:addons/base_attendance/models/res_attendance.py:71
 #, python-format
 msgid "%(worked_time)s by %(partner_name)s from %(check_in)s to %(check_out)s"
 msgstr ""
@@ -98,26 +98,26 @@ msgid "Cancel"
 msgstr ""
 
 #. module: base_attendance
-#: code:addons/base_attendance/models/res_attendance.py:92
+#: code:addons/base_attendance/models/res_attendance.py:163
 #, python-format
 msgid "Cannot create new attendance record for %(partner_name)s, the partner hasn't checked out since %(datetime)s"
 msgstr ""
 
 #. module: base_attendance
-#: code:addons/base_attendance/models/res_attendance.py:79
-#: code:addons/base_attendance/models/res_attendance.py:105
+#: code:addons/base_attendance/models/res_attendance.py:139
+#: code:addons/base_attendance/models/res_attendance.py:198
 #, python-format
 msgid "Cannot create new attendance record for %(partner_name)s, the partner was already checked in on %(datetime)s"
 msgstr ""
 
 #. module: base_attendance
-#: code:addons/base_attendance/models/res_partner.py:95
+#: code:addons/base_attendance/models/res_partner.py:139
 #, python-format
 msgid "Cannot perform check in or check out on multiple partners."
 msgstr ""
 
 #. module: base_attendance
-#: code:addons/base_attendance/models/res_partner.py:109
+#: code:addons/base_attendance/models/res_partner.py:154
 #, python-format
 msgid "Cannot perform check out on %(empl_name)s, could not find corresponding check in. Your attendances have probably been modified manually by human resources."
 msgstr ""
@@ -438,7 +438,7 @@ msgid "No Check Out"
 msgstr ""
 
 #. module: base_attendance
-#: code:addons/base_attendance/models/res_partner.py:62
+#: code:addons/base_attendance/models/res_partner.py:95
 #, python-format
 msgid "No partner corresponding to barcode %(barcode)s"
 msgstr ""
@@ -583,7 +583,7 @@ msgid "Some devices scan regular barcodes as hexadecimal. This option decode tho
 msgstr ""
 
 #. module: base_attendance
-#: code:addons/base_attendance/models/res_partner.py:53
+#: code:addons/base_attendance/models/res_partner.py:80
 #, python-format
 msgid "The PIN must be a sequence of digits."
 msgstr ""
@@ -653,13 +653,13 @@ msgid "Worked Hours"
 msgstr ""
 
 #. module: base_attendance
-#: code:addons/base_attendance/models/res_partner.py:70
+#: code:addons/base_attendance/models/res_partner.py:107
 #, python-format
 msgid "Wrong PIN"
 msgstr ""
 
 #. module: base_attendance
-#: code:addons/base_attendance/models/res_attendance.py:115
+#: code:addons/base_attendance/models/res_attendance.py:219
 #, python-format
 msgid "You cannot duplicate an attendance."
 msgstr ""
