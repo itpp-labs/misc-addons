@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: ir_attachment_force_storage
-#: code:addons/ir_attachment_force_storage/models.py:55
+#: code:addons/ir_attachment_force_storage/models.py:54
 #, python-format
 msgid "Only administrators can execute this action."
 msgstr ""
