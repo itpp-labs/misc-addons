@@ -23,7 +23,7 @@ from odoo.osv import expression
 from odoo.tools.pycompat import izip
 from odoo import http
 from odoo.http import content_disposition, request
-import wdb
+# import wdb
 
 class ReportOhadaFinancialReport(models.Model):
     _name = "ohada.financial.html.report"
@@ -63,7 +63,7 @@ class ReportOhadaFinancialReport(models.Model):
     secondary = fields.Boolean(default=False)
     description = fields.Text('Notes', track_visibility=False)
     description_pad = fields.Char('Description PAD', pad_content_field='description')
-
+    default_columns_quantity = fields.Integer(default=False)
 
 
     _sql_constraints = [
@@ -590,6 +590,7 @@ class OhadaFinancialReportLine(models.Model):
     colspan = fields.Integer(default=1)
     rowspan = fields.Integer(default=1)
     columns_id = fields.One2many('ohada.custom.columns', 'line_id', default=False)
+
 
     _sql_constraints = [
         ('code_uniq', 'unique (code)', "A report line with the same code already exists."),
@@ -1394,7 +1395,6 @@ class OhadaFinancialReportLine(models.Model):
                     lines.append(vals)
             # ==================== test generate values with new models ===============================================
             if line.columns_id:
-                wdb.set_trace()
                 if not line.columns_id.line_name:
                     del lines[0]['name']
                 lines[0]['columns'] = []
@@ -1408,6 +1408,11 @@ class OhadaFinancialReportLine(models.Model):
                         })
                 else:
                     pass
+                result = lines
+            elif financial_report.default_columns_quantity:
+                lines[0]['columns'] = []
+                for i in range(financial_report.default_columns_quantity):
+                    lines[0]['columns'].append({'name': ' '})
                 result = lines
             # =========================================================================================================
             else:
@@ -1506,28 +1511,9 @@ class OhadaFinancialReportLine(models.Model):
                         vals['columns'] = []
                         for i in range(len(header_list)):
                             vals['columns'].append({'name': header_list[i]})
-                    elif financial_report.name == "N3D" and line.sequence == 2:
-                        vals['name'] = ["A"]
-                        subheader_list = [
-                                          ["B"],
-                                          ["C = A - B"],
-                                          ["D"],
-                                          ["E = D - C"]]
-                        vals['columns'] = []
-                        for i in range(len(subheader_list)):
-                            vals['columns'].append({'name': subheader_list[i]})
                     elif financial_report.code == "N3E" and line.sequence == 2:
                         header_list = [["Montants côuts historiques"],
                                        ["Amortissements supplémentaires"]]
-                        vals['columns'] = []
-                        for i in range(len(header_list)):
-                            vals['columns'].append({'name': header_list[i]})
-                    elif financial_report.code in ["N13", "N31"] and line.sequence == 1:
-                        header_list = [["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"]]
                         vals['columns'] = []
                         for i in range(len(header_list)):
                             vals['columns'].append({'name': header_list[i]})
@@ -1558,7 +1544,8 @@ class OhadaFinancialReportLine(models.Model):
                             options['comparison']['periods']) > 1:
                             for i in range(len(vals['columns'][1:])):
                                 vals['columns'][i + 1]['name'] = ['ANNEE ' + line._context['periods'][i]['string']]
-                            vals['columns'][- 1]['name'] = ['Variation en %']
+                            if financial_report.code != "N31":
+                                vals['columns'][- 1]['name'] = ['Variation en %']
                         elif len(vals['columns']) > 1 and line._context.get('periods') != None:
                             for i in range(len(vals['columns'][1:]) - 1):
                                 vals['columns'][i + 1]['name'] = ['ANNEE ' + line._context['periods'][i]['string']]
@@ -1580,7 +1567,6 @@ class OhadaFinancialReportLine(models.Model):
                     for i in header_list:
                         vals['columns'].append({'name': i})
                 elif financial_report.code in ['N4', 'N7', 'N8', 'N17', 'N15A', 'N16A', 'N18', 'N19'] and len(comparison_table) == 2:
-                    # wdb.set_trace()
                     amount_of_periods = 4
                     amount_of_group_ids = len(options.get('groups', {}).get('ids') or []) or 1
                     linesDicts = [[{} for _ in range(0, amount_of_group_ids)] for _ in range(0, amount_of_periods)]
@@ -1627,9 +1613,8 @@ class OhadaFinancialReportLine(models.Model):
                         result = lines + new_lines
                 else:
                     result = lines
-                if line.note != 'NET' and line.note != ' ':
-                    # wdb.set_trace()
-                    line.note_id = str(self.env['ir.actions.client'].search([('name', '=', 'Note '+line.note)]).id)
+                if line.note_report_ids:
+                    line.note_id = str(self.env['ir.actions.client'].search([('name', '=', line.note_report_ids.name)]).id)
                 if result[0]['note'] == 'NET':
                     if financial_report.code == 'BS1' and options['comparison']['filter'] == 'no_comparison':
                         result[0]['columns'][0]['name'] = 'BRUT'
@@ -1989,7 +1974,7 @@ class OhadaCustomColumns(models.Model):
     line_id = fields.Many2one('ohada.financial.html.report.line', 'Financial Report Line')
     cell_id = fields.One2many('ohada.cell.style', 'column_id', default=False)
     line_name = fields.Boolean(default=True)
-    default_quantity = fields.Integer()
+
 
 
 class OhadaCellStyle(models.Model):

@@ -417,7 +417,7 @@ class OhadaReport(models.AbstractModel):
         ctx = self.env.context.copy()
         if params and 'note' in params:
             ctx.update({
-                    'id': self.env['ohada.financial.html.report'].search([('name', '=', 'Note '+str(params.get('note')))]).id
+                    'id': self.env['ohada.financial.html.report'].search([('code', '=', 'N'+str(params.get('note')))]).id
             })
         action['context'] = ctx
         return action
@@ -1015,6 +1015,22 @@ class OhadaReport(models.AbstractModel):
                     options['comparison'].update(periods[-1])
                 options['comparison']['periods'] = periods
                 options['comparison']['filter'] = 'no_comparison'
+                options['comparison']['string'] = _('No comparison')
+                return
+            if self.code == "N31":
+                number_period = 4
+                periods = []
+                for index in range(0, number_period):
+                    if cmp_filter == 'previous_period':
+                        period_vals = self._get_dates_previous_period(options, period_vals)
+                    else:
+                        period_vals = self._get_dates_previous_year(options, period_vals)
+                    periods.append(create_vals(period_vals))
+
+                if len(periods) > 0:
+                    options['comparison'].update(periods[-1])
+                options['comparison']['periods'] = periods
+                options['comparison']['filter'] = 'previous_period'
                 options['comparison']['string'] = _('No comparison')
                 return
             if self.code == "N1":

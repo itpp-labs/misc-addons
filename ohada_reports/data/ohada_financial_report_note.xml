@@ -3231,6 +3231,7 @@
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
+        <field name="default_columns_quantity">5</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -3351,6 +3352,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note13"/>
         <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="colspan">3</field>
         <field name="level" eval="2" />
         <field name="sequence" eval="11"/>
         <field name="groupby">account_id</field>
@@ -8883,6 +8885,7 @@
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
+        <field name="default_columns_quantity">5</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -8899,7 +8902,7 @@
     </record>
 
     <record id="ohada_financial_report_note36_1" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAME</field>
+        <field name="name"> </field>
         <field name="code">N36_1</field>
         <field name="financial_report_id" ref="ohada_financial_report_note36"/>
         <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
@@ -8910,7 +8913,7 @@
     </record>
 
     <record id="ohada_financial_report_note36_2" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAME</field>
+        <field name="name"> </field>
         <field name="code">N36_2</field>
         <field name="financial_report_id" ref="ohada_financial_report_note36"/>
         <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
@@ -8932,7 +8935,7 @@
     </record>
 
     <record id="ohada_financial_report_note36_4" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAME</field>
+        <field name="name"> </field>
         <field name="code">N36_4</field>
         <field name="financial_report_id" ref="ohada_financial_report_note36"/>
         <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
@@ -8954,7 +8957,7 @@
     </record>
 
     <record id="ohada_financial_report_note36_6" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAME</field>
+        <field name="name"> </field>
         <field name="code">N36_6</field>
         <field name="financial_report_id" ref="ohada_financial_report_note36"/>
         <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
@@ -8976,7 +8979,7 @@
     </record>
 
     <record id="ohada_financial_report_note36_8" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAME</field>
+        <field name="name"> </field>
         <field name="code">N36_8</field>
         <field name="financial_report_id" ref="ohada_financial_report_note36"/>
         <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
@@ -8998,7 +9001,7 @@
     </record>
 
     <record id="ohada_financial_report_note36_10" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAME</field>
+        <field name="name"> </field>
         <field name="code">N36_10</field>
         <field name="financial_report_id" ref="ohada_financial_report_note36"/>
         <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
@@ -9020,7 +9023,7 @@
     </record>
 
     <record id="ohada_financial_report_note36_12" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAME</field>
+        <field name="name"> </field>
         <field name="code">N36_12</field>
         <field name="financial_report_id" ref="ohada_financial_report_note36"/>
         <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
@@ -9042,7 +9045,7 @@
     </record>
 
     <record id="ohada_financial_report_note36_14" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAME</field>
+        <field name="name"> </field>
         <field name="code">N36_14</field>
         <field name="financial_report_id" ref="ohada_financial_report_note36"/>
         <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
@@ -9064,7 +9067,7 @@
     </record>
 
     <record id="ohada_financial_report_note36_16" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAME</field>
+        <field name="name"> </field>
         <field name="code">N36_16</field>
         <field name="financial_report_id" ref="ohada_financial_report_note36"/>
         <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
@@ -9086,7 +9089,7 @@
     </record>
 
     <record id="ohada_financial_report_note36_18" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAME</field>
+        <field name="name"> </field>
         <field name="code">N36_18</field>
         <field name="financial_report_id" ref="ohada_financial_report_note36"/>
         <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
@@ -9108,7 +9111,7 @@
     </record>
 
     <record id="ohada_financial_report_note36_20" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAME</field>
+        <field name="name"> </field>
         <field name="code">N36_20</field>
         <field name="financial_report_id" ref="ohada_financial_report_note36"/>
         <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
@@ -9130,7 +9133,7 @@
     </record>
 
     <record id="ohada_financial_report_note36_22" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAME</field>
+        <field name="name"> </field>
         <field name="code">N36_22</field>
         <field name="financial_report_id" ref="ohada_financial_report_note36"/>
         <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
@@ -9141,7 +9144,7 @@
     </record>
 
     <record id="ohada_financial_report_note36_23" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAME</field>
+        <field name="name"> </field>
         <field name="code">N36_23</field>
         <field name="financial_report_id" ref="ohada_financial_report_note36"/>
         <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
@@ -9163,7 +9166,7 @@
     </record>
 
     <record id="ohada_financial_report_note36_25" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAME</field>
+        <field name="name"> </field>
         <field name="code">N36_25</field>
         <field name="financial_report_id" ref="ohada_financial_report_note36"/>
         <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
@@ -9218,7 +9221,7 @@
     </record>
 
     <record id="ohada_financial_report_note36_30" model="ohada.financial.html.report.line">
-        <field name="name">DUMMY LINE NAME</field>
+        <field name="name"> </field>
         <field name="code">N36_30</field>
         <field name="financial_report_id" ref="ohada_financial_report_note36"/>
         <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
