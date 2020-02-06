@@ -78,7 +78,7 @@ class View(models.Model):
         )
 
     @api.model
-    def _create_view(self, name, inherit_id, arch, noupdate=False, type="qweb"):
+    def _create_view(self, name, inherit_id, arch, noupdate=False, view_type="qweb"):
         view = self.env.ref("{}.{}".format(MODULE, name), raise_if_not_found=False)
         if view:
             try:
@@ -98,7 +98,7 @@ class View(models.Model):
                 view = self.env["ir.ui.view"].create(
                     {
                         "name": name,
-                        "type": type,
+                        "type": view_type,
                         "arch": arch,
                         "inherit_id": self.env.ref(
                             inherit_id, raise_if_not_found=True
