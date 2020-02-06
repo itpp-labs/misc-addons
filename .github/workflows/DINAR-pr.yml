@@ -49,7 +49,7 @@ jobs:
     - name: HOW TO RUN LOCALLY
       #if: "env.PR_UPDATED_MODULES_INSTALLABLE != ''"
       run: |
-          cat << EOF
+          cat << 'EOF'
           To test updates run:
 
               WORKDIR=/tmp/DINAR/${{ github.repository }}/${{ github.event.number }}/
