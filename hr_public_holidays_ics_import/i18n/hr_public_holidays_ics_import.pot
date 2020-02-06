@@ -75,6 +75,12 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: hr_public_holidays_ics_import
+#: code:addons/hr_public_holidays_ics_import/wizard/import_ics.py:66
+#, python-format
+msgid "Please select *.ics file"
+msgstr ""
+
+#. module: hr_public_holidays_ics_import
 #: model:ir.ui.view,arch_db:hr_public_holidays_ics_import.view_import_ics_wizard
 msgid "Select *.ics file to import holidays"
 msgstr ""
