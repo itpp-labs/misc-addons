@@ -2,7 +2,7 @@
 from openerp import api, fields, models
 
 
-class ir_actions_todo(models.Model):
+class IrActionsTodo(models.Model):
     _inherit = "ir.actions.todo"
 
     repeat = fields.Boolean(string="Repeat", repeat=False)
