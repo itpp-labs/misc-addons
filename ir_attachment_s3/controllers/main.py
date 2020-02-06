@@ -1,15 +1,16 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2019 Rafis Bikbov <https://it-projects.info/team/RafiZz>
 # Copyright 2019 Alexandr Kolushov <https://it-projects.info/team/KolushovAlexandr>
 # Copyright 2019 Eugene Molotov <https://it-projects.info/team/em230418>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 import logging
-import werkzeug
 
 from odoo.http import request, route
-from odoo.addons.web.controllers.main import Binary
+
 from odoo.addons.ir_attachment_url.models.image import SIZES_MAP
+from odoo.addons.web.controllers.main import Binary
+
+import werkzeug
 
 _logger = logging.getLogger(__name__)
 
@@ -19,9 +20,21 @@ def redirect(url):
 
 
 class BinaryExtended(Binary):
-
     @route()
-    def content_image(self, xmlid=None, model='ir.attachment', id=None, field='datas', filename_field='datas_fname', unique=None, filename=None, mimetype=None, download=None, width=0, height=0):  # pylint: disable=redefined-builtin
+    def content_image(
+        self,
+        xmlid=None,
+        model="ir.attachment",
+        id=None,
+        field="datas",
+        filename_field="datas_fname",
+        unique=None,
+        filename=None,
+        mimetype=None,
+        download=None,
+        width=0,
+        height=0,
+    ):  # pylint: disable=redefined-builtin
         """
         Overrided content_image creates resized images (if required) and returns public s3 link of them
 
@@ -35,10 +48,29 @@ class BinaryExtended(Binary):
         - If not, it resizes using given width and height
         """
 
-        res = super(BinaryExtended, self).content_image(xmlid, model, id, field, filename_field, unique, filename, mimetype, download, width, height)
+        res = super(BinaryExtended, self).content_image(
+            xmlid,
+            model,
+            id,
+            field,
+            filename_field,
+            unique,
+            filename,
+            mimetype,
+            download,
+            width,
+            height,
+        )
 
-        is_product_product_image = model == 'product.product' and field in ('image', 'image_small', 'image_medium')
-        if not (res.status_code == 301 and (width or height)) and not is_product_product_image:
+        is_product_product_image = model == "product.product" and field in (
+            "image",
+            "image_small",
+            "image_medium",
+        )
+        if (
+            not (res.status_code == 301 and (width or height))
+            and not is_product_product_image
+        ):
             return res
 
         # * check that it's image on s3
@@ -56,26 +88,32 @@ class BinaryExtended(Binary):
 
         # detect attachment
         attachment = None
-        if model == 'ir.attachment':
+        if model == "ir.attachment":
             # given object is attachment itself
             attachment = obj
         elif is_product_product_image:
             # given object is product image
             # so it get's attachment from product image and resizes it (or gets resized from s3, if exists)
-            attachment = env['ir.http']._find_field_attachment(env, model, field, obj.id)
+            attachment = env["ir.http"]._find_field_attachment(
+                env, model, field, obj.id
+            )
             if not attachment:
-                image_variant_attachment = env['ir.http']._find_field_attachment(env, model, 'image_variant', obj.id)
+                image_variant_attachment = env["ir.http"]._find_field_attachment(
+                    env, model, "image_variant", obj.id
+                )
                 if image_variant_attachment:
                     w, h = SIZES_MAP[field]
-                    resized_attachment = image_variant_attachment._get_or_create_resized_in_cache(w, h, field=field)
+                    resized_attachment = image_variant_attachment._get_or_create_resized_in_cache(
+                        w, h, field=field
+                    )
                     attachment = resized_attachment.resized_attachment_id
 
-        if not attachment and model != 'ir.attachment':
-            attachment = env['ir.http'].find_field_attachment(env, model, field, obj)
+        if not attachment and model != "ir.attachment":
+            attachment = env["ir.http"].find_field_attachment(env, model, field, obj)
 
         if not attachment:
             # imposible case?
-            _logger.error('Attachment is not found')
+            _logger.error("Attachment is not found")
             return res
 
         # if neither width nor height is not given, just return url

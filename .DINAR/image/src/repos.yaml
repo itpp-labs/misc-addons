@@ -1,6 +1,6 @@
 # Documentation: https://github.com/Tecnativa/doodba#optodoocustomsrcreposyaml
 
-# Odoo source. 
+# Odoo source.
 # Update this section to switch to OCA/OCB or apply custom patches
 odoo:
   defaults:

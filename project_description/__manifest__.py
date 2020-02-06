@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 #
 #    OpenERP, Open Source Management Solution
@@ -25,16 +24,12 @@
     "author": "Julius Network Solutions",
     "website": "http://www.julius.fr",
     "category": "Generic Modules/Projects & Services",
-    "depends": ["project",
-                ],
+    "depends": ["project"],
     "init_xml": [],
-    "update_xml": [
-        "project_view.xml",
-    ],
+    "update_xml": ["project_view.xml"],
     "data": ["security/project_description_security.xml"],
-
-    'demo_xml': [],
-    'installable': False,
-    'active': False,
+    "demo_xml": [],
+    "installable": False,
+    "active": False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

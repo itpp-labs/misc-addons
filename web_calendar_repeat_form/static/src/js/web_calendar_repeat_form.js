@@ -35,7 +35,7 @@ openerp.web_calendar_repeat_form = function (session) {
             _.each($.extend({}, this.data_template, data), function(val, field_name) {
                 defaults['default_' + field_name] = val;
             });
-                        
+
             var pop_infos = self.get_form_popup_infos();
             this.pop = new session.web.form.FormOpenPopup(this);
             var context = new session.web.CompoundContext(this.dataset.context, defaults);

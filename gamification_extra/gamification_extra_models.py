@@ -1,10 +1,7 @@
-# -*- coding: utf-8 -*-
-from openerp import fields as old_fields
-from openerp import api, models, fields
+from openerp import api, fields as old_fields, models
 from openerp.addons.gamification.models.challenge import start_end_date_for_period
 from openerp.tools.safe_eval import safe_eval
 from openerp.tools.translate import _
-from openerp import models
 
 
 class GamificationGoalDefinition(models.Model):

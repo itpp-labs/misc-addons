@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 #
 #    Project Tags
@@ -21,25 +20,27 @@
 #
 
 
-from openerp import models, fields
+from openerp import fields, models
 
 
 class Project(models.Model):
     """"""
 
-    _name = 'project.project'
+    _name = "project.project"
     _inherits = {}
-    _inherit = ['project.project']
+    _inherit = ["project.project"]
 
+    project_tag_ids = fields.Many2many(
+        "project_tags.project_tag",
+        "project_tags___project_tag_ids_rel",
+        "project_id",
+        "project_tag_id",
+        string="Tags",
+    )
 
-    project_tag_ids = fields.Many2many('project_tags.project_tag', 'project_tags___project_tag_ids_rel', 'project_id', 'project_tag_id', string='Tags')
+    _defaults = {}
 
-
-    _defaults = {
-    }
-
-    _constraints = [
-    ]
+    _constraints = []
 
 
 Project()

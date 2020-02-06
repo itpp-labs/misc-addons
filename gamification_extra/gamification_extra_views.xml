@@ -18,7 +18,7 @@
                         <field name="show_reached"/>
                         <field name="precision"/>
                     </group>
-                    
+
                 </xpath>
             </field>
         </record>

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 #
 #    Copyright (c) 2008 Camtocamp SA
@@ -31,12 +30,8 @@
         "base",
         "account",  # Added to ensure account security groups are present
     ],
-    "data": [
-        "currency_rate_update.xml",
-        "company_view.xml",
-        "security/security.xml",
-    ],
+    "data": ["currency_rate_update.xml", "company_view.xml", "security/security.xml"],
     "demo": [],
     "active": False,
-    'installable': False
+    "installable": False,
 }

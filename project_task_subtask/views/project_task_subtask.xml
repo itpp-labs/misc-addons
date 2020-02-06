@@ -79,7 +79,7 @@
           </group>
         </search>
       </field>
-    </record> 
+    </record>
 
     <record model="ir.ui.view" id="subtask_list_view">
       <field name="name">subtask.list.form</field>
@@ -101,14 +101,14 @@
       <field name="view_mode">tree,form</field>
       <field name="context">{
       'search_default_my_subtask': 1,
-      'search_default_done_subtask': 1, 
+      'search_default_done_subtask': 1,
       }
       </field>
-    </record> 
+    </record>
 
     <menuitem name="Checklist"
               parent="project.menu_project_management"
               id="menu_action_view_subtask"
               action="action_view_subtask"/>
-    
+
 </odoo>

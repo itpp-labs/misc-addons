@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 # Copyright 2019 Rafis Bikbov <https://it-projects.info/team/RafiZz>
 # Copyright 2019 Alexandr Kolushov <https://it-projects.info/team/KolushovAlexandr>
 # Copyright 2019 Eugene Molotov <https://it-projects.info/team/em230418>
 import hashlib
 
+from odoo import _, exceptions, fields, models
 from odoo.tools.safe_eval import safe_eval
-from odoo import models, fields, exceptions, _
 
 
 class S3IrAttachmentSettings(models.TransientModel):

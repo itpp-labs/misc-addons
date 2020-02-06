@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 #
 #    OpenERP, Open Source Management Solution
@@ -26,15 +25,9 @@
     "author": "Julius Network Solutions",
     "website": "http://julius.fr",
     "category": "Sales Management",
-    "depends": [
-        'product',
-        'sale',
-    ],
-    'license': 'AGPL-3',
+    "depends": ["product", "sale"],
+    "license": "AGPL-3",
     "demo": [],
-    "data": [
-        'security/ir.model.access.csv',
-        'product_view.xml',
-    ],
-    'installable': True,
+    "data": ["security/ir.model.access.csv", "product_view.xml"],
+    "installable": True,
 }

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 #
 #    OpenERP, Open Source Management Solution
@@ -25,13 +24,14 @@ from openerp import fields, models
 class ProjectProject(models.Model):
     _inherit = "project.project"
 
-        # restricted field. Allowed group members only.
-    description = fields.Text('description', groups="project_description.group_access_to_project_description")
-
+    # restricted field. Allowed group members only.
+    description = fields.Text(
+        "description", groups="project_description.group_access_to_project_description"
+    )
 
 
 class AccountAnalyticAccount(models.Model):
-    _inherit = 'account.analytic.account'
+    _inherit = "account.analytic.account"
 
     def name_get(self, cr, uid, ids, context=None):
         res = []
@@ -43,4 +43,6 @@ class AccountAnalyticAccount(models.Model):
             elmt = self.browse(cr, uid, id, context=context)
             res.append((id, elmt.name))
         return res
+
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

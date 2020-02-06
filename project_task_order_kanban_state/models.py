@@ -1,21 +1,21 @@
-# -*- coding: utf-8 -*-
-
-from openerp import models, fields, api
+from openerp import api, fields, models
 
 
 class ProjectTaskOrder(models.Model):
-    _inherit = 'project.task'
+    _inherit = "project.task"
 
-    kanban_state_num = fields.Integer('Kanban state num', compute='_kanban_num', store=True)
+    kanban_state_num = fields.Integer(
+        "Kanban state num", compute="_kanban_num", store=True
+    )
 
-    @api.depends('kanban_state')
+    @api.depends("kanban_state")
     def _kanban_num(self):
         for r in self:
-            if r.kanban_state == 'normal':
+            if r.kanban_state == "normal":
                 r.kanban_state_num = 0
-            elif r.kanban_state == 'done':
+            elif r.kanban_state == "done":
                 r.kanban_state_num = 1
             else:
                 r.kanban_state_num = 2
 
-    _order = 'kanban_state_num, priority desc, sequence, date_start, name, id'
+    _order = "kanban_state_num, priority desc, sequence, date_start, name, id"

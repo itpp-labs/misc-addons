@@ -21,6 +21,6 @@ Usage
 * Open ``Sales >> Customers``
 * Open partner form view
 * Click on ``[Edit]`` button
-* Specify Skype field 
+* Specify Skype field
 * Click on ``[Save]`` button
 * On the form view click on skype address to open chat window.

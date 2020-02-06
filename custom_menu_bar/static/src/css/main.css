@@ -9,7 +9,7 @@
 
 .navbar-inverse .navbar-nav > li > a {
 	color:  black; /*#777;*/
-	background-color: orange;	
+	background-color: orange;
 }
 
 
@@ -21,7 +21,7 @@
 	background-image: none;
 	/* set font color to black */
 	color: black;
-}	
+}
 
 
 /* set hover and focus to lightblue */
@@ -38,4 +38,3 @@
 	background-color: #FFC457;
 	color: black;
 }
-

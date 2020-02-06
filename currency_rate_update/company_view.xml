@@ -8,7 +8,7 @@
                 <notebook position="inside">
                     <page string="Currency auto update configuration">
                         <group>
-                           <field name="auto_currency_up"/> 
+                           <field name="auto_currency_up"/>
                             <field name="interval_type"/>
                             <field name="multi_company_currency_enable"/>
                         </group>

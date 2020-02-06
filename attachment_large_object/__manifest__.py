@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    attachment_large_object module for OpenERP,
@@ -21,17 +20,17 @@
 #
 ##############################################################################
 {
-    'name': 'attachment_large_object',
-    'version': '1.0.0',
-    'category': 'Extra Tools',
-    'summary': """Provides a storage option for attachments as PostgreSQL large objects.
+    "name": "attachment_large_object",
+    "version": "1.0.0",
+    "category": "Extra Tools",
+    "summary": """Provides a storage option for attachments as PostgreSQL large objects.
     """,
-    'author': 'Anybox',
-    'website': 'anybox.fr',
-    'depends': ['base'],
-    'test': [],
-    'installable': True,
-    'application': False,
-    'auto_install': False,
-    'license': 'AGPL-3',
+    "author": "Anybox",
+    "website": "anybox.fr",
+    "depends": ["base"],
+    "test": [],
+    "installable": True,
+    "application": False,
+    "auto_install": False,
+    "license": "AGPL-3",
 }

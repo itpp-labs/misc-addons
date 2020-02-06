@@ -1,6 +1,20 @@
-# -*- coding: utf-8 -*-
-from openerp import fields as old_fields
-from openerp import api, models, fields, tools
+import base64
+import re
+from email import Encoders
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.utils import COMMASPACE, formatdate, make_msgid
+
+from openerp import api, fields as old_fields, models, tools
+from openerp.addons.base.ir.ir_mail_server import (
+    encode_header,
+    encode_header_param,
+    encode_rfc2822_address_header,
+)
+from openerp.loglevels import ustr
+from openerp.tools import html2text
+
 try:
     from openerp.addons.email_template.email_template import mako_template_env
 except ImportError:
@@ -9,20 +23,8 @@ except ImportError:
     except ImportError:
         pass
 
-from openerp.loglevels import ustr
-from email.mime.text import MIMEText
-from email.mime.base import MIMEBase
-from email.mime.multipart import MIMEMultipart
-from email.utils import COMMASPACE
-from email.utils import formatdate
-from email.utils import make_msgid
-from email import Encoders
-from openerp.tools import html2text
 
-import re
-import base64
 
-from openerp.addons.base.ir.ir_mail_server import encode_rfc2822_address_header, encode_header, encode_header_param
 
 
 class ResUsers(models.Model):

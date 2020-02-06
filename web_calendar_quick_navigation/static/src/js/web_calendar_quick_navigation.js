@@ -76,7 +76,7 @@ openerp.web_calendar_quick_navigation = function (session) {
                 $td.click(function(){
                     var day = $(this).next().data('date');
                     view.calendar.changeView('agendaWeek');
-                    view.calendar.gotoDate(parseInt(day.substring(0,4)), 
+                    view.calendar.gotoDate(parseInt(day.substring(0,4)),
                         parseInt(day.substring(5,7))-1, parseInt(day.substring(8,10)));
                 });
                 self.build_quick_panel_monthes(view, element);

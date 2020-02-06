@@ -11,6 +11,6 @@
                     <field name="description" groups="project_description.group_access_to_project_description"/>
                 </notebook>
             </field>
-        </record>   
+        </record>
     </data>
 </openerp>

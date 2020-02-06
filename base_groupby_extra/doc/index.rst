@@ -15,4 +15,3 @@ Usage
 * use groupby in views, e.g.::
 
     <filter string="Hour" context="{'group_by':'date:hour'}"/>
-
