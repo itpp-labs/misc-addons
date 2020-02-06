@@ -2,7 +2,7 @@ exclude: "^setup/|/static/lib/|/static/src/lib/"
 default_language_version:
   python: python3
 repos:
-- repo: git@github.com:humitos/mirrors-autoflake.git
+- repo: https://github.com/humitos/mirrors-autoflake
   rev: v1.3
   hooks:
     - id: autoflake
