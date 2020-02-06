@@ -15,7 +15,7 @@ msgstr ""
 
 #. module: web_website
 #. openerp-web
-#: code:addons/web_website/static/src/js/switch_website_menu.js:31
+#: code:addons/web_website/static/src/js/switch_website_menu.js:32
 #, python-format
 msgid "All Websites"
 msgstr ""
@@ -63,7 +63,7 @@ msgid "Current Website"
 msgstr ""
 
 #. module: web_website
-#: code:addons/web_website/models/res_users.py:60
+#: code:addons/web_website/models/res_users.py:58
 #, python-format
 msgid "Current website doesn't belong to Current Company"
 msgstr ""
