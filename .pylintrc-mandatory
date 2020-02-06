@@ -14,7 +14,7 @@ valid_odoo_versions=10.0
 disable=all
 
 enable=anomalous-backslash-in-string,
-    api-one-deprecated,
+    #api-one-deprecated,
     api-one-multi-together,
     assignment-from-none,
     attribute-deprecated,
