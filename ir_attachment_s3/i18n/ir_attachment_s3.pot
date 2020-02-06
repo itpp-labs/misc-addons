@@ -19,7 +19,7 @@ msgid "AWS S3 Access"
 msgstr ""
 
 #. module: ir_attachment_s3
-#: code:addons/ir_attachment_s3/models/ir_attachment.py:80
+#: code:addons/ir_attachment_s3/models/ir_attachment.py:82
 #, python-format
 msgid "Amazon S3 credentials are not defined properly. Attachments won't be saved on S3."
 msgstr ""
@@ -133,7 +133,7 @@ msgid "Settings needed to store odoo attachments on Amazon AWS S3 bucket"
 msgstr ""
 
 #. module: ir_attachment_s3
-#: code:addons/ir_attachment_s3/models/res_config.py:79
+#: code:addons/ir_attachment_s3/models/res_config.py:90
 #, python-format
 msgid "Some of the S3 connection credentials are missing.\n"
 " Don't forget to click the ``[Apply]`` button after any changes you've made"
