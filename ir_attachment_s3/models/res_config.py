@@ -107,7 +107,7 @@ class S3Settings(models.TransientModel):
                         ContentType=attach.mimetype,
                     )
                 except Exception as e:
-                    raise exceptions.UserError(e.message)
+                    raise exceptions.UserError(e)
 
                 vals = {
                     "file_size": len(bin_data),
