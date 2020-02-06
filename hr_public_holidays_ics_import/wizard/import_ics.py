@@ -3,8 +3,8 @@ import logging
 import re
 from datetime import timedelta
 
-from odoo import api, fields, models
-from odoo.exceptions import Warning
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 
 _logger = logging.getLogger(__name__)
@@ -62,4 +62,4 @@ class HrPublicHolidaysImportIcs(models.TransientModel):
     def _onchange_ics_file_name(self):
         if self.ics_file_name:
             if not re.match(r".*\.ics$", self.ics_file_name):
-                raise Warning("Please select *.ics file")
+                raise UserError(_("Please select *.ics file"))
