@@ -40,21 +40,19 @@ jobs:
         python-version: '3.7.x'
     - name: Install python tools
       run: |
-        pip install plumbum
+        pip install plumbum PyGithub
     - name: Analyze PR
       run: |
         # sets environment variables that available in next steps via $ {{ env.PR_... }} notation
         cd REPO
-        python ../DINAR/workflow-files/analyze-pr.py ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}
-    - uses: marocchino/sticky-pull-request-comment@v1.2.1
-      with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        #if: "env.PR_UPDATED_MODULES_INSTALLABLE != ''"
-        message: |
-
+        python ../DINAR/workflow-files/analyze-pr.py ${{ secrets.GITHUB_TOKEN }} ${{ github.repository }} ${{ github.event.number }}
+    - name: HOW TO RUN LOCALLY
+      #if: "env.PR_UPDATED_MODULES_INSTALLABLE != ''"
+      run: |
+          cat << 'EOF'
           To test updates run:
 
-              WORKDIR=/tmp/DINAR/${{ github.repository }}/${{ github.event.number }}/
+              WORKDIR=/tmp/DINAR/${{ github.repository }}-${{ github.event.number }}/
               mkdir -p $WORKDIR
               cd $WORKDIR
               # TODO use fixed version instead of master
@@ -68,7 +66,8 @@ jobs:
               git -C pr-files fetch origin $REVISION
               git -C pr-files checkout FETCH_HEAD
               docker-compose pull
-              docker-compose run odoo -i ${{ env.PR_UPDATED_MODULES_INSTALLABLE }} -d itpp-runbot --stop-after-init
+              export MODULES=${{ env.PR_UPDATED_MODULES_INSTALLABLE }}
               docker-compose up
 
           > Sent by [DINAR :construction_worker_man:](https://github.com/itpp-labs/DINAR) via `.github/workflows/DINAR-pr.yml`
+          EOF
