@@ -4,10 +4,10 @@ score=n
 
 [ODOOLINT]
 readme_template_url="https://github.com/OCA/maintainer-tools/blob/master/template/module/README.rst"
-manifest_required_authors=Odoo Community Association (OCA)
+manifest_required_authors=IT-Projects Labs
 manifest_required_keys=license
 manifest_deprecated_keys=description,active
-license_allowed=AGPL-3,GPL-2,GPL-2 or any later version,GPL-3,GPL-3 or any later version,LGPL-3
+license_allowed=AGPL-3,GPL-2,GPL-2 or any later version,GPL-3,GPL-3 or any later version,LGPL-3,MIT,OPL-1
 valid_odoo_versions=13.0
 
 [MESSAGES CONTROL]
@@ -31,7 +31,7 @@ enable=anomalous-backslash-in-string,
     license-allowed,
     manifest-author-string,
     manifest-deprecated-key,
-    manifest-required-author,
+    #manifest-required-author,
     manifest-required-key,
     manifest-version-format,
     method-compute,
