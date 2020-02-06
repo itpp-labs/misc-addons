@@ -9,7 +9,7 @@ class IrActionsTodo(models.Model):
 
     @api.multi
     def action_launch(self, context=None):
-        res = super(ir_actions_todo, self).action_launch(context=context)
+        res = super(IrActionsTodo, self).action_launch(context=context)
         for wizard in self:
             if wizard.type in ("automatic", "once") and wizard.repeat:
                 wizard.write({"state": "open"})
