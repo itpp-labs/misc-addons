@@ -22,7 +22,7 @@ def get_mimetype_and_optional_content_by_url(url):
     index_content = mimetype and mimetype.split("/")[0]
     if not mimetype or index_content == "text":
         with requests.get(url, timeout=5) as r:
-            content = getattr(r, "content")
+            content = r.content
             if not mimetype and content:
                 mimetype = guess_mimetype(content)
 
