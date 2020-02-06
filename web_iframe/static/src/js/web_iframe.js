@@ -7,14 +7,6 @@ openerp.web_iframe = function (session) {
     session.web.client_actions.add('web_iframe.iframe', 'session.web_iframe.iframe');
     web_iframe.iframe = session.web.Widget.extend({
         template: 'web_iframe.iframe',
-
-        /**
-         * @param {Object} parent parent
-         * @param {Object} [options]
-         * @param {Array} [options.domain] domain on the Wall
-         * @param {Object} [options.context] context, is an object. It should
-         *      contain default_model, default_res_id, to give it to the threads.
-         */
         init: function (parent, action) {
             this._super(parent, action);
             this.action = _.clone(action);
@@ -32,6 +24,7 @@ openerp.web_iframe = function (session) {
             //this.$el.find('iframe').contents().click(this.iframe_clicked.bind(this));
         },
         iframe_clicked: function(e){
+            //empty
         }
     });
 };
