@@ -3,7 +3,7 @@
     "summary": """Adds grouping by hours""",
     "category": "Extra Tools",
     "images": [],
-    "version": "1.0.0",
+    "vesion": "10.0.1.0.0",
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "apps@it-projects.info",

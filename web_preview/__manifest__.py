@@ -3,7 +3,7 @@
     "summary": """Open attached images in popup""",
     "category": "Web",
     "images": ["images/screenshot-1.png"],
-    "version": "1.0.0",
+    "vesion": "10.0.1.0.0",
     "application": False,
     "author": "IT-Projects LLC, Dinar Gabbasov",
     "support": "apps@it-projects.info",

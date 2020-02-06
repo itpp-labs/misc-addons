@@ -1,6 +1,6 @@
 {
     "name": "Skype field in partner form",
-    "version": "1.0.1",
+    "vesion": "10.0.1.0.1",
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "license": "LGPL-3",
     "category": "Tools",

@@ -3,7 +3,7 @@
     "summary": """Choose different sale order lines from list and create one invoice per partner from them""",
     "category": "Accounting",
     "images": ["images/lines_to_invoice.png"],
-    "version": "1.0.0",
+    "vesion": "10.0.1.0.0",
     "application": False,
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "website": "https://it-projects.info",

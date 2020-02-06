@@ -3,7 +3,7 @@
     "summary": """Allows to add reference in any models""",
     "category": "Hidden",
     "images": ["static/description/icon.png"],
-    "version": "1.0.0",
+    "vesion": "10.0.1.0.0",
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "website": "https://it-projects.info",

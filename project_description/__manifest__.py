@@ -20,7 +20,7 @@
 
 {
     "name": "Add Project Description",
-    "version": "1.0",
+    "vesion": "10.0.1.0",
     "author": "Julius Network Solutions",
     "website": "http://www.julius.fr",
     "category": "Generic Modules/Projects & Services",

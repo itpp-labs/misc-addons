@@ -20,7 +20,7 @@
 
 {
     "name": "Project Tags",
-    "version": "1.0",
+    "vesion": "10.0.1.0",
     "category": "Projects & Services",
     "sequence": 14,
     "summary": "",

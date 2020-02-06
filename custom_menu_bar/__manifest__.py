@@ -1,6 +1,6 @@
 {
     "name": "Custom menu bar (orange)",
-    "version": "1.0.0",
+    "vesion": "10.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "license": "LGPL-3",
     "category": "Tools",

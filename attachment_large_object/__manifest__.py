@@ -21,7 +21,7 @@
 ##############################################################################
 {
     "name": "attachment_large_object",
-    "version": "1.0.0",
+    "vesion": "10.0.1.0.0",
     "category": "Extra Tools",
     "summary": """Provides a storage option for attachments as PostgreSQL large objects.
     """,
