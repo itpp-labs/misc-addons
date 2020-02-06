@@ -46,12 +46,10 @@ jobs:
         # sets environment variables that available in next steps via $ {{ env.PR_... }} notation
         cd REPO
         python ../DINAR/workflow-files/analyze-pr.py ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}
-    - uses: marocchino/sticky-pull-request-comment@v1.2.1
-      with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        #if: "env.PR_UPDATED_MODULES_INSTALLABLE != ''"
-        message: |
-
+    - name: HOW TO RUN LOCALLY
+      #if: "env.PR_UPDATED_MODULES_INSTALLABLE != ''"
+      run: |
+          cat << EOF
           To test updates run:
 
               WORKDIR=/tmp/DINAR/${{ github.repository }}/${{ github.event.number }}/
@@ -72,3 +70,4 @@ jobs:
               docker-compose up
 
           > Sent by [DINAR :construction_worker_man:](https://github.com/itpp-labs/DINAR) via `.github/workflows/DINAR-pr.yml`
+          EOF
