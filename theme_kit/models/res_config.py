@@ -5,7 +5,7 @@
 
 import hashlib
 
-from openerp import api, fields, models
+from odoo import api, fields, models
 
 FIELD_PARAM_ID_LIST = [
     ("theme_id", "theme_kit.current_theme_id"),

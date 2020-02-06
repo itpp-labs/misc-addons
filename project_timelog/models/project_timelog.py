@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import datetime
 
-from openerp import api, fields, models
-from openerp.addons.bus.models.bus_presence import AWAY_TIMER, DISCONNECTION_TIMER
-from openerp.exceptions import Warning as UserError
-from openerp.tools.translate import _
+from odoo import api, fields, models
+from odoo.addons.bus.models.bus_presence import AWAY_TIMER, DISCONNECTION_TIMER
+from odoo.exceptions import Warning as UserError
+from odoo.tools.translate import _
 
 
 class ProjectTimelog(models.Model):

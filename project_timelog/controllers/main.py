@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import datetime
 
-from openerp import http
-from openerp.http import request
+from odoo import http
+from odoo.http import request
 
 
 class TimelogController(http.Controller):

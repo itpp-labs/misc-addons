@@ -2,9 +2,9 @@
 import datetime
 import time
 
-from openerp import api, fields, models
-from openerp.exceptions import ValidationError
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from odoo import api, fields, models
+from odoo.exceptions import ValidationError
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 from odoo.tools.translate import _
 

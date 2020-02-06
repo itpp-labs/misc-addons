@@ -7,20 +7,20 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.utils import COMMASPACE, formatdate, make_msgid
 
-from openerp import api, fields as old_fields, models, tools
-from openerp.addons.base.ir.ir_mail_server import (
+from odoo import api, fields as old_fields, models, tools
+from odoo.addons.base.ir.ir_mail_server import (
     encode_header,
     encode_header_param,
     encode_rfc2822_address_header,
 )
-from openerp.loglevels import ustr
-from openerp.tools import html2text
+from odoo.loglevels import ustr
+from odoo.tools import html2text
 
 try:
-    from openerp.addons.email_template.email_template import mako_template_env
+    from odoo.addons.email_template.email_template import mako_template_env
 except ImportError:
     try:
-        from openerp.addons.mail.mail_template import mako_template_env
+        from odoo.addons.mail.mail_template import mako_template_env
     except ImportError:
         pass
 
@@ -135,7 +135,7 @@ class IrMailServer(models.Model):
         body_alternative=None,
         subtype_alternative="plain",
     ):
-        """ copy-pasted from openerp/addons/base/ir/ir_mail_server.py::build_email """
+        """ copy-pasted from odoo/addons/base/ir/ir_mail_server.py::build_email """
 
         ftemplate = "__image-%s__"
         fcounter = 0
