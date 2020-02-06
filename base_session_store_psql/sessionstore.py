@@ -40,7 +40,7 @@ class PostgresSessionStore(SessionStore):
         try:
             con = db_connect(db_name)
             cr = con.cursor()
-        except:
+        except Exception:
             if not create_session_store_db:
                 raise
             db_connect("postgres")

@@ -17,7 +17,7 @@ _logger = logging.getLogger(__name__)
 try:
     import boto3
     import botocore
-except:
+except Exception:
     _logger.debug(
         "boto3 package is required which is not \
     found on your installation"

@@ -77,7 +77,7 @@ class Config(models.TransientModel):
             value = self.env["ir.config_parameter"].get_param(param)
             try:
                 res[field] = int(value)
-            except:
+            except Exception:
                 pass
         return res
 
