@@ -7,7 +7,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.utils import COMMASPACE, formatdate, make_msgid
 
-from odoo import api, fields as old_fields, models, tools
+from odoo import api, fields, models, tools
 from odoo.loglevels import ustr
 from odoo.tools import html2text
 
