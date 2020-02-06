@@ -5,7 +5,6 @@ import time
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
-
 from odoo.tools.translate import _
 
 

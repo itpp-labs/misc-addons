@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 import werkzeug
+
 from odoo import http
-from odoo.addons.auth_signup.controllers.main import AuthSignupHome
 from odoo.http import request
+
+from odoo.addons.auth_signup.controllers.main import AuthSignupHome
 
 
 class SignupDenied(Exception):

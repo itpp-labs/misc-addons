@@ -2,9 +2,10 @@
 import datetime
 
 from odoo import api, fields, models
-from odoo.addons.bus.models.bus_presence import AWAY_TIMER, DISCONNECTION_TIMER
 from odoo.exceptions import Warning as UserError
 from odoo.tools.translate import _
+
+from odoo.addons.bus.models.bus_presence import AWAY_TIMER, DISCONNECTION_TIMER
 
 
 class ProjectTimelog(models.Model):

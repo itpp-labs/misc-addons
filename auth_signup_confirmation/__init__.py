@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from . import controllers
 from odoo import api, SUPERUSER_ID
 
