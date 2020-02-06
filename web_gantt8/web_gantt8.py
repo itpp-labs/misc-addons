@@ -1,7 +1,7 @@
 from odoo import fields, models
 
 
-class view(models.Model):
+class View(models.Model):
     _inherit = "ir.ui.view"
 
     type = fields.Selection(
