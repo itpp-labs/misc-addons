@@ -75,8 +75,10 @@ jobs:
               # workaround for odoo 10.0
               docker-compose up -d odoo
               docker-compose exec odoo click-odoo -i
-              # exec:
+              # EXEC:
               # env['ir.module.module'].update_list()
+              # env.cr.commit()
+              # exit()
               docker-compose stop odoo
 
           EOF
