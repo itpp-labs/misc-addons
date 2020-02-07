@@ -3,7 +3,7 @@
     "summary": """Adds the ability to create repeating wizards.""",
     "category": "Tools",
     "images": [],
-    "version": "1.0.0",
+    "vesion": "11.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "website": "https://it-projects.info",
     "license": "LGPL-3",

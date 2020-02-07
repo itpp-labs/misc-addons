@@ -4,7 +4,7 @@
     No need for import holidays manually anymore""",
     "category": "Human Resources",
     "images": ["images/ics_import.png"],
-    "version": "1.0.0",
+    "vesion": "11.0.1.0.0",
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "website": "https://it-projects.info",
     "license": "AGPL-3",

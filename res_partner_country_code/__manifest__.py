@@ -1,6 +1,6 @@
 {
     "name": "Auto-fill partner's country by top-lever domain of email address",
-    "version": "1.0",
+    "vesion": "11.0.1.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "license": "LGPL-3",
     "website": "https://yelizariev.github.io",

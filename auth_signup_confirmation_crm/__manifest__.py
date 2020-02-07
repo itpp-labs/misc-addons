@@ -1,7 +1,7 @@
 {
     "name": "Email confirmation on sign up (CRM extension)",
     "summary": "Automatically creates a lead for every new user",
-    "version": "1.0.0",
+    "vesion": "11.0.1.0.0",
     "author": "IT-Projects LLC",
     "website": "https://it-projects.info",
     "license": "LGPL-3",

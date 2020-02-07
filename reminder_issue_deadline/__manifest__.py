@@ -1,6 +1,6 @@
 {
     "name": "Reminders and Agenda for Issues",
-    "version": "1.0.0",
+    "vesion": "11.0.1.0.0",
     "author": "Matmoz d.o.o.",
     "license": "LGPL-3",
     "category": "Reminders and Agenda",
