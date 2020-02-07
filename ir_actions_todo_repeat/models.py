@@ -1,4 +1,4 @@
-from openerp import api, fields, models
+from odoo import api, fields, models
 
 
 class ir_actions_todo(models.Model):
