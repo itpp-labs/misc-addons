@@ -1,6 +1,6 @@
 {
     "name": "Delivery Sequence",
-    "version": "1.0.0",
+    "vesion": "13.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "license": "LGPL-3",
     "category": "Custom",
