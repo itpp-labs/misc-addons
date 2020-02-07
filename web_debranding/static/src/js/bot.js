@@ -28,7 +28,7 @@ odoo.define('web_debranding.bot', function (require) {
     MailBotService.include({
         getPreviews: function (filter) {
             var previews = this._super.apply(this, arguments);
-            previews.map(function(preview)  {
+            previews.map(function(preview) {
                 if (preview.title == _t("OdooBot has a request")) {
                     preview.title = _t("Bot has a request");
                 }

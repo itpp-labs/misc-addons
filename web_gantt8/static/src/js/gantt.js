@@ -24,7 +24,7 @@ var GanttView = View.extend({
     },
     willStart: function() {
         var self = this;
-        this.$el.addClass(this.fields_view.arch.attrs['class']);
+        this.$el.addClass(this.fields_view.arch.attrs.class);
         return self.alive(new Model(this.dataset.model)
             .call('fields_get')).then(function (fields) {
                 self.fields = fields;
@@ -60,15 +60,18 @@ var GanttView = View.extend({
         });
     },
     reload: function() {
-        if (this.last_domains !== undefined)
-            return this.do_search(this.last_domains, this.last_contexts, this.last_group_bys);
+        if (this.last_domains !== undefined) {
+return this.do_search(this.last_domains, this.last_contexts, this.last_group_bys);
+}
     },
     on_data_loaded: function(tasks, group_bys) {
         var self = this;
         var ids = _.pluck(tasks, "id");
         return this.dataset.name_get(ids).then(function(names) {
             var ntasks = _.map(tasks, function(task) {
-                return _.extend({__name: _.detect(names, function(name) { return name[0] == task.id; })[1]}, task);
+                return _.extend({__name: _.detect(names, function(name) {
+ return name[0] == task.id;
+})[1]}, task);
             });
             return self.on_data_loaded_2(ntasks, group_bys);
         });
@@ -92,12 +95,15 @@ var GanttView = View.extend({
 
         // get the groups
         var split_groups = function(tasks, group_bys) {
-            if (group_bys.length === 0)
-                return tasks;
+            if (group_bys.length === 0) {
+return tasks;
+}
             var groups = [];
             _.each(tasks, function(task) {
                 var group_name = task[_.first(group_bys)];
-                var group = _.find(groups, function(group) { return _.isEqual(group.name, group_name); });
+                var group = _.find(groups, function(group) {
+ return _.isEqual(group.name, group_name);
+});
                 if (group === undefined) {
                     group = {name:group_name, tasks: [], __is_group: true};
                     groups.push(group);
@@ -125,8 +131,9 @@ var GanttView = View.extend({
                 var task_infos = _.compact(_.map(task.tasks, function(sub_task) {
                     return generate_task_info(sub_task, level + 1);
                 }));
-                if (task_infos.length == 0)
-                    return;
+                if (task_infos.length == 0) {
+return;
+}
                 task_start = _.reduce(_.pluck(task_infos, "task_start"), function(date, memo) {
                     return memo === undefined || date < memo ? date : memo;
                 }, undefined);
@@ -141,28 +148,31 @@ var GanttView = View.extend({
                         group.addTask(el.task_info);
                     });
                     return group;
-                } else {
+                }
                     group = new GanttTaskInfo(_.uniqueId("gantt_project_task_"), group_name, task_start, duration || 1, percent);
                     _.each(task_infos, function(el) {
                         group.addChildTask(el.task_info);
                     });
                     return {task_info: group, task_start: task_start, task_stop: task_stop};
-                }
-            } else {
+
+            }
                 var task_name = task.__name;
                 var duration_in_business_hours = false;
                 task_start = time.auto_str_to_date(task[self.fields_view.arch.attrs.date_start]);
-                if (!task_start)
-                    return;
+                if (!task_start) {
+return;
+}
                 if (self.fields_view.arch.attrs.date_stop) {
                     task_stop = time.auto_str_to_date(task[self.fields_view.arch.attrs.date_stop]);
-                    if (!task_stop)
-                        task_stop = task_start;
+                    if (!task_stop) {
+task_stop = task_start;
+}
                 } else { // we assume date_duration is defined
                     var tmp = formats.format_value(task[self.fields_view.arch.attrs.date_delay],
                         self.fields[self.fields_view.arch.attrs.date_delay]);
-                    if (!tmp)
-                        return;
+                    if (!tmp) {
+return;
+}
                     task_stop = new Date(task_start);
                     task_stop.setMilliseconds((parse_value(tmp, {type:"float"}) * 60 * 60 * 1000));
                     duration_in_business_hours = true;
@@ -176,14 +186,16 @@ var GanttView = View.extend({
                 task_info.internal_task = task;
                 task_ids[id] = task_info;
                 return {task_info: task_info, task_start: task_start, task_stop: task_stop};
-            }
+
         };
         var $div = $("<div id='" + this.chart_id + "'></div>");
         $div.css('min-height', 500);
         $div.prependTo(document.body);
         var gantt = new GanttChart();
         gantt.maxWidthPanelNames = 250;
-        _.each(_.compact(_.map(groups, function(e) {return generate_task_info(e, 0);})), function(project) {
+        _.each(_.compact(_.map(groups, function(e) {
+return generate_task_info(e, 0);
+})), function(project) {
             gantt.addProject(project);
         });
         gantt.setEditable(true);
@@ -220,7 +232,7 @@ var GanttView = View.extend({
         var itask = task_obj.TaskInfo.internal_task;
         var start = task_obj.getEST();
         var duration = task_obj.getDuration();
-        var duration_in_business_hours = !!self.fields_view.arch.attrs.date_delay;
+        var duration_in_business_hours = Boolean(self.fields_view.arch.attrs.date_delay);
         if (!duration_in_business_hours){
             duration = (duration / 8 ) * 24;
         }
