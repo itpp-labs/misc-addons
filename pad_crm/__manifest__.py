@@ -6,39 +6,26 @@
     "summary": """This module allows collaborative editing with *html support* in Lead's Internal notes and maintains the versions history.""",
     "category": "Project",
     # "live_test_url": "http://apps.it-projects.info/shop/product/DEMO-URL?version=12.0",
-    "images": ['images/pad_crm_2.jpg'],
+    "images": ["images/pad_crm_2.jpg"],
     "version": "12.0.1.0.0",
     "application": False,
-
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info/",
     "license": "LGPL-3",
     "price": 90.00,
     "currency": "EUR",
-
-    "depends": [
-        "crm",
-        "pad",
-    ],
+    "depends": ["crm", "pad"],
     "external_dependencies": {"python": [], "bin": []},
-    "data": [
-        'crm_lead.xml',
-        'template.xml',
-    ],
-    "demo": [
-    ],
-    "qweb": [
-    ],
-
+    "data": ["crm_lead.xml", "template.xml"],
+    "demo": [],
+    "qweb": [],
     "post_load": None,
     "pre_init_hook": None,
     "post_init_hook": None,
     "uninstall_hook": None,
-
     "auto_install": False,
     "installable": True,
-
     # "demo_title": "{MODULE_NAME}",
     # "demo_addons": [
     # ],

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-    <data>        
+    <data>
 
         <record id="config_wizard_step_view_form_repeat" model="ir.ui.view">
             <field name="model">ir.actions.todo</field>

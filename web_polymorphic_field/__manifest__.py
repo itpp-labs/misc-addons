@@ -16,17 +16,15 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #
-{'name': 'Web Polymorphic Field',
- 'version': '0.2',
- 'category': 'Web',
- 'depends': ['web'],
- 'author': 'Augustin Cisterne-Kaas',
- 'license': 'GPL-3',
- 'data': [
-     'views/web_polymorphic_field.xml'
- ],
- 'js': [
-     'static/src/js/view_form.js'
- ],
- 'installable': False,
- 'application': False}
+{
+    "name": "Web Polymorphic Field",
+    "version": "0.2",
+    "category": "Web",
+    "depends": ["web"],
+    "author": "Augustin Cisterne-Kaas",
+    "license": "GPL-3",
+    "data": ["views/web_polymorphic_field.xml"],
+    "js": ["static/src/js/view_form.js"],
+    "installable": False,
+    "application": False,
+}

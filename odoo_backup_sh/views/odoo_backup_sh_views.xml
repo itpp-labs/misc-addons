@@ -206,7 +206,7 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
                         <p colspan="4" attrs="{'invisible': [('encrypt_backups', '=', False)]}">
                             Warning: Don't forget the encryption password.
                             Without it you cannot restore the database from the encrypted backup.
-                        </p>                        
+                        </p>
                     </group>
                     <p class="alert alert-warning" role="alert" attrs="{'invisible': [('config_cron_ids', '!=', [])]}">
                         Backups will not be made until you configure schedule below

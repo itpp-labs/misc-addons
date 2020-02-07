@@ -1,11 +1,10 @@
 # Copyright 2014 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import api
-from odoo import models
+from odoo import api, models
 
 
 class HrEmployee(models.Model):
-    _inherit = 'hr.employee'
+    _inherit = "hr.employee"
 
     @api.multi
     def write(self, vals):
