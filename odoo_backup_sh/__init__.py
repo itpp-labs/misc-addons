@@ -13,6 +13,8 @@ def uninstall_hook(cr, registry):
     # corresponding ir.action.server records which which raise violations error, because those records are used
     # in "ir.cron" records. So, we need to delete "odoo_backup_sh.config.cron manually
     env = api.Environment(cr, SUPERUSER_ID, {})
-    backup_crons = env['odoo_backup_sh.config.cron'].search([('model_name', '=', 'odoo_backup_sh.config')])
+    backup_crons = env["odoo_backup_sh.config.cron"].search(
+        [("model_name", "=", "odoo_backup_sh.config")]
+    )
     if backup_crons:
         backup_crons.unlink()
