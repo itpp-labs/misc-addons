@@ -1,9 +1,11 @@
 # Copyright 2019 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
-import logging
-from odoo import models, api
-from odoo.addons.odoo_backup_sh.models.odoo_backup_sh import ModuleNotConfigured
 import json
+import logging
+
+from odoo import api, models
+
+from odoo.addons.odoo_backup_sh.models.odoo_backup_sh import ModuleNotConfigured
 
 _logger = logging.getLogger(__name__)
 
@@ -20,7 +22,7 @@ except ImportError as err:
     _logger.debug(err)
 
 # all scopes you can find: here https://developers.google.com/identity/protocols/googlescopes
-SCOPES = ['https://www.googleapis.com/auth/drive']
+SCOPES = ["https://www.googleapis.com/auth/drive"]
 
 
 # https://stackoverflow.com/questions/15783783/python-import-error-no-module-named-appengine-ext
@@ -36,11 +38,13 @@ class MemoryCache(Cache):
 
 class Param(models.Model):
 
-    _inherit = 'ir.config_parameter'
+    _inherit = "ir.config_parameter"
 
     @api.model
     def get_google_drive_service(self):
-        service_account_key = self.sudo().get_param('odoo_backup_sh_google_disk.service_account_key')
+        service_account_key = self.sudo().get_param(
+            "odoo_backup_sh_google_disk.service_account_key"
+        )
         if not service_account_key:
             raise ModuleNotConfigured("service account key is not set")
         try:
@@ -48,7 +52,9 @@ class Param(models.Model):
         except json.JSONDecodeError:
             raise ModuleNotConfigured("Service Key value is not a json")
         # create a credentials
-        credentials = service_account.Credentials.from_service_account_info(service_account_key, scopes=SCOPES)
+        credentials = service_account.Credentials.from_service_account_info(
+            service_account_key, scopes=SCOPES
+        )
         # create a service using REST API Google Drive v3 and credentials
-        service = build('drive', 'v3', credentials=credentials, cache=MemoryCache())
+        service = build("drive", "v3", credentials=credentials, cache=MemoryCache())
         return service
