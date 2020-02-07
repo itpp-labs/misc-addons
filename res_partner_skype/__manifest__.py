@@ -6,38 +6,26 @@
     "summary": """This module adds a Skype field along with a widget to integrate Skype chat window of the contact account while clicking on it.""",
     "category": "Discuss",
     # "live_test_url": "http://apps.it-projects.info/shop/product/DEMO-URL?version=12.0",
-    "images": ['images/partner.png'],
+    "images": ["images/partner.png"],
     "version": "12.0.1.0.1",
     "application": False,
-
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "apps@it-projects.info",
     "website": "https://twitter.com/yelizariev",
     "license": "LGPL-3",
     "price": 9.00,
     "currency": "EUR",
-
-    "depends": [
-        "web"
-    ],
+    "depends": ["web"],
     "external_dependencies": {"python": [], "bin": []},
-    "data": [
-        'views.xml',
-        'data.xml',
-    ],
-    "demo": [
-    ],
-    "qweb": [
-    ],
-
+    "data": ["views.xml", "data.xml"],
+    "demo": [],
+    "qweb": [],
     "post_load": None,
     "pre_init_hook": None,
     "post_init_hook": None,
     "uninstall_hook": None,
-
     "auto_install": False,
     "installable": True,
-
     # "demo_title": "{MODULE_NAME}",
     # "demo_addons": [
     # ],

@@ -2,11 +2,13 @@
 # Copyright 2018 Rafis Bikbov <https://www.it-projects.info/team/RafiZz>
 # Copyright 2019 Eugene Molotov <https://www.it-projects.info/team/em230418>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
-from odoo import fields
 import mimetypes
+
 import requests
 
+from odoo import fields
 from odoo.tools.mimetypes import guess_mimetype
+
 from . import image
 
 
@@ -17,12 +19,12 @@ def get_mimetype_and_optional_content_by_url(url):
     # head request for content-type header getting
     if not mimetype:
         with requests.head(url, timeout=5) as r:
-            mimetype = getattr(r, 'headers', {}).get('Content-Type')
+            mimetype = getattr(r, "headers", {}).get("Content-Type")
 
-    index_content = mimetype and mimetype.split('/')[0]
-    if not mimetype or index_content == 'text':
+    index_content = mimetype and mimetype.split("/")[0]
+    if not mimetype or index_content == "text":
         with requests.get(url, timeout=5) as r:
-            content = getattr(r, 'content')
+            content = getattr(r, "content")
             if not mimetype and content:
                 mimetype = guess_mimetype(content)
 
@@ -50,35 +52,35 @@ class Binary(fields.Binary):
                 other_record_values.append(pair)
 
         with env.norecompute():
-            env['ir.attachment'].sudo().with_context(
-                binary_field_real_user=env.user,
-            ).create([{
-                'name': self.name,
-                'res_model': self.model_name,
-                'res_field': self.name,
-                'res_id': record.id,
-                'type': 'url',  # it is not binary like in original method
-                'url': value,  # also using url field instead of datas
-            }
-                for record, value in url_record_values
-                if value
-            ])
+            env["ir.attachment"].sudo().with_context(
+                binary_field_real_user=env.user
+            ).create(
+                [
+                    {
+                        "name": self.name,
+                        "res_model": self.model_name,
+                        "res_field": self.name,
+                        "res_id": record.id,
+                        "type": "url",  # it is not binary like in original method
+                        "url": value,  # also using url field instead of datas
+                    }
+                    for record, value in url_record_values
+                    if value
+                ]
+            )
         # calling original create method for non URLs
         super(Binary, self).create(other_record_values)
         # redefined part ends here
 
     def write(self, records, value):
         domain = [
-            ('res_model', '=', self.model_name),
-            ('res_field', '=', self.name),
-            ('res_id', 'in', records.ids),
+            ("res_model", "=", self.model_name),
+            ("res_field", "=", self.name),
+            ("res_id", "in", records.ids),
         ]
-        atts = records.env['ir.attachment'].sudo().search(domain)
-        if value and atts.url and atts.type == 'url' and not image.is_url(value):
-            atts.write({
-                'url': None,
-                'type': 'binary',
-            })
+        atts = records.env["ir.attachment"].sudo().search(domain)
+        if value and atts.url and atts.type == "url" and not image.is_url(value):
+            atts.write({"url": None, "type": "binary"})
         if value and image.is_url(value):
             # save_option = records.env['ir.config_parameter'].get_param('ir_attachment_url.storage', default='url')
             with records.env.norecompute():
@@ -90,29 +92,35 @@ class Binary(fields.Binary):
                 #     super(Binary, self).write(records, base64source)
                 if value:
                     mimetype, content = get_mimetype_and_optional_content_by_url(value)
-                    index_content = records.env['ir.attachment']._index(content, None, mimetype)
+                    index_content = records.env["ir.attachment"]._index(
+                        content, None, mimetype
+                    )
 
                     # update the existing attachments
-                    atts.write({
-                        'url': value,
-                        'mimetype': mimetype,
-                        'datas': None,
-                        'type': 'url',
-                        'index_content': index_content,
-                    })
+                    atts.write(
+                        {
+                            "url": value,
+                            "mimetype": mimetype,
+                            "datas": None,
+                            "type": "url",
+                            "index_content": index_content,
+                        }
+                    )
 
                     # create the missing attachments
-                    for record in (records - records.browse(atts.mapped('res_id'))):
-                        atts.create({
-                            'name': self.name,
-                            'res_model': record._name,
-                            'res_field': self.name,
-                            'res_id': record.id,
-                            'type': 'url',
-                            'url': value,
-                            'mimetype': mimetype,
-                            'index_content': index_content,
-                        })
+                    for record in records - records.browse(atts.mapped("res_id")):
+                        atts.create(
+                            {
+                                "name": self.name,
+                                "res_model": record._name,
+                                "res_field": self.name,
+                                "res_id": record.id,
+                                "type": "url",
+                                "url": value,
+                                "mimetype": mimetype,
+                                "index_content": index_content,
+                            }
+                        )
                 else:
                     atts.unlink()
         else:

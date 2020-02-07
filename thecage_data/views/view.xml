@@ -138,7 +138,7 @@
       <record model="ir.actions.act_window" id="booking_calendar.booking_orders_lines_list_action">
           <field name="context" eval="{'search_default_active_bookings': 1}"/>
       </record>
-      
+
       <record id="thecage_view_booking_order_line_tree" model="ir.ui.view">
         <field name="name">sale.order.line.tree</field>
         <field name="model">sale.order.line</field>
@@ -262,7 +262,7 @@
           </xpath>
         </field>
       </record>
-      
+
       <record id="thecage_view_order_form" model="ir.ui.view">
         <field name="name">sale.order.form</field>
         <field name="model">sale.order</field>

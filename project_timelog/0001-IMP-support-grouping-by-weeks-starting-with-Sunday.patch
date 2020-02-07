@@ -56,6 +56,5 @@ index d04e664..f85ba18 100644
                      locale = self._context.get('lang') or 'en_US'
                      fmt = DEFAULT_SERVER_DATETIME_FORMAT if ftype == 'datetime' else DEFAULT_SERVER_DATE_FORMAT
                      tzinfo = None
--- 
+--
 1.9.1
-
