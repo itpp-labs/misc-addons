@@ -63,7 +63,7 @@ msgid "Current Website"
 msgstr ""
 
 #. module: web_website
-#: code:addons/web_website/models/res_users.py:78
+#: code:addons/web_website/models/res_users.py:76
 #, python-format
 msgid "Current website doesn't belong to Current Company"
 msgstr ""
