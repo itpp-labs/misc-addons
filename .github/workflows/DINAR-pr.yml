@@ -52,7 +52,7 @@ jobs:
           cat << 'EOF'
           To test updates run:
 
-              WORKDIR=/tmp/DINAR/${{ github.repository }}/${{ github.event.number }}/
+              WORKDIR=/tmp/DINAR/${{ github.repository }}-${{ github.event.number }}/
               mkdir -p $WORKDIR
               cd $WORKDIR
               # TODO use fixed version instead of master
@@ -66,7 +66,21 @@ jobs:
               git -C pr-files fetch origin $REVISION
               git -C pr-files checkout FETCH_HEAD
               docker-compose pull
-              docker-compose run odoo -i ${{ env.PR_UPDATED_MODULES_INSTALLABLE }} -d itpp-runbot --stop-after-init
+              export MODULES=${{ env.PR_UPDATED_MODULES_INSTALLABLE }}
+          EOF
+
+          if [ "${{ github.event.pull_request.base.ref }}" == "10.0" ]; then
+          cat << 'EOF'
+              docker-compose up odoo -d
+              docker-compose exec odoo click-odoo -i
+              # exec:
+              # env['ir.module.module'].update_list()
+              docker-compose up stop
+          EOF
+
+          fi
+
+          cat << 'EOF'
               docker-compose up
 
           > Sent by [DINAR :construction_worker_man:](https://github.com/itpp-labs/DINAR) via `.github/workflows/DINAR-pr.yml`
