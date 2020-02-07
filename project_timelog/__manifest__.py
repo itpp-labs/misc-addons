@@ -5,17 +5,12 @@
     "images": ["images/timelog.png"],
     "version": "12.0.1.0.0",
     "application": False,
-
     "author": "IT-Projects LLC",
     "website": "https://www.it-projects.info/",
     "license": "LGPL-3",
     "price": 195.00,
     "currency": "EUR",
-
-    "depends": [
-        "hr_timesheet",
-        "base_automation",
-    ],
+    "depends": ["hr_timesheet", "base_automation"],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
         "security/ir.model.access.csv",
@@ -24,16 +19,11 @@
         "views/project_timelog_templates.xml",
         "data/project_timelog_data.xml",
     ],
-    "qweb": [
-        "static/src/xml/menu.xml",
-    ],
-    "demo": [
-    ],
-
+    "qweb": ["static/src/xml/menu.xml"],
+    "demo": [],
     "post_load": None,
     "pre_init_hook": None,
     "post_init_hook": None,
-
     "auto_install": False,
     "installable": False,
 }

@@ -16,7 +16,7 @@ It's recommended to `patch <https://github.com/it-projects-llc/install-odoo/blob
 Configuration
 =============
 
-You can use ``session_store_db`` parameter in config file (default value is ``session_store``) to specify database where sessions are stored. 
+You can use ``session_store_db`` parameter in config file (default value is ``session_store``) to specify database where sessions are stored.
 
 
 Uninstallation

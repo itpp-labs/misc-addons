@@ -69,52 +69,52 @@
         <!--                   Pitches                   -->
         <record id="kl_pitch_1" model="pitch_booking.pitch">
             <field name="name">P1</field>
-            <field name="venue_id" ref="venue_kallang"/>       
+            <field name="venue_id" ref="venue_kallang"/>
         </record>
         <record id="kl_pitch_2" model="pitch_booking.pitch">
             <field name="name">P2</field>
-            <field name="venue_id" ref="venue_kallang"/>       
+            <field name="venue_id" ref="venue_kallang"/>
         </record>
         <record id="kl_pitch_3" model="pitch_booking.pitch">
             <field name="name">P3</field>
-            <field name="venue_id" ref="venue_kallang"/>       
+            <field name="venue_id" ref="venue_kallang"/>
         </record>
         <record id="kl_pitch_4" model="pitch_booking.pitch">
             <field name="name">P4</field>
-            <field name="venue_id" ref="venue_kallang"/>       
+            <field name="venue_id" ref="venue_kallang"/>
         </record>
         <record id="kl_pitch_5" model="pitch_booking.pitch">
             <field name="name">P5</field>
-            <field name="venue_id" ref="venue_kallang"/>       
+            <field name="venue_id" ref="venue_kallang"/>
         </record>
         <record id="kl_pitch_6" model="pitch_booking.pitch">
             <field name="name">P6</field>
-            <field name="venue_id" ref="venue_kallang"/>       
+            <field name="venue_id" ref="venue_kallang"/>
         </record>
 
         <record id="bt_pitch_1" model="pitch_booking.pitch">
             <field name="name">SP1</field>
-            <field name="venue_id" ref="venue_bt"/>       
+            <field name="venue_id" ref="venue_bt"/>
         </record>
         <record id="bt_pitch_2" model="pitch_booking.pitch">
             <field name="name">SP2</field>
-            <field name="venue_id" ref="venue_bt"/>       
+            <field name="venue_id" ref="venue_bt"/>
         </record>
         <record id="bt_pitch_3" model="pitch_booking.pitch">
             <field name="name">SP3</field>
-            <field name="venue_id" ref="venue_bt"/>       
+            <field name="venue_id" ref="venue_bt"/>
         </record>
         <record id="bt_pitch_4" model="pitch_booking.pitch">
             <field name="name">TP1</field>
-            <field name="venue_id" ref="venue_bt"/>       
+            <field name="venue_id" ref="venue_bt"/>
         </record>
         <record id="bt_pitch_5" model="pitch_booking.pitch">
             <field name="name">TP2</field>
-            <field name="venue_id" ref="venue_bt"/>       
+            <field name="venue_id" ref="venue_bt"/>
         </record>
         <record id="bt_pitch_6" model="pitch_booking.pitch">
             <field name="name">TP3</field>
-            <field name="venue_id" ref="venue_bt"/>       
+            <field name="venue_id" ref="venue_bt"/>
         </record>
 
         <!--                   Working Time                   -->
@@ -440,7 +440,7 @@
           <field name="body_html"><![CDATA[
 
           <p>Booking time has been changed:</p>
-          <p>Bookint start time: ${format_tz(object.booking_start, tz=object.order_id.partner_id.tz, context={'lang':object.order_id.partner_id.lang})}</p>              
+          <p>Bookint start time: ${format_tz(object.booking_start, tz=object.order_id.partner_id.tz, context={'lang':object.order_id.partner_id.lang})}</p>
           <p>Bookint end time: ${format_tz(object.booking_end, tz=object.order_id.partner_id.tz, context={'lang':object.order_id.partner_id.lang})}</p>
           ]]></field>
         </record>

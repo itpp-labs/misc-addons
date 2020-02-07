@@ -2,16 +2,18 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 import odoo.tests
+
 from ..models.ir_translation import debrand_bytes
 
 
-@odoo.tests.common.tagged('at_install', 'post_install')
+@odoo.tests.common.tagged("at_install", "post_install")
 class TestMisc(odoo.tests.TransactionCase):
-
     def test_debrand_bytes(self):
         env = self.env
-        env['ir.config_parameter'].sudo().set_param("web_debranding.new_name", "SuperName")
-        assert debrand_bytes(env, b'odoo') == b'SuperName'
-        assert debrand_bytes(env, 'odoo') == b'SuperName'
-        assert debrand_bytes(env, b'test') == b'test'
-        assert debrand_bytes(env, 'test') == b'test'
+        env["ir.config_parameter"].sudo().set_param(
+            "web_debranding.new_name", "SuperName"
+        )
+        assert debrand_bytes(env, b"odoo") == b"SuperName"
+        assert debrand_bytes(env, "odoo") == b"SuperName"
+        assert debrand_bytes(env, b"test") == b"test"
+        assert debrand_bytes(env, "test") == b"test"

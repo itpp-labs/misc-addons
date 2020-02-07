@@ -8,17 +8,18 @@ from odoo.api import Environment
 @odoo.tests.common.at_install(True)
 @odoo.tests.common.post_install(True)
 class TestUi(odoo.tests.HttpCase):
-
     def test_01_subtask_sort_button(self):
         env = Environment(self.registry.test_cr, self.uid, {})
         # needed because tests are run before the module is marked as
         # installed. In js web will only load qweb coming from modules
         # that are returned by the backend in module_boot. Without
         # this you end up with js, css but no qweb.
-        env['ir.module.module'].search([('name', '=', 'project_task_subtask')], limit=1).state = 'installed'
+        env["ir.module.module"].search(
+            [("name", "=", "project_task_subtask")], limit=1
+        ).state = "installed"
         # find active tasks
-        task = env['project.task'].search([('active', '=', 'true')], limit=1)
-        url = '/web?#id=%s&view_type=form&model=project.task&/' % str(task.id)
+        task = env["project.task"].search([("active", "=", "true")], limit=1)
+        url = "/web?#id=%s&view_type=form&model=project.task&/" % str(task.id)
         self.registry.cursor().release()
 
         code = """
