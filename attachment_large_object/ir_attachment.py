@@ -44,7 +44,7 @@ class IrAttachment(models.Model):
         filestore = False
         try:
             oid = int(fname)
-        except:
+        except Exception:
             filestore = True
 
         if not filestore:
