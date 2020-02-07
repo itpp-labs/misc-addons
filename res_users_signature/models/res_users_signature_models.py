@@ -27,9 +27,6 @@ except ImportError:
     pass
 
 
-
-
-
 VALID_TAGS = ["p", "img"]
 
 

@@ -16,7 +16,6 @@ from ..models.image import is_url
 binary_content = None
 
 
-
 class MailControllerExtended(MailController):
     @http.route()
     def avatar(self, res_model, res_id, partner_id):
