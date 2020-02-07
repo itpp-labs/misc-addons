@@ -8,17 +8,18 @@ from odoo.api import Environment
 @odoo.tests.common.at_install(True)
 @odoo.tests.common.post_install(True)
 class TestUi(odoo.tests.HttpCase):
-
     def test_01_remove_developer_mode_menu_elements(self):
         env = Environment(self.registry.test_cr, self.uid, {})
         # needed because tests are run before the module is marked as
         # installed. In js web will only load qweb coming from modules
         # that are returned by the backend in module_boot. Without
         # this you end up with js, css but no qweb.
-        env['ir.module.module'].search([('name', '=', 'web_debranding')], limit=1).state = 'installed'
+        env["ir.module.module"].search(
+            [("name", "=", "web_debranding")], limit=1
+        ).state = "installed"
         self.registry.cursor().release()
 
-        url = '/web'
+        url = "/web"
         code = """
                     $(document).ready( function() {
                         setInterval(function(){
@@ -46,10 +47,12 @@ class TestUi(odoo.tests.HttpCase):
         # installed. In js web will only load qweb coming from modules
         # that are returned by the backend in module_boot. Without
         # this you end up with js, css but no qweb.
-        env['ir.module.module'].search([('name', '=', 'web_debranding')], limit=1).state = 'installed'
+        env["ir.module.module"].search(
+            [("name", "=", "web_debranding")], limit=1
+        ).state = "installed"
         self.registry.cursor().release()
 
-        url = '/web'
+        url = "/web"
         code = """
                     $(document).ready( function() {
                         setInterval(function(){

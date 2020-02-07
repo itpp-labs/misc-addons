@@ -4,10 +4,10 @@
 # Copyright 2017 ArtyomLosev <https://github.com/ArtyomLosev>
 # Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
 # License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).
-from odoo import models, fields
+from odoo import fields, models
 
 
 class ResPartner(models.Model):
-    _inherit = 'res.partner'
+    _inherit = "res.partner"
 
-    skype = fields.Char('Skype', size=128, index=True)
+    skype = fields.Char("Skype", size=128, index=True)

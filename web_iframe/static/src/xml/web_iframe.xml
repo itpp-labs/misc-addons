@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<template>
-
-    <div t-name="web_iframe.iframe" class="oe_view_manager oe_mail_wall oe_view_manager_current">
-        <iframe>
-        </iframe>
-    </div>
-
-</template>

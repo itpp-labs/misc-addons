@@ -9,11 +9,10 @@ _logger = logging.getLogger(__name__)
 
 
 class RootTkobr(odoo.http.Root):
-
     @lazy_property
     def session_store(self):
         # Setup http sessions
-        _logger.debug('HTTP sessions stored in Postgres')
+        _logger.debug("HTTP sessions stored in Postgres")
         return PostgresSessionStore(session_class=odoo.http.OpenERPSession)
 
 

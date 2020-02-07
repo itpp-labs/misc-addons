@@ -1,11 +1,13 @@
-import logging
 import base64
-from odoo import models, api
+import logging
+
+from odoo import api, models
+
 import psycopg2
 
 logger = logging.getLogger(__name__)
 
-LARGE_OBJECT_LOCATION = 'postgresql:lobject'
+LARGE_OBJECT_LOCATION = "postgresql:lobject"
 
 
 class IrAttachment(models.Model):
@@ -16,8 +18,8 @@ class IrAttachment(models.Model):
     for other locations.
     """
 
-    _name = 'ir.attachment'
-    _inherit = 'ir.attachment'
+    _name = "ir.attachment"
+    _inherit = "ir.attachment"
 
     @api.model
     def lobject(self, cr, *args):
@@ -34,7 +36,7 @@ class IrAttachment(models.Model):
         if location != LARGE_OBJECT_LOCATION:
             return super(IrAttachment, self)._file_write(value, checksum)
 
-        lobj = self.lobject(self.env.cr, 0, 'wb')  # oid=0 means creation
+        lobj = self.lobject(self.env.cr, 0, "wb")  # oid=0 means creation
         lobj.write(base64.b64decode(value))
         oid = lobj.oid
         return str(oid)
@@ -43,12 +45,12 @@ class IrAttachment(models.Model):
         filestore = False
         try:
             oid = int(fname)
-        except:
+        except Exception:
             filestore = True
 
         if not filestore:
             try:
-                return self.lobject(self.env.cr, oid, 'rb').unlink()
+                return self.lobject(self.env.cr, oid, "rb").unlink()
             except (psycopg2.OperationalError, ValueError):
                 filestore = True
 
@@ -59,14 +61,16 @@ class IrAttachment(models.Model):
 
         :param fname: file storage name, must be the oid as a string.
         """
-        lobj = self.lobject(self.env.cr, int(fname), 'rb')
+        lobj = self.lobject(self.env.cr, int(fname), "rb")
         if bin_size:
             return lobj.seek(0, 2)
-        return base64.b64encode(lobj.read())  # GR TODO it must be possible to read-encode in chunks
+        return base64.b64encode(
+            lobj.read()
+        )  # GR TODO it must be possible to read-encode in chunks
 
-    @api.depends('store_fname', 'db_datas')
+    @api.depends("store_fname", "db_datas")
     def _compute_datas(self):
-        bin_size = self._context.get('bin_size')
+        bin_size = self._context.get("bin_size")
         for attach in self:
             try:
                 attach.datas = self._lobject_read(attach.store_fname, bin_size)

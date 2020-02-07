@@ -6,6 +6,7 @@
             <field name="name">res.users.form</field>
             <field name="model">res.users</field>
             <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="priority">99</field>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='signature']" position="replace">
                     <field name="signature_id"/>
@@ -18,6 +19,7 @@
             <field name="name">res.users.preferences.form</field>
             <field name="model">res.users</field>
             <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+            <field name="priority">99</field>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='signature']" position="replace">
                     <field name="partner_id" invisible="1"/>

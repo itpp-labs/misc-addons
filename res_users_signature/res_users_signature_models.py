@@ -1,27 +1,31 @@
-from openerp import fields as old_fields
-from openerp import api, models, fields, tools
+import base64
+import re
+from email import Encoders
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.utils import COMMASPACE, formatdate, make_msgid
+
+from odoo import api, fields as old_fields, models, tools
+from odoo.loglevels import ustr
+from odoo.tools import html2text
+
+from odoo.addons.base.ir.ir_mail_server import (
+    encode_header,
+    encode_header_param,
+    encode_rfc2822_address_header,
+)
+
 try:
-    from openerp.addons.email_template.email_template import mako_template_env
+    from odoo.addons.email_template.email_template import mako_template_env
 except ImportError:
     try:
-        from openerp.addons.mail.mail_template import mako_template_env
+        from odoo.addons.mail.mail_template import mako_template_env
     except ImportError:
         pass
 
-from openerp.loglevels import ustr
-from email.mime.text import MIMEText
-from email.mime.base import MIMEBase
-from email.mime.multipart import MIMEMultipart
-from email.utils import COMMASPACE
-from email.utils import formatdate
-from email.utils import make_msgid
-from email import Encoders
-from openerp.tools import html2text
 
-import re
-import base64
 
-from openerp.addons.base.ir.ir_mail_server import encode_rfc2822_address_header, encode_header, encode_header_param
 
 
 class ResUsers(models.Model):
@@ -112,7 +116,7 @@ class IrMailServer(models.Model):
     def build_email(self, email_from, email_to, subject, body, email_cc=None, email_bcc=None, reply_to=False,
                     attachments=None, message_id=None, references=None, object_id=False, subtype='plain', headers=None,
                     body_alternative=None, subtype_alternative='plain'):
-        """ copy-pasted from openerp/addons/base/ir/ir_mail_server.py::build_email """
+        """ copy-pasted from odoo/addons/base/ir/ir_mail_server.py::build_email """
 
         ftemplate = '__image-%s__'
         fcounter = 0

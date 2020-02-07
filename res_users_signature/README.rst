@@ -1,6 +1,6 @@
 Allows create signature templates for users. For example,
 
-    ---
+    \---
 
     <p>${user.name}, ${user.function} of ${user.partner_id.company_id.name}</p>
 
@@ -18,7 +18,7 @@ Allows create signature templates for users. For example,
 
 Will be converted to 
 
-    ---
+    \---
 
     <p>Bob, sale manager of You Company</p>
 
