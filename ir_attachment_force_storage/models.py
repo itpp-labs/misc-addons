@@ -1,8 +1,8 @@
 # Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
-from openerp import api, models
-from openerp.exceptions import AccessError
-from openerp.tools.translate import _
+from odoo import api, models
+from odoo.exceptions import AccessError
+from odoo.tools.translate import _
 
 STORAGE_KEY = "ir_attachment.location"
 
