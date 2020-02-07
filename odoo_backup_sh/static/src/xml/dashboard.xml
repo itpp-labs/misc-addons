@@ -15,7 +15,7 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
                     </div>
                     <!--
                         See update_info method to undestand meaning of the button.
-                        It's normally not needed for the user. 
+                        It's normally not needed for the user.
                         It's call automatically after every cron backup
 
                     <div class="o_inner_box o_dashboard_action_update_info" title="Update backups information.">

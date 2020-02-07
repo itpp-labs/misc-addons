@@ -1,16 +1,16 @@
 # Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2019 Eugene Molotov <https://it-projects.info/team/em230418>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
-from odoo import models
 import logging
 
+from odoo import models
 
 _logger = logging.getLogger(__name__)
 
 
 class WebsiteDependentMixin(models.AbstractModel):
-    _name = 'website_dependent.mixin'
-    _description = 'Mixin Class with helpers to convert previously normal fields to website-depedent'
+    _name = "website_dependent.mixin"
+    _description = "Mixin Class with helpers to convert previously normal fields to website-depedent"
 
     def with_context(self, *args, **kwargs):
         res = super(WebsiteDependentMixin, self).with_context(*args, **kwargs)
@@ -20,40 +20,40 @@ class WebsiteDependentMixin(models.AbstractModel):
     def _get_website_dependent_field_names(self):
         return filter(
             lambda field_name: self._fields[field_name].website_dependent
-            if hasattr(self._fields[field_name], 'website_dependent')
+            if hasattr(self._fields[field_name], "website_dependent")
             else False,
-            self._fields.keys()
+            self._fields.keys(),
         )
 
     def _prop_label(self, field_name, company=None, website=None):
         self.ensure_one()
         label = self.display_name
-        label = "%s: %s's " % (field_name, label)
+        label = "{}: {}'s ".format(field_name, label)
         if not company and not website:
-            label += 'default'
+            label += "default"
         elif website:
-            label += 'company + website'
+            label += "company + website"
         else:
-            label += 'company'
+            label += "company"
         return label
 
     def _update_properties_label(self, field_name):
         for r in self:
-            domain = self.env['ir.property']._get_domain(field_name, self._name)
-            domain += [('res_id', '=', '%s,%s' % (self._name, self.id))]
-            for prop in self.env['ir.property'].search(domain):
-                prop.name = self._prop_label(field_name, prop.company_id, prop.website_id)
+            domain = self.env["ir.property"]._get_domain(field_name, self._name)
+            domain += [("res_id", "=", "{},{}".format(self._name, self.id))]
+            for prop in self.env["ir.property"].search(domain):
+                prop.name = self._prop_label(
+                    field_name, prop.company_id, prop.website_id
+                )
 
     def _force_default(self, field_name, prop_value):
         """Remove company-dependent values and keeps only default one"""
         self.ensure_one()
-        Prop = self.env['ir.property']
+        Prop = self.env["ir.property"]
         domain = Prop._get_domain(field_name, self._name)
 
         # find all props
-        props = Prop.search(domain + [
-            ('res_id', '=', '%s,%s' % (self._name, self.id)),
-        ])
+        props = Prop.search(domain + [("res_id", "=", "{},{}".format(self._name, self.id))])
 
         field = self._get_field_object(field_name)
 
@@ -70,11 +70,9 @@ class WebsiteDependentMixin(models.AbstractModel):
             # remove rest properties
             (props - default_prop).unlink()
 
-        vals = {
-            'name': self._prop_label(field_name),
-        }
+        vals = {"name": self._prop_label(field_name)}
         if default_prop.company_id:
-            vals['company_id'] = None
+            vals["company_id"] = None
 
         value = default_prop.get_by_record()
         try:
@@ -87,7 +85,7 @@ class WebsiteDependentMixin(models.AbstractModel):
         except AttributeError:
             pass
         if value != prop_value:
-            vals['value'] = prop_value
+            vals["value"] = prop_value
 
         default_prop.write(vals)
         self._update_db_value(field, prop_value)
@@ -104,47 +102,54 @@ class WebsiteDependentMixin(models.AbstractModel):
             pass
 
         if not value:
-            if field.ttype == 'boolean':
+            if field.ttype == "boolean":
                 value = False
             else:
                 value = None
 
-        self.env.cr.execute("UPDATE %s SET %s=%%s WHERE id = %s" % (self._table, field.name, self.id), (value,))
+        self.env.cr.execute(
+            "UPDATE {} SET {}=%s WHERE id = {}".format(self._table, field.name, self.id),
+            (value,),
+        )
 
     def _create_default_value(self, field, prop_value):
         """Set company-independent default value"""
         self.ensure_one()
         domain = [
-            ('company_id', '=', False),
-            ('fields_id', '=', field.id),
-            ('res_id', '=', '%s,%s' % (self._name, self.id))
+            ("company_id", "=", False),
+            ("fields_id", "=", field.id),
+            ("res_id", "=", "{},{}".format(self._name, self.id)),
         ]
 
-        existing = self.env['ir.property'].search(domain)
+        existing = self.env["ir.property"].search(domain)
         if existing:
             # already exists
             return existing
 
         label = self._prop_label(field.name)
-        return self.env['ir.property'].create({
-            'fields_id': field.id,
-            'res_id': '%s,%s' % (self._name, self.id),
-            'name': label,
-            'value': prop_value,
-            'type': field.ttype,
-        })
+        return self.env["ir.property"].create(
+            {
+                "fields_id": field.id,
+                "res_id": "{},{}".format(self._name, self.id),
+                "name": label,
+                "value": prop_value,
+                "type": field.ttype,
+            }
+        )
 
     def _get_field_object(self, field_name):
-        return self.env['ir.model.fields'].search([
-            ('name', '=', field_name),
-            ('model_id.model', '=', self._name)
-        ])
+        return self.env["ir.model.fields"].search(
+            [("name", "=", field_name), ("model_id.model", "=", self._name)]
+        )
 
     def _auto_init_website_dependent(self, field_name):
         cr = self.env.cr
         # rename FIELD to "FIELD_tmp"
         # to don't lose values, because during installation the column "value" is deleted
-        cr.execute("ALTER TABLE %s RENAME COLUMN %s TO %s_tmp" % (self._table, field_name, field_name))
+        cr.execute(
+            "ALTER TABLE %s RENAME COLUMN %s TO %s_tmp"
+            % (self._table, field_name, field_name)
+        )
 
         self.pool.post_init(self._post_init_website_dependent, field_name)
 
@@ -152,11 +157,16 @@ class WebsiteDependentMixin(models.AbstractModel):
         cr = self.env.cr
 
         # rename "FIELD_tmp" back to "FIELD"
-        cr.execute("ALTER TABLE %s RENAME COLUMN %s_tmp TO %s" % (self._table, field_name, field_name))
+        cr.execute(
+            "ALTER TABLE %s RENAME COLUMN %s_tmp TO %s"
+            % (self._table, field_name, field_name)
+        )
 
         field = self._get_field_object(field_name)
         for r in self.sudo().search([]):
-            cr.execute("SELECT %s FROM %s WHERE id = %s" % (field_name, self._table, r.id))
+            cr.execute(
+                "SELECT {} FROM {} WHERE id = {}".format(field_name, self._table, r.id)
+            )
             res = cr.dictfetchone()
             value = res.get(field_name)
             # value may be empty after migration from previous module version

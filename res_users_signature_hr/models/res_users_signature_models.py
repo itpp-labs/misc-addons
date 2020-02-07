@@ -4,7 +4,7 @@ from odoo import models
 
 
 class HrEmployee(models.Model):
-    _inherit = 'hr.employee'
+    _inherit = "hr.employee"
 
     def write(self, vals):
         res = super(HrEmployee, self).write(vals)

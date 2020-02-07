@@ -37,8 +37,8 @@ Minimal access policy for s3 credentials are as following::
         }
     ]
   }
-  
-  
+
+
 You can also remove ``"s3:CreateBucket"`` if bucket already exists.
 
 Configuration
@@ -89,9 +89,9 @@ Minimal access policy for s3 credentials are as following::
         }
     ]
   }
-  
-  
-You can also remove ``"s3:CreateBucket"`` if bucket already exists. 
+
+
+You can also remove ``"s3:CreateBucket"`` if bucket already exists.
 
 Usage
 =====

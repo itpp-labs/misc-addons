@@ -33,4 +33,3 @@ Before uninstallation you need to move all large objects back to default storage
 * install module `ir_attachment_force_storage <https://www.odoo.com/apps/modules/11.0/ir_attachment_force_storage/>`_
 * set ``ir_attachment.location`` to **file** or **db**
 * now you can safely unistall ``attachment_large_object`` and ``ir_attachment_force_storage``
-

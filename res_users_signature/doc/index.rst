@@ -15,12 +15,12 @@ Usage
 * Click ``[ Create ]``
 * Fill the fields
 * For `properly-showed` signature: in html-editor enter ``'Code View'``-mode by clicking ``"</>"``-icon
-* NOTE: 
+* NOTE:
     * Restricted-tags and within them will be erased from message template
     * Leave jinja2-inline-statements in line alone
 
 Allowed html-tags and attributes in template:
-    
+
     [ <p>, </p>, <img> ]
 
 Template example:
@@ -44,7 +44,7 @@ Will be converted to:
     <p>Bob</p>
 
     <p>+123456789</p>
-    
+
     <p>sales@example.com</p>
 
     <p><img src="data:image/jpeg;base64,ABCDE....12345="/></p>

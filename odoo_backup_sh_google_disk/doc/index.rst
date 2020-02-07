@@ -19,7 +19,7 @@ Creating a Service Account Key
 
 Note: You need to have a Google account with activated access to `Google Cloud Platform <https://cloud.google.com/>`__.
 
-* `Create new Project <https://console.cloud.google.com/projectcreate>`__ in Google Cloud 
+* `Create new Project <https://console.cloud.google.com/projectcreate>`__ in Google Cloud
 * Switch to the created Project
 * Open navigation menu (*Burger menu in the Left corner*), choose ``API & Services >> Library``
 
