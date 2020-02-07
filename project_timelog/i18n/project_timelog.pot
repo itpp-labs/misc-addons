@@ -213,7 +213,7 @@ msgid "Created on"
 msgstr ""
 
 #. module: project_timelog
-#: code:addons/project_timelog/models/project_timelog.py:280
+#: code:addons/project_timelog/models/project_timelog.py:368
 #, python-format
 msgid "Creating new subtask in state \"%s\" is forbidden."
 msgstr ""
@@ -229,14 +229,14 @@ msgid "Credentials in json format"
 msgstr ""
 
 #. module: project_timelog
-#: code:addons/project_timelog/models/project_timelog.py:312
+#: code:addons/project_timelog/models/project_timelog.py:418
 #, python-format
 msgid "Current task stage different from the stage subtasks."
 msgstr ""
 
 #. module: project_timelog
-#: code:addons/project_timelog/models/project_timelog.py:301
-#: code:addons/project_timelog/models/project_timelog.py:369
+#: code:addons/project_timelog/models/project_timelog.py:400
+#: code:addons/project_timelog/models/project_timelog.py:505
 #, python-format
 msgid "Current user is not match user with solved task."
 msgstr ""
@@ -257,7 +257,7 @@ msgid "Date"
 msgstr ""
 
 #. module: project_timelog
-#: code:addons/project_timelog/models/project_timelog.py:79
+#: code:addons/project_timelog/models/project_timelog.py:103
 #, python-format
 msgid "Dates cannot be changed. Use Time Correction field instead."
 msgstr ""
@@ -377,11 +377,11 @@ msgid "End datetime"
 msgstr ""
 
 #. module: project_timelog
-#: code:addons/project_timelog/models/project_timelog.py:303
-#: code:addons/project_timelog/models/project_timelog.py:308
-#: code:addons/project_timelog/models/project_timelog.py:311
-#: code:addons/project_timelog/models/project_timelog.py:317
-#: code:addons/project_timelog/models/project_timelog.py:338
+#: code:addons/project_timelog/models/project_timelog.py:404
+#: code:addons/project_timelog/models/project_timelog.py:410
+#: code:addons/project_timelog/models/project_timelog.py:417
+#: code:addons/project_timelog/models/project_timelog.py:428
+#: code:addons/project_timelog/models/project_timelog.py:462
 #, python-format
 msgid "Error."
 msgstr ""
@@ -533,7 +533,7 @@ msgid "If you have setup a catch-all email domain redirected to the Odoo server,
 msgstr ""
 
 #. module: project_timelog
-#: code:addons/project_timelog/models/project_timelog.py:309
+#: code:addons/project_timelog/models/project_timelog.py:411
 #, python-format
 msgid "In the current state of the task can not be created timelogs."
 msgstr ""
@@ -686,7 +686,7 @@ msgid "Offline stop timer"
 msgstr ""
 
 #. module: project_timelog
-#: code:addons/project_timelog/models/project_timelog.py:76
+#: code:addons/project_timelog/models/project_timelog.py:94
 #, python-format
 msgid "Only manager can enter positive time."
 msgstr ""
@@ -737,7 +737,7 @@ msgid "Phone Formatting"
 msgstr ""
 
 #. module: project_timelog
-#: code:addons/project_timelog/models/project_timelog.py:304
+#: code:addons/project_timelog/models/project_timelog.py:404
 #, python-format
 msgid "Please, stop previous timer."
 msgstr ""
@@ -1106,7 +1106,7 @@ msgid "The time when you start the timer"
 msgstr ""
 
 #. module: project_timelog
-#: code:addons/project_timelog/models/project_timelog.py:375
+#: code:addons/project_timelog/models/project_timelog.py:512
 #, python-format
 msgid "The timer already has stopped."
 msgstr ""
@@ -1240,7 +1240,7 @@ msgid "URL matching those filters will be rewritten using the CDN Base URL"
 msgstr ""
 
 #. module: project_timelog
-#: code:addons/project_timelog/models/project_timelog.py:318
+#: code:addons/project_timelog/models/project_timelog.py:429
 #, python-format
 msgid "Unable to create logs until it is modified or deleted stopline."
 msgstr ""
@@ -1321,9 +1321,9 @@ msgid "Warning"
 msgstr ""
 
 #. module: project_timelog
-#: code:addons/project_timelog/models/project_timelog.py:300
-#: code:addons/project_timelog/models/project_timelog.py:368
-#: code:addons/project_timelog/models/project_timelog.py:374
+#: code:addons/project_timelog/models/project_timelog.py:399
+#: code:addons/project_timelog/models/project_timelog.py:504
+#: code:addons/project_timelog/models/project_timelog.py:512
 #, python-format
 msgid "Warning."
 msgstr ""
@@ -1359,7 +1359,7 @@ msgid "Work"
 msgstr ""
 
 #. module: project_timelog
-#: code:addons/project_timelog/models/project_timelog.py:339
+#: code:addons/project_timelog/models/project_timelog.py:462
 #, python-format
 msgid "Yesterday's timelogs."
 msgstr ""
