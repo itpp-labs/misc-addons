@@ -149,14 +149,14 @@ msgid "My"
 msgstr ""
 
 #. module: project_task_subtask
-#: code:addons/project_task_subtask/models/project_task_subtask.py:67
-#: code:addons/project_task_subtask/models/project_task_subtask.py:71
+#: code:addons/project_task_subtask/models/project_task_subtask.py:84
+#: code:addons/project_task_subtask/models/project_task_subtask.py:96
 #, python-format
 msgid "Only users related to that subtask can change state."
 msgstr ""
 
 #. module: project_task_subtask
-#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_project_id_4692
+#: model:ir.model.fields,field_description:project_task_subtask.field_project_task_subtask_project_id_4696
 #: model:ir.ui.view,arch_db:project_task_subtask.project_task_subtask_view_search
 msgid "Project"
 msgstr ""
