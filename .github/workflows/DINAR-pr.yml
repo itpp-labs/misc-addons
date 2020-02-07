@@ -67,7 +67,26 @@ jobs:
               git -C pr-files checkout FETCH_HEAD
               docker-compose pull
               export MODULES=${{ env.PR_UPDATED_MODULES_INSTALLABLE }}
-              docker-compose up
-
-          > Sent by [DINAR :construction_worker_man:](https://github.com/itpp-labs/DINAR) via `.github/workflows/DINAR-pr.yml`
           EOF
+
+          if [ "${{ github.event.pull_request.base.ref }}" == "10.0" ]; then
+          cat << 'EOF'
+
+              # workaround for odoo 10.0
+              docker-compose up -d odoo
+              docker-compose exec odoo click-odoo -i
+              # EXEC:
+              # env['ir.module.module'].update_list()
+              # env.cr.commit()
+              # exit()
+              docker-compose stop odoo
+
+          EOF
+
+          fi
+
+          cat << 'EOF'
+              docker-compose up
+          EOF
+          # TODO: post this message when Github guys make access to post message in PR
+          #> Sent by [DINAR :construction_worker_man:](https://github.com/itpp-labs/DINAR) via `.github/workflows/DINAR-pr.yml`
