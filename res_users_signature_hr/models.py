@@ -1,9 +1,8 @@
-from openerp import api
-from openerp import models
+from openerp import api, models
 
 
 class HrEmployee(models.Model):
-    _inherit = 'hr.employee'
+    _inherit = "hr.employee"
 
     @api.multi
     def write(self, vals):

@@ -1,11 +1,18 @@
-from openerp import api
-from openerp import models
+from openerp import api, models
 
 
 class ResPartnerPhone(models.Model):
-    _inherit = 'res.partner'
+    _inherit = "res.partner"
 
-    @api.depends('is_company', 'name', 'parent_id.name', 'type', 'company_name', 'mobile', 'phone')
+    @api.depends(
+        "is_company",
+        "name",
+        "parent_id.name",
+        "type",
+        "company_name",
+        "mobile",
+        "phone",
+    )
     def _compute_display_name(self):
         return super(ResPartnerPhone, self)._compute_display_name()
 
@@ -15,7 +22,7 @@ class ResPartnerPhone(models.Model):
         records = self.browse(list(result.keys()))
         for r in records:
             if r.mobile:
-                result[r.id] += ' (' + r.mobile + ')'
+                result[r.id] += " (" + r.mobile + ")"
             if r.phone:
-                result[r.id] += ' (' + r.phone + ')'
+                result[r.id] += " (" + r.phone + ")"
         return list(result.items())

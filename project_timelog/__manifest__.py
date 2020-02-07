@@ -5,17 +5,12 @@
     "images": ["images/timelog.png"],
     "version": "10.0.1.0.0",
     "application": False,
-
     "author": "IT-Projects LLC, Dinar Gabbasov",
     "website": "https://twitter.com/gabbasov_dinar",
     "license": "LGPL-3",
     "price": 390.00,
     "currency": "EUR",
-
-    "depends": [
-        "hr_timesheet",
-        "base_automation",
-    ],
+    "depends": ["hr_timesheet", "base_automation"],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
         "security/ir.model.access.csv",
@@ -25,15 +20,11 @@
         "data/project_timelog_data.xml",
         "data/pre_install.yml",
     ],
-    "qweb": [
-    ],
-    "demo": [
-    ],
-
+    "qweb": [],
+    "demo": [],
     "post_load": None,
     "pre_init_hook": None,
     "post_init_hook": None,
-
     "auto_install": False,
     "installable": False,  # https://github.com/it-projects-llc/misc-addons/issues/818
 }

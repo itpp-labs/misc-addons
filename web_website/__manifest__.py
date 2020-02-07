@@ -8,19 +8,13 @@
     "images": [],
     "version": "11.0.3.0.4",
     "application": False,
-
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info/team/yelizariev",
     "license": "LGPL-3",
     "price": 30.00,
     "currency": "EUR",
-
-    "depends": [
-        "web",
-        "website",
-        "base_setup",
-    ],
+    "depends": ["web", "website", "base_setup"],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
         "security/security.xml",
@@ -30,19 +24,12 @@
         "views/ir_property_views.xml",
         "views/assets.xml",
     ],
-    "demo": [
-        "demo/assets_demo.xml",
-        "demo/res_users_demo.xml",
-    ],
-    "qweb": [
-        "static/src/xml/qweb.xml",
-    ],
-
+    "demo": ["demo/assets_demo.xml", "demo/res_users_demo.xml"],
+    "qweb": ["static/src/xml/qweb.xml"],
     "post_load": None,
     "pre_init_hook": None,
     "post_init_hook": "post_init_hook",
     "uninstall_hook": None,
-
     "auto_install": False,
     "installable": True,
 }

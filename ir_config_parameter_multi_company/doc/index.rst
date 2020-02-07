@@ -34,7 +34,7 @@ Usage
 
 * Set new value for the System Parameter record
 * Switch back to previous company
-* RESULT: Value of the System Parameter depends on current company 
+* RESULT: Value of the System Parameter depends on current company
 
 Default values
 --------------
@@ -72,7 +72,7 @@ All system parameters created before module installation (as well as just create
   * **param2** = *value22* (value for companyB)
   * **param3** = *value3* (via default value)
 
-For understanding how multi-website values work see Documentation of `web_website <https://apps.odoo.com/apps/modules/10.0/web_website/>`__ 
+For understanding how multi-website values work see Documentation of `web_website <https://apps.odoo.com/apps/modules/10.0/web_website/>`__
 
 Company Properties
 ------------------
@@ -102,11 +102,11 @@ Reseting value for all companies
 
   * Go to ``[[ Settings ]] >> Technical >> Parameters >> System Parameters``
   * Open the Parameter you need
-  * Check url of the page. It contains id value. In example below id is 3 
-    
+  * Check url of the page. It contains id value. In example below id is 3
+
         /web?debug#id=3&view_type=form&model=ir.config_parameter&menu_id=25&action=9
 * Select all values in the group except defaul one. Click ``[Action] -> Delete``. Don't do anything if you have default value only.
-* Open default value and change the value if needed 
+* Open default value and change the value if needed
 * Go to ``[[ Settings ]] >> Technical >> Parameters >> System Parameters``
 * Check that the value for each company is reset and it matches the default value.
 
@@ -127,4 +127,3 @@ those values are ones you need.
 * Uninstall the module at another page
 * Return back to page with importing
 * Click ``[Import]``
-
