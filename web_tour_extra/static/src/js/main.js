@@ -25,8 +25,7 @@ odoo.define('web_tour_extra.Tour', function (require) {
             window.location.hash = window.location.hash.replace(RegExp("&?/?#tutorial[^=]*=true"), "");
             Tour.log("Tour '" + state.id + "' Begin from url hash");
             Tour.saveState(state.id, state.mode, state.step_id, 0, state.log);
-        }
-        else if (!state.id && window.location.href.indexOf("#tutorial.") > -1) {
+        } else if (!state.id && window.location.href.indexOf("#tutorial.") > -1) {
             state = {
                 "id": window.location.href.match(/#tutorial\.(.*)=true/)[1],
                 "mode": "tutorial",
@@ -47,8 +46,8 @@ odoo.define('web_tour_extra.Tour', function (require) {
     var super_closePopover = Tour.closePopover;
     Tour.closePopover = function () {
         if (Tour.$element) {
-            Tour.$element.data('bs.popover', false)
+            Tour.$element.data('bs.popover', false);
         }
-        super_closePopover.call(this)
+        super_closePopover.call(this);
     };
 });
