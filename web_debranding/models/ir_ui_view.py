@@ -71,7 +71,7 @@ class View(models.Model):
             try:
                 view.write({"arch": arch})
                 view._check_xml()
-            except:
+            except Exception:
                 _logger.warning(
                     "Cannot update view %s. Delete it.", name, exc_info=True
                 )
@@ -93,7 +93,7 @@ class View(models.Model):
                     }
                 )
                 view._check_xml()
-        except:
+        except Exception:
             _logger.debug("Cannot create view %s. Cancel.", name, exc_info=True)
             return
         self.env["ir.model.data"].create(
