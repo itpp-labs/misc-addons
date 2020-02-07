@@ -29,5 +29,5 @@
     "license": "AGPL-3",
     "demo": [],
     "data": ["security/ir.model.access.csv", "product_view.xml"],
-    "installable": False,
+    "installable": True,
 }
