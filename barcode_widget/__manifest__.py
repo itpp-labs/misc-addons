@@ -16,6 +16,5 @@
     "test": [],
     "demo": [],
     "installable": False,
-    "active": False,
     "application": True,
 }
