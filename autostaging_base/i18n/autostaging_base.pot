@@ -53,7 +53,7 @@ msgid "Days left"
 msgstr ""
 
 #. module: autostaging_base
-#: code:addons/autostaging_base/models.py:42
+#: code:addons/autostaging_base/models.py:43
 #, python-format
 msgid "Days limit field value must be greater than 0"
 msgstr ""
