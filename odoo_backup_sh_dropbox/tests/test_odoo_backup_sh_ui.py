@@ -2,8 +2,7 @@
 # Copyright 2019 Eugene Molotov <https://it-projects.info/team/molotov>
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo.addons.odoo_backup_sh.tests.test_odoo_backup_sh_ui import \
-    TestUi as BaseTestUi
+from odoo.addons.odoo_backup_sh.tests.test_odoo_backup_sh_ui import TestUi as BaseTestUi
 
 
 class TestUi(BaseTestUi):

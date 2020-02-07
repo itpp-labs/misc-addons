@@ -4,8 +4,8 @@ import json
 import logging
 
 from odoo import api, models
-from odoo.addons.odoo_backup_sh.models.odoo_backup_sh import \
-    ModuleNotConfigured
+
+from odoo.addons.odoo_backup_sh.models.odoo_backup_sh import ModuleNotConfigured
 
 _logger = logging.getLogger(__name__)
 

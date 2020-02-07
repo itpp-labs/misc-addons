@@ -12,21 +12,26 @@ import tempfile
 from contextlib import closing
 from datetime import datetime, timedelta
 
-import jinja2
 import odoo
-import requests
-import werkzeug
 from odoo import _, exceptions, fields, http
-from odoo.addons import web
-from odoo.addons.web.controllers.main import DBNAME_PATTERN
 from odoo.exceptions import UserError
 from odoo.http import request
 from odoo.release import version_info
 from odoo.service import db
 from odoo.sql_db import db_connect
-from odoo.tools import (DEFAULT_SERVER_DATE_FORMAT,
-                        DEFAULT_SERVER_DATETIME_FORMAT, config)
+from odoo.tools import (
+    DEFAULT_SERVER_DATE_FORMAT,
+    DEFAULT_SERVER_DATETIME_FORMAT,
+    config,
+)
 from odoo.tools.misc import str2bool
+
+from odoo.addons import web
+from odoo.addons.web.controllers.main import DBNAME_PATTERN
+
+import jinja2
+import requests
+import werkzeug
 
 try:
     import boto3

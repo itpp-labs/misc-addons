@@ -10,16 +10,19 @@ import tempfile
 from datetime import datetime, timedelta
 
 import odoo
-import requests
-from dateutil.relativedelta import relativedelta
 from odoo import api, fields, models
 from odoo.exceptions import AccessError, UserError
-from odoo.tools import (DEFAULT_SERVER_DATE_FORMAT,
-                        DEFAULT_SERVER_DATETIME_FORMAT)
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
 from odoo.tools.translate import _
 
-from ..controllers.main import (BACKUP_SERVICE_ENDPOINT, BackupCloudStorage,
-                                BackupController)
+import requests
+from dateutil.relativedelta import relativedelta
+
+from ..controllers.main import (
+    BACKUP_SERVICE_ENDPOINT,
+    BackupCloudStorage,
+    BackupController,
+)
 
 try:
     import configparser as ConfigParser

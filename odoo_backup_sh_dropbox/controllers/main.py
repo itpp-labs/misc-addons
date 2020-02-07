@@ -4,9 +4,10 @@
 from datetime import datetime, timedelta
 
 from odoo import fields, http
-from odoo.addons.odoo_backup_sh.controllers.main import BackupController
 from odoo.http import request
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
+
+from odoo.addons.odoo_backup_sh.controllers.main import BackupController
 
 
 class NewBackupController(BackupController):

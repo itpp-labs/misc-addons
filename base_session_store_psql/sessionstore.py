@@ -21,9 +21,10 @@
 import pickle
 from contextlib import closing
 
-import psycopg2
 from odoo.sql_db import db_connect
 from odoo.tools import config
+
+import psycopg2
 from werkzeug.contrib.sessions import SessionStore
 
 

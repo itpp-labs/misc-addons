@@ -6,14 +6,15 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.utils import COMMASPACE, formatdate, make_msgid
 
-from odoo import api
-from odoo import fields as old_fields
-from odoo import models, tools
-from odoo.addons.base.ir.ir_mail_server import (encode_header,
-                                                encode_header_param,
-                                                encode_rfc2822_address_header)
+from odoo import api, fields as old_fields, models, tools
 from odoo.loglevels import ustr
 from odoo.tools import html2text
+
+from odoo.addons.base.ir.ir_mail_server import (
+    encode_header,
+    encode_header_param,
+    encode_rfc2822_address_header,
+)
 
 try:
     from odoo.addons.email_template.email_template import mako_template_env

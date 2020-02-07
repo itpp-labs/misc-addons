@@ -4,6 +4,7 @@
 import logging
 
 from odoo import api, fields, models
+
 from odoo.addons.base.res.ir_property import TYPE2FIELD
 
 _logger = logging.getLogger(__name__)

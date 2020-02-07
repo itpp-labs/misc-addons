@@ -7,10 +7,14 @@ import tempfile
 from datetime import datetime
 
 from odoo import api, fields, models
-from odoo.addons.odoo_backup_sh.models.odoo_backup_sh import (
-    ModuleNotConfigured, compute_backup_filename, compute_backup_info_filename,
-    get_backup_by_id)
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
+
+from odoo.addons.odoo_backup_sh.models.odoo_backup_sh import (
+    ModuleNotConfigured,
+    compute_backup_filename,
+    compute_backup_info_filename,
+    get_backup_by_id,
+)
 
 try:
     from dropbox.files import UploadSessionCursor

@@ -1,7 +1,8 @@
 import base64
 
-import requests
 from odoo import api, models
+
+import requests
 
 
 class IrAttachment(models.Model):

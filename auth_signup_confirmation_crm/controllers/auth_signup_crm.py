@@ -1,7 +1,9 @@
 from odoo import http
-from odoo.addons.auth_signup_confirmation.controllers.auth_signup_confirmation import \
-    AuthConfirm
 from odoo.http import request
+
+from odoo.addons.auth_signup_confirmation.controllers.auth_signup_confirmation import (
+    AuthConfirm,
+)
 
 
 class AuthLead(AuthConfirm):

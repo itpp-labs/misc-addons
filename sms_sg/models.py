@@ -1,5 +1,6 @@
-import requests
 from odoo import api, fields, models
+
+import requests
 
 
 class SendAndLog(models.Model):

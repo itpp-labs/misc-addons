@@ -12,10 +12,11 @@ import io
 
 import odoo
 from odoo import http
-from odoo.addons.web.controllers import main as controllers_main
-from odoo.addons.web.controllers.main import Binary, WebClient
 from odoo.http import request
 from odoo.modules import get_module_resource
+
+from odoo.addons.web.controllers import main as controllers_main
+from odoo.addons.web.controllers.main import Binary, WebClient
 
 from ..models.ir_translation import debrand, debrand_bytes
 
