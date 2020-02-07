@@ -20,7 +20,6 @@ except ImportError as err:
     logging.getLogger(__name__).debug(err)
 
 
-
 _logger = logging.getLogger(__name__)
 GOOGLE_DRIVE_STORAGE = "google_drive"
 

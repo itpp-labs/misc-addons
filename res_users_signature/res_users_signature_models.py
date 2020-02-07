@@ -9,8 +9,9 @@ from email.utils import COMMASPACE, formatdate, make_msgid
 from odoo import api
 from odoo import fields as old_fields
 from odoo import models, tools
-from odoo.addons.base.ir.ir_mail_server import (
-    encode_header, encode_header_param, encode_rfc2822_address_header)
+from odoo.addons.base.ir.ir_mail_server import (encode_header,
+                                                encode_header_param,
+                                                encode_rfc2822_address_header)
 from odoo.loglevels import ustr
 from odoo.tools import html2text
 

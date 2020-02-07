@@ -11,7 +11,6 @@ except ImportError:
     from mock import patch
 
 
-
 @at_install(True)
 @post_install(True)
 class TestUi(HttpCase):

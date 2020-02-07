@@ -1,8 +1,7 @@
 import datetime
 
 from odoo import api, fields, models
-from odoo.addons.bus.models.bus_presence import (AWAY_TIMER,
-                                                    DISCONNECTION_TIMER)
+from odoo.addons.bus.models.bus_presence import AWAY_TIMER, DISCONNECTION_TIMER
 from odoo.exceptions import Warning as UserError
 from odoo.tools.translate import _
 
@@ -170,9 +169,7 @@ class Task(models.Model):
                 }
                 message = {"status": "stopline", "time": time}
                 channel = '["{}","{}","{}"]'.format(
-                    self._cr.dbname,
-                    "project.timelog",
-                    u.id,
+                    self._cr.dbname, "project.timelog", u.id
                 )
                 notifications.append([channel, message])
                 self.env["bus.bus"].sendmany(notifications)
@@ -277,9 +274,7 @@ class Users(models.Model):
             WHERE user_id IN %s""",
             ("%s seconds" % DISCONNECTION_TIMER, "%s seconds" % AWAY_TIMER, tuple(ids)),
         )
-        res = {
-            status["id"]: status["status"] for status in self.env.cr.dictfetchall()
-        }
+        res = {status["id"]: status["status"] for status in self.env.cr.dictfetchall()}
         if operator == "=":
             value_ids = [vid for vid in ids if res.get(id, "offline") == value]
         return [("id", "in", value_ids)]
@@ -517,9 +512,7 @@ class AccountAnalyticLine(models.Model):
             "timelog_id": last_timelog.id,
         }
         channel = '["{}","{}","{}"]'.format(
-            self._cr.dbname,
-            "project.timelog",
-            self.env.user.id,
+            self._cr.dbname, "project.timelog", self.env.user.id
         )
         notifications.append([channel, message])
         self.env["bus.bus"].sendmany(notifications)
@@ -565,9 +558,7 @@ class AccountAnalyticLine(models.Model):
                 "stopline": stopline,
             }
             channel = '["{}","{}","{}"]'.format(
-                r._cr.dbname,
-                "project.timelog",
-                r.env.user.id,
+                r._cr.dbname, "project.timelog", r.env.user.id
             )
             notifications.append([channel, message])
             r.env["bus.bus"].sendmany(notifications)

@@ -171,8 +171,7 @@ class HrPartner(models.Model):
             default_compute = self._fields[column_name].default
 
             query = 'SELECT id FROM "{}" WHERE "{}" is NULL'.format(
-                self._table,
-                column_name,
+                self._table, column_name
             )
             self.env.cr.execute(query)
             partner_ids = self.env.cr.fetchall()
@@ -181,8 +180,6 @@ class HrPartner(models.Model):
                 default_value = default_compute(self)
 
                 query = 'UPDATE "{}" SET "{}"=%s WHERE id = {}'.format(
-                    self._table,
-                    column_name,
-                    partner_id[0],
+                    self._table, column_name, partner_id[0]
                 )
                 self.env.cr.execute(query, (default_value,))

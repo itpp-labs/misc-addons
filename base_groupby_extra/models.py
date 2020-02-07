@@ -24,12 +24,10 @@ class GroupByExtra(models.AbstractModel):
             # END New stuff
             if tz_convert:
                 qualified_field = "timezone('{}', timezone('UTC',{}))".format(
-                    self._context.get("tz", "UTC"),
-                    qualified_field,
+                    self._context.get("tz", "UTC"), qualified_field
                 )
             qualified_field = "date_trunc('{}', {})".format(
-                gb_function or "month",
-                qualified_field,
+                gb_function or "month", qualified_field
             )
             res = {
                 "field": split[0],

@@ -40,7 +40,9 @@ class WebsiteDependentMixin(models.AbstractModel):
         domain = Prop._get_domain(field_name, self._name)
 
         # find all props
-        props = Prop.search(domain + [("res_id", "=", "{},{}".format(self._name, self.id))])
+        props = Prop.search(
+            domain + [("res_id", "=", "{},{}".format(self._name, self.id))]
+        )
 
         field = self._get_field_object(field_name)
 
@@ -95,7 +97,9 @@ class WebsiteDependentMixin(models.AbstractModel):
                 value = None
 
         self.env.cr.execute(
-            "UPDATE {} SET {}=%s WHERE id = {}".format(self._table, field.name, self.id),
+            "UPDATE {} SET {}=%s WHERE id = {}".format(
+                self._table, field.name, self.id
+            ),
             (value,),
         )
 
