@@ -29,7 +29,7 @@ var SwitchWebsiteMenu = Widget.extend({
     },
     start: function() {
         var self = this;
-        var all_websites_text =  _t('All Websites');
+        var all_websites_text = _t('All Websites');
         var topbar = self.$('.oe_topbar_name');
         var current_website = session.user_websites.current_website;
 
@@ -38,8 +38,7 @@ var SwitchWebsiteMenu = Widget.extend({
         if (this.isMobile) {
             websites_list = '<li class="bg-info">' +
                 _t('Tap on the list to change website') + '</li>';
-        }
-        else if (current_website){
+        } else if (current_website){
             self.$('.oe_topbar_name').text(current_website[1]);
         } else {
             self.$('.oe_topbar_name').html('<em>' + all_websites_text + '</em>');
@@ -68,7 +67,7 @@ var SwitchWebsiteMenu = Widget.extend({
     //--------------------------------------------------------------------------
     _onClick: function (ev) {
         ev.preventDefault();
-        var website_id = $(ev.currentTarget).data('website-id') || false;  // write method ignores undefinded
+        var website_id = $(ev.currentTarget).data('website-id') || false; // write method ignores undefinded
         this._rpc({
             model: 'res.users',
             method: 'write',

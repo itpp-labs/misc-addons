@@ -19,7 +19,7 @@ odoo.define('base_import_map.map', function (require) {
                 {name: 'settings', label: _lt("Settings:"), value: ''},
                 {name: 'save_settings', label: _lt("Save settings:"), value: ''},
                 {name: 'file_read_hook', label: _lt("File read hook:"), value: ''}
-            ])
+            ]);
             this._super.apply(this, arguments);
         },
         start: function() {
