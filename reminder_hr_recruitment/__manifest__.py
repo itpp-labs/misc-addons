@@ -1,6 +1,6 @@
 {
     "name": "Reminders and Agenda for Job Applications",
-    "version": "1.0.0",
+    "vesion": "12.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev, Pavel Romanchenko",
     "license": "LGPL-3",
     "category": "Reminders and Agenda",

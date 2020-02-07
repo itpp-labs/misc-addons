@@ -1,6 +1,6 @@
 {
     "name": "Product Category Taxes",
-    "version": "1.0.0",
+    "vesion": "12.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "summary": "Adding taxes into product category",
     "license": "LGPL-3",

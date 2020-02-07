@@ -4,7 +4,7 @@
     "author": "IT-Projects LLC, Ilmir Karamov",
     "license": "LGPL-3",
     "website": "https://it-projects.info",
-    "version": "1.1.0",
+    "vesion": "12.0.1.1.0",
     "price": 15.00,
     "currency": "EUR",
     "category": "Project",
