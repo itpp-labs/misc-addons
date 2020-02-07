@@ -76,7 +76,7 @@ jobs:
         # Registry credentials. External registry potentially can be customized here
         echo "::set-env name=REGISTRY::docker.pkg.github.com"
         echo "::set-env name=REGISTRY_USERNAME::${{ github.actor }}"
-        echo "::set-env name=REGISTRY_PASSWORD::${{ secrets.GITHUB_TOKEN }}"
+        echo "::set-env name=REGISTRY_PASSWORD::${{ secrets.DINAR_TOKEN }}"
     - name: Handle Dependencies
       uses: elgohr/Publish-Docker-Github-Action@master
       env:
