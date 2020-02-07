@@ -523,7 +523,9 @@ class BackupController(http.Controller):
         version = "{}.{}".format(version_info[0], version_info[1])
         for m_name in EXTRA_MODULES.keys():
             modules[m_name] = {
-                "url": "https://apps.odoo.com/apps/modules/{}/{}/".format(version, m_name)
+                "url": "https://apps.odoo.com/apps/modules/{}/{}/".format(
+                    version, m_name
+                )
             }
 
         modules_search = request.env["ir.module.module"].search(

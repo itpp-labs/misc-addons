@@ -1,10 +1,11 @@
 from datetime import date, datetime, timedelta
 
 import pytz
+from pytz import timezone
+
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
-from pytz import timezone
 
 
 def format_tz(datetime_str, tz, dtf):

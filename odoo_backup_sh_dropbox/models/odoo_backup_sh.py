@@ -27,7 +27,6 @@ except ImportError as err:
     logging.getLogger(__name__).debug(err)
 
 
-
 CHUNK_SIZE = 4 * 1024 * 1024
 
 _logger = logging.getLogger(__name__)
