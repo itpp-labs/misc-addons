@@ -103,7 +103,7 @@ msgid "Add new database in the dashboard."
 msgstr ""
 
 #. module: odoo_backup_sh
-#: code:addons/odoo_backup_sh/controllers/main.py:405
+#: code:addons/odoo_backup_sh/controllers/main.py:564
 #, python-format
 msgid "Amazon Web Services error: ErrorMessage"
 msgstr ""
@@ -202,7 +202,7 @@ msgid "Backup count"
 msgstr ""
 
 #. module: odoo_backup_sh
-#: code:addons/odoo_backup_sh/models/odoo_backup_sh.py:61
+#: code:addons/odoo_backup_sh/models/odoo_backup_sh.py:69
 #, python-format
 msgid "Backup not found: %s"
 msgstr ""
@@ -331,7 +331,7 @@ msgid "Created on"
 msgstr ""
 
 #. module: odoo_backup_sh
-#: code:addons/odoo_backup_sh/models/odoo_backup_sh.py:711
+#: code:addons/odoo_backup_sh/models/odoo_backup_sh.py:899
 #, python-format
 msgid "Current user is not in Backup manager group"
 msgstr ""
@@ -486,13 +486,13 @@ msgid "Extra backups to Google Drive"
 msgstr ""
 
 #. module: odoo_backup_sh
-#: code:addons/odoo_backup_sh/models/odoo_backup_sh.py:567
+#: code:addons/odoo_backup_sh/models/odoo_backup_sh.py:736
 #, python-format
 msgid "Failed to create backup: %s"
 msgstr ""
 
 #. module: odoo_backup_sh
-#: code:addons/odoo_backup_sh/models/odoo_backup_sh.py:292
+#: code:addons/odoo_backup_sh/models/odoo_backup_sh.py:415
 #, python-format
 msgid "Failed to load backups: %s"
 msgstr ""
@@ -976,7 +976,7 @@ msgid "Size"
 msgstr ""
 
 #. module: odoo_backup_sh
-#: code:addons/odoo_backup_sh/models/odoo_backup_sh.py:845
+#: code:addons/odoo_backup_sh/models/odoo_backup_sh.py:1081
 #, python-format
 msgid "Something went wrong. Please update backup dashboard page."
 msgstr ""
@@ -1001,7 +1001,7 @@ msgid "The application helps you easily manage your databases:"
 msgstr ""
 
 #. module: odoo_backup_sh
-#: code:addons/odoo_backup_sh/controllers/main.py:244
+#: code:addons/odoo_backup_sh/controllers/main.py:319
 #, python-format
 msgid "The backup are encrypted. But encryption password is not found. Please check your module settings."
 msgstr ""
@@ -1072,7 +1072,7 @@ msgid "Type of server action. The following values are available:\n"
 msgstr ""
 
 #. module: odoo_backup_sh
-#: code:addons/odoo_backup_sh/models/odoo_backup_sh.py:719
+#: code:addons/odoo_backup_sh/models/odoo_backup_sh.py:908
 #, python-format
 msgid "Unknown storage service: %s"
 msgstr ""
@@ -1235,14 +1235,14 @@ msgid "Yearly limit"
 msgstr ""
 
 #. module: odoo_backup_sh
-#: code:addons/odoo_backup_sh/models/odoo_backup_sh.py:186
+#: code:addons/odoo_backup_sh/models/odoo_backup_sh.py:284
 #: model:ir.ui.view,arch_db:odoo_backup_sh.odoo_backup_sh_config_form
 #, python-format
 msgid "You cannot save the settings where all rotation options are disabled."
 msgstr ""
 
 #. module: odoo_backup_sh
-#: code:addons/odoo_backup_sh/controllers/main.py:136
+#: code:addons/odoo_backup_sh/controllers/main.py:159
 #, python-format
 msgid "You don't have credentials to access to cloud storage. Please go to the backup dashboard menu"
 msgstr ""
