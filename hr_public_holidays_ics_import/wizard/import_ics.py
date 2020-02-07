@@ -3,9 +3,9 @@ import logging
 import re
 from datetime import timedelta
 
-from openerp import api, fields, models
-from openerp.exceptions import Warning
-from openerp.tools import DEFAULT_SERVER_DATE_FORMAT as DF
+from odoo import api, fields, models
+from odoo.exceptions import Warning
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 
 _logger = logging.getLogger(__name__)
 try:

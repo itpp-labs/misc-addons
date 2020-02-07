@@ -1,6 +1,6 @@
 import logging
 
-from openerp.tests.common import HttpCase
+from odoo.tests.common import HttpCase
 
 _logger = logging.getLogger(__name__)
 
