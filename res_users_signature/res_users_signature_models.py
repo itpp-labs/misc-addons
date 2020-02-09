@@ -6,7 +6,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.utils import COMMASPACE, formatdate, make_msgid
 
-from odoo import api, models, tools
+from odoo import api, fields, models, tools
 from odoo.loglevels import ustr
 from odoo.tools import html2text
 
@@ -34,7 +34,7 @@ class ResUsers(models.Model):
         help="Keep empty to edit signature manually",
     )
 
-        'signature': old_fields.Html('Signature', sanitize=False)
+    signature = fields.Html("Signature", sanitize=False)
 
     @api.one
     @api.onchange("signature_id")
@@ -209,7 +209,7 @@ class IrMailServer(models.Model):
             msg["Bcc"] = encode_rfc2822_address_header(COMMASPACE.join(email_bcc))
         msg["Date"] = formatdate()
         # Custom headers may override normal headers or provide additional ones
-        for key, value in headers.iteritems():
+        for key, value in headers.items():
             msg[ustr(key).encode("utf-8")] = encode_header(value)
 
         if subtype == "html" and not body_alternative and html2text:
