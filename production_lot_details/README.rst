@@ -28,8 +28,8 @@ Maintainers
       Thank you for understanding!
 
       `IT-Projects Team <https://www.it-projects.info/team>`__
-	  
-	  This module is not maintained since Odoo 12.0
+
+        This module is not maintained since Odoo 12.0
 
 Further information
 ===================
