@@ -9,14 +9,14 @@ import os
 import tempfile
 from datetime import datetime, timedelta
 
+import requests
+from dateutil.relativedelta import relativedelta
+
 import odoo
 from odoo import api, fields, models
 from odoo.exceptions import AccessError, UserError
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
 from odoo.tools.translate import _
-
-import requests
-from dateutil.relativedelta import relativedelta
 
 from ..controllers.main import (
     BACKUP_SERVICE_ENDPOINT,

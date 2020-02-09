@@ -1,6 +1,6 @@
-from odoo import api, fields, models
-
 import requests
+
+from odoo import api, fields, models
 
 
 class SendAndLog(models.Model):
