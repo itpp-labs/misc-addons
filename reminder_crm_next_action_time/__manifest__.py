@@ -3,7 +3,7 @@
     "summary": """Reminders for opportunities with the precise time feature""",
     "category": "Reminders and Agenda",
     "images": [],
-    "version": "10.0.1.0.1",
+    "version": "11.0.1.0.1",
     "application": False,
     "author": "IT-Projects LLC, Dinar Gabbasov",
     "support": "apps@it-projects.info",
