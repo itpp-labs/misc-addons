@@ -3,6 +3,7 @@ odoo.define('project_timelog.timelog', function(require){
     var bus = require('bus.bus');
     var session = require('web.session');
     var Widget = require('web.Widget');
+    var Model = require('web.Model');
     var WebClient = require('web.WebClient');
     var core = require('web.core');
     var _t = core._t;
