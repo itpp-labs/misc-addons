@@ -1,3 +1,4 @@
+# pylint: disable=sql-injection
 import hmac
 from hashlib import sha256
 
