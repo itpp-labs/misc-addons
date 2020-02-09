@@ -1,3 +1,4 @@
+# pylint: disable=redefined-builtin
 import base64
 
 import werkzeug.utils
