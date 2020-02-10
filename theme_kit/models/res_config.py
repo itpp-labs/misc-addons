@@ -95,11 +95,11 @@ class Config(models.TransientModel):
         ICPSudo.set_param(
             "theme_kit.current_favicon_id", getattr(self, "favicon_id").id or ""
         )
-        ICPSudo.set_param("web_debranding.new_title", getattr(self, "page_title") or "")
-        ICPSudo.set_param("web_debranding.new_name", getattr(self, "system_name") or "")
+        ICPSudo.set_param("web_debranding.new_title", self.page_title or "")
+        ICPSudo.set_param("web_debranding.new_name", self.system_name or "")
         ICPSudo.set_param(
             "web_debranding.new_documentation_website",
-            getattr(self, "new_documentation_website") or "",
+            self.new_documentation_website or "",
         )
 
         # set company logo
