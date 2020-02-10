@@ -48,15 +48,15 @@ var SwitchWebsiteMenu = Widget.extend({
         websites.unshift(false);
         _.each(websites, function(website) {
             var a = '';
-            if (!website && !current_website || website[0] === session.user_websites.current_website[0]) {
+            if ((!website && !current_website) || website[0] === session.user_websites.current_website[0]) {
                 a = '<i class="fa fa-check mr8"></i>';
             } else {
                 a = '<span class="o_company"/>';
             }
-            if (!website){
-                websites_list += '<a href="#" class="dropdown-item all_websites" data-menu="website">' + a + '<em>' + all_websites_text + '</em></a>';
-            } else {
+            if (website){
                 websites_list += '<a href="#" class="dropdown-item" data-menu="website" data-website-id="' + website[0] + '">' + a + website[1] + '</a>';
+            } else {
+                websites_list += '<a href="#" class="dropdown-item all_websites" data-menu="website">' + a + '<em>' + all_websites_text + '</em></a>';
             }
         });
         self.$('.dropdown-menu').html(websites_list);
@@ -67,7 +67,8 @@ var SwitchWebsiteMenu = Widget.extend({
     //--------------------------------------------------------------------------
     _onClick: function (ev) {
         ev.preventDefault();
-        var website_id = $(ev.currentTarget).data('website-id') || false; // write method ignores undefinded
+        // write method ignores undefinded
+        var website_id = $(ev.currentTarget).data('website-id') || false;
         this._rpc({
             model: 'res.users',
             method: 'write',
