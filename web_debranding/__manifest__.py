@@ -7,7 +7,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 {
     "name": "Backend debranding",
-    "version": "12.0.1.0.29",
+    "version": "13.0.1.0.29",
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "license": "LGPL-3",
     "category": "Debranding",
