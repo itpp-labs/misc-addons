@@ -4,7 +4,7 @@
 {
     "name": "Signature templates for user emails",
     "external_dependencies": {"python": ["bs4", "html2text"]},
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "license": "LGPL-3",
     "category": "Social Network",
