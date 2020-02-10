@@ -1,5 +1,6 @@
 # Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+# pylint: disable=sql-injection
 import logging
 
 from odoo import api, models
@@ -25,7 +26,7 @@ class WebsiteDependentMixin(models.AbstractModel):
         return label
 
     def _update_properties_label(self, field_name):
-        for r in self:
+        for _r in self:
             domain = self.env["ir.property"]._get_domain(field_name, self._name)
             domain += [("res_id", "=", "{},{}".format(self._name, self.id))]
             for prop in self.env["ir.property"].search(domain):

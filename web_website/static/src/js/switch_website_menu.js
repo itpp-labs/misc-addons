@@ -21,7 +21,8 @@ var SwitchWebsiteMenu = Widget.extend({
         var self = this;
         this.$el.on('click', '.dropdown-menu li a[data-menu]', _.debounce(function(ev) {
             ev.preventDefault();
-            var website_id = $(ev.currentTarget).data('website-id') || false; // write method ignores undefinded
+            // write method ignores undefinded
+            var website_id = $(ev.currentTarget).data('website-id') || false;
             self._rpc({
                     model: 'res.users',
                     method: 'write',
@@ -47,15 +48,15 @@ self.$('.oe_topbar_name').html('<em>' + all_websites_text + '</em>');
         websites.unshift(false);
         _.each(websites, function(website) {
             var a = '';
-            if (!website && !current_website || website[0] === session.user_websites.current_website[0]) {
+            if ((!website && !current_website) || website[0] === session.user_websites.current_website[0]) {
                 a = '<i class="fa fa-check o_current_company"></i>';
             } else {
                 a = '<span class="o_company"/>';
             }
-            if (!website){
-                websites_list += '<li><a href="#" class="all_websites" data-menu="website">' + a + '<em>' + all_websites_text + '</em></a></li>';
-            } else {
+            if (website){
                 websites_list += '<li><a href="#" data-menu="website" data-website-id="' + website[0] + '">' + a + website[1] + '</a></li>';
+            } else {
+                websites_list += '<li><a href="#" class="all_websites" data-menu="website">' + a + '<em>' + all_websites_text + '</em></a></li>';
             }
         });
         self.$('.dropdown-menu').html(websites_list);

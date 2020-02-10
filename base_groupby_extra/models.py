@@ -1,7 +1,7 @@
-from odoo import api, models
-
 import dateutil
 import pytz
+
+from odoo import api, models
 
 
 class GroupByExtra(models.AbstractModel):

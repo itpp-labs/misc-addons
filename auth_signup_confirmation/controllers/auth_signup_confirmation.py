@@ -1,9 +1,9 @@
+import werkzeug
+
 from odoo import http
 from odoo.http import request
 
 from odoo.addons.auth_signup.controllers.main import AuthSignupHome
-
-import werkzeug
 
 
 class SignupDenied(Exception):

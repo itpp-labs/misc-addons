@@ -1,9 +1,9 @@
 import base64
 import logging
 
-from odoo import api, models
-
 import psycopg2
+
+from odoo import api, models
 
 logger = logging.getLogger(__name__)
 

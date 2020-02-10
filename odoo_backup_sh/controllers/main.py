@@ -12,6 +12,10 @@ import tempfile
 from contextlib import closing
 from datetime import datetime, timedelta
 
+import jinja2
+import requests
+import werkzeug
+
 import odoo
 from odoo import _, exceptions, fields, http
 from odoo.exceptions import UserError
@@ -28,10 +32,6 @@ from odoo.tools.misc import str2bool
 
 from odoo.addons import web
 from odoo.addons.web.controllers.main import DBNAME_PATTERN
-
-import jinja2
-import requests
-import werkzeug
 
 try:
     import boto3
