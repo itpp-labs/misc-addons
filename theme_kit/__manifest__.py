@@ -7,7 +7,7 @@
     "category": "Debranding",
     # "live_test_url": "http://apps.it-projects.info/shop/product/theme-kit?version=11.0",
     "images": ["images/brandkit.png"],
-    "version": "11.0.1.1.2",
+    "version": "12.0.1.1.2",
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "website": "https://it-projects.info",
