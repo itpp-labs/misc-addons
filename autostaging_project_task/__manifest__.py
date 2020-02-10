@@ -8,7 +8,7 @@
     "category": "Project",
     # "live_test_url": "http://apps.it-projects.info/shop/product/DEMO-URL?version=11.0",
     "images": ["images/a.png"],
-    "version": "12.0.1.0.1",
+    "version": "13.0.1.0.1",
     "application": False,
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "support": "apps@it-projects.info",
