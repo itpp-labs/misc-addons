@@ -26,53 +26,22 @@ jobs:
     - uses: actions/setup-python@v1
       with:
         python-version: '3.7.x'
-    - name: Check for initial version of editable files
-      run: |
-        set -x
-        mkdir -p REPO/.DINAR/image/dependencies/
-        # pip.txt
-        cp -n REPO/requirements.txt REPO/.DINAR/image/dependencies/pip.txt || true
-
-        # check if oca_dependencies file is not converted to addons.yaml yet
-        ADDONS_YAML=REPO/.DINAR/image/src/addons.yaml
-        REPOS_YAML=REPO/.DINAR/image/src/repos.yaml
-        RUN_OCA2CONFIGS=$(test -e REPO/oca_dependencies.txt && test ! -e $ADDONS_YAML && echo "yes" || true)
-
-        # other files
-        cp -rnT DINAR/editable-files/ REPO/
-
-        # make addons.yaml from oca_dependencies.txt
-        test "$RUN_OCA2CONFIGS" = "yes" && python DINAR/workflow-files/oca_dependencies2configs.py REPO/oca_dependencies.txt $ADDONS_YAML $REPOS_YAML || true
-    - run: |
-        # TODO: move this to the commit action
-        echo ${GITHUB_REF}
-        BRANCH="${GITHUB_REF:11}"
-        echo "::set-env name=BRANCH::$BRANCH"
-    - name: Commit changes
-      uses: stefanzweifel/git-auto-commit-action@master
-      with:
-        #author_name: Marc Demo (Github Actions)
-        #author_email: i18n-bot@it-projects.info
-        branch: ${{ env.BRANCH }}
-        commit_message: |
-          :construction_worker_man: Update Editable DINAR files
-
-          Pushed from .github/workflows/DINAR.yml
-        repository: REPO
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Prepare build folder
       run: |
         cp -rnT DINAR/embedded-files/ REPO/
 
-    - name: Compute ODOO_VERSION
+    - name: Set vars
       run: |
         REF="${{ github.ref }}"
         BRANCH=${REF##*/}
+        REPOSITORY="${{ github.repository }}"
+        REPO_NAME=${REPOSITORY##*/}
+        IMAGE_CODE=$REPO_NAME:$BRANCH
         ODOO_VERSION="$(echo $BRANCH | python DINAR/workflow-files/branch2odoo_version.py)"
         echo "ODOO_VERSION=$ODOO_VERSION"
         echo "::set-env name=ODOO_VERSION::$ODOO_VERSION"
-        echo "::set-env name=IMAGE_ODOO_BASE::${{ github.repository	}}/dinar-dependencies:$BRANCH"
+        echo "::set-env name=IMAGE_ODOO_BASE::${{ github.repository	}}/dinar-deps-$IMAGE_CODE"
+        echo "::set-env name=IMAGE_CODE::$IMAGE_CODE"
         # Registry credentials. External registry potentially can be customized here
         echo "::set-env name=REGISTRY::docker.pkg.github.com"
         echo "::set-env name=REGISTRY_USERNAME::${{ github.actor }}"
@@ -107,11 +76,11 @@ jobs:
         export REPOSITORY=${{ github.repository	}}
 
         export DOODBA_WITHOUT_DEMO=all
-        export IMAGE_DB=${{ github.repository	}}/dinar-db:$ODOO_VERSION-nodemo
-        export IMAGE_ODOO=${{ github.repository	}}/dinar-odoo:$ODOO_VERSION-nodemo
+        export IMAGE_DB=${{ github.repository	}}/dinar-db-nodemo-$IMAGE_CODE
+        export IMAGE_ODOO=${{ github.repository	}}/dinar-odoo-nodemo-$IMAGE_CODE
         bash DINAR/workflow-files/images-with-preinstalled-modules.sh
 
         export DOODBA_WITHOUT_DEMO=false
-        export IMAGE_DB=${{ github.repository	}}/dinar-db:$ODOO_VERSION
-        export IMAGE_ODOO=${{ github.repository	}}/dinar-odoo:$ODOO_VERSION
+        export IMAGE_DB=${{ github.repository	}}/dinar-db-$IMAGE_CODE
+        export IMAGE_ODOO=${{ github.repository	}}/dinar-odoo-$IMAGE_CODE
         bash DINAR/workflow-files/images-with-preinstalled-modules.sh
