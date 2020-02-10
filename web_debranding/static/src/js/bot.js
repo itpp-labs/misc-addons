@@ -29,10 +29,10 @@ odoo.define('web_debranding.bot', function (require) {
         getPreviews: function (filter) {
             var previews = this._super.apply(this, arguments);
             previews.map(function(preview) {
-                if (preview.title == _t("OdooBot has a request")) {
+                if (preview.title === _t("OdooBot has a request")) {
                     preview.title = _t("Bot has a request");
                 }
-                if (preview.imageSRC == "/mail/static/src/img/odoobot.png") {
+                if (preview.imageSRC === "/mail/static/src/img/odoobot.png") {
                     preview.imageSRC = '/web/binary/company_logo?company_id=' + session.company_id;
                 }
                 return preview;
