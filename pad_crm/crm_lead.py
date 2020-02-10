@@ -4,7 +4,7 @@
 from odoo import fields, models
 
 
-class lead(models.Model):
+class Lead(models.Model):
     _name = "crm.lead"
     _inherit = ["crm.lead", "pad.common"]
     description = fields.Text("Notes", track_visibility=False)
