@@ -5,7 +5,7 @@ Maintainers
 -----------
 * `IT-Projects LLC <https://it-projects.info>`__
 
-	  This module is not maintained since Odoo 12.0
+      This module is not maintained since Odoo 12.0
 
 Description: https://apps.odoo.com/apps/modules/8.0/reminder_task_deadline/
 

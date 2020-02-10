@@ -3,7 +3,7 @@
     "summary": """Allows you to create reminders for tasks.""",
     "category": "Reminders and Agenda",
     # "live_test_url": "",
-    "version": "11.0.1.0.0",
+    "version": "12.0.1.0.0",
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev, Pavel Romanchenko",
     "support": "apps@it-projects.info",
