@@ -28,7 +28,7 @@ odoo.define('media_form_widget', function(require) {
             this.media_id = model + this.record.res_id;
 
             var application_mimetype = false;
-            if (this.media && this.value && (!this.media_type || this.media_type && this.media_type.split("/")[0] === 'application')) {
+            if ((this.media && this.value) && (!this.media_type || (this.media_type && this.media_type.split("/")[0] === 'application'))) {
                 application_mimetype = true;
             }
             if (this.media && (this.media_type === 'video/url' || application_mimetype || this.media_type === 'application/msword')) {
