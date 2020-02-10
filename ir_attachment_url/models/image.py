@@ -12,7 +12,7 @@ SIZES_MAP = {"image_small": (64, 64), "image_medium": (128, 128), "image": (1024
 # commit above refactored image tools
 # need to rewrite everything
 # super_image_resize_images = tools.image_resize_images
-super_image_resize_image = None
+super_image_resize_images = None
 
 
 def updated_image_resize_images(
@@ -65,7 +65,7 @@ def updated_image_resize_image(
     )
     if is_url(source_for_check):
         return source_for_check
-    return super_image_resize_image(
+    return super_image_resize_images(
         base64_source,
         size=size,
         encoding=encoding,
