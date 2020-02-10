@@ -18,7 +18,7 @@
 #
 {
     "name": "Web Polymorphic Field",
-    "version": "0.2",
+    "version": "12.0.1.0.2",
     "category": "Web",
     "depends": ["web"],
     "author": "Augustin Cisterne-Kaas",
