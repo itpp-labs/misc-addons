@@ -1,7 +1,5 @@
 odoo.define("project_timelog.tour", function(require) {
     "use strict";
-
-    var core = require("web.core");
     var tour = require("web_tour.tour");
 
     tour.register(
