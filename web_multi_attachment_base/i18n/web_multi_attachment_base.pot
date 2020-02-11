@@ -22,14 +22,14 @@ msgstr ""
 
 #. module: web_multi_attachment_base
 #. openerp-web
-#: code:addons/web_multi_attachment_base/static/src/js/kanban_view.js:22
+#: code:addons/web_multi_attachment_base/static/src/js/kanban_view.js:20
 #, python-format
 msgid "The type of the field '%s' must be a one2many or many2many field."
 msgstr ""
 
 #. module: web_multi_attachment_base
 #. openerp-web
-#: code:addons/web_multi_attachment_base/static/src/js/kanban_view.js:44
+#: code:addons/web_multi_attachment_base/static/src/js/kanban_view.js:42
 #, python-format
 msgid "Uploading Error"
 msgstr ""
