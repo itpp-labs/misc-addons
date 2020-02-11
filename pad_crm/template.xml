@@ -1,13 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
     License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).-->
 <odoo>
         <template
-                id="assets_backend"
-                name="pad_crm_assets_backend"
-                inherit_id="web.assets_backend">
+        id="assets_backend"
+        name="pad_crm_assets_backend"
+        inherit_id="web.assets_backend"
+    >
             <xpath expr="." position="inside">
-                <link rel="stylesheet" href="/pad_crm/static/src/css/pad_crm.css"/>
+                <link rel="stylesheet" href="/pad_crm/static/src/css/pad_crm.css" />
             </xpath>
         </template>
 </odoo>

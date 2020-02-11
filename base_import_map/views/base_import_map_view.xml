@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
         <record model="ir.ui.view" id="base_import_map_form">
@@ -8,13 +8,13 @@
                 <form>
                     <sheet>
                         <group>
-                            <field name="name" string="Name"/>
+                            <field name="name" string="Name" />
                             <field name="file_read_hook" />
-                            <field name="model_id" string="Model"/>
+                            <field name="model_id" string="Model" />
                             <field name="line_ids" string="Lines">
                                 <tree editable="bottom">
-                                    <field name="column_number"/>
-                                    <field name="field_name"/>
+                                    <field name="column_number" />
+                                    <field name="field_name" />
                                 </tree>
                             </field>
                         </group>
@@ -28,8 +28,8 @@
             <field name="model">base_import_map.map</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="name" string="Name"/>
-                    <field name="model_id" string="Model"/>
+                    <field name="name" string="Name" />
+                    <field name="model_id" string="Model" />
                 </tree>
             </field>
         </record>
@@ -39,10 +39,15 @@
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">base_import_map.map</field>
             <field name="view_type">form</field>
-            <field name="view_id" ref="base_import_map.base_import_map_tree"/>
+            <field name="view_id" ref="base_import_map.base_import_map_tree" />
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem id="menu_user_interface" name="Import Settings" parent="base.next_id_2" action="action_base_import_map"/>
+        <menuitem
+        id="menu_user_interface"
+        name="Import Settings"
+        parent="base.next_id_2"
+        action="action_base_import_map"
+    />
 
 </odoo>

@@ -1,11 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). -->
 <odoo>
-    <template id="assets_backend" name="Project timelog assets" inherit_id="web.assets_backend">
+    <template
+        id="assets_backend"
+        name="Project timelog assets"
+        inherit_id="web.assets_backend"
+    >
         <xpath expr="." position="inside">
-            <link rel="stylesheet" type="text/less" href="/project_task_subtask/static/src/css/kanban_styles.css"/>
-            <script type="text/javascript" src="/project_task_subtask/static/src/js/one2many_renderer.js"></script>
+            <link
+                rel="stylesheet"
+                type="text/less"
+                href="/project_task_subtask/static/src/css/kanban_styles.css"
+            />
+            <script
+                type="text/javascript"
+                src="/project_task_subtask/static/src/js/one2many_renderer.js"
+            />
         </xpath>
     </template>
 </odoo>

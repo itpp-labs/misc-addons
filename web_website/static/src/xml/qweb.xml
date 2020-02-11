@@ -1,14 +1,23 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <!-- Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
      License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). -->
 <templates id="template" xml:space="preserve">
 
 <t t-name="SwitchWebsiteMenu">
     <li class="o_switch_website_menu">
-        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#" aria-label="Dropdown menu" title="Dropdown menu">
-            <span t-attf-class="#{widget.isMobile ? 'fa fa-building-o' : 'oe_topbar_name'}"/>
+        <a
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                aria-expanded="false"
+                href="#"
+                aria-label="Dropdown menu"
+                title="Dropdown menu"
+            >
+            <span
+                    t-attf-class="#{widget.isMobile ? 'fa fa-building-o' : 'oe_topbar_name'}"
+                />
         </a>
-        <div class="dropdown-menu dropdown-menu-right" role="menu"/>
+        <div class="dropdown-menu dropdown-menu-right" role="menu" />
     </li>
 </t>
 

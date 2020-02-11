@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2016 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
      License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). -->
 <odoo>
@@ -7,9 +7,11 @@
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">ir.attachment</field>
             <field name="view_type">form</field>
-            <field name="view_id" eval="False"/>
-            <field name="search_view_id" ref="base.view_attachment_search"/>
-            <field name="context">{"default_use_as_background": 1, "default_public": 1, "default_name": "Wallpaper"}}}}</field>
+            <field name="view_id" eval="False" />
+            <field name="search_view_id" ref="base.view_attachment_search" />
+            <field
+            name="context"
+        >{"default_use_as_background": 1, "default_public": 1, "default_name": "Wallpaper"}}}}</field>
             <field name="domain">[('use_as_background', '=', True)]</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">

@@ -4,26 +4,24 @@
     Copyright 2017 ArtyomLosev <https://github.com/ArtyomLosev>
     Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
     License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html). */
-odoo.define('res_partner_skype.widget', function (require) {
-'use strict';
+odoo.define("res_partner_skype.widget", function(require) {
+    "use strict";
 
+    var fieldRegistry = require("web.field_registry");
+    var basicFields = require("web.basic_fields");
+    var FieldEmail = basicFields.FieldEmail;
 
-var fieldRegistry = require('web.field_registry');
-var basicFields = require('web.basic_fields');
-var FieldEmail = basicFields.FieldEmail;
+    var FieldSkype = FieldEmail.extend({
+        description: "skype",
+        prefix: "skype",
 
+        _renderReadonly: function() {
+            this.$el
+                .text(this.value)
+                .addClass("o_form_uri o_text_overflow")
+                .attr("href", this.prefix + ":" + this.value + "?call");
+        },
+    });
 
-var FieldSkype = FieldEmail.extend({
-    description: "skype",
-    prefix: 'skype',
-
-    _renderReadonly: function() {
-        this.$el.text(this.value)
-            .addClass('o_form_uri o_text_overflow')
-            .attr('href', this.prefix + ':' + this.value + '?call');
-    },
-});
-
-fieldRegistry.add('skype', FieldSkype);
-
+    fieldRegistry.add("skype", FieldSkype);
 });
