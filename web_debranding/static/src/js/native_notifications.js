@@ -9,7 +9,6 @@ odoo.define("web_debranding.native_notifications", function(require) {
     var utils = require("mail.utils");
     var bus = require("bus.bus").bus;
 
-
     var _send_native_notification = function(title, content) {
         var notification = new Notification(title, {
             body: content,

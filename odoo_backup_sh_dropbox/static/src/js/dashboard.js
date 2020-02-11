@@ -5,7 +5,7 @@ odoo.define("odoo_backup_sh_dropbox.dashboard", function(require) {
     "use strict";
 
     var Dashboard = require("odoo_backup_sh.dashboard");
-    
+
     Dashboard.include({
         click_group_buttons: function(e) {
             var $el = $(e.target);

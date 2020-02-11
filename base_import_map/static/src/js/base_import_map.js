@@ -1,7 +1,6 @@
 odoo.define("base_import_map.map", function(require) {
     "use strict";
 
-
     var BaseImport = require("base_import.import");
     var core = require("web.core");
 

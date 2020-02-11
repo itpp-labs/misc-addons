@@ -1,7 +1,6 @@
 odoo.define("ir_attachment_url", function(require) {
     "use strict";
 
-    
     var core = require("web.core");
     var QWeb = core.qweb;
     var FieldBinaryImage = require("web.field_registry").get("image");

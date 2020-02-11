@@ -2,7 +2,6 @@
 odoo.define("media_form_widget", function(require) {
     "use strict";
 
-    
     var core = require("web.core");
     var KanbanRecord = require("web.KanbanRecord");
     var session = require("web.session");
@@ -22,7 +21,6 @@ odoo.define("media_form_widget", function(require) {
             return res;
         },
         _render: function() {
-
             // Unique ID for popup
             var model = this.record.model.split(".").join("");
             this.media_id = model + this.record.res_id;
