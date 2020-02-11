@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--Copyright 2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
     Copyright 2017 Karamov Ilmir <https://it-projects.info/team/ilmir-k>
     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). -->
@@ -6,17 +6,21 @@
     <record id="subtasks_subtype" model="mail.message.subtype">
       <field name="name">All checklist updates</field>
       <field name="res_model">project.task</field>
-      <field name="description">Subscribe to checklist updates of other users. By default you are notified on checklist items to and from you only.</field>
-      <field name="default" eval="False"/>
+      <field
+            name="description"
+        >Subscribe to checklist updates of other users. By default you are notified on checklist items to and from you only.</field>
+      <field name="default" eval="False" />
     </record>
 
     <record id="all_subtask_subtype" model="mail.message.subtype">
     <field name="name">All checklist updates</field>
-    <field name="description">Subscribe to checklist updates of other users. By default you are notified on checklist items to and from you only.</field>
+    <field
+            name="description"
+        >Subscribe to checklist updates of other users. By default you are notified on checklist items to and from you only.</field>
     <field name="sequence">10</field>
     <field name="res_model">project.project</field>
-    <field name="parent_id" eval="ref('subtasks_subtype')"/>
+    <field name="parent_id" eval="ref('subtasks_subtype')" />
     <field name="relation_field">project_id</field>
-    <field name="default" eval="True"/>
+    <field name="default" eval="True" />
     </record>
 </odoo>

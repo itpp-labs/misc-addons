@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--Copyright 2014 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
     Copyright 2016 x620 <https://github.com/x620>
     Copyright 2017 Ilmir Karamov <https://it-projects.info/team/ilmir-k>
@@ -9,11 +9,11 @@
         <record id="view_partner_form_skype" model="ir.ui.view">
           <field name="name">res.partner.form.skype</field>
           <field name="model">res.partner</field>
-          <field name="inherit_id" ref="base.view_partner_form"/>
+          <field name="inherit_id" ref="base.view_partner_form" />
           <field name="arch" type="xml">
                 <data>
                   <xpath expr="//field[@name='email']" position="after">
-                    <field name="skype" widget="skype"/>
+                    <field name="skype" widget="skype" />
                   </xpath>
                 </data>
              </field>
