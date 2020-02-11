@@ -1,11 +1,10 @@
 odoo.define("base_import_map.map", function(require) {
     "use strict";
 
-    var ControlPanelMixin = require("web.ControlPanelMixin");
+
     var BaseImport = require("base_import.import");
     var core = require("web.core");
 
-    var QWeb = core.qweb;
     var _lt = core._lt;
     var _t = core._t;
 
@@ -23,7 +22,6 @@ odoo.define("base_import_map.map", function(require) {
             this._super.apply(this, arguments);
         },
         start: function() {
-            var self = this;
             this.setup_settings_picker();
             this._super();
         },
