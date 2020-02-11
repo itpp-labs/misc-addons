@@ -36,7 +36,7 @@ msgstr ""
 
 #. module: ir_attachment_url
 #. openerp-web
-#: code:addons/ir_attachment_url/static/src/js/ir_attachment_url.js:66
+#: code:addons/ir_attachment_url/static/src/js/ir_attachment_url.js:67
 #, python-format
 msgid "Could not display the selected image."
 msgstr ""
@@ -68,14 +68,14 @@ msgstr ""
 
 #. module: ir_attachment_url
 #. openerp-web
-#: code:addons/ir_attachment_url/static/src/js/ir_attachment_url.js:66
+#: code:addons/ir_attachment_url/static/src/js/ir_attachment_url.js:67
 #, python-format
 msgid "Image"
 msgstr ""
 
 #. module: ir_attachment_url
 #. openerp-web
-#: code:addons/ir_attachment_url/static/src/xml/ir_attachment_url.xml:12
+#: code:addons/ir_attachment_url/static/src/xml/ir_attachment_url.xml:18
 #, python-format
 msgid "Image URL"
 msgstr ""
