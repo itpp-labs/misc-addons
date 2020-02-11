@@ -12,7 +12,6 @@ odoo.define("base_attendance.kiosk_mode", function(require) {
     var BarcodeHandlerMixin = require("barcodes.BarcodeHandlerMixin");
 
     var QWeb = core.qweb;
-    var _t = core._t;
 
     var KioskMode = Widget.extend(BarcodeHandlerMixin, {
         events: {
@@ -24,9 +23,8 @@ odoo.define("base_attendance.kiosk_mode", function(require) {
         init: function(parent, action) {
             // Note: BarcodeHandlerMixin.init calls this._super.init, so there's no need to do it here.
             // Yet, "_super" must be present in a function for the class mechanism to replace it with the actual parent method.
-            // We added a local variable for this._super in order to fix the nextLINT error
-            // "Expected an assignment or function call and instead saw an expression. [Error/no-unused-expressions]"
-            var init_super = this._super;
+            /* eslint-disable no-unused-expressions */
+            this._super;
 
             action.target = "fullscreen";
             var hex_scanner_is_used = action.context.hex_scanner_is_used;
