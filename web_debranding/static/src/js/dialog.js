@@ -3,11 +3,8 @@
    Copyright 2017 Gabbasov Dinar <https://it-projects.info/team/GabbasovDinar>
    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).*/
 odoo.define("web_debranding.dialog", function(require) {
+    "use strict";
     require("web_debranding.base");
-    var core = require("web.core");
-    var QWeb = core.qweb;
-    var session = require("web.session");
-    var _t = core._t;
 
     var Dialog = require("web.Dialog");
     Dialog.include({
