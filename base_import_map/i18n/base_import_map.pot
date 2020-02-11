@@ -110,8 +110,8 @@ msgstr ""
 
 #. module: base_import_map
 #. openerp-web
-#: code:addons/base_import_map/static/src/js/base_import_map.js:46
-#: code:addons/base_import_map/static/src/js/base_import_map.js:57
+#: code:addons/base_import_map/static/src/js/base_import_map.js:43
+#: code:addons/base_import_map/static/src/js/base_import_map.js:54
 #, python-format
 msgid "None"
 msgstr ""
