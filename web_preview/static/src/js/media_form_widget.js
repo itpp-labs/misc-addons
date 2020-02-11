@@ -20,7 +20,6 @@ odoo.define("media_form_widget", function(require) {
             return res;
         },
         _render: function() {
-
             // Unique ID for popup
             var model = this.record.model.split(".").join("");
             this.media_id = model + this.record.res_id;

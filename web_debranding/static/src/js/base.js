@@ -5,7 +5,6 @@ odoo.define("web_debranding.base", function(require) {
     "use strict";
     var WebClient = require("web.WebClient");
 
-
     WebClient.include({
         init: function(parent) {
             this._super.apply(this, arguments);
