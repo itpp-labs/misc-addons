@@ -38,8 +38,8 @@ msgstr ""
 
 #. module: odoo_backup_sh_google_disk
 #. openerp-web
-#: code:addons/odoo_backup_sh_google_disk/static/src/xml/dashboard.xml:10
-#: code:addons/odoo_backup_sh_google_disk/static/src/xml/dashboard.xml:16
+#: code:addons/odoo_backup_sh_google_disk/static/src/xml/dashboard.xml:14
+#: code:addons/odoo_backup_sh_google_disk/static/src/xml/dashboard.xml:20
 #, python-format
 msgid "Google Drive"
 msgstr ""
