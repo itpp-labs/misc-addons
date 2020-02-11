@@ -15,7 +15,7 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/js/dashboard.js:179
+#: code:addons/odoo_backup_sh/static/src/js/dashboard.js:200
 #, python-format
 msgid "%s remote storage usage"
 msgstr ""
@@ -27,7 +27,7 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:137
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:191
 #, python-format
 msgid "&times;"
 msgstr ""
@@ -85,7 +85,7 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:15
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:20
 #, python-format
 msgid "Add Database"
 msgstr ""
@@ -97,7 +97,7 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:12
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:17
 #, python-format
 msgid "Add new database in the dashboard."
 msgstr ""
@@ -115,7 +115,7 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:107
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:152
 #, python-format
 msgid "Auto/manual backup, auto rotation, remote storage for your backups, detailed statistics, etc."
 msgstr ""
@@ -191,7 +191,7 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:169
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:244
 #, python-format
 msgid "Backup Storage Type"
 msgstr ""
@@ -257,14 +257,14 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:116
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:161
 #, python-format
 msgid "Choose storage for backups"
 msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:103
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:148
 #, python-format
 msgid "Click to add a new Database"
 msgstr ""
@@ -276,21 +276,21 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:57
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:82
 #, python-format
 msgid "Configure Dropbox"
 msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:64
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:94
 #, python-format
 msgid "Configure Google Drive"
 msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:33
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:43
 #, python-format
 msgid "Configure S3"
 msgstr ""
@@ -360,7 +360,7 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:157
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:225
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_odoo_backup_sh_backup_info_database
 #, python-format
 msgid "Database Name"
@@ -419,7 +419,7 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/js/dashboard.js:175
+#: code:addons/odoo_backup_sh/static/src/js/dashboard.js:196
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_ir_attachment_config_settings_module_odoo_backup_sh_dropbox
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_res_config_settings_module_odoo_backup_sh_dropbox
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_test_config_settings_module_odoo_backup_sh_dropbox
@@ -433,7 +433,7 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:166
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:238
 #, python-format
 msgid "Edit Backup Config"
 msgstr ""
@@ -461,7 +461,7 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:188
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:266
 #, python-format
 msgid "Error:"
 msgstr ""
@@ -473,14 +473,14 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:87
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:127
 #, python-format
 msgid "Extra backups to Dropbox"
 msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:92
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:137
 #, python-format
 msgid "Extra backups to Google Drive"
 msgstr ""
@@ -499,7 +499,7 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:125
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:172
 #, python-format
 msgid "Finish configuration"
 msgstr ""
@@ -519,14 +519,14 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:80
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:115
 #, python-format
 msgid "Go to Balance"
 msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/js/dashboard.js:177
+#: code:addons/odoo_backup_sh/static/src/js/dashboard.js:198
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_ir_attachment_config_settings_module_odoo_backup_sh_google_disk
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_res_config_settings_module_odoo_backup_sh_google_disk
 #: model:ir.model.fields,field_description:odoo_backup_sh.field_test_config_settings_module_odoo_backup_sh_google_disk
@@ -611,16 +611,16 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:43
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:85
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:58
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:125
 #, python-format
 msgid "Install module to save backups to your Dropbox"
 msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:48
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:90
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:68
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:135
 #, python-format
 msgid "Install module to save backups to your Google Drive"
 msgstr ""
@@ -692,7 +692,7 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:176
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:254
 #, python-format
 msgid "Make backup now"
 msgstr ""
@@ -861,7 +861,7 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:179
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:257
 #, python-format
 msgid "Remotely stored backups"
 msgstr ""
@@ -878,9 +878,9 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/js/dashboard.js:173
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:145
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:170
+#: code:addons/odoo_backup_sh/static/src/js/dashboard.js:194
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:207
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:245
 #: selection:odoo_backup_sh.backup_info,storage_service:0
 #: selection:odoo_backup_sh.config,storage_service:0
 #, python-format
@@ -942,7 +942,7 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:31
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:41
 #, python-format
 msgid "Set S3 credentials"
 msgstr ""
@@ -954,7 +954,7 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:162
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:231
 #, python-format
 msgid "Setting have not been set!"
 msgstr ""
@@ -995,7 +995,7 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:106
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:151
 #, python-format
 msgid "The application helps you easily manage your databases:"
 msgstr ""
@@ -1008,7 +1008,7 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:161
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:230
 #, python-format
 msgid "The current configuration with scheduled auto backups had not activated."
 msgstr ""
@@ -1045,7 +1045,7 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:144
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:202
 #, python-format
 msgid "Total"
 msgstr ""
@@ -1125,7 +1125,7 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:78
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:113
 #, python-format
 msgid "Up to the balance."
 msgstr ""
@@ -1143,7 +1143,7 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:45
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:60
 #, python-format
 msgid "Use Dropbox"
 msgstr ""
@@ -1159,7 +1159,7 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:50
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:70
 #, python-format
 msgid "Use Google Drive"
 msgstr ""
@@ -1185,15 +1185,15 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/js/tour.js:20
-#: code:addons/odoo_backup_sh/static/src/js/tour.js:25
+#: code:addons/odoo_backup_sh/static/src/js/tour.js:22
+#: code:addons/odoo_backup_sh/static/src/js/tour.js:30
 #, python-format
 msgid "Want a better way to <b>manage your databases backups</b>? <i>It starts here.</i>"
 msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:160
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:228
 #, python-format
 msgid "Warning"
 msgstr ""
@@ -1264,8 +1264,8 @@ msgstr ""
 
 #. module: odoo_backup_sh
 #. openerp-web
-#: code:addons/odoo_backup_sh/static/src/js/dashboard.js:170
-#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:142
+#: code:addons/odoo_backup_sh/static/src/js/dashboard.js:191
+#: code:addons/odoo_backup_sh/static/src/xml/dashboard.xml:196
 #, python-format
 msgid "total remote storage usage"
 msgstr ""
