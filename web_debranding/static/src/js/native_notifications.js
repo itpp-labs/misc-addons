@@ -3,11 +3,8 @@ odoo.define("web_debranding.native_notifications", function(require) {
 
     require("web_debranding.base");
     var session = require("web.session");
-    var core = require("web.core");
     var utils = require("mail.utils");
     var bus = require("bus.bus").bus;
-
-    var _t = core._t;
 
     var _send_native_notification = function(title, content) {
         var notification = new Notification(title, {
@@ -26,15 +23,16 @@ odoo.define("web_debranding.native_notifications", function(require) {
 
     var send_notification_super = utils.send_notification;
     utils.send_notification = function(title, content) {
+        var fixed_content = content;
         if (title === "Permission granted") {
-            content = content.replace(/Odoo/gi, odoo.debranding_new_name);
+            fixed_content = fixed_content.replace(/Odoo/gi, odoo.debranding_new_name);
         }
         if (Notification && Notification.permission === "granted") {
             if (bus.is_master) {
-                _send_native_notification(title, content);
+                _send_native_notification(title, fixed_content);
             }
         } else {
-            send_notification_super(title, content);
+            send_notification_super(title, fixed_content);
         }
     };
 });
