@@ -17,6 +17,7 @@
  *
  ******************************************************************************/
 odoo.define("web_polymorphic_field.FieldPolymorphic", function(require) {
+    "use strict";
     var core = require("web.core");
 
     var FieldSelection = core.form_widget_registry.get("selection");
