@@ -5,6 +5,6 @@
         <record id="administrator" model="res.groups">
             <field name="name">Signature administrator</field>
             <field name="comment">the user will have access to edit signatures</field>
-            <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+            <field name="users" eval="[(4, ref('base.user_admin'))]" />
         </record>
 </odoo>

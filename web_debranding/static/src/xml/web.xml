@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!--Copyright 2015-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
     Copyright 2016 Stanislav Krotov <https://it-projects.info/team/ufaks>
     Copyright 2016 Gabbasov Dinar <https://it-projects.info/team/GabbasovDinar>
@@ -13,21 +13,31 @@
     <t t-extend="AppSwitcher.Content">
       <t t-jquery=".o_application_switcher_footer" t-operation="replace">
           <div class="o_app_switcher_footer">
-              <img src="/web/binary/company_logo"></img>
+              <img src="/web/binary/company_logo" />
           </div>
       </t>
     </t>
 
     <t t-extend="UserMenu.Actions">
-        <t t-jquery="a[data-menu='documentation']" t-operation="replace"></t>
-        <t t-jquery="a[data-menu='support']" t-operation="replace"></t>
-        <t t-jquery="a[data-menu='account']" t-operation="replace"></t>
+        <t t-jquery="a[data-menu='documentation']" t-operation="replace" />
+        <t t-jquery="a[data-menu='support']" t-operation="replace" />
+        <t t-jquery="a[data-menu='account']" t-operation="replace" />
         <t t-jquery="a[data-menu='settings']" t-operation="after">
-            <a class="dropdown-item" href="?debug" data-menu="debug" role="menuitem">Developer mode</a>
-            <a class="dropdown-item" href="?debug=assets" data-menu="debugassets" role="menuitem"><em>Developer mode<br/> (with assets)</em></a>
+            <a
+                class="dropdown-item"
+                href="?debug"
+                data-menu="debug"
+                role="menuitem"
+            >Developer mode</a>
+            <a
+                class="dropdown-item"
+                href="?debug=assets"
+                data-menu="debugassets"
+                role="menuitem"
+            ><em>Developer mode<br /> (with assets)</em></a>
         </t>
         <!-- It leads to warning in Odoo EE in browser console, because such selector doesn't exist there -->
-        <t t-jquery="div.dropdown-divider" t-operation="replace"></t>
+        <t t-jquery="div.dropdown-divider" t-operation="replace" />
     </t>
 
 <!-- enterprise: hide database expiration panel -->

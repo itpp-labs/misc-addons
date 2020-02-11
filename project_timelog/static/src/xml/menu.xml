@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <templates id="template" xml:space="preserve">
 
     <header t-extend="Menu">
         <t t-jquery=".o_menu_systray" t-operation="after">
             <ul class="timelog oe_timelog_placeholder" style="float: right">
-                <t t-call="timelog.timer"/>
+                <t t-call="timelog.timer" />
             </ul>
         </t>
     </header>

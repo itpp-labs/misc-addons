@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2016 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
      License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). -->
 <odoo>
@@ -57,9 +57,9 @@
 
         <record model="theme_kit.theme" id="burger_king_theme">
             <field name="name">Burger King</field>
-            <field name="top_panel_id" ref="burger_king_top_panel"/>
-            <field name="left_panel_id" ref="burger_king_left_panel"/>
-            <field name="content_id" ref="burger_king_content"/>
+            <field name="top_panel_id" ref="burger_king_top_panel" />
+            <field name="left_panel_id" ref="burger_king_left_panel" />
+            <field name="content_id" ref="burger_king_content" />
         </record>
         <!--Template You Tube-->
         <record model="theme_kit.top_panel" id="you_tube_top_panel">
@@ -120,9 +120,9 @@
 
         <record model="theme_kit.theme" id="you_tube_theme">
             <field name="name">You Tube</field>
-            <field name="top_panel_id" ref="you_tube_top_panel"/>
-            <field name="left_panel_id" ref="you_tube_left_panel"/>
-            <field name="content_id" ref="you_tube_content"/>
+            <field name="top_panel_id" ref="you_tube_top_panel" />
+            <field name="left_panel_id" ref="you_tube_left_panel" />
+            <field name="content_id" ref="you_tube_content" />
         </record>
         <!--Template Coca-Cola-->
         <record model="theme_kit.top_panel" id="cola_top_panel">
@@ -183,9 +183,9 @@
 
         <record model="theme_kit.theme" id="cola_theme">
             <field name="name">Coca-Cola</field>
-            <field name="top_panel_id" ref="cola_top_panel"/>
-            <field name="left_panel_id" ref="cola_left_panel"/>
-            <field name="content_id" ref="cola_content"/>
+            <field name="top_panel_id" ref="cola_top_panel" />
+            <field name="left_panel_id" ref="cola_left_panel" />
+            <field name="content_id" ref="cola_content" />
         </record>
         <!--Template IKEA-->
         <record model="theme_kit.top_panel" id="ikea_top_panel">
@@ -246,9 +246,9 @@
 
         <record model="theme_kit.theme" id="ikea_theme">
             <field name="name">IKEA</field>
-            <field name="top_panel_id" ref="ikea_top_panel"/>
-            <field name="left_panel_id" ref="ikea_left_panel"/>
-            <field name="content_id" ref="ikea_content"/>
+            <field name="top_panel_id" ref="ikea_top_panel" />
+            <field name="left_panel_id" ref="ikea_left_panel" />
+            <field name="content_id" ref="ikea_content" />
         </record>
 
 </odoo>

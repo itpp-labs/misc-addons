@@ -21,9 +21,7 @@ class MailControllerExtended(MailController):
     def avatar(self, res_model, res_id, partner_id):
         headers = [("Content-Type", "image/png")]
         status = 200
-        content = (
-            "R0lGODlhAQABAIABAP///wAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-        )  # default image is one white pixel
+        content = "R0lGODlhAQABAIABAP///wAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="  # default image is one white pixel
         if res_model in request.env:
             try:
                 # if the current user has access to the document, get the partner avatar as sudo()

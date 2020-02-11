@@ -11,32 +11,33 @@ addons:
   postgresql: "9.5"
   apt:
     packages:
-      - expect-dev  # provides unbuffer utility
-      - python-lxml  # because pip installation is slow
+      - expect-dev # provides unbuffer utility
+      - python-lxml # because pip installation is slow
 
 env:
   global:
-  - VERSION="13.0" TESTS="0" LINT_CHECK="0" UNIT_TEST="0"
-  # * about ir_config_parameter_multi_company:
-  #
-  #   ir_config_parameter_multi_company makes field *value* at ir.config_parameter company_dependent,
-  #   but registry may not know it, if module is not loaded yet during testing. It leads to error "column value doesn't exist".
-  #   Adding the module to server-wide modules avoids this problem.
-  # * about ir_attachment_url
-  #   without running as server side module can lead to errored tests
-  - OPTIONS="--load=web,ir_attachment_url,ir_config_parameter_multi_company"
-  - PYLINT_ODOO_JSLINTRC="/home/travis/maintainer-quality-tools/travis/cfg/.jslintrc"
+    - VERSION="13.0" TESTS="0" LINT_CHECK="0" UNIT_TEST="0"
+    # * about ir_config_parameter_multi_company:
+    #
+    #   ir_config_parameter_multi_company makes field *value* at ir.config_parameter company_dependent,
+    #   but registry may not know it, if module is not loaded yet during testing. It leads to error "column value doesn't exist".
+    #   Adding the module to server-wide modules avoids this problem.
+    # * about ir_attachment_url
+    #   without running as server side module can lead to errored tests
+    - OPTIONS="--load=web,ir_attachment_url,ir_config_parameter_multi_company"
+    - PYLINT_ODOO_JSLINTRC="/home/travis/maintainer-quality-tools/travis/cfg/.jslintrc"
 
   matrix:
-  - LINT_CHECK="1"
-  - CHECK_TAGS="1"
-  - TESTS="1" ODOO_REPO="odoo/odoo"
-  - MAKEPOT="1"
-  - TESTS="1" ODOO_REPO="OCA/OCB"
+    - LINT_CHECK="1"
+    - CHECK_TAGS="1"
+    - TESTS="1" ODOO_REPO="odoo/odoo"
+    - MAKEPOT="1"
+    - TESTS="1" ODOO_REPO="OCA/OCB"
 
 install:
   - pip install anybox.testing.openerp
-  - git clone https://github.com/it-projects-llc/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
+  - git clone https://github.com/it-projects-llc/maintainer-quality-tools.git
+    ${HOME}/maintainer-quality-tools
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
 
