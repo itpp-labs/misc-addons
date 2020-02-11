@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2016 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
      Copyright 2018 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
      License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). -->
@@ -11,7 +11,7 @@
         </template>
         <template id="webclient_script" inherit_id="web.webclient_script">
             <xpath expr="." position="inside">
-                <t t-call="theme_kit.custom_css"/>
+                <t t-call="theme_kit.custom_css" />
             </xpath>
         </template>
         <template id="theme_kit.dummy">

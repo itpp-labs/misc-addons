@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <openerp>
   <data noupdate="1">
     <record id="project_task_subtask_1" model="project.task.subtask">
       <field name="name">test subtask</field>
-      <field name="user_id" eval="ref('base.user_demo')"/>
-      <field name="task_id" eval="ref('project.project_task_1')"/>
+      <field name="user_id" eval="ref('base.user_demo')" />
+      <field name="task_id" eval="ref('project.project_task_1')" />
     </record>
   </data>
 </openerp>

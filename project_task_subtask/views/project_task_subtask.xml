@@ -1,26 +1,56 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_task_form2" model="ir.ui.view">
       <field name="name">project.task.form</field>
       <field name="model">project.task</field>
-      <field name="inherit_id" ref="project.view_task_form2"/>
+      <field name="inherit_id" ref="project.view_task_form2" />
       <field name="arch" type="xml">
-        <xpath expr = "//page[1]" position = "before">
+        <xpath expr="//page[1]" position="before">
           <page string="Checklist">
-            <field name="default_user" invisible='True'/>
+            <field name="default_user" invisible='True' />
             <field name="subtask_ids" context="{'default_user_id': default_user}">
-              <tree editable="bottom" decoration-danger="recolor == True" decoration-muted="state == 'cancelled'" decoration-success="state == 'done'" decoration-info="state == 'waiting'">
-                  <field name="name"/>
-                  <field name="recolor" invisible='True'/>
-                  <field name="user_id"/>
-                  <field name="state"/>
-                  <field name="hide_button" invisible='True'/>
-                  <button name="change_state_done" string="Change state to DONE" type="object" icon="fa-check" attrs="{'invisible': ['|', ('state', 'in',['done', 'cancelled']), ('hide_button', '=', True)]}"/>
-                  <button name="change_state_todo" string="Change state to TODO" type="object" icon="fa-caret-square-o-right" attrs="{'invisible': [ '|',('state', '=', 'todo'), ('hide_button', '=', True)]}"/>
-                  <button name="change_state_waiting" type="object" string="Change state to WAITING" icon="fa-pause" attrs="{'invisible': [ '|',('state', '=', 'waiting'), ('hide_button', '=', True)]}"/>
-                  <button name="change_state_cancelled" type="object" string="Change state to CANCELLED" icon="fa-ban" attrs="{'invisible': [ '|',('state', '=', 'cancelled'), ('hide_button', '=', True)]}"/>
-                  <field name="reviewer_id"/>
-                  <field name="deadline"/>
+              <tree
+                            editable="bottom"
+                            decoration-danger="recolor == True"
+                            decoration-muted="state == 'cancelled'"
+                            decoration-success="state == 'done'"
+                            decoration-info="state == 'waiting'"
+                        >
+                  <field name="name" />
+                  <field name="recolor" invisible='True' />
+                  <field name="user_id" />
+                  <field name="state" />
+                  <field name="hide_button" invisible='True' />
+                  <button
+                                name="change_state_done"
+                                string="Change state to DONE"
+                                type="object"
+                                icon="fa-check"
+                                attrs="{'invisible': ['|', ('state', 'in',['done', 'cancelled']), ('hide_button', '=', True)]}"
+                            />
+                  <button
+                                name="change_state_todo"
+                                string="Change state to TODO"
+                                type="object"
+                                icon="fa-caret-square-o-right"
+                                attrs="{'invisible': [ '|',('state', '=', 'todo'), ('hide_button', '=', True)]}"
+                            />
+                  <button
+                                name="change_state_waiting"
+                                type="object"
+                                string="Change state to WAITING"
+                                icon="fa-pause"
+                                attrs="{'invisible': [ '|',('state', '=', 'waiting'), ('hide_button', '=', True)]}"
+                            />
+                  <button
+                                name="change_state_cancelled"
+                                type="object"
+                                string="Change state to CANCELLED"
+                                icon="fa-ban"
+                                attrs="{'invisible': [ '|',('state', '=', 'cancelled'), ('hide_button', '=', True)]}"
+                            />
+                  <field name="reviewer_id" />
+                  <field name="deadline" />
                 </tree>
             </field>
           </page>
@@ -31,15 +61,15 @@
     <record id="view_task_kanban_subtasks" model="ir.ui.view">
       <field name="name">project.task.kanban.subtasks</field>
       <field name="model">project.task</field>
-      <field name="inherit_id" ref="project.view_task_kanban"/>
+      <field name="inherit_id" ref="project.view_task_kanban" />
       <field name="arch" type="xml">
         <xpath expr="//field[@name ='tag_ids']" position="after">
-          <field name="subtask_ids"/>
-          <field name="kanban_subtasks"/>
+          <field name="subtask_ids" />
+          <field name="kanban_subtasks" />
         </xpath>
         <xpath expr="//div[@class = 'oe_kanban_content']" position="inside">
           <div>
-             <t t-raw="record.kanban_subtasks.raw_value"/>
+             <t t-raw="record.kanban_subtasks.raw_value" />
           </div>
         </xpath>
       </field>
@@ -52,10 +82,10 @@
         <form string="Subtask Message">
           <sheet>
             <group>
-              <field name="name"/>
-              <field name="user_id"/>
-              <field name="state"/>
-              <field name="task_id"/>
+              <field name="name" />
+              <field name="user_id" />
+              <field name="state" />
+              <field name="task_id" />
             </group>
           </sheet>
         </form>
@@ -67,15 +97,15 @@
       <field name="model">project.task.subtask</field>
       <field name="arch" type="xml">
         <search string="Filter">
-          <field name="name" string="Description"/>
-          <filter string="My" domain="[('user_id','=',uid)]" name="my_subtask"/>
-          <separator/>
-          <filter string="TODO" domain="[('state','=','todo')]" name="done_subtask"/>
+          <field name="name" string="Description" />
+          <filter string="My" domain="[('user_id','=',uid)]" name="my_subtask" />
+          <separator />
+          <filter string="TODO" domain="[('state','=','todo')]" name="done_subtask" />
           <group expand="0" string="Group By">
-            <filter string="Project" domain="[]" context="{'group_by':'project_id'}"/>
-            <filter string="Task" domain="[]" context="{'group_by':'task_id'}"/>
-            <filter string="User" domain="[]" context="{'group_by':'user_id'}"/>
-            <filter string="State" domain="[]" context="{'group_by':'state'}"/>
+            <filter string="Project" domain="[]" context="{'group_by':'project_id'}" />
+            <filter string="Task" domain="[]" context="{'group_by':'task_id'}" />
+            <filter string="User" domain="[]" context="{'group_by':'user_id'}" />
+            <filter string="State" domain="[]" context="{'group_by':'state'}" />
           </group>
         </search>
       </field>
@@ -86,11 +116,11 @@
       <field name="model">project.task.subtask</field>
       <field name="arch" type="xml">
         <tree>
-          <field name="name"/>
-          <field name="user_id"/>
-          <field name="reviewer_id"/>
-          <field name="task_id"/>
-          <field name="task_state"/>
+          <field name="name" />
+          <field name="user_id" />
+          <field name="reviewer_id" />
+          <field name="task_id" />
+          <field name="task_state" />
         </tree>
       </field>
     </record>
@@ -106,9 +136,11 @@
       </field>
     </record>
 
-    <menuitem name="Checklist"
-              parent="project.menu_project_management"
-              id="menu_action_view_subtask"
-              action="action_view_subtask"/>
+    <menuitem
+        name="Checklist"
+        parent="project.menu_project_management"
+        id="menu_action_view_subtask"
+        action="action_view_subtask"
+    />
 
 </odoo>

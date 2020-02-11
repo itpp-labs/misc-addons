@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <templates>
 
     <t t-extend="mail.client_action">
@@ -10,19 +10,19 @@
     <t t-extend="AppSwitcher.Content">
       <t t-jquery=".o_application_switcher_footer" t-operation="replace">
           <div class="o_app_switcher_footer">
-              <img src="/web/binary/company_logo"></img>
+              <img src="/web/binary/company_logo" />
           </div>
       </t>
     </t>
 
     <t t-extend="UserMenu">
       <!-- It supports versions before and after this commit https://github.com/odoo/odoo/commit/bcca4a44c79d94db320ffe6f8311fcbb7ff81421 -->
-        <t t-jquery="a[data-menu='documentation']" t-operation="replace"></t>
-        <t t-jquery="a[data-menu='support']" t-operation="replace"></t>
-        <t t-jquery="a[data-menu='account']" t-operation="replace"></t>
+        <t t-jquery="a[data-menu='documentation']" t-operation="replace" />
+        <t t-jquery="a[data-menu='support']" t-operation="replace" />
+        <t t-jquery="a[data-menu='account']" t-operation="replace" />
         <t t-jquery="a[data-menu='settings']" t-operation="after">
             <li><a href="?debug" data-menu="debug">Developer mode</a></li>
         </t>
-        <t t-jquery="li.divider" t-operation="replace"></t>
+        <t t-jquery="li.divider" t-operation="replace" />
     </t>
 </templates>

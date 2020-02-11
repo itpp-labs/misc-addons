@@ -1,4 +1,3 @@
--
-  !python {model: ir.config_parameter}: |
+- !python {model: ir.config_parameter}: |
     if not self.get_param("ir_attachment.location"):
       self.set_param("ir_attachment.location", "postgresql:lobject")
