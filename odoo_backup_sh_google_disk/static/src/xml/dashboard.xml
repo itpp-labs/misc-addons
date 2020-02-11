@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!--
 Copyright 2019 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
 License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
@@ -7,7 +7,11 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
     <t t-extend="odoo_backup_sh.BackupDashboardMain">
         <t t-jquery=".kanban_group_buttons" t-operation="append">
-            <button type="button" data-service="google_drive" class="btn btn-secondary btn-sm">Google Drive</button>
+            <button
+                type="button"
+                data-service="google_drive"
+                class="btn btn-secondary btn-sm"
+            >Google Drive</button>
         </t>
     </t>
 
