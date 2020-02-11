@@ -1,57 +1,95 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
         <record id="view_config_settings" model="ir.ui.view">
             <field name="name">timelog settings</field>
             <field name="model">timelog.config.settings</field>
-            <field name="priority" eval="20"/>
+            <field name="priority" eval="20" />
             <field name="arch" type="xml">
                 <form string="Configure Project" class="oe_form_configuration">
                     <header>
-                        <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                        <button
+                        string="Apply"
+                        type="object"
+                        name="execute"
+                        class="oe_highlight"
+                    />
                         or
-                        <button string="Cancel" type="object" name="cancel" class="oe_link"/>
+                        <button
+                        string="Cancel"
+                        type="object"
+                        name="cancel"
+                        class="oe_link"
+                    />
                     </header>
-                    <separator string="Timelog Management"/>
+                    <separator string="Timelog Management" />
                     <group>
-                        <label for="id" string="Subtasks"/>
+                        <label for="id" string="Subtasks" />
                         <div>
                             <div>
-                                <label for="time_warning_subtasks"/>
-                                <field name="time_warning_subtasks" class="oe_inline" widget="float_time"/>
+                                <label for="time_warning_subtasks" />
+                                <field
+                                name="time_warning_subtasks"
+                                class="oe_inline"
+                                widget="float_time"
+                            />
                             </div>
                             <div>
-                                <label for="time_subtasks"/>
-                                <field name="time_subtasks" class="oe_inline" widget="float_time"/>
+                                <label for="time_subtasks" />
+                                <field
+                                name="time_subtasks"
+                                class="oe_inline"
+                                widget="float_time"
+                            />
                             </div>
                         </div>
                     </group>
                     <group>
-                        <label for="id" string="Day"/>
+                        <label for="id" string="Day" />
                         <div>
                             <div>
-                                <label for="normal_time_day"/>
-                                <field name="normal_time_day" class="oe_inline" widget="float_time"/>
+                                <label for="normal_time_day" />
+                                <field
+                                name="normal_time_day"
+                                class="oe_inline"
+                                widget="float_time"
+                            />
                             </div>
                             <div>
-                                <label for="good_time_day"/>
-                                <field name="good_time_day" class="oe_inline" widget="float_time"/>
+                                <label for="good_time_day" />
+                                <field
+                                name="good_time_day"
+                                class="oe_inline"
+                                widget="float_time"
+                            />
                             </div>
                         </div>
                     </group>
                     <group>
-                        <label for="id" string="Week"/>
+                        <label for="id" string="Week" />
                         <div>
                             <div>
-                                <label for="normal_time_week"/>
-                                <field name="normal_time_week" class="oe_inline" widget="float_time"/>
+                                <label for="normal_time_week" />
+                                <field
+                                name="normal_time_week"
+                                class="oe_inline"
+                                widget="float_time"
+                            />
                             </div>
                             <div>
-                                <label for="good_time_week"/>
-                                <field name="good_time_week" class="oe_inline" widget="float_time"/>
+                                <label for="good_time_week" />
+                                <field
+                                name="good_time_week"
+                                class="oe_inline"
+                                widget="float_time"
+                            />
                             </div>
                             <div>
-                                <label for="first_weekday"/>
-                                <field name="first_weekday" class="oe_inline" required="1"/>
+                                <label for="first_weekday" />
+                                <field
+                                name="first_weekday"
+                                class="oe_inline"
+                                required="1"
+                            />
                             </div>
                         </div>
                     </group>
@@ -67,6 +105,18 @@
             <field name="target">inline</field>
         </record>
 
-        <menuitem id="main_menu" name="Timelog" parent="base.menu_administration" sequence="1" groups="base.group_no_one"/>
-        <menuitem id="menu_timelog_config" name="Settings" parent="main_menu" sequence="1" action="action_config_settings"/>
+        <menuitem
+        id="main_menu"
+        name="Timelog"
+        parent="base.menu_administration"
+        sequence="1"
+        groups="base.group_no_one"
+    />
+        <menuitem
+        id="menu_timelog_config"
+        name="Settings"
+        parent="main_menu"
+        sequence="1"
+        action="action_config_settings"
+    />
 </odoo>
