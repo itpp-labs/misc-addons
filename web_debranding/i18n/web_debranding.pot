@@ -15,7 +15,7 @@ msgstr ""
 
 #. module: web_debranding
 #. openerp-web
-#: code:addons/web_debranding/static/src/xml/web.xml:27
+#: code:addons/web_debranding/static/src/xml/web.xml:37
 #, python-format
 msgid "(with assets)"
 msgstr ""
@@ -39,16 +39,16 @@ msgstr ""
 
 #. module: web_debranding
 #. openerp-web
-#: code:addons/web_debranding/static/src/xml/web.xml:26
-#: code:addons/web_debranding/static/src/xml/web.xml:27
+#: code:addons/web_debranding/static/src/xml/web.xml:31
+#: code:addons/web_debranding/static/src/xml/web.xml:37
 #, python-format
 msgid "Developer mode"
 msgstr ""
 
 #. module: web_debranding
 #. openerp-web
-#: code:addons/web_debranding/static/src/js/user_menu.js:36
-#: code:addons/web_debranding/static/src/js/user_menu.js:42
+#: code:addons/web_debranding/static/src/js/user_menu.js:35
+#: code:addons/web_debranding/static/src/js/user_menu.js:41
 #, python-format
 msgid "Developer mode is already activated"
 msgstr ""
@@ -107,7 +107,7 @@ msgstr ""
 
 #. module: web_debranding
 #. openerp-web
-#: code:addons/web_debranding/static/src/js/native_notifications.js:15
+#: code:addons/web_debranding/static/src/js/native_notifications.js:17
 #, python-format
 msgid "Permission denied"
 msgstr ""
@@ -146,7 +146,7 @@ msgstr ""
 
 #. module: web_debranding
 #. openerp-web
-#: code:addons/web_debranding/static/src/js/native_notifications.js:15
+#: code:addons/web_debranding/static/src/js/native_notifications.js:16
 #, python-format
 msgid "Yay, push notifications are enabled!"
 msgstr ""
