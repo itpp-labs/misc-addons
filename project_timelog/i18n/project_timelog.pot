@@ -649,7 +649,7 @@ msgstr ""
 
 #. module: project_timelog
 #. openerp-web
-#: code:addons/project_timelog/static/src/js/timelog.js:154
+#: code:addons/project_timelog/static/src/js/timelog.js:152
 #, python-format
 msgid "No internet connection"
 msgstr ""
@@ -663,7 +663,7 @@ msgstr ""
 
 #. module: project_timelog
 #. openerp-web
-#: code:addons/project_timelog/static/src/js/timelog.js:602
+#: code:addons/project_timelog/static/src/js/timelog.js:600
 #, python-format
 msgid "Notification"
 msgstr ""
@@ -1315,7 +1315,7 @@ msgstr ""
 
 #. module: project_timelog
 #. openerp-web
-#: code:addons/project_timelog/static/src/js/timelog.js:605
+#: code:addons/project_timelog/static/src/js/timelog.js:603
 #, python-format
 msgid "Warning"
 msgstr ""
@@ -1366,7 +1366,7 @@ msgstr ""
 
 #. module: project_timelog
 #. openerp-web
-#: code:addons/project_timelog/static/src/js/timelog.js:159
+#: code:addons/project_timelog/static/src/js/timelog.js:157
 #, python-format
 msgid "You are online"
 msgstr ""
