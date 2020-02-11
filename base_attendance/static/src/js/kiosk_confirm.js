@@ -9,7 +9,6 @@ odoo.define("base_attendance.kiosk_confirm", function(require) {
     var Widget = require("web.Widget");
 
     var QWeb = core.qweb;
-    var _t = core._t;
 
     var KioskConfirm = Widget.extend({
         events: {
@@ -123,7 +122,6 @@ odoo.define("base_attendance.kiosk_confirm", function(require) {
             this.partner_id = action.partner_id;
             this.partner_name = action.partner_name;
             this.partner_state = action.partner_state;
-            var self = this;
         },
 
         start: function() {
