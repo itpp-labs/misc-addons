@@ -48,9 +48,9 @@ $alert-warning-color: #856404;
             cursor: pointer;
             color: white;
             background-color: $o-brand-primary;
-                &:hover {
-                    background-color: darken($o-brand-primary, 10%);
-                }
+            &:hover {
+                background-color: darken($o-brand-primary, 10%);
+            }
             &.o_primary {
                 background-color: $o-brand-odoo;
                 color: white;
@@ -70,7 +70,6 @@ $alert-warning-color: #856404;
     flex-direction: row;
     margin: 8px 0 4px;
 }
-
 
 .o_kanban_card_warning {
     background-color: $alert-warning-bg-color;
@@ -128,7 +127,8 @@ $alert-warning-color: #856404;
             height: 80px;
             margin-left: -70px;
             margin-top: -50px;
-            background: transparent url(/web/static/src/img/view_empty_arrow.png) no-repeat 0 0;
+            background: transparent url(/web/static/src/img/view_empty_arrow.png)
+                no-repeat 0 0;
         }
     }
 
@@ -148,7 +148,9 @@ $alert-warning-color: #856404;
     position: relative;
 
     .close {
-        position: absolute; top: 4px; right: 4px;
+        position: absolute;
+        top: 4px;
+        right: 4px;
     }
 }
 

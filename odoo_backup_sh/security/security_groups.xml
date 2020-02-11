@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <odoo>
     <record model="ir.module.category" id="backup_category">
         <field name="name">Backup</field>
@@ -12,6 +12,6 @@
     <record model="res.groups" id="group_manager">
         <field name="name">Manager</field>
         <field name="category_id" ref="backup_category" />
-        <field name="implied_ids" eval="[(4, ref('group_user'))]"/>
+        <field name="implied_ids" eval="[(4, ref('group_user'))]" />
     </record>
 </odoo>
