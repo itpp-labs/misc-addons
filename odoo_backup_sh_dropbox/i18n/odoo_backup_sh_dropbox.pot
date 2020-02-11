@@ -30,8 +30,8 @@ msgstr ""
 
 #. module: odoo_backup_sh_dropbox
 #. openerp-web
-#: code:addons/odoo_backup_sh_dropbox/static/src/xml/dashboard.xml:10
-#: code:addons/odoo_backup_sh_dropbox/static/src/xml/dashboard.xml:16
+#: code:addons/odoo_backup_sh_dropbox/static/src/xml/dashboard.xml:14
+#: code:addons/odoo_backup_sh_dropbox/static/src/xml/dashboard.xml:20
 #, python-format
 msgid "Dropbox"
 msgstr ""
