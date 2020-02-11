@@ -1,15 +1,14 @@
+// TODO
+/* eslint-disable complexity */
 odoo.define("media_form_widget", function(require) {
-    var utils = require("web.utils");
+    "use strict";
     var core = require("web.core");
-    var form_widgets = require("web.form_widgets");
     var KanbanRecord = require("web_kanban.Record");
     var session = require("web.session");
     var QWeb = core.qweb;
     var FieldBinaryImage = core.form_widget_registry.get("image");
     var _t = core._t;
-    var common = require("web.form_common");
-    var Model = require("web.DataModel");
-    var attachment_url = require("ir_attachment_url");
+    require("ir_attachment_url");
 
     FieldBinaryImage.include({
         initialize_content: function() {
