@@ -168,7 +168,7 @@ msgstr ""
 
 #. module: project_task_subtask
 #. openerp-web
-#: code:addons/project_task_subtask/static/src/xml/templates.xml:6
+#: code:addons/project_task_subtask/static/src/xml/templates.xml:10
 #, python-format
 msgid "Sort"
 msgstr ""
@@ -224,7 +224,7 @@ msgstr ""
 
 #. module: project_task_subtask
 #. openerp-web
-#: code:addons/project_task_subtask/static/src/xml/templates.xml:7
+#: code:addons/project_task_subtask/static/src/xml/templates.xml:15
 #, python-format
 msgid "Unsort"
 msgstr ""
