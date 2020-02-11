@@ -1,5 +1,7 @@
+/* eslint complexity: "off"*/
 odoo.define("media_form_widget", function(require) {
-    var utils = require("web.utils");
+    "use strict";
+
     var core = require("web.core");
     var KanbanRecord = require("web.KanbanRecord");
     var session = require("web.session");
@@ -8,8 +10,6 @@ odoo.define("media_form_widget", function(require) {
     var FieldBinaryImage = basic_fields.FieldBinaryImage;
     var field_utils = require("web.field_utils");
     var _t = core._t;
-    var rpc = require("web.rpc");
-    var ir_attachment_url = require("ir_attachment_url");
 
     FieldBinaryImage.include({
         init: function(parent, name, record) {
@@ -21,8 +21,6 @@ odoo.define("media_form_widget", function(require) {
             return res;
         },
         _render: function() {
-            var self = this;
-
             // Unique ID for popup
             var model = this.record.model.split(".").join("");
             this.media_id = model + this.record.res_id;
