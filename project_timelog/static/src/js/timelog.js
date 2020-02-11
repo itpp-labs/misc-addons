@@ -1,10 +1,8 @@
 odoo.define("project_timelog.timelog", function(require) {
-    var bus = require("web.Bus");
+    "use strict";
     var session = require("web.session");
     var Widget = require("web.Widget");
-    var WebClient = require("web.WebClient");
     var ServiceProviderMixin = require("web.ServiceProviderMixin");
-    var AbstractWebClient = require("web.AbstractWebClient");
     var rpc = require("web.rpc");
     var core = require("web.core");
     var _t = core._t;
