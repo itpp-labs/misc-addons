@@ -310,7 +310,7 @@ class BackupConfig(models.Model):
         needed_backup_dts = [last_backup_dt]
         if hourly > 1:
             last_backup_dt_of_hour = last_backup_dt
-            for hour in range(hourly - 1):
+            for _hour in range(hourly - 1):
                 next_max_dt_edge = last_backup_dt_of_hour.replace(minute=0, second=0)
                 for dt in backup_dts:
                     if dt < next_max_dt_edge:
@@ -319,7 +319,7 @@ class BackupConfig(models.Model):
                         break
         if daily > 1:
             last_backup_dt_of_day = last_backup_dt
-            for day in range(daily - 1):
+            for _day in range(daily - 1):
                 next_max_dt_edge = last_backup_dt_of_day.replace(
                     hour=0, minute=0, second=0
                 )
@@ -331,7 +331,7 @@ class BackupConfig(models.Model):
                         break
         if weekly > 1:
             last_backup_dt_of_week = last_backup_dt
-            for week in range(weekly - 1):
+            for _week in range(weekly - 1):
                 last_backup_dt_day = last_backup_dt_of_week.replace(
                     hour=0, minute=0, second=0
                 )
@@ -346,7 +346,7 @@ class BackupConfig(models.Model):
                         break
         if monthly > 1:
             last_backup_dt_of_month = last_backup_dt
-            for month in range(monthly - 1):
+            for _month in range(monthly - 1):
                 next_max_dt_edge = last_backup_dt_of_month.replace(
                     day=1, hour=0, minute=0, second=0
                 )
@@ -358,7 +358,7 @@ class BackupConfig(models.Model):
                         break
         if yearly > 1:
             last_backup_dt_of_year = last_backup_dt
-            for year in range(yearly - 1):
+            for _year in range(yearly - 1):
                 next_max_dt_edge = last_backup_dt_of_year.replace(
                     month=1, day=1, hour=0, minute=0, second=0
                 )
@@ -753,7 +753,7 @@ class BackupConfig(models.Model):
         info_obj = self.env["odoo_backup_sh.backup_info"]
         number_of_backups = 1000
         upload_datetime = datetime.now()
-        for index in range(number_of_backups):
+        for _index in range(number_of_backups):
             info_obj.create(
                 {
                     "database": self.database,

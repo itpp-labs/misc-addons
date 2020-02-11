@@ -3,7 +3,7 @@
     "summary": """Adds Start/Stop buttons to task work lines. Allows to see statistics on Calendar, Graph, Tree views and more""",
     "category": "Project",
     "images": ["images/timelog.png"],
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "application": False,
     "author": "IT-Projects LLC",
     "website": "https://www.it-projects.info/",
