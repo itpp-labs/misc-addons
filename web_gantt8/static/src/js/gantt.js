@@ -92,7 +92,8 @@ odoo.define("web_gantt8.gantt", function(require) {
                 return self.on_data_loaded_2(ntasks, group_bys);
             });
         },
-        on_data_loaded_2: function(tasks, group_bys) {
+        on_data_loaded_2: function(tasks, group_bys_arg) {
+            var group_bys = group_bys_arg;
             var self = this;
             $(".oe_gantt", this.$el).html("");
 
@@ -142,7 +143,6 @@ odoo.define("web_gantt8.gantt", function(require) {
                     percent = task[self.fields_view.arch.attrs.progress] || 0;
                 }
                 var level = plevel || 0;
-                var task_start, task_stop, duration, group;
                 if (task.__is_group) {
                     var task_infos = _.compact(
                         _.map(task.tasks, function(sub_task) {
@@ -152,23 +152,24 @@ odoo.define("web_gantt8.gantt", function(require) {
                     if (task_infos.length === 0) {
                         return;
                     }
-                    task_start = _.reduce(_.pluck(task_infos, "task_start"), function(
+                    var task_start = _.reduce(_.pluck(task_infos, "task_start"), function(
                         date,
                         memo
                     ) {
                         return typeof memo === "undefined" || date < memo ? date : memo;
                     });
-                    task_stop = _.reduce(_.pluck(task_infos, "task_stop"), function(
+                    var task_stop = _.reduce(_.pluck(task_infos, "task_stop"), function(
                         date,
                         memo
                     ) {
                         return typeof memo === "undefined" || date > memo ? date : memo;
                     });
-                    duration =
+                    var duration =
                         (task_stop.getTime() - task_start.getTime()) / (1000 * 60 * 60);
                     var group_name = task.name
                         ? formats.format_value(task.name, self.fields[group_bys[level]])
                         : "-";
+                    var group = null;
                     if (level === 0) {
                         group = new GanttProjectInfo(
                             _.uniqueId("gantt_project_"),
