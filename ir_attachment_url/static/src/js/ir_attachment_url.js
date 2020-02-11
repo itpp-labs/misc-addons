@@ -1,17 +1,17 @@
-odoo.define('ir_attachment_url', function(require) {
-    var utils = require('web.utils');
-    var core = require('web.core');
-    var session = require('web.session');
+odoo.define("ir_attachment_url", function(require) {
+    var utils = require("web.utils");
+    var core = require("web.core");
+    var session = require("web.session");
     var QWeb = core.qweb;
-    var FieldBinaryImage = require('web.field_registry').get('image');
+    var FieldBinaryImage = require("web.field_registry").get("image");
     var _t = core._t;
 
     FieldBinaryImage.include({
         events: _.extend({}, FieldBinaryImage.prototype.events, {
-            'click .o_link_address_button': 'on_link_address',
+            "click .o_link_address_button": "on_link_address",
         }),
 
-        init: function (parent, name, record) {
+        init: function(parent, name, record) {
             this._super.apply(this, arguments);
             this.url_clicked = false;
             this.is_url = false;
@@ -23,25 +23,26 @@ odoo.define('ir_attachment_url', function(require) {
             this.$el.children(".input_url").remove();
             this.$el.children(".o_form_image_controls").addClass("media_url_controls");
             this.$el.prepend($(QWeb.render("AttachmentURL", {widget: this})));
-            this.$('.input_url input').on('change', function() {
+            this.$(".input_url input").on("change", function() {
                 var input_val = $(this).val();
                 self._setValue(input_val);
             });
         },
 
         is_url_valid: function(value) {
-            if (value || (this.$input && this.$input.is('input'))) {
-                var u = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
+            if (value || (this.$input && this.$input.is("input"))) {
+                var u = new RegExp(
+                    "^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?"
+                );
                 return u.test(value || this.$input.val());
             }
             return true;
         },
 
-        _render: function () {
+        _render: function() {
             if (!this.is_url_valid(this.value)) {
                 return this._super();
             }
-
 
             var self = this;
             var attrs = this.attrs;
@@ -49,26 +50,26 @@ odoo.define('ir_attachment_url', function(require) {
             if (this.value) {
                 url = this.value;
             }
-            var $img = $('<img>').attr('src', url);
+            var $img = $("<img>").attr("src", url);
             $img.css({
                 width: this.nodeOptions.size
-                ? this.nodeOptions.size[0]
-                : attrs.img_width || attrs.width,
+                    ? this.nodeOptions.size[0]
+                    : attrs.img_width || attrs.width,
                 height: this.nodeOptions.size
-                ? this.nodeOptions.size[1]
-                : attrs.img_height || attrs.height,
+                    ? this.nodeOptions.size[1]
+                    : attrs.img_height || attrs.height,
             });
-            this.$('> img').remove();
+            this.$("> img").remove();
             this.$el.prepend($img);
-            $img.on('error', function () {
+            $img.on("error", function() {
                 self.on_clear();
-                $img.attr('src', self.placeholder);
+                $img.attr("src", self.placeholder);
                 self.do_warn(_t("Image"), _t("Could not display the selected image."));
             });
         },
 
-        isSet: function () {
+        isSet: function() {
             return true;
         },
-        });
+    });
 });

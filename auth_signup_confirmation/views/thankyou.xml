@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <openerp>
     <data>
         <template id="index">
@@ -7,7 +7,8 @@
                 <div class="oe_structure">
                     <div class="container" style="margin:32px;">
                         <h2>Thank you for registration!</h2>
-                        <h3>We send an email to you with registration link. <br/>Please open that link in your browser to
+                        <h3>We send an email to you with registration link. <br
+                            />Please open that link in your browser to
                             complete registration.
                         </h3>
                     </div>

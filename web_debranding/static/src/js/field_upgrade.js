@@ -3,16 +3,16 @@
     Copyright 2018-2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
     Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). */
-odoo.define('web_debranding.field_upgrade', function (require) {
-"use strict";
+odoo.define("web_debranding.field_upgrade", function(require) {
+    "use strict";
 
-    var FormRenderer = require('web.FormRenderer');
+    var FormRenderer = require("web.FormRenderer");
 
     FormRenderer.include({
-        _renderTagForm: function (node) {
+        _renderTagForm: function(node) {
             var $result = this._super(node);
 
-/*
+            /*
   Remove following element:
 
  <div class="col-xs-12 col-md-6 o_setting_box" title="Boost your sales with two kinds of discount programs: promotions and coupon codes. Specific conditions can be set (products, customers, minimum purchase amount, period). Rewards can be discounts (% or amount) or free products.">
@@ -31,12 +31,16 @@ odoo.define('web_debranding.field_upgrade', function (require) {
 </div>
 
 */
-            if (this.state && this.state.model === "res.config.settings"){
-                // hide enterprise labels with related fields
-                $result.find('.o_enterprise_label').parent().parent().parent().hide();
+            if (this.state && this.state.model === "res.config.settings") {
+                // Hide enterprise labels with related fields
+                $result
+                    .find(".o_enterprise_label")
+                    .parent()
+                    .parent()
+                    .parent()
+                    .hide();
             }
             return $result;
         },
     });
-
 });
