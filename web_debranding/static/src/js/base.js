@@ -1,12 +1,10 @@
 odoo.define("web_debranding.base", function(require) {
+    "use strict";
     var Model = require("web.Model");
     var WebClient = require("web.WebClient");
-    var core = require("web.core");
-
-    var _t = core._t;
 
     WebClient.include({
-        init: function(parent, action, options) {
+        init: function() {
             this._super.apply(this, arguments);
             var self = this;
             this.set("title_part", {zopenerp: ""});
