@@ -15,7 +15,7 @@ msgstr ""
 
 #. module: res_partner_skype
 #. openerp-web
-#: code:addons/res_partner_skype/static/src/js/test_res_partner_skype.js:11
+#: code:addons/res_partner_skype/static/src/js/test_res_partner_skype.js:12
 #, python-format
 msgid "Check the link"
 msgstr ""
