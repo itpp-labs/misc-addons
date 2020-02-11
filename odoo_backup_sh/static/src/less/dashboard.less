@@ -32,8 +32,8 @@
         }
         @media (min-width: @screen-sm-min) {
             flex: 0 0 16.6%;
-            display: inline-block;  // it's necessary for a correct passing of tests with PhantomJS,
-                                    // otherwise it can be deleted.
+            display: inline-block; // it's necessary for a correct passing of tests with PhantomJS,
+            // otherwise it can be deleted.
         }
     }
 
@@ -86,7 +86,6 @@
     }
 }
 
-
 // TODO: test
 .o_backup_dashboard_configs .o_kanban_record:hover .backup_config_edit {
     opacity: 1;
@@ -123,7 +122,8 @@
             height: 80px;
             margin-left: -70px;
             margin-top: -50px;
-            background: transparent url(/web/static/src/img/view_empty_arrow.png) no-repeat 0 0;
+            background: transparent url(/web/static/src/img/view_empty_arrow.png)
+                no-repeat 0 0;
         }
     }
 
@@ -143,7 +143,9 @@
     position: relative;
 
     .close {
-        position: absolute; top: 4px; right: 4px;
+        position: absolute;
+        top: 4px;
+        right: 4px;
     }
 }
 

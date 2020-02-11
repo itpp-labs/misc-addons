@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <openerp>
     <data noupdate="1">
     <!--<data>-->
@@ -23,7 +23,10 @@
             <field name="interval_number">1</field>
             <field name="interval_type">days</field>
             <field name="numbercall">-1</field>
-            <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 00:00:00')" />
+            <field
+                name="nextcall"
+                eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 00:00:00')"
+            />
             <field name="model_id" ref="model_account_analytic_line" />
             <field name="code">model.subtask_new_status()</field>
             <field name="priority" eval="5" />
@@ -37,7 +40,10 @@
             <field name="interval_number">1</field>
             <field name="interval_type">days</field>
             <field name="numbercall">-1</field>
-            <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 00:00:00')" />
+            <field
+                name="nextcall"
+                eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 00:00:00')"
+            />
             <field name="model_id" ref="model_project_task" />
             <field name="code">model.clear_stopline_datetime()</field>
             <field name="priority" eval="5" />
@@ -59,28 +65,28 @@
         <record id="mt_timelog_stopline" model="mail.message.subtype">
             <field name="name">Stopline changed</field>
             <field name="res_model">project.task</field>
-            <field name="default" eval="True"/>
+            <field name="default" eval="True" />
             <field name="description">Stopline changed</field>
         </record>
 
         <record id="mt_timelog_stopline_change" model="mail.message.subtype">
             <field name="name">Stopline changed</field>
-            <field name="sequence" eval="10"/>
+            <field name="sequence" eval="10" />
             <field name="res_model">project.project</field>
-            <field name="parent_id" eval="ref('mt_timelog_stopline')"/>
+            <field name="parent_id" eval="ref('mt_timelog_stopline')" />
             <field name="relation_field">project_id</field>
         </record>
 
         <record id="action_auto_stop_timer" model="ir.actions.server">
             <field name="name">Auto stop timer for user</field>
             <field name="type">ir.actions.server</field>
-            <field name="model_id" ref="model_project_task"/>
+            <field name="model_id" ref="model_project_task" />
             <field name="state">code</field>
             <field name="code">
                 obj.set_stage_timer()
             </field>
         </record>
 
-        <function model="timelog.config.settings" name="init_timer_parametrs"/>
+        <function model="timelog.config.settings" name="init_timer_parametrs" />
     </data>
 </openerp>

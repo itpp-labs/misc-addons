@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 <!--Copyright 2015-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
     Copyright 2017 Ilmir Karamov <https://it-projects.info/team/ilmir-k>
@@ -8,7 +8,7 @@
             <field name="value">web_debranding</field>
         </record>
         <record id="base.main_partner" model="res.partner">
-            <field name="image"></field>
+            <field name="image" />
         </record>
 
 
