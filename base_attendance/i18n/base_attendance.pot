@@ -38,14 +38,14 @@ msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:177
+#: code:addons/base_attendance/static/src/js/greeting_message.js:178
 #, python-format
 msgid "An apple a day keeps the doctor away"
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:156
+#: code:addons/base_attendance/static/src/js/greeting_message.js:157
 #, python-format
 msgid "Another good day's work! See you soon!"
 msgstr ""
@@ -239,14 +239,14 @@ msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:186
+#: code:addons/base_attendance/static/src/js/greeting_message.js:187
 #, python-format
 msgid "Early to bed and early to rise, makes a man healthy, wealthy and wise"
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:171
+#: code:addons/base_attendance/static/src/js/greeting_message.js:172
 #, python-format
 msgid "Eat breakfast as a king, lunch as a merchant and supper as a beggar"
 msgstr ""
@@ -280,7 +280,7 @@ msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:108
+#: code:addons/base_attendance/static/src/js/greeting_message.js:109
 #, python-format
 msgid "First come, first served"
 msgstr ""
@@ -292,36 +292,36 @@ msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:127
+#: code:addons/base_attendance/static/src/js/greeting_message.js:128
 #, python-format
 msgid "Glad to have you back, it's been a while!"
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:117
+#: code:addons/base_attendance/static/src/js/greeting_message.js:118
 #, python-format
 msgid "Good afternoon"
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:119
+#: code:addons/base_attendance/static/src/js/greeting_message.js:120
 #, python-format
 msgid "Good evening"
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:113
+#: code:addons/base_attendance/static/src/js/greeting_message.js:114
 #, python-format
 msgid "Good morning"
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:99
-#: code:addons/base_attendance/static/src/js/greeting_message.js:121
+#: code:addons/base_attendance/static/src/js/greeting_message.js:100
+#: code:addons/base_attendance/static/src/js/greeting_message.js:122
 #, python-format
 msgid "Good night"
 msgstr ""
@@ -348,28 +348,28 @@ msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:182
+#: code:addons/base_attendance/static/src/js/greeting_message.js:183
 #, python-format
 msgid "Have a good afternoon"
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:163
+#: code:addons/base_attendance/static/src/js/greeting_message.js:164
 #, python-format
 msgid "Have a good day!"
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:192
+#: code:addons/base_attendance/static/src/js/greeting_message.js:193
 #, python-format
 msgid "Have a good evening"
 msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:167
+#: code:addons/base_attendance/static/src/js/greeting_message.js:168
 #, python-format
 msgid "Have a nice lunch!"
 msgstr ""
@@ -386,7 +386,7 @@ msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:131
+#: code:addons/base_attendance/static/src/js/greeting_message.js:132
 #, python-format
 msgid "If a job is worth doing, it is worth doing well!"
 msgstr ""
@@ -639,7 +639,7 @@ msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:104
+#: code:addons/base_attendance/static/src/js/greeting_message.js:105
 #, python-format
 msgid "The early bird catches the worm"
 msgstr ""
@@ -671,7 +671,7 @@ msgstr ""
 
 #. module: base_attendance
 #. openerp-web
-#: code:addons/base_attendance/static/src/js/greeting_message.js:148
+#: code:addons/base_attendance/static/src/js/greeting_message.js:149
 #, python-format
 msgid "Warning! Last check in was over 12 hours ago.<br/>If this isn't right, please contact Human Resources."
 msgstr ""
