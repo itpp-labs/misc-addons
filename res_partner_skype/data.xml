@@ -1,9 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <openerp>
     <data>
-        <template id="assets_backend" name="skype assets" inherit_id="web.assets_backend">
+        <template
+            id="assets_backend"
+            name="skype assets"
+            inherit_id="web.assets_backend"
+        >
             <xpath expr="." position="inside">
-                <script type="text/javascript" src="/res_partner_skype/static/src/js/skype.js"></script>
+                <script
+                    type="text/javascript"
+                    src="/res_partner_skype/static/src/js/skype.js"
+                />
             </xpath>
         </template>
     </data>

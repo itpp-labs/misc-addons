@@ -1,26 +1,35 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
         <record model="ir.ui.view" id="view_calendar_event_form">
             <field name="model">calendar.event</field>
-            <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+            <field name="inherit_id" ref="calendar.view_calendar_event_form" />
             <field name="arch" type="xml">
                 <xpath expr="//label[@for='description']" position="after">
-                    <field name="reminder_res_id" invisible="1"/>
-                    <button string="Open Related Record" name="open_reminder_object" type="object" attrs="{'invisible':[('reminder_res_id', '=', 0)]}"/>
+                    <field name="reminder_res_id" invisible="1" />
+                    <button
+                        string="Open Related Record"
+                        name="open_reminder_object"
+                        type="object"
+                        attrs="{'invisible':[('reminder_res_id', '=', 0)]}"
+                    />
                 </xpath>
             </field>
         </record>
 
         <record model="ir.ui.view" id="view_calendar_event_form_popup">
             <field name="model">calendar.event</field>
-            <field name="inherit_id" ref="calendar.view_calendar_event_form_popup"/>
+            <field name="inherit_id" ref="calendar.view_calendar_event_form_popup" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='attendee_status']" position="after">
-                    <field name="reminder_res_id" invisible="1"/>
+                    <field name="reminder_res_id" invisible="1" />
                     <div attrs="{'invisible':[('reminder_res_id', '=', 0)]}">
-                    <label for="open_reminder_object"/>
-                    <button string="Open Related Record" name="open_reminder_object" type="object"/>
+                    <label for="open_reminder_object" />
+                    <button
+                            string="Open Related Record"
+                            name="open_reminder_object"
+                            type="object"
+                        />
                     </div>
                 </xpath>
             </field>
@@ -30,11 +39,11 @@
         <record id="calendar_alarm_view_form" model="ir.ui.view">
             <field name="name">calendar.alarm.form</field>
             <field name="model">calendar.alarm</field>
-            <field name="inherit_id" ref="calendar.calendar_alarm_view_form"/>
+            <field name="inherit_id" ref="calendar.calendar_alarm_view_form" />
             <field name="priority" eval="1000" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='type']" position="replace">
-                    <field name="type"/>
+                    <field name="type" />
                 </xpath>
             </field>
         </record>
@@ -45,16 +54,22 @@
             <field name="model">reminder.admin</field>
             <field name="arch" type="xml">
                 <form string="Reminder Administration">
-                    <p>In the main, this tool is used after installation or before uninstallation Reminder module</p>
+                    <p
+                    >In the main, this tool is used after installation or before uninstallation Reminder module</p>
                     <group>
-                        <field name="model" class="oe_inline"/>
+                        <field name="model" class="oe_inline" />
                         <field name="events_count" />
                         <field name="action" class="oe_inline" />
                     </group>
                     <footer>
                         <div>
-                            <button name="action_execute" string="Execute" type="object" class="oe_highlight"/> or
-                            <button special="cancel" string="Close" class="oe_link"/>
+                            <button
+                                name="action_execute"
+                                string="Execute"
+                                type="object"
+                                class="oe_highlight"
+                            /> or
+                            <button special="cancel" string="Close" class="oe_link" />
                         </div>
                     </footer>
                 </form>
@@ -70,7 +85,12 @@
             <field name="target">new</field>
         </record>
 
-        <menuitem id="menu_reminder_admin" parent="calendar.menu_calendar_configuration" action="action_reminder_admin" groups="base.group_no_one"/>
+        <menuitem
+            id="menu_reminder_admin"
+            parent="calendar.menu_calendar_configuration"
+            action="action_reminder_admin"
+            groups="base.group_no_one"
+        />
 
     </data>
 </odoo>

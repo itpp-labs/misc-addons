@@ -1,9 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2016 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
      Copyright 2016,2018 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
      License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). -->
 <odoo>
-        <menuitem id="main_menu" name="Brand Kit" parent="base.menu_administration" sequence="1" groups="base.group_no_one"/>
+        <menuitem
+        id="main_menu"
+        name="Brand Kit"
+        parent="base.menu_administration"
+        sequence="1"
+        groups="base.group_no_one"
+    />
 
         <record id="view_config" model="ir.ui.view">
             <field name="name">Brand settings</field>
@@ -11,39 +17,67 @@
             <field name="arch" type="xml">
                 <form string="Theme Settings" class="oe_form_configuration">
                     <header>
-                        <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                        <button
+                        string="Apply"
+                        type="object"
+                        name="execute"
+                        class="oe_highlight"
+                    />
                         or
-                        <button string="Cancel" type="object" name="cancel" class="oe_link"/>
+                        <button
+                        string="Cancel"
+                        type="object"
+                        name="cancel"
+                        class="oe_link"
+                    />
                     </header>
                     <group>
                         <group string="Logo">
-                            <field name="company_logo" widget="image" class="oe_avatar"/>
+                            <field
+                            name="company_logo"
+                            widget="image"
+                            class="oe_avatar"
+                        />
 
-                            <field name="favicon_id" class="oe_inline"/>
+                            <field name="favicon_id" class="oe_inline" />
 
-                            <label for="wallpapers_count"/>
+                            <label for="wallpapers_count" />
                             <div>
-                            <field name="wallpapers_count" class="oe_inline"/><span class="oe_form_field oe_inline"> wallpaper(s)</span>
+                            <field name="wallpapers_count" class="oe_inline" /><span
+                                class="oe_form_field oe_inline"
+                            > wallpaper(s)</span>
                             </div>
 
-                            <label for="wallpapers_settings"/>
+                            <label for="wallpapers_settings" />
                             <div name="wallpapers_settings">
-                                <button type="action" icon="fa-cogs"
-                                        name="%(theme_kit.ir_attachment_login_bg_action)d"
-                                        style="padding-left:0"
-                                        string="Configure wallpapers" class="oe_link"/>
-                                <p class="mt0">These wallpapers are randomly shown on login page</p>
+                                <button
+                                type="action"
+                                icon="fa-cogs"
+                                name="%(theme_kit.ir_attachment_login_bg_action)d"
+                                style="padding-left:0"
+                                string="Configure wallpapers"
+                                class="oe_link"
+                            />
+                                <p
+                                class="mt0"
+                            >These wallpapers are randomly shown on login page</p>
                             </div>
 
                         </group>
                         <group string="Theme">
-                            <field name="theme_id" class="oe_inline"/>
+                            <field name="theme_id" class="oe_inline" />
                         </group>
                         <group string="Name">
-                            <field name="page_title" placeholder="CompanyName" class="oe_inline"/>
-                            <label for="page_title_description"/>
+                            <field
+                            name="page_title"
+                            placeholder="CompanyName"
+                            class="oe_inline"
+                        />
+                            <label for="page_title_description" />
                             <div name="page_title_description">
-                                <p class="mt0">Page Title is used in Browser Tab name, for example<br/>
+                                <p
+                                class="mt0"
+                            >Page Title is used in Browser Tab name, for example<br />
                                 <ul>
                                     <li><em>[Page Title]</em></li>
                                     <li>#inbox - <em>[Page Title]</em></li>
@@ -51,17 +85,26 @@
                                 </ul>
                                 </p>
                             </div>
-                            <field name="system_name" placeholder="CompanyName's Portal" class="oe_inline"/>
+                            <field
+                            name="system_name"
+                            placeholder="CompanyName's Portal"
+                            class="oe_inline"
+                        />
 >
-                            <label for="system_name_description"/>
+                            <label for="system_name_description" />
                             <div name="system_name_description">
-                                <p class="mt0">System Name is used in context like followings:</p>
+                                <p
+                                class="mt0"
+                            >System Name is used in context like followings:</p>
                                 <ul>
-                                    <li><em>[System Name]</em> helps you easily track all activities related to a customer; discussions, history of business opportunities, documents, etc.</li>
+                                    <li><em
+                                    >[System Name]</em> helps you easily track all activities related to a customer; discussions, history of business opportunities, documents, etc.</li>
                                     <!--<li><em>[System Name]</em> needs your permission to enable desktop notifications.</li>-->
-                                    <li><em>[System Name]</em> has now the permission to send you native notifications on this device.</li>
-                                    <li><em>[System Name]</em> Warning - Warning<br/>
-                                    You can not remove the admin user as it is used internally for resources created by <em>[System Name]</em> (updates, module installation, ...)</li>
+                                    <li><em
+                                    >[System Name]</em> has now the permission to send you native notifications on this device.</li>
+                                    <li><em>[System Name]</em> Warning - Warning<br />
+                                    You can not remove the admin user as it is used internally for resources created by <em
+                                    >[System Name]</em> (updates, module installation, ...)</li>
                                     <li>etc.</li>
                                 </ul>
                             </div>
@@ -77,6 +120,12 @@
             <field name="view_mode">form</field>
             <field name="target">inline</field>
         </record>
-        <menuitem id="config_menu" name="Brand" parent="main_menu" sequence="1" action="config_action"/>
+        <menuitem
+        id="config_menu"
+        name="Brand"
+        parent="main_menu"
+        sequence="1"
+        action="config_action"
+    />
 
 </odoo>
