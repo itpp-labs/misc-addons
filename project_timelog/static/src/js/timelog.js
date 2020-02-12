@@ -1,4 +1,5 @@
 odoo.define("project_timelog.timelog", function(require) {
+    "use strict";
     var bus = require("bus.bus");
     var session = require("web.session");
     var Widget = require("web.Widget");
@@ -6,7 +7,6 @@ odoo.define("project_timelog.timelog", function(require) {
     var Model = require("web.Model");
     var core = require("web.core");
     var _t = core._t;
-    var ActionManager = require("web.ActionManager");
     var TimeLog = {};
 
     // Prevent bus to be started by chat_manager.js
