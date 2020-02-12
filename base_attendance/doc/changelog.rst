@@ -1,3 +1,8 @@
+`1.1.3`
+-------
+
+- **Improvement:** Conform `group_attendance_use_pin` field type with original `group_attendance_use_pin` field from hr_attendance
+
 `1.1.2`
 -------
 
