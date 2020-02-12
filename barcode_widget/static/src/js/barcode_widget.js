@@ -2,7 +2,6 @@ odoo.define("barcode_widget.form_widgets", function(require) {
     "use strict";
 
     var core = require("web.core");
-    var form_common = require("web.form_common");
     var FieldChar = core.form_widget_registry.get("char");
 
     var Barcode128Widget = FieldChar.extend({
