@@ -15,7 +15,7 @@ msgstr ""
 
 #. module: web_preview
 #. openerp-web
-#: code:addons/web_preview/static/src/js/media_form_widget.js:55
+#: code:addons/web_preview/static/src/js/media_form_widget.js:65
 #, python-format
 msgid "Could not display the selected document."
 msgstr ""
@@ -27,7 +27,7 @@ msgstr ""
 
 #. module: web_preview
 #. openerp-web
-#: code:addons/web_preview/static/src/js/media_form_widget.js:55
+#: code:addons/web_preview/static/src/js/media_form_widget.js:64
 #, python-format
 msgid "Document"
 msgstr ""
