@@ -44,7 +44,6 @@ odoo.define("web_website.SwitchWebsiteMenu", function(require) {
             );
 
             var all_websites_text = _t("All Websites");
-            var topbar = self.$(".oe_topbar_name");
             var current_website = session.user_websites.current_website;
             if (current_website) {
                 self.$(".oe_topbar_name").text(current_website[1]);
