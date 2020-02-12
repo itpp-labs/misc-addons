@@ -142,7 +142,7 @@ odoo.define("web_gantt8.gantt", function(require) {
                     percent = task[self.fields_view.arch.attrs.progress] || 0;
                 }
                 var level = plevel || 0;
-                var task_start, task_stop, duration, group;
+                var task_start = null, task_stop = null, duration = null, group = null;
                 if (task.__is_group) {
                     var task_infos = _.compact(
                         _.map(task.tasks, function(sub_task) {
