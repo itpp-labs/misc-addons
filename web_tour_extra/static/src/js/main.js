@@ -1,10 +1,6 @@
 odoo.define("web_tour_extra.Tour", function(require) {
     "use strict";
 
-    var core = require("web.core");
-
-    var _t = core._t;
-    var qweb = core.qweb;
     var Tour = require("web.Tour");
 
     Tour.getState = function() {
@@ -12,7 +8,6 @@ odoo.define("web_tour_extra.Tour", function(require) {
         if (state) {
             this.time = state.time;
         }
-        var tour_id, mode, step_id;
         // Tutorial_extra instead of tutorial
         if (!state.id && window.location.href.indexOf("#tutorial_extra.") > -1) {
             this.tutorial_extra = true;
