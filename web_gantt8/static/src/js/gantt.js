@@ -152,12 +152,14 @@ odoo.define("web_gantt8.gantt", function(require) {
                     if (task_infos.length === 0) {
                         return;
                     }
-                    var task_start = _.reduce(_.pluck(task_infos, "task_start"), function(
-                        date,
-                        memo
-                    ) {
-                        return typeof memo === "undefined" || date < memo ? date : memo;
-                    });
+                    var task_start = _.reduce(
+                        _.pluck(task_infos, "task_start"),
+                        function(date, memo) {
+                            return typeof memo === "undefined" || date < memo
+                                ? date
+                                : memo;
+                        }
+                    );
                     var task_stop = _.reduce(_.pluck(task_infos, "task_stop"), function(
                         date,
                         memo
