@@ -49,7 +49,7 @@ msgstr ""
 
 #. module: base_import_map
 #. openerp-web
-#: code:addons/base_import_map/static/src/js/base_import_map.js:17
+#: code:addons/base_import_map/static/src/js/base_import_map.js:21
 #, python-format
 msgid "File read hook:"
 msgstr ""
@@ -110,8 +110,8 @@ msgstr ""
 
 #. module: base_import_map
 #. openerp-web
-#: code:addons/base_import_map/static/src/js/base_import_map.js:38
-#: code:addons/base_import_map/static/src/js/base_import_map.js:49
+#: code:addons/base_import_map/static/src/js/base_import_map.js:45
+#: code:addons/base_import_map/static/src/js/base_import_map.js:56
 #, python-format
 msgid "None"
 msgstr ""
@@ -140,7 +140,7 @@ msgstr ""
 
 #. module: base_import_map
 #. openerp-web
-#: code:addons/base_import_map/static/src/js/base_import_map.js:15
+#: code:addons/base_import_map/static/src/js/base_import_map.js:13
 #, python-format
 msgid "Settings:"
 msgstr ""
