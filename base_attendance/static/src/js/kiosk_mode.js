@@ -1,6 +1,7 @@
 /* Copyright (c) 2004-2015 Odoo S.A.
    Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). */
+/* eslint no-unused-vars: "off"*/
 odoo.define("base_attendance.kiosk_mode", function(require) {
     "use strict";
 
@@ -12,7 +13,6 @@ odoo.define("base_attendance.kiosk_mode", function(require) {
     var BarcodeHandlerMixin = require("barcodes.BarcodeHandlerMixin");
 
     var QWeb = core.qweb;
-    var _t = core._t;
 
     var KioskMode = Widget.extend(BarcodeHandlerMixin, {
         events: {
