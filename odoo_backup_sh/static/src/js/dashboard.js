@@ -6,7 +6,7 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
     "use strict";
 
     // See https://eslint.org/docs/rules/no-undef
-    /* global moment, Chart*/
+    /* global Chart*/
     var AbstractAction = require("web.AbstractAction");
     var ajax = require("web.ajax");
     var core = require("web.core");
@@ -217,7 +217,7 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
             var chart_id = "odoo_backup_sh-chart-total-usage";
             this.$("#graph_remote_storage_usage").empty();
             var service = this.get_service();
-            var title;
+            var title = null;
             if (service === "total") {
                 title = _t("total remote storage usage");
             } else {
@@ -521,7 +521,6 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
 
         o_dashboard_action_make_backup: function(ev) {
             ev.preventDefault();
-            var self = this;
             var service = $(ev.currentTarget)
                 .closest("div[data-service]")
                 .data("service");
