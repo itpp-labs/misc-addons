@@ -1,23 +1,40 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-        <template id="debranding_title_js" name="Debranding title JS"
-                  inherit_id="web.assets_backend">
+        <template
+        id="debranding_title_js"
+        name="Debranding title JS"
+        inherit_id="web.assets_backend"
+    >
             <xpath expr="." position="inside">
-                <link rel="stylesheet" href="/web_debranding/static/src/css/web.css"/>
-                <script type="text/javascript"
-                        src="/web_debranding/static/src/js/base.js"></script>
-                <script type="text/javascript"
-                        src="/web_debranding/static/src/js/dialog.js"></script>
-                <script type="text/javascript"
-                        src="/web_debranding/static/src/js/dashboard.js"></script>
-                <script type="text/javascript"
-                        src="/web_debranding/static/src/js/field_upgrade.js"></script>
-                <script type="text/javascript"
-                        src="/web_debranding/static/src/js/native_notifications.js"></script>
-                <script type="text/javascript"
-                        src="/web_debranding/static/src/js/bot.js"></script>
-                <script type="text/javascript"
-                        src="/web_debranding/static/src/js/user_menu.js"></script>
+                <link rel="stylesheet" href="/web_debranding/static/src/css/web.css" />
+                <script
+                type="text/javascript"
+                src="/web_debranding/static/src/js/base.js"
+            />
+                <script
+                type="text/javascript"
+                src="/web_debranding/static/src/js/dialog.js"
+            />
+                <script
+                type="text/javascript"
+                src="/web_debranding/static/src/js/dashboard.js"
+            />
+                <script
+                type="text/javascript"
+                src="/web_debranding/static/src/js/field_upgrade.js"
+            />
+                <script
+                type="text/javascript"
+                src="/web_debranding/static/src/js/native_notifications.js"
+            />
+                <script
+                type="text/javascript"
+                src="/web_debranding/static/src/js/bot.js"
+            />
+                <script
+                type="text/javascript"
+                src="/web_debranding/static/src/js/user_menu.js"
+            />
             </xpath>
         </template>
 </odoo>

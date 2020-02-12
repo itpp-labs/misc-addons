@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <openerp>
     <data>
        <!-- override the automatically generated list view for sendandlog -->
@@ -7,9 +7,9 @@
          <field name="model">sms_sg.sendandlog</field>
          <field name="arch" type="xml">
                 <tree>
-                    <field name="msg"/>
-                    <field name="phone"/>
-                    <field name="response_content"/>
+                    <field name="msg" />
+                    <field name="phone" />
+                    <field name="response_content" />
                 </tree>
             </field>
         </record>
@@ -21,9 +21,12 @@
         <field name="view_mode">tree,form</field>
       </record>
 
-      <menuitem name="Sms" id="menu_sms"
+      <menuitem
+            name="Sms"
+            id="menu_sms"
             parent="base.menu_custom"
-            action="action_view_smslog"/>
+            action="action_view_smslog"
+        />
 
     </data>
 </openerp>

@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <openerp>
     <data>
         <!-- Cron job for automatically move -->
-        <record forcecreate="True" id="ir_cron_autostaging"
-                model="ir.cron">
+        <record forcecreate="True" id="ir_cron_autostaging" model="ir.cron">
             <field name="name">Autostaging</field>
             <field eval="True" name="active" />
             <field name="user_id" ref="base.user_root" />

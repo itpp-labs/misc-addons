@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <openerp>
     <data>
 
@@ -10,8 +10,8 @@
                 <group name="first" position="after">
                     <group>
                         <group name="product_category_taxes" string="Taxes">
-                            <field name="taxes_id" widget="many2many_tags"/>
-                            <field name="supplier_taxes_id" widget="many2many_tags"/>
+                            <field name="taxes_id" widget="many2many_tags" />
+                            <field name="supplier_taxes_id" widget="many2many_tags" />
                         </group>
                     </group>
                 </group>

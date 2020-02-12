@@ -1,46 +1,46 @@
 td[data-field="play_timer"] button {
-  position: relative;
-  border: 1px solid #00CA16 !important;
-  width: 25px;
-  height: 25px;
-  background-color: transparent !important;
+    position: relative;
+    border: 1px solid #00ca16 !important;
+    width: 25px;
+    height: 25px;
+    background-color: transparent !important;
 }
 
 td[data-field="play_timer"] button:before {
-  position: absolute;
-  left: 8px;
-  top: 4px;
-  content:'';
-  border-left:  12px solid #00CA16;
-  border-top: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 8px solid transparent;
+    position: absolute;
+    left: 8px;
+    top: 4px;
+    content: "";
+    border-left: 12px solid #00ca16;
+    border-top: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid transparent;
 }
 
 td[data-field="stop_timer"] button {
-  position: relative;
-  border: 1px solid #E40000 !important;
-  width: 25px;
-  height: 25px;
-  background-color: transparent !important;
+    position: relative;
+    border: 1px solid #e40000 !important;
+    width: 25px;
+    height: 25px;
+    background-color: transparent !important;
 }
 
 td[data-field="stop_timer"] button:before {
-  width: 6px;
-  height: 15px;
-  background: #E40000;
-  position: absolute;
-  content: "";
-  top: 4px;
-  left: 4px;
+    width: 6px;
+    height: 15px;
+    background: #e40000;
+    position: absolute;
+    content: "";
+    top: 4px;
+    left: 4px;
 }
 
 td[data-field="stop_timer"] button:after {
-  width: 6px;
-  height: 15px;
-  background: #E40000;
-  position: absolute;
-  content: "";
-  top: 4px;
-  right: 4px;
+    width: 6px;
+    height: 15px;
+    background: #e40000;
+    position: absolute;
+    content: "";
+    top: 4px;
+    right: 4px;
 }
