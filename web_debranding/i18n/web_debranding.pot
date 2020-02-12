@@ -22,7 +22,7 @@ msgstr ""
 
 #. module: web_debranding
 #. openerp-web
-#: code:addons/web_debranding/static/src/js/user_menu.js:14
+#: code:addons/web_debranding/static/src/js/user_menu.js:13
 #, python-format
 msgid "Developer mode is already activated"
 msgstr ""
