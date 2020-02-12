@@ -299,7 +299,7 @@
                 <t t-else="">
                     <t t-if="line.get('name')">
                     <td t-att-data-id="line['id']" t-att-class="'o_ohada_report_line o_ohada_report_line_indent ' + (line.get('unfoldable') and 'js_account_report_foldable' or '')" t-att-data-unfolded="line.get('unfolded', False)" t-att-colspan="line.get('colspan', '1')"
-                    t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)"
+                    t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)" t-att-style="'text-align:' + line.get('align')"
                     >
                             <t t-if="not line.get('caret_options')">
                                     <span class="account_report_line_name" t-att-title="line.get('title_hover')" style="margin-left:15px;">

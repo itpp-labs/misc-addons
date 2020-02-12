@@ -42,22 +42,51 @@
                 <div class="col-sm-12 col-md-12 col-lg-12  monthly_leave_graph_view">
                     <div class="oh-card text-color">
                         <div class="oh-card-body pb-0" style="padding-bottom:10px;">
-                            <ul style="float:right;padding-left:0;" class="ul-head">
-                                <li class="li-head"><t t-esc="widget.data['company_name']"/></li>
-                                <li class="li-head" style="margin-left:100px;">
-                                    <t t-esc="widget.data['this_year']"/>
-                                </li>
-                            </ul>
-                            <select class="o_input o_mrp_bom_report_variants" style="width: 200px;float:left;">
-                                <t t-foreach="widget.data['years']" t-as="year">
-                                    <option t-att-value="year" t-att-selected="year == widget.data['this_year'] ? 'selected' : None">
-                                        <t t-esc="year" />
-                                    </option>
-                                </t>
-                            </select>
-                            <div class="dropdown-menu o_dropdown_menu" role="menu">
-                                <!--<t t-call="base.DropdownMenu.MenuItems"/>-->
+                             <div class="col-md-4 col-lg-4" style="float:left;">
+                                <div style="margin-left:-20px">
+                                    <ul style="padding-left:0;width: fit-content;" class="ul-head">
+                                        <li class="li-head"><t t-esc="widget.data['company_name']"/></li>
+                                        <li class="li-head" style="margin-left:100px;">
+                                            <t t-esc="widget.data['this_year']"/>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
+                            <div class="col-md-4 col-lg-4" style="float:left;">
+                                <select class="o_input o_mrp_bom_report_variants" style="width: 80px;float:left;" id="change_year">
+                                    <t t-foreach="widget.data['years']" t-as="year">
+                                        <option t-att-value="year" t-att-selected="year == widget.data['this_year'] ? 'selected' : None">
+                                            <t t-esc="year" />
+                                        </option>
+                                    </t>
+                                </select>
+                                <select class="o_input o_mrp_bom_report_variants" style="width: 180px;float:left;" id="change_all_entries">
+                                    <option value="True" t-att-selected="widget.data['options']['all_entries'] == true ? 'selected' : None">
+                                        Include Unposted Entries
+                                    </option>
+                                    <option value="False" t-att-selected="widget.data['options']['all_entries'] == false ? 'selected' : None">
+                                        Hide Unposted Entries
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 col-lg-4" style="float:left;">
+
+                            </div>
+                            <!--<ul style="float:right;padding-left:0;width: fit-content;" class="ul-head">-->
+                                <!--<li class="li-head"><t t-esc="widget.data['company_name']"/></li>-->
+                                <!--<li class="li-head" style="margin-left:100px;">-->
+                                    <!--<t t-esc="widget.data['this_year']"/>-->
+                                <!--</li>-->
+                            <!--</ul>-->
+                            <!--<div>-->
+                            <!--<select class="o_input o_mrp_bom_report_variants" style="width: 200px;float:left;">-->
+                                <!--<t t-foreach="widget.data['years']" t-as="year">-->
+                                    <!--<option t-att-value="year" t-att-selected="year == widget.data['this_year'] ? 'selected' : None">-->
+                                        <!--<t t-esc="year" />-->
+                                    <!--</option>-->
+                                <!--</t>-->
+                            <!--</select>-->
+                            <!--</div>-->
                         </div>
                         <div class="col-md-4 col-lg-4" style="float:left;">
                             <div class="ohada_notification" style="margin-left:-10px">

@@ -29,7 +29,6 @@ from odoo.exceptions import UserError
 
 import html2text
 
-
 _logger = logging.getLogger(__name__)
 
 
@@ -417,7 +416,8 @@ class OhadaReport(models.AbstractModel):
         ctx = self.env.context.copy()
         if params and 'note' in params:
             ctx.update({
-                    'id': self.env['ohada.financial.html.report'].search([('code', '=', 'N'+str(params.get('note')))]).id
+                    'id': self.env['ohada.financial.html.report'].search([('code', '=', 'N'+str(params.get('note')))]).id,
+                    'report_options': options,
             })
         action['context'] = ctx
         return action
@@ -675,7 +675,6 @@ class OhadaReport(models.AbstractModel):
         otherwise it uses the main_template. Reason is for efficiency, when unfolding a line in the report
         we don't want to reload all lines, just get the one we unfolded.
         '''
-        # wdb.set_trace()
         # Check the security before updating the context to make sure the options are safe.
         if self.code == 'BS':
             return self.get_html_bs(options, line_id, additional_context)
@@ -715,7 +714,6 @@ class OhadaReport(models.AbstractModel):
         #             number += 1
         #             line['footnote'] = str(number)
         #             footnotes_to_render.append({'id': f.id, 'number': number, 'text': f.text})
-        # wdb.set_trace()
         rcontext = {'report': report,
                     'lines': {'columns_header': self.get_header(options), 'lines': lines},
                     'options': options,
@@ -1090,6 +1088,8 @@ class OhadaReport(models.AbstractModel):
             return
         periods = []
         number_period = options['comparison'].get('number_period', 1) or 0
+        if self.code == "N31":
+            number_period = 4
         for index in range(0, number_period):
             if cmp_filter == 'previous_period':
                 period_vals = self._get_dates_previous_period(options, period_vals)
@@ -1153,7 +1153,6 @@ class OhadaReport(models.AbstractModel):
             body_html += self.env.ref('ohada_reports.account_financial_report_ohada_balancesheet_liabilitites0').get_html(options)
         else:
             body_html = self.get_html(options)
-        # wdb.set_trace()
         body = body.replace(b'<body class="o_ohada_reports_body_print">', b'<body class="o_ohada_reports_body_print">' + body_html)
 
         if self.code == 'BS' and horizontal is True:
@@ -1469,7 +1468,6 @@ class OhadaReport(models.AbstractModel):
                             sheet.write(y + y_offset, x_index, cell.get('name', ''), loc_style)
                             x_index += 1
             self.x_index = x_index
-        # wdb.set_trace()
         if self.code == 'BS':
             if not options['date'].get('date_from'):
                 options = self.make_temp_options(int(options['date']['date'][0:4]))
@@ -1581,6 +1579,7 @@ class OhadaReport(models.AbstractModel):
                            'string': str(year - 1),
                        }],
                        'string': 'No comparison', },
+                   'all_entries': None,
                    }
         return options
 

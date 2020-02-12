@@ -178,6 +178,9 @@ var accountReportsWidget = AbstractAction.extend(ControlPanelMixin, {
                 },
             });
         }
+        if (this.odoo_context.report_options){
+            self.report_options = self.odoo_context.report_options;
+        }
         var extra_info = this._rpc({
                 model: self.report_model,
                 method: 'get_report_informations',

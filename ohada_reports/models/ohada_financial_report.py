@@ -589,6 +589,7 @@ class OhadaFinancialReportLine(models.Model):
     table_spacer = fields.Boolean(default=False)
     colspan = fields.Integer(default=1)
     rowspan = fields.Integer(default=1)
+    align = fields.Char(default='left')
     columns_id = fields.One2many('ohada.custom.columns', 'line_id', default=False)
 
 
@@ -1361,6 +1362,7 @@ class OhadaFinancialReportLine(models.Model):
                 'table_spacer': line.table_spacer,          #E?
                 'colspan': line.colspan,
                 'rowspan': line.rowspan,
+                'align': line.align,
                 'sequence': line.sequence,
             }
 
@@ -1830,7 +1832,7 @@ class OhadaFinancialReportingDashboard(models.Model):
     _description = "OHADA Dashboard"
 
     @api.model
-    def fetch_data(self, year=None):
+    def fetch_data(self, year=None, all_entries=False):
         report = self.env['ohada.financial.html.report']
         data = dict()
         if year:
@@ -1843,10 +1845,12 @@ class OhadaFinancialReportingDashboard(models.Model):
 
         options = {'ir_filters': None,
                    'date': {'date_to': str(year) + '-12-31', 'string': str(year), 'filter': 'this_year',
-                            'date_from': str(year) + '-01-01'}}
+                            'date_from': str(year) + '-01-01'},
+                   'all_entries': all_entries}
 
         data['options'] = report.make_temp_options(year)
 
+        data['options']['all_entries'] = all_entries
         data['years'] = [datetime.now().year, datetime.now().year - 1, datetime.now().year - 2, datetime.now().year - 3]
         data['company_name'] = self.env['res.users'].browse(request.session.uid).company_id.name
 

@@ -26,7 +26,8 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
         '/web/static/src/js/libs/nvd3.js'
     ],
     events: {
-        'change .o_mrp_bom_report_variants': 'change_year',
+        'change #change_year': 'change_year',
+        'change #change_all_entries': 'change_all_entries',
         'click .print_bundle': 'print_bundle',
         'click .close': 'close_popup',
         'click .export_pdf': 'print_bundle_pdf',
@@ -42,6 +43,7 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
         var self = this;
         event.stopPropagation();
         event.preventDefault();
+        self.data.options.date.filter = 'custom';
         return self.do_action({
             name: event.target.getAttribute('name'),
             tag: 'ohada_report',
@@ -49,16 +51,17 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
             context: {
                 id : parseInt(event.target.getAttribute('report-id')),
                 model : 'ohada.financial.html.report',
+                report_options : self.data['options'],
             },
         },{on_reverse_breadcrumb: function(){ return self.update_cp();}});
     },
 
-    fetch_data: function(year=false) {
+    fetch_data: function(year=false, all_entries=false) {
         var self = this;
         var def1 = this._rpc({
                 model: 'ohada.dashboard',
                 method: 'fetch_data',
-                args: [year],
+                args: [year, all_entries],
         }).done(function(result) {
             self.data =  result;
         });
@@ -76,7 +79,14 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
     },
     change_year: function(ev) {
         var self = this;
-        this.fetch_data(parseInt(ev['currentTarget']['value'])).then(function() {
+        this.fetch_data(parseInt(ev['currentTarget']['value']), self.data['options']['all_entries']).then(function() {
+            self._updateTemplateBody();
+        });
+    },
+    change_all_entries: function(ev) {
+        var self = this;
+        var entries_value = (ev['currentTarget']['value'] == 'True');
+        this.fetch_data(this.data['this_year'], entries_value).then(function() {
             self._updateTemplateBody();
         });
     },

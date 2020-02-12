@@ -3353,6 +3353,7 @@
         <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
         <field name="formulas">balance = sum.balance</field>
         <field name="colspan">3</field>
+        <field name="align">right</field>
         <field name="level" eval="2" />
         <field name="sequence" eval="11"/>
         <field name="groupby">account_id</field>
