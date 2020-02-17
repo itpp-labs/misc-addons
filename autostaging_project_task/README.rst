@@ -1,5 +1,5 @@
 .. image:: https://img.shields.io/badge/license-MIT-blue.svg
-   :target: https://www.gnu.org/licenses/lgpl
+   :target: https://opensource.org/licenses/MIT
    :alt: License: MIT
 
 ==========================
