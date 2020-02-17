@@ -1,3 +1,8 @@
+`1.1.3`
+-------
+
+- **Improvement:** The type of "group_attendace_use_pin" is changed to a checkbox
+
 `1.1.2`
 -------
 
