@@ -1,6 +1,6 @@
 # Copyright 2016 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
-# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html)
+# License MIT (https://opensource.org/licenses/MIT)
 {
     "name": """Pad support in Lead's Internal notes""",
     "summary": """This module allows collaborative editing with *html support* in Lead's Internal notes and maintains the versions history.""",
@@ -12,7 +12,7 @@
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info/",
-    "license": "LGPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "price": 90.00,
     "currency": "EUR",
     "depends": ["crm", "pad"],
