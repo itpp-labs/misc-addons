@@ -2,7 +2,7 @@
 # Copyright 2016 x620 <https://github.com/x620>
 # Copyright 2017-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
-# License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).
+# License MIT (https://opensource.org/licenses/MIT).
 import datetime
 import time
 
