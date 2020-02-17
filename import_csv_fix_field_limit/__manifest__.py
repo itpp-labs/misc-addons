@@ -2,7 +2,7 @@
     "name": "FIX field limit in importing csv",
     "vesion": "11.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
-    "license": "LGPL-3",
+    "license": "MIT",
     "category": "Custom",
     "website": "https://twitter.com/yelizariev",
     "price": 9.00,

@@ -1,7 +1,7 @@
 {
     "name": "sms.sg service's bridge",
     "author": "IT-Projects LLC, Ildar Nasyrov",
-    "license": "LGPL-3",
+    "license": "MIT",
     "website": "https://twitter.com/nasyrov_ildar",
     "category": "Uncategorized",
     "vesion": "11.0.1.0.0",

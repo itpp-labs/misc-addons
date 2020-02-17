@@ -1,6 +1,6 @@
 # Copyright 2016-2017 Stanislav Krotov <https://www.it-projects.info/team/ufaks>
 # Copyright 2016-2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+# License MIT (https://opensource.org/licenses/MIT).
 
 {
     "name": """Product Details""",
@@ -11,7 +11,7 @@
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "website": "https://it-projects.info",
-    "license": "LGPL-3",
+    "license": "MIT",
     # "price": 9.00,
     # "currency": "EUR",
     "depends": ["product", "base_details"],

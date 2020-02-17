@@ -6,7 +6,7 @@
     "images": ["images/icon.png"],
     "author": "IT-Projects LLC, Dinar Gabbasov",
     "website": "https://www.twitter.com/gabbasov_dinar",
-    "license": "LGPL-3",
+    "license": "MIT",
     "price": 90.00,
     "currency": "EUR",
     "depends": ["base_import"],

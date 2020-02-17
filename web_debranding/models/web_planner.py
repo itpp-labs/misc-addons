@@ -4,7 +4,7 @@
 # Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
 # Copyright 2018 WohthaN <https://github.com/WohthaN>
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+# License MIT (https://opensource.org/licenses/MIT).
 
 import re
 
