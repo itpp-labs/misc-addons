@@ -4,7 +4,7 @@
     Copyright 2016 Stanislav Krotov <https://it-projects.info/team/ufaks>
     Copyright 2017 Ilmir Karamov <https://it-projects.info/team/ilmir-k>
     Copyright 2017 auyeung112002 <https://github.com/auyeung112002>
-    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).-->
+    License MIT (https://opensource.org/licenses/MIT).-->
 <odoo>
 
     <template id="login_layout" inherit_id="web.login_layout" priority="8">

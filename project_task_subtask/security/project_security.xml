@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--Copyright 2017 Karamov Ilmir <https://it-projects.info/team/ilmir-k>
-    License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). -->
+    License MIT (https://opensource.org/licenses/MIT). -->
 <odoo>
 
      <!-- <record model="ir.rule" id="project_description_subtask_rule"> -->
