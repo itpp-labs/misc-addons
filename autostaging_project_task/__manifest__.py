@@ -3,7 +3,7 @@
     "name": "Autostaging project task",
     "summary": "Change stages of tasks automatically after a specified time",
     "author": "IT-Projects LLC, Ildar Nasyrov",
-    "support": "apps@it-projects.info",
+    "support": "apps@itpp.dev",
     "license": "Other OSI approved licence",  # MIT
     "website": "https://it-projects.info",
     "images": ["images/a.png"],
