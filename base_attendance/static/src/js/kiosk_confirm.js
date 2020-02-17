@@ -1,6 +1,6 @@
 /* Copyright (c) 2004-2015 Odoo S.A.
    Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
-   License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). */
+   License MIT (https://opensource.org/licenses/MIT). */
 odoo.define("base_attendance.kiosk_confirm", function(require) {
     "use strict";
 

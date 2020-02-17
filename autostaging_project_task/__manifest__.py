@@ -4,7 +4,7 @@
     "summary": "Change stages of tasks automatically after a specified time",
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "support": "apps@it-projects.info",
-    "license": "LGPL-3",
+    "license": "MIT",
     "website": "https://it-projects.info",
     "images": ["images/a.png"],
     "category": "Project",

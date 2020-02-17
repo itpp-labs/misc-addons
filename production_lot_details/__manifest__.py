@@ -8,7 +8,7 @@
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "website": "https://it-projects.info",
-    "license": "LGPL-3",
+    "license": "MIT",
     # "price": 9.00,
     # "currency": "EUR",
     "depends": ["stock", "base_details"],

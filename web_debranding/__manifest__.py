@@ -3,7 +3,7 @@
     "name": "Backend debranding",
     "version": "10.0.1.0.23",
     "author": "IT-Projects LLC, Ivan Yelizariev",
-    "license": "LGPL-3",
+    "license": "MIT",
     "category": "Debranding",
     "images": ["images/web_debranding.png"],
     "website": "https://twitter.com/yelizariev",

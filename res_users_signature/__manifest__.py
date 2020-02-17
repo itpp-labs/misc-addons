@@ -3,7 +3,7 @@
     "name": "Signature templates for user emails",
     "vesion": "10.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
-    "license": "LGPL-3",
+    "license": "MIT",
     "category": "Social Network",
     "website": "https://yelizariev.github.io",
     "depends": ["base"],
