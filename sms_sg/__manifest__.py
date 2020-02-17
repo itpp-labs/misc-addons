@@ -2,7 +2,7 @@
 {
     "name": "sms.sg service's bridge",
     "author": "IT-Projects LLC, Ildar Nasyrov",
-    "license": "LGPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "website": "https://twitter.com/nasyrov_ildar",
     "category": "Uncategorized",
     "vesion": "10.0.1.0.0",
