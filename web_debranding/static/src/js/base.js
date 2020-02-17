@@ -1,6 +1,6 @@
 /*  Copyright 2015-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
     Copyright 2017 ArtyomLosev <https://github.com/ArtyomLosev>
-    License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). */
+    License MIT (https://opensource.org/licenses/MIT). */
 odoo.define("web_debranding.base", function(require) {
     var WebClient = require("web.WebClient");
     var core = require("web.core");

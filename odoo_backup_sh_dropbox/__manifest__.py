@@ -1,5 +1,5 @@
 # Copyright 2019 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
-# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+# License MIT (https://opensource.org/licenses/MIT).
 {
     "name": """Dropbox backing up""",
     "summary": """The small investment to protect your business""",
@@ -11,7 +11,7 @@
     "author": "IT-Projects LLC, Dinar Gabbasov",
     "support": "apps@it-projects.info",
     "website": "https://apps.odoo.com/apps/modules/13.0/odoo_backup_sh_dropbox/",
-    "license": "LGPL-3",
+    "license": "MIT",
     "price": 119.00,
     "currency": "EUR",
     "depends": ["odoo_backup_sh"],

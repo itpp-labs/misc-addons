@@ -2,7 +2,7 @@
     "name": "Force move attachments to DB storage",
     "version": "13.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
-    "license": "LGPL-3",
+    "license": "MIT",
     "category": "Tools",
     "website": "https://yelizariev.github.io",
     "depends": ["attachment_large_object"],
