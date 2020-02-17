@@ -10,7 +10,7 @@
     "version": "12.0.1.1.2",
     "application": False,
     "author": "IT-Projects LLC, Kolushov Alexandr",
-    "support": "apps@it-projects.info",
+    "support": "apps@itpp.dev",
     "website": "https://www.odoo.com/apps/modules/12.0/base_attendance/",
     "license": "Other OSI approved licence",  # MIT
     "price": 60.00,

@@ -6,7 +6,7 @@
     "version": "12.0.1.0.7",
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev, Pavel Romanchenko",
-    "support": "apps@it-projects.info",
+    "support": "apps@itpp.dev",
     "website": "https://twitter.com/yelizariev",
     "license": "Other OSI approved licence",  # MIT
     "price": 9.00,

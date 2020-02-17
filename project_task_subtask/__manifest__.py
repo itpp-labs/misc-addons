@@ -12,7 +12,7 @@
     "version": "12.0.1.1.1",
     "application": False,
     "author": "IT-Projects LLC, Manaev Rafael",
-    "support": "apps@it-projects.info",
+    "support": "apps@itpp.dev",
     "website": "https://it-projects.info",
     "license": "GPL-3",
     "price": 69.00,
