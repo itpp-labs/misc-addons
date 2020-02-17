@@ -1,6 +1,6 @@
-.. image:: https://img.shields.io/badge/license-LGPL--3-blue.png
+.. image:: https://img.shields.io/badge/license-MIT-blue.svg
    :target: https://www.gnu.org/licenses/lgpl
-   :alt: License: LGPL-3
+   :alt: License: MIT
 
 =============================
  Website Switcher in Backend

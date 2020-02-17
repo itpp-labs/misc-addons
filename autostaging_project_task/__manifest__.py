@@ -1,7 +1,7 @@
 # Copyright 2015-2017 Ildar Nasyrov <https://it-projects.info/>
 # Copyright 2018 Ruslan Ronzhin <https://it-projects.info/team/rusllan/>
 # Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
-# License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).
+# License MIT (https://opensource.org/licenses/MIT).
 {
     "name": """Autostaging project task""",
     "summary": """Change stages of tasks automatically after a specified time""",
@@ -13,7 +13,7 @@
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info/",
-    "license": "LGPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "price": 39.00,
     "currency": "EUR",
     "depends": ["project", "autostaging_base"],
