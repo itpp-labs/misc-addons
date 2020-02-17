@@ -80,9 +80,8 @@ odoo.define("base_attendance.greeting_message", function(require) {
 
         start: function() {
             if (this.attendance) {
-                this.attendance.check_out
-                    ? this.farewell_message()
-                    : this.welcome_message();
+                if (this.attendance.check_out) this.farewell_message();
+                else this.welcome_message();
             }
             if (this.activeBarcode) {
                 core.bus.on("barcode_scanned", this, this._onBarcodeScanned);

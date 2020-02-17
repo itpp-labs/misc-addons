@@ -1,6 +1,7 @@
 /*  Copyright 2018-2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
     License MIT (https://opensource.org/licenses/MIT). */
 odoo.define("project_task_subtask.one2many_renderer", function(require) {
+    "use strict";
     var FieldOne2Many = require("web.relational_fields").FieldOne2Many;
     var BasicModel = require("web.BasicModel");
 

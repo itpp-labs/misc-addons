@@ -5,8 +5,6 @@ odoo.define("kanban_view", function(require) {
     "use strict";
 
     var core = require("web.core");
-    var KanbanView = require("web.KanbanView");
-    var KanbanRenderer = require("web.KanbanRenderer");
     var AbstractField = require("web.AbstractField");
     var relational_fields = require("web.relational_fields");
     var rpc = require("web.rpc");
@@ -86,8 +84,7 @@ odoo.define("kanban_view", function(require) {
                 // Show image attachment button
                 multy_attach.parent().attr("style", "display: inline-block;");
                 multy_attach.on("change", function(event) {
-                    var files = event.currentTarget.files;
-                    var imported = self.import_files(event).then(function(res) {
+                    self.import_files(event).then(function(res) {
                         mf_widget._onFileLoaded(event, self.updated_files, self);
                     });
                 });
