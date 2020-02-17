@@ -1,5 +1,5 @@
 # Copyright 2019 Eugene Molotov <https://github.com/em230418>
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+# License MIT (https://opensource.org/licenses/MIT).
 
 import odoo.tests
 

@@ -1,7 +1,7 @@
 # Copyright 2015-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2017 Ilmir Karamov <https://it-projects.info/team/ilmir-k>
 # Copyright 2017 Nicolas JEUDY <https://github.com/njeudy>
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+# License MIT (https://opensource.org/licenses/MIT).
 
 from odoo.fields import _String
 

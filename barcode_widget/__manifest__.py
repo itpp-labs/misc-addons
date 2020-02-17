@@ -8,7 +8,7 @@
     # https://www.odoo.com/apps/modules/9.0/barcode_widget/
     #
     # -- Ivan Yelizariev
-    "license": "LGPL-3",
+    "license": "Other OSI approved licence"  # MIT,
     "depends": ["web"],
     "data": ["views/assets.xml"],
     "qweb": ["static/src/xml/barcode_widget.xml"],

@@ -1,6 +1,6 @@
 # Copyright 2019 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
 # Copyright 2019 Eugene Molotov <https://it-projects.info/team/molotov>
-# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+# License MIT (https://opensource.org/licenses/MIT).
 
 from odoo.addons.odoo_backup_sh.tests.test_odoo_backup_sh_ui import TestUi as BaseTestUi
 
