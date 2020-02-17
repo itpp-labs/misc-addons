@@ -1,7 +1,7 @@
 # Copyright 2017 Dinar Gabbasov <https://www.it-projects.info/team/GabbasovDinar>
 # Copyright 2018 Rafis Bikbov <https://www.it-projects.info/team/RafiZz>
 # Copyright 2019 Eugene Molotov <https://www.it-projects.info/team/em230418>
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+# License MIT (https://opensource.org/licenses/MIT).
 import mimetypes
 
 import requests
