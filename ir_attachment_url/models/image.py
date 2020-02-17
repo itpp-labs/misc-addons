@@ -1,6 +1,6 @@
 # Copyright 2017 Dinar Gabbasov <https://www.it-projects.info/team/GabbasovDinar>
 # Copyright 2018 Rafis Bikbov <https://www.it-projects.info/team/RafiZz>
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+# License MIT (https://opensource.org/licenses/MIT).
 import re
 
 from odoo import tools
