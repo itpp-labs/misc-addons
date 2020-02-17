@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--Copyright 2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
     Copyright 2017 manawi <https://github.com/manawi>
-    License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). -->
+    License MIT (https://opensource.org/licenses/MIT). -->
 <odoo noupdate="1">
     <record id="project_task_subtask_1" model="project.task.subtask">
       <field name="name">test subtask</field>

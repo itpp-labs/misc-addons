@@ -1,5 +1,5 @@
 # Copyright 2017 Stanislav Krotov <https://www.it-projects.info/team/ufaks>
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+# License MIT (https://opensource.org/licenses/MIT).
 
 {
     "name": """Production Lot Details""",
@@ -10,7 +10,7 @@
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "website": "https://it-projects.info",
-    "license": "LGPL-3",
+    "license": "MIT",
     # "price": 9.00,
     # "currency": "EUR",
     "depends": ["stock", "base_details"],

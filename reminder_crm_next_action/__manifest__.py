@@ -2,7 +2,7 @@
     "name": "Reminders and Agenda for Opportunities",
     "vesion": "12.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev, Pavel Romanchenko",
-    "license": "LGPL-3",
+    "license": "MIT",
     "category": "Reminders and Agenda",
     "website": "https://twitter.com/yelizariev",
     "price": 21.00,

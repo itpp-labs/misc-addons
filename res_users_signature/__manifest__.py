@@ -6,7 +6,7 @@
     "external_dependencies": {"python": ["bs4", "html2text"]},
     "version": "12.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
-    "license": "LGPL-3",
+    "license": "MIT",
     "category": "Social Network",
     "images": ["images/main.png"],
     "website": "https://yelizariev.github.io",

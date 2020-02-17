@@ -2,7 +2,7 @@
     "name": "Log / Notify Next Action changes",
     "vesion": "12.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
-    "license": "LGPL-3",
+    "license": "MIT",
     "category": "Customer Relationship Management",
     "website": "https://twitter.com/yelizariev",
     "price": 9.00,

@@ -8,7 +8,7 @@
     "author": "IT-Projects LLC, Ivan Yelizariev, Pavel Romanchenko",
     "support": "apps@it-projects.info",
     "website": "https://twitter.com/yelizariev",
-    "license": "LGPL-3",
+    "license": "MIT",
     "price": 21.00,
     "currency": "EUR",
     "depends": ["reminder_base", "project"],

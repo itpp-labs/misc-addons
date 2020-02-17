@@ -7,7 +7,7 @@
     "application": False,
     "author": "IT-Projects LLC",
     "website": "https://www.it-projects.info/",
-    "license": "LGPL-3",
+    "license": "MIT",
     "price": 390.00,
     "currency": "EUR",
     "depends": ["hr_timesheet", "base_automation"],

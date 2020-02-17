@@ -4,7 +4,7 @@
     "vesion": "12.0.1.0.1",
     "author": "IT-Projects LLC",
     "website": "https://it-projects.info",
-    "license": "LGPL-3",
+    "license": "MIT",
     "price": 80.00,
     "currency": "EUR",
     "depends": ["auth_signup"],
