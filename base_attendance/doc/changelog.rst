@@ -1,7 +1,7 @@
 `1.1.3`
 -------
 
-- **Improvement:** Conform `group_attendance_use_pin` field type with original `group_attendance_use_pin` field from hr_attendance
+- **Improvement:** The type of "group_attendace_use_pin" is changed to a checkbox
 
 `1.1.2`
 -------
