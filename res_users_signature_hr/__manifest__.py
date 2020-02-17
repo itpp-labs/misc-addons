@@ -3,7 +3,7 @@
     "name": "Signature templates for user emails (HR)",
     "vesion": "10.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
-    "license": "LGPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "category": "Custom",
     "website": "https://yelizariev.github.io",
     "depends": ["res_users_signature", "hr"],

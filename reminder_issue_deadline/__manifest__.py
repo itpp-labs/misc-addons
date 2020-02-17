@@ -3,7 +3,7 @@
     "name": "Reminders and Agenda for Issues",
     "vesion": "10.0.1.0.0",
     "author": "Matmoz d.o.o.",
-    "license": "LGPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "category": "Reminders and Agenda",
     "website": "https://www.matmoz.si",
     "price": 21.00,
