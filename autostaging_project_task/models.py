@@ -2,7 +2,7 @@
 # Copyright 2015-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2016 manawi <https://github.com/manawi>
 # Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
-# License LGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).
+# License MIT (https://opensource.org/licenses/MIT).
 from odoo import fields, models
 
 
