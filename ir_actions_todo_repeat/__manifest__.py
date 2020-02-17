@@ -7,7 +7,7 @@
     "vesion": "10.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "website": "https://it-projects.info",
-    "license": "LGPL-3",
+    "license": "Other OSI approved licence"  # MIT,
     # "price": 9.00,
     # "currency": "EUR",
     "depends": [],

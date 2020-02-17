@@ -4,7 +4,7 @@
     "summary": """Order tasks by kanban state:
           Normal, Done, Blocked""",
     "author": "IT-Projects LLC, Ilmir Karamov",
-    "license": "LGPL-3",
+    "license": "Other OSI approved licence"  # MIT,
     "website": "http://it-projects.info",
     "category": "Project",
     "vesion": "10.0.1.0.0",

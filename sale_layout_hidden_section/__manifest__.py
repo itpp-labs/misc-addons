@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright 2017 Artyom Losev
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+# License MIT (https://opensource.org/licenses/MIT).
 {
     "name": """Separate Layouts for Sale Orders""",
     "summary": """
@@ -14,7 +14,7 @@
     "website": "https://it-projects.info",
     "price": 14.00,
     "currency": "EUR",
-    "license": "LGPL-3",
+    "license": "Other OSI approved licence"  # MIT,
     "depends": ["sale"],
     "external_dependencies": {"python": [], "bin": []},
     "data": ["views/views.xml"],
