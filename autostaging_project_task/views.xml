@@ -4,7 +4,7 @@
     Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
     License MIT (https://opensource.org/licenses/MIT). -->
 <openerp>
-  <data>
+    <data>
         <record id="mt_autostaging" model="mail.message.subtype">
             <field name="name">Autostaging</field>
             <field name="res_model">project.task</field>
@@ -29,7 +29,7 @@
                     <xpath expr="//group[@name='misc']" position="inside">
                         <label for="autostaging_enabled" string="Autostaging enabled" />
                         <field name="autostaging_enabled" />
-                     </xpath>
+                    </xpath>
                 </data>
             </field>
         </record>
@@ -50,13 +50,14 @@
                             <field
                                 name="autostaging_idle_timeout"
                                 attrs="{'required': [('autostaging_enabled','=',True)], 'readonly':[('autostaging_enabled', '=', False)]}"
-                            > <span>days</span> </field>
+                            >
+                                <span>days</span>
+                            </field>
                         </group>
                     </xpath>
                 </data>
             </field>
         </record>
-
 
         <record id="view_project_task_type_tree_autostaging" model="ir.ui.view">
             <field name="name">project.task.type.tree.autostaging</field>
@@ -93,6 +94,5 @@
                 </data>
             </field>
         </record>
-
     </data>
 </openerp>

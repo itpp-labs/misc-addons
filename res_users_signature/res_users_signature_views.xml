@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <openerp>
     <data>
-
         <record id="view_users_form" model="ir.ui.view">
             <field name="name">res.users.form</field>
             <field name="model">res.users</field>
@@ -74,13 +73,13 @@
             </field>
         </record>
 
-
         <record id="action_update_signature_multi" model="ir.actions.server">
             <field name="name">Update signatures</field>
             <field name="model_id" ref="model_res_users_signature" />
             <field name="state">code</field>
             <field name="code">
-                self.action_update_signature(cr, uid, context['active_ids'], context=context)
+                self.action_update_signature(cr, uid, context['active_ids'],
+                context=context)
             </field>
         </record>
 
@@ -108,6 +107,5 @@
             id="menu_action_res_users_signature"
             parent="base.menu_users"
         />
-
     </data>
 </openerp>
