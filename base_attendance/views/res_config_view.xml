@@ -26,7 +26,7 @@
                 </header>
                 <group string="Settings">
                     <field name="hex_scanner_is_used" />
-                    <field name="group_attendance_use_pin" widget="radio" />
+                    <field name="group_attendance_use_pin" />
                     <field name="shift_autocheckout" />
                 </group>
             </form>
