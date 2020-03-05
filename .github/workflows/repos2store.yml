@@ -12,10 +12,9 @@ jobs:
         uses: actions/checkout@v2-beta
         with:
           fetch-depth: 100
-          token: ${{ secrets.DINAR_TOKEN }}
       - name: Fetch REPO-store
         run: |
-          git remote add store git@github.com:${GITHUB_REPOSITORY}-store.git
+          git remote add store https://x-access-token:${{ secrets.DINAR_TOKEN }}@github.com/${GITHUB_REPOSITORY}-store.git
           git fetch store
       - name: Merge and Push
         run: |
