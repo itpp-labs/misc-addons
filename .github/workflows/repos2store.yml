@@ -18,8 +18,9 @@ jobs:
           git fetch store
       - name: Merge and Push
         run: |
+          set -x
           BRANCH=${GITHUB_REF##*/}
           REF=$(git rev-parse HEAD)
-          git checkout -b $BRANCH store/$BRANCH
+          git checkout -b $BRANCH-store store/$BRANCH
           git merge origin/$BRANCH $REF
-          git push store $BRANCH
+          git push store $BRANCH-store:$BRANCH
