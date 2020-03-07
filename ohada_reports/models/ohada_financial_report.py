@@ -1453,8 +1453,10 @@ class OhadaFinancialReportLine(models.Model):
                 elif line.header == True and financial_report.type == 'note':
                     if financial_report.code == "N1" and line.sequence == 1:
                         vals['columns'][0]['name'] = ['Montant brut']
+                        vals['columns'][0]['rowspan'] = 2
                         vals['columns'].append({'name': ['SURETES REELLES']})
-                        vals['colspan0'] = 3
+                        vals['columns'][1]['colspan0'] = 3
+                        
                     elif financial_report.code == "N3A" and line.sequence == 1:
                         header_list = [["MOUVEMENTS", "BRUTS À", "L'OUVERTURE", "DE L EXERCICE"],
                                        ["ACQUISITIONS,", "APPORTS,", "CREATIONS"],
@@ -1476,8 +1478,8 @@ class OhadaFinancialReportLine(models.Model):
                     elif financial_report.code == "N3B" and line.sequence == 2:
                         vals['name'] = ["MOUVEMENTS", "BRUTS À", "L'OUVERTURE", "DE L EXERCICE"]
                         subheader_list = [
-                                         ["ACQUISITIONS,", "APPORTS,", "CREATIONS"],
-                                         ["VIREMENTS DE", "POSTE À", "POSTE"],
+                                         ["Acquisitions", "Apports", "Créations"],
+                                         ["Virements de", "poste à", "poste"],
                                          ["Suite à une", "réévaluation", "pratiquée au cours", "de l'exercice"],
                                          ["Cessions,", "scissions, hors-", "service"],
                                          ["Virements de", "poste à poste"],
@@ -1498,7 +1500,7 @@ class OhadaFinancialReportLine(models.Model):
                         vals['name'] = ["AMORTISSEMENTS", "CUMULES À", "L'OUVERTURE DE", "L'EXERCICE"]
                         subheader_list = [
                                           ["AUGMENTATIONS:", "DOTATIONS DE", "L'EXERCICE"],
-                                          ["DIMINUTIONS:", "AMORTISSEMENTS", "RELATIFS AUX", "SORTIES DE", "L'ACTIF"],
+                                          ["DIMINUTIONS :", "AMORTISSEMENTS", "RELATIFS AUX", "SORTIES DE L'ACTIF"],
                                           ["CUMULS DES", "AMORTISSEMENTS", "À LA CLÔTURE DE", "L'EXERCICE"]]
                         vals['columns'] = []
                         for i in range(len(subheader_list)):
@@ -1520,7 +1522,7 @@ class OhadaFinancialReportLine(models.Model):
                         for i in range(len(header_list)):
                             vals['columns'].append({'name': header_list[i]})
                     elif (financial_report.code == "N16BB" or financial_report.code == "N16BB_1") and line.sequence == 1:
-                        vals['name'] = "DUMMY LINE NAME"
+                        #vals['name'] = "DUMMY LINE NAME"
                         vals['columns'] = []
                     elif financial_report.code == "N32" and line.sequence in [1, 2]:
                         header_list = [["DUMMY LINE NAME"],
@@ -1552,7 +1554,7 @@ class OhadaFinancialReportLine(models.Model):
                             for i in range(len(vals['columns'][1:]) - 1):
                                 vals['columns'][i + 1]['name'] = ['ANNEE ' + line._context['periods'][i]['string']]
                             if financial_report.code in ['N15A', 'N16A', 'N18', 'N19']:
-                                vals['columns'][- 1]['name'] = ['Variation en valeur', 'absolue']
+                                vals['columns'][- 1]['name'] = ['Variation en ', 'valeur absolue']
                                 vals['columns'].append({'name': ['Variation en %']})
                             else:
                                 vals['columns'][- 1]['name'] = ['Variation en %']
@@ -1661,7 +1663,7 @@ class OhadaFinancialReportLine(models.Model):
                         vals['columns'] = []
                         for i in range(4):
                             vals['columns'].append({'name': ' '})
-                    elif (financial_report.code == 'N3D' and line.sequence > 2) or (financial_report.name in ['N13', 'N31'] and line.sequence > 1) or financial_report.name in ["N12", "N36"]:
+                    elif (financial_report.code == 'N3D' and line.sequence > 2) or (financial_report.name in ['N13', 'N31'] and line.sequence > 1) or financial_report.name in ["N12"]:
                         vals['columns'] = []
                         for i in range(5):
                             vals['columns'].append({'name': ' '})
@@ -1669,19 +1671,34 @@ class OhadaFinancialReportLine(models.Model):
                         vals['columns'] = []
                         for i in range(2):
                             vals['columns'].append({'name': ' '})
-                    elif (financial_report.code in ["N16BB", "N16BB_1"] and line.sequence != 1) or financial_report.name in ["N16B", "N16B_1"]:
+                    elif (financial_report.code in ["N16BB", "N16BB_1"] and line.sequence != 1):
                         vals['columns'].pop()
-                    elif financial_report.code in ["N32", "N27B"]:
+                    elif financial_report.code in ["N27B"]:
                         vals['columns'] = []
                         for i in range(13):
-                            vals['columns'].append({'name': ' '})
+                            if line.sequence in [1, 2, 3]:
+                                vals['columns'].append({'name': ' A '})
+                            else:
+                                vals['columns'].append({'name': ' '})
+                    elif financial_report.code in ["N32"]:
+                        vals['columns'] = []
+                        for i in range(13):
+                            if line.sequence in [1, 2]:
+                                vals['columns'].append({'name': ' A '})
+                            else: 
+                                vals['columns'].append({'name': ' '})
                     elif financial_report.code in ["N33", "N28", "N27B_1"]:
                         vals['columns'] = []
                         for i in range(8):
                             vals['columns'].append({'name': ' '})
                     elif financial_report.code == "N37":
-                        vals['columns'] = []
-                        vals['columns'].append({'name': ' '})
+                        del vals['columns'][2]
+                        del vals['columns'][1]
+                        if line.code == 'N37_H':
+                            vals['columns'][0]['name'] = 'Montant'
+                        else:
+                            #hier the line formula must be applied to catch the right value
+                            vals['columns'][0]['name'] = ' '
                     elif financial_report.code == 'N8A':
                         vals['columns'] = []
                         for i in range(3):
@@ -1866,7 +1883,7 @@ class OhadaFinancialReportingDashboard(models.Model):
         # 1st
         data['bz'] = data['bz_d'] = report._get_lines(options, bz_id)[0]['columns'][0]['no_format_name']
         data['dz'] = report._get_lines(options, dz_id)[0]['columns'][0]['no_format_name']
-        data['dif_1'] = '$ {:,.2f}'.format(data['bz'] + data['dz'])
+        data['dif_1'] = '$ {:,.2f}'.format(data['bz'] - data['dz'])
         data['bz'] = '$ {:,.2f}'.format(data['bz'])
         data['dz'] = '$ {:,.2f}'.format(data['dz'])
 
@@ -1876,7 +1893,11 @@ class OhadaFinancialReportingDashboard(models.Model):
                                                          'date': {'date_to': str(year - 1) + '-12-31',
                                                                   'string': str(year - 1), 'filter': 'this_year',
                                                                   'date_from': str(year - 1) + '-01-01'}}, xl_id)[0]['columns'][0]['no_format_name']
-        data['xl_dif'] = '$ {:,.2f}'.format(data['xl'] - data['xl-1'])
+#        data['xl_dif'] = '$ {:,.2f}'.format(data['xl'] - data['xl-1'])
+        if float(data['xl-1']) == 0.0:
+            data['xl_dif'] = 'n/a'    
+        else:
+            data['xl_dif'] = '{:,.1f}%'.format(((data['xl']/data['xl-1'])-1)*100)
         data['xl'] = '$ {:,.2f}'.format(data['xl'])
         data['xl-1'] = '$ {:,.2f}'.format(data['xl-1'])
 
@@ -1887,7 +1908,11 @@ class OhadaFinancialReportingDashboard(models.Model):
                                                                   'string': str(year - 1), 'filter': 'this_year',
                                                                   'date_from': str(year - 1) + '-01-01'}}, zh_id)[0][
             'columns'][0]['no_format_name']
-        data['zh_dif'] = '$ {:,.2f}'.format(data['zh'] - data['zh-1'])
+#        data['zh_dif'] = '$ {:,.2f}'.format(data['zh'] - data['zh-1'])
+        if float(data['zh-1']) == 0.0:
+            data['zh_dif'] = 'n/a'    
+        else:
+            data['zh_dif'] = '{:,.1f}%'.format(((data['zh']/data['zh-1'])-1)*100)
         data['zh'] = '$ {:,.2f}'.format(data['zh'])
         data['zh-1'] = '$ {:,.2f}'.format(data['zh-1'])
 
@@ -1986,7 +2011,6 @@ class OhadaCellStyle(models.Model):
     _description = "Style for cell"
 
     column_id = fields.Many2one('ohada.custom.columns', 'Table column')
-
     name = fields.Char()
     colspan = fields.Integer(default=1)
     rowspan = fields.Integer(default=1)

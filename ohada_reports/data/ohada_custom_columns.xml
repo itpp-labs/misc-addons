@@ -1,31 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <!--columns for note 1-->
+        <record id="ohada_custom_columns_note1_1" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note1_header"/>
+        </record>
+
+            <record id="ohada_cell_style_note1_1_1" model="ohada.cell.style">
+                <field name="name">NOTE</field>
+                <field name="column_id" ref="ohada_custom_columns_note1_1"/>
+                <field name="rowspan">2</field>
+            </record>
+
+            <record id="ohada_cell_style_note1_1_2" model="ohada.cell.style">
+                <field name="name">Montant brut</field>
+                <field name="column_id" ref="ohada_custom_columns_note1_1"/>
+                <field name="rowspan">2</field>
+            </record>
+
+            <record id="ohada_cell_style_note1_1_3" model="ohada.cell.style">
+                <field name="name">SURETES REELLES</field>
+                <field name="column_id" ref="ohada_custom_columns_note1_1"/>
+                <field name="rowspan">1</field>
+                <field name="colspan">3</field>
+            </record>
+
+        <!--columns for note 2-->
+        <record id="ohada_custom_columns_note2_1" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note2_header"/>
+            <field name="line_name" eval="False"/>
+        </record>
+
+            <record id="ohada_cell_style_note2_1_1" model="ohada.cell.style">
+                <field name="name">A - DECLARATION DE CONFORMITÉ AU SYSCOHADA</field>
+                <field name="column_id" ref="ohada_custom_columns_note2_1"/>
+            </record>
+
+        <record id="ohada_custom_columns_note2_2" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note2_2"/>
+            <field name="line_name" eval="False"/>
+        </record>
+
+            <record id="ohada_cell_style_note2_2_1" model="ohada.cell.style">
+                <field name="name">B - REGLES ET METHODES COMPTABLES</field>
+                <field name="column_id" ref="ohada_custom_columns_note2_2"/>
+            </record>
+
+        <record id="ohada_custom_columns_note2_3" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note2_4"/>
+            <field name="line_name" eval="False"/>
+        </record>
+
+            <record id="ohada_cell_style_note2_3_1" model="ohada.cell.style">
+                <field name="name">C - DEROGATIONS AUX POSTULATS ET CONVENTIONS COMPTABLES</field>
+                <field name="column_id" ref="ohada_custom_columns_note2_3"/>
+            </record>
+
+        <record id="ohada_custom_columns_note2_4" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note2_6"/>
+            <field name="line_name" eval="False"/>
+        </record>
+
+            <record id="ohada_cell_style_note2_4_1" model="ohada.cell.style">
+                <field name="name">D - INFORMATIONS COMPLEMENTAIRES RELATIVES AU BILAN, AU COMPTE DE RESULTAT
+                                    ET AU TABLEAX DES FLUX DE TRESORERIE</field>
+                <field name="column_id" ref="ohada_custom_columns_note2_4"/>
+            </record>
+
         <!--columns for note 33-->
         <record id="ohada_custom_columns_note33_1" model="ohada.custom.columns">
             <field name="line_id" ref="ohada_financial_report_note33_header"/>
         </record>
 
             <record id="ohada_cell_style_note33_1_1" model="ohada.cell.style">
-                <field name="name">Vertical line</field>
+                <field name="name">Unité</field>
                 <field name="column_id" ref="ohada_custom_columns_note33_1"/>
                 <field name="colspan">1</field>
                 <field name="rowspan">4</field>
-                <field name="rotate">90</field>
+                <field name="rotate">0</field>
             </record>
 
             <record id="ohada_cell_style_note33_1_2" model="ohada.cell.style">
-                <field name="name">DOUBLE HORIZONTAL LINE</field>
+                <field name="name">ACHATS EFFECTUES AU COURS DE L'EXERCICE</field>
                 <field name="column_id" ref="ohada_custom_columns_note33_1"/>
                 <field name="colspan">6</field>
                 <field name="rowspan">1</field>
             </record>
 
             <record id="ohada_cell_style_note33_1_3" model="ohada.cell.style">
-                <field name="name">Vertical line</field>
+                <field name="name">Variation des stocks</field>
                 <field name="column_id" ref="ohada_custom_columns_note33_1"/>
                 <field name="colspan">1</field>
                 <field name="rowspan">3</field>
-                <field name="rotate">90</field>
+                <field name="rotate">0</field>
             </record>
 
         <record id="ohada_custom_columns_note33_2" model="ohada.custom.columns">
@@ -34,14 +101,14 @@
         </record>
 
             <record id="ohada_cell_style_note33_2_1" model="ohada.cell.style">
-                <field name="name">HORIZONTAL LINE</field>
+                <field name="name">Produits de l'état</field>
                 <field name="column_id" ref="ohada_custom_columns_note33_2"/>
                 <field name="colspan">2</field>
                 <field name="rowspan">2</field>
             </record>
 
             <record id="ohada_cell_style_note33_2_2" model="ohada.cell.style">
-                <field name="name">DOUBLE HORIZONTAL LINE</field>
+                <field name="name">Produits importés</field>
                 <field name="column_id" ref="ohada_custom_columns_note33_2"/>
                 <field name="colspan">4</field>
                 <field name="rowspan">1</field>
@@ -53,14 +120,14 @@
         </record>
 
             <record id="ohada_cell_style_note33_3_1" model="ohada.cell.style">
-                <field name="name">DOUBLE HORIZONTAL LINE</field>
+                <field name="name">achetés dans l'état</field>
                 <field name="column_id" ref="ohada_custom_columns_note33_3"/>
                 <field name="colspan">2</field>
                 <field name="rowspan">1</field>
             </record>
 
             <record id="ohada_cell_style_note33_3_2" model="ohada.cell.style">
-                <field name="name">DOUBLE HORIZONTAL LINE</field>
+                <field name="name">achétés hors de l'état</field>
                 <field name="column_id" ref="ohada_custom_columns_note33_3"/>
                 <field name="colspan">2</field>
                 <field name="rowspan">1</field>
@@ -72,45 +139,45 @@
         </record>
 
             <record id="ohada_cell_style_note33_4_1" model="ohada.cell.style">
-                <field name="name">vertical line</field>
+                <field name="name">Quantité</field>
                 <field name="column_id" ref="ohada_custom_columns_note33_4"/>
-                <field name="rotate">90</field>
+                <field name="rotate">0</field>
             </record>
 
             <record id="ohada_cell_style_note33_4_2" model="ohada.cell.style">
-                <field name="name">vertical line</field>
+                <field name="name">Valeur</field>
                 <field name="column_id" ref="ohada_custom_columns_note33_4"/>
-                <field name="rotate">90</field>
+                <field name="rotate">0</field>
             </record>
 
             <record id="ohada_cell_style_note33_4_3" model="ohada.cell.style">
-                <field name="name">vertical line</field>
+                <field name="name">Quantité</field>
                 <field name="column_id" ref="ohada_custom_columns_note33_4"/>
-                <field name="rotate">90</field>
+                <field name="rotate">0</field>
             </record>
 
             <record id="ohada_cell_style_note33_4_4" model="ohada.cell.style">
-                <field name="name">vertical line</field>
+                <field name="name">Valeur</field>
                 <field name="column_id" ref="ohada_custom_columns_note33_4"/>
-                <field name="rotate">90</field>
+                <field name="rotate">0</field>
             </record>
 
             <record id="ohada_cell_style_note33_4_5" model="ohada.cell.style">
-                <field name="name">vertical line</field>
+                <field name="name">Quantité</field>
                 <field name="column_id" ref="ohada_custom_columns_note33_4"/>
-                <field name="rotate">90</field>
+                <field name="rotate">0</field>
             </record>
 
             <record id="ohada_cell_style_note33_4_6" model="ohada.cell.style">
-                <field name="name">vertical line</field>
+                <field name="name">Valeur</field>
                 <field name="column_id" ref="ohada_custom_columns_note33_4"/>
-                <field name="rotate">90</field>
+                <field name="rotate">0</field>
             </record>
 
             <record id="ohada_cell_style_note33_4_7" model="ohada.cell.style">
-                <field name="name">vertical line</field>
+                <field name="name">(en valeur)</field>
                 <field name="column_id" ref="ohada_custom_columns_note33_4"/>
-                <field name="rotate">90</field>
+                <field name="rotate">0</field>
             </record>
 
         <!--columns for note 3D-->
@@ -236,7 +303,7 @@
             </record>
 
             <record id="ohada_cell_style_note36_1_3" model="ohada.cell.style">
-                <field name="name">DUMMY LINE NAME</field>
+                <field name="name">3 - Code pays du siège social</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_1"/>
             </record>
 

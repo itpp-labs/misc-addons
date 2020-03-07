@@ -407,17 +407,17 @@
                         <!--</t>-->
                     </t>
                     <t t-else="">
-                        <t t-if="report['code'] == 'N1' and column_index == 1">
-                            <td t-att-colspan="line.get('colspan0')" style="width:90px !important;text-align:center !important;padding:10px;" t-att-class="'o_ohada_report_line ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent')">
-                                <t t-foreach="column.get('name')" t-as="name">
-                                    <span style="margin:auto;padding:15px;" class="o_ohada_report_column_value" t-att-title="column.get('title')">
-                                        <t t-esc="name"/>
-                                    </span>
-                                    <br/>
-                                </t>
-                            </td>
-                        </t>
-                        <t t-elif="report['code'] == 'N3B'">
+                        <!--<t t-if="report['code'] == 'N1' and column_index == 1">-->
+                            <!--<td t-att-colspan="line.get('colspan0')" style="width:90px !important;text-align:center !important;padding:10px;" t-att-class="'o_ohada_report_line ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent')">-->
+                                <!--<t t-foreach="column.get('name')" t-as="name">-->
+                                    <!--<span style="margin:auto;padding:15px;" class="o_ohada_report_column_value" t-att-title="column.get('title')">-->
+                                        <!--<t t-esc="name"/>-->
+                                    <!--</span>-->
+                                    <!--<br/>-->
+                                <!--</t>-->
+                            <!--</td>-->
+                        <!--</t>-->
+                        <t t-if="report['code'] == 'N3B'">
                             <td t-att-rowspan="column.get('rowspan', 1)" t-att-colspan="column.get('colspan', 1)" style="width:90px !important;text-align:center !important;padding:10px;" t-att-class="'o_ohada_report_line ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent')">
                                 <t t-foreach="column.get('name')" t-as="name">
                                     <span style="margin:auto;padding:15px;" class="o_ohada_report_column_value" t-att-title="column.get('title')">
