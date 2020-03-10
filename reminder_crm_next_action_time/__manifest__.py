@@ -9,7 +9,7 @@
     "author": "IT-Projects LLC, Dinar Gabbasov",
     "support": "apps@itpp.dev",
     "website": "https://twitter.com/gabbasov_dinar",
-    "license": "GPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "price": 21.00,
     "currency": "EUR",
     "depends": ["reminder_base", "crm"],

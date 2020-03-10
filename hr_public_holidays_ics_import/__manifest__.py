@@ -8,7 +8,7 @@
     "vesion": "10.0.1.0.0",
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "website": "https://it-projects.info",
-    "license": "AGPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "price": 9.00,
     "currency": "EUR",
     "depends": ["hr_public_holidays"],
