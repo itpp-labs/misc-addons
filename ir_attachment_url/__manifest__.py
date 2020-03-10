@@ -7,7 +7,7 @@
     "application": False,
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "website": "https://apps.odoo.com/apps/modules/12.0/ir_attachment_url/",
-    "license": "AGPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "price": 30.00,
     "currency": "EUR",
     "depends": ["web", "product"],
