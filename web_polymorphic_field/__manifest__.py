@@ -22,7 +22,7 @@
     "category": "Web",
     "depends": ["web"],
     "author": "Augustin Cisterne-Kaas",
-    "license": "GPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "data": ["views/web_polymorphic_field.xml"],
     "js": ["static/src/js/view_form.js"],
     "installable": False,
