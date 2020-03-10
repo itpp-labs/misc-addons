@@ -27,7 +27,7 @@
     "website": "http://julius.fr",
     "category": "Sales Management",
     "depends": ["product", "sale"],
-    "license": "AGPL-3",
+    "license": "Other OSI approved licence",  # MIT
     "demo": [],
     "data": ["security/ir.model.access.csv", "product_view.xml"],
     "installable": True,
