@@ -1,6 +1,6 @@
 # Copyright 2014 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2019 Anvar Kildebekov <https://it-projects.info/team/fedoranvar>
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+# License MIT (https://opensource.org/licenses/MIT).
 {
     "name": "Signature templates for user emails (HR)",
     "version": "13.0.1.0.0",
