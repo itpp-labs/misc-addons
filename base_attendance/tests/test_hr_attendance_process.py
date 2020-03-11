@@ -2,9 +2,11 @@
 # Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # License MIT (https://opensource.org/licenses/MIT).
 
+import odoo.tests
 from odoo.tests.common import TransactionCase
 
 
+@odoo.tests.tagged("at_install", "post_install")
 class TestHrAttendance(TransactionCase):
     """Test for presence validity"""
 

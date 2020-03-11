@@ -37,7 +37,7 @@ class HrPartner(models.Model):
         help="list of attendances for the employee",
     )
     last_attendance_id = fields.Many2one(
-        "res.partner.attendance", compute="_compute_last_attendance_id"
+        "res.partner.attendance", compute="_compute_last_attendance_id", store=True
     )
     attendance_state = fields.Selection(
         string="Attendance",
