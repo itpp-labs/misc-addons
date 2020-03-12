@@ -9,3 +9,5 @@ addons:
 
   server_wide_modules:
     - web
+    - ir_attachment_url
+    - ir_config_parameter_multi_company
