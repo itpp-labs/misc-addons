@@ -101,7 +101,7 @@
       </field>
     </record>
 
-    <record id="project_task_subtask_view_search" model="ir.ui.view">
+    <!-- <record id="project_task_subtask_view_search" model="ir.ui.view">
       <field name="name">project.task.subtask.filter</field>
       <field name="model">project.task.subtask</field>
       <field name="arch" type="xml">
@@ -118,7 +118,7 @@
           </group>
         </search>
       </field>
-    </record>
+    </record> -->
 
     <record model="ir.ui.view" id="subtask_list_view">
       <field name="name">subtask.list.form</field>
