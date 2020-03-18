@@ -2,11 +2,9 @@
 <!-- Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
      License MIT (https://opensource.org/licenses/MIT). -->
 <odoo>
-
     <template id="assets_backend_demo" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
             <script type="text/javascript" src="/web_website/static/src/js/tour.js" />
         </xpath>
     </template>
-
 </odoo>

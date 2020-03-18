@@ -4,7 +4,6 @@ Copyright 2018 Stanislav Krotov <https://it-projects.info/team/ufaks>
 License MIT (https://opensource.org/licenses/MIT).
 -->
 <odoo>
-
     <template
         id="assets_backend"
         inherit_id="web.assets_backend"
@@ -32,5 +31,4 @@ License MIT (https://opensource.org/licenses/MIT).
             />
         </xpath>
     </template>
-
 </odoo>
