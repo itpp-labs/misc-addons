@@ -4,7 +4,6 @@ Copyright 2019 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
 License MIT (https://opensource.org/licenses/MIT).
 -->
 <odoo>
-
     <template
         id="assets_backend"
         inherit_id="web.assets_backend"
@@ -17,5 +16,4 @@ License MIT (https://opensource.org/licenses/MIT).
             />
         </xpath>
     </template>
-
 </odoo>
