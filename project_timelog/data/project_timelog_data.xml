@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <openerp>
     <data noupdate="1">
-    <!--<data>-->
+        <!--<data>-->
         <!--if user offline then timer will stop-->
         <record id="ir_cron_check_stop_timer" model="ir.cron">
             <field name="name">Offline stop timer</field>
@@ -14,7 +14,6 @@
             <field name="code">model.check_stop_timer()</field>
             <field name="priority" eval="4" />
         </record>
-
         <!--new status for yesterday's timelogs-->
         <record id="ir_cron_nonactive_new_timer_status" model="ir.cron">
             <field name="name">Nonactive new status</field>
@@ -31,7 +30,6 @@
             <field name="code">model.subtask_new_status()</field>
             <field name="priority" eval="5" />
         </record>
-
         <!--clear stopline for yesterday's date-->
         <record id="ir_cron_clear_stopline_datetime" model="ir.cron">
             <field name="name">Clear stopline datetime</field>
@@ -48,7 +46,6 @@
             <field name="code">model.clear_stopline_datetime()</field>
             <field name="priority" eval="5" />
         </record>
-
         <!--if stopline is not false. If date/time in stopline is current date/time then timer will stop-->
         <record id="ir_cron_stopline" model="ir.cron">
             <field name="name">Stopline</field>
@@ -61,14 +58,12 @@
             <field name="code">model.stopline_timer()</field>
             <field name="priority" eval="4" />
         </record>
-
         <record id="mt_timelog_stopline" model="mail.message.subtype">
             <field name="name">Stopline changed</field>
             <field name="res_model">project.task</field>
             <field name="default" eval="True" />
             <field name="description">Stopline changed</field>
         </record>
-
         <record id="mt_timelog_stopline_change" model="mail.message.subtype">
             <field name="name">Stopline changed</field>
             <field name="sequence" eval="10" />
@@ -76,7 +71,6 @@
             <field name="parent_id" eval="ref('mt_timelog_stopline')" />
             <field name="relation_field">project_id</field>
         </record>
-
         <record id="action_auto_stop_timer" model="ir.actions.server">
             <field name="name">Auto stop timer for user</field>
             <field name="type">ir.actions.server</field>
@@ -86,7 +80,6 @@
                 obj.set_stage_timer()
             </field>
         </record>
-
         <function model="timelog.config.settings" name="init_timer_parametrs" />
     </data>
 </openerp>

@@ -97,7 +97,6 @@
                 </form>
             </field>
         </record>
-
         <record id="action_config_settings" model="ir.actions.act_window">
             <field name="name">Configure Timelog</field>
             <field name="type">ir.actions.act_window</field>
@@ -105,7 +104,6 @@
             <field name="view_mode">form</field>
             <field name="target">inline</field>
         </record>
-
         <menuitem
             id="menu_timelog_config"
             name="Timelog"

@@ -4,7 +4,6 @@ Copyright 2019 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
 License MIT (https://opensource.org/licenses/MIT).
 -->
 <odoo>
-
     <record id='odoo_backup_sh_config_form' model='ir.ui.view'>
         <field name="name">odoo_backup_sh.config.form</field>
         <field name="model">odoo_backup_sh.config</field>
@@ -15,7 +14,6 @@ License MIT (https://opensource.org/licenses/MIT).
             </xpath>
         </field>
     </record>
-
     <record id='odoo_backup_sh_backup_form' model='ir.ui.view'>
         <field name="name">odoo_backup_sh.backup_info.form</field>
         <field name="model">odoo_backup_sh.backup_info</field>
@@ -26,7 +24,6 @@ License MIT (https://opensource.org/licenses/MIT).
             </xpath>
         </field>
     </record>
-
     <record id='odoo_backup_sh_backup_tree' model='ir.ui.view'>
         <field name="name">odoo_backup_sh.backup_info.tree</field>
         <field name="model">odoo_backup_sh.backup_info</field>
@@ -37,5 +34,4 @@ License MIT (https://opensource.org/licenses/MIT).
             </xpath>
         </field>
     </record>
-
 </odoo>
