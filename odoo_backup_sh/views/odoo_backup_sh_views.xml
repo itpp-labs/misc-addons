@@ -6,20 +6,16 @@ Copyright 2019 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 License MIT (https://opensource.org/licenses/MIT).
 -->
 <odoo>
-
-
     <record id="backup_dashboard" model="ir.actions.client">
         <field name="name">Dashboard</field>
         <field name="tag">backup_dashboard</field>
     </record>
-
     <record id="ir_actions_server_backup_dashboard" model="ir.actions.server">
         <field name="name">Backups: Dashboard</field>
         <field name="model_id" ref="odoo_backup_sh.model_odoo_backup_sh_config" />
         <field name="state">code</field>
         <field name="code">action = model.action_dashboard_redirect()</field>
     </record>
-
     <record model="ir.actions.server" id="download_backup">
         <field name="name">Download backup</field>
         <field name="model_id" ref="model_odoo_backup_sh_backup_info" />
@@ -28,7 +24,6 @@ License MIT (https://opensource.org/licenses/MIT).
             action = model.download_backup_action()
         </field>
     </record>
-
     <!--
         Show information about a Storage Service of Database after install additional modules only.
         Additional modules:
@@ -61,7 +56,6 @@ License MIT (https://opensource.org/licenses/MIT).
             </form>
         </field>
     </record>
-
     <record id='odoo_backup_sh_backup_tree' model='ir.ui.view'>
         <field name="name">odoo_backup_sh.backup_info.tree</field>
         <field name="model">odoo_backup_sh.backup_info</field>
@@ -75,7 +69,6 @@ License MIT (https://opensource.org/licenses/MIT).
             </tree>
         </field>
     </record>
-
     <record id="odoo_backup_sh_backup_graph" model="ir.ui.view">
         <field name="name">odoo_backup_sh.backup_info.graph</field>
         <field name="model">odoo_backup_sh.backup_info</field>
@@ -86,7 +79,6 @@ License MIT (https://opensource.org/licenses/MIT).
             </graph>
         </field>
     </record>
-
     <record model="ir.ui.view" id="odoo_backup_sh_backup_search">
         <field name="name">odoo_backup_sh.backup_info.search</field>
         <field name="model">odoo_backup_sh.backup_info</field>
@@ -132,7 +124,6 @@ License MIT (https://opensource.org/licenses/MIT).
             </search>
         </field>
     </record>
-
     <record id='odoo_backup_sh_backup_action' model='ir.actions.act_window'>
         <field name="name">Backups</field>
         <field name="res_model">odoo_backup_sh.backup_info</field>
@@ -143,7 +134,6 @@ License MIT (https://opensource.org/licenses/MIT).
             }
         </field>
     </record>
-
     <record id="view_odoo_backup_sh_notification_kanban" model="ir.ui.view">
         <field name="name">odoo_backup_sh.notification.kanban</field>
         <field name="model">odoo_backup_sh.notification</field>
@@ -207,7 +197,6 @@ License MIT (https://opensource.org/licenses/MIT).
         <field name="res_model">odoo_backup_sh.notification</field>
         <field name="view_mode">tree,form</field>
     </record>
-
     <record id='odoo_backup_sh_config_form' model='ir.ui.view'>
         <field name="name">odoo_backup_sh.config.form</field>
         <field name="model">odoo_backup_sh.config</field>
@@ -223,19 +212,25 @@ License MIT (https://opensource.org/licenses/MIT).
                     />
                 </header>
                 <sheet>
-                  <div class="oe_button_box" name="button_box">
-                    <button
+                    <div class="oe_button_box" name="button_box">
+                        <button
                             class="oe_stat_button"
                             name="action_list_backups"
                             type="object"
                             icon="fa-database"
                         >
-                        <field name="backup_count" string="backups" widget="statinfo" />
-                    </button>
-                  </div>
+                            <field
+                                name="backup_count"
+                                string="backups"
+                                widget="statinfo"
+                            />
+                        </button>
+                    </div>
                     <div class="oe_title">
                         <label for="database" class="oe_edit_only" />
-                        <h1><field name="database" /></h1>
+                        <h1>
+                            <field name="database" />
+                        </h1>
                     </div>
                     <field
                         nolabel="1"
@@ -297,79 +292,75 @@ License MIT (https://opensource.org/licenses/MIT).
                         <field name="unlimited_time_frame" invisible="1" />
                         <field name="common_rotation" invisible="1" />
                         <group col="4" colspan="4">
-                          <group>
-                            <field name="hourly_rotation" />
-                          </group>
-                          <group>
-                            <field
+                            <group>
+                                <field name="hourly_rotation" />
+                            </group>
+                            <group>
+                                <field
                                     name="hourly_limit"
                                     attrs="{'invisible': [('hourly_rotation', '!=', 'limited')]}"
                                 />
-                          </group>
+                            </group>
                         </group>
-
                         <group
                             col="4"
                             colspan="4"
                             attrs="{'invisible': [('common_rotation', '!=', 'limited'), ('unlimited_time_frame', '=', 'hour')]}"
                         >
-                          <group>
-                            <field name="daily_rotation" />
-                          </group>
-                          <group>
-                            <field
+                            <group>
+                                <field name="daily_rotation" />
+                            </group>
+                            <group>
+                                <field
                                     name="daily_limit"
                                     attrs="{'invisible': [('daily_rotation', '!=', 'limited')]}"
                                 />
-                          </group>
+                            </group>
                         </group>
-
                         <group
                             col="4"
                             colspan="4"
                             attrs="{'invisible': [('common_rotation', '!=', 'limited'), ('unlimited_time_frame', 'in', ['hour', 'day'])]}"
                         >
-                          <group>
-                            <field name="weekly_rotation" />
-                          </group>
-                          <group>
-                            <field
+                            <group>
+                                <field name="weekly_rotation" />
+                            </group>
+                            <group>
+                                <field
                                     name="weekly_limit"
                                     attrs="{'invisible': [('weekly_rotation', '!=', 'limited')]}"
                                 />
-                          </group>
+                            </group>
                         </group>
-
                         <group
                             col="4"
                             colspan="4"
                             attrs="{'invisible': [('common_rotation', '!=', 'limited'), ('unlimited_time_frame', 'in', ['day', 'hour', 'week'])]}"
                         >
-                          <group>
-                            <field name="monthly_rotation" />
-                          </group>
-                          <group>
-                            <field
+                            <group>
+                                <field name="monthly_rotation" />
+                            </group>
+                            <group>
+                                <field
                                     name="monthly_limit"
                                     attrs="{'invisible': [('monthly_rotation', '!=', 'limited')]}"
                                 />
-                          </group>
+                            </group>
                         </group>
-
                         <group
                             col="4"
                             colspan="4"
                             attrs="{'invisible': [('common_rotation', '!=', 'limited'), ('unlimited_time_frame', 'in', ['day', 'hour', 'week', 'month'])]}"
                         >
-                          <group>
-                            <field name="yearly_rotation" />
-                          </group>
-                          <group>
-                            <field
+                            <group>
+                                <field name="yearly_rotation" />
+                            </group>
+                            <group>
+                                <field
                                     name="yearly_limit"
                                     attrs="{'invisible': [('yearly_rotation', '!=', 'limited')]}"
                                 />
-                          </group>
+                            </group>
                         </group>
                         <p
                             colspan="4"
@@ -440,7 +431,6 @@ License MIT (https://opensource.org/licenses/MIT).
             </form>
         </field>
     </record>
-
     <record id='odoo_backup_sh_config_tree' model='ir.ui.view'>
         <field name="name">odoo_backup_sh.config.tree</field>
         <field name="model">odoo_backup_sh.config</field>
@@ -450,21 +440,21 @@ License MIT (https://opensource.org/licenses/MIT).
             </tree>
         </field>
     </record>
-
     <record id='action_backup_config' model='ir.actions.act_window'>
         <field name="name">Backup Configurations</field>
         <field name="res_model">odoo_backup_sh.config</field>
         <field name="view_mode">tree,form</field>
     </record>
-
     <!-- delete remote backups wizard -->
     <record id="delete_remote_backup_wizard_view" model="ir.ui.view">
         <field name="name">Delete Remote Backups</field>
         <field name="model">odoo_backup_sh.delete_remote_backup_wizard</field>
         <field name="arch" type="xml">
             <form string="Confirmation">
-                <div><strong
-                    >Are you sure you want to delete this record from remote storage?</strong></div>
+                <div>
+                    <strong
+                    >Are you sure you want to delete this record from remote storage?</strong>
+                </div>
                 <footer>
                     <button
                         string="Ok"
@@ -477,7 +467,6 @@ License MIT (https://opensource.org/licenses/MIT).
             </form>
         </field>
     </record>
-
     <act_window
         id="delete_remote_backup_wizard_action"
         name="Delete Remote Backups"
@@ -486,7 +475,6 @@ License MIT (https://opensource.org/licenses/MIT).
         view_mode="form"
         target="new"
     />
-
     <menuitem
         name="Backups"
         id="menu_backup_root"
@@ -524,7 +512,6 @@ License MIT (https://opensource.org/licenses/MIT).
         sequence="30"
         groups="base.group_no_one"
     />
-
     <record id="res_config_settings_view_form" model="ir.ui.view">
         <field name="name">res.config.settings.view.form.inherit.odoo.backup</field>
         <field name="model">res.config.settings</field>
@@ -532,7 +519,6 @@ License MIT (https://opensource.org/licenses/MIT).
         <field name="inherit_id" ref="base.res_config_settings_view_form" />
         <field name="arch" type="xml">
             <xpath expr="//div[hasclass('settings')]" position="inside">
-
                 <div
                     class="app_settings_block"
                     data-string="Backups"
@@ -541,83 +527,77 @@ License MIT (https://opensource.org/licenses/MIT).
                     groups="base.group_system"
                 >
                     <h2>S3 Storage</h2>
-
                     <div class="row mt16 o_settings_container" name="backup_services">
-                      <div class="col-12 col-lg-6 o_setting_box">
-                        <div class="o_setting_left_pane">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
                           &amp;nbsp;
                         </div>
-                        <div class="o_setting_right_pane">
-                          <div class="text-muted">
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
                             Paste your S3 credentials here
                           </div>
-                          <div class="content-group">
-                            <div class="mt16 row">
-                              <field
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <field
                                             name="odoo_backup_sh_odoo_oauth_uid"
                                             invisible="1"
                                         />
-                              <field name="private_s3_dir_changed" invisible="1" />
-
-                              <label
+                                        <field
+                                            name="private_s3_dir_changed"
+                                            invisible="1"
+                                        />
+                                        <label
                                             for="odoo_backup_sh_amazon_bucket_name"
                                             class="col-4 col-lg-4 o_light_label"
                                         />
-                              <field
+                                        <field
                                             name="odoo_backup_sh_amazon_bucket_name"
                                             nolabel="1"
                                         />
-
-                              <label
+                                        <label
                                             for="odoo_backup_sh_private_s3_dir"
                                             class="col-4 col-lg-4 o_light_label"
                                             attrs="{'invisible': [('odoo_backup_sh_odoo_oauth_uid', '!=', '')]}"
                                         />
-                              <field
+                                        <field
                                             name="odoo_backup_sh_private_s3_dir"
                                             nolabel="1"
                                             attrs="{'invisible': [('odoo_backup_sh_odoo_oauth_uid', '!=', '')]}"
                                         />
-
-                              <label
+                                        <label
                                             for="odoo_backup_sh_amazon_access_key_id"
                                             string="Access Key ID"
                                             class="col-4 col-lg-4 o_light_label"
                                         />
-                              <field
+                                        <field
                                             name="odoo_backup_sh_amazon_access_key_id"
                                             nolabel="1"
                                         />
-
-                              <label
+                                        <label
                                             for="odoo_backup_sh_amazon_secret_access_key"
                                             string="Secret Access Key"
                                             class="col-4 col-lg-4 o_light_label"
                                         />
-                              <field
+                                        <field
                                             name="odoo_backup_sh_amazon_secret_access_key"
                                             password="1"
                                             nolabel="1"
                                         />
-
-
-                            </div>
-                            <div
+                                    </div>
+                                    <div
                                         class="mt16 text-warning"
                                         attrs="{'invisible': [('private_s3_dir_changed', '=', False)]}"
                                     >Note that on changing Folder, backups will be synced with new folder only<br
                                         /><span
                                             attrs="{'invisible': [('odoo_backup_sh_private_s3_dir', '=', '')]}"
                                         >Be sure, that the folder exists in the bucket</span></div>
-
-                            <!-- IAP is disabled
+                                    <!-- IAP is disabled
                             <button name="%(odoo_backup_sh.ir_actions_server_backup_dashboard)d" type="action" string="Get Credentials" class="btn btn-primary" icon="fa-lock" attrs="{'invisible': [('odoo_backup_sh_amazon_secret_access_key', '!=', '')]}"/>
                             -->
-                          </div>
+                                </div>
+                            </div>
                         </div>
-                      </div>
                     </div>
-
                     <h2
                         attrs="{'invisible': ['|', ('available_module_odoo_backup_sh_google_disk', '=', False), ('available_module_odoo_backup_sh_dropbox', '=', False)]}"
                     >Other Storage</h2>
@@ -646,7 +626,7 @@ License MIT (https://opensource.org/licenses/MIT).
                                     attrs="{'invisible': [('module_odoo_backup_sh_google_disk','=',False)]}"
                                     id="msg_module_odoo_backup_sh_google_disk"
                                 >
-                                  <div class="mt16 text-warning"><strong
+                                    <div class="mt16 text-warning"><strong
                                         >Save</strong> this page and come back here to set up the feature.</div>
                                 </div>
                             </div>
@@ -675,7 +655,7 @@ License MIT (https://opensource.org/licenses/MIT).
                                     attrs="{'invisible': [('module_odoo_backup_sh_dropbox','=',False)]}"
                                     id="msg_module_odoo_backup_sh_dropbox"
                                 >
-                                  <div class="mt16 text-warning"><strong
+                                    <div class="mt16 text-warning"><strong
                                         >Save</strong> this page and come back here to set up the feature.</div>
                                 </div>
                             </div>
@@ -685,7 +665,6 @@ License MIT (https://opensource.org/licenses/MIT).
             </xpath>
         </field>
     </record>
-
     <record id="action_backup_settings" model="ir.actions.act_window">
         <field name="name">Settings</field>
         <field name="type">ir.actions.act_window</field>
@@ -695,7 +674,6 @@ License MIT (https://opensource.org/licenses/MIT).
         <field name="target">inline</field>
         <field name="context">{'module' : 'odoo_backup_sh'}</field>
     </record>
-
     <menuitem
         name="Settings"
         id="menu_settings"
@@ -704,5 +682,4 @@ License MIT (https://opensource.org/licenses/MIT).
         groups="base.group_system"
         sequence="100"
     />
-
 </odoo>

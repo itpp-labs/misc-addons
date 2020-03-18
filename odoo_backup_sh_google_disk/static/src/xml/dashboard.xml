@@ -4,7 +4,6 @@ Copyright 2019 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
 License MIT (https://opensource.org/licenses/MIT).
 -->
 <templates id="template" xml:space="preserve">
-
     <t t-extend="odoo_backup_sh.BackupDashboardMain">
         <t t-jquery=".kanban_group_buttons" t-operation="append">
             <button
@@ -14,7 +13,6 @@ License MIT (https://opensource.org/licenses/MIT).
             >Google Drive</button>
         </t>
     </t>
-
     <t t-extend="odoo_backup_sh.config_cards">
         <t t-jquery="#backup_storage_type" t-operation="append">
             <t t-if="config.storage_service == 'google_drive'">
@@ -22,5 +20,4 @@ License MIT (https://opensource.org/licenses/MIT).
             </t>
         </t>
     </t>
-
 </templates>

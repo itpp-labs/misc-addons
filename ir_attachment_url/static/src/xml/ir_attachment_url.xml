@@ -5,7 +5,6 @@
             <span class="fa fa-at fa-lg o_link_address_button" title="Link" />
         </t>
     </t>
-
     <t t-name="AttachmentURL">
         <div class="input_url">
             <span t-if="widget.get('effective_readonly')" />
