@@ -32,7 +32,6 @@
             </form>
         </field>
     </record>
-
     <record id="action_hr_attendance_settings" model="ir.actions.act_window">
         <field name="name">Attendance Settings</field>
         <field name="res_model">base.config.settings</field>
@@ -40,7 +39,6 @@
         <field name="target">inline</field>
         <field name="view_id" ref="hr_attendance_view_config" />
     </record>
-
     <menuitem
         id="base_attendance.menu_hr_attendance_settings"
         name="Configuration"

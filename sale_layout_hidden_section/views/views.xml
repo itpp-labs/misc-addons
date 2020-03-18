@@ -3,7 +3,6 @@
 License MIT (https://opensource.org/licenses/MIT). -->
 <odoo>
     <data>
-
         <record id="view_order_form_new" model="ir.ui.view">
             <field name="name">sale.order.form.select</field>
             <field name="model">sale.order</field>
@@ -23,7 +22,6 @@ License MIT (https://opensource.org/licenses/MIT). -->
                 </xpath>
             </field>
         </record>
-
         <record id="report_configuration_form_new" model="ir.ui.view">
             <field name="name">report.configuration.form.view_new</field>
             <field name="model">sale.layout_category</field>
@@ -33,11 +31,10 @@ License MIT (https://opensource.org/licenses/MIT). -->
                 <xpath expr="//field[@name='sequence']" position="after">
                     <field name='is_global' />
                 </xpath>
-                 <xpath expr="//tree" position="attributes">
+                <xpath expr="//tree" position="attributes">
                     <attribute name="editable">bottom</attribute>
                 </xpath>
             </field>
         </record>
-
     </data>
 </odoo>

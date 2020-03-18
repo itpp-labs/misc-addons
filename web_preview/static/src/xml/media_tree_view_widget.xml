@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates id="template" xml:space="preserve">
-
     <t t-extend="HiddenInputFile">
         <t t-jquery="input[name='ufile']:eq(1)" t-operation="replace">
             <input
@@ -11,7 +10,6 @@
             />
         </t>
     </t>
-
     <t t-extend="FieldBinaryImage-img">
         <t t-jquery="img" t-operation="replace">
             <!--VIDEO-->
@@ -124,5 +122,4 @@
             </t>
         </t>
     </t>
-
 </templates>
