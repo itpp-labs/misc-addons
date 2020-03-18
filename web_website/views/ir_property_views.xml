@@ -2,7 +2,6 @@
 <!-- Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
      License MIT (https://opensource.org/licenses/MIT). -->
 <odoo>
-
     <record id="ir_property_view_search" model="ir.ui.view">
         <field name="name">ir.property.search</field>
         <field name="model">ir.property</field>
@@ -13,7 +12,6 @@
             </xpath>
         </field>
     </record>
-
     <record id="ir_property_view" model="ir.ui.view">
         <field name="name">ir.property.form</field>
         <field name="model">ir.property</field>
@@ -24,7 +22,6 @@
             </xpath>
         </field>
     </record>
-
     <record id="ir_property_view_tree" model="ir.ui.view">
         <field name="name">ir.property.tree</field>
         <field name="model">ir.property</field>
@@ -35,5 +32,4 @@
             </xpath>
         </field>
     </record>
-
 </odoo>

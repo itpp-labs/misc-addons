@@ -2,10 +2,9 @@
 <!-- Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
      License MIT (https://opensource.org/licenses/MIT). -->
 <templates id="template" xml:space="preserve">
-
-<t t-name="SwitchWebsiteMenu">
-    <li class="o_switch_website_menu">
-        <a
+    <t t-name="SwitchWebsiteMenu">
+        <li class="o_switch_website_menu">
+            <a
                 class="dropdown-toggle"
                 data-toggle="dropdown"
                 aria-expanded="false"
@@ -13,12 +12,11 @@
                 aria-label="Dropdown menu"
                 title="Dropdown menu"
             >
-            <span
+                <span
                     t-attf-class="#{widget.isMobile ? 'fa fa-building-o' : 'oe_topbar_name'}"
                 />
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" role="menu" />
-    </li>
-</t>
-
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" role="menu" />
+        </li>
+    </t>
 </templates>

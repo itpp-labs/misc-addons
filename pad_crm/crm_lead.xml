@@ -3,22 +3,22 @@
     Copyright 2019 Artem Rafailov <https://it-projects.info/team/Ommo73/>
     License MIT (https://opensource.org/licenses/MIT).-->
 <odoo>
-        <record id="crm_case_form_view_oppor" model="ir.ui.view">
-            <field name="model">crm.lead</field>
-            <field name="inherit_id" ref="crm.crm_case_form_view_oppor" />
-            <field name="arch" type="xml">
-                <field name="description" position="replace">
-                    <field name="description_pad" widget="pad" />
-                </field>
+    <record id="crm_case_form_view_oppor" model="ir.ui.view">
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_form_view_oppor" />
+        <field name="arch" type="xml">
+            <field name="description" position="replace">
+                <field name="description_pad" widget="pad" />
             </field>
-        </record>
-        <record id="crm_case_form_view_leads" model="ir.ui.view">
-            <field name="model">crm.lead</field>
-            <field name="inherit_id" ref="crm.crm_case_form_view_leads" />
-            <field name="arch" type="xml">
-                <field name="description" position="replace">
-                    <field name="description_pad" widget="pad" />
-                </field>
+        </field>
+    </record>
+    <record id="crm_case_form_view_leads" model="ir.ui.view">
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_form_view_leads" />
+        <field name="arch" type="xml">
+            <field name="description" position="replace">
+                <field name="description_pad" widget="pad" />
             </field>
-        </record>
+        </field>
+    </record>
 </odoo>
