@@ -2,7 +2,6 @@
     Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
     License MIT (https://opensource.org/licenses/MIT).-->
 <template>
-
     <t t-name="DropAttachments.select_files_button">
         <label
             for="file-upload"
@@ -20,11 +19,9 @@
             />
         </label>
     </t>
-
     <t t-extend="KanbanView.buttons">
         <t t-jquery="button.o-kanban-button-new" t-operation="after">
             <t t-call="DropAttachments.select_files_button" />
         </t>
     </t>
-
 </template>

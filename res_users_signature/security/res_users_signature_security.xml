@@ -5,6 +5,5 @@
             <field name="name">Signature administrator</field>
             <field name="comment">the user will have access to edit signatures</field>
         </record>
-
     </data>
 </openerp>

@@ -4,11 +4,9 @@ Copyright 2018 Stanislav Krotov <https://it-projects.info/team/ufaks>
 License MIT (https://opensource.org/licenses/MIT).
 -->
 <templates id="template" xml:space="preserve">
-
     <t t-name="odoo_backup_sh.BackupDashboardMain">
         <div class="o_backup_dashboard">
             <div class="o_backup_dashboard_header">
-
                 <a
                     t-if="widget.dashboard_can_backup()"
                     href="#"
@@ -21,7 +19,7 @@ License MIT (https://opensource.org/licenses/MIT).
                         Add Database
                     </div>
                 </a>
-                    <!--
+                <!--
                         See update_info method to undestand meaning of the button.
                         It's normally not needed for the user.
                         It's call automatically after every cron backup
@@ -31,18 +29,18 @@ License MIT (https://opensource.org/licenses/MIT).
                         Update Info
                     </div>
                     -->
-
-                  <t t-if="widget.dashboard_basic()">
+                <t t-if="widget.dashboard_basic()">
                     <a
                         href="#"
                         class="o_box_item o_dashboard_action o_dashboard_configure_s3_credentials"
                         title="Set S3 credentials"
                         name="odoo_backup_sh.action_backup_settings"
                     >
-                    <div class="o_inner_box o_primary">
+                        <div class="o_inner_box o_primary">
                         <i class="fab fa-aws fa-3x" /><br />
                         Configure S3
-                    </div></a>
+                    </div>
+                    </a>
                     <!-- IAP is disabled
                     <a href="#" class="o_box_item o_dashboard_get_s3_credentials" title="Purchase S3 access via odoo.com">
                     <div class="o_inner_box o_primary">
@@ -56,46 +54,50 @@ License MIT (https://opensource.org/licenses/MIT).
                         class="o_box_item o_dashboard_use_dropbox"
                         title="Install module to save backups to your Dropbox"
                     >
-                    <div class="o_inner_box o_primary">
+                        <div class="o_inner_box o_primary">
                         <i class="fa fa-dropbox fa-3x" /><br />
                         Use Dropbox
-                    </div></a>
+                    </div>
+                    </a>
                     <a
                         target="_blank"
                         t-att-href="widget.modules.odoo_backup_sh_google_disk.url"
                         class="o_box_item o_dashboard_use_google_disk"
                         title="Install module to save backups to your Google Drive"
                     >
-                    <div class="o_inner_box o_primary">
+                        <div class="o_inner_box o_primary">
                         <i class="fab fa-google-drive fa-3x" /><br />
                         Use Google Drive
-                    </div></a>
-                  </t>
-                  <t t-if="widget.dashboard_configure_dropbox()">
+                    </div>
+                    </a>
+                </t>
+                <t t-if="widget.dashboard_configure_dropbox()">
                     <a
                         href="#"
                         class="o_box_item o_dashboard_action o_dashboard_configure_dropbox"
                         title=""
                         name="odoo_backup_sh.action_backup_settings"
                     >
-                    <div class="o_inner_box o_primary">
+                        <div class="o_inner_box o_primary">
                         <i class="fa fa-dropbox fa-3x" /><br />
                         Configure Dropbox
-                    </div></a>
-                  </t>
-                  <t t-if="widget.dashboard_configure_google_disk()">
+                    </div>
+                    </a>
+                </t>
+                <t t-if="widget.dashboard_configure_google_disk()">
                     <a
                         href="#"
                         class="o_box_item o_dashboard_action o_dashboard_configure_google_disk"
                         title=""
                         name="odoo_backup_sh.action_backup_settings"
                     >
-                    <div class="o_inner_box o_primary">
+                        <div class="o_inner_box o_primary">
                         <i class="fab fa-google-drive fa-3x" /><br />
                         Configure Google Drive
-                    </div></a>
-                  </t>
-                  <!-- iap is disabled
+                    </div>
+                    </a>
+                </t>
+                <!-- iap is disabled
                   <t t-if="widget.dashboard_offer_iap()">
                     <a href="#" class="o_box_item o_dashboard_get_s3_credentials" title="Purchase S3 access via odoo.com">
                     <div class="o_inner_box o_primary">
@@ -104,80 +106,80 @@ License MIT (https://opensource.org/licenses/MIT).
                     </div></a>
                     </t>
                     -->
-                  <t t-if="widget.dashboard_iap()">
+                <t t-if="widget.dashboard_iap()">
                     <a
                         target="_blank"
                         t-att-href="widget.up_balance_url"
                         class="o_box_item o_dashboard_action"
                         title="Up to the balance."
                     >
-                    <div class="o_inner_box o_primary">
+                        <div class="o_inner_box o_primary">
                         <i class="fa fa-money fa-3x" /><br />
                         Go to Balance
-                    </div></a>
-                  </t>
-                  <t t-if="widget.dashboard_offer_extra_module()">
+                    </div>
+                    </a>
+                </t>
+                <t t-if="widget.dashboard_offer_extra_module()">
                     <a
                         target="_blank"
                         t-att-href="widget.modules.odoo_backup_sh_dropbox.url"
                         class="o_box_item o_dashboard_use_dropbox"
                         title="Install module to save backups to your Dropbox"
                     >
-                    <div class="o_inner_box o_primary">
+                        <div class="o_inner_box o_primary">
                         <i class="fa fa-dropbox fa-3x" /><br />
                         Extra backups to Dropbox
-                    </div></a>
+                    </div>
+                    </a>
                     <a
                         target="_blank"
                         t-att-href="widget.modules.odoo_backup_sh_google_disk.url"
                         class="o_box_item o_dashboard_use_google_disk"
                         title="Install module to save backups to your Google Drive"
                     >
-                    <div class="o_inner_box o_primary">
+                        <div class="o_inner_box o_primary">
                         <i class="fab fa-google-drive fa-3x" /><br />
                         Extra backups to Google Drive
-                    </div></a>
-
-                  </t>
-
+                    </div>
+                    </a>
+                </t>
             </div>
             <div class="o_backup_dashboard_note_section">
-              <t t-if="widget.show_nocontent_msg">
-                <t t-if="widget.dashboard_can_backup()">
-                <div class="o_backup_dashboard_nocontent">
-                    <p class="o_backup_dashboard_nocontent_create">
+                <t t-if="widget.show_nocontent_msg">
+                    <t t-if="widget.dashboard_can_backup()">
+                        <div class="o_backup_dashboard_nocontent">
+                            <p class="o_backup_dashboard_nocontent_create">
                         Click to add a new Database
                     </p>
-                    <p>
+                            <p>
                         The application helps you easily manage your databases:<br />
                         Auto/manual backup, auto rotation, remote storage for your backups, detailed statistics, etc.
                     </p>
-                </div>
-                </t>
-                <t t-if="!widget.dashboard_can_backup()">
-
-                  <t t-if="widget.dashboard_basic()">
-                    <div class="o_backup_dashboard_nocontent">
-                      <p class="o_backup_dashboard_nocontent_create">
+                        </div>
+                    </t>
+                    <t t-if="!widget.dashboard_can_backup()">
+                        <t t-if="widget.dashboard_basic()">
+                            <div class="o_backup_dashboard_nocontent">
+                                <p class="o_backup_dashboard_nocontent_create">
                         Choose storage for backups
                       </p>
-                      <p>
+                                <p>
                       </p>
-                    </div>
-                  </t>
-                  <t
+                            </div>
+                        </t>
+                        <t
                             t-if="widget.dashboard_configure_google_disk() or widget.dashboard_configure_dropbox()"
                         >
-                    <div class="o_backup_dashboard_nocontent">
-                      <p class="o_backup_dashboard_nocontent_create">
+                            <div class="o_backup_dashboard_nocontent">
+                                <p class="o_backup_dashboard_nocontent_create">
                         Finish configuration
                       </p>
-                      <p>
+                                <p>
                       </p>
-                    </div>
-                  </t>
+                            </div>
+                        </t>
+                    </t>
                 </t>
-              </t>
                 <t t-foreach="widget.notifications" t-as="notification">
                     <div
                         class="o_backup_dashboard_notification"
@@ -213,7 +215,6 @@ License MIT (https://opensource.org/licenses/MIT).
             />
         </div>
     </t>
-
     <t t-name="odoo_backup_sh.config_cards">
         <t t-foreach="configs" t-as="config">
             <div
@@ -222,13 +223,17 @@ License MIT (https://opensource.org/licenses/MIT).
                 t-att-data-service="config.storage_service"
             >
                 <div class="backup_card_title">
-                    <span title="Database Name"><t t-esc="config.database" /></span>
+                    <span title="Database Name">
+                        <t t-esc="config.database" />
+                    </span>
                     <t t-if="!config.active">
                         <span class="o_kanban_card_warning">
                             <i class="fa fa-warning" title="Warning" />
                             <p
                             >The current configuration with scheduled auto backups had not activated.</p>
-                            <p><strong>Setting have not been set!</strong></p>
+                            <p>
+                                <strong>Setting have not been set!</strong>
+                            </p>
                         </span>
                     </t>
                     <span
@@ -238,14 +243,13 @@ License MIT (https://opensource.org/licenses/MIT).
                         <i class="fa fa-pencil" title="Edit Backup Config" />
                     </span>
                 </div>
-                <div class="backup_storage_service_title o_hidden"><span
-                        id="backup_storage_type"
-                        title="Backup Storage Type"
-                    >
-                    <t t-if="config.storage_service == 'odoo_backup_sh'">
+                <div class="backup_storage_service_title o_hidden">
+                    <span id="backup_storage_type" title="Backup Storage Type">
+                        <t t-if="config.storage_service == 'odoo_backup_sh'">
                         S3
                     </t>
-                </span></div>
+                    </span>
+                </div>
                 <div class="backup_card_content">
                     <button
                         type="object"
@@ -261,9 +265,8 @@ License MIT (https://opensource.org/licenses/MIT).
             </div>
         </t>
     </t>
-
     <t t-name="odoo_backup_sh.error_msg">
-        <strong>Error: </strong><t t-value="error_msg" />
+        <strong>Error: </strong>
+        <t t-value="error_msg" />
     </t>
-
 </templates>

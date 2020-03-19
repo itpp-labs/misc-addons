@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates id="template" xml:space="preserve">
-
     <!--<t t-extend="HiddenInputFile">-->
-        <!--<t t-jquery="input[name='ufile']:eq(1)" t-operation="replace">-->
-            <!--<input t-if="widget.image_only" type="file" class="o_input_file" name="ufile" accept="image/*"/>-->
-        <!--</t>-->
+    <!--<t t-jquery="input[name='ufile']:eq(1)" t-operation="replace">-->
+    <!--<input t-if="widget.image_only" type="file" class="o_input_file" name="ufile" accept="image/*"/>-->
     <!--</t>-->
-
+    <!--</t>-->
     <t t-extend="FieldBinaryImage-img">
         <t t-jquery="img" t-operation="replace">
             <!--VIDEO-->
@@ -106,7 +104,6 @@
                     t-att-width="widget.nodeOptions.size ? widget.nodeOptions.size[0] : widget.attrs.img_width || widget.attrs.width"
                     t-att-height="widget.nodeOptions.size ? widget.nodeOptions.size[1] : widget.attrs.img_height || widget.attrs.height"
                 />
-
                 <div class="g-hidden">
                     <div
                         class="box-modal"
@@ -123,5 +120,4 @@
             </t>
         </t>
     </t>
-
 </templates>

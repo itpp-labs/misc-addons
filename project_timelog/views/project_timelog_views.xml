@@ -56,7 +56,6 @@
                 </xpath>
             </field>
         </record>
-
         <record id="view_task_form2" model="ir.ui.view">
             <field name="name">project.task.form</field>
             <field name="model">project.task</field>
@@ -68,7 +67,6 @@
                 </xpath>
             </field>
         </record>
-
         <record id="view_task_form3" model="ir.ui.view">
             <field name="name">project.task.form</field>
             <field name="model">project.task</field>
@@ -83,7 +81,6 @@
                 </xpath>
             </field>
         </record>
-
         <record id="task_type_edit" model="ir.ui.view">
             <field name="name">project.task.type.form</field>
             <field name="model">project.task.type</field>
@@ -96,7 +93,6 @@
                 </xpath>
             </field>
         </record>
-
         <record id="task_type_tree" model="ir.ui.view">
             <field name="name">project.task.type.tree</field>
             <field name="model">project.task.type</field>
@@ -107,7 +103,6 @@
                 </xpath>
             </field>
         </record>
-
         <record id="view_my_timelog_form" model="ir.ui.view">
             <field name="name">timelog</field>
             <field name="model">project.timelog</field>
@@ -153,25 +148,28 @@
                             </group>
                         </group>
                         <group>
-                            <group><field
+                            <group>
+                                <field
                                     name="time_correction"
                                     string="Time correction"
                                     help="To correct the mistake of the recorded time"
                                     widget="float_time"
-                                /></group>
-                            <group><field
+                                />
+                            </group>
+                            <group>
+                                <field
                                     name="corrected_duration"
                                     string="Corrected duration"
                                     widget="float_time"
                                     help="Total time, after taking into account errors"
                                     readonly="1"
-                                /></group>
+                                />
+                            </group>
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
-
         <record id="view_my_timelog" model="ir.ui.view">
             <field name="name">timelog</field>
             <field name="model">project.timelog</field>
@@ -191,7 +189,6 @@
                 </tree>
             </field>
         </record>
-
         <record id="view_timelog" model="ir.ui.view">
             <field name="name">timelog</field>
             <field name="model">project.timelog</field>
@@ -212,7 +209,6 @@
                 </tree>
             </field>
         </record>
-
         <record id="view_timelog_graph" model="ir.ui.view">
             <field name="name">timelog.graph</field>
             <field name="model">project.timelog</field>
@@ -226,7 +222,6 @@
                 </graph>
             </field>
         </record>
-
         <record id="view_timelog_calendar" model="ir.ui.view">
             <field name="name">timelog.calendar</field>
             <field name="model">project.timelog</field>
@@ -242,7 +237,6 @@
                 </calendar>
             </field>
         </record>
-
         <record model="ir.ui.view" id="timelog_search_view">
             <field name="name">timelog.search</field>
             <field name="model">project.timelog</field>
@@ -330,7 +324,6 @@
                 </search>
             </field>
         </record>
-
         <record id="action_my_timelog" model="ir.actions.act_window">
             <field name="name">My Timelog</field>
             <field name="type">ir.actions.act_window</field>
@@ -346,7 +339,6 @@
                 }
             </field>
         </record>
-
         <record id="action_timelog" model="ir.actions.act_window">
             <field name="name">Timelog</field>
             <field name="type">ir.actions.act_window</field>
@@ -361,7 +353,6 @@
                 }
             </field>
         </record>
-
         <!-- Work -->
         <record id="view_project_task_work_ext_tree" model="ir.ui.view">
             <field name="name">account.analytic.line.ext.tree</field>
@@ -378,7 +369,6 @@
                 </tree>
             </field>
         </record>
-
         <record id="view_project_task_work_ext_filter" model="ir.ui.view">
             <field name="name">account.analytic.line.ext.search</field>
             <field name="model">account.analytic.line</field>
@@ -443,30 +433,26 @@
                             context="{'group_by':'user_id'}"
                         />
                     </group>
-               </search>
+                </search>
             </field>
         </record>
-
         <record model="ir.actions.act_window" id="action_work">
             <field name="name">Task Works</field>
             <field name="res_model">account.analytic.line</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
         </record>
-
         <menuitem
             id="menu_timelog_content"
             name="Timelog"
             parent="project.menu_main_pm"
         />
-
         <menuitem
             sequence="0"
             id="menu_new_my_timelog_content"
             parent="menu_timelog_content"
             action="action_my_timelog"
         />
-
         <menuitem
             sequence="1"
             id="menu_new_timelog_content"
@@ -474,7 +460,6 @@
             groups="project.group_project_manager"
             action="action_timelog"
         />
-
         <menuitem
             sequence="2"
             id="menu_work"

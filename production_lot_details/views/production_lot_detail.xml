@@ -4,7 +4,6 @@
     # Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
     # License MIT (https://opensource.org/licenses/MIT). -->
 <odoo>
-
     <record id='production_lot_details_form_view' model='ir.ui.view'>
         <field name="name">stock.production.lot.form</field>
         <field name="model">stock.production.lot</field>
@@ -23,5 +22,4 @@
             </data>
         </field>
     </record>
-
 </odoo>

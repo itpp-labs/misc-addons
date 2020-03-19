@@ -2,10 +2,8 @@
 <!-- Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
      License MIT (https://opensource.org/licenses/MIT). -->
 <odoo>
-
     <!-- test_ui is assumed that root has multi-website access -->
     <record id="base.user_root" model="res.users">
         <field name="groups_id" eval="[(4,ref('web_website.group_multi_website'))]" />
     </record>
-
 </odoo>
