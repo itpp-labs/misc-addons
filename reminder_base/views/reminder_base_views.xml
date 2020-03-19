@@ -16,7 +16,6 @@
                 </xpath>
             </field>
         </record>
-
         <record model="ir.ui.view" id="view_calendar_event_form_popup">
             <field name="model">calendar.event</field>
             <field name="inherit_id" ref="calendar.view_calendar_event_form_popup" />
@@ -24,8 +23,8 @@
                 <xpath expr="//field[@name='attendee_status']" position="after">
                     <field name="reminder_res_id" invisible="1" />
                     <div attrs="{'invisible':[('reminder_res_id', '=', 0)]}">
-                    <label for="open_reminder_object" />
-                    <button
+                        <label for="open_reminder_object" />
+                        <button
                             string="Open Related Record"
                             name="open_reminder_object"
                             type="object"
@@ -34,7 +33,6 @@
                 </xpath>
             </field>
         </record>
-
         <!-- TODO: can we remove this? -->
         <record id="calendar_alarm_view_form" model="ir.ui.view">
             <field name="name">calendar.alarm.form</field>
@@ -47,7 +45,6 @@
                 </xpath>
             </field>
         </record>
-
         <!-- reminder.admin -->
         <record id="view_reminder_admin" model="ir.ui.view">
             <field name="name">Reminder Administration</field>
@@ -75,7 +72,6 @@
                 </form>
             </field>
         </record>
-
         <record id="action_reminder_admin" model="ir.actions.act_window">
             <field name="name">Reminder administration</field>
             <field name="type">ir.actions.act_window</field>
@@ -84,13 +80,11 @@
             <field name="view_mode">form</field>
             <field name="target">new</field>
         </record>
-
         <menuitem
             id="menu_reminder_admin"
             parent="calendar.menu_calendar_configuration"
             action="action_reminder_admin"
             groups="base.group_no_one"
         />
-
     </data>
 </odoo>

@@ -3,9 +3,7 @@
      Copyright 2018-2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
      License MIT (https://opensource.org/licenses/MIT).-->
 <odoo>
-
     <!-- views -->
-
     <record id="view_attendance_tree" model="ir.ui.view">
         <field name="name">res.partner.attendance.tree</field>
         <field name="model">res.partner.attendance</field>
@@ -17,7 +15,6 @@
             </tree>
         </field>
     </record>
-
     <record id="hr_attendance_view_form" model="ir.ui.view">
         <field name="name">res.partner.attendance.form</field>
         <field name="model">res.partner.attendance</field>
@@ -33,7 +30,6 @@
             </form>
         </field>
     </record>
-
     <record id="hr_attendance_view_filter" model="ir.ui.view">
         <field name="name">res_partner_attendance_view_filter</field>
         <field name="model">res.partner.attendance</field>
@@ -68,7 +64,6 @@
             </search>
         </field>
     </record>
-
     <record id="hr_attendance_view_pivot" model="ir.ui.view">
         <field name="name">res.partner.attendance.pivot</field>
         <field name="model">res.partner.attendance</field>
@@ -80,7 +75,6 @@
             </pivot>
         </field>
     </record>
-
     <record id="hr_attendance_view_graph" model="ir.ui.view">
         <field name="name">res.partner.attendance.graph</field>
         <field name="model">res.partner.attendance</field>
@@ -92,9 +86,7 @@
             </graph>
         </field>
     </record>
-
     <!-- actions -->
-
     <record id="hr_attendance_action" model="ir.actions.act_window">
         <field name="name">Attendances</field>
         <field name="res_model">res.partner.attendance</field>
@@ -108,15 +100,14 @@
             >Please make sure you're using the correct filter if you expected to see any.</p>
         </field>
     </record>
-
     <record id="hr_attendance_action_graph" model="ir.actions.act_window">
         <field name="name">Attendance Analysis</field>
         <field name="res_model">res.partner.attendance</field>
         <field name="view_type">form</field>
         <field name="view_mode">pivot,graph</field>
-        <field name="view_id" />  <!-- force empty -->
+        <field name="view_id" />
+        <!-- force empty -->
     </record>
-
     <record id="hr_attendance_action_graph_filtered" model="ir.actions.act_window">
         <field name="name">Attendance Analysis</field>
         <field name="res_model">res.partner.attendance</field>
@@ -126,9 +117,9 @@
             'search_default_department_id': [active_id],
             'default_department_id': active_id}
         </field>
-        <field name="view_id" />  <!-- force empty -->
+        <field name="view_id" />
+        <!-- force empty -->
     </record>
-
     <record model="ir.actions.server" id="hr_attendance_action_kiosk_mode">
         <field name="name">Get to the Kiosk Mode</field>
         <field name="type">ir.actions.server</field>
@@ -145,12 +136,10 @@ action = {
 }
         </field>
     </record>
-
     <record id="hr_attendance_action_greeting_message" model="ir.actions.client">
         <field name="name">Message</field>
         <field name="tag">base_attendance_greeting_message</field>
     </record>
-
     <!--Partner kanban view specifically for base_attendance (to check in/out) -->
     <record id="res_partner_attendance_view" model="ir.ui.view">
         <field name="name">res.partner.kanban</field>
@@ -160,61 +149,71 @@ action = {
             <kanban class="o_res_partner_attendance_kanban" create="false">
                 <templates>
                     <t t-name="kanban-box">
-                    <div class="oe_kanban_global_click">
-                        <div class="o_kanban_image">
-                            <img
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img
                                     t-att-src="kanban_image('res.partner', 'image_medium', record.id.value)"
                                 />
-                        </div>
-                        <div class="oe_kanban_details">
-                            <div id="textbox">
-                                <div class="col-xs-11" style="padding:0px">
-                                    <strong>
-                                        <field name="name" />
-                                    </strong>
-                                </div><div class="col-xs-1" style="padding:0px">
-                                    <field
+                            </div>
+                            <div class="oe_kanban_details">
+                                <div id="textbox">
+                                    <div class="col-xs-11" style="padding:0px">
+                                        <strong>
+                                            <field name="name" />
+                                        </strong>
+                                    </div>
+                                    <div class="col-xs-1" style="padding:0px">
+                                        <field
                                             name="attendance_state"
                                             widget="base_attendance_kanban_presence_indicator"
                                         />
+                                    </div>
                                 </div>
-                            </div>
-                            <ul>
-                                <li
+                                <ul>
+                                    <li
                                         t-if="record.parent_id.raw_value and !record.function.raw_value"
-                                    ><field name="parent_id" /></li>
-                                <li
+                                    >
+                                        <field name="parent_id" />
+                                    </li>
+                                    <li
                                         t-if="!record.parent_id.raw_value and record.function.raw_value"
-                                    ><field name="function" /></li>
-                                <li
+                                    >
+                                        <field name="function" />
+                                    </li>
+                                    <li
                                         t-if="record.parent_id.raw_value and record.function.raw_value"
                                     ><field name="function" /> at <field
                                             name="parent_id"
                                         /></li>
-                                <li
+                                    <li
                                         t-if="record.city.raw_value and !record.country_id.raw_value"
-                                    ><field name="city" /></li>
-                                <li
+                                    >
+                                        <field name="city" />
+                                    </li>
+                                    <li
                                         t-if="!record.city.raw_value and record.country_id.raw_value"
-                                    ><field name="country_id" /></li>
-                                <li
+                                    >
+                                        <field name="country_id" />
+                                    </li>
+                                    <li
                                         t-if="record.city.raw_value and record.country_id.raw_value"
                                     ><field name="city" />, <field
                                             name="country_id"
                                         /></li>
-                                <li
+                                    <li
                                         t-if="record.email.raw_value"
                                         class="o_text_overflow"
-                                    ><field name="email" /></li>
-                            </ul>
+                                    >
+                                        <field name="email" />
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
                     </t>
                 </templates>
             </kanban>
         </field>
     </record>
-
     <record model="ir.ui.view" id="res_partner_kanban_view">
         <field name="name">res.partner.kanban</field>
         <field name="model">res.partner</field>
@@ -230,7 +229,9 @@ action = {
                 position="replace"
             >
                 <div class="col-xs-11" style="padding:0px">
-                    <strong><field name="name" /></strong>
+                    <strong>
+                        <field name="name" />
+                    </strong>
                 </div>
                 <div class="col-xs-1" style="padding:0px">
                     <field
@@ -241,7 +242,6 @@ action = {
             </xpath>
         </field>
     </record>
-
     <record id="res_partner_action_kanban_view" model="ir.actions.act_window">
         <field name="name">Customers</field>
         <field name="res_model">res.partner</field>
@@ -261,7 +261,6 @@ action = {
             </p>
         </field>
     </record>
-
     <record id="view_partner_form_inherit_base_attendance" model="ir.ui.view">
         <field name="name">res.partner.form</field>
         <field name="model">res.partner</field>
@@ -273,13 +272,13 @@ action = {
         />
         <field name="arch" type="xml">
             <field name="name" position="replace">
-            <div id="textbox">
-                <field
+                <div id="textbox">
+                    <field
                         name="attendance_state"
                         widget="base_attendance_form_presence_indicator"
                     />
-                <field name="name" placeholder="Partner's Name" />
-            </div>
+                    <field name="name" placeholder="Partner's Name" />
+                </div>
             </field>
             <page name="sales_purchases" position="inside">
                 <group string="Attendance information" name="container_row_2">
@@ -288,9 +287,7 @@ action = {
             </page>
         </field>
     </record>
-
     <!-- Menus -->
-
     <menuitem
         id="menu_base_attendance_root"
         name="Partner Attendances"
@@ -298,7 +295,6 @@ action = {
         groups="group_res_attendance"
         web_icon="base_attendance,static/description/icon.png"
     />
-
     <menuitem
         id="menu_hr_attendance_manage_attendances"
         name="Manage Attendances"
@@ -306,7 +302,6 @@ action = {
         sequence="20"
         groups="base_attendance.group_res_attendance"
     />
-
     <menuitem
         id="menu_hr_attendance_view_attendances"
         name="Attendances"
@@ -315,7 +310,6 @@ action = {
         groups="base_attendance.group_res_attendance"
         action="hr_attendance_action"
     />
-
     <menuitem
         id="menu_hr_attendance_view_partners_kanban"
         name="Partners"
@@ -324,7 +318,6 @@ action = {
         groups="base_attendance.group_hr_attendance_user"
         action="res_partner_action_kanban_view"
     />
-
     <menuitem
         id="menu_hr_attendance_kiosk_mode"
         name="Kiosk Mode"
@@ -333,7 +326,6 @@ action = {
         groups="base_attendance.group_hr_attendance_user"
         action="hr_attendance_action_kiosk_mode"
     />
-
     <menuitem
         id="menu_hr_attendance_report"
         name="Reports"
@@ -342,9 +334,7 @@ action = {
         groups="base_attendance.group_hr_attendance_user"
         action="hr_attendance_action_graph"
     />
-
     <!--IR CRON-->
-
     <record model="ir.cron" id="base_attendance_autocheckout">
         <field name="name">Partner Shift Autocheckout</field>
         <field name="active" eval="False" />
@@ -355,5 +345,4 @@ action = {
         <field name="model" eval="'res.partner.attendance'" />
         <field name="function" eval="'autocheckout_close_shifts'" />
     </record>
-
 </odoo>

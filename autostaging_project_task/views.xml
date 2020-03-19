@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <openerp>
-  <data>
+    <data>
         <record id="mt_autostaging" model="mail.message.subtype">
             <field name="name">Autostaging</field>
             <field name="res_model">project.task</field>
             <field name="default" eval="False" />
             <field name="description">Autostaging</field>
         </record>
-
         <record id="mt_autostaging_project" model="mail.message.subtype">
             <field name="name">Autostaging</field>
             <field name="res_model">project.project</field>
@@ -15,7 +14,6 @@
             <field name="parent_id" eval="ref('mt_autostaging')" />
             <field name="relation_field">project_id</field>
         </record>
-
         <record id="view_project_form_autostaging_enabled" model="ir.ui.view">
             <field name="name">project.form.allow.automove</field>
             <field name="model">project.project</field>
@@ -24,11 +22,10 @@
                 <data>
                     <xpath expr="//group[@name='misc']" position="inside">
                         <field name="autostaging_enabled" />
-                     </xpath>
+                    </xpath>
                 </data>
             </field>
         </record>
-
         <record id="view_project_task_type_form_autostaging" model="ir.ui.view">
             <field name="name">project.task.type.form.autostaging</field>
             <field name="model">project.task.type</field>
@@ -45,14 +42,14 @@
                             <field
                                 name="autostaging_idle_timeout"
                                 attrs="{'required': [('autostaging_enabled','=',True)], 'readonly':[('autostaging_enabled', '=', False)]}"
-                            > <span>days</span> </field>
+                            >
+                                <span>days</span>
+                            </field>
                         </group>
                     </xpath>
                 </data>
             </field>
         </record>
-
-
         <record id="view_project_task_type_tree_autostaging" model="ir.ui.view">
             <field name="name">project.task.type.tree.autostaging</field>
             <field name="model">project.task.type</field>
@@ -65,7 +62,6 @@
                 </data>
             </field>
         </record>
-
         <record id="view_project_task_form_autostaging" model="ir.ui.view">
             <field name="name">project.task.form.autostaging</field>
             <field name="model">project.task</field>
@@ -88,6 +84,5 @@
                 </data>
             </field>
         </record>
-
     </data>
 </openerp>

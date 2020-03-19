@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <openerp>
-   <data>
+    <data>
 
      <!-- <record model="ir.rule" id="project_description_subtask_rule"> -->
      <!--   <field name="name">Project: only reviewer can change description</field> -->
@@ -34,4 +34,4 @@
      <!-- </record> -->
 
    </data>
- </openerp>
+</openerp>

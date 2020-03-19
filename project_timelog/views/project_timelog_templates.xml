@@ -30,7 +30,6 @@
                 />
             </xpath>
         </template>
-
         <template id="timer_navbar" inherit_id="web.menu" priority="1">
             <xpath
                 expr="//ul[@class='nav navbar-nav navbar-right oe_systray']"
@@ -38,13 +37,13 @@
             >
                 <ul class="nav navbar-nav navbar-right timelog oe_timelog_placeholder">
                     <li class="timelog" id="timelog_timer">
-                          <div id="clock0" class="clock">
+                        <div id="clock0" class="clock">
                           </div>
-                          <div id="clock1" class="clock">
+                        <div id="clock1" class="clock">
                           </div>
-                          <div id="clock2" class="clock">
+                        <div id="clock2" class="clock">
                           </div>
-                          <div id="clock3" class="clock">
+                        <div id="clock3" class="clock">
                           </div>
                     </li>
                 </ul>

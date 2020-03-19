@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
     <record id='production_lot_details_form_view' model='ir.ui.view'>
         <field name="name">stock.production.lot.form</field>
         <field name="model">stock.production.lot</field>
@@ -28,5 +27,4 @@
             </data>
         </field>
     </record>
-
 </odoo>
