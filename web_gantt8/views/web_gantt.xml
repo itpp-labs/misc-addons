@@ -14,7 +14,6 @@
                     rel="stylesheet"
                     href="/web_gantt8/static/lib/dhtmlxGantt/codebase/dhtmlxgantt.css"
                 />
-
                 <script
                     type="text/javascript"
                     src="/web_gantt8/static/lib/dhtmlxGantt/sources/dhtmlxcommon.js"

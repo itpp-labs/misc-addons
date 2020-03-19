@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <openerp>
     <data>
-
         <record id="product_tag_form" model="ir.ui.view">
             <field name="name">product.tag.view.form</field>
             <field name="model">product.tag</field>
@@ -23,7 +22,6 @@
                 </form>
             </field>
         </record>
-
         <record id="product_tag_tree" model="ir.ui.view">
             <field name="name">product.tag.view.tree</field>
             <field name="model">product.tag</field>
@@ -34,7 +32,6 @@
                 </tree>
             </field>
         </record>
-
         <record id="product_tag_list" model="ir.ui.view">
             <field name="name">Product Tags</field>
             <field name="model">product.tag</field>
@@ -45,7 +42,6 @@
                 </tree>
             </field>
         </record>
-
         <record id="product_tag_search" model="ir.ui.view">
             <field name="name">product.tag.view.search</field>
             <field name="model">product.tag</field>
@@ -71,7 +67,6 @@
             parent="sale.prod_config_main"
             sequence="3"
         />
-
         <record id="product_template_tag_search_inherit" model="ir.ui.view">
             <field name="name">product.template.tag.view.search</field>
             <field name="model">product.template</field>
@@ -86,7 +81,6 @@
                 </field>
             </field>
         </record>
-
         <record id="product_template_form_inherit" model="ir.ui.view">
             <field name="name">product.template.view.form</field>
             <field name="model">product.template</field>
@@ -101,9 +95,7 @@
                 </xpath>
             </field>
         </record>
-
         <!--  kanban view   -->
-
         <record model="ir.ui.view" id="product_template_kanban">
             <field name="name">Product Template Tag Kanban</field>
             <field name="model">product.template</field>
@@ -111,12 +103,12 @@
             <field name="arch" type="xml">
                 <div name="tags" position="inside">
                     <ul>
-                        <li><field name="tag_ids" /></li>
+                        <li>
+                            <field name="tag_ids" />
+                        </li>
                     </ul>
                 </div>
             </field>
         </record>
-
-
     </data>
 </openerp>

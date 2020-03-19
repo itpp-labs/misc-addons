@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates id="template" xml:space="preserve">
-
     <header t-extend="Menu">
         <t t-jquery=".o_menu_systray" t-operation="after">
             <ul class="timelog oe_timelog_placeholder" style="float: right">
@@ -8,7 +7,6 @@
             </ul>
         </t>
     </header>
-
     <t t-name="timelog.timer">
         <li class="timelog" id="timelog_timer">
             <div id="clock0" class="clock">
@@ -21,5 +19,4 @@
             </div>
         </li>
     </t>
-
 </templates>
