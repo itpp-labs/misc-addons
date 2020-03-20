@@ -3,12 +3,6 @@
 ENV:
   DEFAULT_REPO_PATTERN: https://github.com/itpp-labs/{}.git
 
-server-tools:
-  - "*"
-
-website:
-  - "*"
-
 access-addons:
   - "*"
 
@@ -29,4 +23,10 @@ hr:
   - "*"
 
 web:
+  - "*"
+
+website:
+  - "*"
+
+server-tools:
   - "*"
