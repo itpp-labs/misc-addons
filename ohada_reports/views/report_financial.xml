@@ -275,7 +275,7 @@
                         <t t-else="">
                             <t t-if="line.get('name')">
                                 <td t-att-data-id="line['id']" t-att-class="'o_ohada_report_line o_ohada_report_line_indent ' + (line.get('unfoldable') and 'js_account_report_foldable' or '')" t-att-data-unfolded="line.get('unfolded', False)" t-att-colspan="line.get('colspan', '1')"
-                                t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)" style="text-align:center;padding-top:25px;padding-bottom:25px;"
+                                t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)" style="text-align:center;padding-top:25px;padding-bottom:25px;" t-att-rowspan="line.get('rowspan', '1')"
                                 >
                                     <t t-foreach="line.get('name')" t-as="name">
                                         <span><t t-esc="name"/></span>
@@ -299,7 +299,7 @@
                 <t t-else="">
                     <t t-if="line.get('name')">
                     <td t-att-data-id="line['id']" t-att-class="'o_ohada_report_line o_ohada_report_line_indent ' + (line.get('unfoldable') and 'js_account_report_foldable' or '')" t-att-data-unfolded="line.get('unfolded', False)" t-att-colspan="line.get('colspan', '1')"
-                    t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)" t-att-style="'text-align:' + line.get('align')"
+                    t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)" t-att-style="'text-align:' + line.get('align')" t-att-rowspan="line.get('rowspan', '1')"
                     >
                             <t t-if="not line.get('caret_options')">
                                     <span class="account_report_line_name" t-att-title="line.get('title_hover')" style="margin-left:15px;">
@@ -448,7 +448,7 @@
                         </td>
                     </t>
                     <t t-else="">
-                        <td style="padding-right:10px;text-align:right;" t-att-class="'o_ohada_report_line '  + (line.get('unfoldable') and ' ' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent')" >
+                        <td t-att-rowspan="column.get('rowspan', 1)" t-att-colspan="column.get('colspan', 1)" t-att-style="'padding-right:10px;text-align:' + (column.get('align', 'right'))" t-att-class="'o_ohada_report_line '  + (line.get('unfoldable') and ' ' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent')" >
                             <span class="o_ohada_report_column_value" t-att-title="column.get('title')">
                                 <t t-esc="column.get('name')"/>
                             </span>

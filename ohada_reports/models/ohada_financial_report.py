@@ -1403,10 +1403,11 @@ class OhadaFinancialReportLine(models.Model):
                 if line.columns_id.cell_id:
                     for i in line.columns_id.cell_id:
                         lines[0]['columns'].append({
-                            'name': [i.name] if line.header else i.name,
+                            'name': i.name.split('|') if line.header else i.name,
                             'colspan': i.colspan,
                             'rowspan': i.rowspan,
                             'rotate': i.rotate,
+                            'align':i.align,
                         })
                 else:
                     pass
@@ -1636,7 +1637,7 @@ class OhadaFinancialReportLine(models.Model):
                     else:
                         result[0]['columns'][0]['name'] = 'NET'
 
-                # ==================== temporary solution for special notes =============================================
+                # ==================== temporary solution for special notes ============================================
                 if financial_report.type == 'note':
                     if financial_report.code == "N1" and line.sequence == 2:
                         del vals['note']
@@ -1663,7 +1664,7 @@ class OhadaFinancialReportLine(models.Model):
                         vals['columns'] = []
                         for i in range(4):
                             vals['columns'].append({'name': ' '})
-                    elif (financial_report.code == 'N3D' and line.sequence > 2) or (financial_report.name in ['N13', 'N31'] and line.sequence > 1) or financial_report.name in ["N12"]:
+                    elif (financial_report.code == 'N3D' and line.sequence > 2) or (financial_report.code in ['N13', 'N31', 'N12', 'N12_1'] and line.sequence > 1):
                         vals['columns'] = []
                         for i in range(5):
                             vals['columns'].append({'name': ' '})
@@ -1701,7 +1702,7 @@ class OhadaFinancialReportLine(models.Model):
                             vals['columns'][0]['name'] = ' '
                     elif financial_report.code == 'N8A':
                         vals['columns'] = []
-                        for i in range(3):
+                        for i in range(6):
                             vals['columns'].append({'name': ' '})
 
             final_result_table += result
@@ -2015,3 +2016,4 @@ class OhadaCellStyle(models.Model):
     colspan = fields.Integer(default=1)
     rowspan = fields.Integer(default=1)
     rotate = fields.Char(default=0)
+    align = fields.Char(default="right")
