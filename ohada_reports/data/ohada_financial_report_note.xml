@@ -7078,7 +7078,6 @@
         <field name="name">EFFECTIF ET MASSE SALARIALE</field>
         <field name="code">N27B_H1</field>
         <field name="reference">REF</field>
-    <!--    <field name="rowspan">2</field>  -->
         <field name="header" eval="True"/>
         <field name="financial_report_id" ref="ohada_financial_report_note27b"/>
         <field name="sequence" eval="1"/>
@@ -8710,8 +8709,9 @@
 
     <record id="ohada_financial_report_note34_1" model="ohada.financial.html.report.line">
         <field name="name">ANALYSE DE L'ACTIVITE</field>
+        <field name="align">center</field>
         <field name="code">N34_1</field>
-        <field name="rowspan">4</field>
+        <field name="colspan">4</field>
         <field name="financial_report_id" ref="ohada_financial_report_note34"/>
         <field name="level" eval="7" />
         <field name="sequence" eval="2"/>
@@ -9017,7 +9017,8 @@
     <record id="ohada_financial_report_note34_29" model="ohada.financial.html.report.line">
         <field name="name">ANALYSE DE LA RENTABILITE</field>
         <field name="code">N34_29</field>
-        <field name="rowspan">4</field>
+        <field name="align">center</field>
+        <field name="colspan">4</field>
         <field name="financial_report_id" ref="ohada_financial_report_note34"/>
         <field name="level" eval="7" />
         <field name="sequence" eval="30"/>
@@ -9048,9 +9049,10 @@
     <record id="ohada_financial_report_note34_32" model="ohada.financial.html.report.line">
         <field name="name">ANALYSE DE LA STRUCTURE FINANCIERE</field>
         <field name="code">N34_32</field>
-        <field name="rowspan">4</field>
+        <field name="align">center</field>
+        <field name="colspan">4</field>
         <field name="financial_report_id" ref="ohada_financial_report_note34"/>
-        <field name="level" eval="2" />
+        <field name="level" eval="7" />
         <field name="sequence" eval="33"/>
     </record>
 
@@ -9219,7 +9221,8 @@
     <record id="ohada_financial_report_note34_48" model="ohada.financial.html.report.line">
         <field name="name">ANALYSE DE LA VARIATION DE LA TRESORERIE</field>
         <field name="code">N34_48</field>
-        <field name="rowspan">4</field>
+        <field name="colspan">4</field>
+        <field name="align">center</field>
         <field name="financial_report_id" ref="ohada_financial_report_note34"/>
         <field name="level" eval="7" />
         <field name="sequence" eval="49"/>
@@ -9272,6 +9275,8 @@
     <record id="ohada_financial_report_note34_53" model="ohada.financial.html.report.line">
         <field name="name">ANALYSE DE LA VARIATION DE L'ENDETTEMENT FINANCIER NET</field>
         <field name="code">N34_53</field>
+        <field name="align">center</field>
+        <field name="colspan">4</field>
         <field name="financial_report_id" ref="ohada_financial_report_note34"/>
         <field name="level" eval="7" />
         <field name="sequence" eval="54"/>
@@ -9604,21 +9609,21 @@
         <field name="sequence" eval="9"/>
     </record>
 
-    <record id="ohada_financial_report_note36_9" model="ohada.financial.html.report.line">
-        <field name="name">Société à Commandite Simple</field>
-        <field name="code">N36_9</field>
-        <field name="financial_report_id" ref="ohada_financial_report_note36"/>
-        <field name="level" eval="2" />
-        <field name="sequence" eval="10"/>
-    </record>
+    <!--<record id="ohada_financial_report_note36_9" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Société à Commandite Simple</field>-->
+        <!--<field name="code">N36_9</field>-->
+        <!--<field name="financial_report_id" ref="ohada_financial_report_note36"/>-->
+        <!--<field name="level" eval="2" />-->
+        <!--<field name="sequence" eval="10"/>-->
+    <!--</record>-->
 
-    <record id="ohada_financial_report_note36_10" model="ohada.financial.html.report.line">
-        <field name="name"> </field>
-        <field name="code">N36_10</field>
-        <field name="financial_report_id" ref="ohada_financial_report_note36"/>
-        <field name="level" eval="2" />
-        <field name="sequence" eval="11"/>
-    </record>
+    <!--<record id="ohada_financial_report_note36_10" model="ohada.financial.html.report.line">-->
+        <!--<field name="name"> </field>-->
+        <!--<field name="code">N36_10</field>-->
+        <!--<field name="financial_report_id" ref="ohada_financial_report_note36"/>-->
+        <!--<field name="level" eval="2" />-->
+        <!--<field name="sequence" eval="11"/>-->
+    <!--</record>-->
 
     <record id="ohada_financial_report_note36_11" model="ohada.financial.html.report.line">
         <field name="name">Société en Commandite Simple (SCS)</field>
@@ -9764,13 +9769,13 @@
         <field name="sequence" eval="29"/>
     </record>
 
-    <record id="ohada_financial_report_note36_29" model="ohada.financial.html.report.line">
-        <field name="name"> </field>
-        <field name="code">N36_29</field>
-        <field name="financial_report_id" ref="ohada_financial_report_note36"/>
-        <field name="level" eval="2" />
-        <field name="sequence" eval="30"/>
-    </record>
+    <!--<record id="ohada_financial_report_note36_29" model="ohada.financial.html.report.line">-->
+        <!--<field name="name"> </field>-->
+        <!--<field name="code">N36_29</field>-->
+        <!--<field name="financial_report_id" ref="ohada_financial_report_note36"/>-->
+        <!--<field name="level" eval="2" />-->
+        <!--<field name="sequence" eval="30"/>-->
+    <!--</record>-->
 
     <record id="ohada_financial_report_note36_30" model="ohada.financial.html.report.line">
         <field name="name">Réel simplifié </field>
@@ -9780,13 +9785,13 @@
         <field name="sequence" eval="31"/>
     </record>
 
-    <record id="ohada_financial_report_note36_31" model="ohada.financial.html.report.line">
-        <field name="name"> </field>
-        <field name="code">N36_31</field>
-        <field name="financial_report_id" ref="ohada_financial_report_note36"/>
-        <field name="level" eval="2" />
-        <field name="sequence" eval="32"/>
-    </record>
+    <!--<record id="ohada_financial_report_note36_31" model="ohada.financial.html.report.line">-->
+        <!--<field name="name"> </field>-->
+        <!--<field name="code">N36_31</field>-->
+        <!--<field name="financial_report_id" ref="ohada_financial_report_note36"/>-->
+        <!--<field name="level" eval="2" />-->
+        <!--<field name="sequence" eval="32"/>-->
+    <!--</record>-->
 
     <record id="ohada_financial_report_note36_32" model="ohada.financial.html.report.line">
         <field name="name">Synthétique</field>
@@ -9796,13 +9801,13 @@
         <field name="sequence" eval="33"/>
     </record>
 
-    <record id="ohada_financial_report_note36_33" model="ohada.financial.html.report.line">
-        <field name="name"> </field>
-        <field name="code">N36_33</field>
-        <field name="financial_report_id" ref="ohada_financial_report_note36"/>
-        <field name="level" eval="2" />
-        <field name="sequence" eval="34"/>
-    </record>
+    <!--<record id="ohada_financial_report_note36_33" model="ohada.financial.html.report.line">-->
+        <!--<field name="name"> </field>-->
+        <!--<field name="code">N36_33</field>-->
+        <!--<field name="financial_report_id" ref="ohada_financial_report_note36"/>-->
+        <!--<field name="level" eval="2" />-->
+        <!--<field name="sequence" eval="34"/>-->
+    <!--</record>-->
 
     <record id="ohada_financial_report_note36_34" model="ohada.financial.html.report.line">
         <field name="name">Forfait</field>

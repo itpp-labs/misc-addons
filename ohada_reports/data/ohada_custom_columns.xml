@@ -303,18 +303,661 @@
             </record>
 
             <record id="ohada_cell_style_note36_1_3" model="ohada.cell.style">
-                <field name="name">3 - Code pays du siège social</field>
+                <field name="name"> </field>
                 <field name="column_id" ref="ohada_custom_columns_note36_1"/>
             </record>
 
             <record id="ohada_cell_style_note36_1_4" model="ohada.cell.style">
-                <field name="name"> </field>
+                <field name="name">3 - Code pays du siège social</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_1"/>
             </record>
 
             <record id="ohada_cell_style_note36_1_5" model="ohada.cell.style">
                 <field name="name"> </field>
                 <field name="column_id" ref="ohada_custom_columns_note36_1"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_1_6" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_1"/>
+            </record>
+
+        <record id="ohada_custom_columns_note36_2" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note36_3"/>
+        </record>
+
+            <record id="ohada_cell_style_note36_2_1" model="ohada.cell.style">
+                <field name="name">0</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_2"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_2_2" model="ohada.cell.style">
+                <field name="name">0</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_2"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_2_3" model="ohada.cell.style">
+                <field name="name">Pays OHADA</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_2"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_2_4" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_2"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_2_5" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_2"/>
+            </record>
+
+        <record id="ohada_custom_columns_note36_3" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note36_4"/>
+        </record>
+
+            <record id="ohada_cell_style_note36_3_1" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_3"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_3_2" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_3"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_3_3" model="ohada.cell.style">
+                <field name="name">Autres pays africains</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_3"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_3_4" model="ohada.cell.style">
+                <field name="name">2</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_3"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_3_5" model="ohada.cell.style">
+                <field name="name">1</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_3"/>
+            </record>
+
+        <record id="ohada_custom_columns_note36_4" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note36_5"/>
+        </record>
+
+            <record id="ohada_cell_style_note36_4_1" model="ohada.cell.style">
+                <field name="name">0</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_4"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_4_2" model="ohada.cell.style">
+                <field name="name">1</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_4"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_4_3" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_4"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_4_4" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_4"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_4_5" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_4"/>
+            </record>
+
+        <record id="ohada_custom_columns_note36_5" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note36_6"/>
+        </record>
+
+            <record id="ohada_cell_style_note36_5_1" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_5"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_5_2" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_5"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_5_3" model="ohada.cell.style">
+                <field name="name">France</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_5"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_5_4" model="ohada.cell.style">
+                <field name="name">2</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_5"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_5_5" model="ohada.cell.style">
+                <field name="name">3</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_5"/>
+            </record>
+
+        <record id="ohada_custom_columns_note36_6" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note36_7"/>
+        </record>
+
+            <record id="ohada_cell_style_note36_6_1" model="ohada.cell.style">
+                <field name="name">0</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_6"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_6_2" model="ohada.cell.style">
+                <field name="name">2</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_6"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_6_3" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_6"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_6_4" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_6"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_6_5" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_6"/>
+            </record>
+
+        <record id="ohada_custom_columns_note36_7" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note36_8"/>
+        </record>
+
+            <record id="ohada_cell_style_note36_7_1" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_7"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_7_2" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_7"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_7_3" model="ohada.cell.style">
+                <field name="name">Autres pays de l'Union Européenne</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_7"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_7_4" model="ohada.cell.style">
+                <field name="name">3</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_7"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_7_5" model="ohada.cell.style">
+                <field name="name">9</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_7"/>
+            </record>
+
+        <record id="ohada_custom_columns_note36_8" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note36_11"/>
+        </record>
+
+            <record id="ohada_cell_style_note36_8_1" model="ohada.cell.style">
+                <field name="name">0</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_8"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_8_2" model="ohada.cell.style">
+                <field name="name">3</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_8"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_8_3" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_8"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_8_4" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_8"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_8_5" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_8"/>
+            </record>
+
+        <record id="ohada_custom_columns_note36_9" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note36_12"/>
+        </record>
+
+            <record id="ohada_cell_style_note36_9_1" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_9"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_9_2" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_9"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_9_3" model="ohada.cell.style">
+                <field name="name">U.S.A</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_9"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_9_4" model="ohada.cell.style">
+                <field name="name">4</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_9"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_9_5" model="ohada.cell.style">
+                <field name="name">0</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_9"/>
+            </record>
+
+        <record id="ohada_custom_columns_note36_10" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note36_13"/>
+        </record>
+
+            <record id="ohada_cell_style_note36_10_1" model="ohada.cell.style">
+                <field name="name">0</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_10"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_10_2" model="ohada.cell.style">
+                <field name="name">4</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_10"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_10_3" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_10"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_10_4" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_10"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_10_5" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_10"/>
+            </record>
+
+        <record id="ohada_custom_columns_note36_11" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note36_14"/>
+        </record>
+
+            <record id="ohada_cell_style_note36_11_1" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_11"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_11_2" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_11"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_11_3" model="ohada.cell.style">
+                <field name="name">Canada</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_11"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_11_4" model="ohada.cell.style">
+                <field name="name">4</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_11"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_11_5" model="ohada.cell.style">
+                <field name="name">1</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_11"/>
+            </record>
+
+        <record id="ohada_custom_columns_note36_12" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note36_15"/>
+        </record>
+
+            <record id="ohada_cell_style_note36_12_1" model="ohada.cell.style">
+                <field name="name">0</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_12"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_12_2" model="ohada.cell.style">
+                <field name="name">5</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_12"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_12_3" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_12"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_12_4" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_12"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_12_5" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_12"/>
+            </record>
+
+        <record id="ohada_custom_columns_note36_13" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note36_16"/>
+        </record>
+
+            <record id="ohada_cell_style_note36_13_1" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_13"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_13_2" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_13"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_13_3" model="ohada.cell.style">
+                <field name="name">Autres pays américains</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_13"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_13_4" model="ohada.cell.style">
+                <field name="name">4</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_13"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_13_5" model="ohada.cell.style">
+                <field name="name">9</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_13"/>
+            </record>
+
+        <record id="ohada_custom_columns_note36_14" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note36_17"/>
+        </record>
+
+            <record id="ohada_cell_style_note36_14_1" model="ohada.cell.style">
+                <field name="name">0</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_14"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_14_2" model="ohada.cell.style">
+                <field name="name">6</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_14"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_14_3" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_14"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_14_4" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_14"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_14_5" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_14"/>
+            </record>
+
+        <record id="ohada_custom_columns_note36_15" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note36_18"/>
+        </record>
+
+            <record id="ohada_cell_style_note36_15_1" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_15"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_15_2" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_15"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_15_3" model="ohada.cell.style">
+                <field name="name">Pays asiatiques</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_15"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_15_4" model="ohada.cell.style">
+                <field name="name">5</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_15"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_15_5" model="ohada.cell.style">
+                <field name="name">0</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_15"/>
+            </record>
+
+        <record id="ohada_custom_columns_note36_16" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note36_19"/>
+        </record>
+
+            <record id="ohada_cell_style_note36_16_1" model="ohada.cell.style">
+                <field name="name">0</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_16"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_16_2" model="ohada.cell.style">
+                <field name="name">7</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_16"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_16_3" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_16"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_16_4" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_16"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_16_5" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_16"/>
+            </record>
+
+        <record id="ohada_custom_columns_note36_17" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note36_20"/>
+        </record>
+
+            <record id="ohada_cell_style_note36_17_1" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_17"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_17_2" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_17"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_17_3" model="ohada.cell.style">
+                <field name="name">Autres pays</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_17"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_17_4" model="ohada.cell.style">
+                <field name="name">9</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_17"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_17_5" model="ohada.cell.style">
+                <field name="name">9</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_17"/>
+            </record>
+
+        <record id="ohada_custom_columns_note36_18" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note36_21"/>
+        </record>
+
+            <record id="ohada_cell_style_note36_18_1" model="ohada.cell.style">
+                <field name="name">0</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_18"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_18_2" model="ohada.cell.style">
+                <field name="name">8</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_18"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_18_3" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_18"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_18_4" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_18"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_18_5" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_18"/>
+            </record>
+
+        <record id="ohada_custom_columns_note36_19" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note36_23"/>
+        </record>
+
+            <record id="ohada_cell_style_note36_19_1" model="ohada.cell.style">
+                <field name="name">0</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_19"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_19_2" model="ohada.cell.style">
+                <field name="name">9</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_19"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_19_3" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_19"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_19_4" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_19"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_19_5" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_19"/>
+            </record>
+
+        <record id="ohada_custom_columns_note36_20" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note36_28"/>
+        </record>
+
+            <record id="ohada_cell_style_note36_20_1" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_20"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_20_2" model="ohada.cell.style">
+                <field name="name">1</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_20"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_20_3" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_20"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_20_4" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_20"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_20_5" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_20"/>
+            </record>
+
+        <record id="ohada_custom_columns_note36_21" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note36_30"/>
+        </record>
+
+            <record id="ohada_cell_style_note36_21_1" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_21"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_21_2" model="ohada.cell.style">
+                <field name="name">2</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_21"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_21_3" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_21"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_21_4" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_21"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_21_5" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_21"/>
+            </record>
+
+        <record id="ohada_custom_columns_note36_22" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note36_32"/>
+        </record>
+
+            <record id="ohada_cell_style_note36_22_1" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_22"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_22_2" model="ohada.cell.style">
+                <field name="name">3</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_22"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_22_3" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_22"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_22_4" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_22"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_22_5" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_22"/>
+            </record>
+
+        <record id="ohada_custom_columns_note36_23" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note36_34"/>
+        </record>
+
+            <record id="ohada_cell_style_note36_23_1" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_23"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_23_2" model="ohada.cell.style">
+                <field name="name">4</field>
+                <field name="column_id" ref="ohada_custom_columns_note36_23"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_23_3" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_23"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_23_4" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_23"/>
+            </record>
+
+            <record id="ohada_cell_style_note36_23_5" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note36_23"/>
             </record>
 
         <!--columns for note 37-->
@@ -881,6 +1524,79 @@
                 <field name="name">Cessions ou|remboursements en|cours d'exercice</field>
                 <field name="column_id" ref="ohada_custom_columns_note13_1"/>
             </record>
+
+        <!--columns for note 27b-->
+        <record id="ohada_custom_columns_note27b_1" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note27b_header_1"/>
+        </record>
+
+            <record id="ohada_cell_style_note27b_1_1" model="ohada.cell.style">
+                <field name="name">String</field>
+                <field name="colspan">7</field>
+                <field name="column_id" ref="ohada_custom_columns_note27b_1"/>
+            </record>
+
+            <record id="ohada_cell_style_note27b_1_2" model="ohada.cell.style">
+                <field name="name">String|String</field>
+                <field name="colspan">7</field>
+                <field name="column_id" ref="ohada_custom_columns_note27b_1"/>
+            </record>
+
+        <!--columns for note 34-->
+        <record id="ohada_custom_columns_note34_1" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note34_1"/>
+        </record>
+
+        <record id="ohada_custom_columns_note34_2" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note34"/>
+        </record>
+
+        <record id="ohada_custom_columns_note34_3" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note34_29"/>
+        </record>
+
+        <record id="ohada_custom_columns_note34_4" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note34_32"/>
+        </record>
+
+        <record id="ohada_custom_columns_note34_5" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note34_48"/>
+        </record>
+
+        <record id="ohada_custom_columns_note34_6" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note34_53"/>
+        </record>
+
+        <!--&lt;!&ndash;columns for note 36&ndash;&gt;-->
+        <!--<record id="ohada_custom_columns_note36_1" model="ohada.custom.columns">-->
+            <!--<field name="line_id" ref="ohada_financial_report_note36_header"/>-->
+        <!--</record>-->
+
+            <!--<record id="ohada_cell_style_note36_1_1" model="ohada.cell.style">-->
+                <!--<field name="column_id" ref="ohada_custom_columns_note36_1"/>-->
+            <!--</record>-->
+
+            <!--<record id="ohada_cell_style_note36_1_2" model="ohada.cell.style">-->
+                <!--<field name="column_id" ref="ohada_custom_columns_note36_1"/>-->
+                <!--<field name="name">3 - Code pays du siège social</field>-->
+            <!--</record>-->
+
+            <!--<record id="ohada_cell_style_note36_1_3" model="ohada.cell.style">-->
+                <!--<field name="column_id" ref="ohada_custom_columns_note36_1"/>-->
+            <!--</record>-->
+
+            <!--<record id="ohada_cell_style_note36_1_4" model="ohada.cell.style">-->
+                <!--<field name="column_id" ref="ohada_custom_columns_note36_1"/>-->
+            <!--</record>-->
+
+        <!--<record id="ohada_custom_columns_note36_2" model="ohada.custom.columns">-->
+            <!--<field name="line_id" ref="ohada_financial_report_note36_3"/>-->
+        <!--</record>-->
+        <!---->
+            <!--<record id="ohada_cell_style_note36_2_1" model="ohada.cell.style">-->
+                <!--<field name="column_id" ref="ohada_custom_columns_note36_2"/>-->
+            <!--</record>-->
+
 
     </data>
 </odoo>

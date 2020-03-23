@@ -23,7 +23,7 @@ from odoo.osv import expression
 from odoo.tools.pycompat import izip
 from odoo import http
 from odoo.http import content_disposition, request
-# import wdb
+import wdb
 
 class ReportOhadaFinancialReport(models.Model):
     _name = "ohada.financial.html.report"
@@ -1704,6 +1704,13 @@ class OhadaFinancialReportLine(models.Model):
                         vals['columns'] = []
                         for i in range(6):
                             vals['columns'].append({'name': ' '})
+                    elif financial_report.code == 'N16A' and line.sequence > 18:
+                        for i in vals['columns'][4:]:
+                            i['background'] = '#B3CDE0'
+                    elif financial_report.code == 'N34' and line.sequence > 13 and line.sequence < 27:
+                        for i in vals['columns'][2:]:
+                            i['background'] = '#B3CDE0'
+                            i['name'] = ''
 
             final_result_table += result
 
