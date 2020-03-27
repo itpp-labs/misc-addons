@@ -557,6 +557,7 @@ class OhadaFinancialReportLine(models.Model):
     sequence = fields.Integer()
 
     domain = fields.Char(default=None)
+    domain_2 = fields.Char(default=None)
     formulas = fields.Char()
     groupby = fields.Char("Group by", default=False)
     figure_type = fields.Selection([('float', 'Float'), ('percents', 'Percents'), ('no_unit', 'No Unit')],
@@ -1133,6 +1134,7 @@ class OhadaFinancialReportLine(models.Model):
         return gb_id
 
     def _build_cmp(self, balance, comp):
+        # wdb.set_trace()
         if comp != 0:
             res = round((balance - comp) / comp * 100, 1)
             # In case the comparison is made on a negative figure, the color should be the other
@@ -1142,12 +1144,14 @@ class OhadaFinancialReportLine(models.Model):
             #
             # The percentage is negative, which is mathematically correct, but my sales increased
             # => it should be green, not red!
-            if (res > 0) != (self.green_on_positive and comp > 0):
-                return {'name': str(res) + '%', 'class': 'number color-red'}
+            lang = self.env['res.lang']._lang_get(self.env.context.get('lang') or 'en_US')
+            if (float(res) > 0) != (self.green_on_positive and comp > 0):
+                return {'name': str(res).replace('.', lang.decimal_point) + '%', 'class': 'number color-red'}
             else:
-                return {'name': str(res) + '%', 'class': 'number color-green'}
+                return {'name': str(res).replace('.', lang.decimal_point) + '%', 'class': 'number color-green'}
         else:
-            return {'name': _('n/a')}
+            # return {'name': _('n/a')}
+            return {'name': _(' ')}
 
     def _build_abs(self, balance, comp):
         res = round(balance - comp)
@@ -1173,6 +1177,7 @@ class OhadaFinancialReportLine(models.Model):
         return [(field, '=', grp) for field, grp in izip(groups['fields'], group)]
 
     def _eval_formula(self, financial_report, debit_credit, currency_table, linesDict_per_group, groups=False):
+        # wdb.set_trace()
         groups = groups or {'fields': [], 'ids': [()]}
         debit_credit = debit_credit and financial_report.debit_credit
         formulas = self._split_formulas()
@@ -1312,13 +1317,14 @@ class OhadaFinancialReportLine(models.Model):
         # build comparison table
         for line in self:
             res = []
-            debit_credit = len(comparison_table) == 1
             # wdb.set_trace()
+            debit_credit = len(comparison_table) == 1
             if financial_report.code == 'BS1' and options['comparison']['filter'] == 'no_comparison':
                 debit_credit = len(comparison_table) == 2
             domain_ids = {'line'}
             k = 0
             for period in comparison_table:
+                # wdb.set_trace()
                 date_from = period.get('date_from', False)
                 date_to = period.get('date_to', False) or period.get('date', False)
                 date_from, date_to, strict_range = line.with_context(date_from=date_from, date_to=date_to)._compute_date_range()
@@ -1396,6 +1402,7 @@ class OhadaFinancialReportLine(models.Model):
                         vals['trust'] = self.env['res.partner'].browse([domain_id]).trust
                     lines.append(vals)
             # ==================== test generate values with new models ===============================================
+            # wdb.set_trace()
             if line.columns_id:
                 if not line.columns_id.line_name:
                     del lines[0]['name']
@@ -1571,13 +1578,37 @@ class OhadaFinancialReportLine(models.Model):
                     header_list = [["Régime fiscale"], ["Échéance"]]
                     for i in header_list:
                         vals['columns'].append({'name': i})
-                elif financial_report.code in ['N4', 'N7', 'N8', 'N17', 'N15A', 'N16A', 'N18', 'N19'] and len(comparison_table) == 2:
+                elif financial_report.code in ['N17', 'N15A', 'N16A', 'N18', 'N19'] and len(comparison_table) == 2:
                     amount_of_periods = 4
                     amount_of_group_ids = len(options.get('groups', {}).get('ids') or []) or 1
                     linesDicts = [[{} for _ in range(0, amount_of_group_ids)] for _ in range(0, amount_of_periods)]
                     comparison_table = [options.get('date')]
                     comparison_table += options.get('comparison') and options['comparison'].get('periods', []) or []
                     for i in range(3):
+                        date_from = str(int(options.get('date')['string']) - (i + 1)) + '-01-01'
+                        date_to = str(int(options.get('date')['string']) - (i + 1)) + '-12-31'
+                        date_from, date_to, strict_range = line.with_context(date_from=date_from,
+                                                                             date_to=date_to)._compute_date_range()
+
+                        r = line.with_context(date_from=date_from,
+                                              date_to=date_to,
+                                              strict_range=strict_range)._eval_formula(financial_report,
+                                                                                       debit_credit,
+                                                                                       currency_table,
+                                                                                       linesDicts[k],
+                                                                                       groups=options.get('groups'))
+
+                        vals['columns'].append(line._format({'name': r[0]['line']['balance']}))
+                elif financial_report.code in ['N4', 'N7', 'N8'] and len(comparison_table) == 2:
+                    amount_of_periods = 3
+                    amount_of_group_ids = len(options.get('groups', {}).get('ids') or []) or 1
+                    linesDicts = [[{} for _ in range(0, amount_of_group_ids)] for _ in range(0, amount_of_periods)]
+                    comparison_table = [options.get('date')]
+                    comparison_table += options.get('comparison') and options['comparison'].get('periods', []) or []
+                    # temporary
+                    vals['columns'].append({'name': ''})
+                    # =========
+                    for i in range(2):
                         date_from = str(int(options.get('date')['string']) - (i + 1)) + '-01-01'
                         date_to = str(int(options.get('date')['string']) - (i + 1)) + '-12-31'
                         date_from, date_to, strict_range = line.with_context(date_from=date_from,
@@ -1664,7 +1695,7 @@ class OhadaFinancialReportLine(models.Model):
                         vals['columns'] = []
                         for i in range(4):
                             vals['columns'].append({'name': ' '})
-                    elif (financial_report.code == 'N3D' and line.sequence > 2) or (financial_report.code in ['N13', 'N31', 'N12', 'N12_1'] and line.sequence > 1):
+                    elif (financial_report.code in ['N13', 'N31', 'N12', 'N12_1'] and line.sequence > 1):
                         vals['columns'] = []
                         for i in range(5):
                             vals['columns'].append({'name': ' '})
@@ -1711,7 +1742,6 @@ class OhadaFinancialReportLine(models.Model):
                         for i in vals['columns'][2:]:
                             i['background'] = '#B3CDE0'
                             i['name'] = ''
-
             final_result_table += result
 
         return final_result_table
@@ -1927,7 +1957,7 @@ class OhadaFinancialReportingDashboard(models.Model):
         # diagrams
         # [['2016',5], ['2017',1], ['2018',4], ['2019',1]] data for diagrams
         data['di_data'] = {'BS': [], 'PL': [], 'CS': []}
-
+        
         data['di_data']['BS'] = [[str(year - 3), report._get_lines({'ir_filters': None,
                                                                   'date': {'date_to': str(year - 3) + '-12-31',
                                                                            'string': str(year - 3),
@@ -1962,6 +1992,7 @@ class OhadaFinancialReportingDashboard(models.Model):
                                                                  xl_id)[0]['columns'][0]['no_format_name']],
                                  [str(year - 1), data['xl-1_d']],
                                  [str(year), data['xl_d']]]
+
         # [{count: 1, l_month: "2016"},{count: 5, l_month: "2017"},{count: 4, l_month: "2018"},{count: 6, l_month: "2019"}]}]
 
         data['di_data']['CS'] = [{'l_month': str(year - 3), 'count': report._get_lines({'ir_filters': None,
@@ -1984,7 +2015,7 @@ class OhadaFinancialReportingDashboard(models.Model):
                                      'no_format_name']},
                                  {'l_month': str(year - 1), 'count': data['zh-1_d']},
                                  {'l_month': str(year), 'count': data['zh_d']}]
-
+        wdb.set_trace()
         data['menu_id'] = self.env.ref('account_accountant.menu_accounting').id
         data['print_bundle_reports'] = []
         for i in self.env['ohada.financial.html.report'].search([('type', '=', 'main')]):

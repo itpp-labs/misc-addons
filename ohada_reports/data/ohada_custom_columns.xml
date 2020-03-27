@@ -328,16 +328,19 @@
 
             <record id="ohada_cell_style_note36_2_1" model="ohada.cell.style">
                 <field name="name">0</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_2"/>
             </record>
 
             <record id="ohada_cell_style_note36_2_2" model="ohada.cell.style">
                 <field name="name">0</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_2"/>
             </record>
 
             <record id="ohada_cell_style_note36_2_3" model="ohada.cell.style">
                 <field name="name">Pays OHADA</field>
+                <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_2"/>
             </record>
 
@@ -367,16 +370,19 @@
 
             <record id="ohada_cell_style_note36_3_3" model="ohada.cell.style">
                 <field name="name">Autres pays africains</field>
+                <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_3"/>
             </record>
 
             <record id="ohada_cell_style_note36_3_4" model="ohada.cell.style">
                 <field name="name">2</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_3"/>
             </record>
 
             <record id="ohada_cell_style_note36_3_5" model="ohada.cell.style">
                 <field name="name">1</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_3"/>
             </record>
 
@@ -386,11 +392,13 @@
 
             <record id="ohada_cell_style_note36_4_1" model="ohada.cell.style">
                 <field name="name">0</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_4"/>
             </record>
 
             <record id="ohada_cell_style_note36_4_2" model="ohada.cell.style">
                 <field name="name">1</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_4"/>
             </record>
 
@@ -425,16 +433,19 @@
 
             <record id="ohada_cell_style_note36_5_3" model="ohada.cell.style">
                 <field name="name">France</field>
+                <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_5"/>
             </record>
 
             <record id="ohada_cell_style_note36_5_4" model="ohada.cell.style">
                 <field name="name">2</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_5"/>
             </record>
 
             <record id="ohada_cell_style_note36_5_5" model="ohada.cell.style">
                 <field name="name">3</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_5"/>
             </record>
 
@@ -444,11 +455,13 @@
 
             <record id="ohada_cell_style_note36_6_1" model="ohada.cell.style">
                 <field name="name">0</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_6"/>
             </record>
 
             <record id="ohada_cell_style_note36_6_2" model="ohada.cell.style">
                 <field name="name">2</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_6"/>
             </record>
 
@@ -483,16 +496,19 @@
 
             <record id="ohada_cell_style_note36_7_3" model="ohada.cell.style">
                 <field name="name">Autres pays de l'Union Européenne</field>
+                <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_7"/>
             </record>
 
             <record id="ohada_cell_style_note36_7_4" model="ohada.cell.style">
                 <field name="name">3</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_7"/>
             </record>
 
             <record id="ohada_cell_style_note36_7_5" model="ohada.cell.style">
                 <field name="name">9</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_7"/>
             </record>
 
@@ -502,11 +518,13 @@
 
             <record id="ohada_cell_style_note36_8_1" model="ohada.cell.style">
                 <field name="name">0</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_8"/>
             </record>
 
             <record id="ohada_cell_style_note36_8_2" model="ohada.cell.style">
                 <field name="name">3</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_8"/>
             </record>
 
@@ -541,16 +559,19 @@
 
             <record id="ohada_cell_style_note36_9_3" model="ohada.cell.style">
                 <field name="name">U.S.A</field>
+                <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_9"/>
             </record>
 
             <record id="ohada_cell_style_note36_9_4" model="ohada.cell.style">
                 <field name="name">4</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_9"/>
             </record>
 
             <record id="ohada_cell_style_note36_9_5" model="ohada.cell.style">
                 <field name="name">0</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_9"/>
             </record>
 
@@ -560,11 +581,13 @@
 
             <record id="ohada_cell_style_note36_10_1" model="ohada.cell.style">
                 <field name="name">0</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_10"/>
             </record>
 
             <record id="ohada_cell_style_note36_10_2" model="ohada.cell.style">
                 <field name="name">4</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_10"/>
             </record>
 
@@ -599,16 +622,19 @@
 
             <record id="ohada_cell_style_note36_11_3" model="ohada.cell.style">
                 <field name="name">Canada</field>
+                <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_11"/>
             </record>
 
             <record id="ohada_cell_style_note36_11_4" model="ohada.cell.style">
                 <field name="name">4</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_11"/>
             </record>
 
             <record id="ohada_cell_style_note36_11_5" model="ohada.cell.style">
                 <field name="name">1</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_11"/>
             </record>
 
@@ -618,11 +644,13 @@
 
             <record id="ohada_cell_style_note36_12_1" model="ohada.cell.style">
                 <field name="name">0</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_12"/>
             </record>
 
             <record id="ohada_cell_style_note36_12_2" model="ohada.cell.style">
                 <field name="name">5</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_12"/>
             </record>
 
@@ -657,16 +685,19 @@
 
             <record id="ohada_cell_style_note36_13_3" model="ohada.cell.style">
                 <field name="name">Autres pays américains</field>
+                <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_13"/>
             </record>
 
             <record id="ohada_cell_style_note36_13_4" model="ohada.cell.style">
                 <field name="name">4</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_13"/>
             </record>
 
             <record id="ohada_cell_style_note36_13_5" model="ohada.cell.style">
                 <field name="name">9</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_13"/>
             </record>
 
@@ -676,11 +707,13 @@
 
             <record id="ohada_cell_style_note36_14_1" model="ohada.cell.style">
                 <field name="name">0</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_14"/>
             </record>
 
             <record id="ohada_cell_style_note36_14_2" model="ohada.cell.style">
                 <field name="name">6</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_14"/>
             </record>
 
@@ -715,16 +748,19 @@
 
             <record id="ohada_cell_style_note36_15_3" model="ohada.cell.style">
                 <field name="name">Pays asiatiques</field>
+                <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_15"/>
             </record>
 
             <record id="ohada_cell_style_note36_15_4" model="ohada.cell.style">
                 <field name="name">5</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_15"/>
             </record>
 
             <record id="ohada_cell_style_note36_15_5" model="ohada.cell.style">
                 <field name="name">0</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_15"/>
             </record>
 
@@ -734,11 +770,13 @@
 
             <record id="ohada_cell_style_note36_16_1" model="ohada.cell.style">
                 <field name="name">0</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_16"/>
             </record>
 
             <record id="ohada_cell_style_note36_16_2" model="ohada.cell.style">
                 <field name="name">7</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_16"/>
             </record>
 
@@ -773,16 +811,19 @@
 
             <record id="ohada_cell_style_note36_17_3" model="ohada.cell.style">
                 <field name="name">Autres pays</field>
+                <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_17"/>
             </record>
 
             <record id="ohada_cell_style_note36_17_4" model="ohada.cell.style">
                 <field name="name">9</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_17"/>
             </record>
 
             <record id="ohada_cell_style_note36_17_5" model="ohada.cell.style">
                 <field name="name">9</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_17"/>
             </record>
 
@@ -792,11 +833,13 @@
 
             <record id="ohada_cell_style_note36_18_1" model="ohada.cell.style">
                 <field name="name">0</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_18"/>
             </record>
 
             <record id="ohada_cell_style_note36_18_2" model="ohada.cell.style">
                 <field name="name">8</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_18"/>
             </record>
 
@@ -821,11 +864,13 @@
 
             <record id="ohada_cell_style_note36_19_1" model="ohada.cell.style">
                 <field name="name">0</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_19"/>
             </record>
 
             <record id="ohada_cell_style_note36_19_2" model="ohada.cell.style">
                 <field name="name">9</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_19"/>
             </record>
 
@@ -855,6 +900,7 @@
 
             <record id="ohada_cell_style_note36_20_2" model="ohada.cell.style">
                 <field name="name">1</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_20"/>
             </record>
 
@@ -884,6 +930,7 @@
 
             <record id="ohada_cell_style_note36_21_2" model="ohada.cell.style">
                 <field name="name">2</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_21"/>
             </record>
 
@@ -913,6 +960,7 @@
 
             <record id="ohada_cell_style_note36_22_2" model="ohada.cell.style">
                 <field name="name">3</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_22"/>
             </record>
 
@@ -942,6 +990,7 @@
 
             <record id="ohada_cell_style_note36_23_2" model="ohada.cell.style">
                 <field name="name">4</field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_23"/>
             </record>
 
@@ -1566,36 +1615,6 @@
         <record id="ohada_custom_columns_note34_6" model="ohada.custom.columns">
             <field name="line_id" ref="ohada_financial_report_note34_53"/>
         </record>
-
-        <!--&lt;!&ndash;columns for note 36&ndash;&gt;-->
-        <!--<record id="ohada_custom_columns_note36_1" model="ohada.custom.columns">-->
-            <!--<field name="line_id" ref="ohada_financial_report_note36_header"/>-->
-        <!--</record>-->
-
-            <!--<record id="ohada_cell_style_note36_1_1" model="ohada.cell.style">-->
-                <!--<field name="column_id" ref="ohada_custom_columns_note36_1"/>-->
-            <!--</record>-->
-
-            <!--<record id="ohada_cell_style_note36_1_2" model="ohada.cell.style">-->
-                <!--<field name="column_id" ref="ohada_custom_columns_note36_1"/>-->
-                <!--<field name="name">3 - Code pays du siège social</field>-->
-            <!--</record>-->
-
-            <!--<record id="ohada_cell_style_note36_1_3" model="ohada.cell.style">-->
-                <!--<field name="column_id" ref="ohada_custom_columns_note36_1"/>-->
-            <!--</record>-->
-
-            <!--<record id="ohada_cell_style_note36_1_4" model="ohada.cell.style">-->
-                <!--<field name="column_id" ref="ohada_custom_columns_note36_1"/>-->
-            <!--</record>-->
-
-        <!--<record id="ohada_custom_columns_note36_2" model="ohada.custom.columns">-->
-            <!--<field name="line_id" ref="ohada_financial_report_note36_3"/>-->
-        <!--</record>-->
-        <!---->
-            <!--<record id="ohada_cell_style_note36_2_1" model="ohada.cell.style">-->
-                <!--<field name="column_id" ref="ohada_custom_columns_note36_2"/>-->
-            <!--</record>-->
 
 
     </data>

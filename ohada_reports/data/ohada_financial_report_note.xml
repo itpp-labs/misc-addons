@@ -1054,7 +1054,7 @@
         <field name="shortname">Note 3D</field>
         <field name="code">N3D</field>
         <field name="header">IMMOBILISATIONS : PLUS-VALUES ET MOINS-VALUES DE CESSION</field>
-        <field name="debit_credit" eval="False"/>
+        <field name="debit_credit" eval="True"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
@@ -1087,6 +1087,7 @@
         <field name="code">N3d_2</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3d"/>
         <field name="formulas">debit = _AE.debit; credit = _AE.credit; balance = _AE.balance</field>
+        <field name="domain_2">[('account_id.code', '=like', '82111%')]</field>
         <field name="level" eval="2" />
         <field name="sequence" eval="3"/>
         <field name="groupby">account_id</field>

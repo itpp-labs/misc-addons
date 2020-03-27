@@ -28,7 +28,7 @@ from odoo.tools.safe_eval import safe_eval
 from odoo.exceptions import UserError
 
 import html2text
-
+import wdb
 _logger = logging.getLogger(__name__)
 
 
@@ -919,7 +919,7 @@ class OhadaReport(models.AbstractModel):
         if currency and currency != report_currency_id:
             #TODO: Here we need to convert the value to the company currency
             res = formatLang(self.env, value, currency_obj=report_currency_id)
-        else:   
+        else:
             res = formatLang(self.env, value, currency_obj=currency_id)     #formatLang(self.env, value, digits=0)
         return res
 
@@ -1031,7 +1031,7 @@ class OhadaReport(models.AbstractModel):
                 options['comparison']['filter'] = 'previous_period'
                 options['comparison']['string'] = _('No comparison')
                 return
-            if self.code == "N1":
+            if self.code in ["N1", "N3D"]:
                 number_period = 0
                 periods = []
                 for index in range(0, number_period):
