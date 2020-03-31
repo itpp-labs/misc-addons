@@ -811,7 +811,7 @@ a.stat-head:hover{
     overflow-y: auto;
     margin-bottom: 15px;
     padding-left: 5px;
-    width:280px !important;
+    width: 100%;
 }
 .ohada_notification_big {
     background: #fff;

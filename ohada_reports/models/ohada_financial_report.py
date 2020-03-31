@@ -328,7 +328,7 @@ class ReportOhadaFinancialReport(models.Model):
                     'context': ir_filter.context,
                     'selected': ir_filter.id == previously_selected_id,
                 })
-
+            wdb.set_trace()
         return options
 
     @api.model
@@ -1908,6 +1908,8 @@ class OhadaFinancialReportingDashboard(models.Model):
         data['options']['all_entries'] = all_entries
         data['years'] = [datetime.now().year, datetime.now().year - 1, datetime.now().year - 2, datetime.now().year - 3]
         data['company_name'] = self.env['res.users'].browse(request.session.uid).company_id.name
+        wdb.set_trace()
+        data['search_panel'] = self.env['ir.ui.view'].render_template('ohada_reports.dashboard_panel_template', values={'data': data})
 
         bz_id = self.env.ref('ohada_reports.account_financial_report_balancesheet_BZ').id
         dz_id = self.env.ref('ohada_reports.account_financial_report_balancesheet_DZ').id
@@ -2015,7 +2017,7 @@ class OhadaFinancialReportingDashboard(models.Model):
                                      'no_format_name']},
                                  {'l_month': str(year - 1), 'count': data['zh-1_d']},
                                  {'l_month': str(year), 'count': data['zh_d']}]
-        wdb.set_trace()
+
         data['menu_id'] = self.env.ref('account_accountant.menu_accounting').id
         data['print_bundle_reports'] = []
         for i in self.env['ohada.financial.html.report'].search([('type', '=', 'main')]):

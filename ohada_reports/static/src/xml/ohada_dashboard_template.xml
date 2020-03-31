@@ -52,23 +52,23 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-lg-4" style="float:left;">
-                                <select class="o_input o_mrp_bom_report_variants" style="width: 80px;float:left;" id="change_year">
-                                    <t t-foreach="widget.data['years']" t-as="year">
-                                        <option t-att-value="year" t-att-selected="year == widget.data['this_year'] ? 'selected' : None">
-                                            <t t-esc="year" />
-                                        </option>
-                                    </t>
-                                </select>
-                                <select class="o_input o_mrp_bom_report_variants" style="width: 180px;float:left;" id="change_all_entries">
-                                    <option value="True" t-att-selected="widget.data['options']['all_entries'] == true ? 'selected' : None">
-                                        Include Unposted Entries
-                                    </option>
-                                    <option value="False" t-att-selected="widget.data['options']['all_entries'] == false ? 'selected' : None">
-                                        Hide Unposted Entries
-                                    </option>
-                                </select>
-                            </div>
+                            <!--<div class="col-md-4 col-lg-4" style="float:left;">-->
+                                <!--<select class="o_input o_mrp_bom_report_variants" style="width: 80px;float:left;" id="change_year">-->
+                                    <!--<t t-foreach="widget.data['years']" t-as="year">-->
+                                        <!--<option t-att-value="year" t-att-selected="year == widget.data['this_year'] ? 'selected' : None">-->
+                                            <!--<t t-esc="year" />-->
+                                        <!--</option>-->
+                                    <!--</t>-->
+                                <!--</select>-->
+                                <!--<select class="o_input o_mrp_bom_report_variants" style="width: 180px;float:left;" id="change_all_entries">-->
+                                    <!--<option value="True" t-att-selected="widget.data['options']['all_entries'] == true ? 'selected' : None">-->
+                                        <!--Include Unposted Entries-->
+                                    <!--</option>-->
+                                    <!--<option value="False" t-att-selected="widget.data['options']['all_entries'] == false ? 'selected' : None">-->
+                                        <!--Hide Unposted Entries-->
+                                    <!--</option>-->
+                                <!--</select>-->
+                            <!--</div>-->
                             <div class="col-md-4 col-lg-4" style="float:left;">
 
                             </div>
@@ -185,8 +185,10 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="leave_graph" style="margin-top:-30px !important;margin-left:30px;" />
+                        <svg id="chart" class="o_graph_barchart" style="height:100px;"/>
+                        <!--<div class="leave_graph" style="margin-top:-30px !important;margin-left:30px;" />-->
                      </div>
+
                 </div>
                 <div class="col-md-6 col-lg-4 col-sm-12">
                     <div class="col-xs-12  ohada_notification_big" style="padding: 0;border-left:3px solid #934da5;">
@@ -220,7 +222,8 @@
                                     <li class="list-right"><t t-esc="widget.data['xl_dif']"/></li>
                                 </ul>
                             </div>
-                            <div class="leave_graph2" style="margin-top:-30px !important;margin-left:30px;" />
+                            <svg id="chart2" class="o_graph_barchart" style="height:100px;"/>
+                            <!--<div class="leave_graph2" style="margin-top:-30px !important;margin-left:30px;" />-->
                         </div>
                      </div>
                 </div>
@@ -255,9 +258,10 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="monthly_join_resign_trend">
-                            <div class="join_resign_trend" style="margin-top:-10px !important;margin-left:20px;padding:0px;" />
-                        </div>
+                        <svg id="chart3" class="o_graph_linechart" style="height:100px;"/>
+                        <!--<div class="monthly_join_resign_trend">-->
+                            <!--<div class="join_resign_trend" style="margin-top:-10px !important;margin-left:20px;padding:0px;" />-->
+                        <!--</div>-->
                      </div>
 
                 </div>
@@ -278,9 +282,9 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </t>
+
     <t t-name="OhadaWarning">
         <div>
             <p>Error : Could not load data</p>

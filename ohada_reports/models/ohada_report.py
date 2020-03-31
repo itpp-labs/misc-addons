@@ -125,6 +125,7 @@ class OhadaReport(models.AbstractModel):
                         options[key] = previous_options[key]
                 else:
                     options[key] = previous_options[key]
+        wdb.set_trace()
         return options
 
     @api.model
@@ -486,7 +487,7 @@ class OhadaReport(models.AbstractModel):
             options['unposted_in_period'] = bool(self.env['account.move'].search_count(period_domain))
 
         report_manager = self._get_report_manager(options)
-
+        wdb.set_trace()
         info = {'options': options,
                 'context': self.env.context,
                 'report_manager_id': report_manager.id,

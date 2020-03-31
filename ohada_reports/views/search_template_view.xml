@@ -283,5 +283,37 @@
         </div>
     </template>
 
+    <template id="dashboard_panel_template">
+        <div class="btn-group o_dropdown">
+            <a type="button" class="dropdown-toggle" data-toggle="dropdown">
+                <span class="fa fa-calendar"/>
+                <t t-set="selected_year" t-value="data['this_year']"/>
+                <t t-esc="selected_year"/>
+            </a>
+            <div class="dropdown-menu o_filters_menu" role="menu">
+                <t t-foreach="data['years']" t-as="year">
+                    <a role="menuitem" class="dropdown-item js_account_report_choice_year" t-att-value="year"><t t-esc="year"/></a>
+                </t>
+            </div>
+        </div>
+
+        <div class="btn-group o_dropdown">
+            <a type="button" class="dropdown-toggle" data-toggle="dropdown">
+                <span class="fa fa-book"/>
+                <t t-set="selected_journals" t-value="data['options']['all_entries']"/>
+                <t t-if="selected_journals">
+                    Include Unposted Entries
+                </t>
+                <t t-else="">
+                    Hide Unposted Entries
+                </t>
+            </a>
+            <div class="dropdown-menu o_filters_menu" role="menu">
+                <a role="menuitem" class="dropdown-item js_account_report_choice_entries" t-att-value="True">Include Unposted Entries</a>
+                <a role="menuitem" class="dropdown-item js_account_report_choice_entries" t-att-value="False">Hide Unposted Entries</a>
+            </div>
+        </div>
+    </template>
+
     </data>
 </odoo>
