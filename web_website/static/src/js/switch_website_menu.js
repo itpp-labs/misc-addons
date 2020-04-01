@@ -1,4 +1,4 @@
-// Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+// Copyright 2018,2020 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 // License MIT (https://opensource.org/licenses/MIT).
 odoo.define("web_website.SwitchWebsiteMenu", function(require) {
     "use strict";
@@ -20,12 +20,6 @@ odoo.define("web_website.SwitchWebsiteMenu", function(require) {
             this._super.apply(this, arguments);
             this.isMobile = config.device.isMobile;
             this._onClick = _.debounce(this._onClick, 1500, true);
-        },
-        willStart: function() {
-            if (!session.user_websites) {
-                return $.Deferred().reject();
-            }
-            return this._super();
         },
         start: function() {
             var self = this;
@@ -94,7 +88,9 @@ odoo.define("web_website.SwitchWebsiteMenu", function(require) {
         },
     });
 
-    SystrayMenu.Items.push(SwitchWebsiteMenu);
+    if (session.display_switch_website_menu) {
+        SystrayMenu.Items.push(SwitchWebsiteMenu);
+    }
 
     return SwitchWebsiteMenu;
 });

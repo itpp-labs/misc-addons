@@ -27,5 +27,5 @@ class Http(models.AbstractModel):
             if display_switch_website_menu
             else False
         )
-
+        res["display_switch_website_menu"] = display_switch_website_menu
         return res

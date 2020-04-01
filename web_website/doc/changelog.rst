@@ -1,3 +1,7 @@
+`3.0.5`
+-------
+- **Fix:** All right menus were disapperated when Website Switcher shall not be visible
+
 `3.0.4`
 -------
 - **Fix:** Incorrect return data in get_multi in case of 'many2one' field, id instead of a record
