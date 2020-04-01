@@ -1,4 +1,4 @@
-# Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2018,2020 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # Copyright 2019 Eugene Molotov <https://it-projects.info/team/em234018>
 # License MIT (https://opensource.org/licenses/MIT).
@@ -8,7 +8,7 @@
     "category": "Hidden",
     # "live_test_url": "",
     "images": [],
-    "version": "13.0.3.0.4",
+    "version": "13.0.3.0.5",
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "apps@itpp.dev",
