@@ -105,8 +105,8 @@ class ReportOhadaFinancialReport(models.Model):
 
     @api.model
     def print_bundle_pdf(self, options, reports_ids=None, minimal_layout=True):
-        base_url = self.env['ir.config_parameter'].sudo().get_param('report.url') or self.env['ir.config_parameter'].sudo().get_param('web.base.url')
-        # base_url = 'http://127.0.0.1:8069'
+        # base_url = self.env['ir.config_parameter'].sudo().get_param('report.url') or self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        base_url = 'http://127.0.0.1:8069'
         reports_ids = reports_ids.split(',')
         rcontext = {
             'mode': 'print',
@@ -328,7 +328,6 @@ class ReportOhadaFinancialReport(models.Model):
                     'context': ir_filter.context,
                     'selected': ir_filter.id == previously_selected_id,
                 })
-            wdb.set_trace()
         return options
 
     @api.model
@@ -1908,7 +1907,7 @@ class OhadaFinancialReportingDashboard(models.Model):
         data['options']['all_entries'] = all_entries
         data['years'] = [datetime.now().year, datetime.now().year - 1, datetime.now().year - 2, datetime.now().year - 3]
         data['company_name'] = self.env['res.users'].browse(request.session.uid).company_id.name
-        wdb.set_trace()
+
         data['search_panel'] = self.env['ir.ui.view'].render_template('ohada_reports.dashboard_panel_template', values={'data': data})
 
         bz_id = self.env.ref('ohada_reports.account_financial_report_balancesheet_BZ').id
