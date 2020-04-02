@@ -18,17 +18,6 @@ class ResUsers(models.Model):
     backend_websites_count = fields.Integer(compute="_compute_backend_website_ids")
 
     @api.model
-    def _get_company(self):
-        """Try to get company from website first. It affects many models and feature,
-        because it's used in _company_default_get which is used to compute
-        default values on many models
-        """
-        website_id = self.env.context.get("website_id")
-        if website_id:
-            return self.env["website"].browse(website_id).company_id
-        return super(ResUsers, self)._get_company()
-
-    @api.model
     def _search_company_websites(self, company_id):
         return self.env["website"].search(
             [("company_id", "in", [False] + [company_id])]
