@@ -1,3 +1,7 @@
+`3.0.6`
+-------
+- **Fix:** ``env.company`` must depend on current website
+
 `3.0.5`
 -------
 - **Fix:** All right menus were disapperated when Website Switcher shall not be visible

@@ -10,3 +10,7 @@ def post_init_hook(cr, registry):
     # emulate updating existing field to website-dependent one
     env.cr.execute("ALTER TABLE test_website_dependent ADD COLUMN foo VARCHAR")
     env.cr.execute("ALTER TABLE test_website_dependent ADD COLUMN user_id INTEGER")
+
+
+def post_load():
+    from . import api
