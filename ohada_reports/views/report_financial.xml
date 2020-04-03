@@ -526,6 +526,16 @@
                                 </t>
                             </tbody>
                     </table>
+                    <t t-if="report['code'] == 'N16B'">
+                        <t t-set="lines" t-value="lines_notes[2]"/>
+                        <table style="margin-top:60px;margin-bottom:10px;color:#001E5A;font-weight:normal;" class="o_ohada_reports_table">
+                                <tbody class="ohada_table">
+                                    <t t-if="lines.get('lines')">
+                                        <t t-call="{{model._get_templates()['line_template']}}"/>
+                                    </t>
+                                </tbody>
+                        </table>
+                    </t>
                 </t>
                 <t t-else="">
                     <t t-if="report['code'] == 'BS'">

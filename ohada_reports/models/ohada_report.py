@@ -568,6 +568,7 @@ class OhadaReport(models.AbstractModel):
 
         # Get_lines for the newly computed hierarchy.
         def get_hierarchy_lines(values, depth=1):
+            # wdb.set_trace()
             lines = []
             sum_sum_columns = []
             for base_line in values.get('lines', []):
@@ -1680,6 +1681,8 @@ class OhadaReport(models.AbstractModel):
         r_name = self.name.upper()
         r_shortname = self.shortname.upper()
         reports = [self, self.env['ohada.financial.html.report'].search([('code', '=', self.code + '_1')])]
+        if self.code == "N16B":
+            reports.append(self.env.ref('ohada_reports.ohada_financial_report_note16b_2'))
         summary = self._get_report_manager(options).summary
         for report_bs in reports:
             # Check the security before updating the context to make sure the options are safe.
@@ -1730,7 +1733,7 @@ class OhadaReport(models.AbstractModel):
         g_rcontext['model'] = self.header + ' ' + options['date']['date_from'][0:4]
         g_rcontext['report']['header'] = self.header + ' ' + options['date']['date_from'][0:4]
 #        g_rcontext['report']['header_2'] = reports[1].header + ' ' + options['date']['date_from'][0:4]       #E-
-        g_rcontext['report']['header_2'] = reports[0].header + ' ' + options['date']['date_from'][0:4]        #E+
+        g_rcontext['report']['header_2'] = reports[0].header + ' ' + options['date']['date_from'][0:4] if self.code != 'N16B' else ' '#E+
         g_rcontext['options'] = rcontext['options']
         g_rcontext['report']['name'] = self.name.upper()
         g_rcontext['model'] = rcontext['model']

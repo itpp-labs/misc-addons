@@ -1082,14 +1082,36 @@
         <field name="sequence" eval="2"/>
     </record>
 
+    <record id="ohada_financial_report_note3d_sub1" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">N3d_sub1</field>
+        <field name="financial_report_id" ref=""/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="domain" eval="[('account_id.code', '=like', '82111%')]" />
+        <field name="level" eval="0" />
+        <field name="sequence" eval="21"/>
+        <field name="groupby">account_id</field>
+    </record>
+
     <record id="ohada_financial_report_note3d_2" model="ohada.financial.html.report.line">
         <field name="name">Frais de développement et de prospection</field>
         <field name="code">N3d_2</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3d"/>
         <field name="formulas">debit = _AE.debit; credit = _AE.credit; balance = _AE.balance</field>
-        <field name="domain_2">[('account_id.code', '=like', '82111%')]</field>
+        <field name="sub_domain_id" ref='ohada_financial_report_note3d_sub1'/>
         <field name="level" eval="2" />
         <field name="sequence" eval="3"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note3d_sub2" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">N3d_sub2</field>
+        <field name="financial_report_id" ref=""/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="domain" eval="['|', '|', ('account_id.code', '=like', '82112%'), ('account_id.code', '=like', '82113%'), ('account_id.code', '=like', '82114%')]" />
+        <field name="level" eval="0" />
+        <field name="sequence" eval="21"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -1098,8 +1120,20 @@
         <field name="code">N3d_3</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3d"/>
         <field name="formulas">debit = _AF.debit; credit = _AF.credit; balance = _AF.balance</field>
+        <field name="sub_domain_id" ref='ohada_financial_report_note3d_sub2'/>
         <field name="level" eval="2" />
         <field name="sequence" eval="4"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note3d_sub3" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">N3d_sub3</field>
+        <field name="financial_report_id" ref=""/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="domain" eval="['|', ('account_id.code', '=like', '82115%'), ('account_id.code', '=like', '82116%')]" />
+        <field name="level" eval="0" />
+        <field name="sequence" eval="21"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -1108,8 +1142,20 @@
         <field name="code">N3d_4</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3d"/>
         <field name="formulas">debit = _AG.debit; credit = _AG.credit; balance = _AG.balance</field>
+        <field name="sub_domain_id" ref='ohada_financial_report_note3d_sub3'/>
         <field name="level" eval="2" />
         <field name="sequence" eval="5"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note3d_sub4" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">N3d_sub4</field>
+        <field name="financial_report_id" ref=""/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="domain" eval="[('account_id.code', 'like', '821%'), ('account_id.code', 'not like', '82111%'), ('account_id.code', 'not like', '82112%'), ('account_id.code', 'not like', '82113%'), ('account_id.code', 'not like', '82114%'), ('account_id.code', 'not like', '82115%'), ('account_id.code', 'not like', '82116%'), ('account_id.code', 'not like', '8212%'), ('account_id.code', 'not like', '8213%'), ('account_id.code', 'not like', '8214%'), ('account_id.code', 'not like', '8216%'), ('account_id.code', 'not like', '8217%')]" />
+        <field name="level" eval="0" />
+        <field name="sequence" eval="21"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -1118,8 +1164,19 @@
         <field name="code">N3d_5</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3d"/>
         <field name="formulas">debit = _AH.debit; credit = _AH.credit; balance = _AH.balance</field>
+        <field name="sub_domain_id" ref='ohada_financial_report_note3d_sub4'/>
         <field name="level" eval="2" />
         <field name="sequence" eval="6"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note3d_sub5" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">N3d_sub5</field>
+        <field name="financial_report_id" ref=""/>
+        <field name="formulas">balance = N3d_sub1.balance + N3d_sub2.balance + N3d_sub3.balance + N3d_sub4.balance</field>
+        <field name="level" eval="0" />
+        <field name="sequence" eval="21"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -1127,10 +1184,21 @@
         <field name="name">SOUS-TOTAL : IMMOBILISATIONS INCORPORELLES</field>
         <field name="code">N3d_6</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3d"/>
-        <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
         <field name="formulas">debit = N3d_2.debit + N3d_3.debit + N3d_4.debit+ N3d_5.debit; credit = N3d_2.credit + N3d_3.credit + N3d_4.credit + N3d_5.credit; balance = N3d_2.balance + N3d_3.balance + N3d_4.balance + N3d_5.balance</field>
+        <field name="sub_domain_id" ref='ohada_financial_report_note3d_sub5'/>
         <field name="level" eval="1" />
         <field name="sequence" eval="7"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note3d_sub6" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">N3d_sub6</field>
+        <field name="financial_report_id" ref=""/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="domain" eval="['|', ('account_id.code', '=like', '8212%'), ('account_id.code', '=like', '82137%')]" />
+        <field name="level" eval="0" />
+        <field name="sequence" eval="21"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -1139,6 +1207,7 @@
         <field name="code">N3d_7</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3d"/>
         <field name="formulas">debit = _AJ.debit - _AJn.debit; credit = _AJ.credit - _AJn.credit; balance = _AJ.balance - _AJn.balance</field>
+        <field name="sub_domain_id" ref='ohada_financial_report_note3d_sub6'/>
         <field name="level" eval="2" />
         <field name="sequence" eval="8"/>
         <field name="groupby">account_id</field>
@@ -1154,11 +1223,23 @@
         <field name="groupby">account_id</field>
     </record>
 
+    <record id="ohada_financial_report_note3d_sub7" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">N3d_sub7</field>
+        <field name="financial_report_id" ref=""/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="domain" eval="['|', '|', ('account_id.code', '=like', '82131%'), ('account_id.code', '=like', '82132%'), ('account_id.code', '=like', '82133%')]" />
+        <field name="level" eval="0" />
+        <field name="sequence" eval="21"/>
+        <field name="groupby">account_id</field>
+    </record>
+
     <record id="ohada_financial_report_note3d_9" model="ohada.financial.html.report.line">
         <field name="name">Bâtiments - hors immeubles de placement</field>
         <field name="code">N3d_9</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3d"/>
         <field name="formulas">debit = _AK.debit - _AKn.debit; credit = _AK.credit - _AKn.credit; balance = _AK.balance - _AKn.balance</field>
+        <field name="sub_domain_id" ref='ohada_financial_report_note3d_sub7'/>
         <field name="level" eval="2" />
         <field name="sequence" eval="10"/>
         <field name="groupby">account_id</field>
@@ -1174,13 +1255,36 @@
         <field name="groupby">account_id</field>
     </record>
 
+    <record id="ohada_financial_report_note3d_sub8" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">N3d_sub8</field>
+        <field name="financial_report_id" ref=""/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="domain" eval="['|', '|', ('account_id.code', '=like', '82134%'), ('account_id.code', '=like', '82135%'), ('account_id.code', '=like', '82138%')]" />
+        <field name="level" eval="0" />
+        <field name="sequence" eval="21"/>
+        <field name="groupby">account_id</field>
+    </record>
+
     <record id="ohada_financial_report_note3d_11" model="ohada.financial.html.report.line">
         <field name="name">Aménagements, agencements et installations</field>
         <field name="code">N3d_11</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3d"/>
         <field name="formulas">debit = _AL.debit; credit = _AL.credit; balance = _AL.balance</field>
+        <field name="sub_domain_id" ref='ohada_financial_report_note3d_sub8'/>
         <field name="level" eval="2" />
         <field name="sequence" eval="12"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note3d_sub9" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">N3d_sub9</field>
+        <field name="financial_report_id" ref=""/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="domain" eval="[('account_id.code', '=like', '8214%'), ('account_id.code', 'not like', '82145%')]" />
+        <field name="level" eval="0" />
+        <field name="sequence" eval="21"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -1189,8 +1293,20 @@
         <field name="code">N3d_12</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3d"/>
         <field name="formulas">debit = _AM.debit; credit = _AM.credit; balance = _AM.balance</field>
+        <field name="sub_domain_id" ref='ohada_financial_report_note3d_sub9'/>
         <field name="level" eval="2" />
         <field name="sequence" eval="13"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note3d_sub10" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">N3d_sub10</field>
+        <field name="financial_report_id" ref=""/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="domain" eval="[('account_id.code', '=like', '82145%')]" />
+        <field name="level" eval="0" />
+        <field name="sequence" eval="21"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -1199,38 +1315,49 @@
         <field name="code">N3d_13</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3d"/>
         <field name="formulas">debit = _AN.debit; credit = _AN.credit; balance = _AN.balance</field>
+        <field name="sub_domain_id" ref='ohada_financial_report_note3d_sub10'/>
         <field name="level" eval="2" />
         <field name="sequence" eval="14"/>
         <field name="groupby">account_id</field>
     </record>
 
-    <record id="ohada_financial_report_note3d_14" model="ohada.financial.html.report.line">
-        <field name="name">SOUS-TOTAL : IMMOBILISATIONS CORPORELLES</field>
-        <field name="code">N3d_14</field>
-        <field name="financial_report_id" ref="ohada_financial_report_note3d"/>
-        <field name="formulas">debit = N3d_7.debit + N3d_8.debit + N3d_9.debit + N3d_10.debit + N3d_11.debit + N3d_12.debit + N3d_13.debit; credit = N3d_7.credit + N3d_8.credit + N3d_9.credit + N3d_10.credit + N3d_11.credit + N3d_12.credit + N3d_13.credit; balance = N3d_7.balance + N3d_8.balance + N3d_9.balance + N3d_10.balance + N3d_11.balance + N3d_12.balance + N3d_13.balance</field>
-        <field name="level" eval="1" />
-        <field name="sequence" eval="15"/>
-        <field name="groupby">account_id</field>
-    </record>
+    <!--<record id="ohada_financial_report_note3d_14" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">SOUS-TOTAL : IMMOBILISATIONS CORPORELLES</field>-->
+        <!--<field name="code">N3d_14</field>-->
+        <!--<field name="financial_report_id" ref="ohada_financial_report_note3d"/>-->
+        <!--<field name="formulas">debit = N3d_7.debit + N3d_8.debit + N3d_9.debit + N3d_10.debit + N3d_11.debit + N3d_12.debit + N3d_13.debit; credit = N3d_7.credit + N3d_8.credit + N3d_9.credit + N3d_10.credit + N3d_11.credit + N3d_12.credit + N3d_13.credit; balance = N3d_7.balance + N3d_8.balance + N3d_9.balance + N3d_10.balance + N3d_11.balance + N3d_12.balance + N3d_13.balance</field>-->
+        <!--<field name="level" eval="1" />-->
+        <!--<field name="sequence" eval="15"/>-->
+        <!--<field name="groupby">account_id</field>-->
+    <!--</record>-->
 
-    <record id="ohada_financial_report_note3d_16" model="ohada.financial.html.report.line">
-        <field name="name">Titres de participation</field>
-        <field name="code">N3d_16</field>
-        <field name="financial_report_id" ref="ohada_financial_report_note3d"/>
-        <field name="formulas">debit = _AR.debit; credit = _AR.credit; balance = _AR.balance</field>
-        <field name="level" eval="2" />
-        <field name="sequence" eval="17"/>
-        <field name="groupby">account_id</field>
-    </record>
+    <!--<record id="ohada_financial_report_note3d_16" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Titres de participation</field>-->
+        <!--<field name="code">N3d_16</field>-->
+        <!--<field name="financial_report_id" ref="ohada_financial_report_note3d"/>-->
+        <!--<field name="formulas">debit = _AR.debit; credit = _AR.credit; balance = _AR.balance</field>-->
+        <!--<field name="level" eval="2" />-->
+        <!--<field name="sequence" eval="17"/>-->
+        <!--<field name="groupby">account_id</field>-->
+    <!--</record>-->
 
-    <record id="ohada_financial_report_note3d_17" model="ohada.financial.html.report.line">
-        <field name="name">Autres immobilisations financières</field>
-        <field name="code">N3d_17</field>
-        <field name="financial_report_id" ref="ohada_financial_report_note3d"/>
-        <field name="formulas">debit = _AG.debit; credit = _AG.credit; balance = _AG.balance</field>
-        <field name="level" eval="2" />
-        <field name="sequence" eval="18"/>
+    <!--<record id="ohada_financial_report_note3d_17" model="ohada.financial.html.report.line">-->
+        <!--<field name="name">Autres immobilisations financières</field>-->
+        <!--<field name="code">N3d_17</field>-->
+        <!--<field name="financial_report_id" ref="ohada_financial_report_note3d"/>-->
+        <!--<field name="formulas">debit = _AG.debit; credit = _AG.credit; balance = _AG.balance</field>-->
+        <!--<field name="level" eval="2" />-->
+        <!--<field name="sequence" eval="18"/>-->
+        <!--<field name="groupby">account_id</field>-->
+    <!--</record>-->
+
+    <record id="ohada_financial_report_note3d_sub11" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">N3d_sub11</field>
+        <field name="financial_report_id" ref=""/>
+        <field name="formulas">balance = N3d_sub6.balance + N3d_sub7.balance + N3d_sub8.balance + N3d_sub9.balance + N3d_sub10.balance</field>
+        <field name="level" eval="0" />
+        <field name="sequence" eval="21"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -1238,10 +1365,20 @@
         <field name="name">SOUS-TOTAL : IMMOBILISATIONS INCORPORELLES</field>
         <field name="code">N3d_18</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3d"/>
-        <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
-        <field name="formulas">debit = N3d_16.debit + N3d_17.debit; credit = N3d_16.credit + N3d_17.credit; balance = N3d_16.balance + N3d_17.balance</field>
+        <field name="formulas">debit = N3d_7.debit + N3d_8.debit + N3d_9.debit + N3d_10.debit + N3d_11.debit + N3d_12.debit + N3d_13.debit; credit = N3d_7.credit + N3d_8.credit + N3d_9.credit + N3d_10.credit + N3d_11.credit + N3d_12.credit + N3d_13.credit; balance = N3d_7.balance + N3d_8.balance + N3d_9.balance + N3d_10.balance + N3d_11.balance + N3d_12.balance + N3d_13.balance</field>
+        <field name="sub_domain_id" ref='ohada_financial_report_note3d_sub11'/>
         <field name="level" eval="1" />
         <field name="sequence" eval="19"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note3d_sub12" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">N3d_sub12</field>
+        <field name="financial_report_id" ref=""/>
+        <field name="formulas">balance = N3d_sub11.balance + N3d_sub5.balance</field>
+        <field name="level" eval="0" />
+        <field name="sequence" eval="21"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -1249,12 +1386,12 @@
         <field name="name">TOTAL GENERAL</field>
         <field name="code">N3d_19</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3d"/>
-        <field name="formulas">debit = N3b_5.debit + N3d_14.debit+ N3d_18.debit; credit = N3b_5.credit + N3d_14.credit + N3d_18.credit; balance = N3b_5.balance + N3d_14.balance + N3d_18.balance</field>
+        <field name="formulas">debit = N3d_6.debit + N3d_18.debit; credit = N3d_6.credit + N3d_18.credit; balance = N3d_6.balance + N3d_18.balance</field>
+        <field name="sub_domain_id" ref='ohada_financial_report_note3d_sub12'/>
         <field name="level" eval="0" />
         <field name="sequence" eval="20"/>
         <field name="groupby">account_id</field>
     </record>
-
 
     <!--NOTE 3E-->
 
@@ -9859,6 +9996,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note37"/>
         <field name="formulas">debit = _XI.debit; credit = _XI.credit; balance = _XI.balance</field>
 <!--        <field name="domain">['|', ('account_id.code', '=like', '131%'), ('account_id.code', '=like', '139%')]</field>  -->
+        <!--<field name="action_id" ref='action_account_report_ohada_profitlost' />-->
         <field name="level" eval="1" />
         <field name="sequence" eval="2"/>
         <field name="groupby">account_id</field>

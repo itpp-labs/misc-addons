@@ -1616,6 +1616,65 @@
             <field name="line_id" ref="ohada_financial_report_note34_53"/>
         </record>
 
+        <!--columns for note 16b-->
+        <record id="ohada_custom_columns_note16b_1" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note16b_header_1"/>
+            <field name="line_name" eval="False"/>
+        </record>
+
+            <record id="ohada_cell_style_note16b_1_1" model="ohada.cell.style">
+                <field name="name">HYPOTHESES ACTUARIELLES</field>
+                <field name="colspan">3</field>
+                <field name="column_id" ref="ohada_custom_columns_note16b_1"/>
+            </record>
+
+        <!--columns for note 16b_1-->
+        <record id="ohada_custom_columns_note16b_1_1" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note16b_1_header_1"/>
+            <field name="line_name" eval="False"/>
+        </record>
+
+            <record id="ohada_cell_style_note16b_1_1_1" model="ohada.cell.style">
+                <field name="name">VARIATION DE LA VALEUR DE L'ENGAGEMENT DE RETRAITE AU COURS DE L'EXERCICE</field>
+                <field name="colspan">3</field>
+                <field name="column_id" ref="ohada_custom_columns_note16b_1_1"/>
+            </record>
+
+        <!--columns for note 16b_2-->
+        <record id="ohada_custom_columns_note16b_2_1" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note16b_2_header_1"/>
+            <field name="line_name" eval="False"/>
+        </record>
+
+            <record id="ohada_cell_style_note16b_2_1_1" model="ohada.cell.style">
+                <field name="name">ANALYSE DE SENSIBILITÉ DES ANALYSES ACTUARIELLES</field>
+                <field name="colspan">5</field>
+                <field name="column_id" ref="ohada_custom_columns_note16b_2_1"/>
+            </record>
+
+        <record id="ohada_custom_columns_note16b_2_2" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note16b_2_header_3"/>
+        </record>
+
+            <record id="ohada_cell_style_note16b_2_2_1" model="ohada.cell.style">
+                <field name="name">String</field>
+                <field name="column_id" ref="ohada_custom_columns_note16b_2_2"/>
+            </record>
+
+            <record id="ohada_cell_style_note16b_2_2_2" model="ohada.cell.style">
+                <field name="name">String</field>
+                <field name="column_id" ref="ohada_custom_columns_note16b_2_2"/>
+            </record>
+
+            <record id="ohada_cell_style_note16b_2_2_3" model="ohada.cell.style">
+                <field name="name">String</field>
+                <field name="column_id" ref="ohada_custom_columns_note16b_2_2"/>
+            </record>
+
+            <record id="ohada_cell_style_note16b_2_2_4" model="ohada.cell.style">
+                <field name="name">String</field>
+                <field name="column_id" ref="ohada_custom_columns_note16b_2_2"/>
+            </record>
 
     </data>
 </odoo>
