@@ -1421,7 +1421,7 @@ class OhadaFinancialReportLine(models.Model):
                             'colspan': i.colspan,
                             'rowspan': i.rowspan,
                             'rotate': i.rotate,
-                            'align':i.align,
+                            'align': i.align,
                         })
                 else:
                     pass
@@ -1723,7 +1723,7 @@ class OhadaFinancialReportLine(models.Model):
                         vals['columns'].pop()
                     elif financial_report.code in ["N27B"]:
                         vals['columns'] = []
-                        for i in range(13):
+                        for i in range(14):
                             if line.sequence in [1, 2, 3]:
                                 vals['columns'].append({'name': ' A '})
                             else:
@@ -1737,7 +1737,7 @@ class OhadaFinancialReportLine(models.Model):
                                 vals['columns'].append({'name': ' '})
                     elif financial_report.code in ["N33", "N28", "N27B_1"]:
                         vals['columns'] = []
-                        for i in range(8):
+                        for i in range(9):
                             vals['columns'].append({'name': ' '})
                     elif financial_report.code == "N37":
                         del vals['columns'][2]
@@ -1760,6 +1760,8 @@ class OhadaFinancialReportLine(models.Model):
                             i['background'] = '#B3CDE0'
                             i['name'] = ''
                     elif financial_report.code == "N3D" and line.sequence > 2:
+                        vals['columns'][2] = line._format(
+                            {'name': vals['columns'][0]['no_format_name'] - vals['columns'][1]['no_format_name']})
                         vals['columns'].append(line._format({'name': d_column[0]['line']['balance']})
                                                if type(d_column) == list else {'name': d_column})
                         vals['columns'].append(line._format({'name': vals['columns'][3]['no_format_name'] - vals['columns'][2]['no_format_name']})
@@ -1947,13 +1949,13 @@ class OhadaFinancialReportingDashboard(models.Model):
         data['bs_id'] = self.env.ref('ohada_reports.ohada_report_balancesheet_0').id
         data['pl_id'] = self.env.ref('ohada_reports.account_financial_report_ohada_profitlost').id
         data['cf_id'] = self.env.ref('ohada_reports.account_financial_report_ohada_cashflow').id
-        # wdb.set_trace()
+
         # 1st
         data['bz'] = data['bz_d'] = report._get_lines(options, bz_id)[0]['columns'][0]['no_format_name']
         data['dz'] = report._get_lines(options, dz_id)[0]['columns'][0]['no_format_name']
-        data['dif_1'] = '$ {:,.2f}'.format(data['bz'] - data['dz'])
-        data['bz'] = '$ {:,.2f}'.format(data['bz'])
-        data['dz'] = '$ {:,.2f}'.format(data['dz'])
+        data['dif_1'] = report.format_value(data['bz'] - data['dz'])
+        data['bz'] = report.format_value(data['bz'])
+        data['dz'] = report.format_value(data['dz'])
 
         # 2nd
         data['xl'] = data['xl_d'] = report._get_lines(options, xl_id)[0]['columns'][0]['no_format_name']
@@ -1966,8 +1968,8 @@ class OhadaFinancialReportingDashboard(models.Model):
             data['xl_dif'] = 'n/a'    
         else:
             data['xl_dif'] = '{:,.1f}%'.format(((data['xl']/data['xl-1'])-1)*100)
-        data['xl'] = '$ {:,.2f}'.format(data['xl'])
-        data['xl-1'] = '$ {:,.2f}'.format(data['xl-1'])
+        data['xl'] = report.format_value(data['xl'])
+        data['xl-1'] = report.format_value(data['xl-1'])
 
         # 3st
         data['zh'] = data['zh_d'] = report._get_lines(options, zh_id)[0]['columns'][0]['no_format_name']
@@ -1981,8 +1983,8 @@ class OhadaFinancialReportingDashboard(models.Model):
             data['zh_dif'] = 'n/a'    
         else:
             data['zh_dif'] = '{:,.1f}%'.format(((data['zh']/data['zh-1'])-1)*100)
-        data['zh'] = '$ {:,.2f}'.format(data['zh'])
-        data['zh-1'] = '$ {:,.2f}'.format(data['zh-1'])
+        data['zh'] = report.format_value(data['zh'])
+        data['zh-1'] = report.format_value(data['zh-1'])
 
         # diagrams
         # [['2016',5], ['2017',1], ['2018',4], ['2019',1]] data for diagrams

@@ -2688,6 +2688,9 @@
     <record id="account_financial_report_balancesheet_CJ" model="ohada.financial.html.report.line">
         <field name="action_id" ref='action_account_report_ohada_profitlost' />
     </record>
+    <record id="ohada_financial_report_note37_1" model="ohada.financial.html.report.line">
+        <field name="action_id" ref='action_account_report_ohada_profitlost' />
+    </record>
 
 
 

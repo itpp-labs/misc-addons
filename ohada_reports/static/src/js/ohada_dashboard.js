@@ -290,14 +290,14 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
         var self = this;
         var data = [
             {
-                key: "",
+                key: "Cashflow",
                 color: "#7c7bad",
                 area: true,
                 values: [
-                    {y: self.data['di_data']['BS'][0][1], name: self.data['di_data']['BS'][0][0], x: self.data['di_data']['BS'][0][0], label: self.data['di_data']['BS'][0][0]},
-                    {y: self.data['di_data']['BS'][1][1], name: self.data['di_data']['BS'][1][0], x: self.data['di_data']['BS'][1][0], label: self.data['di_data']['BS'][1][0]},
-                    {y: self.data['di_data']['BS'][2][1], name: self.data['di_data']['BS'][2][0], x: self.data['di_data']['BS'][2][0], label: self.data['di_data']['BS'][2][0]},
-                    {y: self.data['di_data']['BS'][3][1], name: self.data['di_data']['BS'][3][0], x: self.data['di_data']['BS'][3][0], label: self.data['di_data']['BS'][3][0]},
+                    {y: self.data['di_data']['CS'][0]['count'], name: self.data['di_data']['CS'][0]['l_month'], x: self.data['di_data']['CS'][0]['l_month'], label: self.data['di_data']['CS'][0]['l_month']},
+                    {y: self.data['di_data']['CS'][1]['count'], name: self.data['di_data']['CS'][1]['l_month'], x: self.data['di_data']['CS'][1]['l_month'], label: self.data['di_data']['CS'][1]['l_month']},
+                    {y: self.data['di_data']['CS'][2]['count'], name: self.data['di_data']['CS'][2]['l_month'], x: self.data['di_data']['CS'][2]['l_month'], label: self.data['di_data']['CS'][2]['l_month']},
+                    {y: self.data['di_data']['CS'][3]['count'], name: self.data['di_data']['CS'][3]['l_month'], x: self.data['di_data']['CS'][3]['l_month'], label: self.data['di_data']['CS'][3]['l_month']},
                 ]
             }
         ];

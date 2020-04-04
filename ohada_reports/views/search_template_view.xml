@@ -299,7 +299,7 @@
 
         <div class="btn-group o_dropdown">
             <a type="button" class="dropdown-toggle" data-toggle="dropdown">
-                <span class="fa fa-book"/>
+                <span class="fa fa-filter"/>
                 <t t-set="selected_journals" t-value="data['options']['all_entries']"/>
                 <t t-if="selected_journals">
                     Include Unposted Entries
