@@ -1,4 +1,4 @@
-# Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2018,2020 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # License MIT (https://opensource.org/licenses/MIT).
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
@@ -15,7 +15,6 @@ class ResUsers(models.Model):
         help="Computed automatically based on Current Company field",
         compute="_compute_backend_website_ids",
     )
-    backend_websites_count = fields.Integer(compute="_compute_backend_website_ids")
 
     @api.model
     def _search_company_websites(self, company_id):
@@ -27,7 +26,6 @@ class ResUsers(models.Model):
         for r in self:
             websites = self._search_company_websites(r.company_id.id)
             r.backend_website_ids = websites
-            r.backend_websites_count = len(websites)
 
     def write(self, vals):
         if "company_id" in vals and "backend_website_id" not in vals:

@@ -8,7 +8,6 @@
         <field name="inherit_id" ref="base.view_users_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='company_ids']/.." position="after">
-                <!-- <group string="Multi Websites" attrs="{'invisible': [('backend_websites_count', '&lt;=', 1)]}">-->
                 <group string="Multi Websites">
                     <field
                         string="Allowed Websites"
@@ -19,11 +18,6 @@
                         string="Current Website"
                         name="backend_website_id"
                         context="{'user_preference': 0}"
-                    />
-                    <field
-                        string="Websites count"
-                        name="backend_websites_count"
-                        invisible="1"
                     />
                 </group>
             </xpath>
