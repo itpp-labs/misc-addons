@@ -2,9 +2,9 @@
    :target: http://www.gnu.org/licenses/lgpl
    :alt: License: LGPL-3.0
 
-=============================
- Website Switcher in Backend
-=============================
+=====================
+ Multi-Brand Backend
+=====================
 
 Technical module to switch Websites in Backend similarly to Company Switcher. On changing it update field **backend_website_id** in ``res.users``.
 

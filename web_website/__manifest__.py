@@ -3,7 +3,7 @@
 # Copyright 2019 Eugene Molotov <https://it-projects.info/team/em234018>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 {
-    "name": """Website Switcher in Backend""",
+    "name": """Multi-Brand Backend""",
     "summary": """Technical module to switch Websites in Backend similarly to Company Switcher""",
     "category": "Hidden",
     # "live_test_url": "",
