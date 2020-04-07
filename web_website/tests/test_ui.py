@@ -19,11 +19,12 @@ class TestUI(common.HttpCase):
         # Reset user's values
         demo_user.company_id = self.env.ref("base.main_company")
         demo_user.website_id = None
+        demo_user.access_backend_website_ids = None
 
         tour = "web_website.tour"
         self.phantom_js(
             "/web",
-            "odoo.__DEBUG__.services['web_tour.tour']" ".run('%s')" % tour,
-            "odoo.__DEBUG__.services['web_tour.tour']" ".tours['%s'].ready" % tour,
+            "odoo.__DEBUG__.services['web_tour.tour'].run('%s')" % tour,
+            "odoo.__DEBUG__.services['web_tour.tour'].tours['%s'].ready" % tour,
             login="demo",
         )

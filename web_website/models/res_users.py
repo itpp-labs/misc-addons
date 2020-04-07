@@ -8,28 +8,37 @@ class ResUsers(models.Model):
 
     _inherit = "res.users"
 
-    backend_website_id = fields.Many2one("website", "Current Backend Website")
+    backend_website_id = fields.Many2one("website", "Default Backend Website")
     backend_website_ids = fields.Many2many(
         "website",
-        "Allowed Backend Websites",
-        help="Computed automatically based on Current Company field",
+        string="Allowed Backend Websites",
+        relation="rel_users_backend_website_ids",
+        help="Computed automatically based on active Companies and Accessible Backend Websites",
         compute="_compute_backend_website_ids",
     )
+    access_backend_website_ids = fields.Many2many(
+        "website",
+        string="Accessible Backend Websites",
+        relation="rel_users_access_backend_website_ids",
+        help="Keep Empty to allow all Websites",
+    )
 
-    @api.model
-    def _search_company_websites(self, company_id):
-        return self.env["website"].search(
-            [("company_id", "in", [False] + [company_id])]
-        )
+    def _search_company_websites(self, company_ids):
+        self.ensure_one()
+        domain = [("company_id", "in", [False] + company_ids)]
+        if self.access_backend_website_ids:
+            domain.append(("id", "in", self.access_backend_website_ids.ids))
+        return self.env["website"].search(domain)
 
     def _compute_backend_website_ids(self):
         for r in self:
-            websites = self._search_company_websites(r.company_id.id)
-            r.backend_website_ids = websites
+            r.backend_website_ids = self._search_company_websites(
+                self.env.companies.ids
+            )
 
     def write(self, vals):
         if "company_id" in vals and "backend_website_id" not in vals:
-            websites = self._search_company_websites(vals["company_id"])
+            websites = self._search_company_websites([vals["company_id"]])
             if len(websites) == 1:
                 vals["backend_website_id"] = websites.id
             else:
@@ -39,10 +48,11 @@ class ResUsers(models.Model):
     @api.onchange("company_id")
     def _onchange_company_id(self):
         if self.company_id:
-            if self.backend_website_id.company_id != self.company_id:
+            if (
+                self.backend_website_id.company_id
+                and self.backend_website_id.company_id != self.company_id
+            ):
                 self.backend_website_id = None
-
-        self._compute_backend_website_ids()
 
         return {
             "domain": {
@@ -60,7 +70,7 @@ class ResUsers(models.Model):
                 and record.backend_website_id.company_id != record.company_id
             ):
                 raise ValidationError(
-                    _("Current website doesn't belong to Current Company")
+                    _("Default website doesn't belong to Default Company")
                 )
 
     def __init__(self, pool, cr):
