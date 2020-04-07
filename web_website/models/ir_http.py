@@ -1,5 +1,5 @@
 # Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
-# License MIT (https://opensource.org/licenses/MIT).
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 from odoo import models
 from odoo.http import request
 

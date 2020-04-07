@@ -1,7 +1,7 @@
 # Copyright 2018,2020 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # Copyright 2019 Eugene Molotov <https://it-projects.info/team/em234018>
-# License MIT (https://opensource.org/licenses/MIT).
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 {
     "name": """Website Switcher in Backend""",
     "summary": """Technical module to switch Websites in Backend similarly to Company Switcher""",
@@ -13,7 +13,7 @@
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "apps@itpp.dev",
     "website": "https://it-projects.info/team/yelizariev",
-    "license": "Other OSI approved licence",  # MIT
+    "license": "LGPL-3",
     "price": 15.00,
     "currency": "EUR",
     "depends": ["web", "website", "base_setup"],

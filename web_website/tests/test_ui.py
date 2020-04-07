@@ -1,5 +1,5 @@
 # Copyright 2018,2020 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
-# License MIT (https://opensource.org/licenses/MIT).
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 from odoo.tests import common, tagged
 
 
