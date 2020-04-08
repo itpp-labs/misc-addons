@@ -22,7 +22,6 @@
         "views/res_users_views.xml",
         "security/security.xml",
         "security/ir.model.access.csv",
-        "views/res_config_settings_views.xml",
         "views/ir_property_views.xml",
         "views/assets.xml",
     ],
