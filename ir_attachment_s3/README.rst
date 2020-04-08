@@ -43,6 +43,7 @@ Roadmap
     * in product page main image is shown as main, previous main image is extra (maybe not a bug, but don't know how to remove previous main image)
 
 * Make endpoint_url customizable to allow using other s3-supported storages. Example: https://docs.min.io/docs/how-to-use-aws-sdk-for-python-with-minio-server.html
+
 Credits
 =======
 
