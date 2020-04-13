@@ -15,7 +15,7 @@ def website(self):
             user_website_ids = self.user.backend_website_ids.ids
             if any(cid not in user_website_ids for cid in website_ids):
                 raise AccessError(_("Access to unauthorized or invalid websites."))
-        return self["res.website"].browse(website_ids[0])
+        return self["website"].browse(website_ids[0])
     return self.user.backend_website_id
 
 
