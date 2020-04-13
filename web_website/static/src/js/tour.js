@@ -1,6 +1,6 @@
 // Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 // Copyrigth 2019 Eugene Molotov <https://it-projects.info/team/em230418>
-// License MIT (https://opensource.org/licenses/MIT).
+// License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 odoo.define("web_website.tour", function(require) {
     "use strict";
 
@@ -16,17 +16,13 @@ odoo.define("web_website.tour", function(require) {
         {
             content: "Toggle Website Switcher",
             trigger: ".o_switch_website_menu > a",
-        },
-        {
-            content: "Click Website localhost",
-            trigger: ".o_switch_website_menu a[data-website-id=1]",
-        },
-        {
-            content: "Wait when page is reloaded",
-            trigger: ".o_switch_website_menu > a:contains(My Website)",
-            // Mail module is installed as a part of depencies.
+            // Mail module is installed as a part of dependencies.
             // It's assumed, that Discuss menu is the default menu
             extra_trigger: ".o_mail_discuss_sidebar",
+        },
+        {
+            content: "Click My Website",
+            trigger: ".o_switch_website_menu div[data-website-id=1]",
         },
     ]);
 });

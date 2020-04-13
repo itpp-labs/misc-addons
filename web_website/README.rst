@@ -1,12 +1,22 @@
-.. image:: https://img.shields.io/badge/license-MIT-blue.svg
-   :target: https://opensource.org/licenses/MIT
-   :alt: License: MIT
+.. image:: https://img.shields.io/badge/license-LGPL--3-blue.svg
+   :target: http://www.gnu.org/licenses/lgpl
+   :alt: License: LGPL-3.0
 
-=============================
- Website Switcher in Backend
-=============================
+=====================
+ Multi-Brand Backend
+=====================
 
-Technical module to switch Websites in Backend similarly to Company Switcher. On changing it update field **backend_website_id** in ``res.users``.
+Technical module to properly handle multi-website setup.
+
+The modules sets context variable **allowed_website_ids**:
+
+* in backend: selected websites
+* in frontend: current website (as a list)
+
+The module adds ``env`` properties:
+
+* ``env.website`` -- first website from the list: ``browse(context["allowed_website_ids"][0])``
+* ``env.websites`` -- all websites: ``browse(context["allowed_website_ids"])``
 
 website_dependent
 =================
@@ -34,10 +44,6 @@ safely installable and uninstallable. See module
 
 Roadmap
 =======
-
-* TODO: Use context on switching between websites to allow work with different
-  websites at the same time by using different browser tabs. It also fixes
-  problem of using superuser's configuration when ``sudo()`` is used.
 
 * TODO: Since odoo 12, there is another switcher at ``[[ Website ]] >> Dashboard`` menu. It has to be syncronized with the switcher of this module, i.e. hide default one and use value of this module switcher.
 

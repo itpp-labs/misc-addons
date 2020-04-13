@@ -1,3 +1,8 @@
+`4.0.0`
+-------
+- **New:** Allow selecting multiple websites in backend
+- **New:** Allow restricting user access to websites
+
 `3.0.6`
 -------
 - **Fix:** ``env.company`` must depend on current website

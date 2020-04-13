@@ -1,5 +1,5 @@
-# Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
-# License MIT (https://opensource.org/licenses/MIT).
+# Copyright 2018,2020 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 from odoo import models
 from odoo.http import request
 
@@ -14,18 +14,25 @@ class Http(models.AbstractModel):
             user.has_group("web_website.group_multi_website")
             and len(user.backend_website_ids) > 1
         )
-        res["user_websites"] = (
-            {
-                "current_website": (
-                    user.backend_website_id.id,
-                    user.backend_website_id.name,
-                )
-                if user.backend_website_id
-                else False,
+        if display_switch_website_menu:
+            current_website = user.backend_website_id or user.backend_website_ids[0]
+
+            res["user_websites"] = {
+                "current_website": (current_website.id, current_website.name),
                 "allowed_websites": [(w.id, w.name) for w in user.backend_website_ids],
             }
-            if display_switch_website_menu
-            else False
-        )
         res["display_switch_website_menu"] = display_switch_website_menu
         return res
+
+    @classmethod
+    def _add_dispatch_parameters(cls, func):
+        super(Http, cls)._add_dispatch_parameters(func)
+
+        context = {}
+        context["allowed_website_ids"] = request.website.ids
+
+        # modify bound context
+        request.context = dict(request.context, **context)
+
+        if request.routing_iteration == 1:
+            request.website = request.website.with_context(request.context)
