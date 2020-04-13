@@ -8,7 +8,7 @@
     "category": "Hidden",
     # "live_test_url": "",
     "images": [],
-    "version": "13.0.4.0.0",
+    "version": "13.0.4.0.1",
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "apps@itpp.dev",

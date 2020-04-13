@@ -1,5 +1,9 @@
 `4.0.0`
 -------
+- **Fix:** error on using ``env.website``
+
+`4.0.0`
+-------
 - **New:** Allow selecting multiple websites in backend
 - **New:** Allow restricting user access to websites
 
