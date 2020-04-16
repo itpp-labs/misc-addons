@@ -93,7 +93,12 @@ In this case you should also install ``ir_attachment_url`` module to be able to 
 Upload existing attachments
 ---------------------------
 
-* To upload existing attachments go to the ``Settings >> Technical >> Database Structure >> S3 Settings`` menu and click on the ``[Upload existing attachments]`` button there
+* There are 2 ways to upload existing attachments:
+  1. Open odoo shell and run `env["ir.attachment"].force_storage_s3()`
+  2. Go to the ``Settings >> Technical >> Database Structure >> S3 Settings`` menu and click on the ``[Upload existing attachments]`` button there
+
+  It is recommended to upload attachments via shell, because upload progress is visible in this method.
+
 * To add link of existing S3 bucket object to binary fields of existing odoo records:
 
   * Take ``Link`` urls from Amazon. If you open ``Overview`` of the object on Amazon you should see it at the bottom of the page
