@@ -7,35 +7,23 @@ Installation
 
 * `Install <https://odoo-development.readthedocs.io/en/latest/odoo/usage/install-module.html>`__ this module in a usual way
 
-Odoo parameters
-===============
-
-* Run Odoo with ``--load=web,ir_attachment_url``
-  or set the ``server_wide_modules``
-  option in The Odoo configuration file:
-
-::
-
-  [options]
-  (...)
-  server_wide_modules = web,ir_attachment_url
-  (...)
-
-* Note: without the configuration above the module UI wouldn't work - and you couldn't use `@` button on binary image fields to specify their urls manually.
-  All other functions of the module will work without the ``--load=...``, e.g. you can still use `ir_attachment_s3` that specifies urls for you in binary image fields.
-
 Usage
 =====
 
-* Go to Sales >> Products >> Products
-* Open a product
-* Upload image to this product or specify image URL
-* Save the changes
+* `Activate Developer Mode <https://odoo-development.readthedocs.io/en/latest/odoo/usage/debug-mode.html>`__
 * Go to Settings >> Technical >> Database Structure >> Attachments
-* Open "Advanced Search" (loupe icon)
-* In filters set "URL" and custom filter "Resource Field" is set
-* See related attachment form that contains URL of the image
+* Below "Search" field click Filters >> Add custom filter >> "Resource field" "is equal to" "image_128"
+* Scroll down and find avatar of current user. Click on it.
+* Click on "Edit"
+* To URL field paste url to any picture on external resource
+* Click on "Save" and reload the page
+* RESULT: you will see that avatar of current user is changed to that pasted picture
 
-Notes
-=====
-* ``product`` dependency is only required for testing module
+ir_attachment_url_fields context
+--------------------------------
+
+In order to store urls instead of binary data in binary fields, you can use ``ir_attachment_url_fields`` context.
+For example, you need to create ``res.country`` record which has ``image`` fields, defined as `Binary field <https://github.com/odoo/odoo/blob/d515e4233a009250f41e8a1c1b02235685a69532/odoo/addons/base/models/res_country.py#L58>`__.
+To store url to `image` field you need to define context ``ir_attachment_url_fields=res.country.image`` and set value of the field. See `test cases <../tests/test_attachment_fields.py>`__ as detailed examples.
+
+In order to store multiple fields as urls, define context like this ``ir_attachment_url_fields=model.name.field1,another.model.name,field2``.

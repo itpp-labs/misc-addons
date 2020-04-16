@@ -44,17 +44,6 @@ You can also remove ``"s3:CreateBucket"`` if bucket already exists.
 Configuration
 =============
 
-* To enable the feature of linking existing urls to binary fields:
-
-  * Start Odoo with ``--load=web,ir_attachment_url`` or set the ``server_wide_modules`` option in The Odoo configuration file:
-
-::
-
-  [options]
-  # (...)
-  server_wide_modules = web,ir_attachment_url
-  # (...)
-
 * `Enable technical features <https://odoo-development.readthedocs.io/en/latest/odoo/usage/technical-features.html>`__
 * Open menu ``Settings >> Parameters >> System Parameters`` and specify the following parameters there
 

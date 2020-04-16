@@ -21,35 +21,6 @@ class IrHttp(models.AbstractModel):
     _inherit = "ir.http"
 
     @classmethod
-    def _find_field_attachment(cls, env, m, f, res_id):
-        domain = [
-            ("res_model", "=", m),
-            ("res_field", "=", f),
-            ("res_id", "=", res_id),
-            ("type", "=", "url"),
-        ]
-        return env["ir.attachment"].sudo().search(domain)
-
-    @classmethod
-    def find_field_attachment(cls, env, model, field, obj):
-        is_attachment = env[model]._fields[field].attachment
-        is_product = model == "product.product" and field.startswith("image")
-        if not (is_attachment or is_product):
-            return None
-
-        att = cls._find_field_attachment(env, model, field, obj.id)
-
-        if not att and model == "product.product":
-            # Special case. Product.product's image are computed and
-            # use product.template's image in most cases. But due to
-            # this computation odoo pass binary data (by downloading it
-            # from s3) instead of url. So, make a workaround for it
-            att = cls._find_field_attachment(
-                env, "product.template", field, obj.product_tmpl_id.id
-            )
-        return att
-
-    @classmethod
     def binary_content(
         cls,
         xmlid=None,
@@ -117,7 +88,7 @@ class IrHttp(models.AbstractModel):
 
         # check read access
         try:
-            obj["__last_update"]
+            last_update = obj["__last_update"]
         except AccessError:
             return (403, [], None)
 
@@ -126,7 +97,9 @@ class IrHttp(models.AbstractModel):
         # attachment by url check
         module_resource_path = None
         if model == "ir.attachment" and obj.type == "url" and obj.url:
-            url_match = re.match(r"^/(\w+)/(.+)$", obj.url)
+            url_match = re.match(
+                r"^/(\w+)/(.+)$", obj.url
+            )  # pylint: disable=anomalous-backslash-in-string
             if url_match:
                 module = url_match.group(1)
                 module_path = get_module_path(module)
@@ -139,7 +112,9 @@ class IrHttp(models.AbstractModel):
                     if module_resource_path.startswith(module_path):
                         with open(module_resource_path, "rb") as f:
                             content = base64.b64encode(f.read())
-                        # 'last_update' variable removed for lint error fix
+                        last_update = pycompat.text_type(  # noqa: F841
+                            os.path.getmtime(module_resource_path)
+                        )
 
             if not module_resource_path:
                 module_resource_path = obj.url
@@ -147,36 +122,30 @@ class IrHttp(models.AbstractModel):
             if not content:
                 status = 301
                 content = module_resource_path
+        # redefined: begin
+        elif (
+            model == "ir.attachment"
+            and obj.type == "binary"
+            and obj.url
+            and any(obj.url.startswith(x) for x in ("http://", "https://",))
+        ):
+            status = 301
+            content = obj.url
+        # redefined: end
         else:
-            # begin redefined part of original binary_content of odoo/base/addons/ir/ir_http
-            att = env["ir.http"].find_field_attachment(env, model, field, obj)
-            if att:
-                content = att.url
-                status = 301
-                # yelizariev:
-                # Why do we redefine mimetype variable passed to the method? Can original mimetype has not a Non wrong value?
-                # em230418:
-                # in original binary_content method, mimetype is redefined without any condition:
-                # https://github.com/odoo/odoo/blob/98a137e4b1f631a10d46b5e0cb21bb83ed7e861f/odoo/addons/base/ir/ir_http.py#L312
-                mimetype = att.mimetype
-
-            if not content:
-                content = obj[field] or ""
-            # end redefined part of original binary_content
+            content = obj[field] or ""
 
         # filename
         if not filename:
             if filename_field in obj:
                 filename = obj[filename_field]
-            elif module_resource_path:
+            if not filename and module_resource_path:
                 filename = os.path.basename(module_resource_path)
-            else:
+            if not filename:
                 filename = "{}-{}-{}".format(obj._name, obj.id, field)
 
         # mimetype
-        # redefined: in the original function there is no condition
-        if not mimetype:
-            mimetype = "mimetype" in obj and obj.mimetype or False
+        mimetype = "mimetype" in obj and obj.mimetype or False
         if not mimetype:
             if filename:
                 mimetype = mimetypes.guess_type(filename)[0]
@@ -196,6 +165,13 @@ class IrHttp(models.AbstractModel):
                 mimetype = guess_mimetype(
                     base64.b64decode(content), default=default_mimetype
                 )
+
+        # extension
+        _, existing_extension = os.path.splitext(filename)
+        if not existing_extension:
+            extension = mimetypes.guess_extension(mimetype)
+            if extension:
+                filename = "{}{}".format(filename, extension)
 
         headers += [("Content-Type", mimetype), ("X-Content-Type-Options", "nosniff")]
 

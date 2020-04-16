@@ -3,18 +3,11 @@ odoo.define("ir_attachment_url", function(require) {
     var core = require("web.core");
     var QWeb = core.qweb;
     var FieldBinaryImage = require("web.field_registry").get("image");
-    var _t = core._t;
 
     FieldBinaryImage.include({
         events: _.extend({}, FieldBinaryImage.prototype.events, {
             "click .o_link_address_button": "on_link_address",
         }),
-
-        init: function(parent, name, record) {
-            this._super.apply(this, arguments);
-            this.url_clicked = false;
-            this.is_url = false;
-        },
 
         on_link_address: function() {
             var self = this;
@@ -24,7 +17,13 @@ odoo.define("ir_attachment_url", function(require) {
             this.$el.prepend($(QWeb.render("AttachmentURL", {widget: this})));
             this.$(".input_url input").on("change", function() {
                 var input_val = $(this).val();
-                self._setValue(input_val);
+                if (self.is_url_valid(input_val)) {
+                    $.get("/web/convert_url_to_base64", {
+                        url: input_val,
+                    }).then(function(result) {
+                        self._setValue(result);
+                    });
+                }
             });
         },
 
@@ -35,39 +34,6 @@ odoo.define("ir_attachment_url", function(require) {
                 );
                 return u.test(value || this.$input.val());
             }
-            return true;
-        },
-
-        _render: function() {
-            if (!this.is_url_valid(this.value)) {
-                return this._super();
-            }
-
-            var self = this;
-            var attrs = this.attrs;
-            var url = this.placeholder;
-            if (this.value) {
-                url = this.value;
-            }
-            var $img = $("<img>").attr("src", url);
-            $img.css({
-                width: this.nodeOptions.size
-                    ? this.nodeOptions.size[0]
-                    : attrs.img_width || attrs.width,
-                height: this.nodeOptions.size
-                    ? this.nodeOptions.size[1]
-                    : attrs.img_height || attrs.height,
-            });
-            this.$("> img").remove();
-            this.$el.prepend($img);
-            $img.on("error", function() {
-                self.on_clear();
-                $img.attr("src", self.placeholder);
-                self.do_warn(_t("Image"), _t("Could not display the selected image."));
-            });
-        },
-
-        isSet: function() {
             return true;
         },
     });
