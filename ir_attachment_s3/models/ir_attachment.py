@@ -1,227 +1,152 @@
-# Copyright 2016-2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
-# Copyright 2016-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
-# Copyright 2019 Alexandr Kolushov <https://it-projects.info/team/KolushovAlexandr>
-# Copyright 2019 Rafis Bikbov <https://it-projects.info/team/RafiZz>
-# Copyright 2019 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
-# Copyright 2019 Eugene Molotov <https://it-projects.info/team/em230418>
-import base64
-import hashlib
-import logging
-import os
+# Copyright 2020 Eugene Molotov <https://it-projects.info/team/em230418>
+# License MIT (https://opensource.org/licenses/MIT).
 
-from odoo import _, api, exceptions, fields, models, tools
+import base64
+import logging
+
+from odoo import api, models
+from odoo.tools import human_size
 from odoo.tools.safe_eval import safe_eval
+
+from .res_config_settings import NotAllCredentialsGiven
 
 _logger = logging.getLogger(__name__)
 
-try:
-    import boto3
-    import botocore
-except Exception:
-    _logger.debug(
-        "boto3 package is required which is not \
-    found on your installation"
-    )
-
-
-class IrAttachmentResized(models.Model):
-    _name = "ir.attachment.resized"
-    _description = "Url to resized image"
-
-    attachment_id = fields.Many2one("ir.attachment")
-    width = fields.Integer()
-    height = fields.Integer()
-    resized_attachment_id = fields.Many2one("ir.attachment", ondelete="cascade")
-
-    @api.multi
-    def unlink(self):
-        # we also unlink resized_attachment_id
-        resized_att_id = self.resized_attachment_id
-        super(IrAttachmentResized, self).unlink()
-        return resized_att_id.unlink()
+PREFIX = "s3://"
 
 
 class IrAttachment(models.Model):
+
     _inherit = "ir.attachment"
 
-    resized_ids = fields.One2many("ir.attachment.resized", "attachment_id")
-
     @api.multi
-    def unlink(self):
-        resized_ids = self.mapped("resized_ids")
-        super(IrAttachment, self).unlink()
-        # we also need to delete, resized attachments if given
-        # to escape RecursionError, we need to check it first
-        return resized_ids.unlink() if resized_ids else True
-
-    def _get_s3_settings(self, param_name, os_var_name):
-        config_obj = self.env["ir.config_parameter"]
-        res = config_obj.sudo().get_param(param_name)
-        if not res:
-            res = os.environ.get(os_var_name)
-        return res
-
-    @api.model
-    def _get_s3_object_url(self, s3, s3_bucket_name, key_name):
-        bucket_location = s3.meta.client.get_bucket_location(Bucket=s3_bucket_name)
-        location_constraint = bucket_location.get("LocationConstraint")
-        domain_part = "s3" + "-" + location_constraint if location_constraint else "s3"
-        object_url = "https://{}.amazonaws.com/{}/{}".format(
-            domain_part, s3_bucket_name, key_name
+    def _filter_protected_attachments(self):
+        return self.filtered(
+            lambda r: r.res_model not in ["ir.ui.view", "ir.ui.menu"]
+            and not r.name.startswith("/web/content/")
+            and not r.name.startswith("/web/static/")
         )
-        return object_url
-
-    @api.model
-    def _get_s3_resource(self):
-        access_key_id = self._get_s3_settings("s3.access_key_id", "S3_ACCESS_KEY_ID")
-        secret_key = self._get_s3_settings("s3.secret_key", "S3_SECRET_KEY")
-        bucket_name = self._get_s3_settings("s3.bucket", "S3_BUCKET")
-
-        if not access_key_id or not secret_key or not bucket_name:
-            _logger.info(
-                _(
-                    "Amazon S3 credentials are not defined properly. Attachments won't be saved on S3."
-                )
-            )
-            return False
-
-        s3 = boto3.resource(
-            "s3", aws_access_key_id=access_key_id, aws_secret_access_key=secret_key
-        )
-        bucket = s3.Bucket(bucket_name)
-        if not bucket:
-            s3.create_bucket(Bucket=bucket_name)
-        return s3
 
     def _inverse_datas(self):
-        if (
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("ir_attachment_url.storage")
-            != "s3"
-        ):
-            return super(IrAttachment, self)._inverse_datas()
+        our_records = self._filter_protected_attachments()
 
-        condition = self._get_s3_settings("s3.condition", "S3_CONDITION")
-        if condition and not self.env.context.get("force_s3"):
-            condition = safe_eval(condition, mode="eval")
-            s3_records = self.sudo().search([("id", "in", self.ids)] + condition)
-        else:
-            # if there is no condition or force_s3 in context
-            # then store all attachments on s3
-            s3_records = self
-
-        if s3_records:
-            s3 = self._get_s3_resource()
-            if not s3:
-                _logger.info("something wrong on aws side, keep attachments as usual")
-                s3_records = self.env[self._name]
-            else:
-                s3_records = s3_records._filter_protected_attachments()
-                s3_records = s3_records.filtered(lambda r: r.type != "url")
-
-        resized_to_remove = self.env["ir.attachment.resized"].sudo()
-        for attach in (
-            self & s3_records
-        ):  # datas field has got empty somehow in the result of ``s3_records = self.sudo().search([('id', 'in', self.ids)] + condition)`` search for non-superusers but it is in original recordset. Here we use original (with datas) in case it intersects with the search result
-            resized_to_remove |= attach.sudo().resized_ids
-            value = attach.datas
-            bin_data = base64.b64decode(value) if value else b""
-            fname = hashlib.sha1(bin_data).hexdigest()
-            bucket_name = self._get_s3_settings("s3.bucket", "S3_BUCKET")
+        if our_records:
             try:
-                s3.Bucket(bucket_name).put_object(
-                    Key=fname,
-                    Body=bin_data,
-                    ACL="public-read",
-                    ContentType=attach.mimetype,
+                bucket = self.env["res.config.settings"].get_s3_bucket()
+            except NotAllCredentialsGiven:
+                _logger.warning("Keeping attachments as usual")
+                return super(IrAttachment, self)._inverse_datas()
+            except Exception:
+                _logger.exception(
+                    "Something bad happened with S3. Keeping attachments as usual"
                 )
-            except botocore.exceptions.ClientError as e:
-                raise exceptions.UserError(str(e))
+                return super(IrAttachment, self)._inverse_datas()
 
+        for attach in our_records:
+            bin_data = base64.b64decode(attach.datas)
+            checksum = self._compute_checksum(bin_data)
+            fname, url = self._file_write_s3(
+                bucket, bin_data, checksum, attach.mimetype
+            )
             vals = {
                 "file_size": len(bin_data),
-                "checksum": self._compute_checksum(bin_data),
+                "checksum": checksum,
                 "index_content": self._index(
                     bin_data, attach.datas_fname, attach.mimetype
                 ),
                 "store_fname": fname,
                 "db_datas": False,
-                "type": "url",
-                "url": self._get_s3_object_url(s3, bucket_name, fname),
+                "type": "binary",
+                "url": url,
+                "datas_fname": attach.datas_fname,
             }
             super(IrAttachment, attach.sudo()).write(vals)
 
-        resized_to_remove.mapped("resized_attachment_id").unlink()
-        resized_to_remove.unlink()
-        super(IrAttachment, self - s3_records)._inverse_datas()
+        return super(IrAttachment, self - our_records)._inverse_datas()
 
-    @api.model
-    def _get_context_variants_for_resized_att_creating(self):
-        return {"s3": {"force_s3": True}}
+    def _file_read(self, fname, bin_size=False):
+        if not fname.startswith(PREFIX):
+            return super(IrAttachment, self)._file_read(fname, bin_size)
 
-    def _get_context_for_resized_att_creating(self):
-        url_storage = self.env["ir.config_parameter"].get_param(
-            "ir_attachment_url.storage", default="url"
+        bucket = self.env["res.config.settings"].get_s3_bucket()
+
+        file_id = fname[len(PREFIX) :]
+        _logger.debug("reading file with id {}".format(file_id))
+
+        obj = bucket.Object(file_id)
+        data = obj.get()
+
+        if bin_size:
+            return human_size(data["ContentLength"])
+        else:
+            return base64.b64encode(b"".join(data["Body"]))
+
+    def _file_write_s3(self, bucket, bin_data, checksum, mimetype):
+        file_id = "odoo/{}".format(checksum)
+
+        obj = bucket.put_object(
+            Key=file_id, Body=bin_data, ACL="public-read", ContentType=mimetype,
         )
-        return (
-            self._get_context_variants_for_resized_att_creating().get(url_storage) or {}
+
+        _logger.debug("uploaded file with id {}".format(file_id))
+
+        location_constraint = obj.meta.client.get_bucket_location(
+            Bucket=bucket.name
+        ).get("LocationConstraint")
+        domain_part = "s3-" + location_constraint if location_constraint else "s3"
+        obj_url = "https://{}.amazonaws.com/{}/{}".format(
+            domain_part, bucket.name, file_id
+        )
+        return PREFIX + file_id, obj_url
+
+    def _file_delete(self, fname):
+        if not fname.startswith(PREFIX):
+            return super(IrAttachment, self)._file_delete(fname)
+
+        bucket = self.env["res.config.settings"].get_s3_bucket()
+
+        file_id = fname[len(PREFIX) :]
+        _logger.debug("deleting file with id {}".format(file_id))
+
+        obj = bucket.Object(file_id)
+        obj.delete()
+
+    def force_storage_s3(self):
+        bucket = self.env["res.config.settings"].get_s3_bucket()
+
+        s3_condition = self.env["ir.config_parameter"].sudo().get_param("s3.condition")
+        condition = s3_condition and safe_eval(s3_condition, mode="eval") or []
+
+        attachment_ids = self._search(
+            [
+                ("store_fname", "not ilike", PREFIX),
+                ("store_fname", "!=", False),
+                ("res_model", "not in", ["ir.ui.view", "ir.ui.menu"]),
+            ]
+            + condition
         )
 
-    @api.model
-    def _get_or_create_resized_in_cache(self, width, height, field=None):
-        return self._get_resized_from_cache(
-            width, height
-        ) or self._set_resized_to_cache(width, height, field)
+        _logger.info("%s attachments to store to s3" % len(attachment_ids))
+        for attach in map(self.browse, attachment_ids):
+            is_protected = not bool(attach._filter_protected_attachments())
 
-    @api.model
-    def _get_resized_from_cache(self, width, height):
-        return (
-            self.env["ir.attachment.resized"]
-            .sudo()
-            .search(
-                [
-                    ("attachment_id", "=", self.id),
-                    ("width", "=", width),
-                    ("height", "=", height),
-                ]
+            if is_protected:
+                _logger.info("ignoring protected attachment %s", repr(attach))
+                continue
+            else:
+                _logger.info("storing %s", repr(attach))
+
+            old_store_fname = attach.store_fname
+            data = self._file_read(old_store_fname, bin_size=False)
+            bin_data = base64.b64decode(data) if data else b""
+            checksum = (
+                self._compute_checksum(bin_data)
+                if not attach.checksum
+                else attach.checksum
             )
-        )
 
-    @api.model
-    def _set_resized_to_cache(self, width, height, field=None):
-        content = self.datas
-        content = tools.image_resize_image(
-            base64_source=content,
-            size=(width or None, height or None),
-            encoding="base64",
-            filetype="PNG",
-        )
-
-        new_resized_attachment_data = {
-            "name": "{}x{} {}".format(width, height, self.name),
-            "datas": content,
-        }
-        if field:
-            new_resized_attachment_data.update(
-                {"res_model": self.res_model, "res_field": field, "res_id": self.res_id}
+            new_store_fname, url = self._file_write_s3(
+                bucket, bin_data, checksum, attach.mimetype
             )
-        context = self._get_context_for_resized_att_creating()
-        resized_attachment = (
-            self.env["ir.attachment"]
-            .with_context(context)
-            .sudo()
-            .create(new_resized_attachment_data)
-        )
-        return (
-            self.env["ir.attachment.resized"]
-            .sudo()
-            .create(
-                {
-                    "attachment_id": self.id,
-                    "width": width,
-                    "height": height,
-                    "resized_attachment_id": resized_attachment.id,
-                }
-            )
-        )
+            attach.write({"store_fname": new_store_fname, "url": url})
+            self._file_delete(old_store_fname)

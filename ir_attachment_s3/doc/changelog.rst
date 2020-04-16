@@ -1,3 +1,10 @@
+`2.0.0`
+-------
+- **Improvement:** "ir.attachment.resized" model is moved to "web_image_cache" module
+- **Improvement:** "Upload existing data" functionality is now available via shell by running env["ir.attachment"].force_storage_s3()
+- **Improvement:** Removed dependency of ir_attachment_url
+- **Improvement:** Module is working with S3 files like binary files, but also stores url
+
 `1.2.2`
 -------
 
