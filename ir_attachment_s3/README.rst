@@ -62,7 +62,7 @@ Maintainers
 -----------
 * `IT-Projects LLC <https://it-projects.info>`__
 
-      To get a guaranteed support you are kindly requested to purchase the module at `odoo apps store <https://apps.odoo.com/apps/modules/12.0/ir_attachment_s3/>`__.
+      To get a guaranteed support you are kindly requested to purchase the module at `odoo apps store <https://apps.odoo.com/apps/modules/13.0/ir_attachment_s3/>`__.
 
       Thank you for understanding!
 
@@ -71,10 +71,10 @@ Maintainers
 Further information
 ===================
 
-HTML Description: https://apps.odoo.com/apps/modules/12.0/ir_attachment_s3/
+HTML Description: https://apps.odoo.com/apps/modules/13.0/ir_attachment_s3/
 
 Usage instructions: `<doc/index.rst>`_
 
 Changelog: `<doc/changelog.rst>`_
 
-Tested on Odoo 12.0 b535558d23778a8960fcdc494067b70fe9c8ecab
+Tested on Odoo 13.0 f862f9650395b02f6a43c57cdf232a309fa6948e

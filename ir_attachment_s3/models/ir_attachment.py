@@ -9,10 +9,10 @@
 import base64
 import logging
 
-from odoo import api, models, _
+from odoo import _, models
+from odoo.exceptions import MissingError
 from odoo.tools import human_size
 from odoo.tools.safe_eval import safe_eval
-from odoo.exceptions import MissingError
 
 from .res_config_settings import NotAllCredentialsGiven
 
