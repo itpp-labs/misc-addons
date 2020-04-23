@@ -12,6 +12,7 @@ Configuration
 =============
 
 Activate **Multi Websites for Backend**:
+
 * Activate `Developer mode <https://odoo-development.readthedocs.io/en/latest/odoo/usage/debug-mode.html>`__
 * Navigate to ``[[ Settings ]] >> Users >> Users`` and set ``[x] Multi Websites for Backend`` for selected users
 
