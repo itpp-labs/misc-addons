@@ -34,6 +34,7 @@ class IrConfigParameter(models.Model):
                 if r.key in SHARED_KEYS:
                     r._force_default(FIELD_NAME, value)
 
+        # TODO: no need to update label on value changing. It should be "key" only
         if any(k in vals for k in ("key", "value")):
             self._update_properties_label(FIELD_NAME)
 
