@@ -1,4 +1,4 @@
-# Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2018,2020 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2019 Eugene Molotov <https://it-projects.info/team/em230418>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 import logging
@@ -25,9 +25,9 @@ class TestFields(common.TransactionCase):
         website0 = self.env.ref("website.default_website")
         website1 = self.env.ref("website.website2")
         website2 = self.env["website"].create({"name": "Extra Website"})
-        context0 = dict(website_id=website0.id)
-        context1 = dict(website_id=website1.id)
-        context2 = dict(website_id=website2.id)
+        context0 = dict(allowed_website_ids=website0.ids)
+        context1 = dict(allowed_website_ids=website1.ids)
+        context2 = dict(allowed_website_ids=website2.ids)
         # create a default value for the website-dependent field
         field = self.env["ir.model.fields"].search(
             [("model", "=", MODEL), ("name", "=", "foo")]
@@ -133,7 +133,7 @@ class TestFields(common.TransactionCase):
         website = self.env.ref("website.default_website")
         website.company_id = company
         record = self.env[MODEL].create({"foo": "new_record"})
-        record = record.with_context(website_id=website.id)
+        record = record.with_context(allowed_website_ids=website.ids)
 
         # remove auto created records to be sure
         props = self.env["ir.property"].search([("fields_id", "=", self.field.id)])
