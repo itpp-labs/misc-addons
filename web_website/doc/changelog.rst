@@ -1,4 +1,8 @@
-`4.0.0`
+`4.0.2`
+-------
+- **Fix:** ``website_depedent`` misfunctioning after refactoring
+
+`4.0.1`
 -------
 - **Fix:** error on using ``env.website``
 

@@ -1,4 +1,4 @@
-# Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2018,2020 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2019 Eugene Molotov <https://it-projects.info/team/em230418>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 # pylint: disable=sql-injection
@@ -26,6 +26,7 @@ class WebsiteDependentMixin(models.AbstractModel):
             self._fields.keys(),
         )
 
+    # TODO: method name should be more unique
     def _prop_label(self, field_name, company=None, website=None):
         self.ensure_one()
         label = self.display_name
@@ -47,8 +48,12 @@ class WebsiteDependentMixin(models.AbstractModel):
                     field_name, prop.company_id, prop.website_id
                 )
 
+    # TODO: method name should be more unique
     def _force_default(self, field_name, prop_value):
-        """Remove company-dependent values and keeps only default one"""
+        """Remove company-dependent values and keeps only one value. If the method is
+        called right after record creation, then the value may be website-dependent --
+        this behavior is similar to how built-in company_dependent works with new
+        records"""
         self.ensure_one()
         Prop = self.env["ir.property"]
         domain = Prop._get_domain(field_name, self._name)
@@ -92,7 +97,7 @@ class WebsiteDependentMixin(models.AbstractModel):
 
         default_prop.write(vals)
         self._update_db_value(field, prop_value)
-        return self
+        return default_prop
 
     def _update_db_value(self, field, value):
         """Store value in db column. We can use it only directly,
