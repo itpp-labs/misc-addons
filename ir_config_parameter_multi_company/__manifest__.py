@@ -1,5 +1,5 @@
 {
-    "name": """Context-dependent values in System Parameters""",
+    "name": """Multi System Parameters""",
     "summary": """Adds multi-company and multi-website support for dozens features""",
     "category": "Extra Tools",
     # "live_test_url": "",
