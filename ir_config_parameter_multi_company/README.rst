@@ -1,6 +1,6 @@
-===============================================
- Context-dependent values in System Parameters
-===============================================
+=========================
+ Multi System Parameters
+=========================
 
 Adds multi-company and multi-website support to many features
 

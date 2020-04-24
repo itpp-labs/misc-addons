@@ -1,4 +1,4 @@
-# Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2018,2020 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 # pylint: disable=sql-injection
@@ -44,17 +44,10 @@ class IrProperty(models.Model):
             none_values = {key: None for key in kwargs.keys()}
             return self.with_context(**none_values)
 
-    @api.model
-    def _get_website_id(self):
-        website_id = (
-            self._context.get("website_id") or self.env.user.backend_website_id.id
-        )
-        return website_id
-
     def _get_domain(self, prop_name, model):
         domain = super(IrProperty, self)._get_domain(prop_name, model)
         if self.env.context.get("_get_domain_website_dependent"):
-            website_id = self._get_website_id()
+            website_id = self.env.website.id
             domain += [("website_id", "in", [website_id, False])]
         return domain
 
@@ -73,7 +66,7 @@ class IrProperty(models.Model):
             new_order.insert(0, "website_id")
             order = ",".join(new_order)
         if self.env.context.get("_search_domain_website_dependent"):
-            website_id = self._get_website_id()
+            website_id = self.env.website.id
             args.append(("website_id", "=", website_id))
         ids = super(IrProperty, self)._search(
             args,
@@ -101,7 +94,7 @@ class IrProperty(models.Model):
     @api.model
     def create(self, vals):
         if self.env.context.get("create_website_dependent"):
-            website_id = self._get_website_id()
+            website_id = self.env.website.id
             vals["website_id"] = website_id
         return super(IrProperty, self).create(vals)
 
@@ -119,7 +112,7 @@ class IrProperty(models.Model):
         if not ids:
             return {}
         # it's important, that website_id cannot be False -- otherwise, an error is raised on SQL request
-        website_id = self._get_website_id() or None
+        website_id = self.env.website.id or None
         field = self.env[model]._fields[name]
         field_id = self.env["ir.model.fields"]._get(model, name).id
         company_id = (
