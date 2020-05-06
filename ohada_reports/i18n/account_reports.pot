@@ -28,7 +28,7 @@ msgstr ""
 
 #. module: ohada_reports
 #. openerp-web
-#: code:addons/ohada_reports/static/src/xml/account_report_template.xml:30
+#: code:addons/ohada_reports/static/src/xml/ohada_report_template.xml:30
 #, python-format
 msgid "&times;"
 msgstr ""
@@ -984,7 +984,7 @@ msgstr ""
 
 #. module: ohada_reports
 #. openerp-web
-#: code:addons/ohada_reports/static/src/xml/account_report_template.xml:16
+#: code:addons/ohada_reports/static/src/xml/ohada_report_template.xml:16
 #, python-format
 msgid "Done"
 msgstr ""
@@ -1053,7 +1053,7 @@ msgstr ""
 
 #. module: ohada_reports
 #. openerp-web
-#: code:addons/ohada_reports/static/src/xml/account_report_template.xml:55
+#: code:addons/ohada_reports/static/src/xml/ohada_report_template.xml:55
 #: model:ir.model.fields,field_description:ohada_reports.field_account_move_line__expected_pay_date
 #, python-format
 msgid "Expected Payment Date"
@@ -1155,7 +1155,7 @@ msgstr ""
 
 #. module: ohada_reports
 #. openerp-web
-#: code:addons/ohada_reports/static/src/xml/account_report_template.xml:35
+#: code:addons/ohada_reports/static/src/xml/ohada_report_template.xml:35
 #, python-format
 msgid "Follow-ups Done / Total Follow-ups"
 msgstr ""
@@ -1346,7 +1346,7 @@ msgstr ""
 
 #. module: ohada_reports
 #. openerp-web
-#: code:addons/ohada_reports/static/src/xml/account_report_template.xml:43
+#: code:addons/ohada_reports/static/src/xml/ohada_report_template.xml:43
 #, python-format
 msgid "Insert foot note here"
 msgstr ""
@@ -1621,7 +1621,7 @@ msgstr ""
 
 #. module: ohada_reports
 #. openerp-web
-#: code:addons/ohada_reports/static/src/xml/account_report_template.xml:23
+#: code:addons/ohada_reports/static/src/xml/ohada_report_template.xml:23
 #, python-format
 msgid "No followup to send!"
 msgstr ""
@@ -1654,7 +1654,7 @@ msgstr ""
 
 #. module: ohada_reports
 #. openerp-web
-#: code:addons/ohada_reports/static/src/xml/account_report_template.xml:13
+#: code:addons/ohada_reports/static/src/xml/ohada_report_template.xml:13
 #, python-format
 msgid "Odoo will remind you to take care of this follow-up on the next reminder date."
 msgstr ""
@@ -1851,7 +1851,7 @@ msgstr ""
 
 #. module: ohada_reports
 #. openerp-web
-#: code:addons/ohada_reports/static/src/xml/account_report_template.xml:7
+#: code:addons/ohada_reports/static/src/xml/ohada_report_template.xml:7
 #, python-format
 msgid "Print letter"
 msgstr ""
@@ -1911,7 +1911,7 @@ msgstr ""
 
 #. module: ohada_reports
 #. openerp-web
-#: code:addons/ohada_reports/static/src/xml/account_report_template.xml:13
+#: code:addons/ohada_reports/static/src/xml/ohada_report_template.xml:13
 #, python-format
 msgid "Remind me later"
 msgstr ""
@@ -1985,7 +1985,7 @@ msgstr ""
 
 #. module: ohada_reports
 #. openerp-web
-#: code:addons/ohada_reports/static/src/xml/account_report_template.xml:10
+#: code:addons/ohada_reports/static/src/xml/ohada_report_template.xml:10
 #, python-format
 msgid "Send by email"
 msgstr ""
@@ -2088,7 +2088,7 @@ msgstr ""
 
 #. module: ohada_reports
 #. openerp-web
-#: code:addons/ohada_reports/static/src/xml/account_report_template.xml:30
+#: code:addons/ohada_reports/static/src/xml/ohada_report_template.xml:30
 #, python-format
 msgid "The follow-up report was successfully emailed!"
 msgstr ""

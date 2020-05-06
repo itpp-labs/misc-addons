@@ -40,7 +40,7 @@
     list-style-type: none;
     display: inline;
     float:left;
-    color:#008784;
+    color:#000;     /* #008784; */
 }
 .list-right{
     list-style-type: none;
@@ -149,8 +149,8 @@ body .text-color {
 
 path {  stroke: #fff; }
 path:hover {  opacity:0.9; }
-rect:hover {  fill:#934da5; }
-.axis {  font: 10px sans-serif; margin_left:30px;}
+rect:hover {  fill:#736868; }    /*   665c5c    934da5      margin-left:30px; */
+.axis {  font: 10px sans-serif; }
 .legend tr{    border-bottom:1px solid grey; }
 .legend tr:first-child{    border-top:1px solid grey; }
 
@@ -580,11 +580,12 @@ h4 .stat-count {
 }
 .ul-head{
     text-align: left !important;
+    float: left !important;
     font-size: 16px;
     margin-bottom: 10px;
     margin-left: 22px;
     width: 100%;
-    color: #008784;
+    color: #000;    /*    color: #008784;   */
     font-weight: 560;
 }
 .li-head{
@@ -596,7 +597,7 @@ h4 .stat-count {
     font-size: 16px;
     margin-bottom: 10px;
     margin-left: 22px;
-    color: #008784;
+    color: #000;    /*    color: #008784;   */
     font-weight: 560;
 }
 a.stat-head:hover{
@@ -805,22 +806,21 @@ a.stat-head:hover{
     border-radius: 100%;
 }
 .ohada_notification {
+    margin-top: 15px;
     background: #fff;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    height: 90px;
-    overflow-y: auto;
-    margin-bottom: 15px;
-    padding-left: 5px;
-    width: 100%;
+    min-height: 80px;
+    overflow: clip;
 }
 .ohada_notification_big {
     background: #fff;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     will-change: transform, box-shadow;
-    height: 250px;
+    height: 255px;
     margin-bottom: 15px;
     border: 1px solid #ced4da;
-    overflow-y: hidden;
+    border-left: 2.5px solid #7D1540;      /*  7D1540  */
+    overflow: hidden;
 }
 .ohada_notification .media {
     border-bottom: 1px solid #001E5A;
@@ -1038,4 +1038,14 @@ a.stat-head:hover{
   border-right: 3px solid #1e5799;
   border-bottom: 3px solid transparent;
   border-top: 3px solid #1e5799;
+}
+
+/* E */
+.oh_dashbard_btn_s {
+    width: 165px;
+    margin-bottom: 7px;
+}
+.oh_dashbard_btn_m {
+    width: 165px;
+    margin-bottom: 7px;
 }

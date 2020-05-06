@@ -291,13 +291,13 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
         var data = [
             {
                 key: "Cashflow",
-                color: "#7c7bad",
+                color: "#acacbf",           //999494    acacbf      c0c0cc
                 area: true,
                 values: [
-                    {y: self.data['di_data']['CS'][0]['count'], name: self.data['di_data']['CS'][0]['l_month'], x: self.data['di_data']['CS'][0]['l_month'], label: self.data['di_data']['CS'][0]['l_month']},
-                    {y: self.data['di_data']['CS'][1]['count'], name: self.data['di_data']['CS'][1]['l_month'], x: self.data['di_data']['CS'][1]['l_month'], label: self.data['di_data']['CS'][1]['l_month']},
-                    {y: self.data['di_data']['CS'][2]['count'], name: self.data['di_data']['CS'][2]['l_month'], x: self.data['di_data']['CS'][2]['l_month'], label: self.data['di_data']['CS'][2]['l_month']},
-                    {y: self.data['di_data']['CS'][3]['count'], name: self.data['di_data']['CS'][3]['l_month'], x: self.data['di_data']['CS'][3]['l_month'], label: self.data['di_data']['CS'][3]['l_month']},
+                    {y: self.data['di_data']['CF'][0]['count'], name: self.data['di_data']['CF'][0]['l_month'], x: self.data['di_data']['CF'][0]['l_month'], label: self.data['di_data']['CF'][0]['l_month']},
+                    {y: self.data['di_data']['CF'][1]['count'], name: self.data['di_data']['CF'][1]['l_month'], x: self.data['di_data']['CF'][1]['l_month'], label: self.data['di_data']['CF'][1]['l_month']},
+                    {y: self.data['di_data']['CF'][2]['count'], name: self.data['di_data']['CF'][2]['l_month'], x: self.data['di_data']['CF'][2]['l_month'], label: self.data['di_data']['CF'][2]['l_month']},
+                    {y: self.data['di_data']['CF'][3]['count'], name: self.data['di_data']['CF'][3]['l_month'], x: self.data['di_data']['CF'][3]['l_month'], label: self.data['di_data']['CF'][3]['l_month']},
                 ]
             }
         ];
@@ -306,7 +306,7 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
             chart.forceY([0]);
             chart.options({
                 x: function (d, u) { return u; },
-                margin: {'left': 0, 'right': 0, 'top': 5, 'bottom': 0},
+                margin: {'left': 14, 'right': 14, 'top': 20, 'bottom': 17},
                 showYAxis: false,
                 showLegend: false,
             });
@@ -319,14 +319,14 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
                 });
                 return label;
             });
-            chart.yAxis.tickFormat(d3.format(',.2f'));
+            chart.yAxis.tickFormat(d3.format(',.0f'));
             chart.xAxis.axisLabel(data[0].name);
 
             d3.select('#chart3')
                 .datum(data)
                 .transition().duration(600)
                 .call(chart);
-//            nv.utils.windowResize(function() { chart.update() });
+        //    nv.utils.windowResize(function() { chart.update() });
             return chart;
         });
     },
@@ -351,17 +351,17 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
                 .y(function (d) { return d.value; })
                 .showValues(false)
                 .showYAxis(false)
-                .color(['#7c7bad'])
-                .margin({'left': 0, 'right': 0, 'top': 20, 'bottom': 20});
+                .color(['#acacbf'])
+                .margin({'left': 15, 'right': 15, 'top': 20, 'bottom': 12});
 
             chart.xAxis.axisLabel(data[0].title);
-            chart.yAxis.tickFormat(d3.format(',.2f'));
+            chart.yAxis.tickFormat(d3.format(',.0f'));
 
             d3.select('#chart2')
                 .datum(data)
                 .transition().duration(600)
                 .call(chart);
-//            nv.utils.windowResize(function() { chart.update() });
+        //    nv.utils.windowResize(function() { chart.update() });
             return chart;
         });
     },
@@ -385,17 +385,17 @@ var OhadaDashboard = AbstractAction.extend(ControlPanelMixin, {
                 .y(function (d) { return d.value; })
                 .showValues(false)
                 .showYAxis(false)
-                .color(['#7c7bad'])
-                .margin({'left': 0, 'right': 0, 'top': 20, 'bottom': 20});
+                .color(['#acacbf'])
+                .margin({'left': 0, 'right': 0, 'top': 20, 'bottom': 12});
 
             chart.xAxis.axisLabel(data[0].title);
-            chart.yAxis.tickFormat(d3.format(',.2f'));
+            chart.yAxis.tickFormat(d3.format(',.0f'));
 
             d3.select('#chart')
                 .datum(data)
                 .transition().duration(600)
                 .call(chart);
-//            nv.utils.windowResize(function() { chart.update() });
+        //    nv.utils.windowResize(function() { chart.update() });
             return chart;
         });
     },

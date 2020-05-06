@@ -1,33 +1,31 @@
-.o_ohada_reports_summary_edit {
+.o_account_reports_summary_edit {
     display: none !important;
 }
 .caret {
     display: none !important;
 }
-.o_ohada_reports_body_print {
+.o_account_reports_body_print {
     background-color: white !important;
-    color: $ohada-primary-color !important;
-    font-size: 14px !important;
-    .o_ohada_reports_header {
+    color: black !important;
+    font-size: 12px !important;
+    .o_account_reports_header {
         padding: 10px;
         background-color: #eee;
     }
-    .o_ohada_reports_page {
-        font-size: 14px !important;
-        color: $ohada-primary-color !important;
+    .o_account_reports_page {
+        color: black !important;
     }
-    .o_ohada_reports_table {
-        font-size: 14px !important;
+    .o_account_reports_table {
+        font-size: 12px !important;
         white-space: nowrap !important;
         > tbody > tr {
             /* fix thead overlapping http://github.com/wkhtmltopdf/wkhtmltopdf/issues/1524 */
             page-break-inside: avoid;
         }
     }
-    .o_ohada_reports_level0, .o_ohada_reports_level1, .o_ohada_reports_level2, .o_ohada_reports_level3, .o_ohada_reports_level4, .o_ohada_reports_level5, .o_ohada_reports_level6, .o_ohada_reports_level7, .o_ohada_reports_level8, .o_ohada_reports_level9, .o_ohada_reports_domain_total, .total {
-//        font-size: 12px;
+    .o_account_reports_level0, .o_account_reports_level1, .o_account_reports_level2, .o_account_reports_domain_total, .total {
         .text-muted {
-            color: $ohada-primary-color !important;
+            color: #001E5A !important;
         }
     }
     .o_foldable_total {

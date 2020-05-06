@@ -1,20 +1,21 @@
 @font-face{
     font-family: 'NimbusSanL-Regu';
-    src: url(../fonts/NimbusSanL-Regu.ttf);
+    src: url(../fonts/Arial.ttf);
 }
 @font-face{
     font-family: 'NimbusSanL-Bold';
-    src: url(../fonts/NimbusSanL-Bold.ttf);
+    src: url(../fonts/Arial.ttf);
 }
 $ohada-primary-color: #001E5A;
-$ohada-secondary-color: #CDEBFF;
-$ohada-highlight-color: #F7E1E1;
+$ohada-secondary-color: #B7E2FF;        // #CDEBFF;
+$ohada-highlight-color: #F9D9D9;        // #F7E1E1;
 $ohada-font-light: 'NimbusSanL-Regu';
 $ohada-font-regular: 'NimbusSanL-Regu';
 $ohada-font-bold: 'NimbusSanL-Bold';
-//$ohada-font-size-small: 8.5pt;
-//$ohada-font-size-regular: 9.5pt;
-//$ohada-font-size-total: 10pt;
+//$ohada-font-size-xsmall: 12px;            
+//$ohada-font-size-small: 14px;             
+//$ohada-font-size-regular: 16px;           
+//$ohada-font-size-total: 20px;             
 
 .o_ohada_report_line .dropdown-toggle{
     color: $ohada-primary-color;
@@ -28,6 +29,12 @@ $ohada-font-bold: 'NimbusSanL-Bold';
     border-color: $ohada-primary-color;
     color: $ohada-primary-color;
     font-family: $ohada-font-regular;
+    & td {
+        min-height:20px;
+        padding-top: 4px;
+        padding-bottom: 3px;
+        vertical-align: middle;
+    }
 }
 .o_foldable_menu {
     &.o_closed_menu {
@@ -130,7 +137,8 @@ $ohada-font-bold: 'NimbusSanL-Bold';
 
         .number {
             text-align: right;
-            width: 6%;
+            max-width: 6%;
+    //        overflow: hidden;
             border: 1px solid $ohada-primary-color;
         }
         .date {
@@ -275,13 +283,6 @@ $ohada-font-bold: 'NimbusSanL-Bold';
     }
 */
     .o_ohada_reports_level0 {
-/*
-        & td {
-            min-height:10px;
-            padding-top: 2px;
-            padding-bottom: 2px;
-        }
-*/
         > td.o_ohada_report_line_indent.o_foldable_total > span:last-child {
             margin-left: 10px;
         }
@@ -294,21 +295,10 @@ $ohada-font-bold: 'NimbusSanL-Bold';
         background-color: $ohada-highlight-color;
         text-align: left;
         vertical-align: middle;
-        & td {
-            min-height:10px;
-            padding-top: 2px;
-            padding-bottom: 2px;
-        }
-        > td > span {
-            min-height:10px;
-        }
     }
     .o_ohada_reports_level2 {
         border-bottom: 1px solid $ohada-primary-color;
         font-weight: normal;
-        > td > span {
-            min-height:10px;
-        }
         > td.o_ohada_report_line_indent > span:last-child {
             margin-left: 15px;
         }
@@ -317,28 +307,16 @@ $ohada-font-bold: 'NimbusSanL-Bold';
                 margin-left: 0px;
             }
         }
-        & td {
-            padding-top: 2px;
-            padding-bottom: 2px;
-            height: 15px;
-        }
     }
     .o_ohada_reports_level3 {
         border-bottom: 1px solid $ohada-primary-color;
         > td.o_ohada_report_line_indent > span:last-child {
-            margin-left: 30px;
+            margin-left: 15px;
         }
         &.total {
             > td.o_ohada_report_line_indent > span:last-child {
-                margin-left: 15px;
+                margin-left: 0px;
             }
-        }
-        & td {
-            padding-top: 2px;
-            padding-bottom: 2px;
-        }
-        > td > span {
-            min-height:10px;
         }
     }
     .o_ohada_reports_level4 {
@@ -354,67 +332,35 @@ $ohada-font-bold: 'NimbusSanL-Bold';
                 margin-left: 30px;
             }
         }
-        > td > span {
-            min-height:10px;
-        }
     }
-    .o_ohada_reports_level5 {
+    .o_ohada_reports_level5 {           //used in BS lines AP, BA, BB, BG and in CF lines _CF_H2
         border-bottom: 1px solid $ohada-primary-color;
+        font-weight: bold;
         > td.o_ohada_report_line_indent > span:last-child {
-            margin-left: 50px;
+            margin-left: 15px;
         }
         &.total {
             > td.o_ohada_report_line_indent > span:last-child {
                 margin-left: 40px;
             }
         }
-        > td > span {
-            min-height:10px;
-        }
     }
     .o_ohada_reports_level6 {
         border-bottom: 1px solid $ohada-primary-color;
         > td.o_ohada_report_line_indent > span:last-child {
-            margin-left: 60px;
+            margin-left: 15px;
         }
         &.total {
             > td.o_ohada_report_line_indent > span:last-child {
                 margin-left: 50px;
             }
         }
-        > td {
-            height: 150px;
-        }
-        > td > span {
-            min-height:10px;
-        }
     }
     .o_ohada_reports_level7 {               //used for highlighting titles in N34
         font-weight: bold;
-        background-color: darken($ohada-highlight-color, 10%);
+        background-color: darken($ohada-highlight-color, 8%);
         text-align: center;
         vertical-align: middle;
-        & td {
-            min-height:10px;
-            padding-top: 2px;
-            padding-bottom: 2px;
-            text-align: center;
-        }
-        > td > span {
-            min-height:10px;
-        }
-        
-/*
-        border-bottom: 1px solid $ohada-primary-color;
-        > td.o_ohada_report_line_indent > span:last-child {
-            margin-left: 70px;
-        }
-        &.total {
-            > td.o_ohada_report_line_indent > span:last-child {
-                margin-left: 60px;
-            }
-        }
-*/        
     }
     .o_ohada_reports_level8 {
         border-width: 3px;
@@ -425,17 +371,11 @@ $ohada-font-bold: 'NimbusSanL-Bold';
         > td.o_ohada_report_line_indent > span:last-child {
             margin-left: 80px;
         }
-        > td > span {
-            min-height:10px;
-        }
     }
     .o_ohada_reports_level9 {
         border-bottom: 1px solid $ohada-primary-color;
         > td.o_ohada_report_line_indent > span:last-child {
             margin-left: 90px;
-        }
-        > td > span {
-            min-height:10px;
         }
     }
     .o_ohada_reports_default_style {

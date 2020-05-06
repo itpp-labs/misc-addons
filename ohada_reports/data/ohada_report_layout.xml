@@ -88,7 +88,7 @@
             </record>
 
             <record id="ohada_cell_style_note33_1_3" model="ohada.cell.style">
-                <field name="name">Variation des stocks</field>
+                <field name="name">Variation|des stocks</field>
                 <field name="column_id" ref="ohada_custom_columns_note33_1"/>
                 <field name="colspan">1</field>
                 <field name="rowspan">3</field>
@@ -282,12 +282,12 @@
                 <field name="name"> </field>
                 <field name="column_id" ref="ohada_custom_columns_note36_1"/>
             </record>
-
+<!--
             <record id="ohada_cell_style_note36_1_3" model="ohada.cell.style">
                 <field name="name"> </field>
                 <field name="column_id" ref="ohada_custom_columns_note36_1"/>
             </record>
-
+-->
             <record id="ohada_cell_style_note36_1_4" model="ohada.cell.style">
                 <field name="name">3 - Code pays du siège social</field>
                 <field name="column_id" ref="ohada_custom_columns_note36_1"/>
@@ -991,15 +991,15 @@
             </record>
 
         <!--columns for note 37-->
+<!--        
         <record id="ohada_custom_columns_note37_1" model="ohada.custom.columns">
             <field name="line_id" ref="ohada_financial_report_note37_header"/>
         </record>
-
             <record id="ohada_cell_style_note36_1_1" model="ohada.cell.style">
                 <field name="name">Montant</field>
                 <field name="column_id" ref="ohada_custom_columns_note37_1"/>
             </record>
-
+-->
         <!--columns for note 28-->
         <record id="ohada_custom_columns_note28_1" model="ohada.custom.columns">
             <field name="line_id" ref="ohada_financial_report_note28_header"/>
@@ -1033,25 +1033,25 @@
         </record>
 
             <record id="ohada_cell_style_note28_2_1" model="ohada.cell.style">
-                <field name="name">String1|String2|String3</field>
+                <field name="name">Provisions|à l'ouverture|de l'exercice</field>
                 <field name="rowspan">2</field>
                 <field name="column_id" ref="ohada_custom_columns_note28_2"/>
             </record>
 
             <record id="ohada_cell_style_note28_2_2" model="ohada.cell.style">
-                <field name="name">String1|String2</field>
+                <field name="name">Augmentations : Dotations</field>
                 <field name="colspan">3</field>
                 <field name="column_id" ref="ohada_custom_columns_note28_2"/>
             </record>
 
             <record id="ohada_cell_style_note28_2_3" model="ohada.cell.style">
-                <field name="name">String1|String2</field>
+                <field name="name">Diminutions : Reprises</field>
                 <field name="colspan">3</field>
                 <field name="column_id" ref="ohada_custom_columns_note28_2"/>
             </record>
 
             <record id="ohada_cell_style_note28_2_4" model="ohada.cell.style">
-                <field name="name">String1|String2|String3</field>
+                <field name="name">Provisions|à la clôture|de l'exercice</field>
                 <field name="rowspan">2</field>
                 <field name="column_id" ref="ohada_custom_columns_note28_2"/>
             </record>
@@ -1062,32 +1062,32 @@
         </record>
 
             <record id="ohada_cell_style_note28_3_1" model="ohada.cell.style">
-                <field name="name">String1</field>
+                <field name="name">d'exploitation</field>
                 <field name="column_id" ref="ohada_custom_columns_note28_3"/>
             </record>
 
             <record id="ohada_cell_style_note28_3_2" model="ohada.cell.style">
-                <field name="name">String1</field>
+                <field name="name">financière</field>
                 <field name="column_id" ref="ohada_custom_columns_note28_3"/>
             </record>
 
             <record id="ohada_cell_style_note28_3_3" model="ohada.cell.style">
-                <field name="name">String1</field>
+                <field name="name">H.A.O</field>
                 <field name="column_id" ref="ohada_custom_columns_note28_3"/>
             </record>
 
             <record id="ohada_cell_style_note28_3_4" model="ohada.cell.style">
-                <field name="name">String1</field>
+                <field name="name">d'exploitation</field>
                 <field name="column_id" ref="ohada_custom_columns_note28_3"/>
             </record>
 
             <record id="ohada_cell_style_note28_3_5" model="ohada.cell.style">
-                <field name="name">String1</field>
+                <field name="name">financière</field>
                 <field name="column_id" ref="ohada_custom_columns_note28_3"/>
             </record>
 
             <record id="ohada_cell_style_note28_3_6" model="ohada.cell.style">
-                <field name="name">String1</field>
+                <field name="name">H.A.O</field>
                 <field name="column_id" ref="ohada_custom_columns_note28_3"/>
             </record>
 
@@ -1610,13 +1610,13 @@
             </record>
 
             <record id="ohada_cell_style_note27b_1_3" model="ohada.cell.style">
-                <field name="name">String</field>
+                <field name="name">EFFECTIF</field>
                 <field name="colspan">7</field>
                 <field name="column_id" ref="ohada_custom_columns_note27b_1"/>
             </record>
 
             <record id="ohada_cell_style_note27b_1_4" model="ohada.cell.style">
-                <field name="name">String|String</field>
+                <field name="name">MASSE SALARIALE</field>
                 <field name="colspan">7</field>
                 <field name="column_id" ref="ohada_custom_columns_note27b_1"/>
             </record>
@@ -1627,48 +1627,48 @@
         </record>
 
             <record id="ohada_cell_style_note27b_2_1" model="ohada.cell.style">
-                <field name="name">String</field>
+                <field name="name">Nationaux</field>
                 <field name="colspan">2</field>
                 <field name="column_id" ref="ohada_custom_columns_note27b_2"/>
             </record>
 
             <record id="ohada_cell_style_note27b_2_2" model="ohada.cell.style">
-                <field name="name">String</field>
+                <field name="name">Autres Etats OHADA</field>
                 <field name="colspan">2</field>
                 <field name="column_id" ref="ohada_custom_columns_note27b_2"/>
             </record>
 
             <record id="ohada_cell_style_note27b_2_3" model="ohada.cell.style">
-                <field name="name">String</field>
+                <field name="name">Hors OHADA</field>
                 <field name="colspan">2</field>
                 <field name="column_id" ref="ohada_custom_columns_note27b_2"/>
             </record>
 
             <record id="ohada_cell_style_note27b_2_4" model="ohada.cell.style">
-                <field name="name">String</field>
+                <field name="name">Total</field>
                 <field name="column_id" ref="ohada_custom_columns_note27b_2"/>
             </record>
 
             <record id="ohada_cell_style_note27b_2_5" model="ohada.cell.style">
-                <field name="name">String</field>
+                <field name="name">Nationaux</field>
                 <field name="colspan">2</field>
                 <field name="column_id" ref="ohada_custom_columns_note27b_2"/>
             </record>
 
             <record id="ohada_cell_style_note27b_2_6" model="ohada.cell.style">
-                <field name="name">String</field>
+                <field name="name">Autres Etats OHADA</field>
                 <field name="colspan">2</field>
                 <field name="column_id" ref="ohada_custom_columns_note27b_2"/>
             </record>
 
             <record id="ohada_cell_style_note27b_2_7" model="ohada.cell.style">
-                <field name="name">String</field>
+                <field name="name">Hors OHADA</field>
                 <field name="colspan">2</field>
                 <field name="column_id" ref="ohada_custom_columns_note27b_2"/>
             </record>
 
             <record id="ohada_cell_style_note27b_2_8" model="ohada.cell.style">
-                <field name="name">String</field>
+                <field name="name">Total</field>
                 <field name="column_id" ref="ohada_custom_columns_note27b_2"/>
             </record>
 
@@ -1761,7 +1761,7 @@
             </record>
 
             <record id="ohada_cell_style_note27b_1_1_2" model="ohada.cell.style">
-                <field name="name">String1|String2</field>
+                <field name="name">Facturation|à l'entité</field>
                 <field name="colspan">2</field>
                 <field name="column_id" ref="ohada_custom_columns_note27b_1_1"/>
             </record>
@@ -1832,24 +1832,50 @@
         </record>
 
             <record id="ohada_cell_style_note16b_2_2_1" model="ohada.cell.style">
-                <field name="name">String</field>
+                <field name="name">Augmentation</field>
                 <field name="column_id" ref="ohada_custom_columns_note16b_2_2"/>
             </record>
 
             <record id="ohada_cell_style_note16b_2_2_2" model="ohada.cell.style">
-                <field name="name">String</field>
+                <field name="name">Diminution</field>
                 <field name="column_id" ref="ohada_custom_columns_note16b_2_2"/>
             </record>
 
             <record id="ohada_cell_style_note16b_2_2_3" model="ohada.cell.style">
-                <field name="name">String</field>
+                <field name="name">Augmentation</field>
                 <field name="column_id" ref="ohada_custom_columns_note16b_2_2"/>
             </record>
 
             <record id="ohada_cell_style_note16b_2_2_4" model="ohada.cell.style">
-                <field name="name">String</field>
+                <field name="name">Diminution</field>
                 <field name="column_id" ref="ohada_custom_columns_note16b_2_2"/>
             </record>
+
+
+        <record id="ohada_custom_columns_note16b_bis_1_2" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note16b_bis_1_2"/>
+        </record>
+
+            <record id="ohada_cell_style_note16b_bis_1_2_1" model="ohada.cell.style">
+                <field name="name">Rendement|attendu</field>
+                <field name="column_id" ref="ohada_custom_columns_note16b_bis_1_2"/>
+            </record>
+
+            <record id="ohada_cell_style_note16b_bis_1_2_2" model="ohada.cell.style">
+                <field name="name">Juste valeur|des actifs</field>
+                <field name="column_id" ref="ohada_custom_columns_note16b_bis_1_2"/>
+            </record>
+
+            <record id="ohada_cell_style_note16b_bis_1_2_3" model="ohada.cell.style">
+                <field name="name">Rendement|attendu</field>
+                <field name="column_id" ref="ohada_custom_columns_note16b_bis_1_2"/>
+            </record>
+
+            <record id="ohada_cell_style_note16b_bis_1_2_4" model="ohada.cell.style">
+                <field name="name">Juste valeur|des actifs</field>
+                <field name="column_id" ref="ohada_custom_columns_note16b_bis_1_2"/>
+            </record>
+
 
     </data>
 </odoo>

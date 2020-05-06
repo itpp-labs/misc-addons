@@ -28,7 +28,7 @@ from odoo.tools.safe_eval import safe_eval
 from odoo.exceptions import UserError
 
 import html2text
-import wdb
+
 _logger = logging.getLogger(__name__)
 
 
@@ -674,31 +674,39 @@ class OhadaReport(models.AbstractModel):
         * if line_id is set, the template used will be the line_template
         otherwise it uses the main_template. Reason is for efficiency, when unfolding a line in the report
         we don't want to reload all lines, just get the one we unfolded.
+
+        Balance sheet is a keydate report, while PL and CF are date range reports
+        In OHADA reporting, all 3 reports must display figures of current and previous years.
+        In order to display previous year's value of PL line XI in the BS* report, we need to explicitly set comparison in options.  
         '''
-        # wdb.set_trace()
-        # Check the security before updating the context to make sure the options are safe.
+        if self.code in ['BS', 'BS2', 'BS2']:                                      
+            # Set comparison in option
+            if not options['date'].get('date_from') and options['comparison'].get('filter', 'no_comparison') == 'no_comparison':
+                options['comparison'] = self.make_temp_options(int(options['date']['date'][0:4]))['comparison']
+
         if self.code == 'BS':
             return self.get_html_bs(options, line_id, additional_context)
         if self.double_report is True:
             return self.get_html_double(options, line_id, additional_context)
+
+        # Check the security before updating the context to make sure the options are safe.
         self._check_report_security(options)
 
         # Prevent inconsistency between options and context.
         self = self.with_context(self._set_context(options))
 
-
         templates = self._get_templates()
         report_manager = self._get_report_manager(options)
         date = options['date'].get('date_from') or options['date'].get('date')
         report = {'name': self._get_report_name(),
-                  'shortname': self.shortname,
+                  'shortname': self.shortname.upper(),
                   'summary': report_manager.summary,
                   'company_name': self.env.user.company_id.name,
                   'type': self.type,
                   'code': self.code,
                   'vat': self.env.user.company_id.vat,
                   'year': date[0:4],
-                  'header': self.header and self.header + ' ' + date[0:4],}
+                  'header': self.header and self.header.upper()}
         lines = self._get_lines(options, line_id=line_id)
 
         if options.get('hierarchy'):
@@ -917,9 +925,9 @@ class OhadaReport(models.AbstractModel):
             # don't print -0.0 in reports
             value = abs(value)
         #res = formatLang(self.env, value, currency_obj=currency_id)   #E- replaced by next if/else-block
-        if currency and currency != report_currency_id:
+        if currency and currency != currency_id:
             #TODO: Here we need to convert the value to the company currency
-            res = formatLang(self.env, value, currency_obj=report_currency_id)
+            res = formatLang(self.env, value, currency_obj=currency_id)
         else:
             res = formatLang(self.env, value, currency_obj=currency_id)     #formatLang(self.env, value, digits=0)
         return res
@@ -1132,8 +1140,8 @@ class OhadaReport(models.AbstractModel):
         if not config['test_enable']:
             self = self.with_context(commit_assetsbundle=True)
 
-        # base_url = self.env['ir.config_parameter'].sudo().get_param('report.url') or self.env['ir.config_parameter'].sudo().get_param('web.base.url')
-        base_url = 'http://127.0.0.1:8069'
+        base_url = self.env['ir.config_parameter'].sudo().get_param('report.url') or self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        # base_url = 'http://127.0.0.1:8069'
 
         rcontext = {
             'mode': 'print',
@@ -1147,8 +1155,8 @@ class OhadaReport(models.AbstractModel):
         )
 
         if self.code == 'BS' and horizontal is False:
-            if not options['date'].get('date_from'):
-                options = self.make_temp_options(int(options['date']['date'][0:4]))
+        #    if not options['date'].get('date_from'):                                           #E-
+        #        options = self.make_temp_options(int(options['date']['date'][0:4]))            #E-
             body_html = b''
             body_html += self.env.ref('ohada_reports.account_financial_report_ohada_balancesheet').get_html(options)
             body_html += self.env.ref('ohada_reports.account_financial_report_ohada_balancesheet_liabilitites0').get_html(options)
@@ -1165,7 +1173,7 @@ class OhadaReport(models.AbstractModel):
 
         if minimal_layout:
             header = ''
-            footer = self.env['ir.actions.report'].render_template("ohada_reports.internal_layout_ohada", values=rcontext)
+            footer = self.env['ir.actions.report'].render_template("ohada_reports.ohada_layout", values=rcontext)
             spec_paperformat_args = {'data-report-margin-top': 10, 'data-report-header-spacing': 10}
             footer = self.env['ir.actions.report'].render_template("web.minimal_layout", values=dict(rcontext, subst=True, body=footer))
         else:
@@ -1247,9 +1255,10 @@ class OhadaReport(models.AbstractModel):
             workbook = xlsxwriter.Workbook(output, {'in_memory': True})
         sheet = workbook.add_worksheet(self._get_report_name()[:31])
 
-        left_style = workbook.add_format({'align': 'left', 'font_name': 'NimbusSanL', 'font_size': 13, 'font_color': '#001E5A'})
-        right_style = workbook.add_format({'align': 'right', 'font_name': 'NimbusSanL', 'font_size': 13, 'font_color': '#001E5A'})
-        title_style = workbook.add_format({'align': 'center', 'font_name': 'NimbusSanL', 'font_size': 13, 'font_color': '#001E5A','bold': True, })
+        company_name_style = workbook.add_format({'align': 'left', 'font_name': 'NimbusSanL', 'font_size': 11, 'font_color': '#001E5A','bold': True,})
+        left_style = workbook.add_format({'align': 'left', 'font_name': 'NimbusSanL', 'font_size': 8, 'font_color': '#001E5A','bold': True,})
+        right_style = workbook.add_format({'align': 'right', 'font_name': 'NimbusSanL', 'font_size': 8, 'font_color': '#001E5A','bold': True,})
+        title_style = workbook.add_format({'align': 'center', 'font_name': 'NimbusSanL', 'font_size': 13, 'font_color': '#001E5A','bold': True,})
         top_border = workbook.add_format({'bottom': 6, 'border_color': '#001E5A'})
         bottom_border = workbook.add_format({'top': 6, 'border_color': '#001E5A'})
         right_border = workbook.add_format({'left': 6, 'border_color': '#001E5A'})
@@ -1273,22 +1282,16 @@ class OhadaReport(models.AbstractModel):
 
         summary = html2text.html2text(self._get_report_manager(options).summary)
 
-        if not options['date'].get('date_from'):
-            year = options['date'].get('date')[0:4]
-            header = {
-                'year': year,
-                'company': self.env.user.company_id.name,
-                'vat': self.env.user.company_id.vat,
-                'title': self.header and self.header + ' ' + year,
-            }
-        else:
+        if options['date'].get('date_from'):
             year = options['date'].get('date_from')[0:4]
-            header = {
-                'year': year,
-                'company': self.env.user.company_id.name,
-                'vat': self.env.user.company_id.vat,
-                'title': self.header and self.header + ' ' + year,
-            }
+        else:
+            year = options['date'].get('date')[0:4]
+        header = {
+            'year': year,
+            'company': self.env.user.company_id.name,
+            'vat': self.env.user.company_id.vat,
+            'title': self.header and self.header.upper(),
+        }
 
         #Set the first column width to 50
 
@@ -1392,7 +1395,7 @@ class OhadaReport(models.AbstractModel):
                             x_index += 1
 
                     # write the first column, with a specific style to manage the indentation
-                    cell_name = lines[y]['name']
+                    cell_name = lines[y].get('name')              #E~  lines[y]['name']
                     if lines[y].get('reference') == 'REF':
                         loc_style = copy.copy(style)
                         loc_style.set_align('center')
@@ -1470,8 +1473,8 @@ class OhadaReport(models.AbstractModel):
                             x_index += 1
             self.x_index = x_index
         if self.code == 'BS':
-            if not options['date'].get('date_from'):
-                options = self.make_temp_options(int(options['date']['date'][0:4]))
+        #    if not options['date'].get('date_from'):                                       #E-
+        #        options = self.make_temp_options(int(options['date']['date'][0:4]))        #E-
             ctx = self._set_context(options)
             ctx.update({'no_format': True, 'print_mode': True, 'prefetch_fields': False})
             lines = self.env.ref('ohada_reports.account_financial_report_ohada_balancesheet').with_context(ctx)._get_lines(options)
@@ -1486,7 +1489,7 @@ class OhadaReport(models.AbstractModel):
             sheet.set_row(8, 30)
         elif self.double_report is True:
             write_data(lines)
-            sheet.write(2, 1, 'Désignation Entité : ' + header['year'], left_style)
+            sheet.write(2, 1, self.env.user.company_id.name, company_name_style)
             sheet.write(2, self.x_index - 1, 'Exercice clos le : ' + '31/12/' + header['year'], right_style)
             sheet.write(3, 1, "Numéro d'identification : " + (header.get('vat') or ''), left_style)
             sheet.write(3, self.x_index - 1, 'Durée (en mois) : 12', right_style)
@@ -1505,14 +1508,14 @@ class OhadaReport(models.AbstractModel):
             sheet.merge_range(y_ind, 0, len(lines) + y_ind - 1, 0, '', left_border)
             sheet.merge_range(y_ind, self.x_index, len(lines) + y_ind - 1, self.x_index, '', right_border)
             sheet.set_row(y_ind, 50)
-            sheet.merge_range(y_ind - 2, 1, y_ind - 2, self.x_index - 1, (second_report.header and second_report.header + ' ' + options['date']['date_from'][0:4] or ''), title_style)
+            sheet.merge_range(y_ind - 2, 1, y_ind - 2, self.x_index - 1, (second_report.header and second_report.header.upper() or ''), title_style)
             sheet.merge_range(len(lines) + y_ind + 2, 1, len(lines) + y_ind + 2, self.x_index - 1, summary, summary_style)
             sheet.set_row(len(lines) + y_ind + 2, 200)
         else:
             write_data(lines)
         # make header above the table
         if self.double_report is False:
-            sheet.write(2, 1, 'Désignation Entité : ' + header['year'], left_style)
+            sheet.write(2, 1, self.env.user.company_id.name, company_name_style)
             sheet.write(2, self.x_index - 1, 'Exercice clos le : ' + '31/12/' + header['year'], right_style)
             sheet.write(3, 1, "Numéro d'identification : " + (header.get('vat') or ''), left_style)
             sheet.write(3, self.x_index - 1, 'Durée (en mois) : 12', right_style)
@@ -1527,7 +1530,7 @@ class OhadaReport(models.AbstractModel):
             sheet.merge_range(len(lines) + 9, 1, len(lines) + 9, self.x_index - 1, summary, summary_style)
             sheet.set_row(len(lines) + 9, 200)
         if self.type == 'note' and self.double_report is False:
-            sheet.merge_range(4, 1, 4, self.x_index - 1, (self.name.upper() or ''), title_style)
+            sheet.merge_range(4, 1, 4, self.x_index - 1, (self.shortname.upper() or ''), title_style)
 
         sheet.hide_gridlines(2)
         if print_bundle == True:
@@ -1565,23 +1568,29 @@ class OhadaReport(models.AbstractModel):
 
     def make_temp_options(self, year=False):
         if year is False:
-            year = datetime.now().year
-        options = {'ir_filters': None,
-                   'date': {'date_to': str(year) + '-12-31', 'string': str(year), 'filter': 'this_year',
-                            'date_from': str(year) + '-01-01'},
-                   'comparison': {
-                       'date_from': str(year - 1) + '-01-01',
-                       'date_to': str(year - 1) + '-12-31',
-                       'filter': 'no_comparison',
-                       'number_period': 1,
-                       'periods': [{
-                           'date_from': str(year - 1) + '-01-01',
-                           'date_to': str(year - 1) + '-12-31',
-                           'string': str(year - 1),
-                       }],
-                       'string': 'No comparison', },
-                   'all_entries': None,
-                   }
+            year = datetime.datetime.now().year
+        options = {
+            'ir_filters': None,
+            'date': {
+                'date_to': str(year) + '-12-31',
+                'string': str(year),
+                'filter': 'this_year',
+                'date_from': str(year) + '-01-01'
+            },
+            'comparison': {
+                'date_from': str(year - 1) + '-01-01',
+                'date_to': str(year - 1) + '-12-31',
+                'filter': 'no_comparison',
+                'number_period': 1,
+                'periods': [{
+                    'date_from': str(year - 1) + '-01-01',
+                    'date_to': str(year - 1) + '-12-31',
+                    'string': str(year - 1),
+                }],
+                'string': 'No comparison',
+            },
+           'all_entries': None,
+        }
         return options
 
     def get_html_bs(self, options, line_id=None, additional_context=None):
@@ -1591,23 +1600,19 @@ class OhadaReport(models.AbstractModel):
         otherwise it uses the main_template. Reason is for efficiency, when unfolding a line in the report
         we don't want to reload all lines, just get the one we unfolded.
         '''
-        # wdb.set_trace()
+
         def get_financial_report(line):
             if line.financial_report_id.id is False:
                 return get_financial_report(line.parent_id)
             else:
                 return line.financial_report_id
 
-        if options.get('unfolded_lines'):
-            unfolded_lines = options['unfolded_lines']
-        # if not options['date'].get('date_from'):
-        #     options = self.make_temp_options(int(options['date']['date'][0:4]))
-        # if line_id is not None:
-        #     options['unfolded_lines'] = unfolded_lines
         g_rcontext=dict()
         g_rcontext['lines'] = {}
-        reports = [self.env.ref('ohada_reports.account_financial_report_ohada_balancesheet'),
-        self.env.ref('ohada_reports.account_financial_report_ohada_balancesheet_liabilitites0')]
+        reports = [
+            self.env.ref('ohada_reports.account_financial_report_ohada_balancesheet'),
+            self.env.ref('ohada_reports.account_financial_report_ohada_balancesheet_liabilitites0')
+        ]
         summary = self._get_report_manager(options).summary
         for report_bs in reports:
             # Check the security before updating the context to make sure the options are safe.
@@ -1618,15 +1623,17 @@ class OhadaReport(models.AbstractModel):
 
             templates = report_bs._get_templates()
             report_manager = report_bs._get_report_manager(options)
-            date = options['date'].get('date_from') or options['date'].get('date')
-            report = {'name': report_bs._get_report_name(),
-                      'summary': report_manager.summary,
-                      'company_name': report_bs.env.user.company_id.name,
-                      'type': report_bs.type,
-                      'code': self.code,
-                      'vat': report_bs.env.user.company_id.vat,
-                      'year': date[0:4],
-                      'header': self.header and self.header + ' ' + date[0:4],}
+            date = options['date'].get('date_to') or options['date'].get('date')
+            report = {
+                'name': report_bs._get_report_name(),
+                'summary': report_manager.summary,
+                'company_name': report_bs.env.user.company_id.name,
+                'type': report_bs.type,
+                'code': self.code,
+                'vat': report_bs.env.user.company_id.vat,
+                'year': date[0:4],
+                'header': self.header and self.header.upper(), 
+            }
             lines = report_bs._get_lines(options, line_id=line_id)
 
             if options.get('hierarchy'):
@@ -1702,7 +1709,7 @@ class OhadaReport(models.AbstractModel):
                       'code': self.code,
                       'vat': report_bs.env.user.company_id.vat,
                       'year': date[0:4],
-                      'header': self.header and self.header + ' ' + date[0:4],}
+                      'header': self.header and self.header.upper()}
             lines = report_bs._get_lines(options, line_id=line_id)
 
             if options.get('hierarchy'):
@@ -1730,15 +1737,10 @@ class OhadaReport(models.AbstractModel):
         g_rcontext['report'] = rcontext['report']
         g_rcontext['report']['double_report'] = True
         g_rcontext['report']['summary'] = summary
-        g_rcontext['model'] = self.header + ' ' + options['date']['date_from'][0:4]
-        g_rcontext['report']['header'] = self.header + ' ' + options['date']['date_from'][0:4]
-#        g_rcontext['report']['header_2'] = reports[1].header + ' ' + options['date']['date_from'][0:4]       #E-
-        g_rcontext['report']['header_2'] = reports[0].header + ' ' + options['date']['date_from'][0:4] if self.code != 'N16B' else ' '#E+
+        g_rcontext['report']['header'] = self.header and self.header.upper()        
+        g_rcontext['report']['header_2'] = reports[0].header.upper() if self.code not in ['N16B'] else ' '      #E
         g_rcontext['options'] = rcontext['options']
         g_rcontext['report']['name'] = self.name.upper()
         g_rcontext['model'] = rcontext['model']
-        html = self.env['ir.ui.view'].render_template(
-            render_template,
-            values=dict(g_rcontext),
-        )
+        html = self.env['ir.ui.view'].render_template(render_template, values=dict(g_rcontext))
         return html

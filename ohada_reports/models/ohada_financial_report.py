@@ -17,18 +17,20 @@ from odoo.tools.safe_eval import safe_eval
 from odoo.tools.misc import formatLang
 from odoo.tools import float_is_zero, ustr
 from datetime import datetime
+from datetime import date
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, ValidationError
 from odoo.osv import expression
 from odoo.tools.pycompat import izip
 from odoo import http
 from odoo.http import content_disposition, request
-import wdb
+
 
 class ReportOhadaFinancialReport(models.Model):
     _name = "ohada.financial.html.report"
     _description = "OHADA Report (HTML)"
     _inherit = "ohada.report"
+    _order = "sequence"
 
     name = fields.Char(translate=True)
     shortname = fields.Char(translate=True)
@@ -57,7 +59,7 @@ class ReportOhadaFinancialReport(models.Model):
                              ('cover', 'Cover'),
                              ('other', 'Other'),],
                             default=False)
-    sequence = fields.Integer()
+    sequence = fields.Integer(default=10)
     header = fields.Char(default=False)
     double_report = fields.Boolean(default=False)
     secondary = fields.Boolean(default=False)
@@ -105,8 +107,8 @@ class ReportOhadaFinancialReport(models.Model):
 
     @api.model
     def print_bundle_pdf(self, options, reports_ids=None, minimal_layout=True):
-        # base_url = self.env['ir.config_parameter'].sudo().get_param('report.url') or self.env['ir.config_parameter'].sudo().get_param('web.base.url')
-        base_url = 'http://127.0.0.1:8069'
+        base_url = self.env['ir.config_parameter'].sudo().get_param('report.url') or self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        # base_url = 'http://127.0.0.1:8069'
         reports_ids = reports_ids.split(',')
         rcontext = {
             'mode': 'print',
@@ -130,11 +132,9 @@ class ReportOhadaFinancialReport(models.Model):
 
         if minimal_layout:
             header = ''
-            footer = self.env['ir.actions.report'].render_template("ohada_reports.internal_layout_ohada",
-                                                                   values=rcontext)
+            footer = self.env['ir.actions.report'].render_template("ohada_reports.ohada_layout", values=rcontext)
             spec_paperformat_args = {'data-report-margin-top': 10, 'data-report-header-spacing': 10}
-            footer = self.env['ir.actions.report'].render_template("web.minimal_layout",
-                                                                   values=dict(rcontext, subst=True, body=footer))
+            footer = self.env['ir.actions.report'].render_template("web.minimal_layout", values=dict(rcontext, subst=True, body=footer))
         else:
             rcontext.update({
                 'css': '',
@@ -328,6 +328,7 @@ class ReportOhadaFinancialReport(models.Model):
                     'context': ir_filter.context,
                     'selected': ir_filter.id == previously_selected_id,
                 })
+
         return options
 
     @api.model
@@ -397,6 +398,7 @@ class ReportOhadaFinancialReport(models.Model):
                 menu_vals = {
                     'name': report._get_report_name(),
                     'parent_id': parent_id or IMD.xmlid_to_res_id('account.menu_finance_reports'),
+                    'sequence': report.sequence,
                     'action': 'ir.actions.client,%s' % (action.id,),
                 }
                 menu_xmlid = "%s.%s" % (module, 'ohada_financial_html_report_menu_' + str(report.id))
@@ -720,6 +722,7 @@ class OhadaFinancialReportLine(models.Model):
         #------------------
         #The cash flow statement has a dedicated query because because we want to make a complex selection of account.move.line,
         #but keep simple to configure the financial report lines.
+        return sql, params      #E+
         if financial_report == self.env.ref('ohada_reports.account_financial_report_ohada_cashflow'):
             # Get all available fields from account_move_line, to build the 'select' part of the query
             replace_columns = {
@@ -1013,10 +1016,7 @@ class OhadaFinancialReportLine(models.Model):
         if self.special_date_changer == 'to_beginning_of_period' and date_from:
             date_tmp = fields.Date.from_string(self._context['date_from']) - relativedelta(days=1)
             date_to = date_tmp.strftime('%Y-%m-%d')
-            if date_from:                                                                                   #E+
-                date_tmp = fields.Date.from_string(self._context['date_from']) - relativedelta(years=1)     #E+
-                date_from = date_tmp.strftime('%Y-%m-%d')                                                   #E+
-            #date_from = False                                                                              #E-
+            date_from = False
         if self.special_date_changer == 'from_fiscalyear' and date_to:
             date_tmp = fields.Date.from_string(date_to)
             date_tmp = self.env.user.company_id.compute_fiscalyear_dates(date_tmp)['date_from']
@@ -1100,7 +1100,6 @@ class OhadaFinancialReportLine(models.Model):
         return 0
 
     def _format(self, value):
-        # wdb.set_trace()
         '''
             Reason for modifying this module: in OHADA reports, the currency is not displayed, all amounts must be reported in XOF
             TODO: if currency is not XOF, we need to convert the value
@@ -1121,7 +1120,7 @@ class OhadaFinancialReportLine(models.Model):
                 value['name'] = formatLang(self.env, value['name'], currency_obj=currency_id)
             return value
         if self.figure_type == 'percents':
-            value['name'] = str(round(value['name'] * 100, 1)) + '%'
+            value['name'] = str(round(value['name'] * 1, None)) + '%'                                            #E~
             return value
         value['name'] = round(value['name'], 1)
         return value
@@ -1135,7 +1134,7 @@ class OhadaFinancialReportLine(models.Model):
 
     def _build_cmp(self, balance, comp):
         if comp != 0:
-            res = round((balance - comp) / comp * 100, 1)
+            res = round((balance - comp) / comp * 100, None)                                        #E~
             # In case the comparison is made on a negative figure, the color should be the other
             # way around. For example:
             #                       2018         2017           %
@@ -1143,14 +1142,12 @@ class OhadaFinancialReportLine(models.Model):
             #
             # The percentage is negative, which is mathematically correct, but my sales increased
             # => it should be green, not red!
-            lang = self.env['res.lang']._lang_get(self.env.context.get('lang') or 'en_US')
-            if (float(res) > 0) != (self.green_on_positive and comp > 0):
-                return {'name': str(res).replace('.', lang.decimal_point) + '%', 'class': 'number color-red'}
+            if (res > 0) != (self.green_on_positive and comp > 0):
+                return {'name': str(res) + '%', 'class': 'number color-red'}
             else:
-                return {'name': str(res).replace('.', lang.decimal_point) + '%', 'class': 'number color-green'}
+                return {'name': str(res) + '%', 'class': 'number color-green'}
         else:
-            # return {'name': _('n/a')}
-            return {'name': _(' ')}
+            return {'name': ' '}         #E~ return {'name': _('n/a')}
 
     def _build_abs(self, balance, comp):
         res = round(balance - comp)
@@ -1315,7 +1312,6 @@ class OhadaFinancialReportLine(models.Model):
         # build comparison table
         for line in self:
             res = []
-            # wdb.set_trace()
             debit_credit = len(comparison_table) == 1
             if financial_report.code == 'BS1' and options['comparison']['filter'] == 'no_comparison':
                 debit_credit = len(comparison_table) == 2
@@ -1382,7 +1378,8 @@ class OhadaFinancialReportLine(models.Model):
             # wdb.set_trace()
             if financial_report.tax_report and line.domain and not line.action_id:
                 vals['caret_options'] = 'tax.report.line'
-
+            if line.note_report_ids:
+                vals['note_id'] = str(self.env['ir.actions.client'].search([('name', '=', line.note_report_ids.name)]).id)
             if line.action_id:
                 vals['action_id'] = line.action_id.id
             domain_ids.remove('line')
@@ -1409,7 +1406,6 @@ class OhadaFinancialReportLine(models.Model):
                         vals['trust'] = self.env['res.partner'].browse([domain_id]).trust
                     lines.append(vals)
             # ==================== test generate values with new models ===============================================
-            # wdb.set_trace()
             if line.columns_id:
                 if not line.columns_id.line_name:
                     del lines[0]['name']
@@ -1443,7 +1439,7 @@ class OhadaFinancialReportLine(models.Model):
                             vals['columns'].append(line._build_cmp(vals['columns'][0]['name'], vals['columns'][1]['name']))
                             for i in [0, 1]:
                                 vals['columns'][i] = line._format(vals['columns'][i])
-                        elif financial_report.code in ['N16B', 'N16B_1', 'N16B_2'] and line.header is not True:
+                        elif financial_report.code in ['N16B', 'N16B_1', 'N16BB'] and line.header is not True:
                             pass
                         else:
                             vals['columns'].append(line._build_cmp(vals['columns'][0]['name'], vals['columns'][1]['name']))
@@ -1472,8 +1468,7 @@ class OhadaFinancialReportLine(models.Model):
                         vals['columns'][0]['name'] = ['Montant brut']
                         vals['columns'][0]['rowspan'] = 2
                         vals['columns'].append({'name': ['SURETES REELLES']})
-                        vals['columns'][1]['colspan0'] = 3
-                        
+                        vals['columns'][1]['colspan0'] = 3                        
                     elif financial_report.code == "N3A" and line.sequence == 1:
                         header_list = [["MOUVEMENTS", "BRUTS À", "L'OUVERTURE", "DE L EXERCICE"],
                                        ["ACQUISITIONS,", "APPORTS,", "CREATIONS"],
@@ -1539,7 +1534,6 @@ class OhadaFinancialReportLine(models.Model):
                         for i in range(len(header_list)):
                             vals['columns'].append({'name': header_list[i]})
                     elif (financial_report.code == "N16BB" or financial_report.code == "N16BB_1") and line.sequence == 1:
-                        #vals['name'] = "DUMMY LINE NAME"
                         vals['columns'] = []
                     elif financial_report.code == "N32" and line.sequence in [1, 2]:
                         header_list = [["DUMMY LINE NAME"],
@@ -1558,24 +1552,25 @@ class OhadaFinancialReportLine(models.Model):
                         vals['columns'] = []
                         for i in range(len(header_list)):
                             vals['columns'].append({'name': header_list[i]})
-                    elif (line.sequence == 1 and financial_report.code not in ["N16B", "N16B_1", "N16B_2"]) or (financial_report.code in ["N16B", "N16B_1", "N16B_2"] and line.sequence == 2):
+                    elif (line.sequence == 1 and financial_report.code not in ['N16B', 'N16B_1', 'N16B_2', 'N16BB', 'N16BB_1']) or (financial_report.code in ['N16B', 'N16B_1', 'N16B_2', 'N16BB', 'N16BB_1'] and line.sequence == 2):
                         vals['columns'][0]['name'] = ['ANNEE ' + line._context['date_from'][0:4]]
                         if len(vals['columns']) > 1 and line._context.get('periods') != None \
                                 and options['comparison']['filter'] == 'no_comparison' or len(
                             options['comparison']['periods']) > 1:
                             for i in range(len(vals['columns'][1:])):
                                 vals['columns'][i + 1]['name'] = ['ANNEE ' + line._context['periods'][i]['string']]
-                            if financial_report.code not in ["N31", "N16B", "N16B_1", "N16B_2"]:
+                            if financial_report.code not in ['N31', 'N16B', 'N16B_1', 'N16B_2', 'N16BB', 'N16BB_1']:
                                 vals['columns'][- 1]['name'] = ['Variation en %']
                         elif len(vals['columns']) > 1 and line._context.get('periods') != None:
                             for i in range(len(vals['columns'][1:]) - 1):
                                 vals['columns'][i + 1]['name'] = ['ANNEE ' + line._context['periods'][i]['string']]
                             if financial_report.code in ['N15A', 'N16A', 'N18', 'N19']:
-                                vals['columns'][- 1]['name'] = ['Variation en ', 'valeur absolue']
-                                vals['columns'].append({'name': ['Variation en %']})
-                            elif financial_report.code in ["N16B", "N16B_1", "N16B_2"]:
+                                vals['columns'][- 1]['name'] = ['Variation', 'en valeur', 'absolue']
+                                vals['columns'].append({'name': ['Variation', 'en %']})
+                            elif financial_report.code in ['N16B', 'N16B_1', 'N16B_2', 'N16BB', 'N16BB_1']:
+    #e                                if financial_report.code not in ['N16BB', 'N16BB_1']:
                                 del vals['columns'][- 1]
-                                if financial_report.code in ["N16B_2"]:
+                                if financial_report.code in ['N16B_2', 'N16BB_1']:
                                     vals['columns'][0]['colspan'] = 2
                                     vals['columns'][1]['colspan'] = 2
                             else:
@@ -1584,8 +1579,9 @@ class OhadaFinancialReportLine(models.Model):
                 # ============= For Notes 4, 7, 8, 17, 15A, 16A, 18, 19 =====================
 
                 if line.header is True and financial_report.code in ['N4', 'N7', 'N8', 'N17', 'N15A', 'N16A', 'N18', 'N19'] and len(comparison_table) == 2:
-                    header_list = [["Créances à un", "an au plus"], ["Créances à plus", "d'un an à deux", "ans au plus"],
-                                   ["Créances à plus", "de deux ans au", "plus"]]
+ #                   header_list = [["Créances à un", "an au plus"], ["Créances à plus", "d'un an à deux", "ans au plus"],
+                    header_list = [["Créances à un", "an au plus"], ["Créances à", "plus d'un an", "à deux ans", "au plus"],
+                                   ["Créances à", "plus de deux", "ans au plus"]]
                     for i in header_list:
                         vals['columns'].append({'name': i})
                 elif line.header is True and financial_report.code in ['N15B'] and len(comparison_table) == 2:
@@ -1601,8 +1597,7 @@ class OhadaFinancialReportLine(models.Model):
                     for i in range(3):
                         date_from = str(int(options.get('date')['string']) - (i + 1)) + '-01-01'
                         date_to = str(int(options.get('date')['string']) - (i + 1)) + '-12-31'
-                        date_from, date_to, strict_range = line.with_context(date_from=date_from,
-                                                                             date_to=date_to)._compute_date_range()
+                        date_from, date_to, strict_range = line.with_context(date_from=date_from, date_to=date_to)._compute_date_range()
 
                         r = line.with_context(date_from=date_from,
                                               date_to=date_to,
@@ -1619,7 +1614,7 @@ class OhadaFinancialReportLine(models.Model):
                     linesDicts = [[{} for _ in range(0, amount_of_group_ids)] for _ in range(0, amount_of_periods)]
                     comparison_table = [options.get('date')]
                     comparison_table += options.get('comparison') and options['comparison'].get('periods', []) or []
-                    vals['columns'][0] = line._format({'name': vals['columns'][0]['no_format_name'] - vals['columns'][1]['no_format_name']})
+    #E-                    vals['columns'][0] = line._format({'name': vals['columns'][0]['no_format_name'] - vals['columns'][1]['no_format_name']})
                     # temporary
                     for i in range(3):
                         vals['columns'].append({'name': '0'})
@@ -1665,12 +1660,10 @@ class OhadaFinancialReportLine(models.Model):
                         result = lines + new_lines
                 else:
                     result = lines
-                if line.note_report_ids:
-                    line.note_id = str(self.env['ir.actions.client'].search([('name', '=', line.note_report_ids.name)]).id)
                 if result[0]['note'] == 'NET':
                     if financial_report.code == 'BS1' and options['comparison']['filter'] == 'no_comparison':
                         result[0]['columns'][0]['name'] = 'BRUT'
-                        result[0]['columns'][1]['name'] = 'AMORT. ET DEPREC.'
+                        result[0]['columns'][1]['name'] = 'AMORT./DEPREC.'
                         result[0]['columns'][2]['name'] = 'NET'
                         result[0]['columns'][3]['name'] = 'NET'
                     elif len(result[0]['columns']) > 1 and options['comparison']['filter'] == 'no_comparison' or \
@@ -1711,6 +1704,9 @@ class OhadaFinancialReportLine(models.Model):
                         vals['columns'] = []
                         for i in range(4):
                             vals['columns'].append({'name': ' '})
+                    elif financial_report.code == 'N31' and line.code == '_N31_2':
+                        for i in range(5):
+                            vals['columns'][i]['name'] = ' '
                     elif (financial_report.code in ['N13', 'N31', 'N12', 'N12_1'] and line.sequence > 1):
                         vals['columns'] = []
                         for i in range(5):
@@ -1719,8 +1715,8 @@ class OhadaFinancialReportLine(models.Model):
                         vals['columns'] = []
                         for i in range(2):
                             vals['columns'].append({'name': ' '})
-                    elif (financial_report.code in ["N16BB", "N16BB_1"] and line.sequence != 1):
-                        vals['columns'].pop()
+    #e                    elif (financial_report.code in ["N16BB", "N16BB_1"] and line.sequence != 1):
+    #                        vals['columns'].pop()
                     elif financial_report.code in ["N27B"]:
                         vals['columns'] = []
                         for i in range(14):
@@ -1735,18 +1731,19 @@ class OhadaFinancialReportLine(models.Model):
                                 vals['columns'].append({'name': ' A '})
                             else: 
                                 vals['columns'].append({'name': ' '})
-                    elif financial_report.code in ["N33", "N28", "N27B_1"]:
+                    elif financial_report.code in ["N28", "N33"]:
+                        vals['columns'] = []
+                        for i in range(8):
+                            vals['columns'].append({'name': ' '})
+                    elif financial_report.code in ["N27B_1"]:
                         vals['columns'] = []
                         for i in range(9):
                             vals['columns'].append({'name': ' '})
                     elif financial_report.code == "N37":
                         del vals['columns'][2]
                         del vals['columns'][1]
-                        if line.code == 'N37_H':
-                            vals['columns'][0]['name'] = 'Montant'
-                        else:
-                            #hier the line formula must be applied to catch the right value
-                            vals['columns'][0]['name'] = ' '
+                        if line.code == 'N37_H':                                
+                            vals['columns'][0]['name'] = ['   Montant   ']
                     elif financial_report.code == 'N8A':
                         vals['columns'] = []
                         for i in range(6):
@@ -1766,10 +1763,10 @@ class OhadaFinancialReportLine(models.Model):
                                                if type(d_column) == list else {'name': d_column})
                         vals['columns'].append(line._format({'name': vals['columns'][3]['no_format_name'] - vals['columns'][2]['no_format_name']})
                                                if type(d_column) == list else {'name': ' '})
-                    elif financial_report.code in ["N16B_2"] and line.sequence > 3:
-                        vals['columns'] = []
-                        for i in range(4):
-                            vals['columns'].append({'name': '0'})
+    #e                    elif financial_report.code in ["N16B_2"] and line.sequence > 3:
+    #                        vals['columns'] = []
+    #                        for i in range(4):
+    #                            vals['columns'].append({'name': '0'})
 
 
             final_result_table += result
@@ -1928,123 +1925,193 @@ class OhadaFinancialReportingDashboard(models.Model):
             data['this_year'] = datetime.now().year
             data['prev_year'] = datetime.now().year - 1
 
-        options = {'ir_filters': None,
-                   'date': {'date_to': str(year) + '-12-31', 'string': str(year), 'filter': 'this_year',
-                            'date_from': str(year) + '-01-01'},
-                   'all_entries': all_entries}
-
         data['options'] = report.make_temp_options(year)
-
         data['options']['all_entries'] = all_entries
-        data['years'] = [datetime.now().year, datetime.now().year - 1, datetime.now().year - 2, datetime.now().year - 3]
-        data['company_name'] = self.env['res.users'].browse(request.session.uid).company_id.name
+        data['years'] = [datetime.now().year, datetime.now().year - 1, datetime.now().year - 2, datetime.now().year - 3, datetime.now().year - 4, datetime.now().year - 5]
+        current_company_id = self.env['res.users'].browse(request.session.uid).company_id
+        data['company_name'] = current_company_id.name
 
         data['search_panel'] = self.env['ir.ui.view'].render_template('ohada_reports.dashboard_panel_template', values={'data': data})
 
         bz_id = self.env.ref('ohada_reports.account_financial_report_balancesheet_BZ').id
         dz_id = self.env.ref('ohada_reports.account_financial_report_balancesheet_DZ').id
-        xl_id = self.env.ref('ohada_reports.account_financial_report_ohada_profitlost_XI').id
+        xc_id = self.env.ref('ohada_reports.account_financial_report_ohada_profitlost_XC').id
+        xd_id = self.env.ref('ohada_reports.account_financial_report_ohada_profitlost_XD').id
+        xi_id = self.env.ref('ohada_reports.account_financial_report_ohada_profitlost_XI').id
         zh_id = self.env.ref('ohada_reports.account_financial_report_ohada_cashflow_ZH').id
+        rc_id = self.env.ref('ohada_reports.ohada_financial_report_note37_RC').id
+        ir_id = self.env.ref('ohada_reports.ohada_financial_report_note37_IR').id
 
         data['bs_id'] = self.env.ref('ohada_reports.ohada_report_balancesheet_0').id
         data['pl_id'] = self.env.ref('ohada_reports.account_financial_report_ohada_profitlost').id
         data['cf_id'] = self.env.ref('ohada_reports.account_financial_report_ohada_cashflow').id
 
-        # 1st
-        data['bz'] = data['bz_d'] = report._get_lines(options, bz_id)[0]['columns'][0]['no_format_name']
-        data['dz'] = report._get_lines(options, dz_id)[0]['columns'][0]['no_format_name']
-        data['dif_1'] = report.format_value(data['bz'] - data['dz'])
+        # BS Dash
+        report_bs = self.env['ohada.financial.html.report'].search([('code', '=', 'BS')], limit=1)
+        options = report_bs._get_options()
+        options.update({
+            'date': {'date_to': str(year) + '-12-31', 'string': str(year), 'filter': 'this_year'},
+            'all_entries': all_entries,
+        })
+        ctx = report._set_context(options)
+        data['bz'] = data['bz_d'] = report.with_context(ctx)._get_lines(options, bz_id)[0]['columns'][0]['no_format_name']
+        data['dz'] = report.with_context(ctx)._get_lines(options, dz_id)[0]['columns'][0]['no_format_name']
+        options.update({
+            'date': {'date_to': str(year - 1) + '-12-31', 'string': str(year), 'filter': 'this_year'},
+        })
+        ctx = report._set_context(options)
+        data['bz-1'] = data['bz-1_d'] = report.with_context(ctx)._get_lines(options, bz_id)[0]['columns'][0]['no_format_name']
+        data['dz-1'] = report.with_context(ctx)._get_lines(options, dz_id)[0]['columns'][0]['no_format_name']
+        options.update({
+            'date': {'date_to': str(year - 2) + '-12-31', 'string': str(year), 'filter': 'this_year'},
+        })
+        ctx = report._set_context(options)
+        data['bz-2'] = data['bz-2_d'] = report.with_context(ctx)._get_lines(options, bz_id)[0]['columns'][0]['no_format_name']
+        data['dz-2'] = report.with_context(ctx)._get_lines(options, dz_id)[0]['columns'][0]['no_format_name']
+
+        data['validation_bz_dz'] = report.format_value(data['bz'] - data['dz'])
+        if float(data['bz-1']) == 0.0:
+            data['variation_bz'] = _('n/a')
+        else:
+            data['variation_bz'] = '{:,.0f}%'.format(((data['bz']/data['bz-1'])-1)*100)
         data['bz'] = report.format_value(data['bz'])
         data['dz'] = report.format_value(data['dz'])
-
-        # 2nd
-        data['xl'] = data['xl_d'] = report._get_lines(options, xl_id)[0]['columns'][0]['no_format_name']
-        data['xl-1'] = data['xl-1_d'] = report._get_lines({'ir_filters': None,
-                                                         'date': {'date_to': str(year - 1) + '-12-31',
-                                                                  'string': str(year - 1), 'filter': 'this_year',
-                                                                  'date_from': str(year - 1) + '-01-01'}}, xl_id)[0]['columns'][0]['no_format_name']
-#        data['xl_dif'] = '$ {:,.2f}'.format(data['xl'] - data['xl-1'])
-        if float(data['xl-1']) == 0.0:
-            data['xl_dif'] = 'n/a'    
+        data['validation_bz-1_dz-1'] = report.format_value(data['bz-1'] - data['dz-1'])
+        if float(data['bz-2']) == 0.0:
+            data['variation_bz-1'] = _('n/a')
         else:
-            data['xl_dif'] = '{:,.1f}%'.format(((data['xl']/data['xl-1'])-1)*100)
-        data['xl'] = report.format_value(data['xl'])
-        data['xl-1'] = report.format_value(data['xl-1'])
+            data['variation_bz-1'] = '{:,.0f}%'.format(((data['bz-1']/data['bz-2'])-1)*100)
+        data['bz-1'] = report.format_value(data['bz-1'])
+        data['dz-1'] = report.format_value(data['dz-1'])
 
-        # 3st
-        data['zh'] = data['zh_d'] = report._get_lines(options, zh_id)[0]['columns'][0]['no_format_name']
-        data['zh-1'] = data['zh-1_d'] = report._get_lines({'ir_filters': None,
-                                                         'date': {'date_to': str(year - 1) + '-12-31',
-                                                                  'string': str(year - 1), 'filter': 'this_year',
-                                                                  'date_from': str(year - 1) + '-01-01'}}, zh_id)[0][
-            'columns'][0]['no_format_name']
-#        data['zh_dif'] = '$ {:,.2f}'.format(data['zh'] - data['zh-1'])
+        # P&L Dash
+        report_pl = self.env['ohada.financial.html.report'].search([('code', '=', 'PL')], limit=1)
+        options = report_pl._get_options()
+        options.update({
+            'date': {'date_to': str(year) + '-12-31', 'string': str(year), 'filter': 'this_year', 'date_from': str(year) + '-01-01'},
+            'all_entries': all_entries,
+        })
+        ctx = report._set_context(options)
+        data['xi'] = data['xi_d'] = report.with_context(ctx)._get_lines(options, xi_id)[0]['columns'][0]['no_format_name']
+        data['xi-1'] = data['xi-1_d'] = report.with_context(ctx)._get_lines({
+                                            'ir_filters': None,
+                                            'date': {'date_to': str(year - 1) + '-12-31',
+                                                    'string': str(year - 1), 'filter': 'this_year',
+                                                    'date_from': str(year - 1) + '-01-01'}
+                                            }, xi_id)[0]['columns'][0]['no_format_name']
+        if float(data['xi-1']) == 0.0:
+            data['xi_dif'] = _('n/a')
+        else:
+            data['xi_dif'] = '{:,.0f}%'.format(((data['xi']/data['xi-1'])-1)*100)
+        data['xi'] = report.format_value(data['xi'])
+        data['xi-1'] = report.format_value(data['xi-1'])
+        data['xc'] = report.with_context(ctx)._get_lines(options, xc_id)[0]['columns'][0]['no_format_name']
+        data['xd'] = report.with_context(ctx)._get_lines(options, xd_id)[0]['columns'][0]['no_format_name']
+        data['rc'] = report.with_context(ctx)._get_lines(options, rc_id)[0]['columns'][0]['no_format_name']
+        data['ir'] = report.with_context(ctx)._get_lines(options, ir_id)[0]['columns'][0]['no_format_name']
+        data['xc'] = report.format_value(data['xc'])
+        data['xd'] = report.format_value(data['xd'])
+        data['rc'] = report.format_value(data['rc'])
+        data['ir'] = report.format_value(data['ir'])
+
+        # CF Dash
+        report_cf = self.env['ohada.financial.html.report'].search([('code', '=', 'CF')], limit=1)
+        options = report_cf._get_options()
+        options.update({
+            'date': {'date_to': str(year) + '-12-31', 'string': str(year), 'filter': 'this_year', 'date_from': str(year) + '-01-01'},
+            'all_entries': all_entries,
+        })
+        ctx = report._set_context(options)
+
+        data['zh'] = data['zh_d'] = report.with_context(ctx)._get_lines(options, zh_id)[0]['columns'][0]['no_format_name']
+        data['zh-1'] = data['zh-1_d'] = report.with_context(ctx)._get_lines({
+                                            'ir_filters': None,
+                                            'date': {'date_to': str(year - 1) + '-12-31',
+                                                    'string': str(year - 1), 'filter': 'this_year',
+                                                    'date_from': str(year - 1) + '-01-01'}
+                                            }, zh_id)[0]['columns'][0]['no_format_name']
         if float(data['zh-1']) == 0.0:
-            data['zh_dif'] = 'n/a'    
+            data['zh_dif'] = _('n/a')
         else:
             data['zh_dif'] = '{:,.1f}%'.format(((data['zh']/data['zh-1'])-1)*100)
         data['zh'] = report.format_value(data['zh'])
         data['zh-1'] = report.format_value(data['zh-1'])
 
-        # diagrams
-        # [['2016',5], ['2017',1], ['2018',4], ['2019',1]] data for diagrams
-        data['di_data'] = {'BS': [], 'PL': [], 'CS': []}
-        
-        data['di_data']['BS'] = [[str(year - 3), report._get_lines({'ir_filters': None,
-                                                                  'date': {'date_to': str(year - 3) + '-12-31',
-                                                                           'string': str(year - 3),
-                                                                           'filter': 'this_year',
-                                                                           'date_from': str(year - 3) + '-01-01'}},
-                                                                 bz_id)[0]['columns'][0]['no_format_name']],
-                                 [str(year - 2), report._get_lines({'ir_filters': None,
-                                                                  'date': {'date_to': str(year - 2) + '-12-31',
-                                                                           'string': str(year - 2),
-                                                                           'filter': 'this_year',
-                                                                           'date_from': str(year - 2) + '-01-01'}},
-                                                                 bz_id)[0]['columns'][0]['no_format_name']],
-                                 [str(year - 1), report._get_lines({'ir_filters': None,
-                                                                  'date': {'date_to': str(year - 1) + '-12-31',
-                                                                           'string': str(year - 1),
-                                                                           'filter': 'this_year',
-                                                                           'date_from': str(year - 1) + '-01-01'}},
-                                                                 bz_id)[0]['columns'][0]['no_format_name']],
+        # Further Info
+        # Check whether there are unposted entries for the selected period or not
+        date_to = year and str(year) + '-12-31' or False
+        period_domain = [('state', '=', 'draft'), ('date', '<=', date_to)]
+        data['unposted_in_period'] = _("With Draft Entries") if bool(self.env['account.move'].search_count(period_domain)) else _("All Entries Posted")
+        # Set period/fiscalyear locking info
+        d_date_to = year and date(year, 12, 31) or False
+        data['period_lock_status'] = _("Opened")
+        if current_company_id.period_lock_date:
+            period_lock_date = date(current_company_id.period_lock_date.year, current_company_id.period_lock_date.month, current_company_id.period_lock_date.day)
+            if d_date_to and period_lock_date  >= d_date_to:
+                data['period_lock_status'] = _("Closed for non-accountants")
+        if current_company_id.fiscalyear_lock_date:
+            fiscalyear_lock_date = date(current_company_id.fiscalyear_lock_date.year, current_company_id.fiscalyear_lock_date.month, current_company_id.fiscalyear_lock_date.day)
+            if d_date_to and fiscalyear_lock_date  >= d_date_to:
+                data['period_lock_status'] = _("All Closed")
+
+
+        # Diagrams
+        data['di_data'] = {'BS': [], 'PL': [], 'CF': []}
+
+        data['di_data']['BS'] = [[str(year - 3), report.with_context(ctx)._get_lines({
+                                                'ir_filters': None,
+                                                'date': {'date_to': str(year - 3) + '-12-31',
+                                                        'string': str(year - 3),
+                                                        'filter': 'this_year',
+                                                        'date_from': str(year - 3) + '-01-01'}
+                                                }, bz_id)[0]['columns'][0]['no_format_name']],
+                                 [str(year - 2), report.with_context(ctx)._get_lines({
+                                                'ir_filters': None,
+                                                'date': {'date_to': str(year - 2) + '-12-31',
+                                                        'string': str(year - 2),
+                                                        'filter': 'this_year',
+                                                        'date_from': str(year - 2) + '-01-01'}
+                                                }, bz_id)[0]['columns'][0]['no_format_name']],
+                                 [str(year - 1), report.with_context(ctx)._get_lines({
+                                                'ir_filters': None,
+                                                'date': {'date_to': str(year - 1) + '-12-31',
+                                                        'string': str(year - 1),
+                                                        'filter': 'this_year',
+                                                        'date_from': str(year - 1) + '-01-01'}
+                                                }, bz_id)[0]['columns'][0]['no_format_name']],
                                  [str(year), data['bz_d']]]
 
-        data['di_data']['PL'] = [[str(year - 3), report._get_lines({'ir_filters': None,
-                                                                  'date': {'date_to': str(year - 3) + '-12-31',
-                                                                           'string': str(year - 3),
-                                                                           'filter': 'this_year',
-                                                                           'date_from': str(year - 3) + '-01-01'}},
-                                                                 xl_id)[0]['columns'][0]['no_format_name']],
-                                 [str(year - 2), report._get_lines({'ir_filters': None,
-                                                                  'date': {'date_to': str(year - 2) + '-12-31',
-                                                                           'string': str(year - 2),
-                                                                           'filter': 'this_year',
-                                                                           'date_from': str(year - 2) + '-01-01'}},
-                                                                 xl_id)[0]['columns'][0]['no_format_name']],
-                                 [str(year - 1), data['xl-1_d']],
-                                 [str(year), data['xl_d']]]
+        data['di_data']['PL'] = [[str(year - 3), report.with_context(ctx)._get_lines({
+                                                'ir_filters': None,
+                                                'date': {'date_to': str(year - 3) + '-12-31',
+                                                         'string': str(year - 3),
+                                                         'filter': 'this_year',
+                                                         'date_from': str(year - 3) + '-01-01'}
+                                                }, xi_id)[0]['columns'][0]['no_format_name']],
+                                 [str(year - 2), report.with_context(ctx)._get_lines({
+                                                'ir_filters': None,
+                                                'date': {'date_to': str(year - 2) + '-12-31',
+                                                         'string': str(year - 2),
+                                                         'filter': 'this_year',
+                                                         'date_from': str(year - 2) + '-01-01'}
+                                                }, xi_id)[0]['columns'][0]['no_format_name']],
+                                 [str(year - 1), data['xi-1_d']],
+                                 [str(year), data['xi_d']]]
 
-        # [{count: 1, l_month: "2016"},{count: 5, l_month: "2017"},{count: 4, l_month: "2018"},{count: 6, l_month: "2019"}]}]
-
-        data['di_data']['CS'] = [{'l_month': str(year - 3), 'count': report._get_lines({'ir_filters': None,
-                                                                                      'date': {'date_to': str(
-                                                                                          year - 3) + '-12-31',
-                                                                                               'string': str(year - 3),
-                                                                                               'filter': 'this_year',
-                                                                                               'date_from': str(
-                                                                                                   year - 3) + '-01-01'}},
-                                                                                     zh_id)[0]['columns'][0][
-            'no_format_name']},
-                                 {'l_month': str(year - 2), 'count': report._get_lines({'ir_filters': None,
-                                                                                      'date': {'date_to': str(
-                                                                                          year - 2) + '-12-31',
-                                                                                               'string': str(year - 2),
-                                                                                               'filter': 'this_year',
-                                                                                               'date_from': str(
-                                                                                                   year - 2) + '-01-01'}},
-                                                                                     zh_id)[0]['columns'][0][
-                                     'no_format_name']},
+        data['di_data']['CF'] = [{'l_month': str(year - 3), 'count': report.with_context(ctx)._get_lines({
+                                                'ir_filters': None,
+                                                'date': {'date_to': str(year - 3) + '-12-31',
+                                                         'string': str(year - 3),
+                                                         'filter': 'this_year',
+                                                         'date_from': str(year - 3) + '-01-01'}
+                                                }, zh_id)[0]['columns'][0]['no_format_name']},
+                                 {'l_month': str(year - 2), 'count': report.with_context(ctx)._get_lines({
+                                                'ir_filters': None,
+                                                'date': {'date_to': str(year - 2) + '-12-31',
+                                                         'string': str(year - 2),
+                                                         'filter': 'this_year',
+                                                         'date_from': str(year - 2) + '-01-01'}
+                                                }, zh_id)[0]['columns'][0]['no_format_name']},
                                  {'l_month': str(year - 1), 'count': data['zh-1_d']},
                                  {'l_month': str(year), 'count': data['zh_d']}]
 
@@ -2058,11 +2125,11 @@ class OhadaFinancialReportingDashboard(models.Model):
             data['notes'].append({'name': report.name, 'shortname': report.shortname.upper(), 'id': report.id, 'report_name': report.name})
 
         data['Cash Flow Statement'] = {'name': 'Tableau des flux de trésorerie',
-                                        'id': self.env.ref('ohada_reports.account_financial_report_ohada_cashflow').id}
+                                       'id': self.env.ref('ohada_reports.account_financial_report_ohada_cashflow').id}
         data['Profit and lost'] = {'name': 'Profit and Lost',
-                                    'id': self.env.ref('ohada_reports.account_financial_report_ohada_profitlost').id}
+                                   'id': self.env.ref('ohada_reports.account_financial_report_ohada_profitlost').id}
         data['Balance Sheet'] = {'name': 'Balance Sheet',
-                                    'id': self.env.ref('ohada_reports.ohada_report_balancesheet_0').id}
+                                 'id': self.env.ref('ohada_reports.ohada_report_balancesheet_0').id}
 
         return data
 
@@ -2074,7 +2141,6 @@ class OhadaCustomColumns(models.Model):
     line_id = fields.Many2one('ohada.financial.html.report.line', 'Financial Report Line')
     cell_id = fields.One2many('ohada.cell.style', 'column_id', default=False)
     line_name = fields.Boolean(default=True)
-
 
 
 class OhadaCellStyle(models.Model):
