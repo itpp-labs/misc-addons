@@ -4,6 +4,7 @@
 - **Improvment:** Images defined by URL are now uploaded as binary files
 - **Improvment:** Request to binary files with non-falsy `url` attribute return HTTP 301 response
 - **Improvment:** Removed requirement of setting ir_attachment_url as server wide module
+- **Discard:** Passing url to Binary/Image field is no longer supported
 
 `1.1.10`
 -------
