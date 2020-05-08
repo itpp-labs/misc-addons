@@ -1988,5 +1988,35 @@
                 <field name="column_id" ref="ohada_custom_columns_note32_2"/>
             </record>
 
+        <!--columns for note 31-->
+        <record id="ohada_custom_columns_note31_1" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note31_header_2"/>
+        </record>
+
+            <record id="ohada_cell_style_note31_1_1" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note31_1"/>
+            </record>
+
+            <record id="ohada_cell_style_note31_1_2" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note31_1"/>
+            </record>
+
+            <record id="ohada_cell_style_note31_1_3" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note31_1"/>
+            </record>
+
+            <record id="ohada_cell_style_note31_1_4" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note31_1"/>
+            </record>
+
+            <record id="ohada_cell_style_note31_1_5" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_note31_1"/>
+            </record>
+
     </data>
 </odoo>

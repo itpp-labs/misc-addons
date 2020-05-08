@@ -1705,9 +1705,6 @@ class OhadaFinancialReportLine(models.Model):
                         vals['columns'] = []
                         for i in range(4):
                             vals['columns'].append({'name': ' '})
-                    elif financial_report.code == 'N31' and line.code == '_N31_2':
-                        for i in range(5):
-                            vals['columns'][i]['name'] = ' '
                     elif (financial_report.code in ['N13', 'N31', 'N12', 'N12_1'] and line.sequence > 1):
                         vals['columns'] = []
                         for i in range(5):
@@ -1720,10 +1717,11 @@ class OhadaFinancialReportLine(models.Model):
     #                        vals['columns'].pop()
                     elif financial_report.code in ["N27B"]:
                         vals['columns'] = []
-                        for i in range(14):
-                            if line.sequence in [1, 2, 3]:
-                                vals['columns'].append({'name': ' A '})
-                            else:
+                        if line.sequence < 11:
+                            for i in range(14):
+                                vals['columns'].append({'name': ' '})
+                        if line.sequence > 11:
+                            for i in range(9):
                                 vals['columns'].append({'name': ' '})
                     elif financial_report.code in ["N32"]:
                         vals['columns'] = []

@@ -311,7 +311,7 @@
         <field name="header" eval="True" />
         <field name="financial_report_id" ref="ohada_financial_report_note1"/>
         <field name="level" eval="1" />
-        <field name="colspan" eval="5" />
+        <field name="colspan" eval="3" />
         <field name="sequence" eval="26"/>
         <field name="groupby">account_id</field>
     </record>
@@ -321,7 +321,7 @@
         <field name="code">N1_26</field>
         <field name="financial_report_id" ref="ohada_financial_report_note1"/>
         <field name="level" eval="2" />
-        <field name="colspan" eval="5" />
+        <field name="colspan" eval="3" />
         <field name="sequence" eval="27"/>
         <field name="groupby">account_id</field>
     </record>
@@ -331,7 +331,7 @@
         <field name="code">N1_27</field>
         <field name="financial_report_id" ref="ohada_financial_report_note1"/>
         <field name="level" eval="2" />
-        <field name="colspan" eval="5" />
+        <field name="colspan" eval="3" />
         <field name="sequence" eval="28"/>
         <field name="groupby">account_id</field>
     </record>
@@ -341,7 +341,7 @@
         <field name="code">N1_28</field>
         <field name="financial_report_id" ref="ohada_financial_report_note1"/>
         <field name="level" eval="2" />
-        <field name="colspan" eval="5" />
+        <field name="colspan" eval="3" />
         <field name="sequence" eval="29"/>
         <field name="groupby">account_id</field>
     </record>
@@ -351,7 +351,7 @@
         <field name="code">N1_29</field>
         <field name="financial_report_id" ref="ohada_financial_report_note1"/>
         <field name="level" eval="2" />
-        <field name="colspan" eval="5" />
+        <field name="colspan" eval="3" />
         <field name="sequence" eval="30"/>
         <field name="groupby">account_id</field>
     </record>
@@ -361,7 +361,7 @@
         <field name="code">N1_30</field>
         <field name="financial_report_id" ref="ohada_financial_report_note1"/>
         <field name="level" eval="2" />
-        <field name="colspan" eval="5" />
+        <field name="colspan" eval="3" />
         <field name="sequence" eval="31"/>
         <field name="groupby">account_id</field>
     </record>
@@ -371,7 +371,7 @@
         <field name="code">N1_31</field>
         <field name="financial_report_id" ref="ohada_financial_report_note1"/>
         <field name="level" eval="2" />
-        <field name="colspan" eval="5" />
+        <field name="colspan" eval="3" />
         <field name="sequence" eval="32"/>
         <field name="groupby">account_id</field>
     </record>
@@ -381,7 +381,7 @@
         <field name="code">N1_32</field>
         <field name="financial_report_id" ref="ohada_financial_report_note1"/>
         <field name="level" eval="2" />
-        <field name="colspan" eval="5" />
+        <field name="colspan" eval="3" />
         <field name="sequence" eval="33"/>
         <field name="groupby">account_id</field>
     </record>
@@ -391,7 +391,7 @@
         <field name="code">N1_33</field>
         <field name="financial_report_id" ref="ohada_financial_report_note1"/>
         <field name="level" eval="0" />
-        <field name="colspan" eval="5" />
+        <field name="colspan" eval="3" />
         <field name="sequence" eval="34"/>
         <field name="groupby">account_id</field>
     </record>
@@ -1412,7 +1412,7 @@
         <field name="colspan">3</field>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
-        <field name="sequence" eval="0"/>
+        <field name="sequence" eval="1"/>
         <field name="level" eval="5" />
     </record>
 
@@ -1423,7 +1423,7 @@
         <field name="colspan">3</field>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
-        <field name="sequence" eval="1"/>
+        <field name="sequence" eval="2"/>
         <field name="level" eval="2" />
     </record>
 
@@ -1433,7 +1433,7 @@
         <field name="header" eval="True"/>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="0" />
-        <field name="sequence" eval="2"/>
+        <field name="sequence" eval="3"/>
     </record>
 
     <record id="ohada_financial_report_note3e_2" model="ohada.financial.html.report.line">
@@ -1441,7 +1441,7 @@
         <field name="code">N3e_2</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="2" />
-        <field name="sequence" eval="3"/>
+        <field name="sequence" eval="4"/>
     </record>
 
     <record id="ohada_financial_report_note3e_3" model="ohada.financial.html.report.line">
@@ -1449,7 +1449,7 @@
         <field name="code">N3e_3</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="2" />
-        <field name="sequence" eval="4"/>
+        <field name="sequence" eval="5"/>
     </record>
 
     <record id="ohada_financial_report_note3e_4" model="ohada.financial.html.report.line">
@@ -1457,7 +1457,7 @@
         <field name="code">N3e_4</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="2" />
-        <field name="sequence" eval="5"/>
+        <field name="sequence" eval="6"/>
     </record>
 
     <record id="ohada_financial_report_note3e_5" model="ohada.financial.html.report.line">
@@ -1465,7 +1465,7 @@
         <field name="code">N3e_5</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="2" />
-        <field name="sequence" eval="6"/>
+        <field name="sequence" eval="7"/>
     </record>
 
     <record id="ohada_financial_report_note3e_6" model="ohada.financial.html.report.line">
@@ -1473,7 +1473,7 @@
         <field name="code">N3e_6</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="2" />
-        <field name="sequence" eval="7"/>
+        <field name="sequence" eval="8"/>
     </record>
 
     <record id="ohada_financial_report_note3e_7" model="ohada.financial.html.report.line">
@@ -1481,7 +1481,7 @@
         <field name="code">N3e_7</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="2" />
-        <field name="sequence" eval="8"/>
+        <field name="sequence" eval="9"/>
     </record>
 
     <record id="ohada_financial_report_note3e_8" model="ohada.financial.html.report.line">
@@ -1489,7 +1489,7 @@
         <field name="code">N3e_8</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="2" />
-        <field name="sequence" eval="9"/>
+        <field name="sequence" eval="10"/>
     </record>
 
     <record id="ohada_financial_report_note3e_9" model="ohada.financial.html.report.line">
@@ -1497,7 +1497,7 @@
         <field name="code">N3e_9</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="2" />
-        <field name="sequence" eval="10"/>
+        <field name="sequence" eval="11"/>
     </record>
 
     <record id="ohada_financial_report_note3e_10" model="ohada.financial.html.report.line">
@@ -1505,7 +1505,7 @@
         <field name="code">N3e_10</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="2" />
-        <field name="sequence" eval="11"/>
+        <field name="sequence" eval="12"/>
     </record>
 
     <record id="ohada_financial_report_note3e_11" model="ohada.financial.html.report.line">
@@ -1513,7 +1513,7 @@
         <field name="code">N3e_11</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="2" />
-        <field name="sequence" eval="12"/>
+        <field name="sequence" eval="13"/>
     </record>
 
     <record id="ohada_financial_report_note3e_12" model="ohada.financial.html.report.line">
@@ -1521,7 +1521,7 @@
         <field name="code">N3e_12</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="2" />
-        <field name="sequence" eval="13"/>
+        <field name="sequence" eval="14"/>
     </record>
 
     <record id="ohada_financial_report_note3e_13" model="ohada.financial.html.report.line">
@@ -1529,7 +1529,7 @@
         <field name="code">N3e_13</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="2" />
-        <field name="sequence" eval="14"/>
+        <field name="sequence" eval="15"/>
     </record>
 
     <record id="ohada_financial_report_note3e_14" model="ohada.financial.html.report.line">
@@ -1537,7 +1537,7 @@
         <field name="code">N3e_14</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="2" />
-        <field name="sequence" eval="15"/>
+        <field name="sequence" eval="16"/>
     </record>
 
     <record id="ohada_financial_report_note3e_15" model="ohada.financial.html.report.line">
@@ -1545,7 +1545,7 @@
         <field name="code">N3e_15</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="2" />
-        <field name="sequence" eval="16"/>
+        <field name="sequence" eval="17"/>
     </record>
 
     <record id="ohada_financial_report_note3e_16" model="ohada.financial.html.report.line">
@@ -1553,7 +1553,7 @@
         <field name="code">N3e_16</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="2" />
-        <field name="sequence" eval="17"/>
+        <field name="sequence" eval="18"/>
     </record>
 
     <record id="ohada_financial_report_note3e_17" model="ohada.financial.html.report.line">
@@ -1561,7 +1561,7 @@
         <field name="code">N3e_17</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="2" />
-        <field name="sequence" eval="18"/>
+        <field name="sequence" eval="19"/>
     </record>
 
     <record id="ohada_financial_report_note3e_18" model="ohada.financial.html.report.line">
@@ -1569,7 +1569,7 @@
         <field name="code">N3e_18</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="2" />
-        <field name="sequence" eval="19"/>
+        <field name="sequence" eval="20"/>
     </record>
 
     <record id="ohada_financial_report_note3e_19" model="ohada.financial.html.report.line">
@@ -1577,7 +1577,7 @@
         <field name="code">N3e_19</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="2" />
-        <field name="sequence" eval="20"/>
+        <field name="sequence" eval="21"/>
     </record>
 
     <record id="ohada_financial_report_note3e_20" model="ohada.financial.html.report.line">
@@ -1585,7 +1585,7 @@
         <field name="code">N3e_20</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="2" />
-        <field name="sequence" eval="21"/>
+        <field name="sequence" eval="22"/>
     </record>
 
     <record id="ohada_financial_report_note3e_21" model="ohada.financial.html.report.line">
@@ -1593,7 +1593,7 @@
         <field name="code">N3e_21</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="2" />
-        <field name="sequence" eval="22"/>
+        <field name="sequence" eval="23"/>
     </record>
 
     <record id="ohada_financial_report_note3e_22" model="ohada.financial.html.report.line">
@@ -1602,7 +1602,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="5" />
         <field name="colspan">3</field>
-        <field name="sequence" eval="23"/>
+        <field name="sequence" eval="24"/>
     </record>
 
     <record id="ohada_financial_report_note3e_22t" model="ohada.financial.html.report.line">
@@ -1611,7 +1611,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="2" />
         <field name="colspan">3</field>
-        <field name="sequence" eval="24"/>
+        <field name="sequence" eval="25"/>
     </record>
 
     <record id="ohada_financial_report_note3e_23" model="ohada.financial.html.report.line">
@@ -1620,7 +1620,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="5" />
         <field name="colspan">3</field>
-        <field name="sequence" eval="25"/>
+        <field name="sequence" eval="26"/>
     </record>
 
     <record id="ohada_financial_report_note3e_23t" model="ohada.financial.html.report.line">
@@ -1629,7 +1629,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="2" />
         <field name="colspan">3</field>
-        <field name="sequence" eval="26"/>
+        <field name="sequence" eval="27"/>
     </record>
 
     <record id="ohada_financial_report_note3e_24" model="ohada.financial.html.report.line">
@@ -1638,7 +1638,7 @@
         <field name="colspan">2</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
         <field name="level" eval="0" />
-        <field name="sequence" eval="27"/>
+        <field name="sequence" eval="28"/>
     </record>
 
 
@@ -7209,7 +7209,7 @@
         <field name="header">Effectifs, masse salariale et personnel extérieur</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
-        <field name="double_report" eval="True"/>
+        <field name="double_report" eval="False"/>
         <field name="type">note</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
@@ -7323,28 +7323,22 @@
         <field name="sequence" eval="10"/>
     </record>
 
-    <!--NOTE 27B_1 (domains and report header not correct)-->
-
-    <record id="ohada_financial_report_note27b_1" model="ohada.financial.html.report">
-        <field name="name">Note 27B.1</field>
-        <field name="shortname">Note 27B.1</field>
-        <field name="code">N27B_1</field>
-        <field name="debit_credit" eval="False"/>
-        <field name="analytic" eval="True"/>
-        <field name="double_report" eval="False"/>
-        <field name='secondary' eval="True"/>
-        <field name="type">note</field>
-        <field name="header"> </field>
-        <field name="unfold_all_filter" eval="True"/>
-        <field name="show_journal_filter" eval="True"/>
+    <record id="ohada_financial_report_note_27b_spacer" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="colspan" eval="16"/>
+        <field name="code">N27B_sp</field>
+        <field name="header" eval="True"/>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b"/>
+        <field name="sequence" eval="11"/>
+        <field name="level" eval="2" />
     </record>
 
     <record id="ohada_financial_report_note27b_1_header" model="ohada.financial.html.report.line">
         <field name="name">Personnel extérieur</field>
         <field name="code">N27B_1_H</field>
         <field name="header" eval="True"/>
-        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>
-        <field name="sequence" eval="1"/>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b"/>
+        <field name="sequence" eval="12"/>
         <field name="level" eval="2" />
     </record>
 
@@ -7352,11 +7346,11 @@
         <field name="name">1. Cadres supérieurs</field>
         <field name="code">N27B_1_1</field>
         <field name="reference">YH</field>
-        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b"/>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="2" />
-        <field name="sequence" eval="4"/>
+        <field name="sequence" eval="13"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -7364,11 +7358,11 @@
         <field name="name">2. Techniciens supérieurs et cadres moyens</field>
         <field name="code">N27B_1_2</field>
         <field name="reference">YI</field>
-        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b"/>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="2" />
-        <field name="sequence" eval="5"/>
+        <field name="sequence" eval="14"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -7376,11 +7370,11 @@
         <field name="name">3. Techniciens, agents de maitrise et ouvriers qualifiés</field>
         <field name="code">N27B_1_3</field>
         <field name="reference">YJ</field>
-        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b"/>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="2" />
-        <field name="sequence" eval="6"/>
+        <field name="sequence" eval="15"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -7388,11 +7382,11 @@
         <field name="name">4. Employés, manoeurvres, ouvriers et apprentis</field>
         <field name="code">N27B_1_4</field>
         <field name="reference">YK</field>
-        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b"/>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="2" />
-        <field name="sequence" eval="7"/>
+        <field name="sequence" eval="16"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -7400,43 +7394,159 @@
         <field name="name">TOTAL (2)</field>
         <field name="code">N27B_1_T1</field>
         <field name="reference">YL</field>
-        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b"/>
         <field name="formulas">balance = N27B_1_1.balance + N27B_1_2.balance + N27B_1_3.balance + N27B_1_4.balance</field>
         <field name="level" eval="1" />
-        <field name="sequence" eval="8"/>
+        <field name="sequence" eval="17"/>
     </record>
 
     <record id="ohada_financial_report_note27b_1_5" model="ohada.financial.html.report.line">
         <field name="name">Permanents</field>
         <field name="code">N27B_1_5</field>
         <field name="reference">YM</field>
-        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b"/>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="2" />
-        <field name="sequence" eval="9"/>
+        <field name="sequence" eval="18"/>
     </record>
 
     <record id="ohada_financial_report_note27b_1_6" model="ohada.financial.html.report.line">
         <field name="name">Saisonniers</field>
         <field name="code">N27B_1_6</field>
         <field name="reference">YN</field>
-        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b"/>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="2" />
-        <field name="sequence" eval="10"/>
+        <field name="sequence" eval="19"/>
     </record>
 
     <record id="ohada_financial_report_note27b_1_t2" model="ohada.financial.html.report.line">
         <field name="name">TOTAL (1 + 2)</field>
         <field name="code">N27B_1_T2</field>
         <field name="reference">YO</field>
-        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>
+        <field name="financial_report_id" ref="ohada_financial_report_note27b"/>
         <field name="formulas">balance = N27B_T1.balance + N27B_1_T1.balance</field>
         <field name="level" eval="1" />
-        <field name="sequence" eval="11"/>
+        <field name="sequence" eval="20"/>
     </record>
+
+
+    <!--NOTE 27B_1 (domains and report header not correct)-->
+
+<!--    <record id="ohada_financial_report_note27b_1" model="ohada.financial.html.report">-->
+<!--        <field name="name">Note 27B.1</field>-->
+<!--        <field name="shortname">Note 27B.1</field>-->
+<!--        <field name="code">N27B_1</field>-->
+<!--        <field name="debit_credit" eval="False"/>-->
+<!--        <field name="analytic" eval="True"/>-->
+<!--        <field name="double_report" eval="False"/>-->
+<!--        <field name='secondary' eval="True"/>-->
+<!--        <field name="type">note</field>-->
+<!--        <field name="header"> </field>-->
+<!--        <field name="unfold_all_filter" eval="True"/>-->
+<!--        <field name="show_journal_filter" eval="True"/>-->
+<!--    </record>-->
+
+<!--    <record id="ohada_financial_report_note27b_1_header" model="ohada.financial.html.report.line">-->
+<!--        <field name="name">Personnel extérieur</field>-->
+<!--        <field name="code">N27B_1_H</field>-->
+<!--        <field name="header" eval="True"/>-->
+<!--        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>-->
+<!--        <field name="sequence" eval="1"/>-->
+<!--        <field name="level" eval="2" />-->
+<!--    </record>-->
+
+<!--    <record id="ohada_financial_report_note27b_1_1" model="ohada.financial.html.report.line">-->
+<!--        <field name="name">1. Cadres supérieurs</field>-->
+<!--        <field name="code">N27B_1_1</field>-->
+<!--        <field name="reference">YH</field>-->
+<!--        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>-->
+<!--        <field name="domain" eval="[('account_id.code', '=like', '000%')]" />-->
+<!--        <field name="formulas">balance = sum.balance</field>-->
+<!--        <field name="level" eval="2" />-->
+<!--        <field name="sequence" eval="4"/>-->
+<!--        <field name="groupby">account_id</field>-->
+<!--    </record>-->
+
+<!--    <record id="ohada_financial_report_note27b_1_2" model="ohada.financial.html.report.line">-->
+<!--        <field name="name">2. Techniciens supérieurs et cadres moyens</field>-->
+<!--        <field name="code">N27B_1_2</field>-->
+<!--        <field name="reference">YI</field>-->
+<!--        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>-->
+<!--        <field name="domain" eval="[('account_id.code', '=like', '000%')]" />-->
+<!--        <field name="formulas">balance = sum.balance</field>-->
+<!--        <field name="level" eval="2" />-->
+<!--        <field name="sequence" eval="5"/>-->
+<!--        <field name="groupby">account_id</field>-->
+<!--    </record>-->
+
+<!--    <record id="ohada_financial_report_note27b_1_3" model="ohada.financial.html.report.line">-->
+<!--        <field name="name">3. Techniciens, agents de maitrise et ouvriers qualifiés</field>-->
+<!--        <field name="code">N27B_1_3</field>-->
+<!--        <field name="reference">YJ</field>-->
+<!--        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>-->
+<!--        <field name="domain" eval="[('account_id.code', '=like', '000%')]" />-->
+<!--        <field name="formulas">balance = sum.balance</field>-->
+<!--        <field name="level" eval="2" />-->
+<!--        <field name="sequence" eval="6"/>-->
+<!--        <field name="groupby">account_id</field>-->
+<!--    </record>-->
+
+<!--    <record id="ohada_financial_report_note27b_1_4" model="ohada.financial.html.report.line">-->
+<!--        <field name="name">4. Employés, manoeurvres, ouvriers et apprentis</field>-->
+<!--        <field name="code">N27B_1_4</field>-->
+<!--        <field name="reference">YK</field>-->
+<!--        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>-->
+<!--        <field name="domain" eval="[('account_id.code', '=like', '000%')]" />-->
+<!--        <field name="formulas">balance = sum.balance</field>-->
+<!--        <field name="level" eval="2" />-->
+<!--        <field name="sequence" eval="7"/>-->
+<!--        <field name="groupby">account_id</field>-->
+<!--    </record>-->
+
+<!--    <record id="ohada_financial_report_note27b_1_t1" model="ohada.financial.html.report.line">-->
+<!--        <field name="name">TOTAL (2)</field>-->
+<!--        <field name="code">N27B_1_T1</field>-->
+<!--        <field name="reference">YL</field>-->
+<!--        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>-->
+<!--        <field name="formulas">balance = N27B_1_1.balance + N27B_1_2.balance + N27B_1_3.balance + N27B_1_4.balance</field>-->
+<!--        <field name="level" eval="1" />-->
+<!--        <field name="sequence" eval="8"/>-->
+<!--    </record>-->
+
+<!--    <record id="ohada_financial_report_note27b_1_5" model="ohada.financial.html.report.line">-->
+<!--        <field name="name">Permanents</field>-->
+<!--        <field name="code">N27B_1_5</field>-->
+<!--        <field name="reference">YM</field>-->
+<!--        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>-->
+<!--        <field name="domain" eval="[('account_id.code', '=like', '000%')]" />-->
+<!--        <field name="formulas">balance = sum.balance</field>-->
+<!--        <field name="level" eval="2" />-->
+<!--        <field name="sequence" eval="9"/>-->
+<!--    </record>-->
+
+<!--    <record id="ohada_financial_report_note27b_1_6" model="ohada.financial.html.report.line">-->
+<!--        <field name="name">Saisonniers</field>-->
+<!--        <field name="code">N27B_1_6</field>-->
+<!--        <field name="reference">YN</field>-->
+<!--        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>-->
+<!--        <field name="domain" eval="[('account_id.code', '=like', '000%')]" />-->
+<!--        <field name="formulas">balance = sum.balance</field>-->
+<!--        <field name="level" eval="2" />-->
+<!--        <field name="sequence" eval="10"/>-->
+<!--    </record>-->
+
+<!--    <record id="ohada_financial_report_note27b_1_t2" model="ohada.financial.html.report.line">-->
+<!--        <field name="name">TOTAL (1 + 2)</field>-->
+<!--        <field name="code">N27B_1_T2</field>-->
+<!--        <field name="reference">YO</field>-->
+<!--        <field name="financial_report_id" ref="ohada_financial_report_note27b_1"/>-->
+<!--        <field name="formulas">balance = N27B_T1.balance + N27B_1_T1.balance</field>-->
+<!--        <field name="level" eval="1" />-->
+<!--        <field name="sequence" eval="11"/>-->
+<!--    </record>-->
 
 
     <!--NOTE 28 (domains and report header not correct)-->
@@ -7472,7 +7582,7 @@
         <field name="header" eval="True"/>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_note28"/>
-        <field name="sequence" eval="1"/>
+        <field name="sequence" eval="2"/>
         <field name="level" eval="0" />
     </record>
 
@@ -7484,7 +7594,7 @@
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="0" />
-        <field name="sequence" eval="2"/>
+        <field name="sequence" eval="3"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -7495,7 +7605,7 @@
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="0" />
-        <field name="sequence" eval="3"/>
+        <field name="sequence" eval="4"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -7506,7 +7616,7 @@
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="2" />
-        <field name="sequence" eval="4"/>
+        <field name="sequence" eval="5"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -7517,7 +7627,7 @@
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="2" />
-        <field name="sequence" eval="5"/>
+        <field name="sequence" eval="6"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -7528,7 +7638,7 @@
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="2" />
-        <field name="sequence" eval="6"/>
+        <field name="sequence" eval="7"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -7539,7 +7649,7 @@
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="0" />
-        <field name="sequence" eval="7"/>
+        <field name="sequence" eval="8"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -7550,7 +7660,7 @@
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="2" />
-        <field name="sequence" eval="8"/>
+        <field name="sequence" eval="9"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -7561,7 +7671,7 @@
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="2" />
-        <field name="sequence" eval="9"/>
+        <field name="sequence" eval="10"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -7572,7 +7682,7 @@
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="2" />
-        <field name="sequence" eval="10"/>
+        <field name="sequence" eval="11"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -7583,7 +7693,7 @@
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="2" />
-        <field name="sequence" eval="11"/>
+        <field name="sequence" eval="12"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -7594,7 +7704,7 @@
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="2" />
-        <field name="sequence" eval="12"/>
+        <field name="sequence" eval="13"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -7605,7 +7715,7 @@
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="2" />
-        <field name="sequence" eval="13"/>
+        <field name="sequence" eval="14"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -7616,7 +7726,7 @@
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="2" />
-        <field name="sequence" eval="14"/>
+        <field name="sequence" eval="15"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -7627,7 +7737,7 @@
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="2" />
-        <field name="sequence" eval="15"/>
+        <field name="sequence" eval="16"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -7638,7 +7748,7 @@
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="2" />
-        <field name="sequence" eval="16"/>
+        <field name="sequence" eval="17"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -7649,7 +7759,7 @@
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="2" />
-        <field name="sequence" eval="17"/>
+        <field name="sequence" eval="18"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -7660,7 +7770,7 @@
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="0" />
-        <field name="sequence" eval="18"/>
+        <field name="sequence" eval="19"/>
         <field name="groupby">account_id</field>
     </record>
 
@@ -8221,7 +8331,7 @@
         <field name="header" eval="True"/>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_note31"/>
-        <field name="sequence" eval="1"/>
+        <field name="sequence" eval="2"/>
         <field name="level" eval="0" />
     </record>
 
