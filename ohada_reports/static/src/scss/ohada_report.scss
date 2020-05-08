@@ -347,6 +347,7 @@ $ohada-font-bold: 'NimbusSanL-Bold';
     }
     .o_ohada_reports_level6 {
         border-bottom: 1px solid $ohada-primary-color;
+        height: 200px;
         > td.o_ohada_report_line_indent > span:last-child {
             margin-left: 15px;
         }

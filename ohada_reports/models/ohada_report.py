@@ -712,17 +712,19 @@ class OhadaReport(models.AbstractModel):
         if options.get('hierarchy'):
             lines = self._create_hierarchy(lines)
         footnotes_to_render = []
-        # if self.env.context.get('print_mode', False):
-        #     # we are in print mode, so compute footnote number and include them in lines values, otherwise, let the js compute the number correctly as
-        #     # we don't know all the visible lines.
-        #     footnotes = dict([(str(f.line), f) for f in report_manager.footnotes_ids])
-        #     number = 0
-        #     for line in lines:
-        #         f = footnotes.get(str(line.get('id')))
-        #         if f:
-        #             number += 1
-        #             line['footnote'] = str(number)
-        #             footnotes_to_render.append({'id': f.id, 'number': number, 'text': f.text})
+        # import wdb
+        # wdb.set_trace()
+        if self.env.context.get('print_mode', False):
+            # we are in print mode, so compute footnote number and include them in lines values, otherwise, let the js compute the number correctly as
+            # we don't know all the visible lines.
+            footnotes = dict([(str(f.line), f) for f in report_manager.footnotes_ids])
+            number = 0
+            for line in lines:
+                f = footnotes.get(str(line.get('id')))
+                if f:
+                    number += 1
+                    line['footnote'] = str(number)
+                    footnotes_to_render.append({'id': f.id, 'number': number, 'text': f.text})
         rcontext = {'report': report,
                     'lines': {'columns_header': self.get_header(options), 'lines': lines},
                     'options': options,
@@ -1737,8 +1739,8 @@ class OhadaReport(models.AbstractModel):
         g_rcontext['report'] = rcontext['report']
         g_rcontext['report']['double_report'] = True
         g_rcontext['report']['summary'] = summary
-        g_rcontext['report']['header'] = self.header and self.header.upper()        
-        g_rcontext['report']['header_2'] = reports[0].header.upper() if self.code not in ['N16B'] else ' '      #E
+        g_rcontext['report']['header'] = self.header and self.header.upper()
+        g_rcontext['report']['header_2'] = reports[1].header.upper() if self.code not in ['N16B'] else ' '      #E
         g_rcontext['options'] = rcontext['options']
         g_rcontext['report']['name'] = self.name.upper()
         g_rcontext['model'] = rcontext['model']

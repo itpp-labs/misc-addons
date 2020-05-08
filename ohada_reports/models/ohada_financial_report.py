@@ -1314,6 +1314,7 @@ class OhadaFinancialReportLine(models.Model):
             res = []
             debit_credit = len(comparison_table) == 1
             if financial_report.code == 'BS1' and options['comparison']['filter'] == 'no_comparison':
+
                 debit_credit = len(comparison_table) == 2
             domain_ids = {'line'}
             k = 0
@@ -1553,12 +1554,12 @@ class OhadaFinancialReportLine(models.Model):
                         for i in range(len(header_list)):
                             vals['columns'].append({'name': header_list[i]})
                     elif (line.sequence == 1 and financial_report.code not in ['N16B', 'N16B_1', 'N16B_2', 'N16BB', 'N16BB_1']) or (financial_report.code in ['N16B', 'N16B_1', 'N16B_2', 'N16BB', 'N16BB_1'] and line.sequence == 2):
-                        vals['columns'][0]['name'] = ['ANNEE ' + line._context['date_from'][0:4]]
+                        vals['columns'][0]['name'] = ['ANNEE ' + line._context['date_from'][0:4]] if financial_report.code not in ['N31'] else [line._context['date_from'][0:4]]
                         if len(vals['columns']) > 1 and line._context.get('periods') != None \
                                 and options['comparison']['filter'] == 'no_comparison' or len(
                             options['comparison']['periods']) > 1:
                             for i in range(len(vals['columns'][1:])):
-                                vals['columns'][i + 1]['name'] = ['ANNEE ' + line._context['periods'][i]['string']]
+                                vals['columns'][i + 1]['name'] = ['ANNEE ' + line._context['periods'][i]['string']] if financial_report.code not in ['N31'] else [line._context['periods'][i]['string']]
                             if financial_report.code not in ['N31', 'N16B', 'N16B_1', 'N16B_2', 'N16BB', 'N16BB_1']:
                                 vals['columns'][- 1]['name'] = ['Variation en %']
                         elif len(vals['columns']) > 1 and line._context.get('periods') != None:
@@ -1763,10 +1764,8 @@ class OhadaFinancialReportLine(models.Model):
                                                if type(d_column) == list else {'name': d_column})
                         vals['columns'].append(line._format({'name': vals['columns'][3]['no_format_name'] - vals['columns'][2]['no_format_name']})
                                                if type(d_column) == list else {'name': ' '})
-    #e                    elif financial_report.code in ["N16B_2"] and line.sequence > 3:
-    #                        vals['columns'] = []
-    #                        for i in range(4):
-    #                            vals['columns'].append({'name': '0'})
+                    elif financial_report.code in ["N16B_2", "N16BB_1"] and line.sequence > 3:
+                       vals['columns'].append({'name': ' '})
 
 
             final_result_table += result

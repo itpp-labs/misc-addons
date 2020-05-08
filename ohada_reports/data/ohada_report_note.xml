@@ -33,7 +33,7 @@
         <field name="name"> </field>
         <field name="code">N1_1</field>
         <field name="financial_report_id" ref="ohada_financial_report_note1"/>
-        <field name="level" eval="7" />
+        <field name="level" eval="0" />
         <field name="sequence" eval="2"/>
         <field name="groupby">account_id</field>
     </record>
@@ -4766,7 +4766,7 @@
         <field name="shortname">Note 16B.2</field>
         <field name="code">N16B_2</field>
         <field name="header"> </field>
-        <field name="debit_credit" eval="False"/>
+        <field name="debit_credit" eval="True"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name='secondary' eval="True"/>
@@ -8487,6 +8487,7 @@
         <field name="code">_n32_1</field>
         <field name="header" eval="True"/>
         <field name="reference"></field>
+        <field name="rowspan">2</field>
         <field name="financial_report_id" ref="ohada_financial_report_note32"/>
         <field name="sequence" eval="1"/>
         <field name="level" eval="0" />

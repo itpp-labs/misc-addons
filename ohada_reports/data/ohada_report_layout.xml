@@ -1876,6 +1876,117 @@
                 <field name="column_id" ref="ohada_custom_columns_note16b_bis_1_2"/>
             </record>
 
+        <!--columns for note 32-->
+        <record id="ohada_custom_columns_note32_1" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note32_header"/>
+        </record>
+
+            <record id="ohada_cell_style_note32_1_1" model="ohada.cell.style">
+                <field name="name">String</field>
+                <field name="rowspan">2</field>
+                <field name="column_id" ref="ohada_custom_columns_note32_1"/>
+            </record>
+
+            <record id="ohada_cell_style_note32_1_2" model="ohada.cell.style">
+                <field name="name">String</field>
+                <field name="colspan">2</field>
+                <field name="column_id" ref="ohada_custom_columns_note32_1"/>
+            </record>
+
+            <record id="ohada_cell_style_note32_1_3" model="ohada.cell.style">
+                <field name="name">String</field>
+                <field name="colspan">2</field>
+                <field name="column_id" ref="ohada_custom_columns_note32_1"/>
+            </record>
+
+            <record id="ohada_cell_style_note32_1_4" model="ohada.cell.style">
+                <field name="name">String</field>
+                <field name="colspan">2</field>
+                <field name="column_id" ref="ohada_custom_columns_note32_1"/>
+            </record>
+
+            <record id="ohada_cell_style_note32_1_5" model="ohada.cell.style">
+                <field name="name">String</field>
+                <field name="colspan">2</field>
+                <field name="column_id" ref="ohada_custom_columns_note32_1"/>
+            </record>
+
+            <record id="ohada_cell_style_note32_1_6" model="ohada.cell.style">
+                <field name="name">String</field>
+                <field name="colspan">2</field>
+                <field name="column_id" ref="ohada_custom_columns_note32_1"/>
+            </record>
+
+            <record id="ohada_cell_style_note32_1_7" model="ohada.cell.style">
+                <field name="name">String</field>
+                <field name="colspan">2</field>
+                <field name="column_id" ref="ohada_custom_columns_note32_1"/>
+            </record>
+
+        <record id="ohada_custom_columns_note32_2" model="ohada.custom.columns">
+            <field name="line_id" ref="ohada_financial_report_note32_1"/>
+            <field name="line_name" eval="False"/>
+        </record>
+
+            <record id="ohada_cell_style_note32_2_1" model="ohada.cell.style">
+                <field name="name">String</field>
+                <field name="column_id" ref="ohada_custom_columns_note32_2"/>
+            </record>
+
+            <record id="ohada_cell_style_note32_2_2" model="ohada.cell.style">
+                <field name="name">String</field>
+                <field name="column_id" ref="ohada_custom_columns_note32_2"/>
+            </record>
+
+            <record id="ohada_cell_style_note32_2_3" model="ohada.cell.style">
+                <field name="name">String</field>
+                <field name="column_id" ref="ohada_custom_columns_note32_2"/>
+            </record>
+
+            <record id="ohada_cell_style_note32_2_4" model="ohada.cell.style">
+                <field name="name">String</field>
+                <field name="column_id" ref="ohada_custom_columns_note32_2"/>
+            </record>
+
+            <record id="ohada_cell_style_note32_2_5" model="ohada.cell.style">
+                <field name="name">String</field>
+                <field name="column_id" ref="ohada_custom_columns_note32_2"/>
+            </record>
+
+            <record id="ohada_cell_style_note32_2_6" model="ohada.cell.style">
+                <field name="name">String</field>
+                <field name="column_id" ref="ohada_custom_columns_note32_2"/>
+            </record>
+
+            <record id="ohada_cell_style_note32_2_7" model="ohada.cell.style">
+                <field name="name">String</field>
+                <field name="column_id" ref="ohada_custom_columns_note32_2"/>
+            </record>
+
+            <record id="ohada_cell_style_note32_2_8" model="ohada.cell.style">
+                <field name="name">String</field>
+                <field name="column_id" ref="ohada_custom_columns_note32_2"/>
+            </record>
+
+            <record id="ohada_cell_style_note32_2_9" model="ohada.cell.style">
+                <field name="name">String</field>
+                <field name="column_id" ref="ohada_custom_columns_note32_2"/>
+            </record>
+
+            <record id="ohada_cell_style_note32_2_10" model="ohada.cell.style">
+                <field name="name">String</field>
+                <field name="column_id" ref="ohada_custom_columns_note32_2"/>
+            </record>
+
+            <record id="ohada_cell_style_note32_2_11" model="ohada.cell.style">
+                <field name="name">String</field>
+                <field name="column_id" ref="ohada_custom_columns_note32_2"/>
+            </record>
+
+            <record id="ohada_cell_style_note32_2_12" model="ohada.cell.style">
+                <field name="name">String</field>
+                <field name="column_id" ref="ohada_custom_columns_note32_2"/>
+            </record>
 
     </data>
 </odoo>
