@@ -233,36 +233,9 @@
             <t t-if="line.get('reference') == 'REF'">
                 <td t-att-rowspan="dyn_rowspan" t-att-data-id="line['id']" t-att-class="'o_ohada_report_line o_ohada_report_line_indent ' + (line.get('unfoldable') and 'js_account_report_foldable' or '')" t-att-data-unfolded="line.get('unfolded', False)" t-att-colspan="line.get('colspan', '1')"
                 t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)" style="text-align:center;" >
-                        <t t-if="not line.get('caret_options')">
-                                <span class="account_report_line_name" t-att-title="line.get('title_hover')">
-                                    <a t-if="line.get('action_id')" t-att-data-id="line['id']" t-att-data-action-id="line['action_id']" t-att-action="line.get('action', 'execute_action')">
-                                        <t t-esc="line.get('name')"/>
-                                    </a>
-                                    <t t-if="not line.get('action_id')" t-esc="line.get('name')"/>
-                                    <span class="js_account_report_line_footnote" t-att-data-id="line['id']">
-                                        <sup t-if="line.get('footnote')"><b class="o_ohada_reports_footnote_sup"><a t-att-href="'#footnote'+line['footnote']"></a><t t-esc="line['footnote']"/></b></sup>
-                                    </span>
-                                </span>
-                        </t>
-                        <t t-if="line.get('unfoldable')">
-                            <span t-att-data-id="line['id']" class="o_ohada_reports_caret_icon">
-                                <i class="fa fa-caret-down" t-if="line.get('unfolded')" role="img" aria-label="Unfolded" title="Unfolded"/>
-                                <i class="fa fa-caret-right" t-if="not line.get('unfolded')" role="img" aria-label="Folded" title="Folded"/>
-                            </span>
-                        </t>
-                        <t t-if="line.get('caret_options')">
-                            <div class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href='#'>
-                                    <span t-att-data-id="line['id']" t-att-class="domainClass" t-att-title="line.get('title_hover')">
-                                        <t t-esc="line.get('name')"/>
-                                    </span>
-                                </a>
-                                <span class="js_account_report_line_footnote" t-att-data-id="line['id']"><sup t-if="line.get('footnote')"><b class="o_ohada_reports_footnote_sup"><a t-att-href="'#footnote'+line['footnote']"></a><t t-esc="line['footnote']"/></b></sup></span>
-                                <div class="dropdown-menu o_ohada_reports_domain_dropdown" role="menu">
-                                    <t t-call="ohada_reports.line_caret_options"/>
-                                    <a role="menuitem" tabindex="-1" t-att-data-id="line['id']" class="dropdown-item js_account_reports_add_footnote">Annotate</a>
-                                </div>
-                            </div>
+                        <t t-foreach="line.get('name')" t-as="name">
+                            <span><t t-esc="name"/></span>
+                            <br/>
                         </t>
                 </td>
             </t>
@@ -297,7 +270,10 @@
                             <td t-att-rowspan="line.get('rowspan', 1)" t-att-data-id="line['id']" t-att-class="'o_ohada_report_line o_ohada_report_line_indent ' + (line.get('unfoldable') and 'js_account_report_foldable' or '')" t-att-data-unfolded="line.get('unfolded', False)" t-att-colspan="line.get('colspan', '1')"
                             t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)" style="text-align:center;padding-top:25px;padding-bottom:25px;"
                             >
-                                <span><t t-esc="line.get('name')"/></span>
+                                <t t-foreach="line.get('name')" t-as="name">
+                                    <span><t t-esc="name"/></span>
+                                    <br/>
+                                </t>
                             </td>
                         </t>
                     </t>
@@ -308,16 +284,22 @@
                     <td t-att-data-id="line['id']" t-att-class="'o_ohada_report_line o_ohada_report_line_indent ' + (line.get('unfoldable') and 'js_account_report_foldable' or '')" t-att-data-unfolded="line.get('unfolded', False)" t-att-colspan="line.get('colspan', '1')"
                     t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)" t-att-style="'text-align:' + line.get('align', '')" t-att-rowspan="line.get('rowspan', '1')"
                     >
+                        <div style="display:flex;justify-content:space-between;height:fit-content;border:none;">
                             <t t-if="not line.get('caret_options')">
-                                    <span class="account_report_line_name" t-att-title="line.get('title_hover')" style="margin-left:15px;">
-                                        <a t-if="line.get('action_id')" t-att-data-id="line['id']" t-att-data-action-id="line['action_id']" t-att-action="line.get('action', 'execute_action')">
-                                            <t t-esc="line.get('name')"/>
-                                        </a>
-                                        <t t-if="not line.get('action_id')" t-esc="line.get('name')"/>
-                                        <span class="js_account_report_line_footnote" t-att-data-id="line['id']">
-                                            <sup t-if="line.get('footnote')"><b class="o_ohada_reports_footnote_sup"><a t-att-href="'#footnote'+line['footnote']"></a><t t-esc="line['footnote']"/></b></sup>
-                                        </span>
-                                    </span>
+                                    <div>
+                                            <t t-foreach="line.get('name')" t-as="name">
+                                                <span class="account_report_line_name" t-att-title="line.get('title_hover')" style="margin-left:15px;">
+                                                    <a t-if="line.get('action_id')" t-att-data-id="line['id']" t-att-data-action-id="line['action_id']" t-att-action="line.get('action', 'execute_action')">
+                                                        <t t-esc="name"/>
+                                                    </a>
+                                                    <t t-if="not line.get('action_id')" t-esc="name"/>
+                                                    <span class="js_account_report_line_footnote" t-att-data-id="line['id']">
+                                                        <sup t-if="line.get('footnote')"><b class="o_ohada_reports_footnote_sup"><a t-att-href="'#footnote'+line['footnote']"></a><t t-esc="line['footnote']"/></b></sup>
+                                                    </span>
+                                                </span>
+                                                <br/>
+                                            </t>
+                                    </div>
                                     <t t-if="line.get('letter')">
                                         <span t-att-data-id="line['id']" style="float:right;margin-right:10px;font-weight:bold;">
                                             <t t-esc="line.get('letter')"/>
@@ -344,6 +326,7 @@
                                     </div>
                                 </div>
                             </t>
+                        </div>
                     </td>
                     </t>
                 </t>
@@ -704,42 +687,9 @@
                 <td rowspan="2" t-att-data-id="line['id']" t-att-class="'o_ohada_report_line o_ohada_report_line_indent ' + (line.get('unfoldable') and 'js_account_report_foldable' or '')" t-att-data-unfolded="line.get('unfolded', False)" t-att-colspan="line.get('colspan', '1')"
                 t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)" style="text-align:center;"
                 >
-                        <!--<t t-if="line.get('unfoldable')">-->
-                            <!--<span t-att-data-id="line['id']" class="o_ohada_reports_caret_icon">-->
-                                <!--<i class="fa fa-caret-down" t-if="line.get('unfolded')" role="img" aria-label="Unfolded" title="Unfolded"/>-->
-                                <!--<i class="fa fa-caret-right" t-if="not line.get('unfolded')" role="img" aria-label="Folded" title="Folded"/>-->
-                            <!--</span>-->
-                        <!--</t>-->
-                        <t t-if="not line.get('caret_options')">
-                                <span class="account_report_line_name" t-att-title="line.get('title_hover')">
-                                    <a t-if="line.get('action_id')" t-att-data-id="line['id']" t-att-data-action-id="line['action_id']" t-att-action="line.get('action', 'execute_action')">
-                                        <t t-esc="line.get('name')"/>
-                                    </a>
-                                    <t t-if="not line.get('action_id')" t-esc="line.get('name')"/>
-                                    <span class="js_account_report_line_footnote" t-att-data-id="line['id']">
-                                        <sup t-if="line.get('footnote')"><b class="o_ohada_reports_footnote_sup"><a t-att-href="'#footnote'+line['footnote']"></a><t t-esc="line['footnote']"/></b></sup>
-                                    </span>
-                                </span>
-                        </t>
-                        <t t-if="line.get('unfoldable')">
-                            <span t-att-data-id="line['id']" class="o_ohada_reports_caret_icon">
-                                <i class="fa fa-caret-down" t-if="line.get('unfolded')" role="img" aria-label="Unfolded" title="Unfolded"/>
-                                <i class="fa fa-caret-right" t-if="not line.get('unfolded')" role="img" aria-label="Folded" title="Folded"/>
-                            </span>
-                        </t>
-                        <t t-if="line.get('caret_options')">
-                            <div class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href='#'>
-                                    <span t-att-data-id="line['id']" t-att-class="domainClass" t-att-title="line.get('title_hover')">
-                                        <t t-esc="line.get('name')"/>
-                                    </span>
-                                </a>
-                                <span class="js_account_report_line_footnote" t-att-data-id="line['id']"><sup t-if="line.get('footnote')"><b class="o_ohada_reports_footnote_sup"><a t-att-href="'#footnote'+line['footnote']"></a><t t-esc="line['footnote']"/></b></sup></span>
-                                <div class="dropdown-menu o_ohada_reports_domain_dropdown" role="menu">
-                                    <t t-call="ohada_reports.line_caret_options"/>
-                                    <a role="menuitem" tabindex="-1" t-att-data-id="line['id']" class="dropdown-item js_account_reports_add_footnote">Annotate</a>
-                                </div>
-                            </div>
+                        <t t-foreach="line.get('name')" t-as="name">
+                            <span><t t-esc="name"/></span>
+                            <br/>
                         </t>
                 </td>
             </t>
@@ -747,42 +697,49 @@
                 <td t-att-data-id="line['id']" t-att-class="'o_ohada_report_line o_ohada_report_line_indent ' + (line.get('unfoldable') and 'js_account_report_foldable' or '')" t-att-data-unfolded="line.get('unfolded', False)" t-att-colspan="line.get('colspan', '1')"
                 t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)"
                 >
-                        <t t-if="not line.get('caret_options')">
-                                <span class="account_report_line_name" t-att-title="line.get('title_hover')">
-                                    <a t-if="line.get('action_id')" t-att-data-id="line['id']" t-att-data-action-id="line['action_id']" t-att-action="line.get('action', 'execute_action')">
-                                        <t t-esc="line.get('name')"/>
-                                    </a>
-                                    <t t-if="not line.get('action_id')" t-esc="line.get('name')"/>
-                                    <span class="js_account_report_line_footnote" t-att-data-id="line['id']">
-                                        <sup t-if="line.get('footnote')"><b class="o_ohada_reports_footnote_sup"><a t-att-href="'#footnote'+line['footnote']"></a><t t-esc="line['footnote']"/></b></sup>
-                                    </span>
+                        <div style="display:flex;justify-content:space-between;height:fit-content;border:none;">
+                            <t t-if="not line.get('caret_options')">
+                                    <div>
+                                            <t t-foreach="line.get('name')" t-as="name">
+                                                <span class="account_report_line_name" t-att-title="line.get('title_hover')" style="margin-left:15px;">
+                                                    <a t-if="line.get('action_id')" t-att-data-id="line['id']" t-att-data-action-id="line['action_id']" t-att-action="line.get('action', 'execute_action')">
+                                                        <t t-esc="name"/>
+                                                    </a>
+                                                    <t t-if="not line.get('action_id')" t-esc="name"/>
+                                                    <span class="js_account_report_line_footnote" t-att-data-id="line['id']">
+                                                        <sup t-if="line.get('footnote')"><b class="o_ohada_reports_footnote_sup"><a t-att-href="'#footnote'+line['footnote']"></a><t t-esc="line['footnote']"/></b></sup>
+                                                    </span>
+                                                </span>
+                                                <br/>
+                                            </t>
+                                    </div>
+                                    <t t-if="line.get('letter')">
+                                        <span t-att-data-id="line['id']" style="float:right;margin-right:10px;font-weight:bold;">
+                                            <t t-esc="line.get('letter')"/>
+                                        </span>
+                                    </t>
+                            </t>
+                            <t t-if="line.get('unfoldable')">
+                                <span t-att-data-id="line['id']" class="o_ohada_reports_caret_icon">
+                                    <i class="fa fa-caret-down" t-if="line.get('unfolded')" role="img" aria-label="Unfolded" title="Unfolded"/>
+                                    <i class="fa fa-caret-right" t-if="not line.get('unfolded')" role="img" aria-label="Folded" title="Folded"/>
                                 </span>
-                                <t t-if="line.get('letter')">
-                                    <span t-att-data-id="line['id']" style="float:right;margin-right:10px;font-weight:bold;">
-                                        <t t-esc="line.get('letter')"/>
-                                    </span>
-                                </t>
-                        </t>
-                        <t t-if="line.get('unfoldable')">
-                            <span t-att-data-id="line['id']" class="o_ohada_reports_caret_icon">
-                                <i class="fa fa-caret-down" t-if="line.get('unfolded')" role="img" aria-label="Unfolded" title="Unfolded"/>
-                                <i class="fa fa-caret-right" t-if="not line.get('unfolded')" role="img" aria-label="Folded" title="Folded"/>
-                            </span>
-                        </t>
-                        <t t-if="line.get('caret_options')">
-                            <div class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href='#'>
-                                    <span t-att-data-id="line['id']" t-att-class="domainClass" t-att-title="line.get('title_hover')">
-                                        <t t-esc="line.get('name')"/>
-                                    </span>
-                                </a>
-                                <span class="js_account_report_line_footnote" t-att-data-id="line['id']"><sup t-if="line.get('footnote')"><b class="o_ohada_reports_footnote_sup"><a t-att-href="'#footnote'+line['footnote']"></a><t t-esc="line['footnote']"/></b></sup></span>
-                                <div class="dropdown-menu o_ohada_reports_domain_dropdown" role="menu">
-                                    <t t-call="ohada_reports.line_caret_options"/>
-                                    <a role="menuitem" tabindex="-1" t-att-data-id="line['id']" class="dropdown-item js_account_reports_add_footnote">Annotate</a>
+                            </t>
+                            <t t-if="line.get('caret_options')">
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href='#'>
+                                        <span t-att-data-id="line['id']" t-att-class="domainClass" t-att-title="line.get('title_hover')">
+                                            <t t-esc="line.get('name')"/>
+                                        </span>
+                                    </a>
+                                    <span class="js_account_report_line_footnote" t-att-data-id="line['id']"><sup t-if="line.get('footnote')"><b class="o_ohada_reports_footnote_sup"><a t-att-href="'#footnote'+line['footnote']"></a><t t-esc="line['footnote']"/></b></sup></span>
+                                    <div class="dropdown-menu o_ohada_reports_domain_dropdown" role="menu">
+                                        <t t-call="ohada_reports.line_caret_options"/>
+                                        <a role="menuitem" tabindex="-1" t-att-data-id="line['id']" class="dropdown-item js_account_reports_add_footnote">Annotate</a>
+                                    </div>
                                 </div>
-                            </div>
-                        </t>
+                            </t>
+                        </div>
                 </td>
             </t>
 
@@ -941,36 +898,9 @@
                 <td rowspan="2" t-att-data-id="line['id']" t-att-class="'o_ohada_report_line o_ohada_report_line_indent ' + (line.get('unfoldable') and 'js_account_report_foldable' or '')" t-att-data-unfolded="line.get('unfolded', False)" t-att-colspan="line.get('colspan', '1')"
                 t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)" style="text-align:center;"
                 >
-                        <t t-if="not line.get('caret_options')">
-                                <span class="account_report_line_name" t-att-title="line.get('title_hover')">
-                                    <a t-if="line.get('action_id')" t-att-data-id="line['id']" t-att-data-action-id="line['action_id']" t-att-action="line.get('action', 'execute_action')">
-                                        <t t-esc="line.get('name')"/>
-                                    </a>
-                                    <t t-if="not line.get('action_id')" t-esc="line.get('name')"/>
-                                    <span class="js_account_report_line_footnote" t-att-data-id="line['id']">
-                                        <sup t-if="line.get('footnote')"><b class="o_ohada_reports_footnote_sup"><a t-att-href="'#footnote'+line['footnote']"></a><t t-esc="line['footnote']"/></b></sup>
-                                    </span>
-                                </span>
-                        </t>
-                        <t t-if="line.get('unfoldable')">
-                            <span t-att-data-id="line['id']" class="o_ohada_reports_caret_icon">
-                                <i class="fa fa-caret-down" t-if="line.get('unfolded')" role="img" aria-label="Unfolded" title="Unfolded"/>
-                                <i class="fa fa-caret-right" t-if="not line.get('unfolded')" role="img" aria-label="Folded" title="Folded"/>
-                            </span>
-                        </t>
-                        <t t-if="line.get('caret_options')">
-                            <div class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href='#'>
-                                    <span t-att-data-id="line['id']" t-att-class="domainClass" t-att-title="line.get('title_hover')">
-                                        <t t-esc="line.get('name')"/>
-                                    </span>
-                                </a>
-                                <span class="js_account_report_line_footnote" t-att-data-id="line['id']"><sup t-if="line.get('footnote')"><b class="o_ohada_reports_footnote_sup"><a t-att-href="'#footnote'+line['footnote']"></a><t t-esc="line['footnote']"/></b></sup></span>
-                                <div class="dropdown-menu o_ohada_reports_domain_dropdown" role="menu">
-                                    <t t-call="ohada_reports.line_caret_options"/>
-                                    <a role="menuitem" tabindex="-1" t-att-data-id="line['id']" class="dropdown-item js_account_reports_add_footnote">Annotate</a>
-                                </div>
-                            </div>
+                        <t t-foreach="line.get('name')" t-as="name">
+                            <span><t t-esc="name"/></span>
+                            <br/>
                         </t>
                 </td>
             </t>
@@ -978,42 +908,49 @@
                 <td t-att-data-id="line['id']" t-att-class="'o_ohada_report_line o_ohada_report_line_indent ' + (line.get('unfoldable') and 'js_account_report_foldable' or '')" t-att-data-unfolded="line.get('unfolded', False)" t-att-colspan="line.get('colspan', '1')"
                 t-att-data-offset="line.get('offset', False)" t-att-data-progress="line.get('progress', False)"
                 >
-                        <t t-if="not line.get('caret_options')">
-                                <span class="account_report_line_name" t-att-title="line.get('title_hover')">
-                                    <a t-if="line.get('action_id')" t-att-data-id="line['id']" t-att-data-action-id="line['action_id']" t-att-action="line.get('action', 'execute_action')">
-                                        <t t-esc="line.get('name')"/>
-                                    </a>
-                                    <t t-if="not line.get('action_id')" t-esc="line.get('name')"/>
-                                    <span class="js_account_report_line_footnote" t-att-data-id="line['id']">
-                                        <sup t-if="line.get('footnote')"><b class="o_ohada_reports_footnote_sup"><a t-att-href="'#footnote'+line['footnote']"></a><t t-esc="line['footnote']"/></b></sup>
-                                    </span>
+                        <div style="display:flex;justify-content:space-between;height:fit-content;border:none;">
+                            <t t-if="not line.get('caret_options')">
+                                    <div>
+                                            <t t-foreach="line.get('name')" t-as="name">
+                                                <span class="account_report_line_name" t-att-title="line.get('title_hover')" style="margin-left:15px;">
+                                                    <a t-if="line.get('action_id')" t-att-data-id="line['id']" t-att-data-action-id="line['action_id']" t-att-action="line.get('action', 'execute_action')">
+                                                        <t t-esc="name"/>
+                                                    </a>
+                                                    <t t-if="not line.get('action_id')" t-esc="name"/>
+                                                    <span class="js_account_report_line_footnote" t-att-data-id="line['id']">
+                                                        <sup t-if="line.get('footnote')"><b class="o_ohada_reports_footnote_sup"><a t-att-href="'#footnote'+line['footnote']"></a><t t-esc="line['footnote']"/></b></sup>
+                                                    </span>
+                                                </span>
+                                                <br/>
+                                            </t>
+                                    </div>
+                                    <t t-if="line.get('letter')">
+                                        <span t-att-data-id="line['id']" style="float:right;margin-right:10px;font-weight:bold;">
+                                            <t t-esc="line.get('letter')"/>
+                                        </span>
+                                    </t>
+                            </t>
+                            <t t-if="line.get('unfoldable')">
+                                <span t-att-data-id="line['id']" class="o_ohada_reports_caret_icon">
+                                    <i class="fa fa-caret-down" t-if="line.get('unfolded')" role="img" aria-label="Unfolded" title="Unfolded"/>
+                                    <i class="fa fa-caret-right" t-if="not line.get('unfolded')" role="img" aria-label="Folded" title="Folded"/>
                                 </span>
-                                <t t-if="line.get('letter')">
-                                    <span t-att-data-id="line['id']" style="float:right;margin-right:10px;font-weight:bold;">
-                                        <t t-esc="line.get('letter')"/>
-                                    </span>
-                                </t>
-                        </t>
-                        <t t-if="line.get('unfoldable')">
-                            <span t-att-data-id="line['id']" class="o_ohada_reports_caret_icon">
-                                <i class="fa fa-caret-down" t-if="line.get('unfolded')" role="img" aria-label="Unfolded" title="Unfolded"/>
-                                <i class="fa fa-caret-right" t-if="not line.get('unfolded')" role="img" aria-label="Folded" title="Folded"/>
-                            </span>
-                        </t>
-                        <t t-if="line.get('caret_options')">
-                            <div class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href='#'>
-                                    <span t-att-data-id="line['id']" t-att-class="domainClass" t-att-title="line.get('title_hover')">
-                                        <t t-esc="line.get('name')"/>
-                                    </span>
-                                </a>
-                                <span class="js_account_report_line_footnote" t-att-data-id="line['id']"><sup t-if="line.get('footnote')"><b class="o_ohada_reports_footnote_sup"><a t-att-href="'#footnote'+line['footnote']"></a><t t-esc="line['footnote']"/></b></sup></span>
-                                <div class="dropdown-menu o_ohada_reports_domain_dropdown" role="menu">
-                                    <t t-call="ohada_reports.line_caret_options"/>
-                                    <a role="menuitem" tabindex="-1" t-att-data-id="line['id']" class="dropdown-item js_account_reports_add_footnote">Annotate</a>
+                            </t>
+                            <t t-if="line.get('caret_options')">
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href='#'>
+                                        <span t-att-data-id="line['id']" t-att-class="domainClass" t-att-title="line.get('title_hover')">
+                                            <t t-esc="line.get('name')"/>
+                                        </span>
+                                    </a>
+                                    <span class="js_account_report_line_footnote" t-att-data-id="line['id']"><sup t-if="line.get('footnote')"><b class="o_ohada_reports_footnote_sup"><a t-att-href="'#footnote'+line['footnote']"></a><t t-esc="line['footnote']"/></b></sup></span>
+                                    <div class="dropdown-menu o_ohada_reports_domain_dropdown" role="menu">
+                                        <t t-call="ohada_reports.line_caret_options"/>
+                                        <a role="menuitem" tabindex="-1" t-att-data-id="line['id']" class="dropdown-item js_account_reports_add_footnote">Annotate</a>
+                                    </div>
                                 </div>
-                            </div>
-                        </t>
+                            </t>
+                        </div>
                 </td>
             </t>
 

@@ -1356,7 +1356,7 @@ class OhadaFinancialReportLine(models.Model):
             # Post-processing ; creating line dictionnary, building comparison, computing total for extended, formatting
             vals = {
                 'id': line.id,
-                'name': line.name,
+                'name': line.name.split('|') if line.name else line.name,
                 'reference': line.reference,       
                 'note': line.note,
                 'note_id': line.note_id,
@@ -1682,7 +1682,7 @@ class OhadaFinancialReportLine(models.Model):
                 if financial_report.type == 'note':
                     if financial_report.code == "N1" and line.sequence == 2:
                         del vals['note']
-                        vals['name'] = 'Hypothèque'
+                        vals['name'] = ['Hypothèque']
                         vals['columns'][0]['name'] = 'Nantissements'
                         vals['columns'].append({'name': 'Gages/Autres'})
                     elif financial_report.code == 'N1' and line.sequence == 26:
