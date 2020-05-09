@@ -569,11 +569,11 @@
                 </t>
             </div>
             <div class="o_ohada_report_summary no_print" style="margin-bottom:0px;color:#001E5A;font-family:NimbusSanL-Regu;">
-                <span t-if="not report.get('summary')" id="add_a_note" class="js_account_reports_add_footnote" name='summary' style="cursor:pointer;">Add a note</span>
+                <span t-if="not report.get('summary')" id="add_a_note" class="js_account_reports_add_summary" name='summary' style="cursor:pointer;">Add a note</span>
             </div>
             <div id="summernote"><span t-if="report.get('summary')"><t t-esc="report['summary']" t-options="{'widget': 'html'}"/></span></div>
-            <button t-if="report.get('summary')" id="edit_a_note" class="btn btn-primary js_account_reports_edit_footnote no_print" name='summary'>Edit a note</button>
-            <button id="edit_a_note2" class="btn btn-primary js_account_reports_edit_footnote no_print" name='summary' style="display:none;">Edit a note</button>
+            <button t-if="report.get('summary')" id="edit_a_note" class="btn btn-primary js_account_reports_edit_summary no_print" name='summary'>Edit a note</button>
+            <button id="edit_a_note2" class="btn btn-primary js_account_reports_edit_summary no_print" name='summary' style="display:none;">Edit a note</button>
             <button class="btn btn-primary js_account_report_save_summary" id="save_summary" style="display:none;margin-top:10px;">Save</button>
             <div style="height:100px;" class="no_print"/>
             <!--<div class="o_ohada_reports_summary_edit no_print">-->
@@ -589,7 +589,7 @@
                 <!--</div>-->
                 <!--<div style="height:100px;" class="no_print"/>-->
             <!--</div>-->
-            <!--<div class="js_account_report_footnotes no_print"/>-->
+            <div class="js_account_report_footnotes no_print"/>
 
         </div>
     </div>

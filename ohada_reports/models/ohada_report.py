@@ -746,11 +746,11 @@ class OhadaReport(models.AbstractModel):
             render_template,
             values=dict(rcontext),
         )
-        # if self.env.context.get('print_mode', False):
-        #     for k,v in self._replace_class().items():
-        #         html = html.replace(k, v)
-        #     # append footnote as well
-        #     html = html.replace(b'<div class="js_account_report_footnotes"></div>', self.get_html_footnotes(footnotes_to_render))
+        if self.env.context.get('print_mode', False):
+            for k,v in self._replace_class().items():
+                html = html.replace(k, v)
+            # append footnote as well
+            html = html.replace(b'<div class="js_account_report_footnotes"></div>', self.get_html_footnotes(footnotes_to_render))
         return html
 
     @api.multi
