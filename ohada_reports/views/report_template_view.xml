@@ -437,9 +437,12 @@
                     </t>
                     <t t-else="">
                         <td t-att-rowspan="column.get('rowspan', 1)" t-att-colspan="column.get('colspan', 1)" t-att-style="'padding-right:10px;text-align:' + (column.get('align', 'right')) + ';background-color:' + column.get('background', '')" t-att-class="'o_ohada_report_line '  + (line.get('unfoldable') and ' ' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent')" >
-                            <span class="o_ohada_report_column_value" t-att-title="column.get('title')">
-                                <t t-esc="column.get('name')"/>
-                            </span>
+                            <t t-foreach="column.get('name')" t-as="name">
+                                <span class="o_ohada_report_column_value" t-att-title="column.get('title')">
+                                    <t t-esc="name"/>
+                                </span>
+                                <br/>
+                            </t>
                         </td>
                     </t>
                 </t>

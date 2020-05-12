@@ -128,7 +128,7 @@ class ReportOhadaFinancialReport(models.Model):
         body = body.replace(b'<body class="o_ohada_reports_body_print">',
                             b'<body class="o_ohada_reports_body_print">' + body_html)
         body = body.replace(b'<table style="margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;"',
-                            b'<table style="font-size:8px !important;margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;"')
+                             b'<table style="font-size:8px !important;margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;"')
 
         if minimal_layout:
             header = ''
@@ -1414,14 +1414,19 @@ class OhadaFinancialReportLine(models.Model):
                 if line.columns_id.cell_id:
                     for i in line.columns_id.cell_id:
                         lines[0]['columns'].append({
-                            'name': i.name.split('|') if line.header else i.name,
+                            'name': i.name.split('|'),
                             'colspan': i.colspan,
                             'rowspan': i.rowspan,
                             'rotate': i.rotate,
                             'align': i.align,
+                            'background': i.background if i.background else '',
                         })
                 else:
                     pass
+
+                if financial_report.code == "S4" and line.sequence != 1:
+                    for i in range(2):
+                        vals['columns'].append({'name': ' '})
                 result = lines
             elif financial_report.default_columns_quantity:
                 lines[0]['columns'] = []
@@ -1679,17 +1684,16 @@ class OhadaFinancialReportLine(models.Model):
                         result[0]['columns'][0]['name'] = 'NET'
 
                 # ==================== temporary solution for special notes ============================================
-                if financial_report.type == 'note':
-                    if financial_report.code == "N1" and line.sequence == 2:
-                        del vals['note']
-                        vals['name'] = ['Hypothèque']
-                        vals['columns'][0]['name'] = 'Nantissements'
-                        vals['columns'].append({'name': 'Gages/Autres'})
-                    elif financial_report.code == 'N1' and line.sequence == 26:
-                        vals['columns'].append({'name': ['Engagements', 'donnés']})
-                        vals['columns'].append({'name': ['Engagements', 'recus']})
-                    elif financial_report.code == 'N1' and line.sequence > 25:
+                # TODO: transport it in ohada_report_layout.xml
+                if financial_report.code == "S2_1" and line.sequence != 1:
+                    vals['columns'].append({'name': ' '})
+                if financial_report.type == 'sheet':
+                    if financial_report.code in ['S3', 'S3_1']:
                         vals['columns'].append({'name': ' '})
+                        vals['columns'].append({'name': ' '})
+                if financial_report.type == 'note':
+                    if financial_report.code == 'N1' and line.sequence > 25:
+                        vals['columns'].append({'name': '1 '})
                         vals['columns'].append({'name': ' '})
                     elif financial_report.code == 'N1' and line.header is not True:
                         vals['columns'].append({'name': ' '})
@@ -2150,3 +2154,4 @@ class OhadaCellStyle(models.Model):
     rowspan = fields.Integer(default=1)
     rotate = fields.Char(default=0)
     align = fields.Char(default="right")
+    background = fields.Char(default=False)
