@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+        <record id="res_partner_form_add_continent" model="ir.ui.view">
+            <field name="name">res.partner.form.add_continent</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="country_id" position="after">
+                    <field name="continent_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_res_partner_filter" model="ir.ui.view">
+            <field name="name">res.partner.filter.add_continent</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <group expand="0" position="inside">
+                    <filter string="Continent" name="continent_groupby" context="{'group_by': 'continent_id'}"/>
+                </group>
+            </field>
+        </record>
+
+  </data>
+</odoo>

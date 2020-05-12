@@ -1,0 +1,119 @@
+id,code,name,sector_id/id
+A001001,001,Culture céréalièr,A001
+A001002,002,Culture de tubercules et plantains,A001
+A001003,003,Culture de légumes,A001
+A001004,004,Culture de condiments,A001
+A001005,005,Culture de fruits,A001
+A001006,006,Culture d'autres produits de l'agriculture vivrière,A001
+A002001,001,Culture de canne à sucre,A002
+A002002,002,Culture d'arachide d'huilerie,A002
+A002003,003,Culture d'arachide de bouche,A002
+A002004,004,Culture de tabac,A002
+A002005,005,Culture de coton,A002
+A002006,006,Culture de blé,A002
+A002007,007,Culture de cacao,A002
+A002008,008,Culture de café,A002
+A002009,009,Culture de bananes d'exportation,A002
+A002010,010,Culture d'ananas d'exportation,A002
+A002011,011,Autres cultures industrielles,A002
+A003001,001,Elevage bovin,A003
+A003002,002,"Elevage ovin, caprin, équin",A003
+A003003,003,Elevage de volailles,A003
+A003004,004,Autres élevages,A003
+A003005,005,Chasse,A003
+A004001,001,Sylviculture,A004
+A004002,002,Exploitation forestière,A004
+A005001,001,Pêche de poissons,A005
+A005002,002,Autres pêches et aquaculture,A005
+A006001,001,Extraction d'hydrocarbures,A006
+A006002,002,Extraction d'autres produits,A006
+A007001,001,Production de viande et de produits à base de viande,A007
+A007002,002,Production de poissons et de produits à base de poissons,A007
+A008000,000,Travail des grains et fabrication de produits amylacés,A008
+A009001,001,Transformation du café et du cacao,A009
+A009002,002,Transformation du cacao,A009
+A010001,001,Huiles brutes et tourteaux,A010
+A010002,002,Autres corps gras,A010
+A011001,001,"Fabrication de pains, de biscuits et de pâtisserie",A011
+A011002,002,Fabrication de pâtes alimentaires,A011
+A012000,000,Industries laitières,A012
+A013001,001,Fabrication de sucre,A013
+A013002,002,Fabrication de produits à base de fruits et légumes,A013
+A013003,003,Fabrication d'autres produits alimentaires,A013
+A014001,001,Brasseries et malteries,A014
+A014002,002,Fabrication d'autres boissons alcoolisées,A014
+A014003,003,Fabrication de boissons non alcoolisées et d'eaux minérales,A014
+A015000,000,Industrie du tabac,A015
+A016001,001,Industries textiles,A016
+A016002,002,Industries de l'habillement,A016
+A017001,001,Fabrication du cuir et d'articles en cuir,A017
+A017002,002,Fabrication de chaussures,A017
+A018001,001,"Sciage, rabotage et imprégnation du bois",A018
+A018002,002,Fabrication de panneaux en bois,A018
+A018003,003,Fabrication d'articles en bois assemblés,A018
+A019001,001,"Industries du papier et cartons, de l'édition et de l'imprimeri",A019
+A019002,002,"Edition, imprimerie, reproduction",A019
+A020000,000,Raffinage de pétrole,A020
+A021001,001,Industries chimiques de base,A021
+A021002,002,"Fabrication de savons, de détergents et de produits d'entretien",A021
+A021003,003,Fabrication de produits agro-chimiques,A021
+A021004,004,Industries pharmaceutiques,A021
+A021005,005,Fabrication d'autres produits chimiques,A021
+A022001,001,Fabrication du caoutchouc naturel,A022
+A022002,002,Industries du caoutchouc et des plastiques,A022
+A022003,003,Fabrication de matières plastiques,A022
+A023001,001,Industries du verre,A023
+A023002,002,Fabrication de produits minéraux pour la construction,A023
+A023003,003,Fabrication d'autres produits minéraux non métalliques et de matériaux de constructio,A023
+A024001,001,Métallurgie et travail des métau,A024
+A024002,002,Travail des métaux,A024
+A025001,001,Fabrication de machines et d'équipements,A025
+A025002,002,Fabrication de machines de bureau,A025
+A025003,003,Fabrication d'appareils électriques,A025
+A026001,001,Fabrication d'équipements et appareils audiovisuels et de communication ; fabrication d'instruments médicaux d'optique et d'horlogerie,A026
+A026002,002,"Fabrication d'instruments médicaux, d'optique et d'horlogerie",A026
+A027001,001,Fabrication de véhicules routiers,A027
+A027002,002,Fabrication d'autres matériels de transport,A027
+A028001,001,Fabrication de meubles,A028
+A028002,002,Industries diverses,A028
+A029001,001,"Production, transport et distribution d'électricité",A029
+A029002,002,"Captage, épuration et distribution d'eau",A029
+A029003,003,Production et distribution de gaz,A029
+A030001,001,Préparation de sites et construction d'ouvrages de bâtiment ou de génie c ivil,A030
+A030002,002,Travaux d'installation et de finition,A030
+A031001,001,"Commerce de véhicules, d'accessoires et de carburant",A031
+A031002,002,Commerce de produits agricoles bruts et d'animaux vivants,A031
+A031003,003,Autres commerces,A031
+A032001,001,Entretien et réparation de véhicules automobiles,A032
+A032002,002,Réparation de biens personnels et domestiques,A032
+A033001,001,"Hôtels, restaurants",A033
+A033002,002,Bars et restaurants,A033
+A034001,001,Transports ferroviaires,A034
+A034002,002,"Transports routiers ; transports par conduite",A034
+A034003,003,Transports par eau,A034
+A034004,004,Transports aériens,A034
+A034005,005,Services annexes et auxiliaires de transport,A034
+A035001,001,"Postes, télécommunication",A035
+A035002,002,Télécommunications,A035
+A036001,001,Services d'intermédiation financière,A036
+A036002,002,Assurances (sauf Sécurité Sociale),A036
+A036003,003,Auxiliaires financiers et d'assurances,A036
+A037001,001,Location de biens immobiliers,A037
+A037002,002,Autre services immobiliers,A037
+A038001,001,Locations sans opérateurs,A038
+A038002,002,Activités informatiques,A038
+A038003,003,Services rendus principalement aux entreprises,A038
+A039001,001,"Administration générale, économique et sociale",A039
+A039002,002,Services de prérogative publique,A039
+A039003,003,Sécurité Sociale obligatoire,A039
+A040000,000,Education,A040
+A041001,001,Activités pour la santé des hommes,A041
+A041002,002,Activités vétérinaire,A041
+A041003,003,Action sociale,A041
+A042001,001,"Assainissement, voirie, et gestion des déchets",A042
+A042002,002,Activités associatives,A042
+A042003,003,"Activités récréatives, culturelles e sportives",A042
+A042004,004,Services personnels,A042
+A042005,005,Services domestiques,A042
+A043000,000,Service d'intermédiation financière indirectement mesuré,A043
+A044000,000,Correction territoriale,A044

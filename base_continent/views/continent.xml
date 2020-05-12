@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+        <record id="view_continent_tree" model="ir.ui.view">
+            <field name="name">res.continent.tree</field>
+            <field name="model">res.continent</field>
+            <field name="arch" type="xml">
+                <tree string="Continents">
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_continent_form" model="ir.ui.view">
+            <field name="name">res.continent.form</field>
+            <field name="model">res.continent</field>
+            <field name="arch" type="xml">
+                <form string="Continent">
+                    <group name="main">
+                        <field name="name"/>
+                        <field name="code"/>
+                    </group>
+                    <group name="countries" string="Countries">
+                        <field name="country_ids" nolabel="1" readonly="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_continent" model="ir.actions.act_window">
+            <field name="name">Continents</field>
+            <field name="res_model">res.continent</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help">Display and manage the list of all continents that can be assigned to your partner records.</field>
+        </record>
+
+        <menuitem action="action_continent" id="menu_continent_partner" 
+            parent="base.menu_users" sequence="0" groups="base.group_no_one"
+        />
+<!--        
+        <menuitem id="menu_continent_partner"
+            action="action_continent"
+            parent="sales_team.menu_localisation"
+            groups="base.group_no_one"/>
+-->            
+
+  </data>
+</odoo>

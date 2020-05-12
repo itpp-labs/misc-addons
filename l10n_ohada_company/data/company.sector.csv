@@ -1,0 +1,45 @@
+id,code,name
+A001,001,Agriculture vivrière
+A002,002,Agriculture industrielle et d'exportation
+A003,003,Elevage et chasse
+A004,004,"Sylviculture, exploitation forestière"
+A005,005,Pêche et aquacultur
+A006,006,Industries extractives
+A007,007,Production de viande et de poissons
+A008,008,Travail des grains et fabrication de produits amylacés
+A009,009,Transformation du café et du cacao
+A010,010,Industrie des oléagineux
+A011,011,"Boulangerie, pâtisserie et pâtes alimentaires"
+A012,012,Industries laitières
+A013,013,Transformation des fruits et légumes e fabrication d'autres produits alimentaires
+A014,014,Industrie des boissons
+A015,015,Industrie du tabac
+A016,016,Industries du textile et de l'habillement
+A017,017,Industries du cuir et de la chaussure
+A018,018,Industries du bois
+A019,019,"Industries du papier et cartons, de l'édition et de l'imprimeri"
+A020,020,Raffinage du pétrole
+A021,021,Industrie chimique
+A022,022,Industries du caoutchouc et des plastiques
+A023,023,Fabrication d'autres produits minéraux non métalliques et de matériaux de constructio
+A024,024,Métallurgie et travail des métau
+A025,025,"Fabrication de machines, d'équipements et d'appareils électriques"
+A026,026,Fabrication d'équipements et appareils audiovisuels et de communication ; fabrication d'instruments médicaux d'optique et d'horlogerie
+A027,027,Fabrication de matériel de transpor
+A028,028,Industries diverses
+A029,029,"Production et distribution d'eau, d'électricité et de gaz"
+A030,030,Construction
+A031,031,Commerce
+A032,032,Réparations
+A033,033,"Hôtels, restaurants"
+A034,034,Transport et communication
+A035,035,"Postes, télécommunication"
+A036,036,Activités financière
+A037,037,Activités immobilière
+A038,038,Services aux entreprises
+A039,039,Administration publique
+A040,040,Education
+A041,041,Santé et action sociale
+A042,042,"Services collectifs, sociaux et personnels"
+A043,043,Service d'intermédiation financièr indirectement mesuré
+A044,044,Correction territoriale

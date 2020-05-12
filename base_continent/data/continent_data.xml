@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="af" model="res.continent">
+            <field name="name">Africa</field>
+            <field name="code">AF</field>
+        </record>
+        <record id="an" model="res.continent">
+            <field name="name">Antarctica</field>
+            <field name="code">AN</field>
+        </record>
+        <record id="as" model="res.continent">
+            <field name="name">Asia</field>
+            <field name="code">AS</field>
+        </record>
+        <record id="eu" model="res.continent">
+            <field name="name">Europe</field>
+            <field name="code">EU</field>
+        </record>
+        <record id="na" model="res.continent">
+            <field name="name">North America</field>
+            <field name="code">NA</field>
+        </record>
+        <record id="oc" model="res.continent">
+            <field name="name">Oceania</field>
+            <field name="code">OC</field>
+        </record>
+        <record id="sa" model="res.continent">
+            <field name="name">South America</field>
+            <field name="code">SA</field>
+        </record>
+    </data>
+    
+</openerp>

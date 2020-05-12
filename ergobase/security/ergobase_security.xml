@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="0">
+
+<!-- admin settings 
+        <record model="res.groups" id="group_system">
+            <field name="name">Settings</field>
+            <field name="implied_ids" eval="[(4, ref('group_erp_manager'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+-->
+
+        <record model="res.groups" id="group_ergobit_supervisor">
+            <field name="name">ERGOBIT Superuser</field>
+            <field name="category_id" ref="base.module_category_administration"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_system'))]"/>
+        </record>
+
+	</data>
+
+
+</openerp>

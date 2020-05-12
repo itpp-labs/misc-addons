@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!--  create a group menu for company    -->
+        <menuitem id="menu_res_company" name="Sociétés" parent="base.menu_users" sequence="100"/>
+        <menuitem action="base.action_res_company_form" id="base.menu_action_res_company_form" parent="menu_res_company"/>
+
+        
+        <!-- Company Legal Form   -->
+        <record model="ir.ui.view" id="company_legal_form_search_view">
+            <field name="name">company.legal.form.search (in company_legal_form)</field>
+            <field name="model">company.legal.form</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="shortcut"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="company_legal_form_form_view">
+            <field name="name">company.legal.form.form (in company_legal_form)</field>
+            <field name="model">company.legal.form</field>
+            <field name="arch" type="xml">
+                <form string="Forme juridique">
+                    <group col="4">
+                        <field name="name"/>
+                        <field name="shortcut"/>
+                        <field name="code" style="width:20%%; min-width=5%%" />
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="company_legal_form_tree_view">
+            <field name="name">company.legal.form.tree (in company_legal_form)</field>
+            <field name="model">company.legal.form</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="shortcut"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="company_legal_form_act_window">
+            <field name="name">Formes juridiques</field>
+            <field name="res_model">company.legal.form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+        
+        <menuitem action="company_legal_form_act_window" id="menu_company_legal_form" name="Formes juridiques" parent="menu_res_company" sequence="10" groups="base.group_no_one"/>
+        
+            
+        <!-- Company Sector   -->
+        <record model="ir.ui.view" id="company_sector_search_view">
+            <field name="name">company.sector.search (in company_sector)</field>
+            <field name="model">company.sector</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+                    <field name="code" />
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="company_sector_form_view">
+            <field name="name">company.sector.form  (in company_sector)</field>
+            <field name="model">company.sector</field>
+            <field name="arch" type="xml">
+                <form >
+                    <group col="4" string="Secteur">       
+                        <field name="code"/>
+                        <field name="name"/>
+                    </group>
+                    <group col="4" string="Activités">
+                        <field name="activity_ids" colspan="4" nolabel="1" context="{'default_sector_id': active_id or False}"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="company_sector_tree_view">
+            <field name="name">company.sector.tree (in company_sector)</field>
+            <field name="model">company.sector</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"  />
+                    <field name="name"  />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="company_sector_act_window">
+            <field name="name">Secteur économiques</field>
+            <field name="res_model">company.sector</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+        
+        <menuitem action="company_sector_act_window" id="menu_company_sector" name="Secteurs économiques" parent="menu_res_company" sequence="20" groups="base.group_no_one"/>
+
+    
+        <!-- Company Activity   -->
+        <record model="ir.ui.view" id="company_activity_search_view">
+            <field name="name">company.activity.search (in company_activity)</field>
+            <field name="model">company.activity</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="code"/>
+                    <field name="full_code"/>                    
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="company_activity_form_view">
+            <field name="name">company.activity.form (in company_activity)</field>
+            <field name="model">company.activity</field>
+            <field name="arch" type="xml">
+                <form string="Activité économique">
+                    <group col="4">
+                        <field name="code"/>
+                        <field name="sector_id"/>
+                        <field name="name"/>
+                        <field name="full_code"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="company_activity_tree_view">
+            <field name="name">company.activity.tree (in company_activity)</field>
+            <field name="model">company.activity</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sector_id" />
+                    <field name="code" invisible="1" />
+                    <field name="full_code"  />
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="company_activity_act_window">
+            <field name="name">Activités économiques</field>
+            <field name="res_model">company.activity</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+        
+        <menuitem action="company_activity_act_window" id="menu_company_activity" name="Activités économiques" parent="menu_res_company" sequence="30" groups="base.group_no_one"/>
+
+
+        <!--  OHADA : Info Générale  -->    
+        <record id="view_company_form" model="ir.ui.view">
+            <field name="name">res.company.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form" />
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//notebook" position="inside">
+                        <page string="Information Légale OHADA" name="ohada_setting">
+                            <group>
+                                <group string="Identification">
+                                    <field name="legal_name" />
+                                    <field name="legal_form_id" required="1" />        
+                                    <field name="acronym" />        
+                                    <label for="rccm" string="Greffe / RCCM"/>
+                                    <div>
+                                        <field name="office" class="oe_inline" style="width:15%%; margin-right:5px;"/>                                        
+                                        <field name="rccm" class="oe_inline" style="width:100%%; margin-left:5px;" />
+                                    </div>
+                                    <field name="ninea" />
+                                    <field name="social_registry_id" />
+                                    <field name="code_importer" />        
+                                    <newline/> 
+                                    <field name="headquarters_country_id" />
+                                    <label for="headquarters_country_code2" string="Code du pays du siège"/>
+                                    <div>
+                                        <field name="headquarters_country_code1" class="oe_inline" style="width:15%%; margin-right:5px;"/>                                        
+                                        <field name="headquarters_country_code2" class="oe_inline" style="width:15%%; margin-left:5px;" />
+                                    </div>
+                                </group>                         
+                                <group string="Autres informations">
+                                    <field name="first_fiscalyear_in_country" style="width:40%%" />        
+                                    <field name="controlled_by" />        
+                                    <field name="priority_agreement" />        
+                                    <field name="legal_form_code" />     
+                                    <field name="fiscal_regime" />     
+                                    <field name="num_affiliates_in_country" string="Filiales dans le pays" />     
+                                    <field name="num_affiliates_out_country" string="Filiales hors du pays" />
+                                </group>
+                            </group>
+                          
+                            <notebook name="ohada_company_details">
+                                <page string="Direction de l'entreprise" name="ohada_company_executives">
+                                    <group col="4">
+                                        <field name="executive_ids" colspan="4" nolabel="1" 
+                                                    context="{'default_company_id': active_id or False, 'default_type': 'executive'}">                                        
+                                            <tree editable="bottom"  >
+                                                <field name="company_id" invisible="1"/>
+                                                <field name="type" invisible="1"/>
+                                                <field name="manager_id" string="Prénom(s) et Nom" context="{'default_customer': False, 'default_company_type': 'person'}" />
+                                                <field name="function"/>
+                                                <field name="vat"/>
+                                                <field name="contact_address"/>
+                                            </tree>
+                                        </field>                                        
+                                    </group>
+                                </page>                             
+                                <page string="Conseil d'administration" name="ohada_company_administratives">
+                                    <group col="4">
+<!--                                        <field name="administrative_ids" colspan="2" nolabel="1" />          -->
+                                        <field name="administrative_ids" colspan="4" nolabel="1" 
+                                                    context="{'default_company_id': active_id or False, 'default_type': 'administrative'}">                                        
+                                            <tree editable="bottom"  >
+                                                <field name="company_id" invisible="1"/>
+                                                <field name="type" invisible="1"/>
+                                                <field name="manager_id" string="Prénom(s) et Nom" context="{'default_customer': False, 'default_company_type': 'person'}" />
+                                                <field name="function"/>
+                                                <field name="contact_address"/>
+                                            </tree>
+                                        </field>                                        
+                                    </group>
+                                </page>                                
+                                <page string="Actionnaires/Associés" name="ohada_company_shareholders">
+                                    <group col="4">
+                                        <field name="shareholder_ids" colspan="4" nolabel="1" 
+                                                    context="{'default_company_id': active_id or False, 'default_type': 'shareholder'}">
+                                            <tree editable="bottom"  >
+                                                <field name="type" invisible="1"/>
+                                                <field name="company_id" invisible="1"/>
+                                                <field name="partner_id" string="Nom Actionnaire/Associé" context="{'default_customer': False}" />
+                                                <field name="capital_amount" string="Capital" sum="Capital"/>
+                                                <field name="currency_id"/>
+                                                <field name="capital_percentage" string="% du capital total" sum="% du capital total"/>
+                                            </tree>
+                                        </field>                                        
+                                    </group>
+                                </page>                                
+                                <page string="Filiales/Participations"  name="ohada_company_affiliates">
+                                    <group col="4">
+                                        <field name="affiliate_ids" colspan="4" nolabel="1" 
+                                                    context="{'default_company_id': active_id or False, 'default_type': 'affiliate'}">
+                                            <tree editable="bottom"  >
+                                                <field name="type" invisible="1"/>
+                                                <field name="company_id" invisible="1"/>
+                                                <field name="partner_id" string="Nom Filiale/Participation" context="{'default_customer': False, 'default_company_type': 'company'}" />
+                                                <field name="capital_amount" string="Capital" sum="Capital"/>
+                                                <field name="currency_id"/>
+                                                <field name="capital_percentage" string="% du capital total" sum="% du capital total"/>
+                                            </tree>
+                                        </field>                                        
+                                    </group>
+                                </page>                                
+                                <page string="Activités de l'entreprise"  name="ohada_company_activities">
+                                    <group col="4">
+                                        <field name="activity_ids" colspan="4" nolabel="1" context="{'default_company_id': active_id or False}">
+                                            <tree editable="bottom"  >
+                                                <field name="company_id" invisible="1"/>
+                                                <field name="activity_id" />
+                                                <field name="main_activity" />
+                                                <field name="turnover_amount" />
+                                                <field name="turnover_percentage" />
+                                                <field name="surplus_amount" />
+                                                <field name="surplus_percentage" />
+                                                <field name="amount_reported" />                                        
+                                            </tree>
+                                        </field>
+                                    </group>
+                                </page>                                
+                            </notebook>                            
+                        </page>                        
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</odoo>
+
