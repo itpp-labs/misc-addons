@@ -170,7 +170,7 @@ class ReportOhadaFinancialReport(models.Model):
         landscape = False
         if len(self.with_context(print_mode=True).get_header(options)[-1]) > 5:
             landscape = True
-        # wdb.set_trace()
+
         return self.env['ir.actions.report']._run_wkhtmltopdf(
             [body],
             header=header, footer=footer,
@@ -217,7 +217,6 @@ class ReportOhadaFinancialReport(models.Model):
         - when a split in the row above happened
 
         '''
-        # wdb.set_trace()
         if not options.get('groups', {}).get('ids'):
             return False
 
@@ -277,7 +276,6 @@ class ReportOhadaFinancialReport(models.Model):
         return column_hierarchy
 
     def _get_columns_name(self, options):
-        # wdb.set_trace()
         columns = [{'name': ''}]
         if self.debit_credit and not options.get('comparison', {}).get('periods', False):
             columns += [{'name': _('Debit'), 'class': 'number'}, {'name': _('Credit'), 'class': 'number'}]
@@ -501,7 +499,6 @@ class ReportOhadaFinancialReport(models.Model):
         amount_of_periods = len((options.get('comparison') or {}).get('periods') or []) + 1
         amount_of_group_ids = len(options.get('groups', {}).get('ids') or []) or 1
         linesDicts = [[{} for _ in range(0, amount_of_group_ids)] for _ in range(0, amount_of_periods)]
-
         res = line_obj.with_context(
             cash_basis=options.get('cash_basis'),
             filter_domain=domain,
@@ -1376,7 +1373,6 @@ class OhadaFinancialReportLine(models.Model):
                 'sequence': line.sequence,
             }
 
-            # wdb.set_trace()
             if financial_report.tax_report and line.domain and not line.action_id:
                 vals['caret_options'] = 'tax.report.line'
             if line.note_report_ids:

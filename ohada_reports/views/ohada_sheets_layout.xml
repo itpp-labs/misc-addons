@@ -11,471 +11,473 @@
                 <colgroup width="37"></colgroup>
                 <colgroup width="22"></colgroup>
                 <colgroup width="33"></colgroup>
+                <tbody class="ohada_table">
                 <tr>
-                    <td style="border-top: 2px double #001e5a; border-left: 2px double #001e5a" height="16" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 2px double #001e5a" align="left"><b><font face="NimbusSanL" color="#001E5A"><br/></font></b></td>
-                    <td style="border-top: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 2px double #001e5a" colspan="3" align="center" sdnum="1033;0;DD/MM/YYYY"><b><font face="NimbusSanL" color="#001E5A"><br/></font></b></td>
-                    <td style="border-top: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 2px double #001e5a; border-bottom: 1px solid #001e5a; border-left: 1px solid #001e5a" align="left" colspan="15"><font face="NimbusSanL" color="#001E5A">Contrle de l'Entreprise (cocher la case)</font></td>
-                    <td style="border-top: 2px double #001e5a; border-bottom: 1px solid #001e5a; border-right: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
+                    <td height="16" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><b><br/></b></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td colspan="3" align="center" sdnum="1033;0;DD/MM/YYYY"><b><br/></b></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td style="border-bottom: 1px solid #001e5a; border-left: 1px solid #001e5a" align="left" colspan="15">Contrôle de l'Entreprise (cocher la case)</td>
+                    <td style="border-bottom: 1px solid #001e5a;" align="left"><br/></td>
                 </tr>
                 <tr>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px double #001e5a; border-right: 1px solid #000000" height="18" align="center" bgcolor="#FFDCDC"><font face="NimbusSanL" color="#001E5A">ZK</font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td colspan="12" align="left"><font face="NimbusSanL" color="#001E5A">Forme juridique</font></td>
-                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font color="#001E5A"><br/></font></td>
-                    <td align="left"><font color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-left: 1px solid #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-left: 1px solid #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-right: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="18" align="center" bgcolor="#FFDCDC">ZK</td>
+                    <td align="left"><br/></td>
+                    <td colspan="12" align="left">Forme juridique</td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><br/></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="17" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b><font face="NimbusSanL" color="#001E5A"><br/></font></b></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #001e5a; border-right: 1px solid #000000" align="center" bgcolor="#FFDCDC"><font face="NimbusSanL" color="#001E5A">ZQ</font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td colspan="11" align="left"><font face="NimbusSanL" color="#001E5A">Entreprise sous contr;le public</font></td>
-                    <td style="border-left: 1px solid #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-right: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
+                    <td height="17" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b><br/></b></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #001e5a; border-right: 1px solid #000000" align="center" bgcolor="#FFDCDC">ZQ</td>
+                    <td align="left"><br/></td>
+                    <td colspan="11" align="left">Entreprise sous contrôle public</td>
+                    <td style="border-left: 1px solid #001e5a" align="left"><br/></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><br/></td>
+                    <td align="left"><br/></td>
                 </tr>
                 <tr>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px double #001e5a; border-right: 1px solid #000000" height="17" align="center" bgcolor="#FFDCDC"><font face="NimbusSanL" color="#001E5A">Zl</font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td colspan="12" align="left"><font face="NimbusSanL" color="#001E5A">Rgime  fiscal</font></td>
-                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-left: 1px solid #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-left: 1px solid #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-right: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="17" align="center" bgcolor="#FFDCDC">Zl</td>
+                    <td align="left"><br/></td>
+                    <td colspan="12" align="left">Rgime  fiscal</td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="17" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b><font face="NimbusSanL" color="#001E5A"><br/></font></b></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #001e5a; border-right: 1px solid #000000" align="center" bgcolor="#FFDCDC"><font face="NimbusSanL" color="#001E5A">ZR</font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td colspan="11" align="left"><font face="NimbusSanL" color="#001E5A">Entreprise sous contr;le priv national</font></td>
-                    <td style="border-left: 1px solid #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-right: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
+                    <td height="17" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b><br/></b></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #001e5a; border-right: 1px solid #000000" align="center" bgcolor="#FFDCDC">ZR</td>
+                    <td align="left"><br/></td>
+                    <td colspan="11" align="left">Entreprise sous contrôle priv national</td>
+                    <td style="border-left: 1px solid #001e5a" align="left"><br/></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><br/></td>
+                    <td align="left"><br/></td>
                 </tr>
                 <tr>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px double #001e5a; border-right: 1px solid #000000" height="17" align="center" bgcolor="#FFDCDC"><font face="NimbusSanL" color="#001E5A">ZM</font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td colspan="12" align="left"><font face="NimbusSanL" color="#001E5A">Pays du sige social</font></td>
-                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-left: 1px solid #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-left: 1px solid #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-right: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="17" align="center" bgcolor="#FFDCDC">ZM</td>
+                    <td align="left"><br/></td>
+                    <td colspan="12" align="left">Pays du siège social</td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><br/></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="17" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b><font face="NimbusSanL" color="#001E5A"><br/></font></b></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #001e5a; border-right: 1px solid #000000" align="center" bgcolor="#FFDCDC"><font face="NimbusSanL" color="#001E5A">ZS</font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td colspan="11" align="left"><font face="NimbusSanL" color="#001E5A">Entreprise sous contr;le priv tranger</font></td>
-                    <td style="border-left: 1px solid #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-right: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
+                    <td height="17" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b><br/></b></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #001e5a; border-right: 1px solid #000000" align="center" bgcolor="#FFDCDC">ZS</td>
+                    <td align="left"><br/></td>
+                    <td colspan="11" align="left">Entreprise sous contrôle priv tranger</td>
+                    <td style="border-left: 1px solid #001e5a" align="left"><br/></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><br/></td>
+                    <td align="left"><br/></td>
                 </tr>
                 <tr>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px double #001e5a; border-right: 1px solid #000000" height="17" align="center" bgcolor="#FFDCDC"><font face="NimbusSanL" color="#001E5A">ZN</font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td colspan="12" align="left"><font face="NimbusSanL" color="#001E5A">Nombre d'tablissements dans le pays</font></td>
-                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-left: 1px solid #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-left: 1px solid #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-right: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="17" align="center" bgcolor="#FFDCDC">ZN</td>
+                    <td align="left"><br/></td>
+                    <td colspan="12" align="left">Nombre d'établissements dans le pays</td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><br/></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="16" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b><font face="NimbusSanL" color="#001E5A"><br/></font></b></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-left: 1px solid #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-left: 1px solid #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-right: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
+                    <td height="16" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b><br/></b></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
                 </tr>
                 <tr>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px double #001e5a; border-right: 1px solid #000000" height="17" align="center" bgcolor="#FFDCDC"><font face="NimbusSanL" color="#001E5A">ZO</font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td colspan="12" align="left"><font face="NimbusSanL" color="#001E5A">Nombre d'tablissements hors du pays pour</font></td>
-                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-left: 1px solid #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-left: 1px solid #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-right: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="17" align="center" bgcolor="#FFDCDC">ZO</td>
+                    <td align="left"><br/></td>
+                    <td colspan="12" align="left">Nombre d'établissements hors du pays pour</td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><br/></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="17" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td colspan="12" align="left"><font face="NimbusSanL" color="#001E5A">lesquels une comptabilit distincte est tenue</font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-left: 1px solid #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-left: 1px solid #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-right: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
+                    <td height="17" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td colspan="12" align="left">lesquels une comptabilit distincte est tenue</td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="16" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b><font face="NimbusSanL" color="#001E5A"><br/></font></b></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-left: 1px solid #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-left: 1px solid #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-right: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
+                    <td height="16" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b><br/></b></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
                 </tr>
                 <tr>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px double #001e5a; border-right: 1px solid #000000" height="17" align="center" bgcolor="#FFDCDC"><font face="NimbusSanL" color="#001E5A">ZP</font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td colspan="12" align="left"><font face="NimbusSanL" color="#001E5A">Premire anne d'exercice dans le pays</font></td>
-                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-left: 1px solid #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-left: 1px solid #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-right: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="17" align="center" bgcolor="#FFDCDC">ZP</td>
+                    <td align="left"><br/></td>
+                    <td colspan="12" align="left">Première année d'exercice dans le pays</td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><br/></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><br/></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><br/></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
                 </tr>
                 <tr>
-                    <td style="border-bottom: 2px double #001e5a; border-left: 2px double #001e5a" height="16" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="center" sdnum="1033;0;DD/MM/YYYY"><b><font face="NimbusSanL" color="#001E5A"><br/></font></b></td>
-                    <td style="border-bottom: 2px double #001e5a" align="center" sdnum="1033;0;DD/MM/YYYY"><b><font face="NimbusSanL" color="#001E5A"><br/></font></b></td>
-                    <td style="border-bottom: 2px double #001e5a" align="center" sdnum="1033;0;DD/MM/YYYY"><b><font face="NimbusSanL" color="#001E5A"><br/></font></b></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a; border-left: 1px solid #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a; border-left: 1px solid #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
-                    <td style="border-bottom: 2px double #001e5a; border-right: 2px double #001e5a" align="left"><font face="NimbusSanL" color="#001E5A"><br/></font></td>
+                    <td height="16" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b><br/></b></td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b><br/></b></td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b><br/></b></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"><br/></td>
+                    <td align="left"><br/></td>
+                    <td align="left"><br/></td>
                 </tr>
+                </tbody>
             </table>
         </template>
 
@@ -486,18 +488,12 @@
                 <colgroup span="21" width="24"></colgroup>
                 <colgroup width="34"></colgroup>
                 <colgroup span="7" width="24"></colgroup>
-                <tbody>
+                <tbody class="ohada_table">
                     <tr>
-                        <td style="border-top: 2px double #001e5a; border-left: 2px double #001e5a; border-right: 2px double #001e5a" colspan="31" height="27" align="center" sdnum="1033;0;0.00"><b><font face="NimbusSanL" color="#001E5A">FICHER D'IDENTIFICATION ET RENSEIGNEMENTS DIVERS 1</font></b></td>
+                        <td colspan="31" height="27" align="center" sdnum="1033;0;0.00"><b>FICHER D'IDENTIFICATION ET RENSEIGNEMENTS DIVERS 1</b></td>
                         </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"><font face="NimbusSanL" color="#FF0000"></font></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
@@ -514,27 +510,33 @@
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td align="left"><font face="NimbusSanL" color="#FF0000"></font></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" colspan="6" height="16" align="left"><font face="NimbusSanL" color="#001E5A">Dénomination de l'Entité :</font></td>
-                        <td colspan="14" align="left"><font face="NimbusSanL" color="#FF0000">[company.name]</font></td>
-                        <td colspan="3" align="left"><font face="NimbusSanL" color="#001E5A">Sigle usuel : </font></td>
-                        <td colspan="4" align="left"><font face="NimbusSanL" color="#FF0000">[company.acronym]</font></td>
+                        <td colspan="6" height="16" align="left">Dénomination de l'Entité :</td>
+                        <td colspan="14" align="left"><t t-esc="report.get('company_name')"/></td>
+                        <td colspan="3" align="left">Sigle usuel : </td>
+                        <td colspan="4" align="left"><t t-esc="report.get('company_acronym')"/></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
@@ -564,11 +566,11 @@
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" colspan="6" height="16" align="left"><font face="NimbusSanL" color="#001E5A">Adresse:</font></td>
-                        <td colspan="15" align="left"><font face="NimbusSanL" color="#FF0000">[company.street, company.street2 - company.city - company.country]</font></td>
+                        <td colspan="6" height="16" align="left">Adresse:</td>
+                        <td colspan="15" align="left"><t t-esc="report.get('company_address')"/></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
@@ -578,10 +580,10 @@
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
@@ -611,27 +613,27 @@
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" colspan="6" height="16" align="left"><font face="NimbusSanL" color="#001E5A">N° d'identification fiscale: </font></td>
-                        <td colspan="10" align="left"><font face="NimbusSanL" color="#FF0000">[company_id.vat]</font></td>
-                        <td colspan="4" align="left"><font face="NimbusSanL" color="#001E5A">Exercice clos: </font></td>
-                        <td colspan="3" align="left"><font face="NimbusSanL" color="#001E5A">31/12/[YEAR]</font></td>
+                        <td colspan="6" height="16" align="left">N° d'identification fiscale: </td>
+                        <td colspan="10" align="left"><t t-esc="report.get('vat')"/></td>
+                        <td colspan="4" align="left">Exercice clos: </td>
+                        <td colspan="3" align="left">31/12/<t t-esc="report.get('year')"/></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td colspan="4" align="left"><font face="NimbusSanL" color="#001E5A">Durée (en mois) : </font></td>
-                        <td align="center" sdval="12" sdnum="1033;"><font face="NimbusSanL" color="#001E5A">12</font></td>
-                        <td style="border-right: 2px double #001e5a" align="center"></td>
+                        <td colspan="4" align="left">Durée (en mois) : </td>
+                        <td align="center" sdval="12" sdnum="1033;">12</td>
+                        <td align="center"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td align="left"><font face="NimbusSanL" color="#FF0000"></font></td>
+                        <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
@@ -655,10 +657,10 @@
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="center"></td>
-                        <td style="border-right: 2px double #001e5a" align="center"></td>
+                        <td align="center"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
@@ -688,10 +690,10 @@
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="center"></td>
-                        <td style="border-right: 2px double #001e5a" align="center"></td>
+                        <td align="center"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
@@ -721,82 +723,27 @@
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="center"></td>
-                        <td style="border-right: 2px double #001e5a" align="center"></td>
+                        <td align="center"></td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px double #001e5a; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC"><font face="NimbusSanL" color="#001E5A">ZA</font></td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC">ZA</td>
                         <td align="left"></td>
-                        <td colspan="13" align="left"><font face="NimbusSanL" color="#001E5A">EXERCICE COMPTABLE:</font></td>
+                        <td colspan="13" align="left">EXERCICE COMPTABLE:</td>
                         <td align="left"></td>
-                        <td align="left"><font face="NimbusSanL" color="#001E5A">DU</font></td>
-                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="3" align="left" sdnum="1033;0;DD/MM/YYYY"><font face="NimbusSanL" color="#FF0000">01/01/[YEAR]</font></td>
+                        <td align="left">DU</td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="3" align="left" sdnum="1033;0;DD/MM/YYYY">01/01/<t t-esc="report.get('year')"/></td>
                         <td align="left" sdnum="1033;0;DD/MM/YYYY"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td align="left"><font face="NimbusSanL" color="#001E5A">AU</font></td>
-                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="3" align="left" sdnum="1033;0;DD/MM/YYYY"><font face="NimbusSanL" color="#001E5A">31/12/[YEAR]</font></td>
+                        <td align="left">AU</td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="3" align="left" sdnum="1033;0;DD/MM/YYYY">31/12/<t t-esc="report.get('year')"/></td>
                         <td align="center"></td>
-                        <td style="border-right: 2px double #001e5a" align="center"></td>
+                        <td align="center"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="center"></td>
-                        <td style="border-right: 2px double #001e5a" align="center"></td>
-                    </tr>
-                    <tr>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px double #001e5a; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC"><font face="NimbusSanL" color="#001E5A">ZB</font></td>
-                        <td align="left"></td>
-                        <td colspan="10" align="left"><font face="NimbusSanL" color="#001E5A">DATE D'ARRET EFFECTIF DES COMPTES:</font></td>
-                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="3" align="left" sdnum="1033;0;DD/MM/YYYY"><font face="NimbusSanL" color="#001E5A">31/12/[YEAR]</font></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="center"></td>
-                        <td style="border-right: 2px double #001e5a" align="center"></td>
-                    </tr>
-                    <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
@@ -826,25 +773,80 @@
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="center"></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="center"></td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px double #001e5a; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC"><font face="NimbusSanL" color="#001E5A">ZC</font></td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC">ZB</td>
                         <td align="left"></td>
-                        <td colspan="10" align="left"><font face="NimbusSanL" color="#001E5A">EXERCICE PRECEDENT CLOS LE:</font></td>
-                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="3" align="left" sdnum="1033;0;DD/MM/YYYY"><font face="NimbusSanL" color="#001E5A">31/12/[YEAR-1]</font></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
+                        <td colspan="10" align="left">DATE D'ARRET EFFECTIF DES COMPTES:</td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="3" align="left" sdnum="1033;0;DD/MM/YYYY">31/12/<t t-esc="report.get('year')"/></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td colspan="8" align="left"><font face="NimbusSanL" color="#001E5A">DUREE EX. PRECEDENT EN MOIS:</font></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="center"></td>
+                        <td align="center"></td>
+                    </tr>
+                    <tr>
+                        <td height="16" align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="center"></td>
+                        <td align="left"></td>
+                    </tr>
+                    <tr>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC">ZC</td>
+                        <td align="left"></td>
+                        <td colspan="10" align="left">EXERCICE PRECEDENT CLOS LE:</td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="3" align="left" sdnum="1033;0;DD/MM/YYYY">31/12/<t t-esc="report.get('prev_year')"/></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td colspan="8" align="left">DUREE EX. PRECEDENT EN MOIS:</td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
@@ -874,13 +876,13 @@
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px double #001e5a; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC"><font face="NimbusSanL" color="#001E5A">ZD</font></td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC">ZD</td>
                         <td align="left"></td>
-                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="7" align="left"><font face="NimbusSanL" color="#FF0000">[company.office]</font></td>
-                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="6" align="left"><font face="NimbusSanL" color="#FF0000">[company.rccm]</font></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="7" align="left"><t t-esc="report.get('company_office')"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="6" align="left"><t t-esc="report.get('company_rccm')"/></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
@@ -888,64 +890,62 @@
                         <td align="left"></td>
                         <td align="left"></td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="9" align="left" sdnum="1033;0;@"></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
-                        <td colspan="7" align="left"><font face="NimbusSanL" color="#001E5A">Greffe</font></td>
-                        <td colspan="6" align="left"><font face="NimbusSanL" color="#001E5A">N° registre de commerce</font></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
+                        <td colspan="7" align="left">Greffe</td>
+                        <td colspan="6" align="left">N° registre de commerce</td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td colspan="9" align="left"><font face="NimbusSanL" color="#001E5A">N° répertoire des entreprises</font></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td colspan="9" align="left">N° répertoire des entreprises</td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px double #001e5a; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC"><font face="NimbusSanL" color="#001E5A">ZE</font></td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC">ZE</td>
                         <td align="left"></td>
-                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="7" align="left"><font face="NimbusSanL" color="#FF0000">company.social_registry_id</font></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="7" align="left"><t t-esc="report.get('company_social_registry_id')"/></td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="6" align="left"></td>
                         <td align="left"></td>
-                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="4" align="left"><font face="NimbusSanL" color="#FF0000">[company.code_importer]</font></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="4" align="left"><t t-esc="report.get('company_code_importer')"/></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="5" align="left"></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
-                        <td align="left"><font face="NimbusSanL" color="#001E5A">N° Caisse de Sécurité Sociale</font></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td colspan="6" align="left"><font face="NimbusSanL" color="#001E5A">N° IPRES</font></td>
-                        <td align="left"></td>
-                        <td colspan="4" align="left"><font face="NimbusSanL" color="#001E5A">N° Code Importateur</font></td>
+                        <td align="left">N° Caisse de Sécurité Sociale</td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td colspan="5" align="left"><font face="NimbusSanL" color="#001E5A">Code activité principale</font></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
+                        <td colspan="6" align="left">N° IPRES</td>
+                        <td align="left"></td>
+                        <td colspan="4" align="left">N° Code Importateur</td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td colspan="5" align="left">Code activité principale</td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px double #001e5a; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC"><font face="NimbusSanL" color="#001E5A">ZF</font></td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC">ZF</td>
                         <td align="left"></td>
-                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="13" align="left"><font face="NimbusSanL" color="#FF0000">[company.legal_name]</font></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="13" align="left"><t t-esc="report.get('company_legal_name')"/></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
@@ -954,15 +954,15 @@
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="5" align="left"><font face="NimbusSanL" color="#FF0000">[company.acronym]</font></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="5" align="left"><t t-esc="report.get('company_acronym')"/></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
-                        <td style="border-top: 1px solid #000000" colspan="13" align="left"><font face="NimbusSanL" color="#001E5A">Désignation de l'entité</font></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
+                        <td style="border-top: 1px solid #000000" colspan="13" align="left">Désignation de l'entité</td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
@@ -971,95 +971,97 @@
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td colspan="5" align="left"><font face="NimbusSanL" color="#001E5A">Sigle</font></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td colspan="5" align="left">Sigle</td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px double #001e5a; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC"><font face="NimbusSanL" color="#001E5A">ZG</font></td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC">ZG</td>
                         <td align="left"></td>
-                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="4" align="left"><font face="NimbusSanL" color="#FF0000">[company.phone]</font></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="4" align="left"><t t-esc="report.get('company_phone')"/></td>
                         <td align="left"></td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="4" align="left"></td>
                         <td align="left"></td>
-                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="6" align="left"><font face="NimbusSanL" color="#FF0000">[company.email]</font></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="6" align="left"><t t-esc="report.get('company_email')"/></td>
                         <td align="left"></td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="2" align="left"></td>
-                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="3" align="left" sdnum="1033;0;#,##0"><font face="NimbusSanL" color="#FF0000">[company.zip]</font></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="3" align="left" sdnum="1033;0;#,##0"><t t-esc="report.get('company_zip')"/></td>
                         <td align="left"></td>
-                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="5" align="left"><font face="NimbusSanL" color="#FF0000">[company.acronym]</font></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="5" align="left"><t t-esc="report.get('company_acronym')"/></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
-                        <td colspan="4" align="left"><font face="NimbusSanL" color="#001E5A">N° de téléphone</font></td>
+                        <td colspan="4" align="left">N° de téléphone</td>
                         <td align="left"></td>
-                        <td colspan="4" align="left"><font face="NimbusSanL" color="#001E5A">N° de télécopie</font></td>
+                        <td colspan="4" align="left">N° de télécopie</td>
                         <td align="left"></td>
-                        <td colspan="6" align="left"><font face="NimbusSanL" color="#001E5A">Email</font></td>
+                        <td colspan="6" align="left">Email</td>
                         <td align="left"></td>
-                        <td colspan="2" align="left"><font face="NimbusSanL" color="#001E5A">Code</font></td>
-                        <td style="border-top: 1px solid #000000" colspan="3" align="left"><font face="NimbusSanL" color="#001E5A">Boîte Postale</font></td>
+                        <td colspan="2" align="left">Code</td>
+                        <td style="border-top: 1px solid #000000" colspan="3" align="left">Boîte Postale</td>
                         <td align="left"></td>
-                        <td colspan="5" align="left"><font face="NimbusSanL" color="#001E5A">Ville</font></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td colspan="5" align="left">Ville</td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px double #001e5a; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC"><font face="NimbusSanL" color="#001E5A">ZH</font></td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC">ZH</td>
                         <td align="left"></td>
-                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="28" align="left"><font face="NimbusSanL" color="#FF0000">[company.street, company.street2 - company.zip - company.city - company.country]</font></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="28" align="left"><t t-esc="report.get('company_address')"/></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px double #001e5a" height="16" align="center"></td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000;" height="16" align="center"></td>
                         <td align="left"></td>
-                        <td style="border-top: 1px solid #000000" colspan="28" align="left"><font face="NimbusSanL" color="#001E5A">Adresse géographique complète (Immeuble, rue, quartier, ville, pays)</font></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td style="border-top: 1px solid #000000" colspan="28" align="left">Adresse géographique complète (Immeuble, rue, quartier, ville, pays)</td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px double #001e5a; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC"><font face="NimbusSanL" color="#001E5A">ZI</font></td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC">ZI</td>
                         <td align="left"></td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="28" align="left"></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
-                        <td colspan="28" align="left"><font face="NimbusSanL" color="#001E5A">Désignation précise de l'activité principale exercée par l'entité</font></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td colspan="28" align="left">Désignation précise de l'activité principale exercée par l'entité</td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
-                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="28" align="left"><font face="NimbusSanL" color="#FF0000">[discolsure.contact_person_id.name + &quot;, &quot; + contact_person_id.function and address]</font></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="28" align="left">[discolsure.contact_person_id.name + &quot;, &quot; + contact_person_id.function and address]</td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
-                        <td colspan="28" align="left"><font face="NimbusSanL" color="#001E5A">Nom, adresse et qualité de la personne à contacter en cas de demande d'informations complémentaires</font></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td colspan="28" align="left">Nom, adresse et qualité de la personne à contacter en cas de demande d'informations complémentaires</td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
-                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="28" align="left"><font face="NimbusSanL" color="#FF0000">[discolsure.responsible_emplyee.name + &quot;, &quot; + responsible_emplyee.partner_id.function and address]</font></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="28" align="left">[discolsure.responsible_emplyee.name + &quot;, &quot; + responsible_emplyee.partner_id.function and address]</td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
-                        <td style="border-top: 1px solid #000000" colspan="28" align="left"><font face="NimbusSanL" color="#001E5A">Nom du professionnel salarié de l'entreprise ou Nom, adresse et téléphone du cabinet comptable </font></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td style="border-top: 1px solid #000000" colspan="28" align="left">Nom du professionnel salarié de l'entreprise ou Nom, adresse et téléphone du cabinet comptable </td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
-                        <td colspan="28" align="left"><font face="NimbusSanL" color="#001E5A">ou du professionnel inscrit à l'ordre national des Experts comptables et des comptables agrés ayant établi les états financiers.</font></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td colspan="28" align="left">ou du professionnel inscrit à l'ordre national des Experts comptables et des comptables agrés ayant établi les états financiers.</td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
@@ -1089,10 +1091,10 @@
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
@@ -1122,10 +1124,10 @@
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="16" rowspan="3" align="left"></td>
                         <td align="left"></td>
@@ -1140,10 +1142,10 @@
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
@@ -1152,62 +1154,60 @@
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><font face="NimbusSanL" color="#001E5A">X</font></td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center">X</td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
                         <td style="border-right: 1px solid #000000" align="left"></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left"></td>
-                        <td style="border-bottom: 1px solid #000000" align="left"><font face="NimbusSanL" color="#001E5A">Non</font></td>
+                        <td style="border-bottom: 1px solid #000000" align="left">Non</td>
                         <td style="border-bottom: 1px solid #000000" align="left"></td>
                         <td style="border-bottom: 1px solid #000000" align="left"></td>
-                        <td style="border-bottom: 1px solid #000000" align="left"><font face="NimbusSanL" color="#001E5A">Non</font></td>
+                        <td style="border-bottom: 1px solid #000000" align="left">Non</td>
                         <td style="border-bottom: 1px solid #000000" align="left"></td>
                         <td style="border-bottom: 1px solid #000000" align="left"></td>
-                        <td style="border-bottom: 1px solid #000000" align="left"><font face="NimbusSanL" color="#001E5A">Oui</font></td>
+                        <td style="border-bottom: 1px solid #000000" align="left">Oui</td>
                         <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
-                        <td colspan="13" align="left"><font face="NimbusSanL" color="#001E5A">Visa de l'Expert comptable ou du Comptable agré</font></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
+                        <td colspan="13" align="left">Visa de l'Expert comptable ou du Comptable agré</td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td colspan="9" align="left"><font face="NimbusSanL" color="#001E5A">Etats financiers approuvés par l'Assemblée</font></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td colspan="9" align="left">Etats financiers approuvés par l'Assemblée</td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
-                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="13" align="left"><font face="NimbusSanL" color="#FF0000">[disclosure.responsible_employee.name]</font></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="13" align="left">[disclosure.responsible_employee.name]</td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td colspan="9" align="left"><font face="NimbusSanL" color="#001E5A">Générale (cocher la case)</font></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td colspan="9" align="left">Générale (cocher la case)</td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
-                        <td colspan="13" align="left"><font face="NimbusSanL" color="#001E5A">Nom du signataire des états financiers</font></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
+                        <td colspan="13" align="left">Nom du signataire des états financiers</td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
@@ -1221,43 +1221,45 @@
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
-                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="13" align="left"><font face="NimbusSanL" color="#FF0000">[disclosure.responsible_emplyee.function]</font></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="13" align="left">[disclosure.responsible_emplyee.function]</td>
                         <td align="left"></td>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="14" align="left"><font face="NimbusSanL" color="#001E5A">Domiciliation bancaire</font></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="14" align="left">Domiciliation bancaire</td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
-                        <td colspan="13" align="left"><font face="NimbusSanL" color="#001E5A">Qualité du signataire des états financiers</font></td>
+                        <td colspan="13" align="left">Qualité du signataire des états financiers</td>
                         <td align="left"></td>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="8" align="left"><font face="NimbusSanL" color="#001E5A">Banque</font></td>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="6" align="left"><font face="NimbusSanL" color="#001E5A">N° de compte</font></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="8" align="left">Banque</td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="6" align="left">N° de compte</td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
-                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="13" align="left" sdnum="1033;0;DD/MM/YYYY"><font face="NimbusSanL" color="#FF0000">[disclosure.responsible_employee_sign_date]</font></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="13" align="left" sdnum="1033;0;DD/MM/YYYY">[disclosure.responsible_employee_sign_date]</td>
                         <td align="left"></td>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="8" rowspan="7" align="left" valign="middle"><font face="NimbusSanL" color="#001E5A">  company.res.partner.bank.bank_id.name</font></td>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="6" rowspan="7" align="left" valign="middle"><font face="NimbusSanL" color="#001E5A">company.res.partner.bank.bank_id</font></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="8" rowspan="7" align="left" valign="middle"><t t-esc="report.get('bank_name')"/></td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="6" rowspan="7" align="left" valign="middle"><t t-esc="report.get('bank_account_num')"/></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
-                        <td colspan="13" align="left"><font face="NimbusSanL" color="#001E5A">Date de signature</font></td>
+                        <td colspan="13" align="left">Date de signature</td>
                         <td align="left"></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
@@ -1273,39 +1275,37 @@
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="13" rowspan="4" align="left"></td>
                         <td align="left"></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 2px double #001e5a" height="16" align="left"></td>
+                        <td height="16" align="left"></td>
                         <td align="left"></td>
-                        <td colspan="13" align="left"><font face="NimbusSanL" color="#001E5A">Signature</font></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
+                        <td colspan="13" align="left">Signature</td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
@@ -1319,40 +1319,42 @@
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
-                        <td style="border-right: 2px double #001e5a" align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-bottom: 2px double #001e5a; border-left: 2px double #001e5a" height="16" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                        <td style="border-bottom: 2px double #001e5a; border-right: 2px double #001e5a" align="left"></td>
+                        <td height="16" align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
+                        <td align="left"></td>
                     </tr>
                 </tbody>
             </table>
@@ -1377,23 +1379,24 @@
                 <colgroup width="45"></colgroup>
                 <colgroup width="43"></colgroup>
                 <colgroup width="16"></colgroup>
+                <tbody class="ohada_table">
                 <tr>
-                    <td style="border-top: 2px double #001e5a; border-left: 2px double #001e5a" height="18" align="left"></td>
-                    <td style="border-top: 2px double #001e5a" colspan="8" align="left"><b></b></td>
-                    <td style="border-top: 2px double #001e5a" align="left"></td>
-                    <td style="border-top: 2px double #001e5a" align="left"></td>
-                    <td style="border-top: 2px double #001e5a" align="left"></td>
-                    <td style="border-top: 2px double #001e5a" align="left"></td>
-                    <td style="border-top: 2px double #001e5a" align="left"></td>
-                    <td style="border-top: 2px double #001e5a" align="left"></td>
-                    <td style="border-top: 2px double #001e5a" align="left"></td>
-                    <td style="border-top: 2px double #001e5a" align="left"></td>
-                    <td style="border-top: 2px double #001e5a" align="left"></td>
-                    <td style="border-top: 2px double #001e5a; border-right: 2px double #001e5a" align="left"></td>
+                    <td height="18" align="left"></td>
+                    <td colspan="8" align="left"><b></b></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="19" align="left"></td>
-                    <td colspan="10" align="left"><font face="NimbusSanL" color="#001E5A">REPUBLIQUE DU SENEGAL</font></td>
+                    <td height="19" align="left"></td>
+                    <td colspan="10" align="left">REPUBLIQUE DU SENEGAL</td>
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -1401,11 +1404,11 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="19" align="left"></td>
-                    <td colspan="10" align="left"><font face="NimbusSanL" color="#001E5A">MINISTERE DES FINANCES</font></td>
+                    <td height="19" align="left"></td>
+                    <td colspan="10" align="left">MINISTERE DES FINANCES</td>
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -1413,11 +1416,11 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="19" align="left"></td>
-                    <td colspan="10" align="left"><font face="NimbusSanL" color="#001E5A">DIRECTION DES IMPOTS &amp; DOMAINES</font></td>
+                    <td height="19" align="left"></td>
+                    <td colspan="10" align="left">DIRECTION DES IMPOTS &amp; DOMAINES</td>
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -1425,11 +1428,11 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="19" align="left"></td>
-                    <td colspan="10" align="left"><font face="NimbusSanL" color="#001E5A">CENTRE DE DEPOT : CENTRE DES MOYENNES ENTREPRISES 1 CME1</font></td>
+                    <td height="19" align="left"></td>
+                    <td colspan="10" align="left">CENTRE DE DEPOT : CENTRE DES MOYENNES ENTREPRISES 1 CME1</td>
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -1437,10 +1440,10 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
+                    <td height="18" align="left"></td>
                     <td align="left"><b></b></td>
                     <td align="left"><b></b></td>
                     <td align="left"><b></b></td>
@@ -1458,10 +1461,10 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
+                    <td height="18" align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -1479,10 +1482,10 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
+                    <td height="18" align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -1500,10 +1503,10 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
+                    <td height="18" align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -1521,20 +1524,20 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="20" align="left"></td>
-                    <td colspan="17" align="center" bgcolor="#FFFFFF"><b><font face="NimbusSanL" size="3" color="#001E5A">ETATS FINANCIERS NORMALISES </font></b></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td height="20" align="left"></td>
+                    <td colspan="17" align="center" bgcolor="#FFFFFF"><b>ETATS FINANCIERS NORMALISES</b></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="20" align="left"></td>
-                    <td colspan="17" align="center" bgcolor="#FFFFFF"><b><font face="NimbusSanL" size="3" color="#001E5A">DU SYSTÈME COMPTABLE (SYSCOHADA)</font></b></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td height="20" align="left"></td>
+                    <td colspan="17" align="center" bgcolor="#FFFFFF"><b>DU SYSTÈME COMPTABLE (SYSCOHADA)</b></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
+                    <td height="18" align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -1552,10 +1555,10 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
+                    <td height="18" align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -1573,15 +1576,15 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
-                    <td colspan="17" align="center" bgcolor="#FFFFFF"><font face="NimbusSanL" color="#001E5A">EXERCICE CLOS LE 31/12/[YEAR]</font></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td height="18" align="left"></td>
+                    <td colspan="17" align="center" bgcolor="#FFFFFF">EXERCICE CLOS LE 31/12/<t t-esc="report.get('year')"/></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
+                    <td height="18" align="left"></td>
                     <td align="center" bgcolor="#FFFFFF"></td>
                     <td align="center" bgcolor="#FFFFFF"></td>
                     <td align="center" bgcolor="#FFFFFF"></td>
@@ -1599,10 +1602,10 @@
                     <td align="center" bgcolor="#FFFFFF"></td>
                     <td align="center" bgcolor="#FFFFFF"></td>
                     <td align="center" bgcolor="#FFFFFF"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="17" align="left"></td>
+                    <td height="17" align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -1620,15 +1623,15 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="17" align="left"></td>
-                    <td colspan="17" align="center" bgcolor="#FFFFFF"><b><font face="NimbusSanL" color="#001E5A">DESIGNATION DE L'ENTITE</font></b></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td height="17" align="left"></td>
+                    <td colspan="17" align="center" bgcolor="#FFFFFF"><b>DESIGNATION DE L'ENTITE</b></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="17" align="left"></td>
+                    <td height="17" align="left"></td>
                     <td align="center" bgcolor="#FFFFFF"><b></b></td>
                     <td align="center" bgcolor="#FFFFFF"><b></b></td>
                     <td align="center" bgcolor="#FFFFFF"><b></b></td>
@@ -1646,10 +1649,10 @@
                     <td align="center" bgcolor="#FFFFFF"><b></b></td>
                     <td align="center" bgcolor="#FFFFFF"><b></b></td>
                     <td align="center" bgcolor="#FFFFFF"><b></b></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="17" align="left"></td>
+                    <td height="17" align="left"></td>
                     <td align="center" bgcolor="#FFFFFF"><b></b></td>
                     <td align="center" bgcolor="#FFFFFF"><b></b></td>
                     <td align="center" bgcolor="#FFFFFF"><b></b></td>
@@ -1667,10 +1670,10 @@
                     <td align="center" bgcolor="#FFFFFF"><b></b></td>
                     <td align="center" bgcolor="#FFFFFF"><b></b></td>
                     <td align="center" bgcolor="#FFFFFF"><b></b></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
+                    <td height="18" align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -1688,19 +1691,17 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
-                    <td colspan="4" align="left"><font face="NimbusSanL" color="#001E5A">DENOMINATION SOCIALE :</font></td>
-                    <td colspan="13" align="left"><font face="NimbusSanL" color="#FF0000">[company.name]</font></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td height="18" align="left"></td>
+                    <td colspan="4" align="left">DENOMINATION SOCIALE :</td>
+                    <td colspan="13" align="left"><t t-esc="report.get('company_name')"/></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
-                    <td colspan="4" align="left"><font face="NimbusSanL" color="#001E5A">(ou nom et prénom de l'exploitant)</font></td>
-                    <td align="left"><font face="NimbusSanL" color="#FF0000"></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#FF0000"></font></td>
+                    <td height="18" align="left"></td>
+                    <td colspan="4" align="left">(ou nom et prénom de l'exploitant)</td>
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -1712,16 +1713,12 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
-                    <td align="left"></td>
-                    <td align="left"></td>
-                    <td align="left"></td>
-                    <td align="left"></td>
-                    <td align="left"><font face="NimbusSanL" color="#FF0000"></font></td>
-                    <td align="left"><font face="NimbusSanL" color="#FF0000"></font></td>
+                    <td height="18" align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -1733,16 +1730,22 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
-                    <td colspan="4" align="left"><font face="NimbusSanL" color="#001E5A">SIGLE USUEL :</font></td>
-                    <td colspan="13" align="left"><font face="NimbusSanL" color="#FF0000">[company.acronym]</font></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td height="18" align="left"></td>
+                    <td colspan="4" align="left">SIGLE USUEL :</td>
+                    <td colspan="13" align="left"><t t-esc="report.get('company_acronym')"/></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
+                    <td height="18" align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -1760,16 +1763,16 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
-                    <td colspan="4" align="left"><font face="NimbusSanL" color="#001E5A">ADRESSE COMPLETE :</font></td>
-                    <td colspan="13" align="left"><font face="NimbusSanL" color="#FF0000">[company.street, company.street2 - company.city - company.country]</font></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td height="18" align="left"></td>
+                    <td colspan="4" align="left">ADRESSE COMPLETE :</td>
+                    <td colspan="13" align="left"><t t-esc="report.get('company_address')"/></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
+                    <td height="18" align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -1787,16 +1790,16 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
-                    <td colspan="4" align="left"><font face="NimbusSanL" color="#001E5A">N° D'IDENTIFICATION FISCALE:</font></td>
-                    <td colspan="13" align="left"><font face="NimbusSanL" color="#FF0000">[company_id.vat]</font></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td height="18" align="left"></td>
+                    <td colspan="4" align="left">N° D'IDENTIFICATION FISCALE:</td>
+                    <td colspan="13" align="left"><t t-esc="report.get('vat')"/></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
+                    <td height="18" align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -1814,10 +1817,10 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
+                    <td height="18" align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -1835,10 +1838,10 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
+                    <td height="18" align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -1856,15 +1859,15 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
-                    <td colspan="17" align="center" bgcolor="#FFFFFF"><b><font face="NimbusSanL" color="#001E5A">SYSTEME NORMAL</font></b></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td height="18" align="left"></td>
+                    <td colspan="17" align="center" bgcolor="#FFFFFF"><b>SYSTEME NORMAL</b></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
+                    <td height="18" align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -1882,10 +1885,10 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
+                    <td height="18" align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -1903,17 +1906,17 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
-                    <td colspan="8" align="center"><b><font face="NimbusSanL" color="#001E5A">Documents déposés</font></b></td>
+                    <td height="18" align="left"></td>
+                    <td colspan="8" align="center"><b>Documents déposés</b></td>
                     <td align="left"></td>
-                    <td colspan="8" align="center"><b><font face="NimbusSanL" color="#001E5A">Réservé à la Direction Générale des Impôts</font></b></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td colspan="8" align="center"><b>Réservé à la Direction Générale des Impôts</b></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="7" align="left"></td>
+                    <td height="7" align="left"></td>
                     <td align="center"><b></b></td>
                     <td align="center"><b></b></td>
                     <td align="center"><b></b></td>
@@ -1931,10 +1934,10 @@
                     <td align="center"><b></b></td>
                     <td align="center"><b></b></td>
                     <td align="center"><b></b></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
+                    <td height="18" align="left"></td>
                     <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left"></td>
                     <td style="border-top: 1px solid #000000" align="left"></td>
                     <td style="border-top: 1px solid #000000" align="left"></td>
@@ -1944,14 +1947,14 @@
                     <td style="border-top: 1px solid #000000" align="left"></td>
                     <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
                     <td align="left"></td>
-                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="8" align="left"><font face="NimbusSanL" color="#001E5A">Date de dépôt</font></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="8" align="left">Date de dépôt</td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
-                    <td style="border-left: 1px solid #000000" colspan="5" align="left"><font face="NimbusSanL" color="#001E5A">Fiche d'identification </font></td>
+                    <td height="18" align="left"></td>
+                    <td style="border-left: 1px solid #000000" colspan="5" align="left">Fiche d'identification </td>
                     <td style="border-left: 1px solid #000000" align="left"></td>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><font face="NimbusSanL" color="#001E5A">X</font></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center">X</td>
                     <td style="border-right: 1px solid #000000" align="left"></td>
                     <td align="left"></td>
                     <td style="border-left: 1px solid #000000" align="left"></td>
@@ -1962,22 +1965,22 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td style="border-right: 1px solid #000000" align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="13" align="left"></td>
-                    <td style="border-left: 1px solid #000000" colspan="5" align="left"><font face="NimbusSanL" color="#001E5A">et renseignements divers</font></td>
+                    <td height="13" align="left"></td>
+                    <td style="border-left: 1px solid #000000" colspan="5" align="left">et renseignements divers</td>
                     <td style="border-left: 1px solid #000000" align="left"></td>
                     <td align="center"></td>
                     <td style="border-right: 1px solid #000000" align="left"></td>
                     <td align="left"></td>
                     <td style="border-left: 1px solid #000000" align="left"></td>
-                    <td colspan="6" align="left"><font face="NimbusSanL" color="#FF0000">[ohada.disclosure.sent2taxoffice_date]</font></td>
+                    <td colspan="6" align="left">[ohada.disclosure.sent2taxoffice_date]</td>
                     <td style="border-right: 1px solid #000000" align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="7" align="left"></td>
+                    <td height="7" align="left"></td>
                     <td style="border-left: 1px solid #000000" align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -1995,13 +1998,13 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td style="border-right: 1px solid #000000" align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
-                    <td style="border-left: 1px solid #000000" colspan="5" rowspan="2" align="left"><font face="NimbusSanL" color="#001E5A">Bilan</font></td>
+                    <td height="18" align="left"></td>
+                    <td style="border-left: 1px solid #000000" colspan="5" rowspan="2" align="left">Bilan</td>
                     <td style="border-left: 1px solid #000000" align="left"></td>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><font face="NimbusSanL" color="#001E5A">X</font></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center">X</td>
                     <td style="border-right: 1px solid #000000" align="left"></td>
                     <td align="left"></td>
                     <td style="border-left: 1px solid #000000" align="left"></td>
@@ -2012,10 +2015,10 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td style="border-right: 1px solid #000000" align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="4" align="left"></td>
+                    <td height="4" align="left"></td>
                     <td style="border-left: 1px solid #000000" align="left"></td>
                     <td align="left"></td>
                     <td style="border-right: 1px solid #000000" align="left"></td>
@@ -2028,13 +2031,13 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td style="border-right: 1px solid #000000" align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
-                    <td style="border-left: 1px solid #000000" colspan="5" align="left"><font face="NimbusSanL" color="#001E5A">Compte de résultat</font></td>
+                    <td height="18" align="left"></td>
+                    <td style="border-left: 1px solid #000000" colspan="5" align="left">Compte de résultat</td>
                     <td style="border-left: 1px solid #000000" align="left"></td>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><font face="NimbusSanL" color="#001E5A">X</font></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center">X</td>
                     <td style="border-right: 1px solid #000000" align="left"></td>
                     <td align="left"></td>
                     <td style="border-left: 1px solid #000000" align="left"></td>
@@ -2045,10 +2048,10 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td style="border-right: 1px solid #000000" align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="7" align="left"></td>
+                    <td height="7" align="left"></td>
                     <td style="border-left: 1px solid #000000" align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -2066,20 +2069,20 @@
                     <td style="border-bottom: 1px solid #000000" align="left"></td>
                     <td style="border-bottom: 1px solid #000000" align="left"></td>
                     <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
-                    <td style="border-left: 1px solid #000000" colspan="5" align="left"><font face="NimbusSanL" color="#001E5A">Tableau des flux de trésorerie</font></td>
+                    <td height="18" align="left"></td>
+                    <td style="border-left: 1px solid #000000" colspan="5" align="left">Tableau des flux de trésorerie</td>
                     <td style="border-left: 1px solid #000000" align="left"></td>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><font face="NimbusSanL" color="#001E5A">X</font></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center">X</td>
                     <td style="border-right: 1px solid #000000" align="left"></td>
                     <td align="left"></td>
-                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="8" align="left"><font face="NimbusSanL" color="#001E5A">Nom de l'agent de la DGI ayant réceptionné le dépôt</font></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="8" align="left">Nom de l'agent de la DGI ayant réceptionné le dépôt</td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="7" align="left"></td>
+                    <td height="7" align="left"></td>
                     <td style="border-left: 1px solid #000000" align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -2097,13 +2100,13 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td style="border-right: 1px solid #000000" align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
-                    <td style="border-left: 1px solid #000000" colspan="5" align="left"><font face="NimbusSanL" color="#001E5A">Notes annexes</font></td>
+                    <td height="18" align="left"></td>
+                    <td style="border-left: 1px solid #000000" colspan="5" align="left">Notes annexes</td>
                     <td style="border-left: 1px solid #000000" align="left"></td>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><font face="NimbusSanL" color="#001E5A">X</font></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center">X</td>
                     <td style="border-right: 1px solid #000000" align="left"></td>
                     <td align="left"></td>
                     <td style="border-left: 1px solid #000000" align="left"></td>
@@ -2114,10 +2117,10 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td style="border-right: 1px solid #000000" align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="7" align="left"></td>
+                    <td height="7" align="left"></td>
                     <td style="border-left: 1px solid #000000" align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -2135,10 +2138,10 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td style="border-right: 1px solid #000000" align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
+                    <td height="18" align="left"></td>
                     <td style="border-left: 1px solid #000000" align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -2156,10 +2159,10 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td style="border-right: 1px solid #000000" align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="7" align="left"></td>
+                    <td height="7" align="left"></td>
                     <td style="border-left: 1px solid #000000" align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -2177,10 +2180,10 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td style="border-right: 1px solid #000000" align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
+                    <td height="18" align="left"></td>
                     <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left"></td>
                     <td style="border-bottom: 1px solid #000000" align="left"></td>
                     <td style="border-bottom: 1px solid #000000" align="left"></td>
@@ -2198,10 +2201,10 @@
                     <td style="border-bottom: 1px solid #000000" align="left"></td>
                     <td style="border-bottom: 1px solid #000000" align="left"></td>
                     <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="9" align="left"></td>
+                    <td height="9" align="left"></td>
                     <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left"></td>
                     <td style="border-top: 1px solid #000000" align="left"></td>
                     <td style="border-top: 1px solid #000000" align="left"></td>
@@ -2219,20 +2222,20 @@
                     <td style="border-top: 1px solid #000000" align="left"></td>
                     <td style="border-top: 1px solid #000000" align="left"></td>
                     <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
-                    <td style="border-left: 1px solid #000000" colspan="5" align="left"><font face="NimbusSanL" color="#001E5A">Nombre de pages déposés par exemplaire</font></td>
+                    <td height="18" align="left"></td>
+                    <td style="border-left: 1px solid #000000" colspan="5" align="left">Nombre de pages déposés par exemplaire</td>
                     <td align="left"></td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
                     <td style="border-right: 1px solid #000000" align="left"></td>
                     <td align="left"></td>
-                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="8" align="left"><font face="NimbusSanL" color="#001E5A">Signature de l'agent et cachet du service</font></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="8" align="left">Signature de l'agent et cachet du service</td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="7" align="left"></td>
+                    <td height="7" align="left"></td>
                     <td style="border-left: 1px solid #000000" align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -2250,11 +2253,11 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td style="border-right: 1px solid #000000" align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
-                    <td style="border-left: 1px solid #000000" colspan="5" align="left"><font face="NimbusSanL" color="#001E5A">Nombre d'exemplaires déposés</font></td>
+                    <td height="18" align="left"></td>
+                    <td style="border-left: 1px solid #000000" colspan="5" align="left">Nombre d'exemplaires déposés</td>
                     <td align="left"></td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
                     <td style="border-right: 1px solid #000000" align="left"></td>
@@ -2267,10 +2270,10 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td style="border-right: 1px solid #000000" align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="18" align="left"></td>
+                    <td height="18" align="left"></td>
                     <td style="border-left: 1px solid #000000" align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
@@ -2288,10 +2291,10 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td style="border-right: 1px solid #000000" align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-left: 2px double #001e5a" height="9" align="left"></td>
+                    <td height="9" align="left"></td>
                     <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left"></td>
                     <td style="border-bottom: 1px solid #000000" align="left"></td>
                     <td style="border-bottom: 1px solid #000000" align="left"></td>
@@ -2309,29 +2312,30 @@
                     <td style="border-bottom: 1px solid #000000" align="left"></td>
                     <td style="border-bottom: 1px solid #000000" align="left"></td>
                     <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
-                    <td style="border-right: 2px double #001e5a" align="left"></td>
+                    <td align="left"></td>
                 </tr>
                 <tr>
-                    <td style="border-bottom: 2px double #001e5a; border-left: 2px double #001e5a" height="18" align="left"></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                    <td style="border-bottom: 2px double #001e5a" align="left"></td>
-                    <td style="border-bottom: 2px double #001e5a; border-right: 2px double #001e5a" align="left"></td>
+                    <td height="18" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
                 </tr>
+                </tbody>
             </table>
         </template>
 

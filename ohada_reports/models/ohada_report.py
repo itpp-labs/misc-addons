@@ -28,6 +28,7 @@ from odoo.tools.safe_eval import safe_eval
 from odoo.exceptions import UserError
 
 import html2text
+import wdb
 
 _logger = logging.getLogger(__name__)
 
@@ -571,7 +572,6 @@ class OhadaReport(models.AbstractModel):
 
         # Get_lines for the newly computed hierarchy.
         def get_hierarchy_lines(values, depth=1):
-            # wdb.set_trace()
             lines = []
             sum_sum_columns = []
             for base_line in values.get('lines', []):
@@ -670,6 +670,28 @@ class OhadaReport(models.AbstractModel):
                     if c['selected'] and c['id'] not in user_company_ids:
                         c['selected'] = False
 
+    def _get_report_data(self):
+        # wdb.set_trace()
+        print('get_report_data')
+        company = self.env.user.company_id
+        # if self.code == 'CP':
+        return {
+            'company_acronym': company.acronym,
+            'company_address': company.street + ', ' + company.street2 + ' - ' + company.city + ' - ' + \
+                               company.country_id.name if company.street2 else company.street + ' - ' + \
+                               company.city + ' - ' + company.country_id.name,
+            'company_office': company.office,
+            'company_rccm': company.rccm,
+            'company_social_registry_id': company.social_registry_id,
+            'company_code_importer': company.code_importer,
+            'company_legal_name': company.legal_name,
+            'company_phone': company.phone,
+            'company_email': company.email,
+            'company_zip': company.zip,
+            'bank_name': company.partner_id.bank_ids[0].bank_name if company.partner_id.bank_ids[0] else 'None',
+            'bank_account_num': company.partner_id.bank_ids[0].acc_number if company.partner_id.bank_ids[0] else 'None',
+        }
+
     @api.multi
     def get_html(self, options, line_id=None, additional_context=None):
         '''
@@ -682,7 +704,7 @@ class OhadaReport(models.AbstractModel):
         In OHADA reporting, all 3 reports must display figures of current and previous years.
         In order to display previous year's value of PL line XI in the BS* report, we need to explicitly set comparison in options.  
         '''
-        if self.code in ['BS', 'BS2', 'BS2']:                                      
+        if self.code in ['BS', 'BS2']:
             # Set comparison in option
             if not options['date'].get('date_from') and options['comparison'].get('filter', 'no_comparison') == 'no_comparison':
                 options['comparison'] = self.make_temp_options(int(options['date']['date'][0:4]))['comparison']
@@ -710,13 +732,18 @@ class OhadaReport(models.AbstractModel):
                   'vat': self.env.user.company_id.vat,
                   'year': date[0:4],
                   'header': self.header and self.header.upper()}
-        lines = self._get_lines(options, line_id=line_id)
+
+        if self.code in ['S1', 'S2', 'CP']:
+            # wdb.set_trace()
+            report = {**report, **self._get_report_data()}
+            report['prev_year'] = int(report['year']) - 1
+            lines = []
+        else:
+            lines = self._get_lines(options, line_id=line_id)
 
         if options.get('hierarchy'):
             lines = self._create_hierarchy(lines)
         footnotes_to_render = []
-        # import wdb
-        # wdb.set_trace()
         if self.env.context.get('print_mode', False):
             # we are in print mode, so compute footnote number and include them in lines values, otherwise, let the js compute the number correctly as
             # we don't know all the visible lines.
