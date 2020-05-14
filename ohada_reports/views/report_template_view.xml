@@ -416,7 +416,7 @@
                             </td>
                         </t>
                         <t t-else="">
-                            <td t-att-rowspan="column.get('rowspan', 1)" t-att-colspan="column.get('colspan', 1)" t-att-style="'width:90px !important;text-align:center !important;padding:10px;transform: rotate(' +  column.get('rotate', '0') + 'deg);'" t-att-class="'o_ohada_report_line ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent')">
+                            <td t-att-rowspan="column.get('rowspan', 1)" t-att-colspan="column.get('colspan', 1)" t-att-style="'width:90px !important;text-align:center !important;padding:10px;transform: rotate(' +  column.get('rotate', '0') + 'deg);'" t-att-class="'o_ohada_report_line ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent ') + column.get('cell_class', ' ')">
                                 <t t-foreach="column.get('name')" t-as="name">
                                     <span style="margin:auto;padding:15px;" class="o_ohada_report_column_value" t-att-title="column.get('title')">
                                         <t t-esc="name"/>
@@ -436,7 +436,7 @@
                         </td>
                     </t>
                     <t t-else="">
-                        <td t-att-rowspan="column.get('rowspan', 1)" t-att-colspan="column.get('colspan', 1)" t-att-style="'padding-right:10px;text-align:' + (column.get('align', 'right')) + ';background-color:' + column.get('background', '')" t-att-class="'o_ohada_report_line '  + (line.get('unfoldable') and ' ' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent')" >
+                        <td t-att-rowspan="column.get('rowspan', 1)" t-att-colspan="column.get('colspan', 1)" t-att-style="'padding-right:10px;text-align:' + (column.get('align', 'right')) + ';background-color:' + column.get('background', '')" t-att-class="'o_ohada_report_line '  + (line.get('unfoldable') and ' ' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent ') + column.get('cell_class', '')" >
                             <t t-foreach="column.get('name')" t-as="name">
                                 <span class="o_ohada_report_column_value" t-att-title="column.get('title')">
                                     <t t-esc="name"/>
@@ -489,71 +489,86 @@
     <div class='o_ohada_reports_body'>
         <div class="container o_ohada_reports_page o_ohada_reports_no_print page" style="padding-top:0px;padding-bottom:0px;">
             <p style="page-break-before:always;"> </p>
-            <table style="color:#001E5A;font-family:NimbusSanL-Regu;width:100%;margin-top:0px;margin-bottom:15px;">
-                <tr><td><span style="font-size:18px; font-weight:bold;"><span t-esc="report.get('company_name')"/></span></td><td style="text-align:right;"><span style="font-size:11px; font-weight:bold;">Exercice clos le : <span>31/12/<t t-esc="report.get('year')"/></span></span></td></tr>
-                <tr><td><span style="font-size:11px; font-weight:bold;">Numéro d'identification : <span t-esc="report.get('vat')"/></span></td><td style="text-align:right;"><span style="font-size:11px; font-weight:bold;">Durée (en mois) :  12</span></td></tr>
-                <br/>
-                <tr><td style="text-align:center;  min-height:32px; padding-top: 12px;" colspan="2"><t t-if="report.get('type') == 'note'"><span style="font-size:18px; font-weight:bold;"><t t-esc="report.get('shortname')"/></span></t></td></tr>
-                <tr><td style="text-align:center;" colspan="2"><span style="font-size:18px; font-weight:bold;"><t t-esc="report.get('header')"/></span></td></tr>
-            </table>
-            <div class="table-responsive">
-                <t t-if="report.get('double_report') == True">
-                    <t t-set="lines" t-value="lines_notes[0]"/>
-                    <table style="margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;" class="o_ohada_reports_table">
-                            <tbody class="ohada_table">
-                                <t t-if="lines.get('lines')">
-                                    <t t-call="{{model._get_templates()['line_template']}}"/>
-                                </t>
-                            </tbody>
-                    </table>
-                    <table style="color:#001E5A;font-family:NimbusSanL-Regu;width:100%;margin-bottom:0px;margin-top:50px;">
-                        <tr><td style="text-align:center;" colspan="2"><h4><t t-esc="report.get('header_2')"/></h4></td></tr>
-                    </table>
-                    <t t-set="lines" t-value="lines_notes[1]"/>
-                    <table style="margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;" class="o_ohada_reports_table">
-                            <tbody class="ohada_table">
-                                <t t-if="lines.get('lines')">
-                                    <t t-call="{{model._get_templates()['line_template']}}"/>
-                                </t>
-                            </tbody>
-                    </table>
-                    <t t-if="report['code'] == 'N16B'">
-                        <t t-set="lines" t-value="lines_notes[2]"/>
-                        <table style="margin-top:60px;margin-bottom:10px;color:#001E5A;font-weight:normal;" class="o_ohada_reports_table">
+            <t t-if="report['code'] == 'S1'">
+                <table style="color:#001E5A;font-family:NimbusSanL-Regu;width:100%;margin-top:0px;margin-bottom:15px;">
+                    <br/>
+                    <tr><td style="text-align:center;  min-height:32px; padding-top: 12px;"><t t-if="report.get('type') == 'note'"><span style="font-size:18px; font-weight:bold;"><t t-esc="report.get('shortname')"/></span></t></td></tr>
+                    <tr><td style="text-align:center;"><span style="font-size:18px; font-weight:bold;"><t t-esc="report.get('shortname')"/></span></td></tr>
+                </table>
+                 <div class="table-responsive">
+                     <t t-call="{{model._get_templates()['sheet_r1_template']}}"/>
+                 </div>
+            </t>
+            <t t-else="">
+                <table style="color:#001E5A;font-family:NimbusSanL-Regu;width:100%;margin-top:0px;margin-bottom:15px;">
+                    <tr><td><span style="font-size:18px; font-weight:bold;"><span t-esc="report.get('company_name')"/></span></td><td style="text-align:right;"><span style="font-size:11px; font-weight:bold;">Exercice clos le : <span>31/12/<t t-esc="report.get('year')"/></span></span></td></tr>
+                    <tr><td><span style="font-size:11px; font-weight:bold;">Numéro d'identification : <span t-esc="report.get('vat')"/></span></td><td style="text-align:right;"><span style="font-size:11px; font-weight:bold;">Durée (en mois) :  12</span></td></tr>
+                    <br/>
+                    <tr><td style="text-align:center;  min-height:32px; padding-top: 12px;" colspan="2"><t t-if="report.get('type') == 'note'"><span style="font-size:18px; font-weight:bold;"><t t-esc="report.get('shortname')"/></span></t></td></tr>
+                    <tr><td style="text-align:center;" colspan="2"><span style="font-size:18px; font-weight:bold;"><t t-esc="report.get('header')"/></span></td></tr>
+                </table>
+                <div class="table-responsive">
+                    <t t-if="report['code'] == 'S2'">
+                        <t t-call="{{model._get_templates()['sheet_r2_template']}}"/>
+                    </t>
+                    <t t-elif="report.get('double_report') == True">
+                        <t t-set="lines" t-value="lines_notes[0]"/>
+                        <table style="margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;" class="o_ohada_reports_table">
                                 <tbody class="ohada_table">
                                     <t t-if="lines.get('lines')">
                                         <t t-call="{{model._get_templates()['line_template']}}"/>
                                     </t>
                                 </tbody>
                         </table>
-                    </t>
-                </t>
-                <t t-else="">
-                    <t t-if="report['code'] == 'BS'">
-                        <div>
-                            <table style="margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;float:left;" class="o_ohada_reports_table">
+                        <table style="color:#001E5A;font-family:NimbusSanL-Regu;width:100%;margin-bottom:0px;margin-top:50px;">
+                            <tr><td style="text-align:center;" colspan="2"><h4><t t-esc="report.get('header_2')"/></h4></td></tr>
+                        </table>
+                        <t t-set="lines" t-value="lines_notes[1]"/>
+                        <table style="margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;" class="o_ohada_reports_table">
                                 <tbody class="ohada_table">
-                                    <t t-call="{{model._get_templates()['bs_line_template']}}"/>
+                                    <t t-if="lines.get('lines')">
+                                        <t t-call="{{model._get_templates()['line_template']}}"/>
+                                    </t>
                                 </tbody>
+                        </table>
+                        <t t-if="report['code'] == 'N16B'">
+                            <t t-set="lines" t-value="lines_notes[2]"/>
+                            <table style="margin-top:60px;margin-bottom:10px;color:#001E5A;font-weight:normal;" class="o_ohada_reports_table">
+                                    <tbody class="ohada_table">
+                                        <t t-if="lines.get('lines')">
+                                            <t t-call="{{model._get_templates()['line_template']}}"/>
+                                        </t>
+                                    </tbody>
                             </table>
-                            <table style="margin-bottom:10px;color:#001E5A;font-weight:normal;float:left;" class="o_ohada_reports_table page">
-                               <tbody class="ohada_table">
-                                    <t t-call="{{model._get_templates()['bs2_line_template']}}"/>
-                                </tbody>
-                            </table>
-                        </div>
+                        </t>
                     </t>
                     <t t-else="">
-                        <table style="margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;" class="o_ohada_reports_table">
-                            <tbody class="ohada_table">
-                                <t t-if="lines.get('lines')">
-                                    <t t-call="{{model._get_templates()['line_template']}}"/>
-                                </t>
-                            </tbody>
-                        </table>
+                        <t t-if="report['code'] == 'BS'">
+                            <div>
+                                <table style="margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;float:left;" class="o_ohada_reports_table">
+                                    <tbody class="ohada_table">
+                                        <t t-call="{{model._get_templates()['bs_line_template']}}"/>
+                                    </tbody>
+                                </table>
+                                <table style="margin-bottom:10px;color:#001E5A;font-weight:normal;float:left;" class="o_ohada_reports_table page">
+                                   <tbody class="ohada_table">
+                                        <t t-call="{{model._get_templates()['bs2_line_template']}}"/>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <table style="margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;" class="o_ohada_reports_table">
+                                <tbody class="ohada_table">
+                                    <t t-if="lines.get('lines')">
+                                        <t t-call="{{model._get_templates()['line_template']}}"/>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </t>
                     </t>
-                </t>
-            </div>
+                </div>
+            </t>
             <div class="o_ohada_report_summary no_print" style="margin-bottom:0px;color:#001E5A;font-family:NimbusSanL-Regu;">
                 <span t-if="not report.get('summary')" id="add_a_note" class="js_account_reports_add_summary" name='summary' style="cursor:pointer;">Add a note</span>
             </div>
@@ -829,9 +844,12 @@
                     </t>
                     <t t-else="">
                         <td style="padding-right:10px;text-align:right;" t-att-class="'o_ohada_report_line '  + (line.get('unfoldable') and ' ' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent')" >
-                            <span style="margin:auto;padding:5px;" class="o_ohada_report_column_value" t-att-title="column.get('title')">
-                                <t t-esc="column.get('name')"/>
-                            </span>
+                            <t t-foreach="column.get('name')" t-as="name">
+                                <span style="margin:auto;padding:5px;" class="o_ohada_report_column_value" t-att-title="column.get('title')">
+                                    <t t-esc="name"/>
+                                </span>
+                                <br/>
+                            </t>
                         </td>
                     </t>
                 </t>
@@ -1039,9 +1057,12 @@
                     </t>
                     <t t-else="">
                         <td style="padding-right:10px;text-align:right;" t-att-class="'o_ohada_report_line '  + (line.get('unfoldable') and ' ' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent')" >
-                            <span style="margin:auto;padding:5px;" class="o_ohada_report_column_value" t-att-title="column.get('title')">
-                                <t t-esc="column.get('name')"/>
-                            </span>
+                            <t t-foreach="column.get('name')" t-as="name">
+                                <span style="margin:auto;padding:5px;" class="o_ohada_report_column_value" t-att-title="column.get('title')">
+                                    <t t-esc="name"/>
+                                </span>
+                                <br/>
+                            </t>
                         </td>
                     </t>
                 </t>

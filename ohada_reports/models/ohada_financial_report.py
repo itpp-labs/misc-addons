@@ -1114,15 +1114,15 @@ class OhadaFinancialReportLine(models.Model):
                 value['name'] = abs(value['name'])
                 value['class'] = 'number'
             if not currency_id or (currency_id and (currency_id.name != 'XOF' or currency_id.symbol == 'CFA')): #E+
-                value['name'] = formatLang(self.env, value['name'], digits=0)                                   #E+
+                value['name'] = [formatLang(self.env, value['name'], digits=0)]                                   #E+
             else: #E+   
                 #E: TODO: Here we need to convert the value to XOF
-                value['name'] = formatLang(self.env, value['name'], currency_obj=currency_id)
+                value['name'] = [formatLang(self.env, value['name'], currency_obj=currency_id)]
             return value
         if self.figure_type == 'percents':
-            value['name'] = str(round(value['name'] * 1, None)) + '%'                                            #E~
+            value['name'] = [str(round(value['name'] * 1, None)) + '%']                                            #E~
             return value
-        value['name'] = round(value['name'], 1)
+        value['name'] = [round(value['name'], 1)]
         return value
 
     def _get_gb_name(self, gb_id):
@@ -1420,6 +1420,7 @@ class OhadaFinancialReportLine(models.Model):
                             'rotate': i.rotate,
                             'align': i.align,
                             'background': i.background if i.background else '',
+                            'cell_class': i.cell_class if i.cell_class else '',
                         })
                 else:
                     pass
@@ -2155,3 +2156,4 @@ class OhadaCellStyle(models.Model):
     rotate = fields.Char(default=0)
     align = fields.Char(default="right")
     background = fields.Char(default=False)
+    cell_class = fields.Char(default=False)

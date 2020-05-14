@@ -374,9 +374,15 @@ $ohada-font-bold: 'NimbusSanL-Bold';
         }
     }
     .o_ohada_reports_level9 {
-        border-bottom: 1px solid $ohada-primary-color;
-        > td.o_ohada_report_line_indent > span:last-child {
-            margin-left: 90px;
+        border: none;
+//         > td.o_ohada_report_line_indent > span:last-child {
+//             margin-left: 90px;
+//         }
+        > td.o_ohada_report_line_indent {
+            border: none;
+        }
+        > td.o_ohada_report_line {
+            border: none;
         }
     }
     .o_ohada_reports_default_style {
@@ -417,6 +423,10 @@ $ohada-font-bold: 'NimbusSanL-Bold';
             margin-bottom: 0px;
         }
     }
+}
+
+.ohada_cell_box {
+    border: 1px solid #001E5A !important;
 }
 
 .o_ohada-progress-bar-content {

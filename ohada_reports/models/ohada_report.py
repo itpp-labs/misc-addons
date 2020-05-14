@@ -168,6 +168,8 @@ class OhadaReport(models.AbstractModel):
                 'search_template': 'ohada_reports.search_template',
                 'bs_line_template': 'ohada_reports.bs_line_template',
                 'bs2_line_template': 'ohada_reports.bs2_line_template',
+                'sheet_r2_template': 'ohada_reports.sheet_r2_template',
+                'sheet_r1_template': 'ohada_reports.sheet_r1_template',
         }
 
     #TO BE OVERWRITTEN

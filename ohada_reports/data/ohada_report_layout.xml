@@ -3006,11 +3006,15 @@
 
             <record id="ohada_custom_columns_sheet_r2_1_0" model="ohada.cell.style">
                 <field name="name"> </field>
-                <field name="colspan">2</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_1"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r2_1_1" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r2_1"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r2_1_2" model="ohada.cell.style">
                 <field name="name">Contrôle de l'Entreprise (cocher la case)</field>
                 <field name="colspan">2</field>
                 <field name="align">left</field>
@@ -3024,6 +3028,7 @@
 
             <record id="ohada_custom_columns_sheet_r2_2_0" model="ohada.cell.style">
                 <field name="name">ZK</field>
+                <field name="cell_class">ohada_cell_box</field>
                 <field name="background">#F9D9D9</field>
                 <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_2"/>
@@ -3037,7 +3042,48 @@
 
             <record id="ohada_custom_columns_sheet_r2_2_2" model="ohada.cell.style">
                 <field name="name"> </field>
-                <field name="colspan">2</field>
+                <field name="cell_class">ohada_cell_box</field>
+                <field name="align">center</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r2_2"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r2_2_3" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="cell_class">ohada_cell_box</field>
+                <field name="align">center</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r2_2"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r2_2_4" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="cell_class">ohada_cell_box</field>
+                <field name="align">center</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r2_2"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r2_2_5" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="cell_class">ohada_cell_box</field>
+                <field name="align">center</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r2_2"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r2_2_6" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="cell_class">ohada_cell_box</field>
+                <field name="align">center</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r2_2"/>
+            </record>
+
+
+
+            <record id="ohada_custom_columns_sheet_r2_2_2" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r2_2"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r2_2_3" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_2"/>
             </record>
 
@@ -3048,18 +3094,23 @@
 
             <record id="ohada_custom_columns_sheet_r2_3_0" model="ohada.cell.style">
                 <field name="name"> </field>
-                <field name="colspan">2</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_3"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r2_3_1" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r2_3"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r2_3_2" model="ohada.cell.style">
                 <field name="name">ZQ</field>
+                <field name="cell_class">ohada_cell_box</field>
                 <field name="background">#F9D9D9</field>
                 <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_3"/>
             </record>
 
-            <record id="ohada_custom_columns_sheet_r2_3_2" model="ohada.cell.style">
+            <record id="ohada_custom_columns_sheet_r2_3_3" model="ohada.cell.style">
                 <field name="name">Entreprise sous contrôle public</field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_3"/>
@@ -3072,6 +3123,7 @@
 
             <record id="ohada_custom_columns_sheet_r2_4_0" model="ohada.cell.style">
                 <field name="name">Zl</field>
+                <field name="cell_class">ohada_cell_box</field>
                 <field name="background">#F9D9D9</field>
                 <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_4"/>
@@ -3085,7 +3137,11 @@
 
             <record id="ohada_custom_columns_sheet_r2_4_2" model="ohada.cell.style">
                 <field name="name"> </field>
-                <field name="colspan">2</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r2_4"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r2_4_3" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_4"/>
             </record>
 
@@ -3096,12 +3152,17 @@
 
             <record id="ohada_custom_columns_sheet_r2_5_0" model="ohada.cell.style">
                 <field name="name"> </field>
-                <field name="colspan">2</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r2_5"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r2_5_1" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_5"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r2_5_2" model="ohada.cell.style">
                 <field name="name">ZR</field>
+                <field name="cell_class">ohada_cell_box</field>
                 <field name="background">#F9D9D9</field>
                 <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_5"/>
@@ -3120,6 +3181,7 @@
 
             <record id="ohada_custom_columns_sheet_r2_6_0" model="ohada.cell.style">
                 <field name="name">ZM</field>
+                <field name="cell_class">ohada_cell_box</field>
                 <field name="background">#F9D9D9</field>
                 <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_6"/>
@@ -3133,9 +3195,14 @@
 
             <record id="ohada_custom_columns_sheet_r2_6_2" model="ohada.cell.style">
                 <field name="name"> </field>
-                <field name="colspan">2</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_6"/>
             </record>
+
+            <record id="ohada_custom_columns_sheet_r2_6_3" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r2_6"/>
+            </record>
+
 
         <record id="ohada_custom_columns_sheet_r2_7" model="ohada.custom.columns">
             <field name="line_id" ref="ohada_financial_report_sheet_r2_6"/>
@@ -3144,18 +3211,23 @@
 
             <record id="ohada_custom_columns_sheet_r2_7_0" model="ohada.cell.style">
                 <field name="name"> </field>
-                <field name="colspan">2</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_7"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r2_7_1" model="ohada.cell.style">
-                <field name="name">ZS</field>
-                <field name="background">#F9D9D9</field>
-                <field name="align">center</field>
+                <field name="name"> </field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_7"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r2_7_2" model="ohada.cell.style">
+                <field name="name">ZS</field>
+                <field name="background">#F9D9D9</field>
+                <field name="cell_class">ohada_cell_box</field>
+                <field name="align">center</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r2_7"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r2_7_3" model="ohada.cell.style">
                 <field name="name">Entreprise sous contrôle privé étranger</field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_7"/>
@@ -3168,6 +3240,7 @@
 
             <record id="ohada_custom_columns_sheet_r2_8_0" model="ohada.cell.style">
                 <field name="name">ZN</field>
+                <field name="cell_class">ohada_cell_box</field>
                 <field name="background">#F9D9D9</field>
                 <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_8"/>
@@ -3181,7 +3254,11 @@
 
             <record id="ohada_custom_columns_sheet_r2_8_2" model="ohada.cell.style">
                 <field name="name"> </field>
-                <field name="colspan">2</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r2_8"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r2_8_3" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_8"/>
             </record>
 
@@ -3192,13 +3269,22 @@
 
             <record id="ohada_custom_columns_sheet_r2_9_0" model="ohada.cell.style">
                 <field name="name"> </field>
-                <field name="colspan">2</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_9"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r2_9_1" model="ohada.cell.style">
                 <field name="name"> </field>
-                <field name="colspan">2</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r2_9"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r2_9_2" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r2_9"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r2_9_3" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_9"/>
             </record>
@@ -3210,20 +3296,25 @@
 
             <record id="ohada_custom_columns_sheet_r2_10_0" model="ohada.cell.style">
                 <field name="name">ZO</field>
+                <field name="cell_class">ohada_cell_box</field>
                 <field name="background">#F9D9D9</field>
                 <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_10"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r2_10_1" model="ohada.cell.style">
-                <field name="name">Nombre d'établissements hors du pays pour|lesquels une comptabilité distincte est tenue</field>
+                <field name="name">Nombre d'établissements hors du pays pour</field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_10"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r2_10_2" model="ohada.cell.style">
                 <field name="name"> </field>
-                <field name="colspan">2</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r2_10"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r2_10_3" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_10"/>
             </record>
 
@@ -3234,13 +3325,22 @@
 
             <record id="ohada_custom_columns_sheet_r2_11_0" model="ohada.cell.style">
                 <field name="name"> </field>
-                <field name="colspan">2</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_11"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r2_11_1" model="ohada.cell.style">
+                <field name="name">lesquels une comptabilité distincte est tenue</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r2_11"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r2_11_2" model="ohada.cell.style">
                 <field name="name"> </field>
-                <field name="colspan">2</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r2_11"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r2_11_3" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_11"/>
             </record>
 
@@ -3251,6 +3351,7 @@
 
             <record id="ohada_custom_columns_sheet_r2_12_0" model="ohada.cell.style">
                 <field name="name">ZP</field>
+                <field name="cell_class">ohada_cell_box</field>
                 <field name="background">#F9D9D9</field>
                 <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_12"/>
@@ -3264,7 +3365,11 @@
 
             <record id="ohada_custom_columns_sheet_r2_12_2" model="ohada.cell.style">
                 <field name="name"> </field>
-                <field name="colspan">2</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r2_12"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r2_12_3" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_12"/>
             </record>
 
@@ -3275,13 +3380,21 @@
 
             <record id="ohada_custom_columns_sheet_r2_13_0" model="ohada.cell.style">
                 <field name="name"> </field>
-                <field name="colspan">2</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_13"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r2_13_1" model="ohada.cell.style">
                 <field name="name"> </field>
-                <field name="colspan">2</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r2_13"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r2_13_2" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r2_13"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r2_13_3" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r2_13"/>
             </record>
 
@@ -3319,7 +3432,7 @@
 
             <record id="ohada_custom_columns_sheet_r1_1_0" model="ohada.cell.style">
                 <field name="name">FICHER D'IDENTIFICATION ET RENSEIGNEMENTS DIVERS 1</field>
-                <field name="colspan">4</field>
+                <field name="colspan">13</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_1"/>
             </record>
 
@@ -3330,7 +3443,7 @@
 
             <record id="ohada_custom_columns_sheet_r1_2_0" model="ohada.cell.style">
                 <field name="name"> </field>
-                <field name="colspan">4</field>
+                <field name="colspan">13</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_2"/>
             </record>
 
@@ -3341,12 +3454,14 @@
 
             <record id="ohada_custom_columns_sheet_r1_3_0" model="ohada.cell.style">
                 <field name="name">Dénomination de l'Entité:</field>
+                <field name="colspan">2</field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_3"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r1_3_1" model="ohada.cell.style">
                 <field name="name"> </field>
+                <field name="colspan">7</field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_3"/>
             </record>
@@ -3359,6 +3474,13 @@
 
             <record id="ohada_custom_columns_sheet_r1_3_3" model="ohada.cell.style">
                 <field name="name"> </field>
+                <field name="colspan">2</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_3"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_3_4" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_3"/>
             </record>
@@ -3370,7 +3492,7 @@
 
             <record id="ohada_custom_columns_sheet_r1_4_0" model="ohada.cell.style">
                 <field name="name"> </field>
-                <field name="colspan">4</field>
+                <field name="colspan">13</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_4"/>
             </record>
 
@@ -3381,6 +3503,7 @@
 
             <record id="ohada_custom_columns_sheet_r1_5_0" model="ohada.cell.style">
                 <field name="name">Adresse</field>
+                <field name="colspan">2</field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_5"/>
             </record>
@@ -3388,7 +3511,7 @@
             <record id="ohada_custom_columns_sheet_r1_5_1" model="ohada.cell.style">
                 <field name="name"> </field>
                 <field name="align">left</field>
-                <field name="colspan">4</field>
+                <field name="colspan">11</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_5"/>
             </record>
 
@@ -3399,7 +3522,7 @@
 
             <record id="ohada_custom_columns_sheet_r1_6_0" model="ohada.cell.style">
                 <field name="name"> </field>
-                <field name="colspan">4</field>
+                <field name="colspan">13</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_6"/>
             </record>
 
@@ -3410,6 +3533,7 @@
 
             <record id="ohada_custom_columns_sheet_r1_7_0" model="ohada.cell.style">
                 <field name="name">N° d'identification fiscale:</field>
+                <field name="colspan">2</field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_7"/>
             </record>
@@ -3417,6 +3541,7 @@
             <record id="ohada_custom_columns_sheet_r1_7_1" model="ohada.cell.style">
                 <field name="name"> </field>
                 <field name="align">left</field>
+                <field name="colspan">6</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_7"/>
             </record>
 
@@ -3427,7 +3552,25 @@
             </record>
 
             <record id="ohada_custom_columns_sheet_r1_7_3" model="ohada.cell.style">
-                <field name="name">Durée (en mois) : 12</field>
+                <field name="name">31/12/</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_7"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_7_4" model="ohada.cell.style">
+                <field name="name">Durée (en mois) :</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_7"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_7_5" model="ohada.cell.style">
+                <field name="name">12</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_7"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_7_6" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_7"/>
             </record>
@@ -3439,7 +3582,7 @@
 
             <record id="ohada_custom_columns_sheet_r1_8_0" model="ohada.cell.style">
                 <field name="name"> </field>
-                <field name="colspan">6</field>
+                <field name="colspan">13</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_8"/>
             </record>
 
@@ -3450,7 +3593,7 @@
 
             <record id="ohada_custom_columns_sheet_r1_9_0" model="ohada.cell.style">
                 <field name="name"> </field>
-                <field name="colspan">6</field>
+                <field name="colspan">13</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_9"/>
             </record>
 
@@ -3466,31 +3609,51 @@
             </record>
 
             <record id="ohada_custom_columns_sheet_r1_10_1" model="ohada.cell.style">
-                <field name="name">EXERCICE COMPTABLE:</field>
-                <field name="align">left</field>
+                <field name="name"> </field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_10"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r1_10_2" model="ohada.cell.style">
-                <field name="name">DU</field>
+                <field name="name">EXERCICE COMPTABLE:</field>
+                <field name="colspan">2</field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_10"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r1_10_3" model="ohada.cell.style">
-                <field name="name">01/01/</field>
+                <field name="name">DU</field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_10"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r1_10_4" model="ohada.cell.style">
-                <field name="name">AU</field>
+                <field name="name">01/01/</field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_10"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r1_10_5" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="colspan">4</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_10"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_10_6" model="ohada.cell.style">
+                <field name="name">AU</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_10"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_10_7" model="ohada.cell.style">
                 <field name="name">31/12/</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_10"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_10_8" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_10"/>
             </record>
@@ -3502,7 +3665,7 @@
 
             <record id="ohada_custom_columns_sheet_r1_11_0" model="ohada.cell.style">
                 <field name="name"> </field>
-                <field name="colspan">6</field>
+                <field name="colspan">13</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_11"/>
             </record>
 
@@ -3518,20 +3681,26 @@
             </record>
 
             <record id="ohada_custom_columns_sheet_r1_12_1" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">center</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_12"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_12_2" model="ohada.cell.style">
                 <field name="name">DATE D'ARRET EFFECTIF DES COMPTES:</field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_12"/>
             </record>
 
-            <record id="ohada_custom_columns_sheet_r1_12_2" model="ohada.cell.style">
+            <record id="ohada_custom_columns_sheet_r1_12_3" model="ohada.cell.style">
                 <field name="name">31/12/</field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_12"/>
             </record>
 
-            <record id="ohada_custom_columns_sheet_r1_12_3" model="ohada.cell.style">
+            <record id="ohada_custom_columns_sheet_r1_12_4" model="ohada.cell.style">
                 <field name="name"> </field>
-                <field name="colspan">3</field>
+                <field name="colspan">9</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_12"/>
             </record>
 
@@ -3541,14 +3710,8 @@
         </record>
 
             <record id="ohada_custom_columns_sheet_r1_13_0" model="ohada.cell.style">
-                <field name="name">8</field>
-                <field name="align">center</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_13"/>
-            </record>
-
-            <record id="ohada_custom_columns_sheet_r1_13_1" model="ohada.cell.style">
-                <field name="name">AUTRES CREANCES</field>
-                <field name="align">left</field>
+                <field name="name"> </field>
+                <field name="colspan">13</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_13"/>
             </record>
 
@@ -3558,16 +3721,54 @@
         </record>
 
             <record id="ohada_custom_columns_sheet_r1_14_0" model="ohada.cell.style">
-                <field name="name">8A</field>
+                <field name="name">ZC</field>
                 <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_14"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r1_14_1" model="ohada.cell.style">
-                <field name="name">TABLEAU D'ETALEMENT DES CHARGES IMMOBILISEES ET DES PROVISIONS POUR CHARGES A REPARTIR</field>
+                <field name="name"> </field>
+                <field name="align">center</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_14"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_14_2" model="ohada.cell.style">
+                <field name="name">EXERCICE PRECEDENT CLOS LE:</field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_14"/>
             </record>
+
+            <record id="ohada_custom_columns_sheet_r1_14_3" model="ohada.cell.style">
+                <field name="name">31/12/</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_14"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_14_4" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">left</field>
+                <field name="colspan">6</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_14"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_14_5" model="ohada.cell.style">
+                <field name="name">DUREE EX. PRECEDENT EN MOIS:</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_14"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_14_6" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_14"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_14_7" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_14"/>
+            </record>
+
 
         <record id="ohada_custom_columns_sheet_r1_15" model="ohada.custom.columns">
             <field name="line_id" ref="ohada_financial_report_sheet_r1_14"/>
@@ -3575,16 +3776,11 @@
         </record>
 
             <record id="ohada_custom_columns_sheet_r1_15_0" model="ohada.cell.style">
-                <field name="name">9</field>
-                <field name="align">center</field>
+                <field name="name"> </field>
+                <field name="colspan">13</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_15"/>
             </record>
 
-            <record id="ohada_custom_columns_sheet_r1_15_1" model="ohada.cell.style">
-                <field name="name">TITRES DE PLACEMENT</field>
-                <field name="align">left</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_15"/>
-            </record>
 
         <record id="ohada_custom_columns_sheet_r1_16" model="ohada.custom.columns">
             <field name="line_id" ref="ohada_financial_report_sheet_r1_15"/>
@@ -3592,13 +3788,45 @@
         </record>
 
             <record id="ohada_custom_columns_sheet_r1_16_0" model="ohada.cell.style">
-                <field name="name">10</field>
+                <field name="name">ZD</field>
                 <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_16"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r1_16_1" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">center</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_16"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_16_2" model="ohada.cell.style">
                 <field name="name">VALEURS A ENCAISSER</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_16"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_16_3" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_16"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_16_4" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">left</field>
+                <field name="colspan">3</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_16"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_16_5" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">left</field>
+                <field name="colspan">5</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_16"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_16_6" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_16"/>
             </record>
@@ -3609,14 +3837,45 @@
         </record>
 
             <record id="ohada_custom_columns_sheet_r1_17_0" model="ohada.cell.style">
-                <field name="name">11</field>
+                <field name="name"> </field>
                 <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_17"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r1_17_1" model="ohada.cell.style">
-                <field name="name">DISPONIBILITES</field>
+                <field name="name"> </field>
+                <field name="align">center</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_17"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_17_2" model="ohada.cell.style">
+                <field name="name">Greffe</field>
                 <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_17"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_17_3" model="ohada.cell.style">
+                <field name="name">N° registre de commerce</field>
+                <field name="align">center</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_17"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_17_4" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">left</field>
+                <field name="colspan">3</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_17"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_17_5" model="ohada.cell.style">
+                <field name="name">N° répertoire des entreprises</field>
+                <field name="align">left</field>
+                <field name="colspan">5</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_17"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_17_6" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_17"/>
             </record>
 
@@ -3626,16 +3885,61 @@
         </record>
 
             <record id="ohada_custom_columns_sheet_r1_18_0" model="ohada.cell.style">
-                <field name="name">12</field>
+                <field name="name">ZE</field>
                 <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_18"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r1_18_1" model="ohada.cell.style">
-                <field name="name">ECARTS DE CONVERSION ET TRANSFERTS DE CHARGES</field>
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_18"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_18_2" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_18"/>
             </record>
+
+            <record id="ohada_custom_columns_sheet_r1_18_3" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_18"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_18_4" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_18"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_18_5" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">left</field>
+                <field name="colspan">2</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_18"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_18_6" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="colspan">2</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_18"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_18_7" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="colspan">3</field>
+                <field name="align">center</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_18"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_18_8" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">center</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_18"/>
+            </record>
+
 
         <record id="ohada_custom_columns_sheet_r1_19" model="ohada.custom.columns">
             <field name="line_id" ref="ohada_financial_report_sheet_r1_18"/>
@@ -3643,32 +3947,53 @@
         </record>
 
             <record id="ohada_custom_columns_sheet_r1_19_0" model="ohada.cell.style">
-                <field name="name">13</field>
-                <field name="align">center</field>
+                <field name="name"> </field>
+                <field name="colspan">2</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_19"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r1_19_1" model="ohada.cell.style">
-                <field name="name">CAPITAL : VALEUR NOMINALE DES ACTIONS OU PARTS</field>
+                <field name="name">N° Caisse de Sécurité Sociale</field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_19"/>
             </record>
 
-        <record id="ohada_custom_columns_sheet_r1_20" model="ohada.custom.columns">
-            <field name="line_id" ref="ohada_financial_report_sheet_r1_19"/>
-            <field name="line_name" eval="False"/>
-        </record>
-
-            <record id="ohada_custom_columns_sheet_r1_20_0" model="ohada.cell.style">
-                <field name="name">14</field>
-                <field name="align">center</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_20"/>
+            <record id="ohada_custom_columns_sheet_r1_19_2" model="ohada.cell.style">
+                <field name="name">N° IPRES</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_19"/>
             </record>
 
-            <record id="ohada_custom_columns_sheet_r1_20_1" model="ohada.cell.style">
-                <field name="name">PRIMES ET RESERVES</field>
+            <record id="ohada_custom_columns_sheet_r1_19_3" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="align">left</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_20"/>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_19"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_19_4" model="ohada.cell.style">
+                <field name="name">N° Code Importateur</field>
+                <field name="align">left</field>
+                <field name="colspan">2</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_19"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_19_5" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">left</field>
+                <field name="colspan">2</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_19"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_19_6" model="ohada.cell.style">
+                <field name="name">Code activité principale</field>
+                <field name="colspan">3</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_19"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_19_7" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_19"/>
             </record>
 
         <record id="ohada_custom_columns_sheet_r1_21" model="ohada.custom.columns">
@@ -3677,13 +4002,32 @@
         </record>
 
             <record id="ohada_custom_columns_sheet_r1_21_0" model="ohada.cell.style">
-                <field name="name">15A</field>
+                <field name="name">ZF</field>
                 <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_21"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r1_21_1" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_21"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_21_2" model="ohada.cell.style">
                 <field name="name">SUBVENTIONS ET PROVISIONS REGLEMENTEES</field>
+                <field name="align">left</field>
+                <field name="colspan">4</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_21"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_21_3" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="colspan">6</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_21"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_21_4" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_21"/>
             </record>
@@ -3694,14 +4038,29 @@
         </record>
 
             <record id="ohada_custom_columns_sheet_r1_22_0" model="ohada.cell.style">
-                <field name="name">15B</field>
+                <field name="name"> </field>
+                <field name="colspan">2</field>
                 <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_22"/>
             </record>
 
 
             <record id="ohada_custom_columns_sheet_r1_22_1" model="ohada.cell.style">
-                <field name="name">AUTRES FONDS PROPRES</field>
+                <field name="name">Désignation de l'entité</field>
+                <field name="colspan">4</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_22"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_22_2" model="ohada.cell.style">
+                <field name="name">Sigle</field>
+                <field name="colspan">6</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_22"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_22_3" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_22"/>
             </record>
@@ -3712,14 +4071,80 @@
         </record>
 
             <record id="ohada_custom_columns_sheet_r1_23_0" model="ohada.cell.style">
-                <field name="name">16A</field>
+                <field name="name">ZG</field>
                 <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_23"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r1_23_1" model="ohada.cell.style">
-                <field name="name">DETTES FINANCIERES ET RESSOURCES ASSIMILEES</field>
+                <field name="name"> </field>
                 <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_23"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_23_2" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">center</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_23"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_23_3" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_23"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_23_4" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">center</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_23"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_23_5" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_23"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_23_6" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">center</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_23"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_23_7" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_23"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_23_8" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">center</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_23"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_23_9" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_23"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_23_10" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">center</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_23"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_23_11" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_23"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_23_12" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_23"/>
             </record>
 
@@ -3729,13 +4154,79 @@
         </record>
 
             <record id="ohada_custom_columns_sheet_r1_24_0" model="ohada.cell.style">
-                <field name="name">16B</field>
-                <field name="align">center</field>
+                <field name="name"> </field>
+                <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_24"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r1_24_1" model="ohada.cell.style">
-                <field name="name">ENGAGEMENTS DE RETRAITE ET AVANTAGES ASSIMILES (METHODE ACTUARIELLE)</field>
+                <field name="name"> </field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_24"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_24_2" model="ohada.cell.style">
+                <field name="name">N° de téléphone</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_24"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_24_3" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_24"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_24_4" model="ohada.cell.style">
+                <field name="name">N° de télécopie</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_24"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_24_5" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_24"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_24_6" model="ohada.cell.style">
+                <field name="name">Email</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_24"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_24_7" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_24"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_24_8" model="ohada.cell.style">
+                <field name="name">Code</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_24"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_24_9" model="ohada.cell.style">
+                <field name="name">Boîte Postale</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_24"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_24_10" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_24"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_24_11" model="ohada.cell.style">
+                <field name="name">Ville</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_24"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_24_12" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_24"/>
             </record>
@@ -3746,13 +4237,25 @@
         </record>
 
             <record id="ohada_custom_columns_sheet_r1_25_0" model="ohada.cell.style">
-                <field name="name">16B bis</field>
+                <field name="name">ZH</field>
                 <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_25"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r1_25_1" model="ohada.cell.style">
-                <field name="name">ENGAGEMENTS DE RETRAITE ET AVANTAGES ASSIMILES (METHODE ACTUARIELLE)</field>
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_25"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_25_2" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="colspan">10</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_25"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_25_3" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_25"/>
             </record>
@@ -3763,13 +4266,26 @@
         </record>
 
             <record id="ohada_custom_columns_sheet_r1_26_0" model="ohada.cell.style">
-                <field name="name">16C</field>
+                <field name="name"> </field>
                 <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_26"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r1_26_1" model="ohada.cell.style">
-                <field name="name">ACTIFS ET PASSIFS EVENTUELS</field>
+                <field name="name"> </field>
+                <field name="align">center</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_26"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_26_2" model="ohada.cell.style">
+                <field name="name">Adresse géographique complète (Immeuble, rue, quartier, ville, pays)</field>
+                <field name="align">left</field>
+                <field name="colspan">10</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_26"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_26_3" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_26"/>
             </record>
@@ -3780,13 +4296,25 @@
         </record>
 
             <record id="ohada_custom_columns_sheet_r1_27_0" model="ohada.cell.style">
-                <field name="name">17</field>
+                <field name="name">ZI</field>
                 <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_27"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r1_27_1" model="ohada.cell.style">
-                <field name="name">FOURNISSEURS D'EXPLOITATION</field>
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_27"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_27_2" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="align">left</field>
+                <field name="colspan">10</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_27"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_27_3" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_27"/>
             </record>
@@ -3797,13 +4325,24 @@
         </record>
 
             <record id="ohada_custom_columns_sheet_r1_28_0" model="ohada.cell.style">
-                <field name="name">18</field>
-                <field name="align">center</field>
+                <field name="name"> </field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_28"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r1_28_1" model="ohada.cell.style">
-                <field name="name">DETTES FISCALES ET SOCIALES</field>
+                <field name="name"> </field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_28"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_28_2" model="ohada.cell.style">
+                <field name="name">Désignation précise de l'activité principale exercée par l'entité</field>
+                <field name="colspan">10</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_28"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_28_3" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_28"/>
             </record>
@@ -3814,13 +4353,26 @@
         </record>
 
             <record id="ohada_custom_columns_sheet_r1_29_0" model="ohada.cell.style">
-                <field name="name">19</field>
+                <field name="name"> </field>
                 <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_29"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r1_29_1" model="ohada.cell.style">
-                <field name="name">AUTRES DETTES ET PROVISIONS POUR RISQUES A COURT TERME</field>
+                <field name="name"> </field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_29"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_29_2" model="ohada.cell.style">
+                <field name="name"> </field>
+                <field name="colspan">10</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_29"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_29_3" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_29"/>
             </record>
@@ -3831,13 +4383,26 @@
         </record>
 
             <record id="ohada_custom_columns_sheet_r1_30_0" model="ohada.cell.style">
-                <field name="name">20</field>
+                <field name="name"> </field>
                 <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_30"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r1_30_1" model="ohada.cell.style">
-                <field name="name">BANQUES, CREDIT D'ESCOMPTE ET DE TRESORERIE</field>
+                <field name="name"> </field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_30"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_30_2" model="ohada.cell.style">
+                <field name="name">Nom, adresse et qualité de la personne à contacter en cas de demande d'informations complémentaires</field>
+                <field name="colspan">10</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_30"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_30_3" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_30"/>
             </record>
@@ -3848,13 +4413,26 @@
         </record>
 
             <record id="ohada_custom_columns_sheet_r1_31_0" model="ohada.cell.style">
-                <field name="name">21</field>
+                <field name="name"> </field>
                 <field name="align">center</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_31"/>
             </record>
 
             <record id="ohada_custom_columns_sheet_r1_31_1" model="ohada.cell.style">
-                <field name="name">CHIFFRE D'AFFAIRES ET AUTRES PRODUITS</field>
+                <field name="name"> </field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_31"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_31_2" model="ohada.cell.style">
+                <field name="name">ou du professionnel inscrit à l'ordre national des Experts comptables et des comptables agréés ayant établi les états financiers.</field>
+                <field name="colspan">10</field>
+                <field name="align">left</field>
+                <field name="column_id" ref="ohada_custom_columns_sheet_r1_31"/>
+            </record>
+
+            <record id="ohada_custom_columns_sheet_r1_31_3" model="ohada.cell.style">
+                <field name="name"> </field>
                 <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_31"/>
             </record>
@@ -3865,14 +4443,9 @@
         </record>
 
             <record id="ohada_custom_columns_sheet_r1_32_0" model="ohada.cell.style">
-                <field name="name">22</field>
+                <field name="name"> </field>
+                <field name="colspan">13</field>
                 <field name="align">center</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_32"/>
-            </record>
-
-            <record id="ohada_custom_columns_sheet_r1_32_1" model="ohada.cell.style">
-                <field name="name">ACHATS</field>
-                <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_32"/>
             </record>
 
@@ -3882,14 +4455,9 @@
         </record>
 
             <record id="ohada_custom_columns_sheet_r1_33_0" model="ohada.cell.style">
-                <field name="name">23</field>
+                <field name="name"> </field>
+                <field name="colspan">13</field>
                 <field name="align">center</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_33"/>
-            </record>
-
-            <record id="ohada_custom_columns_sheet_r1_33_1" model="ohada.cell.style">
-                <field name="name">TRANSPORTS</field>
-                <field name="align">left</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_33"/>
             </record>
 
@@ -3944,209 +4512,209 @@
                 <field name="column_id" ref="ohada_custom_columns_sheet_r1_36"/>
             </record>
 
-        <record id="ohada_custom_columns_sheet_r1_37" model="ohada.custom.columns">
-            <field name="line_id" ref="ohada_financial_report_sheet_r1_36"/>
-            <field name="line_name" eval="False"/>
-        </record>
+<!--        <record id="ohada_custom_columns_sheet_r1_37" model="ohada.custom.columns">-->
+<!--            <field name="line_id" ref="ohada_financial_report_sheet_r1_36"/>-->
+<!--            <field name="line_name" eval="False"/>-->
+<!--        </record>-->
 
-            <record id="ohada_custom_columns_sheet_r1_37_0" model="ohada.cell.style">
-                <field name="name">27A</field>
-                <field name="align">center</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_37"/>
-            </record>
+<!--            <record id="ohada_custom_columns_sheet_r1_37_0" model="ohada.cell.style">-->
+<!--                <field name="name">27A</field>-->
+<!--                <field name="align">center</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_sheet_r1_37"/>-->
+<!--            </record>-->
 
-            <record id="ohada_custom_columns_sheet_r1_37_1" model="ohada.cell.style">
-                <field name="name">CHARGES DE PERSONNEL</field>
-                <field name="align">left</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_37"/>
-            </record>
+<!--            <record id="ohada_custom_columns_sheet_r1_37_1" model="ohada.cell.style">-->
+<!--                <field name="name">CHARGES DE PERSONNEL</field>-->
+<!--                <field name="align">left</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_sheet_r1_37"/>-->
+<!--            </record>-->
 
-        <record id="ohada_custom_columns_sheet_r1_38" model="ohada.custom.columns">
-            <field name="line_id" ref="ohada_financial_report_sheet_r1_37"/>
-            <field name="line_name" eval="False"/>
-        </record>
+<!--        <record id="ohada_custom_columns_sheet_r1_38" model="ohada.custom.columns">-->
+<!--            <field name="line_id" ref="ohada_financial_report_sheet_r1_37"/>-->
+<!--            <field name="line_name" eval="False"/>-->
+<!--        </record>-->
 
-            <record id="ohada_custom_columns_sheet_r1_38_0" model="ohada.cell.style">
-                <field name="name">27B</field>
-                <field name="align">center</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_38"/>
-            </record>
+<!--            <record id="ohada_custom_columns_sheet_r1_38_0" model="ohada.cell.style">-->
+<!--                <field name="name">27B</field>-->
+<!--                <field name="align">center</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_sheet_r1_38"/>-->
+<!--            </record>-->
 
-            <record id="ohada_custom_columns_sheet_r1_38_1" model="ohada.cell.style">
-                <field name="name">EFFECTIFS, MASSE SALARIALE ET PERSONNEL EXTERIEUR</field>
-                <field name="align">left</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_38"/>
-            </record>
+<!--            <record id="ohada_custom_columns_sheet_r1_38_1" model="ohada.cell.style">-->
+<!--                <field name="name">EFFECTIFS, MASSE SALARIALE ET PERSONNEL EXTERIEUR</field>-->
+<!--                <field name="align">left</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_sheet_r1_38"/>-->
+<!--            </record>-->
 
-        <record id="ohada_custom_columns_sheet_r1_39" model="ohada.custom.columns">
-            <field name="line_id" ref="ohada_financial_report_sheet_r1_38"/>
-            <field name="line_name" eval="False"/>
-        </record>
+<!--        <record id="ohada_custom_columns_sheet_r1_39" model="ohada.custom.columns">-->
+<!--            <field name="line_id" ref="ohada_financial_report_sheet_r1_38"/>-->
+<!--            <field name="line_name" eval="False"/>-->
+<!--        </record>-->
 
-            <record id="ohada_custom_columns_sheet_r1_39_0" model="ohada.cell.style">
-                <field name="name">28</field>
-                <field name="align">center</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_39"/>
-            </record>
+<!--            <record id="ohada_custom_columns_sheet_r1_39_0" model="ohada.cell.style">-->
+<!--                <field name="name">28</field>-->
+<!--                <field name="align">center</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_sheet_r1_39"/>-->
+<!--            </record>-->
 
-            <record id="ohada_custom_columns_sheet_r1_39_1" model="ohada.cell.style">
-                <field name="name">PROVISIONS ET DEPRECIATIONS INSCRITES AU BILAN</field>
-                <field name="align">left</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_39"/>
-            </record>
+<!--            <record id="ohada_custom_columns_sheet_r1_39_1" model="ohada.cell.style">-->
+<!--                <field name="name">PROVISIONS ET DEPRECIATIONS INSCRITES AU BILAN</field>-->
+<!--                <field name="align">left</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_sheet_r1_39"/>-->
+<!--            </record>-->
 
-        <record id="ohada_custom_columns_sheet_r1_40" model="ohada.custom.columns">
-            <field name="line_id" ref="ohada_financial_report_sheet_r1_39"/>
-            <field name="line_name" eval="False"/>
-        </record>
+<!--        <record id="ohada_custom_columns_sheet_r1_40" model="ohada.custom.columns">-->
+<!--            <field name="line_id" ref="ohada_financial_report_sheet_r1_39"/>-->
+<!--            <field name="line_name" eval="False"/>-->
+<!--        </record>-->
 
-            <record id="ohada_custom_columns_sheet_r1_40_0" model="ohada.cell.style">
-                <field name="name">29</field>
-                <field name="align">center</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_40"/>
-            </record>
+<!--            <record id="ohada_custom_columns_sheet_r1_40_0" model="ohada.cell.style">-->
+<!--                <field name="name">29</field>-->
+<!--                <field name="align">center</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_sheet_r1_40"/>-->
+<!--            </record>-->
 
-            <record id="ohada_custom_columns_sheet_r1_40_1" model="ohada.cell.style">
-                <field name="name">CHARGES ET REVENUS FINANCIERS</field>
-                <field name="align">left</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_40"/>
-            </record>
+<!--            <record id="ohada_custom_columns_sheet_r1_40_1" model="ohada.cell.style">-->
+<!--                <field name="name">CHARGES ET REVENUS FINANCIERS</field>-->
+<!--                <field name="align">left</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_sheet_r1_40"/>-->
+<!--            </record>-->
 
-        <record id="ohada_custom_columns_sheet_r1_41" model="ohada.custom.columns">
-            <field name="line_id" ref="ohada_financial_report_sheet_r1_40"/>
-            <field name="line_name" eval="False"/>
-        </record>
+<!--        <record id="ohada_custom_columns_sheet_r1_41" model="ohada.custom.columns">-->
+<!--            <field name="line_id" ref="ohada_financial_report_sheet_r1_40"/>-->
+<!--            <field name="line_name" eval="False"/>-->
+<!--        </record>-->
 
-            <record id="ohada_custom_columns_sheet_r1_41_0" model="ohada.cell.style">
-                <field name="name">30</field>
-                <field name="align">center</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_41"/>
-            </record>
+<!--            <record id="ohada_custom_columns_sheet_r1_41_0" model="ohada.cell.style">-->
+<!--                <field name="name">30</field>-->
+<!--                <field name="align">center</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_sheet_r1_41"/>-->
+<!--            </record>-->
 
-            <record id="ohada_custom_columns_sheet_r1_41_1" model="ohada.cell.style">
-                <field name="name">AUTRES CHARGES ET PRODUITS HAO</field>
-                <field name="align">left</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_41"/>
-            </record>
+<!--            <record id="ohada_custom_columns_sheet_r1_41_1" model="ohada.cell.style">-->
+<!--                <field name="name">AUTRES CHARGES ET PRODUITS HAO</field>-->
+<!--                <field name="align">left</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_sheet_r1_41"/>-->
+<!--            </record>-->
 
-        <record id="ohada_custom_columns_sheet_r1_42" model="ohada.custom.columns">
-            <field name="line_id" ref="ohada_financial_report_sheet_r1_41"/>
-            <field name="line_name" eval="False"/>
-        </record>
+<!--        <record id="ohada_custom_columns_sheet_r1_42" model="ohada.custom.columns">-->
+<!--            <field name="line_id" ref="ohada_financial_report_sheet_r1_41"/>-->
+<!--            <field name="line_name" eval="False"/>-->
+<!--        </record>-->
 
-            <record id="ohada_custom_columns_sheet_r1_42_0" model="ohada.cell.style">
-                <field name="name">31</field>
-                <field name="align">center</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_42"/>
-            </record>
+<!--            <record id="ohada_custom_columns_sheet_r1_42_0" model="ohada.cell.style">-->
+<!--                <field name="name">31</field>-->
+<!--                <field name="align">center</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_sheet_r1_42"/>-->
+<!--            </record>-->
 
-            <record id="ohada_custom_columns_sheet_r1_42_1" model="ohada.cell.style">
-                <field name="name">REPARTITION DU RESULTAT ET AUTRES ELEMENTS CARACTERISTIQUES DES CINQ DERNIERS EXERCICES</field>
-                <field name="align">left</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_42"/>
-            </record>
+<!--            <record id="ohada_custom_columns_sheet_r1_42_1" model="ohada.cell.style">-->
+<!--                <field name="name">REPARTITION DU RESULTAT ET AUTRES ELEMENTS CARACTERISTIQUES DES CINQ DERNIERS EXERCICES</field>-->
+<!--                <field name="align">left</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_sheet_r1_42"/>-->
+<!--            </record>-->
 
-        <record id="ohada_custom_columns_sheet_r1_43" model="ohada.custom.columns">
-            <field name="line_id" ref="ohada_financial_report_sheet_r1_42"/>
-            <field name="line_name" eval="False"/>
-        </record>
+<!--        <record id="ohada_custom_columns_sheet_r1_43" model="ohada.custom.columns">-->
+<!--            <field name="line_id" ref="ohada_financial_report_sheet_r1_42"/>-->
+<!--            <field name="line_name" eval="False"/>-->
+<!--        </record>-->
 
-            <record id="ohada_custom_columns_sheet_r1_43_0" model="ohada.cell.style">
-                <field name="name">32</field>
-                <field name="align">center</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_43"/>
-            </record>
+<!--            <record id="ohada_custom_columns_sheet_r1_43_0" model="ohada.cell.style">-->
+<!--                <field name="name">32</field>-->
+<!--                <field name="align">center</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_sheet_r1_43"/>-->
+<!--            </record>-->
 
-            <record id="ohada_custom_columns_sheet_r1_43_1" model="ohada.cell.style">
-                <field name="name">PRODUCTION DE L'EXERCICE</field>
-                <field name="align">left</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_43"/>
-            </record>
+<!--            <record id="ohada_custom_columns_sheet_r1_43_1" model="ohada.cell.style">-->
+<!--                <field name="name">PRODUCTION DE L'EXERCICE</field>-->
+<!--                <field name="align">left</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_sheet_r1_43"/>-->
+<!--            </record>-->
 
-        <record id="ohada_custom_columns_sheet_r1_44" model="ohada.custom.columns">
-            <field name="line_id" ref="ohada_financial_report_sheet_r1_43"/>
-            <field name="line_name" eval="False"/>
-        </record>
+<!--        <record id="ohada_custom_columns_sheet_r1_44" model="ohada.custom.columns">-->
+<!--            <field name="line_id" ref="ohada_financial_report_sheet_r1_43"/>-->
+<!--            <field name="line_name" eval="False"/>-->
+<!--        </record>-->
 
-            <record id="ohada_custom_columns_sheet_r1_44_0" model="ohada.cell.style">
-                <field name="name">33</field>
-                <field name="align">center</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_44"/>
-            </record>
+<!--            <record id="ohada_custom_columns_sheet_r1_44_0" model="ohada.cell.style">-->
+<!--                <field name="name">33</field>-->
+<!--                <field name="align">center</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_sheet_r1_44"/>-->
+<!--            </record>-->
 
-            <record id="ohada_custom_columns_sheet_r1_44_1" model="ohada.cell.style">
-                <field name="name">ACHATS DESTINES A LA PRODUCTION</field>
-                <field name="align">left</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_44"/>
-            </record>
+<!--            <record id="ohada_custom_columns_sheet_r1_44_1" model="ohada.cell.style">-->
+<!--                <field name="name">ACHATS DESTINES A LA PRODUCTION</field>-->
+<!--                <field name="align">left</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_sheet_r1_44"/>-->
+<!--            </record>-->
 
-        <record id="ohada_custom_columns_sheet_r1_45" model="ohada.custom.columns">
-            <field name="line_id" ref="ohada_financial_report_sheet_r1_44"/>
-            <field name="line_name" eval="False"/>
-        </record>
+<!--        <record id="ohada_custom_columns_sheet_r1_45" model="ohada.custom.columns">-->
+<!--            <field name="line_id" ref="ohada_financial_report_sheet_r1_44"/>-->
+<!--            <field name="line_name" eval="False"/>-->
+<!--        </record>-->
 
-            <record id="ohada_custom_columns_sheet_r1_45_0" model="ohada.cell.style">
-                <field name="name">34</field>
-                <field name="align">center</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_45"/>
-            </record>
+<!--            <record id="ohada_custom_columns_sheet_r1_45_0" model="ohada.cell.style">-->
+<!--                <field name="name">34</field>-->
+<!--                <field name="align">center</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_sheet_r1_45"/>-->
+<!--            </record>-->
 
-            <record id="ohada_custom_columns_sheet_r1_45_1" model="ohada.cell.style">
-                <field name="name">FICHE DE SYNTHESE DES PRINCIPAUX INDICATEURS FINANCIERS</field>
-                <field name="align">left</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_45"/>
-            </record>
+<!--            <record id="ohada_custom_columns_sheet_r1_45_1" model="ohada.cell.style">-->
+<!--                <field name="name">FICHE DE SYNTHESE DES PRINCIPAUX INDICATEURS FINANCIERS</field>-->
+<!--                <field name="align">left</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_sheet_r1_45"/>-->
+<!--            </record>-->
 
-        <record id="ohada_custom_columns_sheet_r1_46" model="ohada.custom.columns">
-            <field name="line_id" ref="ohada_financial_report_sheet_r1_45"/>
-            <field name="line_name" eval="False"/>
-        </record>
+<!--        <record id="ohada_custom_columns_sheet_r1_46" model="ohada.custom.columns">-->
+<!--            <field name="line_id" ref="ohada_financial_report_sheet_r1_45"/>-->
+<!--            <field name="line_name" eval="False"/>-->
+<!--        </record>-->
 
-            <record id="ohada_custom_columns_sheet_r1_46_0" model="ohada.cell.style">
-                <field name="name">35</field>
-                <field name="align">center</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_46"/>
-            </record>
+<!--            <record id="ohada_custom_columns_sheet_r1_46_0" model="ohada.cell.style">-->
+<!--                <field name="name">35</field>-->
+<!--                <field name="align">center</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_sheet_r1_46"/>-->
+<!--            </record>-->
 
-            <record id="ohada_custom_columns_sheet_r1_46_1" model="ohada.cell.style">
-                <field name="name">LISTE DES INFORMATIONS SOCIALES, ENVIRONNEMENTALES ET SOCIETALES A FOURNIR</field>
-                <field name="align">left</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_46"/>
-            </record>
+<!--            <record id="ohada_custom_columns_sheet_r1_46_1" model="ohada.cell.style">-->
+<!--                <field name="name">LISTE DES INFORMATIONS SOCIALES, ENVIRONNEMENTALES ET SOCIETALES A FOURNIR</field>-->
+<!--                <field name="align">left</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_sheet_r1_46"/>-->
+<!--            </record>-->
 
-        <record id="ohada_custom_columns_sheet_r1_47" model="ohada.custom.columns">
-            <field name="line_id" ref="ohada_financial_report_sheet_r1_46"/>
-            <field name="line_name" eval="False"/>
-        </record>
+<!--        <record id="ohada_custom_columns_sheet_r1_47" model="ohada.custom.columns">-->
+<!--            <field name="line_id" ref="ohada_financial_report_sheet_r1_46"/>-->
+<!--            <field name="line_name" eval="False"/>-->
+<!--        </record>-->
 
-            <record id="ohada_custom_columns_sheet_r1_47_0" model="ohada.cell.style">
-                <field name="name">36</field>
-                <field name="align">center</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_47"/>
-            </record>
+<!--            <record id="ohada_custom_columns_sheet_r1_47_0" model="ohada.cell.style">-->
+<!--                <field name="name">36</field>-->
+<!--                <field name="align">center</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_sheet_r1_47"/>-->
+<!--            </record>-->
 
-            <record id="ohada_custom_columns_sheet_r1_47_1" model="ohada.cell.style">
-                <field name="name">TABLES DES CODES</field>
-                <field name="align">left</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_47"/>
-            </record>
+<!--            <record id="ohada_custom_columns_sheet_r1_47_1" model="ohada.cell.style">-->
+<!--                <field name="name">TABLES DES CODES</field>-->
+<!--                <field name="align">left</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_sheet_r1_47"/>-->
+<!--            </record>-->
 
-        <record id="ohada_custom_columns_sheet_r1_48" model="ohada.custom.columns">
-            <field name="line_id" ref="ohada_financial_report_sheet_r1_47"/>
-            <field name="line_name" eval="False"/>
-        </record>
+<!--        <record id="ohada_custom_columns_sheet_r1_48" model="ohada.custom.columns">-->
+<!--            <field name="line_id" ref="ohada_financial_report_sheet_r1_47"/>-->
+<!--            <field name="line_name" eval="False"/>-->
+<!--        </record>-->
 
-            <record id="ohada_custom_columns_sheet_r1_48_0" model="ohada.cell.style">
-                <field name="name">37</field>
-                <field name="align">center</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_48"/>
-            </record>
+<!--            <record id="ohada_custom_columns_sheet_r1_48_0" model="ohada.cell.style">-->
+<!--                <field name="name">37</field>-->
+<!--                <field name="align">center</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_sheet_r1_48"/>-->
+<!--            </record>-->
 
-            <record id="ohada_custom_columns_sheet_r1_48_1" model="ohada.cell.style">
-                <field name="name">DETERMINATION IMPOTS SUR LE RESULTAT</field>
-                <field name="align">left</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r1_48"/>
-            </record>
+<!--            <record id="ohada_custom_columns_sheet_r1_48_1" model="ohada.cell.style">-->
+<!--                <field name="name">DETERMINATION IMPOTS SUR LE RESULTAT</field>-->
+<!--                <field name="align">left</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_sheet_r1_48"/>-->
+<!--            </record>-->
 
     </data>
 </odoo>
