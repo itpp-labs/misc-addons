@@ -36,6 +36,7 @@ Countries that use SYSCOHADA are the following:
         'data/ohada_report_note.xml',
         'data/ohada_report_main.xml',
         'data/ohada_report_sheet.xml',
+        'data/ohada_report_cover.xml',
         'data/ohada_report_layout.xml',
         'data/ohada_dashboard.xml',
         'data/ohada_settings.xml',

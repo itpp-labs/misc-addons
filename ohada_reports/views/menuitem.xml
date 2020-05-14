@@ -34,4 +34,11 @@
 		parent="menu_ohada" 
 		sequence="30" 
 		groups="account.group_account_manager"/>
+	<menuitem
+		id="menu_ohada_legal_statements_cover"
+		name="Cover page"
+		parent="menu_ohada"
+		sequence="40"
+		groups="account.group_account_manager"/>
+
 </odoo>
