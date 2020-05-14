@@ -3,152 +3,158 @@
      Copyright 2016 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
      License MIT (https://opensource.org/licenses/MIT). -->
 <odoo>
-        <record id="theme_view_tree" model="ir.ui.view">
-            <field name="name">theme_kit.theme.tree</field>
-            <field name="model">theme_kit.theme</field>
-            <field name="arch" type="xml">
-                <tree>
-                    <field name="name"/>
-                </tree>
-            </field>
-        </record>
-
-        <record id="theme_view_form" model="ir.ui.view">
-            <field name="name">theme_kit.theme.form</field>
-            <field name="model">theme_kit.theme</field>
-            <field name="arch" type="xml">
-                <form string="Color scheme">
-                    <sheet>
-                        <div class="oe_title">
-                            <label for="name" class="oe_edit_only"/>
-                            <h1>
-                                <field name="name"/>
-                            </h1>
-                        </div>
-                        <group>
-                            <group string="Top panel">
-                                <field name="top_panel_id" />
-                            </group>
-                            <group string="Left panel">
-                                <field name="left_panel_id" />
-                            </group>
-                            <group string="Content">
-                                <field name="content_id" />
-                            </group>
+    <record id="theme_view_tree" model="ir.ui.view">
+        <field name="name">theme_kit.theme.tree</field>
+        <field name="model">theme_kit.theme</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+    <record id="theme_view_form" model="ir.ui.view">
+        <field name="name">theme_kit.theme.form</field>
+        <field name="model">theme_kit.theme</field>
+        <field name="arch" type="xml">
+            <form string="Color scheme">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Top panel">
+                            <field name="top_panel_id" />
                         </group>
-                        <group string="Custom setting">
-                            <field name="custom_css"/>
-                            <field name="custom_js"/>
+                        <group string="Left panel">
+                            <field name="left_panel_id" />
                         </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
-        <record id="theme_top_panel_view_form" model="ir.ui.view">
-            <field name="name">theme_kit.top_panel.form</field>
-            <field name="model">theme_kit.top_panel</field>
-            <field name="arch" type="xml">
-                <form string="Color scheme">
-                    <sheet>
-                        <div class="oe_title">
-                            <label for="name" class="oe_edit_only"/>
-                            <h1>
-                                <field name="name"/>
-                            </h1>
-                        </div>
-                        <group>
-                            <group string="Top panel">
-                                <div>
-                                    <label for="top_panel_bg" />
-                                    <field name="top_panel_bg_active" nolabel="1" class="oe_inline"/>
-                                    <field name="top_panel_bg" widget="color" attrs="{'readonly':[('top_panel_bg_active','=',False)]}" class="oe_inline"/>
-                                </div>
-                                <div>
-                                    <label for="top_panel_border" />
-                                    <field name="top_panel_border_active" nolabel="1" class="oe_inline"/>
-                                    <field name="top_panel_border" class="oe_inline" attrs="{'readonly':[('top_panel_border_active','=',False)]}" widget="color"/>
-                                </div>
-                                <div>
-                                    <label for="top_panel_font" />
-                                    <field name="top_panel_font_active" nolabel="1" class="oe_inline"/>
-                                    <field name="top_panel_font" widget="color" attrs="{'readonly':[('top_panel_font_active','=',False)]}" class="oe_inline"/>
-                                </div>
-                                <div>
-                                    <label for="top_panel_active_item_font" />
-                                    <field name="top_panel_active_item_font_active" nolabel="1" class="oe_inline"/>
-                                    <field name="top_panel_active_item_font" widget="color" attrs="{'readonly':[('top_panel_active_item_font_active','=',False)]}" class="oe_inline"/>
-                                </div>
-                                <div>
-                                    <label for="top_panel_active_item_bg" />
-                                    <field name="top_panel_active_item_bg_active" nolabel="1" class="oe_inline"/>
-                                    <field name="top_panel_active_item_bg" widget="color" attrs="{'readonly':[('top_panel_active_item_bg_active','=',False)]}" class="oe_inline"/>
-                                </div>
-                                <div>
-                                    <label for="top_panel_hover_item_font" />
-                                    <field name="top_panel_hover_item_font_active" nolabel="1" class="oe_inline"/>
-                                    <field name="top_panel_hover_item_font" widget="color" attrs="{'readonly':[('top_panel_hover_item_font_active','=',False)]}" class="oe_inline"/>
-                                </div>
-                                <div>
-                                    <label for="top_panel_hover_item_bg" />
-                                    <field name="top_panel_hover_item_bg_active" nolabel="1" class="oe_inline"/>
-                                    <field name="top_panel_hover_item_bg" widget="color" attrs="{'readonly':[('top_panel_hover_item_bg_active','=',False)]}" class="oe_inline"/>
-                                </div>
-                            </group>
+                        <group string="Content">
+                            <field name="content_id" />
                         </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
-        <record id="theme_left_panel_view_form" model="ir.ui.view">
-            <field name="name">theme_kit.left_panel.form</field>
-            <field name="model">theme_kit.left_panel</field>
-            <field name="arch" type="xml">
-                <form string="Color scheme">
-                    <sheet>
-                        <div class="oe_title">
-                            <label for="name" class="oe_edit_only"/>
-                            <h1>
-                                <field name="name"/>
-                            </h1>
-                        </div>
-                        <group>
-                            <group string="Left panel">
-                                <div>
-                                    <label for="left_panel_bg" />
-                                    <field name="left_panel_bg_active" nolabel="1" class="oe_inline"/>
-                                    <field name="left_panel_bg" class="oe_inline" attrs="{'readonly':[('left_panel_bg_active','=',False)]}" widget="color"/>
-                                </div>
-                                <div>
-                                    <label for="left_panel_font_color" />
-                                    <field name="left_panel_font_color_active" nolabel="1" class="oe_inline"/>
-                                    <field name="left_panel_font_color" class="oe_inline" attrs="{'readonly':[('left_panel_font_color_active','=',False)]}" widget="color"/>
-                                </div>
-                                <div>
-                                    <label for="left_panel_menu"/>
-                                    <field name="left_panel_menu_active" nolabel="1" class="oe_inline"/>
-                                    <field name="left_panel_menu" class="oe_inline" attrs="{'readonly':[('left_panel_menu_active','=',False)]}" widget="color"/>
-                                </div>
-                                <div>
-                                    <label for="left_panel_active_item_font"/>
-                                    <field name="left_panel_active_item_font_active" nolabel="1" class="oe_inline"/>
-                                    <field name="left_panel_active_item_font" widget="color" attrs="{'readonly':[('left_panel_active_item_font_active','=',False)]}" class="oe_inline"/>
-                                </div>
-                                <div>
-                                    <label for="left_panel_active_item_bg"/>
-                                    <field name="left_panel_active_item_bg_active" nolabel="1" class="oe_inline"/>
-                                    <field name="left_panel_active_item_bg" widget="color" attrs="{'readonly':[('left_panel_active_item_bg_active','=',False)]}" class="oe_inline"/>
-                                </div>
-                                <div>
-                                    <label for="left_panel_hover_item_font"/>
-                                    <field name="left_panel_hover_item_font_active" nolabel="1" class="oe_inline"/>
-                                    <field name="left_panel_hover_item_font" widget="color" attrs="{'readonly':[('left_panel_hover_item_font_active','=',False)]}" class="oe_inline"/>
-                                </div>
-                                <div>
-                                    <label for="left_panel_hover_item_bg"/>
-                                    <field name="left_panel_hover_item_bg_active" nolabel="1" class="oe_inline"/>
-                                    <field name="left_panel_hover_item_bg" widget="color" attrs="{'readonly':[('left_panel_hover_item_bg_active','=',False)]}" class="oe_inline"/>
-                                </div>
-                            </group>
+                    </group>
+                    <group string="Custom setting">
+                        <field name="custom_css" />
+                        <field name="custom_js" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="theme_top_panel_view_form" model="ir.ui.view">
+        <field name="name">theme_kit.top_panel.form</field>
+        <field name="model">theme_kit.top_panel</field>
+        <field name="arch" type="xml">
+            <form string="Color scheme">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Top panel">
+                            <div>
+                                <label for="top_panel_bg" />
+                                <field
+                                    name="top_panel_bg_active"
+                                    nolabel="1"
+                                    class="oe_inline"
+                                />
+                                <field
+                                    name="top_panel_bg"
+                                    widget="color"
+                                    attrs="{'readonly':[('top_panel_bg_active','=',False)]}"
+                                    class="oe_inline"
+                                />
+                            </div>
+                            <div>
+                                <label for="top_panel_border" />
+                                <field
+                                    name="top_panel_border_active"
+                                    nolabel="1"
+                                    class="oe_inline"
+                                />
+                                <field
+                                    name="top_panel_border"
+                                    class="oe_inline"
+                                    attrs="{'readonly':[('top_panel_border_active','=',False)]}"
+                                    widget="color"
+                                />
+                            </div>
+                            <div>
+                                <label for="top_panel_font" />
+                                <field
+                                    name="top_panel_font_active"
+                                    nolabel="1"
+                                    class="oe_inline"
+                                />
+                                <field
+                                    name="top_panel_font"
+                                    widget="color"
+                                    attrs="{'readonly':[('top_panel_font_active','=',False)]}"
+                                    class="oe_inline"
+                                />
+                            </div>
+                            <div>
+                                <label for="top_panel_active_item_font" />
+                                <field
+                                    name="top_panel_active_item_font_active"
+                                    nolabel="1"
+                                    class="oe_inline"
+                                />
+                                <field
+                                    name="top_panel_active_item_font"
+                                    widget="color"
+                                    attrs="{'readonly':[('top_panel_active_item_font_active','=',False)]}"
+                                    class="oe_inline"
+                                />
+                            </div>
+                            <div>
+                                <label for="top_panel_active_item_bg" />
+                                <field
+                                    name="top_panel_active_item_bg_active"
+                                    nolabel="1"
+                                    class="oe_inline"
+                                />
+                                <field
+                                    name="top_panel_active_item_bg"
+                                    widget="color"
+                                    attrs="{'readonly':[('top_panel_active_item_bg_active','=',False)]}"
+                                    class="oe_inline"
+                                />
+                            </div>
+                            <div>
+                                <label for="top_panel_hover_item_font" />
+                                <field
+                                    name="top_panel_hover_item_font_active"
+                                    nolabel="1"
+                                    class="oe_inline"
+                                />
+                                <field
+                                    name="top_panel_hover_item_font"
+                                    widget="color"
+                                    attrs="{'readonly':[('top_panel_hover_item_font_active','=',False)]}"
+                                    class="oe_inline"
+                                />
+                            </div>
+                            <div>
+                                <label for="top_panel_hover_item_bg" />
+                                <field
+                                    name="top_panel_hover_item_bg_active"
+                                    nolabel="1"
+                                    class="oe_inline"
+                                />
+                                <field
+                                    name="top_panel_hover_item_bg"
+                                    widget="color"
+                                    attrs="{'readonly':[('top_panel_hover_item_bg_active','=',False)]}"
+                                    class="oe_inline"
+                                />
+                            </div>
                         </group>
                     </group>
                 </sheet>
@@ -184,31 +190,31 @@
                                 />
                             </div>
                             <div>
-                                <label for="left_panel_main_menu" />
+                                <label for="left_panel_font_color" />
                                 <field
-                                    name="left_panel_main_menu_active"
+                                    name="left_panel_font_color_active"
                                     nolabel="1"
                                     class="oe_inline"
                                 />
                                 <field
-                                    name="left_panel_main_menu"
+                                    name="left_panel_font_color"
                                     class="oe_inline"
-                                    attrs="{'readonly':[('left_panel_main_menu_active','=',False)]}"
+                                    attrs="{'readonly':[('left_panel_font_color_active','=',False)]}"
                                     widget="color"
                                 />
                             </div>
                             <div>
-                                <label for="left_panel_sub_menu" />
+                                <label for="left_panel_menu" />
                                 <field
-                                    name="left_panel_sub_menu_active"
+                                    name="left_panel_menu_active"
                                     nolabel="1"
                                     class="oe_inline"
                                 />
                                 <field
-                                    name="left_panel_sub_menu"
-                                    widget="color"
-                                    attrs="{'readonly':[('left_panel_sub_menu_active','=',False)]}"
+                                    name="left_panel_menu"
                                     class="oe_inline"
+                                    attrs="{'readonly':[('left_panel_menu_active','=',False)]}"
+                                    widget="color"
                                 />
                             </div>
                             <div>
