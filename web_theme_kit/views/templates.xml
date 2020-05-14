@@ -3,17 +3,17 @@
      Copyright 2018 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
      License MIT (https://opensource.org/licenses/MIT). -->
 <odoo noupdate="1">
-        <template id="web_theme_kit.custom_css">
-            <style type="text/css">
+    <template id="web_theme_kit.custom_css">
+        <style type="text/css">
             </style>
         <script type="text/javascript">
             </script>
-        </template>
-        <template id="webclient_script" inherit_id="web.webclient_bootstrap">
-            <xpath expr="." position="inside">
-                <t t-call="web_theme_kit.custom_css"/>
-            </xpath>
-        </template>
-        <template id="web_theme_kit.dummy">
+    </template>
+    <template id="webclient_script" inherit_id="web.webclient_bootstrap">
+        <xpath expr="." position="inside">
+            <t t-call="web_theme_kit.custom_css" />
+        </xpath>
+    </template>
+    <template id="web_theme_kit.dummy">
         </template>
 </odoo>

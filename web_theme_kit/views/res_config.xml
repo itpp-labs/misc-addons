@@ -80,16 +80,26 @@
                                         <div class="text-muted">
                                                 test test test
                                             </div>
-                                            <div class="content-group">
-                                                <div class="mt16 row">
-                                                    <field name="wallpapers_count" class="col-xs-3 col-md-3 oe_inline"/><span class="oe_form_field oe_inline"> wallpaper(s)</span>
-                                                </div>
-                                                <div class="mt16">
-                                                    <button type="action" icon="fa-cogs"
-                                                        name="%(web_theme_kit.ir_attachment_login_bg_action)d"
-                                                        style="padding-left:0"
-                                                        string="Configure wallpapers" class="oe_link"/>
-                                                    <div class="text-muted">
+                                        <div class="content-group">
+                                            <div class="mt16 row">
+                                                <field
+                                                    name="wallpapers_count"
+                                                    class="col-xs-3 col-md-3 oe_inline"
+                                                />
+                                                <span
+                                                    class="oe_form_field oe_inline"
+                                                > wallpaper(s)</span>
+                                            </div>
+                                            <div class="mt16">
+                                                <button
+                                                    type="action"
+                                                    icon="fa-cogs"
+                                                    name="%(web_theme_kit.ir_attachment_login_bg_action)d"
+                                                    style="padding-left:0"
+                                                    string="Configure wallpapers"
+                                                    class="oe_link"
+                                                />
+                                                <div class="text-muted">
                                                         These wallpapers are randomly shown on login page
                                                     </div>
                                             </div>

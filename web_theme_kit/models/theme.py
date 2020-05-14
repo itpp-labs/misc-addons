@@ -9,11 +9,17 @@ from odoo.addons.base.models.assetsbundle import AssetsBundle, LessStylesheetAss
 
 class Theme(models.Model):
     _name = "theme_kit.theme"
-    _description = 'Theme'
-    name = fields.Char('Name', required=True)
-    top_panel_id = fields.Many2one('theme_kit.top_panel', string="Color Schemes for Top Panel")
-    left_panel_id = fields.Many2one('theme_kit.left_panel', string="Color Schemes for Left Panel")
-    content_id = fields.Many2one('theme_kit.content', string="Color Schemes for Content")
+    _description = "Theme"
+    name = fields.Char("Name", required=True)
+    top_panel_id = fields.Many2one(
+        "theme_kit.top_panel", string="Color Schemes for Top Panel"
+    )
+    left_panel_id = fields.Many2one(
+        "theme_kit.left_panel", string="Color Schemes for Left Panel"
+    )
+    content_id = fields.Many2one(
+        "theme_kit.content", string="Color Schemes for Content"
+    )
     custom_css = fields.Text(string="Custom CSS/LESS", default=False)
     custom_js = fields.Text(string="Custom JS", default=False)
 
@@ -53,17 +59,19 @@ class Theme(models.Model):
             r.code = code
 
     def generate_less2css(self, code):
-        bundle = AssetsBundle('theme_kit.dummy', [], [])
-        assets = LessStylesheetAsset(bundle, inline=code, url='')
+        bundle = AssetsBundle("theme_kit.dummy", [], [])
+        assets = LessStylesheetAsset(bundle, inline=code, url="")
         source = assets.get_source()
         compiled = bundle.compile_css(assets.compile, source)
-        compiled = '''<style type="text/css" id="custom_css">''' + compiled + '''</style>'''
+        compiled = (
+            """<style type="text/css" id="custom_css">""" + compiled + """</style>"""
+        )
         return compiled
 
 
 class ThemeTopPanel(models.Model):
     _name = "theme_kit.top_panel"
-    _description = 'Settings for Top Panel'
+    _description = "Settings for Top Panel"
 
     name = fields.Char("Name", required=True)
 
@@ -119,7 +127,9 @@ class ThemeTopPanel(models.Model):
             code = ""
             # double {{ will be formated as single {
             if self.top_panel_bg_active:
-                code = code + """
+                code = (
+                    code
+                    + """
                 .o_main_navbar,
                 .o_main_navbar .dropdown-menu,
                 .o_main_navbar,
@@ -134,9 +144,12 @@ class ThemeTopPanel(models.Model):
                     background-color: darken({theme.top_panel_bg}, 15%) !important;
                 }}
                 """
+                )
 
             if self.top_panel_border_active:
-                code = code + """
+                code = (
+                    code
+                    + """
                 .o_main_navbar,
                 #oe_main_menu_navbar,
                 .o_list_view thead > tr > th {{
@@ -155,8 +168,11 @@ class ThemeTopPanel(models.Model):
                     color: {theme.top_panel_border};
                 }}
                 """
+                )
             if self.top_panel_font_active:
-                code = code + '''
+                code = (
+                    code
+                    + """
                 .o_main_navbar .dropdown-item,
                 .o_main_navbar .dropdown-toggle,
                 .o_main_navbar .o_menu_entry_lvl_1,
@@ -182,21 +198,30 @@ class ThemeTopPanel(models.Model):
                 .o_calendar_container .o_calendar_sidebar_container .o_calendar_sidebar_toggler:hover {{
                     color: darken({theme.top_panel_font}, 20%)!important;
                 }}
-                '''
+                """
+                )
             if self.top_panel_active_item_font_active:
-                code = code + """
+                code = (
+                    code
+                    + """
                 .navbar-nav .active a,
                 .o_main_navbar .dropdown-item.active {{
                     color: {theme.top_panel_active_item_font}!important;
                 }}"""
+                )
             if self.top_panel_active_item_bg_active:
-                code = code + """
+                code = (
+                    code
+                    + """
                 .navbar-nav .active a,
                 .o_main_navbar .dropdown-item.active {{
                     background-color: {theme.top_panel_active_item_bg}!important;
                 }}"""
+                )
             if self.top_panel_hover_item_font_active:
-                code = code + """
+                code = (
+                    code
+                    + """
                 .o_main_navbar .dropdown-item:hover,
                 .o_main_navbar .dropdown-item:focus,
                 .navbar-nav li a:hover,
@@ -221,8 +246,11 @@ class ThemeTopPanel(models.Model):
                     color: {theme.top_panel_hover_item_font}!important;
                 }}
                 """
+                )
             if self.top_panel_hover_item_bg_active:
-                code = code + """
+                code = (
+                    code
+                    + """
                 .o_main_navbar .dropdown-item:hover,
                 .o_main_navbar .dropdown-item:focus,
                 .navbar-nav li a:hover,
@@ -244,6 +272,7 @@ class ThemeTopPanel(models.Model):
                     background-color: {theme.top_panel_hover_item_bg}!important;
                 }}
                 """
+                )
             code = code.format(theme=r)
             self.less = code
 
@@ -252,30 +281,52 @@ class ThemeLeftPanel(models.Model):
     _name = "theme_kit.left_panel"
     _description = "Settings for Left Panel"
 
-    name = fields.Char('Name', required=True)
+    name = fields.Char("Name", required=True)
 
-    left_panel_bg = fields.Char('Background color', help="Background Color")
+    left_panel_bg = fields.Char("Background color", help="Background Color")
     left_panel_bg_active = fields.Boolean(default=False, help="Background Color")
 
-    left_panel_font_color = fields.Char('Font color', help="Font color")
+    left_panel_font_color = fields.Char("Font color", help="Font color")
     left_panel_font_color_active = fields.Boolean(default=False, help="Font color")
 
-    left_panel_menu = fields.Char('Menu Font color', help="Menu Font color for Left Menu Bar")
-    left_panel_menu_active = fields.Boolean(default=False, help="Menu Font color for Left Menu Bar")
+    left_panel_menu = fields.Char(
+        "Menu Font color", help="Menu Font color for Left Menu Bar"
+    )
+    left_panel_menu_active = fields.Boolean(
+        default=False, help="Menu Font color for Left Menu Bar"
+    )
 
-    left_panel_active_item_font = fields.Char('Active item Font color', help="Active item Font color for Left Menu Bar")
-    left_panel_active_item_font_active = fields.Boolean(default=False, help="Active item Font color for Left Menu Bar")
+    left_panel_active_item_font = fields.Char(
+        "Active item Font color", help="Active item Font color for Left Menu Bar"
+    )
+    left_panel_active_item_font_active = fields.Boolean(
+        default=False, help="Active item Font color for Left Menu Bar"
+    )
 
-    left_panel_active_item_bg = fields.Char('Active item Background color', help="Active item Background color for Left Menu Bar")
-    left_panel_active_item_bg_active = fields.Boolean(default=False, help="Active item Background color for Left Menu Bar")
+    left_panel_active_item_bg = fields.Char(
+        "Active item Background color",
+        help="Active item Background color for Left Menu Bar",
+    )
+    left_panel_active_item_bg_active = fields.Boolean(
+        default=False, help="Active item Background color for Left Menu Bar"
+    )
 
-    left_panel_hover_item_font = fields.Char('Hover item Font color', help="Hover item Font color for Left Menu Bar")
-    left_panel_hover_item_font_active = fields.Boolean(default=False, help="Hover item Font color for Left Menu Bar")
+    left_panel_hover_item_font = fields.Char(
+        "Hover item Font color", help="Hover item Font color for Left Menu Bar"
+    )
+    left_panel_hover_item_font_active = fields.Boolean(
+        default=False, help="Hover item Font color for Left Menu Bar"
+    )
 
-    left_panel_hover_item_bg = fields.Char('Hover item Background color', help="Hover item Background color for Left Menu Bar")
-    left_panel_hover_item_bg_active = fields.Boolean(default=False, help="Hover item Background color for Left Menu Bar")
+    left_panel_hover_item_bg = fields.Char(
+        "Hover item Background color",
+        help="Hover item Background color for Left Menu Bar",
+    )
+    left_panel_hover_item_bg_active = fields.Boolean(
+        default=False, help="Hover item Background color for Left Menu Bar"
+    )
 
-    less = fields.Text('less', help='technical computed field', compute='_compute_less')
+    less = fields.Text("less", help="technical computed field", compute="_compute_less")
 
     @api.multi
     def _compute_less(self):
@@ -283,65 +334,84 @@ class ThemeLeftPanel(models.Model):
             # double {{ will be formated as single {
             code = ""
             if self.left_panel_bg_active:
-                code = code + '''
+                code = (
+                    code
+                    + """
                 .o_mail_discuss .o_mail_discuss_sidebar,
                 .o_base_settings .o_setting_container .settings_tab {{
                     background-color: {theme.left_panel_bg}!important;
                     background: {theme.left_panel_bg}!important;
                 }}
-                '''
+                """
+                )
             if self.left_panel_font_color_active:
-                code = code + '''
+                code = (
+                    code
+                    + """
                 .o_base_settings .o_setting_container .settings_tab .selected .app_name,
                 .o_mail_discuss .o_mail_discuss_sidebar .o_mail_discuss_item .o_thread_name {{
                     color: {theme.left_panel_font_color}!important;
                 }}
-                '''
+                """
+                )
             if self.left_panel_menu_active:
-                code = code + """
+                code = (
+                    code
+                    + """
                 .o_mail_sidebar_title h4 {{
                     color: {theme.left_panel_menu}!important;
                 }}
                 """
+                )
             if self.left_panel_active_item_font_active:
-                code = code + """
+                code = (
+                    code
+                    + """
                 .o_base_settings .o_setting_container .settings_tab .selected .app_name,
                 .o_mail_discuss .o_mail_discuss_sidebar .o_mail_discuss_item.o_active .o_thread_name {{
                     color: {theme.left_panel_active_item_font}!important;
                 }}
                 """
+                )
             if self.left_panel_active_item_bg_active:
-                code = code + """
+                code = (
+                    code
+                    + """
                 .o_mail_discuss .o_mail_discuss_sidebar .o_mail_discuss_item.o_active,
                 .o_base_settings .o_setting_container .settings_tab .selected {{
                     background-color: {theme.left_panel_active_item_bg}!important;
                 }}
                 """
+                )
             if self.left_panel_hover_item_font_active:
-                code = code + """
+                code = (
+                    code
+                    + """
                 .o_base_settings .o_setting_container .settings_tab .tab:hover .app_name,
                 .o_mail_discuss .o_mail_discuss_sidebar .o_mail_discuss_item.o_mail_discuss_title_main:hover .o_thread_name,
                 .o_mail_discuss .o_mail_discuss_sidebar .o_mail_discuss_item:hover .o_thread_name {{
                     color: {theme.left_panel_hover_item_font}!important;
                 }}
                 """
+                )
             if self.left_panel_hover_item_bg_active:
-                code = code + '''
+                code = (
+                    code
+                    + """
                 .o_base_settings .o_setting_container .settings_tab .tab:hover,
                 .o_mail_discuss .o_mail_discuss_sidebar .o_mail_discuss_item.o_mail_discuss_title_main:hover{{
                     background-color: {theme.left_panel_hover_item_bg}!important;
                 }}
-                '''
+                """
+                )
 
-            code = code.format(
-                theme=r,
-            )
+            code = code.format(theme=r,)
             self.less = code
 
 
 class ThemeContent(models.Model):
     _name = "theme_kit.content"
-    _description = 'Settings for Content'
+    _description = "Settings for Content"
 
     name = fields.Char("Name", required=True)
 
@@ -413,7 +483,9 @@ class ThemeContent(models.Model):
         for r in self:
             code = ""
             if self.content_bg_active:
-                code = code + """
+                code = (
+                    code
+                    + """
                 .breadcrumb,
                 .o_control_panel,
                 .o_statusbar_buttons,
@@ -486,9 +558,12 @@ class ThemeContent(models.Model):
                     background-color: darken({theme.content_bg}, 1%) !important;
                 }}
                 """
+                )
 
             if self.content_form_active:
-                code = code + """
+                code = (
+                    code
+                    + """
                 .o_form,
                 .table-responsive,
                 .o-x2m-control-panel {{
@@ -527,8 +602,11 @@ class ThemeContent(models.Model):
                     background-color: lighten({theme.content_form}, 15%);
                 }}
                 """
+                )
             if self.content_form_text_active:
-                code = code + '''
+                code = (
+                    code
+                    + """
                 .o_form_view,
                 .o_form,
                 .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table .ui-state-default,
@@ -549,9 +627,12 @@ class ThemeContent(models.Model):
                 .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table .ui-state-active {{
                     color: lighten({theme.content_form_text}, 30%)!important;
                 }}
-                '''
+                """
+                )
             if self.content_form_link_active:
-                code = code + """
+                code = (
+                    code
+                    + """
                 .o_main_content a,
                 .o_control_panel .breadcrumb > li > a,
                 .o_control_panel .dropdown-toggle,
@@ -561,6 +642,7 @@ class ThemeContent(models.Model):
                     color: {theme.content_form_link};
                 }}
                 """
+                )
             if self.content_button_active:
                 code = (
                     code
@@ -599,7 +681,9 @@ class ThemeContent(models.Model):
                 """
                 )
             if self.content_form_title_active:
-                code = code + """
+                code = (
+                    code
+                    + """
                 .o_horizontal_separator,
                 .o_main .o_horizontal_separator,
                 .o_form_label,
@@ -608,6 +692,7 @@ class ThemeContent(models.Model):
                     color: {theme.content_form_title} !important;
                 }}
                 """
+                )
             if self.content_loader_active:
                 code = (
                     code
@@ -625,7 +710,9 @@ class ThemeContent(models.Model):
                 }}"""
                 )
             if self.content_statusbar_bg_active:
-                code = code + '''.o_form_statusbar,
+                code = (
+                    code
+                    + """.o_form_statusbar,
                 .o_form_statusbar .btn-default {{
                     background-color: {theme.content_statusbar_bg}!important;
                 }}
@@ -634,9 +721,12 @@ class ThemeContent(models.Model):
                 {{
                     border-left-color: {theme.content_statusbar_bg};
                 }}
-                '''
+                """
+                )
             if self.content_statusbar_element_active:
-                code = code + '''.o_form_view .o_form_statusbar > .o_statusbar_status > .o_arrow_button.btn-primary.disabled,
+                code = (
+                    code
+                    + """.o_form_view .o_form_statusbar > .o_statusbar_status > .o_arrow_button.btn-primary.disabled,
                 .o_form_view .o_form_statusbar > .o_statusbar_status > .o_arrow_button.btn-primary.disabled .o_arrow_button:after,
                 .o_form_statusbar .btn-default:hover, .o_form_statusbar .btn-default:focus {{
                     background-color: {theme.content_statusbar_element}!important;
@@ -646,7 +736,8 @@ class ThemeContent(models.Model):
                 .o_statusbar_status > .o_arrow_button:not(.disabled):focus:after {{
                     border-left-color: {theme.content_statusbar_element}!important;
                 }}
-                '''
+                """
+                )
             if self.content_statusbar_font_color_active:
                 code = (
                     code
@@ -673,10 +764,13 @@ class ThemeContent(models.Model):
                 """
                 )
             if self.content_footer_color_active:
-                code = code + """.o_view_manager_content {{
+                code = (
+                    code
+                    + """.o_view_manager_content {{
                     background-color: {theme.content_footer_color}!important
                 }}
                 """
+                )
 
             code = code.format(theme=r)
             self.less = code

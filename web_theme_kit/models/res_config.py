@@ -16,12 +16,12 @@ CUSTOM_CSS_ARCH = """<?xml version="1.0"?>
 
 class Config(models.TransientModel):
 
-    _name = 'theme_kit.config'
-    _inherit = 'res.config.settings'
-    _description = 'Theme Kit Config'
+    _name = "theme_kit.config"
+    _inherit = "res.config.settings"
+    _description = "Theme Kit Config"
 
-    theme_id = fields.Many2one('theme_kit.theme', string="Color Scheme")
-    favicon_id = fields.Many2one('ir.attachment', string="Company Favicon")
+    theme_id = fields.Many2one("theme_kit.theme", string="Color Scheme")
+    favicon_id = fields.Many2one("ir.attachment", string="Company Favicon")
 
     page_title = fields.Char(
         "Page Title",
@@ -109,8 +109,8 @@ class Config(models.TransientModel):
         self.env.user.company_id.logo = self.company_logo
 
         # set theme
-        custom_css = self.env.ref('web_theme_kit.custom_css')
-        code = ''
+        custom_css = self.env.ref("web_theme_kit.custom_css")
+        code = ""
         if self.theme_id:
             code = self.theme_id.code
         arch = CUSTOM_CSS_ARCH % code
@@ -123,5 +123,7 @@ class Config(models.TransientModel):
         ICPSudo.set_param("web_debranding.favicon_url", url)
 
     def _attachment2url(self, att):
-        sha = hashlib.sha1(str(getattr(att, '__last_update')).encode('utf-8')).hexdigest()[0:7]
-        return '/web/image/%s-%s' % (att.id, sha)
+        sha = hashlib.sha1(
+            str(getattr(att, "__last_update")).encode("utf-8")
+        ).hexdigest()[0:7]
+        return "/web/image/{}-{}".format(att.id, sha)
