@@ -337,7 +337,7 @@
         <field name="code">S2</field>
         <field name="header">FICHE D'IDENTIFICATION ET RENSEIGNEMENTS DIVERS 2</field>
         <field name="type">sheet</field>
-        <field name="double_report" eval="True"/>
+        <field name="double_report" eval="False"/>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_sheet'/>

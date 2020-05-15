@@ -675,7 +675,7 @@ class OhadaReport(models.AbstractModel):
         print('get_report_data')
         company = self.env.user.company_id
         # if self.code == 'CP':
-        return {
+        data = {
             'company_acronym': company.acronym,
             'company_address': company.street + ', ' + company.street2 + ' - ' + company.city + ' - ' + \
                                company.country_id.name if company.street2 else company.street + ' - ' + \
@@ -690,7 +690,30 @@ class OhadaReport(models.AbstractModel):
             'company_zip': company.zip,
             'bank_name': company.partner_id.bank_ids[0].bank_name if company.partner_id.bank_ids[0] else 'None',
             'bank_account_num': company.partner_id.bank_ids[0].acc_number if company.partner_id.bank_ids[0] else 'None',
+            'company_legal_code': company.legal_form_code,
+            'company_fiscal_regime': company.fiscal_regime,
+            'company_hcc2': company.headquarters_country_code2,
+            'company_naic': company.num_affiliates_in_country,
+            'company_naoc': company.num_affiliates_out_country,
         }
+        if self.code == 'S2':
+            wdb.set_trace()
+            activity_data = {'activity_ids': [], 'drivers_sum': 0.0, 'activity_perc': 0.0,}
+            activity_perc_sum = 0.0
+            for i, x in zip(company.activity_ids, range(len(company.activity_ids))):
+                if x < 5:
+                    activity_data['activity_ids'].append({'name': i.activity_id.name,
+                                                          'code': i.activity_id.full_code,
+                                                          'amount': i.turnover_amount if i.amount_reported == 'turnover_amount' else i.surplus_amount,
+                                                          'percentage': i.turnover_percentage if i.amount_reported == 'turnover_amount' else i.surplus_percentage,
+                                                          })
+                    activity_perc_sum += activity_data['activity_ids'][x]['percentage']
+                else:
+                    activity_data['drivers_sum'] += i.turnover_amount if i.amount_reported == 'turnover_amount' else i.surplus_amount
+            activity_data['activity_perc'] = int(100.0 - activity_perc_sum)
+        return data
+
+
 
     @api.multi
     def get_html(self, options, line_id=None, additional_context=None):
@@ -734,7 +757,6 @@ class OhadaReport(models.AbstractModel):
                   'header': self.header and self.header.upper()}
 
         if self.code in ['S1', 'S2', 'CP']:
-            # wdb.set_trace()
             report = {**report, **self._get_report_data()}
             report['prev_year'] = int(report['year']) - 1
             lines = []
