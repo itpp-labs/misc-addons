@@ -50,8 +50,6 @@ class ResCountry(models.Model):
         cgr_eu = self.env['res.country.group'].search([('name', '=', 'Europe')])[0]
         
         def is_country_group(self, country_obj, country_group_name):
-            import wdb
-            wdb.set_trace()
             cgroup_obj = self.env['res.country.group'].search([('name', '=', country_group_name)])[0]
             if cgroup_obj in country_obj.country_group_ids:
                 return True

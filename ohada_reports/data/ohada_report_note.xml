@@ -32,6 +32,7 @@
     <record id="ohada_financial_report_note1_1" model="ohada.financial.html.report.line">
         <field name="name"> </field>
         <field name="code">N1_1</field>
+        <field name="table_x_offset">3</field>
         <field name="financial_report_id" ref="ohada_financial_report_note1"/>
         <field name="level" eval="0" />
         <field name="sequence" eval="2"/>
@@ -721,7 +722,7 @@
         <field name="name">LIBELLES</field>
         <field name="code">_n3b_1</field>
         <field name="header" eval="True"/>
-        <field name="rowspan" eval="1"/>
+        <field name="rowspan" eval="2"/>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_note3b"/>
         <field name="sequence" eval="1"/>
@@ -732,6 +733,7 @@
         <field name="name"> </field>
         <field name="code">N3b_1</field>
         <field name="header" eval="True"/>
+        <field name="table_x_offset">2</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3b"/>
         <field name="level" eval="0" />
         <field name="sequence" eval="2"/>
@@ -887,6 +889,7 @@
         <field name="code">_n3c_1</field>
         <field name="header" eval="True"/>
         <field name="reference"></field>
+        <field name="rowspan" eval="2"/>
         <field name="financial_report_id" ref="ohada_financial_report_note3c"/>
         <field name="sequence" eval="1"/>
         <field name="level" eval="0" />
@@ -894,6 +897,7 @@
 
     <record id="ohada_financial_report_note3c_1" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="table_x_offset">1</field>
         <field name="header" eval="True"/>
         <field name="code">N3c_1</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3c"/>
@@ -1062,6 +1066,7 @@
         <field name="name">LIBELLES</field>
         <field name="code">_n3d_1</field>
         <field name="header" eval="True"/>
+        <field name="rowspan">2</field>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_note3d"/>
         <field name="sequence" eval="1"/>
@@ -1071,6 +1076,7 @@
     <record id="ohada_financial_report_note3d_1" model="ohada.financial.html.report.line">
         <field name="name"> </field>
         <field name="code">N3d_1</field>
+        <field name="table_x_offset">1</field>
         <field name="header" eval="True"/>
         <field name="financial_report_id" ref="ohada_financial_report_note3d"/>
         <field name="level" eval="0" />
@@ -1416,16 +1422,16 @@
         <field name="level" eval="5" />
     </record>
 
-    <record id="ohada_financial_report_note3e_header_t" model="ohada.financial.html.report.line">
-        <field name="name"> </field>
-        <field name="code">_n3e_1t</field>
-        <field name="header" eval="False"/>
-        <field name="colspan">3</field>
-        <field name="reference"></field>
-        <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
-        <field name="sequence" eval="2"/>
-        <field name="level" eval="2" />
-    </record>
+<!--    <record id="ohada_financial_report_note3e_header_t" model="ohada.financial.html.report.line">-->
+<!--        <field name="name"> </field>-->
+<!--        <field name="code">_n3e_1t</field>-->
+<!--        <field name="header" eval="False"/>-->
+<!--        <field name="colspan">3</field>-->
+<!--        <field name="reference"></field>-->
+<!--        <field name="financial_report_id" ref="ohada_financial_report_note3e"/>-->
+<!--        <field name="sequence" eval="2"/>-->
+<!--        <field name="level" eval="2" />-->
+<!--    </record>-->
 
     <record id="ohada_financial_report_note3e_1" model="ohada.financial.html.report.line">
         <field name="name">Elements réévalués par poste du bilan</field>
@@ -1605,14 +1611,14 @@
         <field name="sequence" eval="24"/>
     </record>
 
-    <record id="ohada_financial_report_note3e_22t" model="ohada.financial.html.report.line">
-        <field name="name"> </field>
-        <field name="code">N3e_22t</field>
-        <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
-        <field name="level" eval="2" />
-        <field name="colspan">3</field>
-        <field name="sequence" eval="25"/>
-    </record>
+<!--    <record id="ohada_financial_report_note3e_22t" model="ohada.financial.html.report.line">-->
+<!--        <field name="name"> </field>-->
+<!--        <field name="code">N3e_22t</field>-->
+<!--        <field name="financial_report_id" ref="ohada_financial_report_note3e"/>-->
+<!--        <field name="level" eval="2" />-->
+<!--        <field name="colspan">3</field>-->
+<!--        <field name="sequence" eval="25"/>-->
+<!--    </record>-->
 
     <record id="ohada_financial_report_note3e_23" model="ohada.financial.html.report.line">
         <field name="name">Traitement fiscal de l'écart de réévaluation et de amortissements supplémentires :</field>
@@ -1623,14 +1629,14 @@
         <field name="sequence" eval="26"/>
     </record>
 
-    <record id="ohada_financial_report_note3e_23t" model="ohada.financial.html.report.line">
-        <field name="name"> </field>
-        <field name="code">N3e_23t</field>
-        <field name="financial_report_id" ref="ohada_financial_report_note3e"/>
-        <field name="level" eval="2" />
-        <field name="colspan">3</field>
-        <field name="sequence" eval="27"/>
-    </record>
+<!--    <record id="ohada_financial_report_note3e_23t" model="ohada.financial.html.report.line">-->
+<!--        <field name="name"> </field>-->
+<!--        <field name="code">N3e_23t</field>-->
+<!--        <field name="financial_report_id" ref="ohada_financial_report_note3e"/>-->
+<!--        <field name="level" eval="2" />-->
+<!--        <field name="colspan">3</field>-->
+<!--        <field name="sequence" eval="27"/>-->
+<!--    </record>-->
 
     <record id="ohada_financial_report_note3e_24" model="ohada.financial.html.report.line">
         <field name="name">MONTANT DE L'ECART INCORPORE AU CAPITAL</field>
@@ -2581,6 +2587,7 @@
     <record id="ohada_financial_report_note8a_4" model="ohada.financial.html.report.line">
         <field name="name"> </field>
         <field name="code">N8a_4</field>
+        <field name="table_x_offset">1</field>
         <field name="financial_report_id" ref="ohada_financial_report_note8a"/>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
@@ -2592,6 +2599,7 @@
     <record id="ohada_financial_report_note8a_5" model="ohada.financial.html.report.line">
         <field name="name"> </field>
         <field name="code">N8a_5</field>
+        <field name="table_x_offset">1</field>
         <field name="financial_report_id" ref="ohada_financial_report_note8a"/>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
@@ -2603,6 +2611,7 @@
     <record id="ohada_financial_report_note8a_6" model="ohada.financial.html.report.line">
         <field name="name"> </field>
         <field name="code">N8a_6</field>
+        <field name="table_x_offset">1</field>
         <field name="financial_report_id" ref="ohada_financial_report_note8a"/>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
@@ -2614,6 +2623,7 @@
     <record id="ohada_financial_report_note8a_7" model="ohada.financial.html.report.line">
         <field name="name"> </field>
         <field name="code">N8a_7</field>
+        <field name="table_x_offset">1</field>
         <field name="financial_report_id" ref="ohada_financial_report_note8a"/>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
@@ -2625,6 +2635,7 @@
     <record id="ohada_financial_report_note8a_8" model="ohada.financial.html.report.line">
         <field name="name"> </field>
         <field name="code">N8a_8</field>
+        <field name="table_x_offset">1</field>
         <field name="financial_report_id" ref="ohada_financial_report_note8a"/>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
@@ -2636,6 +2647,7 @@
     <record id="ohada_financial_report_note8a_9" model="ohada.financial.html.report.line">
         <field name="name"> </field>
         <field name="code">N8a_9</field>
+        <field name="table_x_offset">1</field>
         <field name="financial_report_id" ref="ohada_financial_report_note8a"/>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
@@ -2647,6 +2659,7 @@
     <record id="ohada_financial_report_note8a_10" model="ohada.financial.html.report.line">
         <field name="name"> </field>
         <field name="code">N8a_10</field>
+        <field name="table_x_offset">1</field>
         <field name="financial_report_id" ref="ohada_financial_report_note8a"/>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
@@ -3513,11 +3526,11 @@
     <record id="ohada_financial_report_note13_header1" model="ohada.financial.html.report.line">
         <field name="name"> </field>
         <field name="code">_n13_1</field>
-        <field name="header" eval="True"/>
+        <field name="header" eval="False"/>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_note13"/>
         <field name="sequence" eval="1"/>
-        <field name="level" eval="2" />
+        <field name="level" eval="7" />
     </record>
 
     <record id="ohada_financial_report_note13_header" model="ohada.financial.html.report.line">
@@ -7228,6 +7241,7 @@
     <record id="ohada_financial_report_note27b_header_2" model="ohada.financial.html.report.line">
         <field name="name"> </field>
         <field name="code">N27B_H2</field>
+        <field name="table_x_offset">2</field>
         <field name="header" eval="True"/>
         <field name="financial_report_id" ref="ohada_financial_report_note27b"/>
         <field name="sequence" eval="2"/>
@@ -7236,6 +7250,7 @@
 
     <record id="ohada_financial_report_note27b_header_3" model="ohada.financial.html.report.line">
         <field name="name">QUALIFICATIONS</field>
+        <field name="table_x_offset">2</field>
         <field name="code">N27B_H3</field>
         <field name="header" eval="True"/>
         <field name="financial_report_id" ref="ohada_financial_report_note27b"/>
@@ -7581,6 +7596,7 @@
         <field name="code">_n28_2</field>
         <field name="header" eval="True"/>
         <field name="reference"></field>
+        <field name="table_x_offset">1</field>
         <field name="financial_report_id" ref="ohada_financial_report_note28"/>
         <field name="sequence" eval="2"/>
         <field name="level" eval="0" />
@@ -7591,6 +7607,7 @@
         <field name="code">N28_1</field>
         <field name="financial_report_id" ref="ohada_financial_report_note28"/>
         <field name="header" eval="True"/>
+        <field name="table_x_offset">2</field>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
         <field name="level" eval="0" />

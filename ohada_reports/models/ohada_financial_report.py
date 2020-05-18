@@ -89,7 +89,8 @@ class ReportOhadaFinancialReport(models.Model):
         reports_ids = reports_ids.split(',')
         output = io.BytesIO()
         workbook = xlsxwriter.Workbook(output, {'in_memory': True})
-
+        import wdb
+        wdb.set_trace()
         for report_id in reports_ids:
             if report_id != 'notes':
                 self.env['ohada.financial.html.report'].browse(int(report_id)).get_xlsx(options, response, print_bundle=True, workbook=workbook)
@@ -590,6 +591,7 @@ class OhadaFinancialReportLine(models.Model):
     rowspan = fields.Integer(default=1)
     align = fields.Char(default='left')
     columns_id = fields.One2many('ohada.custom.columns', 'line_id', default=False)
+    table_x_offset = fields.Integer(default=0)
 
 
     _sql_constraints = [
@@ -1338,6 +1340,7 @@ class OhadaFinancialReportLine(models.Model):
                                                                                groups=options.get('groups'))
                 else:
                     d_column = ' '
+
                 res.extend(r)
                 for column in r:
                     domain_ids.update(column)
@@ -1351,6 +1354,7 @@ class OhadaFinancialReportLine(models.Model):
                 continue
 
             # Post-processing ; creating line dictionnary, building comparison, computing total for extended, formatting
+
             vals = {
                 'id': line.id,
                 'name': line.name.split('|') if line.name else line.name,
@@ -1371,6 +1375,7 @@ class OhadaFinancialReportLine(models.Model):
                 'rowspan': line.rowspan,
                 'align': line.align,
                 'sequence': line.sequence,
+                'table_x_offset': line.table_x_offset,
             }
 
             if financial_report.tax_report and line.domain and not line.action_id:
@@ -1757,12 +1762,21 @@ class OhadaFinancialReportLine(models.Model):
                             i['background'] = '#B3CDE0'
                             i['name'] = ''
                     elif financial_report.code == "N3D" and line.sequence > 2:
-                        vals['columns'][2] = line._format(
-                            {'name': vals['columns'][0]['no_format_name'] - vals['columns'][1]['no_format_name']})
-                        vals['columns'].append(line._format({'name': d_column[0]['line']['balance']})
+                        if vals['columns'][0].get('no_format_name') is not None:
+                            vals['columns'][2] = line._format(
+                                {'name': vals['columns'][0]['no_format_name'] - vals['columns'][1]['no_format_name']})
+                            vals['columns'].append(line._format({'name': d_column[0]['line']['balance']})
                                                if type(d_column) == list else {'name': d_column})
-                        vals['columns'].append(line._format({'name': vals['columns'][3]['no_format_name'] - vals['columns'][2]['no_format_name']})
+                            vals['columns'].append(line._format({'name': vals['columns'][3]['no_format_name'] - vals['columns'][2]['no_format_name']})
                                                if type(d_column) == list else {'name': ' '})
+                        else:
+                            vals['columns'][2] = line._format(
+                                {'name': vals['columns'][0]['name'] - vals['columns'][1]['name']})
+                            vals['columns'].append(line._format({'name': d_column[0]['line']['balance']})
+                                                   if type(d_column) == list else {'name': d_column})
+                            vals['columns'].append(line._format(
+                                {'name': vals['columns'][3]['name'] - vals['columns'][2]['name']})
+                                                   if type(d_column) == list else {'name': ' '})
                     elif financial_report.code in ["N16B_2", "N16BB_1"] and line.sequence > 3:
                        vals['columns'].append({'name': ' '})
 

@@ -28,7 +28,7 @@ from odoo.tools.safe_eval import safe_eval
 from odoo.exceptions import UserError
 
 import html2text
-import wdb
+# import wdb
 
 _logger = logging.getLogger(__name__)
 
@@ -697,20 +697,23 @@ class OhadaReport(models.AbstractModel):
             'company_naoc': company.num_affiliates_out_country,
         }
         if self.code == 'S2':
-            wdb.set_trace()
-            activity_data = {'activity_ids': [], 'drivers_sum': 0.0, 'activity_perc': 0.0,}
+            # wdb.set_trace()
+            activity_data = {'activity_ids': [], 'drivers_sum': 0.0, 'activity_perc': 0.0, 's1_total': 0.0}
             activity_perc_sum = 0.0
             for i, x in zip(company.activity_ids, range(len(company.activity_ids))):
                 if x < 5:
                     activity_data['activity_ids'].append({'name': i.activity_id.name,
-                                                          'code': i.activity_id.full_code,
+                                                          'code': i.activity_id.full_code.replace(' ', ''),
                                                           'amount': i.turnover_amount if i.amount_reported == 'turnover_amount' else i.surplus_amount,
                                                           'percentage': i.turnover_percentage if i.amount_reported == 'turnover_amount' else i.surplus_percentage,
                                                           })
                     activity_perc_sum += activity_data['activity_ids'][x]['percentage']
+                    activity_data['s1_total'] += activity_data['activity_ids'][x]['amount']
                 else:
                     activity_data['drivers_sum'] += i.turnover_amount if i.amount_reported == 'turnover_amount' else i.surplus_amount
             activity_data['activity_perc'] = int(100.0 - activity_perc_sum)
+            activity_data['s1_total'] += activity_data['drivers_sum']
+            data = {**data, **activity_data}
         return data
 
 
@@ -1330,8 +1333,9 @@ class OhadaReport(models.AbstractModel):
         level_3_col1_style = workbook.add_format({'border_color': '#001E5A', 'border': 1, 'font_name': 'NimbusSanL', 'font_size': 8, 'font_color': '#001E5A', 'indent': 2})
         level_3_col1_total_style = workbook.add_format({'border_color': '#001E5A', 'border': 1, 'font_name': 'NimbusSanL', 'font_size': 8, 'font_color': '#001E5A', 'indent': 1})
         level_3_style = workbook.add_format({'border_color': '#001E5A', 'border': 1, 'font_name': 'NimbusSanL', 'font_size': 8, 'font_color': '#001E5A'})
-        level_5_style = workbook.add_format({'valign': 'vcenter', 'border_color': '#001E5A', 'shrink': True, 'align': 'center', 'bg_color': '#CDEBFF', 'font_name': 'NimbusSanL', 'bold': True, 'font_size': 8, 'border': 1, 'font_color': '#001E5A'})
+        level_5_style = workbook.add_format({'valign': 'vcenter', 'border_color': '#001E5A', 'shrink': True, 'align': 'left', 'font_name': 'NimbusSanL', 'bold': True, 'font_size': 8, 'border': 1, 'font_color': '#001E5A'})
         level_6_style = workbook.add_format({'border_color': '#001E5A', 'border': 1, 'font_name': 'NimbusSanL', 'font_size': 8, 'font_color': '#001E5A'})
+        level_7_style = workbook.add_format({'border_color': '#001E5A', 'border': 1, 'font_name': 'NimbusSanL', 'font_size': 8, 'font_color': '#001E5A', 'align': 'right', 'valign': 'vcenter'})
         summary_style = workbook.add_format({'valign': 'top', 'align': 'left', 'font_name': 'NimbusSanL', 'font_size': 8, 'font_color': '#001E5A'})
 
         summary = html2text.html2text(self._get_report_manager(options).summary)
@@ -1383,21 +1387,29 @@ class OhadaReport(models.AbstractModel):
 
         if options.get('hierarchy'):
             lines = self._create_hierarchy(lines)
-        if lines[0].get('reference'):
+        if lines[0].get('reference') or self.code in ['N27B']:
             sheet.set_column(1, 1, 3)
             sheet.set_column(2, 2, 50)
             sheet.set_row(7, 50)
             sheet.set_row(8, 30)
+        elif self.code in ['N3B', 'N3C', 'N3E', 'N28']:
+            sheet.set_column(1, 1, 50)
+            sheet.set_row(8, 50)
+        elif self.code in ['N13']:
+            sheet.set_column(1, 1, 50)
+            sheet.set_row(7, 30)
+            sheet.set_row(8, 50)
         elif self.code != 'BS':
             sheet.set_column(1, 1, 50)
             sheet.set_row(7, 50)
+
 
         #write all data rows
         def write_data(lines, x_ind=None, y_ind=None):
             for y in range(0, len(lines)):
                 level = lines[y].get('level')
                 sheet.write(y, 0, '', workbook.add_format({}))
-                x_index = x_ind or 1
+                x_index = (x_ind or 1) + lines[y].get('table_x_offset')
                 y_offset = y_ind or 7
                 if lines[y].get('caret_options'):
                     style = level_3_style
@@ -1422,6 +1434,10 @@ class OhadaReport(models.AbstractModel):
                 elif level == 6:
                     # y_offset += 1
                     style = level_6_style
+                    col1_style = style
+                elif level == 7:
+                    # y_offset += 1
+                    style = level_7_style
                     col1_style = style
                 else:
                     style = default_style
@@ -1450,22 +1466,46 @@ class OhadaReport(models.AbstractModel):
 
                     # write the first column, with a specific style to manage the indentation
                     cell_name = lines[y].get('name')              #E~  lines[y]['name']
-                    if lines[y].get('reference') == 'REF':
-                        loc_style = copy.copy(style)
-                        loc_style.set_align('center')
-                        workbook.formats.append(loc_style)
-                        sheet.merge_range(y + y_offset, x_index, y + y_offset + 1, x_index, cell_name, loc_style)
-                        x_index += 1
-                    else:
-                        if lines[y].get('header') is True:
+                    # import wdb
+                    # wdb.set_trace()
+                    if cell_name:
+                        if isinstance(cell_name, list):
+                            cell_name = str()
+                            for i in lines[y].get('name'):
+                                cell_name += i
+                                cell_name += '\n' if len(lines[y].get('name')) > 1 else ''
+                        if lines[y].get('reference') == 'REF':
                             loc_style = copy.copy(style)
                             loc_style.set_align('center')
                             workbook.formats.append(loc_style)
-                            sheet.write(y + y_offset, x_index, cell_name, loc_style)
+                            sheet.merge_range(y + y_offset, x_index, y + y_offset + 1, x_index, cell_name, loc_style)
                             x_index += 1
                         else:
-                            sheet.write(y + y_offset, x_index, cell_name, style)
-                            x_index += 1
+                            if lines[y].get('header') is True:
+                                loc_style = copy.copy(style)
+                                loc_style.set_align('center')
+                                workbook.formats.append(loc_style)
+                                if lines[y].get('colspan') > 1 or lines[y].get('rowspan') > 1:
+                                    colspan = lines[y].get('colspan')
+                                    rowspan = lines[y].get('rowspan')
+                                    sheet.merge_range(y + y_offset, x_index, y + y_offset + (rowspan - 1),
+                                                      x_index + (colspan - 1), cell_name, loc_style)
+                                    if colspan > 1:
+                                        x_index += (colspan - 1)
+                                else:
+                                    sheet.write(y + y_offset, x_index, cell_name, loc_style)
+                                x_index += 1
+                            else:
+                                if lines[y].get('colspan') > 1 or lines[y].get('rowspan') > 1:
+                                    colspan = lines[y].get('colspan')
+                                    rowspan = lines[y].get('rowspan')
+                                    sheet.merge_range(y + y_offset, x_index, y + y_offset + (rowspan - 1),
+                                                      x_index + (colspan - 1), cell_name, style)
+                                    if colspan > 1:
+                                        x_index += (colspan - 1)
+                                else:
+                                    sheet.write(y + y_offset, x_index, cell_name, style)
+                                x_index += 1
 
                     if lines[y].get('symbol') != 'none':
                         loc_style = copy.copy(style)
@@ -1492,7 +1532,6 @@ class OhadaReport(models.AbstractModel):
                             x_index += 1
 
                     # write all the remaining cells
-
                     for x in range(1, len(lines[y]['columns']) + 1):
                         cell = lines[y]['columns'][x - 1]
                         if lines[y].get('reference') == 'REF' or lines[y].get('header') is True:
@@ -1519,8 +1558,20 @@ class OhadaReport(models.AbstractModel):
                             cell_name = str()
                             for i in cell.get('name', ''):
                                 cell_name += i
-                                cell_name += '\n'
-                            sheet.write(y + y_offset, x_index, cell_name, loc_style)
+                                cell_name += '\n' if len(cell.get('name', '')) > 1 else ''
+                            if lines[y]['columns'][x - 1].get('colspan') or lines[y]['columns'][x - 1].get('rowspan'):
+                                # import wdb
+                                # wdb.set_trace()
+                                if lines[y]['columns'][x - 1].get('colspan') > 1 or lines[y]['columns'][x - 1].get('rowspan') > 1:
+                                    colspan = lines[y]['columns'][x - 1].get('colspan') or 1
+                                    rowspan = lines[y]['columns'][x - 1].get('rowspan') or 1
+                                    sheet.merge_range(y + y_offset, x_index, y + y_offset + (rowspan - 1), x_index + (colspan - 1), cell_name, loc_style)
+                                    if colspan > 1:
+                                        x_index += (colspan - 1)
+                                else:
+                                    sheet.write(y + y_offset, x_index, cell_name, loc_style)
+                            else:
+                                sheet.write(y + y_offset, x_index, cell_name, loc_style)
                             x_index += 1
                         else:
                             sheet.write(y + y_offset, x_index, cell.get('name', ''), loc_style)
@@ -1554,7 +1605,7 @@ class OhadaReport(models.AbstractModel):
             sheet.merge_range(7, 0, len(lines) + 6, 0, '', left_border)
             sheet.merge_range(7, self.x_index, len(lines) + 6, self.x_index, '', right_border)
             y_ind = len(lines) + 12
-            second_report = self.env['ohada.financial.html.report'].search([('name', '=', self.name+'_1')])
+            second_report = self.env['ohada.financial.html.report'].search([('code', '=', self.code+'_1')])
             lines = second_report.with_context(ctx)._get_lines(options)
             write_data(lines, y_ind=y_ind)
             sheet.merge_range(y_ind - 1, 1, y_ind - 1, self.x_index - 1, '', top_border)
@@ -1576,13 +1627,13 @@ class OhadaReport(models.AbstractModel):
             sheet.merge_range(5, 1, 5, self.x_index - 1, (header.get('title') or ''), title_style)
 
         #make double border
-        if self.double_report is False:
-            sheet.merge_range(6, 1, 6, self.x_index - 1, '', top_border)
-            sheet.merge_range(len(lines) + 7, 1, len(lines) + 7, self.x_index - 1, '', bottom_border)
-            sheet.merge_range(7, 0, len(lines) + 6, 0, '', left_border)
-            sheet.merge_range(7, self.x_index, len(lines) + 6, self.x_index, '', right_border)
-            sheet.merge_range(len(lines) + 9, 1, len(lines) + 9, self.x_index - 1, summary, summary_style)
-            sheet.set_row(len(lines) + 9, 200)
+        # if self.double_report is False:
+        #     sheet.merge_range(6, 1, 6, self.x_index - 1, '', top_border)
+        #     sheet.merge_range(len(lines) + 7, 1, len(lines) + 7, self.x_index - 1, '', bottom_border)
+        #     sheet.merge_range(7, 0, len(lines) + 6, 0, '', left_border)
+        #     sheet.merge_range(7, self.x_index, len(lines) + 6, self.x_index, '', right_border)
+        #     sheet.merge_range(len(lines) + 9, 1, len(lines) + 9, self.x_index - 1, summary, summary_style)
+        #     sheet.set_row(len(lines) + 9, 200)
         if self.type == 'note' and self.double_report is False:
             sheet.merge_range(4, 1, 4, self.x_index - 1, (self.shortname.upper() or ''), title_style)
 

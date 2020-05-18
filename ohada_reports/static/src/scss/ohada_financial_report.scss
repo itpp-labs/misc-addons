@@ -384,19 +384,22 @@
         }
     }
     .o_account_reports_level7 {
-        border-width: 3px;
-        font-weight: bold;
-        // border-top-style: $border-top-style;
-        background-color: #CDEBFF;
-        text-align: center !important;
-        vertical-align: middle;
-        > td {
-            text-align: center !important;
+        border-bottom: 1px solid #001E5A;
+        font-weight: normal;
+        > td > span {
+            min-height:10px;
+        }
+        > td.o_account_report_line_indent > span:last-child {
+            margin-left: 15px;
         }
         &.total {
-            > td.o_account_report_line_indent > span:last-child {
-                margin-left: 60px;
+            > td > span:last-child {
+                margin-left: 0px;
             }
+        }
+        & td {
+            padding-top: 2px;
+            padding-bottom: 2px;
         }
     }
     .o_account_reports_level8 {
