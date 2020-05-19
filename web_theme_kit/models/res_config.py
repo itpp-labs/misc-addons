@@ -7,7 +7,8 @@ import hashlib
 from odoo import api, fields, models
 
 CUSTOM_CSS_ARCH = """<?xml version="1.0"?>
-<t t-name="theme_kit.custom_css">
+<t t-name="web_theme_kit.custom_css">
+>>>>>>> :arrow_up::one::two: theme_kit:web_theme_kit/models/res_config.py
 %s
 </t>
 """
@@ -17,9 +18,10 @@ class Config(models.TransientModel):
 
     _name = "theme_kit.config"
     _inherit = "res.config.settings"
+    _description = "Theme Kit Config"
 
     theme_id = fields.Many2one("theme_kit.theme", string="Color Scheme")
-    favicon_id = fields.Many2one("ir.attachment", string="Favicon")
+    favicon_id = fields.Many2one("ir.attachment", string="Company Favicon")
 
     page_title = fields.Char(
         "Page Title",
@@ -107,7 +109,7 @@ class Config(models.TransientModel):
         self.env.user.company_id.logo = self.company_logo
 
         # set theme
-        custom_css = self.env.ref("theme_kit.custom_css")
+        custom_css = self.env.ref("web_theme_kit.custom_css")
         code = ""
         if self.theme_id:
             code = self.theme_id.code
@@ -121,7 +123,7 @@ class Config(models.TransientModel):
         ICPSudo.set_param("web_debranding.favicon_url", url)
 
     def _attachment2url(self, att):
-        sha = hashlib.sha1(getattr(att, "__last_update").encode("utf-8")).hexdigest()[
-            0:7
-        ]
+        sha = hashlib.sha1(
+            str(getattr(att, "__last_update")).encode("utf-8")
+        ).hexdigest()[0:7]
         return "/web/image/{}-{}".format(att.id, sha)

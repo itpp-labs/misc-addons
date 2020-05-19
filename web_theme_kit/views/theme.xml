@@ -31,8 +31,6 @@
                         <group string="Left panel">
                             <field name="left_panel_id" />
                         </group>
-                    </group>
-                    <group>
                         <group string="Content">
                             <field name="content_id" />
                         </group>
@@ -192,31 +190,31 @@
                                 />
                             </div>
                             <div>
-                                <label for="left_panel_main_menu" />
+                                <label for="left_panel_font_color" />
                                 <field
-                                    name="left_panel_main_menu_active"
+                                    name="left_panel_font_color_active"
                                     nolabel="1"
                                     class="oe_inline"
                                 />
                                 <field
-                                    name="left_panel_main_menu"
+                                    name="left_panel_font_color"
                                     class="oe_inline"
-                                    attrs="{'readonly':[('left_panel_main_menu_active','=',False)]}"
+                                    attrs="{'readonly':[('left_panel_font_color_active','=',False)]}"
                                     widget="color"
                                 />
                             </div>
                             <div>
-                                <label for="left_panel_sub_menu" />
+                                <label for="left_panel_menu" />
                                 <field
-                                    name="left_panel_sub_menu_active"
+                                    name="left_panel_menu_active"
                                     nolabel="1"
                                     class="oe_inline"
                                 />
                                 <field
-                                    name="left_panel_sub_menu"
-                                    widget="color"
-                                    attrs="{'readonly':[('left_panel_sub_menu_active','=',False)]}"
+                                    name="left_panel_menu"
                                     class="oe_inline"
+                                    attrs="{'readonly':[('left_panel_menu_active','=',False)]}"
+                                    widget="color"
                                 />
                             </div>
                             <div>

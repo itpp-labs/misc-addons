@@ -94,7 +94,7 @@
                                                 <button
                                                     type="action"
                                                     icon="fa-cogs"
-                                                    name="%(theme_kit.ir_attachment_login_bg_action)d"
+                                                    name="%(web_theme_kit.ir_attachment_login_bg_action)d"
                                                     style="padding-left:0"
                                                     string="Configure wallpapers"
                                                     class="oe_link"

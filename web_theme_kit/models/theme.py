@@ -9,6 +9,7 @@ from odoo.addons.base.models.assetsbundle import AssetsBundle, LessStylesheetAss
 
 class Theme(models.Model):
     _name = "theme_kit.theme"
+    _description = "Theme"
     name = fields.Char("Name", required=True)
     top_panel_id = fields.Many2one(
         "theme_kit.top_panel", string="Color Schemes for Top Panel"
@@ -60,9 +61,8 @@ class Theme(models.Model):
     def generate_less2css(self, code):
         bundle = AssetsBundle("theme_kit.dummy", [], [])
         assets = LessStylesheetAsset(bundle, inline=code, url="")
-        cmd = assets.get_command()
         source = assets.get_source()
-        compiled = bundle.compile_css(cmd, source)
+        compiled = bundle.compile_css(assets.compile, source)
         compiled = (
             """<style type="text/css" id="custom_css">""" + compiled + """</style>"""
         )
@@ -71,6 +71,7 @@ class Theme(models.Model):
 
 class ThemeTopPanel(models.Model):
     _name = "theme_kit.top_panel"
+    _description = "Settings for Top Panel"
 
     name = fields.Char("Name", required=True)
 
@@ -129,28 +130,16 @@ class ThemeTopPanel(models.Model):
                 code = (
                     code
                     + """
-                #oe_main_menu_navbar {{
-                    background-color: {theme.top_panel_bg};
-                }}
-                #oe_main_menu_navbar .dropdown-menu{{
-                    background-color: {theme.top_panel_bg};
-                }}
-                .o_main_navbar {{
-                    background-color: {theme.top_panel_bg};
-                }}
-                .dropdown-menu{{
-                    background-color: {theme.top_panel_bg};
-                }}
-                .o_calendar_container .o_calendar_view .o_calendar_widget .fc-week-number, .o_calendar_container .o_calendar_view .o_calendar_widget .fc-widget-header {{
-                    background-color: {theme.top_panel_bg};
-                }}
-                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker .ui-widget-header {{
-                    background-color: {theme.top_panel_bg};
-                }}
+                .o_main_navbar,
+                .o_main_navbar .dropdown-menu,
+                .o_main_navbar,
+                .dropdown-menu,
+                .o_calendar_container .o_calendar_view .o_calendar_widget .fc-week-number,
+                .o_calendar_container .o_calendar_view .o_calendar_widget .fc-widget-header,
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker .ui-widget-header,
                 .datepicker .table-condensed > thead {{
                     background-color: {theme.top_panel_bg};
                 }}
-
                 .datepicker .table-condensed > thead th:hover {{
                     background-color: darken({theme.top_panel_bg}, 15%) !important;
                 }}
@@ -160,10 +149,10 @@ class ThemeTopPanel(models.Model):
             if self.top_panel_border_active:
                 code = (
                     code
-                    + """.o_main_navbar{{
-                    border-color: {theme.top_panel_border};
-                }}
-                #oe_main_menu_navbar{{
+                    + """
+                .o_main_navbar,
+                #oe_main_menu_navbar,
+                .o_list_view thead > tr > th {{
                     border-color: {theme.top_panel_border};
                 }}
                 .o_control_panel {{
@@ -178,104 +167,82 @@ class ThemeTopPanel(models.Model):
                 .o_list_view thead {{
                     color: {theme.top_panel_border};
                 }}
-                .o_list_view thead > tr > th {{
-                    border-color: {theme.top_panel_border};
-                }}
                 """
                 )
             if self.top_panel_font_active:
                 code = (
                     code
-                    + """.o_main_navbar > ul > li > a {{
+                    + """
+                .o_main_navbar .dropdown-item,
+                .o_main_navbar .dropdown-toggle,
+                .o_main_navbar .o_menu_entry_lvl_1,
+                .o_main_navbar .o_menu_brand,
+                .o_main_navbar .o_debug_manager a,
+                .o_main_navbar .o_menu_apps i,
+                .open .dropdown-menu li a span,
+                .open .dropdown-menu li.dropdown-header,
+                .dropdown-menu li a,
+                .o_calendar_container .o_calendar_view .o_calendar_widget .fc-week-number, .o_calendar_container .o_calendar_view .o_calendar_widget .fc-widget-header,
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker .ui-widget-header,
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker .ui-widget-header .ui-datepicker-prev, .o_calendar_container .o_calendar_sidebar_container .ui-datepicker .ui-widget-header .ui-datepicker-next,
+                .o_calendar_container .o_calendar_sidebar_container .o_calendar_sidebar_toggler,
+                .datepicker .table-condensed > thead {{
                     color: {theme.top_panel_font}!important;
                 }}
-                .navbar-nav li a {{
-                    color: {theme.top_panel_font}!important;
-                }}
-                .o_main_navbar > .o_menu_toggle{{
-                    color: {theme.top_panel_font}!important;
-                }}
-                .o_main_navbar .o_menu_brand {{
-                    color: {theme.top_panel_font}!important;
-                }}
-                .open .dropdown-menu > li a span {{
-                    color: {theme.top_panel_font}!important;
-                }}
-                .open .dropdown-menu > li.dropdown-header {{
-                    color: {theme.top_panel_font}!important;
+                .open .dropdown-menu li.dropdown-header {{
                     font-weight: bolder;
-                }}
-                .dropdown-menu > li > a {{
-                    color: {theme.top_panel_font}!important;
-                }}
-                .o_calendar_container .o_calendar_view .o_calendar_widget .fc-week-number, .o_calendar_container .o_calendar_view .o_calendar_widget .fc-widget-header {{
-                    color: {theme.top_panel_font}!important;
-                }}
-                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker .ui-widget-header {{
-                    color: {theme.top_panel_font}!important;
-                }}
-                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker .ui-widget-header .ui-datepicker-prev, .o_calendar_container .o_calendar_sidebar_container .ui-datepicker .ui-widget-header .ui-datepicker-next {{
-                    color: {theme.top_panel_font}!important;
                 }}
                 .o_calendar_container .o_calendar_sidebar_container .ui-datepicker .ui-widget-header .ui-datepicker-prev:hover, .o_calendar_container .o_calendar_sidebar_container .ui-datepicker .ui-widget-header .ui-datepicker-next:hover {{
                     color: darken({theme.top_panel_font}, 20%)!important;
                 }}
-                .o_calendar_container .o_calendar_sidebar_container .o_calendar_sidebar_toggler {{
-                    color: {theme.top_panel_font}!important;
-                }}
                 .o_calendar_container .o_calendar_sidebar_container .o_calendar_sidebar_toggler:hover {{
                     color: darken({theme.top_panel_font}, 20%)!important;
-                }}
-                .datepicker .table-condensed > thead {{
-                    color: {theme.top_panel_font}!important;
                 }}
                 """
                 )
             if self.top_panel_active_item_font_active:
                 code = (
                     code
-                    + """.navbar-nav .active a{{
+                    + """
+                .navbar-nav .active a,
+                .o_main_navbar .dropdown-item.active {{
                     color: {theme.top_panel_active_item_font}!important;
                 }}"""
                 )
             if self.top_panel_active_item_bg_active:
                 code = (
                     code
-                    + """.navbar-nav .active a{{
+                    + """
+                .navbar-nav .active a,
+                .o_main_navbar .dropdown-item.active {{
                     background-color: {theme.top_panel_active_item_bg}!important;
                 }}"""
                 )
             if self.top_panel_hover_item_font_active:
                 code = (
                     code
-                    + """.o_main_navbar > ul > li > a:hover{{
-                    color: {theme.top_panel_hover_item_font}!important;
-                }}
-                .o_main_navbar > ul > li > a:focus{{
-                    color: {theme.top_panel_hover_item_font}!important;
-                }}
-                .navbar-nav li a:hover{{
-                    color: {theme.top_panel_hover_item_font}!important;
-                }}
-                .navbar-nav li a:focus{{
-                    color: {theme.top_panel_hover_item_font}!important;
-                }}
-                .o_main_navbar > .o_menu_toggle:focus{{
-                    color: {theme.top_panel_hover_item_font}!important;
-                }}
-                .o_main_navbar > .o_menu_toggle:hover{{
-                    color: {theme.top_panel_hover_item_font}!important;
-                }}
-                .open .dropdown-menu > li:hover a span {{
-                    color: {theme.top_panel_hover_item_font}!important;
-                }}
-                .open .dropdown-menu > li:focus a span {{
-                    color: {theme.top_panel_hover_item_font}!important;
-                }}
-                .dropdown-menu > li > a:hover {{
-                    color: {theme.top_panel_hover_item_font}!important;
-                }}
-                .dropdown-menu > li > a:focus {{
+                    + """
+                .o_main_navbar .dropdown-item:hover,
+                .o_main_navbar .dropdown-item:focus,
+                .navbar-nav li a:hover,
+                .navbar-nav li a:focus,
+                .o_main_navbar .dropdown-toggle:focus,
+                .o_main_navbar .dropdown-toggle:hover,
+                .o_main_navbar .o_menu_entry_lvl_1:focus,
+                .o_main_navbar .o_menu_entry_lvl_1:hover,
+                .open .dropdown-menu > li:hover a span,
+                .open .dropdown-menu > li:focus a span,
+                .dropdown-menu > li > a:hover,
+                .dropdown-menu > li > a:focus,
+                .o_main_navbar .o_menu_entry_lvl_1:focus,
+                .o_main_navbar .o_menu_entry_lvl_1:hover,
+                .o_main_navbar .o_menu_brand:focus,
+                .o_main_navbar .o_menu_brand:hover,
+                .o_main_navbar .o_debug_manager a:focus,
+                .o_main_navbar .o_debug_manager a:hover,
+                .o_main_navbar .o_menu_apps:focus i,
+                .o_main_navbar .o_menu_apps:hover i
+                {{
                     color: {theme.top_panel_hover_item_font}!important;
                 }}
                 """
@@ -283,28 +250,25 @@ class ThemeTopPanel(models.Model):
             if self.top_panel_hover_item_bg_active:
                 code = (
                     code
-                    + """.o_main_navbar > ul > li > a:hover{{
-                    background-color: {theme.top_panel_hover_item_bg}!important;
-                }}
-                .o_main_navbar > ul > li > a:focus{{
-                    background-color: {theme.top_panel_hover_item_bg}!important;
-                }}
-                .navbar-nav li a:hover{{
-                    background-color: {theme.top_panel_hover_item_bg}!important;
-                }}
-                .navbar-nav li a:focus{{
-                    background-color: {theme.top_panel_hover_item_bg}!important;
-                }}
-                .o_main_navbar > .o_menu_toggle:hover{{
-                    background-color: {theme.top_panel_hover_item_bg}!important;
-                }}
-                .o_main_navbar > .o_menu_toggle:focus{{
-                    background-color: {theme.top_panel_hover_item_bg}!important;
-                }}
-                .open .dropdown-menu > li a:hover {{
-                    background-color: {theme.top_panel_hover_item_bg}!important;
-                }}
-                .open .dropdown-menu > li a:focus {{
+                    + """
+                .o_main_navbar .dropdown-item:hover,
+                .o_main_navbar .dropdown-item:focus,
+                .navbar-nav li a:hover,
+                .navbar-nav li a:focus,
+                .o_main_navbar .dropdown-toggle:hover,
+                .o_main_navbar .dropdown-toggle:focus,
+                .o_main_navbar .o_menu_entry_lvl_1:hover,
+                .o_main_navbar .o_menu_entry_lvl_1:focus,
+                .open .dropdown-menu li a:hover,
+                .open .dropdown-menu li a:focus,
+                .o_main_navbar .o_menu_entry_lvl_1:focus,
+                .o_main_navbar .o_menu_entry_lvl_1:hover,
+                .o_main_navbar .o_menu_brand:focus,
+                .o_main_navbar .o_menu_brand:hover,
+                .o_main_navbar .o_debug_manager a:focus,
+                .o_main_navbar .o_debug_manager a:hover,
+                .o_main_navbar .o_menu_apps:focus .full,
+                .o_main_navbar .o_menu_apps:hover .full {{
                     background-color: {theme.top_panel_hover_item_bg}!important;
                 }}
                 """
@@ -315,28 +279,21 @@ class ThemeTopPanel(models.Model):
 
 class ThemeLeftPanel(models.Model):
     _name = "theme_kit.left_panel"
+    _description = "Settings for Left Panel"
 
     name = fields.Char("Name", required=True)
 
-    left_panel_bg = fields.Char(
-        "Background color", help="Background Color for Left Menu Bar"
-    )
-    left_panel_bg_active = fields.Boolean(
-        default=False, help="Background Color for Left Menu Bar"
-    )
+    left_panel_bg = fields.Char("Background color", help="Background Color")
+    left_panel_bg_active = fields.Boolean(default=False, help="Background Color")
 
-    left_panel_main_menu = fields.Char(
-        "Main Menu Font color", help="Main Menu Font colo for Left Menu Bar"
-    )
-    left_panel_main_menu_active = fields.Boolean(
-        default=False, help="Main Menu Font colo for Left Menu Bar"
-    )
+    left_panel_font_color = fields.Char("Font color", help="Font color")
+    left_panel_font_color_active = fields.Boolean(default=False, help="Font color")
 
-    left_panel_sub_menu = fields.Char(
-        "Sub Menu Font color", help="Sub Menu Font colo for Left Menu Bar"
+    left_panel_menu = fields.Char(
+        "Menu Font color", help="Menu Font color for Left Menu Bar"
     )
-    left_panel_sub_menu_active = fields.Boolean(
-        default=False, help="Sub Menu Font colo for Left Menu Bar"
+    left_panel_menu_active = fields.Boolean(
+        default=False, help="Menu Font color for Left Menu Bar"
     )
 
     left_panel_active_item_font = fields.Char(
@@ -379,90 +336,39 @@ class ThemeLeftPanel(models.Model):
             if self.left_panel_bg_active:
                 code = (
                     code
-                    + """.o_web_client > .o_main .o_sub_menu {{
+                    + """
+                .o_mail_discuss .o_mail_discuss_sidebar,
+                .o_base_settings .o_setting_container .settings_tab {{
                     background-color: {theme.left_panel_bg}!important;
-                }}
-
-                .o_mail_chat .o_mail_chat_sidebar {{
-                    background-color: {theme.left_panel_bg}!important;
-                }}
-                .o_mail_chat .o_mail_annoying_notification_bar {{
-                    background-color: {theme.left_panel_bg}!important;
-                }}
-
-                .o_kanban_view.o_kanban_dashboard.o_project_kanban .o_project_kanban_boxes .o_project_kanban_box:nth-child(odd) {{
-                    background-color: {theme.left_panel_bg}!important;
-                }}
-                .o_kanban_view .o_kanban_group:nth-child(odd) {{
-                    background-color: {theme.left_panel_bg}!important;
-                }}
-                .o_kanban_view .o_kanban_group {{
-                    .o_column_title{{
-                        color: {theme.left_panel_bg}!important;
-                    }}
-
-                    .fa-plus, .fa-gear, .fa-arrows-h{{
-                        color: {theme.left_panel_bg}!important;
-                    }}
+                    background: {theme.left_panel_bg}!important;
                 }}
                 """
                 )
-            if self.left_panel_main_menu_active:
+            if self.left_panel_font_color_active:
                 code = (
                     code
-                    + """.o_sub_menu .oe_secondary_menu_section{{
-                    color: {theme.left_panel_main_menu}!important;
-                }}
-                .o_sub_menu .oe_secondary_menu_section .oe_menu_leaf{{
-                    color: {theme.left_panel_main_menu}!important;
-                }}
-                .o_mail_chat .o_mail_chat_sidebar h4{{
-                    color: {theme.left_panel_main_menu}!important;
-                }}
-                .o_kanban_view.o_kanban_dashboard.o_project_kanban .o_project_kanban_boxes .o_value,
-                .o_kanban_view.o_kanban_dashboard.o_project_kanban .o_project_kanban_boxes .o_label{{
-                    color: {theme.left_panel_main_menu}!important;
-                }}
-                .o_kanban_view .o_kanban_group:nth-child(odd) {{
-                    .o_column_title{{
-                        color: {theme.left_panel_main_menu}!important;
-                    }}
-                    .fa-plus, .fa-gear, .fa-arrows-h{{
-                        color: {theme.left_panel_main_menu}!important;
-                    }}
-                }}
-                .o_kanban_view .o_kanban_group {{
-                    background-color: {theme.left_panel_main_menu};
+                    + """
+                .o_base_settings .o_setting_container .settings_tab .selected .app_name,
+                .o_mail_discuss .o_mail_discuss_sidebar .o_mail_discuss_item .o_thread_name {{
+                    color: {theme.left_panel_font_color}!important;
                 }}
                 """
                 )
-            if self.left_panel_sub_menu_active:
+            if self.left_panel_menu_active:
                 code = (
                     code
-                    + """.o_sub_menu .oe_secondary_submenu .oe_menu_text{{
-                    color: {theme.left_panel_sub_menu};
-                }}
-                .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item {{
-                    color: {theme.left_panel_sub_menu}!important;
-                }}
-                .o_mail_request_permission, .o_mail_request_permission a {{
-                    color: {theme.left_panel_sub_menu}!important;
-                }}
-                .o_mail_request_permission a:hover {{
-                    color: darken({theme.left_panel_sub_menu}, 10%)!important;
+                    + """
+                .o_mail_sidebar_title h4 {{
+                    color: {theme.left_panel_menu}!important;
                 }}
                 """
                 )
             if self.left_panel_active_item_font_active:
                 code = (
                     code
-                    + """.o_sub_menu .oe_secondary_submenu .active .oe_menu_text{{
-                    color: {theme.left_panel_active_item_font}!important;
-                }}
-                .o_sub_menu .oe_secondary_submenu a:focus .oe_menu_text{{
-                    color: {theme.left_panel_active_item_font}!important;
-                }}
-                .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item.o_active {{
+                    + """
+                .o_base_settings .o_setting_container .settings_tab .selected .app_name,
+                .o_mail_discuss .o_mail_discuss_sidebar .o_mail_discuss_item.o_active .o_thread_name {{
                     color: {theme.left_panel_active_item_font}!important;
                 }}
                 """
@@ -470,13 +376,9 @@ class ThemeLeftPanel(models.Model):
             if self.left_panel_active_item_bg_active:
                 code = (
                     code
-                    + """.o_sub_menu .oe_secondary_submenu .active a{{
-                    background-color: {theme.left_panel_active_item_bg}!important;
-                }}
-                .o_sub_menu .oe_secondary_submenu a:focus{{
-                    background-color: {theme.left_panel_active_item_bg}!important;
-                }}
-                .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item.o_active {{
+                    + """
+                .o_mail_discuss .o_mail_discuss_sidebar .o_mail_discuss_item.o_active,
+                .o_base_settings .o_setting_container .settings_tab .selected {{
                     background-color: {theme.left_panel_active_item_bg}!important;
                 }}
                 """
@@ -484,10 +386,10 @@ class ThemeLeftPanel(models.Model):
             if self.left_panel_hover_item_font_active:
                 code = (
                     code
-                    + """.o_sub_menu .oe_secondary_submenu a:hover .oe_menu_text{{
-                    color: {theme.left_panel_hover_item_font}!important;
-                }}
-                .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item:hover {{
+                    + """
+                .o_base_settings .o_setting_container .settings_tab .tab:hover .app_name,
+                .o_mail_discuss .o_mail_discuss_sidebar .o_mail_discuss_item.o_mail_discuss_title_main:hover .o_thread_name,
+                .o_mail_discuss .o_mail_discuss_sidebar .o_mail_discuss_item:hover .o_thread_name {{
                     color: {theme.left_panel_hover_item_font}!important;
                 }}
                 """
@@ -495,20 +397,21 @@ class ThemeLeftPanel(models.Model):
             if self.left_panel_hover_item_bg_active:
                 code = (
                     code
-                    + """.o_sub_menu .oe_secondary_submenu a:hover{{
-                    background-color: {theme.left_panel_hover_item_bg}!important;
-                }}
-                .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item:hover {{
+                    + """
+                .o_base_settings .o_setting_container .settings_tab .tab:hover,
+                .o_mail_discuss .o_mail_discuss_sidebar .o_mail_discuss_item.o_mail_discuss_title_main:hover{{
                     background-color: {theme.left_panel_hover_item_bg}!important;
                 }}
                 """
                 )
-            code = code.format(theme=r)
+
+            code = code.format(theme=r,)
             self.less = code
 
 
 class ThemeContent(models.Model):
     _name = "theme_kit.content"
+    _description = "Settings for Content"
 
     name = fields.Char("Name", required=True)
 
@@ -582,10 +485,11 @@ class ThemeContent(models.Model):
             if self.content_bg_active:
                 code = (
                     code
-                    + """.breadcrumb{{
-                    background-color: {theme.content_bg}!important;
-                }}
-                .o_control_panel{{
+                    + """
+                .breadcrumb,
+                .o_control_panel,
+                .o_statusbar_buttons,
+                .o_content {{
                     background-color: {theme.content_bg}!important;
                 }}
                 .o_form_view header{{
@@ -597,9 +501,6 @@ class ThemeContent(models.Model):
                     background-image: -moz-linear-gradient(top, lighten({theme.content_bg}, 30%), {theme.content_bg}) !important;
                     background-image: -ms-linear-gradient(top, lighten({theme.content_bg}, 30%), {theme.content_bg})!important;
                     background-image: -o-linear-gradient(top, lighten({theme.content_bg}, 30%), {theme.content_bg})!important;
-                }}
-                .o_content {{
-                    background-color: {theme.content_bg}!important;
                 }}
                 .o_list_view thead {{
                     background: lighten({theme.content_bg}, 15%)!important;
@@ -625,9 +526,7 @@ class ThemeContent(models.Model):
                 .o_web_settings_dashboard {{
                     background: lighten({theme.content_bg}, 20%)!important;
                 }}
-                .o_main .o_form_sheet_bg  {{
-                    background: lighten({theme.content_bg}, 30%)!important;
-                }}
+                .o_main .o_form_sheet_bg,
                 .o_content .o_form_sheet_bg {{
                     background: lighten({theme.content_bg}, 30%)!important;
                 }}
@@ -664,17 +563,14 @@ class ThemeContent(models.Model):
             if self.content_form_active:
                 code = (
                     code
-                    + """.o_form{{
+                    + """
+                .o_form,
+                .table-responsive,
+                .o-x2m-control-panel {{
                     background-color: {theme.content_form}
-                }}
-                .table-responsive{{
-                    background-color: {theme.content_form}!important;
                 }}
                 .o_form_sheet {{
                     background: {theme.content_form}!important
-                }}
-                .o-x2m-control-panel {{
-                    background-color: {theme.content_form}!important;
                 }}
                 .o_list_content tbody tr:nth-child(even) {{
                     background-color: {theme.content_form} !important;
@@ -688,28 +584,17 @@ class ThemeContent(models.Model):
                 .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table td a {{
                     background-color: darken({theme.content_form}, 10%);
                 }}
-                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table td {{
-                    background-color: {theme.content_form};
-                }}
-                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table thead {{
-                    background-color: {theme.content_form};
-                }}
-                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table .ui-state-active {{
-                    background-color: darken({theme.content_form}, 25%);
-                }}
-
-                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table td a:hover {{
-                    background-color: darken({theme.content_form}, 25%);
-                }}
-                .datepicker .table-condensed  {{
-                    background-color: {theme.content_form};
-                }}
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table td,
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table thead,
+                .datepicker .table-condensed,
                 .datepicker .table-condensed > thead > tr:last-child {{
                     background-color: {theme.content_form};
                 }}
-                .datepicker .table-condensed > thead > tr:last-child th:hover{{
-                    background-color: darken({theme.content_form}, 15%);
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table .ui-state-active,
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table td a:hover {{
+                    background-color: darken({theme.content_form}, 25%);
                 }}
+                .datepicker .table-condensed > thead > tr:last-child th:hover,
                 .datepicker .table-condensed > tbody > tr > td.active, .datepicker .table-condensed > tbody > tr > td .active {{
                     background-color: darken({theme.content_form}, 15%);
                 }}
@@ -721,10 +606,13 @@ class ThemeContent(models.Model):
             if self.content_form_text_active:
                 code = (
                     code
-                    + """.o_form_view {{
-                    color: {theme.content_form_text};
-                }}
-                .o_form {{
+                    + """
+                .o_form_view,
+                .o_form,
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table .ui-state-default,
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table thead,
+                .datepicker .table-condensed > thead > tr:last-child,
+                .datepicker .table-condensed {{
                     color: {theme.content_form_text};
                 }}
                 .o_horizontal_separator {{
@@ -736,36 +624,21 @@ class ThemeContent(models.Model):
                 .o_form div.o_form_configuration p, .o_main .o_form div.o_form_configuration ul, .o_main .o_form div.o_form_configuration ol {{
                     color: darken({theme.content_form_text}, 10%) !important;
                 }}
-                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table .ui-state-default {{
-                    color: {theme.content_form_text};
-                }}
                 .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table .ui-state-active {{
                     color: lighten({theme.content_form_text}, 30%)!important;
-                }}
-                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table thead {{
-                    color: {theme.content_form_text};
-                }}
-                .datepicker .table-condensed > thead > tr:last-child {{
-                    color: {theme.content_form_text};
-                }}
-                .datepicker .table-condensed  {{
-                    color: {theme.content_form_text};
                 }}
                 """
                 )
             if self.content_form_link_active:
                 code = (
                     code
-                    + """ .o_main_content a {{
-                    color: {theme.content_form_link};
-                }}
-                .o_control_panel .breadcrumb > li > a {{
-                    color: {theme.content_form_link};
-                }}
-                .o_control_panel .dropdown-toggle {{
-                    color: {theme.content_form_link};
-                }}
-                .o_control_panel .o_cp_right, .o_control_panel .o_pager_previous, .o_control_panel .o_pager_next {{
+                    + """
+                .o_main_content a,
+                .o_control_panel .breadcrumb > li > a,
+                .o_control_panel .dropdown-toggle,
+                .o_control_panel .o_cp_right,
+                .o_control_panel .o_pager_previous,
+                .o_control_panel .o_pager_next {{
                     color: {theme.content_form_link};
                 }}
                 """
@@ -810,18 +683,11 @@ class ThemeContent(models.Model):
             if self.content_form_title_active:
                 code = (
                     code
-                    + """.o_horizontal_separator {{
-                    color: {theme.content_form_title} !important;
-                }}
-                .o_main .o_horizontal_separator {{
-                    color: {theme.content_form_title} !important;
-                }}
-                .o_form_label {{
-                    color: {theme.content_form_title} !important;
-                }}
-                .breadcrumb > .active {{
-                    color: {theme.content_form_title} !important;
-                }}
+                    + """
+                .o_horizontal_separator,
+                .o_main .o_horizontal_separator,
+                .o_form_label,
+                .breadcrumb > .active,
                 .breadcrumb > li + li:before {{
                     color: {theme.content_form_title} !important;
                 }}
@@ -846,7 +712,8 @@ class ThemeContent(models.Model):
             if self.content_statusbar_bg_active:
                 code = (
                     code
-                    + """.o_form_statusbar {{
+                    + """.o_form_statusbar,
+                .o_form_statusbar .btn-default {{
                     background-color: {theme.content_statusbar_bg}!important;
                 }}
                 .o_form_view .o_form_statusbar > .o_statusbar_status > .o_arrow_button:before,
@@ -854,29 +721,20 @@ class ThemeContent(models.Model):
                 {{
                     border-left-color: {theme.content_statusbar_bg};
                 }}
-                .o_form_statusbar .btn-default {{
-                    background-color: {theme.content_statusbar_bg}!important;
-                }}
                 """
                 )
             if self.content_statusbar_element_active:
                 code = (
                     code
-                    + """.o_form_view .o_form_statusbar > .o_statusbar_status > .o_arrow_button.btn-primary.disabled{{
-                    background-color: {theme.content_statusbar_element}!important;
-                }}
-                .o_form_view .o_form_statusbar > .o_statusbar_status > .o_arrow_button.btn-primary.disabled .o_arrow_button:after{{
-                    background-color: {theme.content_statusbar_element}!important;
-                }}
-                .o_statusbar_status > .o_arrow_button.btn-primary.disabled:after {{
-                    border-left-color: {theme.content_statusbar_element}!important;
-                }}
-
-                .o_form_view .o_form_statusbar > .o_statusbar_status > .o_arrow_button:not(.disabled):hover:after, .o_statusbar_status > .o_arrow_button:not(.disabled):focus:after {{
-                    border-left-color: {theme.content_statusbar_element}!important;
-                }}
+                    + """.o_form_view .o_form_statusbar > .o_statusbar_status > .o_arrow_button.btn-primary.disabled,
+                .o_form_view .o_form_statusbar > .o_statusbar_status > .o_arrow_button.btn-primary.disabled .o_arrow_button:after,
                 .o_form_statusbar .btn-default:hover, .o_form_statusbar .btn-default:focus {{
                     background-color: {theme.content_statusbar_element}!important;
+                }}
+                .o_statusbar_status > .o_arrow_button.btn-primary.disabled:after,
+                .o_form_view .o_form_statusbar > .o_statusbar_status > .o_arrow_button:not(.disabled):hover:after,
+                .o_statusbar_status > .o_arrow_button:not(.disabled):focus:after {{
+                    border-left-color: {theme.content_statusbar_element}!important;
                 }}
                 """
                 )
@@ -909,7 +767,7 @@ class ThemeContent(models.Model):
                 code = (
                     code
                     + """.o_view_manager_content {{
-                        background-color: {theme.content_footer_color}!important
+                    background-color: {theme.content_footer_color}!important
                 }}
                 """
                 )
