@@ -10,7 +10,7 @@ import ast
 import dateparser           #B+
 
 from dateutil.relativedelta import relativedelta
-
+from bs4 import BeautifulSoup
 
 try:
     from odoo.tools.misc import xlsxwriter
@@ -1340,6 +1340,7 @@ class OhadaReport(models.AbstractModel):
 
         summary = html2text.html2text(self._get_report_manager(options).summary)
 
+
         if options['date'].get('date_from'):
             year = options['date'].get('date_from')[0:4]
         else:
@@ -1380,10 +1381,65 @@ class OhadaReport(models.AbstractModel):
         #             sheet.merge_range(y_offset, x, y_offset, x + colspan - 1, header_label, title_style)
         #         x += colspan
         #     y_offset += 1
-        ctx = self._set_context(options)
-        ctx.update({'no_format': True, 'print_mode': True, 'prefetch_fields': False})
-        # deactivating the prefetching saves ~35% on get_lines running time
-        lines = self.with_context(ctx)._get_lines(options)
+
+        def set_cell_style(style, style_str):
+            if 'border-bottom' in style_str:
+                style.set_bottom(1)
+            if 'border-left' in style_str:
+                style.set_left(1)
+            if 'border-right' in style_str:
+                style.set_right(1)
+            if 'border-top' in style_str:
+                style.set_top(1)
+
+        if self.code in ['CP', 'S1',]:
+            import wdb
+            wdb.set_trace()
+            html = self.get_html(options).decode('ascii', 'ignore')
+            html = BeautifulSoup(html, "html.parser")
+            lines = []
+            for table in html.findAll('tbody', {'class': 'ohada_table'}):
+                for row in table.findAll('tr'):
+                    lines.append({'cells': []})
+                    for td in row.findAll('td'):
+                        lines[-1]['cells'].append({
+                            'name': td.getText(),
+                            'colspan': td.get('colspan') or 1,
+                            'rowspan': td.get('rowspan') or 1,
+                            'class': td.get('class'),
+                            'align': td.get('align'),
+                            'style': td.get('style'),
+                        })
+            for y in range(0, len(lines)):
+                x_index = 1
+                y_offset = 7
+                for cell in lines[y]['cells']:
+                    style = copy.copy(default_style)
+                    if cell.get('style') is not None:
+                        set_cell_style(style, cell.get('style'))
+                    workbook.formats.append(style)
+                    cell_name = cell.get('name')
+                    if int(cell.get('colspan')) > 1 or int(cell.get('rowspan')) > 1:
+                        colspan = int(cell.get('colspan')) or 1
+                        rowspan = int(cell.get('rowspan')) or 1
+                        sheet.merge_range(y + y_offset, x_index, y + y_offset + (rowspan - 1),
+                                          x_index + (colspan - 1), cell_name, style)
+                        if colspan > 1:
+                            x_index += (colspan - 1)
+                    else:
+                        sheet.write(y + y_offset, x_index, cell_name, style)
+                    x_index += 1
+            sheet.hide_gridlines(2)
+            workbook.close()
+            output.seek(0)
+            response.stream.write(output.read())
+            output.close()
+            return
+        else:
+            ctx = self._set_context(options)
+            ctx.update({'no_format': True, 'print_mode': True, 'prefetch_fields': False})
+            # deactivating the prefetching saves ~35% on get_lines running time
+            lines = self.with_context(ctx)._get_lines(options)
 
         if options.get('hierarchy'):
             lines = self._create_hierarchy(lines)
@@ -1399,6 +1455,16 @@ class OhadaReport(models.AbstractModel):
             sheet.set_column(1, 1, 50)
             sheet.set_row(7, 30)
             sheet.set_row(8, 50)
+        elif self.code in ['N2']:
+            sheet.set_column(1, 1, 50)
+            sheet.set_row(7, 50)
+            sheet.set_row(8, 200)
+            sheet.set_row(9, 50)
+            sheet.set_row(10, 200)
+            sheet.set_row(11, 50)
+            sheet.set_row(12, 200)
+            sheet.set_row(13, 50)
+            sheet.set_row(14, 200)
         elif self.code != 'BS':
             sheet.set_column(1, 1, 50)
             sheet.set_row(7, 50)
@@ -1409,7 +1475,7 @@ class OhadaReport(models.AbstractModel):
             for y in range(0, len(lines)):
                 level = lines[y].get('level')
                 sheet.write(y, 0, '', workbook.add_format({}))
-                x_index = (x_ind or 1) + lines[y].get('table_x_offset')
+                x_index = (x_ind or 1) + (lines[y].get('table_x_offset') or 0)
                 y_offset = y_ind or 7
                 if lines[y].get('caret_options'):
                     style = level_3_style
@@ -1443,6 +1509,7 @@ class OhadaReport(models.AbstractModel):
                     style = default_style
                     col1_style = default_col1_style
 
+
                 if lines[y].get('note') == 'NET':
                     for x in range(1, len(lines[y]['columns']) + 1):
                         cell = lines[y]['columns'][x - 1]
@@ -1466,8 +1533,7 @@ class OhadaReport(models.AbstractModel):
 
                     # write the first column, with a specific style to manage the indentation
                     cell_name = lines[y].get('name')              #E~  lines[y]['name']
-                    # import wdb
-                    # wdb.set_trace()
+
                     if cell_name:
                         if isinstance(cell_name, list):
                             cell_name = str()
@@ -1480,6 +1546,13 @@ class OhadaReport(models.AbstractModel):
                             workbook.formats.append(loc_style)
                             sheet.merge_range(y + y_offset, x_index, y + y_offset + 1, x_index, cell_name, loc_style)
                             x_index += 1
+                        elif self.code in ['N2']:
+                            loc_style = copy.copy(style)
+                            loc_style.set_align('center')
+                            loc_style.set_align('vcenter')
+                            workbook.formats.append(loc_style)
+                            sheet.merge_range(y + y_offset, x_index, y + y_offset, x_index + 7, cell_name, loc_style)
+                            x_index += 8
                         else:
                             if lines[y].get('header') is True:
                                 loc_style = copy.copy(style)
@@ -1627,13 +1700,13 @@ class OhadaReport(models.AbstractModel):
             sheet.merge_range(5, 1, 5, self.x_index - 1, (header.get('title') or ''), title_style)
 
         #make double border
-        # if self.double_report is False:
-        #     sheet.merge_range(6, 1, 6, self.x_index - 1, '', top_border)
-        #     sheet.merge_range(len(lines) + 7, 1, len(lines) + 7, self.x_index - 1, '', bottom_border)
-        #     sheet.merge_range(7, 0, len(lines) + 6, 0, '', left_border)
-        #     sheet.merge_range(7, self.x_index, len(lines) + 6, self.x_index, '', right_border)
-        #     sheet.merge_range(len(lines) + 9, 1, len(lines) + 9, self.x_index - 1, summary, summary_style)
-        #     sheet.set_row(len(lines) + 9, 200)
+        if self.double_report is False and self.code != 'N27B':
+            sheet.merge_range(6, 1, 6, self.x_index - 1, '', top_border)
+            sheet.merge_range(len(lines) + 7, 1, len(lines) + 7, self.x_index - 1, '', bottom_border)
+            sheet.merge_range(7, 0, len(lines) + 6, 0, '', left_border)
+            sheet.merge_range(7, self.x_index, len(lines) + 6, self.x_index, '', right_border)
+            sheet.merge_range(len(lines) + 9, 1, len(lines) + 9, self.x_index - 1, summary, summary_style)
+            sheet.set_row(len(lines) + 9, 200)
         if self.type == 'note' and self.double_report is False:
             sheet.merge_range(4, 1, 4, self.x_index - 1, (self.shortname.upper() or ''), title_style)
 

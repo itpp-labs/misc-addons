@@ -70,46 +70,46 @@
 
 
         <!--columns for note 2-->
-        <record id="ohada_custom_columns_note2_1" model="ohada.custom.columns">
-            <field name="line_id" ref="ohada_financial_report_note2_header"/>
-            <field name="line_name" eval="False"/>
-        </record>
+<!--        <record id="ohada_custom_columns_note2_1" model="ohada.custom.columns">-->
+<!--            <field name="line_id" ref="ohada_financial_report_note2_header"/>-->
+<!--            <field name="line_name" eval="False"/>-->
+<!--        </record>-->
 
-            <record id="ohada_cell_style_note2_1_1" model="ohada.cell.style">
-                <field name="name">A - DECLARATION DE CONFORMITÉ AU SYSCOHADA</field>
-                <field name="column_id" ref="ohada_custom_columns_note2_1"/>
-            </record>
+<!--            <record id="ohada_cell_style_note2_1_1" model="ohada.cell.style">-->
+<!--                <field name="name">A - DECLARATION DE CONFORMITÉ AU SYSCOHADA</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_note2_1"/>-->
+<!--            </record>-->
 
-        <record id="ohada_custom_columns_note2_2" model="ohada.custom.columns">
-            <field name="line_id" ref="ohada_financial_report_note2_2"/>
-            <field name="line_name" eval="False"/>
-        </record>
+<!--        <record id="ohada_custom_columns_note2_2" model="ohada.custom.columns">-->
+<!--            <field name="line_id" ref="ohada_financial_report_note2_2"/>-->
+<!--            <field name="line_name" eval="False"/>-->
+<!--        </record>-->
 
-            <record id="ohada_cell_style_note2_2_1" model="ohada.cell.style">
-                <field name="name">B - REGLES ET METHODES COMPTABLES</field>
-                <field name="column_id" ref="ohada_custom_columns_note2_2"/>
-            </record>
+<!--            <record id="ohada_cell_style_note2_2_1" model="ohada.cell.style">-->
+<!--                <field name="name">B - REGLES ET METHODES COMPTABLES</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_note2_2"/>-->
+<!--            </record>-->
 
-        <record id="ohada_custom_columns_note2_3" model="ohada.custom.columns">
-            <field name="line_id" ref="ohada_financial_report_note2_4"/>
-            <field name="line_name" eval="False"/>
-        </record>
+<!--        <record id="ohada_custom_columns_note2_3" model="ohada.custom.columns">-->
+<!--            <field name="line_id" ref="ohada_financial_report_note2_4"/>-->
+<!--            <field name="line_name" eval="False"/>-->
+<!--        </record>-->
 
-            <record id="ohada_cell_style_note2_3_1" model="ohada.cell.style">
-                <field name="name">C - DEROGATIONS AUX POSTULATS ET CONVENTIONS COMPTABLES</field>
-                <field name="column_id" ref="ohada_custom_columns_note2_3"/>
-            </record>
+<!--            <record id="ohada_cell_style_note2_3_1" model="ohada.cell.style">-->
+<!--                <field name="name">C - DEROGATIONS AUX POSTULATS ET CONVENTIONS COMPTABLES</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_note2_3"/>-->
+<!--            </record>-->
 
-        <record id="ohada_custom_columns_note2_4" model="ohada.custom.columns">
-            <field name="line_id" ref="ohada_financial_report_note2_6"/>
-            <field name="line_name" eval="False"/>
-        </record>
+<!--        <record id="ohada_custom_columns_note2_4" model="ohada.custom.columns">-->
+<!--            <field name="line_id" ref="ohada_financial_report_note2_6"/>-->
+<!--            <field name="line_name" eval="False"/>-->
+<!--        </record>-->
 
-            <record id="ohada_cell_style_note2_4_1" model="ohada.cell.style">
-                <field name="name">D - INFORMATIONS COMPLEMENTAIRES RELATIVES AU BILAN, AU COMPTE DE RESULTAT
-                                    ET AU TABLEAX DES FLUX DE TRESORERIE</field>
-                <field name="column_id" ref="ohada_custom_columns_note2_4"/>
-            </record>
+<!--            <record id="ohada_cell_style_note2_4_1" model="ohada.cell.style">-->
+<!--                <field name="name">D - INFORMATIONS COMPLEMENTAIRES RELATIVES AU BILAN, AU COMPTE DE RESULTAT-->
+<!--                                    ET AU TABLEAX DES FLUX DE TRESORERIE</field>-->
+<!--                <field name="column_id" ref="ohada_custom_columns_note2_4"/>-->
+<!--            </record>-->
 
         <!--columns for note 33-->
         <record id="ohada_custom_columns_note33_1" model="ohada.custom.columns">

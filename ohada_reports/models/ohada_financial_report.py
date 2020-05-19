@@ -89,14 +89,18 @@ class ReportOhadaFinancialReport(models.Model):
         reports_ids = reports_ids.split(',')
         output = io.BytesIO()
         workbook = xlsxwriter.Workbook(output, {'in_memory': True})
-        import wdb
-        wdb.set_trace()
         for report_id in reports_ids:
             if report_id != 'notes':
                 self.env['ohada.financial.html.report'].browse(int(report_id)).get_xlsx(options, response, print_bundle=True, workbook=workbook)
             else:
                 options['comparison']['filter'] = 'previous_period'
                 for report in self.env['ohada.financial.html.report'].search([('type', '=', 'note'), ('secondary', '=', False)]):
+                    options = report._get_options(options)
+                    report._apply_date_filter(options)
+                    if report.code in ['N1']:
+                        options['comparison']['filter'] = 'no_comparison'
+                        options = report._get_options(options)
+                        report._apply_date_filter(options)
                     report.get_xlsx(options, response, print_bundle=True, workbook=workbook)
 
 
@@ -1695,9 +1699,11 @@ class OhadaFinancialReportLine(models.Model):
                         vals['columns'].append({'name': ' '})
                 if financial_report.type == 'note':
                     if financial_report.code == 'N1' and line.sequence > 25:
+                        # vals['columns'] = []
                         vals['columns'].append({'name': '1 '})
                         vals['columns'].append({'name': ' '})
                     elif financial_report.code == 'N1' and line.header is not True:
+                        # vals['columns'] = []
                         vals['columns'].append({'name': ' '})
                         vals['columns'].append({'name': ' '})
                         vals['columns'].append({'name': ' '})
