@@ -20,27 +20,34 @@
 #
 #
 from odoo import _, api, fields, models
-from odoo.osv import expression
 from odoo.exceptions import ValidationError
+from odoo.osv import expression
 
 
 class ProductTag(models.Model):
-    _name = 'product.tag'
+    _name = "product.tag"
     _description = "Product tags"
-    _order = 'name'
-    _parent_order = 'name'
+    _order = "name"
+    _parent_order = "name"
     _parent_store = True
 
-    name = fields.Char('Tag Name', required=True, translate=True)
-    active = fields.Boolean(help='The active field allows you to hide the tag without removing it.', default=True)
+    name = fields.Char("Tag Name", required=True, translate=True)
+    active = fields.Boolean(
+        help="The active field allows you to hide the tag without removing it.",
+        default=True,
+    )
     color = fields.Integer(string="Color index", default=0)
     image = fields.Binary(sintrg="Image")
 
-    parent_id = fields.Many2one(string='Parent Tag', comodel_name='product.tag', index=True, ondelete='cascade')
-    child_ids = fields.One2many(string='Child Tags', comodel_name='product.tag', inverse_name='parent_id')
+    parent_id = fields.Many2one(
+        string="Parent Tag", comodel_name="product.tag", index=True, ondelete="cascade"
+    )
+    child_ids = fields.One2many(
+        string="Child Tags", comodel_name="product.tag", inverse_name="parent_id"
+    )
     parent_path = fields.Char(index=True)
 
-    @api.constrains('parent_id')
+    @api.constrains("parent_id")
     def _check_parent_id(self):
         if not self._check_recursion():
             raise ValidationError(_("You cannot create recursive product tags."))
@@ -57,24 +64,28 @@ class ProductTag(models.Model):
                 names.append(current.name)
                 current = current.parent_id
 
-            res.append((category.id, ' / '.join(reversed(names))))
+            res.append((category.id, " / ".join(reversed(names))))
 
         return res
 
     @api.model
-    def _name_search(self, name, args=None, operator='ilike', limit=100, name_get_uid=None):
+    def _name_search(
+        self, name, args=None, operator="ilike", limit=100, name_get_uid=None
+    ):
         args = args or []
 
         if name:
             parent_ids = []
             parent_domain = []
 
-            for tag in map(lambda t: t.strip(), name.split('/')):
-                name_domain = expression.AND([[('name', operator, tag)], parent_domain])
-                parent_ids = self._search(name_domain, limit=limit, access_rights_uid=name_get_uid)
-                parent_domain = [('parent_id', 'in', parent_ids)]
+            for tag in map(lambda t: t.strip(), name.split("/")):
+                name_domain = expression.AND([[("name", operator, tag)], parent_domain])
+                parent_ids = self._search(
+                    name_domain, limit=limit, access_rights_uid=name_get_uid
+                )
+                parent_domain = [("parent_id", "in", parent_ids)]
 
-            browse_domain = expression.OR([[('id', 'in', parent_ids)], parent_domain])
+            browse_domain = expression.OR([[("id", "in", parent_ids)], parent_domain])
             args = expression.AND([browse_domain, args])
 
         tag_ids = self._search(args, limit=limit, access_rights_uid=name_get_uid)

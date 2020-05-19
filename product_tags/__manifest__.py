@@ -30,10 +30,9 @@
     "license": "AGPL-3",
     "demo": [],
     "data": [
-        'security/ir.model.access.csv',
-
-        'views/product_tag_view.xml',
-        'views/product_template_view.xml'
+        "security/ir.model.access.csv",
+        "views/product_tag_view.xml",
+        "views/product_template_view.xml",
     ],
     "installable": False,
 }
