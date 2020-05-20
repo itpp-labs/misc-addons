@@ -62,10 +62,14 @@
                                             <div
                                                 align="center"
                                                 style="font-size:10pt;margin-bottom:5pt;"
-                                            ><t
-                                                    t-esc="partner.function"
-                                                /></div></td></tr>
-                                    <tr><td><img
+                                            >
+                                                <t t-esc="partner.function" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img
                                                 t-if="'barcode' in partner and partner.barcode"
                                                 t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', partner.barcode, 600, 120)"
                                                 style="max-height:50pt;max-width:100%;"
