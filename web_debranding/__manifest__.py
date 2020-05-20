@@ -3,10 +3,12 @@
 # Copyright 2018-2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
 # Copyright 2018 WohthaN <https://github.com/WohthaN>
+# Copyright 2019 Eugene Molotov <https://github.com/em230418>
+# Copyright 2020 Denis Mudarisov <https://github.com/trojikman>
 # License MIT (https://opensource.org/licenses/MIT).
 {
     "name": "Backend debranding",
-    "version": "11.0.1.0.27",
+    "version": "11.0.1.0.28",
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "license": "Other OSI approved licence",  # MIT
     "category": "Debranding",
