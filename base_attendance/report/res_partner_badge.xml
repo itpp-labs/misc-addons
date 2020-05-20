@@ -35,7 +35,7 @@
                                     <tr style="height:70%;">
                                         <td align="center" valign="center">
                                             <img
-                                                t-if="partner.image"
+                                                t-if="partner.image_1024"
                                                 t-att-src="'data:image/png;base64,%s' % to_text(partner.image,)"
                                                 style="max-height:85pt;max-width:90%"
                                                 alt="Partner Image"
@@ -70,7 +70,7 @@
                                     <tr>
                                         <td>
                                             <img
-                                                t-if="partner.barcode"
+                                                t-if="'barcode' in partner and partner.barcode"
                                                 t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', partner.barcode, 600, 120)"
                                                 style="max-height:50pt;max-width:100%;"
                                                 align="center"
