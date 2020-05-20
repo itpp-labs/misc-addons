@@ -34,5 +34,5 @@
         "views/product_tag_view.xml",
         "views/product_template_view.xml",
     ],
-    "installable": False,
+    "installable": True,
 }
