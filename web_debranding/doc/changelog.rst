@@ -1,3 +1,8 @@
+`1.0.30`
+--------
+
+- **Fix:** replace placeholder in image uploading
+
 `1.0.29`
 --------
 
