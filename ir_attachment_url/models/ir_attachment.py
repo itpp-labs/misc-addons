@@ -10,12 +10,12 @@ class IrAttachment(models.Model):
 
     @api.depends("store_fname", "db_datas")
     def _compute_datas(self):
-        return_url = self._context.get('return_url')
+        attachment_return_url = self._context.get("attachment_return_url")
         bin_size = self._context.get("bin_size")
         url_records = self.filtered(lambda r: r.type == "url" and r.url)
         for attach in url_records:
             if not bin_size:
-                if return_url:
+                if attachment_return_url:
                     attach.datas = attach.url
                     continue
                 r = requests.get(attach.url, timeout=5)
