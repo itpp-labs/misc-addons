@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!--OHADA main menu items-->
+	<menuitem
+		id="menu_ohada"
+		name="SYSCOHADA"
+		web_icon="l10n_ohada,static/description/icon.png"
+		parent="account_accountant.menu_accounting"
+		sequence="21"
+        groups="account.group_account_manager,account.group_account_user"/>
+    <menuitem 
+		id="menu_ohada_configuration" 
+		name="OHADA Reporting" 
+		parent="account.menu_finance_configuration" 
+		sequence="4" 
+		groups="account.group_account_manager"/>
+
+	<!--OHADA sub menu items-->
+    <menuitem 
+		id="menu_ohada_legal_statements_main" 
+		name="Generic Statements" 
+		parent="menu_ohada"
+		sequence="10" 
+		groups="account.group_account_user"/>
+    <menuitem 
+		id="menu_ohada_legal_statements_note" 
+		name="Annexed Notes" 
+		parent="menu_ohada" 
+		sequence="20" 
+		groups="account.group_account_manager"/>
+    <menuitem 
+		id="menu_ohada_legal_statements_sheet" 
+		name="Data sheets" 
+		parent="menu_ohada" 
+		sequence="30" 
+		groups="account.group_account_manager"/>
+	<menuitem
+		id="menu_ohada_legal_statements_cover"
+		name="Cover page"
+		parent="menu_ohada"
+		sequence="40"
+		groups="account.group_account_manager"/>
+
+</odoo>

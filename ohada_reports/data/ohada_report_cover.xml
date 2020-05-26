@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--COVER PAGE-->
+
+    <record id="ohada_financial_report_cover_page" model="ohada.financial.html.report">
+        <field name="name">Cover Page</field>
+        <field name="shortname">Cover Page</field>
+        <field name="code">CP</field>
+        <field name="header"> </field>
+        <field name="type">cover</field>
+        <field name="double_report" eval="False"/>
+        <field name="unfold_all_filter" eval="True"/>
+        <field name="show_journal_filter" eval="False"/>
+        <field name='parent_id' ref='menu_ohada_legal_statements_cover'/>
+    </record>
+
+</odoo>

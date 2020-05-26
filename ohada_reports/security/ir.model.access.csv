@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ohada_financial_html_report,ohada.financial.html.report,ohada_reports.model_ohada_financial_html_report,account.group_account_manager,1,1,1,1
+access_ohada_financial_html_report_invoice,ohada.financial.html.report invoice,ohada_reports.model_ohada_financial_html_report,account.group_account_invoice,1,0,0,0
+access_ohada_financial_html_report_line,ohada.financial.html.report.line,ohada_reports.model_ohada_financial_html_report_line,account.group_account_manager,1,1,1,1
+access_ohada_financial_html_report_line_invoice,ohada.financial.html.report.line invoice,ohada_reports.model_ohada_financial_html_report_line,account.group_account_invoice,1,0,0,0
+access_account_report_invoice,ohada.report_manager,ohada_reports.model_ohada_report_manager,account.group_account_invoice,1,1,1,1
+access_account_report_footnote,ohada.report_footnote,ohada_reports.model_ohada_report_footnote,account.group_account_user,1,1,1,1
+access_account_report_footnote_invoice,ohada.report_footnote,ohada_reports.model_ohada_report_footnote,account.group_account_invoice,1,0,0,0
+access_ohada_custom_columns,ohada.custom.columns,ohada_reports.model_ohada_custom_columns,account.group_account_manager,1,1,1,1
+access_ohada_custom_columns_invoice,ohada.custom.columns invoice,ohada_reports.model_ohada_custom_columns,account.group_account_invoice,1,0,0,0
+access_ohada_cell_style,ohada.cell.style,ohada_reports.model_ohada_cell_style,account.group_account_manager,1,1,1,1
+access_ohada_cell_style_invoice,ohada.cell.style invoice,ohada_reports.model_ohada_cell_style,account.group_account_invoice,1,0,0,0
+access_note_relevance,note.relevance,ohada_reports.model_note_relevance,account.group_account_manager,1,1,1,1
+access_note_relevance_invoice,note.relevance invoice,ohada_reports.model_note_relevance,account.group_account_invoice,1,0,0,0

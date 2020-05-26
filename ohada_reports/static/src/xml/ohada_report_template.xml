@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates>
+
+
+    <t t-name="accountReports.footnote_dialog">
+        <form role="form">
+            <textarea name="note" rows='4' class="js_account_reports_footnote_note" t-att-data-line="id" placeholder="Insert foot note here"><t t-esc="text"/></textarea>
+        </form>
+    </t>
+
+    <t t-name="accountReports.buttons">
+        <t t-foreach="buttons" t-as="button">
+            <button type="button" class="btn btn-primary" t-att-action="button.action"><t t-esc="button.name"/></button>
+        </t>
+    </t>
+
+</templates>

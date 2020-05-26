@@ -1,0 +1,57 @@
+.o_ohada_reports_summary_edit {
+    display: none !important;
+}
+.caret {
+    display: none !important;
+}
+.o_ohada_reports_body_print {
+    background-color: white !important;
+    color: $ohada-primary-color !important;
+    font-size: 14px !important;
+    .o_ohada_reports_header {
+        padding: 10px;
+        background-color: #eee;
+    }
+    .o_ohada_reports_page {
+        font-size: 14px !important;
+        color: $ohada-primary-color !important;
+    }
+    .o_ohada_reports_table {
+        font-size: 14px !important;
+        white-space: nowrap !important;
+        > tbody > tr {
+            /* fix thead overlapping http://github.com/wkhtmltopdf/wkhtmltopdf/issues/1524 */
+            page-break-inside: avoid;
+        }
+    }
+    .o_ohada_reports_level0, .o_ohada_reports_level1, .o_ohada_reports_level2, .o_ohada_reports_level3, .o_ohada_reports_level4, .o_ohada_reports_level5, .o_ohada_reports_level6, .o_ohada_reports_level7, .o_ohada_reports_level8, .o_ohada_reports_level9, .o_ohada_reports_domain_total, .total {
+//        font-size: 12px;
+        .text-muted {
+            color: $ohada-primary-color !important;
+        }
+    }
+    .o_foldable_total {
+        color: black !important;
+    }
+}
+a {
+    color: inherit !important;
+}
+.print_only {
+    display: block !important;
+    &.row {
+        display: flex !important;
+    }
+}
+[name="summary"] {
+    display: none;
+}
+.no_print {
+    display: none !important;
+}
+.whitespace_print {
+    white-space: initial !important;
+}
+.top-vertical-align {
+    vertical-align: top;
+}

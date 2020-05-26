@@ -1,0 +1,761 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--SHEET R1-->
+    <record id="ohada_financial_report_sheet_r1" model="ohada.financial.html.report">
+        <field name="name">FICHE R1</field>
+        <field name="shortname">FICHE R1</field>
+        <field name="code">S1</field>
+        <field name="header"> </field>
+        <field name="type">sheet</field>
+        <field name="double_report" eval="False"/>
+        <field name="unfold_all_filter" eval="True"/>
+        <field name="show_journal_filter" eval="True"/>
+        <field name='parent_id' ref='menu_ohada_legal_statements_sheet'/>
+    </record>
+
+    <!--SHEET R2-->
+
+    <record id="ohada_financial_report_sheet_r2" model="ohada.financial.html.report">
+        <field name="name">FICHE R2</field>
+        <field name="shortname"> </field>
+        <field name="code">S2</field>
+        <field name="header">FICHE D'IDENTIFICATION ET RENSEIGNEMENTS DIVERS 2</field>
+        <field name="type">sheet</field>
+        <field name="double_report" eval="False"/>
+        <field name="unfold_all_filter" eval="True"/>
+        <field name="show_journal_filter" eval="True"/>
+        <field name='parent_id' ref='menu_ohada_legal_statements_sheet'/>
+    </record>
+
+    <!--SHEET R2_1-->
+
+    <record id="ohada_financial_report_sheet_r2_1" model="ohada.financial.html.report">
+        <field name="name">Sheet R2_1</field>
+        <field name="shortname"> </field>
+        <field name="code">S2_1</field>
+        <field name="header">ACTIVITE DE L'ENTITE</field>
+        <field name="type">sheet</field>
+        <field name='secondary' eval="True"/>
+        <field name="double_report" eval="False"/>
+        <field name="unfold_all_filter" eval="True"/>
+        <field name="show_journal_filter" eval="True"/>
+        <field name='parent_id' ref='menu_ohada_legal_statements_sheet'/>
+    </record>
+
+
+    <!--SHEET R3-->
+
+    <record id="ohada_financial_report_sheet_r3" model="ohada.financial.html.report">
+        <field name="name">FICHE R3</field>
+        <field name="shortname">FICHE D'IDENTIFICATION ET RENSEIGNEMENTS DIVERS 3</field>
+        <field name="code">S3</field>
+        <field name="header">DIRIGEANTS</field>
+        <field name="type">sheet</field>
+        <field name="double_report" eval="True"/>
+        <field name="unfold_all_filter" eval="True"/>
+        <field name="show_journal_filter" eval="True"/>
+        <field name='parent_id' ref='menu_ohada_legal_statements_sheet'/>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r3_header" model="ohada.financial.html.report.line">
+        <field name="name">Nom</field>
+        <field name="code">_r3_1</field>
+        <field name="header" eval="True"/>
+        <field name="reference"></field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r3"/>
+        <field name="sequence" eval="1"/>
+        <field name="level" eval="0" />
+    </record>
+
+    <record id="ohada_financial_report_sheet_r3_1" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r3_1</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r3"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="2"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r3_2" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r3_2</field>
+        <field name="reference"></field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r3"/>
+        <field name="sequence" eval="3"/>
+        <field name="level" eval="2" />
+    </record>
+
+    <record id="ohada_financial_report_sheet_r3_3" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r3_3</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r3"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="4"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r3_4" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r3_4</field>
+        <field name="reference"></field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r3"/>
+        <field name="sequence" eval="5"/>
+        <field name="level" eval="2" />
+    </record>
+
+    <record id="ohada_financial_report_sheet_r3_5" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r3_5</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r3"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="6"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r3_6" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r3_6</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r3"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="6"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <!--SHEET R3_1-->
+
+    <record id="ohada_financial_report_sheet_r3_1" model="ohada.financial.html.report">
+        <field name="name">Sheet R3</field>
+        <field name="shortname">FICHE D'IDENTIFICATION ET RENSEIGNEMENTS DIVERS 3</field>
+        <field name="code">S3_1</field>
+        <field name="header">MEMBRES DU CONSEIL D'ADMINISTRATION</field>
+        <field name="type">sheet</field>
+        <field name='secondary' eval="True"/>
+        <field name="double_report" eval="True"/>
+        <field name="unfold_all_filter" eval="True"/>
+        <field name="show_journal_filter" eval="True"/>
+        <field name='parent_id' ref='menu_ohada_legal_statements_sheet'/>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r3_1_header" model="ohada.financial.html.report.line">
+        <field name="name">Nom</field>
+        <field name="code">_r3_1_1</field>
+        <field name="header" eval="True"/>
+        <field name="reference"></field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r3_1"/>
+        <field name="sequence" eval="1"/>
+        <field name="level" eval="0" />
+    </record>
+
+    <record id="ohada_financial_report_sheet_r3_1_1" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r3_1_1</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r3_1"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="2"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r3_1_2" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r3_1_2</field>
+        <field name="reference"></field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r3_1"/>
+        <field name="sequence" eval="3"/>
+        <field name="level" eval="2" />
+    </record>
+
+    <record id="ohada_financial_report_sheet_r3_1_3" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r3_1_3</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r3_1"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="4"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r3_1_4" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r3_1_4</field>
+        <field name="reference"></field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r3_1"/>
+        <field name="sequence" eval="5"/>
+        <field name="level" eval="2" />
+    </record>
+
+    <record id="ohada_financial_report_sheet_r3_1_5" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r3_1_5</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r3_1"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="6"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r3_1_6" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r3_1_6</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r3_1"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="6"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+     <!--SHEET R4-->
+
+    <record id="ohada_financial_report_sheet_r4" model="ohada.financial.html.report">
+        <field name="name">FICHE R4</field>
+        <field name="shortname"> </field>
+        <field name="code">S4</field>
+        <field name="header">FICHE RECAPITULATIVE DES NOTES ANNEXES PRESENTEES</field>
+        <field name="type">sheet</field>
+        <field name="double_report" eval="False"/>
+        <field name="unfold_all_filter" eval="True"/>
+        <field name="show_journal_filter" eval="True"/>
+        <field name='parent_id' ref='menu_ohada_legal_statements_sheet'/>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_header" model="ohada.financial.html.report.line">
+        <field name="name">NOTES</field>
+        <field name="code">_r4_1</field>
+        <field name="header" eval="True"/>
+        <field name="reference"></field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="sequence" eval="1"/>
+        <field name="level" eval="0" />
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_1" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_1</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="2"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_2" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_2</field>
+        <field name="reference"></field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="sequence" eval="3"/>
+        <field name="level" eval="2" />
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_3" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_3</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="4"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_4" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_4</field>
+        <field name="reference"></field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="sequence" eval="5"/>
+        <field name="level" eval="2" />
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_5" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_5</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="6"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_6" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_6</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="7"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_7" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_7</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="8"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_8" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_8</field>
+        <field name="reference"></field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="sequence" eval="9"/>
+        <field name="level" eval="2" />
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_9" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_9</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="10"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_10" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_10</field>
+        <field name="reference"></field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="sequence" eval="11"/>
+        <field name="level" eval="2" />
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_11" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_11</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="12"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_12" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_12</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="13"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_13" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_13</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="14"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_14" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_14</field>
+        <field name="reference"></field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="sequence" eval="15"/>
+        <field name="level" eval="2" />
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_15" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_15</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="16"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_16" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_16</field>
+        <field name="reference"></field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="sequence" eval="17"/>
+        <field name="level" eval="2" />
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_17" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_17</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="18"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_18" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_18</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="19"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_19" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_19</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="20"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_20" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_20</field>
+        <field name="reference"></field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="sequence" eval="21"/>
+        <field name="level" eval="2" />
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_21" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_21</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="22"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_22" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_22</field>
+        <field name="reference"></field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="sequence" eval="23"/>
+        <field name="level" eval="2" />
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_23" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_23</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="24"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_24" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_24</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="25"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_25" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_25</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="26"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_26" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_26</field>
+        <field name="reference"></field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="sequence" eval="27"/>
+        <field name="level" eval="2" />
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_27" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_27</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="28"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_28" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_28</field>
+        <field name="reference"></field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="sequence" eval="29"/>
+        <field name="level" eval="2" />
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_29" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_29</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="30"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_30" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_30</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="31"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_31" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_31</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="32"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_32" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_32</field>
+        <field name="reference"></field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="sequence" eval="33"/>
+        <field name="level" eval="2" />
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_33" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_33</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="34"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_34" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_34</field>
+        <field name="reference"></field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="sequence" eval="35"/>
+        <field name="level" eval="2" />
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_35" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_35</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="36"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_36" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_36</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="37"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_37" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_37</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="38"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_38" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_38</field>
+        <field name="reference"></field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="sequence" eval="39"/>
+        <field name="level" eval="2" />
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_39" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_39</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="40"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_40" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_40</field>
+        <field name="reference"></field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="sequence" eval="41"/>
+        <field name="level" eval="2" />
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_41" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_41</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="42"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_42" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_42</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="43"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_43" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_43</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="44"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_44" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_44</field>
+        <field name="reference"></field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="sequence" eval="45"/>
+        <field name="level" eval="2" />
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_45" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_45</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="46"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_46" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_46</field>
+        <field name="reference"></field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="sequence" eval="47"/>
+        <field name="level" eval="2" />
+    </record>
+
+    <record id="ohada_financial_report_sheet_r4_47" model="ohada.financial.html.report.line">
+        <field name="name"> </field>
+        <field name="code">r4_47</field>
+        <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="48"/>
+        <field name="groupby">account_id</field>
+    </record>
+
+
+
+<!--    <record id="ohada_financial_report_sheet_r1_36" model="ohada.financial.html.report.line">-->
+<!--        <field name="name"> </field>-->
+<!--        <field name="code">r1_36</field>-->
+<!--        <field name="financial_report_id" ref="ohada_financial_report_sheet_r1"/>-->
+<!--        <field name="level" eval="2" />-->
+<!--        <field name="sequence" eval="37"/>-->
+<!--        <field name="groupby">account_id</field>-->
+<!--    </record>-->
+
+<!--    <record id="ohada_financial_report_sheet_r1_37" model="ohada.financial.html.report.line">-->
+<!--        <field name="name"> </field>-->
+<!--        <field name="code">r1_37</field>-->
+<!--        <field name="financial_report_id" ref="ohada_financial_report_sheet_r1"/>-->
+<!--        <field name="level" eval="2" />-->
+<!--        <field name="sequence" eval="38"/>-->
+<!--        <field name="groupby">account_id</field>-->
+<!--    </record>-->
+
+<!--    <record id="ohada_financial_report_sheet_r1_38" model="ohada.financial.html.report.line">-->
+<!--        <field name="name"> </field>-->
+<!--        <field name="code">r1_38</field>-->
+<!--        <field name="reference"></field>-->
+<!--        <field name="financial_report_id" ref="ohada_financial_report_sheet_r1"/>-->
+<!--        <field name="sequence" eval="39"/>-->
+<!--        <field name="level" eval="2" />-->
+<!--    </record>-->
+
+<!--    <record id="ohada_financial_report_sheet_r1_39" model="ohada.financial.html.report.line">-->
+<!--        <field name="name"> </field>-->
+<!--        <field name="code">r1_39</field>-->
+<!--        <field name="financial_report_id" ref="ohada_financial_report_sheet_r1"/>-->
+<!--        <field name="level" eval="2" />-->
+<!--        <field name="sequence" eval="40"/>-->
+<!--        <field name="groupby">account_id</field>-->
+<!--    </record>-->
+
+<!--    <record id="ohada_financial_report_sheet_r1_40" model="ohada.financial.html.report.line">-->
+<!--        <field name="name"> </field>-->
+<!--        <field name="code">r1_40</field>-->
+<!--        <field name="reference"></field>-->
+<!--        <field name="financial_report_id" ref="ohada_financial_report_sheet_r1"/>-->
+<!--        <field name="sequence" eval="41"/>-->
+<!--        <field name="level" eval="2" />-->
+<!--    </record>-->
+
+<!--    <record id="ohada_financial_report_sheet_r1_41" model="ohada.financial.html.report.line">-->
+<!--        <field name="name"> </field>-->
+<!--        <field name="code">r1_41</field>-->
+<!--        <field name="financial_report_id" ref="ohada_financial_report_sheet_r1"/>-->
+<!--        <field name="level" eval="2" />-->
+<!--        <field name="sequence" eval="42"/>-->
+<!--        <field name="groupby">account_id</field>-->
+<!--    </record>-->
+
+<!--    <record id="ohada_financial_report_sheet_r1_42" model="ohada.financial.html.report.line">-->
+<!--        <field name="name"> </field>-->
+<!--        <field name="code">r1_42</field>-->
+<!--        <field name="financial_report_id" ref="ohada_financial_report_sheet_r1"/>-->
+<!--        <field name="level" eval="2" />-->
+<!--        <field name="sequence" eval="43"/>-->
+<!--        <field name="groupby">account_id</field>-->
+<!--    </record>-->
+
+<!--    <record id="ohada_financial_report_sheet_r1_43" model="ohada.financial.html.report.line">-->
+<!--        <field name="name"> </field>-->
+<!--        <field name="code">r1_43</field>-->
+<!--        <field name="financial_report_id" ref="ohada_financial_report_sheet_r1"/>-->
+<!--        <field name="level" eval="2" />-->
+<!--        <field name="sequence" eval="44"/>-->
+<!--        <field name="groupby">account_id</field>-->
+<!--    </record>-->
+
+<!--    <record id="ohada_financial_report_sheet_r1_44" model="ohada.financial.html.report.line">-->
+<!--        <field name="name"> </field>-->
+<!--        <field name="code">r1_44</field>-->
+<!--        <field name="reference"></field>-->
+<!--        <field name="financial_report_id" ref="ohada_financial_report_sheet_r1"/>-->
+<!--        <field name="sequence" eval="45"/>-->
+<!--        <field name="level" eval="2" />-->
+<!--    </record>-->
+
+<!--    <record id="ohada_financial_report_sheet_r1_45" model="ohada.financial.html.report.line">-->
+<!--        <field name="name"> </field>-->
+<!--        <field name="code">r1_45</field>-->
+<!--        <field name="financial_report_id" ref="ohada_financial_report_sheet_r1"/>-->
+<!--        <field name="level" eval="2" />-->
+<!--        <field name="sequence" eval="46"/>-->
+<!--        <field name="groupby">account_id</field>-->
+<!--    </record>-->
+
+<!--    <record id="ohada_financial_report_sheet_r1_46" model="ohada.financial.html.report.line">-->
+<!--        <field name="name"> </field>-->
+<!--        <field name="code">r1_46</field>-->
+<!--        <field name="reference"></field>-->
+<!--        <field name="financial_report_id" ref="ohada_financial_report_sheet_r1"/>-->
+<!--        <field name="sequence" eval="47"/>-->
+<!--        <field name="level" eval="2" />-->
+<!--    </record>-->
+
+<!--    <record id="ohada_financial_report_sheet_r1_47" model="ohada.financial.html.report.line">-->
+<!--        <field name="name"> </field>-->
+<!--        <field name="code">r1_47</field>-->
+<!--        <field name="financial_report_id" ref="ohada_financial_report_sheet_r1"/>-->
+<!--        <field name="level" eval="2" />-->
+<!--        <field name="sequence" eval="48"/>-->
+<!--        <field name="groupby">account_id</field>-->
+<!--    </record>-->
+
+</odoo>

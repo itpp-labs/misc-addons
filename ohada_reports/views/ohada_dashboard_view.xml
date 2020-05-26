@@ -1,0 +1,13 @@
+<odoo>
+    <record id="ohada_action_dashboard" model="ir.actions.client">
+        <field name="name">Dashboard</field>
+        <field name="tag">ohada_dashboard</field>
+    </record>
+	<menuitem
+		id="menu_ohada_dashboard"
+		action="ohada_action_dashboard"
+		name="Dashboard"
+		parent="menu_ohada"
+        groups="account.group_account_manager,account.group_account_user"
+		sequence="1"/>
+</odoo>

@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="OhadaDashboardMain">
+        <div class="oh_dashboards">
+            <div class="container-fluid o_ohada_dashboard">
+            </div>
+        </div>
+    </t>
+
+    <t t-name="ManagerDashboard">
+
+        <div class="ohada_dashboard_main o_ohada_dashboard" style="z-index:2;">
+            <div id="myForm" class="popup">
+                <div class="modal-header">
+                    <h5 class="modal-title">Print bundle report</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-label="Close">&amp;times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p style="color:#008784;">Company: <span style="color:#666666;"><t t-esc="widget.data['company_name']"/></span></p>
+                    <p style="color:#008784;">Fiscal year: <span style="color:#666666;"><t t-esc="widget.data['this_year']"/></span></p>
+                    <t t-foreach="widget.data['print_bundle_reports']" t-as="report">
+                        <div class="form-check bundle_item">
+                            <input t-att-data-record-id="report['id']" class="form-check-input" type="checkbox" id="gridCheck1" t-att-checked="True"/>
+                            <label class="form-check-label" for="gridCheck1">
+                              <t t-esc="report['name']"/>
+                            </label>
+                        </div>
+                    </t>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary export_pdf" data-dismiss="modal">Export pdf</button>
+                    <button type="button" class="btn btn-primary export_xlsx" data-dismiss="modal">Export xlsx</button>
+                </div>
+            </div>
+            <div id="modal-backdrop"></div>
+            <t t-set="menu_id" t-value="widget.data['menu_id']"/>
+            <div class="row main-section" style="padding-top:20px;">
+                <div class="col-md-2 col-sm-2 dummy"></div>
+                <div class="col-sm-12 col-md-12 col-lg-12  monthly_leave_graph_view">
+                    <div class="oh-card text-color">
+                        <div class="oh-card-body pb-0" style="padding-top:5px; padding-bottom:20px;">
+                            <div class="col-md-4 col-lg-4 ul-head" style="float:left;margin-left:-10px;">
+                                <t t-esc="widget.data['company_name']"/>
+                            </div>
+                            <div class="col-md-5 col-lg-5" style="float:left; margin-left:10px;">
+                            </div>
+                            <div class="col-md-3 col-lg-3">
+                                <img t-att-src="'/ohada_reports/static/img/ohada.png'" style="float: right; width: 42px; height: 40px;"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4" style="float:left;">
+                            <div class="ohada_notification" style="margin-left:-10px; padding-right:25px;">
+                                <div style="padding-left:0px;">
+                                    <button class="btn btn-primary oh_dashbard_btn_m" style="margin-right:4px;">IMPORT DATA</button>
+                                    <button type="object" class="btn btn-primary oh_dashbard_btn_m print_bundle" style="margin-right:4px;">PRINT BUNDLE</button>
+                                    <button class="btn btn-primary oh_dashbard_btn_m" style="margin-right:4px;">CLOSE PERIOD</button>
+                                    <button class="btn btn-primary oh_dashbard_btn_m" style="margin-right:4px;">SIGN &amp; PAY</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4" style="float:left;">
+                            <div class="ohada_notification" style="margin-left:-10px; padding-right:0px;">
+                                <ul style="margin-left:-25px;">
+                                    <li class="list-left"><a class="open_report" t-att-report-id="widget.data['Profit and lost']['id']" t-att-name="widget.data['Profit and lost']['name']" href="#">Added value</a></li>
+                                    <li class="list-right"><t t-esc="widget.data['xc']"/></li>
+                                </ul>
+                                <div style="clear:both;"></div>
+                                <ul style="margin-left:-25px;">
+                                    <li class="list-left"><a class="open_report" t-att-report-id="widget.data['Profit and lost']['id']" t-att-name="widget.data['Profit and lost']['name']" href="#">EBITDA</a></li>
+                                    <li class="list-right"><t t-esc="widget.data['xd']"/></li>
+                                </ul>
+                                <div style="clear:both;"></div>
+                                <ul style="margin-left:-25px;">
+                                    <li class="list-left"><a class="open_report" t-att-report-id="widget.data['Profit and lost']['id']" t-att-name="widget.data['Profit and lost']['name']" href="#">Accounting net income</a></li>
+                                    <li class="list-right"><t t-esc="widget.data['rc']"/></li>
+                                </ul>
+                                <div style="clear:both;"></div>
+                                <ul style="margin-left:-25px;">
+                                    <li class="list-left"><a class="open_report" t-att-report-id="widget.data['Profit and lost']['id']" t-att-name="widget.data['Profit and lost']['name']" href="#">Income tax</a></li>
+                                    <li class="list-right"><t t-esc="widget.data['ir']"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4" style="float:right;">
+                            <div class="ohada_notification" style="margin-left:10px; padding-right:0px;">
+                                <ul style="margin-left:-20px;">
+                                    <li class="list-left"><a name="create_invoice" type="object">Status of fiscal year</a></li>
+                                    <li class="list-right"><t t-esc="widget.data['period_lock_status']"/></li>
+                                </ul>
+                                <div style="clear:both;"></div>
+                                <ul style="margin-left:-20px;">
+                                    <li class="list-left">Status of journal entries</li>
+                                    <li class="list-right"><t t-esc="widget.data['unposted_in_period']"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div style="clear:both;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row main-section">
+                <div class="col-md-2 col-sm-2 dummy"></div>
+                <div class="col-sm-12 col-md-12 col-lg-12  monthly_leave_graph_view">
+                    <div class="oh-card text-color">
+                        <div class="oh-card-body pb-0">
+                            <p class="stat-head" style="float:left;margin-left:5px;padding : 0px;">Cover Page &amp; Data Sheets</p>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button class="btn btn-primary oh_dashbard_btn_m" style="margin-right:4px;">COVER PAGE</button>
+                            <button class="btn btn-primary oh_dashbard_btn_m" style="margin-right:4px;">SHEET R1</button>
+                            <button class="btn btn-primary oh_dashbard_btn_m" style="margin-right:4px;">SHEET R2</button>
+                            <button class="btn btn-primary oh_dashbard_btn_m" style="margin-right:4px;">SHEET R3</button>
+                            <button class="btn btn-primary oh_dashbard_btn_m" style="margin-right:4px;">SHEET R4</button>
+                            <div style="clear:both;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row main-section">
+                <div class="col-md-6 col-lg-4 col-sm-12" >
+                    <div class="ohada_notification_big">
+                        <div class="oh-card-body pb-0" style="padding:0;">
+                            <a class="stat-head open_report" t-att-report-id="widget.data['Balance Sheet']['id']" t-att-name="widget.data['Balance Sheet']['name']" style="padding:0px;margin-top:15px;cursor:pointer;margin-left: 12px;" href="#">Balance Sheet</a>
+                            <div class="dropdown">
+                              <button style="border:none;padding:10px 15px;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/>
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item print_bs_pdf" style="cursor:pointer;">Export report</a>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 row"  >
+                            <div class="col-3 ohada_notification">
+                                <button class="btn btn-primary open_report" style="margin-left:12px;" t-att-report-id="widget.data['Balance Sheet']['id']" t-att-name="widget.data['Balance Sheet']['name']" title="Ouvrir le bilan" href="#">OPEN</button>
+                            </div>
+                            <div class="col-9 ohada_notification" style="padding-left:10px;">
+                                <ul style="margin-left:-30px;" t-if="widget.data['validation_bz_dz'][0] == 0">
+                                    <li class="list-left"><a class="open_report" t-att-report-id="widget.data['Balance Sheet']['id']" t-att-name="widget.data['Balance Sheet']['name']" href="#">Assets = Liabilities <t t-esc="widget.data['this_year']"/></a></li>
+                                    <!-- <li class="list-left">Assets = Liabilities <t t-esc="widget.data['this_year']"/></li>  -->
+                                    <li class="list-right"><t t-esc="widget.data['bz']"/></li>
+                                </ul>
+                                <ul style="margin-left:-30px;" t-if="widget.data['validation_bz_dz'][0] != 0">
+                                    <li class="list-left"><a class="open_report" style="color:red !important;" t-att-report-id="widget.data['Balance Sheet']['id']" t-att-name="widget.data['Balance Sheet']['name']" href="#">Assets – Liabilities <t t-esc="widget.data['this_year']"/></a></li>
+                                    <!-- <li class="list-left" style="color:red !important;">Assets – Liabilities <t t-esc="widget.data['this_year']"/></li>    -->
+                                    <li class="list-right"><a class="open_report" style="color:red !important;" t-att-report-id="widget.data['Balance Sheet']['id']" t-att-name="widget.data['Balance Sheet']['name']" href="#"><t t-esc="widget.data['validation_bz_dz']"/></a></li>
+                                </ul>
+                                <div style="clear:both;"></div>
+                                <ul style="margin-left:-30px;" t-if="widget.data['validation_bz-1_dz-1'][0] == 0">
+                                    <li class="list-left"><a class="open_report" t-att-report-id="widget.data['Balance Sheet']['id']" t-att-name="widget.data['Balance Sheet']['name']" href="#">Assets = Liabilities <t t-esc="widget.data['prev_year']"/></a></li>
+                                    <!-- <li class="list-left">Assets = Liabilities <t t-esc="widget.data['prev_year']"/></li>  -->
+                                    <li class="list-right"><t t-esc="widget.data['bz-1']"/></li>
+                                </ul>
+                                <ul style="margin-left:-30px;" t-if="widget.data['validation_bz-1_dz-1'][0] != 0">
+                                    <li class="list-left"><a class="open_report" style="color:red !important;" t-att-report-id="widget.data['Balance Sheet']['id']" t-att-name="widget.data['Balance Sheet']['name']" href="#">Assets – Liabilities <t t-esc="widget.data['prev_year']"/></a></li>
+                                    <li class="list-right"><a class="open_report" style="color:red !important;" t-att-report-id="widget.data['Balance Sheet']['id']" t-att-name="widget.data['Balance Sheet']['name']" href="#"><t t-esc="widget.data['validation_bz-1_dz-1']"/></a></li>
+                                   <!-- <li class="list-left" style="color:red !important;">Assets – Liabilities <t t-esc="widget.data['prev_year']"/></li>
+                                    <li class="list-right" style="color:red !important;"><t t-esc="widget.data['validation_bz-1_dz-1']"/></li>  -->
+                                </ul>
+                                <div style="clear:both;"></div>
+                                <ul style="margin-left:-30px;">
+                                    <li class="list-left"><a class="open_report" t-att-report-id="widget.data['Balance Sheet']['id']" t-att-name="widget.data['Balance Sheet']['name']" href="#">Variation</a></li>
+                                    <li class="list-right"><t t-esc="widget.data['variation_bz']"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <svg id="chart" class="o_graph_barchart" style="height:100px;"/>
+                        <!--<div class="leave_graph" style="margin-top:-30px !important;margin-left:30px;" />-->
+                     </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-sm-12">
+                    <div class="col-xs-12  ohada_notification_big" style="padding: 0;">
+                        <div class="oh-card-body pb-0" style="padding:0;">
+                            <a class="stat-head open_report" t-att-report-id="widget.data['Profit and lost']['id']" t-att-name="widget.data['Profit and lost']['name']" style="padding:0px;margin-top:15px;cursor:pointer;margin-left: 12px;" href="#">Profit  &amp; Loss</a>
+                            <div class="dropdown">
+                              <button style="border:none;padding:10px 15px;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/>
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item print_pl_pdf" style="cursor:pointer;">Export report</a>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 row">
+                            <div class="col-3 ohada_notification">
+                                <button class="btn btn-primary open_report" style="margin-left:12px;" t-att-report-id="widget.data['Profit and lost']['id']" t-att-name="widget.data['Profit and lost']['name']" title="Ouvrir le compte de résultat" href="#">OPEN</button>
+                            </div>
+                            <div class="col-9 ohada_notification" style="padding-left:10px;">
+                                <ul style="margin-left:-30px;">
+                                    <li class="list-left"><a class="open_report" t-att-report-id="widget.data['Profit and lost']['id']" t-att-name="widget.data['Profit and lost']['name']" href="#">Net profit <t t-esc="widget.data['this_year']"/></a></li>
+                                    <li class="list-right"><t t-esc="widget.data['xi']"/></li>
+                                </ul>
+                                <div style="clear:both;"></div>
+                                <ul style="margin-left:-30px;">
+                                    <li class="list-left"><a class="open_report" t-att-report-id="widget.data['Profit and lost']['id']" t-att-name="widget.data['Profit and lost']['name']" href="#">Net profit <t t-esc="widget.data['prev_year']"/></a></li>
+                                    <li class="list-right"><t t-esc="widget.data['xi-1']"/></li>
+                                </ul>
+                                <div style="clear:both;"></div>
+                                <ul style="margin-left:-30px;">
+                                    <li class="list-left"><a class="open_report" t-att-report-id="widget.data['Profit and lost']['id']" t-att-name="widget.data['Profit and lost']['name']" href="#">Variation</a></li>
+                                    <li class="list-right"><t t-esc="widget.data['xi_dif']"/></li>
+                                </ul>
+                            </div>
+                            <svg id="chart2" class="o_graph_barchart" style="height:100px;"/>
+                            <!--<div class="leave_graph2" style="margin-top:-30px !important;margin-left:30px;" />-->
+                        </div>
+                     </div>
+                </div>
+                <div class="col-md-12 col-lg-4 col-sm-12">
+                    <div class="col-xs-12  ohada_notification_big" style="padding: 0;">
+                        <div class="oh-card-body pb-0" style="padding:0;">
+                            <a class="stat-head open_report" t-att-report-id="widget.data['Cash Flow Statement']['id']" t-att-name="widget.data['Cash Flow Statement']['name']" style="padding:0px;margin-top:15px;cursor:pointer;margin-left: 12px;" href="#">Cashflow</a>
+                            <div class="dropdown">
+                              <button style="border:none;padding:10px 15px;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/>
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item print_cf_pdf" style="cursor:pointer;">Export report</a>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 row">
+                            <div class="col-3 ohada_notification">
+                                <button class="btn btn-primary open_report" style="margin-left:12px;" t-att-report-id="widget.data['Cash Flow Statement']['id']" t-att-name="widget.data['Cash Flow Statement']['name']" title="Ouvrir le tableau des flux de trésorerie" href="#">OPEN</button>
+                            </div>
+                            <div class="col-9 ohada_notification" style="padding-left:10px;">
+                                <ul style="margin-left:-30px;">
+                                    <li class="list-left"><a class="open_report" t-att-report-id="widget.data['Cash Flow Statement']['id']" t-att-name="widget.data['Cash Flow Statement']['name']" href="#">Cash closing balance <t t-esc="widget.data['this_year']"/></a></li>
+                                    <li class="list-right"><t t-esc="widget.data['zh']"/></li>
+                                </ul>
+                                <div style="clear:both;"></div>
+                                <ul style="margin-left:-30px;">
+                                    <li class="list-left"><a class="open_report" t-att-report-id="widget.data['Cash Flow Statement']['id']" t-att-name="widget.data['Cash Flow Statement']['name']" href="#">Cash closing balance <t t-esc="widget.data['prev_year']"/></a></li>
+                                    <li class="list-right"><t t-esc="widget.data['zh-1']"/></li>
+                                </ul>
+                                <div style="clear:both;"></div>
+                                <ul style="margin-left:-30px;">
+                                    <li class="list-left"><a class="open_report" t-att-report-id="widget.data['Cash Flow Statement']['id']" t-att-name="widget.data['Cash Flow Statement']['name']" href="#">Variation</a></li>
+                                    <li class="list-right"><t t-esc="widget.data['zh_dif']"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <svg id="chart3" class="o_graph_linechart" style="height:100px;"/>
+                     </div>
+
+                </div>
+            </div>
+            <div class="row main-section">
+                <div class="col-md-2 col-sm-2 dummy"></div>
+                <div class="col-sm-12 col-md-12 col-lg-12  monthly_leave_graph_view">
+                    <div class="oh-card text-color">
+                        <div class="oh-card-body pb-0">
+                            <p class="stat-head" style="float:left;margin-left:5px;padding:0px;">Annexed Notes</p>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <t t-foreach="widget.data['notes']" t-as="note">
+                                <button class="btn btn-primary oh_dashbard_btn_s open_report" style="margin-right:4px;" t-att-report-id="note['id']" t-att-name="note['report_name']" t-att-title="note['report_name']" href="#"><t t-esc="note['shortname']"/></button>
+                            </t>
+                            <div style="clear:both;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="OhadaWarning">
+        <div>
+            <p>Error : Could not load data</p>
+            <p>Please contact system admin for the setup</p>
+        </div>
+    </t>
+
+
+</templates>
