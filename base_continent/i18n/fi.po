@@ -1,0 +1,119 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * base_continent
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: partner-contact (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-01-19 01:46+0000\n"
+"PO-Revision-Date: 2015-05-21 21:56+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Finnish (http://www.transifex.com/oca/OCA-partner-contact-8-0/language/fi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: base_continent
+#: model:res.continent,name:base_continent.af
+msgid "Africa"
+msgstr ""
+
+#. module: base_continent
+#: model:res.continent,name:base_continent.an
+msgid "Antarctica"
+msgstr ""
+
+#. module: base_continent
+#: model:res.continent,name:base_continent.as
+msgid "Asia"
+msgstr ""
+
+#. module: base_continent
+#: model:ir.model,name:base_continent.model_res_continent
+#: view:res.continent:base_continent.view_continent_form
+#: view:res.continent:base_continent.view_continent_tree
+#: field:res.country,continent_id:0 field:res.partner,continent_id:0
+msgid "Continent"
+msgstr ""
+
+#. module: base_continent
+#: field:res.continent,name:0
+msgid "Continent Name"
+msgstr ""
+
+#. module: base_continent
+#: model:ir.actions.act_window,name:base_continent.action_continent
+#: model:ir.ui.menu,name:base_continent.menu_continent_partner
+msgid "Continents"
+msgstr ""
+
+#. module: base_continent
+#: model:ir.model,name:base_continent.model_res_country
+msgid "Country"
+msgstr "Maa"
+
+#. module: base_continent
+#: field:res.continent,create_uid:0
+msgid "Created by"
+msgstr "Luonut"
+
+#. module: base_continent
+#: field:res.continent,create_date:0
+msgid "Created on"
+msgstr "Luotu"
+
+#. module: base_continent
+#: model:ir.actions.act_window,help:base_continent.action_continent
+msgid ""
+"Display and manage the list of all continents that can be assigned to your "
+"partner records."
+msgstr ""
+
+#. module: base_continent
+#: model:res.continent,name:base_continent.eu
+msgid "Europe"
+msgstr ""
+
+#. module: base_continent
+#: field:res.continent,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: base_continent
+#: field:res.continent,write_uid:0
+msgid "Last Updated by"
+msgstr "Viimeksi päivitetty"
+
+#. module: base_continent
+#: field:res.continent,write_date:0
+msgid "Last Updated on"
+msgstr "Viimeksi päivittänyt"
+
+#. module: base_continent
+#: model:res.continent,name:base_continent.na
+msgid "North America"
+msgstr ""
+
+#. module: base_continent
+#: model:res.continent,name:base_continent.oc
+msgid "Oceania"
+msgstr ""
+
+#. module: base_continent
+#: model:ir.model,name:base_continent.model_res_partner
+msgid "Partner"
+msgstr "Kumppani"
+
+#. module: base_continent
+#: model:res.continent,name:base_continent.sa
+msgid "South America"
+msgstr ""
+
+#. module: base_continent
+#: help:res.continent,name:0
+msgid "The full name of the continent."
+msgstr ""

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record model="ir.ui.view" id="view_partner_property_form">
+            <field name="name">Partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form" />            
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='street']" position="before">
+                    <field name="has_own_accounting" string="Comptabilité distincte?" 
+                        attrs="{'invisible': [('company_type', '=', 'person')]}"
+                        groups="base.group_erp_manager"
+                    />       
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
+

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="account_reports_ohada_statements_menu" name="FACT Finance" parent="account.menu_finance_reports" sequence="0" groups="account.group_account_manager"/>
+    <menuitem id="account_reports_ohada_tax_menu" name="FACT Fiscalis" parent="account.menu_finance_reports" sequence="0" groups="account.group_account_manager"/>
+
+	<!-- Account Type -->
+	<record model="account.account.type" id="account_type_special">
+		<field name="name">Comptes spéciaux</field>
+        <field name="type">other</field>
+	</record>
+
+	<!-- res.currency -->
+	<record id="base.XOF" model="res.currency">
+		<field name="name">XOF</field>
+		<field name="symbol">CFA</field>
+		<field name="rounding">1</field>
+		<field name="accuracy">4</field>
+        <field name="active" eval="True"/>
+        <field name="currency_unit_label">Franc</field>
+        <field name="currency_subunit_label">Centimes</field>
+	</record>
+
+    
+	<!-- Account Chart Template - 1st part -->
+	<record id="ohada_chart_template" model="account.chart.template">
+		<field name="name">SYSCOHADA - Plan de Compte Général</field>
+		<field name="code_digits">8</field>
+		<field name="currency_id" ref="base.XOF" />
+		<field name="bank_account_code_prefix">5211</field>
+		<field name="cash_account_code_prefix">5711</field>
+    <!--    <field name="transfer_account_code_prefix">585</field>  -->  <!-- will be entered later at the end of this file -->
+        <field name="complete_tax_set" eval="True" />
+	</record>
+
+
+</odoo>
+

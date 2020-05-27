@@ -4594,7 +4594,7 @@
         <field name="sequence" eval="2"/>
     </record>
 
-    <record id="ohada_financial_report_note16b_1" model="ohada.financial.html.report.line">
+    <!-- <record id="ohada_financial_report_note16b_1" model="ohada.financial.html.report.line">
         <field name="name">Taux d'augmentation des salaires</field>
         <field name="code">__N16b_1</field>
         <field name="financial_report_id" ref="ohada_financial_report_note16b"/>
@@ -4603,9 +4603,9 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="3"/>
         <field name="groupby">account_id</field>
-    </record>
+    </record> -->
 
-    <record id="ohada_financial_report_note16b_2" model="ohada.financial.html.report.line">
+    <!-- <record id="ohada_financial_report_note16b_2" model="ohada.financial.html.report.line">
         <field name="name">Taux d'actualisation</field>
         <field name="code">__N16b_2</field>
         <field name="financial_report_id" ref="ohada_financial_report_note16b"/>
@@ -4614,7 +4614,7 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="4"/>
         <field name="groupby">account_id</field>
-    </record>
+    </record> -->
 
     <record id="ohada_financial_report_note16b_3" model="ohada.financial.html.report.line">
         <field name="name">Taux d'inflation</field>
@@ -4884,14 +4884,14 @@
         <field name="level" eval="0" />
     </record>
 
-    <record id="ohada_financial_report_note16b_bis_1" model="ohada.financial.html.report.line">
+    <!-- <record id="ohada_financial_report_note16b_bis_1" model="ohada.financial.html.report.line">
         <field name="name">LIBELLES</field>
         <field name="code">N16b_bis_1_</field>
         <field name="header" eval="True"/>
         <field name="financial_report_id" ref="ohada_financial_report_note16b_bis"/>
         <field name="level" eval="0" />
         <field name="sequence" eval="2"/>
-    </record>
+    </record> -->
 
     <record id="ohada_financial_report_note16b_bis_2" model="ohada.financial.html.report.line">
         <field name="name">Valeur actuelle de l'obligation résultant de régimes financés</field>

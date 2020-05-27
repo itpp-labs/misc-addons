@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+        <record id="view_country_tree_add_continent" model="ir.ui.view">
+            <field name="name">res.country.tree.add_continent</field>
+            <field name="model">res.country</field>
+            <field name="inherit_id" ref="base.view_country_tree"/>
+            <field name="arch" type="xml">
+                <field name="code" position="after">
+                    <field name="continent_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_country_form_add_continent" model="ir.ui.view">
+            <field name="name">res.country.form.add_continent</field>
+            <field name="model">res.country</field>
+            <field name="inherit_id" ref="base.view_country_form"/>
+            <field name="arch" type="xml">
+                <field name="code" position="after">
+                    <field name="continent_id"/>
+                </field>
+            </field>
+        </record>
+
+  </data>
+</odoo>

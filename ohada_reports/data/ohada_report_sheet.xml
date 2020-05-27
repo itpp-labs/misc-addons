@@ -68,14 +68,14 @@
         <field name="level" eval="0" />
     </record>
 
-    <record id="ohada_financial_report_sheet_r3_1" model="ohada.financial.html.report.line">
+    <!-- <record id="ohada_financial_report_sheet_r3_1" model="ohada.financial.html.report.line">
         <field name="name"> </field>
         <field name="code">r3_1</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r3"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="2"/>
         <field name="groupby">account_id</field>
-    </record>
+    </record> -->
 
     <record id="ohada_financial_report_sheet_r3_2" model="ohada.financial.html.report.line">
         <field name="name"> </field>

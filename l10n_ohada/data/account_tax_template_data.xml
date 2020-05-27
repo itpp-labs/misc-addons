@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- account tax template -->
+
+	<record id="tva_col_10_sales" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA 10% collectée sur vente</field>
+		<field name="description">10%</field>
+		<field name="amount" eval="10.0"/>
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4431" />
+		<field name="refund_account_id" ref="pcg_4431" />
+		<field name="type_tax_use">sale</field>
+		<field name="sequence" eval="5" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_col_10'),ref('l10n_ohada.tag_tax_col_10')])]"/>
+	</record>
+
+	<record id="tva_col_10_sales_ttc" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA TTC 10% collectée sur vente</field>
+		<field name="description">10% TTC</field>
+		<field name="amount" eval="10.0"/>
+		<field name="amount_type">percent</field>
+		<field name="price_include" eval="True" />
+		<field name="account_id" ref="pcg_4431" />
+		<field name="refund_account_id" ref="pcg_4431" />
+		<field name="type_tax_use">sale</field>
+		<field name="sequence" eval="6" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_col_10'),ref('l10n_ohada.tag_tax_col_10')])]"/>
+	</record>
+
+    <!--    <delete id="l10n_ohada.tva_col_10_sales_ownusage" model="account.tax.template" />   -->       <!-- DEL -->
+	<record id="tva_col_10_sales_ownusage" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA 10% (production livrée à soi-même)</field>
+		<field name="description">10% (livrée à soi-même)</field>
+		<field name="amount" eval="10.0"/>
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4434" />
+		<field name="refund_account_id" ref="pcg_4434" />
+		<field name="type_tax_use">sale</field>
+		<field name="sequence" eval="10"/>
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_sales_own_usage'),ref('l10n_ohada.tag_tax_sales_own_usage')])]"/>
+	</record>
+
+	<record id="tva_col_10_sales_to_invoice" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA 10% (factures à établir)</field>
+		<field name="description">10% (factures à établir)</field>
+		<field name="amount" eval="10.0"/>
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4435" />
+		<field name="refund_account_id" ref="pcg_4435" />
+		<field name="type_tax_use">sale</field>
+		<field name="sequence" eval="15" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_col_10'),ref('l10n_ohada.tag_tax_col_10')])]"/>
+	</record>
+
+	<record id="tva_col_18_sales" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA 18% collectée sur vente</field>
+		<field name="description">18%</field>
+		<field name="amount" eval="18" />
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4431" />
+		<field name="refund_account_id" ref="pcg_4431" />
+		<field name="type_tax_use">sale</field>	
+		<field name="sequence" eval="5" />		
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_col_18'),ref('l10n_ohada.tag_tax_col_18')])]"/>
+	</record>
+
+	<record id="tva_col_18_sales_ttc" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA TTC 18% collectée sur ventes</field>
+		<field name="description">18% TTC</field>
+		<field name="amount" eval="18" />
+		<field name="amount_type">percent</field>
+		<field name="price_include" eval="True" />
+		<field name="account_id" ref="pcg_4431" />
+		<field name="refund_account_id" ref="pcg_4431" />
+		<field name="type_tax_use">sale</field>
+		<field name="sequence" eval="6" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_col_18'),ref('l10n_ohada.tag_tax_col_18')])]"/>
+	</record>
+
+	<record id="tva_col_18_sales_service" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA 18% collectée sur prestations de service</field>
+		<field name="description">18%</field>
+		<field name="amount" eval="18" />
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4432" />
+		<field name="refund_account_id" ref="pcg_4432" />
+		<field name="type_tax_use">sale</field>
+		<field name="sequence" eval="20" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_col_18'),ref('l10n_ohada.tag_tax_col_18')])]"/>
+	</record>
+ 
+	<record id="tva_col_18_sales_building" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA 18% collectée sur travaux</field>
+		<field name="description">18%</field>
+		<field name="amount" eval="18" />
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4433" />
+		<field name="refund_account_id" ref="pcg_4433" />
+		<field name="type_tax_use">sale</field>
+		<field name="sequence" eval="25" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_col_18'),ref('l10n_ohada.tag_tax_col_18')])]"/>
+	</record>
+
+    <!--    <delete id="l10n_ohada.tva_col_18_sales_ownusage" model="account.tax.template" />   -->       <!-- DEL -->
+	<record id="tva_col_18_sales_own_usage" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA 18% sur production livrée à soi-même</field>
+		<field name="description">18% (livrée à soi-même)</field>
+		<field name="amount" eval="18" />
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4434" />
+		<field name="refund_account_id" ref="pcg_4434" />
+		<field name="type_tax_use">sale</field>
+		<field name="sequence" eval="30"/>
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_sales_own_usage'),ref('l10n_ohada.tag_tax_sales_own_usage')])]"/>
+	</record>
+
+	<record id="tva_col_18_sales_to_invoice" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA 18% collectée sur factures à établir</field>
+		<field name="description">18% (factures à établir)</field>
+		<field name="amount" eval="18" />
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4435" />
+		<field name="refund_account_id" ref="pcg_4435" />
+		<field name="type_tax_use">sale</field>
+		<field name="sequence" eval="35" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_col_18'),ref('l10n_ohada.tag_tax_col_18')])]"/>
+	</record>
+
+	<record id="tva_col_18_sales_op_divers" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA 18% collectée sur opérations diverses</field>
+		<field name="description">18%</field>
+		<field name="amount" eval="18" />
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4438" />
+		<field name="refund_account_id" ref="pcg_4438" />
+		<field name="type_tax_use">sale</field>
+		<field name="sequence" eval="40" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_col_18'),ref('l10n_ohada.tag_tax_col_18')])]"/>
+	</record>
+
+	<record id="tva_col_18_sales_suspended" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">Suspension de TVA (vente)</field>
+		<field name="description">Susp. de TVA</field>
+		<field name="amount" eval="0.0" />
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4438" />
+		<field name="refund_account_id" ref="pcg_4438" />
+		<field name="type_tax_use">sale</field>
+		<field name="sequence" eval="45" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_sales_suspended'),ref('l10n_ohada.tag_tax_sales_suspended')])]"/>
+	</record>
+
+	<record id="tva_col_18_sales_exonerated" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">Exonéré de TVA</field>
+		<field name="description">Exo. de TVA</field>
+		<field name="amount" eval="0.0" />
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4438" />
+		<field name="refund_account_id" ref="pcg_4438" />
+		<field name="type_tax_use">sale</field>
+		<field name="sequence" eval="50" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_sales_exonerated'),ref('l10n_ohada.tag_tax_sales_exonerated')])]"/>
+	</record>
+
+	<!-- Précompte de TVA à la vente -->
+	<record id="tva_col_10_sales_prec" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA 10% (vente) retenue à la source</field>
+		<field name="description">retenue à la source</field>
+		<field name="amount" eval="-10.0" />
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4431" />										
+		<field name="refund_account_id" ref="pcg_4431" />
+		<field name="type_tax_use">sale</field>
+		<field name="sequence" eval="71" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_sales_prec_10'),ref('l10n_ohada.tag_tax_sales_prec_10')])]"/>
+	</record>
+
+	<record id="tva_col_18_sales_prec" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA 18% (vente) retenue à la source</field>
+		<field name="description">retenue à la source</field>
+		<field name="amount" eval="-18.0" />
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4431" />										
+		<field name="refund_account_id" ref="pcg_4431" />
+		<field name="type_tax_use">sale</field>
+		<field name="sequence" eval="61" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_sales_prec_18'),ref('l10n_ohada.tag_tax_sales_prec_18')])]"/>
+	</record>
+	
+	
+
+	<!-- Purchase -->
+
+	<!-- import -->
+	<record id="tva_acq_purchase_import" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA acquittée s/ imports</field>
+		<field name="description">18% s/ import</field>
+		<field name="amount" eval="18" />
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4454" />
+		<field name="refund_account_id" ref="pcg_4454" />
+		<field name="type_tax_use">purchase</field>
+		<field name="sequence" eval="80" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_acq_import'),ref('l10n_ohada.tag_tax_acq_import')])]"/>
+	</record>
+
+	<!-- intérieur -->
+	<record id="tva_acq_10_purchase" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA 10% recupérable sur achats</field>
+		<field name="description">10% (achat)</field>
+		<field name="amount" eval="10.0"/>
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4452" />
+		<field name="refund_account_id" ref="pcg_4452" />
+		<field name="type_tax_use">purchase</field>
+		<field name="sequence" eval="5" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_acq_10'),ref('l10n_ohada.tag_tax_acq_10')])]"/>
+	</record>
+
+	<record id="tva_acq_10_purchase_ttc" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA TTC 10% recupérable sur achats</field>
+		<field name="description">10% TTC (achat)</field>
+		<field name="amount" eval="10.0"/>
+		<field name="amount_type">percent</field>
+		<field name="price_include" eval="True" />
+		<field name="account_id" ref="pcg_4452" />
+		<field name="refund_account_id" ref="pcg_4452" />
+		<field name="type_tax_use">purchase</field>
+		<field name="sequence" eval="6" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_acq_10'),ref('l10n_ohada.tag_tax_acq_10')])]"/>
+	</record>
+
+	<record id="tva_acq_10_purchase_unpaid" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA 10% récupérable sur factures non parvenues</field>
+		<field name="description">10% (factures non parvenues)</field>
+		<field name="amount" eval="10.0"/>
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4455" />
+		<field name="refund_account_id" ref="pcg_4455" />
+		<field name="type_tax_use">purchase</field>
+		<field name="sequence" eval="10" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_acq_10'),ref('l10n_ohada.tag_tax_acq_10')])]"/>
+	</record>
+
+	<record id="tva_acq_10_purchase_transfered" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA 10% transférée par d'autres entreprises</field>
+		<field name="description">10% (transf./ d'autres entreprises)</field>
+		<field name="amount" eval="10.0"/>
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4456" />
+		<field name="refund_account_id" ref="pcg_4456" />
+		<field name="type_tax_use">purchase</field>
+		<field name="sequence" eval="15" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_acq_10'),ref('l10n_ohada.tag_tax_acq_10')])]"/>
+	</record>
+
+	<record id="tva_acq_18_purchase" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA 18% recupérable sur achats</field>
+		<field name="description">18% (achat)</field>
+		<field name="amount" eval="18" />
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4452" />
+		<field name="refund_account_id" ref="pcg_4452" />
+		<field name="type_tax_use">purchase</field>
+		<field name="sequence" eval="5" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_acq_18'),ref('l10n_ohada.tag_tax_acq_18')])]"/>
+	</record>
+
+	<record id="tva_acq_18_purchase_ttc" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA TTC 18% recupérable sur achats</field>
+		<field name="description">18% TTC (achat)</field>
+		<field name="amount" eval="18" />
+		<field name="amount_type">percent</field>
+		<field name="price_include" eval="True" />
+		<field name="account_id" ref="pcg_4452" />
+		<field name="refund_account_id" ref="pcg_4452" />
+		<field name="type_tax_use">purchase</field>
+		<field name="sequence" eval="6" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_acq_18'),ref('l10n_ohada.tag_tax_acq_18')])]"/>
+	</record>
+
+	<record id="tva_acq_18_purchase_immobilization" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA 18% recupérable sur immobilisations</field>
+		<field name="description">18% (achat immo.)</field>
+		<field name="amount" eval="18" />
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4451" />
+		<field name="refund_account_id" ref="pcg_4451" />
+		<field name="type_tax_use">purchase</field>
+		<field name="sequence" eval="20" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_acq_18'),ref('l10n_ohada.tag_tax_acq_18')])]"/>
+	</record>
+
+	<record id="tva_acq_18_purchase_transport" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA 18% recupérable sur tranport</field>
+		<field name="description">18% (achat transp.)</field>
+		<field name="amount" eval="18" />
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4453" />
+		<field name="refund_account_id" ref="pcg_4453" />
+		<field name="type_tax_use">purchase</field>
+		<field name="sequence" eval="25" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_acq_18'),ref('l10n_ohada.tag_tax_acq_18')])]"/>
+	</record>
+
+	<record id="tva_acq_18_purchase_unpaid" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA 18% recupérable sur factures non parvenues</field>
+		<field name="description">18% (factures non parvenues)</field>
+		<field name="amount" eval="18" />
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4455" />
+		<field name="refund_account_id" ref="pcg_4455" />
+		<field name="type_tax_use">purchase</field>
+		<field name="sequence" eval="30" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_acq_18'),ref('l10n_ohada.tag_tax_acq_18')])]"/>
+	</record>
+
+	<record id="tva_acq_18_purchase_transfered" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA 18% transférée par d'autres entreprises</field>
+		<field name="description">18% (transf./ d'autres entreprises)</field>
+		<field name="amount" eval="18" />
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4456" />
+		<field name="refund_account_id" ref="pcg_4456" />
+		<field name="type_tax_use">purchase</field>
+		<field name="sequence" eval="16" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_acq_18'),ref('l10n_ohada.tag_tax_acq_18')])]"/>
+	</record>
+
+	<record id="tva_acq_18_purchase_exonerated" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">Exonéré de TVA sur achats</field>
+		<field name="description">Exo. de TVA (achat)</field>
+		<field name="amount" eval="0.0" />
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4452" />
+		<field name="refund_account_id" ref="pcg_4452" />
+		<field name="type_tax_use">purchase</field>
+		<field name="sequence" eval="35" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_acq_exonerated'),ref('l10n_ohada.tag_tax_acq_exonerated')])]"/>
+	</record>
+
+	<record id="tva_acq_18_purchase_suspended" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">Suspension de TVA sur achats</field>
+		<field name="description">Susp. de TVA (achat)</field>
+		<field name="amount" eval="0.0" />
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4452" />
+		<field name="refund_account_id" ref="pcg_4452" />
+		<field name="type_tax_use">purchase</field>
+		<field name="sequence" eval="40" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_acq_suspended'),ref('l10n_ohada.tag_tax_acq_suspended')])]"/>
+	</record>
+
+	<!-- Précompte de TVA -->
+	<record id="tva_col_10_purchase_prec" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA 10% (achat) précomptée/due</field>
+		<field name="description">10% (achat) préc./due</field>
+		<field name="amount" eval="-10.0" />
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4452" />
+		<field name="refund_account_id" ref="pcg_4452" />
+		<field name="type_tax_use">purchase</field>
+		<field name="sequence" eval="8" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_acq_prec_10'),ref('l10n_ohada.tag_tax_acq_prec_10')])]"/>
+	</record>	      
+	
+	<record id="tva_col_18_purchase_prec" model="account.tax.template">
+		<field name="chart_template_id" ref="ohada_chart_template" />
+		<field name="name">TVA 18% (achat) précomptée/due</field>
+		<field name="description">18% (achat) préc./due</field>
+		<field name="amount" eval="-18.0" /> 
+		<field name="amount_type">percent</field>
+		<field name="account_id" ref="pcg_4452" />
+		<field name="refund_account_id" ref="pcg_4452" />
+		<field name="type_tax_use">purchase</field>
+		<field name="sequence" eval="8" />
+		<field name="tax_group_id" ref="account.tax_group_taxes" />
+        <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_tax_base_acq_prec_18'),ref('l10n_ohada.tag_tax_acq_prec_18')])]"/>
+	</record>
+
+    
+</odoo>

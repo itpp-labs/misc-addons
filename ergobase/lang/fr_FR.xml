@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+	<!--install language FR -->
+	<data noupdate="1">  
+		<record model="base.language.install" id="install_fr_FR">
+			<field name="lang">fr_FR</field>
+			<field name="state">done</field>
+			<field name="overwrite" eval="1" />
+		</record>
+
+		<function  
+			model="base.language.install" 
+			name="lang_install" 
+			eval="[[ref('install_fr_FR')]]" /> 
+	</data>
+	
+<!--	
+	<data noupdate="0">
+		<record model="res.lang" id="base.res_lang_2">
+			<field name="grouping">[3,0]</field>
+		</record>	
+	</data> 
+-->
+
+</odoo>

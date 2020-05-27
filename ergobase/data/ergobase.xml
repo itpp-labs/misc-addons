@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record forcecreate="True" id="ergobit_decimal" model="decimal.precision">
+            <field name="name">Ergobit</field>
+            <field name="digits">0</field>
+        </record>    
+        <record forcecreate="True" id="ergobit_rate_decimal" model="decimal.precision">
+            <field name="name">Ergobit Rate</field>
+            <field name="digits">2</field>
+        </record>
+    </data>
+</odoo>

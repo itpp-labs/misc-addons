@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="0">
+
+		<!--    BRS     -->
+        
+        <record id="brs_col_service_5" model="account.tax.template">
+            <field name="chart_template_id" ref="ohada_chart_template" />
+            <field name="name">BRS 5% sur prestation</field>
+            <field name="description">BRS 5% s/ prest.</field>
+            <field name="amount" eval="-5" />
+            <field name="amount_type">percent</field>
+            <field name="include_base_amount" eval="True" />
+            <field name="account_id" ref="pcg_4478" />
+            <field name="refund_account_id" ref="pcg_4478" />
+            <field name="type_tax_use">purchase</field>
+            <field name="sequence" eval="305" />
+            <field name="tax_group_id" ref="l10n_ohada.tax_group_brs" />
+            <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_brs_base_service_5'),ref('l10n_ohada.tag_brs_service_5')])]"/>
+        </record>
+        
+        <record id="brs_col_service_5_ttc" model="account.tax.template">
+            <field name="chart_template_id" ref="ohada_chart_template" />
+            <field name="name">BRS 5% TTC sur prestation</field>
+            <field name="description">BRS 5% TTC s/ prest.</field>
+            <field name="amount" eval="-5" />
+            <field name="amount_type">percent</field>
+            <field name="price_include" eval="True" />
+            <field name="include_base_amount" eval="True" />
+            <field name="account_id" ref="pcg_4478" />
+            <field name="refund_account_id" ref="pcg_4478" />
+            <field name="type_tax_use">purchase</field>
+            <field name="sequence" eval="310" />
+            <field name="tax_group_id" ref="l10n_ohada.tax_group_brs" />
+            <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_brs_base_service_5'),ref('l10n_ohada.tag_brs_service_5')])]"/>
+        </record>
+        
+        <record id="brs_col_rent_5" model="account.tax.template">
+            <field name="chart_template_id" ref="ohada_chart_template" />
+            <field name="name">BRS 5% sur loyer</field>
+            <field name="description">BRS 5% s/ loyer</field>
+            <field name="amount" eval="-5" />
+            <field name="amount_type">percent</field>
+            <field name="include_base_amount" eval="True" />
+            <field name="account_id" ref="pcg_4478" />
+            <field name="refund_account_id" ref="pcg_4478" />
+            <field name="type_tax_use">purchase</field>
+            <field name="sequence" eval="315" />
+            <field name="tax_group_id" ref="l10n_ohada.tax_group_brs" />
+            <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_brs_base_rent_5'),ref('l10n_ohada.tag_brs_rent_5')])]"/>
+        </record>
+        
+        <record id="brs_col_rent_5_ttc" model="account.tax.template">
+            <field name="chart_template_id" ref="ohada_chart_template" />
+            <field name="name">BRS 5% TTC sur loyer</field>
+            <field name="description">BRS 5% TTC s/ loyer</field>
+            <field name="amount" eval="-5" />
+            <field name="amount_type">percent</field>
+            <field name="price_include" eval="True" />
+            <field name="include_base_amount" eval="True" />
+            <field name="account_id" ref="pcg_4478" />
+            <field name="refund_account_id" ref="pcg_4478" />
+            <field name="type_tax_use">purchase</field>
+            <field name="sequence" eval="320" />
+            <field name="tax_group_id" ref="l10n_ohada.tax_group_brs" />
+            <field name="tag_ids" eval="[(6,0,[ref('l10n_ohada.tag_brs_base_rent_5'),ref('l10n_ohada.tag_brs_rent_5')])]"/>
+        </record>
+    
+	</data>
+    
+</odoo>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0"> 
+
+        <record model="company.legal.form" id="company_legal_form_0">
+            <field name="name">Société Anonyme à Participation Publique</field>
+            <field name="shortcut">SA </field>
+            <field name="code">0</field>
+        </record>
+ 
+        <record model="company.legal.form" id="company_legal_form_1">
+            <field name="name">Société Anonyme</field>
+            <field name="shortcut">SA</field>
+            <field name="code">1</field>
+        </record>
+        
+        <record model="company.legal.form" id="company_legal_form_2">
+            <field name="name">Société à Responsabilité Limitée</field>
+            <field name="shortcut">SARL</field>
+            <field name="code">2</field>
+        </record>
+
+        <record model="company.legal.form" id="company_legal_form_3">
+            <field name="name">Société en Commandite Simple</field>
+            <field name="shortcut">SCS</field>
+            <field name="code">3</field>
+        </record>
+
+        <record model="company.legal.form" id="company_legal_form_4">
+            <field name="name">Société en Nom Collectif</field>
+            <field name="shortcut">SNC</field>
+            <field name="code">4</field>
+        </record>
+
+        <record model="company.legal.form" id="company_legal_form_5">
+            <field name="name">Société en Participation</field>
+            <field name="shortcut">SP</field>
+            <field name="code">5</field>
+        </record>
+
+        <record model="company.legal.form" id="company_legal_form_6">
+            <field name="name">Groupement d'Intérêt Economique</field>
+            <field name="shortcut">GIE</field>
+            <field name="code">6</field>
+        </record>
+
+        <record model="company.legal.form" id="company_legal_form_7">
+            <field name="name">Association</field>
+            <field name="shortcut"></field>
+            <field name="code">7</field>
+        </record>
+
+        <record model="company.legal.form" id="company_legal_form_8">
+            <field name="name">Société par Actions Simplifiées</field>
+            <field name="shortcut">SAS</field>
+            <field name="code">8</field>
+        </record>
+
+        <record model="company.legal.form" id="company_legal_form_9">
+            <field name="name">Autre forme juridique (à préciser)</field>
+            <field name="shortcut">&#160;</field>
+            <field name="code">9</field>
+        </record>
+        
+    </data>
+</odoo>

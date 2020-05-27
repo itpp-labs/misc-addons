@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ohada_company_legal_form,company.legal.form user,model_company_legal_form,base.group_erp_manager,1,1,1,1
+access_ohada_company_sector,company_sector user,model_company_sector,base.group_erp_manager,1,1,1,1
+access_ohada_company_activity,company.activity user,model_company_activity,base.group_erp_manager,1,1,1,1
+access_ohada_res_company_activity,res.company.activity user,model_res_company_activity,base.group_erp_manager,1,1,1,1
+access_ohada_res_company_equity,res.company.equity user,model_res_company_equity,base.group_erp_manager,1,1,1,1
+access_ohada_res_company_manager,res.company.manager user,model_res_company_manager,base.group_erp_manager,1,1,1,1
