@@ -424,7 +424,23 @@ $ohada-font-bold: 'NimbusSanL-Bold';
 }
 
 .ohada_cell_box {
-    border: 1px solid #001E5A !important;
+    border-style: double;
+    border-color: #001E5A;
+    color: #001E5A;
+    border-bottom: none;
+    border-top: none;
+}
+.ohada_cell_box_top {
+    border-style: double;
+    border-color: #001E5A;
+    color: #001E5A;
+    border-bottom: none;
+}
+.ohada_cell_box_bottom {
+    border-style: double;
+    border-color: #001E5A;
+    color: #001E5A;
+    border-top: none;
 }
 
 .o_ohada-progress-bar-content {

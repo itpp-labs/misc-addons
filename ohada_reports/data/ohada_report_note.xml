@@ -406,6 +406,7 @@
         <field name="header">INFORMATIONS OBLIGATOIRES</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
+        <field name="mandatory_note" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
         <field name="unfold_all_filter" eval="True"/>
@@ -493,6 +494,7 @@
         <!-- <field name="analytic" eval="True"/>   -->
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
+        <field name="mandatory_note" eval="True"/>
         <!--
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
@@ -877,6 +879,7 @@
         <field name="header">IMMOBILISATIONS (AMORTISSEMENTS)</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
+        <field name="mandatory_note" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
         <field name="unfold_all_filter" eval="True"/>
@@ -3515,6 +3518,7 @@
         <field name="header">Capital</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
+        <field name="mandatory_note" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
         <field name="default_columns_quantity">5</field>
@@ -5702,6 +5706,7 @@
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
+        <field name="mandatory_note" eval="True"/>
         <field name="type">note</field>
         <field name="header">BANQUES, CREDITS D'ESCOMPTE ET DE TRESORERIE</field>
         <field name="unfold_all_filter" eval="True"/>
@@ -5841,6 +5846,7 @@
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="type">note</field>
+        <field name="mandatory_note" eval="True"/>
         <field name="header">CHIFFRE D'AFFAIRE ET AUTRES PRODUITS</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
@@ -6239,6 +6245,7 @@
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="type">note</field>
+        <field name="mandatory_note" eval="True"/>
         <field name="header">ACHATS</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
@@ -6964,6 +6971,7 @@
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
+        <field name="mandatory_note" eval="True"/>
         <field name="header">AUTRES CHARGES</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
@@ -7110,6 +7118,7 @@
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
+        <field name="mandatory_note" eval="True"/>
         <field name="header">CHARGES DE PERSONNEL</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
@@ -7222,6 +7231,7 @@
         <field name="header">Effectifs, masse salariale et personnel extérieur</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
+        <field name="mandatory_note" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
         <field name="unfold_all_filter" eval="True"/>
@@ -8325,6 +8335,7 @@
         <field name="header">Répartition du résultat et autres élements caractéristiques des cinq derniers exercices</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
+        <field name="mandatory_note" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
         <field name="unfold_all_filter" eval="True"/>
@@ -8958,6 +8969,7 @@
         <field name="type">main</field>
         <field name="header">BILAN AU 31 DECEMBRE</field>
         <field name="code">BS2</field>
+        <field name="mandatory_note" eval="True"/>
         <field name="date_range" eval="False"/>
         <field name="unfold_all_filter" eval="True"/>
         <field name="hierarchy_option" eval="False"/>
@@ -10057,6 +10069,7 @@
         <field name="header">Détermination impôts sur le résultat</field>
         <field name="debit_credit" eval="False"/>
         <field name="analytic" eval="True"/>
+        <field name="mandatory_note" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
         <field name="unfold_all_filter" eval="True"/>

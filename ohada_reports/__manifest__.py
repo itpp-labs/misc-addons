@@ -26,7 +26,7 @@ Countries that use SYSCOHADA are the following:
 
     """,
 
-    'depends': ['l10n_ohada', 'account_accountant'],
+    'depends': ['l10n_ohada', 'account_accountant', 'l10n_ohada_company'],
     'data': [
         'security/ir.model.access.csv',
         'views/menuitem.xml',
@@ -43,6 +43,7 @@ Countries that use SYSCOHADA are the following:
         'views/report_config_view.xml',
         'views/report_template_view.xml',
         'views/search_template_view.xml',
+        'data/ohada_note_relevance.xml',
     ],
     'qweb': [
         'static/src/xml/ohada_report_template.xml',

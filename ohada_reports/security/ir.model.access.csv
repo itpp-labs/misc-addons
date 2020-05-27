@@ -10,3 +10,5 @@ access_ohada_custom_columns,ohada.custom.columns,ohada_reports.model_ohada_custo
 access_ohada_custom_columns_invoice,ohada.custom.columns invoice,ohada_reports.model_ohada_custom_columns,account.group_account_invoice,1,0,0,0
 access_ohada_cell_style,ohada.cell.style,ohada_reports.model_ohada_cell_style,account.group_account_manager,1,1,1,1
 access_ohada_cell_style_invoice,ohada.cell.style invoice,ohada_reports.model_ohada_cell_style,account.group_account_invoice,1,0,0,0
+access_note_relevance,note.relevance,ohada_reports.model_note_relevance,account.group_account_manager,1,1,1,1
+access_note_relevance_invoice,note.relevance invoice,ohada_reports.model_note_relevance,account.group_account_invoice,1,0,0,0

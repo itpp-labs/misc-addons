@@ -24,7 +24,7 @@ from odoo.osv import expression
 from odoo.tools.pycompat import izip
 from odoo import http
 from odoo.http import content_disposition, request
-
+import wdb
 
 class ReportOhadaFinancialReport(models.Model):
     _name = "ohada.financial.html.report"
@@ -66,6 +66,8 @@ class ReportOhadaFinancialReport(models.Model):
     description = fields.Text('Notes', track_visibility=False)
     description_pad = fields.Char('Description PAD', pad_content_field='description')
     default_columns_quantity = fields.Integer(default=False)
+    mandatory_note = fields.Boolean(default=False)
+    note_relevance_ids = fields.One2many('note.relevance', 'note_report_id')
 
 
     _sql_constraints = [
@@ -504,6 +506,7 @@ class ReportOhadaFinancialReport(models.Model):
         amount_of_periods = len((options.get('comparison') or {}).get('periods') or []) + 1
         amount_of_group_ids = len(options.get('groups', {}).get('ids') or []) or 1
         linesDicts = [[{} for _ in range(0, amount_of_group_ids)] for _ in range(0, amount_of_periods)]
+        # wdb.set_trace()
         res = line_obj.with_context(
             cash_basis=options.get('cash_basis'),
             filter_domain=domain,
@@ -1311,7 +1314,6 @@ class OhadaFinancialReportLine(models.Model):
         comparison_table = [options.get('date')]
         comparison_table += options.get('comparison') and options['comparison'].get('periods', []) or []
         currency_precision = self.env.user.company_id.currency_id.rounding
-
         # build comparison table
         for line in self:
             res = []
@@ -1430,15 +1432,62 @@ class OhadaFinancialReportLine(models.Model):
                 else:
                     pass
 
+                # TODO: DELETE
                 if financial_report.code == "S4" and line.sequence != 1:
                     for i in range(2):
                         vals['columns'].append({'name': ' '})
                 result = lines
+                # ========================================================
             elif financial_report.default_columns_quantity:
                 lines[0]['columns'] = []
                 for i in range(financial_report.default_columns_quantity):
                     lines[0]['columns'].append({'name': ' '})
                 result = lines
+            elif financial_report.code == 'S3':
+                company = self.env.user.company_id
+                if company.executive_ids:
+                    for i, x in zip(company.executive_ids, range(len(company.executive_ids))):
+                        line_vals = {'columns': [], 'level': 2, 'symbol': 'none'}
+                        address = i.manager_id.street + ', ' + i.manager_id.street2 + ' - ' + i.manager_id.city + ' - ' + \
+                                  i.manager_id.country_id.name if i.manager_id.street2 else i.manager_id.street + ' - ' + \
+                                  i.manager_id.city + ' - ' + i.manager_id.country_id.name
+                        if x > 6:
+                            break
+                        else:
+                            line_vals['columns'].append({'name': [i.manager_id.name], 'align': 'left'})
+                            line_vals['columns'].append({'name': [' '], 'align': 'left'})
+                            line_vals['columns'].append({'name': [(i.function or ' ')], 'align': 'left'})
+                            line_vals['columns'].append({'name': [(i.vat or ' ')], 'align': 'left'})
+                            line_vals['columns'].append({'name': [(address or ' ')], 'align': 'left'})
+                        final_result_table.append(line_vals)
+                else:
+                    line_vals = {
+                        'columns': [{'name': [' ']}, {'name': [' ']}, {'name': [' ']}, {'name': [' ']}, {'name': [' ']},
+                                    ], 'level': 2, 'symbol': 'none'}
+                    final_result_table.append(line_vals)
+                return final_result_table
+            elif financial_report.code == 'S3_1':
+                company = self.env.user.company_id
+                if company.administrative_ids:
+                    for i, x in zip(company.administrative_ids, range(len(company.administrative_ids))):
+                        line_vals = {'columns': [], 'level': 2, 'symbol': 'none'}
+                        address = i.manager_id.street + ', ' + i.manager_id.street2 + ' - ' + i.manager_id.city + ' - ' + \
+                                  i.manager_id.country_id.name if i.manager_id.street2 else i.manager_id.street + ' - ' + \
+                                                                                            i.manager_id.city + ' - ' + i.manager_id.country_id.name
+                        if x > 6:
+                            break
+                        else:
+                            line_vals['columns'].append({'name': [i.manager_id.name], 'align': 'left'})
+                            line_vals['columns'].append({'name': [' '], 'align': 'left'})
+                            line_vals['columns'].append({'name': [(i.function or ' ')], 'align': 'left'})
+                            line_vals['columns'].append({'name': [(address or ' ')], 'align': 'left'})
+                        final_result_table.append(line_vals)
+                else:
+                    line_vals = {
+                        'columns': [{'name': [' ']}, {'name': [' ']}, {'name': [' ']}, {'name': [' ']},
+                                    ], 'level': 2, 'symbol': 'none'}
+                    final_result_table.append(line_vals)
+                return final_result_table
             # =========================================================================================================
             else:
                 for vals in lines:
@@ -1693,10 +1742,6 @@ class OhadaFinancialReportLine(models.Model):
                 # TODO: transport it in ohada_report_layout.xml
                 if financial_report.code == "S2_1" and line.sequence != 1:
                     vals['columns'].append({'name': ' '})
-                if financial_report.type == 'sheet':
-                    if financial_report.code in ['S3', 'S3_1']:
-                        vals['columns'].append({'name': ' '})
-                        vals['columns'].append({'name': ' '})
                 if financial_report.type == 'note':
                     if financial_report.code == 'N1' and line.sequence > 25:
                         # vals['columns'] = []
@@ -2173,3 +2218,71 @@ class OhadaCellStyle(models.Model):
     align = fields.Char(default="right")
     background = fields.Char(default=False)
     cell_class = fields.Char(default=False)
+
+
+class OhadaNoteRelevance(models.Model):
+    _name = "note.relevance"
+
+    company_id = fields.Many2one('res.company')
+    fiscalyear = fields.Char(compute='', string="Fiscal year")
+    note_report_id = fields.Many2one('ohada.financial.html.report', 'Note report',
+                                     help='Only not mandatory notes are used here',
+                                     domain="[('mandatory_note','=',True)]",)
+    relevant = fields.Boolean(store=True, compute='')
+
+
+    @api.model
+    def _init_note_relevance(self, init=False, fiscalyear=False):
+        if init == True:
+            YEAR = datetime.now().year
+            fiscal_year = [YEAR, YEAR-1, YEAR-2, YEAR-3]
+        elif fiscalyear:
+            fiscal_year = [int(fiscalyear)]
+        reports = self.env['ohada.financial.html.report'].search([('type', '=', 'note'), ('secondary', '=', False)])
+        for company in self.env['res.company'].search([]):
+            for year in fiscal_year:
+                context = {
+                            'cash_basis':	None,
+                            'company_ids':	[company.id],
+                            'date_from': str(YEAR) + '-01-01',
+                            'date_to':	str(YEAR) + '-12-31',
+                            'filter_domain':	False,
+                            'id':	1,
+                            'journal_ids':	[],
+                            'lang':	'en_US',
+                            'model':	'ohada.financial.html.report',
+                            'state':	'posted',
+                            'tz':	'Europe/Brussels',
+                            'uid':	2,
+                            }
+                options = reports.make_temp_options(year)
+                for note in reports:
+                    print(note.code)
+                    self.check_note_relevance(note, context, year, options, company)
+
+    def check_note_relevance(self, note, context, year, options, company):
+        note = note.with_context(context)
+        if note.mandatory_note is True:
+            self.create({
+                'fiscalyear': str(year),
+                'note_report_id': note.id,
+                'relevant': True,
+                'company_id': company.id,
+            })
+        else:
+            if note.code == 'N3D':
+                new_options = copy.deepcopy(options)
+                new_options['comparison']['periods'] = []
+                lines = note._get_lines(new_options)
+            else:
+                lines = note._get_lines(options)
+            for i in lines:
+                for name in i.get('columns'):
+                    if isinstance(name.get('no_format_name'), float) and name.get('no_format_name') != 0.0:
+                        self.create({
+                            'fiscalyear': str(year),
+                            'note_report_id': note.id,
+                            'relevant': True,
+                            'company_id': company.id,
+                        })
+                        return

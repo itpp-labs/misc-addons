@@ -28,7 +28,7 @@ from odoo.tools.safe_eval import safe_eval
 from odoo.exceptions import UserError
 
 import html2text
-# import wdb
+import wdb
 
 _logger = logging.getLogger(__name__)
 
@@ -488,7 +488,6 @@ class OhadaReport(models.AbstractModel):
             date_to = options['date'].get('date_to') or options['date'].get('date') or fields.Date.today()
             period_domain = [('state', '=', 'draft'), ('date', '<=', date_to)]
             options['unposted_in_period'] = bool(self.env['account.move'].search_count(period_domain))
-
         report_manager = self._get_report_manager(options)
         info = {'options': options,
                 'context': self.env.context,
@@ -671,10 +670,8 @@ class OhadaReport(models.AbstractModel):
                         c['selected'] = False
 
     def _get_report_data(self):
-        # wdb.set_trace()
         print('get_report_data')
         company = self.env.user.company_id
-        # if self.code == 'CP':
         data = {
             'company_acronym': company.acronym,
             'company_address': company.street + ', ' + company.street2 + ' - ' + company.city + ' - ' + \
@@ -688,17 +685,17 @@ class OhadaReport(models.AbstractModel):
             'company_phone': company.phone,
             'company_email': company.email,
             'company_zip': company.zip,
-            'bank_name': company.partner_id.bank_ids[0].bank_name if company.partner_id.bank_ids[0] else 'None',
-            'bank_account_num': company.partner_id.bank_ids[0].acc_number if company.partner_id.bank_ids[0] else 'None',
+            'bank_name': company.partner_id.bank_ids[0].bank_name if company.partner_id.bank_ids else 'None',
+            'bank_account_num': company.partner_id.bank_ids[0].acc_number if company.partner_id.bank_ids else 'None',
             'company_legal_code': company.legal_form_code,
             'company_fiscal_regime': company.fiscal_regime,
             'company_hcc2': company.headquarters_country_code2,
-            'company_naic': company.num_affiliates_in_country,
-            'company_naoc': company.num_affiliates_out_country,
+            'company_naic': str(company.num_affiliates_in_country),
+            'company_naoc': str(company.num_affiliates_out_country),
         }
+
         if self.code == 'S2':
-            # wdb.set_trace()
-            activity_data = {'activity_ids': [], 'drivers_sum': 0.0, 'activity_perc': 0.0, 's1_total': 0.0}
+            activity_data = {'activity_ids': [], 'drivers_sum': 0.0, 'activity_perc': 0.0, 's2_total': 0.0}
             activity_perc_sum = 0.0
             for i, x in zip(company.activity_ids, range(len(company.activity_ids))):
                 if x < 5:
@@ -708,11 +705,11 @@ class OhadaReport(models.AbstractModel):
                                                           'percentage': i.turnover_percentage if i.amount_reported == 'turnover_amount' else i.surplus_percentage,
                                                           })
                     activity_perc_sum += activity_data['activity_ids'][x]['percentage']
-                    activity_data['s1_total'] += activity_data['activity_ids'][x]['amount']
+                    activity_data['s2_total'] += activity_data['activity_ids'][x]['amount']
                 else:
                     activity_data['drivers_sum'] += i.turnover_amount if i.amount_reported == 'turnover_amount' else i.surplus_amount
             activity_data['activity_perc'] = int(100.0 - activity_perc_sum)
-            activity_data['s1_total'] += activity_data['drivers_sum']
+            activity_data['s2_total'] += activity_data['drivers_sum']
             data = {**data, **activity_data}
         return data
 
@@ -758,8 +755,7 @@ class OhadaReport(models.AbstractModel):
                   'vat': self.env.user.company_id.vat,
                   'year': date[0:4],
                   'header': self.header and self.header.upper()}
-
-        if self.code in ['S1', 'S2', 'CP']:
+        if self.code in ['S1', 'S2', 'S3', 'CP']:
             report = {**report, **self._get_report_data()}
             report['prev_year'] = int(report['year']) - 1
             lines = []
@@ -1323,7 +1319,7 @@ class OhadaReport(models.AbstractModel):
         date_default_col1_style = workbook.add_format({'font_name': 'Arial', 'font_size': 12, 'font_color': '#001E5A', 'indent': 2, 'num_format': 'yyyy-mm-dd'})
         date_default_style = workbook.add_format({'font_name': 'NimbusSanL', 'font_size': 12, 'font_color': '#001E5A', 'num_format': 'yyyy-mm-dd'})
         default_col1_style = workbook.add_format({'font_name': 'NimbusSanL', 'font_size': 12, 'font_color': '#001E5A', 'indent': 2})
-        default_style = workbook.add_format({'font_name': 'NimbusSanL', 'font_size': 12, 'font_color': '#001E5A'})
+        default_style = workbook.add_format({'font_name': 'NimbusSanL', 'font_size': 8, 'font_color': '#001E5A'})
         super_col_style = workbook.add_format({'font_name': 'NimbusSanL', 'bold': True, 'align': 'center'})
         level_0_style = workbook.add_format({'valign': 'vcenter', 'border_color': '#001E5A', 'shrink': True, 'align': 'left', 'bg_color': '#CDEBFF', 'font_name': 'NimbusSanL', 'bold': True, 'font_size': 8, 'border': 1, 'font_color': '#001E5A'})
         level_1_style = workbook.add_format({'valign': 'vcenter', 'border_color': '#001E5A', 'border': 1, 'align': 'left', 'bold': True, 'bg_color':'#FFDCDC','font_name': 'NimbusSanL', 'font_size': 8, 'bottom': 1, 'font_color': '#001E5A'})
@@ -1370,17 +1366,6 @@ class OhadaReport(models.AbstractModel):
             else:
                 sheet.write(0, x, cell_content, super_col_style)
                 x += 1
-        # for row in self.get_header(options):
-        #     x = 0
-        #     for column in row:
-        #         colspan = column.get('colspan', 1)
-        #         header_label = column.get('name', '').replace('<br/>', ' ').replace('&nbsp;', ' ')
-        #         if colspan == 1:
-        #             sheet.write(y_offset, x, header_label, title_style)
-        #         else:
-        #             sheet.merge_range(y_offset, x, y_offset, x + colspan - 1, header_label, title_style)
-        #         x += colspan
-        #     y_offset += 1
 
         def set_cell_style(style, style_str):
             if 'border-bottom' in style_str:
@@ -1391,11 +1376,8 @@ class OhadaReport(models.AbstractModel):
                 style.set_right(1)
             if 'border-top' in style_str:
                 style.set_top(1)
-
-        if self.code in ['CP', 'S1',]:
-            import wdb
-            wdb.set_trace()
-            html = self.get_html(options).decode('ascii', 'ignore')
+        if self.code in ['CP', 'S1', 'S2']:
+            html = self.get_html(options).decode('utf-8')
             html = BeautifulSoup(html, "html.parser")
             lines = []
             for table in html.findAll('tbody', {'class': 'ohada_table'}):
@@ -1406,35 +1388,10 @@ class OhadaReport(models.AbstractModel):
                             'name': td.getText(),
                             'colspan': td.get('colspan') or 1,
                             'rowspan': td.get('rowspan') or 1,
-                            'class': td.get('class'),
+                            'bgcolor': td.get('bgcolor'),
                             'align': td.get('align'),
                             'style': td.get('style'),
                         })
-            for y in range(0, len(lines)):
-                x_index = 1
-                y_offset = 7
-                for cell in lines[y]['cells']:
-                    style = copy.copy(default_style)
-                    if cell.get('style') is not None:
-                        set_cell_style(style, cell.get('style'))
-                    workbook.formats.append(style)
-                    cell_name = cell.get('name')
-                    if int(cell.get('colspan')) > 1 or int(cell.get('rowspan')) > 1:
-                        colspan = int(cell.get('colspan')) or 1
-                        rowspan = int(cell.get('rowspan')) or 1
-                        sheet.merge_range(y + y_offset, x_index, y + y_offset + (rowspan - 1),
-                                          x_index + (colspan - 1), cell_name, style)
-                        if colspan > 1:
-                            x_index += (colspan - 1)
-                    else:
-                        sheet.write(y + y_offset, x_index, cell_name, style)
-                    x_index += 1
-            sheet.hide_gridlines(2)
-            workbook.close()
-            output.seek(0)
-            response.stream.write(output.read())
-            output.close()
-            return
         else:
             ctx = self._set_context(options)
             ctx.update({'no_format': True, 'print_mode': True, 'prefetch_fields': False})
@@ -1465,6 +1422,8 @@ class OhadaReport(models.AbstractModel):
             sheet.set_row(12, 200)
             sheet.set_row(13, 50)
             sheet.set_row(14, 200)
+        elif self.code in ['CP', 'S1', 'S2']:
+            sheet.set_column('B:BZ', 3)
         elif self.code != 'BS':
             sheet.set_column(1, 1, 50)
             sheet.set_row(7, 50)
@@ -1509,146 +1468,165 @@ class OhadaReport(models.AbstractModel):
                     style = default_style
                     col1_style = default_col1_style
 
-
-                if lines[y].get('note') == 'NET':
-                    for x in range(1, len(lines[y]['columns']) + 1):
-                        cell = lines[y]['columns'][x - 1]
-                        loc_style = copy.copy(style)
-                        loc_style.set_align('center')
-                        workbook.formats.append(loc_style)
-                        sheet.write(y + y_offset, net_x, cell.get('name', ''), loc_style)
-                        net_x += 1
+                if self.code in ['CP', 'S1', 'S2']:
+                    for cell in lines[y]['cells']:
+                        style = copy.copy(default_style)
+                        if cell.get('style') is not None:
+                            set_cell_style(style, cell.get('style'))
+                        if cell.get('bgcolor') is not None:
+                            style.set_bg_color(cell.get('bgcolor'))
+                        if cell.get('align') is not None:
+                            style.set_align(cell.get('align'))
+                        workbook.formats.append(style)
+                        cell_name = cell.get('name')
+                        if int(cell.get('colspan')) > 1 or int(cell.get('rowspan')) > 1:
+                            colspan = int(cell.get('colspan')) or 1
+                            rowspan = int(cell.get('rowspan')) or 1
+                            sheet.merge_range(y + y_offset, x_index, y + y_offset + (rowspan - 1),
+                                              x_index + (colspan - 1), cell_name, style)
+                            if colspan > 1:
+                                x_index += (colspan - 1)
+                        else:
+                            sheet.write(y + y_offset, x_index, cell_name, style)
+                        x_index += 1
                 else:
-                    if lines[y].get('reference') or lines[0].get('reference'):
-                        loc_style = copy.copy(style)
-                        loc_style.set_align('left')
-                        workbook.formats.append(loc_style)
-                        cell_name = lines[y].get('reference')
-                        if lines[y].get('reference') == 'REF':
-                            sheet.merge_range(y + y_offset, x_index, y + y_offset + 1, x_index, cell_name, loc_style)
-                            x_index += 1
-                        else:
-                            sheet.write(y + y_offset, x_index, cell_name, loc_style)
-                            x_index += 1
-
-                    # write the first column, with a specific style to manage the indentation
-                    cell_name = lines[y].get('name')              #E~  lines[y]['name']
-
-                    if cell_name:
-                        if isinstance(cell_name, list):
-                            cell_name = str()
-                            for i in lines[y].get('name'):
-                                cell_name += i
-                                cell_name += '\n' if len(lines[y].get('name')) > 1 else ''
-                        if lines[y].get('reference') == 'REF':
+                    if lines[y].get('note') == 'NET':
+                        for x in range(1, len(lines[y]['columns']) + 1):
+                            cell = lines[y]['columns'][x - 1]
                             loc_style = copy.copy(style)
                             loc_style.set_align('center')
                             workbook.formats.append(loc_style)
-                            sheet.merge_range(y + y_offset, x_index, y + y_offset + 1, x_index, cell_name, loc_style)
-                            x_index += 1
-                        elif self.code in ['N2']:
+                            sheet.write(y + y_offset, net_x, cell.get('name', ''), loc_style)
+                            net_x += 1
+                    else:
+                        if lines[y].get('reference') or lines[0].get('reference'):
                             loc_style = copy.copy(style)
-                            loc_style.set_align('center')
-                            loc_style.set_align('vcenter')
+                            loc_style.set_align('left')
                             workbook.formats.append(loc_style)
-                            sheet.merge_range(y + y_offset, x_index, y + y_offset, x_index + 7, cell_name, loc_style)
-                            x_index += 8
-                        else:
-                            if lines[y].get('header') is True:
+                            cell_name = lines[y].get('reference')
+                            if lines[y].get('reference') == 'REF':
+                                sheet.merge_range(y + y_offset, x_index, y + y_offset + 1, x_index, cell_name, loc_style)
+                                x_index += 1
+                            else:
+                                sheet.write(y + y_offset, x_index, cell_name, loc_style)
+                                x_index += 1
+
+                        # write the first column, with a specific style to manage the indentation
+                        cell_name = lines[y].get('name')              #E~  lines[y]['name']
+
+                        if cell_name:
+                            if isinstance(cell_name, list):
+                                cell_name = str()
+                                for i in lines[y].get('name'):
+                                    cell_name += i
+                                    cell_name += '\n' if len(lines[y].get('name')) > 1 else ''
+                            if lines[y].get('reference') == 'REF':
                                 loc_style = copy.copy(style)
                                 loc_style.set_align('center')
                                 workbook.formats.append(loc_style)
-                                if lines[y].get('colspan') > 1 or lines[y].get('rowspan') > 1:
-                                    colspan = lines[y].get('colspan')
-                                    rowspan = lines[y].get('rowspan')
-                                    sheet.merge_range(y + y_offset, x_index, y + y_offset + (rowspan - 1),
-                                                      x_index + (colspan - 1), cell_name, loc_style)
-                                    if colspan > 1:
-                                        x_index += (colspan - 1)
-                                else:
-                                    sheet.write(y + y_offset, x_index, cell_name, loc_style)
+                                sheet.merge_range(y + y_offset, x_index, y + y_offset + 1, x_index, cell_name, loc_style)
                                 x_index += 1
+                            elif self.code in ['N2']:
+                                loc_style = copy.copy(style)
+                                loc_style.set_align('center')
+                                loc_style.set_align('vcenter')
+                                workbook.formats.append(loc_style)
+                                sheet.merge_range(y + y_offset, x_index, y + y_offset, x_index + 7, cell_name, loc_style)
+                                x_index += 8
                             else:
-                                if lines[y].get('colspan') > 1 or lines[y].get('rowspan') > 1:
-                                    colspan = lines[y].get('colspan')
-                                    rowspan = lines[y].get('rowspan')
-                                    sheet.merge_range(y + y_offset, x_index, y + y_offset + (rowspan - 1),
-                                                      x_index + (colspan - 1), cell_name, style)
-                                    if colspan > 1:
-                                        x_index += (colspan - 1)
+                                if lines[y].get('header') is True:
+                                    loc_style = copy.copy(style)
+                                    loc_style.set_align('center')
+                                    workbook.formats.append(loc_style)
+                                    if lines[y].get('colspan') > 1 or lines[y].get('rowspan') > 1:
+                                        colspan = lines[y].get('colspan')
+                                        rowspan = lines[y].get('rowspan')
+                                        sheet.merge_range(y + y_offset, x_index, y + y_offset + (rowspan - 1),
+                                                          x_index + (colspan - 1), cell_name, loc_style)
+                                        if colspan > 1:
+                                            x_index += (colspan - 1)
+                                    else:
+                                        sheet.write(y + y_offset, x_index, cell_name, loc_style)
+                                    x_index += 1
                                 else:
-                                    sheet.write(y + y_offset, x_index, cell_name, style)
-                                x_index += 1
+                                    if lines[y].get('colspan') > 1 or lines[y].get('rowspan') > 1:
+                                        colspan = lines[y].get('colspan')
+                                        rowspan = lines[y].get('rowspan')
+                                        sheet.merge_range(y + y_offset, x_index, y + y_offset + (rowspan - 1),
+                                                          x_index + (colspan - 1), cell_name, style)
+                                        if colspan > 1:
+                                            x_index += (colspan - 1)
+                                    else:
+                                        sheet.write(y + y_offset, x_index, cell_name, style)
+                                    x_index += 1
 
-                    if lines[y].get('symbol') != 'none':
-                        loc_style = copy.copy(style)
-                        loc_style.set_align('center')
-                        workbook.formats.append(loc_style)
-                        cell_name = lines[y].get('symbol')
-                        if lines[y].get('reference') == 'REF':
-                            sheet.merge_range(y + y_offset, x_index, y + y_offset + 1, x_index, cell_name, loc_style)
-                            x_index += 1
-                        else:
-                            sheet.write(y + y_offset, x_index, cell_name, loc_style)
-                            x_index += 1
-
-                    if lines[y].get('note') != 'none' and lines[y].get('note') != None:
-                        loc_style = copy.copy(style)
-                        loc_style.set_align('center')
-                        workbook.formats.append(loc_style)
-                        cell_name = lines[y].get('note')
-                        if lines[y].get('reference') == 'REF':
-                            sheet.merge_range(y + y_offset, x_index, y + y_offset + 1, x_index, cell_name, loc_style)
-                            x_index += 1
-                        else:
-                            sheet.write(y + y_offset, x_index, cell_name, loc_style)
-                            x_index += 1
-
-                    # write all the remaining cells
-                    for x in range(1, len(lines[y]['columns']) + 1):
-                        cell = lines[y]['columns'][x - 1]
-                        if lines[y].get('reference') == 'REF' or lines[y].get('header') is True:
-                            if x == 1:
-                                net_x = x_index
+                        if lines[y].get('symbol') != 'none':
                             loc_style = copy.copy(style)
                             loc_style.set_align('center')
                             workbook.formats.append(loc_style)
-                            # sheet.set_column(y + y_offset, x_index, 10)
-                        else:
-                            loc_style = copy.copy(style)
-                            loc_style.set_align('right')
-                            workbook.formats.append(loc_style)
-
-                        if lines[y].get('colspan0') == 3 and x == 1\
-                                and options['comparison']['filter'] == 'no_comparison':
-                            cell_name = str()
-                            for i in cell.get('name', ''):
-                                cell_name += i
-                                cell_name += '\n'
-                            sheet.merge_range(y + y_offset, x_index, y + y_offset, x_index + 2, cell_name, loc_style)
-                            x_index += 3
-                        elif isinstance(cell.get('name', ''), list):
-                            cell_name = str()
-                            for i in cell.get('name', ''):
-                                cell_name += i
-                                cell_name += '\n' if len(cell.get('name', '')) > 1 else ''
-                            if lines[y]['columns'][x - 1].get('colspan') or lines[y]['columns'][x - 1].get('rowspan'):
-                                # import wdb
-                                # wdb.set_trace()
-                                if lines[y]['columns'][x - 1].get('colspan') > 1 or lines[y]['columns'][x - 1].get('rowspan') > 1:
-                                    colspan = lines[y]['columns'][x - 1].get('colspan') or 1
-                                    rowspan = lines[y]['columns'][x - 1].get('rowspan') or 1
-                                    sheet.merge_range(y + y_offset, x_index, y + y_offset + (rowspan - 1), x_index + (colspan - 1), cell_name, loc_style)
-                                    if colspan > 1:
-                                        x_index += (colspan - 1)
-                                else:
-                                    sheet.write(y + y_offset, x_index, cell_name, loc_style)
+                            cell_name = lines[y].get('symbol')
+                            if lines[y].get('reference') == 'REF':
+                                sheet.merge_range(y + y_offset, x_index, y + y_offset + 1, x_index, cell_name, loc_style)
+                                x_index += 1
                             else:
                                 sheet.write(y + y_offset, x_index, cell_name, loc_style)
-                            x_index += 1
-                        else:
-                            sheet.write(y + y_offset, x_index, cell.get('name', ''), loc_style)
-                            x_index += 1
+                                x_index += 1
+
+                        if lines[y].get('note') != 'none' and lines[y].get('note') != None:
+                            loc_style = copy.copy(style)
+                            loc_style.set_align('center')
+                            workbook.formats.append(loc_style)
+                            cell_name = lines[y].get('note')
+                            if lines[y].get('reference') == 'REF':
+                                sheet.merge_range(y + y_offset, x_index, y + y_offset + 1, x_index, cell_name, loc_style)
+                                x_index += 1
+                            else:
+                                sheet.write(y + y_offset, x_index, cell_name, loc_style)
+                                x_index += 1
+
+                        # write all the remaining cells
+                        for x in range(1, len(lines[y]['columns']) + 1):
+                            cell = lines[y]['columns'][x - 1]
+                            if lines[y].get('reference') == 'REF' or lines[y].get('header') is True:
+                                if x == 1:
+                                    net_x = x_index
+                                loc_style = copy.copy(style)
+                                loc_style.set_align('center')
+                                workbook.formats.append(loc_style)
+                                # sheet.set_column(y + y_offset, x_index, 10)
+                            else:
+                                loc_style = copy.copy(style)
+                                loc_style.set_align('right')
+                                workbook.formats.append(loc_style)
+
+                            if lines[y].get('colspan0') == 3 and x == 1\
+                                    and options['comparison']['filter'] == 'no_comparison':
+                                cell_name = str()
+                                for i in cell.get('name', ''):
+                                    cell_name += i
+                                    cell_name += '\n'
+                                sheet.merge_range(y + y_offset, x_index, y + y_offset, x_index + 2, cell_name, loc_style)
+                                x_index += 3
+                            elif isinstance(cell.get('name', ''), list):
+                                cell_name = str()
+                                for i in cell.get('name', ''):
+                                    cell_name += i
+                                    cell_name += '\n' if len(cell.get('name', '')) > 1 else ''
+                                if lines[y]['columns'][x - 1].get('colspan') or lines[y]['columns'][x - 1].get('rowspan'):
+                                    if lines[y]['columns'][x - 1].get('colspan') > 1 or lines[y]['columns'][x - 1].get('rowspan') > 1:
+                                        colspan = lines[y]['columns'][x - 1].get('colspan') or 1
+                                        rowspan = lines[y]['columns'][x - 1].get('rowspan') or 1
+                                        sheet.merge_range(y + y_offset, x_index, y + y_offset + (rowspan - 1), x_index + (colspan - 1), cell_name, loc_style)
+                                        if colspan > 1:
+                                            x_index += (colspan - 1)
+                                    else:
+                                        sheet.write(y + y_offset, x_index, cell_name, loc_style)
+                                else:
+                                    sheet.write(y + y_offset, x_index, cell_name, loc_style)
+                                x_index += 1
+                            else:
+                                sheet.write(y + y_offset, x_index, cell.get('name', ''), loc_style)
+                                x_index += 1
             self.x_index = x_index
         if self.code == 'BS':
         #    if not options['date'].get('date_from'):                                       #E-
@@ -1700,7 +1678,16 @@ class OhadaReport(models.AbstractModel):
             sheet.merge_range(5, 1, 5, self.x_index - 1, (header.get('title') or ''), title_style)
 
         #make double border
-        if self.double_report is False and self.code != 'N27B':
+        if self.code == 'S2':
+            sheet.merge_range(6, 1, 6, self.x_index - 1, '', top_border)
+            sheet.merge_range(len(lines) + 7, 1, len(lines) + 7, self.x_index - 1, '', bottom_border)
+            sheet.merge_range(24, 1, 24, self.x_index - 1, '', top_border)
+            sheet.merge_range(21, 1, 21, self.x_index - 1, '', bottom_border)
+            sheet.merge_range(7, 0, 20, 0, '', left_border)
+            sheet.merge_range(7, self.x_index, 20, self.x_index, '', right_border)
+            sheet.merge_range(25, 0, 46, 0, '', left_border)
+            sheet.merge_range(25, self.x_index, 46, self.x_index, '', right_border)
+        elif self.double_report is False and self.code != 'N27B':
             sheet.merge_range(6, 1, 6, self.x_index - 1, '', top_border)
             sheet.merge_range(len(lines) + 7, 1, len(lines) + 7, self.x_index - 1, '', bottom_border)
             sheet.merge_range(7, 0, len(lines) + 6, 0, '', left_border)

@@ -2114,11 +2114,6 @@
                 <field name="column_id" ref="ohada_custom_columns_sheet_r3_1_1"/>
             </record>
 
-            <record id="ohada_custom_columns_sheet_r3_1_1_4" model="ohada.cell.style">
-                <field name="name">N° identification|fiscale</field>
-                <field name="column_id" ref="ohada_custom_columns_sheet_r3_1_1"/>
-            </record>
-
             <record id="ohada_custom_columns_sheet_r3_1_1_5" model="ohada.cell.style">
                 <field name="name">Adresse (BP, ville, pays)</field>
                 <field name="column_id" ref="ohada_custom_columns_sheet_r3_1_1"/>

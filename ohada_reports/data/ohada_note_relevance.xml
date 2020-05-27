@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <function model="note.relevance" name="_init_note_relevance"
+        eval="[True, False]"/>
+    </data>
+</odoo>

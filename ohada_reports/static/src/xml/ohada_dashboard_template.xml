@@ -47,23 +47,6 @@
                                 <t t-esc="widget.data['company_name']"/>
                             </div>
                             <div class="col-md-5 col-lg-5" style="float:left; margin-left:10px;">
-                            <!--
-                                <select class="o_input o_mrp_bom_report_variants" style="width: 75px; float:left; padding-left: 3px; margin-right:15px;" id="change_year">
-                                    <t t-foreach="widget.data['years']" t-as="year">
-                                        <option t-att-value="year" t-att-selected="widget.data['this_year'] == year ? 'selected' : None">
-                                            <t t-esc="year" />
-                                        </option>
-                                    </t>
-                                </select>
-                                <select class="o_input o_mrp_bom_report_variants" style="width: 270px; float:left; padding-left: 3px;" id="change_all_entries">
-                                    <option value="False" t-att-selected="widget.data['options']['all_entries'] == false ? 'selected' : None">
-                                        Hide Unposted Entries
-                                    </option>
-                                    <option value="True" t-att-selected="widget.data['options']['all_entries'] == true ? 'selected' : None">
-                                        Include Unposted Entries
-                                    </option>
-                                </select>
-                            -->
                             </div>
                             <div class="col-md-3 col-lg-3">
                                 <img t-att-src="'/ohada_reports/static/img/ohada.png'" style="float: right; width: 42px; height: 40px;"/>
@@ -262,9 +245,6 @@
                             </div>
                         </div>
                         <svg id="chart3" class="o_graph_linechart" style="height:100px;"/>
-                        <!--<div class="monthly_join_resign_trend">-->
-                            <!--<div class="join_resign_trend" style="margin-top:-10px !important;margin-left:20px;padding:0px;" />-->
-                        <!--</div>-->
                      </div>
 
                 </div>
@@ -285,7 +265,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </t>
 

@@ -122,5 +122,52 @@
         </record>
         <menuitem id="menu_ohada_financial_reports_tree" name="Financial Statements" parent="menu_ohada_configuration" action="ohada_reports.action_ohada_financial_report_tree" groups="base.group_no_one"/>
 
+        <record id="ohada_bundle_report_tree_view" model="ir.ui.view">
+            <field name="name">Bundle/R4 report</field>
+            <field name="model">note.relevance</field>
+            <field name="arch" type="xml">
+                <tree string="Bundle/R4 report">
+                    <field name="fiscalyear"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+		 </record>
+
+        <record id="ohada_bundle_report_action" model="ir.actions.act_window">
+			<field name="name">Bundle/R4 report</field>
+			<field name="res_model">note.relevance</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click here to create</p>
+			</field>
+		</record>
+
+        <record id="ohada_bundle_report_view" model="ir.ui.view">
+			<field name="name">Bundle/R4 report</field>
+			<field name="model">note.relevance</field>
+			<field name="arch" type="xml">
+				<form string="Bundle/R4 report">
+					<sheet>
+						<div class="oe_title">
+							<h3>
+								Bundle/R4 report
+							</h3>
+						</div>
+						<group>
+							<group>
+								<field name="company_id"/>
+								<field name="fiscalyear"/>
+								<field name="note_report_id"/>
+								<field name="relevant"/>
+							</group>
+                        </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+        <menuitem id="menu_ohada_bundle_report_tree" name="Bundle/R4 report" parent="menu_ohada_configuration" action="ohada_reports.ohada_bundle_report_action" groups="account.group_account_manager"/>
+
     </data>
 </odoo>

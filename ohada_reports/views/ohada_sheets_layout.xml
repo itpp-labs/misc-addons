@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <template id="sheet_r2_template">
+        <template id="sheet_r2_old_template">
             <table style="width:100%;" cellspacing="0" border="0">
                 <colgroup width="23"></colgroup>
                 <colgroup width="7"></colgroup>
@@ -168,8 +168,8 @@
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="17" align="center" bgcolor="#FFDCDC">ZM</td>
                     <td align="left"><br/></td>
                     <td colspan="12" align="left">Pays du siège social</td>
-                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><t t-esc="report.get('company_hcc2')[0]"/></td>
-                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><t t-esc="report.get('company_hcc2')[1]"/></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><t t-if="report.get('company_hcc2')"><t t-esc="report.get('company_hcc2')[0]"/></t></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><t t-if="len(report.get('company_hcc2')) > 1"><t t-esc="report.get('company_hcc2')[1]"/></t></td>
                     <td align="left"><br/></td>
                     <td align="left"><br/></td>
                     <td align="left"><br/></td>
@@ -231,8 +231,8 @@
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="17" align="center" bgcolor="#FFDCDC">ZN</td>
                     <td align="left"><br/></td>
                     <td colspan="12" align="left">Nombre d'établissements dans le pays</td>
-                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><t t-esc="report.get('company_naic')[0]"/></td>
-                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><t t-esc="report.get('company_naic')[1]"/></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><t t-if="report.get('company_naic')"><t t-esc="report.get('company_naic')[0]"/></t></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><t t-if="len(report.get('company_naic')) > 1"><t t-esc="report.get('company_naic')[1]"/></t></td>
                     <td align="left"><br/></td>
                     <td align="left"><br/></td>
                     <td align="left"><br/></td>
@@ -304,8 +304,8 @@
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="17" align="center" bgcolor="#FFDCDC">ZO</td>
                     <td align="left"><br/></td>
                     <td colspan="12" align="left">Nombre d'établissements hors du pays pour</td>
-                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><t t-esc="report.get('company_naoc')[0]"/></td>
-                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><t t-esc="report.get('company_naoc')[1]"/></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><t t-if="report.get('company_naoc')"><t t-esc="report.get('company_naoc')[0]"/></t></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><t t-if="len(report.get('company_naoc')) > 1"><t t-esc="report.get('company_naoc')[1]"/></t></td>
                     <td align="left"><br/></td>
                     <td align="left"><br/></td>
                     <td align="left"><br/></td>
@@ -1010,7 +1010,7 @@
                     <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan="4" align="left"><b>TOTAL</b></td>
                     <td style="border-top: 1px solid #000000; "><b></b></td>
                     <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" colspan="9" align="center" sdnum="1033;0;#,##0"></td>
-                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="12" align="center" sdnum="1033;0;0%"><t t-esc="report.get('s1_total')"/></td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="12" align="center" sdnum="1033;0;0%"><t t-esc="report.get('s2_total')"/></td>
                     <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; " colspan="3" align="right" bgcolor="#B3CDE0"></td>
                     </tr>
                 </tbody>
@@ -1262,7 +1262,7 @@
                         <td align="center"></td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC">ZA</td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC" class="box">ZA</td>
                         <td align="left"></td>
                         <td colspan="13" align="left">EXERCICE COMPTABLE:</td>
                         <td align="left"></td>
@@ -1312,7 +1312,7 @@
                         <td align="center"></td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC">ZB</td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC" class="box">ZB</td>
                         <td align="left"></td>
                         <td colspan="10" align="left">DATE D'ARRET EFFECTIF DES COMPTES:</td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="3" align="left" sdnum="1033;0;DD/MM/YYYY">31/12/<t t-esc="report.get('year')"/></td>
@@ -1367,7 +1367,7 @@
                         <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC">ZC</td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC" class="box">ZC</td>
                         <td align="left"></td>
                         <td colspan="10" align="left">EXERCICE PRECEDENT CLOS LE:</td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="3" align="left" sdnum="1033;0;DD/MM/YYYY">31/12/<t t-esc="report.get('prev_year')"/></td>
@@ -1415,7 +1415,7 @@
                         <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC">ZD</td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC" class="box">ZD</td>
                         <td align="left"></td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="7" align="left"><t t-esc="report.get('company_office')"/></td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="6" align="left"><t t-esc="report.get('company_rccm')"/></td>
@@ -1443,7 +1443,7 @@
                         <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC">ZE</td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC" class="box">ZE</td>
                         <td align="left"></td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="7" align="left"><t t-esc="report.get('company_social_registry_id')"/></td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="6" align="left"></td>
@@ -1479,7 +1479,7 @@
                         <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC">ZF</td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC" class="box">ZF</td>
                         <td align="left"></td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="13" align="left"><t t-esc="report.get('company_legal_name')"/></td>
                         <td align="left"></td>
@@ -1513,7 +1513,7 @@
                         <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC">ZG</td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC" class="box">ZG</td>
                         <td align="left"></td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="4" align="left"><t t-esc="report.get('company_phone')"/></td>
                         <td align="left"></td>
@@ -1543,7 +1543,7 @@
                         <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC">ZH</td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC" class="box">ZH</td>
                         <td align="left"></td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="28" align="left"><t t-esc="report.get('company_address')"/></td>
                         <td align="left"></td>
@@ -1555,7 +1555,7 @@
                         <td align="left"></td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC">ZI</td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" height="16" align="center" bgcolor="#FFDCDC" class="box">ZI</td>
                         <td align="left"></td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="28" align="left"></td>
                         <td align="left"></td>
@@ -1717,10 +1717,10 @@
                     <tr>
                         <td height="16" align="left"></td>
                         <td align="left"></td>
-                        <td colspan="13" align="left">Visa de l'Expert comptable ou du Comptable agré</td>
-                        <td align="left"></td>
-                        <td align="left"></td>
-                        <td align="left"></td>
+                        <td colspan="13" align="left" style="border-top: 1px solid #000000;">Visa de l'Expert comptable ou du Comptable agré</td>
+                        <td align="left" style="border-top: 1px solid #000000;"></td>
+                        <td align="left" style="border-top: 1px solid #000000;"></td>
+                        <td align="left" style="border-top: 1px solid #000000;"></td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
@@ -1841,7 +1841,7 @@
                     <tr>
                         <td height="16" align="left"></td>
                         <td align="left"></td>
-                        <td colspan="13" align="left">Signature</td>
+                        <td colspan="13" align="left" style="border-top: 1px solid #000000;">Signature</td>
                         <td align="left"></td>
                         <td align="left"></td>
                         <td align="left"></td>
@@ -2870,6 +2870,1327 @@
                     <td align="left"></td>
                     <td align="left"></td>
                     <td align="left"></td>
+                </tr>
+                </tbody>
+            </table>
+        </template>
+
+        <template id="sheet_r2_template">
+            <table style="width:100%;color:#001E5A;font-family:'NimbusSanL-Regu';" cellspacing="0" border="0">
+                <colgroup width="23"></colgroup>
+                <colgroup width="7"></colgroup>
+                <colgroup span="23" width="23"></colgroup>
+                <colgroup width="7"></colgroup>
+                <colgroup span="11" width="23"></colgroup>
+                <colgroup width="37"></colgroup>
+                <colgroup width="22"></colgroup>
+                <colgroup width="33"></colgroup>
+                <tbody class="ohada_table" style="border:none;">
+                <tr class="ohada_cell_box_top">
+                    <td  height="17" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"><b></b></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td colspan="3" align="center" sdnum="1033;0;DD/MM/YYYY"><b></b></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-bottom: 1px solid #001e5a; border-left: 1px solid #001e5a" colspan="13" align="left">Contrôle de l'Entreprise (cocher la case)</td>
+                    <td style="border-bottom: 1px solid #001e5a" align="left"></td>
+                    <td style="border-bottom: 1px solid #001e5a" align="left"></td>
+                    <td style="border-bottom: 1px solid #001e5a;" align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box">
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; ; border-right: 1px solid #000000" height="18" align="center" bgcolor="#FFDCDC">ZK</td>
+                    <td align="left"></td>
+                    <td colspan="11" align="left">Forme juridique</td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b></b></td>
+                    <t t-if="report.get('company_legal_code')">
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-if="report.get('company_legal_code')"><t t-esc="report.get('company_legal_code')[0]"/></t></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-if="len(report.get('company_legal_code')) > 1"><t t-esc="report.get('company_legal_code')[1]"/></t></td>
+                    </t>
+                    <t t-else="">
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
+                    </t>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-top: 1px solid #001e5a; border-left: 1px solid #001e5a" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box">
+                    <td  height="17" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b></b></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #001e5a; border-right: 1px solid #000000" align="center" bgcolor="#FFDCDC">ZQ</td>
+                    <td align="left"></td>
+                    <td colspan="10" align="left">Entreprise sous contrôle public</td>
+                    <td align="left"></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                    <td align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box">
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; ; border-right: 1px solid #000000" height="17" align="center" bgcolor="#FFDCDC">Zl</td>
+                    <td align="left"></td>
+                    <td colspan="11" align="left">Régime  fiscal</td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b></b></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('company_fiscal_regime')"/></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box">
+                    <td  height="17" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b></b></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #001e5a; border-right: 1px solid #000000" align="center" bgcolor="#FFDCDC">ZR</td>
+                    <td align="left"></td>
+                    <td colspan="10" align="left">Entreprise sous contrôle privé national</td>
+                    <td align="left"></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                    <td align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box">
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; ; border-right: 1px solid #000000" height="17" align="center" bgcolor="#FFDCDC">ZM</td>
+                    <td align="left"></td>
+                    <td colspan="11" align="left">Pays du siège social</td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b></b></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-if="report.get('company_hcc2')"><t t-esc="report.get('company_hcc2')[0]"/></t></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-if="len(report.get('company_hcc2')) > 1"><t t-esc="report.get('company_hcc2')[1]"/></t></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box">
+                    <td  height="17" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b></b></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #001e5a; border-right: 1px solid #000000" align="center" bgcolor="#FFDCDC">ZS</td>
+                    <td align="left"></td>
+                    <td colspan="10" align="left">Entreprise sous contrôle privé étranger</td>
+                    <td align="left"></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                    <td align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box">
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; ; border-right: 1px solid #000000" height="17" align="center" bgcolor="#FFDCDC">ZN</td>
+                    <td align="left"></td>
+                    <td colspan="11" align="left">Nombre d'établissements dans le pays</td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b></b></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-if="report.get('company_naic')"><t t-esc="report.get('company_naic')[0]"/></t></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-if="len(report.get('company_naic')) > 1"><t t-esc="report.get('company_naic')[1]"/></t></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box">
+                    <td  height="16" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b></b></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box">
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; ; border-right: 1px solid #000000" height="17" align="center" bgcolor="#FFDCDC">ZO</td>
+                    <td align="left"></td>
+                    <td colspan="11" align="left">Nombre d'établissements hors du pays pour</td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b></b></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-if="report.get('company_naoc')"><t t-esc="report.get('company_naoc')[0]"/></t></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-if="len(report.get('company_naoc')) > 1"><t t-esc="report.get('company_naoc')[1]"/></t></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box">
+                    <td  height="17" align="left"></td>
+                    <td align="left"></td>
+                    <td colspan="11" align="left">lesquels une comptabilité distincte est tenue</td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b></b></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box">
+                    <td  height="16" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b></b></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box">
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; ; border-right: 1px solid #000000" height="17" align="center" bgcolor="#FFDCDC">ZP</td>
+                    <td align="left"></td>
+                    <td colspan="11" align="left">Première année d'exercice dans le pays</td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b></b></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-left: 1px solid #001e5a" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box_bottom">
+                    <td height="16" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b></b></td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b></b></td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b></b></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style=" border-left: 1px solid #001e5a" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style=" border-left: 1px solid #001e5a" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                </tr>
+                <tr style="border-left:none;border-right:none;">
+                    <td height="16" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"><b></b></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b></b></td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b></b></td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b></b></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"><b></b></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                </tr>
+                <tr style="border-left:none;border-right:none;">
+                    <td height="16" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"><b></b></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b></b></td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b></b></td>
+                    <td align="center" sdnum="1033;0;DD/MM/YYYY"><b></b></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"><b></b></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                </tr>
+                <tr style="border-left:none;border-right:none;">
+                    <td colspan="40" height="21" align="center"><b>ACTIVITE DE L'ENTITE</b></td>
+                </tr>
+                <tr style="border-left:none;border-right:none;">
+                    <td height="16" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box_top">
+                    <td colspan="11" height="17" align="center" bgcolor="#CDEBFF"><b></b></td>
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="14" align="center" valign="middle" bgcolor="#CDEBFF"><b></b></td>
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="12" align="center" bgcolor="#CDEBFF"><b>Chiffre d'affaires HT (CA HT)</b></td>
+                    <td style="border-left: 1px solid #000000;" colspan="3" align="center" bgcolor="#CDEBFF"><b>% activité</b></td>
+                    </tr>
+                <tr class="ohada_cell_box">
+                    <td colspan="11" height="16" align="center" bgcolor="#CDEBFF"><b>Désigntion de l'activité</b></td>
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="14" align="center" valign="middle" bgcolor="#CDEBFF"><b>Code nomenclature d'activité</b></td>
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="12" align="center" bgcolor="#CDEBFF"><b> ou </b></td>
+                    <td style="border-left: 1px solid #000000;" colspan="3" align="center" bgcolor="#CDEBFF"><b>dans le CA</b></td>
+                    </tr>
+                <tr class="ohada_cell_box">
+                    <td style="border-bottom: 1px solid #000000;" colspan="11" height="16" align="center" bgcolor="#CDEBFF"><b></b></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="14" align="center" valign="middle" bgcolor="#CDEBFF"><b></b></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="12" align="center" bgcolor="#CDEBFF"><b>Valeur Ajoutée (VA)</b></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000;" colspan="3" align="center" bgcolor="#CDEBFF"><b>HT ou la VA</b></td>
+                    </tr>
+                <tr class="ohada_cell_box">
+                    <td height="6" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-top: 1px solid #000000" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-top: 1px solid #000000" align="left"></td>
+                    <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-top: 1px solid #000000" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-left: 1px solid #000000" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-right: 1px solid #000000" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box">
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="11" height="17" align="left"><t t-if="len(report.get('activity_ids')) > 0"><t t-esc="report.get('activity_ids')[0]['name']"/></t></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <td style="border-right: 1px solid #000000" align="center"></td>
+                    <t t-if="len(report.get('activity_ids')) > 0">
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[0]['code'][0]"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[0]['code'][1]"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[0]['code'][2]"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[0]['code'][3]"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[0]['code'][4]"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[0]['code'][5]"/></td>
+                    </t>
+                    <t t-else="">
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                    </t>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-right: 1px solid #000000" align="left" sdnum="1033;0;#,##0"></td>
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="12" align="center"><t t-if="len(report.get('activity_ids')) > 0"><t t-esc="report.get('activity_ids')[0]['amount']"/></t></td>
+                    <td style="border-left: 1px solid #000000;" colspan="3" align="center" sdnum="1033;0;0%"><t t-if="len(report.get('activity_ids')) > 0"><t t-esc="report.get('activity_ids')[0]['percentage']"/></t></td>
+                    </tr>
+                <tr class="ohada_cell_box">
+                    <td style="border-bottom: 1px solid #000000;" height="6" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000;" align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box">
+                    <td height="6" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-right: 1px solid #000000" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-left: 1px solid #000000" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-left: 1px solid #000000" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box">
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="11" height="17" align="left"><t t-if="len(report.get('activity_ids')) > 1"><t t-esc="report.get('activity_ids')[1]['name']"/></t></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <td style="border-right: 1px solid #000000" align="center"></td>
+                    <t t-if="len(report.get('activity_ids')) > 1">
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[1]['code'][0]"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[1]['code'][1]"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[1]['code'][2]"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[1]['code'][3]"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[1]['code'][4]"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[1]['code'][5]"/></td>
+                    </t>
+                    <t t-else="">
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                    </t>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="12" align="center"><t t-if="len(report.get('activity_ids')) > 1"><t t-esc="report.get('activity_ids')[1]['amount']"/></t></td>
+                    <td style="border-left: 1px solid #000000;" colspan="3" align="center"><t t-if="len(report.get('activity_ids')) > 1"><t t-esc="report.get('activity_ids')[1]['percentage']"/></t></td>
+                    </tr>
+                <tr class="ohada_cell_box">
+                    <td style="border-bottom: 1px solid #000000;" height="6" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000;" align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box">
+                    <td height="6" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-right: 1px solid #000000" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-left: 1px solid #000000" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-left: 1px solid #000000" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box">
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="11" height="17" align="left"><t t-if="len(report.get('activity_ids')) > 2"><t t-esc="report.get('activity_ids')[2]['name']"/></t></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <td style="border-right: 1px solid #000000" align="center"></td>
+                    <t t-if="len(report.get('activity_ids')) > 2">
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[2]['code'][0]"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[2]['code'][1]"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[2]['code'][2]"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[2]['code'][3]"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[2]['code'][4]"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[2]['code'][5]"/></td>
+                    </t>
+                    <t t-else="">
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                    </t>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="12" align="center"><t t-if="len(report.get('activity_ids')) > 2"><t t-esc="report.get('activity_ids')[2]['amount']"/></t></td>
+                    <td style="border-left: 1px solid #000000;" colspan="3" align="center"><t t-if="len(report.get('activity_ids')) > 2"><t t-esc="report.get('activity_ids')[2]['percentage']"/></t></td>
+                    </tr>
+                <tr class="ohada_cell_box">
+                    <td style="border-bottom: 1px solid #000000;" height="6" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000;" align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box">
+                    <td height="6" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-right: 1px solid #000000" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-left: 1px solid #000000" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-left: 1px solid #000000" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box">
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="11" height="17" align="left"><t t-if="len(report.get('activity_ids')) > 3"><t t-esc="report.get('activity_ids')[3]['name']"/></t></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <td style="border-right: 1px solid #000000" align="center"></td>
+                    <t t-if="len(report.get('activity_ids')) > 3">
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[3]['code'][0]"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[3]['code'][1]"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[3]['code'][2]"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[3]['code'][3]"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[3]['code'][4]"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[3]['code'][5]"/></td>
+                    </t>
+                    <t t-else="">
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                    </t>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="12" align="center"><t t-if="len(report.get('activity_ids')) > 3"><t t-esc="report.get('activity_ids')[3]['amount']"/></t></td>
+                    <td style="border-left: 1px solid #000000;" colspan="3" align="center"><t t-if="len(report.get('activity_ids')) > 3"><t t-esc="report.get('activity_ids')[3]['percentage']"/></t></td>
+                    </tr>
+                <tr class="ohada_cell_box">
+                    <td style="border-bottom: 1px solid #000000;" height="6" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000;" align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box">
+                    <td height="6" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-right: 1px solid #000000" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-left: 1px solid #000000" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-left: 1px solid #000000" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box">
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="11" height="17" align="left"><t t-if="len(report.get('activity_ids')) > 4"><t t-esc="report.get('activity_ids')[4]['name']"/></t></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <td style="border-right: 1px solid #000000" align="center"></td>
+                    <t t-if="len(report.get('activity_ids')) > 4">
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[4]['code'][0]"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[4]['code'][1]"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[4]['code'][2]"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[4]['code'][3]"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[4]['code'][4]"/></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"><t t-esc="report.get('activity_ids')[4]['code'][5]"/></td>
+                    </t>
+                    <t t-else="">
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                    </t>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="12" align="center"><t t-if="len(report.get('activity_ids')) > 4"><t t-esc="report.get('activity_ids')[4]['amount']"/></t></td>
+                    <td style="border-left: 1px solid #000000;" colspan="3" align="center"><t t-if="len(report.get('activity_ids')) > 4"><t t-esc="report.get('activity_ids')[4]['percentage']"/></t></td>
+                    </tr>
+                <tr class="ohada_cell_box">
+                    <td style="border-bottom: 1px solid #000000;" height="6" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000;" align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box">
+                    <td height="6" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-right: 1px solid #000000" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-left: 1px solid #000000" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-left: 1px solid #000000" align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box">
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="11" height="17" align="left">Divers</td>
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <td style="border-right: 1px solid #000000" align="center"></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                    <td style="border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="12" align="center"><t t-esc="report.get('drivers_sum')"/></td>
+                    <td style="border-left: 1px solid #000000;" colspan="3" align="center"><b><t t-esc="report.get('activity_perc')"/></b></td>
+                    </tr>
+                <tr class="ohada_cell_box">
+                    <td style="border-bottom: 1px solid #000000;" height="6" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000" align="left"></td>
+                    <td style="border-bottom: 1px solid #000000;" align="left"></td>
+                </tr>
+                <tr class="ohada_cell_box_bottom">
+                    <td style=" border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="11" height="26" align="left"></td>
+                    <td style="border-top: 1px solid #000000;  border-left: 1px solid #000000" colspan="4" align="left" valign="middle"><b>TOTAL</b></td>
+                    <td style="border-top: 1px solid #000000;" align="center" valign="middle"><b></b></td>
+                    <td style="border-top: 1px solid #000000;  border-right: 1px solid #000000" colspan="9" align="center" sdnum="1033;0;#,##0"></td>
+                    <td style="border-top: 1px solid #000000;  border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="12" align="center" sdnum="1033;0;0%"><t t-esc="report.get('s2_total')"/></td>
+                    <td style="border-top: 1px solid #000000;  border-left: 1px solid #000000;" colspan="3" align="right" valign="middle" bgcolor="#B3CDE0"></td>
                 </tr>
                 </tbody>
             </table>
