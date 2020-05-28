@@ -1,3 +1,7 @@
+`3.1.0`
+-------
+- **New:** Different template users for each website
+
 `3.0.4`
 -------
 - **Fix:** Incorrect return data in get_multi in case of 'many2one' field, id instead of a record
