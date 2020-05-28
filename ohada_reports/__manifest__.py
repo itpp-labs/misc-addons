@@ -48,6 +48,7 @@ Countries that use SYSCOHADA are the following:
     'qweb': [
         'static/src/xml/ohada_report_template.xml',
         'static/src/xml/ohada_dashboard_template.xml',
+        'static/src/xml/note_relevance_view.xml',
     ],
     'auto_install': False,
     'installable': True,

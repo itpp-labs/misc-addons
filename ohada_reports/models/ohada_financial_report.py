@@ -2244,10 +2244,13 @@ class OhadaNoteRelevance(models.Model):
                 context = {
                             'cash_basis':	None,
                             'company_ids':	[company.id],
-                            'date_from': str(YEAR) + '-01-01',
-                            'date_to':	str(YEAR) + '-12-31',
+                            'date_from': str(year) + '-01-01',
+                            'date_to':	str(year) + '-12-31',
                             'filter_domain':	False,
                             'id':	1,
+                            'no_format': True,
+                            'print_mode': True,
+                            'prefetch_fields': False,
                             'journal_ids':	[],
                             'lang':	'en_US',
                             'model':	'ohada.financial.html.report',
@@ -2258,31 +2261,85 @@ class OhadaNoteRelevance(models.Model):
                 options = reports.make_temp_options(year)
                 for note in reports:
                     print(note.code)
-                    self.check_note_relevance(note, context, year, options, company)
+                    note = note.with_context(context)
+                    self.check_note_relevance(note, year, options, company)
 
-    def check_note_relevance(self, note, context, year, options, company):
-        note = note.with_context(context)
+    def check_note_relevance(self, note, year, options, company):
+        related_note_relevance = self.env['note.relevance'].search([('note_report_id', '=', note.id),
+                                                                    ('fiscalyear', '=', str(year))])
         if note.mandatory_note is True:
-            self.create({
-                'fiscalyear': str(year),
-                'note_report_id': note.id,
-                'relevant': True,
-                'company_id': company.id,
-            })
-        else:
-            if note.code == 'N3D':
-                new_options = copy.deepcopy(options)
-                new_options['comparison']['periods'] = []
-                lines = note._get_lines(new_options)
+            if related_note_relevance and related_note_relevance.relevant is True:
+                return
+            elif related_note_relevance:
+                related_note_relevance.write({'relevant': True})
             else:
-                lines = note._get_lines(options)
-            for i in lines:
-                for name in i.get('columns'):
-                    if isinstance(name.get('no_format_name'), float) and name.get('no_format_name') != 0.0:
-                        self.create({
-                            'fiscalyear': str(year),
-                            'note_report_id': note.id,
-                            'relevant': True,
-                            'company_id': company.id,
-                        })
-                        return
+                self.create({
+                    'fiscalyear': str(year),
+                    'note_report_id': note.id,
+                    'relevant': True,
+                    'company_id': company.id,
+                })
+        else:
+            if related_note_relevance:
+                if note.code == 'N3D':
+                    new_options = copy.deepcopy(options)
+                    new_options['comparison']['periods'] = []
+                    lines = note._get_lines(new_options)
+                else:
+                    lines = note._get_lines(options)
+                for i in lines:
+                    for name in i.get('columns'):
+                        if isinstance(name.get('no_format_name'), float) and name.get('no_format_name') != 0.0:
+                            related_note_relevance.write({'relevant': True})
+                            return
+                    related_note_relevance.write({'relevant': False})
+            else:
+                if note.code == 'N3D':
+                    new_options = copy.deepcopy(options)
+                    new_options['comparison']['periods'] = []
+                    lines = note._get_lines(new_options)
+                else:
+                    lines = note._get_lines(options)
+                for i in lines:
+                    for name in i.get('columns'):
+                        if isinstance(name.get('no_format_name'), float) and name.get('no_format_name') != 0.0:
+                            self.create({
+                                'fiscalyear': str(year),
+                                'note_report_id': note.id,
+                                'relevant': True,
+                                'company_id': company.id,
+                            })
+                            return
+                self.create({
+                    'fiscalyear': str(year),
+                    'note_report_id': note.id,
+                    'relevant': False,
+                    'company_id': company.id,
+                })
+
+    def update_note_relevance(self):
+        company = self.env['res.users'].browse(self._uid).company_id
+        year = datetime.now().year
+        reports = self.env['ohada.financial.html.report'].search([('type', '=', 'note'), ('secondary', '=', False)])
+        context = {
+                    'cash_basis':	None,
+                    'company_ids':	[company.id],
+                    'date_from': str(year) + '-01-01',
+                    'date_to':	str(year) + '-12-31',
+                    'filter_domain':	False,
+                    'no_format': True,
+                    'print_mode': True,
+                    'prefetch_fields': False,
+                    'id':	1,
+                    'journal_ids':	[],
+                    'lang':	'en_US',
+                    'model':	'ohada.financial.html.report',
+                    'state':	'posted',
+                    'tz':	'Europe/Brussels',
+                    'uid':	2,
+                    }
+        options = reports.make_temp_options(year)
+        for note in reports:
+            print(note.code)
+            note = note.with_context(context)
+            self.check_note_relevance(note, year, options, company)

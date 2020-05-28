@@ -3,5 +3,11 @@
     <data noupdate="1">
         <function model="note.relevance" name="_init_note_relevance"
         eval="[True, False]"/>
+
+        <template id="note_relevance_backend" inherit_id="web.assets_backend" active="True">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/ohada_reports/static/src/js/note_relevance.js"></script>
+            </xpath>
+        </template>
     </data>
 </odoo>

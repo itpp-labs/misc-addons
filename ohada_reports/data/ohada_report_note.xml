@@ -2030,7 +2030,6 @@
         <field name="header">STOCKS ET EN COURS(1)</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
-        <field name="note_6" eval="True" />
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
     </record>
 
@@ -2053,7 +2052,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="5"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note6_matieres" model="ohada.financial.html.report.line">
@@ -2065,7 +2063,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="10"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note6_approv" model="ohada.financial.html.report.line">
@@ -2077,7 +2074,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="15"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note6_produits" model="ohada.financial.html.report.line">
@@ -2089,7 +2085,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="20"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note6_services" model="ohada.financial.html.report.line">
@@ -2101,7 +2096,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="25"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note6_produits_finis" model="ohada.financial.html.report.line">
@@ -2113,7 +2107,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="30"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note6_produits_intermediaires" model="ohada.financial.html.report.line">
@@ -2125,7 +2118,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="35"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note6_stock_in_transit" model="ohada.financial.html.report.line">
@@ -2137,7 +2129,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="40"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note6_total_brut" model="ohada.financial.html.report.line">
@@ -2147,7 +2138,6 @@
         <field name="formulas" >balance = N6_MAR.balance + N6_MAT.balance + N6_AUT.balance + N6_PRO.balance + N6_SER.balance + N6_PRF.balance + N6_PRI.balance + N6_SIT.balance</field>
         <field name="sequence" eval="45"/>
         <field name="level" eval="0" />
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note6_stock_depreciations" model="ohada.financial.html.report.line">
@@ -2159,7 +2149,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="50"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note6_total_net_de" model="ohada.financial.html.report.line">
@@ -2169,7 +2158,6 @@
         <field name="formulas" >balance = N6_TOT.balance + N6_DST.balance</field>
         <field name="sequence" eval="55"/>
         <field name="level" eval="0" />
-        <field name="note_6" eval="True" />
     </record>
 
     <!--NOTE 7-->
@@ -5850,7 +5838,6 @@
         <field name="header">CHIFFRE D'AFFAIRE ET AUTRES PRODUITS</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
-        <field name="note_6" eval="True" />
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
     </record>
 
@@ -5873,7 +5860,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="2"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_vehors" model="ohada.financial.html.report.line">
@@ -5885,7 +5871,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="3"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_vegroupe" model="ohada.financial.html.report.line">
@@ -5897,7 +5882,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="4"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_vesur" model="ohada.financial.html.report.line">
@@ -5909,7 +5893,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="5"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_rabate_1" model="ohada.financial.html.report.line">
@@ -5921,7 +5904,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="6"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_total_1" model="ohada.financial.html.report.line">
@@ -5932,7 +5914,6 @@
         <field name="level" eval="1" />
         <field name="sequence" eval="7"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_vedans2" model="ohada.financial.html.report.line">
@@ -5944,7 +5925,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="8"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_vehors2" model="ohada.financial.html.report.line">
@@ -5956,7 +5936,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="9"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_vegroupe2" model="ohada.financial.html.report.line">
@@ -5968,7 +5947,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="10"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_vesur2" model="ohada.financial.html.report.line">
@@ -5980,7 +5958,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="11"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_rabate_2" model="ohada.financial.html.report.line">
@@ -5992,7 +5969,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="12"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_total_2" model="ohada.financial.html.report.line">
@@ -6003,7 +5979,6 @@
         <field name="level" eval="1" />
         <field name="sequence" eval="13"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_vedans3" model="ohada.financial.html.report.line">
@@ -6015,7 +5990,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="14"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_vehors3" model="ohada.financial.html.report.line">
@@ -6027,7 +6001,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="15"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_vegroupe3" model="ohada.financial.html.report.line">
@@ -6039,7 +6012,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="16"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_vesur3" model="ohada.financial.html.report.line">
@@ -6051,7 +6023,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="17"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_rabate_3" model="ohada.financial.html.report.line">
@@ -6063,7 +6034,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="18"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_total_3" model="ohada.financial.html.report.line">
@@ -6074,7 +6044,6 @@
         <field name="level" eval="1" />
         <field name="sequence" eval="19"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_produits" model="ohada.financial.html.report.line">
@@ -6086,7 +6055,6 @@
         <field name="level" eval="5" />
         <field name="sequence" eval="20"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_total_4" model="ohada.financial.html.report.line">
@@ -6097,7 +6065,6 @@
         <field name="level" eval="0" />
         <field name="sequence" eval="21"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_prod" model="ohada.financial.html.report.line">
@@ -6109,7 +6076,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="22"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_subven" model="ohada.financial.html.report.line">
@@ -6121,7 +6087,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="23"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 <!--
     <record id="ohada_financial_report_note21_spacer2" model="ohada.financial.html.report.line">
@@ -6142,7 +6107,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="25"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_21" model="ohada.financial.html.report.line">
@@ -6154,7 +6118,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="26"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_22" model="ohada.financial.html.report.line">
@@ -6166,7 +6129,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="27"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_23" model="ohada.financial.html.report.line">
@@ -6178,7 +6140,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="28"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_24" model="ohada.financial.html.report.line">
@@ -6190,7 +6151,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="28"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_25" model="ohada.financial.html.report.line">
@@ -6202,7 +6162,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="29"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note21_total_5" model="ohada.financial.html.report.line">
@@ -6213,7 +6172,6 @@
         <field name="level" eval="1" />
         <field name="sequence" eval="30"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 <!--
     <record id="ohada_financial_report_note21_spacer3" model="ohada.financial.html.report.line">
@@ -6233,7 +6191,6 @@
         <field name="level" eval="0" />
         <field name="sequence" eval="32"/>
         <field name="groupby">account_id</field>
-        <field name="note_21" eval="True" />
     </record>
 
 
@@ -6249,7 +6206,6 @@
         <field name="header">ACHATS</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
-        <field name="note_6" eval="True" />
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
     </record>
 
@@ -6272,7 +6228,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="2"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note22_hors" model="ohada.financial.html.report.line">
@@ -6284,7 +6239,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="3"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
      <record id="ohada_financial_report_note22_groupe" model="ohada.financial.html.report.line">
@@ -6296,7 +6250,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="4"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note22_totalach" model="ohada.financial.html.report.line">
@@ -6307,7 +6260,6 @@
         <field name="level" eval="0" />
         <field name="sequence" eval="5"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note22_dans2" model="ohada.financial.html.report.line">
@@ -6319,7 +6271,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="6"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note22_hors2" model="ohada.financial.html.report.line">
@@ -6331,7 +6282,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="7"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
      <record id="ohada_financial_report_note22_groupe2" model="ohada.financial.html.report.line">
@@ -6343,7 +6293,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="8"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note22_totalach2" model="ohada.financial.html.report.line">
@@ -6354,7 +6303,6 @@
         <field name="level" eval="0" />
         <field name="sequence" eval="9"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note22_mati" model="ohada.financial.html.report.line">
@@ -6366,7 +6314,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="10"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note22_maticom" model="ohada.financial.html.report.line">
@@ -6378,7 +6325,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="11"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
      <record id="ohada_financial_report_note22_produits" model="ohada.financial.html.report.line">
@@ -6390,7 +6336,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="12"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note22_fournitures" model="ohada.financial.html.report.line">
@@ -6402,7 +6347,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="13"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note22_eau" model="ohada.financial.html.report.line">
@@ -6414,7 +6358,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="14"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
      <record id="ohada_financial_report_note22_electric" model="ohada.financial.html.report.line">
@@ -6426,7 +6369,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="15"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note22_autres" model="ohada.financial.html.report.line">
@@ -6438,7 +6380,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="16"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note22_fournitures2" model="ohada.financial.html.report.line">
@@ -6450,7 +6391,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="17"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
      <record id="ohada_financial_report_note22_debureau" model="ohada.financial.html.report.line">
@@ -6462,7 +6402,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="18"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note22_petit" model="ohada.financial.html.report.line">
@@ -6474,7 +6413,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="19"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note22_services" model="ohada.financial.html.report.line">
@@ -6486,7 +6424,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="20"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
      <record id="ohada_financial_report_note22_demballage" model="ohada.financial.html.report.line">
@@ -6498,7 +6435,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="21"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note22_frais" model="ohada.financial.html.report.line">
@@ -6510,7 +6446,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="22"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note22_rabais" model="ohada.financial.html.report.line">
@@ -6522,7 +6457,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="23"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note22_totalach3" model="ohada.financial.html.report.line">
@@ -6533,7 +6467,6 @@
         <field name="level" eval="0" />
         <field name="sequence" eval="24"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
 
@@ -6548,7 +6481,6 @@
         <field name="header">TRANSPORTS</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
-        <field name="note_6" eval="True" />
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
     </record>
 
@@ -6571,7 +6503,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="2"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note23_pour" model="ohada.financial.html.report.line">
@@ -6583,7 +6514,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="3"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note23_per" model="ohada.financial.html.report.line">
@@ -6595,7 +6525,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="4"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note23_pl" model="ohada.financial.html.report.line">
@@ -6607,7 +6536,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="5"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note23_au" model="ohada.financial.html.report.line">
@@ -6619,7 +6547,6 @@
         <field name="level" eval="1" />
         <field name="sequence" eval="6"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note23_au_1" model="ohada.financial.html.report.line">
@@ -6631,7 +6558,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="7"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note23_au_2" model="ohada.financial.html.report.line">
@@ -6643,7 +6569,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="8"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note23_au_3" model="ohada.financial.html.report.line">
@@ -6655,7 +6580,6 @@
         <field name="level" eval="2" />
         <field name="sequence" eval="9"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
     <record id="ohada_financial_report_note23_total" model="ohada.financial.html.report.line">
@@ -6666,7 +6590,6 @@
         <field name="level" eval="0" />
         <field name="sequence" eval="10"/>
         <field name="groupby">account_id</field>
-        <field name="note_6" eval="True" />
     </record>
 
 
