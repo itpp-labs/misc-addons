@@ -1,4 +1,5 @@
 # Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2020 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
 # License MIT (https://opensource.org/licenses/MIT).
 {
     "name": """Website Switcher in Backend""",
@@ -6,7 +7,7 @@
     "category": "Hidden",
     # "live_test_url": "",
     "images": [],
-    "version": "11.0.3.0.4",
+    "version": "11.0.3.1.0",
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "apps@itpp.dev",
