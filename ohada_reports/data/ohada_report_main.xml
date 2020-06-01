@@ -2,6 +2,21 @@
 
 <odoo>
 
+    <!-- OHADA Dashboard -->
+
+    <record id="ohada_dashboard_view" model="ohada.dash">
+        <field name="name">Main journal</field>
+        <field name="name_to_display">name</field>
+        <field name="active">True</field>
+        <field name="show_on_dashboard">True</field>
+        <field name="sequence">1</field>
+        <field name="color">1</field>
+        <field name="type">report</field>
+        <field name="chart_type">barChart</field>
+        <field name="sequence">1</field>
+        <field name='dash_size'>middle</field>
+    </record>
+
     <!-- Balance Sheet - Landscape View -->
     
    <record id="ohada_report_balancesheet_0" model="ohada.financial.html.report">
@@ -14,7 +29,7 @@
         <field name="analytic" eval="True"/>
         <field name="unfold_all_filter" eval="True"/>
         <field name="sequence">1</field>
-        <field name='parent_id' ref='menu_ohada_legal_statements_main'/>
+        <field name='parent_id' ref='ohada_dashboard_view'/>
     </record>
     <record id="ohada_financial_report_total_assets0" model="ohada.financial.html.report.line">
         <field name="name">ASSETS</field>
@@ -1448,7 +1463,6 @@
         <field name="header">COMPTE DE RESULTAT AU 31 DECEMBRE</field>
         <field name="code">PL</field>
         <field name="sequence">4</field>
-        <field name='parent_id' ref='ohada_reports.menu_ohada_legal_statements_main'/>
     </record>
 
     <record id="account_financial_report_ohada_profitlost_" model="ohada.financial.html.report.line">
@@ -2130,7 +2144,7 @@
         <field name="header">TABLEAU DES FLUX DE TRESORERIE AU 31 DECEMBRE</field>
         <field name="code">CF</field>
         <field name="sequence">5</field>
-        <field name='parent_id' ref='ohada_reports.menu_ohada_legal_statements_main'/>
+        <field name='parent_id' ref='ohada_dashboard_view'/>
     </record>
 
     <record id="account_financial_report_ohada_cashflow_header" model="ohada.financial.html.report.line">
