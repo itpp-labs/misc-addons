@@ -421,7 +421,7 @@ class OhadaReport(models.AbstractModel):
         if params and 'note' in params:
             ctx.update({
                     'id': self.env['ohada.financial.html.report'].search([('code', '=', 'N'+str(params.get('note')))]).id,
-                    'report_options': options,
+                    'report_options': options
             })
         action['context'] = ctx
         return action

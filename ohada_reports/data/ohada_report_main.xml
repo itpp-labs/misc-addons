@@ -3,9 +3,8 @@
 <odoo>
 
     <!-- OHADA Dashboard -->
-
-    <record id="ohada_dashboard_view" model="ohada.dash">
-        <field name="name">Main journal</field>
+    <record id="ohada_dashboard_view_your_company" model="ohada.dash">
+        <field name="name">YourCompany</field>
         <field name="name_to_display">name</field>
         <field name="active">True</field>
         <field name="show_on_dashboard">True</field>
@@ -14,7 +13,77 @@
         <field name="type">report</field>
         <field name="chart_type">barChart</field>
         <field name="sequence">1</field>
-        <field name='dash_size'>middle</field>
+        <field name='dash_size'>large</field>
+        <field name='report_id' ref='ohada_report_balancesheet_0'/>
+    </record>
+    
+    <record id="ohada_dashboard_view_CP_and_DS" model="ohada.dash">
+        <field name="name">Cover Page and Data Sheets</field>
+        <field name="name_to_display">name</field>
+        <field name="active">True</field>
+        <field name="show_on_dashboard">True</field>
+        <field name="sequence">1</field>
+        <field name="color">1</field>
+        <field name="type">report</field>
+        <field name="chart_type">barChart</field>
+        <field name="sequence">1</field>
+        <field name='dash_size'>large</field>
+        <field name='report_id' ref='ohada_report_balancesheet_0'/>
+    </record>
+
+    <record id="ohada_dashboard_view_1" model="ohada.dash">
+        <field name="name">Balance sheet</field>
+        <field name="name_to_display">name</field>
+        <field name="active">True</field>
+        <field name="show_on_dashboard">True</field>
+        <field name="sequence">1</field>
+        <field name="color">1</field>
+        <field name="type">report</field>
+        <field name="chart_type">barChart</field>
+        <field name="sequence">1</field>
+        <field name='dash_size'>small</field>
+        <field name='report_id' ref='ohada_report_balancesheet_0'/>
+    </record>
+
+    <record id="ohada_dashboard_view_2" model="ohada.dash">
+        <field name="name">Profit and Loss</field>
+        <field name="name_to_display">name</field>
+        <field name="active">True</field>
+        <field name="show_on_dashboard">True</field>
+        <field name="sequence">1</field>
+        <field name="color">1</field>
+        <field name="type">report</field>
+        <field name="chart_type">barChart</field>
+        <field name="sequence">1</field>
+        <field name='dash_size'>small</field>
+        <field name='report_id' ref='account_financial_report_ohada_profitlost'/>
+    </record>
+
+    <record id="ohada_dashboard_view_3" model="ohada.dash">
+        <field name="name">Cashflow</field>
+        <field name="name_to_display">name</field>
+        <field name="active">True</field>
+        <field name="show_on_dashboard">True</field>
+        <field name="sequence">1</field>
+        <field name="color">1</field>
+        <field name="type">report</field>
+        <field name="chart_type">barChart</field>
+        <field name="sequence">1</field>
+        <field name='dash_size'>small</field>
+        <field name='report_id' ref='account_financial_report_ohada_cashflow'/>
+    </record>
+
+    <record id="ohada_dashboard_view_annexed_notes" model="ohada.dash">
+        <field name="name">Annexed Notes</field>
+        <field name="name_to_display">name</field>
+        <field name="active">True</field>
+        <field name="show_on_dashboard">True</field>
+        <field name="sequence">1</field>
+        <field name="color">1</field>
+        <field name="type">note_button</field>
+        <field name="chart_type">barChart</field>
+        <field name="sequence">1</field>
+        <field name='dash_size'>large</field>
     </record>
 
     <!-- Balance Sheet - Landscape View -->
@@ -29,7 +98,6 @@
         <field name="analytic" eval="True"/>
         <field name="unfold_all_filter" eval="True"/>
         <field name="sequence">1</field>
-        <field name='parent_id' ref='ohada_dashboard_view'/>
     </record>
     <record id="ohada_financial_report_total_assets0" model="ohada.financial.html.report.line">
         <field name="name">ASSETS</field>
@@ -1463,6 +1531,7 @@
         <field name="header">COMPTE DE RESULTAT AU 31 DECEMBRE</field>
         <field name="code">PL</field>
         <field name="sequence">4</field>
+        <field name="report_id">4</field>
     </record>
 
     <record id="account_financial_report_ohada_profitlost_" model="ohada.financial.html.report.line">
@@ -2144,7 +2213,6 @@
         <field name="header">TABLEAU DES FLUX DE TRESORERIE AU 31 DECEMBRE</field>
         <field name="code">CF</field>
         <field name="sequence">5</field>
-        <field name='parent_id' ref='ohada_dashboard_view'/>
     </record>
 
     <record id="account_financial_report_ohada_cashflow_header" model="ohada.financial.html.report.line">

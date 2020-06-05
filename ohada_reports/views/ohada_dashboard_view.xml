@@ -11,41 +11,339 @@
         groups="account.group_account_manager,account.group_account_user"
 		sequence="1"/>
 
-    <record id="account_journal_dashboard_kanban_view_new" model="ir.ui.view">
+    <record id="ohada_dash_kanban_view" model="ir.ui.view">
         <field name="name">ohada.dash.dashboard.kanban</field>
         <field name="model">ohada.dash</field>
         <field name="arch" type="xml">
             <kanban create="false" class="oe_background_grey o_kanban_dashboard o_account_kanban" banner_route="/account/account_dashboard_onboarding">
-                <!-- <field name="id"/>
+                <field name="id"/>
                 <field name="name"/>
                 <field name="type"/>
                 <field name="color"/>
+                <field name="report_id"/>
+                <field name="report_type"/>
                 <field name="show_on_dashboard"/>
-                <field name="kanban_dashboard"/> -->
+                <field name="display_name"/>
+                <field name="company_id"/>
+                <field name="currency_id"/>
+                <field name="dash_size"/>
+                <field name="reports"/>
                 <templates>
                     <t t-name="kanban-box">
-                        <div t-attf-class="#{kanban_color(record.color.raw_value)}">
-                            <t t-debug="pdb"/>
-                            <!-- <t t-value="JSON.parse(record.kanban_dashboard.raw_value)" t-set="dashboard"/>
-                            <t t-value="record.type.raw_value" t-set="journal_type"/>
-                            <t t-call="JournalTop"/> -->
-                            <!-- <div class="container o_kanban_card_content">
+                        <t t-debug="pdb"/>
+                        <t t-value="JSON.parse(record.reports.raw_value)" t-set="reports_list"/>
+                        <t t-value="record.dash_size.raw_value" t-set="dash_size"/>
+                        <t t-value="record.report_type.raw_value" t-set="journal_type"/>
+                        <t t-value="record.currency_id.raw_value" t-set="currency_symbol"/>
+                        <t t-value="record.reports.raw_value" t-set="report_ids"/>
+                        <t t-value="record.display_name.raw_value" t-set="dashboard"/>
+                        <!-- <t t-value="record.random_names.raw_value" t-set="note_ids"/> -->
+                        <t t-if="dash_size == 'middle'" t-call="MiddleSizeBox"/>
+                        <t t-if="dash_size == 'small'" t-call="SmallSizeBox"/>
+                        <t t-if="dash_size == 'large'" t-call="LargeSizeBox"/>
+                    </t>
+
+                    <t t-name="LargeSizeBox">
+                        <div t-attf-class="#{kanban_color(record.color.raw_value)} col-12">
+                            <t t-call="JournalTop"/>
+                            <div class="container o_kanban_card_content">
                                 <div class="row">
-                                    <t t-if="(journal_type == 'bank' || journal_type == 'cash')" t-call="JournalBodyBankCash"/>
-                                    <t t-if="journal_type == 'sale' || journal_type == 'purchase'" t-call="JournalBodySalePurchase"/>
-                                    <t t-if="journal_type == 'general' || journal_type == 'situation'">
-                                        <div class="col-6 o_kanban_primary_left">
-                                            <button type="object" name="open_action" context="{'action_name': 'action_move_journal_line', 'view_no_maturity': 1}" class="btn btn-primary">
-                                                <span>Journal Entries</span>
-                                            </button>
-                                        </div>
+                                    <t t-call="NoteButtons"/>
+                                </div>
+                            </div>
+                            <div class="container o_kanban_card_manage_pane dropdown-menu" role="menu">
+                                <t t-call="JournalManage"/>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-name="MiddleSizeBox">
+                        <div t-attf-class="#{kanban_color(record.color.raw_value)} col-6">
+                            <t t-call="JournalTop"/>
+                            <div class="container o_kanban_card_manage_pane dropdown-menu" role="menu">
+                                <t t-call="JournalManage"/>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-name="SmallSizeBox">
+                        <div t-attf-class="#{kanban_color(record.color.raw_value)} col-4">
+                            <t t-call="JournalTop"/>
+                            <div class="container o_kanban_card_content">
+                                <div class="row">
+                                    <t t-if="journal_type == 'BS'">
+                                        <t t-call="JournalBS"/>
+                                        <t t-call="OpenButton"/>
+                                    </t>
+                                    <t t-if="journal_type == 'PL'">
+                                        <t t-call="JournalPL"/>
+                                        <t t-call="OpenButton"/>
+                                    </t>
+                                    <t t-if="journal_type == 'CF'">
+                                        <t t-call="JournalCF"/>
+                                        <t t-call="OpenButton"/>
                                     </t>
                                 </div>
-                                <t t-if="journal_type == 'bank' || journal_type == 'cash' || journal_type == 'sale' || journal_type == 'purchase'" t-call="JournalBodyGraph"/>
-                            </div> -->
-                            <!-- <div class="container o_kanban_card_manage_pane dropdown-menu" role="menu">
+                                <t t-if="journal_type == 'BS' || journal_type == 'PL' || journal_type == 'CF'" t-call="JournalBodyGraph"/>
+                            </div>
+                            <div class="container o_kanban_card_manage_pane dropdown-menu" role="menu">
                                 <t t-call="JournalManage"/>
-                            </div> -->
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-name="NoteButtons">
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <t t-foreach="reports_list" t-as="note">
+                                <div style="padding-bottom:20px; padding-left:6px;">
+                                    <button type="object" name="open_action" class="btn btn-primary">
+                                        <span><t t-esc="note.name"/></span>
+                                    </button>
+                                </div>
+                            </t>
+                        </div>
+                        <!-- <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note16b'}" class="btn btn-primary">
+                                <span>Note 16B</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note16b_bis'}" class="btn btn-primary">
+                                <span>Note 16B BIS</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note16c'}" class="btn btn-primary">
+                                <span>Note 16C</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note17'}" class="btn btn-primary">
+                                <span>Note 17</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note18'}" class="btn btn-primary">
+                                <span>Note 18</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note19'}" class="btn btn-primary">
+                                <span>Note 19</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note20'}" class="btn btn-primary">
+                                <span>Note 20</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note21'}" class="btn btn-primary">
+                                <span>Note 21</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note22'}" class="btn btn-primary">
+                                <span>Note 22</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note23'}" class="btn btn-primary">
+                                <span>Note 23</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note24'}" class="btn btn-primary">
+                                <span>Note 24</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note25'}" class="btn btn-primary">
+                                <span>Note 25</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note26'}" class="btn btn-primary">
+                                <span>Note 26</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note27a'}" class="btn btn-primary">
+                                <span>Note 27A</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note27b'}" class="btn btn-primary">
+                                <span>Note 27B</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note28'}" class="btn btn-primary">
+                                <span>Note 28</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note29'}" class="btn btn-primary">
+                                <span>Note 29</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note30'}" class="btn btn-primary">
+                                <span>Note 30</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note30'}" class="btn btn-primary">
+                                <span>Note 31</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note32'}" class="btn btn-primary">
+                                <span>Note 32</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note33'}" class="btn btn-primary">
+                                <span>Note 33</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note34'}" class="btn btn-primary">
+                                <span>Note 34</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note35'}" class="btn btn-primary">
+                                <span>Note 35</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note36'}" class="btn btn-primary">
+                                <span>Note 36</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note37'}" class="btn btn-primary">
+                                <span>Note 37</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note1'}" class="btn btn-primary">
+                                <span>Note 1</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note2'}" class="btn btn-primary">
+                                <span>Note 2</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note3a'}" class="btn btn-primary">
+                                <span>Note 3A</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note3b'}" class="btn btn-primary">
+                                <span>Note 3B</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note3c'}" class="btn btn-primary">
+                                <span>Note 3C</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note3d'}" class="btn btn-primary">
+                                <span>Note 3D</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note3e'}" class="btn btn-primary">
+                                <span>Note 3E</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note4'}" class="btn btn-primary">
+                                <span>Note 4</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note5'}" class="btn btn-primary">
+                                <span>Note 5</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note15b'}" class="btn btn-primary">
+                                <span>Note 15B</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note16a'}" class="btn btn-primary">
+                                <span>Note 16A</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note6'}" class="btn btn-primary">
+                                <span>Note 6</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note7'}" class="btn btn-primary">
+                                <span>Note 7</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note8'}" class="btn btn-primary">
+                                <span>Note 8</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note8a'}" class="btn btn-primary">
+                                <span>Note 8A</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note9'}" class="btn btn-primary">
+                                <span>Note 9</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note10'}" class="btn btn-primary">
+                                <span>Note 10</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note11'}" class="btn btn-primary">
+                                <span>Note 11</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note12'}" class="btn btn-primary">
+                                <span>Note 12</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note13'}" class="btn btn-primary">
+                                <span>Note 13</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note14'}" class="btn btn-primary">
+                                <span>Note 14</span>
+                            </button>
+                        </div>
+                        <div style="padding-bottom:20px; padding-left:6px;">
+                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note15a'}" class="btn btn-primary">
+                                <span>Note 15A</span>
+                            </button>
+                        </div> -->
+                    </t>
+
+                    <t t-name="OpenButton">
+                        <div class="col-6 o_kanban_primary_left">
+                            <button type="object" name="open_action" class="btn btn-primary">
+                                <span>Open</span>
+                            </button>
                         </div>
                     </t>
 
@@ -53,9 +351,9 @@
                         <div t-attf-class="o_kanban_card_header">
                             <div class="o_kanban_card_header_title">
                                 <div class="o_primary">
-                                    <a type="object" name="open_action"><field name="name"/></a>
+                                    <a type="report" name="open_action"><field name="name"/></a>
                                 </div>
-                                <div class="o_secondary" t-att-title="dashboard.title">
+                                <div class="o_secondary" t-att-title="dashboard">
                                     <field name="type"/>
                                 </div>
                             </div>
@@ -68,7 +366,7 @@
                     <t t-name="JournalManage">
 
                         <!-- For bank and cash -->
-                        <div t-if="journal_type == 'bank' || journal_type == 'cash'" class="row">
+                        <div t-if="journal_type == 'BS'" class="row">
                              <div class="col-4 o_kanban_card_manage_section o_kanban_manage_view">
                                 <div class="o_kanban_card_manage_title">
                                     <span role="separator">View</span>
@@ -98,10 +396,10 @@
                                     <span role="separator">New</span>
                                 </div>
                                 <div name="bank_cash_commands">
-                                    <t t-if="journal_type == 'bank'">
+                                    <t t-if="journal_type == 'BS'">
                                         <a role="menuitem" type="object" name="create_bank_statement">Statement</a>
                                     </t>
-                                    <t t-if="journal_type == 'cash'">
+                                    <t t-if="journal_type == 'CF'">
                                         <a role="menuitem" type="object" name="create_cash_statement">Statement</a>
                                     </t>
                                 </div>
@@ -126,19 +424,18 @@
                             </div>
                         </div>
 
-                        <!-- For purchase and sale -->
-                        <div t-if="journal_type == 'purchase' || journal_type == 'sale'" class="row">
+                        <div t-if="journal_type == 'PL'" class="row">
                              <div class="col-4 o_kanban_card_manage_section o_kanban_manage_view">
                                 <div class="o_kanban_card_manage_title">
                                     <span>View</span>
                                 </div>
                                 <div>
-                                    <a t-if="journal_type == 'sale'" type="object" name="open_action" context="{'use_domain': [('type', '=', 'out_invoice')]}">Invoices</a>
-                                    <a t-if="journal_type == 'purchase'" type="object" name="open_action" context="{'use_domain': [('type', '=', 'in_invoice')]}">Bills</a>
+                                    <a t-if="journal_type == 'CF'" type="object" name="open_action" context="{'use_domain': [('type', '=', 'out_invoice')]}">Invoices</a>
+                                    <a t-if="journal_type == 'PL'" type="object" name="open_action" context="{'use_domain': [('type', '=', 'in_invoice')]}">Bills</a>
                                 </div>
                                 <div>
-                                    <a t-if="journal_type == 'sale'" type="object" name="open_action" context="{'use_domain': [('type', '=', 'out_refund')], 'invoice_type': 'refund'}">Credit Notes</a>
-                                    <a t-if="journal_type == 'purchase'" type="object" name="open_action" context="{'use_domain': [('type', '=', 'in_refund')], 'invoice_type': 'refund'}">Credit Notes</a>
+                                    <a t-if="journal_type == 'CF'" type="object" name="open_action" context="{'use_domain': [('type', '=', 'out_refund')], 'invoice_type': 'refund'}">Credit Notes</a>
+                                    <a t-if="journal_type == 'PL'" type="object" name="open_action" context="{'use_domain': [('type', '=', 'in_refund')], 'invoice_type': 'refund'}">Credit Notes</a>
                                 </div>
                                 <div>
                                     <a type="object" name="action_open_reconcile">Payments Matching</a>
@@ -154,14 +451,14 @@
                                 </div>
                                 <div>
                                     <a type="object" name="action_create_new">
-                                        <span t-if="journal_type == 'sale'">Invoice</span>
-                                        <span t-if="journal_type == 'purchase'">Bill</span>
+                                        <span t-if="journal_type == 'CF'">Invoice</span>
+                                        <span t-if="journal_type == 'PL'">Bill</span>
                                     </a>
                                 </div>
                                 <div>
                                     <a type="object" name="action_create_new"  context="{'refund':True}">
-                                        <span t-if="journal_type == 'sale'">Credit Note</span>
-                                        <span t-if="journal_type == 'purchase'">Credit Note Bill</span>
+                                        <span t-if="journal_type == 'CF'">Credit Note</span>
+                                        <span t-if="journal_type == 'PL'">Credit Note Bill</span>
                                     </a>
                                 </div>
                             </div>
@@ -171,14 +468,14 @@
                                     <span>Reporting</span>
                                 </div>
                                 <div>
-                                    <a t-if="journal_type == 'sale'" type="action" name="%(account.action_account_invoice_report_all)d" groups="account.group_account_manager">Invoices Analysis</a>
-                                    <a t-if="journal_type == 'purchase'" type="action" name="%(account.action_account_invoice_report_all_supp)d" groups="account.group_account_manager">Bills Analysis</a>
+                                    <a t-if="journal_type == 'CF'" type="action" name="%(account.action_account_invoice_report_all)d" groups="account.group_account_manager">Invoices Analysis</a>
+                                    <a t-if="journal_type == 'PL'" type="action" name="%(account.action_account_invoice_report_all_supp)d" groups="account.group_account_manager">Bills Analysis</a>
                                 </div>
                             </div>
                         </div>
 
                         <!-- For general and situation -->
-                        <div t-if="journal_type == 'general' || journal_type == 'situation'" class="row">
+                        <div t-if="journal_type == 'CF'" class="row">
                              <div class="col-4 o_kanban_card_manage_section o_kanban_manage_view">
                                 <div class="o_kanban_card_manage_title">
                                     <span>View</span>
@@ -213,7 +510,7 @@
                             </div>
                         </div>
 
-                        <div t-if="widget.editable" class="o_kanban_card_manage_settings row">
+                        <div class="o_kanban_card_manage_settings row">
                             <div class="col-8">
                                 <ul class="oe_kanban_colorpicker" data-field="color"/>
                             </div>
@@ -229,99 +526,93 @@
                         </div>
                     </t>
 
-                    <t t-name="JournalBodyBankCash">
-                        <!-- On the left, display :
-                            - A button corresponding to the bank_statements_source, if it wasn't configured, a button for each of them
-                            - If there are statements to reconcile, a link to reconcile them -->
-                        <div class="col-5 o_kanban_primary_left">
-                            <t t-if="dashboard.number_to_reconcile > 0">
-                                <button type="object" name="action_open_reconcile" class="btn btn-primary"> Reconcile <t t-esc="dashboard.number_to_reconcile"/> Items</button>
-                            </t>
-                            <t t-if="journal_type == 'bank'">
-                                <div name="bank_journal_cta">
-                                    <button t-if="dashboard.bank_statements_source == 'undefined'" name="action_configure_bank_journal" type="object" class="btn btn-primary">Configure</button>
-                                    <div name="bank_statement_create_button" t-if="dashboard.bank_statements_source != 'online_sync'">
-                                        <a type="object" name="create_bank_statement" class="oe_inline">Create</a><span name="button_import_placeholder"/> Statements
-                                    </div>
-                                </div>
-                            </t>
-                            <t t-if="dashboard.number_to_reconcile > 0">
-                                <a t-if="journal_type == 'cash'" type="object" name="create_cash_statement" class="oe_inline">New Transactions</a>
-                            </t>
-                            <t t-if="dashboard.number_to_reconcile == 0">
-                                <button t-if="journal_type == 'cash'" type="object" name="create_cash_statement" class="btn btn-primary">New Transactions</button>
-                            </t>
-                        </div>
-                        <!-- On the right, show other common informations/actions -->
+                    <t t-name="JournalBS">
                         <div class="col-7 o_kanban_primary_right">
                             <div class="row">
                                 <div class="col-7">
-                                    <span title="Balance in Odoo">Balance in General Ledger</span>
+                                    <a type="object" name="open_action">
+                                        <span title="Assets = Liabilities">Assets = Liabilities 2020</span>
+                                    </a>
                                 </div>
-                                <div class="col-5 text-right">
-                                    <span><t t-esc="dashboard.account_balance"/></span>
-                                </div>
+                                <t t-call="ListRight"/>
                             </div>
-                            <t t-if="dashboard.last_balance != dashboard.account_balance">
-                                <div class="row" name="latest_statement">
-                                  <div class="col-7">
-                                    <span title="Latest Statement">Latest Statement</span>
-                                  </div>
-                                  <div class="col-5 text-right">
-                                    <span><t t-esc="dashboard.last_balance"/></span>
-                                  </div>
+                            <div class="row">
+                                <div class="col-7">
+                                    <a type="object" t-if="journal_type == 'BS'" name="open_action"
+                                    id="account_dashboard_sale_pay_link">
+                                        Assets = Liabilities 2019
+                                    </a>
                                 </div>
-                            </t>
+                                <t t-call="ListRight"/>
+                            </div>
+                            <t t-call="VariationStr"/>
                         </div>
                     </t>
-                    <t t-name="JournalBodySalePurchase" id="account.JournalBodySalePurchase">
-                        <div class="col-5 o_kanban_primary_left">
-                            <t t-if="journal_type == 'sale'">
-                                <button type="object" name="action_create_new" class="btn btn-primary o_invoice_new">
-                                    <span>New Invoice</span>
-                                </button>
-                            </t>
-                            <t t-if="journal_type == 'purchase'">
-                                <button type="object" name="action_create_new" class="btn btn-primary">
-                                    <span>New Bill</span>
-                                </button>
-                                <button type="action" name="%(account.account_invoice_import_wizard_action)d" class="btn btn-primary">
-                                    <span>Import Bills</span>
-                                </button>
-                            </t>
-                        </div>
+                    <t t-name="JournalPL">
                         <div class="col-7 o_kanban_primary_right">
                             <div class="row">
                                 <div class="col-7">
-                                    <a type="object" name="open_action" context="{'search_default_draft': '1'}">
-                                        <span t-if="journal_type == 'sale'" title="Invoices to Validate"><t t-esc="dashboard.number_draft"/> Invoices to Validate</span>
-                                        <span t-if="journal_type == 'purchase'" title="Bills to Validate"><t t-esc="dashboard.number_draft"/> Bills to Validate</span>
+                                    <a type="object" name="open_action">
+                                        <span t-if="journal_type == 'PL'" title="Net profit">Net profit 2020</span>
                                     </a>
                                 </div>
-                                <div class="col-5 text-right">
-                                    <span><t t-esc="dashboard.sum_draft"/></span>
-                                </div>
+                                <t t-call="ListRight"/>
                             </div>
                             <div class="row">
                                 <div class="col-7">
-                                    <a type="object" t-if="journal_type == 'sale'" name="open_action"
-                                    context="{'search_default_unpaid':1}" id="account_dashboard_sale_pay_link">
-                                        <t t-esc="dashboard.number_waiting"/> Unpaid Invoices
-                                    </a>
-
-                                    <a type="object" t-if="journal_type == 'purchase'" name="open_action"
-                                    context="{'search_default_unpaid':1}" id="account_dashboard_purchase_pay_link">
-                                        <t t-esc="dashboard.number_waiting"/> Bills to Pay
+                                    <a type="object" t-if="journal_type == 'PL'" name="open_action"
+                                    id="account_dashboard_purchase_pay_link">
+                                        Net profit 2019
                                     </a>
                                 </div>
-                                <div class="col-5 text-right">
-                                    <span><t t-esc="dashboard.sum_waiting"/></span>
-                                </div>
+                                <t t-call="ListRight"/>
                             </div>
+                            <t t-call="VariationStr"/>
+                        </div>
+                    </t>
+                    <t t-name="JournalCF">
+                        <div class="col-7 o_kanban_primary_right">
+                            <div class="row">
+                                <div class="col-7">
+                                    <a type="object" name="open_action">
+                                        <span t-if="journal_type == 'CF'" title="Cash closing balance">Cash closing balance 2020</span>
+                                    </a>
+                                </div>
+                                <t t-call="ListRight"/>
+                            </div>
+                            <div class="row">
+                                <div class="col-7">
+                                    <a type="object" t-if="journal_type == 'CF'" name="open_action"
+                                    id="account_dashboard_purchase_pay_link">
+                                        Cash closing balance 2019
+                                    </a>
+                                </div>
+                                <t t-call="ListRight"/>
+                            </div>
+                            <t t-call="VariationStr"/>
                         </div>
                     </t>
                     <t t-name="JournalBodyGraph">
-                        <field name="kanban_dashboard_graph" t-att-graph_type="_.contains(['cash','bank'],journal_type) ? 'line' : 'bar'" widget="dashboard_graph"/>
+                        <!-- <field name="kanban_dashboard_graph" t-att-graph_type="_.contains(['cash','bank'],journal_type) ? 'line' : 'bar'" widget="dashboard_graph"/> -->
+                    </t>
+                    <t t-name="VariationStr">
+                        <div class="row">
+                            <div class="col-7">
+                            <!-- Change name="open_action" to another action -->
+                                <a type="object" name="open_action"
+                                id="account_dashboard_purchase_pay_link">
+                                    Variation
+                                </a>
+                            </div>
+                            <div class="col-5 text-right">
+                                n/a
+                            </div>
+                        </div>
+                    </t>
+                    <t t-name="ListRight">
+                        <div class="col-5 text-right">
+                            0 <t t-esc="currency_symbol"/>
+                        </div>
                     </t>
             </templates>
             </kanban>
@@ -333,18 +624,7 @@
         <field name="res_model">ohada.dash</field>
         <field name="view_type">form</field>
         <field name="view_mode">kanban,form</field>
-        <field name="view_id" ref="account_journal_dashboard_kanban_view_new"/>
-        <field name="usage">menu</field>
-        <field name="context">{'search_default_dashboard':1}</field>
-        <field name="domain">[('belongs_to_company', '=', True)]</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_neutral_face">
-                This is the accounting dashboard
-            </p><p>
-                If you have not installed a chart of account, please install one first.<br/>
-               <a type="action" name="%(account.open_account_charts_modules)d" tabindex="-1">Browse available countries.</a>
-            </p>
-        </field>
+        <field name="view_id" ref="ohada_dash_kanban_view"/>
     </record>
 
 	<menuitem
