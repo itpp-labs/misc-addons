@@ -4584,7 +4584,7 @@
 
     <record id="ohada_financial_report_note16b_1" model="ohada.financial.html.report.line">
         <field name="name">Taux d'augmentation des salaires</field>
-        <field name="code">__N16b_1</field>
+        <field name="code">_N16b_1</field>
         <field name="financial_report_id" ref="ohada_financial_report_note16b"/>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
@@ -4595,7 +4595,7 @@
 
     <record id="ohada_financial_report_note16b_2" model="ohada.financial.html.report.line">
         <field name="name">Taux d'actualisation</field>
-        <field name="code">__N16b_2</field>
+        <field name="code">_N16b_2</field>
         <field name="financial_report_id" ref="ohada_financial_report_note16b"/>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>

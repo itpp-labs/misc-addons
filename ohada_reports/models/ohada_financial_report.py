@@ -24,7 +24,7 @@ from odoo.osv import expression
 from odoo.tools.pycompat import izip
 from odoo import http
 from odoo.http import content_disposition, request
-import wdb
+
 
 class ReportOhadaFinancialReport(models.Model):
     _name = "ohada.financial.html.report"
@@ -88,6 +88,8 @@ class ReportOhadaFinancialReport(models.Model):
 
     @api.model
     def print_bundle_xlsx(self, options, response, reports_ids=None):
+        company = self.env['res.users'].browse(self._context.get('uid')).company_id
+        year = options['date'].get('string')
         reports_ids = reports_ids.split(',')
         output = io.BytesIO()
         workbook = xlsxwriter.Workbook(output, {'in_memory': True})
@@ -97,23 +99,46 @@ class ReportOhadaFinancialReport(models.Model):
             else:
                 options['comparison']['filter'] = 'previous_period'
                 for report in self.env['ohada.financial.html.report'].search([('type', '=', 'note'), ('secondary', '=', False)]):
-                    options = report._get_options(options)
-                    report._apply_date_filter(options)
-                    if report.code in ['N1']:
-                        options['comparison']['filter'] = 'no_comparison'
-                        options = report._get_options(options)
-                        report._apply_date_filter(options)
-                    report.get_xlsx(options, response, print_bundle=True, workbook=workbook)
+                    note_relevance = self.env['note.relevance'].search([('note_report_id', '=', report.id),
+                                                                        ('fiscalyear', '=', year),
+                                                                        ('company_id', '=', company.id)])
+                    if note_relevance:
+                        if note_relevance.relevant:
+                            options = report._get_options(options)
+                            report._apply_date_filter(options)
+                            if report.code in ['N1']:
+                                options['comparison']['filter'] = 'no_comparison'
+                                options = report._get_options(options)
+                                report._apply_date_filter(options)
+                            report.get_xlsx(options, response, print_bundle=True, workbook=workbook)
 
 
         workbook.close()
         output.seek(0)
-        response.stream.write(output.read())
+        result = output.read()
+        disclosure = self.env['ohada.disclosure'].search([('company_id', '=', company.id),
+                                                          ('fiscalyear_id', '=', year),
+                                                          ('bundle_report_file_xlsx', '!=', False)])
+        if not disclosure:
+            base64_file_content = base64.b64encode(result).decode('ascii')
+            disclosure = self.env['ohada.disclosure'].search([('company_id', '=', company.id),
+                                                              ('fiscalyear_id', '=', year)])
+            if not disclosure:
+                self.env['ohada.disclosure'].create({'bundle_report_file_xlsx': base64_file_content,
+                                                     'company_id': company.id,
+                                                     'status': 'report_available',
+                                                     'fiscalyear_id': year})
+            else:
+                disclosure.write({'bundle_report_file_xlsx': base64_file_content})
+        response.stream.write(result)
         output.close()
         return response
 
     @api.model
     def print_bundle_pdf(self, options, reports_ids=None, minimal_layout=True):
+        pages = 0
+        company = self.env['res.users'].browse(self._context.get('uid')).company_id
+        year = options['date'].get('string')
         base_url = self.env['ir.config_parameter'].sudo().get_param('report.url') or self.env['ir.config_parameter'].sudo().get_param('web.base.url')
         # base_url = 'http://127.0.0.1:8069'
         reports_ids = reports_ids.split(',')
@@ -127,10 +152,17 @@ class ReportOhadaFinancialReport(models.Model):
         for report_id in reports_ids:
             if report_id != 'notes':
                 body_html += self.env['ohada.financial.html.report'].browse(int(report_id)).get_html(options)
+                pages += 1
             else:
                 options['comparison']['filter'] = 'previous_period'
                 for report in self.env['ohada.financial.html.report'].search([('type', '=', 'note'), ('secondary', '=', False)]):
-                    body_html += report.get_html(options)
+                    note_relevance = self.env['note.relevance'].search([('note_report_id', '=', report.id),
+                                                                        ('fiscalyear', '=', year),
+                                                                        ('company_id', '=', company.id)])
+                    if note_relevance:
+                        if note_relevance.relevant:
+                            body_html += report.get_html(options)
+                            pages += 1
 
         body = body.replace(b'<body class="o_ohada_reports_body_print">',
                             b'<body class="o_ohada_reports_body_print">' + body_html)
@@ -178,12 +210,30 @@ class ReportOhadaFinancialReport(models.Model):
         if len(self.with_context(print_mode=True).get_header(options)[-1]) > 5:
             landscape = True
 
-        return self.env['ir.actions.report']._run_wkhtmltopdf(
+        result = self.env['ir.actions.report']._run_wkhtmltopdf(
             [body],
             header=header, footer=footer,
             landscape=landscape,
             specific_paperformat_args=spec_paperformat_args
         )
+
+        disclosure = self.env['ohada.disclosure'].search([('company_id', '=', company.id),
+                                                          ('fiscalyear_id', '=', year),
+                                                          ('bundle_report_file_pdf', '!=', False)])
+        if not disclosure:
+            base64_file_content = base64.b64encode(result).decode('ascii')
+            disclosure = self.env['ohada.disclosure'].search([('company_id', '=', company.id),
+                                                              ('fiscalyear_id', '=', year)])
+            if not disclosure:
+                self.env['ohada.disclosure'].create({'bundle_report_file_pdf': base64_file_content,
+                                                     'company_id': company.id,
+                                                     'status': 'report_available',
+                                                     'fiscalyear_id': year,
+                                                     'number_of_pages': pages})
+            else:
+                disclosure.write({'bundle_report_file_pdf': base64_file_content, 'number_of_pages': pages})
+
+        return result
 
     def _get_column_name(self, field_content, field):
         comodel_name = self.env['account.move.line']._fields[field].comodel_name
@@ -1432,10 +1482,17 @@ class OhadaFinancialReportLine(models.Model):
                 else:
                     pass
 
-                # TODO: DELETE
                 if financial_report.code == "S4" and line.sequence != 1:
-                    for i in range(2):
+                    company = self.env.user.company_id
+                    note_relevance = self.env['note.relevance'].search([('note_report_id', '=', line.note_report_ids.id),
+                                                                        ('fiscalyear', '=', options['date']['string']),
+                                                                        ('company_id', '=', company.id)])
+                    if note_relevance.relevant is True:
+                        vals['columns'].append({'name': 'A', 'align': 'center'})
                         vals['columns'].append({'name': ' '})
+                    else:
+                        for i in range(2):
+                            vals['columns'].append({'name': ' '})
                 result = lines
                 # ========================================================
             elif financial_report.default_columns_quantity:
@@ -2222,6 +2279,7 @@ class OhadaCellStyle(models.Model):
 
 class OhadaNoteRelevance(models.Model):
     _name = "note.relevance"
+    _description = "Identifies relevant notes for Sheet R4"
 
     company_id = fields.Many2one('res.company')
     fiscalyear = fields.Char(compute='', string="Fiscal year")
@@ -2255,7 +2313,6 @@ class OhadaNoteRelevance(models.Model):
                             'lang':	'en_US',
                             'model':	'ohada.financial.html.report',
                             'state':	'posted',
-                            'tz':	'Europe/Brussels',
                             'uid':	2,
                             }
                 options = reports.make_temp_options(year)
@@ -2266,7 +2323,8 @@ class OhadaNoteRelevance(models.Model):
 
     def check_note_relevance(self, note, year, options, company):
         related_note_relevance = self.env['note.relevance'].search([('note_report_id', '=', note.id),
-                                                                    ('fiscalyear', '=', str(year))])
+                                                                    ('fiscalyear', '=', str(year)),
+                                                                    ('company_id', '=', company.id)])
         if note.mandatory_note is True:
             if related_note_relevance and related_note_relevance.relevant is True:
                 return
@@ -2280,29 +2338,25 @@ class OhadaNoteRelevance(models.Model):
                     'company_id': company.id,
                 })
         else:
+            if note.code == 'N3D':
+                new_options = copy.deepcopy(options)
+                new_options['comparison']['periods'] = []
+                lines = note._get_lines(new_options)
+            else:
+                lines = note._get_lines(options)
             if related_note_relevance:
-                if note.code == 'N3D':
-                    new_options = copy.deepcopy(options)
-                    new_options['comparison']['periods'] = []
-                    lines = note._get_lines(new_options)
-                else:
-                    lines = note._get_lines(options)
                 for i in lines:
                     for name in i.get('columns'):
-                        if isinstance(name.get('no_format_name'), float) and name.get('no_format_name') != 0.0:
+                        if isinstance(name.get('no_format_name'), float) and name.get('no_format_name') != 0.0 or \
+                                isinstance(name.get('name'), float) and name.get('name') != 0.0:
                             related_note_relevance.write({'relevant': True})
                             return
                     related_note_relevance.write({'relevant': False})
             else:
-                if note.code == 'N3D':
-                    new_options = copy.deepcopy(options)
-                    new_options['comparison']['periods'] = []
-                    lines = note._get_lines(new_options)
-                else:
-                    lines = note._get_lines(options)
                 for i in lines:
                     for name in i.get('columns'):
-                        if isinstance(name.get('no_format_name'), float) and name.get('no_format_name') != 0.0:
+                        if isinstance(name.get('no_format_name'), float) and name.get('no_format_name') != 0.0 or \
+                                isinstance(name.get('name'), float) and name.get('name') != 0.0:
                             self.create({
                                 'fiscalyear': str(year),
                                 'note_report_id': note.id,
@@ -2335,7 +2389,6 @@ class OhadaNoteRelevance(models.Model):
                     'lang':	'en_US',
                     'model':	'ohada.financial.html.report',
                     'state':	'posted',
-                    'tz':	'Europe/Brussels',
                     'uid':	2,
                     }
         options = reports.make_temp_options(year)

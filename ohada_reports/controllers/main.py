@@ -1,12 +1,17 @@
 # -*- coding: utf-8 -*-
 # See LICENSE file for full copyright and licensing details.
 
-from odoo import http
+from odoo import http, _
 from odoo.http import content_disposition, request
 from odoo.addons.web.controllers.main import _serialize_exception
 from odoo.tools import html_escape
-
+from odoo.exceptions import UserError
+import werkzeug
+import base64
+import requests
 import json
+import os
+from docusign_esign import ApiClient, EnvelopesApi, EnvelopeDefinition, Signer, SignHere, Tabs, Recipients, Document
 
 
 class FinancialReportController(http.Controller):
@@ -125,3 +130,34 @@ class FinancialReportController(http.Controller):
                 'data': se
             }
             return request.make_response(html_escape(json.dumps(error)))
+
+    @http.route('/docusign', type='http', auth='user', methods=['GET'], csrf=False)
+    def get_code(self, **kw):
+        current_user = request.env['res.users'].browse(request.uid)
+        base_url = request.env['ir.config_parameter'].sudo().get_param('web.base.url')
+
+        integration_code = current_user.company_id.ds_integration_key
+        secret_key = current_user.company_id.ds_secret_key
+        combination = integration_code + ":" + secret_key
+        base64string = base64.b64encode(bytes(combination, "utf-8"))
+
+        # get token
+        r = requests.post(
+            'https://account-d.docusign.com/oauth/token',
+            data={'grant_type': 'authorization_code',
+                  'code': kw.get('code'),
+                  'redirect_uri': base_url + '/docusign',
+                  },
+            headers={
+                'Authorization': "Basic %s" % base64string.decode("utf-8"),
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        )
+        response = json.loads(r.text)
+        access_token = response.get('access_token')
+
+        docusign_odoo = request.env['docusign.odoo'].search([])
+        if docusign_odoo:
+            docusign_odoo[0].write({'access_token': access_token})
+
+        return werkzeug.utils.redirect('/')

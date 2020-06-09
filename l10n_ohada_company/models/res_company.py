@@ -136,7 +136,7 @@ class ResCompanyEquity(models.Model):
 
 
 class ResCompanyManager(models.Model):
-    _name="res.company.manager"
+    _name = "res.company.manager"
     _description = u"Executive/Adminstrative"
     
     @api.model

@@ -28,7 +28,7 @@ from odoo.tools.safe_eval import safe_eval
 from odoo.exceptions import UserError
 
 import html2text
-import wdb
+
 
 _logger = logging.getLogger(__name__)
 
@@ -1400,7 +1400,7 @@ class OhadaReport(models.AbstractModel):
 
         if options.get('hierarchy'):
             lines = self._create_hierarchy(lines)
-        if lines[0].get('reference') or self.code in ['N27B']:
+        if lines[0].get('reference') or self.code in ['N27B', 'S4']:
             sheet.set_column(1, 1, 3)
             sheet.set_column(2, 2, 50)
             sheet.set_row(7, 50)
@@ -1594,6 +1594,10 @@ class OhadaReport(models.AbstractModel):
                                 loc_style.set_align('center')
                                 workbook.formats.append(loc_style)
                                 # sheet.set_column(y + y_offset, x_index, 10)
+                            elif cell.get('align'):
+                                loc_style = copy.copy(style)
+                                loc_style.set_align(cell.get('align'))
+                                workbook.formats.append(loc_style)
                             else:
                                 loc_style = copy.copy(style)
                                 loc_style.set_align('right')

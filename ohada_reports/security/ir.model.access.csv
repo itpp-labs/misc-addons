@@ -12,3 +12,7 @@ access_ohada_cell_style,ohada.cell.style,ohada_reports.model_ohada_cell_style,ac
 access_ohada_cell_style_invoice,ohada.cell.style invoice,ohada_reports.model_ohada_cell_style,account.group_account_invoice,1,0,0,0
 access_note_relevance,note.relevance,ohada_reports.model_note_relevance,account.group_account_manager,1,1,1,1
 access_note_relevance_invoice,note.relevance invoice,ohada_reports.model_note_relevance,account.group_account_invoice,1,0,0,0
+access_ohada_disclosure,ohada.disclosure,ohada_reports.model_ohada_disclosure,account.group_account_manager,1,1,1,1
+access_ohada_disclosure_invoice,ohada.disclosure invoice,ohada_reports.model_ohada_disclosure,account.group_account_invoice,1,0,0,0
+access_docusign_odoo,docusign.odoo,ohada_reports.model_docusign_odoo,account.group_account_manager,1,1,1,1
+access_docusign_odoo_invoice,docusign.odoo invoice,ohada_reports.model_docusign_odoo,account.group_account_invoice,1,0,0,0
