@@ -2287,6 +2287,7 @@ class OhadaNoteRelevance(models.Model):
                                      help='Only not mandatory notes are used here',
                                      domain="[('mandatory_note','=',True)]",)
     relevant = fields.Boolean(store=True, compute='')
+    name = fields.Char(related='note_report_id.shortname', string='Name')
 
 
     @api.model

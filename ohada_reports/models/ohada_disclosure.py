@@ -1,18 +1,12 @@
 from odoo import models, fields, api, _
 
 
-# class ResCompanyManager(models.Model):
-#     _inherit = "res.company.manager"
-#
-#     disclosure_contact_person_ids = fields.One2many('ohada.disclosure', 'contact_person_id')
-#     disclosure_responsible_employee_ids = fields.One2many('ohada.disclosure', 'responsible_employee_id')
-
-
 class OhadaDisclosure(models.Model):
     _name = "ohada.disclosure"
     _description = "Process of publishing the Ohada report bundle (pdf)"
 
     company_id = fields.Many2one('res.company', string='Company')
+    name = fields.Char(related='company_id.name')
     fiscalyear_id = fields.Char(string='Fiscal year')
     bundle_report_file_pdf = fields.Binary(string='Bundle report (pdf)', attachment=True)
     bundle_report_file_xlsx = fields.Binary(string='Bundle report (xlsx)', attachment=True)
@@ -44,7 +38,6 @@ class OhadaDisclosure(models.Model):
         if self.docusign_ids:
             return self.docusign_ids.get_status(self.company_id)
         else:
-            self.env['docusign.odoo'].search([]).unlink()
             docusign = self.env['docusign.odoo'].create({'disclosure_id': self.id})
             return docusign.get_status(self.company_id)
 
@@ -52,12 +45,9 @@ class OhadaDisclosure(models.Model):
     def send_report_to_signature(self):
         if self.docusign_ids:
             return self.docusign_ids.send_document_for_signing(self.company_id)
-            self.env['docusign.odoo'].search([]).unlink()
         else:
-            self.env['docusign.odoo'].search([]).unlink()
             docusign = self.env['docusign.odoo'].create({'disclosure_id': self.id})
             return docusign.send_document_for_signing(self.company_id)
-
 
 
 class ResPartner(models.Model):

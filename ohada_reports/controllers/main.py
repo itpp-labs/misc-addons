@@ -5,13 +5,10 @@ from odoo import http, _
 from odoo.http import content_disposition, request
 from odoo.addons.web.controllers.main import _serialize_exception
 from odoo.tools import html_escape
-from odoo.exceptions import UserError
 import werkzeug
 import base64
 import requests
 import json
-import os
-from docusign_esign import ApiClient, EnvelopesApi, EnvelopeDefinition, Signer, SignHere, Tabs, Recipients, Document
 
 
 class FinancialReportController(http.Controller):
@@ -156,8 +153,6 @@ class FinancialReportController(http.Controller):
         response = json.loads(r.text)
         access_token = response.get('access_token')
 
-        docusign_odoo = request.env['docusign.odoo'].search([])
-        if docusign_odoo:
-            docusign_odoo[0].write({'access_token': access_token})
+        request.env['docusign.odoo.token'].create({'code': access_token})
 
         return werkzeug.utils.redirect('/')

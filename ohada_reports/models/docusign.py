@@ -1,12 +1,9 @@
 from odoo import models, fields, api, _
-import base64
 import requests
 import json
-import os
-import datetime
-from datetime import timedelta
 from odoo.exceptions import UserError
 from docusign_esign import ApiClient, EnvelopesApi, EnvelopeDefinition, Signer, SignHere, Tabs, Recipients, Document
+
 
 class DocuSignOdoo(models.Model):
     _name = "docusign.odoo"
@@ -32,6 +29,9 @@ class DocuSignOdoo(models.Model):
         return client_action
 
     def send_document_for_signing(self, company):
+        token = self.env['docusign.odoo.token'].search([])
+        if token:
+            self.write({'access_token': token[-1].code})
         info = self.get_info()
         if info.get('error'):
             return self.authorization(company)
@@ -58,7 +58,7 @@ class DocuSignOdoo(models.Model):
         # Create a sign_here tab (field on the document)
         sign_here = SignHere(  # DocuSign SignHere field/tab
             document_id='1', page_number='1', recipient_id='1', tab_label='SignHereTab',
-            x_position='195', y_position='147')
+            x_position='480', y_position='750')
 
         # Add the tabs model (including the sign_here tab) to the signer
         signer.tabs = Tabs(sign_here_tabs=[sign_here])  # The Tabs object wants arrays of the different field/tab types
@@ -87,6 +87,9 @@ class DocuSignOdoo(models.Model):
             )
 
     def get_status(self, company):
+        token = self.env['docusign.odoo.token'].search([])
+        if token:
+            self.write({'access_token': token[-1].code})
         info = self.get_info()
         if info.get('error'):
             return self.authorization(company)
@@ -122,3 +125,9 @@ class DocuSignOdoo(models.Model):
         info = json.loads(r.text)
 
         return info
+
+
+class DocuSignOdooToken(models.Model):
+    _name = "docusign.odoo.token"
+
+    code = fields.Char()

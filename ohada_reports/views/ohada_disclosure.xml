@@ -103,7 +103,7 @@
 									<field name="ds_secret_key" />
                                 </group>
 							</group>
-							<button name="check_docusign_connection" type="object" class="btn btn-primary oe_stat_button">
+							<button name="check_docusign_connection" type="object" class="btn btn-primary oe_stat_button" attrs="{'invisible': [('id', '>', 0)]}">
 							   <i class="fa fa-fw o_button_icon fa-external-link"/>
 							   Connection test
 							</button>
