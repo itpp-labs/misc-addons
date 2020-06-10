@@ -11,7 +11,6 @@ class DocuSignOdoo(models.Model):
     access_token = fields.Char(default='')
     disclosure_id = fields.Many2one('ohada.disclosure')
 
-
     def authorization(self, company):
         response_type = 'code'
         scope = 'signature'
