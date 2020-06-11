@@ -3,6 +3,7 @@
 
 from odoo import api, fields, models
 from odoo.addons.web.controllers.main import clean_action
+import json
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -46,19 +47,26 @@ class OhadaDash(models.Model):
     )
     currency_id = fields.Char(related='company_id.currency_id.symbol', string='Currency symbol')
     reports = fields.Text(compute='_compute_reports')
+    button_ids = fields.One2many('ohada.financial.html.report', 'dash_button_ids', compute='_compute_buttons_ids')
 
     def _compute_reports(self):
         for dash in self:
             if dash.type == 'note_button':
-                dash.reports = self.env['ohada.financial.html.report'].search([('type', '=', 'note'), ('secondary', '=', False)])
-                report_data = []
                 import wdb;wdb.set_trace()
-                for report in dash.reports:
+                report_data = []
+                for report in self.env['ohada.financial.html.report'].search([('type', '=', 'note'), ('secondary', '=', False)]):
                     report_data.append({
-                        'name': report.,
-                        'id': report.id
+                        'name': report.shortname,
+                        'id': str(report.id)
                     })
-                self.reports = json.dumps(report_data)
+                dash.reports = json.dumps(report_data)
+
+    def _compute_buttons_ids(self):
+        for dash in self:
+            if dash.type == 'note_button':
+                for report in self.env['ohada.financial.html.report'].search([('type', '=', 'note'), ('secondary', '=', False)]):
+                    dash.button_ids += report
+                    report.dash_button_ids = dash
 
     def _compute_display_name(self):
         _logger.info("_compute_display_name was called!")
@@ -69,7 +77,8 @@ class OhadaDash(models.Model):
                 dash.display_name = 'Company' + str(dash.id)
 
     @api.multi
-    def open_action(self):
+    def open_action(self, params):
+        import wdb;wdb.set_trace()
         # report = self.report_id
         report = self.env['ohada.financial.html.report'].search([('code', '=', self.report_type)])
         action = self.env['ir.actions.client'].sudo().search([('name', '=', report.name)]).read()[0]
@@ -84,27 +93,27 @@ class OhadaDash(models.Model):
         action['context'] = ctx
         return action
     
-    # @api.multi
-    # def open_action_by_id(self, params):
-    #     import wdb;wdb.set_trace()
-    #     report = self.env.ref('ohada_reports.'+ params['ref_id'])
-    #     action = self.env['ir.actions.client'].sudo().search([('name', '=', report.name)]).read()[0]
-    #     action = clean_action(action)
-    #     ctx = self.env.context.copy()
-    #     if action:
-    #         ctx.update({
-    #                 'id': report.id,
-    #                 'report_options': report.make_temp_options(),
-    #                 'model': report._name
-    #         })
-    #     action['context'] = ctx
-    #     return action
+    @api.multi
+    def open_action_by_id(self, params):
+        report = self.env.ref('ohada_reports.'+ params['ref_id'])
+        action = self.env['ir.actions.client'].sudo().search([('name', '=', report.name)]).read()[0]
+        action = clean_action(action)
+        ctx = self.env.context.copy()
+        if action:
+            ctx.update({
+                    'id': report.id,
+                    'report_options': report.make_temp_options(),
+                    'model': report._name
+            })
+        action['context'] = ctx
+        return action
 
 
 class ReportOhadaFinancialReport(models.Model):
     _inherit = "ohada.financial.html.report"
 
     dashboard_report_id = fields.One2many('ohada.dash', 'report_id')
+    dash_button_ids = fields.Many2one('ohada.dash')
 
 
 class OhadaFinancialReportLine(models.Model):

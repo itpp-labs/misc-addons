@@ -28,16 +28,18 @@
                 <field name="currency_id"/>
                 <field name="dash_size"/>
                 <field name="reports"/>
+                <field name="button_ids"/>
                 <templates>
                     <t t-name="kanban-box">
                         <t t-debug="pdb"/>
                         <t t-value="JSON.parse(record.reports.raw_value)" t-set="reports_list"/>
                         <t t-value="record.dash_size.raw_value" t-set="dash_size"/>
+                        <t t-value="record.type.raw_value" t-set="button_type"/>
+                        <t t-value="record.button_ids.raw_value" t-set="buttons"/>
                         <t t-value="record.report_type.raw_value" t-set="journal_type"/>
                         <t t-value="record.currency_id.raw_value" t-set="currency_symbol"/>
                         <t t-value="record.reports.raw_value" t-set="report_ids"/>
                         <t t-value="record.display_name.raw_value" t-set="dashboard"/>
-                        <!-- <t t-value="record.random_names.raw_value" t-set="note_ids"/> -->
                         <t t-if="dash_size == 'middle'" t-call="MiddleSizeBox"/>
                         <t t-if="dash_size == 'small'" t-call="SmallSizeBox"/>
                         <t t-if="dash_size == 'large'" t-call="LargeSizeBox"/>
@@ -48,7 +50,7 @@
                             <t t-call="JournalTop"/>
                             <div class="container o_kanban_card_content">
                                 <div class="row">
-                                    <t t-call="NoteButtons"/>
+                                    <t t-if="button_type == 'note_button'" t-call="NoteButtons"/>
                                 </div>
                             </div>
                             <div class="container o_kanban_card_manage_pane dropdown-menu" role="menu">
@@ -93,247 +95,252 @@
                     </t>
 
                     <t t-name="NoteButtons">
-                        <div style="padding-bottom:20px; padding-left:6px;">
-                            <t t-foreach="reports_list" t-as="note">
-                                <div style="padding-bottom:20px; padding-left:6px;">
-                                    <button type="object" name="open_action" class="btn btn-primary">
-                                        <span><t t-esc="note.name"/></span>
-                                    </button>
-                                </div>
-                            </t>
-                        </div>
+                        <t t-foreach="buttons" t-as="note">
+                            <div style="padding-bottom:20px; padding-left:6px;">
+                                <button type="object" name="open_action" style="min-width:125px;" class="btn btn-primary">
+                                    <span><t t-esc="note"/></span>
+                                </button>
+                            </div>
+                        </t>
+                        <!-- <t t-foreach="reports_list" t-as="note">
+                            <div style="padding-bottom:20px; padding-left:6px;">
+                                <button type="object" name="open_action" t-att-data="{'id': note['id']}" style="min-width:125px;" class="btn btn-primary">
+                                    <span><t t-esc="note['name']"/></span>
+                                </button>
+                            </div>
+                        </t> -->
                         <!-- <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note16b'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note16b'}" class="btn btn-primary">
                                 <span>Note 16B</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note16b_bis'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note16b_bis'}" class="btn btn-primary">
                                 <span>Note 16B BIS</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note16c'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note16c'}" class="btn btn-primary">
                                 <span>Note 16C</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note17'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note17'}" class="btn btn-primary">
                                 <span>Note 17</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note18'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note18'}" class="btn btn-primary">
                                 <span>Note 18</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note19'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note19'}" class="btn btn-primary">
                                 <span>Note 19</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note20'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note20'}" class="btn btn-primary">
                                 <span>Note 20</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note21'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note21'}" class="btn btn-primary">
                                 <span>Note 21</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note22'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note22'}" class="btn btn-primary">
                                 <span>Note 22</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note23'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note23'}" class="btn btn-primary">
                                 <span>Note 23</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note24'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note24'}" class="btn btn-primary">
                                 <span>Note 24</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note25'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note25'}" class="btn btn-primary">
                                 <span>Note 25</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note26'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note26'}" class="btn btn-primary">
                                 <span>Note 26</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note27a'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note27a'}" class="btn btn-primary">
                                 <span>Note 27A</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note27b'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note27b'}" class="btn btn-primary">
                                 <span>Note 27B</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note28'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note28'}" class="btn btn-primary">
                                 <span>Note 28</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note29'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note29'}" class="btn btn-primary">
                                 <span>Note 29</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note30'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note30'}" class="btn btn-primary">
                                 <span>Note 30</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note30'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note30'}" class="btn btn-primary">
                                 <span>Note 31</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note32'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note32'}" class="btn btn-primary">
                                 <span>Note 32</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note33'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note33'}" class="btn btn-primary">
                                 <span>Note 33</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note34'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note34'}" class="btn btn-primary">
                                 <span>Note 34</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note35'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note35'}" class="btn btn-primary">
                                 <span>Note 35</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note36'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note36'}" class="btn btn-primary">
                                 <span>Note 36</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note37'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note37'}" class="btn btn-primary">
                                 <span>Note 37</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note1'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note1'}" class="btn btn-primary">
                                 <span>Note 1</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note2'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note2'}" class="btn btn-primary">
                                 <span>Note 2</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note3a'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note3a'}" class="btn btn-primary">
                                 <span>Note 3A</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note3b'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note3b'}" class="btn btn-primary">
                                 <span>Note 3B</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note3c'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note3c'}" class="btn btn-primary">
                                 <span>Note 3C</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note3d'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note3d'}" class="btn btn-primary">
                                 <span>Note 3D</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note3e'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note3e'}" class="btn btn-primary">
                                 <span>Note 3E</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note4'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note4'}" class="btn btn-primary">
                                 <span>Note 4</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note5'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note5'}" class="btn btn-primary">
                                 <span>Note 5</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note15b'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note15b'}" class="btn btn-primary">
                                 <span>Note 15B</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note16a'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note16a'}" class="btn btn-primary">
                                 <span>Note 16A</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note6'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note6'}" class="btn btn-primary">
                                 <span>Note 6</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note7'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note7'}" class="btn btn-primary">
                                 <span>Note 7</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note8'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note8'}" class="btn btn-primary">
                                 <span>Note 8</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note8a'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note8a'}" class="btn btn-primary">
                                 <span>Note 8A</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note9'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note9'}" class="btn btn-primary">
                                 <span>Note 9</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note10'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note10'}" class="btn btn-primary">
                                 <span>Note 10</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note11'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note11'}" class="btn btn-primary">
                                 <span>Note 11</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note12'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note12'}" class="btn btn-primary">
                                 <span>Note 12</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note13'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note13'}" class="btn btn-primary">
                                 <span>Note 13</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note14'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note14'}" class="btn btn-primary">
                                 <span>Note 14</span>
                             </button>
                         </div>
                         <div style="padding-bottom:20px; padding-left:6px;">
-                            <button type="object" name="open_action_by_id" context="{'ref_id': 'ohada_financial_report_note15a'}" class="btn btn-primary">
+                            <button type="object" name="open_action_by_id" style="min-width:125px;" context="{'ref_id': 'ohada_financial_report_note15a'}" class="btn btn-primary">
                                 <span>Note 15A</span>
                             </button>
                         </div> -->
