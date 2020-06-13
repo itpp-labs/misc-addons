@@ -649,6 +649,7 @@ class OhadaFinancialReportLine(models.Model):
     align = fields.Char(default='left')
     columns_id = fields.One2many('ohada.custom.columns', 'line_id', default=False)
     table_x_offset = fields.Integer(default=0)
+    notelist = fields.Char(default=False)
 
 
     _sql_constraints = [
@@ -1322,7 +1323,6 @@ class OhadaFinancialReportLine(models.Model):
                     if debit_credit:
                         res_vals.update({'debit': 0.0, 'credit': 0.0})
                     columns.append({'line': res_vals})
-
         return columns or [{'line': res} for res in line_res_per_group]
 
     def _put_columns_together(self, data, domain_ids):
@@ -1361,6 +1361,7 @@ class OhadaFinancialReportLine(models.Model):
     @api.multi
     def _get_lines(self, financial_report, currency_table, options, linesDicts):
         final_result_table = []
+        year = self._context['date_to'][0:4]
         comparison_table = [options.get('date')]
         comparison_table += options.get('comparison') and options['comparison'].get('periods', []) or []
         currency_precision = self.env.user.company_id.currency_id.rounding
@@ -1417,6 +1418,7 @@ class OhadaFinancialReportLine(models.Model):
                 'reference': line.reference,       
                 'note': line.note,
                 'note_id': line.note_id,
+                'notelist': line.notelist,
                 'symbol': line.symbol,
                 'level': line.level,
                 'class': '',
@@ -1440,6 +1442,14 @@ class OhadaFinancialReportLine(models.Model):
                 vals['note_id'] = str(self.env['ir.actions.client'].search([('name', '=', line.note_report_ids.name)]).id)
             if line.action_id:
                 vals['action_id'] = line.action_id.id
+            if line.notelist:
+                vals['notelist'] = []
+                for i in line.notelist.split(', '):
+                    note_shortname = self.env['ohada.financial.html.report'].search([('code', '=', 'N' + i)]).shortname
+                    vals['notelist'].append({'id': self.env['ir.actions.client'].search([('name', 'like', note_shortname + ' :')]).id,
+                                             'name': 'Note ' + i,
+                                             'note': i,})
+
             domain_ids.remove('line')
             lines = [vals]
             groupby = line.groupby or 'aml'
@@ -1694,6 +1704,7 @@ class OhadaFinancialReportLine(models.Model):
                             else:
                                 vals['columns'][- 1]['name'] = ['Variation en %']
 
+
                 # ============= For Notes 4, 7, 8, 17, 15A, 16A, 18, 19 =====================
 
                 if line.header is True and financial_report.code in ['N4', 'N7', 'N8', 'N17', 'N15A', 'N16A', 'N18', 'N19'] and len(comparison_table) == 2:
@@ -1713,8 +1724,8 @@ class OhadaFinancialReportLine(models.Model):
                     comparison_table = [options.get('date')]
                     comparison_table += options.get('comparison') and options['comparison'].get('periods', []) or []
                     for i in range(3):
-                        date_from = str(int(options.get('date')['string']) - (i + 1)) + '-01-01'
-                        date_to = str(int(options.get('date')['string']) - (i + 1)) + '-12-31'
+                        date_from = str(int(options.get('date')['string'][-4:]) - (i + 1)) + '-01-01'
+                        date_to = str(int(options.get('date')['string'][-4:]) - (i + 1)) + '-12-31'
                         date_from, date_to, strict_range = line.with_context(date_from=date_from, date_to=date_to)._compute_date_range()
 
                         r = line.with_context(date_from=date_from,
@@ -1738,8 +1749,8 @@ class OhadaFinancialReportLine(models.Model):
                         vals['columns'].append({'name': '0'})
                     # =========
                     # for i in range(2):
-                    #     date_from = str(int(options.get('date')['string']) - (i + 1)) + '-01-01'
-                    #     date_to = str(int(options.get('date')['string']) - (i + 1)) + '-12-31'
+                    #     date_from = str(int(options.get('date')['string'][-4:]) - (i + 1)) + '-01-01'
+                    #     date_to = str(int(options.get('date')['string'][-4:]) - (i + 1)) + '-12-31'
                     #     date_from, date_to, strict_range = line.with_context(date_from=date_from,
                     #                                                          date_to=date_to)._compute_date_range()
                     #
@@ -1887,6 +1898,13 @@ class OhadaFinancialReportLine(models.Model):
                                                    if type(d_column) == list else {'name': ' '})
                     elif financial_report.code in ["N16B_2", "N16BB_1"] and line.sequence > 3:
                        vals['columns'].append({'name': ' '})
+
+                manual_entryes = self.env['ohada.report.manualentry'].search([('year', '=', year), ('line', '=', line.id)])
+                if manual_entryes:
+                    for i, x in zip(vals['columns'], range(1, len(vals['columns'])+1)):
+                        for e in manual_entryes:
+                            if x == e.column:
+                                i['name'] = line._format({'name': float(e.text_value)})['name'] if i.get('no_format_name') else [e.text_value]
 
 
             final_result_table += result

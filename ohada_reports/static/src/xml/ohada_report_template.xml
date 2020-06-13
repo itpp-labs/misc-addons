@@ -15,4 +15,16 @@
         </t>
     </t>
 
+    <t t-name="accountReports.ohada_manualentry">
+        <form role="form">
+            <textarea name="manualentry" rows='2' class="js_account_reports_manualentry" t-att-data-line="id" placeholder="Insert new value here"><t t-esc="text"/></textarea>
+        </form>
+    </t>
+
+    <t t-name="accountReports.ohada_manualentry2">
+        <div>
+            <textarea name="manualentry" rows='2' class="js_account_reports_manualentry" t-att-data-line="id" placeholder="Insert new value here"><t t-esc="text"/></textarea>
+        </div>
+    </t>
+
 </templates>

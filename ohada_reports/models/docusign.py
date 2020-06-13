@@ -7,25 +7,31 @@ from docusign_esign import ApiClient, EnvelopesApi, EnvelopeDefinition, Signer, 
 
 class DocuSignOdoo(models.Model):
     _name = "docusign.odoo"
+    _description = 'Docusign service'
 
     access_token = fields.Char(default='')
     disclosure_id = fields.Many2one('ohada.disclosure')
 
     def authorization(self, company):
-        response_type = 'code'
-        scope = 'signature'
-        client_id = company.ds_integration_key
-        redirect_uri = self.env['ir.config_parameter'].sudo().get_param('report.url') or \
-                       self.env['ir.config_parameter'].sudo().get_param('web.base.url')
-        redirect_uri += '/docusign'
+        try:
+            response_type = 'code'
+            scope = 'signature'
+            client_id = company.ds_integration_key
+            redirect_uri = self.env['ir.config_parameter'].sudo().get_param('report.url') or \
+                           self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+            redirect_uri += '/docusign'
 
-        client_action = {
-            'type': 'ir.actions.act_url',
-            'target': 'new',
-            'url': 'https://account-d.docusign.com/oauth/auth' + '?response_type=' + response_type + '&scope=' + scope + '&client_id=' + client_id + '&redirect_uri=' + redirect_uri,
-        }
+            client_action = {
+                'type': 'ir.actions.act_url',
+                'target': 'new',
+                'url': 'https://account-d.docusign.com/oauth/auth' + '?response_type=' + response_type + '&scope=' + scope + '&client_id=' + client_id + '&redirect_uri=' + redirect_uri,
+            }
 
-        return client_action
+            return client_action
+        except Exception as e:
+            raise UserError(
+                _("Method doesn't work. Wrong credentials?\n%s" % (e))
+            )
 
     def send_document_for_signing(self, company):
         token = self.env['docusign.odoo.token'].search([])
@@ -128,5 +134,6 @@ class DocuSignOdoo(models.Model):
 
 class DocuSignOdooToken(models.Model):
     _name = "docusign.odoo.token"
+    _description = 'Docusign token'
 
     code = fields.Char()

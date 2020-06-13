@@ -93,6 +93,7 @@
         <field name="name">IMMOBILISATIONS INCORPORELLES</field>
         <field name="code">_AD</field>
         <field name="reference">AD</field>
+        <field name="notelist">3A, 3B, 3C, 3D, 3E</field>
         <field name="note">3</field>
         <field name="parent_id" ref='account_financial_report_ohada_balancesheet_assets'/>
         <field name="formulas">debit = _AE.debit + _AF.debit + _AG.debit + _AH.debit; credit = _AE.credit + _AF.credit + _AG.credit + _AH.credit; balance = _AE.balance + _AF.balance + _AG.balance + _AH.balance</field>
@@ -251,6 +252,7 @@
         <field name="code">_AI</field>
         <field name="reference">AI</field>
         <field name="note">3</field>
+        <field name="notelist">3A, 3B, 3C, 3D, 3E</field>
         <field name="parent_id" ref='account_financial_report_ohada_balancesheet_assets'/>
         <field name="formulas">debit = _AJ.debit + _AK.debit + _AL.debit + _AM.debit + _AN.debit; credit = _AJ.credit + _AK.credit + _AL.credit + _AM.credit + _AN.credit; balance = _AJ.balance + _AK.balance + _AL.balance + _AM.balance + _AN.balance</field>
         <field name="sequence" eval="40"/>
@@ -522,6 +524,7 @@
         <field name="code">_AP</field>
         <field name="reference">AP</field>
         <field name="note">3</field>
+        <field name="notelist">3A, 3B, 3C, 3D, 3E</field>
         <field name="parent_id" ref='account_financial_report_balancesheet_AI'/>
         <field name="domain">['|', '|', '|', ('account_id.code', '=like', '251%'), ('account_id.code', '=like', '252%'), ('account_id.code', '=like', '2951%'), ('account_id.code', '=like', '2952%')]</field>
         <field name="formulas">debit = _BSS_AP_B.balance; credit = _BSS_AP_A.balance; balance = sum.balance</field>
@@ -1163,6 +1166,7 @@
         <field name="code">_CL</field>
         <field name="reference">CL</field>
         <field name="note">15</field>
+        <field name="notelist">15A, 15B</field>
         <field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>
         <field name="domain">[('account_id.code', '=like', '14%')]</field>
         <field name="formulas">balance = -sum.balance</field>
@@ -1176,6 +1180,7 @@
         <field name="code">_CM</field>
         <field name="reference">CM</field>
         <field name="note">15</field>
+        <field name="notelist">15A, 15B</field>
         <field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>
         <field name="domain">[('account_id.code', '=like', '15%')]</field>
         <field name="formulas">balance = -sum.balance</field>
@@ -1200,6 +1205,7 @@
         <field name="code">_DA</field>
         <field name="reference">DA</field>
         <field name="note">16</field>
+        <field name="notelist">16A, 16B, 16BB, 16C</field>
         <field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>
         <field name="domain">['|', '|', '|', '|', ('account_id.code', '=like', '16%'), ('account_id.code', '=like', '181%'), ('account_id.code', '=like', '182%'), ('account_id.code', '=like', '183%'), ('account_id.code', '=like', '184%')]</field>
         <field name="formulas">balance = -sum.balance</field>
@@ -1213,6 +1219,7 @@
         <field name="code">_DB</field>
         <field name="reference">DB</field>
         <field name="note">16</field>
+        <field name="notelist">16A, 16B, 16BB, 16C</field>
         <field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>
         <field name="domain">[('account_id.code', '=like', '17%')]</field>
         <field name="formulas">balance = -sum.balance</field>
@@ -1226,6 +1233,7 @@
         <field name="code">_DC</field>
         <field name="reference">DC</field>
         <field name="note">16</field>
+        <field name="notelist">16A, 16B, 16BB, 16C</field>
         <field name="parent_id" ref='account_financial_report_ohada_balancesheet_liabilitites'/>
         <field name="domain">[('account_id.code', '=like', '19%')]</field>
         <field name="formulas">balance = -sum.balance</field>
@@ -1805,6 +1813,7 @@
         <field name="code">_RK</field>
         <field name="reference">RK</field>
         <field name="note">27</field>
+        <field name="notelist">27A, 27B</field>
         <field name="symbol">-</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '66%')]" />
@@ -1848,6 +1857,7 @@
         <field name="code">_RL</field>
         <field name="reference">RL</field>
         <field name="note">3C&amp;28</field>
+        <field name="notelist">3C, 28</field>
         <field name="symbol">-</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="['|', ('account_id.code', '=like', '681%'), ('account_id.code', '=like', '691%')]" />
@@ -1935,6 +1945,7 @@
         <field name="code">_RN</field>
         <field name="reference">RN</field>
         <field name="note">3C&amp;28</field>
+        <field name="notelist">3C, 28</field>
         <field name="symbol">-</field>
         <field name="financial_report_id" ref="account_financial_report_ohada_profitlost"/>
         <field name="domain" eval="[('account_id.code', '=like', '697%')]" />
