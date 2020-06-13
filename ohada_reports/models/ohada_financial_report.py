@@ -1899,13 +1899,16 @@ class OhadaFinancialReportLine(models.Model):
                     elif financial_report.code in ["N16B_2", "N16BB_1"] and line.sequence > 3:
                        vals['columns'].append({'name': ' '})
 
-                manual_entryes = self.env['ohada.report.manualentry'].search([('year', '=', year), ('line', '=', line.id)])
-                if manual_entryes:
+                manual_entry = self.env['ohada.report.manualentry'].search([('year', '=', year), ('line', '=', line.id)])
+                if manual_entry:
                     for i, x in zip(vals['columns'], range(1, len(vals['columns'])+1)):
-                        for e in manual_entryes:
+                        for e in manual_entry:
                             if x == e.column:
-                                i['name'] = line._format({'name': float(e.text_value)})['name'] if i.get('no_format_name') else [e.text_value]
-
+                                try:
+                                    i['name'] = line._format({'name': float(e.text_value)})['name']
+                                except ValueError:
+                                    i['name'] = [e.text_value]
+                                i['entry_id'] = e.id
 
             final_result_table += result
 
