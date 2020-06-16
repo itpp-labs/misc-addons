@@ -101,6 +101,7 @@
                                     <field name="ds_email" />
 									<field name="ds_integration_key" />
 									<field name="ds_secret_key" />
+									<field name="ds_sandbox" />
                                 </group>
 							</group>
 							<button name="check_docusign_connection" type="object" class="btn btn-primary oe_stat_button">

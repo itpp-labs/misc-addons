@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 # See LICENSE file for full copyright and licensing details.
-
+import requests
 from odoo import fields, models, _, api
+from odoo.exceptions import UserError
+from . import docusign
 
 
 class ResCompany(models.Model):
@@ -21,6 +23,7 @@ class ResCompany(models.Model):
     ds_password = fields.Char(string='Password')
     ds_integration_key = fields.Char(string='Integration key')
     ds_secret_key = fields.Char(string='Secret key')
+    ds_sandbox = fields.Boolean(default=True, string='Test mode')
 
     @api.multi
     def check_docusign_connection(self):
@@ -31,10 +34,16 @@ class ResCompany(models.Model):
                        self.env['ir.config_parameter'].sudo().get_param('web.base.url')
         redirect_uri += '/docusign'
 
-        client_action = {
-            'type': 'ir.actions.act_url',
-            'target': 'new',
-            'url': 'https://account-d.docusign.com/oauth/auth' + '?response_type=' + response_type + '&scope=' + scope + '&client_id=' + client_id + '&redirect_uri=' + redirect_uri,
-        }
+        try:
+            client_action = {
+                'type': 'ir.actions.act_url',
+                'target': 'new',
+                'url': docusign.REQUEST_URL[self.ds_sandbox] + 'docusign.com/oauth/auth' + '?response_type=' + response_type + '&scope=' + scope + '&client_id=' + client_id + '&redirect_uri=' + redirect_uri,
+            }
 
-        return client_action
+            return client_action
+        except Exception as e:
+            raise UserError(
+                _("Method doesn't work. Wrong credentials?\n%s" % (e))
+            )
+

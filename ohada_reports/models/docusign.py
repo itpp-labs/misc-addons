@@ -5,6 +5,12 @@ from odoo.exceptions import UserError
 from docusign_esign import ApiClient, EnvelopesApi, EnvelopeDefinition, Signer, SignHere, Tabs, Recipients, Document
 
 
+REQUEST_URL = {
+    True: 'https://account-d.',
+    False: 'https://account.',
+}
+
+
 class DocuSignOdoo(models.Model):
     _name = "docusign.odoo"
     _description = 'Docusign service'
@@ -24,7 +30,7 @@ class DocuSignOdoo(models.Model):
             client_action = {
                 'type': 'ir.actions.act_url',
                 'target': 'new',
-                'url': 'https://account-d.docusign.com/oauth/auth' + '?response_type=' + response_type + '&scope=' + scope + '&client_id=' + client_id + '&redirect_uri=' + redirect_uri,
+                'url': REQUEST_URL[company.ds_sandbox] + 'docusign.com/oauth/auth' + '?response_type=' + response_type + '&scope=' + scope + '&client_id=' + client_id + '&redirect_uri=' + redirect_uri,
             }
 
             return client_action
@@ -37,7 +43,7 @@ class DocuSignOdoo(models.Model):
         token = self.env['docusign.odoo.token'].search([])
         if token:
             self.write({'access_token': token[-1].code})
-        info = self.get_info()
+        info = self.get_info(company)
         if info.get('error'):
             return self.authorization(company)
         account_id = info['accounts'][0].get('account_id')
@@ -95,7 +101,7 @@ class DocuSignOdoo(models.Model):
         token = self.env['docusign.odoo.token'].search([])
         if token:
             self.write({'access_token': token[-1].code})
-        info = self.get_info()
+        info = self.get_info(company)
         if info.get('error'):
             return self.authorization(company)
         account_id = info['accounts'][0].get('account_id')
@@ -120,9 +126,9 @@ class DocuSignOdoo(models.Model):
 
         return results
 
-    def get_info(self):
+    def get_info(self, company):
         r = requests.get(
-            'https://account-d.docusign.com/oauth/userinfo',
+            REQUEST_URL[company.ds_sandbox] + 'docusign.com/oauth/userinfo',
             headers={
                 'Authorization': "Bearer %s" % self.access_token,
             },
