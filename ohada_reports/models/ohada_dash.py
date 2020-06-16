@@ -52,7 +52,6 @@ class OhadaDash(models.Model):
     def _compute_reports(self):
         for dash in self:
             if dash.type == 'note_button':
-                import wdb;wdb.set_trace()
                 report_data = []
                 for report in self.env['ohada.financial.html.report'].search([('type', '=', 'note'), ('secondary', '=', False)]):
                     report_data.append({
@@ -77,25 +76,18 @@ class OhadaDash(models.Model):
                 dash.display_name = 'Company' + str(dash.id)
 
     @api.multi
-    def open_action(self, params):
-        import wdb;wdb.set_trace()
+    def open_action(self):
         # report = self.report_id
         report = self.env['ohada.financial.html.report'].search([('code', '=', self.report_type)])
-        action = self.env['ir.actions.client'].sudo().search([('name', '=', report.name)]).read()[0]
-        action = clean_action(action)
-        ctx = self.env.context.copy()
-        if action:
-            ctx.update({
-                    'id': report.id,
-                    'report_options': report.make_temp_options(),
-                    'model': report._name
-            })
-        action['context'] = ctx
-        return action
+        return self.return_action(report)
     
     @api.multi
     def open_action_by_id(self, params):
-        report = self.env.ref('ohada_reports.'+ params['ref_id'])
+        report = self.env['ohada.financial.html.report'].browse(int(params['id']))
+        return self.return_action(report)
+    
+    @api.multi
+    def return_action(self, report):
         action = self.env['ir.actions.client'].sudo().search([('name', '=', report.name)]).read()[0]
         action = clean_action(action)
         ctx = self.env.context.copy()
