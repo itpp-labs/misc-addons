@@ -31,6 +31,7 @@ Countries that use SYSCOHADA are the following:
         'security/ir.model.access.csv',
         'views/menuitem.xml',
         'views/ohada_dashboard_view.xml',
+        'views/ohada_dash_view.xml',
         'views/ohada_sheets_layout.xml',
         'data/ohada_report_info.xml',
         'data/ohada_report_note.xml',
@@ -44,6 +45,7 @@ Countries that use SYSCOHADA are the following:
         'views/report_template_view.xml',
         'views/search_template_view.xml',
         'data/ohada_note_relevance.xml',
+        'data/ohada_dash.xml',
     ],
     'qweb': [
         'static/src/xml/ohada_report_template.xml',

@@ -13,8 +13,8 @@ odoo.define('ohada_dash.Dash', function (require) {
     });
 
     function init_after_qweb_render(){
-        $('.o_cp_searchview').empty();
-        $('.o_cp_right').empty();
+        // $('.o_cp_searchview').empty();
+        // $('.o_cp_right').empty();
         // $('.o_control_panel').append(QWeb.render('', {widget: this}));
         // $(".note").click(function () {
         //     // console.log("qw");
