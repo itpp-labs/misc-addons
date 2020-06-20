@@ -4,30 +4,26 @@ odoo.define('ohada_dash.Dash', function (require) {
     var Class = require('web.Class');
     var core = require('web.core');
     var QWeb = core.qweb;
-    var rpc = require('web.rpc')    
+    var session = require('web.session');
 
     var Dash = Class.extend({
         init: function(){
-            setTimeout(init_after_qweb_render, 2000);
+            setTimeout(check_buttons_rendered, 500);
         },
     });
 
-    function init_after_qweb_render(){
-        // $('.o_cp_searchview').empty();
-        // $('.o_cp_right').empty();
-        // $('.o_control_panel').append(QWeb.render('', {widget: this}));
-        // $(".note").click(function () {
-        //     // console.log("qw");
-        //     rpc.query({
-        //         model: 'ohada.dash',
-        //         method: 'open_action_for_notes',
-        //         args: [{
-        //             'shortname': this.innerText,
-        //         }]
-        //     }).then(function (result) {            
-        //         console.log(result);
-        //     });
-        // });
+    function check_buttons_rendered(){
+        if($(".export").text()){
+            $(".export").click(function () {
+                session.rpc('/get_report_values', {
+                }).then(function (result) {
+                    console.log(result);
+                });
+            });
+        }
+        else{
+            setTimeout(check_buttons_rendered, 500);
+        }
     }
 
     var d = new Dash();
