@@ -106,7 +106,7 @@
 
                     <t t-name="NoteButtons">
                         <t t-foreach="reports_list" t-as="note">
-                            <div style="padding-bottom:20px; padding-left:6px;">
+                            <div style="padding-left:6px;">
                                 <button type="object" name="open_action_by_id" t-attf-data-context="{'id' : '#{note['id']}'}" style="min-width:125px;" class="btn btn-primary note">
                                     <span><t t-esc="note['name']"/></span>
                                 </button>
@@ -158,7 +158,6 @@
                     </t>
 
                     <t t-name="CompanyStatus">
-                        <t t-debug="pdb"/>
                         <div class="row">
                             <div class="col-7">
                                 <a type="object" name="open_action" style="overflow: visible;">
@@ -242,7 +241,7 @@
                                         <a role="menuitem" type="object" name="create_cash_statement">Statement</a>
                                     </t>
                                 </div>
-                                <div>
+                                <!-- <div>
                                     <a role="menuitem" type="object" name="create_customer_payment">Customer Payment</a>
                                 </div>
                                 <div>
@@ -250,8 +249,8 @@
                                 </div>
                                 <div>
                                     <a role="menuitem" type="object" name="create_internal_transfer">Internal Transfer</a>
-                                </div>
-                                <div class="border">
+                                </div> -->
+                                <div>
                                     <a role="menuitem" type="action" name="%(change_options_wizard)d">Change Options</a>
                                 </div>
                             </div>
