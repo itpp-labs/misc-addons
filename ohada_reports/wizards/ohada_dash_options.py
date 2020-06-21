@@ -9,10 +9,14 @@ class DashboardOptions(models.TransientModel):
     _name = 'ohada.dash.options'
     _description = 'Change dashboard options'
 
-    current_year = fields.Integer(string='Current year', default=datetime.now().year)
+    current_year = fields.Char(string='Current year', default=str(datetime.now().year))
+    all_entries = fields.Boolean(string="Status of journal entries")
 
+    @api.multi
     def change_options(self):
-        import wdb;wdb.set_trace()
-        dashes = self.env['ohada.dash'].search([])
-        for dash in dashes:
-            dash.current_year = self.current_year
+        # Setting new options
+        options = self.env.ref('ohada_reports.ohada_dashboard_options').sudo()
+        options.current_year = int(self.current_year)
+        options.all_entries = self.all_entries
+        # Loading dashboard with new options
+        return self.env.ref('ohada_reports.ohada_action_dash').sudo().read()[0]

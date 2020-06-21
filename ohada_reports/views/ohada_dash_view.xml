@@ -3,9 +3,9 @@
         <field name="name">ohada.dash.dashboard.kanban</field>
         <field name="model">ohada.dash</field>
         <field name="arch" type="xml">
-            <header>
-                <button name="%(change_options_wizard)d" string="Change options" type="action" class="oe_highlight"/>
-            </header>
+            <!-- <footer>
+                <button name="%(ohada_reports.change_options_wizard)d" string="Change options" type="action" class="oe_highlight"/>
+            </footer> -->
             <kanban create="false" class="oe_background_grey o_kanban_dashboard o_account_kanban">
                 <field name="id"/>
                 <field name="name"/>
@@ -132,10 +132,13 @@
                     </t>
 
                     <t t-name="ExportButtons">
-                        <div style="padding-bottom:20px; padding-left:6px;">
-                            <button style="min-width:125px;" class="btn btn-primary export">
-                                <span>PRINT BUNDLE</span>
-                            </button>
+                        <div class="ohada_notification" style="margin-left:-10px; padding-right:25px;">
+                            <div style="padding-left:0px;">
+                                <button class="btn btn-primary oh_dashbard_btn_m" style="margin-right:4px;">IMPORT DATA</button>
+                                <button type="object" class="btn btn-primary oh_dashbard_btn_m print_bundle" style="margin-right:4px;">PRINT BUNDLE</button>
+                                <button class="btn btn-primary oh_dashbard_btn_m" style="margin-right:4px;">CLOSE PERIOD</button>
+                                <button class="btn btn-primary oh_dashbard_btn_m" style="margin-right:4px;">SIGN &amp; PAY</button>
+                            </div>
                         </div>
                     </t>
 
@@ -247,6 +250,9 @@
                                 </div>
                                 <div>
                                     <a role="menuitem" type="object" name="create_internal_transfer">Internal Transfer</a>
+                                </div>
+                                <div class="border">
+                                    <a role="menuitem" type="action" name="%(change_options_wizard)d">Change Options</a>
                                 </div>
                             </div>
 

@@ -46,11 +46,12 @@ class OhadaDash(models.Model):
         required=True,
         default=lambda s: s.env.user.company_id
     )
+    current_year = fields.Integer(related='options.current_year', string="Current Year")
     currency_id = fields.Char(related='company_id.currency_id.symbol', string='Currency symbol')
     reports = fields.Text(compute='_compute_reports')
     bundle_reports = fields.Text(compute='_compute_bundle_reports')
     kanban_dashboard_graph = fields.Text(compute='_kanban_dashboard_graph')
-    current_year = fields.Integer(string='Date Current Action',default=datetime.now().year)
+    options = fields.Many2one("ohada.options")
     lines_value = fields.Text(compute='_get_BS_PL_CD_dashes')
 
     def _compute_reports(self):
@@ -119,7 +120,7 @@ class OhadaDash(models.Model):
         if action:
             ctx.update({
                     'id': report.id,
-                    'report_options': report.make_temp_options(),
+                    'report_options': report.make_temp_options(self.current_year),
                     'model': report._name
             })
         action['context'] = ctx
@@ -138,56 +139,31 @@ class OhadaDash(models.Model):
     @api.multi
     def _get_graph_data(self):
         data = []
-        # fetched_data = self.fetch_di_data()
-        # if self.report_type == 'BS':
-        #     for line_data in fetched_data['di_data']['BS']:
-        #         data.append({'label': line_data[0], 'value': line_data[1], 'type': 'past'})
-        # if self.report_type == 'PL':
-        #     for line_data in fetched_data['di_data']['PL']:
-        #         data.append({'label': line_data[0], 'value': line_data[1], 'type': 'past'})
-        # if self.report_type == 'CF':
-        #     for line_data in fetched_data['di_data']['CF']:
-        #         data.append({'label': line_data['l_month'], 'value': line_data['count'], 'type': 'past'})
-        data.append({'label': '2020', 'value': 10, 'type': 'past'})
-        data.append({'label': '2019', 'value': 2, 'type': 'past'})
-        data.append({'label': '2018', 'value': 8, 'type': 'past'})
-        data.append({'label': '2017', 'value': 20, 'type': 'past'})
+        fetched_data = self.fetch_di_data(self.current_year, self.options.sudo().all_entries)
+        if self.report_type == 'BS':
+            for line_data in fetched_data['di_data']['BS']:
+                data.append({'label': line_data[0], 'value': line_data[1], 'type': 'past'})
+        if self.report_type == 'PL':
+            for line_data in fetched_data['di_data']['PL']:
+                data.append({'label': line_data[0], 'value': line_data[1], 'type': 'past'})
+        if self.report_type == 'CF':
+            for line_data in fetched_data['di_data']['CF']:
+                data.append({'label': line_data['l_month'], 'value': line_data['count'], 'type': 'past'})
+        Code below is temporary, it needs to test new features, cause it collects faster than 'fetched_data'
+        # data.append({'label': '2020', 'value': 10, 'type': 'past'})
+        # data.append({'label': '2019', 'value': 2, 'type': 'past'})
+        # data.append({'label': '2018', 'value': 8, 'type': 'past'})
+        # data.append({'label': '2017', 'value': 20, 'type': 'past'})
         return data
-
-    # def get_BS_PL_CF_vals(self):
-    #     report = request.env['ohada.financial.html.report']
-    #     # Get ohada.dash record because of 'year' field
-    #     dash = request.env.ref('ohada_reports.ohada_dashboard_view_your_company')
-    #     report_bs = self.env['ohada.financial.html.report'].search([('code', '=', 'BS')], limit=1)
-    #     options = report_bs._get_options()
-    #     bz_id = self.env.ref('ohada_reports.account_financial_report_balancesheet_BZ').id
-    #     # TODO: Check out all_entries value, now it's 'FALSE'
-    #     options.update({
-    #         'date': {'date_to': str(year) + '-12-31', 'string': str(year), 'filter': 'this_year'},
-    #         'all_entries': False,
-    #     })
-    #     ctx = report._set_context(options)
-    #     bz1 = report.with_context(ctx)._get_lines(options, bz_id)[0]['columns'][0]['no_format_name']
-    #     options.update({
-    #         'date': {'date_to': str(year - 1) + '-12-31', 'string': str(year), 'filter': 'this_year'},
-    #     })
-    #     ctx = report._set_context(options)
-    #     bz2 = report.with_context(ctx)._get_lines(options, bz_id)[0]['columns'][0]['no_format_name']
-    #     variation_bz = _('n/a') if float(bz2) == 0.0 else '{:,.0f}%'.format(((bz1/bz2)-1)*100)
-    #     data = {
-    #         'BS': {'bz': bz1, 'bz-1': bz2, 'var': variation_bz}, 
-    #         'PL': {'':,'':,'var':},
-    #         'CF': {'':,'':,'var':}
-    #     }
-    #     return data
     
     def _get_BS_PL_CD_dashes(self):
         report = self.env['ohada.financial.html.report']
         options = report.make_temp_options()
         ctx = report._set_context(options)
         for dash in self:
+            year = dash.current_year
             if dash.type == 'other_button':
-                date_to = dash.current_year and str(dash.current_year) + '-12-31' or False
+                date_to = year and str(year) + '-12-31' or False
                 period_domain = [('state', '=', 'draft'), ('date', '<=', date_to)]
 
                 data = {
@@ -202,7 +178,7 @@ class OhadaDash(models.Model):
                 ir_id = dash.env.ref('ohada_reports.ohada_financial_report_note37_IR').id
 
                 current_company_id = dash.company_id
-                d_date_to = dash.current_year and date(dash.current_year, 12, 31) or False
+                d_date_to = year and date(year, 12, 31) or False
                 if current_company_id.period_lock_date:
                     period_lock_date = date(current_company_id.period_lock_date.year, current_company_id.period_lock_date.month, current_company_id.period_lock_date.day)
                     if d_date_to and period_lock_date  >= d_date_to:
@@ -220,30 +196,29 @@ class OhadaDash(models.Model):
             if dash.displayed_report_line:
                 value = report.with_context(ctx)._get_lines({
                     'ir_filters': None,
-                    'date': {'date_to': str(dash.current_year) + '-12-31',
-                            'string': str(dash.current_year),
+                    'date': {'date_to': str(year) + '-12-31',
+                            'string': str(year),
                             'filter': 'this_year',
-                            'date_from': str(dash.current_year) + '-01-01'}
+                            'date_from': str(year) + '-01-01'}
                 }, dash.displayed_report_line.id)[0]['columns'][0]['name']
                 value_prev = report.with_context(ctx)._get_lines({
                     'ir_filters': None,
-                    'date': {'date_to': str(dash.current_year - 1) + '-12-31',
-                            'string': str(dash.current_year - 1),
+                    'date': {'date_to': str(year - 1) + '-12-31',
+                            'string': str(year - 1),
                             'filter': 'this_year',
-                            'date_from': str(dash.current_year - 1) + '-01-01'}
+                            'date_from': str(year - 1) + '-01-01'}
                 }, dash.displayed_report_line.id)[0]['columns'][0]['name']
-                dash.lines_value = json.dumps({'this_year': str(dash.current_year), 'this_year_value': value[0],
-                                            'prev_year': str(dash.current_year - 1), 'prev_year_value': value_prev[0]})
+                dash.lines_value = json.dumps({'this_year': str(year), 'this_year_value': value[0],
+                                            'prev_year': str(year - 1), 'prev_year_value': value_prev[0]})
 
-    def fetch_di_data(self):
+    def fetch_di_data(self, year, all_entries):
         report = self.env['ohada.financial.html.report']
         data = dict()
-        year = self.current_year
         report_cf = self.env['ohada.financial.html.report'].search([('code', '=', 'CF')], limit=1)
         options = report_cf._get_options()
         options.update({
             'date': {'date_to': str(year) + '-12-31', 'string': str(year), 'filter': 'this_year', 'date_from': str(year) + '-01-01'},
-            'all_entries': False,
+            'all_entries': all_entries,
         })
         ctx = report._set_context(options)
         bz_id = self.env.ref('ohada_reports.account_financial_report_balancesheet_BZ').id
@@ -323,10 +298,6 @@ class OhadaDash(models.Model):
                                  {'l_month': str(year), 'count': data['zh_d']}]
         return data
 
-    @api.multi
-    def change_current_year(self, year):
-        self.current_year = year
-
 
 class ReportOhadaFinancialReport(models.Model):
     _inherit = "ohada.financial.html.report"
@@ -338,3 +309,10 @@ class OhadaFinancialReportLine(models.Model):
     _inherit = "ohada.financial.html.report.line"
 
     dashboard_displayed_report_line = fields.One2many('ohada.dash', 'displayed_report_line')
+
+class OhadaOptions(models.Model):
+    _name = "ohada.options"
+
+    current_year = fields.Integer(string="Current Year", default=str(datetime.now().year))
+    dashboard = fields.One2many('ohada.dash', 'options')
+    all_entries = fields.Boolean(string="Status of journal entries")

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--Copyright 2020 Vildan Safin <https://www.it-projects.info/team/Enigma228322>
     License AGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).-->
-<template xml:space="preserve">
-        <t t-extend="ListView.buttons">
-            <t t-jquery="button.o_list_button_add" t-operation="after">
-                <!-- <button t-if="widget.modelName == 'ohada.dash'" name="%(change_options_wizard)d" string="Change options" type="action" class="oe_highlight">
-                    Change Options                    
-                </button> -->
-                <button name="%(change_options_wizard)d" string="Change options" type="action" class="oe_highlight">
-                    Change Options                    
-                </button> 
+<templates id="template" xml:space="preserve">
+    <t t-extend="KanbanView.buttons">
+        <t t-jquery="button" t-operation="after">
+            <t t-if="widget.modelName == 'ohada.dash'">
+                <button
+                    class="oe_button oe_highlight"
+                    type="button">My Button</button>
             </t>
         </t>
-</template>
+    </t>
+</templates>

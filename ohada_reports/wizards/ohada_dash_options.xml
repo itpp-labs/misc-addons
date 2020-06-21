@@ -7,6 +7,7 @@
                 <form string="Choose year">
                     <group class="oe_title">
                         <field name="current_year"/>
+                        <field name="all_entries"/>
                     </group>
                     <footer>
                         <button name="change_options" string="Change" type="object" class="btn btn-sm btn-primary"/>
