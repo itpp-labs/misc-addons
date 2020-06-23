@@ -5,9 +5,9 @@
     <t t-extend="KanbanView.buttons">
         <t t-jquery="button" t-operation="after">
             <t t-if="widget.modelName == 'ohada.dash'">
-                <button
-                    class="oe_button oe_highlight"
-                    type="button">My Button</button>
+                <button data-name="open_wizard" string="Change options" type="button" class="btn btn-primary o_call_wizard">
+                    Change Options
+                </button>
             </t>
         </t>
     </t>

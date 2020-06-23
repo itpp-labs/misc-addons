@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<odoo>
+        <record id="print_bundle_form" model="ir.ui.view">
+            <field name="name">ohada.dash.print.bundle.wizard</field>
+            <field name="model">ohada.dash.print.bundle</field>
+            <field name="arch" type="xml">
+                <form string="Print bundle report">
+                    <field name="reports"/>
+                    <group class="oe_title">
+                        <field name="reports"/>
+                    </group>
+                    <!-- <templates>
+                        <t t-debug="pdb"/>
+                        <t t-value="JSON.parse(record.reports.raw_value)" t-set="reports_list"/>
+                    </templates> -->
+                    <!-- <div id="myForm" class="popup disp-block">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Print bundle report</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-label="Close">&amp;times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p style="color:#008784;">Company: <span style="color:#666666;"><t t-esc="company_name"/></span></p>
+                            <p style="color:#008784;">Fiscal year: <span style="color:#666666;"><t t-esc="year"/></span></p>
+                            <t t-foreach="reports_list" t-as="report">
+                                <div class="form-check bundle_item">
+                                    <input t-att-data-record-id="report['id']" class="form-check-input" type="checkbox" id="gridCheck1" t-att-checked="True"/>
+                                    <label class="form-check-label" for="gridCheck1">
+                                    <t t-esc="report['name']"/>
+                                    </label>
+                                </div>
+                            </t>
+                        </div>
+                    </div> -->
+                    <footer>
+                        <button type="button" class="btn btn-primary export_pdf" data-dismiss="modal">Export pdf</button>
+                        <button type="button" class="btn btn-primary export_xlsx" data-dismiss="modal">Export xlsx</button>
+                    </footer>
+                </form>
+            </field>
+        </record>
+ 
+        <record id="print_bundle_wizard" model="ir.actions.act_window">
+            <field name="name">Print bundle report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ohada.dash.print.bundle</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="print_bundle_form"/>
+            <field name="target">new</field>
+        </record>
+</odoo>

@@ -31,6 +31,7 @@ Countries that use SYSCOHADA are the following:
         'security/ir.model.access.csv',
         'views/menuitem.xml',
         'views/ohada_dashboard_view.xml',
+        'wizards/ohada_dash_print_bundle.xml',
         'wizards/ohada_dash_options.xml',
         'views/ohada_dash_view.xml',
         'views/ohada_sheets_layout.xml',

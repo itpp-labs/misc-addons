@@ -14,6 +14,7 @@ _logger = logging.getLogger(__name__)
 class OhadaDash(models.Model):
     _name = "ohada.dash"
     _description = "OHADA dashboard"
+    _order = "sequence"
 
     name = fields.Char(required=True)
     name_to_display = fields.Selection([('name', 'Name'),
@@ -53,6 +54,7 @@ class OhadaDash(models.Model):
     kanban_dashboard_graph = fields.Text(compute='_kanban_dashboard_graph')
     options = fields.Many2one("ohada.options")
     lines_value = fields.Text(compute='_get_BS_PL_CD_dashes')
+    sequence = fields.Integer(default=10, help="Gives the sequence order when displaying a blocks of a Dashboard.")
 
     def _compute_reports(self):
         for dash in self:
@@ -78,12 +80,6 @@ class OhadaDash(models.Model):
                 data.append({'name': report.name, 'id': report.id})
             dash.bundle_reports = json.dumps(data)
 
-    def compute_bundle_reports_js(self):
-        data = []
-        for report in self.env['ohada.financial.html.report'].search([('type', '=', 'main')]):
-            data.append({'name': report.name, 'id': report.id})
-        return json.dumps(data)
-
     def _compute_buttons_ids(self):
         for dash in self:
             if dash.type == 'note_button':
@@ -97,6 +93,9 @@ class OhadaDash(models.Model):
                 dash.display_name = dash.name
             else:
                 dash.display_name = 'Company' + str(dash.id)
+
+    def open_wizard(self):
+        return self.env.ref('ohada_reports.change_options_wizard').sudo().read()[0]
 
     @api.multi
     def open_action(self):
@@ -149,7 +148,7 @@ class OhadaDash(models.Model):
         if self.report_type == 'CF':
             for line_data in fetched_data['di_data']['CF']:
                 data.append({'label': line_data['l_month'], 'value': line_data['count'], 'type': 'past'})
-        Code below is temporary, it needs to test new features, cause it collects faster than 'fetched_data'
+        # Code below is temporary, it needs to test new features, cause it collects faster than 'fetched_data'
         # data.append({'label': '2020', 'value': 10, 'type': 'past'})
         # data.append({'label': '2019', 'value': 2, 'type': 'past'})
         # data.append({'label': '2018', 'value': 8, 'type': 'past'})

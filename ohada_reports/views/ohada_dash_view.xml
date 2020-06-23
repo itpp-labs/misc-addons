@@ -3,10 +3,10 @@
         <field name="name">ohada.dash.dashboard.kanban</field>
         <field name="model">ohada.dash</field>
         <field name="arch" type="xml">
-            <!-- <footer>
+            <!-- <header>
                 <button name="%(ohada_reports.change_options_wizard)d" string="Change options" type="action" class="oe_highlight"/>
-            </footer> -->
-            <kanban create="false" class="oe_background_grey o_kanban_dashboard o_account_kanban">
+            </header> -->
+            <kanban class="oe_background_grey o_kanban_dashboard o_account_kanban">
                 <field name="id"/>
                 <field name="name"/>
                 <field name="type"/>
@@ -50,14 +50,23 @@
                                     <t t-if="button_type == 'note_button'" t-call="NoteButtons"/>
                                     <t t-if="button_type == 'info_button'" t-call="Sheets"/>
                                     <t t-if="kanban_name == 'YourCompany'">
-                                        <div class="col-md-4 col-lg-4" style="float:left;">
-                                            <t t-call="ExportButtons"/>
-                                        </div>
-                                        <div class="col-md-4 col-lg-4" style="float:left;">
-                                            <t t-call="CompanyLines"/>
-                                        </div>
-                                        <div class="col-md-4 col-lg-4" style="float:left;">
-                                            <t t-call="CompanyStatus"/>
+                                        <div class="oh-card" style="border: 0px">
+                                            <div class="oh-card-body pb-0" style="padding-top:5px; padding-bottom:20px;">
+                                                <div class="col-md-5 col-lg-5" style="float:left; margin-left:10px;">
+                                                </div>
+                                                <div class="col-md-3 col-lg-3">
+                                                    <img t-att-src="'/ohada_reports/static/img/ohada.png'" style="float: right; width: 42px; height: 40px;"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-lg-4" style="float:left;">
+                                                <t t-call="ExportButtons"/>
+                                            </div>
+                                            <div class="col-md-4 col-lg-4" style="float:left;">
+                                                <t t-call="CompanyLines"/>
+                                            </div>
+                                            <div class="col-md-4 col-lg-4" style="float:right;">
+                                                <t t-call="CompanyStatus"/>
+                                            </div>
                                         </div>
                                     </t>
                                 </div>
@@ -78,7 +87,7 @@
                     </t>
 
                     <t t-name="SmallSizeBox">
-                        <div t-attf-class="#{kanban_color(record.color.raw_value)} col-4">
+                        <div t-attf-class="#{kanban_color(record.color.raw_value)} col-4" style="max-width: 32%;">
                             <t t-call="JournalTop"/>
                             <div class="container o_kanban_card_content">
                                 <div class="row">
@@ -135,7 +144,7 @@
                         <div class="ohada_notification" style="margin-left:-10px; padding-right:25px;">
                             <div style="padding-left:0px;">
                                 <button class="btn btn-primary oh_dashbard_btn_m" style="margin-right:4px;">IMPORT DATA</button>
-                                <button type="object" class="btn btn-primary oh_dashbard_btn_m print_bundle" style="margin-right:4px;">PRINT BUNDLE</button>
+                                <button name="%(print_bundle_wizard)d" type="action" class="btn btn-primary oh_dashbard_btn_m print_bundle export" style="margin-right:4px;">PRINT BUNDLE</button>
                                 <button class="btn btn-primary oh_dashbard_btn_m" style="margin-right:4px;">CLOSE PERIOD</button>
                                 <button class="btn btn-primary oh_dashbard_btn_m" style="margin-right:4px;">SIGN &amp; PAY</button>
                             </div>
@@ -250,9 +259,6 @@
                                 <div>
                                     <a role="menuitem" type="object" name="create_internal_transfer">Internal Transfer</a>
                                 </div> -->
-                                <div>
-                                    <a role="menuitem" type="action" name="%(change_options_wizard)d">Change Options</a>
-                                </div>
                             </div>
 
                                 <div class="col-4 o_kanban_card_manage_section o_kanban_manage_reconciliation">
@@ -461,7 +467,7 @@
                         </div>
                     </t>
 
-                    <t t-name="PrintBundlePoopup">
+                    <!-- <t t-name="PrintBundlePoopup">
                         <div id="myForm" class="popup disp-block">
                             <div class="modal-header">
                                 <h5 class="modal-title">Print bundle report</h5>
@@ -486,7 +492,7 @@
                                 <button type="button" class="btn btn-primary export_xlsx" data-dismiss="modal">Export xlsx</button>
                             </div>
                         </div>
-                    </t>
+                    </t> -->
             </templates>
             </kanban>
         </field>
