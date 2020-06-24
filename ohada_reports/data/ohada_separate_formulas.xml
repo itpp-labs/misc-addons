@@ -2160,7 +2160,7 @@
     </record>
 
 
-        <!--FORMULAS FOR N4-->
+    <!--FORMULAS FOR N4-->
     <!--N4_1-->
     <record id="ohada_financial_report_note4_sub1_1" model="ohada.financial.html.report.line">
             <field name="name"> </field>
@@ -3997,7 +3997,7 @@
             <field name="groupby">account_id</field>
     </record>
 
-        <!--FORMULAS FOR N16a-->
+    <!--FORMULAS FOR N16a-->
     <!--N16a_1-->
     <record id="ohada_financial_report_note16a_sub1_1" model="ohada.financial.html.report.line">
             <field name="name"> </field>

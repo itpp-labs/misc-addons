@@ -764,6 +764,7 @@
         <field name="name">Brevets, licences, logiciel et droits similaires</field>
         <field name="code">N3b_2</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3b"/>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3b_sub1_1'), ref('ohada_financial_report_note3b_sub1_2'), ref('ohada_financial_report_note3b_sub1_3'), ref('ohada_financial_report_note3b_sub1_4'), ref('ohada_financial_report_note3b_sub1_5')])]"/>
         <field name="note">A</field>
         <field name="level" eval="2" />
         <field name="sequence" eval="3"/>
@@ -775,6 +776,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note3b"/>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3b_sub2_1'), ref('ohada_financial_report_note3b_sub2_2'), ref('ohada_financial_report_note3b_sub2_3'), ref('ohada_financial_report_note3b_sub2_4'), ref('ohada_financial_report_note3b_sub2_5')])]"/>
         <field name="note">A</field>
         <field name="level" eval="2" />
         <field name="sequence" eval="4"/>
@@ -787,6 +789,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note3b"/>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3b_sub3_1'), ref('ohada_financial_report_note3b_sub3_2'), ref('ohada_financial_report_note3b_sub3_3'), ref('ohada_financial_report_note3b_sub3_4'), ref('ohada_financial_report_note3b_sub3_5')])]"/>
         <field name="note">A</field>
         <field name="level" eval="2" />
         <field name="sequence" eval="5"/>
@@ -799,6 +802,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note3b"/>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3b_sub4_1'), ref('ohada_financial_report_note3b_sub4_2'), ref('ohada_financial_report_note3b_sub4_3'), ref('ohada_financial_report_note3b_sub4_4'), ref('ohada_financial_report_note3b_sub4_5')])]"/>
         <field name="note"> </field>
         <field name="level" eval="1" />
         <field name="sequence" eval="6"/>
@@ -811,6 +815,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note3b"/>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3b_sub5_1'), ref('ohada_financial_report_note3b_sub5_2'), ref('ohada_financial_report_note3b_sub5_3'), ref('ohada_financial_report_note3b_sub5_4'), ref('ohada_financial_report_note3b_sub5_5')])]"/>
         <field name="note">I</field>
         <field name="level" eval="2" />
         <field name="sequence" eval="7"/>
@@ -823,6 +828,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note3b"/>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3b_sub6_1'), ref('ohada_financial_report_note3b_sub6_2'), ref('ohada_financial_report_note3b_sub6_3'), ref('ohada_financial_report_note3b_sub6_4'), ref('ohada_financial_report_note3b_sub6_5')])]"/>
         <field name="note">I</field>
         <field name="level" eval="2" />
         <field name="sequence" eval="8"/>
@@ -835,6 +841,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note3b"/>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3b_sub7_1'), ref('ohada_financial_report_note3b_sub7_2'), ref('ohada_financial_report_note3b_sub7_3'), ref('ohada_financial_report_note3b_sub7_4'), ref('ohada_financial_report_note3b_sub7_5')])]"/>
         <field name="note">M</field>
         <field name="level" eval="2" />
         <field name="sequence" eval="9"/>
@@ -847,6 +854,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note3b"/>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3b_sub8_1'), ref('ohada_financial_report_note3b_sub8_2'), ref('ohada_financial_report_note3b_sub8_3'), ref('ohada_financial_report_note3b_sub8_4'), ref('ohada_financial_report_note3b_sub8_5')])]"/>
         <field name="note">M</field>
         <field name="level" eval="2" />
         <field name="sequence" eval="10"/>
@@ -859,6 +867,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note3b"/>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3b_sub9_1'), ref('ohada_financial_report_note3b_sub9_2'), ref('ohada_financial_report_note3b_sub9_3'), ref('ohada_financial_report_note3b_sub9_4'), ref('ohada_financial_report_note3b_sub9_5')])]"/>
         <field name="note">A</field>
         <field name="level" eval="2" />
         <field name="sequence" eval="11"/>
@@ -871,6 +880,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note3b"/>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3b_sub10_1'), ref('ohada_financial_report_note3b_sub10_2'), ref('ohada_financial_report_note3b_sub10_3'), ref('ohada_financial_report_note3b_sub10_4'), ref('ohada_financial_report_note3b_sub10_5')])]"/>
         <field name="note"> </field>
         <field name="level" eval="1" />
         <field name="sequence" eval="12"/>
@@ -883,6 +893,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note3b"/>
         <field name="domain" eval="[('account_id.code', '=like', '000%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3b_sub11_1'), ref('ohada_financial_report_note3b_sub11_2'), ref('ohada_financial_report_note3b_sub11_3'), ref('ohada_financial_report_note3b_sub11_4'), ref('ohada_financial_report_note3b_sub11_5')])]"/>
         <field name="note"> </field>
         <field name="level" eval="0" />
         <field name="sequence" eval="13"/>
@@ -933,6 +944,7 @@
         <field name="code">N3c_2</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3c"/>
         <field name="formulas">debit = _AE.debit; credit = _AE.credit; balance = _AE.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3c_sub1_1'), ref('ohada_financial_report_note3c_sub1_2'), ref('ohada_financial_report_note3c_sub1_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="3"/>
         <field name="groupby">account_id</field>
@@ -943,6 +955,7 @@
         <field name="code">N3c_3</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3c"/>
         <field name="formulas">debit = _AF.debit; credit = _AF.credit; balance = _AF.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3c_sub2_1'), ref('ohada_financial_report_note3c_sub2_2'), ref('ohada_financial_report_note3c_sub2_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="4"/>
         <field name="groupby">account_id</field>
@@ -953,6 +966,7 @@
         <field name="code">N3c_4</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3c"/>
         <field name="formulas">debit = _AG.debit; credit = _AG.credit; balance = _AG.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3c_sub3_1'), ref('ohada_financial_report_note3c_sub3_2'), ref('ohada_financial_report_note3c_sub3_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="5"/>
         <field name="groupby">account_id</field>
@@ -963,6 +977,7 @@
         <field name="code">N3c_5</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3c"/>
         <field name="formulas">debit = _AH.debit; credit = _AH.credit; balance = _AH.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3c_sub4_1'), ref('ohada_financial_report_note3c_sub4_2'), ref('ohada_financial_report_note3c_sub4_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="6"/>
         <field name="groupby">account_id</field>
@@ -973,6 +988,7 @@
         <field name="code">N3c_6</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3c"/>
         <field name="formulas">debit = N3c_2.debit + N3c_3.debit + N3c_4.debit+ N3c_5.debit; credit = N3c_2.credit + N3c_3.credit + N3c_4.credit + N3c_5.credit; balance = N3c_2.balance + N3c_3.balance + N3c_4.balance + N3c_5.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3c_sub5_1'), ref('ohada_financial_report_note3c_sub5_2'), ref('ohada_financial_report_note3c_sub5_3')])]"/>
         <field name="level" eval="1" />
         <field name="sequence" eval="7"/>
         <field name="groupby">account_id</field>
@@ -983,6 +999,7 @@
         <field name="code">N3c_7</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3c"/>
         <field name="formulas">debit = _AJ.debit - _AJn.debit; credit = _AJ.credit - _AJn.credit; balance = _AJ.balance - _AJn.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3c_sub6_1'), ref('ohada_financial_report_note3c_sub6_2'), ref('ohada_financial_report_note3c_sub6_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="8"/>
         <field name="groupby">account_id</field>
@@ -993,6 +1010,7 @@
         <field name="code">N3c_8</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3c"/>
         <field name="formulas">debit = _AJn.debit; credit = _AJn.credit; balance = _AJn.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3c_sub7_1'), ref('ohada_financial_report_note3c_sub7_2'), ref('ohada_financial_report_note3c_sub7_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="9"/>
         <field name="groupby">account_id</field>
@@ -1003,6 +1021,7 @@
         <field name="code">N3c_9</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3c"/>
         <field name="formulas">debit = _AK.debit - _AKn.debit; credit = _AK.credit - _AKn.credit; balance = _AK.balance - _AKn.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3c_sub8_1'), ref('ohada_financial_report_note3c_sub8_2'), ref('ohada_financial_report_note3c_sub8_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="10"/>
         <field name="groupby">account_id</field>
@@ -1013,6 +1032,7 @@
         <field name="code">N3c_10</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3c"/>
         <field name="formulas">debit = _AKn.debit; credit = _AKn.credit; balance = _AKn.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3c_sub9_1'), ref('ohada_financial_report_note3c_sub9_2'), ref('ohada_financial_report_note3c_sub9_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="11"/>
         <field name="groupby">account_id</field>
@@ -1023,6 +1043,7 @@
         <field name="code">N3c_11</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3c"/>
         <field name="formulas">debit = _AL.debit; credit = _AL.credit; balance = _AL.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3c_sub10_1'), ref('ohada_financial_report_note3c_sub10_2'), ref('ohada_financial_report_note3c_sub10_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="12"/>
         <field name="groupby">account_id</field>
@@ -1033,6 +1054,7 @@
         <field name="code">N3c_12</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3c"/>
         <field name="formulas">debit = _AM.debit; credit = _AM.credit; balance = _AM.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3c_sub11_1'), ref('ohada_financial_report_note3c_sub11_2'), ref('ohada_financial_report_note3c_sub11_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="13"/>
         <field name="groupby">account_id</field>
@@ -1043,6 +1065,7 @@
         <field name="code">N3c_13</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3c"/>
         <field name="formulas">debit = _AN.debit; credit = _AN.credit; balance = _AN.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3c_sub12_1'), ref('ohada_financial_report_note3c_sub12_2'), ref('ohada_financial_report_note3c_sub12_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="14"/>
         <field name="groupby">account_id</field>
@@ -1053,6 +1076,7 @@
         <field name="code">N3c_14</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3c"/>
         <field name="formulas">debit = N3c_7.debit + N3c_8.debit + N3c_9.debit + N3c_10.debit + N3c_11.debit + N3c_12.debit + N3c_13.debit; credit = N3c_7.credit + N3c_8.credit + N3c_9.credit + N3c_10.credit + N3c_11.credit + N3c_12.credit + N3c_13.credit; balance = N3c_7.balance + N3c_8.balance + N3c_9.balance + N3c_10.balance + N3c_11.balance + N3c_12.balance + N3c_13.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3c_sub13_1'), ref('ohada_financial_report_note3c_sub13_2'), ref('ohada_financial_report_note3c_sub13_3')])]"/>
         <field name="level" eval="1" />
         <field name="sequence" eval="15"/>
         <field name="groupby">account_id</field>
@@ -1063,6 +1087,7 @@
         <field name="code">N3c_15</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3c"/>
         <field name="formulas">debit = N3b_5.debit + N3c_14.debit; credit = N3b_5.credit + N3c_14.credit; balance = N3b_5.balance + N3c_14.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3c_sub14_1'), ref('ohada_financial_report_note3c_sub14_2'), ref('ohada_financial_report_note3c_sub14_3')])]"/>
         <field name="level" eval="0" />
         <field name="sequence" eval="16"/>
         <field name="groupby">account_id</field>
@@ -1702,6 +1727,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note4"/>
         <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note4_sub1_1'), ref('ohada_financial_report_note4_sub1_2'), ref('ohada_financial_report_note4_sub1_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="5"/>
         <field name="groupby">account_id</field>
@@ -1713,6 +1739,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note4"/>
         <field name="domain" eval="[('account_id.code', '=like', '271%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note4_sub2_1'), ref('ohada_financial_report_note4_sub2_2'), ref('ohada_financial_report_note4_sub2_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="10"/>
         <field name="groupby">account_id</field>
@@ -1724,6 +1751,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note4"/>
         <field name="domain" eval="[('account_id.code', '=like', '272%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note4_sub3_1'), ref('ohada_financial_report_note4_sub3_2'), ref('ohada_financial_report_note4_sub3_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="15"/>
         <field name="groupby">account_id</field>
@@ -1735,6 +1763,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note4"/>
         <field name="domain" eval="[('account_id.code', '=like', '273%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note4_sub4_1'), ref('ohada_financial_report_note4_sub4_2'), ref('ohada_financial_report_note4_sub4_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="20"/>
         <field name="groupby">account_id</field>
@@ -1746,6 +1775,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note4"/>
         <field name="domain" eval="[('account_id.code', '=like', '274%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note4_sub5_1'), ref('ohada_financial_report_note4_sub5_2'), ref('ohada_financial_report_note4_sub5_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="25"/>
         <field name="groupby">account_id</field>
@@ -1757,6 +1787,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note4"/>
         <field name="domain" eval="[('account_id.code', '=like', '275%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note4_sub6_1'), ref('ohada_financial_report_note4_sub6_2'), ref('ohada_financial_report_note4_sub6_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="30"/>
         <field name="groupby">account_id</field>
@@ -1768,6 +1799,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note4"/>
         <field name="domain" eval="[('account_id.code', '=like', '276%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note4_sub7_1'), ref('ohada_financial_report_note4_sub7_2'), ref('ohada_financial_report_note4_sub7_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="35"/>
         <field name="groupby">account_id</field>
@@ -1778,6 +1810,7 @@
         <field name="code">N4_TOT</field>
         <field name="financial_report_id" ref='ohada_financial_report_note4'/>
         <field name="formulas" >balance = N4_INT.balance + N4_DEP.balance + N4_TITIM.balance + N4_CRE.balance + N4_PREAU.balance + N4_PRE.balance + N4_TIT.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note4_sub8_1'), ref('ohada_financial_report_note4_sub8_2'), ref('ohada_financial_report_note4_sub8_3')])]"/>
         <field name="sequence" eval="45"/>
         <field name="level" eval="0" />
     </record>
@@ -1788,6 +1821,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note4"/>
         <field name="domain" eval="[('account_id.code', '=like', '296%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note4_sub9_1'), ref('ohada_financial_report_note4_sub9_2'), ref('ohada_financial_report_note4_sub9_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="50"/>
         <field name="groupby">account_id</field>
@@ -1799,6 +1833,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note4"/>
         <field name="domain" eval="[('account_id.code', '=like', '297%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note4_sub10_1'), ref('ohada_financial_report_note4_sub10_2'), ref('ohada_financial_report_note4_sub10_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="50"/>
         <field name="groupby">account_id</field>
@@ -1809,6 +1844,7 @@
         <field name="code">N4_TON</field>
         <field name="financial_report_id" ref='ohada_financial_report_note4'/>
         <field name="formulas" >balance = N4_DEPTI.balance + N4_DEPAU.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note4_sub11_1'), ref('ohada_financial_report_note4_sub11_2'), ref('ohada_financial_report_note4_sub11_3')])]"/>
         <field name="sequence" eval="55"/>
         <field name="level" eval="0" />
     </record>
@@ -2211,6 +2247,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note7"/>
         <field name="domain" eval="['|', ('account_id.code', '=like', '411%'), ('account_id.code', '=like', '413%'), '&amp;', ('account_id.code', 'not like', '41162%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note7_sub1_1'), ref('ohada_financial_report_note7_sub1_2'), ref('ohada_financial_report_note7_sub1_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="2"/>
         <field name="groupby">account_id</field>
@@ -2222,6 +2259,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note7"/>
         <field name="domain" eval="[('account_id.code', '=like', '412%'), ('account_id.code', 'not like', '4122%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note7_sub2_1'), ref('ohada_financial_report_note7_sub2_2'), ref('ohada_financial_report_note7_sub2_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="3"/>
         <field name="groupby">account_id</field>
@@ -2233,6 +2271,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note7"/>
         <field name="domain" eval="[('account_id.code', 'like', '41162%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note7_sub3_1'), ref('ohada_financial_report_note7_sub3_2'), ref('ohada_financial_report_note7_sub3_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="4"/>
         <field name="groupby">account_id</field>
@@ -2244,6 +2283,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note7"/>
         <field name="domain" eval="[('account_id.code', 'like', '4122%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note7_sub4_1'), ref('ohada_financial_report_note7_sub4_2'), ref('ohada_financial_report_note7_sub4_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="5"/>
         <field name="groupby">account_id</field>
@@ -2255,6 +2295,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note7"/>
         <field name="domain" eval="[('account_id.code', 'like', '414%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note7_sub5_1'), ref('ohada_financial_report_note7_sub5_2'), ref('ohada_financial_report_note7_sub5_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="6"/>
         <field name="groupby">account_id</field>
@@ -2266,6 +2307,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note7"/>
         <field name="domain" eval="[('account_id.code', 'like', '415%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note7_sub6_1'), ref('ohada_financial_report_note7_sub6_2'), ref('ohada_financial_report_note7_sub6_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="7"/>
         <field name="groupby">account_id</field>
@@ -2277,6 +2319,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note7"/>
         <field name="domain" eval="[('account_id.code', 'like', '416%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note7_sub7_1'), ref('ohada_financial_report_note7_sub7_2'), ref('ohada_financial_report_note7_sub7_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="8"/>
         <field name="groupby">account_id</field>
@@ -2288,6 +2331,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note7"/>
         <field name="domain" eval="[('account_id.code', 'like', '418%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note7_sub8_1'), ref('ohada_financial_report_note7_sub8_2'), ref('ohada_financial_report_note7_sub8_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="9"/>
         <field name="groupby">account_id</field>
@@ -2298,6 +2342,7 @@
         <field name="code">N7_9</field>
         <field name="financial_report_id" ref="ohada_financial_report_note7"/>
         <field name="formulas">balance = N7_1.balance + N7_2.balance + N7_3.balance + N7_4.balance + N7_5.balance + N7_6.balance + N7_7.balance + N7_8.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note7_sub9_1'), ref('ohada_financial_report_note7_sub9_2'), ref('ohada_financial_report_note7_sub9_3')])]"/>
         <field name="level" eval="0" />
         <field name="sequence" eval="10"/>
         <field name="groupby">account_id</field>
@@ -2309,6 +2354,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note7"/>
         <field name="domain" eval="[('account_id.code', '=like', '491%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note7_sub10_1'), ref('ohada_financial_report_note7_sub10_2'), ref('ohada_financial_report_note7_sub10_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="11"/>
         <field name="groupby">account_id</field>
@@ -2319,6 +2365,7 @@
         <field name="code">N7_11</field>
         <field name="financial_report_id" ref="ohada_financial_report_note7"/>
         <field name="formulas">balance = N7_9.balance - N7_10.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note7_sub11_1'), ref('ohada_financial_report_note7_sub11_2'), ref('ohada_financial_report_note7_sub11_3')])]"/>
         <field name="level" eval="0" />
         <field name="sequence" eval="12"/>
         <field name="groupby">account_id</field>
@@ -2330,6 +2377,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note7"/>
         <field name="domain" eval="[('account_id.code', '=like', '419%'), ('account_id.code', 'not like', '4192%'), ('account_id.code', 'not like', '4194%'), ('account_id.code', 'not like', '4198%')]" />
         <field name="formulas">balance = -sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note7_sub12_1'), ref('ohada_financial_report_note7_sub12_2'), ref('ohada_financial_report_note7_sub12_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="13"/>
         <field name="groupby">account_id</field>
@@ -2341,6 +2389,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note7"/>
         <field name="domain" eval="[('account_id.code', '=like', '4192%')]" />
         <field name="formulas">balance = -sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note7_sub13_1'), ref('ohada_financial_report_note7_sub13_2'), ref('ohada_financial_report_note7_sub13_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="14"/>
         <field name="groupby">account_id</field>
@@ -2352,6 +2401,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note7"/>
         <field name="domain" eval="['|', ('account_id.code', '=like', '4194%'), ('account_id.code', '=like', '4198%')]" />
         <field name="formulas">balance = -sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note7_sub14_1'), ref('ohada_financial_report_note7_sub14_2'), ref('ohada_financial_report_note7_sub14_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="15"/>
         <field name="groupby">account_id</field>
@@ -2362,6 +2412,7 @@
         <field name="code">N7_15</field>
         <field name="financial_report_id" ref="ohada_financial_report_note7"/>
         <field name="formulas">balance = N7_12.balance + N7_13.balance + N7_14.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note7_sub15_1'), ref('ohada_financial_report_note7_sub15_2'), ref('ohada_financial_report_note7_sub15_3')])]"/>
         <field name="level" eval="0" />
         <field name="sequence" eval="16"/>
         <field name="groupby">account_id</field>
@@ -2399,6 +2450,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note8"/>
         <field name="domain" eval="[('account_id.code', '=like', '42%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note8_sub1_1'), ref('ohada_financial_report_note8_sub1_2'), ref('ohada_financial_report_note8_sub1_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="2"/>
         <field name="groupby">account_id</field>
@@ -2410,6 +2462,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note8"/>
         <field name="domain" eval="[('account_id.code', '=like', '43%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note8_sub2_1'), ref('ohada_financial_report_note8_sub2_2'), ref('ohada_financial_report_note8_sub2_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="3"/>
         <field name="groupby">account_id</field>
@@ -2421,6 +2474,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note8"/>
         <field name="domain" eval="[('account_id.code', '=like', '44%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note8_sub3_1'), ref('ohada_financial_report_note8_sub3_2'), ref('ohada_financial_report_note8_sub3_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="4"/>
         <field name="groupby">account_id</field>
@@ -2443,6 +2497,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note8"/>
         <field name="domain" eval="[('account_id.code', '=like', '46%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note8_sub4_1'), ref('ohada_financial_report_note8_sub4_2'), ref('ohada_financial_report_note8_sub4_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="6"/>
         <field name="groupby">account_id</field>
@@ -2454,6 +2509,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note8"/>
         <field name="domain" eval="[('account_id.code', '=like', '475%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note8_sub5_1'), ref('ohada_financial_report_note8_sub5_2'), ref('ohada_financial_report_note8_sub5_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="7"/>
         <field name="groupby">account_id</field>
@@ -2476,6 +2532,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note8"/>
         <field name="domain" eval="[('account_id.code', '=like', '185%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note8_sub6_1'), ref('ohada_financial_report_note8_sub6_2'), ref('ohada_financial_report_note8_sub6_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="9"/>
         <field name="groupby">account_id</field>
@@ -2487,6 +2544,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note8"/>
         <field name="domain" eval="['|', ('account_id.code', '=like', '186%'), ('account_id.code', '=like', '187%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note8_sub7_1'), ref('ohada_financial_report_note8_sub7_2'), ref('ohada_financial_report_note8_sub7_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="10"/>
         <field name="groupby">account_id</field>
@@ -2498,6 +2556,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note8"/>
         <field name="domain" eval="[('account_id.code', '=like', '188%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note8_sub8_1'), ref('ohada_financial_report_note8_sub8_2'), ref('ohada_financial_report_note8_sub8_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="11"/>
         <field name="groupby">account_id</field>
@@ -2508,6 +2567,7 @@
         <field name="code">N8_11</field>
         <field name="financial_report_id" ref="ohada_financial_report_note8"/>
         <field name="formulas">balance = N8_1.balance + N8_2.balance + N8_3.balance + N8_4.balance + N8_5.balance + N8_6.balance + N8_7.balance + N8_8.balance + N8_9.balance + N8_10.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note8_sub9_1'), ref('ohada_financial_report_note8_sub9_2'), ref('ohada_financial_report_note8_sub9_3')])]"/>
         <field name="level" eval="0" />
         <field name="sequence" eval="12"/>
         <field name="groupby">account_id</field>
@@ -2519,6 +2579,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note8"/>
         <field name="domain" eval="['|','|','|','|','|', ('account_id.code', '=like', '492%'), ('account_id.code', '=like', '493%'), ('account_id.code', '=like', '494%'), ('account_id.code', '=like', '495%'), ('account_id.code', '=like', '496%'), ('account_id.code', '=like', '497%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note8_sub10_1'), ref('ohada_financial_report_note8_sub10_2'), ref('ohada_financial_report_note8_sub10_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="13"/>
         <field name="groupby">account_id</field>
@@ -2529,6 +2590,7 @@
         <field name="code">N8_13</field>
         <field name="financial_report_id" ref="ohada_financial_report_note8"/>
         <field name="formulas">balance = N8_11.balance - N8_12.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note8_sub11_1'), ref('ohada_financial_report_note8_sub11_2'), ref('ohada_financial_report_note8_sub11_3')])]"/>
         <field name="level" eval="0" />
         <field name="sequence" eval="14"/>
         <field name="groupby">account_id</field>
@@ -3880,6 +3942,7 @@
         <field name="domain" eval="[('account_id.code', '=like', '1411%')]" />
         <field name="note"> </field>
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note15a_sub1_1'), ref('ohada_financial_report_note15a_sub1_2'), ref('ohada_financial_report_note15a_sub1_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="2"/>
         <field name="groupby">account_id</field>
@@ -3892,6 +3955,7 @@
         <field name="domain" eval="[('account_id.code', '=like', '1412%')]" />
         <field name="note"> </field>
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note15a_sub2_1'), ref('ohada_financial_report_note15a_sub2_2'), ref('ohada_financial_report_note15a_sub2_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="3"/>
         <field name="groupby">account_id</field>
@@ -3903,6 +3967,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note15a"/>
         <field name="domain" eval="[('account_id.code', '=like', '1413%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note15a_sub3_1'), ref('ohada_financial_report_note15a_sub3_2'), ref('ohada_financial_report_note15a_sub3_3')])]"/>
         <field name="note"> </field>
         <field name="level" eval="2" />
         <field name="sequence" eval="4"/>
@@ -3915,6 +3980,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note15a"/>
         <field name="domain" eval="[('account_id.code', '=like', '1414%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note15a_sub4_1'), ref('ohada_financial_report_note15a_sub4_2'), ref('ohada_financial_report_note15a_sub4_3')])]"/>
         <field name="note"> </field>
         <field name="level" eval="2" />
         <field name="sequence" eval="5"/>
@@ -3927,6 +3993,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note15a"/>
         <field name="domain" eval="[('account_id.code', '=like', '1415%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note15a_sub5_1'), ref('ohada_financial_report_note15a_sub5_2'), ref('ohada_financial_report_note15a_sub5_3')])]"/>
         <field name="level" eval="2" />
         <field name="note"> </field>
         <field name="sequence" eval="6"/>
@@ -3939,6 +4006,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note15a"/>
         <field name="domain" eval="[('account_id.code', '=like', '1416%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note15a_sub6_1'), ref('ohada_financial_report_note15a_sub6_2'), ref('ohada_financial_report_note15a_sub6_3')])]"/>
         <field name="note"> </field>
         <field name="level" eval="2" />
         <field name="sequence" eval="7"/>
@@ -3951,6 +4019,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note15a"/>
         <field name="domain" eval="[('account_id.code', '=like', '1417%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note15a_sub7_1'), ref('ohada_financial_report_note15a_sub7_2'), ref('ohada_financial_report_note15a_sub7_3')])]"/>
         <field name="note"> </field>
         <field name="level" eval="2" />
         <field name="sequence" eval="8"/>
@@ -3963,6 +4032,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note15a"/>
         <field name="domain" eval="[('account_id.code', '=like', '1418%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note15a_sub8_1'), ref('ohada_financial_report_note15a_sub8_2'), ref('ohada_financial_report_note15a_sub8_3')])]"/>
         <field name="note"> </field>
         <field name="level" eval="2" />
         <field name="sequence" eval="9"/>
@@ -3974,6 +4044,7 @@
         <field name="code">N15a_9</field>
         <field name="financial_report_id" ref="ohada_financial_report_note15a"/>
         <field name="formulas">balance = N15a_1.balance + N15a_2.balance + N15a_3.balance + N15a_4.balance + N15a_5.balance + N15a_6.balance + N15a_7.balance + N15a_8.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note15a_sub9_1'), ref('ohada_financial_report_note15a_sub9_2'), ref('ohada_financial_report_note15a_sub9_3')])]"/>
         <field name="note"> </field>
         <field name="level" eval="0" />
         <field name="sequence" eval="10"/>
@@ -3987,6 +4058,7 @@
         <field name="domain" eval="[('account_id.code', '=like', '151%')]" />
         <field name="note"> </field>
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note15a_sub10_1'), ref('ohada_financial_report_note15a_sub10_2'), ref('ohada_financial_report_note15a_sub10_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="11"/>
         <field name="groupby">account_id</field>
@@ -3999,6 +4071,7 @@
         <field name="domain" eval="[('account_id.code', '=like', '152%')]" />
         <field name="note"> </field>
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note15a_sub11_1'), ref('ohada_financial_report_note15a_sub11_2'), ref('ohada_financial_report_note15a_sub11_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="12"/>
         <field name="groupby">account_id</field>
@@ -4011,6 +4084,7 @@
         <field name="domain" eval="[('account_id.code', '=like', '153%')]" />
         <field name="note"> </field>
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note15a_sub12_1'), ref('ohada_financial_report_note15a_sub12_2'), ref('ohada_financial_report_note15a_sub12_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="13"/>
         <field name="groupby">account_id</field>
@@ -4022,6 +4096,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note15a"/>
         <field name="domain" eval="[('account_id.code', '=like', '154%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note15a_sub13_1'), ref('ohada_financial_report_note15a_sub13_2'), ref('ohada_financial_report_note15a_sub13_3')])]"/>
         <field name="note">3E</field>
         <field name="level" eval="2" />
         <field name="sequence" eval="14"/>
@@ -4034,6 +4109,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note15a"/>
         <field name="domain" eval="[('account_id.code', '=like', '155%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note15a_sub14_1'), ref('ohada_financial_report_note15a_sub14_2'), ref('ohada_financial_report_note15a_sub14_3')])]"/>
         <field name="note"> </field>
         <field name="level" eval="2" />
         <field name="sequence" eval="15"/>
@@ -4046,6 +4122,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note15a"/>
         <field name="domain" eval="[('account_id.code', '=like', '156%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note15a_sub15_1'), ref('ohada_financial_report_note15a_sub15_2'), ref('ohada_financial_report_note15a_sub15_3')])]"/>
         <field name="note"> </field>
         <field name="level" eval="2" />
         <field name="sequence" eval="16"/>
@@ -4058,6 +4135,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note15a"/>
         <field name="domain" eval="[('account_id.code', '=like', '157%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note15a_sub16_1'), ref('ohada_financial_report_note15a_sub16_2'), ref('ohada_financial_report_note15a_sub16_3')])]"/>
         <field name="note"> </field>
         <field name="level" eval="2" />
         <field name="sequence" eval="17"/>
@@ -4070,6 +4148,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note15a"/>
         <field name="domain" eval="[('account_id.code', '=like', '158%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note15a_sub17_1'), ref('ohada_financial_report_note15a_sub17_2'), ref('ohada_financial_report_note15a_sub17_3')])]"/>
         <field name="note"> </field>
         <field name="level" eval="2" />
         <field name="sequence" eval="18"/>
@@ -4081,6 +4160,7 @@
         <field name="code">N15a_18</field>
         <field name="financial_report_id" ref="ohada_financial_report_note15a"/>
         <field name="formulas">balance = N15a_10.balance + N15a_11.balance + N15a_12.balance + N15a_13.balance + N15a_14.balance + N15a_15.balance + N15a_16.balance + N15a_17.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note15a_sub18_1'), ref('ohada_financial_report_note15a_sub18_2'), ref('ohada_financial_report_note15a_sub18_3')])]"/>
         <field name="note"> </field>
         <field name="level" eval="0" />
         <field name="sequence" eval="19"/>
@@ -4091,6 +4171,7 @@
         <field name="name"> </field>
         <field name="code">N15a_19</field>
         <field name="financial_report_id" ref="ohada_financial_report_note15a"/>
+<!--        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note15a_sub19_1'), ref('ohada_financial_report_note15a_sub19_2'), ref('ohada_financial_report_note15a_sub19_3')])]"/>-->
         <field name="note"> </field>
         <field name="level" eval="2" />
         <field name="sequence" eval="20"/>
@@ -4102,6 +4183,7 @@
         <field name="code">N15a_20</field>
         <field name="financial_report_id" ref="ohada_financial_report_note15a"/>
         <field name="formulas">balance = N15a_9.balance + N15a_18.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note15a_sub20_1'), ref('ohada_financial_report_note15a_sub20_2'), ref('ohada_financial_report_note15a_sub20_3')])]"/>
         <field name="note"> </field>
         <field name="level" eval="0" />
         <field name="sequence" eval="21"/>
@@ -4232,6 +4314,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note16a"/>
         <field name="domain" eval="[('account_id.code', '=like', '161%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note16a_sub1_1'), ref('ohada_financial_report_note16a_sub1_2'), ref('ohada_financial_report_note16a_sub1_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="2"/>
         <field name="groupby">account_id</field>
@@ -4243,6 +4326,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note16a"/>
         <field name="domain" eval="[('account_id.code', '=like', '162%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note16a_sub2_1'), ref('ohada_financial_report_note16a_sub2_2'), ref('ohada_financial_report_note16a_sub2_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="3"/>
         <field name="groupby">account_id</field>
@@ -4254,6 +4338,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note16a"/>
         <field name="domain" eval="[('account_id.code', '=like', '163%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note16a_sub3_1'), ref('ohada_financial_report_note16a_sub3_2'), ref('ohada_financial_report_note16a_sub3_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="4"/>
         <field name="groupby">account_id</field>
@@ -4265,6 +4350,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note16a"/>
         <field name="domain" eval="[('account_id.code', '=like', '164%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note16a_sub4_1'), ref('ohada_financial_report_note16a_sub4_2'), ref('ohada_financial_report_note16a_sub4_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="5"/>
         <field name="groupby">account_id</field>
@@ -4276,6 +4362,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note16a"/>
         <field name="domain" eval="[('account_id.code', '=like', '165%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note16a_sub5_1'), ref('ohada_financial_report_note16a_sub5_2'), ref('ohada_financial_report_note16a_sub5_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="6"/>
         <field name="groupby">account_id</field>
@@ -4287,6 +4374,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note16a"/>
         <field name="domain" eval="[('account_id.code', '=like', '166%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note16a_sub6_1'), ref('ohada_financial_report_note16a_sub6_2'), ref('ohada_financial_report_note16a_sub6_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="7"/>
         <field name="groupby">account_id</field>
@@ -4298,6 +4386,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note16a"/>
         <field name="domain" eval="[('account_id.code', '=like', '167%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note16a_sub7_1'), ref('ohada_financial_report_note16a_sub7_2'), ref('ohada_financial_report_note16a_sub7_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="8"/>
         <field name="groupby">account_id</field>
@@ -4309,6 +4398,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note16a"/>
         <field name="domain" eval="['|','|', ('account_id.code', '=like', '168%'), ('account_id.code', '=like', '182%'), ('account_id.code', '=like', '183%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note16a_sub8_1'), ref('ohada_financial_report_note16a_sub8_2'), ref('ohada_financial_report_note16a_sub8_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="9"/>
         <field name="groupby">account_id</field>
@@ -4320,6 +4410,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note16a"/>
         <field name="domain" eval="[('account_id.code', '=like', '181%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note16a_sub9_1'), ref('ohada_financial_report_note16a_sub9_2'), ref('ohada_financial_report_note16a_sub9_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="10"/>
         <field name="groupby">account_id</field>
@@ -4331,6 +4422,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note16a"/>
         <field name="domain" eval="[('account_id.code', '=like', '184%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note16a_sub10_1'), ref('ohada_financial_report_note16a_sub10_2'), ref('ohada_financial_report_note16a_sub10_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="11"/>
         <field name="groupby">account_id</field>
@@ -4341,6 +4433,7 @@
         <field name="code">N16a_11</field>
         <field name="financial_report_id" ref="ohada_financial_report_note16a"/>
         <field name="formulas">balance = N16a_1.balance + N16a_2.balance + N16a_3.balance + N16a_4.balance + N16a_5.balance + N16a_6.balance + N16a_7.balance + N16a_8.balance + N16a_9.balance + N16a_10.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note16a_sub11_1'), ref('ohada_financial_report_note16a_sub11_2'), ref('ohada_financial_report_note16a_sub11_3')])]"/>
         <field name="level" eval="0" />
         <field name="sequence" eval="12"/>
         <field name="groupby">account_id</field>
@@ -4352,6 +4445,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note16a"/>
         <field name="domain" eval="[('account_id.code', '=like', '172%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note16a_sub12_1'), ref('ohada_financial_report_note16a_sub12_2'), ref('ohada_financial_report_note16a_sub12_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="13"/>
         <field name="groupby">account_id</field>
@@ -4363,6 +4457,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note16a"/>
         <field name="domain" eval="[('account_id.code', '=like', '173%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note16a_sub13_1'), ref('ohada_financial_report_note16a_sub13_2'), ref('ohada_financial_report_note16a_sub13_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="14"/>
         <field name="groupby">account_id</field>
@@ -4374,6 +4469,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note16a"/>
         <field name="domain" eval="[('account_id.code', '=like', '174%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note16a_sub14_1'), ref('ohada_financial_report_note16a_sub14_2'), ref('ohada_financial_report_note16a_sub14_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="15"/>
         <field name="groupby">account_id</field>
@@ -4385,6 +4481,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note16a"/>
         <field name="domain" eval="[('account_id.code', '=like', '176%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note16a_sub15_1'), ref('ohada_financial_report_note16a_sub15_2'), ref('ohada_financial_report_note16a_sub15_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="16"/>
         <field name="groupby">account_id</field>
@@ -4396,6 +4493,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note16a"/>
         <field name="domain" eval="[('account_id.code', '=like', '178%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note16a_sub16_1'), ref('ohada_financial_report_note16a_sub16_2'), ref('ohada_financial_report_note16a_sub16_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="17"/>
         <field name="groupby">account_id</field>
@@ -4406,6 +4504,7 @@
         <field name="code">N16a_17</field>
         <field name="financial_report_id" ref="ohada_financial_report_note16a"/>
         <field name="formulas">balance = N16a_12.balance + N16a_13.balance + N16a_14.balance + N16a_15.balance + N16a_16.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note16a_sub17_1'), ref('ohada_financial_report_note16a_sub17_2'), ref('ohada_financial_report_note16a_sub17_3')])]"/>
         <field name="level" eval="0" />
         <field name="sequence" eval="18"/>
         <field name="groupby">account_id</field>
@@ -5162,6 +5261,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note17"/>
         <field name="domain" eval="[('account_id.code', '=like', '401%'), ('account_id.code', 'not like', '4012%')]" />
         <field name="formulas">balance = -sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note17_sub1_1'), ref('ohada_financial_report_note17_sub1_2'), ref('ohada_financial_report_note17_sub1_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="2"/>
         <field name="groupby">account_id</field>
@@ -5173,6 +5273,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note17"/>
         <field name="domain" eval="[('account_id.code', '=like', '402%'), ('account_id.code', 'not like', '4022%')]" />
         <field name="formulas">balance = -sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note17_sub2_1'), ref('ohada_financial_report_note17_sub2_2'), ref('ohada_financial_report_note17_sub2_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="3"/>
         <field name="groupby">account_id</field>
@@ -5184,6 +5285,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note17"/>
         <field name="domain" eval="['|', ('account_id.code', '=like', '4012%'), ('account_id.code', '=like', '4022%')]" />
         <field name="formulas">balance = -sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note17_sub3_1'), ref('ohada_financial_report_note17_sub3_2'), ref('ohada_financial_report_note17_sub3_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="4"/>
         <field name="groupby">account_id</field>
@@ -5195,6 +5297,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note17"/>
         <field name="domain" eval="[('account_id.code', 'like', '404%')]" />
         <field name="formulas">balance = -sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note17_sub4_1'), ref('ohada_financial_report_note17_sub4_2'), ref('ohada_financial_report_note17_sub4_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="5"/>
         <field name="groupby">account_id</field>
@@ -5206,6 +5309,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note17"/>
         <field name="domain" eval="[('account_id.code', '=like', '408%'), ('account_id.code', 'not like', '4082%')]" />
         <field name="formulas">balance = -sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note17_sub5_1'), ref('ohada_financial_report_note17_sub5_2'), ref('ohada_financial_report_note17_sub5_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="6"/>
         <field name="groupby">account_id</field>
@@ -5217,6 +5321,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note17"/>
         <field name="domain" eval="[('account_id.code', 'like', '4082%')]" />
         <field name="formulas">balance = -sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note17_sub6_1'), ref('ohada_financial_report_note17_sub6_2'), ref('ohada_financial_report_note17_sub6_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="7"/>
         <field name="groupby">account_id</field>
@@ -5227,6 +5332,7 @@
         <field name="code">N17_7</field>
         <field name="financial_report_id" ref="ohada_financial_report_note17"/>
         <field name="formulas">balance = N17_1.balance + N17_2.balance + N17_3.balance + N17_4.balance + N17_5.balance + N17_6.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note17_sub7_1'), ref('ohada_financial_report_note17_sub7_2'), ref('ohada_financial_report_note17_sub7_3')])]"/>
         <field name="level" eval="0" />
         <field name="sequence" eval="8"/>
         <field name="groupby">account_id</field>
@@ -5238,6 +5344,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note17"/>
         <field name="domain" eval="[('account_id.code', '=like', '4091%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note17_sub8_1'), ref('ohada_financial_report_note17_sub8_2'), ref('ohada_financial_report_note17_sub8_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="9"/>
         <field name="groupby">account_id</field>
@@ -5249,6 +5356,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note17"/>
         <field name="domain" eval="[('account_id.code', '=like', '4092%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note17_sub9_1'), ref('ohada_financial_report_note17_sub9_2'), ref('ohada_financial_report_note17_sub9_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="10"/>
         <field name="groupby">account_id</field>
@@ -5260,6 +5368,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note17"/>
         <field name="domain" eval="[('account_id.code', '=like', '409%'), ('account_id.code', 'not like', '4091%'), ('account_id.code', 'not like', '4092%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note17_sub10_1'), ref('ohada_financial_report_note17_sub10_2'), ref('ohada_financial_report_note17_sub10_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="11"/>
         <field name="groupby">account_id</field>
@@ -5270,6 +5379,7 @@
         <field name="code">N17_11</field>
         <field name="financial_report_id" ref="ohada_financial_report_note17"/>
         <field name="formulas">balance = N17_8.balance + N17_9.balance + N17_10.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note17_sub11_1'), ref('ohada_financial_report_note17_sub11_2'), ref('ohada_financial_report_note17_sub11_3')])]"/>
         <field name="level" eval="0" />
         <field name="sequence" eval="12"/>
         <field name="groupby">account_id</field>
@@ -5307,6 +5417,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note18"/>
         <field name="domain" eval="[('account_id.code', '=like', '421%')]" />
         <field name="formulas">balance = -sum_if_neg.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note18_sub1_1'), ref('ohada_financial_report_note18_sub1_2'), ref('ohada_financial_report_note18_sub1_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="2"/>
         <field name="groupby">account_id</field>
@@ -5318,6 +5429,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note18"/>
         <field name="domain" eval="[('account_id.code', '=like', '422%')]" />
         <field name="formulas">balance = -sum_if_neg.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note18_sub2_1'), ref('ohada_financial_report_note18_sub2_2'), ref('ohada_financial_report_note18_sub2_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="3"/>
         <field name="groupby">account_id</field>
@@ -5329,6 +5441,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note18"/>
         <field name="domain" eval="[('account_id.code', '=like', '42%'), ('account_id.code', 'not like', '421%'), ('account_id.code', 'not like', '422%')]" />
         <field name="formulas">balance = -sum_if_neg.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note18_sub3_1'), ref('ohada_financial_report_note18_sub3_2'), ref('ohada_financial_report_note18_sub3_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="4"/>
         <field name="groupby">account_id</field>
@@ -5340,6 +5453,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note18"/>
         <field name="domain" eval="[('account_id.code', '=like', '431%')]" />
         <field name="formulas">balance = -sum_if_neg.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note18_sub4_1'), ref('ohada_financial_report_note18_sub4_2'), ref('ohada_financial_report_note18_sub4_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="5"/>
         <field name="groupby">account_id</field>
@@ -5351,6 +5465,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note18"/>
         <field name="domain" eval="[('account_id.code', '=like', '432%')]" />
         <field name="formulas">balance = -sum_if_neg.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note18_sub5_1'), ref('ohada_financial_report_note18_sub5_2'), ref('ohada_financial_report_note18_sub5_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="6"/>
         <field name="groupby">account_id</field>
@@ -5362,6 +5477,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note18"/>
         <field name="domain" eval="[('account_id.code', '=like', '43%'), ('account_id.code', 'not like', '431%'), ('account_id.code', 'not like', '432%')]" />
         <field name="formulas">balance = -sum_if_neg.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note18_sub6_1'), ref('ohada_financial_report_note18_sub6_2'), ref('ohada_financial_report_note18_sub6_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="7"/>
         <field name="groupby">account_id</field>
@@ -5372,6 +5488,7 @@
         <field name="code">N18_7</field>
         <field name="financial_report_id" ref="ohada_financial_report_note18"/>
         <field name="formulas">balance = N18_6.balance + N18_2.balance + N18_3.balance + N18_4.balance + N18_5.balance + N18_6.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note18_sub7_1'), ref('ohada_financial_report_note18_sub7_2'), ref('ohada_financial_report_note18_sub7_3')])]"/>
         <field name="level" eval="0" />
         <field name="sequence" eval="8"/>
         <field name="groupby">account_id</field>
@@ -5383,6 +5500,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note18"/>
         <field name="domain" eval="[('account_id.code', '=like', '441%')]" />
         <field name="formulas">balance = -sum_if_neg.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note18_sub8_1'), ref('ohada_financial_report_note18_sub8_2'), ref('ohada_financial_report_note18_sub8_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="9"/>
         <field name="groupby">account_id</field>
@@ -5394,6 +5512,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note18"/>
         <field name="domain" eval="[('account_id.code', '=like', '442%')]" />
         <field name="formulas">balance = -sum_if_neg.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note18_sub9_1'), ref('ohada_financial_report_note18_sub9_2'), ref('ohada_financial_report_note18_sub9_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="10"/>
         <field name="groupby">account_id</field>
@@ -5405,6 +5524,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note18"/>
         <field name="domain" eval="['|', '|', ('account_id.code', '=like', '443%'), ('account_id.code', '=like', '444%'), ('account_id.code', '=like', '445%')]" />
         <field name="formulas">balance = -sum_if_neg.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note18_sub10_1'), ref('ohada_financial_report_note18_sub10_2'), ref('ohada_financial_report_note18_sub10_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="11"/>
         <field name="groupby">account_id</field>
@@ -5416,6 +5536,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note18"/>
         <field name="domain" eval="[('account_id.code', '=like', '447%')]" />
         <field name="formulas">balance = -sum_if_neg.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note18_sub11_1'), ref('ohada_financial_report_note18_sub11_2'), ref('ohada_financial_report_note18_sub11_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="12"/>
         <field name="groupby">account_id</field>
@@ -5427,6 +5548,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note18"/>
         <field name="domain" eval="['|', '|', ('account_id.code', '=like', '446%'), ('account_id.code', '=like', '448%'), ('account_id.code', '=like', '449%')]" />
         <field name="formulas">balance = -sum_if_neg.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note18_sub12_1'), ref('ohada_financial_report_note18_sub12_2'), ref('ohada_financial_report_note18_sub12_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="13"/>
         <field name="groupby">account_id</field>
@@ -5437,6 +5559,7 @@
         <field name="code">N18_13</field>
         <field name="financial_report_id" ref="ohada_financial_report_note18"/>
         <field name="formulas">balance = N18_8.balance + N18_9.balance + N18_10.balance + N18_11.balance + N18_12.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note18_sub13_1'), ref('ohada_financial_report_note18_sub13_2'), ref('ohada_financial_report_note18_sub13_3')])]"/>
         <field name="level" eval="0" />
         <field name="sequence" eval="14"/>
         <field name="groupby">account_id</field>
@@ -5446,6 +5569,7 @@
         <field name="name"> </field>
         <field name="code">N18_14</field>
         <field name="financial_report_id" ref="ohada_financial_report_note18"/>
+<!--        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note18_sub14_1'), ref('ohada_financial_report_note18_sub14_2'), ref('ohada_financial_report_note18_sub14_3')])]"/>-->
         <field name="level" eval="2" />
         <field name="sequence" eval="15"/>
         <field name="groupby">account_id</field>
@@ -5456,6 +5580,7 @@
         <field name="code">N18_15</field>
         <field name="financial_report_id" ref="ohada_financial_report_note18"/>
         <field name="formulas">balance = N18_13.balance + N18_7.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note18_sub15_1'), ref('ohada_financial_report_note18_sub15_2'), ref('ohada_financial_report_note18_sub15_3')])]"/>
         <field name="level" eval="0" />
         <field name="sequence" eval="16"/>
         <field name="groupby">account_id</field>
@@ -5493,6 +5618,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note19"/>
         <field name="domain" eval="[('account_id.code', '=like', '45%')]" />
         <field name="formulas">balance = -sum_if_neg.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note19_sub1_1'), ref('ohada_financial_report_note19_sub1_2'), ref('ohada_financial_report_note19_sub1_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="2"/>
         <field name="groupby">account_id</field>
@@ -5504,6 +5630,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note19"/>
         <field name="domain" eval="[('account_id.code', '=like', '461%')]" />
         <field name="formulas">balance = -sum_if_neg.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note19_sub2_1'), ref('ohada_financial_report_note19_sub2_2'), ref('ohada_financial_report_note19_sub2_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="3"/>
         <field name="groupby">account_id</field>
@@ -5515,6 +5642,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note19"/>
         <field name="domain" eval="[('account_id.code', '=like', '462%')]" />
         <field name="formulas">balance = -sum_if_neg.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note19_sub3_1'), ref('ohada_financial_report_note19_sub3_2'), ref('ohada_financial_report_note19_sub3_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="4"/>
         <field name="groupby">account_id</field>
@@ -5526,6 +5654,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note19"/>
         <field name="domain" eval="[('account_id.code', '=like', '465%')]" />
         <field name="formulas">balance = -sum_if_neg.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note19_sub4_1'), ref('ohada_financial_report_note19_sub4_2'), ref('ohada_financial_report_note19_sub4_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="5"/>
         <field name="groupby">account_id</field>
@@ -5537,6 +5666,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note19"/>
         <field name="domain" eval="[('account_id.code', '=like', '466%')]" />
         <field name="formulas">balance = -sum_if_neg.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note19_sub5_1'), ref('ohada_financial_report_note19_sub5_2'), ref('ohada_financial_report_note19_sub5_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="6"/>
         <field name="groupby">account_id</field>
@@ -5548,6 +5678,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note19"/>
         <field name="domain" eval="['|', '|', ('account_id.code', '=like', '463%'), ('account_id.code', '=like', '467%'), ('account_id.code', '=like', '469%')]" />
         <field name="formulas">balance = -sum_if_neg.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note19_sub6_1'), ref('ohada_financial_report_note19_sub6_2'), ref('ohada_financial_report_note19_sub6_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="7"/>
         <field name="groupby">account_id</field>
@@ -5558,6 +5689,7 @@
         <field name="code">N19_7</field>
         <field name="financial_report_id" ref="ohada_financial_report_note19"/>
         <field name="formulas">balance = N19_1.balance + N19_2.balance + N19_3.balance + N19_4.balance + N19_5.balance + N19_6.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note19_sub7_1'), ref('ohada_financial_report_note19_sub7_2'), ref('ohada_financial_report_note19_sub7_3')])]"/>
         <field name="level" eval="0" />
         <field name="sequence" eval="8"/>
         <field name="groupby">account_id</field>
@@ -5569,6 +5701,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note19"/>
         <field name="domain" eval="[('account_id.code', '=like', '4712%')]" />
         <field name="formulas">balance = -sum_if_neg.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note19_sub8_1'), ref('ohada_financial_report_note19_sub8_2'), ref('ohada_financial_report_note19_sub8_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="9"/>
         <field name="groupby">account_id</field>
@@ -5580,6 +5713,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note19"/>
         <field name="domain" eval="[('account_id.code', '=like', '4713%')]" />
         <field name="formulas">balance = -sum_if_neg.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note19_sub9_1'), ref('ohada_financial_report_note19_sub9_2'), ref('ohada_financial_report_note19_sub9_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="10"/>
         <field name="groupby">account_id</field>
@@ -5591,6 +5725,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note19"/>
         <field name="domain" eval="[('account_id.code', '=like', '4715%')]" />
         <field name="formulas">balance = -sum_if_neg.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note19_sub10_1'), ref('ohada_financial_report_note19_sub10_2'), ref('ohada_financial_report_note19_sub10_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="11"/>
         <field name="groupby">account_id</field>
@@ -5602,6 +5737,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note19"/>
         <field name="domain" eval="[('account_id.code', '=like', '4716%')]" />
         <field name="formulas">balance = -sum_if_neg.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note19_sub11_1'), ref('ohada_financial_report_note19_sub11_2'), ref('ohada_financial_report_note19_sub11_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="12"/>
         <field name="groupby">account_id</field>
@@ -5613,6 +5749,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note19"/>
         <field name="domain" eval="[('account_id.code', '=like', '4726%')]" />
         <field name="formulas">balance = -sum_if_neg.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note19_sub12_1'), ref('ohada_financial_report_note19_sub12_2'), ref('ohada_financial_report_note19_sub12_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="13"/>
         <field name="groupby">account_id</field>
@@ -5624,6 +5761,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note19"/>
         <field name="domain" eval="[('account_id.code', '=like', '475%')]" />
         <field name="formulas">balance = -sum_if_neg.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note19_sub13_1'), ref('ohada_financial_report_note19_sub13_2'), ref('ohada_financial_report_note19_sub13_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="14"/>
         <field name="groupby">account_id</field>
@@ -5635,6 +5773,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note19"/>
         <field name="domain" eval="['|', '|', '|', '|', '|', '|', '|', '|', '|', ('account_id.code', '=like', '4711%'), ('account_id.code', '=like', '4717%'), ('account_id.code', '=like', '4718%'), ('account_id.code', '=like', '4719%'), ('account_id.code', '=like', '472%'), ('account_id.code', '=like', '473%'), ('account_id.code', '=like', '474%'), ('account_id.code', '=like', '476%'), ('account_id.code', '=like', '477%'), ('account_id.code', '=like', '478%')]" />
         <field name="formulas">balance = -sum_if_neg.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note19_sub14_1'), ref('ohada_financial_report_note19_sub14_2'), ref('ohada_financial_report_note19_sub14_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="15"/>
         <field name="groupby">account_id</field>
@@ -5645,6 +5784,7 @@
         <field name="code">N19_15</field>
         <field name="financial_report_id" ref="ohada_financial_report_note19"/>
         <field name="formulas">balance = N19_8.balance + N19_9.balance + N19_10.balance + N19_11.balance + N19_12.balance + N19_13.balance + N19_14.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note19_sub15_1'), ref('ohada_financial_report_note19_sub15_2'), ref('ohada_financial_report_note19_sub15_3')])]"/>
         <field name="level" eval="0" />
         <field name="sequence" eval="16"/>
         <field name="groupby">account_id</field>
@@ -5656,6 +5796,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note19"/>
         <field name="domain" eval="[('account_id.code', '=like', '185%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note19_sub16_1'), ref('ohada_financial_report_note19_sub16_2'), ref('ohada_financial_report_note19_sub16_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="17"/>
         <field name="groupby">account_id</field>
@@ -5667,6 +5808,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note19"/>
         <field name="domain" eval="['|', ('account_id.code', '=like', '186%'), ('account_id.code', '=like', '187%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note19_sub17_1'), ref('ohada_financial_report_note19_sub17_2'), ref('ohada_financial_report_note19_sub17_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="19"/>
         <field name="groupby">account_id</field>
@@ -5678,6 +5820,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note19"/>
         <field name="domain" eval="[('account_id.code', '=like', '188%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note19_sub18_1'), ref('ohada_financial_report_note19_sub18_2'), ref('ohada_financial_report_note19_sub18_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="19"/>
         <field name="groupby">account_id</field>
@@ -5688,6 +5831,7 @@
         <field name="code">N19_19</field>
         <field name="financial_report_id" ref="ohada_financial_report_note19"/>
         <field name="formulas">balance = N19_16.balance + N19_17.balance + N19_18.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note19_sub19_1'), ref('ohada_financial_report_note19_sub19_2'), ref('ohada_financial_report_note19_sub19_3')])]"/>
         <field name="level" eval="0" />
         <field name="sequence" eval="20"/>
         <field name="groupby">account_id</field>
@@ -5699,6 +5843,7 @@
         <field name="financial_report_id" ref="ohada_financial_report_note19"/>
         <field name="domain" eval="['|', ('account_id.code', '=like', '499%'), ('account_id.code', '=like', '599%'), '&amp;', ('account_id.code', 'not like', '4998%')]" />
         <field name="formulas">balance = sum.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note19_sub20_1'), ref('ohada_financial_report_note19_sub20_2'), ref('ohada_financial_report_note19_sub20_3')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="20"/>
         <field name="groupby">account_id</field>
