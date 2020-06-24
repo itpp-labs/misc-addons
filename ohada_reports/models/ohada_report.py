@@ -1055,7 +1055,6 @@ class OhadaReport(models.AbstractModel):
             period_vals = self._get_dates_previous_period(options, period_vals)
 
         options['date'].update(create_vals(period_vals))
-
         # ===== Comparison Filter =====
         if not options.get('comparison') or not options['comparison'].get('filter'):
             return
@@ -1093,15 +1092,15 @@ class OhadaReport(models.AbstractModel):
                 options['comparison']['filter'] = 'previous_period'
                 options['comparison']['string'] = _('No comparison')
                 return
-            if self.code in ["N1", "N3D"]:
+            if self.code in ["N1", "N3D", "N3A"]:
                 number_period = 0
                 periods = []
-                for index in range(0, number_period):
-                    if cmp_filter == 'previous_period':
-                        period_vals = self._get_dates_previous_period(options, period_vals)
-                    else:
-                        period_vals = self._get_dates_previous_year(options, period_vals)
-                    periods.append(create_vals(period_vals))
+                # for index in range(0, number_period):
+                #     if cmp_filter == 'previous_period':
+                #         period_vals = self._get_dates_previous_period(options, period_vals)
+                #     else:
+                #         period_vals = self._get_dates_previous_year(options, period_vals)
+                #     periods.append(create_vals(period_vals))
 
                 if len(periods) > 0:
                     options['comparison'].update(periods[-1])
@@ -1152,6 +1151,8 @@ class OhadaReport(models.AbstractModel):
         number_period = options['comparison'].get('number_period', 1) or 0
         if self.code == "N31":
             number_period = 4
+        elif self.code in ["N1", "N3D", "N3A"]:
+            number_period = 0
         for index in range(0, number_period):
             if cmp_filter == 'previous_period':
                 period_vals = self._get_dates_previous_period(options, period_vals)
@@ -1223,6 +1224,7 @@ class OhadaReport(models.AbstractModel):
             body = body.replace(b'<table style="margin-bottom:10px;color:#001E5A;font-weight:normal;float:left;"', b'<table style="margint-left:-9px;font-size:6px !important;width:50%;margin-bottom:10px;color:#001E5A;font-weight:normal;float:left;"')
         else:
             body = body.replace(b'<table style="margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;"', b'<table style="font-size:8px !important;margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;"')
+            # body = body.replace(b'<tbody class="ohada_table">', b'<tbody class="ohada_table" style="width:100%;font-size:11px;">')
 
         if minimal_layout:
             header = ''

@@ -448,9 +448,9 @@
                         </td>
                     </t>
                     <t t-else="">
-                        <td t-att-data-id="line['id']" t-att-data-index="column_index + 1" t-att-data-entry-id="column.get('entry_id')" t-att-rowspan="column.get('rowspan', 1)" t-att-colspan="column.get('colspan', 1)" t-att-style="'padding-right:10px;text-align:' + (column.get('align', 'right')) + ';background-color:' + column.get('background', '')" t-att-class="'o_ohada_report_line  ohada_column '  + (line.get('unfoldable') and ' ' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent ') + column.get('cell_class', '')" >
+                        <td t-att-data-id="line.get('id')" t-att-data-index="column_index + 1" t-att-data-entry-id="column.get('entry_id')" t-att-rowspan="column.get('rowspan', 1)" t-att-colspan="column.get('colspan', 1)" t-att-style="'padding-right:10px;text-align:' + (column.get('align', 'right')) + ';background-color:' + column.get('background', '')" t-att-class="'o_ohada_report_line  ohada_column '  + (line.get('unfoldable') and ' ' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent ') + column.get('cell_class', '')" >
                             <t t-foreach="column.get('name')" t-as="name">
-                                <span t-att-data-id="line['id']" t-att-data-entry-id="column.get('entry_id')" t-att-data-index="column_index + 1" class="o_ohada_report_column_value" t-att-title="column.get('title')">
+                                <span t-att-data-id="line.get('id')" t-att-data-entry-id="column.get('entry_id')" t-att-data-index="column_index + 1" class="o_ohada_report_column_value" t-att-title="column.get('title')">
                                     <t t-esc="name"/>
                                 </span>
                                 <br/>

@@ -490,7 +490,7 @@
         <field name="shortname">Note 3A</field>
         <field name="code">N3A</field>
         <field name="header">IMMOBILISATION BRUTE</field>
-        <field name="debit_credit" eval="True"/>
+        <field name="debit_credit" eval="False"/>
         <!-- <field name="analytic" eval="True"/>   -->
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
@@ -519,6 +519,7 @@
         <field name="code">N3a_2</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3a"/>
         <field name="formulas">debit = N3a_3.balance + N3a_4.balance + N3a_5.balance + N3a_6.balance; credit = N3a_3.balance + N3a_4.balance + N3a_5.balance + N3a_6.balance; balance = N3a_3.balance + N3a_4.balance + N3a_5.balance + N3a_6.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3a_sub1_1'), ref('ohada_financial_report_note3a_sub1_2'), ref('ohada_financial_report_note3a_sub1_3'), ref('ohada_financial_report_note3a_sub1_4'), ref('ohada_financial_report_note3a_sub1_5'), ref('ohada_financial_report_note3a_sub1_6')])]"/>
         <field name="level" eval="1" />
         <field name="sequence" eval="3"/>
         <field name="groupby">account_id</field>
@@ -529,6 +530,7 @@
         <field name="code">N3a_3</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3a"/>
         <field name="formulas">debit = _AE.debit; credit = _AE.credit; balance = _AE.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3a_sub2_1'), ref('ohada_financial_report_note3a_sub2_2'), ref('ohada_financial_report_note3a_sub2_3'), ref('ohada_financial_report_note3a_sub2_4'), ref('ohada_financial_report_note3a_sub2_5'), ref('ohada_financial_report_note3a_sub2_6')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="4"/>
         <field name="groupby">account_id</field>
@@ -539,6 +541,7 @@
         <field name="code">N3a_4</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3a"/>
         <field name="formulas">debit = _AF.debit; credit = _AF.credit; balance = _AF.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3a_sub3_1'), ref('ohada_financial_report_note3a_sub3_2'), ref('ohada_financial_report_note3a_sub3_3'), ref('ohada_financial_report_note3a_sub3_4'), ref('ohada_financial_report_note3a_sub3_5'), ref('ohada_financial_report_note3a_sub3_6')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="5"/>
         <field name="groupby">account_id</field>
@@ -549,6 +552,7 @@
         <field name="code">N3a_5</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3a"/>
         <field name="formulas">debit = _AG.debit; credit = _AG.credit; balance = _AG.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3a_sub4_1'), ref('ohada_financial_report_note3a_sub4_2'), ref('ohada_financial_report_note3a_sub4_3'), ref('ohada_financial_report_note3a_sub4_4'), ref('ohada_financial_report_note3a_sub4_5'), ref('ohada_financial_report_note3a_sub4_6')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="6"/>
         <field name="groupby">account_id</field>
@@ -559,6 +563,7 @@
         <field name="code">N3a_6</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3a"/>
         <field name="formulas">debit = _AH.debit; credit = _AH.credit; balance = _AH.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3a_sub5_1'), ref('ohada_financial_report_note3a_sub5_2'), ref('ohada_financial_report_note3a_sub5_3'), ref('ohada_financial_report_note3a_sub5_4'), ref('ohada_financial_report_note3a_sub5_5'), ref('ohada_financial_report_note3a_sub5_6')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="7"/>
         <field name="groupby">account_id</field>
@@ -569,6 +574,7 @@
         <field name="code">N3a_7</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3a"/>
         <field name="formulas">debit = N3a_8.balance + N3a_9.balance + N3a_10.balance + N3a_11.balance + N3a_12.balance + N3a_13.balance + N3a_14.balance; credit = N3a_8.balance + N3a_9.balance + N3a_10.balance + N3a_11.balance + N3a_12.balance + N3a_13.balance + N3a_14.balance; balance = N3a_8.balance + N3a_9.balance + N3a_10.balance + N3a_11.balance + N3a_12.balance + N3a_13.balance + N3a_14.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3a_sub6_1'), ref('ohada_financial_report_note3a_sub6_2'), ref('ohada_financial_report_note3a_sub6_3'), ref('ohada_financial_report_note3a_sub6_4'), ref('ohada_financial_report_note3a_sub6_5'), ref('ohada_financial_report_note3a_sub6_6')])]"/>
         <field name="level" eval="1" />
         <field name="sequence" eval="8"/>
         <field name="groupby">account_id</field>
@@ -579,6 +585,7 @@
         <field name="code">N3a_8</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3a"/>
         <field name="formulas">debit = _AJ.debit - _AJn.debit; credit = _AJ.credit - _AJn.credit; balance = _AJ.balance - _AJn.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3a_sub7_1'), ref('ohada_financial_report_note3a_sub7_2'), ref('ohada_financial_report_note3a_sub7_3'), ref('ohada_financial_report_note3a_sub7_4'), ref('ohada_financial_report_note3a_sub7_5'), ref('ohada_financial_report_note3a_sub7_6')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="9"/>
         <field name="groupby">account_id</field>
@@ -589,6 +596,7 @@
         <field name="code">N3a_9</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3a"/>
         <field name="formulas">debit = _AJn.debit; credit = _AJn.credit; balance = _AJn.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3a_sub8_1'), ref('ohada_financial_report_note3a_sub8_2'), ref('ohada_financial_report_note3a_sub8_3'), ref('ohada_financial_report_note3a_sub8_4'), ref('ohada_financial_report_note3a_sub8_5'), ref('ohada_financial_report_note3a_sub8_6')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="10"/>
         <field name="groupby">account_id</field>
@@ -599,6 +607,7 @@
         <field name="code">N3a_10</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3a"/>
         <field name="formulas">debit = _AK.debit - _AKn.debit; credit = _AK.credit - _AKn.credit; balance = _AK.balance - _AKn.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3a_sub9_1'), ref('ohada_financial_report_note3a_sub9_2'), ref('ohada_financial_report_note3a_sub9_3'), ref('ohada_financial_report_note3a_sub9_4'), ref('ohada_financial_report_note3a_sub9_5'), ref('ohada_financial_report_note3a_sub9_6')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="11"/>
         <field name="groupby">account_id</field>
@@ -609,6 +618,7 @@
         <field name="code">N3a_11</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3a"/>
         <field name="formulas">debit = _AKn.debit; credit = _AKn.credit; balance = _AKn.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3a_sub10_1'), ref('ohada_financial_report_note3a_sub10_2'), ref('ohada_financial_report_note3a_sub10_3'), ref('ohada_financial_report_note3a_sub10_4'), ref('ohada_financial_report_note3a_sub10_5'), ref('ohada_financial_report_note3a_sub10_6')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="12"/>
         <field name="groupby">account_id</field>
@@ -619,6 +629,7 @@
         <field name="code">N3a_12</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3a"/>
         <field name="formulas">debit = _AL.debit; credit = _AL.credit; balance = _AL.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3a_sub11_1'), ref('ohada_financial_report_note3a_sub11_2'), ref('ohada_financial_report_note3a_sub11_3'), ref('ohada_financial_report_note3a_sub11_4'), ref('ohada_financial_report_note3a_sub11_5'), ref('ohada_financial_report_note3a_sub11_6')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="13"/>
         <field name="groupby">account_id</field>
@@ -629,6 +640,7 @@
         <field name="code">N3a_13</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3a"/>
         <field name="formulas">debit = _AM.debit; credit = _AM.credit; balance = _AM.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3a_sub12_1'), ref('ohada_financial_report_note3a_sub12_2'), ref('ohada_financial_report_note3a_sub12_3'), ref('ohada_financial_report_note3a_sub12_4'), ref('ohada_financial_report_note3a_sub12_5'), ref('ohada_financial_report_note3a_sub12_6')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="14"/>
         <field name="groupby">account_id</field>
@@ -639,6 +651,7 @@
         <field name="code">N3a_14</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3a"/>
         <field name="formulas">debit = _AN.debit; credit = _AN.credit; balance = _AN.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3a_sub13_1'), ref('ohada_financial_report_note3a_sub13_2'), ref('ohada_financial_report_note3a_sub13_3'), ref('ohada_financial_report_note3a_sub13_4'), ref('ohada_financial_report_note3a_sub13_5'), ref('ohada_financial_report_note3a_sub13_6')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="15"/>
         <field name="groupby">account_id</field>
@@ -649,6 +662,7 @@
         <field name="code">N3a_15</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3a"/>
         <field name="formulas">debit = _AP.debit; credit = _AP.credit; balance = _AP.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3a_sub14_1'), ref('ohada_financial_report_note3a_sub14_2'), ref('ohada_financial_report_note3a_sub14_3'), ref('ohada_financial_report_note3a_sub14_4'), ref('ohada_financial_report_note3a_sub14_5'), ref('ohada_financial_report_note3a_sub14_6')])]"/>
         <field name="level" eval="1" />
         <field name="sequence" eval="16"/>
         <field name="groupby">account_id</field>
@@ -659,6 +673,7 @@
         <field name="code">N3a_16</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3a"/>
         <field name="formulas">debit = N3a_2.balance + N3a_7.balance + N3a_15.balance; credit = N3a_2.balance + N3a_7.balance + N3a_15.balance; balance = N3a_2.balance + N3a_7.balance + N3a_15.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3a_sub15_1'), ref('ohada_financial_report_note3a_sub15_2'), ref('ohada_financial_report_note3a_sub15_3'), ref('ohada_financial_report_note3a_sub15_4'), ref('ohada_financial_report_note3a_sub15_5'), ref('ohada_financial_report_note3a_sub15_6')])]"/>
         <field name="level" eval="0" />
         <field name="sequence" eval="17"/>
         <field name="groupby">account_id</field>
@@ -669,6 +684,7 @@
         <field name="code">N3a_17</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3a"/>
         <field name="formulas">debit = N3a_18.balance + N3a_19.balance; credit = N3a_18.balance + N3a_19.balance; balance = N3a_18.balance + N3a_19.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3a_sub16_1'), ref('ohada_financial_report_note3a_sub16_2'), ref('ohada_financial_report_note3a_sub16_3'), ref('ohada_financial_report_note3a_sub16_4'), ref('ohada_financial_report_note3a_sub16_5'), ref('ohada_financial_report_note3a_sub16_6')])]"/>
         <field name="level" eval="1" />
         <field name="sequence" eval="18"/>
         <field name="groupby">account_id</field>
@@ -679,6 +695,7 @@
         <field name="code">N3a_18</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3a"/>
         <field name="formulas">debit = _AR.debit; credit = _AR.credit; balance = _AR.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3a_sub17_1'), ref('ohada_financial_report_note3a_sub17_2'), ref('ohada_financial_report_note3a_sub17_3'), ref('ohada_financial_report_note3a_sub17_4'), ref('ohada_financial_report_note3a_sub17_5'), ref('ohada_financial_report_note3a_sub17_6')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="19"/>
         <field name="groupby">account_id</field>
@@ -689,6 +706,7 @@
         <field name="code">N3a_19</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3a"/>
         <field name="formulas">debit = _AS.debit; credit = _AS.credit; balance = _AS.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3a_sub18_1'), ref('ohada_financial_report_note3a_sub18_2'), ref('ohada_financial_report_note3a_sub18_3'), ref('ohada_financial_report_note3a_sub18_4'), ref('ohada_financial_report_note3a_sub18_5'), ref('ohada_financial_report_note3a_sub18_6')])]"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="20"/>
         <field name="groupby">account_id</field>
@@ -699,6 +717,7 @@
         <field name="code">N3a_20</field>
         <field name="financial_report_id" ref="ohada_financial_report_note3a"/>
         <field name="formulas">debit = N3a_16.balance + N3a_17.balance; credit = N3a_16.balance + N3a_17.balance; balance = N3a_16.balance + N3a_17.balance</field>
+        <field name="separate_formulas_ids" eval="[(6, 0, [ref('ohada_financial_report_note3a_sub19_1'), ref('ohada_financial_report_note3a_sub19_2'), ref('ohada_financial_report_note3a_sub19_3'), ref('ohada_financial_report_note3a_sub19_4'), ref('ohada_financial_report_note3a_sub19_5'), ref('ohada_financial_report_note3a_sub19_6')])]"/>
         <field name="level" eval="0" />
         <field name="sequence" eval="21"/>
         <field name="groupby">account_id</field>

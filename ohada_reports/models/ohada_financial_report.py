@@ -69,7 +69,6 @@ class ReportOhadaFinancialReport(models.Model):
     mandatory_note = fields.Boolean(default=False)
     note_relevance_ids = fields.One2many('note.relevance', 'note_report_id')
 
-
     _sql_constraints = [
         ('code_uniq', 'unique (code)', "A report with the same code already exists."),
     ]
@@ -650,6 +649,8 @@ class OhadaFinancialReportLine(models.Model):
     columns_id = fields.One2many('ohada.custom.columns', 'line_id', default=False)
     table_x_offset = fields.Integer(default=0)
     notelist = fields.Char(default=False)
+    separate_formulas_ids = fields.One2many('ohada.financial.html.report.line', 'parent_line_id')
+    parent_line_id = fields.Many2one('ohada.financial.html.report.line')
 
 
     _sql_constraints = [
@@ -1200,11 +1201,11 @@ class OhadaFinancialReportLine(models.Model):
             # The percentage is negative, which is mathematically correct, but my sales increased
             # => it should be green, not red!
             if (res > 0) != (self.green_on_positive and comp > 0):
-                return {'name': str(res) + '%', 'class': 'number color-red'}
+                return {'name': [str(res) + '%'], 'class': 'number color-red'}
             else:
-                return {'name': str(res) + '%', 'class': 'number color-green'}
+                return {'name': [str(res) + '%'], 'class': 'number color-green'}
         else:
-            return {'name': ' '}         #E~ return {'name': _('n/a')}
+            return {'name': [' ']}         #E~ return {'name': _('n/a')}
 
     def _build_abs(self, balance, comp):
         res = round(balance - comp)
@@ -1214,7 +1215,6 @@ class OhadaFinancialReportLine(models.Model):
             return {'name': str(res), 'class': 'number color-green'}
 
     def _split_formulas(self):
-
         result = {}
         if self.formulas:
             for f in self.formulas.split(';'):
@@ -1378,7 +1378,8 @@ class OhadaFinancialReportLine(models.Model):
                 date_from = period.get('date_from', False)
                 date_to = period.get('date_to', False) or period.get('date', False)
                 date_from, date_to, strict_range = line.with_context(date_from=date_from, date_to=date_to)._compute_date_range()
-
+                # import wdb
+                # wdb.set_trace()
                 r = line.with_context(date_from=date_from,
                                       date_to=date_to,
                                       strict_range=strict_range)._eval_formula(financial_report,
@@ -1399,6 +1400,16 @@ class OhadaFinancialReportLine(models.Model):
                     d_column = ' '
 
                 res.extend(r)
+                if line.separate_formulas_ids:
+                    for i in line.separate_formulas_ids:
+                        sep_res = i.with_context(date_from=date_from,
+                                              date_to=date_to,
+                                              strict_range=strict_range)._eval_formula(financial_report,
+                                                                                       debit_credit,
+                                                                                       currency_table,
+                                                                                       linesDicts[k],
+                                                                                       groups=options.get('groups'))
+                        res.extend(sep_res)
                 for column in r:
                     domain_ids.update(column)
                 k += 1
@@ -1822,10 +1833,10 @@ class OhadaFinancialReportLine(models.Model):
                         vals['columns'].append({'name': ' '})
                     elif financial_report.code in ['N2', "N35"]:
                         vals['columns'] = []
-                    elif financial_report.code in ['N3A', 'N3B'] and line.sequence > 2:
-                        vals['columns'] = []
-                        for i in range(7):
-                            vals['columns'].append({'name': ' '})
+                    # elif financial_report.code in ['N3A', 'N3B'] and line.sequence > 2:
+                    #     vals['columns'] = []
+                    #     for i in range(7):
+                    #         vals['columns'].append({'name': ' '})
                     elif financial_report.code == 'N3C' and line.sequence > 2:
                         vals['columns'] = []
                         for i in range(4):
@@ -2313,6 +2324,7 @@ class OhadaNoteRelevance(models.Model):
 
     @api.model
     def _init_note_relevance(self, init=False, fiscalyear=False):
+        return
         if init == True:
             YEAR = datetime.now().year
             fiscal_year = [YEAR, YEAR-1, YEAR-2, YEAR-3]
