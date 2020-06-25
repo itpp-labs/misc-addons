@@ -298,6 +298,9 @@ class OhadaDash(models.Model):
                                  {'l_month': str(year), 'count': data['zh_d']}]
         return data
 
+    def company_page(self):
+        return self.env['ir.actions.act_window'].search([('name', '=', 'Companies')])[0].read()[0]
+
 
 class ReportOhadaFinancialReport(models.Model):
     _inherit = "ohada.financial.html.report"
