@@ -73,6 +73,7 @@
                             <div class="container o_kanban_card_manage_pane dropdown-menu" role="menu">
                                 <t t-if="button_type == 'report'" t-call="ReportLook"/>
                                 <t t-if="button_type == 'mix'" t-call="MixLook"/>
+                                <t t-if="button_type != 'mix' and button_type != 'report'" t-call="Colors"/>
                             </div>
                         </div>
                     </t>
@@ -252,7 +253,7 @@
                             </div>
                         </div>
                         
-                        <t t-call="ColorAndSettings"/>
+                        <t t-call="Settings"/>
                     </t>
 
                     <t t-name="MixLook">
@@ -287,22 +288,25 @@
                             </div>
                         </div>
                         
-                        <t t-call="ColorAndSettings"/>
+                        <t t-call="Settings"/>
                     </t>
 
-                    <t t-name="ColorAndSettings">
-                        <div class="o_kanban_card_manage_settings row">
-                            <div class="col-8">
-                                <ul class="oe_kanban_colorpicker" data-field="color"/>
-                            </div>
-                        </div>
-
+                    <t t-name="Settings">
+                        <t t-call="Colors"/>
                         <div groups="account.group_account_manager" class="row o_kanban_card_settings">
                             <div class="col-6">
                                 <field name="show_on_dashboard" widget="boolean_favorite" />
                             </div>
                             <div class="col-6 text-right">
                                 <a t-if="widget.editable" type="edit">Dash settings</a>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-name="Colors">
+                        <div class="o_kanban_card_manage_settings row">
+                            <div class="col-8">
+                                <ul class="oe_kanban_colorpicker" data-field="color"/>
                             </div>
                         </div>
                     </t>
