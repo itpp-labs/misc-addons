@@ -1,16 +1,12 @@
 odoo.define('ohada_dash.Dash', function (require) {
     "use strict";
 
-    var Class = require('web.Class');
-    var core = require('web.core');
-    var QWeb = core.qweb;
+    var AbstractAction = require('web.AbstractAction');
+    var ControlPanelMixin = require('web.ControlPanelMixin');
     var rpc = require('web.rpc')
     var session = require('web.session');
     var KanbanController = require('web.KanbanController');
-    var AbstractAction = require("web.AbstractAction");
-    var ControlPanelMixin = require('web.ControlPanelMixin');
     
-    var action = new AbstractAction(ControlPanelMixin);
     var includeDict = {
         renderButtons: function () {
             var self = this;
@@ -25,8 +21,8 @@ odoo.define('ohada_dash.Dash', function (require) {
                         self.do_action(result);
                     });
                 });
-                this.$buttons.find('.o-kanban-button-new')[0].hidden = true
-                this.$buttons.find('.o_button_import')[0].hidden = true
+                this.$buttons.find('.o-kanban-button-new')[0].hidden = true;
+                this.$buttons.find('.o_button_import')[0].hidden = true;
             }
         }
     };

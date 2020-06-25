@@ -13,9 +13,8 @@
         <field name="name_to_display">name</field>
         <field name="active">True</field>
         <field name="show_on_dashboard">True</field>
-        <field name="sequence">1</field>
         <field name="color">1</field>
-        <field name="type">other_button</field>
+        <field name="type">mix</field>
         <field name="chart_type">barChart</field>
         <field name="sequence">1</field>
         <field name='dash_size'>large</field>
@@ -29,7 +28,6 @@
         <field name="name_to_display">name</field>
         <field name="active">True</field>
         <field name="show_on_dashboard">True</field>
-        <field name="sequence">1</field>
         <field name="color">1</field>
         <field name="type">info_button</field>
         <field name="chart_type">barChart</field>
@@ -45,7 +43,6 @@
         <field name="name_to_display">name</field>
         <field name="active">True</field>
         <field name="show_on_dashboard">True</field>
-        <field name="sequence">1</field>
         <field name="color">1</field>
         <field name="type">report</field>
         <field name="chart_type">barChart</field>
@@ -62,7 +59,6 @@
         <field name="name_to_display">name</field>
         <field name="active">True</field>
         <field name="show_on_dashboard">True</field>
-        <field name="sequence">1</field>
         <field name="color">1</field>
         <field name="type">report</field>
         <field name="chart_type">barChart</field>
@@ -79,7 +75,6 @@
         <field name="name_to_display">name</field>
         <field name="active">True</field>
         <field name="show_on_dashboard">True</field>
-        <field name="sequence">1</field>
         <field name="color">1</field>
         <field name="type">report</field>
         <field name="chart_type">barChart</field>
@@ -96,7 +91,6 @@
         <field name="name_to_display">name</field>
         <field name="active">True</field>
         <field name="show_on_dashboard">True</field>
-        <field name="sequence">1</field>
         <field name="color">1</field>
         <field name="type">note_button</field>
         <field name="chart_type">barChart</field>

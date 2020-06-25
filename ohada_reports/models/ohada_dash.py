@@ -59,6 +59,7 @@ class OhadaDash(models.Model):
     def _compute_reports(self):
         for dash in self:
             reports_list = []
+            # TODO: type field maybe needs for another reasons  
             if dash.type == 'note_button':
                 reports_list = self.env['ohada.financial.html.report'].search([('type', '=', 'note'), ('secondary', '=', False)])
             if dash.type == 'info_button':
@@ -161,7 +162,7 @@ class OhadaDash(models.Model):
         ctx = report._set_context(options)
         for dash in self:
             year = dash.current_year
-            if dash.type == 'other_button':
+            if dash.name == 'YourCompany':
                 date_to = year and str(year) + '-12-31' or False
                 period_domain = [('state', '=', 'draft'), ('date', '<=', date_to)]
 

@@ -39,7 +39,6 @@
                         <t t-if="dash_size == 'middle'" t-call="MiddleSizeBox"/>
                         <t t-if="dash_size == 'small'" t-call="SmallSizeBox"/>
                         <t t-if="dash_size == 'large'" t-call="LargeSizeBox"/>
-                        <!-- <t t-call="PrintBundlePoopup"/> -->
                     </t>
 
                     <t t-name="LargeSizeBox">
@@ -47,8 +46,8 @@
                             <t t-call="JournalTop"/>
                             <div class="container o_kanban_card_content">
                                 <div class="row">
-                                    <t t-if="button_type == 'note_button'" t-call="NoteButtons"/>
-                                    <t t-if="button_type == 'info_button'" t-call="Sheets"/>
+                                    <t t-if="kanban_name == 'Annexed Notes'" t-call="NoteButtons"/>
+                                    <t t-if="kanban_name == 'Cover Page and Data Sheets'" t-call="Sheets"/>
                                     <t t-if="kanban_name == 'YourCompany'">
                                         <div class="oh-card" style="border: 0px">
                                             <div class="oh-card-body pb-0" style="padding-top:5px; padding-bottom:20px;">
@@ -72,7 +71,8 @@
                                 </div>
                             </div>
                             <div class="container o_kanban_card_manage_pane dropdown-menu" role="menu">
-                                <t t-call="JournalManage"/>
+                                <t t-if="button_type == 'report'" t-call="ReportLook"/>
+                                <t t-if="button_type == 'mix'" t-call="MixLook"/>
                             </div>
                         </div>
                     </t>
@@ -107,7 +107,8 @@
                                 <t t-if="journal_type == 'BS' || journal_type == 'PL' || journal_type == 'CF'" t-call="JournalBodyGraph"/>
                             </div>
                             <div class="container o_kanban_card_manage_pane dropdown-menu" role="menu">
-                                <t t-call="JournalManage"/>
+                                <t t-if="button_type == 'report'" t-call="ReportLook"/>
+                                <t t-if="button_type == 'mix'" t-call="MixLook"/>
                             </div>
                             <t t-call="JournalBodyGraph"/>
                         </div>
@@ -124,7 +125,6 @@
                     </t>
 
                     <t t-name="Sheets">
-                        <!-- <div class="col-6 o_kanban_primary_left"> -->
                         <div style="padding-bottom:20px; padding-left:6px;">
                             <button type="object" name="open_action" style="min-width:125px;" class="btn btn-primary">
                                 <span>COVER PAGE</span>
@@ -137,7 +137,6 @@
                                 </button>
                             </div>
                         </t>
-                        <!-- </div> -->
                     </t>
 
                     <t t-name="ExportButtons">
@@ -201,11 +200,109 @@
                         <div t-attf-class="o_kanban_card_header">
                             <div class="o_kanban_card_header_title">
                                 <div class="o_primary">
-                                    <a type="report" name="open_action"><field name="name"/></a>
+                                    <a type="report" name="open_action">
+                                        <t t-if="kanban_name != 'YourCompany'">
+                                            <field name="name"/>
+                                        </t>
+                                        <t t-if="kanban_name == 'YourCompany'">
+                                            <t t-esc="company_name"/>
+                                        </t>
+                                    </a>
                                 </div>
                             </div>
                             <div class="o_kanban_manage_button_section">
+                                <t t-if="button_type == 'mix' or button_type == 'report'"/>
                                 <a class="o_kanban_manage_toggle_button" href="#"><i class="fa fa-ellipsis-v" aria-label="Selection" role="img" title="Selection"/></a>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-name="ReportLook">
+                        <div class="row">
+                            <div class="col-4 o_kanban_card_manage_section o_kanban_manage_view">
+                                <div class="o_kanban_card_manage_title">
+                                    <span role="separator">Analysis</span>
+                                </div>
+                                <div t-if="journal_type == 'BS'">
+                                    <a role="menuitem" type="button">Format: 1 page/landscape</a>
+                                </div>
+                                <div>
+                                    <a role="menuitem" type="button">Open report</a>
+                                </div>
+                            </div>
+                            <div class="col-4 o_kanban_card_manage_section o_kanban_manage_view">
+                                <div class="o_kanban_card_manage_title">
+                                    <span role="separator">Download</span>
+                                </div>
+                                <div>
+                                    <a role="menuitem" name="print_pdf" type="object">Preview (PDF)</a>
+                                </div>
+                                <div>
+                                    <a role="menuitem" name="print_xlsx" type="object">Export (XLSX)</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div groups="account.group_account_manager" class="row o_kanban_card_settings">
+                            <div class="col-6 text-left">
+                                <a t-if="widget.editable" type="edit">Report settings</a>
+                            </div>
+                            <div class="col-6 text-right">
+                                <a t-if="widget.editable" type="edit">Company settings</a>
+                            </div>
+                        </div>
+                        
+                        <t t-call="ColorAndSettings"/>
+                    </t>
+
+                    <t t-name="MixLook">
+                        <div class="row">
+                            <div class="col-4 o_kanban_card_manage_section o_kanban_manage_view">
+                                <div class="o_kanban_card_manage_title">
+                                    <span role="separator">View</span>
+                                </div>
+                                <div t-if="journal_type == 'BS'">
+                                    <a role="menuitem" type="button">Format: 1 page/landscape</a>
+                                </div>
+                                <div>
+                                    <a role="menuitem" type="button">Open report</a>
+                                </div>
+                            </div>
+                            <div class="col-4 o_kanban_card_manage_section o_kanban_manage_view">
+                                <div class="o_kanban_card_manage_title">
+                                    <span role="separator">Preset</span>
+                                </div>
+                                <div>
+                                    <a role="menuitem" name="print_pdf" type="object">Update bundle/R4 settings</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div groups="account.group_account_manager" class="row o_kanban_card_settings">
+                            <div class="col-6 text-left">
+                                <a t-if="widget.editable" type="edit">Bundle/R4 report settings</a>
+                            </div>
+                            <div class="col-6 text-right">
+                                <a t-if="widget.editable" type="edit">Company settings</a>
+                            </div>
+                        </div>
+                        
+                        <t t-call="ColorAndSettings"/>
+                    </t>
+
+                    <t t-name="ColorAndSettings">
+                        <div class="o_kanban_card_manage_settings row">
+                            <div class="col-8">
+                                <ul class="oe_kanban_colorpicker" data-field="color"/>
+                            </div>
+                        </div>
+
+                        <div groups="account.group_account_manager" class="row o_kanban_card_settings">
+                            <div class="col-6">
+                                <field name="show_on_dashboard" widget="boolean_favorite" />
+                            </div>
+                            <div class="col-6 text-right">
+                                <a t-if="widget.editable" type="edit">Dash settings</a>
                             </div>
                         </div>
                     </t>
@@ -214,7 +311,7 @@
 
                         <!-- For bank and cash -->
                         <div t-if="journal_type == 'BS'" class="row">
-                                <div class="col-4 o_kanban_card_manage_section o_kanban_manage_view">
+                            <div class="col-4 o_kanban_card_manage_section o_kanban_manage_view">
                                 <div class="o_kanban_card_manage_title">
                                     <span role="separator">View</span>
                                 </div>
@@ -238,7 +335,7 @@
                                 </div>
                             </div>
 
-                                <div class="col-4 o_kanban_card_manage_section o_kanban_manage_new">
+                            <div class="col-4 o_kanban_card_manage_section o_kanban_manage_new">
                                 <div class="o_kanban_card_manage_title">
                                     <span role="separator">New</span>
                                 </div>
@@ -466,33 +563,6 @@
                             </div>
                         </div>
                     </t>
-
-                    <!-- <t t-name="PrintBundlePoopup">
-                        <div id="myForm" class="popup disp-block">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Print bundle report</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-label="Close">&amp;times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p style="color:#008784;">Company: <span style="color:#666666;"><t t-esc="company_name"/></span></p>
-                                <p style="color:#008784;">Fiscal year: <span style="color:#666666;"><t t-esc="year"/></span></p>
-                                <t t-foreach="main_reports.result" t-as="report">
-                                    <div class="form-check bundle_item">
-                                        <input t-att-data-record-id="report['id']" class="form-check-input" type="checkbox" id="gridCheck1" t-att-checked="True"/>
-                                        <label class="form-check-label" for="gridCheck1">
-                                        <t t-esc="report['name']"/>
-                                        </label>
-                                    </div>
-                                </t>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary export_pdf" data-dismiss="modal">Export pdf</button>
-                                <button type="button" class="btn btn-primary export_xlsx" data-dismiss="modal">Export xlsx</button>
-                            </div>
-                        </div>
-                    </t> -->
             </templates>
             </kanban>
         </field>
