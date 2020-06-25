@@ -1053,10 +1053,6 @@ class OhadaReport(models.AbstractModel):
             period_vals = self._get_dates_previous_period(options, period_vals)
 
         options['date'].update(create_vals(period_vals))
-<<<<<<< HEAD
-
-=======
->>>>>>> Artem/12.0-ohada-modules
         # ===== Comparison Filter =====
         if not options.get('comparison') or not options['comparison'].get('filter'):
             return
