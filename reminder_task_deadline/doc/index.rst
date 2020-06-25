@@ -20,4 +20,3 @@ Usage
 * Click ``[Edit]``, set the time data in **Deadline** field
 * In **Reminders** field choose the reminder or create a new one
 * RESULT: receive a Notification/Email/SMS text Message at a set time
-

@@ -1,21 +1,22 @@
 # Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+# License MIT (https://opensource.org/licenses/MIT).
 
 import odoo.tests
 
 
-@odoo.tests.common.tagged('at_install', 'post_install')
+@odoo.tests.common.tagged("at_install", "post_install")
 class TestUi(odoo.tests.HttpCase):
-
     def test_01_remove_developer_mode_menu_elements(self):
         env = self.env
         # needed because tests are run before the module is marked as
         # installed. In js web will only load qweb coming from modules
         # that are returned by the backend in module_boot. Without
         # this you end up with js, css but no qweb.
-        env['ir.module.module'].search([('name', '=', 'web_debranding')], limit=1).state = 'installed'
+        env["ir.module.module"].search(
+            [("name", "=", "web_debranding")], limit=1
+        ).state = "installed"
 
-        url = '/web'
+        url = "/web"
         code = """
                         setInterval(function(){
                             if (!$('header > nav > ul.o_menu_systray > li.o_user_menu > div.dropdown-menu').length) {
@@ -33,7 +34,7 @@ class TestUi(odoo.tests.HttpCase):
                             })
                         }, 1000);
         """
-        self.browser_js(url, code, login="demo", ready='odoo.isReady === true')
+        self.browser_js(url, code, login="demo", ready="odoo.isReady === true")
 
     def test_02_remove_developer_mode_menu_elements(self):
         env = self.env
@@ -41,9 +42,11 @@ class TestUi(odoo.tests.HttpCase):
         # installed. In js web will only load qweb coming from modules
         # that are returned by the backend in module_boot. Without
         # this you end up with js, css but no qweb.
-        env['ir.module.module'].search([('name', '=', 'web_debranding')], limit=1).state = 'installed'
+        env["ir.module.module"].search(
+            [("name", "=", "web_debranding")], limit=1
+        ).state = "installed"
 
-        url = '/web'
+        url = "/web"
         code = """
                         setInterval(function(){
                             if (!$('header > nav > ul.o_menu_systray > li.o_user_menu > div.dropdown-menu').length) {
@@ -57,4 +60,4 @@ class TestUi(odoo.tests.HttpCase):
                             }
                         }, 1000);
         """
-        self.browser_js(url, code, login="admin", ready='odoo.isReady === true')
+        self.browser_js(url, code, login="admin", ready="odoo.isReady === true")

@@ -1,0 +1,90 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* autostaging_base
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: autostaging_base
+#: model:ir.actions.server,name:autostaging_base.ir_cron_autostaging_ir_actions_server
+#: model:ir.cron,cron_name:autostaging_base.ir_cron_autostaging
+#: model:ir.cron,name:autostaging_base.ir_cron_autostaging
+msgid "Autostaging"
+msgstr ""
+
+#. module: autostaging_base
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_card__autostaging_enabled
+msgid "Autostaging Enabled"
+msgstr ""
+
+#. module: autostaging_base
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_card__autostaging_date
+msgid "Autostaging date"
+msgstr ""
+
+#. module: autostaging_base
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_folder__autostaging_enabled
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_stage__autostaging_enabled
+msgid "Autostaging enabled"
+msgstr ""
+
+#. module: autostaging_base
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_stage__autostaging_idle_timeout
+msgid "Autostagint idle timeout"
+msgstr ""
+
+#. module: autostaging_base
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_card__autostaging_days_left
+msgid "Days left"
+msgstr ""
+
+#. module: autostaging_base
+#: code:addons/autostaging_base/models.py:45
+#, python-format
+msgid "Days limit field value must be greater than 0"
+msgstr ""
+
+#. module: autostaging_base
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_card__display_name
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_folder__display_name
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_stage__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: autostaging_base
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_card__id
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_folder__id
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_stage__id
+msgid "ID"
+msgstr ""
+
+#. module: autostaging_base
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_card____last_update
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_folder____last_update
+#: model:ir.model.fields,field_description:autostaging_base.field_autostaging_stage____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: autostaging_base
+#: model:ir.model,name:autostaging_base.model_autostaging_card
+msgid "autostaging_card"
+msgstr ""
+
+#. module: autostaging_base
+#: model:ir.model,name:autostaging_base.model_autostaging_folder
+msgid "autostaging_folder"
+msgstr ""
+
+#. module: autostaging_base
+#: model:ir.model,name:autostaging_base.model_autostaging_stage
+msgid "autostaging_stage"
+msgstr ""
+

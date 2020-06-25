@@ -1,3 +1,15 @@
+`1.2.2`
+-------
+
+- **Fix:** Executing S3 controller when ir_attachment_url.storage config is not s3
+- **Fix:** Executing _inverse_datas when ir_attachment_url.storage config is not s3
+
+`1.2.1`
+-------
+
+- **FIX:** Stop saving s3-related environtment variables to Odoo parameters
+- **Improvement:** Correct handling with resizing product images
+
 `1.2.0`
 -------
 

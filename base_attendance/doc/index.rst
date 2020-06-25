@@ -17,8 +17,9 @@ In order to set access rights for users
 
     * ``Read-Only`` may see only *Attendances* menu
     * ``Manual Attendance`` may create and update partner attendances, but not delete
-    * ``Officer`` may also delete partners attendances, has access to *Partners*, *Reports* menus and *Kiosk Mode*
-    * ``Manager`` like Officer, but also has access to *Configuration* menu
+    * ``Manager`` may also delete partners attendances, has access to *Partners*, *Reports* menus and *Kiosk Mode*
+
+* In order to get access to ``Configuration`` menu user has to have **Administration** ``Settings`` rights
 
 Barcode
 -------
@@ -56,6 +57,14 @@ Also it is possible to use barcodes to check partners attendance
 
 * Open menu ``[[ Partner Attendances ]] >> Kiosk Mode``
 * Scan a partner's barcode to check him in or out, it depends on the actual partner's presence
+
+Auto Checkout
+-------------
+
+Restriction on the maximum partner attendance time. Each ten minutes odoo checks for opened partner session, if a session lasts more then defined time it will be closed.
+
+* Open menu ``[[ Partner Attendances ]] >> Configuration``
+* Set ``AutoCheckout`` field in minutes.
 
 Installation
 ============

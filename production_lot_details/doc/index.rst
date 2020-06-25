@@ -12,4 +12,4 @@ Usage
 
 The module adds new fields in the production lot form view.
 You can select a model and a record which will be stored production lot details.
-To change list of model which contains details you have to inherit the ``_model_selection`` function. 
+To change list of model which contains details you have to inherit the ``_model_selection`` function.

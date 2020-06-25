@@ -1,0 +1,150 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* res_users_signature
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: res_users_signature
+#: model_terms:ir.actions.act_window,help:res_users_signature.action_res_users_signature
+msgid "Create and manage signature templates"
+msgstr ""
+
+#. module: res_users_signature
+#: model:ir.model.fields,field_description:res_users_signature.field_res_users_signature__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: res_users_signature
+#: model:ir.model.fields,field_description:res_users_signature.field_res_users_signature__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: res_users_signature
+#: model:ir.model.fields,field_description:res_users_signature.field_res_users_signature__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: res_users_signature
+#: model:ir.model.fields,field_description:res_users_signature.field_res_users_signature__id
+msgid "ID"
+msgstr ""
+
+#. module: res_users_signature
+#: model:ir.model.fields,field_description:res_users_signature.field_res_users_signature__comment
+msgid "Internal note"
+msgstr ""
+
+#. module: res_users_signature
+#: model:ir.model.fields,help:res_users_signature.field_res_users__signature_id
+msgid "Keep empty to edit signature manually"
+msgstr ""
+
+#. module: res_users_signature
+#: model:ir.model.fields,field_description:res_users_signature.field_res_users_signature____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: res_users_signature
+#: model:ir.model.fields,field_description:res_users_signature.field_res_users_signature__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: res_users_signature
+#: model:ir.model.fields,field_description:res_users_signature.field_res_users_signature__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: res_users_signature
+#: model:ir.model,name:res_users_signature.model_ir_mail_server
+msgid "Mail Server"
+msgstr ""
+
+#. module: res_users_signature
+#: model:ir.model.fields,field_description:res_users_signature.field_res_users_signature__name
+msgid "Name"
+msgstr ""
+
+#. module: res_users_signature
+#: model:ir.model,name:res_users_signature.model_res_partner
+msgid "Partner"
+msgstr ""
+
+#. module: res_users_signature
+#: model:ir.model.fields,field_description:res_users_signature.field_res_users__signature
+#: model_terms:ir.ui.view,arch_db:res_users_signature.view_res_users_signature
+msgid "Signature"
+msgstr ""
+
+#. module: res_users_signature
+#: model:res.groups,name:res_users_signature.administrator
+msgid "Signature administrator"
+msgstr ""
+
+#. module: res_users_signature
+#: model:ir.model.fields,field_description:res_users_signature.field_res_users__signature_id
+msgid "Signature template"
+msgstr ""
+
+#. module: res_users_signature
+#: model:ir.actions.act_window,name:res_users_signature.action_res_users_signature
+#: model:ir.ui.menu,name:res_users_signature.menu_action_res_users_signature
+msgid "Signatures"
+msgstr ""
+
+#. module: res_users_signature
+#: model:ir.model.fields,field_description:res_users_signature.field_res_users_signature__template
+msgid "Template"
+msgstr ""
+
+#. module: res_users_signature
+#: model:ir.actions.server,name:res_users_signature.ir_update_signature_multi
+#: model_terms:ir.ui.view,arch_db:res_users_signature.view_res_users_signature
+msgid "Update signatures"
+msgstr ""
+
+#. module: res_users_signature
+#: model:ir.model,name:res_users_signature.model_res_users
+#: model:ir.model.fields,field_description:res_users_signature.field_res_users_signature__user_ids
+msgid "Users"
+msgstr ""
+
+#. module: res_users_signature
+#: model:ir.model,name:res_users_signature.model_res_users_signature
+msgid "Users signatures"
+msgstr ""
+
+#. module: res_users_signature
+#: model:ir.model.fields,help:res_users_signature.field_res_users_signature__template
+msgid "You can use variables:\n"
+"* ${user.name}\n"
+"* ${user.function} (job position)\n"
+"* ${user.partner_id.company_id.name} (company in a partner form)p\n"
+"* ${user.company_id.name} (current company)\n"
+"* ${user.email}\n"
+"* ${user.phone}\n"
+"* ${user.mobile}\n"
+"* etc. (contact your administrator for further information)\n"
+"\n"
+"You can use control structures:\n"
+"\n"
+"% if user.mobile\n"
+"    Mobile: ${user.mobile}\n"
+"% endif\n"
+"\n"
+""
+msgstr ""
+
+#. module: res_users_signature
+#: model:res.groups,comment:res_users_signature.administrator
+msgid "the user will have access to edit signatures"
+msgstr ""
+

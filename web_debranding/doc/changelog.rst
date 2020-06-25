@@ -1,3 +1,25 @@
+`1.0.30`
+--------
+
+- **Fix:** replace placeholder in image uploading
+
+`1.0.29`
+--------
+
+- **Fix:** error in Discuss menu on first usage
+
+`1.0.28`
+--------
+
+**Fix:** debrand_bytes now accepts bytes and str types
+**Fix:** fixed "OdooBot has a request" item in notifications
+**Fix:** included mail_channel fixes
+
+`1.0.27`
+--------
+
+**Fix:** error on res.config form opening
+
 `1.0.26`
 --------
 

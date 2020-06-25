@@ -1,6 +1,6 @@
-.. image:: https://img.shields.io/badge/license-LGPL--3-blue.png
-   :target: https://www.gnu.org/licenses/lgpl
-   :alt: License: LGPL-3
+.. image:: https://img.shields.io/badge/license-MIT-blue.svg
+   :target: https://opensource.org/licenses/MIT
+   :alt: License: MIT
 
 ==============
  Base Details
@@ -24,6 +24,8 @@ Sponsors
 Maintainers
 -----------
 * `IT-Projects LLC <https://it-projects.info>`__
+
+      This module is not maintained since Odoo 12.0
 
 Further information
 ===================

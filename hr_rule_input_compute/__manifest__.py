@@ -4,33 +4,25 @@
     "category": "Human Resources",
     # "live_test_URL": "",
     "images": ["static/description/icon.png"],
-    "version": "11.0.1.0.0",
+    "version": "12.0.1.0.0",
     "application": False,
-
     "author": "IT-Projects LLC, Ivan Yelizariev",
-    "support": "apps@it-projects.info",
+    "support": "apps@itpp.dev",
     "website": "https://it-projects.info",
-    "license": "LGPL-3",
+    "license": "Other OSI approved licence",  # MIT
     # "price": 9.00,
     # "currency": "EUR",
-
-    "depends": [
-        'hr_payroll',
-    ],
+    "depends": ["hr_payroll"],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
-        'security/hr_rule_input_compute_security.xml',
-        'views/hr_payroll_views.xml',
+        "security/hr_rule_input_compute_security.xml",
+        "views/hr_payroll_views.xml",
     ],
-    "qweb": [
-    ],
-    "demo": [
-    ],
-
+    "qweb": [],
+    "demo": [],
     "post_load": None,
     "pre_init_hook": None,
     "post_init_hook": None,
-
     "auto_install": False,
     "installable": False,
 }
