@@ -670,7 +670,6 @@ class OhadaReport(models.AbstractModel):
                         c['selected'] = False
 
     def _get_report_data(self):
-        print('get_report_data')
         company = self.env.user.company_id
         data = {
             'company_acronym': company.acronym,
@@ -1151,7 +1150,7 @@ class OhadaReport(models.AbstractModel):
         number_period = options['comparison'].get('number_period', 1) or 0
         if self.code == "N31":
             number_period = 4
-        elif self.code in ["N1", "N3D", "N3A"]:
+        elif self.code in ["N1", "N3D", "N3A", "N3B", "N3C", "N28"]:
             number_period = 0
         for index in range(0, number_period):
             if cmp_filter == 'previous_period':

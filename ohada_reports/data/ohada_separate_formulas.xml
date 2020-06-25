@@ -1213,6 +1213,17 @@
             <field name="groupby">account_id</field>
     </record>
 
+    <record id="ohada_financial_report_note3b_sub1_6" model="ohada.financial.html.report.line">
+            <field name="name"> </field>
+            <field name="code">N3b_sub1_6</field>
+            <field name="financial_report_id" ref=""/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain" eval="[('account_id.code', '=like', '0000%')]" />
+            <field name="level" eval="0" />
+            <field name="groupby">account_id</field>
+    </record>
+
+
     <!--N3b_2-->
     <record id="ohada_financial_report_note3b_sub2_1" model="ohada.financial.html.report.line">
             <field name="name"> </field>
@@ -1257,6 +1268,16 @@
     <record id="ohada_financial_report_note3b_sub2_5" model="ohada.financial.html.report.line">
             <field name="name"> </field>
             <field name="code">N3b_sub2_5</field>
+            <field name="financial_report_id" ref=""/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain" eval="[('account_id.code', '=like', '0000%')]" />
+            <field name="level" eval="0" />
+            <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note3b_sub2_6" model="ohada.financial.html.report.line">
+            <field name="name"> </field>
+            <field name="code">N3b_sub2_6</field>
             <field name="financial_report_id" ref=""/>
             <field name="formulas">balance = sum.balance</field>
             <field name="domain" eval="[('account_id.code', '=like', '0000%')]" />
@@ -1315,6 +1336,16 @@
             <field name="groupby">account_id</field>
     </record>
 
+    <record id="ohada_financial_report_note3b_sub3_6" model="ohada.financial.html.report.line">
+            <field name="name"> </field>
+            <field name="code">N3b_sub3_6</field>
+            <field name="financial_report_id" ref=""/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain" eval="[('account_id.code', '=like', '0000%')]" />
+            <field name="level" eval="0" />
+            <field name="groupby">account_id</field>
+    </record>
+
     <!--N3b_4-->
     <record id="ohada_financial_report_note3b_sub4_1" model="ohada.financial.html.report.line">
             <field name="name"> </field>
@@ -1359,6 +1390,16 @@
     <record id="ohada_financial_report_note3b_sub4_5" model="ohada.financial.html.report.line">
             <field name="name"> </field>
             <field name="code">N3b_sub4_5</field>
+            <field name="financial_report_id" ref=""/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain" eval="[('account_id.code', '=like', '0000%')]" />
+            <field name="level" eval="0" />
+            <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note3b_sub4_6" model="ohada.financial.html.report.line">
+            <field name="name"> </field>
+            <field name="code">N3b_sub4_6</field>
             <field name="financial_report_id" ref=""/>
             <field name="formulas">balance = sum.balance</field>
             <field name="domain" eval="[('account_id.code', '=like', '0000%')]" />
@@ -1417,6 +1458,16 @@
             <field name="groupby">account_id</field>
     </record>
 
+    <record id="ohada_financial_report_note3b_sub5_6" model="ohada.financial.html.report.line">
+            <field name="name"> </field>
+            <field name="code">N3b_sub5_6</field>
+            <field name="financial_report_id" ref=""/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain" eval="[('account_id.code', '=like', '0000%')]" />
+            <field name="level" eval="0" />
+            <field name="groupby">account_id</field>
+    </record>
+
     <!--N3b_6-->
     <record id="ohada_financial_report_note3b_sub6_1" model="ohada.financial.html.report.line">
             <field name="name"> </field>
@@ -1461,6 +1512,16 @@
     <record id="ohada_financial_report_note3b_sub6_5" model="ohada.financial.html.report.line">
             <field name="name"> </field>
             <field name="code">N3b_sub6_5</field>
+            <field name="financial_report_id" ref=""/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain" eval="[('account_id.code', '=like', '0000%')]" />
+            <field name="level" eval="0" />
+            <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note3b_sub6_6" model="ohada.financial.html.report.line">
+            <field name="name"> </field>
+            <field name="code">N3b_sub6_6</field>
             <field name="financial_report_id" ref=""/>
             <field name="formulas">balance = sum.balance</field>
             <field name="domain" eval="[('account_id.code', '=like', '0000%')]" />
@@ -1519,6 +1580,16 @@
             <field name="groupby">account_id</field>
     </record>
 
+    <record id="ohada_financial_report_note3b_sub7_6" model="ohada.financial.html.report.line">
+            <field name="name"> </field>
+            <field name="code">N3b_sub7_6</field>
+            <field name="financial_report_id" ref=""/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain" eval="[('account_id.code', '=like', '0000%')]" />
+            <field name="level" eval="0" />
+            <field name="groupby">account_id</field>
+    </record>
+
     <!--N3b_8-->
     <record id="ohada_financial_report_note3b_sub8_1" model="ohada.financial.html.report.line">
             <field name="name"> </field>
@@ -1563,6 +1634,16 @@
     <record id="ohada_financial_report_note3b_sub8_5" model="ohada.financial.html.report.line">
             <field name="name"> </field>
             <field name="code">N3b_sub8_5</field>
+            <field name="financial_report_id" ref=""/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain" eval="[('account_id.code', '=like', '0000%')]" />
+            <field name="level" eval="0" />
+            <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note3b_sub8_6" model="ohada.financial.html.report.line">
+            <field name="name"> </field>
+            <field name="code">N3b_sub8_6</field>
             <field name="financial_report_id" ref=""/>
             <field name="formulas">balance = sum.balance</field>
             <field name="domain" eval="[('account_id.code', '=like', '0000%')]" />
@@ -1621,6 +1702,16 @@
             <field name="groupby">account_id</field>
     </record>
 
+    <record id="ohada_financial_report_note3b_sub9_6" model="ohada.financial.html.report.line">
+            <field name="name"> </field>
+            <field name="code">N3b_sub9_6</field>
+            <field name="financial_report_id" ref=""/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain" eval="[('account_id.code', '=like', '0000%')]" />
+            <field name="level" eval="0" />
+            <field name="groupby">account_id</field>
+    </record>
+
     <!--N3b_10-->
     <record id="ohada_financial_report_note3b_sub10_1" model="ohada.financial.html.report.line">
             <field name="name"> </field>
@@ -1672,6 +1763,16 @@
             <field name="groupby">account_id</field>
     </record>
 
+    <record id="ohada_financial_report_note3b_sub10_6" model="ohada.financial.html.report.line">
+            <field name="name"> </field>
+            <field name="code">N3b_sub10_6</field>
+            <field name="financial_report_id" ref=""/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain" eval="[('account_id.code', '=like', '0000%')]" />
+            <field name="level" eval="0" />
+            <field name="groupby">account_id</field>
+    </record>
+
     <!--N3b_11-->
     <record id="ohada_financial_report_note3b_sub11_1" model="ohada.financial.html.report.line">
             <field name="name"> </field>
@@ -1716,6 +1817,16 @@
     <record id="ohada_financial_report_note3b_sub11_5" model="ohada.financial.html.report.line">
             <field name="name"> </field>
             <field name="code">N3b_sub11_5</field>
+            <field name="financial_report_id" ref=""/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="domain" eval="[('account_id.code', '=like', '0000%')]" />
+            <field name="level" eval="0" />
+            <field name="groupby">account_id</field>
+    </record>
+
+    <record id="ohada_financial_report_note3b_sub11_6" model="ohada.financial.html.report.line">
+            <field name="name"> </field>
+            <field name="code">N3b_sub11_6</field>
             <field name="financial_report_id" ref=""/>
             <field name="formulas">balance = sum.balance</field>
             <field name="domain" eval="[('account_id.code', '=like', '0000%')]" />
@@ -3375,7 +3486,7 @@
             <field name="groupby">account_id</field>
     </record>
 
-        <!--FORMULAS FOR N15a-->
+    <!--FORMULAS FOR N15a-->
     <!--N15a_1-->
     <record id="ohada_financial_report_note15a_sub1_1" model="ohada.financial.html.report.line">
             <field name="name"> </field>

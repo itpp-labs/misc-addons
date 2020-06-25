@@ -1361,6 +1361,7 @@ class OhadaFinancialReportLine(models.Model):
     @api.multi
     def _get_lines(self, financial_report, currency_table, options, linesDicts):
         final_result_table = []
+        company = self.env.user.company_id
         year = self._context['date_to'][0:4]
         comparison_table = [options.get('date')]
         comparison_table += options.get('comparison') and options['comparison'].get('periods', []) or []
@@ -1400,16 +1401,7 @@ class OhadaFinancialReportLine(models.Model):
                     d_column = ' '
 
                 res.extend(r)
-                if line.separate_formulas_ids:
-                    for i in line.separate_formulas_ids:
-                        sep_res = i.with_context(date_from=date_from,
-                                              date_to=date_to,
-                                              strict_range=strict_range)._eval_formula(financial_report,
-                                                                                       debit_credit,
-                                                                                       currency_table,
-                                                                                       linesDicts[k],
-                                                                                       groups=options.get('groups'))
-                        res.extend(sep_res)
+
                 for column in r:
                     domain_ids.update(column)
                 k += 1
@@ -1504,7 +1496,6 @@ class OhadaFinancialReportLine(models.Model):
                     pass
 
                 if financial_report.code == "S4" and line.sequence != 1:
-                    company = self.env.user.company_id
                     note_relevance = self.env['note.relevance'].search([('note_report_id', '=', line.note_report_ids.id),
                                                                         ('fiscalyear', '=', options['date']['string']),
                                                                         ('company_id', '=', company.id)])
@@ -1515,14 +1506,14 @@ class OhadaFinancialReportLine(models.Model):
                         for i in range(2):
                             vals['columns'].append({'name': ' '})
                 result = lines
-                # ========================================================
+
+            # ========================================================
             elif financial_report.default_columns_quantity:
                 lines[0]['columns'] = []
                 for i in range(financial_report.default_columns_quantity):
                     lines[0]['columns'].append({'name': ' '})
                 result = lines
             elif financial_report.code == 'S3':
-                company = self.env.user.company_id
                 if company.executive_ids:
                     for i, x in zip(company.executive_ids, range(len(company.executive_ids))):
                         line_vals = {'columns': [], 'level': 2, 'symbol': 'none'}
@@ -1545,7 +1536,6 @@ class OhadaFinancialReportLine(models.Model):
                     final_result_table.append(line_vals)
                 return final_result_table
             elif financial_report.code == 'S3_1':
-                company = self.env.user.company_id
                 if company.administrative_ids:
                     for i, x in zip(company.administrative_ids, range(len(company.administrative_ids))):
                         line_vals = {'columns': [], 'level': 2, 'symbol': 'none'}
@@ -1566,6 +1556,27 @@ class OhadaFinancialReportLine(models.Model):
                                     ], 'level': 2, 'symbol': 'none'}
                     final_result_table.append(line_vals)
                 return final_result_table
+            elif financial_report.code == "N4_1" and line.sequence > 1:
+                vals['columns'] = []
+                if line.sequence - 2 < len(company.affiliate_ids):
+                    affiliate = company.affiliate_ids[line.sequence - 2]
+                    vals['name'] = [affiliate.partner_id.name]
+                    vals['columns'] = [
+                        {'name': [affiliate.partner_id.city + ' (' + affiliate.partner_id.country_id.name + ')']},
+                        {'name': [' ']},
+                        {'name': [affiliate.capital_percentage]},
+                        {'name': [affiliate.capital_amount]},
+                        {'name': [' ']},
+                    ]
+                else:
+                    vals['columns'] = [
+                        {'name': [' ']},
+                        {'name': [' ']},
+                        {'name': [' ']},
+                        {'name': [' ']},
+                        {'name': [' ']},
+                    ]
+                result = [vals]
             # =========================================================================================================
             else:
                 for vals in lines:
@@ -1602,6 +1613,7 @@ class OhadaFinancialReportLine(models.Model):
                     elif len(vals['columns']) > 1 and line._context.get('periods') != None:
                         for i in range(len(vals['columns'][1:])-1):
                             vals['columns'][i+1]['name'] = ['EXERCICE', 'au 31/12/' + line._context['periods'][i]['string'][-4:]]
+                # TODO: transport header logic in ohada_report_layout.xml
                 elif line.header == True and financial_report.type == 'note':
                     if financial_report.code == "N1" and line.sequence == 1:
                         vals['columns'][0]['name'] = ['Montant brut']
@@ -1674,23 +1686,6 @@ class OhadaFinancialReportLine(models.Model):
                             vals['columns'].append({'name': header_list[i]})
                     elif (financial_report.code == "N16BB" or financial_report.code == "N16BB_1") and line.sequence == 1:
                         vals['columns'] = []
-                    elif financial_report.code == "N32" and line.sequence in [1, 2]:
-                        header_list = [["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"]]
-                        vals['columns'] = []
-                        for i in range(len(header_list)):
-                            vals['columns'].append({'name': header_list[i]})
                     elif (line.sequence == 1 and financial_report.code not in ['N16B', 'N16B_1', 'N16B_2', 'N16BB', 'N16BB_1']) or (financial_report.code in ['N16B', 'N16B_1', 'N16B_2', 'N16BB', 'N16BB_1'] and line.sequence == 2):
                         vals['columns'][0]['name'] = ['ANNEE ' + line._context['date_from'][0:4]] if financial_report.code not in ['N31'] else [line._context['date_from'][0:4]]
                         if len(vals['columns']) > 1 and line._context.get('periods') != None \
@@ -1717,7 +1712,7 @@ class OhadaFinancialReportLine(models.Model):
 
 
                 # ============= For Notes 4, 7, 8, 17, 15A, 16A, 18, 19 =====================
-
+                # TODO: transport header logic in ohada_report_layout.xml
                 if line.header is True and financial_report.code in ['N4', 'N7', 'N8', 'N17', 'N15A', 'N16A', 'N18', 'N19'] and len(comparison_table) == 2:
  #                   header_list = [["Créances à un", "an au plus"], ["Créances à plus", "d'un an à deux", "ans au plus"],
                     header_list = [["Créances à un", "an au plus"], ["Créances à", "plus d'un an", "à deux ans", "au plus"],
@@ -1728,56 +1723,9 @@ class OhadaFinancialReportLine(models.Model):
                     header_list = [["Régime fiscale"], ["Échéance"]]
                     for i in header_list:
                         vals['columns'].append({'name': i})
-                elif financial_report.code in ['N17', 'N15A', 'N16A', 'N18', 'N19'] and len(comparison_table) == 2:
-                    amount_of_periods = 4
-                    amount_of_group_ids = len(options.get('groups', {}).get('ids') or []) or 1
-                    linesDicts = [[{} for _ in range(0, amount_of_group_ids)] for _ in range(0, amount_of_periods)]
-                    comparison_table = [options.get('date')]
-                    comparison_table += options.get('comparison') and options['comparison'].get('periods', []) or []
-                    for i in range(3):
-                        date_from = str(int(options.get('date')['string'][-4:]) - (i + 1)) + '-01-01'
-                        date_to = str(int(options.get('date')['string'][-4:]) - (i + 1)) + '-12-31'
-                        date_from, date_to, strict_range = line.with_context(date_from=date_from, date_to=date_to)._compute_date_range()
-
-                        r = line.with_context(date_from=date_from,
-                                              date_to=date_to,
-                                              strict_range=strict_range)._eval_formula(financial_report,
-                                                                                       debit_credit,
-                                                                                       currency_table,
-                                                                                       linesDicts[k],
-                                                                                       groups=options.get('groups'))
-
-                        vals['columns'].append(line._format({'name': r[0]['line']['balance']}))
-                elif financial_report.code in ['N4', 'N7', 'N8'] and len(comparison_table) == 2:
-                    amount_of_periods = 3
-                    amount_of_group_ids = len(options.get('groups', {}).get('ids') or []) or 1
-                    linesDicts = [[{} for _ in range(0, amount_of_group_ids)] for _ in range(0, amount_of_periods)]
-                    comparison_table = [options.get('date')]
-                    comparison_table += options.get('comparison') and options['comparison'].get('periods', []) or []
-    #E-                    vals['columns'][0] = line._format({'name': vals['columns'][0]['no_format_name'] - vals['columns'][1]['no_format_name']})
-                    # temporary
-                    for i in range(3):
-                        vals['columns'].append({'name': '0'})
-                    # =========
-                    # for i in range(2):
-                    #     date_from = str(int(options.get('date')['string'][-4:]) - (i + 1)) + '-01-01'
-                    #     date_to = str(int(options.get('date')['string'][-4:]) - (i + 1)) + '-12-31'
-                    #     date_from, date_to, strict_range = line.with_context(date_from=date_from,
-                    #                                                          date_to=date_to)._compute_date_range()
-                    #
-                    #     r = line.with_context(date_from=date_from,
-                    #                           date_to=date_to,
-                    #                           strict_range=strict_range)._eval_formula(financial_report,
-                    #                                                                    debit_credit,
-                    #                                                                    currency_table,
-                    #                                                                    linesDicts[k],
-                    #                                                                    groups=options.get('groups'))
-                    #
-                    #     vals['columns'].append(line._format({'name': r[0]['line']['balance']}))
                 elif financial_report.code in ['N15B'] and len(comparison_table) == 2:
                     vals['columns'].append({'name': " "})
                     vals['columns'].append({'name': " "})
-
 
                 if line.header is True and financial_report.type == 'note' and financial_report.code == 'N4_1':
                     vals['columns'] = []
@@ -1786,9 +1734,34 @@ class OhadaFinancialReportLine(models.Model):
 
                     for i in header_list:
                         vals['columns'].append({'name': i})
-                elif financial_report.type == 'note' and financial_report.code == 'N4_1':
-                    for i in range(2):
-                        vals['columns'].append({'name': ' '})
+                # elif financial_report.type == 'note' and financial_report.code == 'N4_1':
+                #     for i in range(2):
+                #         vals['columns'].append({'name': ' '})
+
+                # ================================add value from separate_formulas===============================
+
+                if line.separate_formulas_ids:
+                    res = []
+                    period = comparison_table[0]
+                    date_from = period.get('date_from', False)
+                    date_to = period.get('date_to', False) or period.get('date', False)
+                    date_from, date_to, strict_range = line.with_context(date_from=date_from, date_to=date_to)._compute_date_range()
+                    for i in line.separate_formulas_ids:
+                        sep_res = i.with_context(date_from=date_from,
+                                                 date_to=date_to,
+                                                 strict_range=strict_range)._eval_formula(financial_report,
+                                                                                          debit_credit,
+                                                                                          currency_table,
+                                                                                          linesDicts[0],
+                                                                                          groups=options.get('groups'))
+                        res.extend(sep_res)
+                        for column in sep_res:
+                            domain_ids.update(column)
+                    res = line._put_columns_together(res, domain_ids)
+                    res = [{'name': l} for l in res['line']]
+                    for i in res:
+                        line._format(i)
+                    vals['columns'] = vals['columns'] + res
 
                 # ===============================================================
 
@@ -1833,14 +1806,6 @@ class OhadaFinancialReportLine(models.Model):
                         vals['columns'].append({'name': ' '})
                     elif financial_report.code in ['N2', "N35"]:
                         vals['columns'] = []
-                    # elif financial_report.code in ['N3A', 'N3B'] and line.sequence > 2:
-                    #     vals['columns'] = []
-                    #     for i in range(7):
-                    #         vals['columns'].append({'name': ' '})
-                    elif financial_report.code == 'N3C' and line.sequence > 2:
-                        vals['columns'] = []
-                        for i in range(4):
-                            vals['columns'].append({'name': ' '})
                     elif (financial_report.code in ['N13', 'N31', 'N12', 'N12_1'] and line.sequence > 1):
                         vals['columns'] = []
                         for i in range(5):
@@ -1866,7 +1831,7 @@ class OhadaFinancialReportLine(models.Model):
                                 vals['columns'].append({'name': ' A '})
                             else: 
                                 vals['columns'].append({'name': ' '})
-                    elif financial_report.code in ["N28", "N33"]:
+                    elif financial_report.code in ["N33"]:
                         vals['columns'] = []
                         for i in range(8):
                             vals['columns'].append({'name': ' '})
@@ -1884,9 +1849,8 @@ class OhadaFinancialReportLine(models.Model):
                         for i in range(6):
                             vals['columns'].append({'name': ' '})
                     elif financial_report.code == 'N16A' and line.sequence > 18:
-                        for i in vals['columns'][4:]:
-                            i['background'] = '#B3CDE0'
-                            i['name'] = ''
+                        for i in range(3):
+                            vals['columns'].append({'name': '', 'background': '#B3CDE0'})
                     elif financial_report.code == 'N34' and line.sequence > 13 and line.sequence < 27:
                         for i in vals['columns'][2:]:
                             i['background'] = '#B3CDE0'
@@ -1910,17 +1874,16 @@ class OhadaFinancialReportLine(models.Model):
                     elif financial_report.code in ["N16B_2", "N16BB_1"] and line.sequence > 3:
                        vals['columns'].append({'name': ' '})
 
-                manual_entry = self.env['ohada.report.manualentry'].search([('year', '=', year), ('line', '=', line.id)])
-                if manual_entry:
-                    for i, x in zip(vals['columns'], range(1, len(vals['columns'])+1)):
-                        for e in manual_entry:
-                            if x == e.column:
-                                try:
-                                    i['name'] = line._format({'name': float(e.text_value)})['name']
-                                except ValueError:
-                                    i['name'] = [e.text_value]
-                                i['entry_id'] = e.id
-
+            manual_entry = self.env['ohada.report.manualentry'].search([('year', '=', year), ('line', '=', line.id)])
+            if manual_entry:
+                for i, x in zip(vals['columns'], range(1, len(vals['columns'])+1)):
+                    for e in manual_entry:
+                        if x == e.column:
+                            try:
+                                i['name'] = line._format({'name': float(e.text_value)})['name']
+                            except ValueError:
+                                i['name'] = [e.text_value]
+                            i['entry_id'] = e.id
             final_result_table += result
 
         return final_result_table
