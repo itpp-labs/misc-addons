@@ -499,6 +499,7 @@
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         -->
+        <field name="print_format">landscape</field>
         <field name="date_range" eval="False"/>
         <field name="hierarchy_option" eval="False"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -734,6 +735,7 @@
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
+        <field name="print_format">landscape</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -2428,6 +2430,7 @@
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
+        <field name="print_format">landscape</field>
         <field name="header">Autres créances</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
@@ -3920,6 +3923,7 @@
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
+        <field name="print_format">landscape</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -4295,6 +4299,7 @@
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
+        <field name="print_format">landscape</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -5398,6 +5403,7 @@
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
+        <field name="print_format">landscape</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -5599,6 +5605,7 @@
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
+        <field name="print_format">landscape</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -7323,6 +7330,7 @@
         <field name="mandatory_note" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
+        <field name="print_format">landscape</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -7674,6 +7682,7 @@
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
+        <field name="print_format">landscape</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -8722,6 +8731,7 @@
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
+        <field name="print_format">landscape</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>
@@ -8869,6 +8879,7 @@
         <field name="analytic" eval="True"/>
         <field name="double_report" eval="False"/>
         <field name="type">note</field>
+        <field name="print_format">landscape</field>
         <field name="unfold_all_filter" eval="True"/>
         <field name="show_journal_filter" eval="True"/>
         <field name='parent_id' ref='menu_ohada_legal_statements_note'/>

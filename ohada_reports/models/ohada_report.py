@@ -724,7 +724,7 @@ class OhadaReport(models.AbstractModel):
 
         Balance sheet is a keydate report, while PL and CF are date range reports
         In OHADA reporting, all 3 reports must display figures of current and previous years.
-        In order to display previous year's value of PL line XI in the BS* report, we need to explicitly set comparison in options.  
+        In order to display previous year's value of PL line XI in the BS* report, we need to explicitly set comparison in options.
         '''
         if self.code in ['BS', 'BS2']:
             # Set comparison in option
@@ -965,9 +965,9 @@ class OhadaReport(models.AbstractModel):
     def format_value(self, value, currency=False):
         ''' #E+
             in OHADA reports, the currency is not displayed, all amounts must be reported in XOF which is the company currency
-            By default, we consider that all values are in the company currency. 
-            TODO: 
-                Below, we display the currency only if it's another one. 
+            By default, we consider that all values are in the company currency.
+            TODO:
+                Below, we display the currency only if it's another one.
                 But we will have to convert amounts in different currencies to convert the compnay currency (XOF)
         '''
         currency_id = currency or self.env.user.company_id.currency_id
@@ -1222,6 +1222,8 @@ class OhadaReport(models.AbstractModel):
             body = body.replace(b'<table style="margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;float:left;"', b'<table style="font-size:6px !important;width:50%;margin-bottom:10px;color:#001E5A;font-weight:normal;float:left;"')
             body = body.replace(b'<table style="margin-bottom:10px;color:#001E5A;font-weight:normal;float:left;"', b'<table style="margint-left:-9px;font-size:6px !important;width:50%;margin-bottom:10px;color:#001E5A;font-weight:normal;float:left;"')
         else:
+            # import wdb
+            # wdb.set_trace()
             body = body.replace(b'<table style="margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;"', b'<table style="font-size:8px !important;margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;"')
             # body = body.replace(b'<tbody class="ohada_table">', b'<tbody class="ohada_table" style="width:100%;font-size:11px;">')
 
@@ -1259,9 +1261,8 @@ class OhadaReport(models.AbstractModel):
                 headers = header.encode()
                 footer = b''
             header = headers
-
         landscape = horizontal
-        if len(self.with_context(print_mode=True).get_header(options)[-1]) > 5:
+        if self.print_format == 'landscape':
             landscape = True
 
         return self.env['ir.actions.report']._run_wkhtmltopdf(
@@ -1802,7 +1803,7 @@ class OhadaReport(models.AbstractModel):
                 'code': self.code,
                 'vat': report_bs.env.user.company_id.vat,
                 'year': date[0:4],
-                'header': self.header and self.header.upper(), 
+                'header': self.header and self.header.upper(),
             }
             lines = report_bs._get_lines(options, line_id=line_id)
 

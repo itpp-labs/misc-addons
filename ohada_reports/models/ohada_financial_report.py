@@ -68,6 +68,9 @@ class ReportOhadaFinancialReport(models.Model):
     default_columns_quantity = fields.Integer(default=False)
     mandatory_note = fields.Boolean(default=False)
     note_relevance_ids = fields.One2many('note.relevance', 'note_report_id')
+    print_format = fields.Selection([('landscape', 'Landscape'),
+                                     ('portrait', 'Portrait')],
+                                    default='portrait')
 
     _sql_constraints = [
         ('code_uniq', 'unique (code)', "A report with the same code already exists."),
@@ -664,7 +667,7 @@ class OhadaFinancialReportLine(models.Model):
             raise ValidationError('The code "%s" is invalid on report line with name "%s"' % (self.code, self.name))
 
     @api.multi
-    def _get_note_displayed(self): 
+    def _get_note_displayed(self):
         for line in self:
             if len(line.note_report_ids) == 1:
                 line.note = line.note_report_ids[0].code[1:]
@@ -673,7 +676,7 @@ class OhadaFinancialReportLine(models.Model):
                     line.note = note.code[1:]
             else:
                 line.note = ''
-                
+
     @api.multi
     def _get_copied_code(self):
         '''Look for an unique copied code.
@@ -1173,7 +1176,7 @@ class OhadaFinancialReportLine(models.Model):
                 value['class'] = 'number'
             if not currency_id or (currency_id and (currency_id.name != 'XOF' or currency_id.symbol == 'CFA')): #E+
                 value['name'] = [formatLang(self.env, value['name'], digits=0)]                                   #E+
-            else: #E+   
+            else: #E+
                 #E: TODO: Here we need to convert the value to XOF
                 value['name'] = [formatLang(self.env, value['name'], currency_obj=currency_id)]
             return value
@@ -1408,7 +1411,7 @@ class OhadaFinancialReportLine(models.Model):
 
             res = line._put_columns_together(res, domain_ids)
 
-            if line.hidden_line:                   
+            if line.hidden_line:
                 continue
             if line.hide_if_zero and all([float_is_zero(k, precision_rounding=currency_precision) for k in res['line']]):
                 continue
@@ -1418,7 +1421,7 @@ class OhadaFinancialReportLine(models.Model):
             vals = {
                 'id': line.id,
                 'name': line.name.split('|') if line.name else line.name,
-                'reference': line.reference,       
+                'reference': line.reference,
                 'note': line.note,
                 'note_id': line.note_id,
                 'notelist': line.notelist,
@@ -1619,7 +1622,7 @@ class OhadaFinancialReportLine(models.Model):
                         vals['columns'][0]['name'] = ['Montant brut']
                         vals['columns'][0]['rowspan'] = 2
                         vals['columns'].append({'name': ['SURETES REELLES']})
-                        vals['columns'][1]['colspan0'] = 3                        
+                        vals['columns'][1]['colspan0'] = 3
                     elif financial_report.code == "N3A" and line.sequence == 1:
                         header_list = [["MOUVEMENTS", "BRUTS À", "L'OUVERTURE", "DE L EXERCICE"],
                                        ["ACQUISITIONS,", "APPORTS,", "CREATIONS"],
@@ -1829,7 +1832,7 @@ class OhadaFinancialReportLine(models.Model):
                         for i in range(13):
                             if line.sequence in [1, 2]:
                                 vals['columns'].append({'name': ' A '})
-                            else: 
+                            else:
                                 vals['columns'].append({'name': ' '})
                     elif financial_report.code in ["N33"]:
                         vals['columns'] = []
@@ -1842,7 +1845,7 @@ class OhadaFinancialReportLine(models.Model):
                     elif financial_report.code == "N37":
                         del vals['columns'][2]
                         del vals['columns'][1]
-                        if line.code == 'N37_H':                                
+                        if line.code == 'N37_H':
                             vals['columns'][0]['name'] = ['   Montant   ']
                     elif financial_report.code == 'N8A':
                         vals['columns'] = []
