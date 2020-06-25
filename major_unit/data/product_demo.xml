@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="quartet_product_product_1_product_template" model="product.template"  context="{'create_product_product': False}">
+            <field name="name">2012 Ducati Panigale 1299 S</field>
+            <field name="categ_id" ref="quartet_product_category_major_units"/>
+            <field name="type">product</field>
+            <field name="standard_price">10000.0</field>
+            <field name="list_price">12000.0</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="uom_po_id" ref="product.product_uom_unit"/>
+            <field name="tracking">serial</field>
+            <field name="image" type="base64" file="major_unit/static/img/product_1_image.jpg"/>
+            <field name="sale_ok" eval="True"/>
+<!--            <field name="details_model">nadanew.vehicle.product</field>-->
+        </record>
+
+        <record id="quartet_product_product_1_1" model="product.product">
+            <field name="default_code">VEH-1</field>
+            <field name="product_tmpl_id" ref="quartet_product_product_1_product_template"/>
+            <field name="attribute_value_ids" eval="[(6,0,[
+                ref('drm_product_attributes.product_attribute_value_1'),
+                ref('drm_product_attributes.product_attribute_value_4'),
+                ref('drm_product_attributes.product_attribute_value_6'),
+                ref('drm_product_attributes.product_attribute_value_7'),
+                ref('drm_product_attributes.product_attribute_value_8'),
+                ref('drm_product_attributes.product_attribute_value_9'),
+                ref('drm_product_attributes.product_attribute_value_10'),
+                ref('drm_product_attributes.product_attribute_value_11'),
+            ])]"/>
+            <field name="standard_price">10000.0</field>
+        </record>
+        <record id="quartet_product_product_1_2" model="product.product">
+            <field name="default_code">VEH-2</field>
+            <field name="product_tmpl_id" ref="quartet_product_product_1_product_template"/>
+            <field name="attribute_value_ids" eval="[(6,0,[
+                ref('drm_product_attributes.product_attribute_value_1'),
+                ref('drm_product_attributes.product_attribute_value_5'),
+                ref('drm_product_attributes.product_attribute_value_6'),
+                ref('drm_product_attributes.product_attribute_value_7'),
+                ref('drm_product_attributes.product_attribute_value_8'),
+                ref('drm_product_attributes.product_attribute_value_9'),
+                ref('drm_product_attributes.product_attribute_value_10'),
+                ref('drm_product_attributes.product_attribute_value_11'),
+            ])]"/>
+            <field name="standard_price">10000.0</field>
+        </record>
+        <record id="quartet_product_product_1_3" model="product.product">
+            <field name="default_code">VEH-3</field>
+            <field name="product_tmpl_id" ref="quartet_product_product_1_product_template"/>
+            <field name="attribute_value_ids" eval="[(6,0,[
+                ref('drm_product_attributes.product_attribute_value_2'),
+                ref('drm_product_attributes.product_attribute_value_4'),
+                ref('drm_product_attributes.product_attribute_value_6'),
+                ref('drm_product_attributes.product_attribute_value_7'),
+                ref('drm_product_attributes.product_attribute_value_8'),
+                ref('drm_product_attributes.product_attribute_value_9'),
+                ref('drm_product_attributes.product_attribute_value_10'),
+                ref('drm_product_attributes.product_attribute_value_11'),
+            ])]"/>
+            <field name="standard_price">10000.0</field>
+        </record>
+        <record id="quartet_product_product_1_4" model="product.product">
+            <field name="default_code">VEH-4</field>
+            <field name="product_tmpl_id" ref="quartet_product_product_1_product_template"/>
+            <field name="attribute_value_ids" eval="[(6,0,[
+                ref('drm_product_attributes.product_attribute_value_3'),
+                ref('drm_product_attributes.product_attribute_value_5'),
+                ref('drm_product_attributes.product_attribute_value_6'),
+                ref('drm_product_attributes.product_attribute_value_7'),
+                ref('drm_product_attributes.product_attribute_value_8'),
+                ref('drm_product_attributes.product_attribute_value_9'),
+                ref('drm_product_attributes.product_attribute_value_10'),
+                ref('drm_product_attributes.product_attribute_value_11'),
+            ])]"/>
+            <field name="standard_price">10000.0</field>
+        </record>
+
+        <record id="quartet_product_attribute_price_1" model="product.attribute.price">
+            <field name="product_tmpl_id" ref="quartet_product_product_1_product_template"/>
+            <field name="value_id" ref="drm_product_attributes.product_attribute_value_4"/>
+            <field name="price_extra">1000.0</field>
+        </record>
+
+        <record id="quartet_product_supplierinfo_1" model="product.supplierinfo">
+            <field name="product_tmpl_id" ref="quartet_product_product_1_product_template"/>
+            <field name="name" ref="base.res_partner_4"/>
+            <field name="delay">2</field>
+            <field name="min_qty">0</field>
+            <field name="price">9000.0</field>
+        </record>
+
+    </data>
+</odoo>

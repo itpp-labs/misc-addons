@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--<report file="service.report_serviceorder" id="report_service_order" model="service.repair_order" name="service.report_serviceorder" report_type="qweb-pdf" string="Service Report"/>-->
+    </data>
+</odoo>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_create_inspection" model="ir.ui.view">
+            <field name="name">res.partner.create.inspection.form</field>
+            <field name="model">res.partner.create.inspection</field>
+            <field name="arch" type="xml">
+                <form string="Create Ride Inspection">
+                    <group>
+                        <field name="name"/>
+                        <field name="order_id"/>
+                        <field name="customer_vehicle"/>
+                        <field name="mechanic_id" widget="many2many_tags"/>
+                    </group>
+                    <footer>
+                        <button class="btn-primary" name="create_new" string="Create" type="object"/>
+                        <button class="btn-default" special="cancel" string="_Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_view_create_ride_inspection" model="ir.actions.act_window">
+            <field name="name">Create Inspection</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner.create.inspection</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_create_inspection"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

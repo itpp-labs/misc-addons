@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!--Email template -->
+        <record id="email_template_edi_service" model="mail.template">
+            <field name="name">Service Order - Send by Email</field>
+            <field name="email_from">${(object.user_id.email and '%s &lt;%s&gt;' % (object.user_id.name, object.user_id.email) or '')|safe}</field>
+            <field name="subject">${object.company_id.name} ${object.state in ('draft', 'sent') and 'Quotation' or 'Order'} (Ref ${object.name or 'n/a' })</field>
+            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="model_id" ref="model_service_repair_order"/>
+            <field eval="True" name="auto_delete"/>
+            <field name="report_template" ref="report_service_order"/>
+            <field name="report_name">${(object.name or '').replace('/','_')}${object.state == 'draft' and '_draft' or ''}</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="body_html"><![CDATA[                
+                
+                <p>
+                    Dear ${object.partner_id.name}
+                % set access_action = object.with_context(force_website=True).get_access_action()
+                % set doc_name = 'quotation' if object.state in ('draft', 'sent') else 'order confirmation'
+                % set is_online = access_action and access_action['type'] == 'ir.actions.act_url'
+                % set access_name = is_online and object.template_id and 'Accept and pay %s online' % doc_name or 'View %s' % doc_name
+                % set access_url = is_online and access_action['url'] or object.get_signup_url()
+
+                % if object.partner_id.parent_id:
+                    (
+                                    
+                    <i>${object.partner_id.parent_id.name}</i>
+                    )
+                % endif
+                ,</p>
+                <p>Here is your ${doc_name} 
+                    
+                    <strong>${object.name}</strong>
+                    % if object.origin:
+                    (with reference: ${object.origin} )
+                    % endif
+                    amounting in 
+                    <strong>${object.amount_total} ${object.pricelist_id.currency_id.name}</strong>
+                    from ${object.company_id.name}.</p>
+                <br/>
+                <br/>% if is_online:
+                
+                <center>
+                    <a class="o_default_snippet_text" href="${access_url}" style="background-color: #1abc9c; padding: 20px; text-decoration: none; color: #fff; border-radius: 5px; font-size: 16px;">${access_name}</a>
+                    <br/>
+                    <br/>
+                    <span style="color:#888888">(or view attached PDF)</span></center>
+                <br/>% endif
+                
+                <p>You can reply to this email if you have any questions.</p>
+                <p>Thank you,</p>
+                <p style="color:#eeeeee;">% if object.user_id and object.user_id.signature:
+            ${object.user_id.signature | safe}
+        % endif</p>]]></field>
+        </record>
+        <!--<record id="view_service_tree" model="ir.ui.view">-->
+            <!--<field name="name">service.res.partner.tree</field>-->
+            <!--<field name="model">service.repair_order</field>-->
+            <!--<field name="type">tree</field>-->
+            <!--<field eval="8" name="priority"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree decoration-muted="state in ('CANCEL')">-->
+                    <!--<field name="name"/>-->
+                    <!--<field name="start_date"/>-->
+                    <!--<field name="end_date"/>-->
+                    <!--<field name="mechanic_id"/>-->
+                    <!--<field name="partner_id"/>-->
+                    <!---->
+                    <!--<field name="major_unit_id"/>-->
+                    <!--<field name="repair_type"/>-->
+                    <!--<field name="state" invisible="1"/>-->
+                <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record id="view_service_form" model="ir.ui.view">-->
+            <!--<field name="name">service.res.partner.form</field>-->
+            <!--<field name="model">service.repair_order</field>-->
+            <!--<field name="type">form</field>-->
+            <!--<field eval="3" name="priority"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<header groups="service.group_service,service.group_service_manager,service.group_service_user" position="inside">-->
+                    <!--<button attrs="{'invisible': ['|',('pickup','=',True),('state', 'in', ('INSPECT','LIFT','TEST','COMPLETE','DELIVER','done','CANCEL'))]}" class="oe_highlight" context="{'default_service_event':1,'process_type':'pickup'}" name="%(action_view_create_ride_pickup)d" string="Pickup" type="action"/>-->
+                    <!--<button attrs="{'invisible': ['|',('delivery','=',True),('state', 'in', ('DELIVER','done','CANCEL'))]}" class="oe_highlight" context="{'default_service_event':1,'process_type':'delivery'}" name="%(action_view_create_ride_pickup)d" string="Delivery" type="action"/>-->
+                    <!--<button attrs="{'invisible': [('state', 'in', ('APPROVE','PARTS','PICKUP','INSPECT','LIFT','TEST','COMPLETE','DELIVER','done','CANCEL'))]}" class="oe_highlight" name="action_quotation_send_mail" string="Email" type="object"/>-->
+                    <!--<button attrs="{'invisible': ['|',('confirm_date','!=',False),('state', 'in', ('APPROVE','PARTS','PICKUP','INSPECT','LIFT','TEST','COMPLETE','DELIVER','done','CANCEL'))]}" class="oe_highlight" name="action_confirm_sale" string="Confirm" type="object"/>-->
+                    <!--<button attrs="{'invisible': ['|',('confirm_date','=',False),('state', 'in', ('APPROVE','PARTS','PICKUP','INSPECT','LIFT','TEST','COMPLETE','DELIVER','done','CANCEL'))]}" name="%(action_view_confirm_suggested_job)d" string="ReConfirm" type="action"/>-->
+                    <!--<button attrs="{'invisible': [('state', 'in', ('QUOTE','PARTS','PICKUP','INSPECT','LIFT','TEST','COMPLETE','DELIVER','done','CANCEL'))]}" class="oe_highlight" name="action_check_available" string="Check Availibility" type="object"/>-->
+                    <!--<button attrs="{'invisible': [('state', 'in', ('QUOTE','APPROVE','PICKUP','INSPECT','LIFT','TEST','COMPLETE','DELIVER','done','CANCEL'))]}" class="oe_highlight" name="action_confirm_parts" string="Approve Parts" type="object"/>-->
+                    <!--<button attrs="{'invisible': ['|',('pickup','=',True),('state','!=','PICKUP')]}" class="oe_highlight" name="action_confirm_pickup" string="Approve Pickup" type="object"/>-->
+                    <!--<button attrs="{'invisible': ['|',('inspection','=',True),('state', 'in', ('QUOTE','APPROVE','PARTS','PICKUP','LIFT','TEST','COMPLETE','DELIVER','done','CANCEL'))]}" class="oe_highlight" name="%(action_view_create_ride_inspection)d" string="Create Inspection" type="action"/>-->
+                    <!--&lt;!&ndash;  <button name="action_confirm_lift" string="Approve Lift" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ('QUOTE','APPROVE','PARTS','PICKUP','INSPECT','TEST','COMPLETE','DELIVER','done','CANCEL'))]}"/>&ndash;&gt;-->
+                    <!--<button attrs="{'invisible': [('state', 'in', ('QUOTE','APPROVE','PARTS','PICKUP','INSPECT','LIFT','COMPLETE','DELIVER','done','CANCEL'))]}" class="oe_highlight" name="action_confirm_test" string="Approve Test" type="object"/>-->
+                    <!--<button attrs="{'invisible': [('state', 'in', ('QUOTE','APPROVE','PARTS','PICKUP','INSPECT','LIFT','TEST','DELIVER','done','CANCEL'))]}" class="oe_highlight" name="action_confirm_complete" string="Approve Complete" type="object"/>-->
+                    <!--<button attrs="{'invisible': ['|',('delivery','=',True),('state', 'in', ('QUOTE','APPROVE','PARTS','PICKUP','INSPECT','LIFT','COMPLETE','TEST','done','CANCEL'))]}" class="oe_highlight" name="action_confirm_delivery" string="Delivery Done" type="object"/>-->
+                    <!--<button attrs="{'invisible': [('state', 'in', ('QUOTE','APPROVE','PARTS','PICKUP','INSPECT','LIFT', 'TEST','COMPLETE','TEST','DELIVER', 'done','CANCEL'))]}" class="oe_highlight" name="action_confirm_delivery" string="Delivery Done" type="object"/>-->
+                    <!--<button attrs="{'invisible': [('state', 'in', ('DELIVER','done','CANCEL'))]}" class="oe_link" name="action_cancel" string="Cancel" type="object"/>-->
+                    <!--&lt;!&ndash; <button attrs="{'invisible': [('state', 'in', ('QUOTE','APPROVE','PARTS','PICKUP','INSPECT','LIFT','TEST','COMPLETE','DELIVER','COMEBACK','CANCEL'))]}" class="oe_highlight" name="action_comeback" string="ComeBack" type="object"/>&ndash;&gt;-->
+                    <!--<field name="state" statusbar_visible="QUOTE,APPROVE,PARTS,PICKUP,INSPECT,LIFT,TEST,COMPLETE,DELIVER,done,CANCEL" widget="statusbar"/>-->
+                <!--</header>-->
+                <!--<form>-->
+                    <!--<sheet>-->
+                        <!--<div class="oe_button_box" name="button_box">-->
+                            <!--<button attrs="{'invisible': [('product_sale_order_count', '&lt;', 1)]}" class="oe_stat_button" icon="fa-shopping-cart" name="action_view_sale_order" type="object">-->
+                                <!--<field name="product_sale_order_count" string="Sale Order" widget="statinfo"/>-->
+                            <!--</button>-->
+                            <!--<button attrs="{'invisible': [('inspection_variant_count', '&lt;', 1)]}" class="oe_stat_button" icon="fa-cogs" name="action_view_inspect" type="object">-->
+                                <!--<field name="inspection_variant_count" string="Inspection" widget="statinfo"/>-->
+                            <!--</button>-->
+                            <!--<button attrs="{'invisible': [('pickup_variant_count', '&lt;', 1)]}" class="oe_stat_button" icon="fa-motorcycle" name="action_view_pickup" type="object">-->
+                                <!--<field name="pickup_variant_count" string="Pickup &amp; Delivery" widget="statinfo"/>-->
+                            <!--</button>-->
+                            <!--<button attrs="{'invisible': [('pickup_workorder_count', '&lt;', 1)]}" class="oe_stat_button" icon="fa-caret-square-o-right" name="action_view_workorder" type="object">-->
+                                <!--<div class="o_form_field o_stat_info">-->
+                                    <!--<span class="o_stat_value">-->
+                                        <!--<field name="repair_workorder_done_count" nolabel="1" widget="statinfo"/>/-->
+                                        <!--<field name="pickup_workorder_count" nolabel="1" widget="statinfo"/>-->
+                                        <!--<span class="o_stat_text">Work Orders</span></span>-->
+                                <!--</div>-->
+                            <!--</button>-->
+                        <!--</div>-->
+                        <!--<separator colspan="4" string="Order No"/>-->
+                        <!--<div class="oe_title">-->
+                            <!--<h1>-->
+                                <!--<field name="name" readonly="1"/>-->
+                            <!--</h1>-->
+                        <!--</div>-->
+                        <!--<group colspan="3">-->
+                            <!--<group>-->
+                                <!--&lt;!&ndash; <field name="service_messages" widget="many2one_tags"/>&ndash;&gt;-->
+                                <!--<field name="partner_id" domain="[('customer','=',True)]" context="{'force_email':True, 'show_email':True}"/>-->
+                                <!--<field domain="[('partner_id', '=', partner_id)]" name="major_unit_id" context="{'partner_id': partner_id}"/>-->
+                                <!--<field name="repair_type"/>-->
+                                <!--<field name="urgency"/>-->
+                                <!--<field invisible="1" name="pickup"/>-->
+                                <!--<field invisible="1" name="confirm_date"/>-->
+                                <!--<field invisible="1" name="inspection"/>-->
+                                <!--<field name="loaner"/>-->
+                                <!--<field attrs="{'invisible': [('pickup','=',False)]}" name="pickup_time"/>-->
+                                <!--<field attrs="{'invisible': [('pickup','=',False)]}" name="pickup_address"/>-->
+                                <!--<field name="miles_in"/>-->
+                            <!--</group>-->
+                            <!--<group>-->
+                                <!--<field name="requested_date"/>-->
+                                <!--<field name="start_date"/>-->
+                                <!--<field name="end_date"/>-->
+                                <!--<field domain="[('department_id.name', 'ilike', 'Technician')]" name="mechanic_id" widget="many2one_tags"/>-->
+                                <!--<field name="warranty"/>-->
+                                <!--<field invisible="1" name="delivery"/>-->
+                                <!--<field attrs="{'invisible': [('delivery','=',False)]}" name="delivery_time"/>-->
+                                <!--<field attrs="{'invisible': [('delivery','=',False)]}" name="delivery_address"/>-->
+                                <!--<field name="miles_out"/>-->
+                                <!--<field name="plate"/>-->
+                            <!--</group>-->
+                        <!--</group>-->
+                        <!--<notebook colspan="4">-->
+                            <!--<page autofocus="autofocus" string="Standard Jobs">-->
+                                <!--<button attrs="{'invisible': [('state', 'in', ('APPROVE','PARTS','PICKUP','INSPECT','LIFT','TEST','COMPLETE','DELIVER','done','CANCEL'))]}" name="%(major_unit.action_view_apply_standard_job)d" string="Select Standard Jobs" type="action" context="{'major_unit_id': major_unit_id}"/>-->
+                                <!--<field colspan="4" mode="tree,kanban" name="standard_job_ids" nolabel="1">-->
+                                    <!--<tree string="Items">-->
+                                        <!--<field name="name" string="Standard Job Name"/>-->
+                                    <!--</tree>-->
+                                <!--</field>-->
+                            <!--</page>-->
+                            <!--<page string="Parts and Labor">-->
+                                <!--<field name="product_ids">-->
+                                    <!--<tree editable="bottom">-->
+                                        <!--<field name="sequence" widget="handle"/>-->
+                                        <!--<field name="product_id"/>-->
+                                        <!--<field name="standard_job_id" readonly="1"/>-->
+                                        <!--<field name="quantity"/>-->
+                                        <!--<field name="qty_available" readonly="1"/>-->
+                                        <!--<field name="unit_price" readonly="1"/>-->
+                                        <!--&lt;!&ndash; <field name="labor_charge"/> &ndash;&gt;-->
+                                        <!--<field name="taxes_id" widget="many2many_tags"/>-->
+                                        <!--<field name="price" readonly="1"/>-->
+                                    <!--</tree>-->
+                                <!--</field>-->
+                                <!--<group class="oe_subtotal_footer oe_right">-->
+                                    <!--<field name="amount_untaxed"/>-->
+                                    <!--<field name="amount_tax"/>-->
+                                    <!--<div class="oe_subtotal_footer_separator oe_inline o_td_label"/>-->
+                                    <!--<field class="oe_subtotal_footer_separator" name="amount_total" nolabel="1"/>-->
+                                <!--</group>-->
+                            <!--</page>-->
+                            <!--<page autofocus="autofocus" string="Suggested Jobs">-->
+                                <!--&lt;!&ndash; <button name="%(action_view_confirm_suggested_job)d" string="Confirm Suggested Job" type="action" attrs="{'invisible': [('state', 'in', ('QUOTE','APPROVE','PARTS','PICKUP','TEST','COMPLETE','DELIVER','done','CANCEL'))]}"/>&ndash;&gt;-->
+                                <!--<field name="suggested_job_ids">-->
+                                    <!--<tree decoration-danger="state in ('rejected')" decoration-info="state=='suggested'" decoration-success="state in ('approved')">-->
+                                        <!--<field name="sequence" widget="handle"/>-->
+                                        <!--<field name="standard_job_id" readonly="1"/>-->
+                                        <!--<field name="product_id"/>-->
+                                        <!--<field name="quantity"/>-->
+                                        <!--<field name="qty_available" readonly="1"/>-->
+                                        <!--<field name="unit_price" readonly="1"/>-->
+                                        <!--<field name="taxes_id" readonly="1" widget="many2many_tags"/>-->
+                                        <!--<field name="price" readonly="1"/>-->
+                                        <!--<field name="state" readonly="1"/>-->
+                                    <!--</tree>-->
+                                <!--</field>-->
+                            <!--</page>-->
+                            <!--<page autofocus="autofocus" string="Inspection">-->
+                                <!--<field colspan="4" mode="tree,kanban" name="product_inspection_ids" nolabel="1">-->
+                                    <!--&lt;!&ndash; <tree string="Items"><field name="name" string="Job Name"/></tree>&ndash;&gt;-->
+                                <!--</field>-->
+                            <!--</page>-->
+                            <!--<page string="Vehicle Service Image">-->
+                                <!--<field mode="kanban" name="vehicle_service_image">-->
+                                    <!--<kanban drop_attachments_field='1'>-->
+                                        <!--&lt;!&ndash; <field attrs="{'readonly': True}" name="name"/> &ndash;&gt;-->
+                                        <!--<field name="image"/>-->
+                                        <!--<field name="description"/>-->
+                                        <!--<templates>-->
+                                            <!--<t t-name="kanban-box">-->
+                                                <!--<div>-->
+                                                    <!--<a class="fa fa-times pull-right" t-if="!read_only_mode" type="delete"/>-->
+                                                    <!--<div class="o_kanban_image">-->
+                                                        <!--<a type="open">-->
+                                                            <!--<img t-att-src="'data:image/png;base64,'+record.image.raw_value" t-if="record.image.raw_value"/>-->
+                                                        <!--</a>-->
+                                                    <!--</div>-->
+                                                    <!--<div class="oe_kanban_details">-->
+                                                        <!--<a type="open">-->
+                                                            <!--<field name="name"/>-->
+                                                        <!--</a>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</t>-->
+                                        <!--</templates>-->
+                                    <!--</kanban>-->
+                                    <!--<form string="Vehicle Service Image">-->
+                                        <!--<sheet>-->
+                                            <!--<group>-->
+                                                <!--&lt;!&ndash; <field attrs="{'readonly': True}" name="name"/> &ndash;&gt;-->
+                                                <!--<field name="image" widget="image"/>-->
+                                                <!--<field name="description"/>-->
+                                            <!--</group>-->
+                                        <!--</sheet>-->
+                                    <!--</form>-->
+                                <!--</field>-->
+                            <!--</page>-->
+                            <!--<page string="Documentation">-->
+                                <!--<field name="document">-->
+                                    <!--<form string="Varaint Image">-->
+                                        <!--<sheet>-->
+                                            <!--<group>-->
+                                                <!--<field name="name"/>-->
+                                                <!--<field name="type"/>-->
+                                                <!--<field name="description"/>-->
+                                                <!--<field attrs="{'invisible':[('type','=','url')]}" filename="datas_fname" name="datas"/>-->
+                                                <!--<field attrs="{'invisible':[('type','=','url')]}" class="oe_inline oe_right" invisible="1" name="datas_fname"/>-->
+                                                <!--<field attrs="{'invisible':[('type','=','binary')]}" name="url" widget="url"/>-->
+                                            <!--</group>-->
+                                        <!--</sheet>-->
+                                    <!--</form>-->
+                                    <!--<tree>-->
+                                        <!--<field name="name"/>-->
+                                        <!--<field name="type"/>-->
+                                        <!--<field name="description"/>-->
+                                        <!--<field attrs="{'invisible':[('type','=','url')]}" filename="datas_fname" name="datas"/>-->
+                                        <!--<field attrs="{'invisible':[('type','=','url')]}" class="oe_inline oe_right" invisible="1" name="datas_fname"/>-->
+                                        <!--<field attrs="{'invisible':[('type','=','binary')]}" name="url" widget="url"/>-->
+                                    <!--</tree>-->
+                                <!--</field>-->
+                            <!--</page>-->
+                            <!--<page attrs="{'invisible': [('warranty','!=',True)]}" name="Warranty" string="Warranty Coding">-->
+                                <!--<form>-->
+                                    <!--<button name="%(service.action_select_recall_job)d" string="Select Recall Job" type="action"/>-->
+                                    <!--<group colspan="4">-->
+                                        <!--<group>-->
+                                            <!--<field name="failure_date"/>-->
+                                            <!--<field name="claim_id"/>-->
+                                            <!--<field name="claim_date"/>-->
+                                            <!--<field name="manufacturer"/>-->
+                                        <!--</group>-->
+                                        <!--<group>-->
+                                            <!--<field name="warranty_type"/>-->
+                                            <!--<field name="defect_type"/>-->
+                                            <!--<field name="defect_group"/>-->
+                                            <!--<field name="defect_code"/>-->
+                                        <!--</group>-->
+                                        <!--<field name="complaint"/>-->
+                                        <!--<field name="cause"/>-->
+                                        <!--<field name="correction"/>-->
+                                    <!--</group>-->
+                                <!--</form>-->
+                            <!--</page>-->
+                            <!--<page attrs="{'invisible': [('loaner','!=',True)]}" name="Loaner" string="Loaner">-->
+                                <!--<form>-->
+                                    <!--<group>-->
+                                        <!--<group>-->
+                                            <!--<field domain="[('details_model', 'ilike', 'vehicle'),('loaner1','=',True)]" name="loaner_product_id" widget="many2one_tags"/>-->
+                                            <!--<field name="sign_date"/>-->
+                                            <!--<field name="terms_condition"/>-->
+                                        <!--</group>-->
+                                    <!--</group>-->
+                                <!--</form>-->
+                            <!--</page>-->
+                            <!--<page string="Other">-->
+                                <!--<group>-->
+                                    <!--<group>-->
+                                        <!--<field name="part_location_id"/>-->
+                                    <!--</group>-->
+                                    <!--<group/>-->
+                                <!--</group>-->
+                            <!--</page>-->
+                        <!--</notebook>-->
+                    <!--</sheet>-->
+                    <!--<div class="oe_chatter">-->
+                        <!--<field name="message_follower_ids" widget="mail_followers"/>-->
+                        <!--<field name="message_ids" widget="mail_thread"/>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
+        <record id="res_partner_only_form_view" model="ir.ui.view">
+            <field name="name">res.partner.product.form</field>
+            <field name="model">res.partner</field>
+            <field eval="900" name="priority"/>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='accounting']" position="after">
+                    <page autofocus="autofocus" string="Service History">
+                        <field context="{'partner_id':id}" name="customer_ride_service" nolabel="1">
+                            <tree string="customer_ride_service">
+                                <field name="partner_id"/>
+                                <field name="major_unit_id"/>
+                                <field name="state"/>
+                                <field name="requested_date"/>
+                                <field name="start_date"/>
+                                <field attrs="{'readonly': True}" name="name"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="My Orders">
+                        <field name="customer_product_ids">
+                            <tree create="0" decoration-info="state == 'draft'" decoration-muted="state in ('done','cancel')" string="My Orders">
+                                <field name="partner_id"/>
+                                <field name="product_id"/>
+                                <field name="state"/>
+                                <field name="amount_total"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="//group" position="before">
+                    <group>
+                        <group col="2" name="backend">
+                            <!--  <field name="skills" widget="many2many_tags" />-->
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <!--<record id="view_task_ro_service_serach" model="ir.ui.view">-->
+            <!--<field name="name">ro.service.user.search</field>-->
+            <!--<field name="model">service.repair_order</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<search string="Service Reports">-->
+                    <!--<field filter_domain="['|','|',('major_unit_id.name','ilike',self),('name','ilike',self),('partner_id','ilike',self)]" name="name" string="Repair Order"/>-->
+                    <!--<field name="state"/>-->
+                    <!--<filter domain="[('state','in', ('QUOTE', 'Quote'))]" name="Quote" string="Quote"/>-->
+                    <!--<filter domain="[('state','in', ('APPROVE', 'Approve'))]" name="Approved" string="Approve"/>-->
+                    <!--<filter domain="[('state','in', ('PARTS', 'Parts'))]" name="Parts" string="Parts"/>-->
+                    <!--<filter domain="[('state','in', ('PICKUP', 'Pickup'))]" name="Pickup" string="PickUp"/>-->
+                    <!--<filter domain="[('state','in', ('INSPECT', 'Inspect'))]" name="Inspection" string="Inspection"/>-->
+                    <!--<filter domain="[('state','in', ('LIFT', 'Lift'))]" name="Lift" string="Lift"/>-->
+                    <!--<filter domain="[('state','in', ('TEST', 'Test'))]" name="Testing" string="Testing"/>-->
+                    <!--<filter domain="[('state','in', ('COMPLETE', 'Complete'))]" name="Complete" string="Complete"/>-->
+                    <!--<filter domain="[('state','in', ('DELIVER', 'Deliver'))]" name="Delivered" string="Delivery Done"/>-->
+                    <!--<filter domain="[('state','in', ('done', 'Done'))]" name="Done" string="Done"/>-->
+                    <!--<filter domain="[('state','in', ('CANCEL', 'Cancel'))]" name="Cancled" string="Cancled"/>-->
+                    <!--<separator/>-->
+                    <!--<filter domain="[('warranty','=',True)]" name="Warranty" string="Warranty"/>-->
+                    <!--<group expand="1" string="Group By">-->
+                        <!--<filter context="{'group_by':'partner_id'}" name="customer" string="Customer"/>-->
+                        <!--<filter context="{'group_by':'major_unit_id'}" name="vechile" string="Vehicle"/>-->
+                        <!--<separator/>-->
+                    <!--</group>-->
+                <!--</search>-->
+            <!--</field>-->
+        <!--</record>-->
+        <!--<record id="repair_order_calendar1" model="ir.ui.view">-->
+            <!--<field name="name">service.repair_order.calendar</field>-->
+            <!--<field name="model">service.repair_order</field>-->
+            <!--<field eval="2" name="priority"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--&lt;!&ndash; <calendar color="mechanic_id" state_data="state" date_start="start_date" date_stop="end_date" display="State : [state], Repair Type:[repair_type], Mechanic Name:[mechanic_id], Miles In:[miles_in] miles" string="Repair Orders"> &ndash;&gt;-->
+                <!--<calendar color="mechanic_id" date_start="start_date" date_stop="end_date" string="Repair Orders">-->
+                    <!--<field name="mechanic_id"/>-->
+                    <!--<field name="miles_in"/>-->
+                    <!--<field name="major_unit_id"/>-->
+                    <!--<field name="repair_type"/>-->
+                    <!--<field name="state"/>-->
+                <!--</calendar>-->
+            <!--</field>-->
+        <!--</record>-->
+        <!--<record model="ir.ui.view" id="service_repair_order_kanban_view">-->
+            <!--<field name="name">service.repair_order.kanban</field>-->
+            <!--<field name="model">service.repair_order</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<kanban class="o_res_partner_kanban">-->
+                    <!--<field name="partner_id"/>-->
+                    <!--<field name="repair_type"/>-->
+                    <!--<field name="name"/>-->
+                    <!--<field name="major_unit_id"/>-->
+                    <!--<field name="repair_type"/>-->
+                    <!--<templates>-->
+                        <!--<t t-name="kanban-box">-->
+                            <!--<div class="oe_kanban_global_click o_res_partner_kanban">-->
+                                <!--<div class="o_kanban_tags_section oe_kanban_partner_categories"/>-->
+                                <!---->
+                                <!--<div class="oe_kanban_details">-->
+                                    <!--<strong class="oe_partner_heading"><field name="partner_id"/>-->
+<!--</strong>-->
+                                    <!--<ul>-->
+                                        <!--<li><field name="name"/></li>-->
+                                        <!--<li><field name="major_unit_id"/></li>-->
+                                        <!--<li ><field name="repair_type"/></li>-->
+                                       <!---->
+                                    <!--</ul>-->
+                                    <!--<div class="oe_kanban_partner_links"/>-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                        <!--</t>-->
+                    <!--</templates>-->
+                <!--</kanban>-->
+            <!--</field>-->
+        <!--</record>-->
+        <!--<record id="service_action" model="ir.actions.act_window">-->
+            <!--<field name="name">Repair Orders</field>-->
+            <!--<field name="type">ir.actions.act_window</field>-->
+            <!--<field name="res_model">service.repair_order</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">kanban,tree,form,calendar</field>-->
+            <!--<field name="view_id" ref="view_service_tree"/>-->
+            <!--<field name="search_view_id" ref="view_task_ro_service_serach"/>-->
+            <!--<field name="domain">[('state', '!=', 'done'),('warranty','!=',True),('repair_type','=','repair_order')]</field>-->
+            <!--<field name="context">{}</field>-->
+            <!--<field name="help" type="html">-->
+                <!--<p class="oe_view_nocontent_create">Create a new Repair Order.-->
+                <!--</p>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <record id="service_action_form1" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="service_action"/>
+            <field eval="20" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_service_form"/>
+        </record>
+        <record id="service_action_kanban" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="service_action"/>
+            <field eval="5" name="sequence"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="service_repair_order_kanban_view"/>
+
+        </record>
+        <record id="service_action_tree" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="service_action"/>
+            <field eval="10" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_service_tree"/>
+        </record>
+        <menuitem id="booking_system_repairs_menu" name="Repairs" parent="menu_service_root" sequence="2"/>
+        <menuitem action="service_action" groups="service.group_service,service.group_service_user,service.group_service_manager" id="service_system_menu" name="Repair Orders" parent="booking_system_repairs_menu" sequence="1" web_icon="service,static/description/icon.png"/>
+        <!-- <menuitem id="service_history_menu" name="Service History" parent="menu_service_root" />-->
+        <!--<record id="service_history_action" model="ir.actions.act_window">-->
+            <!--<field name="name">Service History</field>-->
+            <!--<field name="type">ir.actions.act_window</field>-->
+            <!--<field name="res_model">service.repair_order</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+            <!---->
+            <!--<field name="domain">[('state', '=', 'done'),('warranty','!=',True)]</field>-->
+            <!--<field name="context">{}</field>-->
+        <!--</record>-->
+         
+        <menuitem action="service_history_action" groups="service.group_service,service.group_service_user,service.group_service_manager" id="service_hsitory_menu" name="Service History" parent="booking_system_repairs_menu" sequence="10" web_icon="service,static/description/icon.png"/>
+
+        <!--<record id="view_service_tree_warranty" model="ir.ui.view">-->
+            <!--<field name="name">service.res.partner.tree.warranty</field>-->
+            <!--<field name="model">service.repair_order</field>-->
+            <!--<field name="type">tree</field>-->
+            <!--<field eval="1" name="priority"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree decoration-muted="state in ('CANCEL')">-->
+                    <!--<field name="name"/>-->
+                    <!--<field name="start_date"/>-->
+                    <!--<field name="mechanic_id"/>-->
+                    <!--<field name="partner_id"/>-->
+                    <!--<field name="major_unit_id"/>-->
+                    <!--<field name="state" invisible="1"/>-->
+                    <!--&lt;!&ndash; <field name="requested_date"/> &ndash;&gt;-->
+                <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record id="service_warranty_action" model="ir.actions.act_window">-->
+            <!--<field name="name">Warranty Orders</field>-->
+            <!--<field name="type">ir.actions.act_window</field>-->
+            <!--<field name="res_model">service.repair_order</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+            <!--<field name="view_id" ref="view_service_tree_warranty"/>-->
+            <!--<field name="domain">[('state', '!=', 'done'),('warranty','=',True),('repair_type','=','repair_order')]</field>-->
+            <!--<field name="context">{'warranty': True}</field>-->
+        <!--</record>-->
+        <menuitem id="booking_system_warranties_menu" name="Warranties" parent="menu_service_root" sequence="4"/>
+        <menuitem action="service_warranty_action" id="service_warranty_menu" name="Warranty Orders" parent="booking_system_warranties_menu"/>
+
+        <!--<record id="view_service_tree_warranty_history" model="ir.ui.view">-->
+            <!--<field name="name">service.res.partner.tree.warranty</field>-->
+            <!--<field name="model">service.repair_order</field>-->
+            <!--<field name="type">tree</field>-->
+            <!--<field eval="1" name="priority"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree decoration-muted="state in ('CANCEL')">-->
+                    <!--<field name="name"/>-->
+                    <!--<field name="start_date"/>-->
+                    <!--<field name="mechanic_id"/>-->
+                    <!--<field name="partner_id"/>-->
+                    <!--<field name="major_unit_id"/>-->
+                    <!--<field name="state" invisible="1"/>-->
+                    <!--&lt;!&ndash; <field name="requested_date"/> &ndash;&gt;-->
+                <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record id="service_warranty_history_action" model="ir.actions.act_window">-->
+            <!--<field name="name">Warranty History</field>-->
+            <!--<field name="type">ir.actions.act_window</field>-->
+            <!--<field name="res_model">service.repair_order</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+            <!--<field name="view_id" ref="view_service_tree_warranty_history"/>-->
+            <!--<field name="domain">[('state', '=', 'done'),('warranty','=',True)]</field>-->
+            <!--<field name="context">{}</field>-->
+        <!--</record>-->
+
+        <!--<record model="ir.ui.view" id="custom_view_service_repair_order_product_tree">-->
+            <!--<field name="name">custom.service.repair_order.form</field>-->
+            <!--<field name="model">service.repair_order</field>-->
+            <!--<field name="inherit_id" ref="view_service_form"/>-->
+            <!--<field name="arch" type="xml">-->
+            <!--<xpath expr="//field[@name='product_ids']/tree" position="attributes">-->
+                <!--<attribute name="editable"/>-->
+            <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record model="ir.ui.view" id="custom_view_service_repair_order_product_form">-->
+            <!--<field name="name">custom.service.repair_order.form</field>-->
+            <!--<field name="model">service.repair_order.product</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form>-->
+                    <!--<group>-->
+                        <!--<group>-->
+                            <!--<field name="product_id"/>-->
+                            <!--<field name="standard_job_id"/>-->
+                            <!--<field name="quantity"/>-->
+                            <!--<field name="unit_price" readonly="1"/>-->
+                        <!--</group>-->
+                        <!--<group>-->
+                            <!--<field name="taxes_id" widget="many2many_tags"/>-->
+                            <!--<field name="price" readonly="1"/>-->
+                            <!--<field name="qty_available" readonly="1"/>-->
+                        <!--</group>-->
+                    <!--</group>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <menuitem action="service_warranty_history_action" id="service_warranty_history_menu" name="Warranty History" parent="booking_system_warranties_menu"/>
+        <menuitem name="Service" id="menu_service_root" web_icon="service,static/description/icon.png"/><menuitem id="menu_service_service" name="Service" parent="menu_service_root" sequence="10"/><menuitem id="menu_service_repair_orders" name="Repair Orders" parent="menu_service_root" sequence="20"/><menuitem id="menu_service_jobs" name="Jobs" parent="menu_service_root" sequence="30"/><menuitem id="menu_service_scheduling" name="Scheduling" parent="menu_service_root" sequence="40"/><menuitem id="menu_service_reports" name="Reports" parent="menu_service_root" sequence="50"/><menuitem id="menu_service_config" name="Configuration" parent="menu_service_root" sequence="60"/>
+    </data>
+</odoo>

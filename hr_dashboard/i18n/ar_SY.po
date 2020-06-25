@@ -1,0 +1,331 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* hr_dashboard
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-26 11:51+0000\n"
+"PO-Revision-Date: 2018-04-26 11:51+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/js/hr_dashboard.js:173
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:111
+#, python-format
+msgid "All Timesheets"
+msgstr "كل الجدول الزمني"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/js/hr_dashboard.js:195
+#, python-format
+msgid "Applications"
+msgstr "Applications"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/js/hr_dashboard.js:231
+#, python-format
+msgid "Attendances"
+msgstr "Attendances"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:231
+#, python-format
+msgid "Badge Id"
+msgstr "Badge Id"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:238
+#, python-format
+msgid "Birthday"
+msgstr "Birthday"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/js/hr_dashboard.js:136
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:74
+#, python-format
+msgid "Contracts"
+msgstr "Contracts"
+
+#. module: hr_dashboard
+#: model:ir.model.fields,field_description:hr_dashboard.field_hr_dashboard_create_uid
+msgid "Created by"
+msgstr "أنشئ بواسطة"
+
+#. module: hr_dashboard
+#: model:ir.model.fields,field_description:hr_dashboard.field_hr_dashboard_create_date
+msgid "Created on"
+msgstr "أنشئ في"
+
+#. module: hr_dashboard
+#: model:ir.actions.client,name:hr_dashboard.action_hr_dashboard
+msgid "Dashboard"
+msgstr "لوحات المعلومات"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:233
+#, python-format
+msgid "Department"
+msgstr "Department"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/js/hr_dashboard.js:154
+#, python-format
+msgid "Department Leaves"
+msgstr "Department Leaves"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/js/hr_dashboard.js:212
+#, python-format
+msgid "Department Leaves Allocation"
+msgstr "Department Leaves Allocation"
+
+#. module: hr_dashboard
+#: model:ir.model.fields,field_description:hr_dashboard.field_hr_dashboard_display_name
+msgid "Display Name"
+msgstr "الاسم المعروض"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:201
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:218
+#, python-format
+msgid "Download"
+msgstr "Download"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:217
+#, python-format
+msgid "Download Pdf"
+msgstr "Download Pdf"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:200
+#, python-format
+msgid "Download Pdf!"
+msgstr "Download Pdf!"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:230
+#, python-format
+msgid "Employee"
+msgstr "Employee"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:226
+#, python-format
+msgid "Employee Details"
+msgstr "Employee Details"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/js/hr_dashboard.js:250
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:175
+#, python-format
+msgid "Expense Reports to Approve"
+msgstr "Expense Reports to Approve"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:237
+#, python-format
+msgid "Gender"
+msgstr "Gender"
+
+#. module: hr_dashboard
+#: model:ir.model,name:hr_dashboard.model_hr_dashboard
+#: model:ir.ui.menu,name:hr_dashboard.menu_hr_dashboard
+msgid "HR Dashboard"
+msgstr "HR Dashboard"
+
+#. module: hr_dashboard
+#: model:ir.model.fields,field_description:hr_dashboard.field_hr_dashboard_id
+msgid "ID"
+msgstr "المعرف"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:232
+#, python-format
+msgid "Job"
+msgstr "Job"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:126
+#, python-format
+msgid "Job Applicaations"
+msgstr "Job Applicaations"
+
+#. module: hr_dashboard
+#: model:ir.model.fields,field_description:hr_dashboard.field_hr_dashboard___last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل في"
+
+#. module: hr_dashboard
+#: model:ir.model.fields,field_description:hr_dashboard.field_hr_dashboard_write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: hr_dashboard
+#: model:ir.model.fields,field_description:hr_dashboard.field_hr_dashboard_write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث في"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:145
+#, python-format
+msgid "Leave Allocations To Aprrove"
+msgstr "Leave Allocations To Aprrove"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/js/hr_dashboard.js:77
+#, python-format
+msgid "Leaves"
+msgstr "Leaves"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:38
+#, python-format
+msgid "Leaves Left"
+msgstr "Leaves Left"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:96
+#, python-format
+msgid "Leaves to Approve"
+msgstr "Leaves to Approve"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:239
+#, python-format
+msgid "Marital Status"
+msgstr "Marital Status"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:241
+#, python-format
+msgid "Medic Exam"
+msgstr "Medic Exam"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:100
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:115
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:130
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:149
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:164
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:179
+#, python-format
+msgid "More Info"
+msgstr "More Info"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/js/hr_dashboard.js:269
+#, python-format
+msgid "My Profile"
+msgstr "My Profile"
+
+#. module: hr_dashboard
+#: model:ir.model.fields,field_description:hr_dashboard.field_hr_dashboard_name
+msgid "Name"
+msgstr "الاسم"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:240
+#, python-format
+msgid "Passport ID"
+msgstr "Passport ID"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:195
+#, python-format
+msgid "Payroll"
+msgstr "Payroll"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/js/hr_dashboard.js:99
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:50
+#, python-format
+msgid "Payslips"
+msgstr "Payslips"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:242
+#, python-format
+msgid "Public Info"
+msgstr "Public Info"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/js/hr_dashboard.js:117
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:62
+#, python-format
+msgid "Timesheets"
+msgstr "Timesheets"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:160
+#, python-format
+msgid "Todays Attendance"
+msgstr "Todays Attendance"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:212
+#, python-format
+msgid "Total Worked Hours"
+msgstr "Total Worked Hours"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:235
+#, python-format
+msgid "Work Email"
+msgstr "Work Email"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:236
+#, python-format
+msgid "Work Location"
+msgstr "Work Location"
+
+#. module: hr_dashboard
+#. openerp-web
+#: code:addons/hr_dashboard/static/src/xml/hr_dashboard.xml:234
+#, python-format
+msgid "Work Phone"
+msgstr "Work Phone"
+

@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+
+        <record id="structure_major_unit_salesperson_commission" model="hr.payroll.structure">
+            <field name="code">MUSC</field>
+            <field name="name">Major Unit Salesperson Commission</field>
+            <field name="rule_ids" eval="[(6, 0, [ref('hr_rule_major_unit_commission')])]"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="parent_id" ref="hr_payroll.structure_base"/>
+        </record>
+
+    </data>
+</odoo>

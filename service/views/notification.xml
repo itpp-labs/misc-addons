@@ -1,0 +1,53 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    
+    
+
+    <record model="ir.ui.view" id="notification_form_view">
+      <field name="name">notification form</field>
+      <field name="model">service.notification</field>
+      <field name="arch" type="xml">
+        <form string="Notification Form">
+          <header>
+            <button class="oe_highlight" name="send_mail" string=" Send email " type="object"/>
+          </header>
+
+          <sheet>
+            <group>
+              <field name="customer_id"/>
+              <field name="subject"/>
+              <field name="description"/>
+              <field name="phone"/>
+              <field name="email"/>
+            </group>
+        </sheet>
+        </form>
+      </field>
+    </record>
+    
+    <record model="ir.ui.view" id="notification_form_list">
+      <field name="name">notification list</field>
+      <field name="model">service.notification</field>
+      <field name="arch" type="xml">
+        <tree string="Notification Tree">
+          <field name="customer_id"/>
+          <field name="subject"/>
+          <field name="phone"/>
+          <field name="email"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+    
+    <record model="ir.actions.act_window" id="action_notification">
+      <field name="name">Notification</field>
+      <field name="res_model">service.notification</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    
+    <menuitem action="action_notification" id="notification_menu1" name="Notification" parent="settings_general_menu11" sequence="3"/>
+    
+  </data>
+</odoo>

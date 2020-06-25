@@ -35,6 +35,7 @@ Countries that use SYSCOHADA are the following:
         'wizards/ohada_dash_options.xml',
         'views/ohada_dash_view.xml',
         'views/ohada_sheets_layout.xml',
+        'data/ohada_separate_formulas.xml',
         'data/ohada_report_info.xml',
         'data/ohada_report_note.xml',
         'data/ohada_report_main.xml',
@@ -48,11 +49,12 @@ Countries that use SYSCOHADA are the following:
         'views/search_template_view.xml',
         'data/ohada_note_relevance.xml',
         'data/ohada_dash.xml',
+        'views/ohada_disclosure.xml',
     ],
     'qweb': [
-        'static/src/xml/change_options_button.xml',
         'static/src/xml/ohada_report_template.xml',
-        'static/src/xml/ohada_dashboard_template.xml'
+        'static/src/xml/ohada_dashboard_template.xml',
+        'static/src/xml/note_relevance_view.xml',
     ],
     'auto_install': False,
     'installable': True,

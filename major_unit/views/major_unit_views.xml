@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_open_major_unit_repair_orders" model="ir.actions.act_window">
+        <field name="name">Repair Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">service.repair_order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_type">form</field>
+        <field name="domain">[('major_unit_id','=',active_id)]</field>
+        <field name="context">{'default_major_unit_id': active_id}</field>
+    </record>
+
+
+    <record id="action_major_unit" model="ir.actions.act_window">
+        <field name="name">All Major Units</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">major_unit.major_unit</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create a new Major Unit.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_major_unit_aged" model="ir.actions.act_window">
+        <field name="name">Aged Major Units</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">major_unit.major_unit</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('form', 'in', ['used', 'consigned'])]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create a new Major Unit.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_major_unit_new" model="ir.actions.act_window">
+        <field name="name">Receive Major Units (New)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">major_unit.major_unit</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('form', '=', 'new')]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create a new Major Unit.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="sale.menu_major_unit" name="Major Units" parent="sale.sale_menu_root" sequence="3"/>
+    <menuitem id="major_unit_all" action="action_major_unit" parent="sale.menu_major_unit" sequence="1" groups="sales_team.group_sale_manager"/>
+    <menuitem id="major_unit_aged" action="action_major_unit_aged" parent="sale.menu_major_unit" sequence="2" groups="sales_team.group_sale_manager"/>
+    <menuitem id="major_unit_new" action="action_major_unit_new" parent="sale.menu_major_unit" sequence="3" groups="sales_team.group_sale_manager"/>
+    <menuitem id="major_unit_warehouse" name="Major Unit Warehouse Management" action="stock.action_warehouse_form" parent="sale.menu_major_unit" groups="stock.group_stock_multi_locations" sequence="4"/>
+    <menuitem id="major_unit_location" name="Major Unit Stock Management" action="stock.action_location_form" parent="sale.menu_major_unit" groups="stock.group_stock_multi_locations" sequence="5"/>
+
+    <record id="view_major_unit_form" model="ir.ui.view">
+        <field name="name">major_unit.major_unit.form</field>
+        <field name="model">major_unit.major_unit</field>
+        <field name="arch" type="xml">
+            <form string="Major Unit">
+                <header>
+                    <button string="Create Quotation" type="object" name="major_unit_to_quotation"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <field name="id" invisible="1"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button string="Parts"
+                            type="object"
+                            name= "action_open_major_unit_parts"
+                            class="oe_stat_button" icon="fa-arrows-v"
+                            groups="stock.group_stock_user"/>
+                        <button string="Repair Orders"
+                            type="action"
+                            name="%(action_open_major_unit_repair_orders)d"
+                            class="oe_stat_button" icon="fa-cogs"
+                            />
+                        <button class="oe_stat_button" name="action_view_sales"
+                            type="object" icon="fa-usd">
+                            <field string="Sales" name="sales_count" widget="statinfo" />
+                        </button>
+                    </div>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <h3><field name="stock_number"/></h3>
+                        <h3><field name="product_name"/></h3>
+                        <h3><field name="color_attr_id" context="{'show_attribute': False}" options="{'no_open': True}"/></h3>
+                        <h3><field name="vin_sn"/></h3>
+                    </div>
+                    <notebook>
+                        <page string="General" name="general">
+                            <group>
+                                <field name="product_id"/>
+                                <field name="prod_lot_id"  context="{'creation_from_major_unit': True}"/>
+                                <field name="purchase_order_id" readonly="1"
+                                       attrs="{'invisible': [('purchase_order_id', '=', False)]}"/>
+                                <field name="date_received" readonly="1"
+                                       attrs="{'invisible': [('purchase_order_id', '=', False)]}"/>
+                                <field name="is_punched"/>
+                                <field name="form"/>
+                                <field name="sale_price"/>
+                                <field name="standard_price"/>
+                                <field name="payoffs"/>
+                                <field name="payoffs_description"/>
+                                <field name="trade_equity"/>
+                                <field name="attribute_value_ids" widget="many2many_tags"/>
+                                <field name="warranty_term"/>
+                                <field name="unit_class"/>
+                            </group>
+                        </page>
+                        <page string="Parts and Labor">
+                            <field name="product_line_ids">
+                                <tree>
+                                    <field name="product_id"/>
+                                    <field name="product_uom_qty"/>
+                                    <field name="price_unit"/>
+                                    <field name="price_subtotal" groups="sale.group_show_price_subtotal"/>
+                                    <field name="price_total" groups="sale.group_show_price_total"/>
+                                </tree>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                <field name="amount_untaxed" options="{'currency_field': 'currency_id'}"/>
+                                <field name="amount_tax" options="{'currency_field': 'currency_id'}"/>
+                                <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                    <label for="amount_total" />
+                                    <!--<button name="button_dummy"
+                                        states="draft,sent" string="(update)" type="object" class="oe_edit_only oe_link"/>-->
+                                </div>
+                                <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" options="{'currency_field': 'currency_id'}"/>
+                            </group>
+                        </page>
+                        <page string="Consignment" attrs="{'invisible': [('state', '!=', 'consigned')]}">
+                            <group>
+                                <field name="consignment_lowest_price"/>
+                                <field name="consignment_agreed_margin"/>
+                            </group>
+                        </page>
+                        <page string="MU Details" name="details">
+                            <group>
+                                <group string="Manufacturer">
+                                    <field name="manufacturer_holdback"/>
+                                    <field name="manufacturer_holdback_msrp"/>
+                                    <field name="manufacturer_percent_cost"/>
+                                    <field name="manufacturer_incentive"/>
+                                </group>
+                                <group string="Bank">
+                                    <field name="floored_by_bank" attrs="{'required':[('payoffs', '!=', 0),('form', '=', 'used')]}"/>
+                                    <field name="floored_amount"/>
+                                    <field name="free_flooring_date"/>
+                                    <field name="monthly_interest"/>
+                                    <field name="date_sold" readonly="1"/>
+                                    <field name="date_registered"/>
+                                    <field name="date_funded" readonly="1"/>
+                                    <field name="date_pdid"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Images">
+                            <field name="major_unit_image_ids" mode="kanban" context="{'default_major_unit_id': active_id}">
+                                <kanban string="Product Images"
+                                        drop_attachments_field='1'>
+                                    <field name="name"/>
+                                    <field name="image" />
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div class="oe_kanban_global_click">
+                                                <a t-if="!read_only_mode" type="delete" class="fa fa-times pull-right"/>
+                                                <div class="o_kanban_image">
+                                                    <img t-if="record.image.raw_value" t-att-src="'data:image/png;base64,'+record.image.raw_value"/>
+                                                </div>
+                                                <div class="oe_kanban_details">
+                                                    <field name="name"/>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                        </page>
+                        <page string="Finance and Insurance">
+                            <field name="finance_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="lst_price" sum="Total"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <!--<group string="Total">
+                        <field name="total_price"/>
+                    </group>-->
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_major_unit_tree" model="ir.ui.view">
+        <field name="name">major_unit.major_unit.tree</field>
+        <field name="model">major_unit.major_unit</field>
+        <field name="arch" type="xml">
+            <tree string="Major Unit">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="open_major_units">
+        <field name="name">Major Units</field>
+        <field name="res_model">major_unit.major_unit</field>
+    </record>
+
+</odoo>

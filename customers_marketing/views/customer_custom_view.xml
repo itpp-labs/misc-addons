@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="custom_customer_view" model="ir.ui.view">
+            <field name="name">res.partner.custom.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field eval="20" name="priority"/>
+            <field name="arch" type="xml">
+                <!-- birthdate field added below category_id field in res partner model  -->
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="birthdate" widget="date"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="wp_customer_other_view" model="ir.ui.view">
+            <field name="name">res.partner.other.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field eval="19" name="priority"/>
+            <field name="arch" type="xml">
+                <!-- Customer Extended page added after accounting page in res partner model  -->
+                <xpath expr="//page[@name='accounting']" position="after">
+                    <page col="4" name="other" string="Other">
+                        <group colspan="2" name="profile" string="Profile">
+                            <field name="helmet" string="Helmet"/>
+                            <field name="jacket" string="Jackets"/>
+                            <field name="pants" string="Pants"/>
+                            <field name="gloves" string="Gloves"/>
+                            <fields name="boots" string="Boots"/>
+                            <fields name="wishlist_ids" string="Wishlist"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <record id="res_partner_only_form_view_inh" model="ir.ui.view">
+            <field name="name">res.partner.product.form.inh</field>
+            <field name="model">res.partner</field>
+            <field eval="900" name="priority"/>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <!-- Wishlist page added after accounting page in res partner model  -->
+                <xpath expr="//page[@name='accounting']" position="after">
+                    <page autofocus="autofocus" string="Wishlist">
+                        <field domain="[('details_model', 'ilike', 'vehicle')]" mode="kanban" name="wishlist_ids">
+                            <kanban>
+                                <field name="name"/>
+                                <field name="image"/>
+                                <templates>
+                                    <t t-name="kanban-box">
+                                        <div>
+                                            <a class="fa fa-times pull-right" t-if="!read_only_mode" type="delete"/>
+                                            <div class="o_kanban_image">
+                                                <a type="open">
+                                                    <img t-att-src="'data:image/png;base64,'+record.image.raw_value" t-if="record.image.raw_value"/>
+                                                </a>
+                                            </div>
+                                            <div class="oe_kanban_details">
+                                                <a type="open">
+                                                    <field name="name"/>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </templates>
+                            </kanban>
+                        </field>
+                    </page>
+                </xpath>
+                <!-- Rides page added after accounting page in res partner model  -->
+                <xpath expr="//page[@name='accounting']" position="after">
+                    <page autofocus="autofocus" string="Rides">
+                        <group>
+                            <button class="oe_highlight" name="%(action_view_create_ride)d" string="Add new ride" type="action"/>
+                        </group>
+                        <group>
+                            <field create="false" mode="kanban" name="customer_vehicles" nolabel="1">
+                                <kanban create="false">
+                                    <field name="name"/>
+                                    <field name="image"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div>
+                                                <a class="fa fa-times pull-right" t-if="!read_only_mode" type="delete"/>
+                                                <div class="o_kanban_image">
+                                                    <a type="open">
+                                                        <img t-att-src="'data:image/png;base64,'+record.image.raw_value" t-if="record.image.raw_value"/>
+                                                    </a>
+                                                </div>
+                                                <div class="oe_kanban_details">
+                                                    <a type="open">
+                                                        <field name="name"/>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <record id="wp_customer_view" model="ir.ui.view">
+            <field name="name">res.partner.wp.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field eval="20" name="priority"/>
+            <field name="arch" type="xml">
+                <!-- rewards field added after 1st group in res partner model  -->
+                <xpath expr="//group" position="after">
+                    <group cols="2">
+                        <group>
+                            <field name="rewards"/>
+                        </group>
+                        <group>
+                            <field name="licence_no"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

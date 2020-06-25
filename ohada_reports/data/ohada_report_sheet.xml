@@ -68,14 +68,14 @@
         <field name="level" eval="0" />
     </record>
 
-    <!-- <record id="ohada_financial_report_sheet_r3_1" model="ohada.financial.html.report.line">
+    <record id="ohada_financial_report_sheet_r3_1" model="ohada.financial.html.report.line">
         <field name="name"> </field>
         <field name="code">r3_1</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r3"/>
         <field name="level" eval="2" />
         <field name="sequence" eval="2"/>
         <field name="groupby">account_id</field>
-    </record> -->
+    </record>
 
     <record id="ohada_financial_report_sheet_r3_2" model="ohada.financial.html.report.line">
         <field name="name"> </field>
@@ -227,6 +227,7 @@
 
     <record id="ohada_financial_report_sheet_r4_1" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note1')])]"/>
         <field name="code">r4_1</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -236,6 +237,7 @@
 
     <record id="ohada_financial_report_sheet_r4_2" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note2')])]"/>
         <field name="code">r4_2</field>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
@@ -245,6 +247,7 @@
 
     <record id="ohada_financial_report_sheet_r4_3" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note3a')])]"/>
         <field name="code">r4_3</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -254,6 +257,7 @@
 
     <record id="ohada_financial_report_sheet_r4_4" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note3b')])]"/>
         <field name="code">r4_4</field>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
@@ -263,6 +267,7 @@
 
     <record id="ohada_financial_report_sheet_r4_5" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note3c')])]"/>
         <field name="code">r4_5</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -272,6 +277,7 @@
 
     <record id="ohada_financial_report_sheet_r4_6" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note3d')])]"/>
         <field name="code">r4_6</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -281,6 +287,7 @@
 
     <record id="ohada_financial_report_sheet_r4_7" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note3e')])]"/>
         <field name="code">r4_7</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -290,6 +297,7 @@
 
     <record id="ohada_financial_report_sheet_r4_8" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note4')])]"/>
         <field name="code">r4_8</field>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
@@ -299,6 +307,7 @@
 
     <record id="ohada_financial_report_sheet_r4_9" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note5')])]"/>
         <field name="code">r4_9</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -308,6 +317,7 @@
 
     <record id="ohada_financial_report_sheet_r4_10" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note6')])]"/>
         <field name="code">r4_10</field>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
@@ -317,6 +327,7 @@
 
     <record id="ohada_financial_report_sheet_r4_11" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note7')])]"/>
         <field name="code">r4_11</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -326,6 +337,7 @@
 
     <record id="ohada_financial_report_sheet_r4_12" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note8')])]"/>
         <field name="code">r4_12</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -335,6 +347,7 @@
 
     <record id="ohada_financial_report_sheet_r4_13" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note8a')])]"/>
         <field name="code">r4_13</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -344,6 +357,7 @@
 
     <record id="ohada_financial_report_sheet_r4_14" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note9')])]"/>
         <field name="code">r4_14</field>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
@@ -353,6 +367,7 @@
 
     <record id="ohada_financial_report_sheet_r4_15" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note10')])]"/>
         <field name="code">r4_15</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -362,6 +377,7 @@
 
     <record id="ohada_financial_report_sheet_r4_16" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note11')])]"/>
         <field name="code">r4_16</field>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
@@ -371,6 +387,7 @@
 
     <record id="ohada_financial_report_sheet_r4_17" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note12')])]"/>
         <field name="code">r4_17</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -380,6 +397,7 @@
 
     <record id="ohada_financial_report_sheet_r4_18" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note13')])]"/>
         <field name="code">r4_18</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -389,6 +407,7 @@
 
     <record id="ohada_financial_report_sheet_r4_19" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note14')])]"/>
         <field name="code">r4_19</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -398,6 +417,7 @@
 
     <record id="ohada_financial_report_sheet_r4_20" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note15a')])]"/>
         <field name="code">r4_20</field>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
@@ -407,6 +427,7 @@
 
     <record id="ohada_financial_report_sheet_r4_21" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note15b')])]"/>
         <field name="code">r4_21</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -416,6 +437,7 @@
 
     <record id="ohada_financial_report_sheet_r4_22" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note16a')])]"/>
         <field name="code">r4_22</field>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
@@ -425,6 +447,7 @@
 
     <record id="ohada_financial_report_sheet_r4_23" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note16b')])]"/>
         <field name="code">r4_23</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -434,6 +457,7 @@
 
     <record id="ohada_financial_report_sheet_r4_24" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note16b_bis')])]"/>
         <field name="code">r4_24</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -443,6 +467,7 @@
 
     <record id="ohada_financial_report_sheet_r4_25" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note16c')])]"/>
         <field name="code">r4_25</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -452,6 +477,7 @@
 
     <record id="ohada_financial_report_sheet_r4_26" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note17')])]"/>
         <field name="code">r4_26</field>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
@@ -461,6 +487,7 @@
 
     <record id="ohada_financial_report_sheet_r4_27" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note18')])]"/>
         <field name="code">r4_27</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -470,6 +497,7 @@
 
     <record id="ohada_financial_report_sheet_r4_28" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note19')])]"/>
         <field name="code">r4_28</field>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
@@ -479,6 +507,7 @@
 
     <record id="ohada_financial_report_sheet_r4_29" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note20')])]"/>
         <field name="code">r4_29</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -488,6 +517,7 @@
 
     <record id="ohada_financial_report_sheet_r4_30" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note21')])]"/>
         <field name="code">r4_30</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -497,6 +527,7 @@
 
     <record id="ohada_financial_report_sheet_r4_31" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note22')])]"/>
         <field name="code">r4_31</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -506,6 +537,7 @@
 
     <record id="ohada_financial_report_sheet_r4_32" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note23')])]"/>
         <field name="code">r4_32</field>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
@@ -515,6 +547,7 @@
 
     <record id="ohada_financial_report_sheet_r4_33" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note24')])]"/>
         <field name="code">r4_33</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -524,6 +557,7 @@
 
     <record id="ohada_financial_report_sheet_r4_34" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note25')])]"/>
         <field name="code">r4_34</field>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
@@ -533,6 +567,7 @@
 
     <record id="ohada_financial_report_sheet_r4_35" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note26')])]"/>
         <field name="code">r4_35</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -542,6 +577,7 @@
 
     <record id="ohada_financial_report_sheet_r4_36" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note27a')])]"/>
         <field name="code">r4_36</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -551,6 +587,7 @@
 
     <record id="ohada_financial_report_sheet_r4_37" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note27b')])]"/>
         <field name="code">r4_37</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -560,6 +597,7 @@
 
     <record id="ohada_financial_report_sheet_r4_38" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note28')])]"/>
         <field name="code">r4_38</field>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
@@ -569,6 +607,7 @@
 
     <record id="ohada_financial_report_sheet_r4_39" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note29')])]"/>
         <field name="code">r4_39</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -578,6 +617,7 @@
 
     <record id="ohada_financial_report_sheet_r4_40" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note30')])]"/>
         <field name="code">r4_40</field>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
@@ -587,6 +627,7 @@
 
     <record id="ohada_financial_report_sheet_r4_41" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note31')])]"/>
         <field name="code">r4_41</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -596,6 +637,7 @@
 
     <record id="ohada_financial_report_sheet_r4_42" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note32')])]"/>
         <field name="code">r4_42</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -605,6 +647,7 @@
 
     <record id="ohada_financial_report_sheet_r4_43" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note33')])]"/>
         <field name="code">r4_43</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -614,6 +657,7 @@
 
     <record id="ohada_financial_report_sheet_r4_44" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note34')])]"/>
         <field name="code">r4_44</field>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
@@ -623,6 +667,7 @@
 
     <record id="ohada_financial_report_sheet_r4_45" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note35')])]"/>
         <field name="code">r4_45</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />
@@ -632,6 +677,7 @@
 
     <record id="ohada_financial_report_sheet_r4_46" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note36')])]"/>
         <field name="code">r4_46</field>
         <field name="reference"></field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
@@ -641,6 +687,7 @@
 
     <record id="ohada_financial_report_sheet_r4_47" model="ohada.financial.html.report.line">
         <field name="name"> </field>
+        <field name="note_report_ids" eval="[(6, 0, [ref('ohada_financial_report_note37')])]"/>
         <field name="code">r4_47</field>
         <field name="financial_report_id" ref="ohada_financial_report_sheet_r4"/>
         <field name="level" eval="2" />

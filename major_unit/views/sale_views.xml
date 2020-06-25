@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id='view_order_form' model='ir.ui.view'>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='order_line']/tree//field[@name='price_unit']" position="replace">
+                    <field name="price_unit" sum="Total"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']/parent::*/parent::*" position="before">
+                    <group>
+                        <label for="details_res_id"/>
+                        <div>
+                            <field name="details_model" widget="polymorphic" polymorphic="details_res_id" class="oe_inline"/>
+                            <field name="details_model_exists" invisible="1"/>
+                            <field name="details_res_id" invisible="1"/>
+                        </div>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/parent::*[1]" position="after">
+                    <page string="Trade In" attrs="{'invisible': [('details_model','!=','sale.deal')]}">
+                        <field name="trade_in_mu_ids" domain="[('form','!=', 'new')]">
+                            <tree>
+                                <field name="name"/>
+                                <field name="standard_price"/>
+                                <field name="nada_average_retail" string="NADA Retail"/>
+                                <field name="nada_rough_trade" string="NADA Rough"/>
+                                <field name="payoffs"/>
+                                <field name="floored_by_bank" string="Bank"/>
+                                <field name="trade_equity" sum="Total Trade Equity"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Financing and Insurance" attrs="{'invisible': [('details_model','!=','sale.deal')]}">
+                        <group>
+                            <group>
+                                <field name="vendor"/>
+                            </group>
+                            <group>
+                                <field name="dealer_number"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="total_price"/>
+                                <field name="total_equity"/>
+                                <field name="total_cash_price"/>
+                                <field name="total_down"/>
+                                <field name="total_to_finance"/>
+                                <field name="total_apr"/>
+                                <field name="payment"/>
+                            </group>
+                            <group>
+                                <field name="loan_term"/>
+                                <field name="days_first"/>
+                                <field name="ballon_term"/>
+                                <field name="apr"/>
+                                <field name="dealer_rate"/>
+                                <field name="payment_previous"/>
+                                <field name="payment_down"/>
+                                <field name="trade_equity"/>
+                                <field name="finance_charges"/>
+                                <field name="number_of_payments"/>
+                                <field name="payment_amount"/>
+                                <field name="might_need_more"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Profitability" attrs="{'invisible': [('details_model','!=','sale.deal')]}">
+                        <field name="profitability_line_ids">
+                            <tree editable="bottom" create="false" delete="false">
+                                <field name="product_id" readonly="1"/>
+                                <field name="name" readonly="1"/>
+                                <field name="product_uom_qty" string="Ordered Qty" readonly="1"/>
+                                <field name="purchase_price" sum="Total" readonly="1"/>
+                                <field name="price_unit" sum="Total" readonly="1"/>
+                                <field name="margin" string="Margin" sum="Total" readonly="1"/>
+                                <field name="margin_rate" sum="Total" readonly="1"/>
+                                <field name="backend" sum="Total"/>
+                                <field name="margin_full" sum="Total" readonly="1"/>
+                                <field name="margin_full_rate" sum="Total" readonly="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Forms" attrs="{'invisible': [('details_model','!=','sale.deal')]}">
+                        <field name="attachment_ids">
+                            <form string="Attachments">
+                                <field name="name"/>
+                                <field name="file_ids" mode="kanban">
+                                    <kanban string="Deal Attachments">
+                                        <field name="name"/>
+                                        <field name="file"/>
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div class="oe_kanban_global_click">
+                                                    <a t-if="!read_only_mode" type="delete" class="fa fa-times pull-right"/>
+                                                    <div class="o_kanban_image">
+                                                        <img t-if="record.file.raw_value" t-att-src="'data:image/png;base64,'+record.file.raw_value"/>
+                                                    </div>
+                                                    <div class="oe_kanban_details">
+                                                        <field name="name"/>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                </field>
+                            </form>
+                            <tree>
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_sale_order_attachment_file_form">
+        <field name="name">sale.order.attachment.file.form</field>
+        <field name="model">sale.order.attachment.file</field>
+        <field name="arch" type="xml">
+            <form string="Attachment File">
+                <sheet>
+                    <field name="file" widget="image" class="oe_avatar" media="True"/>
+                    <field name="media_type" invisible="1"/>
+                    <field name="media_video_ID" invisible="1"/>
+                    <field name="media_video_service" invisible="1"/>
+                    <div class="oe_title">
+                        <label class="oe_edit_only" for="name" string="File Name"/>
+                        <h1><field name="name" placeholder="File Name" required="True"/></h1>
+                        <field name="attachment_id" invisible="1"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_product_sale_list" model="ir.actions.act_window">
+        <field name="name">Sale Order Lines</field>
+        <field name="res_model">sale.order.line</field>
+        <field name="context">{'search_default_product_id': [active_id], 'default_product_id': active_id}</field>
+        <field name="domain">[('state', 'in', ['sale', 'done'])]</field>
+    </record>
+
+    <record model='ir.ui.view' id='vehicle_main_attributes_search_view'>
+        <field name="name">product.attribute.value.search</field>
+        <field name="model">product.attribute.value</field>
+        <field name="arch" type="xml">
+            <search string="Vehicle Main Attributes">
+                <group expand="0" string="Group By">
+                    <filter name="groupby_attribute_id" context="{'group_by' : 'attribute_id'}" string="Attribute"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="vehicle_main_attributes_action" model="ir.actions.act_window">
+        <field name="name">Vehicle Main Attributes</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.attribute.value</field>
+        <field name="view_mode">tree</field>
+        <field name="view_type">form</field>
+        <field name="domain">[('attribute_id.name', 'in', ('Category', 'Make', 'Model', 'SubModel', 'Year'))]</field>
+        <field name="context">{"search_default_groupby_attribute_id" : True}</field>
+    </record>
+
+    <menuitem action="vehicle_main_attributes_action" name="Vehicle Main Attributes" id="menu_vehicle_main_attributes_action" parent="sales_team.menu_sale_config" sequence="50"/>
+    <menuitem action="account.action_tax_form" id="menu_action_tax_form" parent="sales_team.menu_sale_config" sequence="51"/>
+
+    <record id="action_orders_open" model="ir.actions.act_window">
+        <field name="name">Open Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', 'in', ('draft', 'sent'))]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create a new Order.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_orders_month" model="ir.actions.act_window">
+        <field name="name">This Month's Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('date_order', '&gt;=', context_today().strftime("%Y-%m-1"))]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create a new Order.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="sale.marketing" name="Marketing" parent="sale.sale_menu_root" sequence="4"/>
+    <menuitem id="sale.finance" name="F &amp; I" parent="sale.sale_menu_root" sequence="4"/>
+    <menuitem id="orders_open" action="action_orders_open" parent="sale.finance" sequence="1"/>
+    <menuitem id="orders_month" action="action_orders_month" parent="sale.marketing" sequence="1"/>
+
+</odoo>

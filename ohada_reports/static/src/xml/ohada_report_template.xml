@@ -2,7 +2,6 @@
 
 <templates>
 
-
     <t t-name="accountReports.footnote_dialog">
         <form role="form">
             <textarea name="note" rows='4' class="js_account_reports_footnote_note" t-att-data-line="id" placeholder="Insert foot note here"><t t-esc="text"/></textarea>
@@ -13,6 +12,12 @@
         <t t-foreach="buttons" t-as="button">
             <button type="button" class="btn btn-primary" t-att-action="button.action"><t t-esc="button.name"/></button>
         </t>
+    </t>
+
+    <t t-name="accountReports.ohada_manualentry">
+        <form role="form">
+            <textarea name="manualentry" rows='2' class="js_account_reports_manualentry" t-att-data-line="id" placeholder="Insert new value here"><t t-esc="text"/></textarea>
+        </form>
     </t>
 
 </templates>

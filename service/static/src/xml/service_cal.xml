@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-extend="CalendarView.sidebar.filter">
+        <t t-jquery=".o_calendar_filter_items" t-operation="after">
+            <h6>Summary</h6>
+            <div class="o_calendar_contacts2"/>
+            <h6>Color Key</h6>
+            <span style="border-bottom: 4px solid #fffcc0;"><t>Quote</t></span>
+            <span style="border-bottom: 4px solid #c5ffc0; margin-left: 10px;"><t>Approve</t></span>
+            <span style="border-bottom: 4px solid #c0f7ff; margin-left: 10px;"><t>Waiting for Parts</t></span>
+            <span style="border-bottom: 4px solid #d4c0ff;"><t>Ready for Pickup</t></span>
+            <span style="border-bottom: 4px solid #ffedc0; margin-left: 10px;"><t>Inspect</t></span>
+
+            <span style="border-bottom: 4px solid #ffc0cf; margin-left: 10px;"><t>Lift</t></span>
+            <span style="border-bottom: 4px solid #ffc0cf; margin-left: 10px;"><t>Test</t></span>
+
+            <span style="border-bottom: 4px solid #ffcfc0;"><t>Complete</t></span>
+            <span style="border-bottom: 4px solid #c0d9ff; margin-left: 10px;"><t>Deliver</t></span>
+        </t>
+    </t>
+    <t t-extend="FieldMany2One">
+        <t t-jquery=".o_input_dropdown" t-operation="replace">
+            <input type="text" class="o_input"
+                   t-att-barcode_events="widget.nodeOptions.barcode_events"
+                   t-att-tabindex="widget.attrs.tabindex"
+                   t-att-autofocus="widget.attrs.autofocus"
+                   t-att-placeholder="widget.attrs.placeholder"
+                   t-att-id="widget.idForLabel" placeholder=""/>
+            <span class="o_dropdown_button" draggable="false"/>
+        </t>
+    </t>
+    <t t-name="CalendarView.sidebar.service_cal">
+        <div t-foreach="filters" class="o_calendar_contact2">
+            <t t-if="filters == 'repair_done'">
+                <span>
+                    <t>Repairs Done : <span t-esc="filters_value"/></t>
+                </span>
+            </t>
+            <t t-if="filters == 'repair_pending'">
+                <span>
+                    <t>Repairs Pending : <span t-esc="filters_value"/></t>
+                </span>
+            </t>
+        </div>
+    </t>
+
+</templates>

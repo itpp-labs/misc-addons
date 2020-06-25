@@ -1,0 +1,28 @@
+<odoo>
+    <record id="select_recall_job" model="ir.ui.view">
+        <field name="name">Select Recall Job</field>
+        <field name="model">service.select.recall.job</field>
+        <field name="arch" type="xml">
+            <form string="Select Recall Job">
+                <group>
+                    <field name="standard_job_id" domain="[('recall', '=', True)]"/>
+                </group>
+                <footer>
+                    <button name="select_recall_job" string="_Select" type="object" class="btn-primary"/>
+                    <button string="_Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_select_recall_job" model="ir.actions.act_window">
+        <field name="name">Select Recall Job</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">service.select.recall.job</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="select_recall_job"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

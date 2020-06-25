@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_apply_standard_job" model="ir.ui.view">
+            <field name="name">Apply Standard Jobs</field>
+            <field name="model">service.apply.standard.job</field>
+            <field name="arch" type="xml">
+                <form string="Select Standard Jobs">
+                    <group>
+                        <field name="repair_order_id" invisible="1"/>
+                        <field name="standard_job_ids"/>
+                    </group>
+                    <footer>
+                        <button name="apply_standard_job" string="_Apply" type="object" class="btn-primary"/>
+                        <button string="_Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_apply_standard_job" model="ir.actions.act_window">
+            <field name="name">Apply Standard Jobs</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">service.apply.standard.job</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_apply_standard_job"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>
+

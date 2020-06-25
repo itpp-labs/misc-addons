@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <record id="send_service_status" model="mail.template">
+            <field name="name">Send by mail</field>
+            <field name="email_from">saumildemo1234@gmail.com</field>
+            <field name="subject">Service Status</field>
+            <field name="auto_delete" eval="True" />
+            <field name="model_id" ref="service.model_service_repair_order"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ${(object.partner_id.name)}, </p>
+                    <p>Welcome again to the ${(object.major_unit_id.make)} Family. This is just a helpful reminder to schedule your service. The service should happen at 600 miles or Six months. If you have already had your service, congrats !!</p> 
+                    <p>Properly maintaining your
+                    ${(object.major_unit_id.name)} at the factory specified intervals is required to keep your warranty valid.</p>
+                    <p>Your Service Status is <b> ${(object.state)} </b></p>
+                </div>
+                ]]>
+            </field>
+        </record>
+    </data>
+</odoo>

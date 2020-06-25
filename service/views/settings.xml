@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="view_settings_form" model="ir.ui.view">
+			<field name="name">setting.price.form</field>
+			<field name="model">pickup.price</field>
+			<field name="type">form</field>
+			<field eval="8" name="priority"/>
+			<field name="arch" type="xml">
+				<form class="oe_form_configuration" label="Configure Pickup Price" name="pickup_price_config_form" string="Configure Pickup Price">
+					<h1>
+						<separator colspan="4" string="Configure Pickup Price"/>
+					</h1>
+					<sheet>
+						<header>
+							<button class="oe_highlight" name="execute" string="Apply" type="object"/>
+							<button class="oe_link" name="cancel" string="Cancel" type="object"/>
+						</header>
+						<div>
+							<div class="oe_inline">
+								<label string="Price" style="margin-left:20%;"/>
+								<label string="Distance" style="margin-left:20%;"/>
+								<label string="Unit" style="margin-left:20%;"/>
+							</div>
+							<group>
+								<label string="Fixed price/distance"/>
+								<div class="oe_inline">
+									<field name="default_rate" placeholder="Fixed Price" style="width:30%"/>
+									<field name="default_distance" placeholder="Fixed Dictance" style="width:30%"/>
+									<field domain="[('category_id.name','ilike','distance')]" name="uom_unit" options="{'no_quick_create':True,'no_create_edit':True}" style="width:30%"/>
+								</div>
+							</group>
+						</div>
+						<div>
+							<group>
+								<label string="Price per Distance"/>
+								<div class="oe_inline">
+									<field name="default_rate_after" style="width:30%"/>
+									<field name="default_fixed_distance" style="width:30%"/>
+									<field name="default_rate_after_uom" readonly="True" style="margin-left:1%; width:30%;"/>
+								</div>
+							</group>
+						</div>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<record id="setting_menu" model="ir.actions.act_window">
+			<field name="name">Settings</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">pickup.price</field>
+			<field name="view_id" ref="view_settings_form"/>
+			<field name="view_mode">form</field>
+			<field name="target">inline</field>
+		</record>
+		<menuitem groups="service.group_service_manager" id="settings_general_menu11" name="Settings" parent="menu_service_root"/>
+		<menuitem action="setting_menu" id="settings_system_menu" name="Set Pickup Price" parent="settings_general_menu11" sequence="3"/>
+	</data>
+</odoo>

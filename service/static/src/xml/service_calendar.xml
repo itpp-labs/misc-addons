@@ -1,0 +1,9 @@
+<templates>
+   <t t-extend="CalendarView.sidebar">
+       <t t-jquery=".o_calendar_mini" t-operation="after">
+           <h3>Mechanics</h3>
+           <t t-esc='filters'/>
+       </t>
+   </t>
+
+</templates>

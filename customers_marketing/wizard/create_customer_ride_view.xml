@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_create_ride" model="ir.ui.view">
+            <field name="name">Change Product Quantity</field>
+            <field name="model">res.partner.create.vehicles</field>
+            <field name="arch" type="xml">
+                <form string="Create Ride">
+                    <group>
+                        <field name="partner_id" invisible="1"/>
+                        <field name="product_id"/>
+                        <field name="vin_sn" />
+                    </group>
+                    <footer>
+                        <button name="create_from_existing" string="Select Existing" type="object" class="btn-primary"/>
+                        <button name="create_new" string="Create New" type="object" class="btn-primary"/>
+                        <button string="_Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_create_ride" model="ir.actions.act_window">
+            <field name="name">Create Ride</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner.create.vehicles</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_create_ride"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>
+

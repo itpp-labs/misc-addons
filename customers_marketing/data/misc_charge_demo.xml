@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="product_1" model="product.template">
+			<field name="name">Shop Supplies</field>
+            <field name="type">service</field>
+            <field name="details_model">other</field>            
+            <field name="lst_price">100</field>
+        </record>
+		<record id="product_2" model="product.template">
+			<field name="name">Tire Disposal Fees</field>
+            <field name="details_model">other</field>
+            <field name="type">service</field>
+            <field name="lst_price">100</field>
+        </record>
+        <record id="product_3" model="product.template">
+			<field name="name">Towing</field>
+            <field name="details_model">other</field>
+            <field name="type">service</field>
+            <field name="lst_price">100</field>            
+        </record>
+        <record id="product_4" model="product.template">
+			<field name="name">Enviornment Fees</field>
+            <field name="details_model">other</field>
+            <field name="type">service</field>
+            <field name="lst_price">100</field>            
+        </record>
+                <record id="product_5" model="product.template">
+			<field name="name">Storage</field>
+            <field name="details_model">other</field>
+            <field name="type">service</field>
+            <field name="lst_price">100</field>            
+        </record>
+	</data>
+</odoo>

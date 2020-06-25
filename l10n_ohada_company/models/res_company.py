@@ -136,7 +136,11 @@ class ResCompanyEquity(models.Model):
 
 
 class ResCompanyManager(models.Model):
+<<<<<<< HEAD
     _name="res.company.manager"
+=======
+    _name = "res.company.manager"
+>>>>>>> Artem/12.0-ohada-modules
     _description = u"Executive/Adminstrative"
     
     @api.model

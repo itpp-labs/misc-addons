@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <template>
+      <tr t-extend="CalendarView.sidebar.filter">
+          <t t-jquery=".o_calendar_filter" t-operation="after">
+              <div class="service_cal">
+                  <h3>Example - put fields here </h3>
+              </div>
+          </t>
+      </tr>
+  </template>
+</odoo>

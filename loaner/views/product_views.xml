@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_deal_product_details_form_view1" model="ir.ui.view">
+        <field name="name">product.template</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product_details.product_details_product_template_form_view"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//div[@name='options']" position="inside">
+                   <div attrs="{'invisible': [('details_model','!=','vehicle')]}">
+                       <field name="customer_owned" eval="False"/>
+                       <label for="customer_owned"/>                        
+                   </div>
+               </xpath>
+            </data>
+        </field>
+    </record>
+
+</odoo>

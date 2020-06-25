@@ -1,0 +1,278 @@
+/*main*/
+canvas
+{
+    background-color: #ffffff;
+}
+.hr_dash {
+    background-color: white;
+}
+#generate_payroll_pdf, #generate_attendance_pdf {
+    background-color: #ffffff;
+    border: 0;
+}
+i.fa.fa-2x.fa-file-pdf-o {
+    color: red;
+}
+.hr_dash.col-xs-12.col-md-12.col-lg-12.col-sm-8 {
+    width: 78%;
+}
+/*User Head*/
+.media {
+    /*box-shadow:0px 0px 4px -2px #000;*/
+    /*margin: 20px 0;*/
+    padding:30px;
+    padding-left: 0px;
+}
+.media-body {
+    padding-left: 10px;
+}
+.dp {
+    border:10px solid #eee;
+    transition: all 0.2s ease-in-out;
+}
+.dp:hover {
+    border:2px solid #eee;
+    transform:rotate(360deg);
+    -ms-transform:rotate(360deg);
+    -webkit-transform:rotate(360deg);
+    /*-webkit-font-smoothing:antialiased;*/
+}
+/*Dashboard head blocks*/
+.dashboard-block, .dashboard-block:hover, .dashboard-block:active, .dashboard-block:focus {
+    color: #606060;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+    outline: none;
+}
+.dashboard-block {
+    position: relative;
+    display: block;
+    padding: 15px 20px;
+    background-color: rgba(0, 0, 0, 0.2);
+    opacity:0.9;
+    overflow: hidden;
+    margin-bottom:5px;
+}
+.dashboard-block .rotate {
+    z-index: 8;
+    float: right;
+    height: 100%;
+}
+.dashboard-block .rotate i {
+    position: absolute;
+    left: 0;
+    left: auto;
+    right: 0;
+    bottom: 0;
+    display: block;
+    height: 65px;
+    font-size: 75px;
+    -webkit-transform: rotate(-40deg);
+    -moz-transform: rotate(-40deg);
+    -o-transform: rotate(-40deg);
+    -ms-transform: rotate(-40deg);
+    transform: rotate(-40deg);
+    text-shadow:1px 0 #ddd;
+}
+.dashboard-block i,.dashboard-block:hover i,.dashboard-block:active i,.dashboard-block:focus i {
+    color: #e2e2e2;
+}
+.dashboard-block .more {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.25);
+    text-shadow: none;
+}
+.dashboard-block .details {
+    position: relative;
+    z-index: 10;
+    float: left;
+    margin-top: -10px;
+    text-align: left;
+}
+.dashboard-block .title {
+    display: block;
+    margin-bottom: 1em;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+.dashboard-block .sub {
+    display: block;
+    font-size: 32px;
+}
+.dashboard-block:before {
+	content:'';
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 0px;
+	height: 42px;
+	background: rgba(255,255,255,0.3);
+	border-radius: 0px;
+	transition: all 2s ease;
+}
+.dashboard-block:hover:before {
+	width: 100%;
+}
+
+/*Dashboard boxes*/
+.dash-box {
+    position: relative;
+    background: rgb(255, 86, 65);
+    background: -moz-linear-gradient(top, rgba(255, 86, 65, 1) 0%, rgba(253, 50, 97, 1) 100%);
+    background: -webkit-linear-gradient(top, rgba(255, 86, 65, 1) 0%, rgba(253, 50, 97, 1) 100%);
+    background: linear-gradient(to bottom, rgba(255, 86, 65, 1) 0%, rgba(253, 50, 97, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#ff5641', endColorstr='#fd3261', GradientType=0);
+    border-radius: 4px;
+    text-align: center;
+    margin: 60px 0 50px;
+}
+.dash-box-icon {
+    position: absolute;
+    transform: translateY(-50%) translateX(-50%);
+    left: 50%;
+}
+.dash-box-action {
+    transform: translateY(-50%) translateX(-50%);
+    position: absolute;
+    left: 50%;
+}
+.dash-box-body {
+    padding: 50px 20px;
+}
+.dash-box-icon:after {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    background: rgba(247, 148, 137, 0.91);
+    content: '';
+    border-radius: 50%;
+    left: -10px;
+    top: -10px;
+    z-index: -1;
+}
+.dash-box-icon > i {
+    background: #ff5444;
+    border-radius: 50%;
+    line-height: 40px;
+    color: #FFF;
+    width: 40px;
+    height: 40px;
+	font-size:22px;
+}
+.dash-box-icon:before {
+    width: 75px;
+    height: 75px;
+    position: absolute;
+    background: rgba(253, 162, 153, 0.34);
+    content: '';
+    border-radius: 50%;
+    left: -17px;
+    top: -17px;
+    z-index: -2;
+}
+.dash-box-action > button {
+    border: none;
+    background: #FFF;
+    border-radius: 19px;
+    padding: 7px 16px;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: .5px;
+    color: #003e85;
+    box-shadow: 0 3px 5px #d4d4d4;
+}
+.dash-box-body > .dash-box-count {
+    display: block;
+    font-size: 30px;
+    color: #FFF;
+    font-weight: 300;
+}
+.dash-box-body > .dash-box-title {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.81);
+}
+
+.dash-box.dash-box-color-2 {
+    background: rgb(252, 190, 27);
+    background: -moz-linear-gradient(top, rgba(252, 190, 27, 1) 1%, rgba(248, 86, 72, 1) 99%);
+    background: -webkit-linear-gradient(top, rgba(252, 190, 27, 1) 1%, rgba(248, 86, 72, 1) 99%);
+    background: linear-gradient(to bottom, rgba(252, 190, 27, 1) 1%, rgba(248, 86, 72, 1) 99%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#fcbe1b', endColorstr='#f85648', GradientType=0);
+}
+.dash-box-color-2 .dash-box-icon:after {
+    background: rgba(254, 224, 54, 0.81);
+}
+.dash-box-color-2 .dash-box-icon:before {
+    background: rgba(254, 224, 54, 0.64);
+}
+.dash-box-color-2 .dash-box-icon > i {
+    background: #fb9f28;
+}
+
+.dash-box.dash-box-color-3 {
+    background: rgb(183,71,247);
+    background: -moz-linear-gradient(top, rgba(183,71,247,1) 0%, rgba(108,83,220,1) 100%);
+    background: -webkit-linear-gradient(top, rgba(183,71,247,1) 0%,rgba(108,83,220,1) 100%);
+    background: linear-gradient(to bottom, rgba(183,71,247,1) 0%,rgba(108,83,220,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b747f7', endColorstr='#6c53dc',GradientType=0 );
+}
+.dash-box-color-3 .dash-box-icon:after {
+    background: rgba(180, 70, 245, 0.76);
+}
+.dash-box-color-3 .dash-box-icon:before {
+    background: rgba(226, 132, 255, 0.66);
+}
+.dash-box-color-3 .dash-box-icon > i {
+    background: #8150e4;
+}
+.dash-box.dash-box-color-4 {
+    background: rgba(172,235,0,1);
+    background: -moz-linear-gradient(top, rgba(172,235,0,1) 32%, rgba(172,235,0,1) 34%, rgba(121,198,15,1) 79%, rgba(99,182,22,1) 99%);
+    background: -webkit-gradient(left top, left bottom, color-stop(32%, rgba(172,235,0,1)), color-stop(34%, rgba(172,235,0,1)), color-stop(79%, rgba(121,198,15,1)), color-stop(99%, rgba(99,182,22,1)));
+    background: -webkit-linear-gradient(top, rgba(172,235,0,1) 32%, rgba(172,235,0,1) 34%, rgba(121,198,15,1) 79%, rgba(99,182,22,1) 99%);
+    background: -o-linear-gradient(top, rgba(172,235,0,1) 32%, rgba(172,235,0,1) 34%, rgba(121,198,15,1) 79%, rgba(99,182,22,1) 99%);
+    background: -ms-linear-gradient(top, rgba(172,235,0,1) 32%, rgba(172,235,0,1) 34%, rgba(121,198,15,1) 79%, rgba(99,182,22,1) 99%);
+    background: linear-gradient(to bottom, rgba(172,235,0,1) 32%, rgba(172,235,0,1) 34%, rgba(121,198,15,1) 79%, rgba(99,182,22,1) 99%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#aceb00', endColorstr='#63b616', GradientType=0 );
+}
+.dash-box-color-4 .dash-box-icon:after {
+    background: rgba(165, 214, 49, 0.76);
+}
+.dash-box-color-4 .dash-box-icon:before {
+    background: rgba(166, 208, 66, 0.66);
+}
+.dash-box-color-4 .dash-box-icon > i {
+    background: #66b913;
+}
+.dash-box.dash-box-color-5 {
+    background: #355C7D;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #C06C84, #6C5B7B, #355C7D);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #C06C84, #6C5B7B, #355C7D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.dash-box-color-5 .dash-box-icon:after {
+    background: rgba(180, 70, 245, 0.76);
+}
+.dash-box-color-5 .dash-box-icon:before {
+    background: rgba(226, 132, 255, 0.66);
+}
+.dash-box-color-5 .dash-box-icon > i {
+    background: #8150e4;
+}
+.dash-box.dash-box-color-6 {
+    background: #02111D;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #02111D, #037BB5, #02111D);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #02111D, #037BB5, #02111D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.dash-box-color-6 .dash-box-icon:after {
+    background: rgba(23, 105, 155, 0.66);
+}
+.dash-box-color-6 .dash-box-icon:before {
+    background: rgba(22, 102, 151, 0.76);
+}
+.dash-box-color-6 .dash-box-icon > i {
+    background: #0e4e75;
+}

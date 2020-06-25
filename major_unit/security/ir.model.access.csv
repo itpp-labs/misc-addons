@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_fitment,access_product_fitment,model_product_fitment,,1,0,0,0
+access_sale_order_attachment,access_sale_order_attachment,major_unit.model_sale_order_attachment,,1,1,1,1
+access_report_major_unit_product_line,access_report_major_unit_product_line,major_unit.model_report_major_unit_product_line,,1,1,1,1
+access_major_unit_image,access.major_unit_image,major_unit.model_major_unit_image,,1,1,1,1

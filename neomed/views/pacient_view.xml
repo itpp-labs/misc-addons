@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="patients_tree_view" model="ir.ui.view">
+			 <field name="name">Student Tree</field>
+			 <field name="model">neomed.mothers</field>
+			 <field name="arch" type="xml">
+				 <tree string="Students">
+					 <field name="name"/>
+					 <field name="histoty_number"/>
+					 <field name="birth_day"/>
+					 <field name="sex"/>
+					 <field name="severity"/>
+				 </tree>
+			 </field>
+		 </record>
+
+
+		<record id="patients_free_view" model="ir.ui.view">
+			<field name="name">Patients Form</field>
+			<field name="model">neomed.mothers</field>
+			<field name="arch" type="xml">
+				<form string="Patients">
+					<sheet>
+						<div class="oe_title">
+							<h3>
+								Номер истории №
+								<field name="histoty_number"/>
+							</h3>
+						</div>
+						<group>
+							<group>
+								<field name="name"/>
+								<field name="birth_day"/>
+								<field name="birth_time"/>
+								<field name="anamnez"/>
+								<field name="birth_namber"/>
+								<field name="pregnancy_namber"/>
+							</group>
+							<group>
+								<field name="sex"/>
+								<field name="severity"/>
+								<br/>
+								<field name="massa_birth"/>
+								<field name="height_birth"/>
+								<field name="OG_birth"/>
+								<field name="OGK_birth"/>
+							</group>
+							<br/>
+							<group colspan="2">
+								<field name="main"/>
+
+								<field name="main1"/>
+
+								<field name="main2"/>
+							</group>
+						</group>
+						<div class="oe_button_box" name="button_box">
+							<button name="action_get_attachment_view"
+									class="oe_stat_button"
+									icon="fa-paperclip"
+									type="object"
+									string="Добавить дневник">
+							</button>
+							<button name="action_get_attachment_view"
+									class="oe_stat_button"
+									icon="fa-paperclip"
+									type="object"
+									string="Добавить анализы">
+							</button>
+						</div>
+						<notebook colspan="4" modifiers="{}">
+							<page string="Дневниковые записи" modifiers="{}">
+
+							</page>
+							<page name="analyzes" string="Анализы" modifiers="{}">
+								<group name="container_row_2" modifiers="{}">
+								</group>
+							</page>
+							<page name="internal_notes" string="Внутренние заметки" modifiers="{}">
+
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+		<record id="hospital_patients_action" model="ir.actions.act_window">
+			<field name="name">Пациенты</field>
+			<field name="res_model">neomed.mothers</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Create The First Student
+				</p>
+			</field>
+		</record>
+
+
+		<menuitem id="hospital_menu"
+				  name="Отделение новорожденных"/>
+		<menuitem id="hospital_patients_menu" parent="hospital_menu" name="Пациенты"
+				  action='hospital_patients_action'/>
+
+
+
+    </data>
+
+	<record id="pations_search_view" model="ir.ui.view">
+		<field name="name">Pations Search View</field>
+		<field name="model">neomed.mothers</field>
+		<field name="arch" type="xml">
+			<search string="Search Pation">
+				<field name="name"/>
+				<field name="histoty_number"/>
+				<field name="birth_day"/>
+				<filter string="Мальчик" name="male" domain="[('sex','=','male')]"
+						help="Patient with gender as Male"/>
+				<filter string="Девочка" name="fermale" domain="[('sex','=','fermale')]"
+						help="Patient with gender as Female"/>
+				<filter string="удовлетворительное" name="satisfactory" domain="[('severity','=','satisfactory')]"/>
+				<filter string="средней тяжести" name="moderate_сondition" domain="[('severity','=','moderate_сondition')]"/>
+				<filter string="тяжелое" name="severe_condition" domain="[('severity','=','severe_condition')]"/>
+			</search>
+		</field>
+	</record>
+
+</odoo>

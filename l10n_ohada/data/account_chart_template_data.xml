@@ -23,7 +23,6 @@
 	<record id="ohada_chart_template" model="account.chart.template">
 		<field name="name">SYSCOHADA - Plan de Compte Général</field>
 		<field name="code_digits">8</field>
-		<field name="check_transfer_account_code_prefix">514</field> 
 		<field name="currency_id" ref="base.XOF" />
 		<field name="bank_account_code_prefix">5211</field>
 		<field name="cash_account_code_prefix">5711</field>

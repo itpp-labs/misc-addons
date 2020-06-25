@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="add_lift_tree" model="ir.ui.view">
+			<field name="name">drm.lift.tree</field>
+			<field name="model">drm.lift</field>
+			<field name="type">tree</field>
+			<field eval="8" name="priority"/>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="mechanic_id"/>
+					<field name="name"/>
+					<field name="location"/>
+					<field name="description"/>
+					<field name="start_date"/>
+					<field name="end_date"/>
+					
+				</tree>
+			</field>
+		</record>
+		<record id="add_lift_form" model="ir.ui.view">
+			<field name="name">drm.lift.form</field>
+			<field name="model">drm.lift</field>
+			<field name="type">form</field>
+			<field eval="3" name="priority"/>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group>
+							<field name="mechanic_id"/>
+							<field name="name" />
+							<field name="location"/>
+							<field name="description"/>
+							<field name="start_date" readonly="1"/>
+							<field name="end_date" readonly="1"/>
+							
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<record id="add_lift_actions" model="ir.actions.act_window">
+			<field name="name">Lift</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">drm.lift</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form,tree</field>
+			<field name="context">{}</field>
+		</record>
+		<record id="lift_action_tree" model="ir.actions.act_window.view">
+			<field name="act_window_id" ref="add_lift_actions"/>
+			<field eval="10" name="sequence"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="add_lift_tree"/>
+		</record>
+		<record id="lift_action_form" model="ir.actions.act_window.view">
+			<field name="act_window_id" ref="add_lift_actions"/>
+			<field eval="20" name="sequence"/>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="add_lift_form"/>
+		</record>
+
+		<menuitem action="add_lift_actions" id="lift_system_menu1" name="Set Lift" parent="settings_general_menu11" sequence="2"/>
+	</data>
+</odoo>

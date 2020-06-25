@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_pickup_tree" model="ir.ui.view">
+            <field name="name">drm.pickup.tree</field>
+            <field name="model">drm.pickup</field>
+            <field name="type">tree</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="partner_id"/>
+                    <field name="technician_id" />
+                    <field name="vehicle_id"/>
+                    <field name="state"/>
+                    <field name="choose"/>
+                    <field name="order_id"/>
+                    <field name="date_planned_start"/>
+                    <field name="estimate"/>
+                    <field name="note"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_pickup_form" model="ir.ui.view">
+            <field name="name">drm.pickup.form</field>
+            <field name="model">drm.pickup</field>
+            <field name="type">form</field>
+            <field eval="3" name="priority"/>
+            <field name="arch" type="xml">
+                <header groups="service.group_service,service.group_service_manager" position="inside">
+                    <button attrs="{'invisible': [('state', 'in', ('progress','done','cancel'))]}" class="oe_highlight" name="action_confirm" string="Confirm" type="object"/>
+
+                    <button attrs="{'invisible': ['|',('process_type','=','delivery'),('state', 'in', ('confirm','done','cancel'))]}" class="oe_highlight" name="action_progress" string="Pickup Done" type="object"/>
+
+                    <button attrs="{'invisible': ['|',('process_type','=','pickup'),('state', 'in', ('confirm','done','cancel'))]}" class="oe_highlight" name="action_progress" string="Delivery Done" type="object"/>
+
+                    <button attrs="{'invisible': [('state', 'in', ('done'))]}" class="oe_highlight" name="action_cancel" string="Cancel" type="object"/>
+                    <field name="state" statusbar_visible="confirm,progress,done,cancel" widget="statusbar"/>
+                </header>
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" nolabel="1" readonly="1"/>
+                            </h1>
+                            <group>
+                                <group>
+                                    <field name="partner_id" readonly="1"/>
+                                    <field name="vehicle_id" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="order_id"/>
+                                    <field name="date_planned_start"/>
+                                </group>
+                            </group>
+                        </div>
+                        <notebook>
+                            <page string="Details">
+                                <group>
+                                    <field name="technician_id"/>
+                                    <field name="choose"/>
+                                    <field name="preferred_time"/>
+                                    <field name="process_type"/>
+                                    <field name="service_job"/>
+                                    <field name="distance"/>
+                                    <field name="estimate"/>
+                                    <field name="note"/>
+                                </group>
+                            </page>
+                            <page string="Address">
+                                <group>
+                                    <group>
+                                        <field name="street"/>
+                                        <field name="street2"/>
+                                        <field name="city"/>
+                                        <field name="phone"/>
+                                    </group>
+                                    <group>
+                                        <field name="mobile"/>
+                                        <field name="country_id"/>
+                                        <field domain="[('country_id', '=', country_id)]" name="state_id"/>
+                                        <field name="zip"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="product_action_calendar" model="ir.ui.view">
+            <field name="name">drm.pickup.calendar</field>
+            <field name="model">drm.pickup</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">            
+                <calendar color="name" date_start="date_planned_start" string="Pickup Orders">
+                    <field name="name"/>
+                </calendar>
+            </field>
+        </record>
+        <record id="view_task_service_serach" model="ir.ui.view">
+            <field name="name">drm.service.user.search</field>
+            <field name="model">drm.pickup</field>
+            <field name="arch" type="xml">
+                <search string="Service Reports">
+                    <field filter_domain="['|','|',('vehicle_id.name','ilike',self),('name','ilike',self),('order_id','ilike',self)]" name="name" string="Repair Order"/>
+                    <field name="state"/>
+                    <filter domain="[('state','in', ('confirm', 'Confirm'))]" name="Confirm" string="Confirm"/>
+                    <filter domain="[('state','in', ('progress', 'Progress'))]" name="Progress" string="Progress"/>
+                    <filter domain="[('state','in', ('done', 'Finished'))]" name="Finished" string="Finished"/>
+                    <filter domain="[('state','in', ('cancel', 'Cancelled'))]" name="Cancled" string="Cancled"/>
+                    <separator/>
+                    <field name="process_type"/>
+                    <filter domain="[('process_type','in', ('pickup', 'Pickup'))]" name="Pickup" string="Pickup"/>
+                    <filter domain="[('process_type','in', ('delivery', 'Delivery'))]" name="Delivery" string="Delivery"/>
+                    <group expand="1" string="Group By">
+                        <filter context="{'group_by':'partner_id'}" name="customer" string="Customer"/>
+                        <filter context="{'group_by':'major_unit_id'}" name="vechile" string="Vehicle"/>
+                        <separator/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="pickup_actions" model="ir.actions.act_window">
+            <field name="name">Pickup</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">drm.pickup</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="search_view_id" ref="view_task_service_serach"/>
+            <field name="context">{}</field>
+        </record>
+        <record id="pickup_action_tree" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="pickup_actions"/>
+            <field eval="10" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_pickup_tree"/>
+        </record>
+        <record id="pickup_action_form" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="pickup_actions"/>
+            <field eval="20" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_pickup_form"/>
+        </record>
+        <menuitem id="menu_service_root" name="Service" sequence="0"/>
+        <menuitem id="service_general_menu" name="Schedule" parent="menu_service_root" sequence="1"/>
+        <menuitem action="pickup_actions" groups="service.group_service,service.group_service_user,service.group_service_manager" id="pickup_system_menu" name="Pickup and Delivery" parent="service_general_menu" sequence="2"/>
+    </data>
+</odoo>

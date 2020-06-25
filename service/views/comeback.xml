@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!--<record id="comeback_calendar1" model="ir.ui.view">-->
+            <!--<field name="name">service.repair_order.calendar</field>-->
+            <!--<field name="model">service.repair_order</field>-->
+            <!--<field eval="2" name="priority"/>-->
+            <!--<field name="arch" type="xml">-->
+<!--&lt;!&ndash;                 <calendar color="mechanic_id" date_start="start_date" date_stop="end_date" display="Repair Type:[repair_type], Mechanic Name:[mechanic_id], Miles In:[miles_in] miles" string="Repair Orders"> &ndash;&gt;-->
+               <!--<calendar color="mechanic_id" date_start="start_date" date_stop="end_date" string="Repair Orders">-->
+                    <!--<field name="mechanic_id"/>-->
+                    <!--<field name="miles_in"/>-->
+                    <!--<field name="major_unit_id"/>-->
+                    <!--<field name="repair_type"/>-->
+                <!--</calendar>-->
+            <!--</field>-->
+        <!--</record>-->
+        <!--<record id="view_service_tree_comeback" model="ir.ui.view">-->
+            <!--<field name="name">service.res.partner.tree.comeback</field>-->
+            <!--<field name="model">service.repair_order</field>-->
+            <!--<field name="type">tree</field>-->
+            <!--<field eval="1" name="priority"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree decoration-muted="state in ('CANCEL')">-->
+                    <!--<field name="name"/>-->
+                    <!--<field name="start_date"/>-->
+                    <!--<field name="end_date"/>-->
+                    <!--<field name="mechanic_id"/>-->
+                    <!--<field name="partner_id"/>-->
+                    <!--<field name="major_unit_id"/>-->
+                    <!--<field name="state" invisible="1"/>-->
+                    <!--&lt;!&ndash; <field name="requested_date"/> &ndash;&gt;-->
+                <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
+       <!---->
+
+        <!--<record id="service_comeback_action" model="ir.actions.act_window">-->
+            <!--<field name="name">Comeback</field>-->
+            <!--<field name="type">ir.actions.act_window</field>-->
+            <!--<field name="res_model">service.repair_order</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form,calendar</field>-->
+            <!--<field name="view_id" ref="view_service_tree_comeback"/>-->
+            <!--<field name="domain">[('repair_type','=','comeback'),('state', '!=', 'done')]</field>-->
+            <!--<field name="context">{}</field>-->
+        <!--</record>-->
+        <menuitem action="service_comeback_action" id="service_comeback_menu" name="Comeback" parent="booking_system_repairs_menu" sequence="2" />
+         </data>
+</odoo>

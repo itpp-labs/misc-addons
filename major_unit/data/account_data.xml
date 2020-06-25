@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="account_account_tradein" model="account.account">
+            <field name="name">Trade-in Account</field>
+            <field name="code">TRADE</field>
+            <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+            <!--<field name="company_id" ref="base.main_company"/>-->
+        </record>
+
+         <record id="account_account_inventory_used_vehicles" model="account.account">
+            <field name="name">(Inventory) Used Vehicles</field>
+            <field name="code">24000H</field>
+            <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+        </record>
+
+        <record id="account_journal_tradein" model="account.journal">
+            <field name="name">Trade-in Journal</field>
+            <field name="code">TRADE</field>
+            <field name="type">bank</field>
+            <field name="journal_user" eval="False"/>
+            <field name="sequence_id" ref="major_unit.seq_tradein"/>
+            <!--<field name="company_id" ref="base.main_company"/>-->
+            <field name="default_debit_account_id" ref="major_unit.account_account_inventory_used_vehicles"/>
+            <field name="default_credit_account_id" ref="major_unit.account_account_inventory_used_vehicles"/>
+        </record>
+
+        <record id="account_account_sales_new_vehicles" model="account.account">
+            <field name="name">(Sales) New Vehicles</field>
+            <field name="code">41000</field>
+            <field name="user_type_id" ref="account.data_account_type_revenue"/>
+        </record>
+
+         <record id="account_journal_sales_new_vehicles" model="account.journal">
+              <field name="name">New Vehicle Sale Journal</field>
+              <field name="code">SALES_NEW</field>
+              <field name="type">sale</field>
+              <field name="journal_user" eval="False"/>
+              <field name="sequence_id" ref="major_unit.seq_sales_new"/>
+              <field name="default_debit_account_id" ref="major_unit.account_account_sales_new_vehicles"/>
+              <field name="default_credit_account_id" ref="major_unit.account_account_sales_new_vehicles"/>
+          </record>
+
+        <record id="account_account_cos_new_vehicles" model="account.account">
+            <field name="name">(Cost of Sales) New Vehicle</field>
+            <field name="code">51000</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+        </record>
+
+         <record id="account_account_inventory_new_vehicles" model="account.account">
+            <field name="name"> (Inventory) New Vehicles</field>
+            <field name="code">23000H</field>
+            <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates>
+    <t t-extend="ListView.buttons">
+        <t t-jquery="button.o_list_button_add" t-operation="after">
+            <button t-if="widget.modelName == 'note.relevance'" class="btn btn-primary o_button_set_relevance"
+                    type="button" >Set note report relevance
+            </button>
+        </t>
+    </t>
+</templates>

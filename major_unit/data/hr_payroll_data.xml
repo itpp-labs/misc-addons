@@ -1,0 +1,55 @@
+<odoo>
+    <data>
+
+        <record id="hr_rule_major_unit_commission" model="hr.salary.rule">
+            <field name="amount_select">code</field>
+            <field name="code">MUCOMM</field>
+            <field name="name">Major Unit Base Commission</field>
+            <field name="sequence">100</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="input_python_compute">
+sale_order_with_deal_ids = env['hr.contract'].browse(inputs['MU_MARGINS_COMPUTED']['contract_id']).\
+    employee_id.user_id.salesperson_sale_order_ids.filtered(lambda r:
+        r.details_model == 'sale.deal' and operator.le(date_from, r.confirmation_date) and
+        operator.le(r.confirmation_date, date_to) and r.state in ('sale', 'done'))
+sale_order_line_with_mu_ids = sale_order_with_deal_ids.mapped('order_line').filtered(
+    lambda r: r.lot_id.product_id.details_model == 'vehicle')
+category_commission_sum = 0
+special_commission_sum = 0
+for so_line in sale_order_line_with_mu_ids:
+    category_attribute_value_ids = so_line.product_id.mapped('attribute_value_ids').filtered(
+        lambda r: r.attribute_id == env.ref('drm_product_attributes.product_attribute_category_name'))
+    category_commission = env['hr.category_commission'].search(
+        [('category_id', '=', category_attribute_value_ids[0].id)]).commission
+    category_commission_sum += so_line.price_unit * category_commission / 100
+    special_commission_id = env['hr.mu_special_commission'].search(
+        [('major_unit_id', '=', so_line.lot_id.major_unit_ids[0].id)])
+    if special_commission_id:
+        special_commission_sum += so_line.price_unit * special_commission_id.commission / 100
+inputs['MU_MARGINS_COMPUTED']['amount'] = sum([so.margin for so in sale_order_with_deal_ids])
+inputs['CATEGORY_COMMISSION_COMPUTED']['amount'] = category_commission_sum
+inputs['MU_SPECIAL_COMMISSION_COMPUTED']['amount'] = special_commission_sum
+            </field>
+            <field name="amount_python_compute">result = ((inputs.MU_MARGINS_COMPUTED and inputs.MU_MARGINS_COMPUTED.amount * 0.1) + (inputs.CATEGORY_COMMISSION_COMPUTED and inputs.CATEGORY_COMMISSION_COMPUTED.amount) +(inputs.MU_SPECIAL_COMMISSION_COMPUTED and inputs.MU_SPECIAL_COMMISSION_COMPUTED.amount))</field>
+        </record>
+
+        <record id="hr_rule_input_major_unit_margin_commission" model="hr.rule.input">
+            <field name="code">MU_MARGINS_COMPUTED</field>
+            <field name="name">Major Unit Margins</field>
+            <field name="input_id" ref="hr_rule_major_unit_commission"/>
+        </record>
+
+        <record id="hr_rule_input_major_unit_category_commission" model="hr.rule.input">
+            <field name="code">CATEGORY_COMMISSION_COMPUTED</field>
+            <field name="name">Commissions For Vehicle Categories</field>
+            <field name="input_id" ref="hr_rule_major_unit_commission"/>
+        </record>
+
+        <record id="hr_rule_input_major_unit_special_commission" model="hr.rule.input">
+            <field name="code">MU_SPECIAL_COMMISSION_COMPUTED</field>
+            <field name="name">Commissions For Special Major Unit</field>
+            <field name="input_id" ref="hr_rule_major_unit_commission"/>
+        </record>
+
+    </data>
+</odoo>

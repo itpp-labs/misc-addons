@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="demo_major_unit_1" model="major_unit.major_unit">
+            <field name="prod_lot_id" ref="quartet_stock_production_lot_1"/>
+        </record>
+
+        <record id="demo_major_unit_2" model="major_unit.major_unit">
+            <field name="prod_lot_id" ref="quartet_stock_production_lot_2"/>
+        </record>
+
+        <record id="demo_major_unit_3" model="major_unit.major_unit">
+            <field name="prod_lot_id" ref="quartet_stock_production_lot_3"/>
+        </record>
+
+        <record id="demo_major_unit_4" model="major_unit.major_unit">
+            <field name="prod_lot_id" ref="quartet_stock_production_lot_4"/>
+        </record>
+
+        <record id="demo_major_unit_5" model="major_unit.major_unit">
+            <field name="prod_lot_id" ref="quartet_stock_production_lot_5"/>
+            <field name="form">used</field>
+        </record>
+
+        <record id="demo_major_unit_6" model="major_unit.major_unit">
+            <field name="prod_lot_id" ref="quartet_stock_production_lot_6"/>
+            <field name="form">used</field>
+        </record>
+
+        <record id="demo_major_unit_7" model="major_unit.major_unit">
+            <field name="prod_lot_id" ref="quartet_stock_production_lot_7"/>
+            <field name="form">used</field>
+        </record>
+
+    </data>
+</odoo>

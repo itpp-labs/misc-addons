@@ -28,7 +28,6 @@ from odoo.tools.safe_eval import safe_eval
 from odoo.exceptions import UserError
 
 import html2text
-import wdb
 
 _logger = logging.getLogger(__name__)
 
@@ -421,7 +420,7 @@ class OhadaReport(models.AbstractModel):
         if params and 'note' in params:
             ctx.update({
                     'id': self.env['ohada.financial.html.report'].search([('code', '=', 'N'+str(params.get('note')))]).id,
-                    'report_options': options
+                    'report_options': options,
             })
         action['context'] = ctx
         return action
@@ -670,7 +669,6 @@ class OhadaReport(models.AbstractModel):
                         c['selected'] = False
 
     def _get_report_data(self):
-        print('get_report_data')
         company = self.env.user.company_id
         data = {
             'company_acronym': company.acronym,
@@ -725,7 +723,7 @@ class OhadaReport(models.AbstractModel):
 
         Balance sheet is a keydate report, while PL and CF are date range reports
         In OHADA reporting, all 3 reports must display figures of current and previous years.
-        In order to display previous year's value of PL line XI in the BS* report, we need to explicitly set comparison in options.  
+        In order to display previous year's value of PL line XI in the BS* report, we need to explicitly set comparison in options.
         '''
         if self.code in ['BS', 'BS2']:
             # Set comparison in option
@@ -966,9 +964,9 @@ class OhadaReport(models.AbstractModel):
     def format_value(self, value, currency=False):
         ''' #E+
             in OHADA reports, the currency is not displayed, all amounts must be reported in XOF which is the company currency
-            By default, we consider that all values are in the company currency. 
-            TODO: 
-                Below, we display the currency only if it's another one. 
+            By default, we consider that all values are in the company currency.
+            TODO:
+                Below, we display the currency only if it's another one.
                 But we will have to convert amounts in different currencies to convert the compnay currency (XOF)
         '''
         currency_id = currency or self.env.user.company_id.currency_id
@@ -1055,7 +1053,10 @@ class OhadaReport(models.AbstractModel):
             period_vals = self._get_dates_previous_period(options, period_vals)
 
         options['date'].update(create_vals(period_vals))
+<<<<<<< HEAD
 
+=======
+>>>>>>> Artem/12.0-ohada-modules
         # ===== Comparison Filter =====
         if not options.get('comparison') or not options['comparison'].get('filter'):
             return
@@ -1093,15 +1094,15 @@ class OhadaReport(models.AbstractModel):
                 options['comparison']['filter'] = 'previous_period'
                 options['comparison']['string'] = _('No comparison')
                 return
-            if self.code in ["N1", "N3D"]:
+            if self.code in ["N1", "N3D", "N3A"]:
                 number_period = 0
                 periods = []
-                for index in range(0, number_period):
-                    if cmp_filter == 'previous_period':
-                        period_vals = self._get_dates_previous_period(options, period_vals)
-                    else:
-                        period_vals = self._get_dates_previous_year(options, period_vals)
-                    periods.append(create_vals(period_vals))
+                # for index in range(0, number_period):
+                #     if cmp_filter == 'previous_period':
+                #         period_vals = self._get_dates_previous_period(options, period_vals)
+                #     else:
+                #         period_vals = self._get_dates_previous_year(options, period_vals)
+                #     periods.append(create_vals(period_vals))
 
                 if len(periods) > 0:
                     options['comparison'].update(periods[-1])
@@ -1152,6 +1153,8 @@ class OhadaReport(models.AbstractModel):
         number_period = options['comparison'].get('number_period', 1) or 0
         if self.code == "N31":
             number_period = 4
+        elif self.code in ["N1", "N3D", "N3A", "N3B", "N3C", "N28"]:
+            number_period = 0
         for index in range(0, number_period):
             if cmp_filter == 'previous_period':
                 period_vals = self._get_dates_previous_period(options, period_vals)
@@ -1222,7 +1225,10 @@ class OhadaReport(models.AbstractModel):
             body = body.replace(b'<table style="margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;float:left;"', b'<table style="font-size:6px !important;width:50%;margin-bottom:10px;color:#001E5A;font-weight:normal;float:left;"')
             body = body.replace(b'<table style="margin-bottom:10px;color:#001E5A;font-weight:normal;float:left;"', b'<table style="margint-left:-9px;font-size:6px !important;width:50%;margin-bottom:10px;color:#001E5A;font-weight:normal;float:left;"')
         else:
+            # import wdb
+            # wdb.set_trace()
             body = body.replace(b'<table style="margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;"', b'<table style="font-size:8px !important;margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;"')
+            # body = body.replace(b'<tbody class="ohada_table">', b'<tbody class="ohada_table" style="width:100%;font-size:11px;">')
 
         if minimal_layout:
             header = ''
@@ -1258,9 +1264,8 @@ class OhadaReport(models.AbstractModel):
                 headers = header.encode()
                 footer = b''
             header = headers
-
         landscape = horizontal
-        if len(self.with_context(print_mode=True).get_header(options)[-1]) > 5:
+        if self.print_format == 'landscape':
             landscape = True
 
         return self.env['ir.actions.report']._run_wkhtmltopdf(
@@ -1400,7 +1405,7 @@ class OhadaReport(models.AbstractModel):
 
         if options.get('hierarchy'):
             lines = self._create_hierarchy(lines)
-        if lines[0].get('reference') or self.code in ['N27B']:
+        if lines[0].get('reference') or self.code in ['N27B', 'S4']:
             sheet.set_column(1, 1, 3)
             sheet.set_column(2, 2, 50)
             sheet.set_row(7, 50)
@@ -1594,6 +1599,10 @@ class OhadaReport(models.AbstractModel):
                                 loc_style.set_align('center')
                                 workbook.formats.append(loc_style)
                                 # sheet.set_column(y + y_offset, x_index, 10)
+                            elif cell.get('align'):
+                                loc_style = copy.copy(style)
+                                loc_style.set_align(cell.get('align'))
+                                workbook.formats.append(loc_style)
                             else:
                                 loc_style = copy.copy(style)
                                 loc_style.set_align('right')
@@ -1797,7 +1806,7 @@ class OhadaReport(models.AbstractModel):
                 'code': self.code,
                 'vat': report_bs.env.user.company_id.vat,
                 'year': date[0:4],
-                'header': self.header and self.header.upper(), 
+                'header': self.header and self.header.upper(),
             }
             lines = report_bs._get_lines(options, line_id=line_id)
 

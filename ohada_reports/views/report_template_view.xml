@@ -370,6 +370,18 @@
                                     <t t-esc="line.get('note')"/>
                                 </a>
                             </t>
+                            <t t-elif="line.get('notelist')">
+                                <div class="dropdown">
+                                    <span data-toggle="dropdown" t-att-data-id="line['id']" style="cursor:pointer;">
+                                        <t t-esc="line.get('note')"/>
+                                    </span>
+                                    <div class="dropdown-menu o_ohada_reports_domain_dropdown" role="menu">
+                                        <t t-foreach="line.get('notelist')" t-as="note">
+                                            <a role="menuitem" tabindex="-1" t-att-data-id="note.get('id')" t-att-data-note="note.get('note')" class="dropdown-item" action="open_notes"><t t-esc="note.get('name')"/></a>
+                                        </t>
+                                    </div>
+                                </div>
+                            </t>
                             <t t-else="">
                                 <span style="margin:auto;" class="account_report_line_name" >
                                     <t t-esc="line.get('note')"/>
@@ -385,9 +397,9 @@
                 <t t-set="hierarchies_enabled" t-value="len(lines.get('columns_header', [])) > 1"/>
                 <t t-if="line.get('reference') == 'REF' or line.get('header') == True">
                     <t t-if="report['code'] == 'BS1' and column_index == 0">
-                        <td t-att-colspan="line.get('colspan0')" style="width:90px !important;text-align:center !important;padding:10px;" t-att-class="'o_ohada_report_line ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent')">
+                        <td t-att-colspan="line.get('colspan0')" t-att-data-id="line['id']" t-att-data-entry-id="column.get('entry_id')" t-att-data-index="column_index + 1" style="width:90px !important;text-align:center !important;padding:10px;" t-att-class="'o_ohada_report_line ohada_column ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent')">
                             <t t-foreach="column.get('name')" t-as="name">
-                                <span style="margin:auto;padding:5px;" class="o_ohada_report_column_value" t-att-title="column.get('title')">
+                                <span t-att-data-id="line['id']" t-att-data-entry-id="column.get('entry_id')" t-att-data-index="column_index + 1" style="margin:auto;padding:5px;" class="o_ohada_report_column_value" t-att-title="column.get('title')">
                                     <t t-esc="name"/>
                                 </span>
                                 <br/>
@@ -396,9 +408,9 @@
                     </t>
                     <t t-else="">
                         <t t-if="report['code'] == 'N3B'">
-                            <td t-att-rowspan="column.get('rowspan', 1)" t-att-colspan="column.get('colspan', 1)" style="width:90px !important;text-align:center !important;padding:10px;" t-att-class="'o_ohada_report_line ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent')">
+                            <td t-att-rowspan="column.get('rowspan', 1)" t-att-data-id="line['id']" t-att-data-entry-id="column.get('entry_id')" t-att-data-index="column_index + 1" t-att-colspan="column.get('colspan', 1)" style="width:90px !important;text-align:center !important;padding:10px;" t-att-class="'o_ohada_report_line ohada_column ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent')">
                                 <t t-foreach="column.get('name')" t-as="name">
-                                    <span style="margin:auto;padding:15px;" class="o_ohada_report_column_value" t-att-title="column.get('title')">
+                                    <span t-att-data-id="line['id']" t-att-data-entry-id="column.get('entry_id')" t-att-data-index="column_index + 1" style="margin:auto;padding:15px;" class="o_ohada_report_column_value" t-att-title="column.get('title')">
                                         <t t-esc="name"/>
                                     </span>
                                     <br/>
@@ -406,9 +418,9 @@
                             </td>
                         </t>
                         <t t-elif="report['code'] == 'N13' and line.get('sequence') == 1">
-                            <td t-att-rowspan="column.get('rowspan', 1)" t-att-colspan="column.get('colspan', 1)" t-att-style="'width:90px !important;text-align:right !important;padding:10px;transform: rotate(' +  column.get('rotate', '0') + 'deg);'" t-att-class="'o_ohada_report_line ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent')">
+                            <td t-att-rowspan="column.get('rowspan', 1)" t-att-colspan="column.get('colspan', 1)" t-att-data-entry-id="column.get('entry_id')" t-att-data-id="line['id']" t-att-data-index="column_index + 1" t-att-style="'width:90px !important;text-align:right !important;padding:10px;transform: rotate(' +  column.get('rotate', '0') + 'deg);'" t-att-class="'o_ohada_report_line ohada_column ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent')">
                                 <t t-foreach="column.get('name')" t-as="name">
-                                    <span style="margin:auto;padding:15px;" class="o_ohada_report_column_value" t-att-title="column.get('title')">
+                                    <span t-att-data-id="line['id']" t-att-data-entry-id="column.get('entry_id')" t-att-data-index="column_index + 1" style="margin:auto;padding:15px;" class="o_ohada_report_column_value" t-att-title="column.get('title')">
                                         <t t-esc="name"/>
                                     </span>
                                     <br/>
@@ -416,9 +428,9 @@
                             </td>
                         </t>
                         <t t-else="">
-                            <td t-att-rowspan="column.get('rowspan', 1)" t-att-colspan="column.get('colspan', 1)" t-att-style="'width:90px !important;text-align:center !important;padding:10px;transform: rotate(' +  column.get('rotate', '0') + 'deg);'" t-att-class="'o_ohada_report_line ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent ') + column.get('cell_class', ' ')">
+                            <td t-att-rowspan="column.get('rowspan', 1)" t-att-data-id="line['id']" t-att-data-entry-id="column.get('entry_id')" t-att-data-index="column_index + 1" t-att-colspan="column.get('colspan', 1)" t-att-style="'width:90px !important;text-align:center !important;padding:10px;transform: rotate(' +  column.get('rotate', '0') + 'deg);'" t-att-class="'o_ohada_report_line ohada_column ' + (line.get('unfoldable') and ' o_foldable_total' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent ') + column.get('cell_class', ' ')">
                                 <t t-foreach="column.get('name')" t-as="name">
-                                    <span style="margin:auto;padding:15px;" class="o_ohada_report_column_value" t-att-title="column.get('title')">
+                                    <span t-att-data-id="line['id']" t-att-data-entry-id="column.get('entry_id')" t-att-data-index="column_index + 1" style="margin:auto;padding:15px;" class="o_ohada_report_column_value" t-att-title="column.get('title')">
                                         <t t-esc="name"/>
                                     </span>
                                     <br/>
@@ -429,16 +441,16 @@
                 </t>
                 <t t-else="">
                     <t t-if="line.get('header') == True">
-                        <td t-att-class="'o_ohada_report_line ' + (line.get('unfoldable') and ' ' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent')" style="text-align:center !important;padding:20px;">
-                            <span class="o_ohada_report_column_value" style="margin:auto;padding:10px;" t-att-title="column.get('title')">
+                        <td t-att-data-id="line['id']" t-att-data-index="column_index + 1" t-att-data-entry-id="column.get('entry_id')" t-att-class="'o_ohada_report_line ' + (line.get('unfoldable') and ' ' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent')" style="text-align:center !important;padding:20px;">
+                            <span t-att-data-id="line['id']" t-att-data-entry-id="column.get('entry_id')" t-att-data-index="column_index + 1" class="o_ohada_report_column_value" style="margin:auto;padding:10px;" t-att-title="column.get('title')">
                                 <t t-esc="column.get('name')"/>
                             </span>
                         </td>
                     </t>
                     <t t-else="">
-                        <td t-att-rowspan="column.get('rowspan', 1)" t-att-colspan="column.get('colspan', 1)" t-att-style="'padding-right:10px;text-align:' + (column.get('align', 'right')) + ';background-color:' + column.get('background', '')" t-att-class="'o_ohada_report_line '  + (line.get('unfoldable') and ' ' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent ') + column.get('cell_class', '')" >
+                        <td t-att-data-id="line.get('id')" t-att-data-index="column_index + 1" t-att-data-entry-id="column.get('entry_id')" t-att-rowspan="column.get('rowspan', 1)" t-att-colspan="column.get('colspan', 1)" t-att-style="'padding-right:10px;text-align:' + (column.get('align', 'right')) + ';background-color:' + column.get('background', '')" t-att-class="'o_ohada_report_line  ohada_column '  + (line.get('unfoldable') and ' ' or '') + ('' if hierarchies_enabled else ' o_ohada_report_line_indent ') + column.get('cell_class', '')" >
                             <t t-foreach="column.get('name')" t-as="name">
-                                <span class="o_ohada_report_column_value" t-att-title="column.get('title')">
+                                <span t-att-data-id="line.get('id')" t-att-data-entry-id="column.get('entry_id')" t-att-data-index="column_index + 1" class="o_ohada_report_column_value" t-att-title="column.get('title')">
                                     <t t-esc="name"/>
                                 </span>
                                 <br/>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ohada_bundle_disclosure_tree_view" model="ir.ui.view">
+            <field name="name">Ohada Disclosure</field>
+            <field name="model">ohada.disclosure</field>
+            <field name="arch" type="xml">
+                <tree string="Ohada Disclosure">
+                    <field name="company_id"/>
+					<field name="fiscalyear_id"/>
+					<field name="status"/>
+                </tree>
+            </field>
+		 </record>
+
+        <record id="ohada_bundle_disclosure_action" model="ir.actions.act_window">
+			<field name="name">Ohada Disclosure</field>
+			<field name="res_model">ohada.disclosure</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click here to create</p>
+			</field>
+		</record>
+
+        <record id="ohada_bundle_disclosure_view" model="ir.ui.view">
+			<field name="name">Ohada Disclosure</field>
+			<field name="model">ohada.disclosure</field>
+			<field name="arch" type="xml">
+				<form string="Ohada Disclosure">
+					<sheet>
+						<div class="oe_title">
+							<h3>
+								Ohada Disclosure
+							</h3>
+						</div>
+						<group>
+							<group>
+								<field name="company_id"/>
+								<field name="fiscalyear_id"/>
+                                <field name="status"/>
+                                <field name="number_of_pages"/>
+								<field name="number_of_copies"/>
+								<field name="ds_envelope_id"/>
+								<field name="contact_person_id"/>
+								<field name="contact_person_function"/>
+                                <field name="responsible_employee_id"/>
+								<field name="responsible_employee_function"/>
+								<field name="responsible_employee_sign_date"/>
+                            </group>
+                            <group>
+								<field name="chartered_accountant_1"/>
+                                <field name="chartered_accountant_1_sign_date"/>
+								<field name="chartered_accountant_2"/>
+								<field name="chartered_accountant_2_sign_date"/>
+								<field name="sent2taxoffice_date"/>
+                                <field name="receiving_taxofficer"/>
+								<field name="chartered_accountant_2"/>
+								<field name="chartered_accountant_2_sign_date"/>
+                                <field name="bundle_report_file_pdf"/>
+								<field name="bundle_report_file_xlsx"/>
+							</group>
+                        </group>
+						<button name="send_report_to_signature" type="object" class="btn btn-primary oe_stat_button" attrs="{'invisible': [('ds_envelope_id', '!=', False)]}">
+							   Send report to signature
+						</button>
+						<button name="check_signed_report" type="object" class="btn btn-primary oe_stat_button" attrs="{'invisible': [('ds_envelope_id', '=', False)]}">
+							   Check signed report
+						</button>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+        <menuitem id="menu_ohada_disclosure_tree" name="Ohada Disclosure" parent="menu_ohada_configuration" action="ohada_reports.ohada_bundle_disclosure_action" groups="account.group_account_manager"/>
+
+		<record id="ohada_view_partner_simple_form" model="ir.ui.view">
+			<field name="name">res.partner.simplified.form.inherit.ohada</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='company_type']" position="after">
+					<fields name="chartered_account_type"/>
+					<fields name="chartered_account_id"/>
+				</xpath>
+			</field>
+		</record>
+
+		<record id="ohada_view_company_form" model="ir.ui.view">
+            <field name="name">res.company.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form" />
+            <field name="priority">200</field>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//notebook" position="inside">
+                        <page string="Reporting &amp; Auditing" name="ohada_docusign_setting">
+                            <group>
+                                <group string="Docusign info">
+                                    <field name="ds_base_uri" />
+                                    <field name="ds_email" />
+									<field name="ds_integration_key" />
+									<field name="ds_secret_key" />
+									<field name="ds_sandbox" />
+                                </group>
+							</group>
+							<button name="check_docusign_connection" type="object" class="btn btn-primary oe_stat_button">
+							   <i class="fa fa-fw o_button_icon fa-external-link"/>
+							   Connection test
+							</button>
+						</page>
+					</xpath>
+				</data>
+			</field>
+		</record>
+
+    </data>
+</odoo>

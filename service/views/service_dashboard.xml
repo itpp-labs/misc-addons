@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>   
+        <record id="dashboard_action_calendar" model="ir.ui.view">
+            <field name="name">drm.pickup.calendar</field>
+            <field name="model">service_drm.dashboard</field>            
+            <field eval="1" name="priority"/>
+            <field name="arch" type="xml">
+               <!--  <calendar color="technician_name" date_start="date_start" date_stop="date_stop" attendee="technician_name" display="technician_name" > -->
+                <calendar color="technician_name" date_start="date_start" date_stop="date_stop">
+                    <field name="technician_name"/>
+                </calendar>
+            </field>
+        </record>
+        
+        <record id="drm_dashboard_kanban_view" model="ir.ui.view">
+            <field name="name">service_drm.dashboard.kanban</field>
+            <field name="model">service_drm.dashboard</field>
+            <field name="arch" type="xml">
+                <!-- <kanban class="oe_background_grey o_kanban_dashboard o_salesteam_kanban" create="0" js_class="service_team_dashboard"> -->
+                <kanban class="oe_background_grey o_kanban_dashboard o_salesteam_kanban" create="0" js_class="service_team_dashboard">                    
+                    <field name="name"/>
+                    <field name="url" />
+                    <field name="color"/>
+                    <field name="sequence"/>
+                    <field name="display_inline_image"/>
+                    <field name="use_orders"/>
+                    <field name="use_lift"/>
+                    <field name="use_work_order"/>
+                    <field name="use_inspection"/>
+                    <field name="use_pickup"/>
+                    <field name="use_delivery"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="#{kanban_color(record.color.raw_value)}">
+                            <div class="o_kanban_card_header">
+                                <div class="o_kanban_card_header_title">
+                                    <div class="o_primary"><field name="name"/></div>
+                                </div>
+                                <div class="o_kanban_manage_button_section">
+                                     <a class="o_kanban_manage_toggle_button" href="#"><i class="fa fa-ellipsis-v" /></a>
+                                </div>
+                            </div>
+                            <div class="container o_kanban_card_content o_visible">
+                                <div class="row">
+                                    <div class="col-xs-6 o_kanban_primary_left" name="to_replace_in_sale_crm">
+                                        <div t-if="record.display_inline_image.raw_value" >     
+                                            <img t-att-src="record.url.raw_value"/>
+                                   
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 o_kanban_primary_right">
+                                        <div id="service_dashboard_repair_pending" t-if="record.use_orders.raw_value" >
+                                            <a class="oe_sparkline_bar_link" name="%(service_action)d" type="action">
+                                                <field name="count_orders_pending"> Pending </field>
+                                                <span>Pending</span>
+                                            </a>
+                                        </div>
+                                        <div id="service_dashboard_repair_done" t-if="record.use_orders.raw_value" >
+                                            <a class="oe_sparkline_bar_link" name="%(service_history_action)d" type="action">
+                                                <field name="count_orders"> Done</field>
+                                                <span>Done</span>
+                                            </a>
+                                        </div>
+                                        <div id="service_dashboard_repair_order_count" t-if="record.use_orders.raw_value">
+                                            <a class="oe_sparkline_bar_link" name="%(service_action)d" type="action">
+                                                <field name="count_orders_repair"> Repair Orders</field>
+                                                <span>Repair Orders</span>
+                                            </a>
+                                        </div>
+
+                                        <div id ="service_dashboard_comeback" t-if="record.use_orders.raw_value">
+                                            <a class="oe_sparkline_bar_link" name="%(service_comeback_action)d" type="action">
+                                                <field name="count_orders_comeback"> Comeback</field>
+                                                <span>Comeback</span>
+                                            </a>
+                                        </div>
+                                        <div t-if="record.use_orders.raw_value">
+                                            <a class="oe_sparkline_bar_link" name="%(service_type_action)d" type="action">
+                                            <field name="count_orders_pdi"> PDI</field>
+                                            <span>PDI</span>
+                                            </a>
+                                        </div>
+
+                                        <div id="service_dashboard_work_orders" t-if="record.use_work_order.raw_value">
+                                            <a class="oe_sparkline_bar_link" name="%(workorders_actions)d" type="action" >
+                                                    <field name="count_work_order_pending"> Pending</field>
+                                                    <span>Pending</span>
+                                            </a>
+                                        </div>
+                                        <div id="service_dashboard_work_orders" t-if="record.use_work_order.raw_value">
+                                            <a class="oe_sparkline_bar_link" name="%(workorders_actions)d" type="action">
+                                                <field name="count_work_order"> Done</field>
+                                                <span>Done</span>
+                                            </a>
+                                        </div>
+                                        <div id="service_dashboard_inspection" t-if="record.use_inspection.raw_value">
+                                            <a class="oe_sparkline_bar_link" name="%(service_inspections)d" type="action">
+                                                <field name="count_inspection"> Inspection</field>
+                                                <span>Inspection</span>
+                                            </a>
+                                        </div>
+                                        <div style="clear:both"/>
+                                        <div id="service_dashboard_pickup" t-if="record.use_pickup.raw_value">
+                                            <a class="oe_sparkline_bar_link" name="%(pickup_actions)d" type="action">
+                                                <field name="count_pickup"> Picked Up</field>
+                                                <span>Picked Up</span>
+                                            </a>
+                                        </div>
+                                        <div id="service_dashboard_pickup" t-if="record.use_pickup.raw_value">
+                                            <a class="oe_sparkline_bar_link" name="%(pickup_actions)d" type="action" >
+                                                <field name="count_pickup_pending"> Pending</field>
+                                                <span>Pending</span>
+                                            </a>
+                                            
+                                        </div>
+                                         <div id="service_dashboard_pickup" t-if="record.use_pickup.raw_value">
+                                            <a class="oe_sparkline_bar_link" name="%(pickup_actions)d" type="action">
+                                                <field name="count_pickup_cancelled"> Cancelled</field>
+                                                <span>Cancelled</span>
+                                            </a>
+                                            
+                                        </div>
+                                        <div style="clear:both"/>
+                                        <div id="service_dashboard_delivery" t-if="record.use_delivery.raw_value">
+                                            <a class="oe_sparkline_bar_link" name="%(pickup_actions)d" type="action" >
+                                                <field name="count_delivery"> Delivered</field>
+                                                <span>Delivered</span>
+                                            </a>
+                                        </div>
+                                        <div id="service_dashboard_delivery" t-if="record.use_delivery.raw_value">
+                                            <a class="oe_sparkline_bar_link" name="%(pickup_actions)d" type="action">
+                                                <field name="count_delivery_pending"> Pending</field>
+                                                <span>Pending</span>
+                                            </a>
+                                            
+                                        </div>
+                                         <div id="service_dashboard_delivery" t-if="record.use_delivery.raw_value">
+                                            <a class="oe_sparkline_bar_link" name="%(pickup_actions)d" type="action">
+                                                <field name="count_delivery_cancelled"> Cancelled</field>
+                                                <span>Cancelled</span>
+                                            </a>
+                                            
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                            <!--
+                                
+                                   
+                                   
+                                    
+                                    
+                                    <div t-if="record.display_inline_image.raw_value" style="margin:15px;">     
+                                            <img  style="display:block;width:20%;height:20%;" t-att-src="record.url.raw_value"/>
+                                   
+                                    </div>
+                                </div>
+                            </div> -->
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <record id="dashview_service" model="ir.actions.act_window">
+            <field name="name">Dashboard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">service_drm.dashboard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,form,calendar</field>
+            <field name="view_id" ref="drm_dashboard_kanban_view"/>
+        </record>
+        <menuitem action="dashview_service" id="service_general_menu1" name="Dashboard" parent="menu_service_root" sequence="-1"/>
+
+         
+        
+    </data>
+</odoo>

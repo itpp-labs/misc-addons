@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data noupdate="1">
+		<!--<record id="service_order_sequence_id" model="ir.sequence">-->
+			<!--<field name="name">service_order_sequence</field>-->
+			<!--<field name="code">service.repair_order</field>-->
+			<!--<field name="prefix">1</field>-->
+			<!--<field name="padding">10</field>-->
+		<!--</record>-->
+		<record id="pickup_delivery_sequence_id" model="ir.sequence">
+			<field name="name">pickup_delivery_sequence</field>
+			<field name="code">drm.pickup</field>
+			<field name="prefix">1</field>
+			<field name="padding">10</field>
+		</record>
+	</data>
+</openerp>

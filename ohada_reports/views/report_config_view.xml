@@ -127,6 +127,7 @@
             <field name="model">note.relevance</field>
             <field name="arch" type="xml">
                 <tree string="Bundle/R4 report">
+                    <field name="name"/>
                     <field name="fiscalyear"/>
                     <field name="company_id"/>
                 </tree>

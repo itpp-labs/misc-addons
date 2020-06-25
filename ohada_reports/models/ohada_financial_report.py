@@ -24,7 +24,6 @@ from odoo.osv import expression
 from odoo.tools.pycompat import izip
 from odoo import http
 from odoo.http import content_disposition, request
-import wdb
 
 class ReportOhadaFinancialReport(models.Model):
     _name = "ohada.financial.html.report"
@@ -68,7 +67,9 @@ class ReportOhadaFinancialReport(models.Model):
     default_columns_quantity = fields.Integer(default=False)
     mandatory_note = fields.Boolean(default=False)
     note_relevance_ids = fields.One2many('note.relevance', 'note_report_id')
-
+    print_format = fields.Selection([('landscape', 'Landscape'),
+                                     ('portrait', 'Portrait')],
+                                    default='portrait')
 
     _sql_constraints = [
         ('code_uniq', 'unique (code)', "A report with the same code already exists."),
@@ -88,6 +89,8 @@ class ReportOhadaFinancialReport(models.Model):
 
     @api.model
     def print_bundle_xlsx(self, options, response, reports_ids=None):
+        company = self.env['res.users'].browse(self._context.get('uid')).company_id
+        year = options['date'].get('string')
         reports_ids = reports_ids.split(',')
         output = io.BytesIO()
         workbook = xlsxwriter.Workbook(output, {'in_memory': True})
@@ -97,23 +100,46 @@ class ReportOhadaFinancialReport(models.Model):
             else:
                 options['comparison']['filter'] = 'previous_period'
                 for report in self.env['ohada.financial.html.report'].search([('type', '=', 'note'), ('secondary', '=', False)]):
-                    options = report._get_options(options)
-                    report._apply_date_filter(options)
-                    if report.code in ['N1']:
-                        options['comparison']['filter'] = 'no_comparison'
-                        options = report._get_options(options)
-                        report._apply_date_filter(options)
-                    report.get_xlsx(options, response, print_bundle=True, workbook=workbook)
+                    note_relevance = self.env['note.relevance'].search([('note_report_id', '=', report.id),
+                                                                        ('fiscalyear', '=', year),
+                                                                        ('company_id', '=', company.id)])
+                    if note_relevance:
+                        if note_relevance.relevant:
+                            options = report._get_options(options)
+                            report._apply_date_filter(options)
+                            if report.code in ['N1']:
+                                options['comparison']['filter'] = 'no_comparison'
+                                options = report._get_options(options)
+                                report._apply_date_filter(options)
+                            report.get_xlsx(options, response, print_bundle=True, workbook=workbook)
 
 
         workbook.close()
         output.seek(0)
-        response.stream.write(output.read())
+        result = output.read()
+        disclosure = self.env['ohada.disclosure'].search([('company_id', '=', company.id),
+                                                          ('fiscalyear_id', '=', year),
+                                                          ('bundle_report_file_xlsx', '!=', False)])
+        if not disclosure:
+            base64_file_content = base64.b64encode(result).decode('ascii')
+            disclosure = self.env['ohada.disclosure'].search([('company_id', '=', company.id),
+                                                              ('fiscalyear_id', '=', year)])
+            if not disclosure:
+                self.env['ohada.disclosure'].create({'bundle_report_file_xlsx': base64_file_content,
+                                                     'company_id': company.id,
+                                                     'status': 'report_available',
+                                                     'fiscalyear_id': year})
+            else:
+                disclosure.write({'bundle_report_file_xlsx': base64_file_content})
+        response.stream.write(result)
         output.close()
         return response
 
     @api.model
     def print_bundle_pdf(self, options, reports_ids=None, minimal_layout=True):
+        pages = 0
+        company = self.env['res.users'].browse(self._context.get('uid')).company_id
+        year = options['date'].get('string')
         base_url = self.env['ir.config_parameter'].sudo().get_param('report.url') or self.env['ir.config_parameter'].sudo().get_param('web.base.url')
         # base_url = 'http://127.0.0.1:8069'
         reports_ids = reports_ids.split(',')
@@ -127,10 +153,17 @@ class ReportOhadaFinancialReport(models.Model):
         for report_id in reports_ids:
             if report_id != 'notes':
                 body_html += self.env['ohada.financial.html.report'].browse(int(report_id)).get_html(options)
+                pages += 1
             else:
                 options['comparison']['filter'] = 'previous_period'
                 for report in self.env['ohada.financial.html.report'].search([('type', '=', 'note'), ('secondary', '=', False)]):
-                    body_html += report.get_html(options)
+                    note_relevance = self.env['note.relevance'].search([('note_report_id', '=', report.id),
+                                                                        ('fiscalyear', '=', year),
+                                                                        ('company_id', '=', company.id)])
+                    if note_relevance:
+                        if note_relevance.relevant:
+                            body_html += report.get_html(options)
+                            pages += 1
 
         body = body.replace(b'<body class="o_ohada_reports_body_print">',
                             b'<body class="o_ohada_reports_body_print">' + body_html)
@@ -178,12 +211,30 @@ class ReportOhadaFinancialReport(models.Model):
         if len(self.with_context(print_mode=True).get_header(options)[-1]) > 5:
             landscape = True
 
-        return self.env['ir.actions.report']._run_wkhtmltopdf(
+        result = self.env['ir.actions.report']._run_wkhtmltopdf(
             [body],
             header=header, footer=footer,
             landscape=landscape,
             specific_paperformat_args=spec_paperformat_args
         )
+
+        disclosure = self.env['ohada.disclosure'].search([('company_id', '=', company.id),
+                                                          ('fiscalyear_id', '=', year),
+                                                          ('bundle_report_file_pdf', '!=', False)])
+        if not disclosure:
+            base64_file_content = base64.b64encode(result).decode('ascii')
+            disclosure = self.env['ohada.disclosure'].search([('company_id', '=', company.id),
+                                                              ('fiscalyear_id', '=', year)])
+            if not disclosure:
+                self.env['ohada.disclosure'].create({'bundle_report_file_pdf': base64_file_content,
+                                                     'company_id': company.id,
+                                                     'status': 'report_available',
+                                                     'fiscalyear_id': year,
+                                                     'number_of_pages': pages})
+            else:
+                disclosure.write({'bundle_report_file_pdf': base64_file_content, 'number_of_pages': pages})
+
+        return result
 
     def _get_column_name(self, field_content, field):
         comodel_name = self.env['account.move.line']._fields[field].comodel_name
@@ -599,6 +650,9 @@ class OhadaFinancialReportLine(models.Model):
     align = fields.Char(default='left')
     columns_id = fields.One2many('ohada.custom.columns', 'line_id', default=False)
     table_x_offset = fields.Integer(default=0)
+    notelist = fields.Char(default=False)
+    separate_formulas_ids = fields.One2many('ohada.financial.html.report.line', 'parent_line_id')
+    parent_line_id = fields.Many2one('ohada.financial.html.report.line')
 
 
     _sql_constraints = [
@@ -612,7 +666,7 @@ class OhadaFinancialReportLine(models.Model):
             raise ValidationError('The code "%s" is invalid on report line with name "%s"' % (self.code, self.name))
 
     @api.multi
-    def _get_note_displayed(self): 
+    def _get_note_displayed(self):
         for line in self:
             if len(line.note_report_ids) == 1:
                 line.note = line.note_report_ids[0].code[1:]
@@ -621,7 +675,6 @@ class OhadaFinancialReportLine(models.Model):
                     line.note = note.code[1:]
             else:
                 line.note = ''
-                
     @api.multi
     def _get_copied_code(self):
         '''Look for an unique copied code.
@@ -1121,7 +1174,7 @@ class OhadaFinancialReportLine(models.Model):
                 value['class'] = 'number'
             if not currency_id or (currency_id and (currency_id.name != 'XOF' or currency_id.symbol == 'CFA')): #E+
                 value['name'] = [formatLang(self.env, value['name'], digits=0)]                                   #E+
-            else: #E+   
+            else: #E+
                 #E: TODO: Here we need to convert the value to XOF
                 value['name'] = [formatLang(self.env, value['name'], currency_obj=currency_id)]
             return value
@@ -1149,11 +1202,11 @@ class OhadaFinancialReportLine(models.Model):
             # The percentage is negative, which is mathematically correct, but my sales increased
             # => it should be green, not red!
             if (res > 0) != (self.green_on_positive and comp > 0):
-                return {'name': str(res) + '%', 'class': 'number color-red'}
+                return {'name': [str(res) + '%'], 'class': 'number color-red'}
             else:
-                return {'name': str(res) + '%', 'class': 'number color-green'}
+                return {'name': [str(res) + '%'], 'class': 'number color-green'}
         else:
-            return {'name': ' '}         #E~ return {'name': _('n/a')}
+            return {'name': [' ']}         #E~ return {'name': _('n/a')}
 
     def _build_abs(self, balance, comp):
         res = round(balance - comp)
@@ -1163,7 +1216,6 @@ class OhadaFinancialReportLine(models.Model):
             return {'name': str(res), 'class': 'number color-green'}
 
     def _split_formulas(self):
-
         result = {}
         if self.formulas:
             for f in self.formulas.split(';'):
@@ -1272,7 +1324,6 @@ class OhadaFinancialReportLine(models.Model):
                     if debit_credit:
                         res_vals.update({'debit': 0.0, 'credit': 0.0})
                     columns.append({'line': res_vals})
-
         return columns or [{'line': res} for res in line_res_per_group]
 
     def _put_columns_together(self, data, domain_ids):
@@ -1311,6 +1362,8 @@ class OhadaFinancialReportLine(models.Model):
     @api.multi
     def _get_lines(self, financial_report, currency_table, options, linesDicts):
         final_result_table = []
+        company = self.env.user.company_id
+        year = self._context['date_to'][0:4]
         comparison_table = [options.get('date')]
         comparison_table += options.get('comparison') and options['comparison'].get('periods', []) or []
         currency_precision = self.env.user.company_id.currency_id.rounding
@@ -1327,7 +1380,8 @@ class OhadaFinancialReportLine(models.Model):
                 date_from = period.get('date_from', False)
                 date_to = period.get('date_to', False) or period.get('date', False)
                 date_from, date_to, strict_range = line.with_context(date_from=date_from, date_to=date_to)._compute_date_range()
-
+                # import wdb
+                # wdb.set_trace()
                 r = line.with_context(date_from=date_from,
                                       date_to=date_to,
                                       strict_range=strict_range)._eval_formula(financial_report,
@@ -1354,7 +1408,7 @@ class OhadaFinancialReportLine(models.Model):
 
             res = line._put_columns_together(res, domain_ids)
 
-            if line.hidden_line:                   
+            if line.hidden_line:
                 continue
             if line.hide_if_zero and all([float_is_zero(k, precision_rounding=currency_precision) for k in res['line']]):
                 continue
@@ -1364,9 +1418,10 @@ class OhadaFinancialReportLine(models.Model):
             vals = {
                 'id': line.id,
                 'name': line.name.split('|') if line.name else line.name,
-                'reference': line.reference,       
+                'reference': line.reference,
                 'note': line.note,
                 'note_id': line.note_id,
+                'notelist': line.notelist,
                 'symbol': line.symbol,
                 'level': line.level,
                 'class': '',
@@ -1390,6 +1445,14 @@ class OhadaFinancialReportLine(models.Model):
                 vals['note_id'] = str(self.env['ir.actions.client'].search([('name', '=', line.note_report_ids.name)]).id)
             if line.action_id:
                 vals['action_id'] = line.action_id.id
+            if line.notelist:
+                vals['notelist'] = []
+                for i in line.notelist.split(', '):
+                    note_shortname = self.env['ohada.financial.html.report'].search([('code', '=', 'N' + i)]).shortname
+                    vals['notelist'].append({'id': self.env['ir.actions.client'].search([('name', 'like', note_shortname + ' :')]).id,
+                                             'name': 'Note ' + i,
+                                             'note': i,})
+
             domain_ids.remove('line')
             lines = [vals]
             groupby = line.groupby or 'aml'
@@ -1432,19 +1495,25 @@ class OhadaFinancialReportLine(models.Model):
                 else:
                     pass
 
-                # TODO: DELETE
                 if financial_report.code == "S4" and line.sequence != 1:
-                    for i in range(2):
+                    note_relevance = self.env['note.relevance'].search([('note_report_id', '=', line.note_report_ids.id),
+                                                                        ('fiscalyear', '=', options['date']['string']),
+                                                                        ('company_id', '=', company.id)])
+                    if note_relevance.relevant is True:
+                        vals['columns'].append({'name': 'A', 'align': 'center'})
                         vals['columns'].append({'name': ' '})
+                    else:
+                        for i in range(2):
+                            vals['columns'].append({'name': ' '})
                 result = lines
-                # ========================================================
+
+            # ========================================================
             elif financial_report.default_columns_quantity:
                 lines[0]['columns'] = []
                 for i in range(financial_report.default_columns_quantity):
                     lines[0]['columns'].append({'name': ' '})
                 result = lines
             elif financial_report.code == 'S3':
-                company = self.env.user.company_id
                 if company.executive_ids:
                     for i, x in zip(company.executive_ids, range(len(company.executive_ids))):
                         line_vals = {'columns': [], 'level': 2, 'symbol': 'none'}
@@ -1467,7 +1536,6 @@ class OhadaFinancialReportLine(models.Model):
                     final_result_table.append(line_vals)
                 return final_result_table
             elif financial_report.code == 'S3_1':
-                company = self.env.user.company_id
                 if company.administrative_ids:
                     for i, x in zip(company.administrative_ids, range(len(company.administrative_ids))):
                         line_vals = {'columns': [], 'level': 2, 'symbol': 'none'}
@@ -1488,6 +1556,27 @@ class OhadaFinancialReportLine(models.Model):
                                     ], 'level': 2, 'symbol': 'none'}
                     final_result_table.append(line_vals)
                 return final_result_table
+            elif financial_report.code == "N4_1" and line.sequence > 1:
+                vals['columns'] = []
+                if line.sequence - 2 < len(company.affiliate_ids):
+                    affiliate = company.affiliate_ids[line.sequence - 2]
+                    vals['name'] = [affiliate.partner_id.name]
+                    vals['columns'] = [
+                        {'name': [affiliate.partner_id.city + ' (' + affiliate.partner_id.country_id.name + ')']},
+                        {'name': [' ']},
+                        {'name': [affiliate.capital_percentage]},
+                        {'name': [affiliate.capital_amount]},
+                        {'name': [' ']},
+                    ]
+                else:
+                    vals['columns'] = [
+                        {'name': [' ']},
+                        {'name': [' ']},
+                        {'name': [' ']},
+                        {'name': [' ']},
+                        {'name': [' ']},
+                    ]
+                result = [vals]
             # =========================================================================================================
             else:
                 for vals in lines:
@@ -1524,12 +1613,13 @@ class OhadaFinancialReportLine(models.Model):
                     elif len(vals['columns']) > 1 and line._context.get('periods') != None:
                         for i in range(len(vals['columns'][1:])-1):
                             vals['columns'][i+1]['name'] = ['EXERCICE', 'au 31/12/' + line._context['periods'][i]['string'][-4:]]
+                # TODO: transport header logic in ohada_report_layout.xml
                 elif line.header == True and financial_report.type == 'note':
                     if financial_report.code == "N1" and line.sequence == 1:
                         vals['columns'][0]['name'] = ['Montant brut']
                         vals['columns'][0]['rowspan'] = 2
                         vals['columns'].append({'name': ['SURETES REELLES']})
-                        vals['columns'][1]['colspan0'] = 3                        
+                        vals['columns'][1]['colspan0'] = 3
                     elif financial_report.code == "N3A" and line.sequence == 1:
                         header_list = [["MOUVEMENTS", "BRUTS À", "L'OUVERTURE", "DE L EXERCICE"],
                                        ["ACQUISITIONS,", "APPORTS,", "CREATIONS"],
@@ -1596,23 +1686,6 @@ class OhadaFinancialReportLine(models.Model):
                             vals['columns'].append({'name': header_list[i]})
                     elif (financial_report.code == "N16BB" or financial_report.code == "N16BB_1") and line.sequence == 1:
                         vals['columns'] = []
-                    elif financial_report.code == "N32" and line.sequence in [1, 2]:
-                        header_list = [["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"],
-                                       ["DUMMY LINE NAME"]]
-                        vals['columns'] = []
-                        for i in range(len(header_list)):
-                            vals['columns'].append({'name': header_list[i]})
                     elif (line.sequence == 1 and financial_report.code not in ['N16B', 'N16B_1', 'N16B_2', 'N16BB', 'N16BB_1']) or (financial_report.code in ['N16B', 'N16B_1', 'N16B_2', 'N16BB', 'N16BB_1'] and line.sequence == 2):
                         vals['columns'][0]['name'] = ['ANNEE ' + line._context['date_from'][0:4]] if financial_report.code not in ['N31'] else [line._context['date_from'][0:4]]
                         if len(vals['columns']) > 1 and line._context.get('periods') != None \
@@ -1637,8 +1710,9 @@ class OhadaFinancialReportLine(models.Model):
                             else:
                                 vals['columns'][- 1]['name'] = ['Variation en %']
 
-                # ============= For Notes 4, 7, 8, 17, 15A, 16A, 18, 19 =====================
 
+                # ============= For Notes 4, 7, 8, 17, 15A, 16A, 18, 19 =====================
+                # TODO: transport header logic in ohada_report_layout.xml
                 if line.header is True and financial_report.code in ['N4', 'N7', 'N8', 'N17', 'N15A', 'N16A', 'N18', 'N19'] and len(comparison_table) == 2:
  #                   header_list = [["Créances à un", "an au plus"], ["Créances à plus", "d'un an à deux", "ans au plus"],
                     header_list = [["Créances à un", "an au plus"], ["Créances à", "plus d'un an", "à deux ans", "au plus"],
@@ -1649,56 +1723,9 @@ class OhadaFinancialReportLine(models.Model):
                     header_list = [["Régime fiscale"], ["Échéance"]]
                     for i in header_list:
                         vals['columns'].append({'name': i})
-                elif financial_report.code in ['N17', 'N15A', 'N16A', 'N18', 'N19'] and len(comparison_table) == 2:
-                    amount_of_periods = 4
-                    amount_of_group_ids = len(options.get('groups', {}).get('ids') or []) or 1
-                    linesDicts = [[{} for _ in range(0, amount_of_group_ids)] for _ in range(0, amount_of_periods)]
-                    comparison_table = [options.get('date')]
-                    comparison_table += options.get('comparison') and options['comparison'].get('periods', []) or []
-                    for i in range(3):
-                        date_from = str(int(options.get('date')['string']) - (i + 1)) + '-01-01'
-                        date_to = str(int(options.get('date')['string']) - (i + 1)) + '-12-31'
-                        date_from, date_to, strict_range = line.with_context(date_from=date_from, date_to=date_to)._compute_date_range()
-
-                        r = line.with_context(date_from=date_from,
-                                              date_to=date_to,
-                                              strict_range=strict_range)._eval_formula(financial_report,
-                                                                                       debit_credit,
-                                                                                       currency_table,
-                                                                                       linesDicts[k],
-                                                                                       groups=options.get('groups'))
-
-                        vals['columns'].append(line._format({'name': r[0]['line']['balance']}))
-                elif financial_report.code in ['N4', 'N7', 'N8'] and len(comparison_table) == 2:
-                    amount_of_periods = 3
-                    amount_of_group_ids = len(options.get('groups', {}).get('ids') or []) or 1
-                    linesDicts = [[{} for _ in range(0, amount_of_group_ids)] for _ in range(0, amount_of_periods)]
-                    comparison_table = [options.get('date')]
-                    comparison_table += options.get('comparison') and options['comparison'].get('periods', []) or []
-    #E-                    vals['columns'][0] = line._format({'name': vals['columns'][0]['no_format_name'] - vals['columns'][1]['no_format_name']})
-                    # temporary
-                    for i in range(3):
-                        vals['columns'].append({'name': '0'})
-                    # =========
-                    # for i in range(2):
-                    #     date_from = str(int(options.get('date')['string']) - (i + 1)) + '-01-01'
-                    #     date_to = str(int(options.get('date')['string']) - (i + 1)) + '-12-31'
-                    #     date_from, date_to, strict_range = line.with_context(date_from=date_from,
-                    #                                                          date_to=date_to)._compute_date_range()
-                    #
-                    #     r = line.with_context(date_from=date_from,
-                    #                           date_to=date_to,
-                    #                           strict_range=strict_range)._eval_formula(financial_report,
-                    #                                                                    debit_credit,
-                    #                                                                    currency_table,
-                    #                                                                    linesDicts[k],
-                    #                                                                    groups=options.get('groups'))
-                    #
-                    #     vals['columns'].append(line._format({'name': r[0]['line']['balance']}))
                 elif financial_report.code in ['N15B'] and len(comparison_table) == 2:
                     vals['columns'].append({'name': " "})
                     vals['columns'].append({'name': " "})
-
 
                 if line.header is True and financial_report.type == 'note' and financial_report.code == 'N4_1':
                     vals['columns'] = []
@@ -1707,9 +1734,34 @@ class OhadaFinancialReportLine(models.Model):
 
                     for i in header_list:
                         vals['columns'].append({'name': i})
-                elif financial_report.type == 'note' and financial_report.code == 'N4_1':
-                    for i in range(2):
-                        vals['columns'].append({'name': ' '})
+                # elif financial_report.type == 'note' and financial_report.code == 'N4_1':
+                #     for i in range(2):
+                #         vals['columns'].append({'name': ' '})
+
+                # ================================add value from separate_formulas===============================
+
+                if line.separate_formulas_ids:
+                    res = []
+                    period = comparison_table[0]
+                    date_from = period.get('date_from', False)
+                    date_to = period.get('date_to', False) or period.get('date', False)
+                    date_from, date_to, strict_range = line.with_context(date_from=date_from, date_to=date_to)._compute_date_range()
+                    for i in line.separate_formulas_ids:
+                        sep_res = i.with_context(date_from=date_from,
+                                                 date_to=date_to,
+                                                 strict_range=strict_range)._eval_formula(financial_report,
+                                                                                          debit_credit,
+                                                                                          currency_table,
+                                                                                          linesDicts[0],
+                                                                                          groups=options.get('groups'))
+                        res.extend(sep_res)
+                        for column in sep_res:
+                            domain_ids.update(column)
+                    res = line._put_columns_together(res, domain_ids)
+                    res = [{'name': l} for l in res['line']]
+                    for i in res:
+                        line._format(i)
+                    vals['columns'] = vals['columns'] + res
 
                 # ===============================================================
 
@@ -1754,14 +1806,6 @@ class OhadaFinancialReportLine(models.Model):
                         vals['columns'].append({'name': ' '})
                     elif financial_report.code in ['N2', "N35"]:
                         vals['columns'] = []
-                    elif financial_report.code in ['N3A', 'N3B'] and line.sequence > 2:
-                        vals['columns'] = []
-                        for i in range(7):
-                            vals['columns'].append({'name': ' '})
-                    elif financial_report.code == 'N3C' and line.sequence > 2:
-                        vals['columns'] = []
-                        for i in range(4):
-                            vals['columns'].append({'name': ' '})
                     elif (financial_report.code in ['N13', 'N31', 'N12', 'N12_1'] and line.sequence > 1):
                         vals['columns'] = []
                         for i in range(5):
@@ -1785,9 +1829,9 @@ class OhadaFinancialReportLine(models.Model):
                         for i in range(13):
                             if line.sequence in [1, 2]:
                                 vals['columns'].append({'name': ' A '})
-                            else: 
+                            else:
                                 vals['columns'].append({'name': ' '})
-                    elif financial_report.code in ["N28", "N33"]:
+                    elif financial_report.code in ["N33"]:
                         vals['columns'] = []
                         for i in range(8):
                             vals['columns'].append({'name': ' '})
@@ -1798,16 +1842,15 @@ class OhadaFinancialReportLine(models.Model):
                     elif financial_report.code == "N37":
                         del vals['columns'][2]
                         del vals['columns'][1]
-                        if line.code == 'N37_H':                                
+                        if line.code == 'N37_H':
                             vals['columns'][0]['name'] = ['   Montant   ']
                     elif financial_report.code == 'N8A':
                         vals['columns'] = []
                         for i in range(6):
                             vals['columns'].append({'name': ' '})
                     elif financial_report.code == 'N16A' and line.sequence > 18:
-                        for i in vals['columns'][4:]:
-                            i['background'] = '#B3CDE0'
-                            i['name'] = ''
+                        for i in range(3):
+                            vals['columns'].append({'name': '', 'background': '#B3CDE0'})
                     elif financial_report.code == 'N34' and line.sequence > 13 and line.sequence < 27:
                         for i in vals['columns'][2:]:
                             i['background'] = '#B3CDE0'
@@ -1831,7 +1874,16 @@ class OhadaFinancialReportLine(models.Model):
                     elif financial_report.code in ["N16B_2", "N16BB_1"] and line.sequence > 3:
                        vals['columns'].append({'name': ' '})
 
-
+            manual_entry = self.env['ohada.report.manualentry'].search([('year', '=', year), ('line', '=', line.id)])
+            if manual_entry:
+                for i, x in zip(vals['columns'], range(1, len(vals['columns'])+1)):
+                    for e in manual_entry:
+                        if x == e.column:
+                            try:
+                                i['name'] = line._format({'name': float(e.text_value)})['name']
+                            except ValueError:
+                                i['name'] = [e.text_value]
+                            i['entry_id'] = e.id
             final_result_table += result
 
         return final_result_table
@@ -2222,6 +2274,7 @@ class OhadaCellStyle(models.Model):
 
 class OhadaNoteRelevance(models.Model):
     _name = "note.relevance"
+    _description = "Identifies relevant notes for Sheet R4"
 
     company_id = fields.Many2one('res.company')
     fiscalyear = fields.Char(compute='', string="Fiscal year")
@@ -2229,53 +2282,114 @@ class OhadaNoteRelevance(models.Model):
                                      help='Only not mandatory notes are used here',
                                      domain="[('mandatory_note','=',True)]",)
     relevant = fields.Boolean(store=True, compute='')
+    name = fields.Char(related='note_report_id.shortname', string='Name')
 
 
     @api.model
     def _init_note_relevance(self, init=False, fiscalyear=False):
+        return
         if init == True:
             YEAR = datetime.now().year
             fiscal_year = [YEAR, YEAR-1, YEAR-2, YEAR-3]
         elif fiscalyear:
             fiscal_year = [int(fiscalyear)]
         reports = self.env['ohada.financial.html.report'].search([('type', '=', 'note'), ('secondary', '=', False)])
-        for year in fiscal_year:
-            context = {
-                        'cash_basis':	None,
-                        'company_ids':	[1],
-                        'date_from': str(YEAR) + '-01-01',
-                        'date_to':	str(YEAR) + '-12-31',
-                        'filter_domain':	False,
-                        'id':	1,
-                        'journal_ids':	[],
-                        'lang':	'en_US',
-                        'model':	'ohada.financial.html.report',
-                        'state':	'posted',
-                        'tz':	'Europe/Brussels',
-                        'uid':	2,
-                        }
-            options = reports.make_temp_options(year)
-            for note in reports:
-                print(note.code)
-                note = note.with_context(context)
-                if note.mandatory_note == True:
-                    self.create({
-                        'fiscalyear': str(year),
-                        'note_report_id': note.id,
-                        'relevant': True,
-                    })
-                # else:
-                #     wdb.set_trace()
-                #     lines = note._get_lines(options)
-                #     for i in lines:
-                #         for name in i.get('columns'):
-                #             if isinstance(name.get('no_format_name'), float) and name.get('no_format_name') != 0.0:
-                #                 self.create({
-                #                     'fiscalyear': str(year),
-                #                     'note_report_id': note.id,
-                #                     'relevant': True,
-                #                 })
-                #                 continue
+        for company in self.env['res.company'].search([]):
+            for year in fiscal_year:
+                context = {
+                            'cash_basis':	None,
+                            'company_ids':	[company.id],
+                            'date_from': str(year) + '-01-01',
+                            'date_to':	str(year) + '-12-31',
+                            'filter_domain':	False,
+                            'id':	1,
+                            'no_format': True,
+                            'print_mode': True,
+                            'prefetch_fields': False,
+                            'journal_ids':	[],
+                            'lang':	'en_US',
+                            'model':	'ohada.financial.html.report',
+                            'state':	'posted',
+                            'uid':	2,
+                            }
+                options = reports.make_temp_options(year)
+                for note in reports:
+                    print(note.code)
+                    note = note.with_context(context)
+                    self.check_note_relevance(note, year, options, company)
 
+    def check_note_relevance(self, note, year, options, company):
+        related_note_relevance = self.env['note.relevance'].search([('note_report_id', '=', note.id),
+                                                                    ('fiscalyear', '=', str(year)),
+                                                                    ('company_id', '=', company.id)])
+        if note.mandatory_note is True:
+            if related_note_relevance and related_note_relevance.relevant is True:
+                return
+            elif related_note_relevance:
+                related_note_relevance.write({'relevant': True})
+            else:
+                self.create({
+                    'fiscalyear': str(year),
+                    'note_report_id': note.id,
+                    'relevant': True,
+                    'company_id': company.id,
+                })
+        else:
+            if note.code == 'N3D':
+                new_options = copy.deepcopy(options)
+                new_options['comparison']['periods'] = []
+                lines = note._get_lines(new_options)
+            else:
+                lines = note._get_lines(options)
+            if related_note_relevance:
+                for i in lines:
+                    for name in i.get('columns'):
+                        if isinstance(name.get('no_format_name'), float) and name.get('no_format_name') != 0.0 or \
+                                isinstance(name.get('name'), float) and name.get('name') != 0.0:
+                            related_note_relevance.write({'relevant': True})
+                            return
+                    related_note_relevance.write({'relevant': False})
+            else:
+                for i in lines:
+                    for name in i.get('columns'):
+                        if isinstance(name.get('no_format_name'), float) and name.get('no_format_name') != 0.0 or \
+                                isinstance(name.get('name'), float) and name.get('name') != 0.0:
+                            self.create({
+                                'fiscalyear': str(year),
+                                'note_report_id': note.id,
+                                'relevant': True,
+                                'company_id': company.id,
+                            })
+                            return
+                self.create({
+                    'fiscalyear': str(year),
+                    'note_report_id': note.id,
+                    'relevant': False,
+                    'company_id': company.id,
+                })
 
-
+    def update_note_relevance(self):
+        company = self.env['res.users'].browse(self._uid).company_id
+        year = datetime.now().year
+        reports = self.env['ohada.financial.html.report'].search([('type', '=', 'note'), ('secondary', '=', False)])
+        context = {
+                    'cash_basis':	None,
+                    'company_ids':	[company.id],
+                    'date_from': str(year) + '-01-01',
+                    'date_to':	str(year) + '-12-31',
+                    'filter_domain':	False,
+                    'no_format': True,
+                    'print_mode': True,
+                    'prefetch_fields': False,
+                    'id':	1,
+                    'journal_ids':	[],
+                    'lang':	'en_US',
+                    'model':	'ohada.financial.html.report',
+                    'state':	'posted',
+                    'uid':	2,
+                    }
+        options = reports.make_temp_options(year)
+        for note in reports:
+            print(note.code)
+            note = note.with_context(context)
+            self.check_note_relevance(note, year, options, company)

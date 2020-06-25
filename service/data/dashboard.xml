@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="Dashboard_1" model="service_drm.dashboard">
+			<field name="name">Order</field>
+			<field name="action_id" ref="service_action"/>
+            <field name="url">/service/static/src/kanban/bike.png</field>
+			<field name="use_orders">True</field> 
+            <field name="use_work_order">False</field>
+            <field name="use_lift">False</field>
+            <field name="use_inspection">False</field>
+            <field name="use_pickup">False</field>
+            <field name="use_delivery">False</field>
+            <field name="display_inline_image">True</field>
+        </record>
+        <record id="Dashboard_2" model="service_drm.dashboard">
+        	<field name="name">Work Order</field>
+            <field name="url">/service/static/src/kanban/curriculum.png</field>
+        	<field name="action_id" ref ="service_action"/>
+        	<field name="use_orders">False</field> 
+            <field name="use_work_order">True</field>
+            <field name="use_lift">False</field>
+            <field name="use_inspection">False</field>
+            <field name="use_pickup">False</field>
+            <field name="use_delivery">False</field>
+            <field name="display_inline_image">True</field>
+        </record>
+           
+        <!-- <record id="Dashboard_4" model="service_drm.dashboard">
+        	<field name="name">Warranty Order</field>
+        	<field name="action_id" ref ="service_action"/>
+        	<field name="use_warrenty_order">True</field>
+        </record> -->
+        <record id="Dashboard_4" model="service_drm.dashboard">
+        	<field name="name">Inspection</field>
+        	<field name="action_id" ref ="service_action"/>
+        	<field name="use_orders">False</field> 
+            <field name="use_work_order">False</field>
+            <field name="use_lift">False</field>
+            <field name="use_inspection">True</field>
+            <field name="use_pickup">False</field>
+            <field name="use_delivery">False</field>
+            <field name="display_inline_image">True</field>
+            <field name="url">/service/static/src/kanban/008-inspection.png</field>
+        </record>
+        <record id="Dashboard_5" model="service_drm.dashboard">
+        	<field name="name">Pickup</field>
+            <field name="url">/service/static/src/kanban/001-truck.png</field>
+        	<field name="action_id" ref ="service_action"/>
+        	<field name="use_orders">False</field> 
+            <field name="use_work_order">False</field>
+            <field name="use_lift">False</field>
+            <field name="use_inspection">False</field>
+            <field name="use_pickup">True</field>
+            <field name="use_delivery">False</field>
+            <field name="display_inline_image">True</field>
+
+        </record>
+        <record id="Dashboard_6" model="service_drm.dashboard">
+            <field name="name">Delivery</field>
+            <field name="url">/service/static/src/kanban/001-truck.png</field>
+            <field name="action_id" ref ="service_action"/>
+            <field name="use_orders">False</field> 
+            <field name="use_work_order">False</field>
+            <field name="use_lift">False</field>
+            <field name="use_inspection">False</field>
+            <field name="use_pickup">False</field>
+            <field name="use_delivery">True</field>
+            <field name="display_inline_image">True</field>
+
+        </record>
+
+        	
+    </data>
+</odoo>

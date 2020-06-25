@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id='view_create_opportunity_simplified' model='ir.ui.view'>
+        <field name="name">crm.lead.form.simple</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_create_opportunity_simplified"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="major_unit_id" options="{'no_create': True}"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="attrs">{'required': True}</attribute>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id='crm_case_form_view_oppor' model='ir.ui.view'>
+        <field name="name">crm.lead.oppor.inherited.crm</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="sale_crm.crm_case_form_view_oppor"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//button[@name='%(sale_crm.sale_action_quotations_new)d']" position="replace">
+                    <button string="New Quotation" name="sale_action_quotations_new" type="object" class="oe_highlight"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']/parent::*/parent::*" position="before">
+                    <field name="major_unit_state" invisible="1"/>
+                    <h2 class="alert alert-warning" attrs="{'invisible': [('major_unit_state', '!=', 'sold')]}">
+                        The selected major unit is sold!
+                    </h2>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="major_unit_id" options="{'no_create': True}"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id='crm_case_form_view_leads' model='ir.ui.view'>
+        <field name="name">crm.lead.form.lead</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='partner_id']/parent::*/parent::*" position="before">
+                    <field name="major_unit_state" invisible="1"/>
+                    <h2 class="alert alert-warning" attrs="{'invisible': [('major_unit_state', '!=', 'sold')]}">
+                        The selected major unit is sold!
+                    </h2>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="major_unit_id" options="{'no_create': True}"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+</odoo>

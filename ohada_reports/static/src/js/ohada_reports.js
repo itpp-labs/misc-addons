@@ -127,6 +127,7 @@ var accountReportsWidget = AbstractAction.extend(ControlPanelMixin, {
         'click .js_account_report_foldable': 'fold_unfold',
         'click [action]': 'trigger_action',
         'click .o_ohada_reports_load_more span': 'load_more',
+        'dblclick .ohada_column': 'render_manualentry',
     },
 
     custom_events: {
@@ -755,6 +756,52 @@ var accountReportsWidget = AbstractAction.extend(ControlPanelMixin, {
                     return self.do_action(result);
                 });
         }
+    },
+    render_manualentry: function(e) {
+        var self = this;
+        var line_id = $(e.target).data('id');
+        var column_index = $(e.target).data('index');
+        var existing_entry = $(e.target).data('entry-id');
+        if (self.report_options['date']['date']){
+            var year = self.report_options['date']['date'].slice(0,4)
+        }
+        else {
+            var year = self.report_options['date']['string'].slice(self.report_options['date']['string'].length - 4)
+        }
+        var text = '';
+        var $content = $(QWeb.render('accountReports.ohada_manualentry', {text: text, line: line_id}));
+
+        var save = function() {
+            var value = $('.js_account_reports_manualentry').val().replace(/[ \t]+/g, ' ');
+            if (!value) {return;}
+            if (existing_entry) {
+                // replace text of existing entry
+                return this._rpc({
+                        model: 'ohada.report.manualentry',
+                        method: 'write',
+                        args: [existing_entry, {text_value: value}],
+                        context: this.odoo_context,
+                    })
+                    .then(function(result){
+                        location.reload();
+                    });
+            }
+            else {
+                // new manualentry
+                return this._rpc({
+                        model: 'ohada.report.manualentry',
+                        method: 'create',
+                        args: [{line: line_id, text_value: value, year: year, column: column_index, manager_id: self.report_manager_id}],
+                        context: this.odoo_context,
+                    })
+                    .then(function(result){
+                        location.reload();
+                    });
+            }
+
+        }
+        new Dialog(this, {title: 'Edit', size: 'small', $content: $content, buttons: [{text: 'Save', classes: 'btn-primary', close: true, click: save}, {text: 'Cancel', close: true}]}).open();
+
     },
 });
 
