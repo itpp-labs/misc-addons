@@ -326,16 +326,16 @@ class OhadaDash(models.Model):
     def company_page(self):
         action =  self.env.ref('base.action_res_company_form').read()[0]
         # action['context'] = {'id': self.company_id.id, 'name': self.company_id.name}
-        
-        import wdb;wdb.set_trace()
-        return {
-            "type": "ir.actions.act_window",
-            "res_model": "res.company",
-            "views": [(action['id'], "form")],
-            "view_ids": action['id'],
-            "res_id": self.company_id.id,
-            "target": "new"
-        }
+        return action
+        # import wdb;wdb.set_trace()
+        # return {
+        #     "type": "ir.actions.act_window",
+        #     "res_model": "res.company",
+        #     "views": [(action['id'], "form")],
+        #     "view_ids": action['id'],
+        #     "res_id": self.company_id.id,
+        #     "target": "new"
+        # }
 
     def run_update_note_relevance(self):
         note_relevance = self.env['note.relevance']
