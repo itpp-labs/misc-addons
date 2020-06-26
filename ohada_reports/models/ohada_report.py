@@ -29,6 +29,7 @@ from odoo.exceptions import UserError
 
 import html2text
 
+
 _logger = logging.getLogger(__name__)
 
 

@@ -1449,6 +1449,7 @@
         | REF |   LIBELLE         |(SIGNE)| NOTE |_____________________|_______________________|
         |     |                   |       |      |        NET          |       NET             |
     -->
+
     <record id="account_financial_report_ohada_profitlost" model="ohada.financial.html.report">
         <field name="name">Profit &amp; Loss</field>
         <field name="shortname">Profit &amp; Loss</field>
@@ -2413,6 +2414,7 @@
         <field name="level" eval="1" />
         <field name="sequence" eval="10"/>
     </record>
+
     <!-- CAFG -->   <!-- ok -->
     <record id="account_financial_report_ohada_cashflow_FA" model="ohada.financial.html.report.line">
         <field name="name">Capacité d'Autofinancement Globale (CAFG)</field>
@@ -3507,6 +3509,7 @@
         <field name="sequence" eval="90"/>
         <field name="special_date_changer">strict_range</field>
     </record>
+
     <record id="account_financial_report_ohada_cashflow_05" model="ohada.financial.html.report.line">
         <field name="name">Flux de trésorerie provenant du financement par les capitaux propres</field>
         <field name="code">_CF_H4</field>
@@ -3879,6 +3882,7 @@
         <field name="sequence" eval="145"/>
         <field name="special_date_changer">strict_range</field>
     </record>
+
     <!-- ZF -->
     <record id="account_financial_report_ohada_cashflow_ZF" model="ohada.financial.html.report.line">
         <field name="name">Flux de trésorerie provenant des activités de financement &#160; (D + E)</field>
@@ -3892,6 +3896,7 @@
         <field name="sequence" eval="150"/>
         <field name="special_date_changer">strict_range</field>
     </record>
+
     <record id="account_financial_report_ohada_cashflow_ZG" model="ohada.financial.html.report.line">
         <field name="name">VARIATION DE LA TRESORERIE NETTE DE LA PÉRIODE &#160; (B + C + F)</field>
         <field name="code">_ZG</field>

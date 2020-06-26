@@ -25,6 +25,7 @@ from odoo.tools.pycompat import izip
 from odoo import http
 from odoo.http import content_disposition, request
 
+
 class ReportOhadaFinancialReport(models.Model):
     _name = "ohada.financial.html.report"
     _description = "OHADA Report (HTML)"
@@ -675,6 +676,7 @@ class OhadaFinancialReportLine(models.Model):
                     line.note = note.code[1:]
             else:
                 line.note = ''
+
     @api.multi
     def _get_copied_code(self):
         '''Look for an unique copied code.
@@ -1402,6 +1404,7 @@ class OhadaFinancialReportLine(models.Model):
                     d_column = ' '
 
                 res.extend(r)
+
                 for column in r:
                     domain_ids.update(column)
                 k += 1
@@ -2287,7 +2290,6 @@ class OhadaNoteRelevance(models.Model):
 
     @api.model
     def _init_note_relevance(self, init=False, fiscalyear=False):
-        return
         if init == True:
             YEAR = datetime.now().year
             fiscal_year = [YEAR, YEAR-1, YEAR-2, YEAR-3]

@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Copyright 2020 Vildan Safin <https://www.it-projects.info/team/Enigma228322>
-    License AGPL-3.0 (https://www.gnu.org/licenses/lgpl.html).-->
 <templates id="template" xml:space="preserve">
     <t t-extend="KanbanView.buttons">
         <t t-jquery="button" t-operation="after">
