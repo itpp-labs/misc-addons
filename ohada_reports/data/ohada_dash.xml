@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <!-- OHADA OPTIONS -->
+    <record id="ohada_dashboard_options" model="ohada.options">
+        <field name="current_year" eval="2020"/>
+        <field name="all_entries" eval="False"/>
+    </record>
+
+    <!-- OHADA Dashboard -->
+    <record id="ohada_dashboard_view_your_company" model="ohada.dash">
+        <field name="name">YourCompany</field>
+        <field name="name_to_display">name</field>
+        <field name="active">True</field>
+        <field name="show_on_dashboard">True</field>
+        <field name="color">1</field>
+        <field name="type">mix</field>
+        <field name="chart_type">barChart</field>
+        <field name="sequence">1</field>
+        <field name='dash_size'>large</field>
+        <field name='report_id' ref='account_financial_report_ohada_profitlost'/>
+        <field name='options' ref='ohada_dashboard_options'/>
+        <field name="sequence">1</field>
+    </record>
+    
+    <record id="ohada_dashboard_view_CP_and_DS" model="ohada.dash">
+        <field name="name">Cover Page and Data Sheets</field>
+        <field name="name_to_display">name</field>
+        <field name="active">True</field>
+        <field name="show_on_dashboard">True</field>
+        <field name="color">1</field>
+        <field name="type">info_button</field>
+        <field name="chart_type">barChart</field>
+        <field name="sequence">1</field>
+        <field name='dash_size'>large</field>
+        <field name='report_id' ref='ohada_financial_report_cover_page'/>
+        <field name='options' ref='ohada_dashboard_options'/>
+        <field name="sequence">2</field>
+    </record>
+
+    <record id="ohada_dashboard_view_1" model="ohada.dash">
+        <field name="name">Balance sheet</field>
+        <field name="name_to_display">name</field>
+        <field name="active">True</field>
+        <field name="show_on_dashboard">True</field>
+        <field name="color">1</field>
+        <field name="type">report</field>
+        <field name="chart_type">barChart</field>
+        <field name="sequence">1</field>
+        <field name='dash_size'>small</field>
+        <field name='report_id' ref='ohada_report_balancesheet_0'/>
+        <field name='displayed_report_line' ref='account_financial_report_balancesheet_BZ'/>
+        <field name='options' ref='ohada_dashboard_options'/>
+        <field name="sequence">3</field>
+    </record>
+
+    <record id="ohada_dashboard_view_2" model="ohada.dash">
+        <field name="name">Profit and Loss</field>
+        <field name="name_to_display">name</field>
+        <field name="active">True</field>
+        <field name="show_on_dashboard">True</field>
+        <field name="color">1</field>
+        <field name="type">report</field>
+        <field name="chart_type">barChart</field>
+        <field name="sequence">1</field>
+        <field name='dash_size'>small</field>
+        <field name='report_id' ref='account_financial_report_ohada_profitlost'/>
+        <field name='displayed_report_line' ref='account_financial_report_ohada_profitlost_XI'/>
+        <field name='options' ref='ohada_dashboard_options'/>
+        <field name="sequence">4</field>
+    </record>
+
+    <record id="ohada_dashboard_view_3" model="ohada.dash">
+        <field name="name">Cashflow</field>
+        <field name="name_to_display">name</field>
+        <field name="active">True</field>
+        <field name="show_on_dashboard">True</field>
+        <field name="color">1</field>
+        <field name="type">report</field>
+        <field name="chart_type">barChart</field>
+        <field name="sequence">1</field>
+        <field name='dash_size'>small</field>
+        <field name='report_id' ref='account_financial_report_ohada_cashflow'/>
+        <field name='displayed_report_line' ref='account_financial_report_ohada_cashflow_ZH'/>
+        <field name='options' ref='ohada_dashboard_options'/>
+        <field name="sequence">5</field>
+    </record>
+
+    <record id="ohada_dashboard_view_annexed_notes" model="ohada.dash">
+        <field name="name">Annexed Notes</field>
+        <field name="name_to_display">name</field>
+        <field name="active">True</field>
+        <field name="show_on_dashboard">True</field>
+        <field name="color">1</field>
+        <field name="type">note_button</field>
+        <field name="chart_type">barChart</field>
+        <field name="sequence">1</field>
+        <field name='dash_size'>large</field>
+        <field name='options' ref='ohada_dashboard_options'/>
+        <field name="sequence">6</field>
+    </record>
+</odoo>

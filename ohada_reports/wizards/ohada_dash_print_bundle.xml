@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<odoo>
+        <record id="print_bundle_form" model="ir.ui.view">
+            <field name="name">ohada.dash.print.bundle.wizard</field>
+            <field name="model">ohada.dash.print.bundle</field>
+            <field name="arch" type="xml">
+                <form string="Print bundle report">
+                    <script>
+                        $(document).ready(function(){
+                            $('.modal-dialog').css({'width': '25.4%'});
+                            $('.close').css({'opacity': 0})
+                        });
+                    </script>
+                    <group class="oe_title" style="white-space: nowrap;">
+                        <field string="Company Name" name="company_name"/>
+                        <field string="Year" name="dash_year"/>
+                        <field name="balance_assets"/>
+                        <field name="balance_liabilitities"/>
+                        <field name="profit_loss"/>
+                        <field name="cashflow"/>
+                        <field name="notes"/>
+                    </group>
+                    <footer>
+                        <button name="print_pdf" type="object" class="btn btn-primary export_pdf" data-dismiss="modal">Preview (pdf)</button>
+                        <button name="print_xlsx" type="object" class="btn btn-primary export_pdf" data-dismiss="modal">Export (xlsx)</button>
+                        <button name="close_button" type="object" style="float: right;" class="btn btn-primary" data-dismiss="modal" tabindex="-1">Cancel</button>
+                    </footer>
+                </form>
+            </field>
+        </record>
+ 
+        <record id="print_bundle_wizard" model="ir.actions.act_window">
+            <field name="name">Print bundle report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ohada.dash.print.bundle</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="print_bundle_form"/>
+            <field name="target">new</field>
+        </record>
+</odoo>

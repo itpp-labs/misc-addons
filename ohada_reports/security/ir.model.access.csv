@@ -20,3 +20,4 @@ access_docusign_odoo_token,docusign.odoo.token,ohada_reports.model_docusign_odoo
 access_docusign_odoo_token_invoice,docusign.odoo.token invoice,ohada_reports.model_docusign_odoo_token,account.group_account_invoice,1,0,0,0
 access_ohada_report_manualentry,ohada.report.manualentry,ohada_reports.model_ohada_report_manualentry,account.group_account_manager,1,1,1,1
 access_ohada_report_manualentry_invoice,ohada.report.manualentry invoice,ohada_reports.model_ohada_report_manualentry,account.group_account_invoice,1,0,0,0
+access_ohada_dash,ohada.dash,ohada_reports.model_ohada_dash,account.group_account_manager,1,1,1,1

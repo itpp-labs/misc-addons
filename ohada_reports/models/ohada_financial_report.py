@@ -2290,7 +2290,6 @@ class OhadaNoteRelevance(models.Model):
 
     @api.model
     def _init_note_relevance(self, init=False, fiscalyear=False):
-        return
         if init == True:
             YEAR = datetime.now().year
             fiscal_year = [YEAR, YEAR-1, YEAR-2, YEAR-3]
