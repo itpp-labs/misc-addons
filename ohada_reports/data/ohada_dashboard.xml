@@ -4,6 +4,7 @@
             <xpath expr="." position="inside">
                 <script type="text/javascript" src="/ohada_reports/static/src/js/ohada_dashboard.js"></script>
                 <script type="text/javascript" src="/ohada_reports/static/src/js/ohada_dash.js"></script>
+                <link rel="stylesheet" type="text/scss" href="/ohada_reports/static/src/scss/ohada_dash.scss"/>
                 <link rel="stylesheet" type="text/scss" href="/ohada_reports/static/src/css/ohada_dashboard.css"/>
             </xpath>
         </template>

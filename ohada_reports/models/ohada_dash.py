@@ -114,14 +114,29 @@ class OhadaDash(models.Model):
         action = self.env['ir.actions.client'].sudo().search([('name', '=', report.name)]).read()[0]
         action = clean_action(action)
         ctx = self.env.context.copy()
+        report_cf = self.env['ohada.financial.html.report'].search([('code', '=', report.code)], limit=1)
+        options = report_cf._get_options()
+        year = self.current_year
+        options.update({
+            'date': {'date_to': str(year) + '-12-31', 'string': str(year), 'filter': 'this_year', 'date_from': str(year) + '-01-01'},
+            'all_entries': self.options.sudo().all_entries,
+        })
         if action:
             ctx.update({
                     'id': report.id,
-                    'report_options': report.make_temp_options(self.current_year),
-                    'model': report._name
+                    'model': report._name,
+                    'report_options': options
+                    # 'report_options': report.make_temp_options(self.current_year)
             })
         action['context'] = ctx
-        return action
+        return {
+            'name': action['name'],
+            'type': action['type'],
+            'tag': action['tag'],
+            'res_model': 'ohada.financial.html.report',
+            'help': action['help'],
+            'context': ctx,
+        }
 
     @api.multi
     def _kanban_dashboard_graph(self):
@@ -146,7 +161,7 @@ class OhadaDash(models.Model):
         if self.report_type == 'CF':
             for line_data in fetched_data['di_data']['CF']:
                 data.append({'label': line_data['l_month'], 'value': line_data['count'], 'type': 'past'})
-        # Code below is temporary, it needs to test new features, cause it collects faster than 'fetched_data'
+        # Code below needs for dash loading acceleration
         # data.append({'label': '2020', 'value': 10, 'type': 'past'})
         # data.append({'label': '2019', 'value': 2, 'type': 'past'})
         # data.append({'label': '2018', 'value': 8, 'type': 'past'})
@@ -189,6 +204,17 @@ class OhadaDash(models.Model):
                 data['block_2'].append({'name': 'EBITDA', 'value': report.with_context(ctx)._get_lines(options, xd_id)[0]['columns'][0]['no_format_name']})
                 data['block_2'].append({'name': 'Accounting net income', 'value': report.with_context(ctx)._get_lines(options, rc_id)[0]['columns'][0]['no_format_name']})
                 data['block_2'].append({'name': 'Income tax', 'value': report.with_context(ctx)._get_lines(options, ir_id)[0]['columns'][0]['no_format_name']})
+
+                # Code below needs for dash loading acceleration
+                # data = {
+                #     'block_2': [],
+                #     'period_lock_status': "Opened",
+                #     'unposted_in_period': "All Entries Posted"
+                # }
+                # data['block_2'].append({'name': 'Added value', 'value': 0})
+                # data['block_2'].append({'name': 'EBITDA', 'value': 0})
+                # data['block_2'].append({'name': 'Accounting net income', 'value': 0})
+                # data['block_2'].append({'name': 'Income tax', 'value': 0})
                 dash.lines_value = json.dumps(data)
             if dash.displayed_report_line:
                 value = report.with_context(ctx)._get_lines({
@@ -298,7 +324,53 @@ class OhadaDash(models.Model):
         return data
 
     def company_page(self):
-        return self.env['ir.actions.act_window'].search([('name', '=', 'Companies')])[0].read()[0]
+        action =  self.env.ref('base.action_res_company_form').read()[0]
+        # action['context'] = {'id': self.company_id.id, 'name': self.company_id.name}
+        return action
+        # return {
+        #     "type": "ir.actions.act_window",
+        #     "res_model": "res.company",
+        #     "views": [(action['id'], "form")],
+        #     "view_ids": action['id'],
+        #     "res_id": self.company_id.id,
+        #     "target": "new"
+        # }
+
+    def run_update_note_relevance(self):
+        note_relevance = self.env['note.relevance']
+        note_relevance.update_note_relevance()
+
+    def preview_pdf(self):
+        bundle = self.env['ohada.dash.print.bundle']
+        if self.report_id.code == 'BS':
+            return bundle.create({
+                'balance_assets': True,
+                'balance_liabilitities': True
+            }).print_pdf()
+        if self.report_id.code == 'PL':
+            return bundle.create({
+                'profit_loss': True
+            }).print_pdf()
+        if self.report_id.code == 'CF':
+            return bundle.create({
+                'cashflow': True
+            }).print_pdf()
+
+    def download_xlsx(self):
+        bundle = self.env['ohada.dash.print.bundle']
+        if self.report_id.code == 'BS':
+            return bundle.create({
+                'balance_assets': True,
+                'balance_liabilitities': True
+            }).print_xlsx()
+        if self.report_id.code == 'PL':
+            return bundle.create({
+                'profit_loss': True
+            }).print_xlsx()
+        if self.report_id.code == 'CF':
+            return bundle.create({
+                'cashflow': True
+            }).print_xlsx()
 
 
 class ReportOhadaFinancialReport(models.Model):

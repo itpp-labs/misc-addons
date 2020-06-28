@@ -9,7 +9,8 @@ class DashboardOptions(models.TransientModel):
     _name = 'ohada.dash.options'
     _description = 'Change dashboard options'
 
-    current_year = fields.Char(string='Current year', default=str(datetime.now().year))
+    current_year = fields.Selection([(num, str(num)) for num in range((datetime.now().year) - 5, (datetime.now().year)+1 )],
+             string='Year', default=datetime.now().year)
     all_entries = fields.Boolean(string="Status of journal entries")
 
     @api.multi
@@ -19,4 +20,7 @@ class DashboardOptions(models.TransientModel):
         options.current_year = int(self.current_year)
         options.all_entries = self.all_entries
         # Loading dashboard with new options
-        return self.env.ref('ohada_reports.ohada_action_dash').sudo().read()[0]
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'reload',
+        }
