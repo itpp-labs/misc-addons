@@ -249,7 +249,7 @@
                                 <a t-if="widget.editable" type="edit">Report settings</a>
                             </div>
                             <div class="col-6 text-right">
-                                <a t-if="widget.editable" name="company_page" type="object">Company settings</a>
+                                <a t-if="widget.editable" name="open_page" context="{'page': 'company'}" type="object">Company settings</a>
                                 <!-- <a t-if="widget.editable" context="{'id': 1}" name="%(base.action_res_company_form)d" type="action">Company settings</a> -->
                             </div>
                         </div>
@@ -282,7 +282,7 @@
                         
                         <div groups="account.group_account_manager" class="row o_kanban_card_settings">
                             <div class="col-6 text-left">
-                                <a t-if="widget.editable" type="edit">Bundle/R4 report settings</a>
+                                <a t-if="widget.editable" name="open_page" context="{'page': 'Bundle/R4'}" type="object">Bundle/R4 report settings</a>
                             </div>
                             <div class="col-6 text-right">
                                 <a t-if="widget.editable" type="edit">Company settings</a>
@@ -551,7 +551,6 @@
                         </div>
                     </t>
                     <t t-name="JournalBodyGraph">
-                        <!-- <field name="kanban_dashboard_graph" t-att-graph_type="_.contains(['cash','bank'],journal_type) ? 'line' : 'bar'" widget="dashboard_graph"/> -->
                         <field name="kanban_dashboard_graph" graph_type="bar" widget="dashboard_graph"/>
                     </t>
                     <t t-name="VariationStr">

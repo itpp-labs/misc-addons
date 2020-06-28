@@ -126,7 +126,6 @@ class OhadaDash(models.Model):
                     'id': report.id,
                     'model': report._name,
                     'report_options': options
-                    # 'report_options': report.make_temp_options(self.current_year)
             })
         action['context'] = ctx
         return {
@@ -151,6 +150,7 @@ class OhadaDash(models.Model):
     @api.multi
     def _get_graph_data(self):
         data = []
+        # TODO This method works very slow
         fetched_data = self.fetch_di_data(self.current_year, self.options.sudo().all_entries)
         if self.report_type == 'BS':
             for line_data in fetched_data['di_data']['BS']:
@@ -175,6 +175,7 @@ class OhadaDash(models.Model):
         for dash in self:
             year = dash.current_year
             if dash.name == 'YourCompany':
+                # TODO This block collects very slow
                 date_to = year and str(year) + '-12-31' or False
                 period_domain = [('state', '=', 'draft'), ('date', '<=', date_to)]
 
@@ -204,6 +205,7 @@ class OhadaDash(models.Model):
                 data['block_2'].append({'name': 'EBITDA', 'value': report.with_context(ctx)._get_lines(options, xd_id)[0]['columns'][0]['no_format_name']})
                 data['block_2'].append({'name': 'Accounting net income', 'value': report.with_context(ctx)._get_lines(options, rc_id)[0]['columns'][0]['no_format_name']})
                 data['block_2'].append({'name': 'Income tax', 'value': report.with_context(ctx)._get_lines(options, ir_id)[0]['columns'][0]['no_format_name']})
+                # -----------------------------------
 
                 # Code below needs for dash loading acceleration
                 # data = {
@@ -323,19 +325,21 @@ class OhadaDash(models.Model):
                                  {'l_month': str(year), 'count': data['zh_d']}]
         return data
 
-    def company_page(self):
-        action =  self.env.ref('base.action_res_company_form').read()[0]
-        # action['context'] = {'id': self.company_id.id, 'name': self.company_id.name}
-        return action
-        # import wdb;wdb.set_trace()
-        # return {
-        #     "type": "ir.actions.act_window",
-        #     "res_model": "res.company",
-        #     "views": [(action['id'], "form")],
-        #     "view_ids": action['id'],
-        #     "res_id": self.company_id.id,
-        #     "target": "new"
-        # }
+    def open_page(self, context):
+        if context['page'] == 'company':
+            action =  self.env.ref('base.action_res_company_form')
+            return {
+                'type': 'ir.actions.act_url',
+                'name': 'contract',
+                'url': "/web?#id=%s&action=%s&model=res.company&view_type=form" %(self.company_id.id, action.id)
+            }
+        elif context['page'] == 'Bundle/R4':
+            action = self.env.ref('ohada_reports.ohada_bundle_report_action')
+            return {
+                'type': 'ir.actions.act_url',
+                'name': 'contract',
+                'url': "/web?#&action=%s&model=note.relevance&view_type=list" %(action.id)
+            }
 
     def run_update_note_relevance(self):
         note_relevance = self.env['note.relevance']
