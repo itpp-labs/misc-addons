@@ -340,6 +340,13 @@ class OhadaDash(models.Model):
                 'name': 'contract',
                 'url': "/web?#&action=%s&model=note.relevance&view_type=list" %(action.id)
             }
+        elif context['page'] == 'disclosure':
+            action = self.env.ref('ohada_reports.ohada_bundle_disclosure_action')
+            return {
+                'type': 'ir.actions.act_url',
+                'name': 'contract',
+                'url': "/web?#&action=%s&model=ohada.disclosure&view_type=list" %(action.id)
+            }
 
     def run_update_note_relevance(self):
         note_relevance = self.env['note.relevance']

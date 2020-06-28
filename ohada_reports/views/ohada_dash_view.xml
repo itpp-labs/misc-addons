@@ -267,7 +267,7 @@
                                     <a role="menuitem" type="button">Format: 1 page/landscape</a>
                                 </div>
                                 <div>
-                                    <a role="menuitem" type="button">Open disclosure</a>
+                                    <a role="menuitem" name="open_page" context="{'page': 'disclosure'}" type="object">Open disclosure</a>
                                 </div>
                             </div>
                             <div class="col-4 o_kanban_card_manage_section o_kanban_manage_view">
