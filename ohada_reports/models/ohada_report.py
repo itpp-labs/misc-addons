@@ -1091,7 +1091,7 @@ class OhadaReport(models.AbstractModel):
                 options['comparison']['filter'] = 'previous_period'
                 options['comparison']['string'] = _('No comparison')
                 return
-            if self.code in ["N1", "N3D", "N3A", "DS"]:
+            if self.code in ["N1", "N3D", "N3A"]:
                 number_period = 0
                 periods = []
                 # for index in range(0, number_period):

@@ -9,7 +9,6 @@ _logger = logging.getLogger(__name__)
 
 DATA = {}
 
-
 class OhadaDash(models.Model):
     _name = "ohada.dash"
     _description = "OHADA dashboard"
@@ -207,7 +206,6 @@ class OhadaDash(models.Model):
                     'id': report.id,
                     'model': report._name,
                     'report_options': options
-                    # 'report_options': report.make_temp_options(self.current_year)
             })
         action['context'] = ctx
         return {
@@ -217,6 +215,7 @@ class OhadaDash(models.Model):
             'res_model': 'ohada.financial.html.report',
             'help': action['help'],
             'context': ctx,
+            'target': 'current'
         }
 
     @api.multi
@@ -357,18 +356,31 @@ class OhadaDash(models.Model):
                                  {'l_month': str(year), 'count': data['zh_d']}]
         return data
 
-    def company_page(self):
-        action =  self.env.ref('base.action_res_company_form').read()[0]
-        # action['context'] = {'id': self.company_id.id, 'name': self.company_id.name}
-        return action
-        # return {
-        #     "type": "ir.actions.act_window",
-        #     "res_model": "res.company",
-        #     "views": [(action['id'], "form")],
-        #     "view_ids": action['id'],
-        #     "res_id": self.company_id.id,
-        #     "target": "new"
-        # }
+    def open_page(self, context):
+        if context['page'] == 'company':
+            action =  self.env.ref('base.action_res_company_form')
+            return {
+                'type': 'ir.actions.act_url',
+                'name': 'contract',
+                'url': "/web?#id=%s&action=%s&model=res.company&view_type=form" %(self.company_id.id, action.id),
+                'target': "new"
+            }
+        elif context['page'] == 'Bundle/R4':
+            action = self.env.ref('ohada_reports.ohada_bundle_report_action')
+            return {
+                'type': 'ir.actions.act_url',
+                'name': 'contract',
+                'url': "/web?#&action=%s&model=note.relevance&view_type=list" %(action.id),
+                'target': "new"
+            }
+        elif context['page'] == 'disclosure':
+            action = self.env.ref('ohada_reports.ohada_bundle_disclosure_action')
+            return {
+                'type': 'ir.actions.act_url',
+                'name': 'contract',
+                'url': "/web?#&action=%s&model=ohada.disclosure&view_type=list" %(action.id),
+                'target': "new"
+            }
 
     def run_update_note_relevance(self):
         note_relevance = self.env['note.relevance']

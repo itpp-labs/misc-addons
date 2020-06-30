@@ -57,7 +57,7 @@ Countries that use SYSCOHADA are the following:
         'static/src/xml/ohada_dashboard_template.xml',
         'static/src/xml/note_relevance_view.xml',
     ],
-    "external_dependencies": {"python": ["docusign_esign"], "bin": []},
+    'external_dependencies': {'python': ['docusign_esign'], "bin": []},
     'auto_install': False,
     'installable': True,
     'license': 'OPL-1',

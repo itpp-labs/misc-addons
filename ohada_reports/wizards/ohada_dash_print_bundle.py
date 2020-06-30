@@ -29,6 +29,7 @@ class DashboardPrintBundle(models.TransientModel):
     profit_loss = fields.Boolean(string="Profit & Loss")
     cashflow = fields.Boolean(string="Cashflow")
     notes = fields.Boolean(string="Notes")
+    xlsx_bundle = fields.Binary('Xlsx file')
 
     def print_pdf(self, *context):
         report = self.env['ohada.financial.html.report']
@@ -40,7 +41,7 @@ class DashboardPrintBundle(models.TransientModel):
 
         report_obj = self.env["ohada.financial.html.report"].sudo()
         report_obj = report_obj.browse(1)
-        pdf = report_obj.print_bundle_pdf(options, bundle_items)
+        pdf = report_obj.print_bundle_pdf(options, bundle_items) 
         attachment = self.env['ir.attachment'].create({
                 'datas': base64.b64encode(pdf),
                 'name': 'New pdf report',
@@ -64,12 +65,13 @@ class DashboardPrintBundle(models.TransientModel):
                 'datas': base64.b64encode(xlsx),
                 'name': 'New xlsx report',
                 'datas_fname': 'report.xlsx',
-                'type': 'binary'
+                'type': 'url'
         })
+        self.xlsx_bundle = base64.b64encode(xlsx)
         return {
             'type': 'ir.actions.act_url',
-            'name': attachment.datas_fname,
-            'url': attachment.local_url
+            'name': 'bundle',
+            'url': '/web/content/ohada.dash.print.bundle/%s/xlsx_bundle/xlsx_bundle.xlsx?download=true' %(self.id),
         }
 
     def get_bundle_reports_ids(self):

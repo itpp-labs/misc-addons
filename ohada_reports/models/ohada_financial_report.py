@@ -57,7 +57,8 @@ class ReportOhadaFinancialReport(models.Model):
                              ('note', 'Note'),
                              ('sheet', 'Sheet'),
                              ('cover', 'Cover'),
-                             ('other', 'Other'),],
+                             ('other', 'Other'),
+                             ('dash', 'Dash'),],
                             default=False)
     sequence = fields.Integer(default=10)
     header = fields.Char(default=False)
@@ -439,7 +440,7 @@ class ReportOhadaFinancialReport(models.Model):
         module = self._context.get('install_module', 'ohada_reports')
         IMD = self.env['ir.model.data']
         for report in self:
-            if not report.generated_menu_id and report.secondary != True:
+            if not report.generated_menu_id and report.secondary is not True and report.type != 'dash':
                 action_vals = {
                     'name': report._get_report_name(),
                     'tag': 'ohada_report',
@@ -539,8 +540,6 @@ class ReportOhadaFinancialReport(models.Model):
 
     @api.multi
     def _get_lines(self, options, line_id=None):
-        # import wdb
-        # wdb.set_trace()
         line_obj = self.line_ids
         if line_id:
             line_obj = self.env['ohada.financial.html.report.line'].search([('id', '=', line_id)])
