@@ -539,6 +539,8 @@ class ReportOhadaFinancialReport(models.Model):
 
     @api.multi
     def _get_lines(self, options, line_id=None):
+        # import wdb
+        # wdb.set_trace()
         line_obj = self.line_ids
         if line_id:
             line_obj = self.env['ohada.financial.html.report.line'].search([('id', '=', line_id)])
@@ -2290,6 +2292,7 @@ class OhadaNoteRelevance(models.Model):
 
     @api.model
     def _init_note_relevance(self, init=False, fiscalyear=False):
+        return
         if init == True:
             YEAR = datetime.now().year
             fiscal_year = [YEAR, YEAR-1, YEAR-2, YEAR-3]

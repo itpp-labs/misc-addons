@@ -9,6 +9,7 @@
             <kanban class="oe_background_grey o_kanban_dashboard o_account_kanban">
                 <field name="id"/>
                 <field name="name"/>
+                <field name="values_data"/>
                 <field name="type"/>
                 <field name="color"/>
                 <field name="report_id"/>
@@ -24,6 +25,7 @@
                 <field name="lines_value"/>
                 <templates>
                     <t t-name="kanban-box">
+                        <t t-value="JSON.parse(record.values_data.raw_value)" t-set="data"/>
                         <t t-value="JSON.parse(record.reports.raw_value)" t-set="reports_list"/>
                         <t t-value="JSON.parse(record.lines_value.raw_value)" t-set="lines"/>
                         <t t-value="record.name.raw_value" t-set="kanban_name"/>
@@ -253,7 +255,7 @@
                                 <!-- <a t-if="widget.editable" context="{'id': 1}" name="%(base.action_res_company_form)d" type="action">Company settings</a> -->
                             </div>
                         </div>
-                        
+
                         <t t-call="Settings"/>
                     </t>
 
@@ -279,7 +281,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div groups="account.group_account_manager" class="row o_kanban_card_settings">
                             <div class="col-6 text-left">
                                 <a t-if="widget.editable" type="edit">Bundle/R4 report settings</a>
@@ -288,7 +290,7 @@
                                 <a t-if="widget.editable" type="edit">Company settings</a>
                             </div>
                         </div>
-                        
+
                         <t t-call="Settings"/>
                     </t>
 
