@@ -10,6 +10,7 @@
                 <field name="id"/>
                 <field name="name"/>
                 <field name="type"/>
+                <field name="values_data"/>
                 <field name="color"/>
                 <field name="report_id"/>
                 <field name="report_type"/>
@@ -44,27 +45,31 @@
                     <t t-name="LargeSizeBox">
                         <div t-attf-class="#{kanban_color(record.color.raw_value)} col-12 large-block">
                             <t t-call="JournalTop"/>
-                            <div class="container o_kanban_card_content">
-                                <div class="row">
+                            <div class="container o_kanban_card_content col-12">
+                                <div class="row margin-left-0">
                                     <t t-if="kanban_name == 'Annexed Notes'" t-call="NoteButtons"/>
                                     <t t-if="kanban_name == 'Cover Page and Data Sheets'" t-call="Sheets"/>
                                     <t t-if="kanban_name == 'YourCompany'">
-                                        <div class="oh-card no-border">
-                                            <div class="oh-card-body pb-0 pad-top-5 pad-bot-20">
-                                                <div class="col-md-5 col-lg-5 marg-left-10 fl-left">
+                                        <div class="col-sm-12 col-md-12 col-lg-12">
+                                            <div class="oh-card no-border">
+                                                <div class="oh-card-body pb-0 pad-top-5 pad-bot-20">
+                                                    <div class="col-md-5 col-lg-5 marg-left-10 fl-left">
+                                                    </div>
+                                                    <div class="col-md-3 col-lg-3">
+                                                        <img t-att-src="'/ohada_reports/static/img/ohada.png'" class="company-img"/>
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-3 col-lg-3">
-                                                    <img t-att-src="'/ohada_reports/static/img/ohada.png'" class="company-img"/>
+                                                <div class="row">
+                                                    <div class="col-md-4 col-lg-4 max-width-30">
+                                                        <t t-call="ExportButtons"/>
+                                                    </div>
+                                                    <div class="col-md-4 col-lg-4">
+                                                        <t t-call="CompanyLines"/>
+                                                    </div>
+                                                    <div class="col-md-4 col-lg-4">
+                                                        <t t-call="CompanyStatus"/>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-4 col-lg-4 fl-left">
-                                                <t t-call="ExportButtons"/>
-                                            </div>
-                                            <div class="col-md-4 col-lg-4 fl-left">
-                                                <t t-call="CompanyLines"/>
-                                            </div>
-                                            <div class="col-md-4 col-lg-4 fl-left">
-                                                <t t-call="CompanyStatus"/>
                                             </div>
                                         </div>
                                     </t>
@@ -141,12 +146,12 @@
                     </t>
 
                     <t t-name="ExportButtons">
-                        <div class="ohada_notification pad-right-25 marg-left-minus-10">
+                        <div class="ohada_notification pad-right-25 marg-left-minus-10 mrg-top-0px">
                             <div class="pad-left-0">
-                                <button class="btn btn-primary oh_dashbard_btn_m marg-right-4">IMPORT DATA</button>
-                                <button name="%(print_bundle_wizard)d" type="action" class="btn btn-primary oh_dashbard_btn_m print_bundle export marg-right-4">PRINT BUNDLE</button>
-                                <button class="btn btn-primary oh_dashbard_btn_m marg-right-4">CLOSE PERIOD</button>
-                                <button class="btn btn-primary oh_dashbard_btn_m marg-right-4">SIGN &amp; PAY</button>
+                                <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48">IMPORT DATA</button>
+                                <button name="%(print_bundle_wizard)d" type="action" class="btn btn-primary oh_dashbard_btn_m print_bundle export marg-right-4 max-width-48">PRINT BUNDLE</button>
+                                <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48">CLOSE PERIOD</button>
+                                <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48">SIGN &amp; PAY</button>
                             </div>
                         </div>
                     </t>
@@ -249,7 +254,7 @@
                                 <a t-if="widget.editable" type="edit">Report settings</a>
                             </div>
                             <div class="col-6 text-right">
-                                <a t-if="widget.editable" name="open_page" context="{'page': 'company'}" type="object">Company settings</a>
+                                <a t-if="widget.editable" name="open_page" context="{'page': 'company'}" type="object">Company settincompanygs</a>
                                 <!-- <a t-if="widget.editable" context="{'id': 1}" name="%(base.action_res_company_form)d" type="action">Company settings</a> -->
                             </div>
                         </div>
@@ -264,7 +269,7 @@
                                     <span role="separator">View</span>
                                 </div>
                                 <div t-if="journal_type == 'BS'">
-                                    <a role="menuitem" type="button">Format: 1 page/landscape</a>
+                                    <a role="menuitem" name="open_page" context="{'page': 'company'}" type="object">Format: 1 page/landscape</a>
                                 </div>
                                 <div>
                                     <a role="menuitem" name="open_page" context="{'page': 'disclosure'}" type="object">Open disclosure</a>

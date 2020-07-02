@@ -22,7 +22,7 @@
         <field name='options' ref='ohada_dashboard_options'/>
         <field name="sequence">1</field>
     </record>
-    
+
     <record id="ohada_dashboard_view_CP_and_DS" model="ohada.dash">
         <field name="name">Cover Page and Data Sheets</field>
         <field name="name_to_display">name</field>
@@ -99,4 +99,119 @@
         <field name='options' ref='ohada_dashboard_options'/>
         <field name="sequence">6</field>
     </record>
+
+    <!--report for dash values-->
+    <record id="ohada_report_dash" model="ohada.financial.html.report">
+        <field name="name">Dash report</field>
+        <field name="shortname">Dash report</field>
+        <field name="code">DS</field>
+        <field name="debit_credit" eval="False"/>
+        <field name="date_range" eval="False"/>
+        <field name="analytic" eval="True"/>
+        <field name="unfold_all_filter" eval="True"/>
+        <field name='parent_id' ref='menu_ohada_legal_statements_main'/>
+    </record>
+
+    <record id="account_financial_report_ohada_dash_line_1" model="ohada.financial.html.report.line">
+        <field name="name"></field>
+        <field name="code">ds_1</field>
+        <field name="financial_report_id" ref="ohada_report_dash"/>
+        <field name="sequence" eval="1"/>
+        <field name="formulas">balance = _BZ.balance</field>
+        <field name="level" eval="0" />
+    </record>
+
+    <record id="account_financial_report_ohada_dash_line_2" model="ohada.financial.html.report.line">
+        <field name="name"></field>
+        <field name="code">ds_2</field>
+        <field name="financial_report_id" ref="ohada_report_dash"/>
+        <field name="sequence" eval="2"/>
+        <field name="formulas">balance = _XI.balance</field>
+        <field name="level" eval="0" />
+    </record>
+
+    <record id="account_financial_report_ohada_dash_line_3" model="ohada.financial.html.report.line">
+        <field name="name"></field>
+        <field name="code">ds_3</field>
+        <field name="financial_report_id" ref="ohada_report_dash"/>
+        <field name="sequence" eval="3"/>
+        <field name="formulas">balance = _ZH.balance</field>
+        <field name="level" eval="0" />
+    </record>
+
+    <record id="account_financial_report_ohada_dash_line_4" model="ohada.financial.html.report.line">
+        <field name="name"></field>
+        <field name="code">ds_4</field>
+        <field name="financial_report_id" ref="ohada_report_dash"/>
+        <field name="sequence" eval="4"/>
+        <field name="formulas">balance = _XC.balance</field>
+        <field name="level" eval="0" />
+    </record>
+
+    <record id="account_financial_report_ohada_dash_line_5" model="ohada.financial.html.report.line">
+        <field name="name"></field>
+        <field name="code">ds_5</field>
+        <field name="financial_report_id" ref="ohada_report_dash"/>
+        <field name="sequence" eval="5"/>
+        <field name="formulas">balance = _XD.balance</field>
+        <field name="level" eval="0" />
+    </record>
+
+    <record id="account_financial_report_ohada_dash_line_6" model="ohada.financial.html.report.line">
+        <field name="name"></field>
+        <field name="code">ds_6</field>
+        <field name="financial_report_id" ref="ohada_report_dash"/>
+        <field name="sequence" eval="6"/>
+        <field name="formulas">balance = N37_RC.balance</field>
+        <field name="level" eval="0" />
+    </record>
+
+    <record id="account_financial_report_ohada_dash_line_7" model="ohada.financial.html.report.line">
+        <field name="name"></field>
+        <field name="code">ds_7</field>
+        <field name="financial_report_id" ref="ohada_report_dash"/>
+        <field name="sequence" eval="7"/>
+        <field name="formulas">balance = N37_IR.balance</field>
+        <field name="level" eval="0" />
+    </record>
+
+    <!--report for dash values-->
+    <record id="ohada_report_dash_diagram" model="ohada.financial.html.report">
+        <field name="name">Dash report diagram</field>
+        <field name="shortname">Dash report diagram</field>
+        <field name="code">DSD</field>
+        <field name="debit_credit" eval="False"/>
+        <field name="date_range" eval="False"/>
+        <field name="analytic" eval="True"/>
+        <field name="unfold_all_filter" eval="True"/>
+        <field name='parent_id' ref='menu_ohada_legal_statements_main'/>
+    </record>
+
+    <record id="account_financial_report_ohada_dash_diagram_line_1" model="ohada.financial.html.report.line">
+        <field name="name"></field>
+        <field name="code">dsd_1</field>
+        <field name="financial_report_id" ref="ohada_report_dash_diagram"/>
+        <field name="sequence" eval="1"/>
+        <field name="formulas">balance = _BZ.balance</field>
+        <field name="level" eval="0" />
+    </record>
+
+    <record id="account_financial_report_ohada_dash_diagram_line_2" model="ohada.financial.html.report.line">
+        <field name="name"></field>
+        <field name="code">dsd_2</field>
+        <field name="financial_report_id" ref="ohada_report_dash_diagram"/>
+        <field name="sequence" eval="2"/>
+        <field name="formulas">balance = _XI.balance</field>
+        <field name="level" eval="0" />
+    </record>
+
+    <record id="account_financial_report_ohada_dash_diagram_line_3" model="ohada.financial.html.report.line">
+        <field name="name"></field>
+        <field name="code">dsd_3</field>
+        <field name="financial_report_id" ref="ohada_report_dash_diagram"/>
+        <field name="sequence" eval="3"/>
+        <field name="formulas">balance = _ZH.balance</field>
+        <field name="level" eval="0" />
+    </record>
+
 </odoo>

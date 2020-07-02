@@ -7,6 +7,7 @@ from datetime import date
 
 _logger = logging.getLogger(__name__)
 
+DATA = {}
 
 class OhadaDash(models.Model):
     _name = "ohada.dash"
@@ -50,8 +51,87 @@ class OhadaDash(models.Model):
     bundle_reports = fields.Text(compute='_compute_bundle_reports')
     kanban_dashboard_graph = fields.Text(compute='_kanban_dashboard_graph')
     options = fields.Many2one("ohada.options")
-    lines_value = fields.Text(compute='_get_BS_PL_CD_dashes')
+    lines_value = fields.Text(compute='_get_dashes_info')
     sequence = fields.Integer(default=10, help="Gives the sequence order when displaying a blocks of a Dashboard.")
+    values_data = fields.Text(compute='_get_data')
+
+    def _get_data(self):
+        report = self.env.ref('ohada_reports.ohada_report_dash')
+        di_data = {}
+        year = self[0].current_year
+        options = {
+            'all_entries':	self[0].options.sudo().all_entries,
+            'analytic':	None,
+            'cash_basis':	None,
+            'comparison': {
+                'date':	str(year - 1) + '-12-31',
+                'filter':	'no_comparison',
+                'number_period':	0,
+                'periods':	[],
+                'string':	'No comparison',
+                },
+            'date':	{
+                'date_to': str(year) + '-12-31',
+                'string': str(year),
+                'filter': 'this_year',
+                'date_from': str(year) + '-01-01'
+                },
+            'hierarchy':	None,
+            'ir_filters':	None,
+            'journals':	None,
+            'partner':	None,
+            'unfold_all':	False,
+            'unfolded_lines':	[],
+            'unposted_in_period':	False,
+            }
+        ctx = report._set_context(options)
+        report = report.with_context(ctx)
+        data = report._get_lines(options)
+        report_diagram = self.env.ref('ohada_reports.ohada_report_dash_diagram')
+        report_diagram = report_diagram.with_context(ctx)
+        options['date'] = {'date_to': str(year-1) + '-12-31', 'string': str(year-1), 'filter': 'this_year',
+                           'date_from': str(year-1) + '-01-01'}
+        di_data['n-1'] = report_diagram._get_lines(options)
+        options['date'] = {'date_to': str(year - 2) + '-12-31', 'string': str(year - 2), 'filter': 'this_year',
+                           'date_from': str(year - 2) + '-01-01'}
+        di_data['n-2'] = report_diagram._get_lines(options)
+        options['date'] = {'date_to': str(year - 3) + '-12-31', 'string': str(year - 3), 'filter': 'this_year',
+                           'date_from': str(year - 3) + '-01-01'}
+        di_data['n-3'] = report_diagram._get_lines(options)
+        fetched_data = {
+            '_BZ': data[0]['columns'][0]['no_format_name'],
+            '_BZ-1': di_data['n-1'][0]['columns'][0]['no_format_name'],
+            '_XI': data[1]['columns'][0]['no_format_name'],
+            '_XI-1': di_data['n-1'][1]['columns'][0]['no_format_name'],
+            '_ZH': data[2]['columns'][0]['no_format_name'],
+            '_ZH-1': di_data['n-1'][2]['columns'][0]['no_format_name'],
+            'di_data': {
+                '_BZ': [
+                      [str(year-3), di_data['n-3'][0]['columns'][0]['no_format_name']],
+                      [str(year-2), di_data['n-2'][0]['columns'][0]['no_format_name']],
+                      [str(year-1), di_data['n-1'][0]['columns'][0]['no_format_name']],
+                      [str(year), data[0]['columns'][0]['no_format_name']],
+                    ],
+                '_XI': [
+                    [str(year - 3), di_data['n-3'][1]['columns'][0]['no_format_name']],
+                    [str(year - 2), di_data['n-2'][1]['columns'][0]['no_format_name']],
+                    [str(year - 1), di_data['n-1'][1]['columns'][0]['no_format_name']],
+                    [str(year), data[1]['columns'][0]['no_format_name']],
+                    ],
+                '_ZH': [
+                      {'count': di_data['n-3'][2]['columns'][0]['no_format_name'], 'l_month': str(year-1), 'l_month': str(year-2), 'l_month': str(year-3)},
+                      {'count': di_data['n-2'][2]['columns'][0]['no_format_name'], 'l_month': str(year-1), 'l_month': str(year-2)},
+                      {'count': di_data['n-1'][2]['columns'][0]['no_format_name'], 'l_month': str(year-1)},
+                      {'count': data[2]['columns'][0]['no_format_name'], 'l_month': str(year)}
+                    ],
+              },
+            '_XC': data[3]['columns'][0]['no_format_name'],
+            '_XD': data[4]['columns'][0]['no_format_name'],
+            'N37_RC': data[5]['columns'][0]['no_format_name'],
+            'N37_IR': data[6]['columns'][0]['no_format_name'],
+        }
+        global DATA
+        DATA = fetched_data
 
     def _compute_reports(self):
         for dash in self:
@@ -135,6 +215,7 @@ class OhadaDash(models.Model):
             'res_model': 'ohada.financial.html.report',
             'help': action['help'],
             'context': ctx,
+            'target': 'current'
         }
 
     @api.multi
@@ -150,32 +231,21 @@ class OhadaDash(models.Model):
     @api.multi
     def _get_graph_data(self):
         data = []
-        # TODO This method works very slow
-        fetched_data = self.fetch_di_data(self.current_year, self.options.sudo().all_entries)
         if self.report_type == 'BS':
-            for line_data in fetched_data['di_data']['BS']:
+            for line_data in DATA['di_data']['_BZ']:
                 data.append({'label': line_data[0], 'value': line_data[1], 'type': 'past'})
         if self.report_type == 'PL':
-            for line_data in fetched_data['di_data']['PL']:
+            for line_data in DATA['di_data']['_XI']:
                 data.append({'label': line_data[0], 'value': line_data[1], 'type': 'past'})
         if self.report_type == 'CF':
-            for line_data in fetched_data['di_data']['CF']:
+            for line_data in DATA['di_data']['_ZH']:
                 data.append({'label': line_data['l_month'], 'value': line_data['count'], 'type': 'past'})
-        # Code below needs for dash loading acceleration
-        # data.append({'label': '2020', 'value': 10, 'type': 'past'})
-        # data.append({'label': '2019', 'value': 2, 'type': 'past'})
-        # data.append({'label': '2018', 'value': 8, 'type': 'past'})
-        # data.append({'label': '2017', 'value': 20, 'type': 'past'})
         return data
 
-    def _get_BS_PL_CD_dashes(self):
-        report = self.env['ohada.financial.html.report']
-        options = report.make_temp_options()
-        ctx = report._set_context(options)
+    def _get_dashes_info(self):
         for dash in self:
             year = dash.current_year
             if dash.name == 'YourCompany':
-                # TODO This block collects very slow
                 date_to = year and str(year) + '-12-31' or False
                 period_domain = [('state', '=', 'draft'), ('date', '<=', date_to)]
 
@@ -185,56 +255,17 @@ class OhadaDash(models.Model):
                     'unposted_in_period': "With Draft Entries" if bool(dash.env['account.move'].search_count(period_domain)) else "All Entries Posted"
                 }
 
-                xc_id = dash.env.ref('ohada_reports.account_financial_report_ohada_profitlost_XC').id
-                xd_id = dash.env.ref('ohada_reports.account_financial_report_ohada_profitlost_XD').id
-                rc_id = dash.env.ref('ohada_reports.ohada_financial_report_note37_RC').id
-                ir_id = dash.env.ref('ohada_reports.ohada_financial_report_note37_IR').id
+                data['block_2'].append({'name': 'Added value', 'value': DATA['_XC']})
+                data['block_2'].append({'name': 'EBITDA', 'value': DATA['_XD']})
+                data['block_2'].append({'name': 'Accounting net income', 'value': DATA['N37_RC']})
+                data['block_2'].append({'name': 'Income tax', 'value': DATA['N37_IR']})
 
-                current_company_id = dash.company_id
-                d_date_to = year and date(year, 12, 31) or False
-                if current_company_id.period_lock_date:
-                    period_lock_date = date(current_company_id.period_lock_date.year, current_company_id.period_lock_date.month, current_company_id.period_lock_date.day)
-                    if d_date_to and period_lock_date  >= d_date_to:
-                        data['period_lock_status'] = "Closed for non-accountants"
-                if current_company_id.fiscalyear_lock_date:
-                    fiscalyear_lock_date = date(current_company_id.fiscalyear_lock_date.year, current_company_id.fiscalyear_lock_date.month, current_company_id.fiscalyear_lock_date.day)
-                    if d_date_to and fiscalyear_lock_date  >= d_date_to:
-                        data['period_lock_status'] = "All Closed"
-
-                data['block_2'].append({'name': 'Added value', 'value': report.with_context(ctx)._get_lines(options, xc_id)[0]['columns'][0]['no_format_name']})
-                data['block_2'].append({'name': 'EBITDA', 'value': report.with_context(ctx)._get_lines(options, xd_id)[0]['columns'][0]['no_format_name']})
-                data['block_2'].append({'name': 'Accounting net income', 'value': report.with_context(ctx)._get_lines(options, rc_id)[0]['columns'][0]['no_format_name']})
-                data['block_2'].append({'name': 'Income tax', 'value': report.with_context(ctx)._get_lines(options, ir_id)[0]['columns'][0]['no_format_name']})
-                # -----------------------------------
-
-                # Code below needs for dash loading acceleration
-                # data = {
-                #     'block_2': [],
-                #     'period_lock_status': "Opened",
-                #     'unposted_in_period': "All Entries Posted"
-                # }
-                # data['block_2'].append({'name': 'Added value', 'value': 0})
-                # data['block_2'].append({'name': 'EBITDA', 'value': 0})
-                # data['block_2'].append({'name': 'Accounting net income', 'value': 0})
-                # data['block_2'].append({'name': 'Income tax', 'value': 0})
                 dash.lines_value = json.dumps(data)
             if dash.displayed_report_line:
-                value = report.with_context(ctx)._get_lines({
-                    'ir_filters': None,
-                    'date': {'date_to': str(year) + '-12-31',
-                            'string': str(year),
-                            'filter': 'this_year',
-                            'date_from': str(year) + '-01-01'}
-                }, dash.displayed_report_line.id)[0]['columns'][0]['name']
-                value_prev = report.with_context(ctx)._get_lines({
-                    'ir_filters': None,
-                    'date': {'date_to': str(year - 1) + '-12-31',
-                            'string': str(year - 1),
-                            'filter': 'this_year',
-                            'date_from': str(year - 1) + '-01-01'}
-                }, dash.displayed_report_line.id)[0]['columns'][0]['name']
-                dash.lines_value = json.dumps({'this_year': str(year), 'this_year_value': value[0],
-                                            'prev_year': str(year - 1), 'prev_year_value': value_prev[0]})
+                dash.lines_value = json.dumps({'this_year': str(year),
+                                               'this_year_value': DATA[dash.displayed_report_line.code],
+                                               'prev_year': str(year - 1),
+                                               'prev_year_value': DATA[dash.displayed_report_line.code + '-1']})    
 
     def fetch_di_data(self, year, all_entries):
         report = self.env['ohada.financial.html.report']
@@ -331,21 +362,24 @@ class OhadaDash(models.Model):
             return {
                 'type': 'ir.actions.act_url',
                 'name': 'contract',
-                'url': "/web?#id=%s&action=%s&model=res.company&view_type=form" %(self.company_id.id, action.id)
+                'url': "/web?#id=%s&action=%s&model=res.company&view_type=form" %(self.company_id.id, action.id),
+                'target': "new"
             }
         elif context['page'] == 'Bundle/R4':
             action = self.env.ref('ohada_reports.ohada_bundle_report_action')
             return {
                 'type': 'ir.actions.act_url',
                 'name': 'contract',
-                'url': "/web?#&action=%s&model=note.relevance&view_type=list" %(action.id)
+                'url': "/web?#&action=%s&model=note.relevance&view_type=list" %(action.id),
+                'target': "new"
             }
         elif context['page'] == 'disclosure':
             action = self.env.ref('ohada_reports.ohada_bundle_disclosure_action')
             return {
                 'type': 'ir.actions.act_url',
                 'name': 'contract',
-                'url': "/web?#&action=%s&model=ohada.disclosure&view_type=list" %(action.id)
+                'url': "/web?#&action=%s&model=ohada.disclosure&view_type=list" %(action.id),
+                'target': "new"
             }
 
     def run_update_note_relevance(self):
