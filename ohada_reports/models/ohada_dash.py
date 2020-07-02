@@ -48,7 +48,6 @@ class OhadaDash(models.Model):
     current_year = fields.Integer(related='options.current_year', string="Current Year")
     currency_id = fields.Char(related='company_id.currency_id.symbol', string='Currency symbol')
     reports = fields.Text(compute='_compute_reports')
-    bundle_reports = fields.Text(compute='_compute_bundle_reports')
     kanban_dashboard_graph = fields.Text(compute='_kanban_dashboard_graph')
     options = fields.Many2one("ohada.options")
     lines_value = fields.Text(compute='_get_dashes_info')
@@ -56,6 +55,8 @@ class OhadaDash(models.Model):
     values_data = fields.Text(compute='_get_data')
 
     def _get_data(self):
+        if DATA:
+            return
         report = self.env.ref('ohada_reports.ohada_report_dash')
         di_data = {}
         year = self[0].current_year
@@ -129,16 +130,14 @@ class OhadaDash(models.Model):
             '_XD': data[4]['columns'][0]['no_format_name'],
             'N37_RC': data[5]['columns'][0]['no_format_name'],
             'N37_IR': data[6]['columns'][0]['no_format_name'],
-<<<<<<< HEAD
-        }
-=======
             }
->>>>>>> Artem/12.0-ohada-modules
         global DATA
         DATA = fetched_data
 
     def _compute_reports(self):
         for dash in self:
+            if dash.reports:
+                return
             reports_list = []
             # TODO: type field maybe needs for another reasons
             if dash.type == 'note_button':
@@ -154,13 +153,6 @@ class OhadaDash(models.Model):
                 else:
                     report_data.append({'name': report.shortname, 'id': str(report.id)})
             dash.reports = json.dumps(report_data)
-
-    def _compute_bundle_reports(self):
-        for dash in self:
-            data = []
-            for report in self.env['ohada.financial.html.report'].search([('type', '=', 'main')]):
-                data.append({'name': report.name, 'id': report.id})
-            dash.bundle_reports = json.dumps(data)
 
     def _compute_buttons_ids(self):
         for dash in self:
@@ -198,39 +190,25 @@ class OhadaDash(models.Model):
         action = self.env['ir.actions.client'].sudo().search([('name', '=', report.name)]).read()[0]
         action = clean_action(action)
         ctx = self.env.context.copy()
-        report_cf = self.env['ohada.financial.html.report'].search([('code', '=', report.code)], limit=1)
-        options = report_cf._get_options()
-        year = self.current_year
-        options.update({
-            'date': {'date_to': str(year) + '-12-31', 'string': str(year), 'filter': 'this_year', 'date_from': str(year) + '-01-01'},
-            'all_entries': self.options.sudo().all_entries,
-        })
         if action:
             ctx.update({
                     'id': report.id,
                     'model': report._name,
-                    'report_options': options
+                    'report_options': report.make_temp_options(self.current_year)
             })
         action['context'] = ctx
-        return {
-            'name': action['name'],
-            'type': action['type'],
-            'tag': action['tag'],
-            'res_model': 'ohada.financial.html.report',
-            'help': action['help'],
-            'context': ctx,
-            'target': 'current'
-        }
+        return action
 
     @api.multi
     def _kanban_dashboard_graph(self):
         for dash in self:
-            if dash.report_id.code == 'BS':
-                dash.kanban_dashboard_graph = json.dumps([{'values': dash._get_graph_data(), 'title': "Balance sheet", 'key': 'BS'}])
-            if dash.report_id.code == 'PL':
-                dash.kanban_dashboard_graph = json.dumps([{'values': dash._get_graph_data(), 'title': "Profit and Loss", 'key': 'PL'}])
-            if dash.report_id.code == 'CF':
-                dash.kanban_dashboard_graph = json.dumps([{'values': dash._get_graph_data(), 'title': "Cashflow", 'key': 'CF'}])
+            if not dash.kanban_dashboard_graph:
+                if dash.report_id.code == 'BS':
+                    dash.kanban_dashboard_graph = json.dumps([{'values': dash._get_graph_data(), 'title': "Balance sheet", 'key': 'BS'}])
+                if dash.report_id.code == 'PL':
+                    dash.kanban_dashboard_graph = json.dumps([{'values': dash._get_graph_data(), 'title': "Profit and Loss", 'key': 'PL'}])
+                if dash.report_id.code == 'CF':
+                    dash.kanban_dashboard_graph = json.dumps([{'values': dash._get_graph_data(), 'title': "Cashflow", 'key': 'CF'}])
 
     @api.multi
     def _get_graph_data(self):
@@ -248,32 +226,35 @@ class OhadaDash(models.Model):
 
     def _get_dashes_info(self):
         for dash in self:
-            year = dash.current_year
-            if dash.name == 'YourCompany':
-                date_to = year and str(year) + '-12-31' or False
-                period_domain = [('state', '=', 'draft'), ('date', '<=', date_to)]
+            if not dash.lines_value:
+                year = dash.current_year
+                if dash.name == 'YourCompany':
+                    date_to = year and str(year) + '-12-31' or False
+                    period_domain = [('state', '=', 'draft'), ('date', '<=', date_to)]
 
-                data = {
-                    'block_2': [],
-                    'period_lock_status': "Opened",
-                    'unposted_in_period': "With Draft Entries" if bool(dash.env['account.move'].search_count(period_domain)) else "All Entries Posted"
-                }
+                    data = {
+                        'block_2': [],
+                        'period_lock_status': "Opened",
+                        'unposted_in_period': "With Draft Entries" if bool(dash.env['account.move'].search_count(period_domain)) else "All Entries Posted"
+                    }
 
-                data['block_2'].append({'name': 'Added value', 'value': DATA['_XC']})
-                data['block_2'].append({'name': 'EBITDA', 'value': DATA['_XD']})
-                data['block_2'].append({'name': 'Accounting net income', 'value': DATA['N37_RC']})
-                data['block_2'].append({'name': 'Income tax', 'value': DATA['N37_IR']})
+                    data['block_2'].append({'name': 'Added value', 'value': DATA['_XC']})
+                    data['block_2'].append({'name': 'EBITDA', 'value': DATA['_XD']})
+                    data['block_2'].append({'name': 'Accounting net income', 'value': DATA['N37_RC']})
+                    data['block_2'].append({'name': 'Income tax', 'value': DATA['N37_IR']})
 
-                dash.lines_value = json.dumps(data)
-            if dash.displayed_report_line:
-                dash.lines_value = json.dumps({'this_year': str(year),
-                                               'this_year_value': DATA[dash.displayed_report_line.code],
-                                               'prev_year': str(year - 1),
-<<<<<<< HEAD
-                                               'prev_year_value': DATA[dash.displayed_report_line.code + '-1']})    
-=======
-                                               'prev_year_value': DATA[dash.displayed_report_line.code + '-1']})
->>>>>>> Artem/12.0-ohada-modules
+                    dash.lines_value = json.dumps(data)
+                if dash.displayed_report_line:
+                    variation = 'n/a'
+                    current_year_value = DATA[dash.displayed_report_line.code]
+                    prev_year_value = DATA[dash.displayed_report_line.code + '-1']
+                    if prev_year_value != 0.0:
+                        variation = '{:,.0f}%'.format(((current_year_value/prev_year_value)-1)*100)
+                    dash.lines_value = json.dumps({'this_year': str(year),
+                                                    'this_year_value': DATA[dash.displayed_report_line.code],
+                                                    'prev_year': str(year - 1),
+                                                    'prev_year_value': DATA[dash.displayed_report_line.code + '-1'],
+                                                    'variation': variation})
 
     def fetch_di_data(self, year, all_entries):
         report = self.env['ohada.financial.html.report']
@@ -366,28 +347,15 @@ class OhadaDash(models.Model):
 
     def open_page(self, context):
         if context['page'] == 'company':
-            action =  self.env.ref('base.action_res_company_form')
             return {
-                'type': 'ir.actions.act_url',
-                'name': 'contract',
-                'url': "/web?#id=%s&action=%s&model=res.company&view_type=form" %(self.company_id.id, action.id),
-                'target': "new"
-            }
-        elif context['page'] == 'Bundle/R4':
-            action = self.env.ref('ohada_reports.ohada_bundle_report_action')
-            return {
-                'type': 'ir.actions.act_url',
-                'name': 'contract',
-                'url': "/web?#&action=%s&model=note.relevance&view_type=list" %(action.id),
-                'target': "new"
-            }
-        elif context['page'] == 'disclosure':
-            action = self.env.ref('ohada_reports.ohada_bundle_disclosure_action')
-            return {
-                'type': 'ir.actions.act_url',
-                'name': 'contract',
-                'url': "/web?#&action=%s&model=ohada.disclosure&view_type=list" %(action.id),
-                'target': "new"
+                'context': self.env.context,
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'res.company',
+                'res_id': self.company_id.id,
+                'view_id': False,
+                'type': 'ir.actions.act_window',
+                'target': 'current',
             }
 
     def run_update_note_relevance(self):
@@ -395,10 +363,6 @@ class OhadaDash(models.Model):
         note_relevance.update_note_relevance()
 
     def preview_pdf(self):
-<<<<<<< HEAD
-        import wdb;wdb.set_trace()
-=======
->>>>>>> Artem/12.0-ohada-modules
         bundle = self.env['ohada.dash.print.bundle']
         if self.report_id.code == 'BS':
             return bundle.create({

@@ -21,14 +21,12 @@
                 <field name="dash_size"/>
                 <field name="reports"/>
                 <field name="current_year"/>
-                <field name="bundle_reports"/>
                 <field name="lines_value"/>
                 <templates>
                     <t t-name="kanban-box">
                         <t t-value="JSON.parse(record.reports.raw_value)" t-set="reports_list"/>
                         <t t-value="JSON.parse(record.lines_value.raw_value)" t-set="lines"/>
                         <t t-value="record.name.raw_value" t-set="kanban_name"/>
-                        <t t-value="JSON.parse(record.bundle_reports.raw_value)" t-set="main_reports"/>
                         <t t-value="record.dash_size.raw_value" t-set="dash_size"/>
                         <t t-value="record.type.raw_value" t-set="button_type"/>
                         <t t-value="record.current_year.raw_value" t-set="year"/>
@@ -230,7 +228,7 @@
                                     <span role="separator">Analysis</span>
                                 </div>
                                 <div t-if="journal_type == 'BS'">
-                                    <a role="menuitem" type="button">Format: 1 page/landscape</a>
+                                    <a role="menuitem" class="company" type="button">Format: 1 page/landscape</a>
                                 </div>
                                 <div>
                                     <a role="menuitem" name="open_action" type="object">Open report</a>
@@ -255,10 +253,9 @@
                             </div>
                             <div class="col-6 text-right">
                                 <a t-if="widget.editable" name="open_page" context="{'page': 'company'}" type="object">Company settings</a>
-                                <!-- <a t-if="widget.editable" context="{'id': 1}" name="%(base.action_res_company_form)d" type="action">Company settings</a> -->
                             </div>
                         </div>
-                        
+
                         <t t-call="Settings"/>
                     </t>
 
@@ -269,10 +266,10 @@
                                     <span role="separator">View</span>
                                 </div>
                                 <div t-if="journal_type == 'BS'">
-                                    <a role="menuitem" name="open_page" context="{'page': 'company'}" type="object">Format: 1 page/landscape</a>
+                                    <a role="menuitem" type="button">Format: 1 page/landscape</a>
                                 </div>
                                 <div>
-                                    <a role="menuitem" name="open_page" context="{'page': 'disclosure'}" type="object">Open disclosure</a>
+                                    <a role="menuitem" name="%(ohada_reports.ohada_bundle_disclosure_action)d" type="action">Open disclosure</a>
                                 </div>
                             </div>
                             <div class="col-4 o_kanban_card_manage_section o_kanban_manage_view">
@@ -284,16 +281,16 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div groups="account.group_account_manager" class="row o_kanban_card_settings">
                             <div class="col-6 text-left">
-                                <a t-if="widget.editable" name="open_page" context="{'page': 'Bundle/R4'}" type="object">Bundle/R4 report settings</a>
+                                <a t-if="widget.editable" name="%(ohada_reports.ohada_bundle_report_action)d" type="action">Bundle/R4 report settings</a>
                             </div>
                             <div class="col-6 text-right">
                                 <a t-if="widget.editable" type="edit">Company settings</a>
                             </div>
                         </div>
-                        
+
                         <t t-call="Settings"/>
                     </t>
 
@@ -568,7 +565,7 @@
                                 </a>
                             </div>
                             <div class="col-5 text-right">
-                                n/a
+                                <t t-esc="lines.variation"/>
                             </div>
                         </div>
                     </t>

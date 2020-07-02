@@ -21,6 +21,9 @@ odoo.define('ohada_dash.Dash', function (require) {
                         self.do_action(result);
                     });
                 });
+                this.$buttons.on('click', '.company', function () {
+                    alert("Format: 1 page/landscape");
+                });
                 this.$buttons.find('.o-kanban-button-new')[0].hidden = true;
                 this.$buttons.find('.o_button_import')[0].hidden = true;
             }
