@@ -38,6 +38,19 @@
     margin-right:4px;
 }
 
+.marg-auto{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.marg-top-1{
+    margin-top: 1%;
+}
+
+.marg-left-2{
+    margin-left: 2%;
+}
+
 .fl-left{
     float: left;
 }
@@ -62,4 +75,20 @@
 
 .wid-150{
     width: 160%;
+}
+
+.max-width-30{
+    max-width: 30%;
+}
+
+.max-width-48{
+    max-width: 48%;
+}
+
+.mrg-top-0px{
+    margin-top: 0px !important;
+}
+
+.margin-left-0{
+    margin-left: 0%;
 }

@@ -23,7 +23,7 @@
                     <footer>
                         <button name="print_pdf" type="object" class="btn btn-primary export_pdf" data-dismiss="modal">Preview (pdf)</button>
                         <button name="print_xlsx" type="object" class="btn btn-primary export_pdf" data-dismiss="modal">Export (xlsx)</button>
-                        <button name="close_button" type="object" style="float: right;" class="btn btn-primary" data-dismiss="modal" tabindex="-1">Cancel</button>
+                        <button name="cancel" string="Cancel" special="cancel" class="oe_link fl-right"/>
                     </footer>
                 </form>
             </field>

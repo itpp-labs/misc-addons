@@ -10,7 +10,7 @@
     <!-- OHADA Dashboard -->
     <record id="ohada_dashboard_view_your_company" model="ohada.dash">
         <field name="name">YourCompany</field>
-        <field name="name_to_display">name</field>
+        <field name="name_to_display">company</field>
         <field name="active">True</field>
         <field name="show_on_dashboard">True</field>
         <field name="color">1</field>

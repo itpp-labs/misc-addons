@@ -48,7 +48,6 @@ class OhadaDash(models.Model):
     current_year = fields.Integer(related='options.current_year', string="Current Year")
     currency_id = fields.Char(related='company_id.currency_id.symbol', string='Currency symbol')
     reports = fields.Text(compute='_compute_reports')
-    bundle_reports = fields.Text(compute='_compute_bundle_reports')
     kanban_dashboard_graph = fields.Text(compute='_kanban_dashboard_graph')
     options = fields.Many2one("ohada.options")
     lines_value = fields.Text(compute='_get_dashes_info')
@@ -151,13 +150,6 @@ class OhadaDash(models.Model):
                     report_data.append({'name': report.shortname, 'id': str(report.id)})
             dash.reports = json.dumps(report_data)
 
-    def _compute_bundle_reports(self):
-        for dash in self:
-            data = []
-            for report in self.env['ohada.financial.html.report'].search([('type', '=', 'main')]):
-                data.append({'name': report.name, 'id': report.id})
-            dash.bundle_reports = json.dumps(data)
-
     def _compute_buttons_ids(self):
         for dash in self:
             if dash.type == 'note_button':
@@ -170,7 +162,7 @@ class OhadaDash(models.Model):
             if dash.name_to_display == 'name':
                 dash.display_name = dash.name
             else:
-                dash.display_name = 'Company' + str(dash.id)
+               dash.name == dash.company_id.name: 
 
     def open_wizard(self):
         return self.env.ref('ohada_reports.change_options_wizard').sudo().read()[0]
@@ -194,29 +186,14 @@ class OhadaDash(models.Model):
         action = self.env['ir.actions.client'].sudo().search([('name', '=', report.name)]).read()[0]
         action = clean_action(action)
         ctx = self.env.context.copy()
-        report_cf = self.env['ohada.financial.html.report'].search([('code', '=', report.code)], limit=1)
-        options = report_cf._get_options()
-        year = self.current_year
-        options.update({
-            'date': {'date_to': str(year) + '-12-31', 'string': str(year), 'filter': 'this_year', 'date_from': str(year) + '-01-01'},
-            'all_entries': self.options.sudo().all_entries,
-        })
         if action:
             ctx.update({
                     'id': report.id,
                     'model': report._name,
-                    'report_options': options
+                    'report_options': report.make_temp_options(self.current_year)
             })
         action['context'] = ctx
-        return {
-            'name': action['name'],
-            'type': action['type'],
-            'tag': action['tag'],
-            'res_model': 'ohada.financial.html.report',
-            'help': action['help'],
-            'context': ctx,
-            'target': 'current'
-        }
+        return action
 
     @api.multi
     def _kanban_dashboard_graph(self):
@@ -245,7 +222,7 @@ class OhadaDash(models.Model):
     def _get_dashes_info(self):
         for dash in self:
             year = dash.current_year
-            if dash.name == 'YourCompany':
+            if dash.name_to_display == 'company':
                 date_to = year and str(year) + '-12-31' or False
                 period_domain = [('state', '=', 'draft'), ('date', '<=', date_to)]
 
@@ -262,10 +239,16 @@ class OhadaDash(models.Model):
 
                 dash.lines_value = json.dumps(data)
             if dash.displayed_report_line:
+                variation = 'n/a'
+                current_year_value = DATA[dash.displayed_report_line.code]
+                prev_year_value = DATA[dash.displayed_report_line.code + '-1']
+                if prev_year_value != 0.0:
+                    variation = '{:,.0f}%'.format(((current_year_value/prev_year_value)-1)*100)
                 dash.lines_value = json.dumps({'this_year': str(year),
-                                               'this_year_value': DATA[dash.displayed_report_line.code],
-                                               'prev_year': str(year - 1),
-                                               'prev_year_value': DATA[dash.displayed_report_line.code + '-1']})
+                                                'this_year_value': DATA[dash.displayed_report_line.code],
+                                                'prev_year': str(year - 1),
+                                                'prev_year_value': DATA[dash.displayed_report_line.code + '-1'],
+                                                'variation': variation})
 
     def fetch_di_data(self, year, all_entries):
         report = self.env['ohada.financial.html.report']
@@ -358,28 +341,15 @@ class OhadaDash(models.Model):
 
     def open_page(self, context):
         if context['page'] == 'company':
-            action =  self.env.ref('base.action_res_company_form')
             return {
-                'type': 'ir.actions.act_url',
-                'name': 'contract',
-                'url': "/web?#id=%s&action=%s&model=res.company&view_type=form" %(self.company_id.id, action.id),
-                'target': "new"
-            }
-        elif context['page'] == 'Bundle/R4':
-            action = self.env.ref('ohada_reports.ohada_bundle_report_action')
-            return {
-                'type': 'ir.actions.act_url',
-                'name': 'contract',
-                'url': "/web?#&action=%s&model=note.relevance&view_type=list" %(action.id),
-                'target': "new"
-            }
-        elif context['page'] == 'disclosure':
-            action = self.env.ref('ohada_reports.ohada_bundle_disclosure_action')
-            return {
-                'type': 'ir.actions.act_url',
-                'name': 'contract',
-                'url': "/web?#&action=%s&model=ohada.disclosure&view_type=list" %(action.id),
-                'target': "new"
+                'context': self.env.context,
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'res.company',
+                'res_id': self.company_id.id,
+                'view_id': False,
+                'type': 'ir.actions.act_window',
+                'target': 'current',
             }
 
     def run_update_note_relevance(self):
