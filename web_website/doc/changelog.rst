@@ -1,3 +1,7 @@
+`3.0.5`
+-------
+- **Fix:** _get_website_id could return SUPERUSER_ID's website instead of current user
+
 `3.0.4`
 -------
 - **Fix:** Incorrect return data in get_multi in case of 'many2one' field, id instead of a record

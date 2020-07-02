@@ -6,7 +6,7 @@
     "category": "Hidden",
     # "live_test_url": "",
     "images": [],
-    "version": "11.0.3.0.4",
+    "version": "11.0.3.0.5",
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "apps@itpp.dev",

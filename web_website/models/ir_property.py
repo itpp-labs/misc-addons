@@ -47,10 +47,15 @@ class IrProperty(models.Model):
 
     @api.model
     def _get_website_id(self):
-        website_id = (
-            self._context.get("website_id") or self.env.user.backend_website_id.id
-        )
-        return website_id
+        if self._context.get("website_id"):
+            return self._context.get("website_id")
+
+        if self._context.get("uid"):
+            user = self.env["res.users"].browse(self._context["uid"])
+        else:
+            user = self.env.user
+
+        return user.backend_website_id.id
 
     def _get_domain(self, prop_name, model):
         domain = super(IrProperty, self)._get_domain(prop_name, model)
