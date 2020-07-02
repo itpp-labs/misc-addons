@@ -129,7 +129,11 @@ class OhadaDash(models.Model):
             '_XD': data[4]['columns'][0]['no_format_name'],
             'N37_RC': data[5]['columns'][0]['no_format_name'],
             'N37_IR': data[6]['columns'][0]['no_format_name'],
+<<<<<<< HEAD
         }
+=======
+            }
+>>>>>>> Artem/12.0-ohada-modules
         global DATA
         DATA = fetched_data
 
@@ -265,7 +269,11 @@ class OhadaDash(models.Model):
                 dash.lines_value = json.dumps({'this_year': str(year),
                                                'this_year_value': DATA[dash.displayed_report_line.code],
                                                'prev_year': str(year - 1),
+<<<<<<< HEAD
                                                'prev_year_value': DATA[dash.displayed_report_line.code + '-1']})    
+=======
+                                               'prev_year_value': DATA[dash.displayed_report_line.code + '-1']})
+>>>>>>> Artem/12.0-ohada-modules
 
     def fetch_di_data(self, year, all_entries):
         report = self.env['ohada.financial.html.report']
@@ -387,7 +395,10 @@ class OhadaDash(models.Model):
         note_relevance.update_note_relevance()
 
     def preview_pdf(self):
+<<<<<<< HEAD
         import wdb;wdb.set_trace()
+=======
+>>>>>>> Artem/12.0-ohada-modules
         bundle = self.env['ohada.dash.print.bundle']
         if self.report_id.code == 'BS':
             return bundle.create({

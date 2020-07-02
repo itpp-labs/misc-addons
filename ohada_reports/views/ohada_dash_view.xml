@@ -254,7 +254,7 @@
                                 <a t-if="widget.editable" type="edit">Report settings</a>
                             </div>
                             <div class="col-6 text-right">
-                                <a t-if="widget.editable" name="open_page" context="{'page': 'company'}" type="object">Company settincompanygs</a>
+                                <a t-if="widget.editable" name="open_page" context="{'page': 'company'}" type="object">Company settings</a>
                                 <!-- <a t-if="widget.editable" context="{'id': 1}" name="%(base.action_res_company_form)d" type="action">Company settings</a> -->
                             </div>
                         </div>

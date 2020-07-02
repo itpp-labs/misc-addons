@@ -105,6 +105,7 @@
         <field name="name">Dash report</field>
         <field name="shortname">Dash report</field>
         <field name="code">DS</field>
+        <field name="type">dash</field>
         <field name="debit_credit" eval="False"/>
         <field name="date_range" eval="False"/>
         <field name="analytic" eval="True"/>
@@ -175,12 +176,13 @@
         <field name="level" eval="0" />
     </record>
 
-    <!--report for dash values-->
+    <!--report for dash diagram values-->
     <record id="ohada_report_dash_diagram" model="ohada.financial.html.report">
         <field name="name">Dash report diagram</field>
         <field name="shortname">Dash report diagram</field>
         <field name="code">DSD</field>
         <field name="debit_credit" eval="False"/>
+        <field name="type">dash</field>
         <field name="date_range" eval="False"/>
         <field name="analytic" eval="True"/>
         <field name="unfold_all_filter" eval="True"/>
