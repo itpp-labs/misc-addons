@@ -22,15 +22,16 @@
                 <field name="reports"/>
                 <field name="current_year"/>
                 <field name="lines_value"/>
+                <field name="name_to_display"/>
                 <templates>
                     <t t-name="kanban-box">
                         <t t-value="JSON.parse(record.reports.raw_value)" t-set="reports_list"/>
                         <t t-value="JSON.parse(record.lines_value.raw_value)" t-set="lines"/>
                         <t t-value="record.name.raw_value" t-set="kanban_name"/>
+                        <t t-value="record.name_to_display.raw_value" t-set="name_type"/>
                         <t t-value="record.dash_size.raw_value" t-set="dash_size"/>
                         <t t-value="record.type.raw_value" t-set="button_type"/>
                         <t t-value="record.current_year.raw_value" t-set="year"/>
-                        <t t-value="record.company_id.value" t-set="company_name"/>
                         <t t-value="record.report_type.raw_value" t-set="journal_type"/>
                         <t t-value="record.currency_id.raw_value" t-set="currency_symbol"/>
                         <t t-value="record.reports.raw_value" t-set="report_ids"/>
@@ -47,7 +48,7 @@
                                 <div class="row margin-left-0">
                                     <t t-if="kanban_name == 'Annexed Notes'" t-call="NoteButtons"/>
                                     <t t-if="kanban_name == 'Cover Page and Data Sheets'" t-call="Sheets"/>
-                                    <t t-if="kanban_name == 'YourCompany'">
+                                    <t t-if="name_type == 'company'">
                                         <div class="col-sm-12 col-md-12 col-lg-12">
                                             <div class="oh-card no-border">
                                                 <div class="oh-card-body pb-0 pad-top-5 pad-bot-20">
@@ -205,12 +206,7 @@
                             <div class="o_kanban_card_header_title">
                                 <div class="o_primary">
                                     <a type="report" name="open_action">
-                                        <t t-if="kanban_name != 'YourCompany'">
-                                            <field name="name"/>
-                                        </t>
-                                        <t t-if="kanban_name == 'YourCompany'">
-                                            <t t-esc="company_name"/>
-                                        </t>
+                                        <field name="name"/>
                                     </a>
                                 </div>
                             </div>

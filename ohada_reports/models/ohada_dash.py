@@ -55,8 +55,6 @@ class OhadaDash(models.Model):
     values_data = fields.Text(compute='_get_data')
 
     def _get_data(self):
-        if DATA:
-            return
         report = self.env.ref('ohada_reports.ohada_report_dash')
         di_data = {}
         year = self[0].current_year
@@ -136,8 +134,6 @@ class OhadaDash(models.Model):
 
     def _compute_reports(self):
         for dash in self:
-            if dash.reports:
-                return
             reports_list = []
             # TODO: type field maybe needs for another reasons
             if dash.type == 'note_button':
@@ -166,7 +162,7 @@ class OhadaDash(models.Model):
             if dash.name_to_display == 'name':
                 dash.display_name = dash.name
             else:
-                dash.display_name = 'Company' + str(dash.id)
+               dash.name == dash.company_id.name: 
 
     def open_wizard(self):
         return self.env.ref('ohada_reports.change_options_wizard').sudo().read()[0]
@@ -202,13 +198,12 @@ class OhadaDash(models.Model):
     @api.multi
     def _kanban_dashboard_graph(self):
         for dash in self:
-            if not dash.kanban_dashboard_graph:
-                if dash.report_id.code == 'BS':
-                    dash.kanban_dashboard_graph = json.dumps([{'values': dash._get_graph_data(), 'title': "Balance sheet", 'key': 'BS'}])
-                if dash.report_id.code == 'PL':
-                    dash.kanban_dashboard_graph = json.dumps([{'values': dash._get_graph_data(), 'title': "Profit and Loss", 'key': 'PL'}])
-                if dash.report_id.code == 'CF':
-                    dash.kanban_dashboard_graph = json.dumps([{'values': dash._get_graph_data(), 'title': "Cashflow", 'key': 'CF'}])
+            if dash.report_id.code == 'BS':
+                dash.kanban_dashboard_graph = json.dumps([{'values': dash._get_graph_data(), 'title': "Balance sheet", 'key': 'BS'}])
+            if dash.report_id.code == 'PL':
+                dash.kanban_dashboard_graph = json.dumps([{'values': dash._get_graph_data(), 'title': "Profit and Loss", 'key': 'PL'}])
+            if dash.report_id.code == 'CF':
+                dash.kanban_dashboard_graph = json.dumps([{'values': dash._get_graph_data(), 'title': "Cashflow", 'key': 'CF'}])
 
     @api.multi
     def _get_graph_data(self):
@@ -226,35 +221,34 @@ class OhadaDash(models.Model):
 
     def _get_dashes_info(self):
         for dash in self:
-            if not dash.lines_value:
-                year = dash.current_year
-                if dash.name == 'YourCompany':
-                    date_to = year and str(year) + '-12-31' or False
-                    period_domain = [('state', '=', 'draft'), ('date', '<=', date_to)]
+            year = dash.current_year
+            if dash.name_to_display == 'company':
+                date_to = year and str(year) + '-12-31' or False
+                period_domain = [('state', '=', 'draft'), ('date', '<=', date_to)]
 
-                    data = {
-                        'block_2': [],
-                        'period_lock_status': "Opened",
-                        'unposted_in_period': "With Draft Entries" if bool(dash.env['account.move'].search_count(period_domain)) else "All Entries Posted"
-                    }
+                data = {
+                    'block_2': [],
+                    'period_lock_status': "Opened",
+                    'unposted_in_period': "With Draft Entries" if bool(dash.env['account.move'].search_count(period_domain)) else "All Entries Posted"
+                }
 
-                    data['block_2'].append({'name': 'Added value', 'value': DATA['_XC']})
-                    data['block_2'].append({'name': 'EBITDA', 'value': DATA['_XD']})
-                    data['block_2'].append({'name': 'Accounting net income', 'value': DATA['N37_RC']})
-                    data['block_2'].append({'name': 'Income tax', 'value': DATA['N37_IR']})
+                data['block_2'].append({'name': 'Added value', 'value': DATA['_XC']})
+                data['block_2'].append({'name': 'EBITDA', 'value': DATA['_XD']})
+                data['block_2'].append({'name': 'Accounting net income', 'value': DATA['N37_RC']})
+                data['block_2'].append({'name': 'Income tax', 'value': DATA['N37_IR']})
 
-                    dash.lines_value = json.dumps(data)
-                if dash.displayed_report_line:
-                    variation = 'n/a'
-                    current_year_value = DATA[dash.displayed_report_line.code]
-                    prev_year_value = DATA[dash.displayed_report_line.code + '-1']
-                    if prev_year_value != 0.0:
-                        variation = '{:,.0f}%'.format(((current_year_value/prev_year_value)-1)*100)
-                    dash.lines_value = json.dumps({'this_year': str(year),
-                                                    'this_year_value': DATA[dash.displayed_report_line.code],
-                                                    'prev_year': str(year - 1),
-                                                    'prev_year_value': DATA[dash.displayed_report_line.code + '-1'],
-                                                    'variation': variation})
+                dash.lines_value = json.dumps(data)
+            if dash.displayed_report_line:
+                variation = 'n/a'
+                current_year_value = DATA[dash.displayed_report_line.code]
+                prev_year_value = DATA[dash.displayed_report_line.code + '-1']
+                if prev_year_value != 0.0:
+                    variation = '{:,.0f}%'.format(((current_year_value/prev_year_value)-1)*100)
+                dash.lines_value = json.dumps({'this_year': str(year),
+                                                'this_year_value': DATA[dash.displayed_report_line.code],
+                                                'prev_year': str(year - 1),
+                                                'prev_year_value': DATA[dash.displayed_report_line.code + '-1'],
+                                                'variation': variation})
 
     def fetch_di_data(self, year, all_entries):
         report = self.env['ohada.financial.html.report']
