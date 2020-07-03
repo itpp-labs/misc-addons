@@ -52,14 +52,15 @@ class OhadaDash(models.Model):
     options = fields.Many2one("ohada.options")
     lines_value = fields.Text(compute='_get_dashes_info')
     sequence = fields.Integer(default=10, help="Gives the sequence order when displaying a blocks of a Dashboard.")
-    values_data = fields.Text(compute='_get_data')
 
-    def _get_data(self):
+    def action_data(self):
         report = self.env.ref('ohada_reports.ohada_report_dash')
         di_data = {}
-        year = self[0].current_year
+        options_record = self.env.ref('ohada_reports.ohada_dashboard_options').sudo()
+        dashboard_data = self.env.ref('ohada_reports.ohada_dashboard_data').sudo()
+        year = options_record.current_year
         options = {
-            'all_entries':	self[0].options.sudo().all_entries,
+            'all_entries':	options_record.all_entries,
             'analytic':	None,
             'cash_basis':	None,
             'comparison': {
@@ -130,7 +131,10 @@ class OhadaDash(models.Model):
             'N37_IR': data[6]['columns'][0]['no_format_name'],
             }
         global DATA
-        DATA = fetched_data
+        # DATA = fetched_data
+        dashboard_data.data = json.dumps(fetched_data)
+        # Returning "Dashboard new" kanban form action
+        return self.env.ref('ohada_reports.ohada_action_dash').read()[0]
 
     def _compute_reports(self):
         for dash in self:
@@ -162,7 +166,7 @@ class OhadaDash(models.Model):
             if dash.name_to_display == 'name':
                 dash.display_name = dash.name
             else:
-               dash.name == dash.company_id.name: 
+               dash.name == dash.company_id.name
 
     def open_wizard(self):
         return self.env.ref('ohada_reports.change_options_wizard').sudo().read()[0]
@@ -207,6 +211,7 @@ class OhadaDash(models.Model):
 
     @api.multi
     def _get_graph_data(self):
+        DATA = json.loads(self.env.ref('ohada_reports.ohada_dashboard_data').sudo().data)
         data = []
         if self.report_type == 'BS':
             for line_data in DATA['di_data']['_BZ']:
@@ -220,6 +225,7 @@ class OhadaDash(models.Model):
         return data
 
     def _get_dashes_info(self):
+        DATA = json.loads(self.env.ref('ohada_reports.ohada_dashboard_data').sudo().data)
         for dash in self:
             year = dash.current_year
             if dash.name_to_display == 'company':
@@ -400,9 +406,16 @@ class OhadaFinancialReportLine(models.Model):
 
     dashboard_displayed_report_line = fields.One2many('ohada.dash', 'displayed_report_line')
 
+
 class OhadaOptions(models.Model):
     _name = "ohada.options"
 
     current_year = fields.Integer(string="Current Year", default=str(datetime.now().year))
     dashboard = fields.One2many('ohada.dash', 'options')
     all_entries = fields.Boolean(string="Status of journal entries")
+
+
+class OhadaDashData(models.Model):
+    _name = "ohada.dash.data"
+
+    data = fields.Text()

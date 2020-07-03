@@ -3,14 +3,10 @@
         <field name="name">ohada.dash.dashboard.kanban</field>
         <field name="model">ohada.dash</field>
         <field name="arch" type="xml">
-            <!-- <header>
-                <button name="%(ohada_reports.change_options_wizard)d" string="Change options" type="action" class="oe_highlight"/>
-            </header> -->
             <kanban class="oe_background_grey o_kanban_dashboard o_account_kanban">
                 <field name="id"/>
                 <field name="name"/>
                 <field name="type"/>
-                <field name="values_data"/>
                 <field name="color"/>
                 <field name="report_id"/>
                 <field name="report_type"/>
@@ -224,7 +220,7 @@
                                     <span role="separator">Analysis</span>
                                 </div>
                                 <div t-if="journal_type == 'BS'">
-                                    <a role="menuitem" class="company" type="button">Format: 1 page/landscape</a>
+                                    <a role="menuitem" id="report-n-audit" type="button">Format: 1 page/landscape</a>
                                 </div>
                                 <div>
                                     <a role="menuitem" name="open_action" type="object">Open report</a>
@@ -554,7 +550,6 @@
                     <t t-name="VariationStr">
                         <div class="row">
                             <div class="col-7">
-                            <!-- Change name="open_action" to another action -->
                                 <a type="object" name="open_action"
                                 id="account_dashboard_purchase_pay_link">
                                     Variation
@@ -578,9 +573,16 @@
         <field name="view_id" ref="ohada_dash_kanban_view"/>
     </record>
 
+    <record id="ohada_action_dash_server" model="ir.actions.server">
+        <field name="name">Dashboard new Server Action</field>
+        <field name="model_id" ref="ohada_reports.model_ohada_dash"/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_data()</field>
+    </record>
+
     <menuitem
         id="menu_ohada_dash"
-        action="ohada_action_dash"
+        action="ohada_action_dash_server"
         name="Dashboard new"
         parent="menu_ohada"
         sequence="1"/>
