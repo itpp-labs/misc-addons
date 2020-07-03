@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
+
+    <!-- OHADA DATA -->
+    <record id="ohada_dashboard_data" model="ohada.dash.data">
+        <field name="data">None</field>
+    </record>
+
     <!-- OHADA OPTIONS -->
     <record id="ohada_dashboard_options" model="ohada.options">
         <field name="current_year" eval="2020"/>
