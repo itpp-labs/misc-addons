@@ -20,7 +20,6 @@ class DashboardOptions(models.TransientModel):
         options.current_year = int(self.current_year)
         options.all_entries = self.all_entries
         # Loading dashboard with new options
-        return {
-            'type': 'ir.actions.client',
-            'tag': 'reload',
-        }
+        server_action = self.env.ref('ohada_reports.ohada_action_dash_server').read()[0]
+        server_action['target'] = 'main'
+        return server_action
