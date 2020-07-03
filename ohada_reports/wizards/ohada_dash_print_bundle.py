@@ -51,7 +51,7 @@ class DashboardPrintBundle(models.TransientModel):
         return {
             'type': 'ir.actions.act_url',
             'name': 'contract',
-            'url': attachment.website_url
+            'url': attachment['website_url']
         }
 
     def print_xlsx(self, *context):

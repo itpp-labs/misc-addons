@@ -51,7 +51,8 @@
                                                     <div class="col-md-5 col-lg-5 marg-left-10 fl-left">
                                                     </div>
                                                     <div class="col-md-3 col-lg-3">
-                                                        <img t-att-src="'/ohada_reports/static/img/ohada.png'" class="company-img"/>
+                                                        <img t-att-src="'/ohada_reports/static/img/ohada.png'"
+                                                        class="company-img company-logo"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
