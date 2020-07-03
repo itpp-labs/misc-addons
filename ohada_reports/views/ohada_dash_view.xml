@@ -261,7 +261,7 @@
                                     <a role="menuitem" type="button">Format: 1 page/landscape</a>
                                 </div>
                                 <div>
-                                    <a role="menuitem" name="%(ohada_reports.ohada_bundle_disclosure_action)d" type="action">Open disclosure</a>
+
                                 </div>
                             </div>
                             <div class="col-4 o_kanban_card_manage_section o_kanban_manage_view">

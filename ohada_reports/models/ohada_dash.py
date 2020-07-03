@@ -58,9 +58,10 @@ class OhadaDash(models.Model):
         di_data = {}
         options_record = self.env.ref('ohada_reports.ohada_dashboard_options').sudo()
         dashboard_data = self.env.ref('ohada_reports.ohada_dashboard_data').sudo()
-        year = options_record.current_year
+        year = options_record.current_year if self._context.get('change_options') else datetime.now().year
+        all_entries = options_record.all_entries if self._context.get('change_options') else False
         options = {
-            'all_entries':	options_record.all_entries,
+            'all_entries':	all_entries,
             'analytic':	None,
             'cash_basis':	None,
             'comparison': {
@@ -130,7 +131,7 @@ class OhadaDash(models.Model):
             'N37_RC': data[5]['columns'][0]['no_format_name'],
             'N37_IR': data[6]['columns'][0]['no_format_name'],
             }
-        global DATA
+        # global DATA
         # DATA = fetched_data
         dashboard_data.data = json.dumps(fetched_data)
         # Returning "Dashboard new" kanban form action
