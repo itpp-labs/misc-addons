@@ -242,10 +242,10 @@
 
                         <div groups="account.group_account_manager" class="row o_kanban_card_settings">
                             <div class="col-6 text-left">
-                                <a t-if="widget.editable" type="edit">Report settings</a>
+                                <a name="%(ohada_reports.action_ohada_financial_report_tree)d" type="action">Report settings</a>
                             </div>
                             <div class="col-6 text-right">
-                                <a t-if="widget.editable" name="open_page" context="{'page': 'company'}" type="object">Company settings</a>
+                                <a name="open_page" context="{'page': 'company'}" type="object">Company settings</a>
                             </div>
                         </div>
 
