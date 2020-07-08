@@ -41,7 +41,8 @@ class DashboardPrintBundle(models.TransientModel):
 
         report_obj = self.env["ohada.financial.html.report"].sudo()
         report_obj = report_obj.browse(1)
-        pdf = report_obj.print_bundle_pdf(options, bundle_items) 
+        pdf = report_obj.print_bundle_pdf(options, bundle_items)
+
         attachment = self.env['ir.attachment'].create({
                 'datas': base64.b64encode(pdf),
                 'name': 'New pdf report',
@@ -51,7 +52,7 @@ class DashboardPrintBundle(models.TransientModel):
         return {
             'type': 'ir.actions.act_url',
             'name': 'contract',
-            'url': attachment['website_url']
+            'url': attachment.local_url
         }
 
     def print_xlsx(self, *context):
