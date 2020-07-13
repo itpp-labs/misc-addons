@@ -1,3 +1,8 @@
+`1.1.11`
+-------
+
+- **Fix:** URL storage settings could not be changed via web UI
+
 `1.1.10`
 -------
 
