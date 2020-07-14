@@ -12,7 +12,7 @@
     "currency": "EUR",
     "depends": ["web"],
     "external_dependencies": {"python": [], "bin": []},
-    "data": [],
+    "data": ["views/ir_attachment.xml"],
     "qweb": [],
     "demo": [],
     "post_load": None,
