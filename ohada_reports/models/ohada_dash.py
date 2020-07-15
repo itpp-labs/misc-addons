@@ -152,7 +152,11 @@ class OhadaDash(models.Model):
                 if dash.type == 'info_button':
                     report_data.append({'name': "SHEET R" + str(cnt), 'id': str(report.id)})
                 else:
-                    report_data.append({'name': report.shortname, 'id': str(report.id)})
+                    report_data.append({
+                        'name': report.shortname,
+                        'id': str(report.id),
+                        'title': report.name
+                    })
             dash.reports = json.dumps(report_data)
 
     def _compute_buttons_ids(self):
