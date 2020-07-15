@@ -149,7 +149,8 @@
                             <div class="pad-left-0">
                                 <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48">IMPORT DATA</button>
                                 <button name="%(print_bundle_wizard)d" type="action" class="btn btn-primary oh_dashbard_btn_m print_bundle export marg-right-4 max-width-48">PRINT BUNDLE</button>
-                                <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48">CLOSE PERIOD</button>
+                                <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48"
+                                name="%(account_accountant.action_view_account_change_lock_date)d" type="action">CLOSE PERIOD</button>
                                 <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48">SIGN &amp; PAY</button>
                             </div>
                         </div>
