@@ -262,7 +262,7 @@
                                     <a role="menuitem" name="open_page" context="{'page': 'Format'}" type="object">Format: 1 page/landscape</a>
                                 </div>
                                 <div>
-
+                                    <a role="menuitem" name="%(ohada_reports.ohada_bundle_disclosure_action)d" type="action">Open disclosure</a>
                                 </div>
                             </div>
                             <div class="col-4 o_kanban_card_manage_section o_kanban_manage_view">
@@ -546,7 +546,7 @@
                         </div>
                     </t>
                     <t t-name="JournalBodyGraph">
-                        <field name="kanban_dashboard_graph" graph_type="bar" widget="dashboard_graph"/>
+                        <field name="kanban_dashboard_graph" t-att-graph_type="_.contains(['CF'],journal_type) ? 'line' : 'bar'" widget="dashboard_graph"/>
                     </t>
                     <t t-name="VariationStr">
                         <div class="row">
