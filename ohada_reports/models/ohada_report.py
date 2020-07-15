@@ -1745,7 +1745,7 @@ class OhadaReport(models.AbstractModel):
             'date': {
                 'date_to': str(year) + '-12-31',
                 'string': str(year),
-                'filter': 'this_year',
+                'filter': 'custom',
                 'date_from': str(year) + '-01-01'
             },
             'comparison': {
