@@ -149,7 +149,8 @@
                     <t t-name="ExportButtons">
                         <div class="ohada_notification pad-right-25 marg-left-minus-10 mrg-top-0px">
                             <div class="pad-left-0">
-                                <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48">IMPORT DATA</button>
+                                <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48"
+                                name="open_page" context="{'page': 'Data import'}" type="object">IMPORT DATA</button>
                                 <button name="%(print_bundle_wizard)d" type="action" class="btn btn-primary oh_dashbard_btn_m print_bundle export marg-right-4 max-width-48">PRINT BUNDLE</button>
                                 <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48"
                                 name="%(account_accountant.action_view_account_change_lock_date)d" type="action">CLOSE PERIOD</button>

@@ -380,8 +380,8 @@ class OhadaDash(models.Model):
             action['target'] = 'current'
             return action.read()[0]
         if context['page'] == 'Disclosure form view':
-            id = self.env['ohada.disclosure'].search([]).filtered(lambda x: int(x.fiscalyear_id) == self.current_year).id
-            if not id:
+            button_state = json.loads(self.button_classes)
+            if not button_state['signNpay_button']:
                 return None
             return {
                 'context': self.env.context,
@@ -392,6 +392,14 @@ class OhadaDash(models.Model):
                 'view_id': False,
                 'type': 'ir.actions.act_window',
                 'target': 'current',
+            }
+        if context['page'] == 'Data import':
+            id = self.env['ir.ui.menu'].search([]).filtered(lambda x: x.display_name == 'Accounting').id
+            return {
+                'type': 'ir.actions.act_url',
+                'name': 'contract',
+                'url': '/web#model=account.move&action=import&mode=import_balance&menu_id=%s' %(id),
+                'target': 'self'
             }
 
     def run_update_note_relevance(self):
