@@ -18,11 +18,13 @@
                 <field name="reports"/>
                 <field name="current_year"/>
                 <field name="lines_value"/>
+                <field name="button_classes"/>
                 <field name="name_to_display"/>
                 <templates>
                     <t t-name="kanban-box">
                         <t t-value="JSON.parse(record.reports.raw_value)" t-set="reports_list"/>
                         <t t-value="JSON.parse(record.lines_value.raw_value)" t-set="lines"/>
+                        <t t-value="JSON.parse(record.button_classes.raw_value)" t-set="button_classes"/>
                         <t t-value="record.name.raw_value" t-set="kanban_name"/>
                         <t t-value="record.name_to_display.raw_value" t-set="name_type"/>
                         <t t-value="record.dash_size.raw_value" t-set="dash_size"/>
@@ -151,7 +153,9 @@
                                 <button name="%(print_bundle_wizard)d" type="action" class="btn btn-primary oh_dashbard_btn_m print_bundle export marg-right-4 max-width-48">PRINT BUNDLE</button>
                                 <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48"
                                 name="%(account_accountant.action_view_account_change_lock_date)d" type="action">CLOSE PERIOD</button>
-                                <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48">SIGN &amp; PAY</button>
+                                <t t-debug="pdb"/>
+                                <button t-attf-class="#{button_classes['signNpay_button']} btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48 signnpay"
+                                name="open_page" context="{'page': 'Disclosure form view'}" type="object">SIGN &amp; PAY</button>
                             </div>
                         </div>
                     </t>

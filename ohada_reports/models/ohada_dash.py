@@ -52,6 +52,7 @@ class OhadaDash(models.Model):
     options = fields.Many2one("ohada.options")
     lines_value = fields.Text(compute='_get_dashes_info')
     sequence = fields.Integer(default=10, help="Gives the sequence order when displaying a blocks of a Dashboard.")
+    button_classes = fields.Text(compute='_get_button_classes')
 
     def action_data(self):
         report = self.env.ref('ohada_reports.ohada_report_dash')
@@ -172,6 +173,14 @@ class OhadaDash(models.Model):
                 dash.display_name = dash.name
             else:
                dash.name == dash.company_id.name
+
+    def _get_button_classes(self):
+        for dash in self:
+            if dash.name_to_display == 'company':
+                data = {'signNpay_button': ''}
+                if not dash.env['ohada.disclosure'].search([]).filtered(lambda x: int(x.fiscalyear_id) == dash.current_year).id:
+                    data['signNpay_button'] = 'disabled'
+                    dash.button_classes = json.dumps(data)
 
     def open_wizard(self):
         return self.env.ref('ohada_reports.change_options_wizard').sudo().read()[0]
@@ -370,6 +379,20 @@ class OhadaDash(models.Model):
             action['context'] = self.env.context
             action['target'] = 'current'
             return action.read()[0]
+        if context['page'] == 'Disclosure form view':
+            id = self.env['ohada.disclosure'].search([]).filtered(lambda x: int(x.fiscalyear_id) == self.current_year).id
+            if not id:
+                return None
+            return {
+                'context': self.env.context,
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'ohada.disclosure',
+                'res_id': id,
+                'view_id': False,
+                'type': 'ir.actions.act_window',
+                'target': 'current',
+            }
 
     def run_update_note_relevance(self):
         note_relevance = self.env['note.relevance']
