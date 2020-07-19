@@ -11,7 +11,7 @@ Usage
   * For inventory creating
 
     * Type a ``Name``
-    * Select Inventoried Location manually or via scanning a barcode of any available location
+    * Select Inventoried Location manually or via scanning a barcode of any available location if you use a several stock locations
     * You may continue working with that inventory via clicking the ``[Start Inventory]`` manually or by scanning ``O-CMD.INV`` barcode (see below) or save the created inventory by clicking ``[Save]`` or by scanning barcode ``O-CMD.SAVE`` (see below)
 
 * In order to add product in an inventory, scan its barcode.
