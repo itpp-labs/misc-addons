@@ -372,14 +372,14 @@ class OhadaDash(models.Model):
                 'type': 'ir.actions.act_window',
                 'target': 'current',
             }
-        if context['page'] == 'Format':
+        elif context['page'] == 'Format':
             action = self.env.ref('base.action_res_company_form')
             action['view_id'] = self.env.ref('ohada_reports.ohada_view_company_form').id
             action['res_id'] = self.company_id.id
             action['context'] = self.env.context
             action['target'] = 'current'
             return action.read()[0]
-        if context['page'] == 'Disclosure form view':
+        elif context['page'] == 'Disclosure form view':
             id = self.env['ohada.disclosure'].search([]).filtered(lambda x: int(x.fiscalyear_id) == self.current_year).id
             if not id:
                 return None
@@ -393,7 +393,7 @@ class OhadaDash(models.Model):
                 'type': 'ir.actions.act_window',
                 'target': 'current',
             }
-        if context['page'] == 'Data import':
+        elif context['page'] == 'Data import':
             id = self.env['ir.ui.menu'].search([]).filtered(lambda x: x.display_name == 'Accounting').id
             return {
                 'type': 'ir.actions.act_url',
@@ -401,6 +401,8 @@ class OhadaDash(models.Model):
                 'url': '/web#model=account.move&action=import&mode=import_balance&menu_id=%s' %(id),
                 'target': 'self'
             }
+        elif context['page'] == 'Open disclosure':
+            return self.env.ref('ohada_reports.ohada_bundle_disclosure_action').read()[0]
 
     def run_update_note_relevance(self):
         note_relevance = self.env['note.relevance']
