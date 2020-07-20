@@ -131,7 +131,7 @@ class OhadaDash(models.Model):
             '_XD': data[4]['columns'][0]['no_format_name'],
             'N37_RC': data[5]['columns'][0]['no_format_name'],
             'N37_IR': data[6]['columns'][0]['no_format_name'],
-            }
+        }
         # global DATA
         # DATA = fetched_data
         dashboard_data.data = json.dumps(fetched_data)
@@ -380,8 +380,8 @@ class OhadaDash(models.Model):
             action['target'] = 'current'
             return action.read()[0]
         if context['page'] == 'Disclosure form view':
-            button_state = json.loads(self.button_classes)
-            if not button_state['signNpay_button']:
+            id = self.env['ohada.disclosure'].search([]).filtered(lambda x: int(x.fiscalyear_id) == self.current_year).id
+            if not id:
                 return None
             return {
                 'context': self.env.context,
