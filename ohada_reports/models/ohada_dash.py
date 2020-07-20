@@ -52,6 +52,7 @@ class OhadaDash(models.Model):
     options = fields.Many2one("ohada.options")
     lines_value = fields.Text(compute='_get_dashes_info')
     sequence = fields.Integer(default=10, help="Gives the sequence order when displaying a blocks of a Dashboard.")
+    button_classes = fields.Text(compute='_get_button_classes')
 
     def action_data(self):
         report = self.env.ref('ohada_reports.ohada_report_dash')
@@ -152,7 +153,11 @@ class OhadaDash(models.Model):
                 if dash.type == 'info_button':
                     report_data.append({'name': "SHEET R" + str(cnt), 'id': str(report.id)})
                 else:
-                    report_data.append({'name': report.shortname, 'id': str(report.id)})
+                    report_data.append({
+                        'name': report.shortname,
+                        'id': str(report.id),
+                        'title': report.name
+                    })
             dash.reports = json.dumps(report_data)
 
     def _compute_buttons_ids(self):
@@ -168,6 +173,14 @@ class OhadaDash(models.Model):
                 dash.display_name = dash.name
             else:
                dash.name == dash.company_id.name
+
+    def _get_button_classes(self):
+        for dash in self:
+            if dash.name_to_display == 'company':
+                data = {'signNpay_button': ''}
+                if not dash.env['ohada.disclosure'].search([]).filtered(lambda x: int(x.fiscalyear_id) == dash.current_year).id:
+                    data['signNpay_button'] = 'disabled'
+                    dash.button_classes = json.dumps(data)
 
     def open_wizard(self):
         return self.env.ref('ohada_reports.change_options_wizard').sudo().read()[0]
@@ -222,7 +235,8 @@ class OhadaDash(models.Model):
                 data.append({'label': line_data[0], 'value': line_data[1], 'type': 'past'})
         if self.report_type == 'CF':
             for line_data in DATA['di_data']['_ZH']:
-                data.append({'label': line_data['l_month'], 'value': line_data['count'], 'type': 'past'})
+                # data.append({'label': line_data['l_month'], 'value': float(line_data['count']), 'type': 'past'})
+                data.append({'label': line_data['l_month'], 'value': 10.0, 'type': 'past'})
         return data
 
     def _get_dashes_info(self):
@@ -365,6 +379,28 @@ class OhadaDash(models.Model):
             action['context'] = self.env.context
             action['target'] = 'current'
             return action.read()[0]
+        if context['page'] == 'Disclosure form view':
+            button_state = json.loads(self.button_classes)
+            if not button_state['signNpay_button']:
+                return None
+            return {
+                'context': self.env.context,
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'ohada.disclosure',
+                'res_id': id,
+                'view_id': False,
+                'type': 'ir.actions.act_window',
+                'target': 'current',
+            }
+        if context['page'] == 'Data import':
+            id = self.env['ir.ui.menu'].search([]).filtered(lambda x: x.display_name == 'Accounting').id
+            return {
+                'type': 'ir.actions.act_url',
+                'name': 'contract',
+                'url': '/web#model=account.move&action=import&mode=import_balance&menu_id=%s' %(id),
+                'target': 'self'
+            }
 
     def run_update_note_relevance(self):
         note_relevance = self.env['note.relevance']

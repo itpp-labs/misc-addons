@@ -18,11 +18,13 @@
                 <field name="reports"/>
                 <field name="current_year"/>
                 <field name="lines_value"/>
+                <field name="button_classes"/>
                 <field name="name_to_display"/>
                 <templates>
                     <t t-name="kanban-box">
                         <t t-value="JSON.parse(record.reports.raw_value)" t-set="reports_list"/>
                         <t t-value="JSON.parse(record.lines_value.raw_value)" t-set="lines"/>
+                        <t t-value="JSON.parse(record.button_classes.raw_value)" t-set="button_classes"/>
                         <t t-value="record.name.raw_value" t-set="kanban_name"/>
                         <t t-value="record.name_to_display.raw_value" t-set="name_type"/>
                         <t t-value="record.dash_size.raw_value" t-set="dash_size"/>
@@ -52,7 +54,7 @@
                                                     </div>
                                                     <div class="col-md-3 col-lg-3">
                                                         <img t-att-src="'/ohada_reports/static/img/ohada.png'"
-                                                        class="company-img company-logo"/>
+                                                        class="company-img company-logo" alt="Company Logo"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -94,19 +96,19 @@
                             <div class="container o_kanban_card_content">
                                 <div class="row">
                                     <t t-if="journal_type == 'BS'">
-                                        <t t-call="JournalBS"/>
                                         <t t-call="OpenButton"/>
+                                        <t t-call="JournalBS"/>
                                     </t>
                                     <t t-if="journal_type == 'PL'">
-                                        <t t-call="JournalPL"/>
                                         <t t-call="OpenButton"/>
+                                        <t t-call="JournalPL"/>
                                     </t>
                                     <t t-if="journal_type == 'CF'">
-                                        <t t-call="JournalCF"/>
                                         <t t-call="OpenButton"/>
+                                        <t t-call="JournalCF"/>
                                     </t>
                                 </div>
-                                <t t-if="journal_type == 'BS' || journal_type == 'PL' || journal_type == 'CF'" t-call="JournalBodyGraph"/>
+                                <!-- <t t-if="journal_type == 'BS' || journal_type == 'PL' || journal_type == 'CF'" t-call="JournalBodyGraph"/> -->
                             </div>
                             <div class="container o_kanban_card_manage_pane dropdown-menu" role="menu">
                                 <t t-if="button_type == 'report'" t-call="ReportLook"/>
@@ -119,7 +121,9 @@
                     <t t-name="NoteButtons">
                         <t t-foreach="reports_list" t-as="note">
                             <div class="pad-left-6">
-                                <button type="object" name="open_action_by_id" t-attf-data-context="{'id' : '#{note['id']}'}" class="btn btn-primary note btn-min-width">
+                                <button type="object" name="open_action_by_id" t-attf-title="#{note['title']}"
+                                t-attf-data-context="{'id' : '#{note['id']}'}" 
+                                class="btn btn-primary note btn-min-width oh_dashbard_btn_m">
                                     <span><t t-esc="note['name']"/></span>
                                 </button>
                             </div>
@@ -128,13 +132,14 @@
 
                     <t t-name="Sheets">
                         <div class="pad-left-6 pad-bot-20">
-                            <button type="object" name="open_action" class="btn btn-primary btn-min-width">
+                            <button type="object" name="open_action" class="btn btn-primary btn-min-width oh_dashbard_btn_m">
                                 <span>COVER PAGE</span>
                             </button>
                         </div>
                         <t t-foreach="reports_list" t-as="sheet">
                             <div class="pad-left-6 pad-bot-20">
-                                <button type="object" name="open_action_by_id" t-attf-data-context="{'id' : '#{sheet['id']}'}" class="btn btn-primary note btn-min-width">
+                                <button type="object" name="open_action_by_id" t-attf-data-context="{'id' : '#{sheet['id']}'}"
+                                class="btn btn-primary note btn-min-width oh_dashbard_btn_m">
                                     <span><t t-esc="sheet['name']"/></span>
                                 </button>
                             </div>
@@ -144,10 +149,14 @@
                     <t t-name="ExportButtons">
                         <div class="ohada_notification pad-right-25 marg-left-minus-10 mrg-top-0px">
                             <div class="pad-left-0">
-                                <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48">IMPORT DATA</button>
+                                <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48"
+                                name="open_page" context="{'page': 'Data import'}" type="object">IMPORT DATA</button>
                                 <button name="%(print_bundle_wizard)d" type="action" class="btn btn-primary oh_dashbard_btn_m print_bundle export marg-right-4 max-width-48">PRINT BUNDLE</button>
-                                <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48">CLOSE PERIOD</button>
-                                <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48">SIGN &amp; PAY</button>
+                                <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48"
+                                name="%(account_accountant.action_view_account_change_lock_date)d" type="action">CLOSE PERIOD</button>
+                                <t t-debug="pdb"/>
+                                <button t-attf-class="#{button_classes['signNpay_button']} btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48 signnpay"
+                                name="open_page" context="{'page': 'Disclosure form view'}" type="object">SIGN &amp; PAY</button>
                             </div>
                         </div>
                     </t>
@@ -191,8 +200,11 @@
                     </t>
 
                     <t t-name="OpenButton">
-                        <div class="col-6 o_kanban_primary_left">
-                            <button type="object" name="open_action" class="btn btn-primary">
+                        <div class="col-3 o_kanban_primary_left">
+                            <t t-if="journal_type == 'BS'" t-set="title" t-value="'Ouvrir le bilan'"/>
+                            <t t-if="journal_type == 'PL'" t-set="title" t-value="'Ouvrir le compte de résultat'"/>
+                            <t t-if="journal_type == 'CF'" t-set="title" t-value="'Ouvrir le tableau des flux de trésorerie'"/>
+                            <button type="object" name="open_action" t-attf-title="#{title}" class="btn btn-primary">
                                 <span>Open</span>
                             </button>
                         </div>
@@ -471,24 +483,24 @@
                     </t>
 
                     <t t-name="JournalBS">
-                        <div class="col-12 o_kanban_primary_right">
+                        <div class="col-9 o_kanban_primary_right">
                             <div class="row">
-                                <div class="col-7">
+                                <div class="col-8">
                                     <a type="object" name="open_action">
                                         <span>Assets - Liabilities <t t-esc="lines.this_year"/></span>
                                     </a>
                                 </div>
-                                <div class="col-5 text-right">
+                                <div class="col-4 text-right">
                                     <t t-esc="lines.this_year_value"/> <t t-esc="currency_symbol"/>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-7">
+                                <div class="col-8">
                                     <a type="object" t-if="journal_type == 'BS'" name="open_action">
                                         <span>Assets - Liabilities <t t-esc="lines.prev_year"/></span>
                                     </a>
                                 </div>
-                                <div class="col-5 text-right">
+                                <div class="col-4 text-right">
                                     <t t-esc="lines.prev_year_value"/> <t t-esc="currency_symbol"/>
                                 </div>
                             </div>
@@ -496,24 +508,24 @@
                         </div>
                     </t>
                     <t t-name="JournalPL">
-                        <div class="col-12 o_kanban_primary_right">
+                        <div class="col-9 o_kanban_primary_right">
                             <div class="row">
-                                <div class="col-7">
+                                <div class="col-8">
                                     <a type="object" name="open_action">
                                         <span>Net profit <t t-esc="lines.this_year"/></span>
                                     </a>
                                 </div>
-                                <div class="col-5 text-right">
+                                <div class="col-4 text-right">
                                     <t t-esc="lines.this_year_value"/> <t t-esc="currency_symbol"/>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-7">
+                                <div class="col-8">
                                     <a type="object" t-if="journal_type == 'PL'" name="open_action">
                                         <span>Net profit <t t-esc="lines.prev_year"/></span>
                                     </a>
                                 </div>
-                                <div class="col-5 text-right">
+                                <div class="col-4 text-right">
                                     <t t-esc="lines.prev_year_value"/> <t t-esc="currency_symbol"/>
                                 </div>
                             </div>
@@ -521,24 +533,24 @@
                         </div>
                     </t>
                     <t t-name="JournalCF">
-                        <div class="col-12 o_kanban_primary_right">
+                        <div class="col-9 o_kanban_primary_right">
                             <div class="row">
-                                <div class="col-7">
+                                <div class="col-8">
                                     <a type="object" name="open_action">
                                         <span>Cash closing balance <t t-esc="lines.this_year"/></span>
                                     </a>
                                 </div>
-                                <div class="col-5 text-right">
+                                <div class="col-4 text-right">
                                     <t t-esc="lines.this_year_value"/> <t t-esc="currency_symbol"/>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-7">
+                                <div class="col-8">
                                     <a type="object" t-if="journal_type == 'CF'" name="open_action">
                                         <span>Cash closing balance <t t-esc="lines.prev_year"/></span>
                                     </a>
                                 </div>
-                                <div class="col-5 text-right">
+                                <div class="col-4 text-right">
                                     <t t-esc="lines.prev_year_value"/> <t t-esc="currency_symbol"/>
                                 </div>
                             </div>
@@ -546,7 +558,7 @@
                         </div>
                     </t>
                     <t t-name="JournalBodyGraph">
-                        <field name="kanban_dashboard_graph" graph_type="bar" widget="dashboard_graph"/>
+                        <field name="kanban_dashboard_graph" t-att-graph_type="_.contains(['CF'],journal_type) ? 'line' : 'bar'" widget="dashboard_graph"/>
                     </t>
                     <t t-name="VariationStr">
                         <div class="row">
