@@ -257,11 +257,15 @@
                                 <a name="%(ohada_reports.action_ohada_financial_report_tree)d" type="action">Report settings</a>
                             </div>
                             <div class="col-6 text-right">
-                                <a name="open_page" context="{'page': 'company'}" type="object">Company settings</a>
+                                <t t-call="CompanySettingsMenuItem"/>
                             </div>
                         </div>
 
                         <t t-call="Settings"/>
+                    </t>
+
+                    <t t-name="CompanySettingsMenuItem">
+                        <a name="open_page" context="{'page': 'company'}" type="object">Company settings</a>
                     </t>
 
                     <t t-name="MixLook">
@@ -292,7 +296,7 @@
                                 <a t-if="widget.editable" name="%(ohada_reports.ohada_bundle_report_action)d" type="action">Bundle/R4 report settings</a>
                             </div>
                             <div class="col-6 text-right">
-                                <a t-if="widget.editable" type="edit">Company settings</a>
+                                <t t-call="CompanySettingsMenuItem"/>
                             </div>
                         </div>
 
