@@ -20,7 +20,7 @@ Maintainers
 -----------
 * `IT-Projects LLC <https://it-projects.info>`__
 
-      To get a guaranteed support you are kindly requested to purchase the module at `odoo apps store <https://apps.odoo.com/apps/modules/12.0/res_users_signature/>`__.
+      To get a guaranteed support you are kindly requested to purchase the module at `odoo apps store <https://apps.odoo.com/apps/modules/13.0/res_users_signature/>`__.
 
       Thank you for understanding!
 
@@ -29,12 +29,12 @@ Maintainers
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/12.0/misc-addons
+Demo: http://runbot.it-projects.info/demo/13.0/misc-addons
 
-HTML Description: https://apps.odoo.com/apps/modules/12.0/res_users_signature/
+HTML Description: https://apps.odoo.com/apps/modules/13.0/res_users_signature/
 
 Usage instructions: `<doc/index.rst>`_
 
 Changelog: `<doc/changelog.rst>`_
 
-Tested on Odoo 12.0 32c2666d189047db66eb7b1392ea34b086fd341e
+Tested on Odoo 13.0 fccd6d13042406e9f8257eeb40ba2a95500cc101
