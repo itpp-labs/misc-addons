@@ -46,7 +46,6 @@ class OhadaDash(models.Model):
         default=lambda s: s.env.user.company_id
     )
     current_year = fields.Integer(related='options.current_year', string="Current Year")
-    currency_id = fields.Char(related='company_id.currency_id.symbol', string='Currency symbol')
     reports = fields.Text(compute='_compute_reports')
     kanban_dashboard_graph = fields.Text(compute='_kanban_dashboard_graph')
     options = fields.Many2one("ohada.options")
@@ -101,12 +100,12 @@ class OhadaDash(models.Model):
                            'date_from': str(year - 3) + '-01-01'}
         di_data['n-3'] = report_diagram._get_lines(options)
         fetched_data = {
-            '_BZ': data[0]['columns'][0]['no_format_name'],
-            '_BZ-1': di_data['n-1'][0]['columns'][0]['no_format_name'],
-            '_XI': data[1]['columns'][0]['no_format_name'],
-            '_XI-1': di_data['n-1'][1]['columns'][0]['no_format_name'],
-            '_ZH': data[2]['columns'][0]['no_format_name'],
-            '_ZH-1': di_data['n-1'][2]['columns'][0]['no_format_name'],
+            '_BZ': float(data[0]['columns'][0]['no_format_name']),
+            '_BZ-1': float(di_data['n-1'][0]['columns'][0]['no_format_name']),
+            '_XI': float(data[1]['columns'][0]['no_format_name']),
+            '_XI-1': float(di_data['n-1'][1]['columns'][0]['no_format_name']),
+            '_ZH': float(data[2]['columns'][0]['no_format_name']),
+            '_ZH-1': float(di_data['n-1'][2]['columns'][0]['no_format_name']),
             'di_data': {
                 '_BZ': [
                       [str(year-3), di_data['n-3'][0]['columns'][0]['no_format_name']],
@@ -127,10 +126,14 @@ class OhadaDash(models.Model):
                       {'count': data[2]['columns'][0]['no_format_name'], 'l_month': str(year)}
                     ],
               },
-            '_XC': data[3]['columns'][0]['no_format_name'],
-            '_XD': data[4]['columns'][0]['no_format_name'],
-            'N37_RC': data[5]['columns'][0]['no_format_name'],
-            'N37_IR': data[6]['columns'][0]['no_format_name'],
+            '_XC': report.format_value(float(data[3]['columns'][0]['no_format_name'])),
+            '_XD': report.format_value(float(data[4]['columns'][0]['no_format_name'])),
+            'N37_RC': report.format_value(float(data[5]['columns'][0]['no_format_name'])),
+            'N37_IR': report.format_value(float(data[6]['columns'][0]['no_format_name'])),
+            # A-L - is Assets - Liabilities for the current year
+            # A-L-1 - is Assets - Liabilities for the last year
+            'A-L': float(data[0]['columns'][0]['no_format_name']) - float(data[7]['columns'][0]['no_format_name']),
+            'A-L-1': float(di_data['n-1'][0]['columns'][0]['no_format_name']) - float(di_data['n-1'][3]['columns'][0]['no_format_name'])
         }
         # global DATA
         # DATA = fetched_data
@@ -260,15 +263,29 @@ class OhadaDash(models.Model):
 
                 dash.lines_value = json.dumps(data)
             if dash.displayed_report_line:
+                if dash.report_id.code == 'BS':
+                    report = self.env['ohada.financial.html.report']
+                    dash.button_classes = json.dumps({
+                        'A-L': {
+                            'color': 'A-eq-L-color' if not DATA['A-L'] else 'A-L-color',
+                            'text': 'Assets = Liabilities' if not DATA['A-L'] else 'Assets - Liabilities',
+                            'value': report.format_value(DATA[dash.displayed_report_line.code]) if not DATA['A-L'] else report.format_value(DATA['A-L'])
+                        },
+                        'A-L-1': {
+                            'color': 'A-eq-L-color' if not DATA['A-L-1'] else 'A-L-color',
+                            'text': 'Assets = Liabilities' if not DATA['A-L-1'] else 'Assets - Liabilities',
+                            'value': report.format_value(DATA[dash.displayed_report_line.code + '-1']) if not DATA['A-L-1'] else report.format_value(DATA['A-L-1'])
+                        }
+                    })
                 variation = 'n/a'
                 current_year_value = DATA[dash.displayed_report_line.code]
                 prev_year_value = DATA[dash.displayed_report_line.code + '-1']
                 if prev_year_value != 0.0:
                     variation = '{:,.0f}%'.format(((current_year_value/prev_year_value)-1)*100)
                 dash.lines_value = json.dumps({'this_year': str(year),
-                                                'this_year_value': DATA[dash.displayed_report_line.code],
+                                                'this_year_value': report.format_value(DATA[dash.displayed_report_line.code]),
                                                 'prev_year': str(year - 1),
-                                                'prev_year_value': DATA[dash.displayed_report_line.code + '-1'],
+                                                'prev_year_value': report.format_value(DATA[dash.displayed_report_line.code + '-1']),
                                                 'variation': variation})
 
     def fetch_di_data(self, year, all_entries):
