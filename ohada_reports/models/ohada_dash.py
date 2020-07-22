@@ -263,8 +263,8 @@ class OhadaDash(models.Model):
 
                 dash.lines_value = json.dumps(data)
             if dash.displayed_report_line:
+                report = self.env['ohada.financial.html.report']
                 if dash.report_id.code == 'BS':
-                    report = self.env['ohada.financial.html.report']
                     dash.button_classes = json.dumps({
                         'A-L': {
                             'color': 'A-eq-L-color' if not DATA['A-L'] else 'A-L-color',
@@ -383,6 +383,7 @@ class OhadaFinancialReportLine(models.Model):
 
 class OhadaOptions(models.Model):
     _name = "ohada.options"
+    _description = "OHADA dashboard main options"
 
     current_year = fields.Integer(string="Current Year", default=str(datetime.now().year))
     dashboard = fields.One2many('ohada.dash', 'options')
@@ -391,5 +392,19 @@ class OhadaOptions(models.Model):
 
 class OhadaDashData(models.Model):
     _name = "ohada.dash.data"
+    _description = "OHADA dashboard main data"
 
     data = fields.Text()
+
+class ResCompany(models.Model):
+    _inherit = "res.company"
+
+    bs_format_landscape = fields.Boolean("BS report format landscape", default=True)
+
+    def write(self, vals):
+        res = super(ResCompany, self).write(vals)
+        if 'bs_format_landscape' in vals:
+            BS_report = self.env.ref('ohada_reports.ohada_report_balancesheet_0')
+            BS_report.print_format = 'portrait' if self.bs_format_landscape else 'landscape'
+        return res
+

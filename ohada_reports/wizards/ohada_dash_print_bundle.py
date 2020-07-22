@@ -31,6 +31,12 @@ class DashboardPrintBundle(models.TransientModel):
     notes = fields.Boolean(string="Notes")
     xlsx_bundle = fields.Binary('Xlsx file')
 
+    def only_BS_picked(self):
+        return self.balance_liabilitities and self.balance_assets and not (self.profit_loss or self.cashflow or self.notes)
+
+    def is_BS_format_landscape(self):
+        return True if self.env.ref('ohada_reports.ohada_report_balancesheet_0').print_format == 'landscape' else False
+
     def print_pdf(self, *context):
         report = self.env['ohada.financial.html.report']
         options = report.make_temp_options(int(self.dash_year))
@@ -41,7 +47,9 @@ class DashboardPrintBundle(models.TransientModel):
 
         report_obj = self.env["ohada.financial.html.report"].sudo()
         report_obj = report_obj.browse(1)
-        pdf = report_obj.print_bundle_pdf(options, bundle_items)
+
+        landscape = self.is_BS_format_landscape() if self.only_BS_picked() else False
+        pdf = report_obj.print_bundle_pdf(options, bundle_items, landscape=landscape)
 
         attachment = self.env['ir.attachment'].create({
                 'datas': base64.b64encode(pdf),
@@ -61,7 +69,8 @@ class DashboardPrintBundle(models.TransientModel):
         options = report.make_temp_options(dash.current_year)
 
         bundle_items = self.get_bundle_reports_ids()
-        xlsx = self.print_bundle_xlsx(options, bundle_items)
+        landscape = self.is_BS_format_landscape() if self.only_BS_picked() else False
+        xlsx = self.print_bundle_xlsx(options, bundle_items, landscape=landscape)
         attachment = self.env['ir.attachment'].create({
                 'datas': base64.b64encode(xlsx),
                 'name': 'New xlsx report',
@@ -94,14 +103,14 @@ class DashboardPrintBundle(models.TransientModel):
     def close_button(self):
         return {'type': 'ir.actions.act_window_close'}
 
-    def print_bundle_xlsx(self, options, reports_ids=None):
+    def print_bundle_xlsx(self, options, reports_ids=None, landscape = False):
         response = {}
         reports_ids = reports_ids.split(',')
         output = io.BytesIO()
         workbook = xlsxwriter.Workbook(output, {'in_memory': True})
         for report_id in reports_ids:
             if report_id != 'notes':
-                self.env['ohada.financial.html.report'].browse(int(report_id)).get_xlsx(options, response, print_bundle=True, workbook=workbook)
+                self.env['ohada.financial.html.report'].browse(int(report_id)).get_xlsx(options, response, print_bundle=True, workbook=workbook, landscape=landscape)
             else:
                 options['comparison']['filter'] = 'previous_period'
                 for report in self.env['ohada.financial.html.report'].search([('type', '=', 'note'), ('secondary', '=', False)]):
@@ -111,8 +120,7 @@ class DashboardPrintBundle(models.TransientModel):
                         options['comparison']['filter'] = 'no_comparison'
                         options = report._get_options(options)
                         report._apply_date_filter(options)
-                    report.get_xlsx(options, response, print_bundle=True, workbook=workbook)
-
+                    report.get_xlsx(options, response, print_bundle=True, workbook=workbook, landscape=landscape)
 
         workbook.close()
         output.seek(0)

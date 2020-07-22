@@ -138,7 +138,7 @@ class ReportOhadaFinancialReport(models.Model):
         return response
 
     @api.model
-    def print_bundle_pdf(self, options, reports_ids=None, minimal_layout=True):
+    def print_bundle_pdf(self, options, reports_ids=None, minimal_layout=True, landscape = False):
         pages = 0
         company = self.env['res.users'].browse(self._context.get('uid')).company_id
         year = options['date'].get('string')
@@ -209,7 +209,7 @@ class ReportOhadaFinancialReport(models.Model):
                 footer = b''
             header = headers
 
-        landscape = False
+        # landscape = False
         if len(self.with_context(print_mode=True).get_header(options)[-1]) > 5:
             landscape = True
 

@@ -601,4 +601,18 @@
         name="Dashboard new"
         parent="menu_ohada"
         sequence="1"/>
+
+    <record id="ohada_view_company_form_bs" model="ir.ui.view">
+        <field name="name">res.company.form</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="ohada_reports.ohada_view_company_form"/>
+        <field name="priority">200</field>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='ds_sandbox']" position="after">
+                    <field name="bs_format_landscape" groups="account.group_account_manager"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
 </odoo>
