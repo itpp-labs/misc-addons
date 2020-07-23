@@ -4,6 +4,7 @@ import json
 import logging
 from datetime import datetime
 from datetime import date
+import base64, io, xlsxwriter
 
 _logger = logging.getLogger(__name__)
 
@@ -353,12 +354,17 @@ class OhadaDash(models.Model):
             }).print_pdf()
 
     def download_xlsx(self):
+        dash = self.env.ref('ohada_reports.ohada_dashboard_view_your_company')
+        report = self.env['ohada.financial.html.report']
+        options = report.make_temp_options(dash.current_year)
         bundle = self.env['ohada.dash.print.bundle']
+
         if self.report_id.code == 'BS':
             return bundle.create({
                 'balance_assets': True,
                 'balance_liabilitities': True
             }).print_xlsx()
+            # return self.env.ref('ohada_reports.ohada_dashboard_printer').print_BS_xlsx()
         if self.report_id.code == 'PL':
             return bundle.create({
                 'profit_loss': True
@@ -399,12 +405,80 @@ class OhadaDashData(models.Model):
 class ResCompany(models.Model):
     _inherit = "res.company"
 
-    bs_format_landscape = fields.Boolean("BS report format landscape", default=True)
+    bs_format_landscape = fields.Boolean("BS report format landscape", default=False)
 
     def write(self, vals):
         res = super(ResCompany, self).write(vals)
         if 'bs_format_landscape' in vals:
             BS_report = self.env.ref('ohada_reports.ohada_report_balancesheet_0')
-            BS_report.print_format = 'portrait' if self.bs_format_landscape else 'landscape'
+            BS_report.print_format = 'landscape' if self.bs_format_landscape else 'portrait'
         return res
 
+class OhadaDashPrintReport(models.Model):
+    _name = "ohada.dash.print.report"
+    _description = "Print reports"
+
+    xlsx_file = fields.Binary('Xlsx file')
+
+    def is_BS_format_landscape(self):
+        return True if self.env.ref('ohada_reports.ohada_report_balancesheet_0').print_format == 'landscape' else False
+
+    # I will end it up next time
+    # 'print_items' dict keys: BS-A, BS-L, PL, CF, Notes11
+    def print_BS_xlsx(self, print_items=None):
+        dash = self.env.ref('ohada_reports.ohada_dashboard_view_your_company')
+        report = self.env['ohada.financial.html.report']
+        options = report.make_temp_options(dash.current_year)
+        if self.is_BS_format_landscape():
+            print_items = self.get_print_items_ids({'BS-A': True, 'BS-L': True})
+        import wdb;wdb.set_trace()
+
+        xlsx = self.build_BS_xlsx(options, print_items, landscape=self.is_BS_format_landscape())
+        attachment = self.env['ir.attachment'].create({
+            'datas': base64.b64encode(xlsx),
+            'name': 'New xlsx report',
+            'datas_fname': 'report.xlsx',
+            'type': 'url'
+        })
+        self.xlsx_file = base64.b64encode(xlsx)
+        return {
+            'type': 'ir.actions.act_url',
+            'name': 'bundle',
+            'url': '/web/content/ohada.dash.print.bundle/%s/xlsx_bundle/xlsx_bundle.xlsx?download=true' %(self.id),
+        }
+
+    def build_BS_xlsx(self, options, reports_ids=None, landscape=False):
+        response = {}
+        output = io.BytesIO()
+        workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+
+        if landscape:
+            for report_id in reports_ids:
+                self.env['ohada.financial.html.report'].browse(int(report_id)).get_xlsx(options, response, print_bundle=True, workbook=workbook)
+        else:
+            report_obj = self.env.ref('ohada_reports.ohada_report_balancesheet_0')
+            report_obj.get_xlsx(options, response, print_bundle=True, workbook=workbook)
+
+        workbook.close()
+        output.seek(0)
+        temporary_variable = output.read()
+        output.close()
+        return temporary_variable
+
+    def get_print_items_ids(self, print_items=None):
+        if not print_items:
+            return None
+        bundle_items = {
+            'Balance Sheet - Assets': print_items.get('BS-A', False),
+            'Balance Sheet - Liabilitites': print_items.get('BS-L', False),
+            'Profit & Loss': print_items.get('PL', False),
+            'Cashflow': print_items.get('CF', False),
+            'Notes': print_items.get('Notes', False)
+        }
+        choosen_items = []
+        for i in self.env['ohada.financial.html.report'].search([('type', '=', 'main')]):
+            if bundle_items.get(i.name, 0):
+                choosen_items.append(str(i.id))
+        if bundle_items.get("Notes", 0):
+            choosen_items.append('notes')
+        return ','.join(choosen_items)

@@ -13,6 +13,10 @@
         <field name="all_entries" eval="False"/>
     </record>
 
+    <!-- OHADA PRINT REPORT -->
+    <record id="ohada_dashboard_printer" model="ohada.dash.print.report">
+    </record>
+
     <!-- OHADA Dashboard -->
     <record id="ohada_dashboard_view_your_company" model="ohada.dash">
         <field name="name">YourCompany</field>

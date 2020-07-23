@@ -6,7 +6,7 @@ import base64, io, xlsxwriter
 
 class DashboardPrintBundle(models.TransientModel):
     """
-    This wizard is used to change dashboard options options
+    This wizard is used to download picked reports
     """
     _name = "ohada.dash.print.bundle"
     _description = 'Dashboard print bundle'
@@ -48,8 +48,13 @@ class DashboardPrintBundle(models.TransientModel):
         report_obj = self.env["ohada.financial.html.report"].sudo()
         report_obj = report_obj.browse(1)
 
-        landscape = self.is_BS_format_landscape() if self.only_BS_picked() else False
-        pdf = report_obj.print_bundle_pdf(options, bundle_items, landscape=landscape)
+        # landscape = self.is_BS_format_landscape() if self.only_BS_picked() else False
+        pdf = None
+        if self.only_BS_picked() and not self.is_BS_format_landscape():
+            report_obj = self.env.ref('ohada_reports.ohada_report_balancesheet_0')
+            pdf = report_obj.get_pdf(options, horizontal=True)
+        else:
+            pdf = report_obj.print_bundle_pdf(options, bundle_items)
 
         attachment = self.env['ir.attachment'].create({
                 'datas': base64.b64encode(pdf),
@@ -69,8 +74,7 @@ class DashboardPrintBundle(models.TransientModel):
         options = report.make_temp_options(dash.current_year)
 
         bundle_items = self.get_bundle_reports_ids()
-        landscape = self.is_BS_format_landscape() if self.only_BS_picked() else False
-        xlsx = self.print_bundle_xlsx(options, bundle_items, landscape=landscape)
+        xlsx = self.print_bundle_xlsx(options, bundle_items)
         attachment = self.env['ir.attachment'].create({
                 'datas': base64.b64encode(xlsx),
                 'name': 'New xlsx report',
@@ -103,24 +107,29 @@ class DashboardPrintBundle(models.TransientModel):
     def close_button(self):
         return {'type': 'ir.actions.act_window_close'}
 
-    def print_bundle_xlsx(self, options, reports_ids=None, landscape = False):
+    def print_bundle_xlsx(self, options, reports_ids=None):
         response = {}
         reports_ids = reports_ids.split(',')
         output = io.BytesIO()
         workbook = xlsxwriter.Workbook(output, {'in_memory': True})
-        for report_id in reports_ids:
-            if report_id != 'notes':
-                self.env['ohada.financial.html.report'].browse(int(report_id)).get_xlsx(options, response, print_bundle=True, workbook=workbook, landscape=landscape)
-            else:
-                options['comparison']['filter'] = 'previous_period'
-                for report in self.env['ohada.financial.html.report'].search([('type', '=', 'note'), ('secondary', '=', False)]):
-                    options = report._get_options(options)
-                    report._apply_date_filter(options)
-                    if report.code in ['N1']:
-                        options['comparison']['filter'] = 'no_comparison'
+
+        if self.only_BS_picked() and not self.is_BS_format_landscape():
+            report_obj = self.env.ref('ohada_reports.ohada_report_balancesheet_0')
+            report_obj.get_xlsx(options, response, print_bundle=True, workbook=workbook)
+        else:
+            for report_id in reports_ids:
+                if report_id != 'notes':
+                    self.env['ohada.financial.html.report'].browse(int(report_id)).get_xlsx(options, response, print_bundle=True, workbook=workbook)
+                else:
+                    options['comparison']['filter'] = 'previous_period'
+                    for report in self.env['ohada.financial.html.report'].search([('type', '=', 'note'), ('secondary', '=', False)]):
                         options = report._get_options(options)
                         report._apply_date_filter(options)
-                    report.get_xlsx(options, response, print_bundle=True, workbook=workbook, landscape=landscape)
+                        if report.code in ['N1']:
+                            options['comparison']['filter'] = 'no_comparison'
+                            options = report._get_options(options)
+                            report._apply_date_filter(options)
+                        report.get_xlsx(options, response, print_bundle=True, workbook=workbook)
 
         workbook.close()
         output.seek(0)

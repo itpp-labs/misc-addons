@@ -1188,8 +1188,8 @@ class OhadaReport(models.AbstractModel):
         # This scenario happens when you want to print a PDF report for the first time, as the
         # assets are not in cache and must be generated. To workaround this issue, we manually
         # commit the writes in the `ir.attachment` table. It is done thanks to a key in the context.
-        if self.code == 'BS':
-            horizontal=True
+        # if self.code == 'BS':
+        #     horizontal=True
         if not config['test_enable']:
             self = self.with_context(commit_assetsbundle=True)
 
@@ -1704,10 +1704,6 @@ class OhadaReport(models.AbstractModel):
             sheet.merge_range(4, 1, 4, self.x_index - 1, (self.shortname.upper() or ''), title_style)
 
         sheet.hide_gridlines(2)
-        if landscape:
-            sheet.set_landscape()
-        else:
-            sheet.set_portrait()
         if print_bundle == True:
             return
         workbook.close()
