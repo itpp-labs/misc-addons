@@ -3,6 +3,8 @@
 # Copyright 2016-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2020 Eugene Molotov <https://it-projects.info/team/em230418>
 # License MIT (https://opensource.org/licenses/MIT).
+import werkzeug
+
 from odoo import models
 
 
@@ -59,6 +61,11 @@ class IrHttp(models.AbstractModel):
                 mimetype = field_attachment[0]["mimetype"]
                 content = field_attachment[0]["url"]
                 filehash = field_attachment[0]["checksum"]
-                return 301, content, filename, mimetype, filehash
+                return 302, content, filename, mimetype, filehash
 
         return super(IrHttp, self)._binary_record_content(record, **kw)
+
+    def _response_by_status(self, status, headers, content):
+        if status == 302:
+            return werkzeug.utils.redirect(content, code=302)
+        return super(IrHttp, self)._response_by_status(status, headers, content)

@@ -5,6 +5,7 @@
 - **Improvment:** Request to binary files with non-falsy `url` attribute return HTTP 301 response
 - **Improvment:** Removed requirement of setting ir_attachment_url as server wide module
 - **Discard:** Passing url to Binary/Image field is no longer supported
+- **Fix:** Returing 302 instead of 301 http redirections to escape browser caching
 
 `1.1.10`
 -------
