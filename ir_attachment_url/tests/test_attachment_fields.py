@@ -1,5 +1,5 @@
 # Copyright 2020 Eugene Molotov <https://it-projects.info/team/em230418>
-# License MIT (https://opensource.org/licenses/MIT).
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 import base64
 import binascii
