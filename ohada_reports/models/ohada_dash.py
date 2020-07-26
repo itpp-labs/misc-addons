@@ -8,8 +8,6 @@ import base64, io, xlsxwriter
 
 _logger = logging.getLogger(__name__)
 
-DATA = {}
-
 class OhadaDash(models.Model):
     _name = "ohada.dash"
     _description = "OHADA dashboard"
@@ -136,8 +134,6 @@ class OhadaDash(models.Model):
             'A-L': float(data[0]['columns'][0]['no_format_name']) - float(data[7]['columns'][0]['no_format_name']),
             'A-L-1': float(di_data['n-1'][0]['columns'][0]['no_format_name']) - float(di_data['n-1'][3]['columns'][0]['no_format_name'])
         }
-        # global DATA
-        # DATA = fetched_data
         dashboard_data.data = json.dumps(fetched_data)
         # Returning "Dashboard new" kanban form action
         return self.env.ref('ohada_reports.ohada_action_dash').read()[0]
@@ -214,6 +210,7 @@ class OhadaDash(models.Model):
                     'model': report._name,
                     'report_options': report.make_temp_options(self.current_year)
             })
+        ctx['report_options']['all_entries'] = self.options.sudo().all_entries
         action['context'] = ctx
         return action
 
@@ -431,7 +428,6 @@ class OhadaDashPrintReport(models.Model):
         options = report.make_temp_options(dash.current_year)
         if self.is_BS_format_landscape():
             print_items = self.get_print_items_ids({'BS-A': True, 'BS-L': True})
-        import wdb;wdb.set_trace()
 
         xlsx = self.build_BS_xlsx(options, print_items, landscape=self.is_BS_format_landscape())
         attachment = self.env['ir.attachment'].create({
