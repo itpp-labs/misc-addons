@@ -1225,7 +1225,8 @@ class OhadaReport(models.AbstractModel):
             # import wdb
             # wdb.set_trace()
             body = body.replace(b'<table style="margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;"', b'<table style="font-size:8px !important;margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;"')
-            # body = body.replace(b'<tbody class="ohada_table">', b'<tbody class="ohada_table" style="width:100%;font-size:11px;">')
+            body = body.replace(b'<tbody class="ohada_table_sheet">', b'<tbody class="ohada_table_sheet" style="width:100%;font-size:8px;">')
+            body = body.replace(b'<tbody class="ohada_table_sheet" style="border:none;">', b'<tbody class="ohada_table_sheet" style="width:100%;font-size:8px;border:none;">')
 
         if minimal_layout:
             header = ''
@@ -1378,11 +1379,12 @@ class OhadaReport(models.AbstractModel):
                 style.set_right(1)
             if 'border-top' in style_str:
                 style.set_top(1)
+
         if self.code in ['CP', 'S1', 'S2']:
             html = self.get_html(options).decode('utf-8')
             html = BeautifulSoup(html, "html.parser")
             lines = []
-            for table in html.findAll('tbody', {'class': 'ohada_table'}):
+            for table in html.findAll('tbody', {'class': 'ohada_table_sheet'}):
                 for row in table.findAll('tr'):
                     lines.append({'cells': []})
                     for td in row.findAll('td'):

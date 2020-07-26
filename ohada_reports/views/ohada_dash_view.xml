@@ -122,7 +122,7 @@
                         <t t-foreach="reports_list" t-as="note">
                             <div class="pad-left-6">
                                 <button type="object" name="open_action_by_id" t-attf-title="#{note['title']}"
-                                t-attf-data-context="{'id' : '#{note['id']}'}" 
+                                t-attf-data-context="{'id' : '#{note['id']}'}"
                                 class="btn btn-primary note btn-min-width oh_dashbard_btn_m">
                                     <span><t t-esc="note['name']"/></span>
                                 </button>
@@ -274,7 +274,6 @@
                                     <a role="menuitem" name="open_page" context="{'page': 'Format'}" type="object">Format: 1 page/landscape</a>
                                 </div>
                                 <div>
-                                    <a role="menuitem" name="%(ohada_reports.ohada_bundle_disclosure_action)d" type="action">Open disclosure</a>
                                 </div>
                             </div>
                             <div class="col-4 o_kanban_card_manage_section o_kanban_manage_view">
