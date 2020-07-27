@@ -4,10 +4,9 @@ import json
 import logging
 from datetime import datetime
 from datetime import date
+import base64, io, xlsxwriter
 
 _logger = logging.getLogger(__name__)
-
-DATA = {}
 
 class OhadaDash(models.Model):
     _name = "ohada.dash"
@@ -46,7 +45,6 @@ class OhadaDash(models.Model):
         default=lambda s: s.env.user.company_id
     )
     current_year = fields.Integer(related='options.current_year', string="Current Year")
-    currency_id = fields.Char(related='company_id.currency_id.symbol', string='Currency symbol')
     reports = fields.Text(compute='_compute_reports')
     kanban_dashboard_graph = fields.Text(compute='_kanban_dashboard_graph')
     options = fields.Many2one("ohada.options")
@@ -101,12 +99,12 @@ class OhadaDash(models.Model):
                            'date_from': str(year - 3) + '-01-01'}
         di_data['n-3'] = report_diagram._get_lines(options)
         fetched_data = {
-            '_BZ': data[0]['columns'][0]['no_format_name'],
-            '_BZ-1': di_data['n-1'][0]['columns'][0]['no_format_name'],
-            '_XI': data[1]['columns'][0]['no_format_name'],
-            '_XI-1': di_data['n-1'][1]['columns'][0]['no_format_name'],
-            '_ZH': data[2]['columns'][0]['no_format_name'],
-            '_ZH-1': di_data['n-1'][2]['columns'][0]['no_format_name'],
+            '_BZ': float(data[0]['columns'][0]['no_format_name']),
+            '_BZ-1': float(di_data['n-1'][0]['columns'][0]['no_format_name']),
+            '_XI': float(data[1]['columns'][0]['no_format_name']),
+            '_XI-1': float(di_data['n-1'][1]['columns'][0]['no_format_name']),
+            '_ZH': float(data[2]['columns'][0]['no_format_name']),
+            '_ZH-1': float(di_data['n-1'][2]['columns'][0]['no_format_name']),
             'di_data': {
                 '_BZ': [
                       [str(year-3), di_data['n-3'][0]['columns'][0]['no_format_name']],
@@ -127,13 +125,15 @@ class OhadaDash(models.Model):
                       {'count': data[2]['columns'][0]['no_format_name'], 'l_month': str(year)}
                     ],
               },
-            '_XC': data[3]['columns'][0]['no_format_name'],
-            '_XD': data[4]['columns'][0]['no_format_name'],
-            'N37_RC': data[5]['columns'][0]['no_format_name'],
-            'N37_IR': data[6]['columns'][0]['no_format_name'],
-            }
-        # global DATA
-        # DATA = fetched_data
+            '_XC': report.format_value(float(data[3]['columns'][0]['no_format_name'])),
+            '_XD': report.format_value(float(data[4]['columns'][0]['no_format_name'])),
+            'N37_RC': report.format_value(float(data[5]['columns'][0]['no_format_name'])),
+            'N37_IR': report.format_value(float(data[6]['columns'][0]['no_format_name'])),
+            # A-L - is Assets - Liabilities for the current year
+            # A-L-1 - is Assets - Liabilities for the last year
+            'A-L': float(data[0]['columns'][0]['no_format_name']) - float(data[7]['columns'][0]['no_format_name']),
+            'A-L-1': float(di_data['n-1'][0]['columns'][0]['no_format_name']) - float(di_data['n-1'][3]['columns'][0]['no_format_name'])
+        }
         dashboard_data.data = json.dumps(fetched_data)
         # Returning "Dashboard new" kanban form action
         return self.env.ref('ohada_reports.ohada_action_dash').read()[0]
@@ -210,7 +210,9 @@ class OhadaDash(models.Model):
                     'model': report._name,
                     'report_options': report.make_temp_options(self.current_year)
             })
+        ctx['report_options']['all_entries'] = self.options.sudo().all_entries
         action['context'] = ctx
+        action['display_name'] = report.shortname
         return action
 
     @api.multi
@@ -260,105 +262,30 @@ class OhadaDash(models.Model):
 
                 dash.lines_value = json.dumps(data)
             if dash.displayed_report_line:
+                report = self.env['ohada.financial.html.report']
+                if dash.report_id.code == 'BS':
+                    dash.button_classes = json.dumps({
+                        'A-L': {
+                            'color': 'A-eq-L-color' if not DATA['A-L'] else 'A-L-color',
+                            'text': 'Assets = Liabilities' if not DATA['A-L'] else 'Assets - Liabilities',
+                            'value': report.format_value(DATA[dash.displayed_report_line.code]) if not DATA['A-L'] else report.format_value(DATA['A-L'])
+                        },
+                        'A-L-1': {
+                            'color': 'A-eq-L-color' if not DATA['A-L-1'] else 'A-L-color',
+                            'text': 'Assets = Liabilities' if not DATA['A-L-1'] else 'Assets - Liabilities',
+                            'value': report.format_value(DATA[dash.displayed_report_line.code + '-1']) if not DATA['A-L-1'] else report.format_value(DATA['A-L-1'])
+                        }
+                    })
                 variation = 'n/a'
                 current_year_value = DATA[dash.displayed_report_line.code]
                 prev_year_value = DATA[dash.displayed_report_line.code + '-1']
                 if prev_year_value != 0.0:
                     variation = '{:,.0f}%'.format(((current_year_value/prev_year_value)-1)*100)
                 dash.lines_value = json.dumps({'this_year': str(year),
-                                                'this_year_value': DATA[dash.displayed_report_line.code],
+                                                'this_year_value': report.format_value(DATA[dash.displayed_report_line.code]),
                                                 'prev_year': str(year - 1),
-                                                'prev_year_value': DATA[dash.displayed_report_line.code + '-1'],
+                                                'prev_year_value': report.format_value(DATA[dash.displayed_report_line.code + '-1']),
                                                 'variation': variation})
-
-    def fetch_di_data(self, year, all_entries):
-        report = self.env['ohada.financial.html.report']
-        data = dict()
-        report_cf = self.env['ohada.financial.html.report'].search([('code', '=', 'CF')], limit=1)
-        options = report_cf._get_options()
-        options.update({
-            'date': {'date_to': str(year) + '-12-31', 'string': str(year), 'filter': 'this_year', 'date_from': str(year) + '-01-01'},
-            'all_entries': all_entries,
-        })
-        ctx = report._set_context(options)
-        report = report.with_context(ctx)
-        bz_id = self.env.ref('ohada_reports.account_financial_report_balancesheet_BZ').id
-        xi_id = self.env.ref('ohada_reports.account_financial_report_ohada_profitlost_XI').id
-        zh_id = self.env.ref('ohada_reports.account_financial_report_ohada_cashflow_ZH').id
-
-        data['bz_d'] = report._get_lines(options, bz_id)[0]['columns'][0]['no_format_name']
-        data['xi_d'] = report._get_lines(options, xi_id)[0]['columns'][0]['no_format_name']
-        data['xi-1_d'] = report._get_lines({
-                                            'ir_filters': None,
-                                            'date': {'date_to': str(year - 1) + '-12-31',
-                                                    'string': str(year - 1), 'filter': 'this_year',
-                                                    'date_from': str(year - 1) + '-01-01'}
-                                            }, xi_id)[0]['columns'][0]['no_format_name']
-        data['zh_d'] = report._get_lines(options, zh_id)[0]['columns'][0]['no_format_name']
-        data['zh-1_d'] = report._get_lines({
-                                            'ir_filters': None,
-                                            'date': {'date_to': str(year - 1) + '-12-31',
-                                                    'string': str(year - 1), 'filter': 'this_year',
-                                                    'date_from': str(year - 1) + '-01-01'}
-                                            }, zh_id)[0]['columns'][0]['no_format_name']
-        data['di_data'] = {'BS': [], 'PL': [], 'CF': []}
-        data['di_data']['BS'] = [[str(year - 3), report._get_lines({
-                                                'ir_filters': None,
-                                                'date': {'date_to': str(year - 3) + '-12-31',
-                                                        'string': str(year - 3),
-                                                        'filter': 'this_year',
-                                                        'date_from': str(year - 3) + '-01-01'}
-                                                }, bz_id)[0]['columns'][0]['no_format_name']],
-                                 [str(year - 2), report._get_lines({
-                                                'ir_filters': None,
-                                                'date': {'date_to': str(year - 2) + '-12-31',
-                                                        'string': str(year - 2),
-                                                        'filter': 'this_year',
-                                                        'date_from': str(year - 2) + '-01-01'}
-                                                }, bz_id)[0]['columns'][0]['no_format_name']],
-                                 [str(year - 1), report._get_lines({
-                                                'ir_filters': None,
-                                                'date': {'date_to': str(year - 1) + '-12-31',
-                                                        'string': str(year - 1),
-                                                        'filter': 'this_year',
-                                                        'date_from': str(year - 1) + '-01-01'}
-                                                }, bz_id)[0]['columns'][0]['no_format_name']],
-                                 [str(year), data['bz_d']]]
-
-        data['di_data']['PL'] = [[str(year - 3), report._get_lines({
-                                                'ir_filters': None,
-                                                'date': {'date_to': str(year - 3) + '-12-31',
-                                                         'string': str(year - 3),
-                                                         'filter': 'this_year',
-                                                         'date_from': str(year - 3) + '-01-01'}
-                                                }, xi_id)[0]['columns'][0]['no_format_name']],
-                                 [str(year - 2), report._get_lines({
-                                                'ir_filters': None,
-                                                'date': {'date_to': str(year - 2) + '-12-31',
-                                                         'string': str(year - 2),
-                                                         'filter': 'this_year',
-                                                         'date_from': str(year - 2) + '-01-01'}
-                                                }, xi_id)[0]['columns'][0]['no_format_name']],
-                                 [str(year - 1), data['xi-1_d']],
-                                 [str(year), data['xi_d']]]
-
-        data['di_data']['CF'] = [{'l_month': str(year - 3), 'count': report._get_lines({
-                                                'ir_filters': None,
-                                                'date': {'date_to': str(year - 3) + '-12-31',
-                                                         'string': str(year - 3),
-                                                         'filter': 'this_year',
-                                                         'date_from': str(year - 3) + '-01-01'}
-                                                }, zh_id)[0]['columns'][0]['no_format_name']},
-                                 {'l_month': str(year - 2), 'count': report._get_lines({
-                                                'ir_filters': None,
-                                                'date': {'date_to': str(year - 2) + '-12-31',
-                                                         'string': str(year - 2),
-                                                         'filter': 'this_year',
-                                                         'date_from': str(year - 2) + '-01-01'}
-                                                }, zh_id)[0]['columns'][0]['no_format_name']},
-                                 {'l_month': str(year - 1), 'count': data['zh-1_d']},
-                                 {'l_month': str(year), 'count': data['zh_d']}]
-        return data
 
     def open_page(self, context):
         if context['page'] == 'company':
@@ -372,16 +299,16 @@ class OhadaDash(models.Model):
                 'type': 'ir.actions.act_window',
                 'target': 'current',
             }
-        if context['page'] == 'Format':
+        elif context['page'] == 'Format':
             action = self.env.ref('base.action_res_company_form')
             action['view_id'] = self.env.ref('ohada_reports.ohada_view_company_form').id
             action['res_id'] = self.company_id.id
             action['context'] = self.env.context
             action['target'] = 'current'
             return action.read()[0]
-        if context['page'] == 'Disclosure form view':
-            button_state = json.loads(self.button_classes)
-            if not button_state['signNpay_button']:
+        elif context['page'] == 'Disclosure form view':
+            id = self.env['ohada.disclosure'].search([]).filtered(lambda x: int(x.fiscalyear_id) == self.current_year).id
+            if not id:
                 return None
             return {
                 'context': self.env.context,
@@ -393,7 +320,7 @@ class OhadaDash(models.Model):
                 'type': 'ir.actions.act_window',
                 'target': 'current',
             }
-        if context['page'] == 'Data import':
+        elif context['page'] == 'Data import':
             id = self.env['ir.ui.menu'].search([]).filtered(lambda x: x.display_name == 'Accounting').id
             return {
                 'type': 'ir.actions.act_url',
@@ -401,6 +328,8 @@ class OhadaDash(models.Model):
                 'url': '/web#model=account.move&action=import&mode=import_balance&menu_id=%s' %(id),
                 'target': 'self'
             }
+        elif context['page'] == 'Open disclosure':
+            return self.env.ref('ohada_reports.ohada_bundle_disclosure_action').read()[0]
 
     def run_update_note_relevance(self):
         note_relevance = self.env['note.relevance']
@@ -409,10 +338,26 @@ class OhadaDash(models.Model):
     def preview_pdf(self):
         bundle = self.env['ohada.dash.print.bundle']
         if self.report_id.code == 'BS':
-            return bundle.create({
-                'balance_assets': True,
-                'balance_liabilitities': True
-            }).print_pdf()
+            # return bundle.create({
+            #     'balance_assets': True,
+            #     'balance_liabilitities': True
+            # }).print_pdf()
+            report = self.env['ohada.financial.html.report']
+            options = report.make_temp_options(int(self.current_year))
+            report_obj = self.env.ref('ohada_reports.ohada_report_balancesheet_0')
+            horizontal = True if self.env.ref('ohada_reports.ohada_report_balancesheet_0').print_format == 'landscape' else False
+            pdf = report_obj.get_pdf(options, horizontal=horizontal)
+            attachment = self.env['ir.attachment'].create({
+                'datas': base64.b64encode(pdf),
+                'name': 'New pdf report',
+                'datas_fname': 'report.pdf',
+                'type': 'binary'
+            })
+            return {
+                'type': 'ir.actions.act_url',
+                'name': 'contract',
+                'url': attachment.local_url
+            }
         if self.report_id.code == 'PL':
             return bundle.create({
                 'profit_loss': True
@@ -423,12 +368,17 @@ class OhadaDash(models.Model):
             }).print_pdf()
 
     def download_xlsx(self):
+        dash = self.env.ref('ohada_reports.ohada_dashboard_view_your_company')
+        report = self.env['ohada.financial.html.report']
+        options = report.make_temp_options(dash.current_year)
         bundle = self.env['ohada.dash.print.bundle']
+
         if self.report_id.code == 'BS':
             return bundle.create({
                 'balance_assets': True,
                 'balance_liabilitities': True
             }).print_xlsx()
+            # return self.env.ref('ohada_reports.ohada_dashboard_printer').print_BS_xlsx()
         if self.report_id.code == 'PL':
             return bundle.create({
                 'profit_loss': True
@@ -453,6 +403,7 @@ class OhadaFinancialReportLine(models.Model):
 
 class OhadaOptions(models.Model):
     _name = "ohada.options"
+    _description = "OHADA dashboard main options"
 
     current_year = fields.Integer(string="Current Year", default=str(datetime.now().year))
     dashboard = fields.One2many('ohada.dash', 'options')
@@ -461,5 +412,86 @@ class OhadaOptions(models.Model):
 
 class OhadaDashData(models.Model):
     _name = "ohada.dash.data"
+    _description = "OHADA dashboard main data"
 
     data = fields.Text()
+
+class ResCompany(models.Model):
+    _inherit = "res.company"
+
+    bs_format_landscape = fields.Boolean("BS report format landscape", default=False)
+
+    def write(self, vals):
+        res = super(ResCompany, self).write(vals)
+        if 'bs_format_landscape' in vals:
+            BS_report = self.env.ref('ohada_reports.ohada_report_balancesheet_0')
+            BS_report.print_format = 'landscape' if self.bs_format_landscape else 'portrait'
+        return res
+
+class OhadaDashPrintReport(models.Model):
+    _name = "ohada.dash.print.report"
+    _description = "Print reports"
+
+    xlsx_file = fields.Binary('Xlsx file')
+
+    def is_BS_format_landscape(self):
+        return True if self.env.ref('ohada_reports.ohada_report_balancesheet_0').print_format == 'landscape' else False
+
+    # I will end it up next time
+    # 'print_items' dict keys: BS-A, BS-L, PL, CF, Notes11
+    def print_BS_xlsx(self, print_items=None):
+        dash = self.env.ref('ohada_reports.ohada_dashboard_view_your_company')
+        report = self.env['ohada.financial.html.report']
+        options = report.make_temp_options(dash.current_year)
+        if self.is_BS_format_landscape():
+            print_items = self.get_print_items_ids({'BS-A': True, 'BS-L': True})
+
+        xlsx = self.build_BS_xlsx(options, print_items, landscape=self.is_BS_format_landscape())
+        attachment = self.env['ir.attachment'].create({
+            'datas': base64.b64encode(xlsx),
+            'name': 'New xlsx report',
+            'datas_fname': 'report.xlsx',
+            'type': 'url'
+        })
+        self.xlsx_file = base64.b64encode(xlsx)
+        return {
+            'type': 'ir.actions.act_url',
+            'name': 'bundle',
+            'url': '/web/content/ohada.dash.print.bundle/%s/xlsx_bundle/xlsx_bundle.xlsx?download=true' %(self.id),
+        }
+
+    def build_BS_xlsx(self, options, reports_ids=None, landscape=False):
+        response = {}
+        output = io.BytesIO()
+        workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+
+        if landscape:
+            for report_id in reports_ids:
+                self.env['ohada.financial.html.report'].browse(int(report_id)).get_xlsx(options, response, print_bundle=True, workbook=workbook)
+        else:
+            report_obj = self.env.ref('ohada_reports.ohada_report_balancesheet_0')
+            report_obj.get_xlsx(options, response, print_bundle=True, workbook=workbook)
+
+        workbook.close()
+        output.seek(0)
+        temporary_variable = output.read()
+        output.close()
+        return temporary_variable
+
+    def get_print_items_ids(self, print_items=None):
+        if not print_items:
+            return None
+        bundle_items = {
+            'Balance Sheet - Assets': print_items.get('BS-A', False),
+            'Balance Sheet - Liabilitites': print_items.get('BS-L', False),
+            'Profit & Loss': print_items.get('PL', False),
+            'Cashflow': print_items.get('CF', False),
+            'Notes': print_items.get('Notes', False)
+        }
+        choosen_items = []
+        for i in self.env['ohada.financial.html.report'].search([('type', '=', 'main')]):
+            if bundle_items.get(i.name, 0):
+                choosen_items.append(str(i.id))
+        if bundle_items.get("Notes", 0):
+            choosen_items.append('notes')
+        return ','.join(choosen_items)

@@ -102,6 +102,8 @@
 									<field name="ds_integration_key" />
 									<field name="ds_secret_key" />
 									<field name="ds_sandbox" />
+									<!-- Added 'bs_format_landscape' field by Vildan, 23/07/2020 -->
+									<field name="bs_format_landscape" groups="account.group_account_manager"/>
                                 </group>
 							</group>
 							<button name="check_docusign_connection" type="object" class="btn btn-primary oe_stat_button">

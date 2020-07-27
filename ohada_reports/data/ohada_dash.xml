@@ -13,6 +13,10 @@
         <field name="all_entries" eval="False"/>
     </record>
 
+    <!-- OHADA PRINT REPORT -->
+    <record id="ohada_dashboard_printer" model="ohada.dash.print.report">
+    </record>
+
     <!-- OHADA Dashboard -->
     <record id="ohada_dashboard_view_your_company" model="ohada.dash">
         <field name="name">YourCompany</field>
@@ -128,6 +132,15 @@
         <field name="level" eval="0" />
     </record>
 
+    <record id="account_financial_report_ohada_dash_line_8" model="ohada.financial.html.report.line">
+        <field name="name"></field>
+        <field name="code">ds_8</field>
+        <field name="financial_report_id" ref="ohada_report_dash"/>
+        <field name="sequence" eval="8"/>
+        <field name="formulas">balance = _DZ.balance</field>
+        <field name="level" eval="0" />
+    </record>
+
     <record id="account_financial_report_ohada_dash_line_2" model="ohada.financial.html.report.line">
         <field name="name"></field>
         <field name="code">ds_2</field>
@@ -219,6 +232,15 @@
         <field name="financial_report_id" ref="ohada_report_dash_diagram"/>
         <field name="sequence" eval="3"/>
         <field name="formulas">balance = _ZH.balance</field>
+        <field name="level" eval="0" />
+    </record>
+
+    <record id="account_financial_report_ohada_dash_diagram_line_4" model="ohada.financial.html.report.line">
+        <field name="name"></field>
+        <field name="code">dsd_4</field>
+        <field name="financial_report_id" ref="ohada_report_dash_diagram"/>
+        <field name="sequence" eval="4"/>
+        <field name="formulas">balance = _DZ.balance</field>
         <field name="level" eval="0" />
     </record>
 
