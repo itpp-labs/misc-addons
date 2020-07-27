@@ -164,6 +164,8 @@ class ReportOhadaFinancialReport(models.Model):
                                                                         ('company_id', '=', company.id)])
                     if note_relevance:
                         if note_relevance.relevant:
+                            options = report._get_options(options)
+                            report._apply_date_filter(options)
                             body_html += report.get_html(options)
                             pages += 1
 
