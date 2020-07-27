@@ -11,7 +11,7 @@
                 <colgroup width="37"></colgroup>
                 <colgroup width="22"></colgroup>
                 <colgroup width="33"></colgroup>
-                <tbody class="ohada_table">
+                <tbody class="ohada_table_sheet">
                 <tr>
                     <td height="16" align="left"><br/></td>
                     <td align="left"><br/></td>
@@ -492,7 +492,7 @@
                 <colgroup width="37"></colgroup>
                 <colgroup width="22"></colgroup>
                 <colgroup width="33"></colgroup>
-                <tbody class="ohada_table">
+                <tbody class="ohada_table_sheet">
                 <tr>
                     <td colspan="11" height="18" align="center" bgcolor="#CDEBFF"><b></b></td>
                     <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="14" rowspan="3" align="center" bgcolor="#CDEBFF"><b>Code nomenclature d'activité</b></td>
@@ -1024,7 +1024,7 @@
                 <colgroup span="21" width="24"></colgroup>
                 <colgroup width="34"></colgroup>
                 <colgroup span="7" width="24"></colgroup>
-                <tbody class="ohada_table">
+                <tbody class="ohada_table_sheet">
                     <tr>
                         <td colspan="31" height="27" align="center" sdnum="1033;0;0.00"><b>FICHER D'IDENTIFICATION ET RENSEIGNEMENTS DIVERS 1</b></td>
                         </tr>
@@ -1915,7 +1915,7 @@
                 <colgroup width="45"></colgroup>
                 <colgroup width="43"></colgroup>
                 <colgroup width="16"></colgroup>
-                <tbody class="ohada_table">
+                <tbody class="ohada_table_sheet">
                 <tr>
                     <td height="18" align="left"></td>
                     <td colspan="8" align="left"><b></b></td>
@@ -2885,7 +2885,7 @@
                 <colgroup width="37"></colgroup>
                 <colgroup width="22"></colgroup>
                 <colgroup width="33"></colgroup>
-                <tbody class="ohada_table" style="border:none;">
+                <tbody class="ohada_table_sheet" style="border:none;">
                 <tr class="ohada_cell_box_top">
                     <td  height="17" align="left"></td>
                     <td align="left"></td>

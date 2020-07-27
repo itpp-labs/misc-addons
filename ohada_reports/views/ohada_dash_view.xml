@@ -120,7 +120,7 @@
                         <t t-foreach="reports_list" t-as="note">
                             <div class="pad-left-6">
                                 <button type="object" name="open_action_by_id" t-attf-title="#{note['title']}"
-                                t-attf-data-context="{'id' : '#{note['id']}'}" 
+                                t-attf-data-context="{'id' : '#{note['id']}'}"
                                 class="btn btn-primary note btn-min-width oh_dashbard_btn_m">
                                     <span class="uppercase"><t t-esc="note['name']"/></span>
                                 </button>
@@ -277,6 +277,7 @@
                                 </div>
                                 <div>
                                     <a role="menuitem" name="open_page" context="{'page': 'Open disclosure'}" type="object">Open disclosure</a>
+
                                 </div>
                             </div>
                             <div class="col-4 o_kanban_card_manage_section o_kanban_manage_view">
@@ -601,18 +602,4 @@
         name="Dashboard new"
         parent="menu_ohada"
         sequence="1"/>
-
-    <!-- <record id="ohada_view_company_form_bs" model="ir.ui.view">
-        <field name="name">res.company.form</field>
-        <field name="model">res.company</field>
-        <field name="inherit_id" ref="ohada_reports.ohada_view_company_form"/>
-        <field name="priority">200</field>
-        <field name="arch" type="xml">
-            <data>
-                <xpath expr="//field[@name='ds_sandbox']" position="after">
-                    <field name="bs_format_landscape" groups="account.group_account_manager"/>
-                </xpath>
-            </data>
-        </field>
-    </record> -->
 </odoo>

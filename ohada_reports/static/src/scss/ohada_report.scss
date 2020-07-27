@@ -12,10 +12,10 @@ $ohada-highlight-color: #F9D9D9;        // #F7E1E1;
 $ohada-font-light: 'NimbusSanL-Regu';
 $ohada-font-regular: 'NimbusSanL-Regu';
 $ohada-font-bold: 'NimbusSanL-Bold';
-//$ohada-font-size-xsmall: 12px;            
-//$ohada-font-size-small: 14px;             
-//$ohada-font-size-regular: 16px;           
-//$ohada-font-size-total: 20px;             
+//$ohada-font-size-xsmall: 12px;
+//$ohada-font-size-small: 14px;
+//$ohada-font-size-regular: 16px;
+//$ohada-font-size-total: 20px;
 
 .o_ohada_report_line .dropdown-toggle{
     color: $ohada-primary-color;
@@ -30,7 +30,19 @@ $ohada-font-bold: 'NimbusSanL-Bold';
     color: $ohada-primary-color;
     font-family: $ohada-font-regular;
     & td {
-        height:20px;
+        height:15px;
+        padding-top: 4px;
+        padding-bottom: 3px;
+        vertical-align: middle;
+    }
+}
+.ohada_table_sheet {
+    border-style: double;
+    border-color: $ohada-primary-color;
+    color: $ohada-primary-color;
+    font-family: $ohada-font-regular;
+    & td {
+        height:0px;
         padding-top: 4px;
         padding-bottom: 3px;
         vertical-align: middle;
@@ -347,7 +359,7 @@ $ohada-font-bold: 'NimbusSanL-Bold';
     }
     .o_ohada_reports_level6 {
         border-bottom: 1px solid $ohada-primary-color;
-        height: 200px;
+        height: 180px;
         > td.o_ohada_report_line_indent > span:last-child {
             margin-left: 15px;
         }
