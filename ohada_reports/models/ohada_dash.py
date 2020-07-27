@@ -212,6 +212,7 @@ class OhadaDash(models.Model):
             })
         ctx['report_options']['all_entries'] = self.options.sudo().all_entries
         action['context'] = ctx
+        action['display_name'] = report.shortname
         return action
 
     @api.multi
@@ -337,10 +338,26 @@ class OhadaDash(models.Model):
     def preview_pdf(self):
         bundle = self.env['ohada.dash.print.bundle']
         if self.report_id.code == 'BS':
-            return bundle.create({
-                'balance_assets': True,
-                'balance_liabilitities': True
-            }).print_pdf()
+            # return bundle.create({
+            #     'balance_assets': True,
+            #     'balance_liabilitities': True
+            # }).print_pdf()
+            report = self.env['ohada.financial.html.report']
+            options = report.make_temp_options(int(self.current_year))
+            report_obj = self.env.ref('ohada_reports.ohada_report_balancesheet_0')
+            horizontal = True if self.env.ref('ohada_reports.ohada_report_balancesheet_0').print_format == 'landscape' else False
+            pdf = report_obj.get_pdf(options, horizontal=horizontal)
+            attachment = self.env['ir.attachment'].create({
+                'datas': base64.b64encode(pdf),
+                'name': 'New pdf report',
+                'datas_fname': 'report.pdf',
+                'type': 'binary'
+            })
+            return {
+                'type': 'ir.actions.act_url',
+                'name': 'contract',
+                'url': attachment.local_url
+            }
         if self.report_id.code == 'PL':
             return bundle.create({
                 'profit_loss': True
