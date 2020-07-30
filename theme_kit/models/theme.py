@@ -156,6 +156,14 @@ class ThemeTopPanel(models.Model):
                 }}
                 """
                 )
+                # Compatibility theme_kit and material backend theme modules
+                code = (
+                    code
+                    + """nav.navbar.navbar-default.main-nav  {{
+                        background-color: {theme.top_panel_bg}!important
+                }}
+                """
+                )
 
             if self.top_panel_border_active:
                 code = (
@@ -404,6 +412,14 @@ class ThemeLeftPanel(models.Model):
                     .fa-plus, .fa-gear, .fa-arrows-h{{
                         color: {theme.left_panel_bg}!important;
                     }}
+                }}
+                """
+                )
+                # Compatibility theme_kit and material backend theme modules
+                code = (
+                    code
+                    + """.app-sidebar-panel {{
+                        background-color: {theme.left_panel_bg}!important
                 }}
                 """
                 )
