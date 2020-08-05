@@ -1,3 +1,8 @@
+`1.1.11`
+-------
+
+- **Improvement:** Allow to get URLs for export (images) or something else
+
 `1.1.10`
 -------
 
