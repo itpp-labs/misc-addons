@@ -69,7 +69,7 @@
                                 <div class="content-group">
                                     <div class="mt16">
                                         <button
-                                            name="upload_existing"
+                                            name="s3_upload_existing"
                                             type="object"
                                             string="Upload existing attachments"
                                         />

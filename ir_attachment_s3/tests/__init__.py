@@ -1,1 +1,1 @@
-from . import test_resized_attachments
+from . import test_s3

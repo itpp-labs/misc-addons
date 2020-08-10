@@ -9,40 +9,26 @@
 Roadmap
 =======
 
-* Rewrite this module from scratch. Module must include:
-
-  * Storing s3-related settings: bucket, access key and access password.
-  * Methods for reading, writing and deleting objects from s3 bucket. Those methods can be used in other modules
-  * Working with s3 objects like binary data, so take away `ir_attachment_url` dependency
-  * `ir_attachment` model must have `s3_store_fname` field. Non-falsy value means, that attachment is stored in s3
-
-* Create new module `ir_attachment_image` and move following classes, methods from this module to new one:
-
-  * class `BinaryExtended` (excluding s3-related check)
-  * class `IrAttachmentResized`
-  * partially class `IrAttachment`. Leave s3-related methods here and `_inverse_datas`
-  * method `test_getting_cached_images_url_instead_computing`. Probably this modules's test must override test from `ir_attachment_image`
-  * `ir_attachment_s3` is dependency of `ir_attachment_image`
-
-* Refactoring:
-
-  * `S3Setting.upload_existing` and `IrAttachment._inverse_datas` look almost equal
-
 * In settings add options:
 
   * condition, if object in s3 must be stored as public (as it does now)
   * condition, if object in s3 must be stored as private and think about, how to return it to user, 'cos you cannot use link to that. Possibly read from bucket and return and uncomment this: https://github.com/it-projects-llc/misc-addons/pull/775/files#r302856876
+  * how to name a file in s3 storage. As for now it is "odoo/{hash}". Maybe we could add database name to filename
 
 * Fix these bugs (possible in ir_attachment_url):
 
   * After loading image url to existing product variant, image does not change in backend
   * Set image with url, then upload other image as binary file (s3), backend shows old image. It can be fixed with clearing cache. Reason: there is no 'unique' parameter in image source attribute (<img src)
+  * In backend. Set product image as binary file (s3), in product page it shows new image, in product list it shows old image.
+    Reason: there is no 'unique' parameter in image source attribute (<img src)
   * Using `website_sale` addon. Upload main image to product variant. Then
 
     * in list of products old image is shown (bug)
     * in product page main image is shown as main, previous main image is extra (maybe not a bug, but don't know how to remove previous main image)
 
 * Make endpoint_url customizable to allow using other s3-supported storages. Example: https://docs.min.io/docs/how-to-use-aws-sdk-for-python-with-minio-server.html
+
+* S3 Condition is ignored in attachment creation
 
 Credits
 =======
@@ -62,7 +48,7 @@ Maintainers
 -----------
 * `IT-Projects LLC <https://it-projects.info>`__
 
-      To get a guaranteed support you are kindly requested to purchase the module at `odoo apps store <https://apps.odoo.com/apps/modules/12.0/ir_attachment_s3/>`__.
+      To get a guaranteed support you are kindly requested to purchase the module at `odoo apps store <https://apps.odoo.com/apps/modules/13.0/ir_attachment_s3/>`__.
 
       Thank you for understanding!
 
@@ -71,10 +57,10 @@ Maintainers
 Further information
 ===================
 
-HTML Description: https://apps.odoo.com/apps/modules/12.0/ir_attachment_s3/
+HTML Description: https://apps.odoo.com/apps/modules/13.0/ir_attachment_s3/
 
 Usage instructions: `<doc/index.rst>`_
 
 Changelog: `<doc/changelog.rst>`_
 
-Tested on Odoo 12.0 b535558d23778a8960fcdc494067b70fe9c8ecab
+Tested on Odoo 13.0 f862f9650395b02f6a43c57cdf232a309fa6948e

@@ -1,63 +1,74 @@
+# Copyright 2020 Eugene Molotov <https://it-projects.info/team/em230418>
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+
 import base64
 
-import requests
-import werkzeug
-
-from odoo import SUPERUSER_ID, http
-from odoo.exceptions import AccessError
+import odoo
+from odoo import http
 from odoo.http import request
+from odoo.tools import image_process
 
-from odoo.addons.mail.controllers.main import MailController
-
-from ..models.image import is_url
-
-# TODO: https://github.com/odoo/odoo/commit/7d85ab1eac6dbf33d56c6a1f8bf7e9e12bb8008e
-# from odoo.addons.web.controllers.main import binary_content
-binary_content = None
+from odoo.addons.web.controllers.main import Binary
 
 
-class MailControllerExtended(MailController):
-    @http.route()
-    def avatar(self, res_model, res_id, partner_id):
-        headers = [("Content-Type", "image/png")]
-        status = 200
-        content = "R0lGODlhAQABAIABAP///wAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="  # default image is one white pixel
-        if res_model in request.env:
-            try:
-                # if the current user has access to the document, get the partner avatar as sudo()
-                request.env[res_model].browse(res_id).check_access_rule("read")
-                if (
-                    partner_id
-                    in request.env[res_model]
-                    .browse(res_id)
-                    .sudo()
-                    .exists()
-                    .message_ids.mapped("author_id")
-                    .ids
-                ):
-                    status, headers, _content = binary_content(
-                        model="res.partner",
-                        id=partner_id,
-                        field="image_medium",
-                        default_mimetype="image/png",
-                        env=request.env(user=SUPERUSER_ID),
-                    )
-                    # binary content return an empty string and not a placeholder if obj[field] is False
-                    if _content != "":
-                        content = _content
-                    if status == 304:
-                        return werkzeug.wrappers.Response(status=304)
-            except AccessError:
-                pass
+class BinaryExtended(Binary):
+    def _content_image(
+        self,
+        xmlid=None,
+        model="ir.attachment",
+        id=None,
+        field="datas",
+        filename_field="name",
+        unique=None,
+        filename=None,
+        mimetype=None,
+        download=None,
+        width=0,
+        height=0,
+        crop=False,
+        quality=0,
+        access_token=None,
+        placeholder="placeholder.png",
+        **kwargs
+    ):
+        status, headers, image_base64 = request.env["ir.http"].binary_content(
+            xmlid=xmlid,
+            model=model,
+            id=id,
+            field=field,
+            unique=unique,
+            filename=filename,
+            filename_field=filename_field,
+            download=download,
+            mimetype=mimetype,
+            default_mimetype="image/png",
+            access_token=access_token,
+        )
 
-        if status == 301 and is_url(content):
-            r = requests.get(content, timeout=5)
-            image_base64 = r.content
-        else:
-            image_base64 = base64.b64decode(content)
+        if status in [301, 302, 304] or (
+            status != 200 and download
+        ):  # em230418: added 302 only
+            return request.env["ir.http"]._response_by_status(
+                status, headers, image_base64
+            )
+        if not image_base64:
+            # Since we set a placeholder for any missing image, the status must be 200. In case one
+            # wants to configure a specific 404 page (e.g. though nginx), a 404 status will cause
+            # troubles.
+            status = 200
+            image_base64 = base64.b64encode(self.placeholder(image=placeholder))
+            if not (width or height):
+                width, height = odoo.tools.image_guess_size_from_field_name(field)
 
-        headers.append(("Content-Length", len(image_base64)))
-        response = request.make_response(image_base64, headers)
-        response.status = str(status)
+        image_base64 = image_process(
+            image_base64,
+            size=(int(width), int(height)),
+            crop=crop,
+            quality=int(quality),
+        )
 
+        content = base64.b64decode(image_base64)
+        headers = http.set_safe_image_headers(headers, content)
+        response = request.make_response(content, headers)
+        response.status_code = status
         return response

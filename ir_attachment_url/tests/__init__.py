@@ -1,2 +1,1 @@
-from . import test_data_get
-from . import test_product_tmpl_image
+from . import test_attachment_fields

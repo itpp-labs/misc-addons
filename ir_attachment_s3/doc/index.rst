@@ -44,17 +44,6 @@ You can also remove ``"s3:CreateBucket"`` if bucket already exists.
 Configuration
 =============
 
-* To enable the feature of linking existing urls to binary fields:
-
-  * Start Odoo with ``--load=web,ir_attachment_url`` or set the ``server_wide_modules`` option in The Odoo configuration file:
-
-::
-
-  [options]
-  # (...)
-  server_wide_modules = web,ir_attachment_url
-  # (...)
-
 * `Enable technical features <https://odoo-development.readthedocs.io/en/latest/odoo/usage/technical-features.html>`__
 * Open menu ``Settings >> Parameters >> System Parameters`` and specify the following parameters there
 
@@ -104,7 +93,12 @@ In this case you should also install ``ir_attachment_url`` module to be able to 
 Upload existing attachments
 ---------------------------
 
-* To upload existing attachments go to the ``Settings >> Technical >> Database Structure >> S3 Settings`` menu and click on the ``[Upload existing attachments]`` button there
+* There are 2 ways to upload existing attachments:
+  1. Open odoo shell and run `env["ir.attachment"].force_storage_s3()`
+  2. Go to the ``Settings >> Technical >> Database Structure >> S3 Settings`` menu and click on the ``[Upload existing attachments]`` button there
+
+  It is recommended to upload attachments via shell, because upload progress is visible in this method.
+
 * To add link of existing S3 bucket object to binary fields of existing odoo records:
 
   * Take ``Link`` urls from Amazon. If you open ``Overview`` of the object on Amazon you should see it at the bottom of the page
