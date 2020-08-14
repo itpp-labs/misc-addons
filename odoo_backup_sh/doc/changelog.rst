@@ -1,3 +1,8 @@
+`1.0.3`
+-------
+
+- **Improvement:** Added ability to derive method, that stores backup
+
 `1.0.2`
 -------
 
