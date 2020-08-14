@@ -1119,6 +1119,31 @@
         </t>
     </t>
 </template>
+<template id="ohada_layout_qweb_pages">
+    <t t-if="not o" t-set="o" t-value="doc"/>
+
+    <div style="color:#001E5A;font-family:NimbusSanL-Regu;margin-bottom:0px;">
+        <div class="row">
+            <div class="col-3" style="font-size: 8px;">
+                <!--
+                <img t-att-src="'/ohada_reports/static/img/ohada.png'" style="float: left; width: 22px; height: 22px;" />&#160;&#160;Etats financiers du SYSCOHADA <br/>
+                &#160;&#160;&#169; ERGOBIT
+                -->
+                Etats financiers du SYSCOHADA <br/>
+                &#169; ERGOBIT
+            </div>
+            <div class="col-2 offset-2 text-center" />
+            <div class="col-2 offset-3 text-right" style="font-size: 10px;">
+                <ul class="list-inline">
+                    <li class="list-inline-item">Page</li>
+                    <li class="list-inline-item"><t t-esc="page"/></li>
+                    <li class="list-inline-item">/</li>
+                    <li class="list-inline-item"><t t-esc="topage"/></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>
 </data>
 </odoo>
 

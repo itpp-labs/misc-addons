@@ -1179,7 +1179,7 @@ class OhadaReport(models.AbstractModel):
         """
         return {b'o_ohada_reports_no_print': b'', b'table-responsive': b'', b'<a': b'<span', b'</a>': b'</span>'}
 
-    def get_pdf(self, options, minimal_layout=True, horizontal=False):
+    def get_pdf(self, options, minimal_layout=True, horizontal=False, pages={}):
         # As the assets are generated during the same transaction as the rendering of the
         # templates calling them, there is a scenario where the assets are unreachable: when
         # you make a request to read the assets while the transaction creating them is not done.
@@ -1230,7 +1230,11 @@ class OhadaReport(models.AbstractModel):
 
         if minimal_layout:
             header = ''
-            footer = self.env['ir.actions.report'].render_template("ohada_reports.ohada_layout", values=rcontext)
+            if pages:
+                rcontext.update(pages)
+                footer = self.env['ir.actions.report'].render_template("ohada_reports.ohada_layout_qweb_pages", values=dict(rcontext))
+            else:
+                footer = self.env['ir.actions.report'].render_template("ohada_reports.ohada_layout", values=rcontext)
             spec_paperformat_args = {'data-report-margin-top': 10, 'data-report-header-spacing': 10}
             footer = self.env['ir.actions.report'].render_template("web.minimal_layout", values=dict(rcontext, subst=True, body=footer))
         else:

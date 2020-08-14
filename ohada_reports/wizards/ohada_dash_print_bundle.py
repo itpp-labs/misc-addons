@@ -3,6 +3,12 @@ from datetime import datetime
 import json
 from odoo.http import content_disposition, request
 import base64, io, xlsxwriter
+import codecs
+import os
+from PyPDF2 import PdfFileMerger, PdfFileReader
+
+import logging
+_logger = logging.getLogger(__name__)
 
 class DashboardPrintBundle(models.TransientModel):
     """
@@ -48,25 +54,101 @@ class DashboardPrintBundle(models.TransientModel):
         report_obj = self.env["ohada.financial.html.report"].sudo()
         report_obj = report_obj.browse(1)
 
-        # landscape = self.is_BS_format_landscape() if self.only_BS_picked() else False
-        pdf = None
-        if self.only_BS_picked() and not self.is_BS_format_landscape():
-            report_obj = self.env.ref('ohada_reports.ohada_report_balancesheet_0')
-            pdf = report_obj.get_pdf(options, horizontal=True)
-        else:
-            pdf = report_obj.print_bundle_pdf(options, bundle_items)
-
-        attachment = self.env['ir.attachment'].create({
-                'datas': base64.b64encode(pdf),
-                'name': 'New pdf report',
-                'datas_fname': 'report.pdf',
-                'type': 'binary'
-        })
+        # 'make_pdfs' method makes pdfs and marges it in one
+        # 'make_pdfs' method returns number of pages
+        path = '/var/lib/odoo/ohada_pdfs'
+        pages_num = self.make_pdfs(options, bundle_items.split(','), path, pages=len(bundle_items.split(',')))
+        # Create attachment from 'result.pdf' file
+        with open('%s/result.pdf' % (path), "rb") as f:
+            pdf = base64.b64encode(f.read())
+            attachment = self.env['ir.attachment'].create({
+                    'datas': pdf,
+                    'name': 'New pdf report',
+                    'datas_fname': 'report.pdf',
+                    'type': 'binary'
+            })
+            self.make_disclosure(pages_num, pdf)
+        # Delete all created pdf's from 'path'
+        self.delete_pdfs(path)
         return {
             'type': 'ir.actions.act_url',
             'name': 'contract',
             'url': attachment.local_url
         }
+
+    def make_pdfs(self, options, bundle_items, path, pages=0):
+        reports = []
+        # Searching for reports from 'bundle_items'
+        for item in bundle_items:
+            # Get other reports
+            if item != 'notes':
+                reports.append(self.env['ohada.financial.html.report'].browse(int(item)))
+            else:
+                # Get notes
+                notes = self.env['ohada.financial.html.report'].search([('type', '=', 'note'), ('secondary', '=', False)])
+                options['comparison']['filter'] = 'previous_period'
+                company = self.env['res.users'].browse(self._context.get('uid')).company_id
+                year = options['date'].get('string')
+                for note in notes:
+                    note_relevance = self.env['note.relevance'].search([('note_report_id', '=', note.id),
+                                                                                ('fiscalyear', '=', year),
+                                                                                ('company_id', '=', company.id)])
+                    if note_relevance and note_relevance.relevant:
+                        reports.append(note)
+        # Here will be stored pdf file names
+        pdf_names = []
+
+        for i, report in enumerate(reports):
+            # Options for notes
+            if report.type == 'note':
+                options = report._get_options(options)
+                report._apply_date_filter(options)
+            # Create pdf
+            _logger.info('Started creating report pdf: %s' % (report.shortname))
+            pdf = report.get_pdf(
+                options, horizontal=True if report.print_format == 'landscape' else False,
+                pages={'topage': len(reports), 'page': len(pdf_names) + 1}
+            )
+            # Save pdf in 'path' folder
+            with open("%s/%s.pdf" % (path, i + 1),'wb') as f:
+                f.write(codecs.decode(base64.b64encode(pdf), "base64"))
+            _logger.info('Created report pdf: %s' % (report.shortname))
+            _logger.info('%s path: %s/%s.pdf' % (report.shortname, path, i + 1))
+            # Save pdf name
+            pdf_names.append('%s.pdf' % (i + 1))
+
+        # Merge all created pdf's in one
+        merger = PdfFileMerger()
+        for name in pdf_names:
+            _logger.info('Merged: %s.pdf.' % (name))
+            merger.append(PdfFileReader(open('%s/%s' % (path, name), 'rb')), import_bookmarks=False)
+
+        # Save pdf in 'result.pdf'
+        merger.write('%s/result.pdf' % (path))
+        merger.close()
+        # Returning number of pages
+        return len(reports)
+
+    def make_disclosure(self, pages_num, pdf):
+        company = self.env['res.users'].browse(self._context.get('uid')).company_id
+        disclosure = self.env['ohada.disclosure'].search([('company_id', '=', company.id),
+                                                          ('fiscalyear_id', '=', self.dash_year),
+                                                          ('bundle_report_file_pdf', '!=', False)])
+        if not disclosure:
+            disclosure = self.env['ohada.disclosure'].search([('company_id', '=', company.id),
+                                                              ('fiscalyear_id', '=', self.dash_year)])
+            if not disclosure:
+                self.env['ohada.disclosure'].create({'bundle_report_file_pdf': pdf,
+                                                     'company_id': company.id,
+                                                     'status': 'report_available',
+                                                     'fiscalyear_id': self.dash_year,
+                                                     'number_of_pages': pages_num})
+            else:
+                disclosure.write({'bundle_report_file_pdf': pdf, 'number_of_pages': pages_num})
+
+    def delete_pdfs(self, path):
+        for pdf in [a for a in os.listdir(path) if a.endswith(".pdf")]:
+            os.remove('%s/%s' % (path, pdf))
 
     def print_xlsx(self, *context):
         dash = self.env.ref('ohada_reports.ohada_dashboard_view_your_company')
