@@ -6,7 +6,7 @@
     "version": "13.0.2.0.0",
     "application": False,
     "author": "IT-Projects LLC, Ildar Nasyrov",
-    "website": "https://apps.odoo.com/apps/modules/12.0/ir_attachment_url/",
+    "website": "https://apps.odoo.com/apps/modules/13.0/ir_attachment_url/",
     "license": "LGPL-3",
     "price": 30.00,
     "currency": "EUR",

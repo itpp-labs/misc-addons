@@ -10,14 +10,15 @@ Installation
 Usage
 =====
 
-* `Activate Developer Mode <https://odoo-development.readthedocs.io/en/latest/odoo/usage/debug-mode.html>`__
+* Set an avatar for the current user
+* `Log in as superuser <https://odoo-development.readthedocs.io/en/latest/odoo/usage/login-as-superuser.html>`__
 * Go to Settings >> Technical >> Database Structure >> Attachments
 * Below "Search" field click Filters >> Add custom filter >> "Resource field" "is equal to" "image_128"
-* Scroll down and find avatar of current user. Click on it.
+* Scroll down and find the avatar you have set. Click on it.
 * Click on "Edit"
 * To URL field paste url to any picture on external resource
 * Click on "Save" and reload the page
-* RESULT: you will see that avatar of current user is changed to that pasted picture
+* RESULT: you will see that the avatar of the user has been changed to that pasted picture
 
 ir_attachment_url_fields context
 --------------------------------
