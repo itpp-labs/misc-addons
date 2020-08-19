@@ -36,7 +36,7 @@
                                         <td align="center" valign="center">
                                             <img
                                                 t-if="partner.image_1024"
-                                                t-att-src="'data:image/png;base64,%s' % to_text(partner.image,)"
+                                                t-att-src="'data:image/png;base64,%s' % to_text(partner.image_1024,)"
                                                 style="max-height:85pt;max-width:90%"
                                                 alt="Partner Image"
                                             />
