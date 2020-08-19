@@ -13,7 +13,7 @@ In order to set access rights for users
 
 * Open menu ``[[ Settings ]] >> Users``
 * Click on required user
-* Click ``Edit`` and set field **Attendance**:
+* Click ``Edit`` and set field **Partner Attendance**:
 
     * ``Read-Only`` may see only *Attendances* menu
     * ``Manual Attendance`` may create and update partner attendances, but not delete
