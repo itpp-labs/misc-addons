@@ -7,11 +7,11 @@
     "category": "Extra Tools",
     # "live_test_url": "",
     "images": [],
-    "version": "13.0.1.1.3",
+    "version": "13.0.1.1.4",
     "application": False,
     "author": "IT-Projects LLC, Kolushov Alexandr",
     "support": "apps@itpp.dev",
-    "website": "https://www.odoo.com/apps/modules/12.0/base_attendance/",
+    "website": "https://www.odoo.com/apps/modules/13.0/base_attendance/",
     "license": "Other OSI approved licence",  # MIT
     "price": 30.00,
     "currency": "EUR",
