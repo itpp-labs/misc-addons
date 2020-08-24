@@ -38,6 +38,7 @@ Roadmap
 * TODO: Use context on switching between websites to allow work with different
   websites at the same time by using different browser tabs. It also fixes
   problem of using superuser's configuration when ``sudo()`` is used.
+  This is partly fixed by checking context's uid in ``_get_website_id`` method.
 
 Credits
 =======
@@ -55,7 +56,7 @@ Maintainers
 * `IT-Projects LLC <https://it-projects.info>`__
 
       To get a guaranteed support
-      you are kindly requested to purchase the module 
+      you are kindly requested to purchase the module
       at `odoo apps store <https://apps.odoo.com/apps/modules/11.0/web_website/>`__.
 
       Thank you for understanding!
