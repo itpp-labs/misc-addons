@@ -669,6 +669,23 @@ class BackupConfig(models.Model):
         info_file.seek(0)
         return dump_stream, info_file, info_file_content
 
+    def _make_backup(self, ts, dump_stream, info_file, info_file_content, cloud_params):
+        dump_stream.seek(0)
+        info_file.seek(0)
+
+        cust_method_name = "make_backup_%s" % self.storage_service
+        # make a backup if it is not a simulation
+        if hasattr(self, cust_method_name) and self.backup_simulation is False:
+            method = getattr(self, cust_method_name)
+            method(
+                ts,
+                self.database,
+                dump_stream,
+                info_file,
+                info_file_content,
+                cloud_params,
+            )
+
     @api.model
     def make_backup(self, name, service, init_by_cron_id=None):
         if init_by_cron_id and not self.env["ir.cron"].browse(init_by_cron_id).active:
@@ -692,13 +709,9 @@ class BackupConfig(models.Model):
         dump_stream, info_file, info_file_content = self.get_dump_stream_and_info_file(
             name, service, ts
         )
-        dump_stream.seek(0)
-        info_file.seek(0)
-        cust_method_name = "make_backup_%s" % service
-        # make a backup if it is not a simulation
-        if hasattr(self, cust_method_name) and config_record.backup_simulation is False:
-            method = getattr(self, cust_method_name)
-            method(ts, name, dump_stream, info_file, info_file_content, cloud_params)
+        config_record._make_backup(
+            ts, dump_stream, info_file, info_file_content, cloud_params
+        )
 
         # Create new record with backup info data
         info_file_content["upload_datetime"] = dt
