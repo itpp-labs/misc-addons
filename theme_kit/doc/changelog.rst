@@ -1,3 +1,14 @@
+`1.0.4`
+-------
+
+- ADD: added color picker for mandatory fields
+
+`1.0.3`
+-------
+
+- FIX: compatibility with material backend theme module
+
+
 `1.0.2`
 -------
 

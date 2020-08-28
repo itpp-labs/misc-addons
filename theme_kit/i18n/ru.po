@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * theme_kit
-#
+# 
 # Translators:
 # Dinar <gabbasov@it-projects.info>, 2017
 msgid ""
@@ -11,29 +11,16 @@ msgstr ""
 "POT-Creation-Date: 2017-11-22 11:27+0000\n"
 "PO-Revision-Date: 2017-11-22 11:27+0000\n"
 "Last-Translator: Dinar <gabbasov@it-projects.info>, 2017\n"
-"Language-Team: Russian (https://www.transifex.com/it-projects-llc/"
-"teams/76080/ru/)\n"
-"Language: ru\n"
+"Language-Team: Russian (https://www.transifex.com/it-projects-llc/teams/76080/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: theme_kit
 #: model:ir.ui.view,arch_db:theme_kit.view_config
 msgid "#inbox - <em>[Page Title]</em>"
-msgstr ""
-
-#. module: theme_kit
-#: model:ir.ui.view,arch_db:theme_kit.view_config
-msgid "<em>\"Help\"</em> in Import tool"
-msgstr ""
-
-#. module: theme_kit
-#: model:ir.ui.view,arch_db:theme_kit.view_config
-msgid "<em>\"How-to\"</em> in paypal"
 msgstr ""
 
 #. module: theme_kit
@@ -45,9 +32,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:theme_kit.view_config
 msgid ""
 "<em>[System Name]</em> Warning - Warning<br/>\n"
-"                                                            You can not "
-"remove the admin user as it is used internally for resources created by "
-"<em>[System Name]</em> (updates, module installation, ...)"
+"                                    You can not remove the admin user as it is used internally for resources created by <em>[System Name]</em> (updates, module installation, ...)"
 msgstr ""
 
 #. module: theme_kit
@@ -117,6 +102,11 @@ msgid ""
 msgstr ""
 
 #. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.view_config
+msgid "Apply"
+msgstr ""
+
+#. module: theme_kit
 #: model:ir.model.fields,help:theme_kit.field_theme_kit_left_panel_left_panel_bg
 #: model:ir.model.fields,help:theme_kit.field_theme_kit_left_panel_left_panel_bg_active
 msgid "Background Color for Left Menu Bar"
@@ -174,6 +164,11 @@ msgid "Button color"
 msgstr ""
 
 #. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.view_config
+msgid "Cancel"
+msgstr ""
+
+#. module: theme_kit
 #: model:ir.actions.act_window,help:theme_kit.ir_attachment_login_bg_action
 msgid "Click here to add new Wallpapers."
 msgstr ""
@@ -208,6 +203,7 @@ msgstr ""
 
 #. module: theme_kit
 #: model:ir.ui.menu,name:theme_kit.theme_menu
+#: model:ir.ui.view,arch_db:theme_kit.theme_view_tree
 msgid "Color Schemes"
 msgstr ""
 
@@ -274,72 +270,72 @@ msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_bg_active
-msgid "Content Bg Active"
+msgid "Content bg active"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_button_active
-msgid "Content Button Active"
+msgid "Content button active"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_footer_color_active
-msgid "Content Footer Color Active"
+msgid "Content footer color active"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_form_active
-msgid "Content Form Active"
+msgid "Content form active"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_form_link_active
-msgid "Content Form Link Active"
+msgid "Content form link active"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_form_text_active
-msgid "Content Form Text Active"
+msgid "Content form text active"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_form_title_active
-msgid "Content Form Title Active"
+msgid "Content form title active"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_loader_active
-msgid "Content Loader Active"
+msgid "Content loader active"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_loader_text_active
-msgid "Content Loader Text Active"
+msgid "Content loader text active"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_main_menu_font_color_active
-msgid "Content Main Menu Font Color Active"
+msgid "Content main menu font color active"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_statusbar_bg_active
-msgid "Content Statusbar Bg Active"
+msgid "Content statusbar bg active"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_statusbar_element_active
-msgid "Content Statusbar Element Active"
+msgid "Content statusbar element active"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_statusbar_font_color_active
-msgid "Content Statusbar Font Color Active"
+msgid "Content statusbar font color active"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_content_text_active
-msgid "Content Text Active"
+msgid "Content text active"
 msgstr ""
 
 #. module: theme_kit
@@ -381,11 +377,6 @@ msgid "Dashboard - <em>[Page Title]</em>"
 msgstr ""
 
 #. module: theme_kit
-#: model:ir.ui.view,arch_db:theme_kit.view_config
-msgid "Discard"
-msgstr ""
-
-#. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_config_display_name
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_content_display_name
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_display_name
@@ -393,21 +384,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_display_name
 msgid "Display Name"
 msgstr "Отображаемое имя"
-
-#. module: theme_kit
-#: model:ir.ui.view,arch_db:theme_kit.view_config
-msgid "Documentation"
-msgstr ""
-
-#. module: theme_kit
-#: model:ir.model.fields,field_description:theme_kit.field_theme_kit_config_new_documentation_website
-msgid "Documentation Website"
-msgstr ""
-
-#. module: theme_kit
-#: model:ir.ui.view,arch_db:theme_kit.view_config
-msgid "DocumentationWebsite"
-msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,help:theme_kit.field_theme_kit_config_company_logo
@@ -512,44 +488,44 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.theme_left_panel_view_form
+#: model:ir.ui.view,arch_db:theme_kit.theme_view_form
+msgid "Left panel"
+msgstr ""
+
+#. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_active_item_bg_active
-msgid "Left Panel Active Item Bg Active"
+msgid "Left panel active item bg active"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_active_item_font_active
-msgid "Left Panel Active Item Font Active"
+msgid "Left panel active item font active"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_bg_active
-msgid "Left Panel Bg Active"
+msgid "Left panel bg active"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_hover_item_bg_active
-msgid "Left Panel Hover Item Bg Active"
+msgid "Left panel hover item bg active"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_hover_item_font_active
-msgid "Left Panel Hover Item Font Active"
+msgid "Left panel hover item font active"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_main_menu_active
-msgid "Left Panel Main Menu Active"
+msgid "Left panel main menu active"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_left_panel_left_panel_sub_menu_active
-msgid "Left Panel Sub Menu Active"
-msgstr ""
-
-#. module: theme_kit
-#: model:ir.ui.view,arch_db:theme_kit.theme_left_panel_view_form
-#: model:ir.ui.view,arch_db:theme_kit.theme_view_form
-msgid "Left panel"
+msgid "Left panel sub menu active"
 msgstr ""
 
 #. module: theme_kit
@@ -621,40 +597,6 @@ msgstr ""
 #. module: theme_kit
 #: model:ir.ui.view,arch_db:theme_kit.view_config
 msgid "Page Title is used in Browser Tab name, for example<br/>"
-msgstr ""
-
-#. module: theme_kit
-#: model:ir.model.fields,help:theme_kit.field_theme_kit_config_new_documentation_website
-msgid ""
-"Replaces links to documentation to custom website e.g.\n"
-"* \"Help\" in Import tool\n"
-"* \"How-to\" in paypal\n"
-"* etc.\n"
-msgstr ""
-
-#. module: theme_kit
-#: model:ir.ui.view,arch_db:theme_kit.view_config
-msgid "Replaces links to documentation to custom website, for example<br/>"
-msgstr ""
-
-#. module: theme_kit
-#: model:ir.ui.view,arch_db:theme_kit.view_config
-msgid "Save"
-msgstr ""
-
-#. module: theme_kit
-#: model:ir.ui.view,arch_db:theme_kit.view_config
-msgid "Set the company favicon of your website"
-msgstr ""
-
-#. module: theme_kit
-#: model:ir.ui.view,arch_db:theme_kit.view_config
-msgid "Set the company logo of your website"
-msgstr ""
-
-#. module: theme_kit
-#: model:ir.ui.view,arch_db:theme_kit.view_config
-msgid "Set the theme of your website"
 msgstr ""
 
 #. module: theme_kit
@@ -737,44 +679,44 @@ msgid "These wallpapers are randomly shown on login page"
 msgstr ""
 
 #. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.theme_top_panel_view_form
+#: model:ir.ui.view,arch_db:theme_kit.theme_view_form
+msgid "Top panel"
+msgstr ""
+
+#. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_top_panel_active_item_bg_active
-msgid "Top Panel Active Item Bg Active"
+msgid "Top panel active item bg active"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_top_panel_active_item_font_active
-msgid "Top Panel Active Item Font Active"
+msgid "Top panel active item font active"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_top_panel_bg_active
-msgid "Top Panel Bg Active"
+msgid "Top panel bg active"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_top_panel_border_active
-msgid "Top Panel Border Active"
+msgid "Top panel border active"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_top_panel_font_active
-msgid "Top Panel Font Active"
+msgid "Top panel font active"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_top_panel_hover_item_bg_active
-msgid "Top Panel Hover Item Bg Active"
+msgid "Top panel hover item bg active"
 msgstr ""
 
 #. module: theme_kit
 #: model:ir.model.fields,field_description:theme_kit.field_theme_kit_top_panel_top_panel_hover_item_font_active
-msgid "Top Panel Hover Item Font Active"
-msgstr ""
-
-#. module: theme_kit
-#: model:ir.ui.view,arch_db:theme_kit.theme_top_panel_view_form
-#: model:ir.ui.view,arch_db:theme_kit.theme_view_form
-msgid "Top panel"
+msgid "Top panel hover item font active"
 msgstr ""
 
 #. module: theme_kit
@@ -805,16 +747,16 @@ msgid "less"
 msgstr ""
 
 #. module: theme_kit
+#: model:ir.ui.view,arch_db:theme_kit.view_config
+msgid "or"
+msgstr ""
+
+#. module: theme_kit
 #: model:ir.model.fields,help:theme_kit.field_theme_kit_content_less
 #: model:ir.model.fields,help:theme_kit.field_theme_kit_left_panel_less
 #: model:ir.model.fields,help:theme_kit.field_theme_kit_theme_code
 #: model:ir.model.fields,help:theme_kit.field_theme_kit_top_panel_less
 msgid "technical computed field"
-msgstr ""
-
-#. module: theme_kit
-#: model:ir.ui.view,arch_db:theme_kit.view_config
-msgid "test test test"
 msgstr ""
 
 #. module: theme_kit
