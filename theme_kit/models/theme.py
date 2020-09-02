@@ -144,6 +144,13 @@ class ThemeTopPanel(models.Model):
                     border-color: {theme.top_panel_border};
                 }}
                 '''
+                # Compatibility theme_kit and material backend theme modules
+                code = code + '''.main-nav {{
+                    border: 1px solid {theme.top_panel_border} !important;
+                    border-left: 0 !important;
+                    border-right: 0 !important;
+                }}
+                '''
             if self.top_panel_font_active:
                 code = code + '''.o_main_navbar > ul > li > a {{
                     color: {theme.top_panel_font}!important;
@@ -422,7 +429,7 @@ class ThemeLeftPanel(models.Model):
                 )
             if self.left_panel_right_border_active:
                 code = code + '''#app-sidebar{{
-                    border: 3px solid {theme.left_panel_right_border};
+                    border: 1px solid {theme.left_panel_right_border};
                     border-top: 0;
                     border-bottom: 0;
                     border-left: 0;
