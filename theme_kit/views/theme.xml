@@ -150,6 +150,11 @@
                                     <field name="left_panel_hover_item_bg_active" nolabel="1" class="oe_inline"/>
                                     <field name="left_panel_hover_item_bg" widget="color" attrs="{'readonly':[('left_panel_hover_item_bg_active','=',False)]}" class="oe_inline"/>
                                 </div>
+                                <div>
+                                    <label for="left_panel_right_border"/>
+                                    <field name="left_panel_right_border_active" nolabel="1" class="oe_inline"/>
+                                    <field name="left_panel_right_border" widget="color" attrs="{'readonly':[('left_panel_right_border_active','=',False)]}" class="oe_inline"/>
+                                </div>
                             </group>
                         </group>
                     </sheet>

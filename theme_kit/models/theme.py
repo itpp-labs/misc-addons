@@ -287,6 +287,9 @@ class ThemeLeftPanel(models.Model):
     left_panel_hover_item_bg = fields.Char('Hover item Background color', help="Hover item Background color for Left Menu Bar")
     left_panel_hover_item_bg_active = fields.Boolean(default=False, help="Hover item Background color for Left Menu Bar")
 
+    left_panel_right_border = fields.Char('Right border color', help="Right border color for Left Menu Bar")
+    left_panel_right_border_active = fields.Boolean(default=False, help="Right border color for Left Menu Bar")
+
     less = fields.Text('less', help='technical computed field', compute='_compute_less')
 
     @api.multi
@@ -417,6 +420,13 @@ class ThemeLeftPanel(models.Model):
                 }}
                 """
                 )
+            if self.left_panel_right_border_active:
+                code = code + '''#app-sidebar{{
+                    border: 3px solid {theme.left_panel_right_border};
+                    border-top: 0;
+                    border-bottom: 0;
+                    border-left: 0;
+                }}'''
             code = code.format(
                 theme=r,
             )
