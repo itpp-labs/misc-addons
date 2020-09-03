@@ -1,4 +1,5 @@
 # Copyright 2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+# Copyright 2020 Almas Giniatullin <https://github.com/almas50>
 # License MIT (https://opensource.org/licenses/MIT).
 
 import odoo.tests

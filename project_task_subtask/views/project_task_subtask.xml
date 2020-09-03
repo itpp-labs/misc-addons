@@ -4,6 +4,7 @@
     Copyright 2017-2018 Karamov Ilmir <https://it-projects.info/team/ilmir-k>
     Copyright 2017-2018 iledarn <https://github.com/iledarn>
     Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+    Copyright 2020 Almas Giniatullin <https://github.com/almas50>
     License MIT (https://opensource.org/licenses/MIT). -->
 <odoo>
     <record id="view_task_form2" model="ir.ui.view">
@@ -115,9 +116,9 @@
                     name="done_subtask"
                 />
                  <group expand="0" string="Group By">
-                     <filter string="User" name="user" context="{'group_by':'user_id'}"/>
                      <filter string="Project" name="project" context="{'group_by':'project_id'}"/>
                      <filter string="Task" name="task" context="{'group_by':'task_id'}"/>
+                     <filter string="User" name="user" context="{'group_by':'user_id'}"/>
                  </group>
             </search>
         </field>
