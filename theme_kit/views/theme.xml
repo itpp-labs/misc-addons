@@ -53,6 +53,7 @@
                 <form string="Color scheme">
                     <sheet>
                         <div class="oe_title">
+                            <field name="backend_theme_installed" invisible="1"/>
                             <label for="name" class="oe_edit_only"/>
                             <h1>
                                 <field name="name"/>
@@ -70,7 +71,8 @@
                                     <field name="top_panel_border_active" nolabel="1" class="oe_inline"/>
                                     <field name="top_panel_border" class="oe_inline" attrs="{'readonly':[('top_panel_border_active','=',False)]}" widget="color"/>
                                 </div>
-                                <div>
+                                <!-- Compatibility theme_kit and material backend theme modules -->
+                                <div attrs="{'invisible':[('backend_theme_installed', '=', True)]}">
                                     <label for="top_panel_font" />
                                     <field name="top_panel_font_active" nolabel="1" class="oe_inline"/>
                                     <field name="top_panel_font" widget="color" attrs="{'readonly':[('top_panel_font_active','=',False)]}" class="oe_inline"/>
@@ -95,6 +97,17 @@
                                     <field name="top_panel_hover_item_bg_active" nolabel="1" class="oe_inline"/>
                                     <field name="top_panel_hover_item_bg" widget="color" attrs="{'readonly':[('top_panel_hover_item_bg_active','=',False)]}" class="oe_inline"/>
                                 </div>
+                                <!-- Compatibility theme_kit and material backend theme modules -->
+                                <div attrs="{'invisible':[('backend_theme_installed', '=', False)]}">
+                                    <label for="left_panel_main_menu"/>
+                                    <field name="left_panel_main_menu_active" nolabel="1" class="oe_inline"/>
+                                    <field name="left_panel_main_menu" class="oe_inline" attrs="{'readonly':[('left_panel_main_menu_active','=',False)]}" widget="color"/>
+                                </div>
+                                <div attrs="{'invisible':[('backend_theme_installed', '=', False)]}">
+                                    <label for="left_panel_sub_menu"/>
+                                    <field name="left_panel_sub_menu_active" nolabel="1" class="oe_inline"/>
+                                    <field name="left_panel_sub_menu" widget="color" attrs="{'readonly':[('left_panel_sub_menu_active','=',False)]}" class="oe_inline"/>
+                                </div>
                             </group>
                         </group>
                     </sheet>
@@ -108,6 +121,7 @@
                 <form string="Color scheme">
                     <sheet>
                         <div class="oe_title">
+                            <field name="backend_theme_installed" invisible="1"/>
                             <label for="name" class="oe_edit_only"/>
                             <h1>
                                 <field name="name"/>
@@ -120,12 +134,12 @@
                                     <field name="left_panel_bg_active" nolabel="1" class="oe_inline"/>
                                     <field name="left_panel_bg" class="oe_inline" attrs="{'readonly':[('left_panel_bg_active','=',False)]}" widget="color"/>
                                 </div>
-                                <div>
+                                <div attrs="{'invisible':[('backend_theme_installed', '=', True)]}">
                                     <label for="left_panel_main_menu"/>
                                     <field name="left_panel_main_menu_active" nolabel="1" class="oe_inline"/>
                                     <field name="left_panel_main_menu" class="oe_inline" attrs="{'readonly':[('left_panel_main_menu_active','=',False)]}" widget="color"/>
                                 </div>
-                                <div>
+                                <div attrs="{'invisible':[('backend_theme_installed', '=', True)]}">
                                     <label for="left_panel_sub_menu"/>
                                     <field name="left_panel_sub_menu_active" nolabel="1" class="oe_inline"/>
                                     <field name="left_panel_sub_menu" widget="color" attrs="{'readonly':[('left_panel_sub_menu_active','=',False)]}" class="oe_inline"/>
@@ -154,6 +168,11 @@
                                     <label for="left_panel_right_border"/>
                                     <field name="left_panel_right_border_active" nolabel="1" class="oe_inline"/>
                                     <field name="left_panel_right_border" widget="color" attrs="{'readonly':[('left_panel_right_border_active','=',False)]}" class="oe_inline"/>
+                                </div>
+                                <div attrs="{'invisible':[('backend_theme_installed', '=', False)]}">
+                                    <label for="top_panel_font" />
+                                    <field name="top_panel_font_active" nolabel="1" class="oe_inline"/>
+                                    <field name="top_panel_font" widget="color" attrs="{'readonly':[('top_panel_font_active','=',False)]}" class="oe_inline"/>
                                 </div>
                             </group>
                         </group>

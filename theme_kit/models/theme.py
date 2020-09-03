@@ -77,7 +77,18 @@ class ThemeTopPanel(models.Model):
     top_panel_hover_item_bg = fields.Char('Hover item Background color', help="Hover item Background color for Top Panel")
     top_panel_hover_item_bg_active = fields.Boolean(default=False, help="Hover item Background color for Top Panel")
 
+    # Compatibility theme_kit and material backend theme modules
+    left_panel_main_menu = fields.Char('Main Menu Font color', help="Main Menu Font colo for Left Menu Bar")
+    left_panel_main_menu_active = fields.Boolean(default=False, help="Main Menu Font colo for Left Menu Bar")
+    left_panel_sub_menu = fields.Char('Sub Menu Font color', help="Sub Menu Font colo for Left Menu Bar")
+    left_panel_sub_menu_active = fields.Boolean(default=False, help="Sub Menu Font colo for Left Menu Bar")
+
     less = fields.Text('less', help='technical computed field', compute='_compute_less')
+
+    backend_theme_installed = fields.Boolean(compute='_check_backend_theme_installed')
+
+    def _check_backend_theme_installed(self):
+        self.backend_theme_installed = True if self.env['ir.module.module'].search([('name', '=', 'backend_theme_v11')]).state == 'installed' else False
 
     @api.multi
     def _compute_less(self):
@@ -151,7 +162,7 @@ class ThemeTopPanel(models.Model):
                     border-right: 0 !important;
                 }}
                 '''
-            if self.top_panel_font_active:
+            if self.top_panel_font_active and not self.backend_theme_installed:
                 code = code + '''.o_main_navbar > ul > li > a {{
                     color: {theme.top_panel_font}!important;
                 }}
@@ -262,6 +273,18 @@ class ThemeTopPanel(models.Model):
                     background-color: {theme.top_panel_hover_item_bg}!important;
                 }}
                 '''
+            # Compatibility theme_kit and material backend theme modules
+            if self.left_panel_main_menu_active:
+                code = code + '''ul.oe_secondary_menu > li > a{{
+                    color: {theme.left_panel_main_menu}!important;
+                }}
+                '''
+            # Compatibility theme_kit and material backend theme modules
+            if self.left_panel_sub_menu_active:
+                code = code + '''ul.oe_secondary_menu > li > ul > li.dropdown-header{{
+                    color: {theme.left_panel_sub_menu}!important;
+                }}
+                '''
             code = code.format(
                 theme=r,
             )
@@ -299,8 +322,17 @@ class ThemeLeftPanel(models.Model):
 
     less = fields.Text('less', help='technical computed field', compute='_compute_less')
 
+    backend_theme_installed = fields.Boolean(compute='_check_backend_theme_installed')
+
+    def _check_backend_theme_installed(self):
+        self.backend_theme_installed = True if self.env['ir.module.module'].search([('name', '=', 'backend_theme_v11')]).state == 'installed' else False
+
+    top_panel_font = fields.Char('Font color', help="Font color for Top Panel")
+    top_panel_font_active = fields.Boolean(default=False, help="Font color for Top Panel")
+
     @api.multi
     def _compute_less(self):
+        self.backend_theme_installed = True if self.env['ir.module.module'].search([('name', '=', 'backend_theme_v11')]).state == 'installed' else False
         for r in self:
             # double {{ will be formated as single {
             code = ''
@@ -340,7 +372,7 @@ class ThemeLeftPanel(models.Model):
                 }}
                 """
                 )
-            if self.left_panel_main_menu_active:
+            if self.left_panel_main_menu_active and not self.backend_theme_installed:
                 code = code + '''.o_sub_menu .oe_secondary_menu_section{{
                     color: {theme.left_panel_main_menu}!important;
                 }}
@@ -366,7 +398,7 @@ class ThemeLeftPanel(models.Model):
                     background-color: {theme.left_panel_main_menu};
                 }}
                 '''
-            if self.left_panel_sub_menu_active:
+            if self.left_panel_sub_menu_active and not self.backend_theme_installed:
                 code = code + '''.o_sub_menu .oe_secondary_submenu .oe_menu_text{{
                     color: {theme.left_panel_sub_menu};
                 }}
@@ -434,6 +466,11 @@ class ThemeLeftPanel(models.Model):
                     border-bottom: 0;
                     border-left: 0;
                 }}'''
+            if self.top_panel_font_active:
+                code = code + '''#sidebar > li > a{{
+                    color: {theme.top_panel_font}!important
+                }}
+                '''
             code = code.format(
                 theme=r,
             )
@@ -491,8 +528,14 @@ class ThemeContent(models.Model):
     content_required_field_back_color = fields.Char("Mandatory field background color", help="Mandatory field background color")
     content_required_field_back_color_active = fields.Boolean(default=False, help="Mandatory field background color")
 
+    backend_theme_installed = fields.Boolean(compute='_check_backend_theme_installed')
+
+    def _check_backend_theme_installed(self):
+        self.backend_theme_installed = True if self.env['ir.module.module'].search([('name', '=', 'backend_theme_v11')]).state == 'installed' else False
+
     @api.multi
     def _compute_less(self):
+        self.backend_theme_installed = True if self.env['ir.module.module'].search([('name', '=', 'backend_theme_v11')]).state == 'installed' else False
         for r in self:
             code = ''
             if self.content_bg_active:
