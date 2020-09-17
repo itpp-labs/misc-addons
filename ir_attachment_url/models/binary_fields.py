@@ -34,6 +34,7 @@ def get_mimetype_and_optional_content_by_url(url):
 binary_original_create = fields.Binary.create
 binary_original_write = fields.Binary.write
 
+
 # based on https://github.com/odoo/odoo/blob/bba7a6b2c46320af150f34359f742ee4e0116e66/odoo/fields.py#L1853-L1872
 def create(self, record_values):
     assert self.attachment
