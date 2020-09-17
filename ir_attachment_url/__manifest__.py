@@ -3,7 +3,7 @@
     "summary": """Use attachment URL and upload data to external storage""",
     "category": "Tools",
     "images": [],
-    "version": "12.0.1.1.11",
+    "version": "12.0.1.1.12",
     "application": False,
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "website": "https://apps.odoo.com/apps/modules/12.0/ir_attachment_url/",
