@@ -125,7 +125,7 @@ def write(self, records, value):
             else:
                 atts.unlink()
     else:
-        binary_original_write.write(self, records, value)
+        binary_original_write(self, records, value)
 
 
 fields.Binary.create = create
