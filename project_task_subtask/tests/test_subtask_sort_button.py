@@ -2,7 +2,6 @@
 # License MIT (https://opensource.org/licenses/MIT).
 
 import odoo.tests
-from odoo.api import Environment
 
 
 @odoo.tests.common.at_install(True)

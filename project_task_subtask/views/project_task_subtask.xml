@@ -114,11 +114,23 @@
                     domain="[('state','=','todo')]"
                     name="done_subtask"
                 />
-                 <group expand="0" string="Group By">
-                     <filter string="Project" name="project" context="{'group_by':'project_id'}"/>
-                     <filter string="Task" name="task" context="{'group_by':'task_id'}"/>
-                     <filter string="User" name="user" context="{'group_by':'user_id'}"/>
-                 </group>
+                <group expand="0" string="Group By">
+                    <filter
+                        string="Project"
+                        name="project"
+                        context="{'group_by':'project_id'}"
+                    />
+                    <filter
+                        string="Task"
+                        name="task"
+                        context="{'group_by':'task_id'}"
+                    />
+                    <filter
+                        string="User"
+                        name="user"
+                        context="{'group_by':'user_id'}"
+                    />
+                </group>
             </search>
         </field>
     </record>
