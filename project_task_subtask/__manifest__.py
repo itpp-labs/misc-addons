@@ -3,6 +3,7 @@
 # Copyright 2017 Karamov Ilmir <https://it-projects.info/team/ilmir-k>
 # Copyright 2017-2018 iledarn <https://github.com/iledarn>
 # Copyright 2018-2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+# Copyright 2020 Giniatullin Almas <https://it-projects.info/team/almas50>
 # License MIT (https://opensource.org/licenses/MIT).
 {
     "name": """Project Task Checklist""",
@@ -17,7 +18,7 @@
     "license": "Other OSI approved licence",  # MIT
     "price": 69.00,
     "currency": "EUR",
-    "depends": ["base", "project"],
+    "depends": ["base", "project", "web_tour"],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
         "security/ir.model.access.csv",
@@ -32,5 +33,5 @@
     "pre_init_hook": None,
     "post_init_hook": None,
     "auto_install": False,
-    "installable": False,
+    "installable": True,
 }

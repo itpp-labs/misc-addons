@@ -117,20 +117,19 @@
                 <group expand="0" string="Group By">
                     <filter
                         string="Project"
-                        domain="[]"
+                        name="project"
                         context="{'group_by':'project_id'}"
                     />
                     <filter
                         string="Task"
-                        domain="[]"
+                        name="task"
                         context="{'group_by':'task_id'}"
                     />
                     <filter
                         string="User"
-                        domain="[]"
+                        name="user"
                         context="{'group_by':'user_id'}"
                     />
-                    <filter string="State" domain="[]" context="{'group_by':'state'}" />
                 </group>
             </search>
         </field>

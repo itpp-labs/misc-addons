@@ -1,4 +1,5 @@
 /*  Copyright 2018-2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+    Copyright 2020 Giniatullin Almas <https://it-projects.info/team/almas50>
     License MIT (https://opensource.org/licenses/MIT). */
 odoo.define("project_task_subtask.one2many_renderer", function(require) {
     "use strict";
@@ -108,7 +109,7 @@ odoo.define("project_task_subtask.one2many_renderer", function(require) {
                     this.$buttons = $("<div/>");
                 }
                 this.$buttons[0].innerHTML += QWeb.render("SubtaskSortButtons", {});
-                return this._super(arguments).done(function(res) {
+                return this._super(arguments).then(function(res) {
                     self._update_custom_sort_buttons();
                 });
             }

@@ -4,6 +4,7 @@
 # Copyright 2017-2018 iledarn <https://github.com/iledarn>
 # Copyright 2017 Nicolas JEUDY <https://github.com/njeudy>
 # Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
+# Copyright 2020 Giniatullin Almas <https://it-projects.info/team/almas50>
 # License MIT (https://opensource.org/licenses/MIT).
 
 from odoo import api, fields, models
@@ -21,6 +22,7 @@ SUBTASK_STATES = {
 
 class ProjectTaskSubtask(models.Model):
     _name = "project.task.subtask"
+    _description = "Subtask"
     _inherit = ["mail.activity.mixin"]
     state = fields.Selection(
         [(k, v) for k, v in list(SUBTASK_STATES.items())],
@@ -51,11 +53,15 @@ class ProjectTaskSubtask(models.Model):
         for record in self:
             if self.env.user == record.user_id and record.state == "todo":
                 record.recolor = True
+            else:
+                record.recolor = False
 
     def _compute_hide_button(self):
         for record in self:
             if self.env.user not in [record.reviewer_id, record.user_id]:
                 record.hide_button = True
+            else:
+                record.hide_button = False
 
     def _compute_reviewer_id(self):
         for record in self:
