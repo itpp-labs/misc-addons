@@ -19,4 +19,16 @@
             />
         </xpath>
     </template>
+        <template
+        id="assets_backend_web"
+        name="project_task_subtask_backend_assets"
+        inherit_id="web.assets_backend"
+    >
+        <xpath expr="." position="inside">
+            <script
+                type="text/javascript"
+                src="/project_task_subtask/static/src/js/tours/tour.js"
+            />
+        </xpath>
+    </template>
 </odoo>

@@ -18,7 +18,7 @@
     "license": "Other OSI approved licence",  # MIT
     "price": 69.00,
     "currency": "EUR",
-    "depends": ["base", "project"],
+    "depends": ["base", "project", "web_tour"],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
         "security/ir.model.access.csv",
