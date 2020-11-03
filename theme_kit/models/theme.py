@@ -214,40 +214,40 @@ class ThemeTopPanel(models.Model):
                 )
 
             if self.top_panel_border_active:
-                code = (
-                    code
-                    + """.o_main_navbar{{
-                    border-color: {theme.top_panel_border};
-                }}
-                #oe_main_menu_navbar{{
-                    border-color: {theme.top_panel_border};
-                }}
-                .o_control_panel {{
-                    border-bottom-color: {theme.top_panel_border}!important;
-                }}
-                .o_form_statusbar .o_arrow_button{{
-                    border-color: lighten({theme.top_panel_border}, 40%)!important;
-                }}
-                .o_form_statusbar .o_arrow_button:before{{
-                    border-left-color: lighten({theme.top_panel_border}, 40%)!important;
-                }}
-                .o_list_view thead {{
-                    color: {theme.top_panel_border};
-                }}
-                .o_list_view thead > tr > th {{
-                    border-color: {theme.top_panel_border};
-                }}
-                """
-                )
-                # Compatibility theme_kit and material backend theme modules
-                code = (
-                    code
-                    + """.main-nav {{
-                    border: 1px solid {theme.top_panel_border} !important;
-                    border-left: 0 !important;
-                    border-right: 0 !important;
-                }}
-                """
+                if not self.backend_theme_installed:
+                    code = (
+                        code
+                        + """.o_main_navbar{{
+                        border-color: {theme.top_panel_border};
+                    }}
+                    #oe_main_menu_navbar{{
+                        border-color: {theme.top_panel_border};
+                    }}
+                    .o_control_panel {{
+                        border-bottom-color: {theme.top_panel_border}!important;
+                    }}
+                    .o_form_statusbar .o_arrow_button{{
+                        border-color: lighten({theme.top_panel_border}, 40%)!important;
+                    }}
+                    .o_form_statusbar .o_arrow_button:before{{
+                        border-left-color: lighten({theme.top_panel_border}, 40%)!important;
+                    }}
+                    .o_list_view thead {{
+                        color: {theme.top_panel_border};
+                    }}
+                    .o_list_view thead > tr > th {{
+                        border-color: {theme.top_panel_border};
+                    }}
+                    """
+                    )
+                else:
+                    # Compatibility theme_kit and material backend theme modules
+                    code = (
+                        code
+                        + """header {{
+                        border-bottom: 1px solid {theme.top_panel_border} !important;
+                    }}
+                    """
                 )
             if self.top_panel_font_active and not self.backend_theme_installed:
                 code = (
