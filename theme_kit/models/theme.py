@@ -633,10 +633,7 @@ class ThemeLeftPanel(models.Model):
             if self.left_panel_active_item_bg_active:
                 code = (
                     code
-                    + """.o_sub_menu .oe_secondary_submenu a:focus{{
-                    background-color: {theme.left_panel_active_item_bg}!important;
-                }}
-                .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item.o_active {{
+                    + """.o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item.o_active {{
                     background-color: {theme.left_panel_active_item_bg}!important;
                 }}
                 #sidebar > li > a.active{{
