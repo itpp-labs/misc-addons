@@ -16,4 +16,16 @@
     </template>
     <template id="theme_kit.dummy">
         </template>
+    <template
+        id="theme_kit"
+        name="Theme kit JS"
+        inherit_id="web.assets_backend"
+    >
+        <xpath expr="." position="inside">
+            <script
+                type="text/javascript"
+                src="/theme_kit/static/js/theme_kit.js"
+            />
+        </xpath>
+    </template>
 </odoo>
