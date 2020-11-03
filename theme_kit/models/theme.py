@@ -104,6 +104,14 @@ class ThemeTopPanel(models.Model):
         default=False, help="Active item Background color for Top Panel"
     )
 
+    top_panel_active_subitem_bg = fields.Char(
+        "Active submenu item Background color",
+        help="Active item Background color for Top Panel",
+    )
+    top_panel_active_subitem_bg_active = fields.Boolean(
+        default=False, help="Active submenu item Background color for Top Panel"
+    )
+
     top_panel_hover_item_font = fields.Char(
         "Hover item Font color", help="Hover item Font color for Top Panel"
     )
@@ -116,6 +124,12 @@ class ThemeTopPanel(models.Model):
     )
     top_panel_hover_item_bg_active = fields.Boolean(
         default=False, help="Hover item Background color for Top Panel"
+    )
+    top_panel_hover_subitem_bg = fields.Char(
+        "Hover submenu item Background color", help="Hover item Background color for Top Panel"
+    )
+    top_panel_hover_subitem_bg_active = fields.Boolean(
+        default=False, help="Hover submenu item Background color for Top Panel"
     )
 
     # Compatibility theme_kit and material backend theme modules
@@ -163,10 +177,14 @@ class ThemeTopPanel(models.Model):
             self.top_panel_hover_item_font = ""
         if not vals.get("top_panel_hover_item_bg_active", "Not found"):
             self.top_panel_hover_item_bg = ""
+        if not vals.get("top_panel_hover_subitem_bg_active", "Not found"):
+            self.top_panel_hover_subitem_bg = ""
         if not vals.get("left_panel_main_menu_active", "Not found"):
             self.left_panel_main_menu = ""
         if not vals.get("left_panel_sub_menu_active", "Not found"):
             self.top_panel_hover_item_bg = ""
+        if not vals.get("top_panel_active_subitem_bg_active", "Not found"):
+            self.top_panel_active_subitem_bg = ""
 
     @api.multi
     def _compute_less(self):
@@ -309,6 +327,16 @@ class ThemeTopPanel(models.Model):
                     code
                     + """.navbar-nav .active a{{
                     background-color: {theme.top_panel_active_item_bg}!important;
+                }}
+                #odooMenuBarNav > div > div.o_sub_menu_content > ul > li > a.active{{
+                    background-color: {theme.top_panel_active_item_bg}!important;
+                }}"""
+                )
+            if self.top_panel_active_subitem_bg_active:
+                code = (
+                    code
+                    + """#odooMenuBarNav > div > div.o_sub_menu_content > ul > li > ul > li.active > a{{
+                    background-color: {theme.top_panel_active_subitem_bg}!important;
                 }}"""
                 )
             if self.top_panel_hover_item_font_active:
@@ -347,31 +375,22 @@ class ThemeTopPanel(models.Model):
                 """
                 )
             if self.top_panel_hover_item_bg_active:
+            # Compatibility theme_kit and material backend theme modules
                 code = (
                     code
-                    + """.o_main_navbar > ul > li > a:hover{{
-                    background-color: {theme.top_panel_hover_item_bg}!important;
+                    + """#odooMenuBarNav > div > div.o_sub_menu_content > ul > li > a:hover{{
+                    background-color: {theme.top_panel_hover_item_bg} !important;
                 }}
-                .o_main_navbar > ul > li > a:focus{{
-                    background-color: {theme.top_panel_hover_item_bg}!important;
+                #odooMenuBarNav > div > div.o_sub_menu_content > ul > li > a:focus{{
+                    background-color: {theme.top_panel_hover_item_bg} !important;
                 }}
-                .navbar-nav li a:hover{{
-                    background-color: {theme.top_panel_hover_item_bg}!important;
-                }}
-                .navbar-nav li a:focus{{
-                    background-color: {theme.top_panel_hover_item_bg}!important;
-                }}
-                .o_main_navbar > .o_menu_toggle:hover{{
-                    background-color: {theme.top_panel_hover_item_bg}!important;
-                }}
-                .o_main_navbar > .o_menu_toggle:focus{{
-                    background-color: {theme.top_panel_hover_item_bg}!important;
-                }}
-                .open .dropdown-menu > li a:hover {{
-                    background-color: {theme.top_panel_hover_item_bg}!important;
-                }}
-                .open .dropdown-menu > li a:focus {{
-                    background-color: {theme.top_panel_hover_item_bg}!important;
+                """
+                )
+            if self.top_panel_hover_subitem_bg_active:
+                code = (
+                    code
+                    + """#odooMenuBarNav > div > div.o_sub_menu_content > ul > li > ul > li > a:hover {{
+                    background: {theme.top_panel_hover_subitem_bg} !important;
                 }}
                 """
                 )
@@ -614,13 +633,13 @@ class ThemeLeftPanel(models.Model):
             if self.left_panel_active_item_bg_active:
                 code = (
                     code
-                    + """.o_sub_menu .oe_secondary_submenu .active a{{
-                    background-color: {theme.left_panel_active_item_bg}!important;
-                }}
-                .o_sub_menu .oe_secondary_submenu a:focus{{
+                    + """.o_sub_menu .oe_secondary_submenu a:focus{{
                     background-color: {theme.left_panel_active_item_bg}!important;
                 }}
                 .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item.o_active {{
+                    background-color: {theme.left_panel_active_item_bg}!important;
+                }}
+                #sidebar > li > a.active{{
                     background-color: {theme.left_panel_active_item_bg}!important;
                 }}
                 """

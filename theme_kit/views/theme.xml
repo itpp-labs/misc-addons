@@ -134,6 +134,19 @@
                                 />
                             </div>
                             <div>
+                                <label for="top_panel_active_subitem_bg" />
+                                <field
+                                    name="top_panel_active_subitem_bg_active"
+                                    nolabel="1"
+                                    class="oe_inline"/>
+                                <field
+                                    name="top_panel_active_subitem_bg"
+                                    widget="color"
+                                    attrs="{'readonly':[('top_panel_active_subitem_bg_active','=',False)]}"
+                                    class="oe_inline"
+                                />
+                            </div>
+                            <div>
                                 <label for="top_panel_hover_item_font" />
                                 <field
                                     name="top_panel_hover_item_font_active"
@@ -158,6 +171,20 @@
                                     name="top_panel_hover_item_bg"
                                     widget="color"
                                     attrs="{'readonly':[('top_panel_hover_item_bg_active','=',False)]}"
+                                    class="oe_inline"
+                                />
+                            </div>
+                            <div>
+                                <label for="top_panel_hover_subitem_bg"/>
+                                <field
+                                    name="top_panel_hover_subitem_bg_active"
+                                    nolabel="1"
+                                    class="oe_inline"
+                                />
+                                <field
+                                    name="top_panel_hover_subitem_bg"
+                                    widget="color"
+                                    attrs="{'readonly':[('top_panel_hover_subitem_bg_active','=',False)]}"
                                     class="oe_inline"
                                 />
                             </div>
