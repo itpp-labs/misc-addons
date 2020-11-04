@@ -5,6 +5,7 @@ from odoo.http import content_disposition, request
 import base64, io, xlsxwriter
 import codecs
 import os
+import tempfile                     
 from PyPDF2 import PdfFileMerger, PdfFileReader
 
 import logging
@@ -20,25 +21,29 @@ class DashboardPrintBundle(models.TransientModel):
     company_name = fields.Char(
         string="Company name",
         readonly=True,
-        default=lambda s: s.env.ref('ohada_reports.ohada_dashboard_view_your_company').company_id.name)
+        default=lambda s: s.env.user.company_id.name)
+#        default=lambda s: s.env.ref('ohada_reports.ohada_dashboard_view_your_company').company_id.name)
     dash_year = fields.Char(
         string="Year",
         readonly=True,
         default=lambda s: s.env.ref('ohada_reports.ohada_dashboard_options').sudo().current_year)
     all_entries = fields.Char(
-        string="Posted",
+        string="All journal entries",
         readonly=True,
         default=lambda s: s.env.ref('ohada_reports.ohada_dashboard_options').sudo().all_entries)
 
-    balance_assets = fields.Boolean(string="Balance Sheet - Assets")
-    balance_liabilitities = fields.Boolean(string="Balance Sheet - Liabilitities")
+    cover_sheet = fields.Boolean(string="Coverpage and Sheets")    
+    balance_sheet = fields.Boolean(string="Balance Sheet")
+#    balance_assets = fields.Boolean(string="Balance Sheet - Assets")
+#    balance_liabilitities = fields.Boolean(string="Balance Sheet - Liabilitities")
     profit_loss = fields.Boolean(string="Profit & Loss")
     cashflow = fields.Boolean(string="Cashflow")
     notes = fields.Boolean(string="Notes")
     xlsx_bundle = fields.Binary('Xlsx file')
 
     def only_BS_picked(self):
-        return self.balance_liabilitities and self.balance_assets and not (self.profit_loss or self.cashflow or self.notes)
+#        return self.balance_liabilitities and self.balance_assets and not (self.profit_loss or self.cashflow or self.notes)
+        return self.balance_sheet and not (self.cover_sheet or self.profit_loss or self.cashflow or self.notes)
 
     def is_BS_format_landscape(self):
         return True if self.env.ref('ohada_reports.ohada_report_balancesheet_0').print_format == 'landscape' else False
@@ -54,9 +59,11 @@ class DashboardPrintBundle(models.TransientModel):
         report_obj = self.env["ohada.financial.html.report"].sudo()
         report_obj = report_obj.browse(1)
 
-        # 'make_pdfs' method makes pdfs and marges it in one
+        # 'make_pdfs' method makes pdfs and merges them in one file
         # 'make_pdfs' method returns number of pages
-        path = '/var/lib/odoo/ohada_pdfs'
+        #path = '/var/lib/odoo/ohada_pdfs'                                  #E- do not work in windows os
+        path = tempfile.gettempdir() or '/tmp'                              #E+
+        
         pages_num = self.make_pdfs(options, bundle_items.split(','), path, pages=len(bundle_items.split(',')))
         # Create attachment from 'result.pdf' file
         with open('%s/result.pdf' % (path), "rb") as f:
@@ -129,6 +136,10 @@ class DashboardPrintBundle(models.TransientModel):
         # Returning number of pages
         return len(reports)
 
+    def delete_pdfs(self, path):
+        for pdf in [a for a in os.listdir(path) if a.endswith(".pdf")]:
+            os.remove('%s/%s' % (path, pdf))
+
     def make_disclosure(self, pages_num, pdf):
         company = self.env['res.users'].browse(self._context.get('uid')).company_id
         disclosure = self.env['ohada.disclosure'].search([('company_id', '=', company.id),
@@ -145,10 +156,6 @@ class DashboardPrintBundle(models.TransientModel):
                                                      'number_of_pages': pages_num})
             else:
                 disclosure.write({'bundle_report_file_pdf': pdf, 'number_of_pages': pages_num})
-
-    def delete_pdfs(self, path):
-        for pdf in [a for a in os.listdir(path) if a.endswith(".pdf")]:
-            os.remove('%s/%s' % (path, pdf))
 
     def print_xlsx(self, *context):
         dash = self.env.ref('ohada_reports.ohada_dashboard_view_your_company')
@@ -170,37 +177,18 @@ class DashboardPrintBundle(models.TransientModel):
             'url': '/web/content/ohada.dash.print.bundle/%s/xlsx_bundle/xlsx_bundle.xlsx?download=true' %(self.id),
         }
 
-    def get_bundle_reports_ids(self):
-        bundle_items = {
-            'Balance Sheet - Assets': self.balance_assets,
-            'Balance Sheet - Liabilitites': self.balance_liabilitities,
-            'Profit & Loss': self.profit_loss,
-            'Cashflow': self.cashflow,
-            'Notes': self.notes
-        }
-        choosen_items = []
-        for i in self.env['ohada.financial.html.report'].search([('type', '=', 'main')]):
-            if bundle_items.get(i.name, 0):
-                choosen_items.append(str(i.id))
-        if bundle_items.get("Notes", 0):
-            choosen_items.append('notes')
-        return ','.join(choosen_items)
-
-    def close_button(self):
-        return {'type': 'ir.actions.act_window_close'}
-
     def print_bundle_xlsx(self, options, reports_ids=None):
         response = {}
         reports_ids = reports_ids.split(',')
         output = io.BytesIO()
         workbook = xlsxwriter.Workbook(output, {'in_memory': True})
 
-        if self.only_BS_picked() and not self.is_BS_format_landscape():
+        if self.only_BS_picked() and self.env.user.company_id.bs_report_format == 'landscape':
             report_obj = self.env.ref('ohada_reports.ohada_report_balancesheet_0')
             report_obj.get_xlsx(options, response, print_bundle=True, workbook=workbook)
         else:
             for report_id in reports_ids:
-                if report_id != 'notes':
+                if report_id and report_id != 'notes':
                     self.env['ohada.financial.html.report'].browse(int(report_id)).get_xlsx(options, response, print_bundle=True, workbook=workbook)
                 else:
                     options['comparison']['filter'] = 'previous_period'
@@ -218,3 +206,35 @@ class DashboardPrintBundle(models.TransientModel):
         temporary_variable = output.read()
         output.close()
         return temporary_variable
+
+    def get_bundle_reports_ids(self):
+        bundle_items = {}
+        #if self.env['res.users'].browse(self._context.get('uid')).company_id.bs_report_format == 'landscape':
+        if self.env.user.company_id.bs_report_format == 'landscape':
+            bundle_items.update({
+                'BS': self.balance_sheet
+            })
+        else:
+            bundle_items.update({
+                'BS1': self.balance_sheet,
+                'BS2': self.balance_sheet
+            })
+        bundle_items.update({
+            'PL': self.profit_loss,
+            'CF': self.cashflow,
+            'N': self.notes
+        })    
+        choosen_items = []
+#        for i in self.env['ohada.financial.html.report'].search([('type', '=', 'main')]):
+        for i in self.env['ohada.financial.html.report'].search(['|', ('code', '=', 'BS'), ('type', '=', 'main')]):
+#        for i in self.env['ohada.financial.html.report'].search([('type', '!=', 'note')]):
+            #if bundle_items.get(i.name, 0):
+            if bundle_items.get(i.code, 0):
+                choosen_items.append(str(i.id))
+        if bundle_items.get("N", 0):
+            choosen_items.append('notes')
+        return ','.join(choosen_items)
+
+    def close_button(self):
+        return {'type': 'ir.actions.act_window_close'}
+

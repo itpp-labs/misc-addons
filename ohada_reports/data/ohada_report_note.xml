@@ -9080,6 +9080,7 @@
 
 
     <!-- NOTE 34 -->
+<!--
     <record id="account_financial_report_ohada_balancesheet_liabilitites0" model="ohada.financial.html.report">
         <field name="name">Balance Sheet - Liabilitites</field>
         <field name="shortname">Balance Sheet - Liabilitites</field>
@@ -9093,7 +9094,7 @@
         <field name="hierarchy_option" eval="False"/>
         <field name='parent_id' ref='ohada_reports.menu_ohada_legal_statements_main'/>
     </record>
-
+-->
     <record id="ohada_financial_report_note34" model="ohada.financial.html.report">
         <field name="name">Note 34 : Fiche de synthèse des principaux indicateurs financiers</field>
         <field name="shortname">Note 34</field>

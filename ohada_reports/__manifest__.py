@@ -49,6 +49,7 @@ Countries that use SYSCOHADA are the following:
         'views/ohada_dash_view.xml',
         'data/ohada_note_relevance.xml',
         'views/ohada_disclosure.xml',
+        'views/ohada_company.xml',
         'data/ohada_dash.xml',
     ],
     'qweb': [

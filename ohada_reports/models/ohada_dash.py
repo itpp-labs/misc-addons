@@ -1,10 +1,13 @@
-from odoo import api, fields, models
+# -*- coding: utf-8 -*-
+
+from odoo import models, fields, api, _
 from odoo.addons.web.controllers.main import clean_action
 import json
 import logging
 from datetime import datetime
 from datetime import date
 import base64, io, xlsxwriter
+from odoo.http import content_disposition, request
 
 _logger = logging.getLogger(__name__)
 
@@ -14,36 +17,23 @@ class OhadaDash(models.Model):
     _order = "sequence"
 
     name = fields.Char(required=True)
-    name_to_display = fields.Selection([('name', 'Name'),
-                                        ('company', 'Company')],
-                                        default='name')
+    name_to_display = fields.Selection([('report', 'From linked report'), ('company', 'From active Company'), ('name', 'Dash name')], default='name')
     display_name = fields.Char(compute='_compute_display_name')
+    code = fields.Char(required=True)
     active = fields.Boolean()
     show_on_dashboard = fields.Boolean()
     sequence = fields.Integer()
     color = fields.Integer('Color index')
-    type = fields.Selection([('report', 'Report'),
-                             ('info_button', 'Info button'),
-                             ('note_button', 'Note button'),
-                             ('other_button', 'Other button'),
-                             ('mix', 'Mix')],
-                            required=True)
+    type = fields.Selection([('report', 'Report'), ('info_button', 'Info button'), ('note_button', 'Note button'),
+                             ('other_button', 'Other button'), ('mix', 'Mix')], required=True)
     # required if type == ‘report’.
     report_id = fields.Many2one('ohada.financial.html.report', string='OHADA report')
-    report_type = fields.Char(string='Report type', related='report_id.code')
+    report_code = fields.Char(string='Report code', related='report_id.code')
     # required only if type == ‘report’.
     displayed_report_line = fields.Many2one('ohada.financial.html.report.line')
-    chart_type = fields.Selection([('barChart', 'Bar chart'),
-                                   ('lineChart', 'Line chart')])
-    dash_size = fields.Selection([('small', 'Small'),
-                                  ('middle', 'Middle'),
-                                  ('large', 'Large')])
-    company_id = fields.Many2one(
-        'res.company',
-        string='Company',
-        required=True,
-        default=lambda s: s.env.user.company_id
-    )
+    chart_type = fields.Selection([('barChart', 'Bar chart'), ('lineChart', 'Line chart')])
+    dash_size = fields.Selection([('small', 'Small'), ('middle', 'Middle'), ('large', 'Large')])
+#    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda s: s.env.user.company_id)      #E-
     current_year = fields.Integer(related='options.current_year', string="Current Year")
     reports = fields.Text(compute='_compute_reports')
     kanban_dashboard_graph = fields.Text(compute='_kanban_dashboard_graph')
@@ -51,6 +41,21 @@ class OhadaDash(models.Model):
     lines_value = fields.Text(compute='_get_dashes_info')
     sequence = fields.Integer(default=10, help="Gives the sequence order when displaying a blocks of a Dashboard.")
     button_classes = fields.Text(compute='_get_button_classes')
+
+
+    _sql_constraints = [
+        ('code_uniq', 'unique (code)', _("A dash with the same code already exists.")),
+    ]
+
+    @api.one
+    @api.constrains('name_to_display', 'type', 'report_id')
+    def _name_constrains(self):
+        if self.type == 'report': 
+            if not self.report_id:
+                raise ValidationError('For type "Report", you must select an "OHADA report"')
+        if self.name_to_display == 'report': 
+            if not (self.type == 'report' and self.report_id):
+                raise ValidationError('In order to display name "From linked report", you must select type "Report" and select a "OHADA report"')
 
     def action_data(self):
         report = self.env.ref('ohada_reports.ohada_report_dash')
@@ -169,10 +174,12 @@ class OhadaDash(models.Model):
 
     def _compute_display_name(self):
         for dash in self:
-            if dash.name_to_display == 'name':
-                dash.display_name = dash.name
+            if dash.name_to_display == 'company':
+               dash.display_name = self.env.user.company_id.name
+            elif dash.name_to_display == 'report':
+                dash.display_name = dash.report_id.name
             else:
-               dash.name == dash.company_id.name
+                dash.display_name = dash.name
 
     def _get_button_classes(self):
         for dash in self:
@@ -187,7 +194,7 @@ class OhadaDash(models.Model):
 
     @api.multi
     def open_action(self):
-        report = self.env['ohada.financial.html.report'].search([('code', '=', self.report_type)])
+        report = self.env['ohada.financial.html.report'].search([('code', '=', self.report_code)])
         return self.return_action(report)
 
     @api.multi
@@ -229,13 +236,13 @@ class OhadaDash(models.Model):
     def _get_graph_data(self):
         DATA = json.loads(self.env.ref('ohada_reports.ohada_dashboard_data').sudo().data)
         data = []
-        if self.report_type == 'BS':
+        if self.report_code == 'BS':
             for line_data in DATA['di_data']['_BZ']:
                 data.append({'label': line_data[0], 'value': line_data[1], 'type': 'past'})
-        if self.report_type == 'PL':
+        if self.report_code == 'PL':
             for line_data in DATA['di_data']['_XI']:
                 data.append({'label': line_data[0], 'value': line_data[1], 'type': 'past'})
-        if self.report_type == 'CF':
+        if self.report_code == 'CF':
             for line_data in DATA['di_data']['_ZH']:
                 # data.append({'label': line_data['l_month'], 'value': float(line_data['count']), 'type': 'past'})
                 data.append({'label': line_data['l_month'], 'value': 10.0, 'type': 'past'})
@@ -246,21 +253,31 @@ class OhadaDash(models.Model):
         for dash in self:
             year = dash.current_year
             if dash.name_to_display == 'company':
-                date_to = year and str(year) + '-12-31' or False
-                period_domain = [('state', '=', 'draft'), ('date', '<=', date_to)]
-
                 data = {
                     'block_2': [],
-                    'period_lock_status': "Opened",
-                    'unposted_in_period': "With Draft Entries" if bool(dash.env['account.move'].search_count(period_domain)) else "All Entries Posted"
                 }
-
                 data['block_2'].append({'name': 'Added value', 'value': DATA['_XC']})
                 data['block_2'].append({'name': 'EBITDA', 'value': DATA['_XD']})
                 data['block_2'].append({'name': 'Accounting net income', 'value': DATA['N37_RC']})
                 data['block_2'].append({'name': 'Income tax', 'value': DATA['N37_IR']})
-
+                # Set status of accounting entries: Check whether there are unposted entries for the selected period
+                date_to = year and str(year) + '-12-31' or False
+                period_domain = [('state', '=', 'draft'), ('date', '<=', date_to)]
+                data['unposted_in_period'] = _("With Draft Entries") if bool(self.env['account.move'].search_count(period_domain)) else _("All Entries Posted")                
+                # Set period/fiscalyear locking info                
+                current_company_id = self.env.user.company_id
+                d_date_to = year and date(year, 12, 31) or False
+                data['period_lock_status'] = _("Opened")
+                if current_company_id.period_lock_date:
+                    period_lock_date = date(current_company_id.period_lock_date.year, current_company_id.period_lock_date.month, current_company_id.period_lock_date.day)
+                    if d_date_to and period_lock_date  >= d_date_to:
+                        data['period_lock_status'] = _("Closed for non-accountants")
+                if current_company_id.fiscalyear_lock_date:
+                    fiscalyear_lock_date = date(current_company_id.fiscalyear_lock_date.year, current_company_id.fiscalyear_lock_date.month, current_company_id.fiscalyear_lock_date.day)
+                    if d_date_to and fiscalyear_lock_date  >= d_date_to:
+                        data['period_lock_status'] = _("All Closed")
                 dash.lines_value = json.dumps(data)
+                
             if dash.displayed_report_line:
                 report = self.env['ohada.financial.html.report']
                 if dash.report_id.code == 'BS':
@@ -282,10 +299,10 @@ class OhadaDash(models.Model):
                 if prev_year_value != 0.0:
                     variation = '{:,.0f}%'.format(((current_year_value/prev_year_value)-1)*100)
                 dash.lines_value = json.dumps({'this_year': str(year),
-                                                'this_year_value': report.format_value(DATA[dash.displayed_report_line.code]),
-                                                'prev_year': str(year - 1),
-                                                'prev_year_value': report.format_value(DATA[dash.displayed_report_line.code + '-1']),
-                                                'variation': variation})
+                                               'this_year_value': report.format_value(DATA[dash.displayed_report_line.code]),
+                                               'prev_year': str(year - 1),
+                                               'prev_year_value': report.format_value(DATA[dash.displayed_report_line.code + '-1']),
+                                               'variation': variation})
 
     def open_page(self, context):
         if context['page'] == 'company':
@@ -294,7 +311,8 @@ class OhadaDash(models.Model):
                 'view_type': 'form',
                 'view_mode': 'form',
                 'res_model': 'res.company',
-                'res_id': self.company_id.id,
+                #'res_id': self.company_id.id,              #E-  
+                'res_id': self.env.user.company_id.id,
                 'view_id': False,
                 'type': 'ir.actions.act_window',
                 'target': 'current',
@@ -302,7 +320,8 @@ class OhadaDash(models.Model):
         elif context['page'] == 'Format':
             action = self.env.ref('base.action_res_company_form')
             action['view_id'] = self.env.ref('ohada_reports.ohada_view_company_form').id
-            action['res_id'] = self.company_id.id
+            #action['res_id'] = self.company_id.id          #E-
+            action['res_id'] = self.env.user.company_id.id  
             action['context'] = self.env.context
             action['target'] = 'current'
             return action.read()[0]
@@ -338,15 +357,10 @@ class OhadaDash(models.Model):
     def preview_pdf(self):
         bundle = self.env['ohada.dash.print.bundle']
         if self.report_id.code == 'BS':
-            # return bundle.create({
-            #     'balance_assets': True,
-            #     'balance_liabilitities': True
-            # }).print_pdf()
             report = self.env['ohada.financial.html.report']
             options = report.make_temp_options(int(self.current_year))
             report_obj = self.env.ref('ohada_reports.ohada_report_balancesheet_0')
-            horizontal = True if self.env.ref('ohada_reports.ohada_report_balancesheet_0').print_format == 'landscape' else False
-            pdf = report_obj.get_pdf(options, horizontal=horizontal)
+            pdf = report_obj.get_pdf(options, horizontal=self.env.user.company_id.bs_report_format == 'landscape')
             attachment = self.env['ir.attachment'].create({
                 'datas': base64.b64encode(pdf),
                 'name': 'New pdf report',
@@ -375,10 +389,10 @@ class OhadaDash(models.Model):
 
         if self.report_id.code == 'BS':
             return bundle.create({
-                'balance_assets': True,
-                'balance_liabilitities': True
+                'balance_sheet': True,
+#                'balance_assets': True,
+#                'balance_liabilitities': True
             }).print_xlsx()
-            # return self.env.ref('ohada_reports.ohada_dashboard_printer').print_BS_xlsx()
         if self.report_id.code == 'PL':
             return bundle.create({
                 'profit_loss': True
@@ -416,17 +430,6 @@ class OhadaDashData(models.Model):
 
     data = fields.Text()
 
-class ResCompany(models.Model):
-    _inherit = "res.company"
-
-    bs_format_landscape = fields.Boolean("BS report format landscape", default=False)
-
-    def write(self, vals):
-        res = super(ResCompany, self).write(vals)
-        if 'bs_format_landscape' in vals:
-            BS_report = self.env.ref('ohada_reports.ohada_report_balancesheet_0')
-            BS_report.print_format = 'landscape' if self.bs_format_landscape else 'portrait'
-        return res
 
 class OhadaDashPrintReport(models.Model):
     _name = "ohada.dash.print.report"
@@ -434,49 +437,6 @@ class OhadaDashPrintReport(models.Model):
 
     xlsx_file = fields.Binary('Xlsx file')
 
-    def is_BS_format_landscape(self):
-        return True if self.env.ref('ohada_reports.ohada_report_balancesheet_0').print_format == 'landscape' else False
-
-    # I will end it up next time
-    # 'print_items' dict keys: BS-A, BS-L, PL, CF, Notes11
-    def print_BS_xlsx(self, print_items=None):
-        dash = self.env.ref('ohada_reports.ohada_dashboard_view_your_company')
-        report = self.env['ohada.financial.html.report']
-        options = report.make_temp_options(dash.current_year)
-        if self.is_BS_format_landscape():
-            print_items = self.get_print_items_ids({'BS-A': True, 'BS-L': True})
-
-        xlsx = self.build_BS_xlsx(options, print_items, landscape=self.is_BS_format_landscape())
-        attachment = self.env['ir.attachment'].create({
-            'datas': base64.b64encode(xlsx),
-            'name': 'New xlsx report',
-            'datas_fname': 'report.xlsx',
-            'type': 'url'
-        })
-        self.xlsx_file = base64.b64encode(xlsx)
-        return {
-            'type': 'ir.actions.act_url',
-            'name': 'bundle',
-            'url': '/web/content/ohada.dash.print.bundle/%s/xlsx_bundle/xlsx_bundle.xlsx?download=true' %(self.id),
-        }
-
-    def build_BS_xlsx(self, options, reports_ids=None, landscape=False):
-        response = {}
-        output = io.BytesIO()
-        workbook = xlsxwriter.Workbook(output, {'in_memory': True})
-
-        if landscape:
-            for report_id in reports_ids:
-                self.env['ohada.financial.html.report'].browse(int(report_id)).get_xlsx(options, response, print_bundle=True, workbook=workbook)
-        else:
-            report_obj = self.env.ref('ohada_reports.ohada_report_balancesheet_0')
-            report_obj.get_xlsx(options, response, print_bundle=True, workbook=workbook)
-
-        workbook.close()
-        output.seek(0)
-        temporary_variable = output.read()
-        output.close()
-        return temporary_variable
 
     def get_print_items_ids(self, print_items=None):
         if not print_items:

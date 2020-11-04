@@ -9,14 +9,12 @@ from . import docusign
 class ResCompany(models.Model):
     _inherit = "res.company"
 
-    account_service_1 = fields.Selection([('audit', 'Audit'), ('accounting', 'Accounting')],
-                                         required=True, default='audit')
-    chartered_account_1_partner_id = fields.Many2one('res.partner',
-                                                     domain="[('chartered_account_type', 'in', ['ec', 'ca'])]")
-    account_service_2 = fields.Selection([('audit', 'Audit'), ('accounting', 'Accounting')],
-                                         required=True, default='audit')
-    chartered_account_2_partner_id = fields.Many2one('res.partner',
-                                                     domain="[('chartered_account_type', 'in', ['ec', 'ca'])]")
+    bs_report_format = fields.Selection([('landscape', 'Landscape'), ('portrait', 'Portrait')], string='BS report format', default='landscape', required=True)
+#    bs_report_format = fields.Selection([('landscape', 'Landscape'), ('portrait', 'Portrait')], string='BS report format', compute='_get_bs_report_format', inverse='_set_bs_report_format')
+    account_service_1 = fields.Selection([('audit', 'Audit'), ('accounting', 'Accounting')], required=True, default='audit')
+    chartered_account_1_partner_id = fields.Many2one('res.partner', domain="[('chartered_account_type', 'in', ['ec', 'ca'])]")
+    account_service_2 = fields.Selection([('audit', 'Audit'), ('accounting', 'Accounting')], required=True, default='audit')
+    chartered_account_2_partner_id = fields.Many2one('res.partner', domain="[('chartered_account_type', 'in', ['ec', 'ca'])]")
     ds_service_name = fields.Char(string='Service name')
     ds_base_uri = fields.Char(string='Base URI')
     ds_email = fields.Char(string='Email')
@@ -24,6 +22,16 @@ class ResCompany(models.Model):
     ds_integration_key = fields.Char(string='Integration key')
     ds_secret_key = fields.Char(string='Secret key')
     ds_sandbox = fields.Boolean(default=True, string='Test mode')
+
+    def _get_bs_report_format(self):
+        bs_report = self.env.ref('ohada_reports.ohada_report_balancesheet_0')
+        for record in self:
+            record.bs_report_format = bs_report.print_format
+                
+    def _set_bs_report_format(self):
+        bs_report = self.env.ref('ohada_reports.ohada_report_balancesheet_0')
+        for record in self:
+            bs_report.print_format = record.bs_report_format
 
     @api.multi
     def check_docusign_connection(self):

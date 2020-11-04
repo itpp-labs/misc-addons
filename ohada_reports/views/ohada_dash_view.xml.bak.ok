@@ -28,7 +28,7 @@
                         <t t-value="JSON.parse(record.button_classes.raw_value)" t-set="button_classes"/>
                         <t t-value="record.code.raw_value" t-set="kanban_code"/>
                         <t t-value="record.dash_size.raw_value" t-set="dash_size"/>
-                        <t t-value="record.type.raw_value" t-set="dash_type"/>
+                        <t t-value="record.type.raw_value" t-set="button_type"/>
                         <!--  <t t-value="record.current_year.raw_value" t-set="year"/>   -->               <!--  TO BE CHECKED   -->
                         <t t-value="record.report_code.raw_value" t-set="report_code"/>
                         <t t-if="dash_size == 'middle'" t-call="MiddleSizeBox"/>
@@ -47,9 +47,9 @@
                                 </div>
                             </div>
                             <div class="container o_kanban_card_manage_pane dropdown-menu" role="menu">
-                                <t t-if="dash_type == 'report'" t-call="ReportLook"/>
-                                <t t-if="dash_type == 'mix'" t-call="MixLook"/>
-                                <t t-if="dash_type != 'mix' and dash_type != 'report'" t-call="Colors"/>
+                                <t t-if="button_type == 'report'" t-call="ReportLook"/>
+                                <t t-if="button_type == 'mix'" t-call="MixLook"/>
+                                <t t-if="button_type != 'mix' and button_type != 'report'" t-call="Colors"/>
                             </div>
                         </div>
                     </t>
@@ -83,8 +83,8 @@
                                 </div>
                             </div>
                             <div class="container o_kanban_card_manage_pane dropdown-menu" role="menu">
-                                <t t-if="dash_type == 'report'" t-call="ReportLook"/>
-                                <t t-if="dash_type == 'mix'" t-call="MixLook"/>
+                                <t t-if="button_type == 'report'" t-call="ReportLook"/>
+                                <t t-if="button_type == 'mix'" t-call="MixLook"/>
                             </div>
                             <t t-call="DashBodyGraph"/>
                         </div>
@@ -98,7 +98,9 @@
                                 </div>
                             </div>
                             <div class="o_kanban_manage_button_section">
-                                <t t-if="dash_type == 'mix' or dash_type == 'report'"/>
+                                <t t-if="kanban_code == 'DASH_COMPANY'">
+                                    <img t-att-src="'/ohada_reports/static/img/ohada.png'" class="company-img company-logo" style="margin-top:-25px !important; margin-right:20px !important; margin-bottom:1px !important; padding:1px !important;" alt="OHADA Logo"/>
+                                </t>
                                 <a class="o_kanban_manage_toggle_button" href="#"><i class="fa fa-ellipsis-v" aria-label="Selection" role="img" title="Selection"/></a>
                             </div>
                         </div>
@@ -118,14 +120,6 @@
                     <t t-name="Kanban_CompanyInfo">
                         <div class="col-sm-12 col-md-12 col-lg-12">
                             <div class="oh-card no-border">
-                                <div class="oh-card-body pb-0 pad-top-5 pad-bot-20">
-                                    <div class="col-md-5 col-lg-5 marg-left-10 fl-left">
-                                    </div>
-                                    <div class="col-md-3 col-lg-3">
-                                        <img t-att-src="'/ohada_reports/static/img/ohada.png'"
-                                        class="company-img company-logo" alt="Company Logo"/>
-                                    </div>
-                                </div>
                                 <div class="row">
                                     <div class="col-md-4 col-lg-4 max-width-30">
                                         <t t-call="ExportButtons"/>
@@ -172,14 +166,10 @@
                     <t t-name="ExportButtons">
                         <div class="ohada_notification pad-right-25 marg-left-minus-10 mrg-top-0px">
                             <div class="pad-left-0">
-                                <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48"
-                                name="open_page" context="{'page': 'Data import'}" type="object">IMPORT DATA</button>
-                                <button name="%(print_bundle_wizard)d" type="action" class="btn btn-primary oh_dashbard_btn_m print_bundle export marg-right-4 max-width-48">PRINT BUNDLE</button>
-                                <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48"
-                                name="%(account_accountant.action_view_account_change_lock_date)d" type="action">CLOSE PERIOD</button>
-                                <t t-debug="pdb"/>
-                                <button t-attf-class="#{button_classes['signNpay_button']} btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48 signnpay"
-                                name="open_page" context="{'page': 'Disclosure form view'}" type="object">SIGN &amp; PAY</button>
+                                <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 " name="open_page" context="{'page': 'Data import'}" type="object">IMPORT DATA</button>
+                                <button class="btn btn-primary oh_dashbard_btn_m print_bundle export marg-right-4 " name="%(print_bundle_wizard)d" type="action">PRINT BUNDLE</button>
+                                <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 " name="%(account_accountant.action_view_account_change_lock_date)d" type="action">CLOSE PERIOD</button>
+                                <button t-attf-class="#{button_classes['signNpay_button']} btn btn-primary oh_dashbard_btn_m marg-right-4 signnpay" name="open_page" context="{'page': 'Disclosure form view'}" type="object">SIGN &amp; PAY</button>
                             </div>
                         </div>
                     </t>

@@ -7,15 +7,16 @@
                 <form string="Print bundle report">
                     <script>
                         $(document).ready(function(){
-                            $('.modal-dialog').css({'width': '25.4%'});
+                            $('.modal-dialog').css({'width': '35.4%'});
                             $('.close').css({'opacity': 0})
                         });
                     </script>
                     <group class="oe_title" style="white-space: nowrap;">
                         <field string="Company Name" name="company_name"/>
                         <field string="Year" name="dash_year"/>
-                        <field name="balance_assets"/>
-                        <field name="balance_liabilitities"/>
+                        <field name="balance_sheet"/>
+<!--                        <field name="balance_assets"/>      -->
+<!--                        <field name="balance_liabilitities"/>   -->
                         <field name="profit_loss"/>
                         <field name="cashflow"/>
                         <field name="notes"/>

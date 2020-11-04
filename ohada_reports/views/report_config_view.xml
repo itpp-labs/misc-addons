@@ -17,7 +17,7 @@
                             <group>
                                 <field name="shortname"/>
                                 <field name="code"/>
-                                <field name="tax_report"/>
+                                <field name="print_format"/>
                             </group>
                             <group>
                                 <field name="date_range"/>

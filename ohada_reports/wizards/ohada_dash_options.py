@@ -11,7 +11,7 @@ class DashboardOptions(models.TransientModel):
 
     current_year = fields.Selection([(num, str(num)) for num in range((datetime.now().year) - 5, (datetime.now().year)+1 )],
              string='Year', default=datetime.now().year, config_parameter='ohada_reports.current_year')
-    all_entries = fields.Boolean(string="Status of journal entries", config_parameter='ohada_reports.all_entries')
+    all_entries = fields.Boolean(string="All journal entries", config_parameter='ohada_reports.all_entries')
 
     @api.multi
     def change_options(self):

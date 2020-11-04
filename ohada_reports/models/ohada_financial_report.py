@@ -45,21 +45,14 @@ class ReportOhadaFinancialReport(models.Model):
     show_journal_filter = fields.Boolean('Allow filtering by journals', help='display the journal filter in the report')
     unfold_all_filter = fields.Boolean('Show unfold all filter', help='display the unfold all options in report')
     company_id = fields.Many2one('res.company', string='Company')
-    generated_menu_id = fields.Many2one(
-        string='Menu Item', comodel_name='ir.ui.menu', copy=False,
-        help="The menu item generated for this report, or None if there isn't any."
-    )
+    generated_menu_id = fields.Many2one(string='Menu Item', comodel_name='ir.ui.menu', copy=False,
+            help="The menu item generated for this report, or None if there isn't any.")
     parent_id = fields.Many2one('ir.ui.menu', related="generated_menu_id.parent_id", readonly=False)
     tax_report = fields.Boolean('Tax Report', help="Set to True to automatically filter out journal items that have the boolean field 'tax_exigible' set to False")
     applicable_filters_ids = fields.Many2many('ir.filters', domain="[('model_id', '=', 'account.move.line')]",
                                               help='Filters that can be used to filter and group lines in this report.')
-    type = fields.Selection([('main', 'Main'),
-                             ('note', 'Note'),
-                             ('sheet', 'Sheet'),
-                             ('cover', 'Cover'),
-                             ('other', 'Other'),
-                             ('dash', 'Dash'),],
-                            default=False)
+    type = fields.Selection([('main', 'Main'), ('note', 'Note'), ('sheet', 'Sheet'),
+                             ('cover', 'Cover'), ('other', 'Other'), ('dash', 'Dash'),], default=False)
     sequence = fields.Integer(default=10)
     header = fields.Char(default=False)
     double_report = fields.Boolean(default=False)
@@ -69,19 +62,23 @@ class ReportOhadaFinancialReport(models.Model):
     default_columns_quantity = fields.Integer(default=False)
     mandatory_note = fields.Boolean(default=False)
     note_relevance_ids = fields.One2many('note.relevance', 'note_report_id')
-    print_format = fields.Selection([('landscape', 'Landscape'),
-                                     ('portrait', 'Portrait')],
-                                    default='portrait')
+    print_format = fields.Selection([('landscape', 'Landscape'), ('portrait', 'Portrait')], default='portrait', #required=True,
+            help="Print format for all reports but balance sheet.\n\
+                  Print format of balance sheet can be managed for each company in the company form view.")
 
     _sql_constraints = [
-        ('code_uniq', 'unique (code)', "A report with the same code already exists."),
+        ('code_uniq', 'unique (code)', _("A report with the same code already exists.")),
     ]
 
     @api.one
-    @api.constrains('code')
+    @api.constrains('code', 'print_format')
     def _code_constrains(self):
         if self.code and self.code.strip().lower() in __builtins__.keys():
             raise ValidationError('The code "%s" is invalid on report with name "%s"' % (self.code, self.name))
+        if self.code == 'BS' and not self.print_format == 'landscape':
+            raise ValidationError('The report code "%s" can only be used with print format "Landscape"' % (self.code))   
+        if self.code in ['BS1', 'BS2'] and not self.print_format == 'portrait':
+            raise ValidationError('The report code "%s" can only be used with print format "Portrait"' % (self.code))   
 
     @api.model
     def write_description(self, id, **kw):
@@ -103,8 +100,7 @@ class ReportOhadaFinancialReport(models.Model):
                 options['comparison']['filter'] = 'previous_period'
                 for report in self.env['ohada.financial.html.report'].search([('type', '=', 'note'), ('secondary', '=', False)]):
                     note_relevance = self.env['note.relevance'].search([('note_report_id', '=', report.id),
-                                                                        ('fiscalyear', '=', year),
-                                                                        ('company_id', '=', company.id)])
+                                                                        ('fiscalyear', '=', year), ('company_id', '=', company.id)])
                     if note_relevance:
                         if note_relevance.relevant:
                             options = report._get_options(options)
@@ -114,18 +110,14 @@ class ReportOhadaFinancialReport(models.Model):
                                 options = report._get_options(options)
                                 report._apply_date_filter(options)
                             report.get_xlsx(options, response, print_bundle=True, workbook=workbook)
-
-
         workbook.close()
         output.seek(0)
         result = output.read()
-        disclosure = self.env['ohada.disclosure'].search([('company_id', '=', company.id),
-                                                          ('fiscalyear_id', '=', year),
-                                                          ('bundle_report_file_xlsx', '!=', False)])
+        disclosure = self.env['ohada.disclosure'].search([('company_id', '=', company.id), 
+                            ('fiscalyear_id', '=', year), ('bundle_report_file_xlsx', '!=', False)])
         if not disclosure:
             base64_file_content = base64.b64encode(result).decode('ascii')
-            disclosure = self.env['ohada.disclosure'].search([('company_id', '=', company.id),
-                                                              ('fiscalyear_id', '=', year)])
+            disclosure = self.env['ohada.disclosure'].search([('company_id', '=', company.id), ('fiscalyear_id', '=', year)])
             if not disclosure:
                 self.env['ohada.disclosure'].create({'bundle_report_file_xlsx': base64_file_content,
                                                      'company_id': company.id,
@@ -143,7 +135,6 @@ class ReportOhadaFinancialReport(models.Model):
         company = self.env['res.users'].browse(self._context.get('uid')).company_id
         year = options['date'].get('string')
         base_url = self.env['ir.config_parameter'].sudo().get_param('report.url') or self.env['ir.config_parameter'].sudo().get_param('web.base.url')
-        # base_url = 'http://127.0.0.1:8069'
         reports_ids = reports_ids.split(',')
         rcontext = {
             'mode': 'print',

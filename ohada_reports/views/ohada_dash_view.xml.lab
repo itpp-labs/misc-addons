@@ -1,11 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <!-- new dashboard  -->
-    <record id="ohada_dash_kanban_view" model="ir.ui.view">
-        <field name="name">ohada.dash.dashboard.kanban</field>
-        <field name="model">ohada.dash</field>
-        <field name="arch" type="xml">
-            <kanban class="oe_background_grey o_kanban_dashboard o_account_kanban">
+<?xml version="1.0"?>
+<kanban class="oe_background_grey o_kanban_dashboard o_account_kanban">
                 <field name="id"/>
                 <field name="name"/>
                 <field name="code"/>
@@ -29,13 +23,123 @@
                         <t t-value="record.code.raw_value" t-set="kanban_code"/>
                         <t t-value="record.dash_size.raw_value" t-set="dash_size"/>
                         <t t-value="record.type.raw_value" t-set="dash_type"/>
-                        <!--  <t t-value="record.current_year.raw_value" t-set="year"/>   -->               <!--  TO BE CHECKED   -->
                         <t t-value="record.report_code.raw_value" t-set="report_code"/>
-                        <t t-if="dash_size == 'middle'" t-call="MiddleSizeBox"/>
-                        <t t-if="dash_size == 'small'" t-call="SmallSizeBox"/>
-                        <t t-if="dash_size == 'large'" t-call="LargeSizeBox"/>
+<!--                        <div t-attf-class="{{kanban_color(record.color.raw_value)}} {{(dash_type == 'report') ? 'col-md-12 col-lg-4 col-sm-12' : 'col-12 large-block'}}">   -->
+                        <div t-attf-class="{{kanban_color(record.color.raw_value)}} {{(dash_type == 'report') ? ' ' : 'col-12 large-block'}}">
+                            <t t-call="DashTop"/>
+                            <div class="container o_kanban_card_content">
+                                <div class="row">
+                                    <t t-if="dash_type == 'mix'" t-call="DashBodyMix"/>
+                                    <t t-if="dash_type == 'report'" t-call="DashBodyReport"/>
+                                    <t t-if="dash_type == 'info_button'" t-call="DashBodyInfoButton"/>
+                                    <t t-if="dash_type == 'note_button'" t-call="DashBodyNoteButton"/>
+                                    <t t-if="dash_type == 'other_button'" t-call="DashBodyOtherButton"/>
+                                </div>
+                                <t t-if="dash_type == 'report'" t-call="DashBodyReportGraph"/>
+                            </div>
+                            <div class="container o_kanban_card_manage_pane dropdown-menu" role="menu">
+                                <t t-call="DashManage"/>
+                            </div>
+                        </div>
+                        
                     </t>
 
+                    <t t-name="DashTop">
+                        <div t-attf-class="o_kanban_card_header">
+                            <div class="o_kanban_card_header_title">
+                                <div class="o_primary">
+                                    <field name="display_name"/>
+                                </div>
+                            </div>
+                            <div class="o_kanban_manage_button_section">
+                                <t t-if="kanban_code == 'DASH_COMPANY'">
+                                    <img t-att-src="'/ohada_reports/static/img/ohada.png'" class="company-img company-logo" style="margin-top:-25px !important; margin-right:20px !important; margin-bottom:1px !important; padding:1px !important;" alt="OHADA Logo"/>
+                                </t>
+                                <a class="o_kanban_manage_toggle_button" href="#"><i class="fa fa-ellipsis-v" aria-label="Selection" role="img" title="Selection"/></a>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-name="DashBodyMix" id="ohada.reports.DashBodyMix">
+                        <!-- Company Info -->
+                        <t t-if="kanban_code == 'DASH_COMPANY'">
+<!--                          
+                            <div class="col-md-4 col-lg-4" style="float:left;">
+                                <div class="ohada_notification" style="margin-left:-10px; padding-right:25px;">
+                                    <div style="padding-left:0px;">
+                                        <button class="btn btn-primary oh_dashbard_btn_m" style="margin-right:4px;">IMPORT DATA</button>
+                                        <button type="object" class="btn btn-primary oh_dashbard_btn_m print_bundle" style="margin-right:4px;">PRINT BUNDLE</button>
+                                        <button class="btn btn-primary oh_dashbard_btn_m" style="margin-right:4px;">CLOSE PERIOD</button>
+                                        <button class="btn btn-primary oh_dashbard_btn_m" style="margin-right:4px;">SIGN &amp; PAY</button>
+                                    </div>
+                                </div>
+                            </div>
+-->
+<!--
+                            <div class="ohada_notification pad-right-25 marg-left-minus-10 mrg-top-0px">
+                                <div class="pad-left-0">
+                                    <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48" name="open_page" context="{'page': 'Data import'}" type="object">IMPORT DATA</button>
+                                    <button name="1834" type="action" class="btn btn-primary oh_dashbard_btn_m print_bundle export marg-right-4 max-width-48">PRINT BUNDLE</button>
+                                    <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48" name="666" type="action">CLOSE PERIOD</button>
+                                    <t t-debug="pdb"/>
+                                    <button t-attf-class="#{button_classes['signNpay_button']} btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48 signnpay" name="open_page" context="{'page': 'Disclosure form view'}" type="object">SIGN &amp; PAY</button>
+                                </div>
+                            </div>
+-->
+                          
+
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <div class="oh-card no-border">
+                                    <div class="row">
+                                        <div class="col-md-4 col-lg-4">
+                                            <t t-call="ExportButtons"/>
+                                        </div>
+                                        <div class="col-md-4 col-lg-4">
+                                            <t t-call="CompanyLines"/>
+                                        </div>
+                                        <div class="col-md-4 col-lg-4">
+                                            <t t-call="CompanyStatus"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </t>
+
+                    </t>
+
+
+                    <t t-name="DashBodyReport" id="ohada.reports.DashBodyReport">
+
+                    </t>
+
+
+                    <t t-name="DashBodyInfoButton" id="ohada.reports.DashBodyInfoButton">
+
+                    </t>
+
+
+                    <t t-name="DashBodyNoteButton" id="ohada.reports.DashBodyNoteButton">
+
+                    </t>
+
+
+                    <t t-name="DashBodyOtherButton" id="ohada.reports.DashBodyOtherButton">
+
+                    </t>
+
+
+                    <t t-name="DashBodyReportGraph">
+                        <field name="kanban_dashboard_graph" t-att-graph_type="_.contains(['CF'],report_code) ? 'line' : 'bar'" widget="dashboard_graph"/>
+                    </t>
+
+
+                    <t t-name="DashManage">
+                      
+                    </t>
+  
+  
+<!--
                     <t t-name="LargeSizeBox">
                         <div t-attf-class="#{kanban_color(record.color.raw_value)} col-12 large-block">
                             <t t-call="DashTop"/>
@@ -58,7 +162,7 @@
                         <div t-attf-class="#{kanban_color(record.color.raw_value)} col-6">
                             <t t-call="DashTop"/>
                             <div class="container o_kanban_card_content">
-
+                              
                             </div>
                         </div>
                     </t>
@@ -86,23 +190,10 @@
                                 <t t-if="dash_type == 'report'" t-call="ReportLook"/>
                                 <t t-if="dash_type == 'mix'" t-call="MixLook"/>
                             </div>
-                            <t t-call="DashBodyGraph"/>
+                            <t t-call="DashBodyReportGraph"/>
                         </div>
                     </t>
- 
-                    <t t-name="DashTop">
-                        <div t-attf-class="o_kanban_card_header">
-                            <div class="o_kanban_card_header_title">
-                                <div class="o_primary">
-                                    <field name="display_name"/>
-                                </div>
-                            </div>
-                            <div class="o_kanban_manage_button_section">
-                                <t t-if="dash_type == 'mix' or dash_type == 'report'"/>
-                                <a class="o_kanban_manage_toggle_button" href="#"><i class="fa fa-ellipsis-v" aria-label="Selection" role="img" title="Selection"/></a>
-                            </div>
-                        </div>
-                    </t>
+
 
                     <t t-name="OpenButton">
                         <div class="col-3 o_kanban_primary_left">
@@ -122,8 +213,7 @@
                                     <div class="col-md-5 col-lg-5 marg-left-10 fl-left">
                                     </div>
                                     <div class="col-md-3 col-lg-3">
-                                        <img t-att-src="'/ohada_reports/static/img/ohada.png'"
-                                        class="company-img company-logo" alt="Company Logo"/>
+                                        <img t-att-src="'/ohada_reports/static/img/ohada.png'" class="company-img company-logo" alt="Company Logo"/>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -149,8 +239,7 @@
                         </div>
                         <t t-foreach="reports_list" t-as="sheet">
                             <div class="pad-left-6 pad-bot-20">
-                                <button type="object" name="open_action_by_id" t-attf-data-context="{'id' : '#{sheet['id']}'}"
-                                class="btn btn-primary note btn-min-width oh_dashbard_btn_m">
+                                <button type="object" name="open_action_by_id" t-attf-data-context="{'id' : '#{sheet['id']}'}" class="btn btn-primary note btn-min-width oh_dashbard_btn_m">
                                     <span><t t-esc="sheet['name']"/></span>
                                 </button>
                             </div>
@@ -160,26 +249,21 @@
                     <t t-name="Kanban_NoteButtons">
                         <t t-foreach="reports_list" t-as="note">
                             <div class="pad-left-6">
-                                <button type="object" name="open_action_by_id" t-attf-title="#{note['title']}"
-                                t-attf-data-context="{'id' : '#{note['id']}'}"
-                                class="btn btn-primary note btn-min-width oh_dashbard_btn_m">
+                                <button type="object" name="open_action_by_id" t-attf-title="#{note['title']}" t-attf-data-context="{'id' : '#{note['id']}'}" class="btn btn-primary note btn-min-width oh_dashbard_btn_m">
                                     <span class="uppercase"><t t-esc="note['name']"/></span>
                                 </button>
                             </div>
                         </t>
                     </t>
-
+-->
                     <t t-name="ExportButtons">
                         <div class="ohada_notification pad-right-25 marg-left-minus-10 mrg-top-0px">
                             <div class="pad-left-0">
-                                <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48"
-                                name="open_page" context="{'page': 'Data import'}" type="object">IMPORT DATA</button>
-                                <button name="%(print_bundle_wizard)d" type="action" class="btn btn-primary oh_dashbard_btn_m print_bundle export marg-right-4 max-width-48">PRINT BUNDLE</button>
-                                <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48"
-                                name="%(account_accountant.action_view_account_change_lock_date)d" type="action">CLOSE PERIOD</button>
+                                <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48" name="open_page" context="{'page': 'Data import'}" type="object">IMPORT DATA</button>
+                                <button name="1834" type="action" class="btn btn-primary oh_dashbard_btn_m print_bundle export marg-right-4 max-width-48">PRINT BUNDLE</button>
+                                <button class="btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48" name="666" type="action">CLOSE PERIOD</button>
                                 <t t-debug="pdb"/>
-                                <button t-attf-class="#{button_classes['signNpay_button']} btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48 signnpay"
-                                name="open_page" context="{'page': 'Disclosure form view'}" type="object">SIGN &amp; PAY</button>
+                                <button t-attf-class="#{button_classes['signNpay_button']} btn btn-primary oh_dashbard_btn_m marg-right-4 max-width-48 signnpay" name="open_page" context="{'page': 'Disclosure form view'}" type="object">SIGN &amp; PAY</button>
                             </div>
                         </div>
                     </t>
@@ -221,7 +305,7 @@
                             </div>
                         </div>
                     </t>
-
+<!--
                     <t t-name="ReportLook">
                         <div class="row">
                             <div class="col-4 o_kanban_card_manage_section o_kanban_manage_view">
@@ -250,7 +334,7 @@
 
                         <div groups="account.group_account_manager" class="row o_kanban_card_settings">
                             <div class="col-6 text-left">
-                                <a name="%(ohada_reports.action_ohada_financial_report_tree)d" type="action">Report settings</a>
+                                <a name="1895" type="action">Report settings</a>
                             </div>
                             <div class="col-6 text-right">
                                 <t t-call="CompanySettingsMenuItem"/>
@@ -286,7 +370,7 @@
 
                         <div groups="account.group_account_manager" class="row o_kanban_card_settings">
                             <div class="col-6 text-left">
-                                <a t-if="widget.editable" name="%(ohada_reports.ohada_bundle_report_action)d" type="action">Bundle/R4 report settings</a>
+                                <a t-if="widget.editable" name="1896" type="action">Bundle/R4 report settings</a>
                             </div>
                             <div class="col-6 text-right">
                                 <t t-call="CompanySettingsMenuItem"/>
@@ -300,7 +384,7 @@
                         <t t-call="Colors"/>
                         <div groups="account.group_account_manager" class="row o_kanban_card_settings">
                             <div class="col-6">
-                                <field name="show_on_dashboard" widget="boolean_favorite" />
+                                <field name="show_on_dashboard" widget="boolean_favorite"/>
                             </div>
                             <div class="col-6 text-right">
                                 <a t-if="widget.editable" type="edit">Dash settings</a>
@@ -315,6 +399,7 @@
                             </div>
                         </div>
                     </t>
+
 
                     <t t-name="DashBS">
                         <div class="col-9 o_kanban_primary_right">
@@ -391,14 +476,13 @@
                             <t t-call="VariationStr"/>
                         </div>
                     </t>
-                    <t t-name="DashBodyGraph">
+                    <t t-name="DashBodyReportGraph">
                         <field name="kanban_dashboard_graph" t-att-graph_type="_.contains(['CF'],report_code) ? 'line' : 'bar'" widget="dashboard_graph"/>
                     </t>
                     <t t-name="VariationStr">
                         <div class="row">
                             <div class="col-7">
-                                <a type="object" name="open_action"
-                                id="account_dashboard_purchase_pay_link">
+                                <a type="object" name="open_action" id="account_dashboard_purchase_pay_link">
                                     Variation
                                 </a>
                             </div>
@@ -408,30 +492,8 @@
                         </div>
                     </t>
                     
+-->                    
+                    
                 </templates>
             </kanban>
-        </field>
-    </record>
-
-    <record id="ohada_action_dash" model="ir.actions.act_window">
-        <field name="name">Dashboard new</field>
-        <field name="res_model">ohada.dash</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">kanban,form</field>
-        <field name="view_id" ref="ohada_dash_kanban_view"/>
-    </record>
-
-    <record id="ohada_action_dash_server" model="ir.actions.server">
-        <field name="name">Dashboard new Server Action</field>
-        <field name="model_id" ref="ohada_reports.model_ohada_dash"/>
-        <field name="state">code</field>
-        <field name="code">action = model.action_data()</field>
-    </record>
-
-    <menuitem
-        id="menu_ohada_dash"
-        action="ohada_action_dash_server"
-        name="Dashboard new"
-        parent="menu_ohada"
-        sequence="1"/>
-</odoo>
+        
