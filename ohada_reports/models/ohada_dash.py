@@ -62,7 +62,9 @@ class OhadaDash(models.Model):
         di_data = {}
         options_record = self.env.ref('ohada_reports.ohada_dashboard_options').sudo()
         dashboard_data = self.env.ref('ohada_reports.ohada_dashboard_data').sudo()
-        year = options_record.current_year if self._context.get('change_options') else datetime.now().year
+        options = self.env['ohada.dash.options'].search([])
+        year = options[-1].current_year if options else datetime.now().year
+        # year = options_record.current_year if self._context.get('change_options') else datetime.now().year
         all_entries = options_record.all_entries if self._context.get('change_options') else False
         options = {
             'all_entries':	all_entries,
