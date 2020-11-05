@@ -33,6 +33,7 @@ class DashboardPrintBundle(models.TransientModel):
         default=lambda s: s.env.ref('ohada_reports.ohada_dashboard_options').sudo().all_entries)
 
     cover_sheet = fields.Boolean(string="Coverpage and Sheets")    
+    general_info = fields.Boolean(string="General Information")
     balance_sheet = fields.Boolean(string="Balance Sheet")
 #    balance_assets = fields.Boolean(string="Balance Sheet - Assets")
 #    balance_liabilitities = fields.Boolean(string="Balance Sheet - Liabilitities")
@@ -209,6 +210,13 @@ class DashboardPrintBundle(models.TransientModel):
 
     def get_bundle_reports_ids(self):
         bundle_items = {}
+        # If general information choosen,
+        # then print all available reports
+        if self.general_info:
+            self.balance_sheet = True
+            self.profit_loss = True
+            self.cashflow = True
+            self.notes = True
         #if self.env['res.users'].browse(self._context.get('uid')).company_id.bs_report_format == 'landscape':
         if self.env.user.company_id.bs_report_format == 'landscape':
             bundle_items.update({
@@ -223,7 +231,7 @@ class DashboardPrintBundle(models.TransientModel):
             'PL': self.profit_loss,
             'CF': self.cashflow,
             'N': self.notes
-        })    
+        })
         choosen_items = []
 #        for i in self.env['ohada.financial.html.report'].search([('type', '=', 'main')]):
         for i in self.env['ohada.financial.html.report'].search(['|', ('code', '=', 'BS'), ('type', '=', 'main')]):

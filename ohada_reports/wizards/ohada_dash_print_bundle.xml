@@ -14,6 +14,7 @@
                     <group class="oe_title" style="white-space: nowrap;">
                         <field string="Company Name" name="company_name"/>
                         <field string="Year" name="dash_year"/>
+                        <field name="general_info"/>
                         <field name="balance_sheet"/>
 <!--                        <field name="balance_assets"/>      -->
 <!--                        <field name="balance_liabilitities"/>   -->
