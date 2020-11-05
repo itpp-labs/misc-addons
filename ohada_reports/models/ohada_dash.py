@@ -244,8 +244,7 @@ class OhadaDash(models.Model):
                 data.append({'label': line_data[0], 'value': line_data[1], 'type': 'past'})
         if self.report_code == 'CF':
             for line_data in DATA['di_data']['_ZH']:
-                # data.append({'label': line_data['l_month'], 'value': float(line_data['count']), 'type': 'past'})
-                data.append({'label': line_data['l_month'], 'value': 10.0, 'type': 'past'})
+                data.append({'x': line_data['l_month'], 'y': line_data['count'], 'name': line_data['l_month']})
         return data
 
     def _get_dashes_info(self):
