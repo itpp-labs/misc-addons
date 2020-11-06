@@ -44,7 +44,7 @@ class DashboardPrintBundle(models.TransientModel):
 
     def only_BS_picked(self):
 #        return self.balance_liabilitities and self.balance_assets and not (self.profit_loss or self.cashflow or self.notes)
-        return self.balance_sheet and not (self.cover_sheet or self.profit_loss or self.cashflow or self.notes)
+        return self.balance_sheet and not (self.general_info or self.cover_sheet or self.profit_loss or self.cashflow or self.notes)
 
     def is_BS_format_landscape(self):
         return True if self.env.ref('ohada_reports.ohada_report_balancesheet_0').print_format == 'landscape' else False
@@ -52,6 +52,10 @@ class DashboardPrintBundle(models.TransientModel):
     def print_pdf(self, *context):
         report = self.env['ohada.financial.html.report']
         options = report.make_temp_options(int(self.dash_year))
+        # When only BS picked
+        if self.only_BS_picked():
+            BS_report = self.env['ohada.dash'].search([('report_code', '=', 'BS')])
+            return BS_report.preview_pdf()
 
         bundle_items = self.get_bundle_reports_ids()
         if not len(bundle_items):

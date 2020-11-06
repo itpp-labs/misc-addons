@@ -361,7 +361,7 @@ class OhadaDash(models.Model):
             report = self.env['ohada.financial.html.report']
             options = report.make_temp_options(int(self.current_year))
             report_obj = self.env.ref('ohada_reports.ohada_report_balancesheet_0')
-            pdf = report_obj.get_pdf(options, horizontal=self.env.user.company_id.bs_report_format == 'landscape')
+            pdf = report_obj.get_pdf(options, horizontal=self.env.user.company_id.bs_report_format == 'landscape', bs_only=True)
             attachment = self.env['ir.attachment'].create({
                 'datas': base64.b64encode(pdf),
                 'name': 'New pdf report',

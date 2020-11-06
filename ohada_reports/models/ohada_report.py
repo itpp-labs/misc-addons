@@ -1179,7 +1179,7 @@ class OhadaReport(models.AbstractModel):
         """
         return {b'o_ohada_reports_no_print': b'', b'table-responsive': b'', b'<a': b'<span', b'</a>': b'</span>'}
 
-    def get_pdf(self, options, minimal_layout=True, horizontal=False, pages={}):
+    def get_pdf(self, options, minimal_layout=True, horizontal=False, pages={}, bs_only=False):
         # As the assets are generated during the same transaction as the rendering of the
         # templates calling them, there is a scenario where the assets are unreachable: when
         # you make a request to read the assets while the transaction creating them is not done.
@@ -1222,8 +1222,6 @@ class OhadaReport(models.AbstractModel):
             body = body.replace(b'<table style="margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;float:left;"', b'<table style="font-size:6px !important;width:50%;margin-bottom:10px;color:#001E5A;font-weight:normal;float:left;"')
             body = body.replace(b'<table style="margin-bottom:10px;color:#001E5A;font-weight:normal;float:left;"', b'<table style="margint-left:-9px;font-size:6px !important;width:50%;margin-bottom:10px;color:#001E5A;font-weight:normal;float:left;"')
         else:
-            # import wdb
-            # wdb.set_trace()
             body = body.replace(b'<table style="margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;"', b'<table style="font-size:8px !important;margin-top:10px;margin-bottom:10px;color:#001E5A;font-weight:normal;"')
             body = body.replace(b'<tbody class="ohada_table_sheet">', b'<tbody class="ohada_table_sheet" style="width:100%;font-size:8px;">')
             body = body.replace(b'<tbody class="ohada_table_sheet" style="border:none;">', b'<tbody class="ohada_table_sheet" style="width:100%;font-size:8px;border:none;">')
@@ -1268,7 +1266,10 @@ class OhadaReport(models.AbstractModel):
             header = headers
         landscape = horizontal
         if self.print_format == 'landscape':
-            landscape = True
+            if bs_only:
+                landscape = True if self.env.user.company_id.bs_report_format == 'portrait' else False
+            else:
+                landscape = True
 
         return self.env['ir.actions.report']._run_wkhtmltopdf(
             [body],
