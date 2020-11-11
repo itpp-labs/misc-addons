@@ -1,3 +1,11 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 ====================================
  hr public holidays import from ics
 ====================================
@@ -5,22 +13,21 @@
 With this module you may generate holidays records
 automatically from ics file.
 
-Credits
-=======
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
+
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
 
 Contributors
-------------
+============
 * Ildar Nasyrov <Nasyrov@it-projects.info>
-
-Sponsors
---------
-* `IT-Projects LLC <https://it-projects.info>`__
 
 Further information
 ===================
 
-Usage instructions: `<doc/index.rst>`__
-
-Changelog: `<doc/changelog.rst>`__
-
-Tested on Odoo 8.0 f35fd798f1f5c4846fabf004934202b833abedd0
+Tested on ``Odoo 8.0 <https://github.com/odoo/odoo/commit/<https://github.com/odoo/odoo/commit/f35fd798f1f5c4846fabf004934202b833abedd0>`_>`_

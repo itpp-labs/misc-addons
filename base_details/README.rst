@@ -1,3 +1,11 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 .. image:: https://img.shields.io/badge/license-MIT-blue.svg
    :target: https://opensource.org/licenses/MIT
    :alt: License: MIT
@@ -10,32 +18,25 @@ The module allows to add reference in any models. The reference consist of model
 
     self.product_id.details
 
-Credits
-=======
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
+
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
 
 Contributors
-------------
+============
 * <krotov@it-projects.info>
-
-Sponsors
---------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-Maintainers
------------
-* `IT-Projects LLC <https://it-projects.info>`__
 
       This module is not maintained since Odoo 12.0
 
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/misc-addons/10.0
+Odoo Apps Store: https://apps.odoo.com/apps/modules/10.0/base_details/
 
-HTML Description: https://apps.odoo.com/apps/modules/10.0/base_details/
-
-Usage instructions: `<doc/index.rst>`_
-
-Changelog: `<doc/changelog.rst>`_
-
-Tested on Odoo 11.0 e9454e79e27d0b85546132cbe00b391e974c66bf
+Tested on ``Odoo 11.0 <https://github.com/odoo/odoo/commit/<https://github.com/odoo/odoo/commit/e9454e79e27d0b85546132cbe00b391e974c66bf>`_>`_
