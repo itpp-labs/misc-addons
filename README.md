@@ -1,5 +1,5 @@
 [![help@itpp.dev](https://itpp.dev/images/infinity-readme.png)](mailto:help@itpp.dev)
-# [10.0] Odoo addons
+# [10.0] Odoo Addons
 
 <br/>:heavy_check_mark: [attachment_large_object](https://apps.odoo.com/apps/modules/10.0/attachment_large_object/)
 <br/>:heavy_check_mark: [auth_signup_confirmation](https://apps.odoo.com/apps/modules/10.0/auth_signup_confirmation/)
@@ -15,10 +15,8 @@
 <br/>:heavy_check_mark: [base_session_store_psql](https://apps.odoo.com/apps/modules/10.0/base_session_store_psql/)
 <br/>:heavy_check_mark: [crm_next_action](https://apps.odoo.com/apps/modules/10.0/crm_next_action/)
 <br/>:heavy_check_mark: [customer_marketing](https://apps.odoo.com/apps/modules/10.0/customer_marketing/)
-<br/>:heavy_check_mark: [delivery_sequence](https://apps.odoo.com/apps/modules/10.0/delivery_sequence/)
 <br/>:heavy_check_mark: [hr_public_holidays_ics_import](https://apps.odoo.com/apps/modules/10.0/hr_public_holidays_ics_import/)
 <br/>:heavy_check_mark: [hr_rule_input_compute](https://apps.odoo.com/apps/modules/10.0/hr_rule_input_compute/)
-<br/>:heavy_check_mark: [import_csv_fix_field_limit](https://apps.odoo.com/apps/modules/10.0/import_csv_fix_field_limit/)
 <br/>:heavy_check_mark: [ir_actions_todo_repeat](https://apps.odoo.com/apps/modules/10.0/ir_actions_todo_repeat/)
 <br/>:heavy_check_mark: [ir_attachment_force_storage](https://apps.odoo.com/apps/modules/10.0/ir_attachment_force_storage/)
 <br/>:heavy_check_mark: [ir_attachment_s3](https://apps.odoo.com/apps/modules/10.0/ir_attachment_s3/)
@@ -37,13 +35,9 @@
 <br/>:heavy_check_mark: [reminder_crm_next_action](https://apps.odoo.com/apps/modules/10.0/reminder_crm_next_action/)
 <br/>:heavy_check_mark: [reminder_crm_next_action_time](https://apps.odoo.com/apps/modules/10.0/reminder_crm_next_action_time/)
 <br/>:heavy_check_mark: [reminder_hr_recruitment](https://apps.odoo.com/apps/modules/10.0/reminder_hr_recruitment/)
-<br/>:heavy_check_mark: [reminder_issue_deadline](https://apps.odoo.com/apps/modules/10.0/reminder_issue_deadline/)
 <br/>:heavy_check_mark: [reminder_task_deadline](https://apps.odoo.com/apps/modules/10.0/reminder_task_deadline/)
-<br/>:heavy_check_mark: [res_partner_country_code](https://apps.odoo.com/apps/modules/10.0/res_partner_country_code/)
 <br/>:heavy_check_mark: [res_partner_phone](https://apps.odoo.com/apps/modules/10.0/res_partner_phone/)
 <br/>:heavy_check_mark: [res_partner_skype](https://apps.odoo.com/apps/modules/10.0/res_partner_skype/)
-<br/>:heavy_check_mark: [res_users_signature](https://apps.odoo.com/apps/modules/10.0/res_users_signature/)
-<br/>:heavy_check_mark: [res_users_signature_hr](https://apps.odoo.com/apps/modules/10.0/res_users_signature_hr/)
 <br/>:heavy_check_mark: [sale_layout_hidden_section](https://apps.odoo.com/apps/modules/10.0/sale_layout_hidden_section/)
 <br/>:heavy_check_mark: [sale_order_hide_tax](https://apps.odoo.com/apps/modules/10.0/sale_order_hide_tax/)
 <br/>:heavy_check_mark: [sms_sg](https://apps.odoo.com/apps/modules/10.0/sms_sg/)
