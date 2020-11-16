@@ -160,34 +160,35 @@ class ThemeTopPanel(models.Model):
             else False
         )
 
-    @api.multi
-    def write(self, vals):
-        res = super(ThemeTopPanel, self).write(vals)
-        if not vals.get("top_panel_bg_active", "Not found"):
-            self.top_panel_bg = ""
-        if not vals.get("top_panel_border_active", "Not found"):
-            self.top_panel_border = ""
-        if not vals.get("top_panel_font_active", "Not found"):
-            self.top_panel_font = ""
-        if not vals.get("top_panel_active_item_font_active", "Not found"):
-            self.top_panel_active_item_font = ""
-        if not vals.get("top_panel_active_item_bg_active", "Not found"):
-            self.top_panel_active_item_bg = ""
-        if not vals.get("top_panel_hover_item_font_active", "Not found"):
-            self.top_panel_hover_item_font = ""
-        if not vals.get("top_panel_hover_item_bg_active", "Not found"):
-            self.top_panel_hover_item_bg = ""
-        if not vals.get("top_panel_hover_subitem_bg_active", "Not found"):
-            self.top_panel_hover_subitem_bg = ""
-        if not vals.get("left_panel_main_menu_active", "Not found"):
-            self.left_panel_main_menu = ""
-        if not vals.get("left_panel_sub_menu_active", "Not found"):
-            self.top_panel_hover_item_bg = ""
-        if not vals.get("top_panel_active_subitem_bg_active", "Not found"):
-            self.top_panel_active_subitem_bg = ""
+    # @api.multi
+    # def write(self, vals):
+    #     res = super(ThemeTopPanel, self).write(vals)
+    #     if not vals.get("top_panel_bg_active", "Not found"):
+    #         self.top_panel_bg = ""
+    #     if not vals.get("top_panel_border_active", "Not found"):
+    #         self.top_panel_border = ""
+    #     if not vals.get("top_panel_font_active", "Not found"):
+    #         self.top_panel_font = ""
+    #     if not vals.get("top_panel_active_item_font_active", "Not found"):
+    #         self.top_panel_active_item_font = ""
+    #     if not vals.get("top_panel_active_item_bg_active", "Not found"):
+    #         self.top_panel_active_item_bg = ""
+    #     if not vals.get("top_panel_hover_item_font_active", "Not found"):
+    #         self.top_panel_hover_item_font = ""
+    #     if not vals.get("top_panel_hover_item_bg_active", "Not found"):
+    #         self.top_panel_hover_item_bg = ""
+    #     if not vals.get("top_panel_hover_subitem_bg_active", "Not found"):
+    #         self.top_panel_hover_subitem_bg = ""
+    #     if not vals.get("left_panel_main_menu_active", "Not found"):
+    #         self.left_panel_main_menu = ""
+    #     if not vals.get("left_panel_sub_menu_active", "Not found"):
+    #         self.top_panel_hover_item_bg = ""
+    #     if not vals.get("top_panel_active_subitem_bg_active", "Not found"):
+    #         self.top_panel_active_subitem_bg = ""
 
     @api.multi
     def _compute_less(self):
+        # import wdb;wdb.set_trace()
         for r in self:
             code = ""
             # double {{ will be formated as single {
@@ -498,25 +499,25 @@ class ThemeLeftPanel(models.Model):
         default=False, help="Font color for Top Panel"
     )
 
-    @api.multi
-    def write(self, vals):
-        res = super(ThemeLeftPanel, self).write(vals)
-        if not vals.get("left_panel_bg_active", "Not found"):
-            self.left_panel_bg = ""
-        if not vals.get("left_panel_sub_menu_active", "Not found"):
-            self.left_panel_sub_menu = ""
-        if not vals.get("left_panel_main_menu_active", "Not found"):
-            self.left_panel_main_menu = ""
-        if not vals.get("left_panel_active_item_font_active", "Not found"):
-            self.left_panel_active_item_font = ""
-        if not vals.get("left_panel_active_item_bg_active", "Not found"):
-            self.left_panel_active_item_bg = ""
-        if not vals.get("left_panel_hover_item_font_active", "Not found"):
-            self.left_panel_hover_item_font = ""
-        if not vals.get("left_panel_hover_item_bg_active", "Not found"):
-            self.left_panel_hover_item_bg = ""
-        if not vals.get("left_panel_right_border_active", "Not found"):
-            self.left_panel_right_border = ""
+    # @api.multi
+    # def write(self, vals):
+    #     res = super(ThemeLeftPanel, self).write(vals)
+    #     if not vals.get("left_panel_bg_active", "Not found"):
+    #         self.left_panel_bg = ""
+    #     if not vals.get("left_panel_sub_menu_active", "Not found"):
+    #         self.left_panel_sub_menu = ""
+    #     if not vals.get("left_panel_main_menu_active", "Not found"):
+    #         self.left_panel_main_menu = ""
+    #     if not vals.get("left_panel_active_item_font_active", "Not found"):
+    #         self.left_panel_active_item_font = ""
+    #     if not vals.get("left_panel_active_item_bg_active", "Not found"):
+    #         self.left_panel_active_item_bg = ""
+    #     if not vals.get("left_panel_hover_item_font_active", "Not found"):
+    #         self.left_panel_hover_item_font = ""
+    #     if not vals.get("left_panel_hover_item_bg_active", "Not found"):
+    #         self.left_panel_hover_item_bg = ""
+    #     if not vals.get("left_panel_right_border_active", "Not found"):
+    #         self.left_panel_right_border = ""
 
     @api.multi
     def _compute_less(self):
@@ -781,39 +782,39 @@ class ThemeContent(models.Model):
             else False
         )
 
-    @api.multi
-    def write(self, vals):
-        res = super(ThemeContent, self).write(vals)
-        if not vals.get("content_bg_active", "Not found"):
-            self.content_bg = ""
-        if not vals.get("content_button_active", "Not found"):
-            self.content_button = ""
-        if not vals.get("content_form_active", "Not found"):
-            self.content_form = ""
-        if not vals.get("content_form_text_active", "Not found"):
-            self.content_form_text = ""
-        if not vals.get("content_form_title_active", "Not found"):
-            self.content_form_title = ""
-        if not vals.get("content_text_active", "Not found"):
-            self.content_text = ""
-        if not vals.get("content_form_link_active", "Not found"):
-            self.content_form_link = ""
-        if not vals.get("content_loader_active", "Not found"):
-            self.content_loader = ""
-        if not vals.get("content_loader_text_active", "Not found"):
-            self.content_loader_text = ""
-        if not vals.get("content_statusbar_bg_active", "Not found"):
-            self.content_statusbar_bg = ""
-        if not vals.get("content_statusbar_element_active", "Not found"):
-            self.content_statusbar_element = ""
-        if not vals.get("content_statusbar_font_color_active", "Not found"):
-            self.content_statusbar_font_color = ""
-        if not vals.get("content_main_menu_font_color_active", "Not found"):
-            self.content_main_menu_font_color = ""
-        if not vals.get("content_footer_color_active", "Not found"):
-            self.content_footer_color = ""
-        if not vals.get("content_required_field_back_color_active", "Not found"):
-            self.content_required_field_back_color = ""
+    # @api.multi
+    # def write(self, vals):
+    #     res = super(ThemeContent, self).write(vals)
+    #     if not vals.get("content_bg_active", "Not found"):
+    #         self.content_bg = ""
+    #     if not vals.get("content_button_active", "Not found"):
+    #         self.content_button = ""
+    #     if not vals.get("content_form_active", "Not found"):
+    #         self.content_form = ""
+    #     if not vals.get("content_form_text_active", "Not found"):
+    #         self.content_form_text = ""
+    #     if not vals.get("content_form_title_active", "Not found"):
+    #         self.content_form_title = ""
+    #     if not vals.get("content_text_active", "Not found"):
+    #         self.content_text = ""
+    #     if not vals.get("content_form_link_active", "Not found"):
+    #         self.content_form_link = ""
+    #     if not vals.get("content_loader_active", "Not found"):
+    #         self.content_loader = ""
+    #     if not vals.get("content_loader_text_active", "Not found"):
+    #         self.content_loader_text = ""
+    #     if not vals.get("content_statusbar_bg_active", "Not found"):
+    #         self.content_statusbar_bg = ""
+    #     if not vals.get("content_statusbar_element_active", "Not found"):
+    #         self.content_statusbar_element = ""
+    #     if not vals.get("content_statusbar_font_color_active", "Not found"):
+    #         self.content_statusbar_font_color = ""
+    #     if not vals.get("content_main_menu_font_color_active", "Not found"):
+    #         self.content_main_menu_font_color = ""
+    #     if not vals.get("content_footer_color_active", "Not found"):
+    #         self.content_footer_color = ""
+    #     if not vals.get("content_required_field_back_color_active", "Not found"):
+    #         self.content_required_field_back_color = ""
 
     @api.multi
     def _compute_less(self):
