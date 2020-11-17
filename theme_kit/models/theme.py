@@ -618,19 +618,29 @@ class ThemeLeftPanel(models.Model):
                 """
                 )
             if self.left_panel_active_item_font_active:
-                code = (
-                    code
-                    + """.o_sub_menu .oe_secondary_submenu .active .oe_menu_text{{
-                    color: {theme.left_panel_active_item_font}!important;
-                }}
-                .o_sub_menu .oe_secondary_submenu a:focus .oe_menu_text{{
-                    color: {theme.left_panel_active_item_font}!important;
-                }}
-                .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item.o_active {{
-                    color: {theme.left_panel_active_item_font}!important;
-                }}
-                """
-                )
+                if not self.backend_theme_installed:
+                    code = (
+                        code
+                        + """.o_sub_menu .oe_secondary_submenu .active .oe_menu_text{{
+                        color: {theme.left_panel_active_item_font}!important;
+                    }}
+                    .o_sub_menu .oe_secondary_submenu a:focus .oe_menu_text{{
+                        color: {theme.left_panel_active_item_font}!important;
+                    }}
+                    .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item.o_active {{
+                        color: {theme.left_panel_active_item_font}!important;
+                    }}
+                    """
+                    )
+                else:
+                    # Compatibility theme_kit and material backend theme modules
+                    code = (
+                        code
+                        + """#sidebar > li > a.active{{
+                        color: {theme.left_panel_active_item_font}!important;
+                    }}
+                    """
+                    )
             if self.left_panel_active_item_bg_active:
                 code = (
                     code
@@ -643,36 +653,47 @@ class ThemeLeftPanel(models.Model):
                 """
                 )
             if self.left_panel_hover_item_font_active:
-                code = (
-                    code
-                    + """.o_sub_menu .oe_secondary_submenu a:hover .oe_menu_text{{
-                    color: {theme.left_panel_hover_item_font}!important;
-                }}
-                .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item:hover {{
-                    color: {theme.left_panel_hover_item_font}!important;
-                }}
-                """
-                )
+                if not self.backend_theme_installed:
+                    code = (
+                        code
+                        + """.o_sub_menu .oe_secondary_submenu a:hover .oe_menu_text{{
+                        color: {theme.left_panel_hover_item_font}!important;
+                    }}
+                    .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item:hover {{
+                        color: {theme.left_panel_hover_item_font}!important;
+                    }}
+                    """
+                    )
+                else:
+                    # Compatibility theme_kit and material backend theme modules
+                    code = (
+                        code
+                        + """a.nav-link:hover {{
+                        color: {theme.left_panel_hover_item_font}!important;
+                    }}
+                    """
+                    )
             if self.left_panel_hover_item_bg_active:
-                code = (
-                    code
-                    + """.o_sub_menu .oe_secondary_submenu a:hover{{
-                    background-color: {theme.left_panel_hover_item_bg}!important;
-                }}
-                .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item:hover {{
-                    background-color: {theme.left_panel_hover_item_bg}!important;
-                }}
-                """
-                )
-                # Compatibility theme_kit and material backend theme modules
-                code = (
-                    code
-                    + """a.nav-link:hover {{
-                    background-color: {theme.left_panel_hover_item_bg}!important;
-                    color: {theme.left_panel_hover_item_font}!important;
-                }}
-                """
-                )
+                if not self.backend_theme_installed:
+                    code = (
+                        code
+                        + """.o_sub_menu .oe_secondary_submenu a:hover{{
+                        background-color: {theme.left_panel_hover_item_bg}!important;
+                    }}
+                    .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item:hover {{
+                        background-color: {theme.left_panel_hover_item_bg}!important;
+                    }}
+                    """
+                    )
+                else:
+                    # Compatibility theme_kit and material backend theme modules
+                    code = (
+                        code
+                        + """a.nav-link:hover {{
+                        background-color: {theme.left_panel_hover_item_bg}!important;
+                    }}
+                    """
+                    )
             if self.left_panel_right_border_active:
                 code = (
                     code
