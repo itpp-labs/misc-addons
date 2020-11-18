@@ -1,22 +1,106 @@
-Odoo addons
-===========
+[![help@itpp.dev](https://itpp.dev/images/infinity-readme.png)](mailto:help@itpp.dev)
+# [8.0] Odoo Addons
 
-Miscellaneous modules for Odoo.
+<br/>:heavy_check_mark: [_web_last_viewed_records](https://apps.odoo.com/apps/modules/8.0/_web_last_viewed_records/)
+<br/>:heavy_check_mark: [account_invoice_dates](https://apps.odoo.com/apps/modules/8.0/account_invoice_dates/)
+<br/>:heavy_check_mark: [attachment_large_object](https://apps.odoo.com/apps/modules/8.0/attachment_large_object/)
+<br/>:heavy_check_mark: [auth_signup_confirmation](https://apps.odoo.com/apps/modules/8.0/auth_signup_confirmation/)
+<br/>:heavy_check_mark: [auth_signup_confirmation_crm](https://apps.odoo.com/apps/modules/8.0/auth_signup_confirmation_crm/)
+<br/>:heavy_check_mark: [autostaging_base](https://apps.odoo.com/apps/modules/8.0/autostaging_base/)
+<br/>:heavy_check_mark: [autostaging_project_task](https://apps.odoo.com/apps/modules/8.0/autostaging_project_task/)
+<br/>:heavy_check_mark: [barcode_widget](https://apps.odoo.com/apps/modules/8.0/barcode_widget/)
+<br/>:heavy_check_mark: [base_replace_ref](https://apps.odoo.com/apps/modules/8.0/base_replace_ref/)
+<br/>:heavy_check_mark: [booking_calendar](https://apps.odoo.com/apps/modules/8.0/booking_calendar/)
+<br/>:heavy_check_mark: [booking_calendar_analytic](https://apps.odoo.com/apps/modules/8.0/booking_calendar_analytic/)
+<br/>:heavy_check_mark: [contract_purchases](https://apps.odoo.com/apps/modules/8.0/contract_purchases/)
+<br/>:heavy_check_mark: [crm_expected_revenue](https://apps.odoo.com/apps/modules/8.0/crm_expected_revenue/)
+<br/>:heavy_check_mark: [crm_next_action](https://apps.odoo.com/apps/modules/8.0/crm_next_action/)
+<br/>:heavy_check_mark: [crm_phonecall_notification](https://apps.odoo.com/apps/modules/8.0/crm_phonecall_notification/)
+<br/>:heavy_check_mark: [currency_rate_update](https://apps.odoo.com/apps/modules/8.0/currency_rate_update/)
+<br/>:heavy_check_mark: [custom_menu_bar](https://apps.odoo.com/apps/modules/8.0/custom_menu_bar/)
+<br/>:heavy_check_mark: [delivery_sequence](https://apps.odoo.com/apps/modules/8.0/delivery_sequence/)
+<br/>:heavy_check_mark: [delivery_special](https://apps.odoo.com/apps/modules/8.0/delivery_special/)
+<br/>:heavy_check_mark: [fleet_odometer_oil](https://apps.odoo.com/apps/modules/8.0/fleet_odometer_oil/)
+<br/>:heavy_check_mark: [fleet_odometer_track_changes](https://apps.odoo.com/apps/modules/8.0/fleet_odometer_track_changes/)
+<br/>:heavy_check_mark: [gamification_extra](https://apps.odoo.com/apps/modules/8.0/gamification_extra/)
+<br/>:heavy_check_mark: [hr_public_holidays_ics_import](https://apps.odoo.com/apps/modules/8.0/hr_public_holidays_ics_import/)
+<br/>:heavy_check_mark: [import_csv_fix_field_limit](https://apps.odoo.com/apps/modules/8.0/import_csv_fix_field_limit/)
+<br/>:heavy_check_mark: [import_framework](https://apps.odoo.com/apps/modules/8.0/import_framework/)
+<br/>:heavy_check_mark: [invoice_sale_order_line_group](https://apps.odoo.com/apps/modules/8.0/invoice_sale_order_line_group/)
+<br/>:heavy_check_mark: [ir_attachment_force_storage](https://apps.odoo.com/apps/modules/8.0/ir_attachment_force_storage/)
+<br/>:heavy_check_mark: [ir_sequence_autoreset](https://apps.odoo.com/apps/modules/8.0/ir_sequence_autoreset/)
+<br/>:heavy_check_mark: [is_employee](https://apps.odoo.com/apps/modules/8.0/is_employee/)
+<br/>:heavy_check_mark: [itprojects_website](https://apps.odoo.com/apps/modules/8.0/itprojects_website/)
+<br/>:heavy_check_mark: [labels](https://apps.odoo.com/apps/modules/8.0/labels/)
+<br/>:heavy_check_mark: [labels_custom](https://apps.odoo.com/apps/modules/8.0/labels_custom/)
+<br/>:heavy_check_mark: [mrp_custom](https://apps.odoo.com/apps/modules/8.0/mrp_custom/)
+<br/>:heavy_check_mark: [mrp_loaner](https://apps.odoo.com/apps/modules/8.0/mrp_loaner/)
+<br/>:heavy_check_mark: [mrp_repair_custom](https://apps.odoo.com/apps/modules/8.0/mrp_repair_custom/)
+<br/>:heavy_check_mark: [mrp_repair_default_name](https://apps.odoo.com/apps/modules/8.0/mrp_repair_default_name/)
+<br/>:heavy_check_mark: [multi_company_extra](https://apps.odoo.com/apps/modules/8.0/multi_company_extra/)
+<br/>:heavy_check_mark: [phonecall_repair_order](https://apps.odoo.com/apps/modules/8.0/phonecall_repair_order/)
+<br/>:heavy_check_mark: [pitch_booking](https://apps.odoo.com/apps/modules/8.0/pitch_booking/)
+<br/>:heavy_check_mark: [product_custom](https://apps.odoo.com/apps/modules/8.0/product_custom/)
+<br/>:heavy_check_mark: [product_image_filestore](https://apps.odoo.com/apps/modules/8.0/product_image_filestore/)
+<br/>:heavy_check_mark: [product_tags](https://apps.odoo.com/apps/modules/8.0/product_tags/)
+<br/>:heavy_check_mark: [product_without_taxes](https://apps.odoo.com/apps/modules/8.0/product_without_taxes/)
+<br/>:heavy_check_mark: [project_default_visibility_followers](https://apps.odoo.com/apps/modules/8.0/project_default_visibility_followers/)
+<br/>:heavy_check_mark: [project_description](https://apps.odoo.com/apps/modules/8.0/project_description/)
+<br/>:heavy_check_mark: [project_kanban_customer](https://apps.odoo.com/apps/modules/8.0/project_kanban_customer/)
+<br/>:heavy_check_mark: [project_tags](https://apps.odoo.com/apps/modules/8.0/project_tags/)
+<br/>:heavy_check_mark: [project_task_auto_staging](https://apps.odoo.com/apps/modules/8.0/project_task_auto_staging/)
+<br/>:heavy_check_mark: [project_task_order_kanban_state](https://apps.odoo.com/apps/modules/8.0/project_task_order_kanban_state/)
+<br/>:heavy_check_mark: [project_task_search_custom](https://apps.odoo.com/apps/modules/8.0/project_task_search_custom/)
+<br/>:heavy_check_mark: [project_task_subtask](https://apps.odoo.com/apps/modules/8.0/project_task_subtask/)
+<br/>:heavy_check_mark: [project_timelog](https://apps.odoo.com/apps/modules/8.0/project_timelog/)
+<br/>:heavy_check_mark: [reminder_base](https://apps.odoo.com/apps/modules/8.0/reminder_base/)
+<br/>:heavy_check_mark: [reminder_crm_next_action](https://apps.odoo.com/apps/modules/8.0/reminder_crm_next_action/)
+<br/>:heavy_check_mark: [reminder_crm_next_action_time](https://apps.odoo.com/apps/modules/8.0/reminder_crm_next_action_time/)
+<br/>:heavy_check_mark: [reminder_hr_recruitment](https://apps.odoo.com/apps/modules/8.0/reminder_hr_recruitment/)
+<br/>:heavy_check_mark: [reminder_issue_deadline](https://apps.odoo.com/apps/modules/8.0/reminder_issue_deadline/)
+<br/>:heavy_check_mark: [reminder_phonecall](https://apps.odoo.com/apps/modules/8.0/reminder_phonecall/)
+<br/>:heavy_check_mark: [reminder_task_deadline](https://apps.odoo.com/apps/modules/8.0/reminder_task_deadline/)
+<br/>:heavy_check_mark: [res_partner_bank_sort_code](https://apps.odoo.com/apps/modules/8.0/res_partner_bank_sort_code/)
+<br/>:heavy_check_mark: [res_partner_bank_swift](https://apps.odoo.com/apps/modules/8.0/res_partner_bank_swift/)
+<br/>:heavy_check_mark: [res_partner_company_click_contacts](https://apps.odoo.com/apps/modules/8.0/res_partner_company_click_contacts/)
+<br/>:heavy_check_mark: [res_partner_company_name](https://apps.odoo.com/apps/modules/8.0/res_partner_company_name/)
+<br/>:heavy_check_mark: [res_partner_company_search](https://apps.odoo.com/apps/modules/8.0/res_partner_company_search/)
+<br/>:heavy_check_mark: [res_partner_company_stat](https://apps.odoo.com/apps/modules/8.0/res_partner_company_stat/)
+<br/>:heavy_check_mark: [res_partner_country_code](https://apps.odoo.com/apps/modules/8.0/res_partner_country_code/)
+<br/>:heavy_check_mark: [res_partner_phone](https://apps.odoo.com/apps/modules/8.0/res_partner_phone/)
+<br/>:heavy_check_mark: [res_partner_skype](https://apps.odoo.com/apps/modules/8.0/res_partner_skype/)
+<br/>:heavy_check_mark: [res_partner_strip_name](https://apps.odoo.com/apps/modules/8.0/res_partner_strip_name/)
+<br/>:heavy_check_mark: [res_users_default_company](https://apps.odoo.com/apps/modules/8.0/res_users_default_company/)
+<br/>:heavy_check_mark: [res_users_hide_suggestions](https://apps.odoo.com/apps/modules/8.0/res_users_hide_suggestions/)
+<br/>:heavy_check_mark: [res_users_signature](https://apps.odoo.com/apps/modules/8.0/res_users_signature/)
+<br/>:heavy_check_mark: [res_users_signature_hr](https://apps.odoo.com/apps/modules/8.0/res_users_signature_hr/)
+<br/>:heavy_check_mark: [sale_contract_slots](https://apps.odoo.com/apps/modules/8.0/sale_contract_slots/)
+<br/>:heavy_check_mark: [sale_disable_send_quotation](https://apps.odoo.com/apps/modules/8.0/sale_disable_send_quotation/)
+<br/>:heavy_check_mark: [sale_order_created](https://apps.odoo.com/apps/modules/8.0/sale_order_created/)
+<br/>:heavy_check_mark: [sale_order_hide_tax](https://apps.odoo.com/apps/modules/8.0/sale_order_hide_tax/)
+<br/>:heavy_check_mark: [sms_sg](https://apps.odoo.com/apps/modules/8.0/sms_sg/)
+<br/>:heavy_check_mark: [thecage_data](https://apps.odoo.com/apps/modules/8.0/thecage_data/)
+<br/>:heavy_check_mark: [translate_website_description](https://apps.odoo.com/apps/modules/8.0/translate_website_description/)
+<br/>:heavy_check_mark: [web_calendar_quick_navigation](https://apps.odoo.com/apps/modules/8.0/web_calendar_quick_navigation/)
+<br/>:heavy_check_mark: [web_calendar_repeat_form](https://apps.odoo.com/apps/modules/8.0/web_calendar_repeat_form/)
+<br/>:heavy_check_mark: [web_char_domain](https://apps.odoo.com/apps/modules/8.0/web_char_domain/)
+<br/>:heavy_check_mark: [web_debranding](https://apps.odoo.com/apps/modules/8.0/web_debranding/)
+<br/>:heavy_check_mark: [web_debranding_support](https://apps.odoo.com/apps/modules/8.0/web_debranding_support/)
+<br/>:heavy_check_mark: [web_iframe](https://apps.odoo.com/apps/modules/8.0/web_iframe/)
+<br/>:heavy_check_mark: [web_iframe_pages](https://apps.odoo.com/apps/modules/8.0/web_iframe_pages/)
+<br/>:heavy_check_mark: [web_logo](https://apps.odoo.com/apps/modules/8.0/web_logo/)
+<br/>:heavy_check_mark: [web_polymorphic_field](https://apps.odoo.com/apps/modules/8.0/web_polymorphic_field/)
+<br/>:heavy_check_mark: [web_sessions_management](https://apps.odoo.com/apps/modules/8.0/web_sessions_management/)
+<br/>:heavy_check_mark: [web_tour_extra](https://apps.odoo.com/apps/modules/8.0/web_tour_extra/)
 
-List of repositories:
----------------------
+Other Addons
+============
 
-* https://github.com/it-projects-llc/misc-addons
-* https://github.com/it-projects-llc/pos-addons
-* https://github.com/it-projects-llc/mail-addons
-* https://github.com/it-projects-llc/rental-addons
-* https://github.com/it-projects-llc/access-addons
-* https://github.com/it-projects-llc/website-addons
-* https://github.com/it-projects-llc/l10n-addons
-* https://github.com/it-projects-llc/odoo-telegram
-* https://github.com/it-projects-llc/odoo-saas-tools
-
-
-Donation
-========
-Feel free to support our efforts by purchasing [our modules at app store](https://apps.odoo.com/apps/modules/browse?price=Paid&order=Newest&author=IT-Projects+LLC)
+| Repository | Versions |
+|------------|----------|
+| [itpp-labs/**pos-addons**](https://github.com/itpp-labs/pos-addons) | [[14.0]](https://github.com/itpp-labs/pos-addons/tree/14.0#readme) [[13.0]](https://github.com/itpp-labs/pos-addons/tree/13.0#readme) [[12.0]](https://github.com/itpp-labs/pos-addons/tree/12.0#readme) [[11.0]](https://github.com/itpp-labs/pos-addons/tree/11.0#readme) [[10.0]](https://github.com/itpp-labs/pos-addons/tree/10.0#readme) [[9.0]](https://github.com/itpp-labs/pos-addons/tree/9.0#readme) [[8.0]](https://github.com/itpp-labs/pos-addons/tree/8.0#readme) [[7.0]](https://github.com/itpp-labs/pos-addons/tree/7.0#readme) |
+| [itpp-labs/**mail-addons**](https://github.com/itpp-labs/mail-addons) | [[14.0]](https://github.com/itpp-labs/mail-addons/tree/14.0#readme) [[13.0]](https://github.com/itpp-labs/mail-addons/tree/13.0#readme) [[12.0]](https://github.com/itpp-labs/mail-addons/tree/12.0#readme) [[11.0]](https://github.com/itpp-labs/mail-addons/tree/11.0#readme) [[10.0]](https://github.com/itpp-labs/mail-addons/tree/10.0#readme) [[9.0]](https://github.com/itpp-labs/mail-addons/tree/9.0#readme) [[8.0]](https://github.com/itpp-labs/mail-addons/tree/8.0#readme) |
+| [itpp-labs/**misc-addons**](https://github.com/itpp-labs/misc-addons) | [[14.0]](https://github.com/itpp-labs/misc-addons/tree/14.0#readme) [[13.0]](https://github.com/itpp-labs/misc-addons/tree/13.0#readme) [[12.0]](https://github.com/itpp-labs/misc-addons/tree/12.0#readme) [[11.0]](https://github.com/itpp-labs/misc-addons/tree/11.0#readme) [[10.0]](https://github.com/itpp-labs/misc-addons/tree/10.0#readme) [[9.0]](https://github.com/itpp-labs/misc-addons/tree/9.0#readme) [[8.0]](https://github.com/itpp-labs/misc-addons/tree/8.0#readme) [[7.0]](https://github.com/itpp-labs/misc-addons/tree/7.0#readme) |
+| [itpp-labs/**sync-addons**](https://github.com/itpp-labs/sync-addons) | [[14.0]](https://github.com/itpp-labs/sync-addons/tree/14.0#readme) [[13.0]](https://github.com/itpp-labs/sync-addons/tree/13.0#readme) [[12.0]](https://github.com/itpp-labs/sync-addons/tree/12.0#readme) [[11.0]](https://github.com/itpp-labs/sync-addons/tree/11.0#readme) [[10.0]](https://github.com/itpp-labs/sync-addons/tree/10.0#readme) [[9.0]](https://github.com/itpp-labs/sync-addons/tree/9.0#readme) [[8.0]](https://github.com/itpp-labs/sync-addons/tree/8.0#readme) |
+| [itpp-labs/**access-addons**](https://github.com/itpp-labs/access-addons) | [[14.0]](https://github.com/itpp-labs/access-addons/tree/14.0#readme) [[13.0]](https://github.com/itpp-labs/access-addons/tree/13.0#readme) [[12.0]](https://github.com/itpp-labs/access-addons/tree/12.0#readme) [[11.0]](https://github.com/itpp-labs/access-addons/tree/11.0#readme) [[10.0]](https://github.com/itpp-labs/access-addons/tree/10.0#readme) [[9.0]](https://github.com/itpp-labs/access-addons/tree/9.0#readme) [[8.0]](https://github.com/itpp-labs/access-addons/tree/8.0#readme) |
+| [itpp-labs/**website-addons**](https://github.com/itpp-labs/website-addons) | [[14.0]](https://github.com/itpp-labs/website-addons/tree/14.0#readme) [[13.0]](https://github.com/itpp-labs/website-addons/tree/13.0#readme) [[12.0]](https://github.com/itpp-labs/website-addons/tree/12.0#readme) [[11.0]](https://github.com/itpp-labs/website-addons/tree/11.0#readme) [[10.0]](https://github.com/itpp-labs/website-addons/tree/10.0#readme) [[9.0]](https://github.com/itpp-labs/website-addons/tree/9.0#readme) [[8.0]](https://github.com/itpp-labs/website-addons/tree/8.0#readme) |
