@@ -15,6 +15,7 @@
 <br/>:heavy_check_mark: [odoo_backup_sh_google_disk](https://apps.odoo.com/apps/modules/12.0/odoo_backup_sh_google_disk/)
 <br/>:heavy_check_mark: [pad_crm](https://apps.odoo.com/apps/modules/12.0/pad_crm/)
 <br/>:heavy_check_mark: [product_tags](https://apps.odoo.com/apps/modules/12.0/product_tags/)
+<br/>:heavy_check_mark: [project_task_subtask](https://apps.odoo.com/apps/modules/12.0/project_task_subtask/)
 <br/>:heavy_check_mark: [project_timelog](https://apps.odoo.com/apps/modules/12.0/project_timelog/)
 <br/>:heavy_check_mark: [res_partner_skype](https://apps.odoo.com/apps/modules/12.0/res_partner_skype/)
 <br/>:heavy_check_mark: [res_users_signature](https://apps.odoo.com/apps/modules/12.0/res_users_signature/)
