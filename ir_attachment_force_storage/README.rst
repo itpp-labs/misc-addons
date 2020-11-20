@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 Force move attachments to DB storage
 ====================================
 
@@ -9,4 +13,4 @@ Right after installing **ir_attachment.location** is set to **postgresql:lobject
 
 To rollback everything, before uninstalling the module set  **ir_attachment.location** to **file**.
 
-Tested on Odoo 8.0 d023c079ed86468436f25da613bf486a4a17d625
+Tested on `Odoo 8.0 <https://github.com/odoo/odoo/commit/d023c079ed86468436f25da613bf486a4a17d625>`_

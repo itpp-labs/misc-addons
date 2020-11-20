@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 ===============================================
  Context-dependent values in System Parameters
 ===============================================
@@ -8,30 +12,20 @@ Based on built-in ``company_dependent`` and new ``website_dependent`` attributes
 
 Check Usage instructions for understanding how it works.
 
-Credits
-=======
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
 
 Contributors
-------------
+============
 * `Ivan Yelizariev <https://it-projects.info/team/yelizariev>`__
 
-Sponsors
---------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-Maintainers
------------
-* `IT-Projects LLC <https://it-projects.info>`__
 
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/misc-addons/10.0
+Odoo Apps Store: https://apps.odoo.com/apps/modules/10.0/ir_config_parameter_multi_company/
 
-HTML Description: https://apps.odoo.com/apps/modules/10.0/ir_config_parameter_multi_company/
 
-Usage instructions: `<doc/index.rst>`_
-
-Changelog: `<doc/changelog.rst>`_
-
-Tested on Odoo 10.0 76408ecdd7810f9f6048f27ccc43ed15637d93d6
+Tested on `Odoo 10.0 <https://github.com/odoo/odoo/commit/76408ecdd7810f9f6048f27ccc43ed15637d93d6>`_
