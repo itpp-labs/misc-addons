@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 =========================
  attachment_large_object
 =========================
@@ -35,27 +39,21 @@ performance. That being said, large objects
   similar file sharing tools)
 - keep allowing easy, consistent backups of the whole system
 
-Credits
-=======
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
 
 Contributors
-------------
+============
 
 * `AnyBox <anybox.fr>`__
 * `Ivan Yelizariev <https://it-projects.info/team/yelizariev>`__
-
-Maintainers
------------
-* `IT-Projects LLC <https://it-projects.info>`__
 
 
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/misc-addons/11.0
+.. Odoo Apps Store: https://apps.odoo.com/apps/modules/11.0/attachment_large_object/
 
-.. HTML Description: https://apps.odoo.com/apps/modules/11.0/attachment_large_object/
-
-Changelog: `<doc/changelog.rst>`_
-
-Tested on Odoo 11.0 8787f5acee9b5d2cad15b97804522dc04717a1c1
+Tested on `Odoo 11.0 <https://github.com/odoo/odoo/commit/8787f5acee9b5d2cad15b97804522dc04717a1c1>`_

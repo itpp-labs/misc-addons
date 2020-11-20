@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 .. image:: https://img.shields.io/badge/license-MIT-blue.svg
    :target: https://opensource.org/licenses/MIT
    :alt: License: MIT
@@ -40,40 +44,22 @@ Roadmap
   problem of using superuser's configuration when ``sudo()`` is used.
   This is partly fixed by checking context's uid in ``_get_website_id`` method.
 
-Credits
-=======
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
 
 Contributors
-------------
+============
 * `Ivan Yelizariev <https://it-projects.info/team/yelizariev>`__
 
-Sponsors
---------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-Maintainers
------------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-      To get a guaranteed support
-      you are kindly requested to purchase the module
-      at `odoo apps store <https://apps.odoo.com/apps/modules/11.0/web_website/>`__.
-
-      Thank you for understanding!
-
-      `IT-Projects Team <https://www.it-projects.info/team>`__
 
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/misc-addons/11.0
+Odoo Apps Store: https://apps.odoo.com/apps/modules/11.0/web_website/
 
-HTML Description: https://apps.odoo.com/apps/modules/11.0/web_website/
-
-Usage instructions: `<doc/index.rst>`_
-
-Changelog: `<doc/changelog.rst>`_
 
 Notifications on updates: `via Atom <https://github.com/it-projects-llc/misc-addons/commits/11.0/web_website.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/it-projects-llc/misc-addons/commits/11.0/web_website.atom>`_
 
-Tested on Odoo 11.0 aefbd6da12748f078a197e5e3ae0c1cd68b2e6c5
+Tested on `Odoo 11.0 <https://github.com/odoo/odoo/commit/aefbd6da12748f078a197e5e3ae0c1cd68b2e6c5>`_
