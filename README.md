@@ -1,7 +1,7 @@
 [![help@itpp.dev](https://itpp.dev/images/infinity-readme.png)](mailto:help@itpp.dev)
 # [10.0] Odoo Addons
 
-<br/>:heavy_check_mark: [attachment_large_object](https://apps.odoo.com/apps/modules/10.0/attachment_large_object/)
+:heavy_check_mark: [attachment_large_object](https://apps.odoo.com/apps/modules/10.0/attachment_large_object/)
 <br/>:heavy_check_mark: [auth_signup_confirmation](https://apps.odoo.com/apps/modules/10.0/auth_signup_confirmation/)
 <br/>:heavy_check_mark: [auth_signup_confirmation_crm](https://apps.odoo.com/apps/modules/10.0/auth_signup_confirmation_crm/)
 <br/>:heavy_check_mark: [autostaging_base](https://apps.odoo.com/apps/modules/10.0/autostaging_base/)
