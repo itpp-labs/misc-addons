@@ -1,17 +1,15 @@
 # Copyright 2019 Rafis Bikbov <https://it-projects.info/team/RafiZz>
 # Copyright 2019 Alexandr Kolushov <https://it-projects.info/team/KolushovAlexandr>
-# Copyright 2019 Eugene Molotov <https://it-projects.info/team/em230418>
-import base64
-import hashlib
+# Copyright 2019-2020 Eugene Molotov <https://it-projects.info/team/em230418>
+import os
 
-from odoo import _, api, exceptions, fields, models
-from odoo.tools.safe_eval import safe_eval
+import boto3
+
+from odoo import _, api, fields, models
 
 
-class S3IrAttachmentSettings(models.TransientModel):
-    _inherit = "ir.attachment.config.settings"
-
-    ir_attachment_url_storage = fields.Selection(selection_add=[("s3", "S3 Storage")])
+class NotAllCredentialsGiven(Exception):
+    pass
 
 
 class S3Settings(models.TransientModel):
@@ -26,6 +24,32 @@ class S3Settings(models.TransientModel):
                                e.g. [('res_model', 'in', ['product.image'])] -- store data of product.image only.
                                Empty condition means all models""",
     )
+
+    def _get_s3_settings(self, param_name, os_var_name):
+        config_obj = self.env["ir.config_parameter"]
+        res = config_obj.sudo().get_param(param_name)
+        if not res:
+            res = os.environ.get(os_var_name)
+        return res
+
+    def get_s3_bucket(self):
+        access_key_id = self._get_s3_settings("s3.access_key_id", "S3_ACCESS_KEY_ID")
+        secret_key = self._get_s3_settings("s3.secret_key", "S3_SECRET_KEY")
+        bucket_name = self._get_s3_settings("s3.bucket", "S3_BUCKET")
+
+        if not access_key_id or not secret_key or not bucket_name:
+            raise NotAllCredentialsGiven(
+                _("Amazon S3 credentials are not defined properly")
+            )
+
+        s3 = boto3.resource(
+            "s3", aws_access_key_id=access_key_id, aws_secret_access_key=secret_key
+        )
+        bucket = s3.Bucket(bucket_name)
+        if not bucket:
+            s3.create_bucket(Bucket=bucket_name)
+            bucket = s3.Bucket(bucket_name)
+        return bucket
 
     @api.model
     def get_values(self):
@@ -52,52 +76,3 @@ class S3Settings(models.TransientModel):
         ICPSudo.set_param("s3.access_key_id", self.s3_access_key_id or "")
         ICPSudo.set_param("s3.secret_key", self.s3_secret_key or "")
         ICPSudo.set_param("s3.condition", self.s3_condition or "")
-
-    def upload_existing(self):
-        condition = (
-            self.s3_condition and safe_eval(self.s3_condition, mode="eval") or []
-        )
-        domain = [("type", "!=", "url"), ("id", "!=", 0)] + condition
-        attachments = self.env["ir.attachment"].search(domain)
-        attachments = attachments._filter_protected_attachments()
-
-        if attachments:
-
-            s3 = self.env["ir.attachment"]._get_s3_resource()
-
-            if not s3:
-                raise exceptions.MissingError(
-                    _(
-                        "Some of the S3 connection credentials are missing.\n Don't forget to click the ``[Apply]`` button after any changes you've made"
-                    )
-                )
-
-            for attach in attachments:
-                value = attach.datas
-                bin_data = base64.b64decode(value) if value else b""
-                fname = hashlib.sha1(bin_data).hexdigest()
-
-                bucket_name = self.s3_bucket
-
-                try:
-                    s3.Bucket(bucket_name).put_object(
-                        Key=fname,
-                        Body=bin_data,
-                        ACL="public-read",
-                        ContentType=attach.mimetype,
-                    )
-                except Exception as e:
-                    raise exceptions.UserError(e)
-
-                vals = {
-                    "file_size": len(bin_data),
-                    "checksum": attach._compute_checksum(bin_data),
-                    "index_content": attach._index(
-                        bin_data, attach.datas_fname, attach.mimetype
-                    ),
-                    "store_fname": fname,
-                    "db_datas": False,
-                    "type": "url",
-                    "url": attach._get_s3_object_url(s3, bucket_name, fname),
-                }
-                attach.write(vals)
