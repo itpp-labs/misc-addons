@@ -1,19 +1,21 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 =========================
  Gantt view for Projects
 =========================
 
 The module adds Gantt view for Projects -- the same as it was in odoo 8.0
 
-Credits
-=======
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
 
 Contributors
-------------
+============
 * Pavel Romanchenko <romanchenko@it-projects.info>
-
-Sponsors
---------
-* `Associated Environmental Systems <https://www.associatedenvironmentalsystems.com/>`_
 
 Donation
 ========
@@ -23,12 +25,7 @@ Feel free to help us maintain this and other modules by purchasing it at `app st
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/misc-addons/9.0
+Odoo Apps Store: https://apps.odoo.com/apps/modules/9.0/project_gantt8/
 
-HTML Description: https://apps.odoo.com/apps/modules/9.0/project_gantt8/
 
-Usage instructions: `<doc/index.rst>`_
-
-Changelog: `<doc/changelog.rst>`_
-
-Tested on Odoo 9.0 b9bca7909aee5edd05d1cf81d45a540b7856f76e
+Tested on `Odoo 9.0 <https://github.com/odoo/odoo/commit/b9bca7909aee5edd05d1cf81d45a540b7856f76e>`_

@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 =======================================
  Reminders and Agenda (technical core)
 =======================================
@@ -6,30 +10,20 @@ Base module for *Reminders and Agenda* modules.
 
 Allows to create ``calendar.event`` for corresponding records (tasks, opportunities, etc.).
 
-Credits
-=======
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
 
 Contributors
-------------
+============
 * Ivan Yelizariev <yelizariev@it-projects.info>
 
-Sponsors
---------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-Maintainers
------------
-* `IT-Projects LLC <https://it-projects.info>`__
 
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/misc-addons/10.0
+Odoo Apps Store: https://apps.odoo.com/apps/modules/10.0/reminder_base/
 
-HTML Description: https://apps.odoo.com/apps/modules/10.0/reminder_base/
 
-Usage instructions: `<doc/index.rst>`_
-
-Changelog: `<doc/changelog.rst>`_
-
-Tested on Odoo 10.0 dc6e7ca25ba4f1b5b6ce9c1857527e14ff919e31
+Tested on `Odoo 10.0 <https://github.com/odoo/odoo/commit/dc6e7ca25ba4f1b5b6ce9c1857527e14ff919e31>`_

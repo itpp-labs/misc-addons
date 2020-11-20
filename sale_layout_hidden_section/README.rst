@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 .. image:: https://img.shields.io/badge/license-MIT-blue.svg
    :target: https://opensource.org/licenses/MIT
    :alt: License: MIT
@@ -10,36 +14,18 @@ In Odoo all the layouts are the corresponding sections, which used to group the 
 
 The module eliminates this disadvantage, because allows to use layouts only within Sale Order they created for.
 
-Credits
-=======
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
 
 Contributors
-------------
+============
 * Artyom Losev <apps@it-projects.info>
 
-Sponsors
---------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-Maintainers
------------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-      To get a guaranteed support you are kindly requested to purchase the module at `odoo apps store <https://apps.odoo.com/apps/modules/10.0/sale_layout_hidden_section/>`__.
-
-      Thank you for understanding!
-
-      `IT-Projects Team <https://www.it-projects.info/team>`__
-
-Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/misc-addons/10.0
+Odoo Apps Store: https://apps.odoo.com/apps/modules/10.0/sale_layout_hidden_section
 
-HTML Description: https://apps.odoo.com/apps/modules/10.0/sale_layout_hidden_section
 
-Usage instructions: `<doc/index.rst>`_
-
-Changelog: `<doc/changelog.rst>`_
-
-Tested on Odoo 10.0 e66e1e2142aa8812149e82cdc5f391aa9599cea6
+Tested on `Odoo 10.0 <https://github.com/odoo/odoo/commit/e66e1e2142aa8812149e82cdc5f391aa9599cea6>`_
