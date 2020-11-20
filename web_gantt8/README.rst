@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 .. image:: https://img.shields.io/badge/license-AGPL--3-blue.png
    :target: https://www.gnu.org/licenses/agpl-3.0
    :alt: License: AGPL-3
@@ -8,28 +12,21 @@
 
 The module adds view gantt8 -- ported view from odoo 8.
 
-Credits
-=======
 
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
 
 Contributors
-------------
+============
 * `Odoo S.A. <https://odoo.com>` -- as the author of original code 
 * Pavel Romanchenko <romanchenko@it-projects.info>
-
-Sponsors
---------
-* `Associated Environmental Systems <https://www.associatedenvironmentalsystems.com/>`_
 
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/misc-addons/9.0
+Odoo Apps Store: https://apps.odoo.com/apps/modules/9.0/web_gantt8/
 
-HTML Description: https://apps.odoo.com/apps/modules/9.0/web_gantt8/
 
-Usage instructions: `<doc/index.rst>`_
-
-Changelog: `<doc/changelog.rst>`_
-
-Tested on Odoo 9.0 b9bca7909aee5edd05d1cf81d45a540b7856f76e
+Tested on `Odoo 9.0 <https://github.com/odoo/odoo/commit/b9bca7909aee5edd05d1cf81d45a540b7856f76e>`_
