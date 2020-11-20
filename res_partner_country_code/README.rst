@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 Auto-fill partner's country by top-lever domain of email address
 ================================================================
 
@@ -7,8 +11,8 @@ The module:
 * adds country field to short partner form
 
 Known issues
-------------
+============
 
 * raise unknown error from "Search more" button in country dropdown list (see https://github.com/odoo/odoo/pull/8483 )
 
-Tested on Odoo 8.0 c345d294b12f3ac3e3c8b549e0633686d017d0fe
+Tested on `Odoo 8.0 <https://github.com/odoo/odoo/commit/c345d294b12f3ac3e3c8b549e0633686d017d0fe>`_

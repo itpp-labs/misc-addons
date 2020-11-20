@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 =========================
  Multi System Parameters
 =========================
@@ -21,35 +25,24 @@ The following error may appear::
 
     ERROR: column ir_config_parameter.value does not exist
 
-
 To avoid it, add the module to ``--load`` parameter, e.g.::
 
     ./odoo-bin --load=web,ir_config_parameter_multi_company --test-enable -i some_module ...
 
-Credits
-=======
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
 
 Contributors
-------------
+============
 * `Ivan Yelizariev <https://it-projects.info/team/yelizariev>`__
 
-Sponsors
---------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-Maintainers
------------
-* `IT-Projects LLC <https://it-projects.info>`__
 
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/misc-addons/13.0
+Odoo Apps Store: https://apps.odoo.com/apps/modules/13.0/ir_config_parameter_multi_company/
 
-HTML Description: https://apps.odoo.com/apps/modules/13.0/ir_config_parameter_multi_company/
 
-Usage instructions: `<doc/index.rst>`_
-
-Changelog: `<doc/changelog.rst>`_
-
-Tested on Odoo 13.0 80cef9e8c52ff7dc0715a7478a2288d3de7065df
+Tested on `Odoo 13.0 <https://github.com/odoo/odoo/commit/80cef9e8c52ff7dc0715a7478a2288d3de7065df>`_

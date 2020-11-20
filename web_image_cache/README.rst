@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 .. image:: https://img.shields.io/badge/license-MIT-blue.svg
    :target: https://opensource.org/licenses/MIT
    :alt: License: MIT
@@ -17,44 +21,26 @@ How odoo returns image with changed size?
 
 This module caches resized images, so response is faster.
 
-Credits
-=======
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
 
 Contributors
-------------
+============
 * `Ivan Yelizariev <https://it-projects.info/team/yelizariev>`__
 * `Ildar Nasyrov <https://it-projects.info/team/iledarn>`__
 * `Rafis Bikbov <https://it-projects.info/team/RafiZz>`__
 * `Alexandr Kolushov <https://it-projects.info/team/KolushovAlexandr>`__
 * `Eugene Molotov <https://it-projects.info/team/em230418>`__
 
-Sponsors
---------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-Maintainers
------------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-      To get a guaranteed support
-      you are kindly requested to purchase the module
-      at `odoo apps store <https://apps.odoo.com/apps/modules/13.0/web_image_cache/>`__.
-
-      Thank you for understanding!
-
-      `IT-Projects Team <https://www.it-projects.info/team>`__
 
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/misc-addons/13.0
+Odoo Apps Store: https://apps.odoo.com/apps/modules/13.0/web_image_cache/
 
-HTML Description: https://apps.odoo.com/apps/modules/13.0/web_image_cache/
-
-Usage instructions: `<doc/index.rst>`_
-
-Changelog: `<doc/changelog.rst>`_
 
 Notifications on updates: `via Atom <https://github.com/it-projects-llc/misc-addons/commits/13.0/web_image_cache.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/it-projects-llc/misc-addons/commits/13.0/web_image_cache.atom>`_
 
-Tested on Odoo 13.0 f862f9650395b02f6a43c57cdf232a309fa6948e
+Tested on `Odoo 13.0 <https://github.com/odoo/odoo/commit/f862f9650395b02f6a43c57cdf232a309fa6948e>`_

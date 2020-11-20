@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 Reminders and Agenda for Opportunities (with time)
 ==================================================
 
@@ -10,4 +14,4 @@ Roadmap
 
 * TODO: fix opening Record in a wrong view https://github.com/itpp-labs/misc-addons/issues/28
 
-Tested on Odoo 10.0 beaea311e6becd65dbb29925ba56016d4c249a68
+Tested on `Odoo 10.0 <https://github.com/odoo/odoo/commit/beaea311e6becd65dbb29925ba56016d4c249a68>`_

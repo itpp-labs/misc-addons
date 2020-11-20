@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 .. image:: https://img.shields.io/badge/license-MIT-blue.svg
    :target: https://opensource.org/licenses/MIT
    :alt: License: MIT
@@ -8,42 +12,24 @@
 
 This module adds a Skype field along with a widget to integrate Skype chat window of the contact account while clicking on it.
 
-Credits
-=======
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
 
 Contributors
-------------
+============
 * `Ivan Yelizariev <yelizariev@it-projects.info>`__
 
-Sponsors
---------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-Maintainers
------------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-      To get a guaranteed support
-      you are kindly requested to purchase the module
-      at `odoo apps store <https://apps.odoo.com/apps/modules/13.0/res_partner_skype/>`__.
-
-      Thank you for understanding!
-
-      `IT-Projects Team <https://www.it-projects.info/team>`__
 
 Further information
 ===================
 
 Further information and discussion: http://yelizariev.github.io/odoo/module/2015/03/31/skype.html
 
-Demo: http://runbot.it-projects.info/demo/misc-addons/13.0
+Odoo Apps Store: https://apps.odoo.com/apps/modules/13.0/res_partner_skype/
 
-HTML Description: https://apps.odoo.com/apps/modules/13.0/res_partner_skype/
-
-Usage instructions: `<doc/index.rst>`_
-
-Changelog: `<doc/changelog.rst>`_
 
 Notifications on updates: `via Atom <https://github.com/it-projects-llc/misc-addons/commits/13.0/res_partner_skype.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/it-projects-llc/misc-addons/commits/13.0/res_partner_skype.atom>`_
 
-Tested on Odoo 13.0 0288adb0c315a1da63fe7e2d9b1f586ad6c9555b
+Tested on `Odoo 13.0 <https://github.com/odoo/odoo/commit/0288adb0c315a1da63fe7e2d9b1f586ad6c9555b>`_
