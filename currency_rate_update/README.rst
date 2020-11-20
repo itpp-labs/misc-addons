@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 *Supported version of this module is available here:* https://github.com/OCA/account-financial-tools/tree/8.0/currency_rate_update
 
 The module is able to use 4 different sources:
