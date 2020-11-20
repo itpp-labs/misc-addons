@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 =======================
  S3 Attachment Storage
 =======================
@@ -30,37 +34,21 @@ Roadmap
 
 * S3 Condition is ignored in attachment creation
 
-Credits
-=======
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
 
 Contributors
-------------
+============
 * `Ildar Nasyrov <https://it-projects.info/team/iledarn>`
 * `Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>`
 * `Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>`
 * `Eugene Molotov <https://it-projects.info/team/em230418>`
 
-Sponsors
---------
-* `IT-Projects LLC <https://it-projects.info>`_
-
-Maintainers
------------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-      To get a guaranteed support you are kindly requested to purchase the module at `odoo apps store <https://apps.odoo.com/apps/modules/13.0/ir_attachment_s3/>`__.
-
-      Thank you for understanding!
-
-      `IT-Projects Team <https://www.it-projects.info/team>`__
-
-Further information
 ===================
 
-HTML Description: https://apps.odoo.com/apps/modules/13.0/ir_attachment_s3/
+Odoo Apps Store: https://apps.odoo.com/apps/modules/13.0/ir_attachment_s3/
 
-Usage instructions: `<doc/index.rst>`_
 
-Changelog: `<doc/changelog.rst>`_
-
-Tested on Odoo 13.0 f862f9650395b02f6a43c57cdf232a309fa6948e
+Tested on `Odoo 13.0 <https://github.com/odoo/odoo/commit/f862f9650395b02f6a43c57cdf232a309fa6948e>`_

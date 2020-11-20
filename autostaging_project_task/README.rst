@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 .. image:: https://img.shields.io/badge/license-MIT-blue.svg
    :target: https://opensource.org/licenses/MIT
    :alt: License: MIT
@@ -8,40 +12,22 @@
 
 Change stages of tasks automatically after a specified time
 
-Credits
-=======
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
 
 Contributors
-------------
+============
 * 'Ildar Nasyrov <iledarn@it-projects.info>'__
 
-Sponsors
---------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-Maintainers
------------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-      To get a guaranteed support
-      you are kindly requested to purchase the module
-      at `odoo apps store <https://apps.odoo.com/apps/modules/13.0/autostaging_project_task/>`__.
-
-      Thank you for understanding!
-
-      `IT-Projects Team <https://www.it-projects.info/team>`__
 
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/misc-addons/13.0
+Odoo Apps Store: https://apps.odoo.com/apps/modules/13.0/autostaging_project_task/
 
-HTML Description: https://apps.odoo.com/apps/modules/13.0/autostaging_project_task/
-
-Usage instructions: `<doc/index.rst>`_
-
-Changelog: `<doc/changelog.rst>`_
 
 Notifications on updates: `via Atom <https://github.com/it-projects-llc/misc-addons/commits/13.0/autostaging_project_task.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/it-projects-llc/misc-addons/commits/13.0/autostaging_project_task.atom>`_
 
-Tested on Odoo 12.0 3036dd6f1b7cb7c0a03a66167f001b48533f0c66
+Tested on `Odoo 12.0 <https://github.com/odoo/odoo/commit/3036dd6f1b7cb7c0a03a66167f001b48533f0c66>`_

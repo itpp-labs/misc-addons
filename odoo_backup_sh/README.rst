@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 .. image:: https://img.shields.io/badge/license-MIT-blue.svg
    :target: https://opensource.org/licenses/MIT
    :alt: License: MIT
@@ -86,10 +90,8 @@ Preparation: Install base module
 * if you previously installed backup modules, then uninstall them and delete ``odoo_backup_sh.*`` params in ``[[ Settings ]] >> System Parameters``. 
 * install ``odoo_backup_sh``
 
-
 Test: IAP S3
-------------
-
+============
 
 * Install base module
 * Click ``[Get S3 storage]``
@@ -153,7 +155,6 @@ Syncing with remote backups:
     sure that the Backup Settings doesn't have rotations.
   * Download the backup
 
-
 Test: Dropbox only
 ------------------
 * *Install base module*
@@ -194,39 +195,21 @@ Roadmap
 
 * non-active records in config_cron_ids should be visible. But visibility of warning and rotation fields should depend on active crons only
 
-Credits
-=======
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
 
 Contributors
-------------
+============
 * `Stanislav Krotov <https://it-projects.info/team/ufaks>`__
 * `Ivan Yelizariev <https://it-projects.info/team/yelizariev>`__
 
-Sponsors
---------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-Maintainers
------------
-* `IT-Projects LLC <https://it-projects.info>`__
-
-      To get a guaranteed support
-      you are kindly requested to purchase the module
-      at `odoo apps store <https://apps.odoo.com/apps/modules/13.0/odoo_backup_sh/>`__.
-
-      Thank you for understanding!
-
-      `IT-Projects Team <https://www.it-projects.info/team>`__
 
 Further information
 ===================
 
-Demo: http://runbot.it-projects.info/demo/misc-addons/13.0
+Odoo Apps Store: https://apps.odoo.com/apps/modules/13.0/odoo_backup_sh/
 
-HTML Description: https://apps.odoo.com/apps/modules/13.0/odoo_backup_sh/
 
-Usage instructions: `<doc/index.rst>`_
-
-Changelog: `<doc/changelog.rst>`_
-
-Tested on Odoo 12.0 483b6024cd44fcc6e2b987505beb739014b51856
+Tested on `Odoo 12.0 <https://github.com/odoo/odoo/commit/483b6024cd44fcc6e2b987505beb739014b51856>`_
