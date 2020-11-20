@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 Product price without taxes
 ===========================
 
@@ -7,10 +11,7 @@ In invoice and quotatine reports the module replace "Price Unit" to "Price Unit 
 
 Check images/ folder for screenshots
 
-Tested on Odoo 8.0 258a4cac82ef3b7e6a086f691f3bf8140d37b51c
-
-Maintainers
-===========
+Tested on `Odoo 8.0 <https://github.com/odoo/odoo/commit/258a4cac82ef3b7e6a086f691f3bf8140d37b51c>`_
 
 * `IT-Projects LLC <https://it-projects.info>`__
 

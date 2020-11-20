@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 ===============================================
  Start-End dates in invoice and analytic lines
 ===============================================
@@ -12,19 +16,14 @@ to models:
 
 Copies dates from ``account.invoice`` to ``account.analytic.line`` whenever Invoice is validated
 
-Credits
-=======
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
 
 Contributors
 ============
 * Ivan Yelizariev <yelizariev@it-projects.info>
-
-Sponsors
-========
-* `IT-Projects LLC <https://it-projects.info>`__
-
-Maintainers
-===========
 
 * `IT-Projects LLC <https://it-projects.info>`__
 
@@ -33,10 +32,7 @@ Maintainers
 Further information
 ===================
 
-HTML Description: https://apps.odoo.com/apps/modules/8.0/account_invoice_dates/
+Odoo Apps Store: https://apps.odoo.com/apps/modules/8.0/account_invoice_dates/
 
-Usage instructions: `<doc/index.rst>`__
 
-Changelog: `<doc/changelog.rst>`__
-
-Tested on Odoo 8.0 25b1df2eb331275ab6bb5e572665492bbff15bdc
+Tested on `Odoo 8.0 <https://github.com/odoo/odoo/commit/25b1df2eb331275ab6bb5e572665492bbff15bdc>`_

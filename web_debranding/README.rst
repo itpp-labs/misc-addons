@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 Backend debranding
 ==================
 
@@ -71,7 +75,7 @@ To automatically install this module for every new databases set **'auto_install
 * base_setup
   
 
-Tested on Odoo 8.0 a40d48378d22309e53e6d38000d543de1d2f7a78
+Tested on `Odoo 8.0 <https://github.com/odoo/odoo/commit/a40d48378d22309e53e6d38000d543de1d2f7a78>`_
 
 Need our service?
 =================

@@ -1,12 +1,13 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 Fix gaps in Repair order numbering
 ==================================
 
 https://github.com/odoo/odoo/issues/4258
 
-Tested on Odoo 8.0 ea60fed97af1c139e4647890bf8f68224ea1665b
-
-Maintainers
-===========
+Tested on `Odoo 8.0 <https://github.com/odoo/odoo/commit/ea60fed97af1c139e4647890bf8f68224ea1665b>`_
 
 * `IT-Projects LLC <https://it-projects.info>`__
 
