@@ -1,7 +1,7 @@
 [![help@itpp.dev](https://itpp.dev/images/infinity-readme.png)](mailto:help@itpp.dev)
 # [11.0] Odoo Addons
 
-<br/>:heavy_check_mark: [attachment_large_object](https://apps.odoo.com/apps/modules/11.0/attachment_large_object/)
+:heavy_check_mark: [attachment_large_object](https://apps.odoo.com/apps/modules/11.0/attachment_large_object/)
 <br/>:heavy_check_mark: [autostaging_base](https://apps.odoo.com/apps/modules/11.0/autostaging_base/)
 <br/>:heavy_check_mark: [autostaging_project_task](https://apps.odoo.com/apps/modules/11.0/autostaging_project_task/)
 <br/>:heavy_check_mark: [base_attendance](https://apps.odoo.com/apps/modules/11.0/base_attendance/)
