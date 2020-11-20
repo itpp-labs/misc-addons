@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 Service selling in bulk
 =======================
 
@@ -11,11 +15,7 @@ Also you should create a product with zero price and type "-1" in the slots fiel
 the client wants to use the slots in his contract. In this sale order you also should choose user's contract and see if there are available slots in the contract.
 
 
-
-Tested on Odoo 8.0 e84c01ebc1ef4fdf99865c45f10d7b6b4c4de229
-
-Maintainers
-===========
+Tested on `Odoo 8.0 <https://github.com/odoo/odoo/commit/e84c01ebc1ef4fdf99865c45f10d7b6b4c4de229>`_
 
 * `IT-Projects LLC <https://it-projects.info>`__
 

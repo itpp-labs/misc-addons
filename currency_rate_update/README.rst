@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 *Supported version of this module is available here:* https://github.com/OCA/account-financial-tools/tree/8.0/currency_rate_update
 
 The module is able to use 4 different sources:
@@ -49,6 +53,3 @@ Thanks to main contributors: Grzegorz Grzelak, Alexis de Lattre
 
 Tested by Ivan Yelizariev on Odoo 8.0 d023c079ed86468436f25da613bf486a4a17d625
 
-Maintainers
-------------
-This module is not maintained since Odoo 9.0.

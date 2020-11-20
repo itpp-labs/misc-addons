@@ -1,3 +1,7 @@
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
+
 Store product images in filestore
 =================================
 
@@ -57,7 +61,6 @@ Post-Install:
         ALTER TABLE product_template DROP COLUMN image_bkp;
         ALTER TABLE product_product  DROP COLUMN image_variant_bkp;
 
-
 Export/Import:
 --------------
 
@@ -79,7 +82,7 @@ Deinstalling:
     is destructive in the sense that it will remove all product images.
     If you wish to retain them, see Export/Import above.
 
-Tested on Odoo 8.0 935141582f5245f7cf5512285d3d91dfe58cb570 and
+Tested on `Odoo 8.0 935141582f5245f7cf5512285d3d91dfe58cb570 <https://github.com/odoo/odoo/commit/and>`_
 d24ff706a9194fe33c9f98aca0c0424486b661cf
 
 Further information and discussion: http://yelizariev.github.io/odoo/module/2015/03/06/product-image-filestore.html
@@ -89,12 +92,14 @@ Further information and discussion: http://yelizariev.github.io/odoo/module/2015
 
 The module is obsolete in 9.0 and later versions, because `odoo 9.0+ stores images on filestore by default <http://stackoverflow.com/questions/36620976/where-does-odoo-9-physically-store-the-image-field-of-res-partner-records-in/36622134?stw=2#36622134>`__ 
 
-Credits
-=======
-
 Author:
 -------
     * Ivan Yelizariev, IT-Projects LLC, https://github.com/yelizariev
+
+Questions?
+==========
+
+To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
 
 Contributors:
 -------------

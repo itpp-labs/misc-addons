@@ -1,9 +1,9 @@
-The module adds tracking odometer changes.
+.. image:: https://itpp.dev/images/infinity-readme.png
+   :alt: Tested and maintained by IT Projects Labs
+   :target: https://itpp.dev
 
-Maintainers
------------
-* `IT-Projects LLC <https://it-projects.info>`__
+The module adds tracking odometer changes.
 
 	  This module is not maintained since Odoo 9.0
 
-Tested on Odoo 8.0 115b0aebf706a318be8fda26f8478ca203269bf2
+Tested on `Odoo 8.0 <https://github.com/odoo/odoo/commit/115b0aebf706a318be8fda26f8478ca203269bf2>`_
