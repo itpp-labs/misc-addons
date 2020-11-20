@@ -9,3 +9,7 @@ addons:
 
   server_wide_modules:
     - web
+
+repo_readme:
+  addons:
+    - web_debranding
