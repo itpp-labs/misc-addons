@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Log\Notify Next Action changes',
+    'name': 'Log / Notify Next Action changes',
     'version': '1.0.0',
     'author': 'IT-Projects LLC, Ivan Yelizariev',
     'license': 'LGPL-3',
