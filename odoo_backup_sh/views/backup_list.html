@@ -54,15 +54,13 @@ License MIT (https://opensource.org/licenses/MIT).
     ></script>
     <script type="text/javascript" src="/web/static/lib/bootstrap/js/tab.js"></script>
     <script type="text/javascript">
-      $(function() {
-        $("body").on("click", ".o_database_action", function(ev) {
+      $(function () {
+        $("body").on("click", ".o_database_action", function (ev) {
           ev.preventDefault();
           var backup = $(ev.currentTarget).data("backup");
           var target = $(ev.currentTarget).data("target");
           var encryption_password_section = $("#encryption_password").parent();
-          $(target)
-            .find("input[name=backup_file_name]")
-            .val(backup);
+          $(target).find("input[name=backup_file_name]").val(backup);
           if (backup.endsWith(".enc")) {
             encryption_password_section.show();
           } else {
@@ -71,7 +69,7 @@ License MIT (https://opensource.org/licenses/MIT).
           $(target).modal();
         });
         // close modal on submit
-        $(".modal").on("click", 'input[type="submit"]', function(ev) {
+        $(".modal").on("click", 'input[type="submit"]', function (ev) {
           var modal = $(this).parentsUntil("body", ".modal");
           if (modal.hasClass("o_database_restore_via_odoo_backup_sh")) {
             $(modal).modal("hide");

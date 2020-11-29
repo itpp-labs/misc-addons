@@ -2,7 +2,7 @@
 // Copyright 2019 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
 // Copyright 2019 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 // License MIT (https://opensource.org/licenses/MIT).
-odoo.define("odoo_backup_sh.dashboard", function(require) {
+odoo.define("odoo_backup_sh.dashboard", function (require) {
     "use strict";
 
     // See https://eslint.org/docs/rules/no-undef
@@ -24,14 +24,14 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
     var COLORS = ["#1f77b4", "#aec7e8"];
     var FORMAT_OPTIONS = {
         // Allow to decide if utils.human_number should be used
-        humanReadable: function(value) {
+        humanReadable: function (value) {
             return Math.abs(value) >= 1000;
         },
         // With the choices below, 1236 is represented by 1.24k
         minDigits: 1,
         decimals: 2,
         // Avoid comma separators for thousands in numbers when human_number is used
-        formatterCallback: function(str) {
+        formatterCallback: function (str) {
             return str;
         },
     };
@@ -54,20 +54,20 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
             "click .kanban_group_buttons .btn": "click_group_buttons",
         },
 
-        willStart: function() {
+        willStart: function () {
             var self = this;
-            return $.when(ajax.loadLibs(this), this._super()).then(function() {
+            return $.when(ajax.loadLibs(this), this._super()).then(function () {
                 return self.fetch_dashboard_data();
             });
         },
 
-        fetch_dashboard_data: function() {
+        fetch_dashboard_data: function () {
             var self = this;
             return self
                 ._rpc({
                     route: "/odoo_backup_sh/fetch_dashboard_data",
                 })
-                .then(function(results) {
+                .then(function (results) {
                     self.remote_storage_usage_graph_values =
                         results.remote_storage_usage_graph_values;
                     self.services_storage_usage_graph_values =
@@ -81,49 +81,49 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
                     self.cloud_params = results.cloud_params;
                 });
         },
-        on_dashboard_action: function(ev) {
+        on_dashboard_action: function (ev) {
             ev.preventDefault();
             var $action = $(ev.currentTarget);
             this.do_action($action.attr("name"));
         },
 
-        dashboard_can_backup: function() {
+        dashboard_can_backup: function () {
             return (
                 this.modules.odoo_backup_sh.configured ||
                 this.modules.odoo_backup_sh_dropbox.configured ||
                 this.modules.odoo_backup_sh_google_disk.configured
             );
         },
-        dashboard_basic: function() {
+        dashboard_basic: function () {
             return (
                 !this.modules.odoo_backup_sh.configured &&
                 !this.modules.odoo_backup_sh_dropbox.installed &&
                 !this.modules.odoo_backup_sh_google_disk.installed
             );
         },
-        dashboard_configure_dropbox: function() {
+        dashboard_configure_dropbox: function () {
             return (
                 this.modules.odoo_backup_sh_dropbox.installed &&
                 !this.modules.odoo_backup_sh_dropbox.configured
             );
         },
-        dashboard_configure_google_disk: function() {
+        dashboard_configure_google_disk: function () {
             return (
                 this.modules.odoo_backup_sh_google_disk.installed &&
                 !this.modules.odoo_backup_sh_google_disk.configured
             );
         },
-        dashboard_offer_iap: function() {
+        dashboard_offer_iap: function () {
             return (
                 (this.modules.odoo_backup_sh_dropbox.configured ||
                     this.modules.odoo_backup_sh_google_disk.configured) &&
                 !this.modules.odoo_backup_sh.configured
             );
         },
-        dashboard_iap: function() {
+        dashboard_iap: function () {
             return this.modules.odoo_backup_sh.configured_iap;
         },
-        dashboard_offer_extra_module: function() {
+        dashboard_offer_extra_module: function () {
             return (
                 this.modules.odoo_backup_sh.configured &&
                 !this.modules.odoo_backup_sh.configured_iap &&
@@ -131,7 +131,7 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
                 !this.modules.odoo_backup_sh_google_disk.installed
             );
         },
-        auth_via_odoo: function() {
+        auth_via_odoo: function () {
             if ("auth_link" in this.cloud_params) {
                 self.do_action({
                     name: "Auth via odoo.com",
@@ -159,22 +159,22 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
             self.cloud_params = cloud_params;
         })*/
         },
-        on_attach_callback: function() {
+        on_attach_callback: function () {
             this._isInDom = true;
             this.render_graphs();
             this._super.apply(this, arguments);
         },
-        on_detach_callback: function() {
+        on_detach_callback: function () {
             this._isInDom = false;
             this._super.apply(this, arguments);
         },
-        render_graphs: function() {
+        render_graphs: function () {
             if (!this.show_nocontent_msg) {
                 this.render_remote_storage_usage_graph();
             }
             this.render_backup_config_cards();
         },
-        set_active_button: function($el) {
+        set_active_button: function ($el) {
             $el.parent()
                 .find(".btn-primary")
                 .removeClass("btn-primary")
@@ -183,7 +183,7 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
             $el.addClass("btn-primary");
         },
 
-        click_group_buttons: function(e) {
+        click_group_buttons: function (e) {
             e.preventDefault();
             var $el = $(e.target);
             var service = $el.data("service");
@@ -198,22 +198,22 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
             this.set_active_button($el);
         },
 
-        set_service: function(service) {
+        set_service: function (service) {
             this.service = service;
         },
 
-        get_service: function() {
+        get_service: function () {
             return this.service || "total";
         },
-        formatValue: function(value) {
+        formatValue: function (value) {
             var formatter = field_utils.format.float;
             var formatedValue = formatter(value, null, FORMAT_OPTIONS);
             return formatedValue;
         },
-        capitalize: function(value) {
+        capitalize: function (value) {
             return value.charAt(0).toUpperCase() + value.slice(1);
         },
-        render_remote_storage_usage_graph: function(chart_values) {
+        render_remote_storage_usage_graph: function (chart_values) {
             var chart_id = "odoo_backup_sh-chart-total-usage";
             this.$("#graph_remote_storage_usage").empty();
             var service = this.get_service();
@@ -240,18 +240,18 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
             $canvasContainer.append(this.$canvas);
             this.$("#graph_remote_storage_usage").append($canvasContainer);
 
-            var labels = chart_values[0].values.map(function(date) {
+            var labels = chart_values[0].values.map(function (date) {
                 return moment(date[0], "YYYY-MM-DD", "en");
                 // Return moment(date[0], "MM/DD/YYYY", 'en');
             });
 
-            var datasets = chart_values.map(function(group, index) {
+            var datasets = chart_values.map(function (group, index) {
                 return {
                     label: group.key,
-                    data: group.values.map(function(value) {
+                    data: group.values.map(function (value) {
                         return value[1];
                     }),
-                    dates: group.values.map(function(value) {
+                    dates: group.values.map(function (value) {
                         return value[0];
                     }),
                     fill: false,
@@ -289,7 +289,7 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
                         xAxes: [
                             {
                                 ticks: {
-                                    callback: function(moment) {
+                                    callback: function (moment) {
                                         return moment.format(DATE_FORMAT());
                                     },
                                 },
@@ -306,10 +306,10 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
                         borderColor: "rgba(0,0,0,0.2)",
                         borderWidth: 2,
                         callbacks: {
-                            title: function(tooltipItems, data) {
+                            title: function (tooltipItems, data) {
                                 return data.datasets[0].label;
                             },
-                            label: function(tooltipItem, data) {
+                            label: function (tooltipItem, data) {
                                 var moment = data.labels[tooltipItem.index];
                                 var date =
                                     tooltipItem.datasetIndex === 0
@@ -321,7 +321,7 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
                                     self.formatValue(tooltipItem.yLabel)
                                 );
                             },
-                            labelColor: function(tooltipItem, chart) {
+                            labelColor: function (tooltipItem, chart) {
                                 var dataset =
                                     chart.data.datasets[tooltipItem.datasetIndex];
                                 return {
@@ -335,14 +335,14 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
             });
         },
 
-        render_backup_config_cards: function() {
+        render_backup_config_cards: function () {
             var self = this;
             var $o_backup_dashboard_configs = self
                 .$(".o_backup_dashboard_configs")
                 .append(
                     QWeb.render("odoo_backup_sh.config_cards", {configs: self.configs})
                 );
-            _.each($o_backup_dashboard_configs.find(".o_kanban_record"), function(
+            _.each($o_backup_dashboard_configs.find(".o_kanban_record"), function (
                 record
             ) {
                 self.render_backup_config_card_graph(
@@ -352,9 +352,9 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
             });
         },
 
-        render_backup_config_card_graph: function(db_name, service) {
+        render_backup_config_card_graph: function (db_name, service) {
             var chart_id = "odoo_backup_sh-" + service + "-" + db_name;
-            var chart_values = this.configs.filter(function(config) {
+            var chart_values = this.configs.filter(function (config) {
                 return (
                     config.database === db_name && config.storage_service === service
                 );
@@ -374,19 +374,19 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
             $canvasContainer.append(this.$canvas);
             this.$(div_to_display).append($canvasContainer);
 
-            var labels = chart_values[0].values.map(function(date) {
+            var labels = chart_values[0].values.map(function (date) {
                 return moment(date.label, "YYYY-MM-DD", "en");
             });
 
             // Var color = 'rgb(124, 123, 173)';
             var color = COLORS[1];
-            var datasets = chart_values.map(function(group, index) {
+            var datasets = chart_values.map(function (group, index) {
                 return {
                     label: group.key,
-                    data: group.values.map(function(value) {
+                    data: group.values.map(function (value) {
                         return value.value;
                     }),
-                    dates: group.values.map(function(value) {
+                    dates: group.values.map(function (value) {
                         return value.label;
                     }),
                     fill: false,
@@ -425,7 +425,7 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
                                     labelString: _t("Backups of the Last 7 Days"),
                                 },
                                 ticks: {
-                                    callback: function(moment) {
+                                    callback: function (moment) {
                                         // Capitalize for non-english locales like russian
                                         return self.capitalize(
                                             moment.locale(LANG_CODE()).format("dddd")
@@ -445,10 +445,10 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
                         borderColor: "rgba(0,0,0,0.2)",
                         borderWidth: 2,
                         callbacks: {
-                            title: function(tooltipItems, data) {
+                            title: function (tooltipItems, data) {
                                 return data.datasets[0].label;
                             },
-                            label: function(tooltipItem, data) {
+                            label: function (tooltipItem, data) {
                                 var moment = data.labels[tooltipItem.index];
                                 var date =
                                     tooltipItem.datasetIndex === 0
@@ -460,7 +460,7 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
                                     self.formatValue(tooltipItem.yLabel)
                                 );
                             },
-                            labelColor: function(tooltipItem, chart) {
+                            labelColor: function (tooltipItem, chart) {
                                 var dataset =
                                     chart.data.datasets[tooltipItem.datasetIndex];
                                 return {
@@ -473,12 +473,12 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
                 },
             });
         },
-        o_dashboard_get_s3_credentials: function(ev) {
+        o_dashboard_get_s3_credentials: function (ev) {
             window.location.href =
                 "/odoo_backup_sh/get_s3_credentials?redirect=" +
                 encodeURIComponent(window.location.href);
         },
-        o_dashboard_action_add_database: function(ev) {
+        o_dashboard_action_add_database: function (ev) {
             ev.preventDefault();
             this.do_action(
                 {
@@ -496,7 +496,7 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
             );
         },
 
-        o_dashboard_action_update_info: function(ev) {
+        o_dashboard_action_update_info: function (ev) {
             if (ev && ev.preventDefault) {
                 ev.preventDefault();
             }
@@ -507,11 +507,11 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
                 kwargs: {
                     cloud_params: self.cloud_params,
                 },
-            }).then(function(result) {
+            }).then(function (result) {
                 if ("reload_page" in result) {
                     window.location.reload();
                 }
-                $.when(self.fetch_dashboard_data()).then(function() {
+                $.when(self.fetch_dashboard_data()).then(function () {
                     self.$("#graph_remote_storage_usage").empty();
                     self.$(".o_backup_dashboard_configs").empty();
                     self.start();
@@ -519,7 +519,7 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
             });
         },
 
-        o_dashboard_action_make_backup: function(ev) {
+        o_dashboard_action_make_backup: function (ev) {
             ev.preventDefault();
             var service = $(ev.currentTarget)
                 .closest("div[data-service]")
@@ -533,7 +533,7 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
                         .data("db_name"),
                     service: service,
                 },
-            }).then(function(result) {
+            }).then(function (result) {
                 // Always reload to update graphs
                 window.location.reload();
 
@@ -544,7 +544,7 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
             });
         },
 
-        o_dashboard_action_view_backups: function(ev) {
+        o_dashboard_action_view_backups: function (ev) {
             ev.preventDefault();
             this.do_action(
                 {
@@ -583,7 +583,7 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
             );
         },
 
-        o_dashboard_action_backup_config: function(ev) {
+        o_dashboard_action_backup_config: function (ev) {
             ev.preventDefault();
             this.do_action(
                 {
@@ -601,7 +601,7 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
             );
         },
 
-        close_dashboard_notification: function(ev) {
+        close_dashboard_notification: function (ev) {
             ev.preventDefault();
             var $o_backup_dashboard_notification = $(ev.currentTarget).closest(
                 ".o_backup_dashboard_notification"
@@ -610,23 +610,23 @@ odoo.define("odoo_backup_sh.dashboard", function(require) {
                 model: "odoo_backup_sh.notification",
                 method: "toggle_is_read",
                 args: [$o_backup_dashboard_notification.data("notification_id")],
-            }).then(function() {
+            }).then(function () {
                 $o_backup_dashboard_notification.hide();
             });
         },
 
         // Utility functions
-        getDate: function(d) {
+        getDate: function (d) {
             return new Date(d[0]);
         },
-        getValue: function(d) {
+        getValue: function (d) {
             return d[1];
         },
-        getPrunedTickValues: function(ticks, nb_desired_ticks) {
+        getPrunedTickValues: function (ticks, nb_desired_ticks) {
             var nb_values = ticks.length;
             var keep_one_of = Math.max(1, Math.floor(nb_values / nb_desired_ticks));
 
-            return _.filter(ticks, function(d, i) {
+            return _.filter(ticks, function (d, i) {
                 return i % keep_one_of === 0;
             });
         },

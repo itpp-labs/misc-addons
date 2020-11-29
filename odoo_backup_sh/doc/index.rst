@@ -43,7 +43,7 @@ To setup backups do as following:
   * Encrypt your backup if you need, but do not forget the password
   * Scheduled Auto Backups
 
-    * **Interval**  type an inteval value and select a unit of measure. Example: *make backups every 1 day*.
+    * **Interval**  type an interval value and select a unit of measure. Example: *make backups every 1 day*.
     * **Next Execution Date:** It shows next planned auto backup date. You can correct this. Example: *make every day at night time*.
 
   * **Auto Rotation:** If you have set up the auto backup, you can specify how many backups to preserve for certain time frames.
