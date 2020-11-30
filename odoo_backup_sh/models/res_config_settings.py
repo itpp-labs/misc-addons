@@ -49,10 +49,12 @@ class ResConfigSettings(models.TransientModel):
 
     @api.onchange("odoo_backup_sh_amazon_access_key_id")
     def switch_to_private_s3(self):
-        if self.odoo_backup_sh_amazon_access_key_id and self.odoo_backup_sh_amazon_access_key_id != self.env[
-            "ir.config_parameter"
-        ].get_param(
-            "odoo_backup_sh.aws_access_key_id"
+        if (
+            self.odoo_backup_sh_amazon_access_key_id
+            and self.odoo_backup_sh_amazon_access_key_id
+            != self.env["ir.config_parameter"].get_param(
+                "odoo_backup_sh.aws_access_key_id"
+            )
         ):
             # when Access Key is changed to new non-empty value
             self.odoo_backup_sh_odoo_oauth_uid = ""

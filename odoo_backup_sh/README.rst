@@ -10,7 +10,7 @@
  S3 Backing up
 ===============
 
-Backing up Odoo databases to S3 bucket. 
+Backing up Odoo databases to S3 bucket.
 
 In-App Purchase
 ===============
@@ -87,7 +87,7 @@ Preparation: Install base module
 --------------------------------
 
 * use database without demo
-* if you previously installed backup modules, then uninstall them and delete ``odoo_backup_sh.*`` params in ``[[ Settings ]] >> System Parameters``. 
+* if you previously installed backup modules, then uninstall them and delete ``odoo_backup_sh.*`` params in ``[[ Settings ]] >> System Parameters``.
 * install ``odoo_backup_sh``
 
 Test: IAP S3
@@ -209,7 +209,7 @@ Contributors
 Further information
 ===================
 
-Odoo Apps Store: https://apps.odoo.com/apps/modules/13.0/odoo_backup_sh/
+Odoo Apps Store: https://apps.odoo.com/apps/modules/14.0/odoo_backup_sh/
 
 
-Tested on `Odoo 12.0 <https://github.com/odoo/odoo/commit/483b6024cd44fcc6e2b987505beb739014b51856>`_
+Tested on `Odoo 14.0 <https://github.com/odoo/odoo/commit/bbcefc0cd5b5aa2285a577118f918742bac670c4>`_

@@ -20,9 +20,7 @@ License MIT (https://opensource.org/licenses/MIT).
         <field name="name">Download backup</field>
         <field name="model_id" ref="model_odoo_backup_sh_backup_info" />
         <field name="state">code</field>
-        <field name="code">
-            action = model.download_backup_action()
-        </field>
+        <field name="code">action = model.download_backup_action()</field>
     </record>
     <!--
         Show information about a Storage Service of Database after install additional modules only.
@@ -51,7 +49,9 @@ License MIT (https://opensource.org/licenses/MIT).
                         name="%(download_backup)d"
                         groups="odoo_backup_sh.group_manager"
                         attrs="{'invisible': ['|', ('backup_simulation', '=', True), ('active', '=', False)]}"
-                    >Download backup</button>
+                    >
+                        Download backup
+                    </button>
                 </sheet>
             </form>
         </field>
@@ -128,7 +128,8 @@ License MIT (https://opensource.org/licenses/MIT).
         <field name="name">Backups</field>
         <field name="res_model">odoo_backup_sh.backup_info</field>
         <field name="view_mode">tree,form,graph</field>
-        <field name="context">{
+        <field name="context">
+            {
             'search_default_group_database': 1,
             'search_default_group_upload_datetime': 1,
             }
@@ -265,7 +266,8 @@ License MIT (https://opensource.org/licenses/MIT).
                             attrs="{'invisible': [('encrypt_backups', '=', False)]}"
                         >
                             Warning: Don't forget the encryption password.
-                            Without it you cannot restore the database from the encrypted backup.
+                            Without it you cannot restore the database from the
+                            encrypted backup.
                         </p>
                     </group>
                     <p
@@ -366,65 +368,92 @@ License MIT (https://opensource.org/licenses/MIT).
                             colspan="4"
                             attrs="{'invisible': [('common_rotation', '!=', 'unlimited')]}"
                         >
-                            Unlilmited option is enabled. Number of backups will increase <b
-                            >infinitly</b>.<br />
+                            Unlilmited option is enabled. Number of backups will
+                            increase
+                            <b>infinitly</b>
+                            .
+                            <br />
                             <span
                                 attrs="{'invisible': [('unlimited_time_frame', '!=', 'hour')]}"
                             >
-                                From every hour at least one backup is preserved. If backups are made at least every hour,
-                                in three years you would have at least 26280 backups (=3*365*24).
+                                From every hour at least one backup is preserved. If
+                                backups are made at least every hour,
+                                in three years you would have at least 26280 backups
+                                (=3*365*24).
                             </span>
                             <span
                                 attrs="{'invisible': [('unlimited_time_frame', '!=', 'day')]}"
                             >
-                                From every day at least one backup is preserved. If backups are made at least every day,
-                                in three years you would have at least 1095 backups (=3*365).
+                                From every day at least one backup is preserved. If
+                                backups are made at least every day,
+                                in three years you would have at least 1095 backups
+                                (=3*365).
                             </span>
                             <span
                                 attrs="{'invisible': [('unlimited_time_frame', '!=', 'week')]}"
                             >
-                                From every week at least one backup is preserved. If backups are made at least every week,
-                                in three years you would have at least 156 backups (=3*56+3).
+                                From every week at least one backup is preserved. If
+                                backups are made at least every week,
+                                in three years you would have at least 156 backups
+                                (=3*56+3).
                             </span>
                             <span
                                 attrs="{'invisible': [('unlimited_time_frame', '!=', 'month')]}"
                             >
-                                From every month at least one backup is preserved. If backups are made at least every month,
-                                in three years you would have at least 36 backups (=3*12).
+                                From every month at least one backup is preserved. If
+                                backups are made at least every month,
+                                in three years you would have at least 36 backups
+                                (=3*12).
                             </span>
                             <span
                                 attrs="{'invisible': [('unlimited_time_frame', '!=', 'year')]}"
                             >
-                                From every year at least one backup is preserved. If backups are made at least every year,
+                                From every year at least one backup is preserved. If
+                                backups are made at least every year,
                                 in three years you would have at least 3 backups.
                             </span>
                             <br />
-                            You can restrict how many backups to preserve for certain time frames.
-                            <b
-                            >Example</b>: the module makes auto backup database every 2 hours. You want to preserve 2 daily backups
-                            (from today and from yesterday) and 1 weekly (additional backup from last week).
-                            Set up Daily and Weekly rotation options as <em
-                            >Limited</em> and put the numbers in limit fields
-                            (<em>2</em> in <b> Hourly</b>, <em>1</em> in <b
-                            >Weekly</b>). All other options mark as Disabled.
+                            You can restrict how many backups to preserve for certain
+                            time frames.
+                            <b>Example</b>
+                            : the module makes auto backup database every 2 hours. You
+                            want to preserve 2 daily backups
+                            (from today and from yesterday) and 1 weekly (additional
+                            backup from last week).
+                            Set up Daily and Weekly rotation options as
+                            <em>Limited</em>
+                            and put the numbers in limit fields
+                            (
+                            <em>2</em>
+                            in
+                            <b>Hourly</b>
+                            ,
+                            <em>1</em>
+                            in
+                            <b>Weekly</b>
+                            ). All other options mark as Disabled.
                         </p>
                         <p
                             colspan="4"
                             attrs="{'invisible': [('common_rotation', '!=', 'limited')]}"
                         >
-                            Number of preserved backups are limited. After rotation there would not be more than <field
+                            Number of preserved backups are limited. After rotation
+                            there would not be more than
+                            <field
                                 class="oe_inline"
                                 name="max_backups"
                                 nolabel="1"
                                 readonly="1"
-                            /> backups.
+                            />
+                            backups.
                         </p>
                         <p
                             class="text-warning"
                             colspan="4"
                             attrs="{'invisible': [('common_rotation', '!=', 'disabled')]}"
                         >
-                            You cannot save the settings where all rotation options are disabled.
+                            You cannot save the settings where all rotation options are
+                            disabled.
                         </p>
                     </group>
                 </sheet>
@@ -452,8 +481,9 @@ License MIT (https://opensource.org/licenses/MIT).
         <field name="arch" type="xml">
             <form string="Confirmation">
                 <div>
-                    <strong
-                    >Are you sure you want to delete this record from remote storage?</strong>
+                    <strong>
+                        Are you sure you want to delete this record from remote storage?
+                    </strong>
                 </div>
                 <footer>
                     <button
@@ -467,14 +497,13 @@ License MIT (https://opensource.org/licenses/MIT).
             </form>
         </field>
     </record>
-    <act_window
-        id="delete_remote_backup_wizard_action"
-        name="Delete Remote Backups"
-        binding_model="odoo_backup_sh.backup_info"
-        res_model="odoo_backup_sh.delete_remote_backup_wizard"
-        view_mode="form"
-        target="new"
-    />
+    <record id="delete_remote_backup_wizard_action" model="ir.actions.act_window">
+        <field name="name">Delete Remote Backups</field>
+        <field name="binding_model_id" ref="model_odoo_backup_sh_backup_info" />
+        <field name="res_model">odoo_backup_sh.delete_remote_backup_wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
     <menuitem
         name="Backups"
         id="menu_backup_root"
@@ -534,8 +563,8 @@ License MIT (https://opensource.org/licenses/MIT).
                         </div>
                             <div class="o_setting_right_pane">
                                 <div class="text-muted">
-                            Paste your S3 credentials here
-                          </div>
+                                    Paste your S3 credentials here
+                                </div>
                                 <div class="content-group">
                                     <div class="mt16 row">
                                         <field
@@ -587,10 +616,17 @@ License MIT (https://opensource.org/licenses/MIT).
                                     <div
                                         class="mt16 text-warning"
                                         attrs="{'invisible': [('private_s3_dir_changed', '=', False)]}"
-                                    >Note that on changing Folder, backups will be synced with new folder only<br
-                                        /><span
+                                    >
+                                        Note that on changing Folder, backups will be
+                                        synced with new folder only
+                                        <br />
+                                        <span
                                             attrs="{'invisible': [('odoo_backup_sh_private_s3_dir', '=', '')]}"
-                                        >Be sure, that the folder exists in the bucket</span></div>
+                                        >
+                                            Be sure, that the folder exists in the
+                                            bucket
+                                        </span>
+                                    </div>
                                     <!-- IAP is disabled
                             <button name="%(odoo_backup_sh.ir_actions_server_backup_dashboard)d" type="action" string="Get Credentials" class="btn btn-primary" icon="fa-lock" attrs="{'invisible': [('odoo_backup_sh_amazon_secret_access_key', '!=', '')]}"/>
                             -->
@@ -600,7 +636,9 @@ License MIT (https://opensource.org/licenses/MIT).
                     </div>
                     <h2
                         attrs="{'invisible': ['|', ('available_module_odoo_backup_sh_google_disk', '=', False), ('available_module_odoo_backup_sh_dropbox', '=', False)]}"
-                    >Other Storage</h2>
+                    >
+                        Other Storage
+                    </h2>
                     <div class="row mt16 o_settings_container" name="backup_services">
                         <div
                             class="col-12 col-lg-12 o_setting_box"
@@ -626,8 +664,11 @@ License MIT (https://opensource.org/licenses/MIT).
                                     attrs="{'invisible': [('module_odoo_backup_sh_google_disk','=',False)]}"
                                     id="msg_module_odoo_backup_sh_google_disk"
                                 >
-                                    <div class="mt16 text-warning"><strong
-                                        >Save</strong> this page and come back here to set up the feature.</div>
+                                    <div class="mt16 text-warning">
+                                        <strong>Save</strong>
+                                        this page and come back here to set up the
+                                        feature.
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -655,8 +696,11 @@ License MIT (https://opensource.org/licenses/MIT).
                                     attrs="{'invisible': [('module_odoo_backup_sh_dropbox','=',False)]}"
                                     id="msg_module_odoo_backup_sh_dropbox"
                                 >
-                                    <div class="mt16 text-warning"><strong
-                                        >Save</strong> this page and come back here to set up the feature.</div>
+                                    <div class="mt16 text-warning">
+                                        <strong>Save</strong>
+                                        this page and come back here to set up the
+                                        feature.
+                                    </div>
                                 </div>
                             </div>
                         </div>

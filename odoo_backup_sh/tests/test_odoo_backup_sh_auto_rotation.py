@@ -1,14 +1,14 @@
 # Copyright 2018 Stanislav Krotov <https://it-projects.info/team/ufaks>
+# Copyright 2020 Denis Mudarisov <https://github.com/trojikman>
 # License MIT (https://opensource.org/licenses/MIT).
 
 from datetime import datetime, timedelta
 
-import odoo.tests.common
+from odoo.tests.common import TransactionCase, tagged
 
 
-@odoo.tests.common.at_install(False)
-@odoo.tests.common.post_install(True)
-class TestOdooBackupSh(odoo.tests.common.TransactionCase):
+@tagged("-at_install", "post_install")
+class TestOdooBackupSh(TransactionCase):
     def test_compute_auto_rotation_backup_dts(self):
         dt_start = datetime(2018, 10, 1, 12, 0, 0, 0)
         backup_dts = [
