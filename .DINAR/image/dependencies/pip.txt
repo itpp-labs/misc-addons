@@ -1,3 +1,4 @@
 # Python dependencies
 boto3
 pretty-bad-protocol
+requests_mock
