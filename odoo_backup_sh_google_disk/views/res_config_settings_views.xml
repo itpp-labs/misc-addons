@@ -30,7 +30,10 @@ License MIT (https://opensource.org/licenses/MIT).
                     <a
                         href="https://apps.odoo.com/apps/modules/12.0/odoo_backup_sh_google_disk/"
                         target="_blank"
-                    ><i class="fa fa-fw fa-arrow-right" />Documentation</a>
+                    >
+                        <i class="fa fa-fw fa-arrow-right" />
+                        Documentation
+                    </a>
                 </div>
             </div>
         </field>

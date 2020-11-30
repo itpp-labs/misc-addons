@@ -6,7 +6,7 @@
     "category": "Backup",
     # "live_test_url": "",
     "images": ["images/google drive backing up.jpg"],
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "application": False,
     "author": "IT-Projects LLC, Dinar Gabbasov",
     "support": "apps@itpp.dev",
