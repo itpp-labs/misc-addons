@@ -1,7 +1,7 @@
 [![help@itpp.dev](https://itpp.dev/images/infinity-readme.png)](mailto:help@itpp.dev)
 # [14.0] Odoo Addons
 
-
+:heavy_check_mark: [odoo_backup_sh](https://apps.odoo.com/apps/modules/14.0/odoo_backup_sh/)
 
 Other Addons
 ============
