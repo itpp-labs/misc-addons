@@ -2,3 +2,4 @@
 boto3
 pretty-bad-protocol
 requests_mock
+google-api-python-client
