@@ -13,7 +13,7 @@
     "license": "Other OSI approved licence",  # MIT
     "category": "Debranding",
     "images": ["images/web_debranding.png"],
-    "website": "https://twitter.com/yelizariev",
+    "website": "https://odoo-debranding.com",
     "price": 250.00,
     "currency": "EUR",
     "depends": ["web", "mail", "access_settings_menu"],
