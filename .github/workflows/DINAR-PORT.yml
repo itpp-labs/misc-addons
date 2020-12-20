@@ -115,6 +115,7 @@ jobs:
           > Made via .github/workflows/DINAR-PORT.yml" || echo "pre-commit: no changes"
       - name: PR
         uses: peter-evans/create-pull-request@v3
+        id: cpr
         with:
           path: REPO
           # GITHUB_TOKEN would not trigger PR checks
@@ -126,6 +127,7 @@ jobs:
       - name: Post logs
         uses: KeisukeYamashita/create-comment@v1
         with:
+          number: ${{ steps.cpr.outputs.pull-request-number }}
           comment: |
             [Migrator](https://github.com/OCA/odoo-module-migrator/)'s logs:
             
