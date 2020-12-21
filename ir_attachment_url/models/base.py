@@ -30,14 +30,15 @@ def my_write(self, records, value):
     cache.update(records, self, [cache_value] * len(records))
 
     # retrieve the attachments that store the values, and adapt them
-    if self.store:
+    if self.store and any(records._ids):
+        real_records = records.filtered("id")
         atts = records.env["ir.attachment"].sudo()
         if not_null:
             atts = atts.search(
                 [
                     ("res_model", "=", self.model_name),
                     ("res_field", "=", self.name),
-                    ("res_id", "in", records.ids),
+                    ("res_id", "in", real_records.ids),
                 ]
             )
         if value:
@@ -46,7 +47,7 @@ def my_write(self, records, value):
             atts.write({"url": value, "type": "url"})
             atts_records = records.browse(atts.mapped("res_id"))
             # create the missing attachments
-            missing = (records - atts_records).filtered("id")
+            missing = (real_records - atts_records).filtered("id")
             if missing:
                 atts.create(
                     [
@@ -58,7 +59,6 @@ def my_write(self, records, value):
                             # em230418: changed here start
                             "type": "url",
                             "url": value,
-                            "datas": None,
                             # em230418: changed here end
                         }
                         for record in missing
