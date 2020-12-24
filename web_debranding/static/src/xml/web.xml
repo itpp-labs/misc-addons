@@ -6,8 +6,10 @@
 <templates>
     <t t-extend="mail.client_action">
         <t t-jquery=".o_mail_request_permission" t-operation="inner">
-        Your permission is required to <a href="#"> enable desktop notifications</a>.
-      </t>
+            Your permission is required to
+            <a href="#">enable desktop notifications</a>
+            .
+        </t>
     </t>
     <t t-extend="AppSwitcher.Content">
         <t t-jquery=".o_application_switcher_footer" t-operation="replace">
@@ -26,7 +28,11 @@
             </li>
             <li>
                 <a href="?debug=assets" data-menu="debugassets">
-                    <em>Developer mode<br /> (with assets)</em>
+                    <em>
+                        Developer mode
+                        <br />
+                        (with assets)
+                    </em>
                 </a>
             </li>
         </t>
