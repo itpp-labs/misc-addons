@@ -20,7 +20,7 @@ Contributors
 Further information
 ===================
 
-Odoo Apps Store: https://apps.odoo.com/apps/modules/13.0/ir_attachment_url/
+Odoo Apps Store: https://apps.odoo.com/apps/modules/14.0/ir_attachment_url/
 
 
 Tested on `Odoo 14.0 <https://github.com/odoo/odoo/commit/e9ef98410fa6acba165f3056d9c52f8e68cc768b>`_
