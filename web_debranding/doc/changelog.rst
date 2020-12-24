@@ -1,3 +1,8 @@
+`1.0.28`
+--------
+
+**Fix:** allow to extend functionality of the bot in other modules
+
 `1.0.27`
 --------
 

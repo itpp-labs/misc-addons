@@ -6,7 +6,7 @@
 # License MIT (https://opensource.org/licenses/MIT).
 {
     "name": "Backend debranding",
-    "version": "11.0.1.0.27",
+    "version": "11.0.1.0.28",
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "license": "Other OSI approved licence",  # MIT
     "category": "Debranding",
