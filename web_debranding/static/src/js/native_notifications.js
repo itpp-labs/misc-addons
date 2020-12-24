@@ -1,7 +1,7 @@
 /*  Copyright 2016-2017 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
     Copyright 2017 ArtyomLosev <https://github.com/ArtyomLosev>
     License MIT (https://opensource.org/licenses/MIT). */
-odoo.define("web_debranding.native_notifications", function(require) {
+odoo.define("web_debranding.native_notifications", function (require) {
     "use strict";
 
     require("web_debranding.base");
@@ -9,12 +9,12 @@ odoo.define("web_debranding.native_notifications", function(require) {
     var utils = require("mail.utils");
     var bus = require("bus.bus").bus;
 
-    var _send_native_notification = function(title, content) {
+    var _send_native_notification = function (title, content) {
         var notification = new Notification(title, {
             body: content,
             icon: "/web/binary/company_logo?company_id=" + session.company_id,
         });
-        notification.onclick = function() {
+        notification.onclick = function () {
             window.focus();
             if (this.cancel) {
                 this.cancel();
@@ -25,7 +25,7 @@ odoo.define("web_debranding.native_notifications", function(require) {
     };
 
     var send_notification_super = utils.send_notification;
-    utils.send_notification = function(widget, title, content) {
+    utils.send_notification = function (widget, title, content) {
         if (title === "Permission granted" || title === "Permission denied") {
             content = content.replace(/Odoo/gi, odoo.debranding_new_name);
         }
