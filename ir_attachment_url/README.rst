@@ -6,7 +6,11 @@
  Attachment Url
 ================
 
-The module allows to use url in Binary fields (e.g. in product images) and upload files to external storage (ftp, s3, some web server, etc). It uses url instead of transfer binary data between odoo server and client that allows to reduce the load on server.
+The module allows to use url in Binary fields (e.g. in product images) and
+upload files to external storage (ftp, s3, some web server, etc). On requesting
+that field, it pass url to client, instead of downloading binary from the
+storage to odoo server and then passing to client. This allows to reduce load on
+the server.
 
 Questions?
 ==========
