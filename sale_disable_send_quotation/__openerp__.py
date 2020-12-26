@@ -6,8 +6,6 @@
     'license': 'GPL-3',
     'category': 'Sales Management',
     'website': 'https://twitter.com/yelizariev',
-    'price': 9.00,
-    'currency': 'EUR',
     'depends': ['sale'],
     'images': ['images/form.png'],
     'data': [

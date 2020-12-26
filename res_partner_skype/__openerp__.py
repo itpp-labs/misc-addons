@@ -6,8 +6,6 @@
     'license': 'GPL-3',
     "category": "Tools",
     "website": "https://twitter.com/yelizariev",
-    'price': 9.00,
-    'currency': 'EUR',
     "depends": ['web'],
     "images": ['images/partner.png'],
     "data": [
