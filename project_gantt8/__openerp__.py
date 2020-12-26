@@ -9,8 +9,6 @@
     "author": "IT-Projects LLC, Pavel Romanchenko",
     "website": "https://it-projects.info",
     "license": "AGPL-3",
-    "price": 20.00,
-    "currency": "EUR",
 
     "depends": [
         "project",

@@ -10,8 +10,6 @@
     "author": "IT-Projects LLC, Dinar Gabbasov",
     "website": "https://twitter.com/gabbasov_dinar",
     "license": "LGPL-3",
-    "price": 390.00,
-    "currency": "EUR",
 
     "depends": [
         "project_issue_sheet",

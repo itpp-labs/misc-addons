@@ -10,8 +10,6 @@
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "website": "https://it-projects.info",
     "license": "AGPL-3",
-    "price": 9.00,
-    "currency": "EUR",
 
     "depends": [
         "hr_public_holidays",

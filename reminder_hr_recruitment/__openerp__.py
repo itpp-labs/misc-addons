@@ -7,8 +7,6 @@
     'category': 'Reminders and Agenda',
     'live_test_url': 'http://apps.it-projects.info/shop/product/reminders-and-agenda?version=9.0',
     'website': 'https://twitter.com/yelizariev',
-    'price': 21.00,
-    'currency': 'EUR',
     'depends': ['reminder_base', 'hr_recruitment'],
     'data': [
         'views.xml',

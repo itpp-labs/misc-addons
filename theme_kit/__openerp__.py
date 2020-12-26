@@ -10,8 +10,6 @@
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "website": "https://it-projects.info",
     "license": "GPL-3",
-    "price": 50.00,
-    "currency": "EUR",
 
     "depends": [
         "web_debranding",

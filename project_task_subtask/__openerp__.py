@@ -11,8 +11,6 @@
     "support": "apps@it-projects.info",
     "website": "https://it-projects.info",
     "license": "GPL-3",
-    "price": 69.00,
-    "currency": "EUR",
 
     "depends": ['base', 'project'],
     "external_dependencies": {"python": [], "bin": []},

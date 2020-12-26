@@ -6,8 +6,6 @@
     'license': 'LGPL-3',
     'category': 'Custom',
     'website': 'https://twitter.com/yelizariev',
-    'price': 9.00,
-    'currency': 'EUR',
     'depends': [],
     'images': ['images/import.png'],
     'installable': False
