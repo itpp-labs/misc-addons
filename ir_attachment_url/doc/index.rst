@@ -16,9 +16,11 @@ Usage
 * Below "Search" field click Filters >> Add custom filter >> "Resource field" "is equal to" "image_128"
 * Scroll down and find the avatar you have set. Click on it.
 * Click on "Edit"
-* To URL field paste url to any picture on external resource
+* To URL field paste url to any picture on external resource. Keep field **Type** equal to *File*.
 * Click on "Save" and reload the page
-* RESULT: you will see that the avatar of the user has been changed to that pasted picture
+* RESULT: you will see that the avatar of the user has been changed to that
+  pasted picture. If you open image address in a new tab, you will be redirected
+  to the external url.
 
 ir_attachment_url_fields context
 --------------------------------
