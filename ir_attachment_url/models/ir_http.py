@@ -12,11 +12,24 @@ class IrHttp(models.AbstractModel):
     _inherit = "ir.http"
 
     @classmethod
-    def _find_field_attachment(cls, env, m, f, res_id):
+    def _find_field_attachment(cls, env, field, obj):
+        while True:
+            related = env[obj._name]._fields[field].related
+            if related and len(related) >= 2:
+                obj = obj[related[0]]
+                field = related[1]
+            else:
+                break
+
+        model = obj._name
+        is_attachment = env[model]._fields[field].attachment
+        if not is_attachment:
+            return env["ir.attachment"]
+
         domain = [
-            ("res_model", "=", m),
-            ("res_field", "=", f),
-            ("res_id", "=", res_id),
+            ("res_model", "=", model),
+            ("res_field", "=", field),
+            ("res_id", "=", obj.id),
             ("type", "=", "binary"),
             ("url", "!=", False),
         ]
@@ -26,25 +39,7 @@ class IrHttp(models.AbstractModel):
             .search_read(domain=domain, fields=["url", "mimetype", "checksum"], limit=1)
         )
 
-    @classmethod
-    def find_field_attachment(cls, env, model, field, obj):
-        is_attachment = env[model]._fields[field].attachment
-        if not is_attachment:
-            return env["ir.attachment"]
-
-        related = env[model]._fields[field].related
-        if related and len(related) >= 2:
-            related_obj = obj[related[0]]
-            att = cls._find_field_attachment(
-                env, related_obj._name, related[1], related_obj.id
-            )
-        else:
-            att = cls._find_field_attachment(env, model, field, obj.id)
-
-        return att
-
     def _binary_record_content(self, record, **kw):
-        model = record._name
         field = kw.get("field", "datas")
 
         filename = kw.get("filename")
@@ -53,10 +48,8 @@ class IrHttp(models.AbstractModel):
         filehash = "checksum" in record and record["checksum"] or False
 
         field_def = record._fields[field]
-        if field_def.type == "binary" and field_def.attachment:
-            field_attachment = self.find_field_attachment(
-                self.env, model, field, record
-            )
+        if field_def.type == "binary":
+            field_attachment = self._find_field_attachment(self.env, field, record)
             if field_attachment:
                 mimetype = field_attachment[0]["mimetype"]
                 content = field_attachment[0]["url"]
