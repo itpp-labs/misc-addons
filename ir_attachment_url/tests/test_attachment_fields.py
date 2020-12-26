@@ -11,6 +11,7 @@ from odoo.tests.common import TransactionCase, tagged
 
 TEST_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Flag_of_Turkmenistan.svg/320px-Flag_of_Turkmenistan.svg.png"
 
+
 @tagged("at_install", "post_install")
 class TestAttachmentFields(TransactionCase):
     def _test_end(self, test_record):
