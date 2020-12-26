@@ -6,8 +6,6 @@
     'author': 'IT-Projects LLC',
     'website': "https://it-projects.info",
     'license': 'GPL-3',
-    "price": 10.00,
-    "currency": "EUR",
     'depends': [
         'auth_signup_confirmation',
         'crm',
