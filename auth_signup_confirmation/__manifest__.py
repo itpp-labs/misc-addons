@@ -7,8 +7,6 @@
     "website": "https://it-projects.info",
     "images": ["images/auth_signup_confirmation.jpg"],
     "license": "Other OSI approved licence",  # MIT
-    "price": 80.00,
-    "currency": "EUR",
     "depends": ["auth_signup"],
     "data": ["data/config.xml", "views/thankyou.xml", "data/email.xml"],
     "installable": True,

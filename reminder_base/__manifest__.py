@@ -10,8 +10,6 @@
     "support": "apps@itpp.dev",
     "website": "https://twitter.com/yelizariev",
     "license": "Other OSI approved licence",  # MIT
-    "price": 9.00,
-    "currency": "EUR",
     "depends": ["calendar"],
     "external_dependencies": {"python": [], "bin": []},
     "data": ["views/reminder_base_views.xml"],

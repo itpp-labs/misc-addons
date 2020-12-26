@@ -6,8 +6,6 @@
     "license": "Other OSI approved licence",  # MIT
     "category": "Customer Relationship Management",
     "website": "https://twitter.com/yelizariev",
-    "price": 9.00,
-    "currency": "EUR",
     "depends": ["crm"],
     "images": ["images/lead.png"],
     "data": ["data.xml"],

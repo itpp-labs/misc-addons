@@ -9,8 +9,6 @@
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "website": "https://it-projects.info",
     "license": "Other OSI approved licence",  # MIT
-    "price": 9.00,
-    "currency": "EUR",
     "depends": ["hr_public_holidays"],
     "external_dependencies": {"python": ["icalendar"], "bin": []},
     "data": ["wizard/import_ics.xml", "views/hr_public_holidays_view.xml"],

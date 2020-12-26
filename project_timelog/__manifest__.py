@@ -9,8 +9,6 @@
     "author": "IT-Projects LLC, Dinar Gabbasov",
     "website": "https://twitter.com/gabbasov_dinar",
     "license": "Other OSI approved licence",  # MIT
-    "price": 390.00,
-    "currency": "EUR",
     "depends": ["hr_timesheet", "base_action_rule"],
     "external_dependencies": {"python": [], "bin": []},
     "data": [

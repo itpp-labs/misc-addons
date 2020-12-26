@@ -9,8 +9,6 @@
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "website": "https://it-projects.info",
     "license": "Other OSI approved licence",  # MIT
-    "price": 200.00,
-    "currency": "EUR",
     "depends": ["ir_attachment_url"],
     "external_dependencies": {"python": ["boto3"], "bin": []},
     "data": [

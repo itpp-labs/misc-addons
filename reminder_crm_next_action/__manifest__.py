@@ -6,8 +6,6 @@
     "license": "Other OSI approved licence",  # MIT
     "category": "Reminders and Agenda",
     "website": "https://twitter.com/yelizariev",
-    "price": 21.00,
-    "currency": "EUR",
     "depends": ["reminder_base", "crm"],
     "data": ["views.xml"],
     "installable": True,
