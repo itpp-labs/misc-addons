@@ -11,8 +11,6 @@
     "support": "apps@itpp.dev",
     "website": "https://it-projects.info/team/yelizariev",
     "license": "Other OSI approved licence",  # MIT
-    "price": 40.00,
-    "currency": "EUR",
     "depends": ["web_website"],
     "external_dependencies": {"python": [], "bin": []},
     "data": [],

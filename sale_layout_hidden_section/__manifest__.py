@@ -12,8 +12,6 @@
     "author": "IT-Projects LLC, Artyom Losev",
     "support": "apps@itpp.dev",
     "website": "https://it-projects.info",
-    "price": 14.00,
-    "currency": "EUR",
     "license": "Other OSI approved licence",  # MIT
     "depends": ["sale"],
     "external_dependencies": {"python": [], "bin": []},

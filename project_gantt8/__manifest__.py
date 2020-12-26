@@ -8,8 +8,6 @@
     "author": "IT-Projects LLC, Pavel Romanchenko",
     "website": "https://it-projects.info",
     "license": "AGPL-3",
-    "price": 20.00,
-    "currency": "EUR",
     "depends": ["project", "web_gantt8"],
     "external_dependencies": {"python": [], "bin": []},
     "data": ["project_view.xml"],

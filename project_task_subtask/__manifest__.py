@@ -10,8 +10,6 @@
     "support": "apps@itpp.dev",
     "website": "https://it-projects.info",
     "license": "Other OSI approved licence",  # MIT
-    "price": 69.00,
-    "currency": "EUR",
     "depends": ["base", "project"],
     "external_dependencies": {"python": [], "bin": []},
     "data": [

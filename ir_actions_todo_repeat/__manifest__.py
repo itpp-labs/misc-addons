@@ -8,8 +8,6 @@
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "website": "https://it-projects.info",
     "license": "Other OSI approved licence",  # MIT
-    # "price": 9.00,
-    # "currency": "EUR",
     "depends": [],
     "external_dependencies": {"python": [], "bin": []},
     "data": ["views.xml"],

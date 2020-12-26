@@ -10,8 +10,6 @@
     "category": "Project",
     "vesion": "10.0.1.0.1",
     "application": False,
-    "price": 39.00,
-    "currency": "EUR",
     "depends": ["project", "autostaging_base"],
     "external_dependencies": {"python": [], "bin": []},
     "data": ["views.xml"],

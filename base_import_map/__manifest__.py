@@ -8,8 +8,6 @@
     "author": "IT-Projects LLC, Dinar Gabbasov",
     "website": "https://www.twitter.com/gabbasov_dinar",
     "license": "Other OSI approved licence",  # MIT
-    "price": 90.00,
-    "currency": "EUR",
     "depends": ["base_import"],
     "data": [
         "security/ir.model.access.csv",
