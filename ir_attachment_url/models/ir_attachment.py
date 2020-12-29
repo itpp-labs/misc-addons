@@ -87,7 +87,11 @@ class IrAttachment(models.Model):
                         )
                     )
                 else:
-                    values.update(self._get_datas_related_values(data, mimetype))
+                    values.update(
+                        self._get_datas_related_values(
+                            base64.b64decode(data or b""), mimetype
+                        )
+                    )
                 # end
                 # ===============
             # 'check()' only uses res_model and res_id from values, and make an exists.

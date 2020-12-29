@@ -1,3 +1,9 @@
+`2.0.1`
+-------
+
+- **Fix:** error on creating new record with Binary field
+
+
 `2.0.0`
 -------
 
