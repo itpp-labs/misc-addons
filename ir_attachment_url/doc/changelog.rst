@@ -1,15 +1,19 @@
+`2.1.0`
+-------
+
+- **Improvement:** Performance improvement
+
 `2.0.1`
 -------
 
 - **Fix:** error on creating new record with Binary field
 
-
 `2.0.0`
 -------
 
-- **Improvment:** Images defined by URL are now uploaded as binary files
-- **Improvment:** Request to binary files with non-falsy `url` attribute return HTTP 301 response
-- **Improvment:** Removed requirement of setting ir_attachment_url as server wide module
+- **Improvement:** Images defined by URL are now uploaded as binary files
+- **Improvement:** Request to binary files with non-falsy `url` attribute return HTTP 301 response
+- **Improvement:** Removed requirement of setting ir_attachment_url as server wide module
 - **Discard:** Passing url to Binary/Image field is no longer supported
 - **Fix:** Returing 302 instead of 301 http redirections to escape browser caching
 

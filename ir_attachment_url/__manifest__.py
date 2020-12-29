@@ -5,7 +5,7 @@
     "summary": """Use attachment URL and upload data to external storage""",
     "category": "Tools",
     "images": [],
-    "version": "14.0.2.0.1",
+    "version": "14.0.2.1.0",
     "application": False,
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "website": "https://twitter.com/OdooFree",
