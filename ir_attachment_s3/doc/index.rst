@@ -51,8 +51,10 @@ Configuration
   * ``s3.condition``: only the attachments that meet the condition will be sent to s3 (e.g. ``[('res_model', 'in', ['product.image'])]``) - it is actually the way of specifying the models with ``fields.Binary`` fields that should be stored on s3 instead of local file storage or db. Don't specify anything if you want to store all your attachment data from ``fields.Binary`` and also ordinary attachments on s3.
   * ``s3.access_key_id``: S3 access key ID
   * ``s3.secret_key``: S3 secret access key
+  * ``s3.endpoint_url``: optional parameter for s3-compatible storage. E.g. http://minio.example.com:9000
+  * ``s3.obj_url``: optional parameter for s3-compatible storage. E.g. http://minio.example.com:9000/bucketname/
 
-Alternatively, you can set the parameters via environmental variables: ``S3_BUCKET``, ``S3_CONDITION``, ``S3_ACCESS_KEY_ID``, ``S3_SECRET_KEY``
+Alternatively, you can set the parameters via environmental variables: ``S3_BUCKET``, ``S3_CONDITION``, ``S3_ACCESS_KEY_ID``, ``S3_SECRET_KEY``, ``S3_ENDPOINT_URL``, ``S3_OBJ_URL``
 
 The settings are also available from the ``Settings >> Technical >> Database Structure >> S3 Settings``.
 
@@ -90,7 +92,6 @@ Usage
 Depending on what you have in the ``s3.condition`` setting, some or all attachments will be uploaded on your s3.
 For example upload by editing product template from ``Sales >> Product`` menu some image for your product.
 By doing this you have uploaded image on your s3 storage.
-In this case you should also install ``ir_attachment_url`` module to be able to see products' images in odoo backend. Because by default odoo doesn't use urls in its backend. It uses only local stored files or stored db data.
 
 Upload existing attachments
 ---------------------------
