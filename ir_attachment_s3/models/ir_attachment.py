@@ -146,10 +146,12 @@ class IrAttachment(models.Model):
         file_id = "odoo/{}".format(checksum)
 
         bucket.put_object(
-            Key=file_id, Body=bin_data, ACL="public-read", ContentType=mimetype,
+            Key=file_id,
+            Body=bin_data,
+            ACL="public-read",
+            ContentType=mimetype,
         )
 
         _logger.debug("uploaded file with id {}".format(file_id))
-
-        obj_url = "https://{}.s3.amazonaws.com/{}".format(bucket.name, file_id)
+        obj_url = self.env["res.config.settings"].get_s3_obj_url(bucket, file_id)
         return PREFIX + file_id, obj_url

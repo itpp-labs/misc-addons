@@ -1,3 +1,7 @@
+`2.1.0`
+-------
+- **New:** endpoint_url support (e.g. to use with minio storage)
+
 `2.0.0`
 -------
 - **Improvement:** "ir.attachment.resized" model is moved to "web_image_cache" module

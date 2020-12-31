@@ -30,9 +30,60 @@ Roadmap
     * in list of products old image is shown (bug)
     * in product page main image is shown as main, previous main image is extra (maybe not a bug, but don't know how to remove previous main image)
 
-* Make endpoint_url customizable to allow using other s3-supported storages. Example: https://docs.min.io/docs/how-to-use-aws-sdk-for-python-with-minio-server.html
-
 * S3 Condition is ignored in attachment creation
+
+Sandbox
+=======
+
+To install local minio add following specification to your docker-compose.yml::
+
+    services:
+
+      # ...
+
+      s3:
+        image: minio/minio
+        networks: *public  # for doodba
+        ports:
+          - "127.0.0.1:9000:9000"
+        environment:
+          MINIO_ACCESS_KEY: "admin"
+          MINIO_SECRET_KEY: "password"
+      command:
+        server /data
+      volumes:
+        - s3:/data:z
+
+    volumes:
+
+      # ...
+
+      s3:
+
+Now make minio publicly accessable:
+
+* `install minio client <https://docs.min.io/docs/minio-client-complete-guide.html>`__, e.g.
+  ::
+    wget https://dl.min.io/client/mc/release/linux-amd64/mc
+    chmod +x mc
+* create *alias*
+  ::
+    ./mc alias set local http://127.0.0.1:9000 admin password
+* create bucket
+  ::
+    ./mc mb local/mybucket
+
+* set policy
+  ::
+    ./mc policy set public local/mybucket
+
+Then set parameters:
+
+* ``s3.bucket``: ``mybucket``
+* ``s3.access_key_id``: ``admin``
+* ``s3.secret_key``: ``password``
+* ``s3.endpoint_url``: ``http://s3:9000``
+* ``s3.obj_url``: ``http://localhost:9000/mybucket/``
 
 Questions?
 ==========
@@ -41,6 +92,8 @@ To get an assistance on this module contact us by email :arrow_right: help@itpp.
 
 Contributors
 ============
+
+* `Ivan Yelizariev <https://twitter.com/yelizariev>`
 * `Ildar Nasyrov <https://it-projects.info/team/iledarn>`
 * `Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>`
 * `Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>`
