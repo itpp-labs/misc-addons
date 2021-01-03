@@ -49,10 +49,10 @@ To install local minio add following specification to your docker-compose.yml::
         environment:
           MINIO_ACCESS_KEY: "admin"
           MINIO_SECRET_KEY: "password"
-      command:
-        server /data
-      volumes:
-        - s3:/data:z
+        command:
+          server /data
+        volumes:
+          - s3:/data:z
 
     volumes:
 
