@@ -1,3 +1,8 @@
+`2.1.1`
+-------
+
+- **Fix:** integration with ir_attachment_s3 module
+
 `2.1.0`
 -------
 

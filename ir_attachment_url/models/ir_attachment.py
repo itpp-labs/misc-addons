@@ -18,17 +18,13 @@ class IrAttachment(models.Model):
     _inherit = "ir.attachment"
 
     @api.depends("store_fname", "db_datas")
-    def _compute_datas(self):
-        bin_size = self._context.get("bin_size")
+    def _compute_raw(self):
         url_records = self.filtered(lambda r: r.type == "url" and r.url)
         for attach in url_records:
-            if not bin_size:
-                r = requests.get(attach.url, timeout=5)
-                attach.datas = base64.b64encode(r.content)
-            else:
-                attach.datas = "1.00 Kb"
+            r = requests.get(attach.url, timeout=5)
+            attach.raw = r.content
 
-        super(IrAttachment, self - url_records)._compute_datas()
+        super(IrAttachment, self - url_records)._compute_raw()
 
     def _filter_protected_attachments(self):
         return self.filtered(
@@ -120,7 +116,7 @@ class IrAttachment(models.Model):
                 _logger.info("storing %s", repr(attach))
 
             old_store_fname = attach.store_fname
-            data = self._file_read(old_store_fname, bin_size=False)
+            data = self._file_read(old_store_fname)
             bin_data = base64.b64decode(data) if data else b""
             checksum = (
                 self._compute_checksum(bin_data)

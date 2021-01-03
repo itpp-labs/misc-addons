@@ -11,7 +11,6 @@ import logging
 
 from odoo import _, models
 from odoo.exceptions import MissingError
-from odoo.tools import human_size
 from odoo.tools.safe_eval import safe_eval
 
 from .res_config_settings import NotAllCredentialsGiven
@@ -61,9 +60,9 @@ class IrAttachment(models.Model):
 
         return super(IrAttachment, self - s3_records)._inverse_datas()
 
-    def _file_read(self, fname, bin_size=False):
+    def _file_read(self, fname):
         if not fname.startswith(PREFIX):
-            return super(IrAttachment, self)._file_read(fname, bin_size)
+            return super(IrAttachment, self)._file_read(fname)
 
         bucket = self.env["res.config.settings"].get_s3_bucket()
 
@@ -73,10 +72,7 @@ class IrAttachment(models.Model):
         obj = bucket.Object(file_id)
         data = obj.get()
 
-        if bin_size:
-            return human_size(data["ContentLength"])
-        else:
-            return base64.b64encode(b"".join(data["Body"]))
+        return base64.b64encode(b"".join(data["Body"]))
 
     def _file_delete(self, fname):
         if not fname.startswith(PREFIX):
