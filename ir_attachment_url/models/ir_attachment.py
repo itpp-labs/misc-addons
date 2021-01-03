@@ -1,5 +1,5 @@
 # Copyright 2016-2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
-# Copyright 2016-2018,2020 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2016-2018,2020-2021 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2020 Eugene Molotov <https://it-projects.info/team/em230418>
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
@@ -61,19 +61,24 @@ class IrAttachment(models.Model):
             ):
                 values = self._check_contents(values)
                 data = values.pop("datas")
+                filename = values.get("name")
                 mimetype = values.pop("mimetype")
                 values.update(
-                    self._get_datas_related_values_with_bucket(bucket, data, mimetype)
+                    self._get_datas_related_values_with_bucket(
+                        bucket, data, filename, mimetype
+                    )
                 )
         return super(IrAttachment, self).create(vals_list)
 
     def _get_datas_related_values_with_bucket(
-        self, bucket, data, mimetype, checksum=None
+        self, bucket, data, filename, mimetype, checksum=None
     ):
         bin_data = base64.b64decode(data) if data else b""
         if not checksum:
             checksum = self._compute_checksum(bin_data)
-        fname, url = self._file_write_with_bucket(bucket, bin_data, mimetype, checksum)
+        fname, url = self._file_write_with_bucket(
+            bucket, bin_data, filename, mimetype, checksum
+        )
         return {
             "file_size": len(bin_data),
             "checksum": checksum,
@@ -87,7 +92,7 @@ class IrAttachment(models.Model):
     def _set_where_to_store(self, vals_list):
         pass
 
-    def _file_write_with_bucket(self, bucket, bin_data, mimetype, checksum):
+    def _file_write_with_bucket(self, bucket, bin_data, filename, mimetype, checksum):
         raise NotImplementedError(
             "No _file_write handler for bucket object {}".format(repr(bucket))
         )
@@ -95,7 +100,7 @@ class IrAttachment(models.Model):
     def _write_records_with_bucket(self, bucket):
         for attach in self:
             vals = self._get_datas_related_values_with_bucket(
-                bucket, attach.datas, attach.mimetype
+                bucket, attach.datas, attach.name, attach.mimetype
             )
             super(IrAttachment, attach.sudo()).write(vals)
 
@@ -125,7 +130,7 @@ class IrAttachment(models.Model):
             )
 
             new_store_fname, url = self._file_write_with_bucket(
-                bucket, bin_data, attach.mimetype, checksum
+                bucket, bin_data, attach.name, attach.mimetype, checksum
             )
             attach.write({"store_fname": new_store_fname, "url": url})
             self._file_delete(old_store_fname)

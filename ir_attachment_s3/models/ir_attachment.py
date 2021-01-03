@@ -1,5 +1,5 @@
 # Copyright 2016-2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
-# Copyright 2016-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2016-2018,2021 Ivan Yelizariev <https://twitter.com/yelizariev>
 # Copyright 2019 Alexandr Kolushov <https://it-projects.info/team/KolushovAlexandr>
 # Copyright 2019 Rafis Bikbov <https://it-projects.info/team/RafiZz>
 # Copyright 2019 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
@@ -132,11 +132,11 @@ class IrAttachment(models.Model):
 
         return super(IrAttachment, self)._set_where_to_store(vals_list)
 
-    def _file_write_with_bucket(self, bucket, bin_data, mimetype, checksum):
+    def _file_write_with_bucket(self, bucket, bin_data, filename, mimetype, checksum):
         # make sure, that given bucket is s3 bucket
         if not is_s3_bucket(bucket):
             return super(IrAttachment, self)._file_write_with_bucket(
-                bucket, bin_data, mimetype, checksum
+                bucket, bin_data, filename, mimetype, checksum
             )
 
         file_id = "odoo/{}".format(checksum)
@@ -146,6 +146,7 @@ class IrAttachment(models.Model):
             Body=bin_data,
             ACL="public-read",
             ContentType=mimetype,
+            ContentDisposition='attachment; filename="%s"' % filename,
         )
 
         _logger.debug("uploaded file with id {}".format(file_id))

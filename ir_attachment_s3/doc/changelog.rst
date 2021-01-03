@@ -1,3 +1,7 @@
+`3.0.0`
+-------
+- **New:** support direct downloading chatter attachments
+
 `2.1.0`
 -------
 - **New:** endpoint_url support (e.g. to use with minio storage)

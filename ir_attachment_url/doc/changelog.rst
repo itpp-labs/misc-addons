@@ -1,3 +1,7 @@
+`3.0.0`
+-------
+- **New:** allow saving filename on uploading to external storage
+
 `2.1.1`
 -------
 
