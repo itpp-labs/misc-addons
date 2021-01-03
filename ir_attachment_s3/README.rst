@@ -41,7 +41,7 @@ To install local minio add following specification to your docker-compose.yml::
 
       # ...
 
-      s3:
+      minio:
         image: minio/minio
         networks: *public  # for doodba
         ports:
@@ -60,6 +60,10 @@ To install local minio add following specification to your docker-compose.yml::
 
       s3:
 
+Add to your ``/etc/hosts`` file::
+
+    127.0.0.1 minio
+
 Now make minio publicly accessable:
 
 * `install minio client <https://docs.min.io/docs/minio-client-complete-guide.html>`__, e.g.
@@ -68,7 +72,7 @@ Now make minio publicly accessable:
     chmod +x mc
 * create *alias*
   ::
-    ./mc alias set local http://127.0.0.1:9000 admin password
+    ./mc alias set local http://minio:9000 admin password
 * create bucket
   ::
     ./mc mb local/mybucket
@@ -82,8 +86,8 @@ Then set parameters:
 * ``s3.bucket``: ``mybucket``
 * ``s3.access_key_id``: ``admin``
 * ``s3.secret_key``: ``password``
-* ``s3.endpoint_url``: ``http://s3:9000``
-* ``s3.obj_url``: ``http://localhost:9000/mybucket/``
+* ``s3.endpoint_url``: ``http://minio:9000``
+* ``s3.obj_url``: ``http://minio:9000/mybucket/``
 
 Questions?
 ==========
