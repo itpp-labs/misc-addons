@@ -1,6 +1,6 @@
 # Copyright 2016 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2016,2018 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
-# License MIT (https://opensource.org/licenses/MIT).
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 from odoo import api, fields, models
 
@@ -104,6 +104,14 @@ class ThemeTopPanel(models.Model):
         default=False, help="Active item Background color for Top Panel"
     )
 
+    top_panel_active_subitem_bg = fields.Char(
+        "Active submenu item Background color",
+        help="Active item Background color for Top Panel",
+    )
+    top_panel_active_subitem_bg_active = fields.Boolean(
+        default=False, help="Active submenu item Background color for Top Panel"
+    )
+
     top_panel_hover_item_font = fields.Char(
         "Hover item Font color", help="Hover item Font color for Top Panel"
     )
@@ -117,11 +125,70 @@ class ThemeTopPanel(models.Model):
     top_panel_hover_item_bg_active = fields.Boolean(
         default=False, help="Hover item Background color for Top Panel"
     )
+    top_panel_hover_subitem_bg = fields.Char(
+        "Hover submenu item Background color", help="Hover item Background color for Top Panel"
+    )
+    top_panel_hover_subitem_bg_active = fields.Boolean(
+        default=False, help="Hover submenu item Background color for Top Panel"
+    )
+
+    # Compatibility theme_kit and material backend theme modules
+    left_panel_main_menu = fields.Char(
+        "Main Menu Font color", help="Main Menu Font colo for Left Menu Bar"
+    )
+    left_panel_main_menu_active = fields.Boolean(
+        default=False, help="Main Menu Font colo for Left Menu Bar"
+    )
+    left_panel_sub_menu = fields.Char(
+        "Sub Menu Font color", help="Sub Menu Font colo for Left Menu Bar"
+    )
+    left_panel_sub_menu_active = fields.Boolean(
+        default=False, help="Sub Menu Font colo for Left Menu Bar"
+    )
 
     less = fields.Text("less", help="technical computed field", compute="_compute_less")
 
+    backend_theme_installed = fields.Boolean(compute="_compute_backend_theme_installed")
+
+    def _compute_backend_theme_installed(self):
+        self.backend_theme_installed = (
+            True
+            if self.env["ir.module.module"]
+            .search([("name", "=", "backend_theme_v11")])
+            .state
+            == "installed"
+            else False
+        )
+
+    # @api.multi
+    # def write(self, vals):
+    #     res = super(ThemeTopPanel, self).write(vals)
+    #     if not vals.get("top_panel_bg_active", "Not found"):
+    #         self.top_panel_bg = ""
+    #     if not vals.get("top_panel_border_active", "Not found"):
+    #         self.top_panel_border = ""
+    #     if not vals.get("top_panel_font_active", "Not found"):
+    #         self.top_panel_font = ""
+    #     if not vals.get("top_panel_active_item_font_active", "Not found"):
+    #         self.top_panel_active_item_font = ""
+    #     if not vals.get("top_panel_active_item_bg_active", "Not found"):
+    #         self.top_panel_active_item_bg = ""
+    #     if not vals.get("top_panel_hover_item_font_active", "Not found"):
+    #         self.top_panel_hover_item_font = ""
+    #     if not vals.get("top_panel_hover_item_bg_active", "Not found"):
+    #         self.top_panel_hover_item_bg = ""
+    #     if not vals.get("top_panel_hover_subitem_bg_active", "Not found"):
+    #         self.top_panel_hover_subitem_bg = ""
+    #     if not vals.get("left_panel_main_menu_active", "Not found"):
+    #         self.left_panel_main_menu = ""
+    #     if not vals.get("left_panel_sub_menu_active", "Not found"):
+    #         self.top_panel_hover_item_bg = ""
+    #     if not vals.get("top_panel_active_subitem_bg_active", "Not found"):
+    #         self.top_panel_active_subitem_bg = ""
+
     @api.multi
     def _compute_less(self):
+        # import wdb;wdb.set_trace()
         for r in self:
             code = ""
             # double {{ will be formated as single {
@@ -156,34 +223,52 @@ class ThemeTopPanel(models.Model):
                 }}
                 """
                 )
-
-            if self.top_panel_border_active:
+                # Compatibility theme_kit and material backend theme modules
                 code = (
                     code
-                    + """.o_main_navbar{{
-                    border-color: {theme.top_panel_border};
-                }}
-                #oe_main_menu_navbar{{
-                    border-color: {theme.top_panel_border};
-                }}
-                .o_control_panel {{
-                    border-bottom-color: {theme.top_panel_border}!important;
-                }}
-                .o_form_statusbar .o_arrow_button{{
-                    border-color: lighten({theme.top_panel_border}, 40%)!important;
-                }}
-                .o_form_statusbar .o_arrow_button:before{{
-                    border-left-color: lighten({theme.top_panel_border}, 40%)!important;
-                }}
-                .o_list_view thead {{
-                    color: {theme.top_panel_border};
-                }}
-                .o_list_view thead > tr > th {{
-                    border-color: {theme.top_panel_border};
+                    + """nav.navbar.navbar-default.main-nav  {{
+                        background-color: {theme.top_panel_bg}!important
                 }}
                 """
                 )
-            if self.top_panel_font_active:
+
+            if self.top_panel_border_active:
+                if not self.backend_theme_installed:
+                    code = (
+                        code
+                        + """.o_main_navbar{{
+                        border-color: {theme.top_panel_border};
+                    }}
+                    #oe_main_menu_navbar{{
+                        border-color: {theme.top_panel_border};
+                    }}
+                    .o_control_panel {{
+                        border-bottom-color: {theme.top_panel_border}!important;
+                    }}
+                    .o_form_statusbar .o_arrow_button{{
+                        border-color: lighten({theme.top_panel_border}, 40%)!important;
+                    }}
+                    .o_form_statusbar .o_arrow_button:before{{
+                        border-left-color: lighten({theme.top_panel_border}, 40%)!important;
+                    }}
+                    .o_list_view thead {{
+                        color: {theme.top_panel_border};
+                    }}
+                    .o_list_view thead > tr > th {{
+                        border-color: {theme.top_panel_border};
+                    }}
+                    """
+                    )
+                else:
+                    # Compatibility theme_kit and material backend theme modules
+                    code = (
+                        code
+                        + """header {{
+                        border-bottom: 1px solid {theme.top_panel_border} !important;
+                    }}
+                    """
+                )
+            if self.top_panel_font_active and not self.backend_theme_installed:
                 code = (
                     code
                     + """.o_main_navbar > ul > li > a {{
@@ -243,6 +328,16 @@ class ThemeTopPanel(models.Model):
                     code
                     + """.navbar-nav .active a{{
                     background-color: {theme.top_panel_active_item_bg}!important;
+                }}
+                #odooMenuBarNav > div > div.o_sub_menu_content > ul > li > a.active{{
+                    background-color: {theme.top_panel_active_item_bg}!important;
+                }}"""
+                )
+            if self.top_panel_active_subitem_bg_active:
+                code = (
+                    code
+                    + """#odooMenuBarNav > div > div.o_sub_menu_content > ul > li > ul > li.active > a{{
+                    background-color: {theme.top_panel_active_subitem_bg}!important;
                 }}"""
                 )
             if self.top_panel_hover_item_font_active:
@@ -281,35 +376,44 @@ class ThemeTopPanel(models.Model):
                 """
                 )
             if self.top_panel_hover_item_bg_active:
+            # Compatibility theme_kit and material backend theme modules
                 code = (
                     code
-                    + """.o_main_navbar > ul > li > a:hover{{
-                    background-color: {theme.top_panel_hover_item_bg}!important;
+                    + """#odooMenuBarNav > div > div.o_sub_menu_content > ul > li > a:hover{{
+                    background-color: {theme.top_panel_hover_item_bg} !important;
                 }}
-                .o_main_navbar > ul > li > a:focus{{
-                    background-color: {theme.top_panel_hover_item_bg}!important;
-                }}
-                .navbar-nav li a:hover{{
-                    background-color: {theme.top_panel_hover_item_bg}!important;
-                }}
-                .navbar-nav li a:focus{{
-                    background-color: {theme.top_panel_hover_item_bg}!important;
-                }}
-                .o_main_navbar > .o_menu_toggle:hover{{
-                    background-color: {theme.top_panel_hover_item_bg}!important;
-                }}
-                .o_main_navbar > .o_menu_toggle:focus{{
-                    background-color: {theme.top_panel_hover_item_bg}!important;
-                }}
-                .open .dropdown-menu > li a:hover {{
-                    background-color: {theme.top_panel_hover_item_bg}!important;
-                }}
-                .open .dropdown-menu > li a:focus {{
-                    background-color: {theme.top_panel_hover_item_bg}!important;
+                #odooMenuBarNav > div > div.o_sub_menu_content > ul > li > a:focus{{
+                    background-color: {theme.top_panel_hover_item_bg} !important;
                 }}
                 """
                 )
-            code = code.format(theme=r)
+            if self.top_panel_hover_subitem_bg_active:
+                code = (
+                    code
+                    + """#odooMenuBarNav > div > div.o_sub_menu_content > ul > li > ul > li > a:hover {{
+                    background: {theme.top_panel_hover_subitem_bg} !important;
+                }}
+                """
+                )
+            # Compatibility theme_kit and material backend theme modules
+            if self.left_panel_main_menu_active:
+                code = (
+                    code
+                    + """ul.oe_secondary_menu > li > a{{
+                    color: {theme.left_panel_main_menu}!important;
+                }}
+                """
+                )
+            # Compatibility theme_kit and material backend theme modules
+            if self.left_panel_sub_menu_active:
+                code = (
+                    code
+                    + """ul.oe_secondary_menu > li > ul > li.dropdown-header{{
+                    color: {theme.left_panel_sub_menu}!important;
+                }}
+                """
+                )
+            code = code.format(theme=r,)
             self.less = code
 
 
@@ -369,10 +473,62 @@ class ThemeLeftPanel(models.Model):
         default=False, help="Hover item Background color for Left Menu Bar"
     )
 
+    left_panel_right_border = fields.Char(
+        "Right border color", help="Right border color for Left Menu Bar"
+    )
+    left_panel_right_border_active = fields.Boolean(
+        default=False, help="Right border color for Left Menu Bar"
+    )
+
     less = fields.Text("less", help="technical computed field", compute="_compute_less")
+
+    backend_theme_installed = fields.Boolean(compute="_compute_backend_theme_installed")
+
+    def _compute_backend_theme_installed(self):
+        self.backend_theme_installed = (
+            True
+            if self.env["ir.module.module"]
+            .search([("name", "=", "backend_theme_v11")])
+            .state
+            == "installed"
+            else False
+        )
+
+    top_panel_font = fields.Char("Font color", help="Font color for Top Panel")
+    top_panel_font_active = fields.Boolean(
+        default=False, help="Font color for Top Panel"
+    )
+
+    # @api.multi
+    # def write(self, vals):
+    #     res = super(ThemeLeftPanel, self).write(vals)
+    #     if not vals.get("left_panel_bg_active", "Not found"):
+    #         self.left_panel_bg = ""
+    #     if not vals.get("left_panel_sub_menu_active", "Not found"):
+    #         self.left_panel_sub_menu = ""
+    #     if not vals.get("left_panel_main_menu_active", "Not found"):
+    #         self.left_panel_main_menu = ""
+    #     if not vals.get("left_panel_active_item_font_active", "Not found"):
+    #         self.left_panel_active_item_font = ""
+    #     if not vals.get("left_panel_active_item_bg_active", "Not found"):
+    #         self.left_panel_active_item_bg = ""
+    #     if not vals.get("left_panel_hover_item_font_active", "Not found"):
+    #         self.left_panel_hover_item_font = ""
+    #     if not vals.get("left_panel_hover_item_bg_active", "Not found"):
+    #         self.left_panel_hover_item_bg = ""
+    #     if not vals.get("left_panel_right_border_active", "Not found"):
+    #         self.left_panel_right_border = ""
 
     @api.multi
     def _compute_less(self):
+        self.backend_theme_installed = (
+            True
+            if self.env["ir.module.module"]
+            .search([("name", "=", "backend_theme_v11")])
+            .state
+            == "installed"
+            else False
+        )
         for r in self:
             # double {{ will be formated as single {
             code = ""
@@ -407,7 +563,15 @@ class ThemeLeftPanel(models.Model):
                 }}
                 """
                 )
-            if self.left_panel_main_menu_active:
+                # Compatibility theme_kit and material backend theme modules
+                code = (
+                    code
+                    + """.app-sidebar-panel {{
+                        background-color: {theme.left_panel_bg}!important
+                }}
+                """
+                )
+            if self.left_panel_main_menu_active and not self.backend_theme_installed:
                 code = (
                     code
                     + """.o_sub_menu .oe_secondary_menu_section{{
@@ -436,7 +600,7 @@ class ThemeLeftPanel(models.Model):
                 }}
                 """
                 )
-            if self.left_panel_sub_menu_active:
+            if self.left_panel_sub_menu_active and not self.backend_theme_installed:
                 code = (
                     code
                     + """.o_sub_menu .oe_secondary_submenu .oe_menu_text{{
@@ -454,56 +618,101 @@ class ThemeLeftPanel(models.Model):
                 """
                 )
             if self.left_panel_active_item_font_active:
-                code = (
-                    code
-                    + """.o_sub_menu .oe_secondary_submenu .active .oe_menu_text{{
-                    color: {theme.left_panel_active_item_font}!important;
-                }}
-                .o_sub_menu .oe_secondary_submenu a:focus .oe_menu_text{{
-                    color: {theme.left_panel_active_item_font}!important;
-                }}
-                .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item.o_active {{
-                    color: {theme.left_panel_active_item_font}!important;
-                }}
-                """
-                )
+                if not self.backend_theme_installed:
+                    code = (
+                        code
+                        + """.o_sub_menu .oe_secondary_submenu .active .oe_menu_text{{
+                        color: {theme.left_panel_active_item_font}!important;
+                    }}
+                    .o_sub_menu .oe_secondary_submenu a:focus .oe_menu_text{{
+                        color: {theme.left_panel_active_item_font}!important;
+                    }}
+                    .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item.o_active {{
+                        color: {theme.left_panel_active_item_font}!important;
+                    }}
+                    """
+                    )
+                else:
+                    # Compatibility theme_kit and material backend theme modules
+                    code = (
+                        code
+                        + """#sidebar > li > a.active{{
+                        color: {theme.left_panel_active_item_font}!important;
+                    }}
+                    """
+                    )
             if self.left_panel_active_item_bg_active:
                 code = (
                     code
-                    + """.o_sub_menu .oe_secondary_submenu .active a{{
+                    + """.o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item.o_active {{
                     background-color: {theme.left_panel_active_item_bg}!important;
                 }}
-                .o_sub_menu .oe_secondary_submenu a:focus{{
-                    background-color: {theme.left_panel_active_item_bg}!important;
-                }}
-                .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item.o_active {{
+                #sidebar > li > a.active{{
                     background-color: {theme.left_panel_active_item_bg}!important;
                 }}
                 """
                 )
             if self.left_panel_hover_item_font_active:
-                code = (
-                    code
-                    + """.o_sub_menu .oe_secondary_submenu a:hover .oe_menu_text{{
-                    color: {theme.left_panel_hover_item_font}!important;
-                }}
-                .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item:hover {{
-                    color: {theme.left_panel_hover_item_font}!important;
-                }}
-                """
-                )
+                if not self.backend_theme_installed:
+                    code = (
+                        code
+                        + """.o_sub_menu .oe_secondary_submenu a:hover .oe_menu_text{{
+                        color: {theme.left_panel_hover_item_font}!important;
+                    }}
+                    .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item:hover {{
+                        color: {theme.left_panel_hover_item_font}!important;
+                    }}
+                    """
+                    )
+                else:
+                    # Compatibility theme_kit and material backend theme modules
+                    code = (
+                        code
+                        + """a.nav-link:hover {{
+                        color: {theme.left_panel_hover_item_font}!important;
+                    }}
+                    """
+                    )
             if self.left_panel_hover_item_bg_active:
+                if not self.backend_theme_installed:
+                    code = (
+                        code
+                        + """.o_sub_menu .oe_secondary_submenu a:hover{{
+                        background-color: {theme.left_panel_hover_item_bg}!important;
+                    }}
+                    .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item:hover {{
+                        background-color: {theme.left_panel_hover_item_bg}!important;
+                    }}
+                    """
+                    )
+                else:
+                    # Compatibility theme_kit and material backend theme modules
+                    code = (
+                        code
+                        + """a.nav-link:hover {{
+                        background-color: {theme.left_panel_hover_item_bg}!important;
+                    }}
+                    """
+                    )
+            if self.left_panel_right_border_active:
                 code = (
                     code
-                    + """.o_sub_menu .oe_secondary_submenu a:hover{{
-                    background-color: {theme.left_panel_hover_item_bg}!important;
-                }}
-                .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item:hover {{
-                    background-color: {theme.left_panel_hover_item_bg}!important;
+                    + """#app-sidebar{{
+                    border: 1px solid {theme.left_panel_right_border};
+                    border-top: 0;
+                    border-bottom: 0;
+                    border-left: 0;
+                }}"""
+                )
+            if self.top_panel_font_active:
+                code = (
+                    code
+                    + """#sidebar > li > a{{
+                    color: {theme.top_panel_font}!important
                 }}
                 """
                 )
-            code = code.format(theme=r)
+            code = code.format(theme=r,)
             self.less = code
 
 
@@ -575,8 +784,69 @@ class ThemeContent(models.Model):
     content_footer_color_active = fields.Boolean(default=False, help="Footer color")
     less = fields.Text("less", help="technical computed field", compute="_compute_less")
 
+    content_required_field_back_color = fields.Char(
+        "Mandatory field background color", help="Mandatory field background color"
+    )
+    content_required_field_back_color_active = fields.Boolean(
+        default=False, help="Mandatory field background color"
+    )
+
+    backend_theme_installed = fields.Boolean(compute="_compute_backend_theme_installed")
+
+    def _compute_backend_theme_installed(self):
+        self.backend_theme_installed = (
+            True
+            if self.env["ir.module.module"]
+            .search([("name", "=", "backend_theme_v11")])
+            .state
+            == "installed"
+            else False
+        )
+
+    # @api.multi
+    # def write(self, vals):
+    #     res = super(ThemeContent, self).write(vals)
+    #     if not vals.get("content_bg_active", "Not found"):
+    #         self.content_bg = ""
+    #     if not vals.get("content_button_active", "Not found"):
+    #         self.content_button = ""
+    #     if not vals.get("content_form_active", "Not found"):
+    #         self.content_form = ""
+    #     if not vals.get("content_form_text_active", "Not found"):
+    #         self.content_form_text = ""
+    #     if not vals.get("content_form_title_active", "Not found"):
+    #         self.content_form_title = ""
+    #     if not vals.get("content_text_active", "Not found"):
+    #         self.content_text = ""
+    #     if not vals.get("content_form_link_active", "Not found"):
+    #         self.content_form_link = ""
+    #     if not vals.get("content_loader_active", "Not found"):
+    #         self.content_loader = ""
+    #     if not vals.get("content_loader_text_active", "Not found"):
+    #         self.content_loader_text = ""
+    #     if not vals.get("content_statusbar_bg_active", "Not found"):
+    #         self.content_statusbar_bg = ""
+    #     if not vals.get("content_statusbar_element_active", "Not found"):
+    #         self.content_statusbar_element = ""
+    #     if not vals.get("content_statusbar_font_color_active", "Not found"):
+    #         self.content_statusbar_font_color = ""
+    #     if not vals.get("content_main_menu_font_color_active", "Not found"):
+    #         self.content_main_menu_font_color = ""
+    #     if not vals.get("content_footer_color_active", "Not found"):
+    #         self.content_footer_color = ""
+    #     if not vals.get("content_required_field_back_color_active", "Not found"):
+    #         self.content_required_field_back_color = ""
+
     @api.multi
     def _compute_less(self):
+        self.backend_theme_installed = (
+            True
+            if self.env["ir.module.module"]
+            .search([("name", "=", "backend_theme_v11")])
+            .state
+            == "installed"
+            else False
+        )
         for r in self:
             code = ""
             if self.content_bg_active:
@@ -913,6 +1183,14 @@ class ThemeContent(models.Model):
                 }}
                 """
                 )
+            if self.content_required_field_back_color_active:
+                code = (
+                    code
+                    + """.o_field_char.o_field_widget.o_input.o_required_modifier{{
+                    background-color: {theme.content_required_field_back_color}!important
+                }}
+                """
+                )
 
-            code = code.format(theme=r)
+            code = code.format(theme=r,)
             self.less = code

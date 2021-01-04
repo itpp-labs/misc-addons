@@ -1,10 +1,10 @@
 # Copyright 2016 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2016,2018 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
-# License MIT (https://opensource.org/licenses/MIT).
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 import hashlib
 
-from odoo import api, fields, models
+from openerp import api, fields, models
 
 CUSTOM_CSS_ARCH = """<?xml version="1.0"?>
 <t t-name="theme_kit.custom_css">

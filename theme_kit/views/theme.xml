@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2016 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
      Copyright 2016 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
-     License MIT (https://opensource.org/licenses/MIT). -->
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). -->
 <odoo>
     <record id="theme_view_tree" model="ir.ui.view">
         <field name="name">theme_kit.theme.tree</field>
@@ -52,6 +52,7 @@
             <form string="Color scheme">
                 <sheet>
                     <div class="oe_title">
+                        <field name="backend_theme_installed" invisible="1" />
                         <label for="name" class="oe_edit_only" />
                         <h1>
                             <field name="name" />
@@ -87,7 +88,10 @@
                                     widget="color"
                                 />
                             </div>
-                            <div>
+                            <!-- Compatibility theme_kit and material backend theme modules -->
+                            <div
+                                attrs="{'invisible':[('backend_theme_installed', '=', True)]}"
+                            >
                                 <label for="top_panel_font" />
                                 <field
                                     name="top_panel_font_active"
@@ -130,6 +134,19 @@
                                 />
                             </div>
                             <div>
+                                <label for="top_panel_active_subitem_bg" />
+                                <field
+                                    name="top_panel_active_subitem_bg_active"
+                                    nolabel="1"
+                                    class="oe_inline"/>
+                                <field
+                                    name="top_panel_active_subitem_bg"
+                                    widget="color"
+                                    attrs="{'readonly':[('top_panel_active_subitem_bg_active','=',False)]}"
+                                    class="oe_inline"
+                                />
+                            </div>
+                            <div>
                                 <label for="top_panel_hover_item_font" />
                                 <field
                                     name="top_panel_hover_item_font_active"
@@ -157,6 +174,53 @@
                                     class="oe_inline"
                                 />
                             </div>
+                            <div>
+                                <label for="top_panel_hover_subitem_bg"/>
+                                <field
+                                    name="top_panel_hover_subitem_bg_active"
+                                    nolabel="1"
+                                    class="oe_inline"
+                                />
+                                <field
+                                    name="top_panel_hover_subitem_bg"
+                                    widget="color"
+                                    attrs="{'readonly':[('top_panel_hover_subitem_bg_active','=',False)]}"
+                                    class="oe_inline"
+                                />
+                            </div>
+                            <!-- Compatibility theme_kit and material backend theme modules -->
+                            <div
+                                attrs="{'invisible':[('backend_theme_installed', '=', False)]}"
+                            >
+                                <label for="left_panel_main_menu" />
+                                <field
+                                    name="left_panel_main_menu_active"
+                                    nolabel="1"
+                                    class="oe_inline"
+                                />
+                                <field
+                                    name="left_panel_main_menu"
+                                    class="oe_inline"
+                                    attrs="{'readonly':[('left_panel_main_menu_active','=',False)]}"
+                                    widget="color"
+                                />
+                            </div>
+                            <div
+                                attrs="{'invisible':[('backend_theme_installed', '=', False)]}"
+                            >
+                                <label for="left_panel_sub_menu" />
+                                <field
+                                    name="left_panel_sub_menu_active"
+                                    nolabel="1"
+                                    class="oe_inline"
+                                />
+                                <field
+                                    name="left_panel_sub_menu"
+                                    widget="color"
+                                    attrs="{'readonly':[('left_panel_sub_menu_active','=',False)]}"
+                                    class="oe_inline"
+                                />
+                            </div>
                         </group>
                     </group>
                 </sheet>
@@ -170,6 +234,7 @@
             <form string="Color scheme">
                 <sheet>
                     <div class="oe_title">
+                        <field name="backend_theme_installed" invisible="1" />
                         <label for="name" class="oe_edit_only" />
                         <h1>
                             <field name="name" />
@@ -191,7 +256,9 @@
                                     widget="color"
                                 />
                             </div>
-                            <div>
+                            <div
+                                attrs="{'invisible':[('backend_theme_installed', '=', True)]}"
+                            >
                                 <label for="left_panel_main_menu" />
                                 <field
                                     name="left_panel_main_menu_active"
@@ -205,7 +272,9 @@
                                     widget="color"
                                 />
                             </div>
-                            <div>
+                            <div
+                                attrs="{'invisible':[('backend_theme_installed', '=', True)]}"
+                            >
                                 <label for="left_panel_sub_menu" />
                                 <field
                                     name="left_panel_sub_menu_active"
@@ -272,6 +341,36 @@
                                     name="left_panel_hover_item_bg"
                                     widget="color"
                                     attrs="{'readonly':[('left_panel_hover_item_bg_active','=',False)]}"
+                                    class="oe_inline"
+                                />
+                            </div>
+                            <div>
+                                <label for="left_panel_right_border" />
+                                <field
+                                    name="left_panel_right_border_active"
+                                    nolabel="1"
+                                    class="oe_inline"
+                                />
+                                <field
+                                    name="left_panel_right_border"
+                                    widget="color"
+                                    attrs="{'readonly':[('left_panel_right_border_active','=',False)]}"
+                                    class="oe_inline"
+                                />
+                            </div>
+                            <div
+                                attrs="{'invisible':[('backend_theme_installed', '=', False)]}"
+                            >
+                                <label for="top_panel_font" />
+                                <field
+                                    name="top_panel_font_active"
+                                    nolabel="1"
+                                    class="oe_inline"
+                                />
+                                <field
+                                    name="top_panel_font"
+                                    widget="color"
+                                    attrs="{'readonly':[('top_panel_font_active','=',False)]}"
                                     class="oe_inline"
                                 />
                             </div>
@@ -488,6 +587,20 @@
                                     name="content_footer_color"
                                     widget="color"
                                     attrs="{'readonly':[('content_footer_color_active','=',False)]}"
+                                    class="oe_inline"
+                                />
+                            </div>
+                            <div>
+                                <label for="content_required_field_back_color" />
+                                <field
+                                    name="content_required_field_back_color_active"
+                                    nolabel="1"
+                                    class="oe_inline"
+                                />
+                                <field
+                                    name="content_required_field_back_color"
+                                    widget="color"
+                                    attrs="{'readonly':[('content_required_field_back_color_active','=',False)]}"
                                     class="oe_inline"
                                 />
                             </div>
