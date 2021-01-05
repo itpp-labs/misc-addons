@@ -12,6 +12,11 @@ that field, it pass url to client, instead of downloading binary from the
 storage to odoo server and then passing to client. This allows to reduce load on
 the server.
 
+Roadmap
+=======
+
+* we may need to remove ``_compute_raw`` overriding and always redirect user to the link, instead of downloading content to odoo server. If so, url-attachments created with this module must always have ``type="binary"``
+
 Questions?
 ==========
 
