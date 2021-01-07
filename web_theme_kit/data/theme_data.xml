@@ -26,7 +26,7 @@
         <field name="left_panel_bg_active">True</field>
         <field name="left_panel_font_color">#59291C</field>
         <field name="left_panel_font_color_active">True</field>
-        <field name="left_panel_menu"> #59291C</field>
+        <field name="left_panel_menu">#59291C</field>
         <field name="left_panel_menu_active">True</field>
         <field name="left_panel_active_item_font">#762823</field>
         <field name="left_panel_active_item_font_active">True</field>

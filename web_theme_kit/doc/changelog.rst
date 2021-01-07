@@ -1,3 +1,8 @@
+`1.1.3`
+-------
+
+- **Fix:**  remove unnecessary text in the interface
+
 `1.1.2`
 -------
 
