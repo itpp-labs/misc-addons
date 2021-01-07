@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_theme,access_theme,model_theme_kit_theme,base.group_system,1,1,1,1
-access_theme_kit_top_panel,access_theme_kit_top_panel,model_theme_kit_top_panel,base.group_system,1,1,1,1
-access_theme_kit_left_panel,access_theme_kit_left_panel,model_theme_kit_left_panel,base.group_system,1,1,1,1
-access_theme_kit_content,access_theme_kit_content,model_theme_kit_content,base.group_system,1,1,1,1
