@@ -9,3 +9,4 @@ addons:
 
   server_wide_modules:
     - web
+    - web_debranding
