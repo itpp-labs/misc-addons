@@ -5,9 +5,11 @@
 <odoo noupdate="1">
     <template id="web_theme_kit.custom_css">
         <style type="text/css">
-            </style>
+
+        </style>
         <script type="text/javascript">
-            </script>
+
+        </script>
     </template>
     <template id="webclient_script" inherit_id="web.webclient_bootstrap">
         <xpath expr="." position="inside">
@@ -15,5 +17,6 @@
         </xpath>
     </template>
     <template id="web_theme_kit.dummy">
-        </template>
+
+    </template>
 </odoo>
