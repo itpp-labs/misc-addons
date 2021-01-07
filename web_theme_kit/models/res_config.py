@@ -8,7 +8,6 @@ from odoo import api, fields, models
 
 CUSTOM_CSS_ARCH = """<?xml version="1.0"?>
 <t t-name="web_theme_kit.custom_css">
->>>>>>> :arrow_up::one::two: theme_kit:web_theme_kit/models/res_config.py
 %s
 </t>
 """
