@@ -3,6 +3,7 @@
 
 :heavy_check_mark: [ir_attachment_url](https://apps.odoo.com/apps/modules/14.0/ir_attachment_url/)
 <br/>:heavy_check_mark: [odoo_backup_sh](https://apps.odoo.com/apps/modules/14.0/odoo_backup_sh/)
+<br/>:heavy_check_mark: [web_debranding](https://apps.odoo.com/apps/modules/14.0/web_debranding/)
 
 Other Addons
 ============
