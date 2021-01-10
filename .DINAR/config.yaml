@@ -13,3 +13,4 @@ addons:
 repo_readme:
   addons:
     - web_debranding
+    - web_theme_kit
