@@ -1,14 +1,14 @@
 # see https://github.com/Tecnativa/doodba#optodoocustomsrcaddonsyaml
 ---
 ENV:
-  DEFAULT_REPO_PATTERN: https://github.com/it-projects-llc/{}.git
+  DEFAULT_REPO_PATTERN: https://github.com/itpp-labs/{}.git
 
 server-tools:
   - "*"
 
 ---
 ENV:
-  DEFAULT_REPO_PATTERN: https://github.com/it-projects-llc/{}.git
+  DEFAULT_REPO_PATTERN: https://github.com/itpp-labs/{}.git
 
 web:
   - "*"
@@ -22,35 +22,42 @@ website:
 
 ---
 ENV:
-  DEFAULT_REPO_PATTERN: https://github.com/it-projects-llc/{}.git
+  DEFAULT_REPO_PATTERN: https://github.com/itpp-labs/{}.git
 
 access-addons:
   - "*"
 
 ---
 ENV:
-  DEFAULT_REPO_PATTERN: https://github.com/it-projects-llc/{}.git
+  DEFAULT_REPO_PATTERN: https://github.com/itpp-labs/{}.git
 
 mail-addons:
   - "*"
 
 ---
 ENV:
-  DEFAULT_REPO_PATTERN: https://github.com/it-projects-llc/{}.git
+  DEFAULT_REPO_PATTERN: https://github.com/itpp-labs/{}.git
 
 website-addons:
   - "*"
 
 ---
 ENV:
-  DEFAULT_REPO_PATTERN: https://github.com/it-projects-llc/{}.git
+  DEFAULT_REPO_PATTERN: https://github.com/itpp-labs/{}.git
 
 l10n-addons:
   - "*"
 
 ---
 ENV:
-  DEFAULT_REPO_PATTERN: https://github.com/it-projects-llc/{}.git
+  DEFAULT_REPO_PATTERN: https://github.com/itpp-labs/{}.git
 
 hr:
   - "*"
+
+---
+ENV:
+  DEFAULT_REPO_PATTERN: https://github.com/straga/{}.git
+
+odoo_vik_main:
+  - "web_widget_colorpicker"
