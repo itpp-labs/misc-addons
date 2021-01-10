@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2016 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
      Copyright 2016 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
+     Copyright 2021 Denis Mudarisov <https://github.com/trojikman>
      License MIT (https://opensource.org/licenses/MIT). -->
 <odoo>
     <record id="theme_view_tree" model="ir.ui.view">
@@ -66,7 +67,7 @@
                                 />
                                 <field
                                     name="top_panel_bg"
-                                    widget="color"
+                                    widget="colorpicker"
                                     attrs="{'readonly':[('top_panel_bg_active','=',False)]}"
                                     class="oe_inline"
                                 />
@@ -82,7 +83,7 @@
                                     name="top_panel_border"
                                     class="oe_inline"
                                     attrs="{'readonly':[('top_panel_border_active','=',False)]}"
-                                    widget="color"
+                                    widget="colorpicker"
                                 />
                             </div>
                             <div>
@@ -94,7 +95,7 @@
                                 />
                                 <field
                                     name="top_panel_font"
-                                    widget="color"
+                                    widget="colorpicker"
                                     attrs="{'readonly':[('top_panel_font_active','=',False)]}"
                                     class="oe_inline"
                                 />
@@ -108,7 +109,7 @@
                                 />
                                 <field
                                     name="top_panel_active_item_font"
-                                    widget="color"
+                                    widget="colorpicker"
                                     attrs="{'readonly':[('top_panel_active_item_font_active','=',False)]}"
                                     class="oe_inline"
                                 />
@@ -122,7 +123,7 @@
                                 />
                                 <field
                                     name="top_panel_active_item_bg"
-                                    widget="color"
+                                    widget="colorpicker"
                                     attrs="{'readonly':[('top_panel_active_item_bg_active','=',False)]}"
                                     class="oe_inline"
                                 />
@@ -136,7 +137,7 @@
                                 />
                                 <field
                                     name="top_panel_hover_item_font"
-                                    widget="color"
+                                    widget="colorpicker"
                                     attrs="{'readonly':[('top_panel_hover_item_font_active','=',False)]}"
                                     class="oe_inline"
                                 />
@@ -150,7 +151,7 @@
                                 />
                                 <field
                                     name="top_panel_hover_item_bg"
-                                    widget="color"
+                                    widget="colorpicker"
                                     attrs="{'readonly':[('top_panel_hover_item_bg_active','=',False)]}"
                                     class="oe_inline"
                                 />
@@ -186,7 +187,7 @@
                                     name="left_panel_bg"
                                     class="oe_inline"
                                     attrs="{'readonly':[('left_panel_bg_active','=',False)]}"
-                                    widget="color"
+                                    widget="colorpicker"
                                 />
                             </div>
                             <div>
@@ -200,7 +201,7 @@
                                     name="left_panel_font_color"
                                     class="oe_inline"
                                     attrs="{'readonly':[('left_panel_font_color_active','=',False)]}"
-                                    widget="color"
+                                    widget="colorpicker"
                                 />
                             </div>
                             <div>
@@ -214,7 +215,7 @@
                                     name="left_panel_menu"
                                     class="oe_inline"
                                     attrs="{'readonly':[('left_panel_menu_active','=',False)]}"
-                                    widget="color"
+                                    widget="colorpicker"
                                 />
                             </div>
                             <div>
@@ -226,7 +227,7 @@
                                 />
                                 <field
                                     name="left_panel_active_item_font"
-                                    widget="color"
+                                    widget="colorpicker"
                                     attrs="{'readonly':[('left_panel_active_item_font_active','=',False)]}"
                                     class="oe_inline"
                                 />
@@ -240,7 +241,7 @@
                                 />
                                 <field
                                     name="left_panel_active_item_bg"
-                                    widget="color"
+                                    widget="colorpicker"
                                     attrs="{'readonly':[('left_panel_active_item_bg_active','=',False)]}"
                                     class="oe_inline"
                                 />
@@ -254,7 +255,7 @@
                                 />
                                 <field
                                     name="left_panel_hover_item_font"
-                                    widget="color"
+                                    widget="colorpicker"
                                     attrs="{'readonly':[('left_panel_hover_item_font_active','=',False)]}"
                                     class="oe_inline"
                                 />
@@ -268,7 +269,7 @@
                                 />
                                 <field
                                     name="left_panel_hover_item_bg"
-                                    widget="color"
+                                    widget="colorpicker"
                                     attrs="{'readonly':[('left_panel_hover_item_bg_active','=',False)]}"
                                     class="oe_inline"
                                 />
@@ -302,7 +303,7 @@
                                 />
                                 <field
                                     name="content_bg"
-                                    widget="color"
+                                    widget="colorpicker"
                                     attrs="{'readonly':[('content_bg_active','=',False)]}"
                                     class="oe_inline"
                                 />
@@ -316,7 +317,7 @@
                                 />
                                 <field
                                     name="content_button"
-                                    widget="color"
+                                    widget="colorpicker"
                                     attrs="{'readonly':[('content_button_active','=',False)]}"
                                     class="oe_inline"
                                 />
@@ -330,7 +331,7 @@
                                 />
                                 <field
                                     name="content_form"
-                                    widget="color"
+                                    widget="colorpicker"
                                     attrs="{'readonly':[('content_form_active','=',False)]}"
                                     class="oe_inline"
                                 />
@@ -344,7 +345,7 @@
                                 />
                                 <field
                                     name="content_form_text"
-                                    widget="color"
+                                    widget="colorpicker"
                                     attrs="{'readonly':[('content_form_text_active','=',False)]}"
                                     class="oe_inline"
                                 />
@@ -358,7 +359,7 @@
                                 />
                                 <field
                                     name="content_form_title"
-                                    widget="color"
+                                    widget="colorpicker"
                                     attrs="{'readonly':[('content_form_title_active','=',False)]}"
                                     class="oe_inline"
                                 />
@@ -372,7 +373,7 @@
                                 />
                                 <field
                                     name="content_text"
-                                    widget="color"
+                                    widget="colorpicker"
                                     attrs="{'readonly':[('content_text_active','=',False)]}"
                                     class="oe_inline"
                                 />
@@ -386,7 +387,7 @@
                                 />
                                 <field
                                     name="content_form_link"
-                                    widget="color"
+                                    widget="colorpicker"
                                     attrs="{'readonly':[('content_form_link_active','=',False)]}"
                                     class="oe_inline"
                                 />
@@ -400,7 +401,7 @@
                                 />
                                 <field
                                     name="content_loader"
-                                    widget="color"
+                                    widget="colorpicker"
                                     attrs="{'readonly':[('content_loader_active','=',False)]}"
                                     class="oe_inline"
                                 />
@@ -414,7 +415,7 @@
                                 />
                                 <field
                                     name="content_loader_text"
-                                    widget="color"
+                                    widget="colorpicker"
                                     attrs="{'readonly':[('content_loader_text_active','=',False)]}"
                                     class="oe_inline"
                                 />
@@ -428,7 +429,7 @@
                                 />
                                 <field
                                     name="content_statusbar_bg"
-                                    widget="color"
+                                    widget="colorpicker"
                                     attrs="{'readonly':[('content_statusbar_bg_active','=',False)]}"
                                     class="oe_inline"
                                 />
@@ -442,7 +443,7 @@
                                 />
                                 <field
                                     name="content_statusbar_element"
-                                    widget="color"
+                                    widget="colorpicker"
                                     attrs="{'readonly':[('content_statusbar_element_active','=',False)]}"
                                     class="oe_inline"
                                 />
@@ -456,7 +457,7 @@
                                 />
                                 <field
                                     name="content_statusbar_font_color"
-                                    widget="color"
+                                    widget="colorpicker"
                                     attrs="{'readonly':[('content_statusbar_font_color_active','=',False)]}"
                                     class="oe_inline"
                                 />
@@ -470,7 +471,7 @@
                                 />
                                 <field
                                     name="content_main_menu_font_color"
-                                    widget="color"
+                                    widget="colorpicker"
                                     attrs="{'readonly':[('content_main_menu_font_color_active','=',False)]}"
                                     class="oe_inline"
                                 />
@@ -484,7 +485,7 @@
                                 />
                                 <field
                                     name="content_footer_color"
-                                    widget="color"
+                                    widget="colorpicker"
                                     attrs="{'readonly':[('content_footer_color_active','=',False)]}"
                                     class="oe_inline"
                                 />

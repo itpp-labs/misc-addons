@@ -1,19 +1,20 @@
 # Copyright 2016 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2018 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
+# Copyright 2021 Denis Mudarisov <https://github.com/trojikman>
 # License MIT (https://opensource.org/licenses/MIT).
 {
     "name": """Brand kit""",
     "summary": """Brand your odoo instance in few clicks""",
     "category": "Debranding",
     "images": ["images/brandkit.png"],
-    "version": "12.0.1.1.3",
+    "version": "12.0.2.0.0",
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "website": "https://it-projects.info",
     "license": "Other OSI approved licence",  # MIT
     "price": 50.00,
     "currency": "EUR",
-    "depends": ["web_debranding", "web_login_background", "web_widget_color"],
+    "depends": ["web_debranding", "web_login_background", "web_widget_colorpicker"],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
         "security/ir.model.access.csv",
