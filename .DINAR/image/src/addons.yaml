@@ -54,3 +54,10 @@ ENV:
 
 hr:
   - "*"
+
+---
+ENV:
+  DEFAULT_REPO_PATTERN: https://github.com/straga/{}.git
+
+odoo_vik_main:
+  - "web_widget_colorpicker"
