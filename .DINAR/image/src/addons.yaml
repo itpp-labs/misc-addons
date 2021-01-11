@@ -1,23 +1,18 @@
 # see https://github.com/Tecnativa/doodba#optodoocustomsrcaddonsyaml
 ---
 ENV:
-  DEFAULT_REPO_PATTERN: https://github.com/itpp-labs/{}.git
+  DEFAULT_REPO_PATTERN: https://github.com/OCA/{}.git
 
-server-tools:
+website:
   - "*"
-
----
-ENV:
-  DEFAULT_REPO_PATTERN: https://github.com/itpp-labs/{}.git
 
 web:
   - "*"
 
----
-ENV:
-  DEFAULT_REPO_PATTERN: https://github.com/OCA/{}.git
+server-tools:
+  - "*"
 
-website:
+hr:
   - "*"
 
 ---
@@ -27,32 +22,13 @@ ENV:
 access-addons:
   - "*"
 
----
-ENV:
-  DEFAULT_REPO_PATTERN: https://github.com/itpp-labs/{}.git
-
 mail-addons:
   - "*"
-
----
-ENV:
-  DEFAULT_REPO_PATTERN: https://github.com/itpp-labs/{}.git
 
 website-addons:
   - "*"
 
----
-ENV:
-  DEFAULT_REPO_PATTERN: https://github.com/itpp-labs/{}.git
-
 l10n-addons:
-  - "*"
-
----
-ENV:
-  DEFAULT_REPO_PATTERN: https://github.com/itpp-labs/{}.git
-
-hr:
   - "*"
 
 ---
