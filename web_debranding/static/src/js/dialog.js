@@ -2,13 +2,13 @@
    Copyright 2015 igallyamov <https://github.com/igallyamov>
    Copyright 2017 Gabbasov Dinar <https://it-projects.info/team/GabbasovDinar>
    License MIT (https://opensource.org/licenses/MIT).*/
-odoo.define("web_debranding.dialog", function(require) {
+odoo.define("web_debranding.dialog", function (require) {
     "use strict";
     require("web_debranding.base");
 
     var Dialog = require("web.Dialog");
     Dialog.include({
-        init: function(parent, options) {
+        init: function (parent, options) {
             var debranding_new_name = odoo.debranding_new_name;
             var debranding_new_website = odoo.debranding_new_website;
             options = options || {};

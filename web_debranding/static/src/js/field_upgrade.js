@@ -3,13 +3,13 @@
     Copyright 2018-2019 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
     Copyright 2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
     License MIT (https://opensource.org/licenses/MIT). */
-odoo.define("web_debranding.field_upgrade", function(require) {
+odoo.define("web_debranding.field_upgrade", function (require) {
     "use strict";
 
     var FormRenderer = require("web.FormRenderer");
 
     FormRenderer.include({
-        _renderTagForm: function(node) {
+        _renderTagForm: function (node) {
             var $result = this._super(node);
 
             /*
@@ -33,12 +33,7 @@ odoo.define("web_debranding.field_upgrade", function(require) {
 */
             if (this.state && this.state.model === "res.config.settings") {
                 // Hide enterprise labels with related fields
-                $result
-                    .find(".o_enterprise_label")
-                    .parent()
-                    .parent()
-                    .parent()
-                    .hide();
+                $result.find(".o_enterprise_label").parent().parent().parent().hide();
             }
             return $result;
         },
