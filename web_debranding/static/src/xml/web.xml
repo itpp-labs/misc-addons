@@ -7,8 +7,10 @@
 <templates>
     <t t-extend="mail.client_action">
         <t t-jquery=".o_mail_request_permission" t-operation="inner">
-        Your permission is required to <a href="#"> enable desktop notifications</a>.
-      </t>
+            Your permission is required to
+            <a href="#">enable desktop notifications</a>
+            .
+        </t>
     </t>
     <t t-extend="AppSwitcher.Content">
         <t t-jquery=".o_application_switcher_footer" t-operation="replace">
@@ -22,19 +24,20 @@
         <t t-jquery="a[data-menu='support']" t-operation="replace" />
         <t t-jquery="a[data-menu='account']" t-operation="replace" />
         <t t-jquery="a[data-menu='settings']" t-operation="after">
-            <a
-                class="dropdown-item"
-                href="?debug"
-                data-menu="debug"
-                role="menuitem"
-            >Developer mode</a>
+            <a class="dropdown-item" href="?debug" data-menu="debug" role="menuitem">
+                Developer mode
+            </a>
             <a
                 class="dropdown-item"
                 href="?debug=assets"
                 data-menu="debugassets"
                 role="menuitem"
             >
-                <em>Developer mode<br /> (with assets)</em>
+                <em>
+                    Developer mode
+                    <br />
+                    (with assets)
+                </em>
             </a>
         </t>
         <!-- It leads to warning in Odoo EE in browser console, because such selector doesn't exist there -->
