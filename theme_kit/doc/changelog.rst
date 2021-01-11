@@ -1,3 +1,8 @@
+`2.0.0`
+-------
+
+- **New:** replacement of the dependency responsible for the choice of color
+
 `1.0.2`
 -------
 
