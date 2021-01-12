@@ -6,10 +6,8 @@
     "version": "14.0.3.0.0",
     "application": False,
     "author": "IT-Projects LLC, Ildar Nasyrov",
-    "website": "https://it-projects.info",
+    "website": "https://twitter.com/OdooFree",
     "license": "Other OSI approved licence",  # MIT
-    "price": 200.00,
-    "currency": "EUR",
     "depends": ["base_setup", "ir_attachment_url"],
     "external_dependencies": {"python": ["boto3"], "bin": []},
     "data": ["data/ir_attachment_s3_data.xml", "views/res_config_settings_views.xml"],

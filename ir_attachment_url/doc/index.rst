@@ -27,6 +27,6 @@ ir_attachment_url_fields context
 
 In order to store urls instead of binary data in binary fields, you can use ``ir_attachment_url_fields`` context.
 For example, you need to create ``ir.ui.menu`` record which has ``web_icon_data`` fields, defined as `Binary field <https://github.com/odoo/odoo/blob/b29ac84fd55923abf582cdee39cb32bacda3eec9/odoo/addons/base/models/ir_ui_menu.py#L45>`__.
-To store url to ``web_icon_data`` field you need to define context ``ir_attachment_url_fields=ir.ui.menu.web_icon_data`` and set value of the field. See `test cases <../tests/test_attachment_fields.py>`__ as detailed examples.
+To store url to ``web_icon_data`` field you need to define context ``ir_attachment_url_fields="ir.ui.menu.web_icon_data"`` and set value of the field. See `test cases <../tests/test_attachment_fields.py>`__ as detailed examples.
 
-In order to store multiple fields as urls, define context like this ``ir_attachment_url_fields=model.name.field1,another.model.name,field2``.
+In order to store multiple fields as urls, define context like this ``ir_attachment_url_fields="model.name.field1,another.model.name.field2"``.
