@@ -24,7 +24,7 @@
         <field name="name">Burger King</field>
         <field name="left_panel_bg">#ED7902</field>
         <field name="left_panel_bg_active">True</field>
-        <field name="left_panel_main_menu"> #59291C</field>
+        <field name="left_panel_main_menu">#59291C</field>
         <field name="left_panel_main_menu_active">True</field>
         <field name="left_panel_sub_menu">#FFFFFF</field>
         <field name="left_panel_sub_menu_active">True</field>
