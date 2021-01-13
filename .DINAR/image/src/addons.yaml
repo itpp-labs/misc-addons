@@ -15,9 +15,6 @@ server-tools:
 project:
   - "*"
 
-partner:
-  - "*"
-
 hr:
   - "*"
 
