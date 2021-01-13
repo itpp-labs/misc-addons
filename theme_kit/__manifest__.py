@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2018 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
 # Copyright 2021 Denis Mudarisov <https://github.com/trojikman>
