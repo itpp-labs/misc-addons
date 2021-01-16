@@ -242,8 +242,12 @@ class ThemeTopPanel(models.Model):
                 code = (
                     code
                     + """.navbar-nav .active a{{
-                    background-color: {theme.top_panel_active_item_bg}!important;
-                }}"""
+                        background-color: {theme.top_panel_active_item_bg}!important;
+                    }}
+                    .o_dashboards .o_website_dashboard .o_dashboard_common .o_inner_box.o_primary {{
+                        background-color: {theme.top_panel_active_item_bg}!important;
+                    }}
+                    """
                 )
             if self.top_panel_hover_item_font_active:
                 code = (
@@ -306,6 +310,9 @@ class ThemeTopPanel(models.Model):
                 }}
                 .open .dropdown-menu > li a:focus {{
                     background-color: {theme.top_panel_hover_item_bg}!important;
+                }}
+                .o_dashboards .o_website_dashboard .o_dashboard_common .o_inner_box.o_primary {{
+                    background-color: {theme.top_panel_hover_item_bg};
                 }}
                 """
                 )
