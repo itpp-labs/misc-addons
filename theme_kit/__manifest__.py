@@ -7,14 +7,14 @@
     "summary": """Brand your odoo instance in few clicks""",
     "category": "Debranding",
     "images": ["images/brandkit.png"],
-    "version": "11.0.2.0.0",
+    "version": "11.0.2.0.1",
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "website": "https://odoo-debranding.com",
     "license": "Other OSI approved licence",  # MIT
     "price": 50.00,
     "currency": "EUR",
-    "depends": ["web_debranding", "web_login_background", "web_widget_color"],
+    "depends": ["web_debranding", "web_login_background", "web_widget_colorpicker"],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
         "security/ir.model.access.csv",
