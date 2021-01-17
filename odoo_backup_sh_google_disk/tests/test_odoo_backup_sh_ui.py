@@ -17,7 +17,7 @@ class TestUi(BaseTestUi):
         self.env["ir.module.module"].search(
             [("name", "=", "odoo_backup_sh_google_disk")], limit=1
         ).state = "installed"
-        self.phantom_js(
+        self.browser_js(
             "/web",
             "odoo.__DEBUG__.services['web_tour.tour'].run('odoo_backup_sh_tour')",
             "odoo.__DEBUG__.services['web_tour.tour'].tours.odoo_backup_sh_tour.ready",
