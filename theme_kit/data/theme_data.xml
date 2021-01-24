@@ -117,7 +117,7 @@
         <field name="top_panel_id" ref="you_tube_top_panel" />
         <field name="left_panel_id" ref="you_tube_left_panel" />
         <field name="content_id" ref="you_tube_content" />
-        <field name="custom_css">.o_input, .btn {border-radius: 0;}</field>
+        <field name="custom_css">.o_web_client { .o_input, .btn {border-radius: 0;} .o_list_view thead {color: #222222;} }</field>
     </record>
     <!--Template Coca-Cola-->
     <record model="theme_kit.top_panel" id="cola_top_panel">
