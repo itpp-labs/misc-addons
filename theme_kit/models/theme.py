@@ -779,7 +779,7 @@ class ThemeContent(models.Model):
                 .o_control_panel .breadcrumb > li > a {{
                     color: {theme.content_form_link};
                 }}
-                .o_control_panel .dropdown-toggle {{
+                .o_control_panel .dropdown-toggle:not(.btn-primary) {{
                     color: {theme.content_form_link};
                 }}
                 .o_control_panel .o_cp_right, .o_control_panel .o_pager_previous, .o_control_panel .o_pager_next {{
