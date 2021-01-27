@@ -200,7 +200,7 @@ class ThemeTopPanel(models.Model):
                 .o_main_navbar .o_menu_brand {{
                     color: {theme.top_panel_font}!important;
                 }}
-                .open .dropdown-menu > li a span {{
+                .open .dropdown-menu > li:not(.active) a span {{
                     color: {theme.top_panel_font}!important;
                 }}
                 .open .dropdown-menu > li.dropdown-header {{
