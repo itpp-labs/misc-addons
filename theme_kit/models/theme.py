@@ -252,6 +252,17 @@ class ThemeTopPanel(models.Model):
                     .o_dashboards .o_website_dashboard .o_dashboard_common .o_inner_box.o_apps {{
                         background-color: {theme.top_panel_active_item_bg}!important;
                     }}
+                    .o_chat_window .o_chat_header {{
+                        background-color: {theme.top_panel_active_item_bg}!important;
+                    }}
+                    .o_mail_navbar_item .o_mail_navbar_dropdown .o_mail_navbar_dropdown_top .o_filter_button:hover, 
+                    .o_mail_navbar_item .o_mail_navbar_dropdown .o_mail_navbar_dropdown_top .o_filter_button.active {{
+                        color: {theme.top_panel_active_item_bg}!important;
+                    }}
+                    .o_mail_navbar_item .o_mail_navbar_dropdown .o_mail_navbar_dropdown_top .o_filter_button, 
+                    .o_mail_navbar_item .o_mail_navbar_dropdown .o_mail_navbar_dropdown_top .o_new_message {{
+                        color: {theme.top_panel_active_item_bg}!important;
+                    }}
                     """
                 )
             if self.top_panel_hover_item_font_active:
@@ -671,7 +682,6 @@ class ThemeContent(models.Model):
                 .o_application_switcher .o_app:hover{{
                     background-color: darken({theme.content_bg}, 1%) !important;
                 }}
-                
                 """
                 )
 
@@ -779,7 +789,7 @@ class ThemeContent(models.Model):
                 .o_control_panel .breadcrumb > li > a {{
                     color: {theme.content_form_link};
                 }}
-                .o_control_panel .dropdown-toggle:not(.btn-primary) {{
+                .o_control_panel .dropdown-toggle:not(.btn) {{
                     color: {theme.content_form_link};
                 }}
                 .o_control_panel .o_cp_right, .o_control_panel .o_pager_previous, .o_control_panel .o_pager_next {{
@@ -808,11 +818,23 @@ class ThemeContent(models.Model):
                 .o_main .e_tag {{
                     border: 1px solid {theme.content_button} !important;
                 }}
+                .o_form_view .oe_link, .o_field_widget.o_field_many2one .o_external_button {{
+                    color: {theme.content_button} !important;
+                }}
                 .o_searchview_facet_label {{
                     background-color: {theme.content_button} !important;
                 }}
                 .o_searchview .o_searchview_facet .o_facet_remove {{
                     color: {theme.content_button} !important;
+                }}
+                .o_searchview .o_searchview_autocomplete li.o-selection-focus {{
+                    color: {theme.content_button} !important;
+                }}
+                .o_searchview .o_searchview_autocomplete li.o-selection-focus {{
+                    background-color: {theme.content_button};
+                }}
+                .tooltip .tooltip-inner .oe_tooltip_string {{
+                    background-color: {theme.content_button};
                 }}
                 .o_tooltip {{
                     background-color: {theme.content_button};
@@ -833,6 +855,9 @@ class ThemeContent(models.Model):
                 .o_tooltip::after {{
                     border-color: {theme.content_button};
                     background: radial-gradient(lighten({theme.content_button}, 5%), {theme.content_button});
+                }}
+                .o_field_widget.o_field_image .o_form_image_controls {{
+                    background-color: {theme.content_button};
                 }}
                 """
                 )
