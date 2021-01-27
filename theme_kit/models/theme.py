@@ -154,7 +154,7 @@ class ThemeTopPanel(models.Model):
                     background-color: darken({theme.top_panel_bg}, 15%) !important;
                 }}
                 .o_form_view .o_form_statusbar {{
-                     background-color: transparent;
+                    background-color: transparent;
                 }}
                 """
                 )
@@ -231,6 +231,9 @@ class ThemeTopPanel(models.Model):
                 .datepicker .table-condensed > thead {{
                     color: {theme.top_panel_font}!important;
                 }}
+                .navbar-inverse .navbar-toggle {{
+                    background-color: {theme.top_panel_font};
+                }}
                 """
                 )
             if self.top_panel_active_item_font_active:
@@ -262,6 +265,12 @@ class ThemeTopPanel(models.Model):
                     .o_mail_navbar_item .o_mail_navbar_dropdown .o_mail_navbar_dropdown_top .o_filter_button, 
                     .o_mail_navbar_item .o_mail_navbar_dropdown .o_mail_navbar_dropdown_top .o_new_message {{
                         color: {theme.top_panel_active_item_bg}!important;
+                    }}
+                    a {{
+                        color: {theme.top_panel_active_item_bg};
+                    }}
+                    a:hover, a:focus {{
+                        color: lighten({theme.top_panel_active_item_bg}, 10%);
                     }}
                     """
                 )
@@ -724,7 +733,6 @@ class ThemeContent(models.Model):
                 .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table .ui-state-active:hover {{
                     background-color: darken({theme.content_form},15%) !important;
                 }}
-
                 .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table td a:hover {{
                     background-color: darken({theme.content_form}, 25%);
                 }}
@@ -766,9 +774,6 @@ class ThemeContent(models.Model):
                 .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table .ui-state-default {{
                     color: {theme.content_form_text};
                 }}
-                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table .ui-state-active {{
-                    color: lighten({theme.content_form_text}, 30%)!important;
-                }}
                 .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table thead {{
                     color: {theme.content_form_text};
                 }}
@@ -783,7 +788,8 @@ class ThemeContent(models.Model):
             if self.content_form_link_active:
                 code = (
                     code
-                    + """ .o_main_content a:not(.btn-primary) {{
+                    + """ .o_main_content a:not(.btn-primary),
+                    .o_form_view .o_form_uri:first-line {{
                     color: {theme.content_form_link};
                 }}
                 .o_control_panel .breadcrumb > li > a {{
@@ -833,8 +839,43 @@ class ThemeContent(models.Model):
                 .o_searchview .o_searchview_autocomplete li.o-selection-focus {{
                     background-color: {theme.content_button};
                 }}
+                .ui-autocomplete .ui-menu-item.ui-state-focus,
                 .tooltip .tooltip-inner .oe_tooltip_string {{
                     background-color: {theme.content_button};
+                }}
+                .ui-autocomplete .ui-menu-item.o_m2o_dropdown_option > a,
+                .o_form_view .oe_button_box .oe_stat_button .o_button_icon,
+                .o_form_view .oe_button_box .oe_stat_button .o_stat_info .o_stat_value, 
+                .o_form_view .oe_button_box .oe_stat_button > span .o_stat_value,
+                .o_web_settings_dashboard .o_web_settings_dashboard_col .o_web_settings_dashboard_planner .o_web_settings_dashboard_progress_title,
+                .btn-link {{
+                    color: {theme.content_button};
+                }}
+                .datepicker .table-condensed > tbody > tr > td.active, .datepicker .table-condensed > tbody > tr > td .active,
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table .ui-state-active {{
+                    background-color: {theme.content_button};
+                    color: white;
+                }}
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table .ui-state-default:hover {{
+                    background-color: lighten({theme.content_button}, 15%);
+                    border-color: lighten({theme.content_button}, 15%);
+                }}
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table .o_selected_range.o_color {{
+                    background-color: lighten({theme.content_button}, 15%);
+                    animation: backgroundfade 3s forwards;
+                }}
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table {{
+                    .ui-state-default.ui-state-hover.o_selected_range.o_color {{
+                        color: black;
+                    }}
+                }}
+                .bootstrap-datetimepicker-widget table td.today:before,
+                .datepicker .table-condensed > tbody > tr > td.today:before {{
+                    border-bottom-color: {theme.content_button};
+                }}
+                .btn-link:hover, .btn-link:focus,
+                .o_form_view .o_form_uri:hover:first-line {{
+                     color: lighten({theme.content_button}, 10%);
                 }}
                 .o_tooltip {{
                     background-color: {theme.content_button};
@@ -859,6 +900,7 @@ class ThemeContent(models.Model):
                 .o_field_widget.o_field_image .o_form_image_controls {{
                     background-color: {theme.content_button};
                 }}
+
                 """
                 )
             if self.content_text_active:
