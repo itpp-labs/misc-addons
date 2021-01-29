@@ -1,4 +1,4 @@
-odoo.define("project_timelog.timelog", function(require) {
+odoo.define("project_timelog.timelog", function (require) {
     "use strict";
     var session = require("web.session");
     var Widget = require("web.Widget");
@@ -10,7 +10,7 @@ odoo.define("project_timelog.timelog", function(require) {
     var Menu = require("web.Menu");
 
     Menu.include({
-        start: function() {
+        start: function () {
             var res = this._super();
             this.timelog_widget = new TimeLog.Widget(this);
             return res;
@@ -18,7 +18,7 @@ odoo.define("project_timelog.timelog", function(require) {
     });
 
     TimeLog.Manager = Widget.extend(ServiceProviderMixin, {
-        init: function(widget) {
+        init: function (widget) {
             this._super();
             this.bus = ServiceProviderMixin.services.bus_service;
             this.bus._isActive = null;
@@ -36,14 +36,14 @@ odoo.define("project_timelog.timelog", function(require) {
             this.stopline_audio_stop = true;
             this.widget = widget;
         },
-        on_notification: function(notification) {
+        on_notification: function (notification) {
             for (var i = 0; i < notification.length; i++) {
                 var channel = notification[i][0];
                 var message = notification[i][1];
                 this.on_notification_do(channel, message);
             }
         },
-        on_notification_do: function(channel, message) {
+        on_notification_do: function (channel, message) {
             var current_channel = channel;
             if (_.isString(current_channel)) {
                 current_channel = JSON.parse(current_channel);
@@ -59,7 +59,7 @@ odoo.define("project_timelog.timelog", function(require) {
                 }
             }
         },
-        received_message: function(message) {
+        received_message: function (message) {
             if (message.status === "play") {
                 if (message.active_work_id === this.widget.config.work_id) {
                     this.widget.start_timer();
@@ -89,7 +89,7 @@ odoo.define("project_timelog.timelog", function(require) {
                 this.check_stopline(message);
             }
         },
-        check_stopline: function(message) {
+        check_stopline: function (message) {
             var now = new Date();
             var year = now.getFullYear();
             var month = now.getMonth();
@@ -113,7 +113,7 @@ odoo.define("project_timelog.timelog", function(require) {
     });
 
     TimeLog.Widget = Widget.extend(ServiceProviderMixin, {
-        init: function(parent) {
+        init: function (parent) {
             this._super(parent);
             var self = this;
 
@@ -134,16 +134,16 @@ odoo.define("project_timelog.timelog", function(require) {
 
             // Check connection with server
             window.Offline.options = {checks: {xhr: {url: "/timelog/connection"}}};
-            window.Offline.on("up", function() {
+            window.Offline.on("up", function () {
                 self.ClientOnLine();
             });
-            window.Offline.on("down", function() {
+            window.Offline.on("down", function () {
                 self.ClientOffLine();
             });
             this.c_manager = new TimeLog.Manager(this);
             this.load_timer_data();
         },
-        ClientOffLine: function() {
+        ClientOffLine: function () {
             if (this.status === "running" && window.Audio) {
                 this.error.play();
             }
@@ -151,12 +151,12 @@ odoo.define("project_timelog.timelog", function(require) {
             this.stop_timer();
             this.show_warn_message(_t("No internet connection"));
         },
-        ClientOnLine: function() {
+        ClientOnLine: function () {
             this.change_audio("online");
             this.load_timer_data();
             this.show_notify_message(_t("You are online"));
         },
-        change_audio: function(name) {
+        change_audio: function (name) {
             if (window.Audio) {
                 this.audio.src =
                     session.url(
@@ -165,10 +165,10 @@ odoo.define("project_timelog.timelog", function(require) {
                 this.audio.play();
             }
         },
-        load_timer_data: function() {
+        load_timer_data: function () {
             var self = this;
             this.activate_click();
-            session.rpc("/timelog/init").then(function(data) {
+            session.rpc("/timelog/init").then(function (data) {
                 self.config = data;
                 self.times = [
                     data.init_log_timer,
@@ -193,29 +193,29 @@ odoo.define("project_timelog.timelog", function(require) {
                 }
             });
         },
-        activate_click: function() {
+        activate_click: function () {
             if (this.buttons_activated) {
                 return;
             }
             var self = this;
-            $("#clock0").click(function() {
+            $("#clock0").click(function () {
                 self.timer_pause();
             });
 
-            $("#clock1").click(function(event) {
+            $("#clock1").click(function (event) {
                 self.go_to(event, "task");
             });
 
-            $("#clock2").click(function(event) {
+            $("#clock2").click(function (event) {
                 self.go_to(event, "day");
             });
 
-            $("#clock3").click(function(event) {
+            $("#clock3").click(function (event) {
                 self.go_to(event, "week");
             });
             this.buttons_activated = true;
         },
-        add_favicon: function() {
+        add_favicon: function () {
             if (this.status === "stopped") {
                 $('link[type="image/x-icon"]').attr(
                     "href",
@@ -228,7 +228,7 @@ odoo.define("project_timelog.timelog", function(require) {
                 );
             }
         },
-        updateView: function() {
+        updateView: function () {
             if (!$("#timelog_timer").length) {
                 return false;
             }
@@ -236,7 +236,7 @@ odoo.define("project_timelog.timelog", function(require) {
                 this.updateClock(i, this.times[i]);
             }
         },
-        updateClock: function(id, time) {
+        updateClock: function (id, time) {
             var element = document.getElementById("clock" + id);
             var formattedTime = this.formatTime(id, time);
             element.innerHTML = formattedTime;
@@ -253,7 +253,7 @@ odoo.define("project_timelog.timelog", function(require) {
                 return false;
             }
         },
-        update_first_timer: function() {
+        update_first_timer: function () {
             var color = false;
             if (this.times[0] === this.config.time_warning_subtasks) {
                 color = "orange";
@@ -277,7 +277,7 @@ odoo.define("project_timelog.timelog", function(require) {
             }
             $("#clock0").css("color", color);
         },
-        update_second_timer: function() {
+        update_second_timer: function () {
             if (this.config.planned_hours === 0) {
                 return false;
             }
@@ -289,7 +289,7 @@ odoo.define("project_timelog.timelog", function(require) {
                 this.addClass(1, "expired");
             }
         },
-        update_third_timer: function() {
+        update_third_timer: function () {
             if (this.times[2] >= this.config.normal_time_day) {
                 $("#clock2").css("color", "yellow");
             }
@@ -297,7 +297,7 @@ odoo.define("project_timelog.timelog", function(require) {
                 $("#clock2").css("color", "#00f900");
             }
         },
-        update_fourth_timer: function() {
+        update_fourth_timer: function () {
             if (this.times[3] === this.config.normal_time_week) {
                 $("#clock3").css("color", "#00f900");
                 this.change_audio(2);
@@ -311,7 +311,7 @@ odoo.define("project_timelog.timelog", function(require) {
                 $("#clock3").css("color", "rgb(0, 144, 249)");
             }
         },
-        timerTimeLimited: function() {
+        timerTimeLimited: function () {
             var self = this;
             if (this.finish_status) {
                 return false;
@@ -320,7 +320,7 @@ odoo.define("project_timelog.timelog", function(require) {
                 model: "account.analytic.line",
                 method: "stop_timer",
                 args: [this.config.work_id, true, false],
-            }).then(function() {
+            }).then(function () {
                 self.finish_status = true;
                 var element = document.getElementById("clock0");
                 self.startAnim(element, 500, 10 * 500);
@@ -340,7 +340,7 @@ odoo.define("project_timelog.timelog", function(require) {
                 self.stop_timer();
             });
         },
-        addClass: function(id, className) {
+        addClass: function (id, className) {
             var clockClass = "#clock" + id;
             var element = $(clockClass + " " + className);
             if (element.length) {
@@ -348,11 +348,11 @@ odoo.define("project_timelog.timelog", function(require) {
             }
             $(clockClass).addClass(className);
         },
-        removeClass: function(id, className) {
+        removeClass: function (id, className) {
             var clockClass = "#clock" + id;
             $(clockClass).removeClass(className);
         },
-        formatTime: function(id, time) {
+        formatTime: function (id, time) {
             var minutes = Math.floor(time / 60);
             var seconds = Math.floor(time % 60);
             var hours = Math.floor(minutes / 60);
@@ -378,19 +378,19 @@ odoo.define("project_timelog.timelog", function(require) {
             }
             return result;
         },
-        setIntervalTimer: function() {
+        setIntervalTimer: function () {
             var self = this;
-            this.timer = window.setInterval(function() {
+            this.timer = window.setInterval(function () {
                 self.countDownTimer();
             }, 1000);
         },
-        countDownTimer: function() {
+        countDownTimer: function () {
             for (var i = 0; i < 4; i++) {
                 this.times[i]++;
                 this.updateClock(i, this.times[i]);
             }
         },
-        start_timer: function() {
+        start_timer: function () {
             if (
                 this.config.status === "running" ||
                 this.config.time_subtasks <= this.times[0] ||
@@ -405,7 +405,7 @@ odoo.define("project_timelog.timelog", function(require) {
                 this.addClass(i, "running");
             }
         },
-        stop_timer: function() {
+        stop_timer: function () {
             if (this.status === "stopped" && this.end_datetime_status) {
                 return false;
             }
@@ -416,25 +416,25 @@ odoo.define("project_timelog.timelog", function(require) {
             }
             clearTimeout(this.timer);
         },
-        startAnim: function(element, interval, time) {
+        startAnim: function (element, interval, time) {
             var self = this;
             self.change_audio("stop");
-            element.animTimer = setInterval(function() {
+            element.animTimer = setInterval(function () {
                 if (element.style.display === "none") {
                     element.style.display = "";
                 } else {
                     element.style.display = "none";
                 }
             }, interval);
-            setTimeout(function() {
+            setTimeout(function () {
                 self.stopAnim(element);
             }, time);
         },
-        stopAnim: function(element) {
+        stopAnim: function (element) {
             clearInterval(element.animTimer);
             element.style.display = "";
         },
-        add_title: function(timer_name, task_name, description) {
+        add_title: function (timer_name, task_name, description) {
             var tws = this.formatTime(1, this.config.time_warning_subtasks).split(":");
             var ts = this.formatTime(1, this.config.time_subtasks).split(":");
             var ntd = this.formatTime(1, this.config.normal_time_day).split(":");
@@ -521,7 +521,7 @@ odoo.define("project_timelog.timelog", function(require) {
                     " minutes;\n\nClick to open logs of the week."
             );
         },
-        timer_pause: function() {
+        timer_pause: function () {
             if (this.finish_status) {
                 return false;
             }
@@ -535,7 +535,7 @@ odoo.define("project_timelog.timelog", function(require) {
                 model: "account.analytic.line",
                 method: action,
                 args: [this.config.work_id],
-            }).then(function() {
+            }).then(function () {
                 if (action === "stop_timer") {
                     $("#clock0").css("color", "rgb(197, 197, 197)");
                 } else if (action === "play_timer") {
@@ -543,7 +543,7 @@ odoo.define("project_timelog.timelog", function(require) {
                 }
             });
         },
-        go_to: function(event, status) {
+        go_to: function (event, status) {
             var id = this.config.task_id;
             var action = false;
             var context = false;
@@ -596,10 +596,10 @@ odoo.define("project_timelog.timelog", function(require) {
             }
             this.do_action(action);
         },
-        show_notify_message: function(message) {
+        show_notify_message: function (message) {
             this.do_notify(_t("Notification"), message, false);
         },
-        show_warn_message: function(message) {
+        show_warn_message: function (message) {
             this.do_warn(_t("Warning"), message, false);
         },
     });
