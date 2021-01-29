@@ -147,9 +147,9 @@ class Task(models.Model):
             if task.datetime_stopline is False:
                 return False
             if task.datetime_stopline <= datetime.datetime.today():
-                u.active_work_id.sudo(u).stop_timer(play_a_sound=False, stopline=True)
+                u.active_work_id.with_user(u).stop_timer(play_a_sound=False, stopline=True)
                 if u.active_work_id.status != "nonactive":
-                    u.active_work_id.sudo(u).write({"status": "nonactive"})
+                    u.active_work_id.with_user(u).write({"status": "nonactive"})
             else:
                 warning_time = task.datetime_stopline - datetime.timedelta(minutes=20)
                 notifications = []
@@ -177,7 +177,7 @@ class Task(models.Model):
                     return False
 
                 # stop current timer
-                w.sudo(w.user_id).stop_timer()
+                w.with_user(w.user_id).stop_timer()
 
                 if not r.stage_id.allow_log_time:
                     continue
@@ -236,7 +236,7 @@ class Task(models.Model):
                     new_work = r.env["account.analytic.line"].sudo().create(vals)
 
                 # run exist timer
-                new_work.sudo(w.user_id).play_timer()
+                new_work.with_user(w.user_id).play_timer()
 
 
 class Users(models.Model):
@@ -272,7 +272,7 @@ class Users(models.Model):
     def check_stop_timer(self):
         status = self.env["res.users"].search([("im_status", "=", "offline")])
         for r in status:
-            r.active_work_id.sudo(r).stop_timer(play_a_sound=False)
+            r.active_work_id.with_user(r).stop_timer(play_a_sound=False)
         user = self.search([("active_work_id.status", "=", "play")])
         time_subtask = int(
             round(
@@ -294,7 +294,7 @@ class Users(models.Model):
                 sum_time = sum_time + (date_end_object - date_start_object)
             sum_time = int(round(sum_time.total_seconds(), 0))
             if sum_time >= time_subtask:
-                u.active_work_id.sudo(u).stop_timer(play_a_sound=False)
+                u.active_work_id.with_user(u).stop_timer(play_a_sound=False)
         return True
 
 
@@ -548,5 +548,5 @@ class AccountAnalyticLine(models.Model):
             [("status", "!=", "nonactive")]
         )
         for e in status:
-            e.sudo(e.user_id).write({"status": "nonactive"})
+            e.with_user(e.user_id).write({"status": "nonactive"})
         return True
