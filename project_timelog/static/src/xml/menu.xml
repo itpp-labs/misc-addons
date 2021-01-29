@@ -10,12 +10,16 @@
     <t t-name="timelog.timer">
         <li class="timelog" id="timelog_timer">
             <div id="clock0" class="clock">
+
             </div>
             <div id="clock1" class="clock">
+
             </div>
             <div id="clock2" class="clock">
+
             </div>
             <div id="clock3" class="clock">
+
             </div>
         </li>
     </t>

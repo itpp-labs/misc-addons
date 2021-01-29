@@ -327,12 +327,13 @@
         <field name="view_id" ref="project_timelog.view_my_timelog" />
         <field name="view_mode">tree,form,calendar,graph</field>
         <field name="domain">[('user_id', '=', uid)]</field>
-        <field name="context">{
+        <field name="context">
+            {
                 'search_default_today': 1,
                 'search_default_group_tasks': 1,
                 'search_default_group_subtasks': 1,
                 }
-            </field>
+        </field>
     </record>
     <record id="action_timelog" model="ir.actions.act_window">
         <field name="name">Timelog</field>
@@ -340,12 +341,13 @@
         <field name="res_model">project.timelog</field>
         <field name="view_id" ref="project_timelog.view_timelog" />
         <field name="view_mode">tree,form,calendar,graph</field>
-        <field name="context">{
+        <field name="context">
+            {
                 'search_default_group_users': 1,
                 'search_default_group_tasks': 1,
                 'search_default_group_subtasks': 1,
                 }
-            </field>
+        </field>
     </record>
     <!-- Work -->
     <record id="view_project_task_work_ext_tree" model="ir.ui.view">

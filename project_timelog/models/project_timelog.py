@@ -147,7 +147,9 @@ class Task(models.Model):
             if task.datetime_stopline is False:
                 return False
             if task.datetime_stopline <= datetime.datetime.today():
-                u.active_work_id.with_user(u).stop_timer(play_a_sound=False, stopline=True)
+                u.active_work_id.with_user(u).stop_timer(
+                    play_a_sound=False, stopline=True
+                )
                 if u.active_work_id.status != "nonactive":
                     u.active_work_id.with_user(u).write({"status": "nonactive"})
             else:
