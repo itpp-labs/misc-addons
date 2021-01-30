@@ -3,4 +3,4 @@ def migrate(cr, version):
     # will be renamed to value_tmp during updating the module
 
     # Create Column
-    cr.execute("ALTER TABLE ir_config_parameter ADD COLUMN value VARCHAR")
+    cr.execute("ALTER TABLE ir_config_parameter ADD COLUMN IF NOT EXISTS value VARCHAR")

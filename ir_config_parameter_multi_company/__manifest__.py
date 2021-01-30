@@ -4,9 +4,9 @@
     "category": "Extra Tools",
     # "live_test_url": "",
     "images": [],
-    "version": "11.0.5.0.0",
+    "version": "11.0.5.0.1",
     "application": False,
-    "author": "IT-Projects LLC, Ivan Yelizariev",
+    "author": "IT-Projects LLC, Ivan Yelizariev, Zell Co., Ltd.",
     "support": "apps@itpp.dev",
     "website": "https://it-projects.info/team/yelizariev",
     "license": "Other OSI approved licence",  # MIT

@@ -150,9 +150,11 @@ class ThemeTopPanel(models.Model):
                 .datepicker .table-condensed > thead {{
                     background-color: {theme.top_panel_bg};
                 }}
-
                 .datepicker .table-condensed > thead th:hover {{
                     background-color: darken({theme.top_panel_bg}, 15%) !important;
+                }}
+                .o_form_view .o_form_statusbar {{
+                    background-color: transparent;
                 }}
                 """
                 )
@@ -198,7 +200,7 @@ class ThemeTopPanel(models.Model):
                 .o_main_navbar .o_menu_brand {{
                     color: {theme.top_panel_font}!important;
                 }}
-                .open .dropdown-menu > li a span {{
+                .open .dropdown-menu > li:not(.active) a span {{
                     color: {theme.top_panel_font}!important;
                 }}
                 .open .dropdown-menu > li.dropdown-header {{
@@ -229,6 +231,9 @@ class ThemeTopPanel(models.Model):
                 .datepicker .table-condensed > thead {{
                     color: {theme.top_panel_font}!important;
                 }}
+                .navbar-inverse .navbar-toggle {{
+                    background-color: {theme.top_panel_font};
+                }}
                 """
                 )
             if self.top_panel_active_item_font_active:
@@ -242,8 +247,32 @@ class ThemeTopPanel(models.Model):
                 code = (
                     code
                     + """.navbar-nav .active a{{
-                    background-color: {theme.top_panel_active_item_bg}!important;
-                }}"""
+                        background-color: {theme.top_panel_active_item_bg}!important;
+                    }}
+                    .o_dashboards .o_website_dashboard .o_dashboard_common .o_inner_box.o_primary {{
+                        background-color: {theme.top_panel_active_item_bg}!important;
+                    }}
+                    .o_dashboards .o_website_dashboard .o_dashboard_common .o_inner_box.o_apps {{
+                        background-color: {theme.top_panel_active_item_bg}!important;
+                    }}
+                    .o_chat_window .o_chat_header {{
+                        background-color: {theme.top_panel_active_item_bg}!important;
+                    }}
+                    .o_mail_navbar_item .o_mail_navbar_dropdown .o_mail_navbar_dropdown_top .o_filter_button:hover, 
+                    .o_mail_navbar_item .o_mail_navbar_dropdown .o_mail_navbar_dropdown_top .o_filter_button.active {{
+                        color: {theme.top_panel_active_item_bg}!important;
+                    }}
+                    .o_mail_navbar_item .o_mail_navbar_dropdown .o_mail_navbar_dropdown_top .o_filter_button, 
+                    .o_mail_navbar_item .o_mail_navbar_dropdown .o_mail_navbar_dropdown_top .o_new_message {{
+                        color: {theme.top_panel_active_item_bg}!important;
+                    }}
+                    a {{
+                        color: {theme.top_panel_active_item_bg};
+                    }}
+                    a:hover, a:focus {{
+                        color: lighten({theme.top_panel_active_item_bg}, 10%);
+                    }}
+                    """
                 )
             if self.top_panel_hover_item_font_active:
                 code = (
@@ -305,6 +334,9 @@ class ThemeTopPanel(models.Model):
                     background-color: {theme.top_panel_hover_item_bg}!important;
                 }}
                 .open .dropdown-menu > li a:focus {{
+                    background-color: {theme.top_panel_hover_item_bg}!important;
+                }}
+                .o_dashboards:hover .o_website_dashboard:hover .o_dashboard_common:hover .o_inner_box.o_primary:hover {{
                     background-color: {theme.top_panel_hover_item_bg}!important;
                 }}
                 """
@@ -478,6 +510,7 @@ class ThemeLeftPanel(models.Model):
                 }}
                 .o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item.o_active {{
                     background-color: {theme.left_panel_active_item_bg}!important;
+                    box-shadow:  inset 3px 0 0 darken({theme.left_panel_active_item_bg}, 10%);
                 }}
                 """
                 )
@@ -697,7 +730,9 @@ class ThemeContent(models.Model):
                 .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table .ui-state-active {{
                     background-color: darken({theme.content_form}, 25%);
                 }}
-
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table .ui-state-active:hover {{
+                    background-color: darken({theme.content_form},15%) !important;
+                }}
                 .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table td a:hover {{
                     background-color: darken({theme.content_form}, 25%);
                 }}
@@ -739,9 +774,6 @@ class ThemeContent(models.Model):
                 .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table .ui-state-default {{
                     color: {theme.content_form_text};
                 }}
-                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table .ui-state-active {{
-                    color: lighten({theme.content_form_text}, 30%)!important;
-                }}
                 .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table thead {{
                     color: {theme.content_form_text};
                 }}
@@ -756,13 +788,14 @@ class ThemeContent(models.Model):
             if self.content_form_link_active:
                 code = (
                     code
-                    + """ .o_main_content a {{
+                    + """ .o_main_content a:not(.btn-primary),
+                    .o_form_view .o_form_uri:first-line {{
                     color: {theme.content_form_link};
                 }}
                 .o_control_panel .breadcrumb > li > a {{
                     color: {theme.content_form_link};
                 }}
-                .o_control_panel .dropdown-toggle {{
+                .o_control_panel .dropdown-toggle:not(.btn) {{
                     color: {theme.content_form_link};
                 }}
                 .o_control_panel .o_cp_right, .o_control_panel .o_pager_previous, .o_control_panel .o_pager_next {{
@@ -791,12 +824,83 @@ class ThemeContent(models.Model):
                 .o_main .e_tag {{
                     border: 1px solid {theme.content_button} !important;
                 }}
+                .o_form_view .oe_link, .o_field_widget.o_field_many2one .o_external_button {{
+                    color: {theme.content_button} !important;
+                }}
                 .o_searchview_facet_label {{
                     background-color: {theme.content_button} !important;
                 }}
                 .o_searchview .o_searchview_facet .o_facet_remove {{
                     color: {theme.content_button} !important;
                 }}
+                .o_searchview .o_searchview_autocomplete li.o-selection-focus {{
+                    color: {theme.content_button} !important;
+                }}
+                .o_searchview .o_searchview_autocomplete li.o-selection-focus {{
+                    background-color: {theme.content_button};
+                }}
+                .ui-autocomplete .ui-menu-item.ui-state-focus,
+                .tooltip .tooltip-inner .oe_tooltip_string {{
+                    background-color: {theme.content_button};
+                }}
+                .ui-autocomplete .ui-menu-item.o_m2o_dropdown_option > a,
+                .o_form_view .oe_button_box .oe_stat_button .o_button_icon,
+                .o_form_view .oe_button_box .oe_stat_button .o_stat_info .o_stat_value, 
+                .o_form_view .oe_button_box .oe_stat_button > span .o_stat_value,
+                .o_web_settings_dashboard .o_web_settings_dashboard_col .o_web_settings_dashboard_planner .o_web_settings_dashboard_progress_title,
+                .btn-link {{
+                    color: {theme.content_button};
+                }}
+                .datepicker .table-condensed > tbody > tr > td.active, .datepicker .table-condensed > tbody > tr > td .active,
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table .ui-state-active {{
+                    background-color: {theme.content_button};
+                    color: white;
+                }}
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table .ui-state-default:hover {{
+                    background-color: lighten({theme.content_button}, 15%);
+                    border-color: lighten({theme.content_button}, 15%);
+                }}
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table .o_selected_range.o_color {{
+                    background-color: lighten({theme.content_button}, 15%);
+                    animation: backgroundfade 3s forwards;
+                }}
+                .o_calendar_container .o_calendar_sidebar_container .ui-datepicker table {{
+                    .ui-state-default.ui-state-hover.o_selected_range.o_color {{
+                        color: black;
+                    }}
+                }}
+                .bootstrap-datetimepicker-widget table td.today:before,
+                .datepicker .table-condensed > tbody > tr > td.today:before {{
+                    border-bottom-color: {theme.content_button};
+                }}
+                .btn-link:hover, .btn-link:focus,
+                .o_form_view .o_form_uri:hover:first-line {{
+                     color: lighten({theme.content_button}, 10%);
+                }}
+                .o_tooltip {{
+                    background-color: {theme.content_button};
+                    border: 2px solid {theme.content_button} !important;
+                }}
+                .o_tooltip.active.right::before, .o_tooltip.right::before {{
+                    border-right-color: {theme.content_button};
+                }}
+                .o_tooltip.active.left::before, .o_tooltip.left::before {{
+                    border-left-color: {theme.content_button};
+                }}
+                .o_tooltip.active.bottom::before, .o_tooltip.bottom::before {{
+                    border-bottom-color: {theme.content_button};
+                }}
+                 .o_tooltip.active.top::before, .o_tooltip.top::before {{
+                    border-top-color: {theme.content_button};
+                }}
+                .o_tooltip::after {{
+                    border-color: {theme.content_button};
+                    background: radial-gradient(lighten({theme.content_button}, 5%), {theme.content_button});
+                }}
+                .o_field_widget.o_field_image .o_form_image_controls {{
+                    background-color: {theme.content_button};
+                }}
+
                 """
                 )
             if self.content_text_active:
