@@ -77,9 +77,7 @@
         <field name="name">Set timer info</field>
         <field name="model_id" ref="project_timelog.model_project_task" />
         <field name="state">code</field>
-        <field name="code">
-                record.set_stage_timer()
-            </field>
+        <field name="code">record.set_stage_timer()</field>
         <field name="trigger">on_write</field>
         <field name="active" eval="True" />
     </record>

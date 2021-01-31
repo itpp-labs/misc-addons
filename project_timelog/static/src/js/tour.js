@@ -1,4 +1,4 @@
-odoo.define("project_timelog.tour", function(require) {
+odoo.define("project_timelog.tour", function (require) {
     "use strict";
 
     var tour = require("web_tour.tour");
@@ -47,15 +47,11 @@ odoo.define("project_timelog.tour", function(require) {
                 position: "bottom",
             },
             {
-                trigger: ".o_editable_list .o_input.o_field_widget.o_required_modifier",
+                trigger: ".o_list_table .o_input.o_field_widget.o_required_modifier",
                 content: "Add item description",
                 position: "bottom",
                 // Random is to evade unique constraint on subtask
-                run:
-                    "text Test Subtask " +
-                    Math.random()
-                        .toString(36)
-                        .slice(2),
+                run: "text Test Subtask " + Math.random().toString(36).slice(2),
             },
             {
                 trigger: ".o_form_button_save",
