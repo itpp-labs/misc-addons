@@ -47,7 +47,7 @@ odoo.define("project_timelog.tour", function (require) {
                 position: "bottom",
             },
             {
-                trigger: ".o_editable_list .o_input.o_field_widget.o_required_modifier",
+                trigger: ".o_list_table .o_input.o_field_widget.o_required_modifier",
                 content: "Add item description",
                 position: "bottom",
                 // Random is to evade unique constraint on subtask
