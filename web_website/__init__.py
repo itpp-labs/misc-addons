@@ -1,3 +1,4 @@
+# Copyright 2021 Zell Co., Ltd.
 # License MIT (https://opensource.org/licenses/MIT).
 from . import models
 

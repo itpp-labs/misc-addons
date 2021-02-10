@@ -8,7 +8,7 @@
     "images": [],
     "version": "11.0.3.0.6",
     "application": False,
-    "author": "IT-Projects LLC, Ivan Yelizariev, Zell Co., Ltd.",
+    "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "apps@itpp.dev",
     "website": "https://it-projects.info/team/yelizariev",
     "license": "Other OSI approved licence",  # MIT
