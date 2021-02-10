@@ -9,5 +9,9 @@ def post_init_hook(cr, registry):
     env = api.Environment(cr, SUPERUSER_ID, {})
 
     # emulate updating existing field to website-dependent one
-    env.cr.execute("ALTER TABLE test_website_dependent ADD COLUMN IF NOT EXISTS foo VARCHAR")
-    env.cr.execute("ALTER TABLE test_website_dependent ADD COLUMN IF NOT EXISTS user_id INTEGER")
+    env.cr.execute(
+        "ALTER TABLE test_website_dependent ADD COLUMN IF NOT EXISTS foo VARCHAR"
+    )
+    env.cr.execute(
+        "ALTER TABLE test_website_dependent ADD COLUMN IF NOT EXISTS user_id INTEGER"
+    )
