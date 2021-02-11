@@ -1,6 +1,6 @@
 // Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 // License MIT (https://opensource.org/licenses/MIT).
-odoo.define("web_website.SwitchWebsiteMenu", function(require) {
+odoo.define("web_website.SwitchWebsiteMenu", function (require) {
     "use strict";
 
     var session = require("web.session");
@@ -11,19 +11,19 @@ odoo.define("web_website.SwitchWebsiteMenu", function(require) {
 
     var SwitchWebsiteMenu = Widget.extend({
         template: "SwitchWebsiteMenu",
-        willStart: function() {
+        willStart: function () {
             if (!session.user_websites) {
                 return $.Deferred().reject();
             }
             return this._super();
         },
-        start: function() {
+        start: function () {
             var self = this;
             this.$el.on(
                 "click",
                 ".dropdown-menu li a[data-menu]",
                 _.debounce(
-                    function(ev) {
+                    function (ev) {
                         ev.preventDefault();
                         // Write method ignores undefinded
                         var website_id =
@@ -32,7 +32,7 @@ odoo.define("web_website.SwitchWebsiteMenu", function(require) {
                             model: "res.users",
                             method: "write",
                             args: [[session.uid], {backend_website_id: website_id}],
-                        }).then(function() {
+                        }).then(function () {
                             location.reload();
                         });
                     },
@@ -53,7 +53,7 @@ odoo.define("web_website.SwitchWebsiteMenu", function(require) {
 
             var websites = session.user_websites.allowed_websites;
             websites.unshift(false);
-            _.each(websites, function(website) {
+            _.each(websites, function (website) {
                 var a = "";
                 if (
                     (!website && !current_website) ||

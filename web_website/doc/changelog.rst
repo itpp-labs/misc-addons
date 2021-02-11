@@ -1,5 +1,10 @@
 `3.0.5`
 -------
+
+- **Fix:** reinstallation error by adding IF NOT EXISTS
+
+`3.0.5`
+-------
 - **Fix:** _get_website_id could return SUPERUSER_ID's website instead of current user
 
 `3.0.4`
