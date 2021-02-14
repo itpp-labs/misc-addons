@@ -28,4 +28,4 @@ Further information
 Odoo Apps Store: https://apps.odoo.com/apps/modules/13.0/odoo_backup_sh_google_disk/
 
 
-Tested on `Odoo 12.0 <https://github.com/odoo/odoo/commit/b24e0441b9ae3859dbec17535e5c964b40fa1d46>`_
+Tested on `Odoo 13.0 <https://github.com/odoo/odoo/commit/1c04ab0f84de805dc6e97c4810f5034ca153a98a>`_
