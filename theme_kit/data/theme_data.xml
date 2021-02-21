@@ -111,6 +111,8 @@
         <field name="content_loader_active">True</field>
         <field name="content_loader_text">#FFFFFF</field>
         <field name="content_loader_text_active">True</field>
+        <field name="content_statusbar_font_color">#FFFFFF</field>
+        <field name="content_statusbar_font_color_active">True</field>
     </record>
     <record model="theme_kit.theme" id="you_tube_theme">
         <field name="name">You Tube</field>
