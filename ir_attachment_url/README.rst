@@ -8,6 +8,11 @@
 
 The module allows to use url in Binary fields (e.g. in product images) and upload files to external storage (ftp, s3, some web server, etc). It uses url instead of transfer binary data between odoo server and client that allows to reduce the load on server.
 
+Possible incompatibility
+========================
+
+* The modules makes monkey patches for ``write``, ``create`` methods of ``fields.Binary``
+
 Questions?
 ==========
 

@@ -1,3 +1,8 @@
+`1.1.12`
+-------
+
+- **Fix:** Fix maxrecursion error in latest Odoo 12.0 (since Sep 17, 2020 - see https://github.com/odoo/odoo/commit/4ad80e52d390f8b8984f006ecd666a50991ddf08 )
+
 `1.1.11`
 -------
 

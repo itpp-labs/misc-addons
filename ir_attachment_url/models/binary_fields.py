@@ -1,6 +1,7 @@
 # Copyright 2017 Dinar Gabbasov <https://www.it-projects.info/team/GabbasovDinar>
 # Copyright 2018 Rafis Bikbov <https://www.it-projects.info/team/RafiZz>
 # Copyright 2019 Eugene Molotov <https://www.it-projects.info/team/em230418>
+# Copyright 2020 Karl <https://github.com/theangryangel>
 # License MIT (https://opensource.org/licenses/MIT).
 import mimetypes
 
@@ -31,8 +32,12 @@ def get_mimetype_and_optional_content_by_url(url):
     return mimetype, content
 
 
-class Binary(fields.Binary):
+binary_original_create = fields.Binary.create
+binary_original_write = fields.Binary.write
 
+
+# use if-block to keep indent of previous version of the file
+if True:
     # based on https://github.com/odoo/odoo/blob/bba7a6b2c46320af150f34359f742ee4e0116e66/odoo/fields.py#L1853-L1872
     def create(self, record_values):
         assert self.attachment
@@ -69,8 +74,7 @@ class Binary(fields.Binary):
                 ]
             )
         # calling original create method for non URLs
-        super(Binary, self).create(other_record_values)
-        # redefined part ends here
+        binary_original_create(self, other_record_values)
 
     def write(self, records, value):
         domain = [
@@ -124,7 +128,7 @@ class Binary(fields.Binary):
                 else:
                     atts.unlink()
         else:
-            super(Binary, self).write(records, value)
+            binary_original_write(self, records, value)
 
-
-fields.Binary = Binary
+    fields.Binary.create = create
+    fields.Binary.write = write
