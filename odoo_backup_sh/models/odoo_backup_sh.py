@@ -91,6 +91,8 @@ class BackupConfig(models.Model):
 
     @api.model
     def _compute_database_names(self):
+        # Uncomment following line if you want control all the databases, while keeping /web/database/manager page hidden
+        # return [(db, db) for db in odoo.service.db.list_dbs(force=True)]
         if odoo.tools.config["list_db"]:
             return [
                 (db, db) for db in odoo.service.db.list_dbs() if db != "session_store"
