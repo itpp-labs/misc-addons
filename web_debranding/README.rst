@@ -38,6 +38,11 @@ Build and enhance brand by removing references to `odoo.com <https://www.odoo.co
 24. (feature is not required in 12.0+ versions)
 25. (feature is not required in 12.0+ versions)
 
+Modules that can be disabled
+----------------------------
+
+If you don't need functionality of the `access_settings_menu <https://apps.odoo.com/apps/modules/12.0/access_settings_menu/>`__ you can remove it from dependencies in manifest file
+
 
 Questions?
 ==========
