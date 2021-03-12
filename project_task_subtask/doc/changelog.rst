@@ -1,3 +1,8 @@
+`1.1.2`
+-------
+
+**Fix:** Asset bundle cannot compile when less is not installed
+
 `1.1.1`
 -------
 
