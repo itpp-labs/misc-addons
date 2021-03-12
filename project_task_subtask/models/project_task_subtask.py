@@ -12,10 +12,10 @@ from odoo.tools import html_escape as escape
 from odoo.tools.translate import _
 
 SUBTASK_STATES = {
-    "done": "Done",
-    "todo": "TODO",
-    "waiting": "Waiting",
-    "cancelled": "Cancelled",
+    "done": _("Done"),
+    "todo": _("To-Do"),
+    "waiting": _("Waiting"),
+    "cancelled": _("Cancelled"),
 }
 
 
@@ -171,10 +171,12 @@ class Task(models.Model):
                 )
                 if task_todo_ids:
                     tmp_string_td = escape(": {}".format(len(task_todo_ids)))
-                    result_string_td += "<li><b>TODO{}</b></li>".format(tmp_string_td)
+                    result_string_td += _("<li><b>To-Do{}</b></li>").format(
+                        tmp_string_td
+                    )
                 if task_waiting_ids:
                     tmp_string_wt = escape(": {}".format(len(task_waiting_ids)))
-                    result_string_wt += "<li><b>Waiting{}</b></li>".format(
+                    result_string_wt += _("<li><b>Waiting{}</b></li>").format(
                         tmp_string_wt
                     )
             record.kanban_subtasks = (
@@ -206,10 +208,11 @@ class Task(models.Model):
             color = "bg-success-full"
             if completion < 50:
                 color = "bg-danger-full"
+            header = _("Your Checklist:")
             record.completion_xml = """
             <div class="task_progress">
                 <div class="progress_info">
-                    Your Checklist:
+                    {2}
                 </div>
                 <div class ="o_kanban_counter_progress progress task_progress_bar">
                     <div data-filter="done"
@@ -225,7 +228,7 @@ class Task(models.Model):
                 <div class="task_completion"> {0}% </div>
             </div>
             """.format(
-                int(completion), color
+                int(completion), color, header
             )
 
     def task_completion(self):
@@ -250,7 +253,7 @@ class Task(models.Model):
             body = ""
             reviewer = self.env["res.users"].browse(subtask_reviewer_id)
             user = self.env["res.users"].browse(subtask_user_id)
-            state = SUBTASK_STATES[subtask_state]
+            state = _(SUBTASK_STATES[subtask_state])
             if subtask_state == "done":
                 state = '<span style="color:#080">' + state + "</span>"
             if subtask_state == "todo":
@@ -275,22 +278,28 @@ class Task(models.Model):
                 )
                 partner_ids = [user.partner_id.id]
             elif self.env.user == user:
+                msg = _("I updated checklist item assigned to me")
                 body = (
                     "<p>"
                     + escape(reviewer.name)
-                    + ', <em style="color:#999">I updated checklist item assigned to me:</em> <br><strong>'
+                    + ', <em style="color:#999">'
+                    + msg
+                    + ":</em> <br><strong>"
                     + state
                     + "</strong>: "
                     + escape(subtask_name)
                 )
                 partner_ids = [reviewer.partner_id.id]
             else:
+                msg = _("I updated checklist item, now its assigned to")
                 body = (
                     "<p>"
                     + escape(user.name)
                     + ", "
                     + escape(reviewer.name)
-                    + ', <em style="color:#999">I updated checklist item, now its assigned to '
+                    + ', <em style="color:#999">'
+                    + msg
+                    + " "
                     + escape(user.name)
                     + ": </em> <br><strong>"
                     + state
@@ -299,9 +308,12 @@ class Task(models.Model):
                 )
                 partner_ids = [user.partner_id.id, reviewer.partner_id.id]
             if old_name:
+                msg = _("Updated from")
                 body = (
                     body
-                    + '<br><em style="color:#999">Updated from</em><br><strong>'
+                    + '<br><em style="color:#999">'
+                    + msg
+                    + "</em><br><strong>"
                     + state
                     + "</strong>: "
                     + escape(old_name)
