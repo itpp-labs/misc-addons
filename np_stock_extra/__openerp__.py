@@ -3,7 +3,7 @@
     'version' : '1.0.0',
     'author' : 'IT-Projects LLC, Ivan Yelizariev',
     'category' : 'Base',
-    'website' : 'https://it-projects.info',
+    'website' : 'https://twitter.com/OdooFree',
     'description': """
     """,
     'depends' : ['stock'],
