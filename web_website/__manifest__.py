@@ -12,7 +12,7 @@
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "apps@itpp.dev",
-    "website": "https://it-projects.info/team/yelizariev",
+    "website": "https://itpp.dev",
     "license": "LGPL-3",
     # "price": 0.00,
     # "currency": "EUR",
