@@ -10,7 +10,7 @@
     "version": "12.0.2.0.0",
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev",
-    "website": "https://it-projects.info",
+    "website": "https://itpp.dev",
     "license": "Other OSI approved licence",  # MIT
     "price": 50.00,
     "currency": "EUR",

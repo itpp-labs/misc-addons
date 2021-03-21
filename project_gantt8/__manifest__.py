@@ -5,7 +5,7 @@
     "images": ["images/gantt_view.png"],
     "vesion": "12.0.1.0.0",
     "author": "IT-Projects LLC, Pavel Romanchenko",
-    "website": "https://it-projects.info",
+    "website": "https://itpp.dev",
     "license": "AGPL-3",
     "price": 20.00,
     "currency": "EUR",
