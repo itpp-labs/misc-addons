@@ -4,7 +4,7 @@
     'summary': """Searching for tasks includes "Messages" and "Description" fields""",
     'author': "IT-Projects LLC, Ilmir Karamov",
     'license': 'GPL-3',
-    'website': "https://it-projects.info",
+    'website': "https://twitter.com/OdooFree",
     'version': '1.1.0',
     'category': 'Project',
     'images': ['images/task_search.png'],
