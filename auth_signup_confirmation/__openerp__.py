@@ -4,7 +4,7 @@
     'summary': """New user is able to login only after confirming his/her email""",
     'version': '1.0.0',
     'author': 'IT-Projects LLC',
-    'website': "https://it-projects.info",
+    'website': "https://twitter.com/OdooFree",
     'license': 'GPL-3',
     'depends': [
         'auth_signup',
