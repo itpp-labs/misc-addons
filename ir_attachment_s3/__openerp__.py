@@ -8,7 +8,7 @@
     "application": False,
 
     "author": "IT-Projects LLC, Ildar Nasyrov",
-    "website": "https://it-projects.info",
+    "website": "https://twitter.com/OdooFree",
     "license": "AGPL-3",
 
     "depends": [

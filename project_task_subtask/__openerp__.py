@@ -9,7 +9,7 @@
 
     "author": "IT-Projects LLC, Manaev Rafael",
     "support": "apps@it-projects.info",
-    "website": "https://it-projects.info",
+    "website": "https://twitter.com/OdooFree",
     "license": "GPL-3",
 
     "depends": ['base', 'project'],
