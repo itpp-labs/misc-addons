@@ -7,7 +7,7 @@
     "version": "10.0.1.1.8",
     "application": False,
     "author": "IT-Projects LLC, Ildar Nasyrov",
-    "website": "https://it-projects.info",
+    "website": "https://twitter.com/OdooFree",
     "license": "Other OSI approved licence",  # MIT
     "depends": ["web"],
     "external_dependencies": {"python": [], "bin": []},
