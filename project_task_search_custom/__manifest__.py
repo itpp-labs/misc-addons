@@ -3,7 +3,7 @@
     "summary": """Searching for tasks includes "Messages" and "Description" fields""",
     "author": "IT-Projects LLC, Ilmir Karamov",
     "license": "Other OSI approved licence",  # MIT
-    "website": "https://it-projects.info",
+    "website": "https://itpp.dev",
     "vesion": "11.0.1.1.0",
     "price": 15.00,
     "currency": "EUR",
