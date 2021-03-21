@@ -6,7 +6,7 @@
     "summary": "Adding taxes into product category",
     "license": "Other OSI approved licence",  # MIT
     "category": "Accounting & Finance",
-    "website": "https://it-projects.info",
+    "website": "https://twitter.com/OdooFree",
     "depends": ["account"],
     "data": ["views.xml"],
     "demo": [],

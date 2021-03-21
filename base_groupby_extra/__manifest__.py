@@ -8,7 +8,7 @@
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "support": "apps@itpp.dev",
-    "website": "https://it-projects.info",
+    "website": "https://twitter.com/OdooFree",
     "license": "Other OSI approved licence",  # MIT
     "depends": [],
     "external_dependencies": {"python": [], "bin": []},

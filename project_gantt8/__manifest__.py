@@ -6,7 +6,7 @@
     "images": ["images/gantt_view.png"],
     "vesion": "10.0.1.0.0",
     "author": "IT-Projects LLC, Pavel Romanchenko",
-    "website": "https://it-projects.info",
+    "website": "https://twitter.com/OdooFree",
     "license": "AGPL-3",
     "depends": ["project", "web_gantt8"],
     "external_dependencies": {"python": [], "bin": []},

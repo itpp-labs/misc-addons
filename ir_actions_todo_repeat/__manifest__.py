@@ -6,7 +6,7 @@
     "images": [],
     "vesion": "10.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
-    "website": "https://it-projects.info",
+    "website": "https://twitter.com/OdooFree",
     "license": "Other OSI approved licence",  # MIT
     "depends": [],
     "external_dependencies": {"python": [], "bin": []},

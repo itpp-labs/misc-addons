@@ -12,7 +12,7 @@
     "application": False,
     "author": "IT-Projects LLC, Kolushov Alexandr",
     "support": "apps@itpp.dev",
-    "website": "https://it-projects.info/team/KolushovAlexandr",
+    "website": "https://twitter.com/OdooFree",
     "license": "Other OSI approved licence",  # MIT
     "depends": ["barcodes", "stock"],
     "external_dependencies": {"python": [], "bin": []},

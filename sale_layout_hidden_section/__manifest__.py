@@ -11,7 +11,7 @@
     "application": False,
     "author": "IT-Projects LLC, Artyom Losev",
     "support": "apps@itpp.dev",
-    "website": "https://it-projects.info",
+    "website": "https://twitter.com/OdooFree",
     "license": "Other OSI approved licence",  # MIT
     "depends": ["sale"],
     "external_dependencies": {"python": [], "bin": []},

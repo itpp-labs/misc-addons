@@ -5,7 +5,7 @@
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "support": "apps@itpp.dev",
     "license": "Other OSI approved licence",  # MIT
-    "website": "https://it-projects.info",
+    "website": "https://twitter.com/OdooFree",
     "images": ["images/a.png"],
     "category": "Project",
     "vesion": "10.0.1.0.1",

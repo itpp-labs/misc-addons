@@ -6,7 +6,7 @@
     "images": [],
     "vesion": "10.0.1.0.1",
     "author": "IT-Projects LLC, Pavel Romanchenko",
-    "website": "https://it-projects.info",
+    "website": "https://twitter.com/OdooFree",
     "license": "AGPL-3",
     "depends": ["web"],
     "external_dependencies": {"python": [], "bin": []},

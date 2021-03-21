@@ -4,7 +4,7 @@
     "summary": """New user is able to login only after confirming his/her email""",
     "vesion": "10.0.1.0.1",
     "author": "IT-Projects LLC",
-    "website": "https://it-projects.info",
+    "website": "https://twitter.com/OdooFree",
     "images": ["images/auth_signup_confirmation.jpg"],
     "license": "Other OSI approved licence",  # MIT
     "depends": ["auth_signup"],

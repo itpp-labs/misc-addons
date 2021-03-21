@@ -7,7 +7,7 @@
     "images": ["images/ics_import.png"],
     "vesion": "10.0.1.0.0",
     "author": "IT-Projects LLC, Ildar Nasyrov",
-    "website": "https://it-projects.info",
+    "website": "https://twitter.com/OdooFree",
     "license": "Other OSI approved licence",  # MIT
     "depends": ["hr_public_holidays"],
     "external_dependencies": {"python": ["icalendar"], "bin": []},

@@ -7,7 +7,7 @@
     "vesion": "10.0.1.0.0",
     "application": False,
     "author": "IT-Projects LLC, Ivan Yelizariev",
-    "website": "https://it-projects.info",
+    "website": "https://twitter.com/OdooFree",
     "license": "Other OSI approved licence",  # MIT
     "depends": ["stock", "base_details"],
     "external_dependencies": {"python": [], "bin": []},

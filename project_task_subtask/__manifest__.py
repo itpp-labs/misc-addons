@@ -8,7 +8,7 @@
     "application": False,
     "author": "IT-Projects LLC, Manaev Rafael",
     "support": "apps@itpp.dev",
-    "website": "https://it-projects.info",
+    "website": "https://twitter.com/OdooFree",
     "license": "Other OSI approved licence",  # MIT
     "depends": ["base", "project"],
     "external_dependencies": {"python": [], "bin": []},
