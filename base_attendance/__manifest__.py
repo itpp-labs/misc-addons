@@ -11,7 +11,7 @@
     "application": False,
     "author": "IT-Projects LLC, Kolushov Alexandr",
     "support": "apps@itpp.dev",
-    "website": "https://it-projects.info/team/KolushovAlexandr",
+    "website": "https://itpp.dev",
     "license": "Other OSI approved licence",  # MIT
     "price": 60.00,
     "currency": "EUR",

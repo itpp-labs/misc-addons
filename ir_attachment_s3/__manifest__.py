@@ -6,7 +6,7 @@
     "version": "11.0.1.2.2",
     "application": False,
     "author": "IT-Projects LLC, Ildar Nasyrov",
-    "website": "https://it-projects.info",
+    "website": "https://itpp.dev",
     "license": "Other OSI approved licence",  # MIT
     "price": 200.00,
     "currency": "EUR",

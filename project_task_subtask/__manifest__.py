@@ -13,7 +13,7 @@
     "application": False,
     "author": "IT-Projects LLC, Manaev Rafael",
     "support": "apps@itpp.dev",
-    "website": "https://it-projects.info",
+    "website": "https://itpp.dev",
     "license": "Other OSI approved licence",  # MIT
     "price": 69.00,
     "currency": "EUR",

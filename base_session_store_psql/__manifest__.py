@@ -5,7 +5,7 @@
     "images": [],
     "vesion": "11.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
-    "website": "https://it-projects.info",
+    "website": "https://itpp.dev",
     "license": "AGPL-3",
     # "price": 9.00,
     # "currency": "EUR",

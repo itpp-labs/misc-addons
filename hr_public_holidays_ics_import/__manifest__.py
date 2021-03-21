@@ -6,7 +6,7 @@
     "images": ["images/ics_import.png"],
     "vesion": "11.0.1.0.0",
     "author": "IT-Projects LLC, Ildar Nasyrov",
-    "website": "https://it-projects.info",
+    "website": "https://itpp.dev",
     "license": "Other OSI approved licence",  # MIT
     "price": 9.00,
     "currency": "EUR",

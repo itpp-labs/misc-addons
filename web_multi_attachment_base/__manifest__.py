@@ -11,7 +11,7 @@
     "application": False,
     "author": "IT-Projects LLC, Dinar Gabbasov, Kolushov Alexandr",
     "support": "apps@itpp.dev",
-    "website": "https://it-projects.info/team/GabbasovDinar",
+    "website": "https://itpp.dev",
     "license": "Other OSI approved licence",  # MIT
     "price": 19.00,
     "currency": "EUR",
