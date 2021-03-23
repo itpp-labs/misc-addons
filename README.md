@@ -1,7 +1,8 @@
 [![help@itpp.dev](https://itpp.dev/images/infinity-readme.png)](mailto:help@itpp.dev)
 # [14.0] Odoo Addons
 
-:heavy_check_mark: [ir_attachment_url](https://apps.odoo.com/apps/modules/14.0/ir_attachment_url/)
+:heavy_check_mark: [ir_attachment_s3](https://apps.odoo.com/apps/modules/14.0/ir_attachment_s3/)
+<br/>:heavy_check_mark: [ir_attachment_url](https://apps.odoo.com/apps/modules/14.0/ir_attachment_url/)
 <br/>:heavy_check_mark: [odoo_backup_sh](https://apps.odoo.com/apps/modules/14.0/odoo_backup_sh/)
 <br/>:heavy_check_mark: [web_debranding](https://apps.odoo.com/apps/modules/14.0/web_debranding/)
 <br/>:heavy_check_mark: [web_theme_kit](https://apps.odoo.com/apps/modules/14.0/web_theme_kit/)
