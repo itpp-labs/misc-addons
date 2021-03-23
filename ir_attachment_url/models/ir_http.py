@@ -1,8 +1,10 @@
 # Copyright 2016-2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
 # Copyright 2017 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
-# Copyright 2016-2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2016-2018,2021 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2020 Eugene Molotov <https://it-projects.info/team/em230418>
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+import re
+
 import werkzeug
 
 from odoo import models
@@ -57,6 +59,24 @@ class IrHttp(models.AbstractModel):
                 return 302, content, filename, mimetype, filehash
 
         return super(IrHttp, self)._binary_record_content(record, **kw)
+
+    @classmethod
+    def _binary_ir_attachment_redirect_content(
+        cls, record, default_mimetype="application/octet-stream"
+    ):
+        if (
+            record.type == "binary"
+            and record.url
+            and not re.match(r"^/(\w+)/(.+)$", record.url)
+        ):
+            mimetype = record.mimetype
+            content = record.url
+            filehash = record.checksum
+            filename = record.name
+            return 302, content, filename, mimetype, filehash
+        return super(IrHttp, cls)._binary_ir_attachment_redirect_content(
+            record, default_mimetype=default_mimetype
+        )
 
     def _response_by_status(self, status, headers, content):
         if status == 302:

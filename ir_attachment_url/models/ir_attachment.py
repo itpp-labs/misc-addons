@@ -1,5 +1,5 @@
 # Copyright 2016-2018 Ildar Nasyrov <https://it-projects.info/team/iledarn>
-# Copyright 2016-2020 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2016-2018,2020-2021 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 # Copyright 2020 Eugene Molotov <https://it-projects.info/team/em230418>
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
@@ -18,17 +18,13 @@ class IrAttachment(models.Model):
     _inherit = "ir.attachment"
 
     @api.depends("store_fname", "db_datas")
-    def _compute_datas(self):
-        bin_size = self._context.get("bin_size")
+    def _compute_raw(self):
         url_records = self.filtered(lambda r: r.type == "url" and r.url)
         for attach in url_records:
-            if not bin_size:
-                r = requests.get(attach.url, timeout=5)
-                attach.datas = base64.b64encode(r.content)
-            else:
-                attach.datas = "1.00 Kb"
+            r = requests.get(attach.url, timeout=5)
+            attach.raw = r.content
 
-        super(IrAttachment, self - url_records)._compute_datas()
+        super(IrAttachment, self - url_records)._compute_raw()
 
     def _filter_protected_attachments(self):
         return self.filtered(
@@ -39,12 +35,13 @@ class IrAttachment(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        record_tuple_set = set()
+        url_fields = self.env.context.get("ir_attachment_url_fields")
+        if url_fields:
+            url_fields = url_fields.split(",")
+        self._set_where_to_store(vals_list)
         for values in vals_list:
-            # ---
-            # em230418: handling ir_attachment_url_fields context
             if (
-                self.env.context.get("ir_attachment_url_fields")
+                url_fields
                 and values.get("type") != "url"
                 and not values.get("url")
                 and values.get("res_model")
@@ -52,65 +49,36 @@ class IrAttachment(models.Model):
                 and values.get("datas")
             ):
                 full_field_name = values["res_model"] + "." + values["res_field"]
-                if full_field_name in self.env.context.get(
-                    "ir_attachment_url_fields"
-                ).split(","):
+                if full_field_name in url_fields:
                     values["url"] = values["datas"]
                     values["type"] = "url"
                     del values["datas"]
-            # ---
-
-            self._set_where_to_store(vals_list)
-
-            # everything else is based on
-            # https://github.com/odoo/odoo/blob/fa852ba1c5707b71469c410063f338eef261ab2b/odoo/addons/base/models/ir_attachment.py#L506-L524
-
-            # remove computed field depending of datas
-            for field in ("file_size", "checksum"):
-                values.pop(field, False)
             bucket = values.pop("_bucket", None)
-            values = self._check_contents(values)
-            if "datas" in values:
-                # ===============
-                # if bucket is not available, attachment is saved as usual
+            if (
+                bucket
+                and values.get("datas")
+                and values.get("res_model") not in ["ir.ui.view", "ir.ui.menu"]
+            ):
+                values = self._check_contents(values)
                 data = values.pop("datas")
+                filename = values.get("name")
                 mimetype = values.pop("mimetype")
-                if (
-                    bucket
-                    and values.get("res_model") not in ["ir.ui.view", "ir.ui.menu"]
-                    and self._storage() != "db"
-                    and data
-                ):
-                    values.update(
-                        self._get_datas_related_values_with_bucket(
-                            bucket, data, mimetype
-                        )
+                values.update(
+                    self._get_datas_related_values_with_bucket(
+                        bucket, data, filename, mimetype
                     )
-                else:
-                    values.update(
-                        self._get_datas_related_values(
-                            base64.b64decode(data or b""), mimetype
-                        )
-                    )
-                # end
-                # ===============
-            # 'check()' only uses res_model and res_id from values, and make an exists.
-            # We can group the values by model, res_id to make only one query when
-            # creating multiple attachments on a single record.
-            record_tuple = (values.get("res_model"), values.get("res_id"))
-            record_tuple_set.add(record_tuple)
-        for record_tuple in record_tuple_set:
-            (res_model, res_id) = record_tuple
-            self.check("create", values={"res_model": res_model, "res_id": res_id})
+                )
         return super(IrAttachment, self).create(vals_list)
 
     def _get_datas_related_values_with_bucket(
-        self, bucket, data, mimetype, checksum=None
+        self, bucket, data, filename, mimetype, checksum=None
     ):
         bin_data = base64.b64decode(data) if data else b""
         if not checksum:
             checksum = self._compute_checksum(bin_data)
-        fname, url = self._file_write_with_bucket(bucket, bin_data, mimetype, checksum)
+        fname, url = self._file_write_with_bucket(
+            bucket, bin_data, filename, mimetype, checksum
+        )
         return {
             "file_size": len(bin_data),
             "checksum": checksum,
@@ -124,7 +92,7 @@ class IrAttachment(models.Model):
     def _set_where_to_store(self, vals_list):
         pass
 
-    def _file_write_with_bucket(self, bucket, bin_data, mimetype, checksum):
+    def _file_write_with_bucket(self, bucket, bin_data, filename, mimetype, checksum):
         raise NotImplementedError(
             "No _file_write handler for bucket object {}".format(repr(bucket))
         )
@@ -132,7 +100,7 @@ class IrAttachment(models.Model):
     def _write_records_with_bucket(self, bucket):
         for attach in self:
             vals = self._get_datas_related_values_with_bucket(
-                bucket, attach.datas, attach.mimetype
+                bucket, attach.datas, attach.name, attach.mimetype
             )
             super(IrAttachment, attach.sudo()).write(vals)
 
@@ -153,7 +121,7 @@ class IrAttachment(models.Model):
                 _logger.info("storing %s", repr(attach))
 
             old_store_fname = attach.store_fname
-            data = self._file_read(old_store_fname, bin_size=False)
+            data = self._file_read(old_store_fname)
             bin_data = base64.b64decode(data) if data else b""
             checksum = (
                 self._compute_checksum(bin_data)
@@ -162,7 +130,7 @@ class IrAttachment(models.Model):
             )
 
             new_store_fname, url = self._file_write_with_bucket(
-                bucket, bin_data, attach.mimetype, checksum
+                bucket, bin_data, attach.name, attach.mimetype, checksum
             )
             attach.write({"store_fname": new_store_fname, "url": url})
             self._file_delete(old_store_fname)

@@ -16,7 +16,7 @@ class BinaryExtended(Binary):
         self,
         xmlid=None,
         model="ir.attachment",
-        id=None,
+        id=None,  # pylint: disable=redefined-builtin
         field="datas",
         filename_field="name",
         unique=None,
