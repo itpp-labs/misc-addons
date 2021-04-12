@@ -72,6 +72,19 @@
                                 <div class="content-group">
                                     <div class="mt16 row">
                                         <label
+                                            for="s3_region"
+                                            string="S3 Region"
+                                            class="col-xs-3 col-md-3 o_light_label"
+                                        />
+                                        <field
+                                            name="s3_region"
+                                            class="oe_inline"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label
                                             for="s3_obj_url"
                                             string="S3 URL"
                                             class="col-xs-3 col-md-3 o_light_label"
