@@ -46,7 +46,7 @@ class PostgresSessionStore(SessionStore):
             with closing(db_connect("postgres").cursor()) as cr:
                 cr.autocommit(True)  # avoid transaction block
                 cr.execute(
-                    """CREATE DATABASE "%s" ENCODING 'unicode' TEMPLATE "%s" """
+                    """CREATE DATABASE IF NOT EXISTS "%s" ENCODING 'unicode' TEMPLATE "%s" """
                     % (db_name, config["db_template"])
                 )
             return self.get_cursor(create_session_store_db=False)
@@ -65,7 +65,8 @@ class PostgresSessionStore(SessionStore):
 
     def is_valid_key(self, key):
         with self.get_cursor() as cr:
-            cr.execute("SELECT id FROM sessionstore WHERE id = %s LIMIT 1;", (key,))
+            cr.execute(
+                "SELECT id FROM sessionstore WHERE id = %s LIMIT 1;", (key,))
             return cr.rowcount == 1
 
     def save(self, session):
@@ -96,7 +97,10 @@ class PostgresSessionStore(SessionStore):
 
     def delete(self, session):
         with self.get_cursor() as cr:
-            cr.execute("DELETE FROM sessionstore WHERE id = %s;", (session.sid,))
+            cr.autocommit(True)  # avoid transaction block
+            if self.is_valid_key(session.sid):
+                cr.execute("DELETE FROM sessionstore WHERE id = %s;",
+                           (session.sid,))
 
     def get(self, sid):
         with self.get_cursor() as cr:
