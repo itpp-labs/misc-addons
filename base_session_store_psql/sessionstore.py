@@ -46,8 +46,8 @@ class PostgresSessionStore(SessionStore):
             with closing(db_connect("postgres").cursor()) as cr:
                 cr.autocommit(True)  # avoid transaction block
                 cr.execute(
-                    """CREATE DATABASE IF NOT EXISTS "%s" ENCODING 'unicode' TEMPLATE "%s" """
-                    % (db_name, config["db_template"])
+                    """CREATE DATABASE "%s" ENCODING 'unicode' TEMPLATE "%s" WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = "%s")"""
+                    % (db_name, config["db_template"], db_name)
                 )
             return self.get_cursor(create_session_store_db=False)
 
