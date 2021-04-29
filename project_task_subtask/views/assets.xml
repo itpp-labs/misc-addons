@@ -19,7 +19,7 @@
             />
         </xpath>
     </template>
-        <template
+    <template
         id="assets_backend_web"
         name="project_task_subtask_backend_assets"
         inherit_id="web.assets_backend"

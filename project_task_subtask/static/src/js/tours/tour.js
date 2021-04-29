@@ -1,7 +1,7 @@
 odoo.define("project_task_subtask.tour", function (require) {
     "use strict";
 
-    var core = require('web.core');
+    var core = require("web.core");
     var tour = require("web_tour.tour");
 
     var _t = core._t;
@@ -10,19 +10,24 @@ odoo.define("project_task_subtask.tour", function (require) {
         tour.STEPS.SHOW_APPS_MENU_ITEM,
         {
             trigger: '.o_app[data-menu-xmlid="project.menu_main_pm"]',
-            content: _t('Want a better way to <b>manage your projects</b>? <i>It starts here.</i>'),
-            position: 'right',
-            edition: 'community',
-        }, {
-            trigger: '.o_app[data-menu-xmlid="project.menu_main_pm"]',
-            content: _t('Want a better way to <b>manage your projects</b>? <i>It starts here.</i>'),
-            position: 'bottom',
-            edition: 'enterprise',
+            content: _t(
+                "Want a better way to <b>manage your projects</b>? <i>It starts here.</i>"
+            ),
+            position: "right",
+            edition: "community",
         },
         {
-            trigger: '.o_project_kanban_main',
+            trigger: '.o_app[data-menu-xmlid="project.menu_main_pm"]',
+            content: _t(
+                "Want a better way to <b>manage your projects</b>? <i>It starts here.</i>"
+            ),
+            position: "bottom",
+            edition: "enterprise",
+        },
+        {
+            trigger: ".o_project_kanban_main",
             content: "open project",
-            timeout: 10000
+            timeout: 10000,
         },
         {
             trigger: ".o_loading",
@@ -33,26 +38,26 @@ odoo.define("project_task_subtask.tour", function (require) {
             },
         },
         {
-          trigger: ".o_content",
-          content: "just click",
-          timeout: 1000
+            trigger: ".o_content",
+            content: "just click",
+            timeout: 1000,
         },
         {
-            trigger: '.oe_kanban_content',
+            trigger: ".oe_kanban_content",
             content: "open task",
-            timeout: 20000
+            timeout: 20000,
         },
         {
-            trigger: '.o_pager_sort',
+            trigger: ".o_pager_sort",
             content: "sort",
-            timeout: 10000
+            timeout: 10000,
         },
         {
-            trigger: '.o_pager_unsort',
+            trigger: ".o_pager_unsort",
             content: "unsort",
-            timeout: 10000
-        }
+            timeout: 10000,
+        },
     ];
 
-    tour.register('task_subtask', {url: '/web'}, steps);
+    tour.register("task_subtask", {url: "/web"}, steps);
 });
