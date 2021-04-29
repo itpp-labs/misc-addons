@@ -16,8 +16,8 @@ Example of usage:
 * Create User1 and User2 in the ``Settings >> Users`` menu
 * Login as User1
 
-  * Go to ``Project >> Project >> Tasks`` and open the ``Checklist`` tab
-  * Create new subtask (Reviewer - User1, Assigned to - User2)
+  * Go to ``Project >> Project >> All Tasks`` and open the ``Checklist`` tab
+  * Create new subtask (Assigned to - User2)
 
 * Login as User2
 

@@ -45,6 +45,6 @@ Further information
 Odoo Apps Store: https://apps.odoo.com/apps/modules/13.0/project_task_subtask/
 
 
-Notifications on updates: `via Atom <https://github.com/it-projects-llc/misc-addons/commits/13.0/project_task_subtask.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/it-projects-llc/misc-addons/commits/13.0/project_task_subtask.atom>`_
+Notifications on updates: `via Atom <https://github.com/itpp-labs/misc-addons/commits/13.0/project_task_subtask.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/itpp-labs/misc-addons/commits/13.0/project_task_subtask.atom>`_
 
-Tested on `Odoo 13.0  <https://github.com/odoo/odoo/commit/2d46a08a989f4c7e005ee2ead7c342c72019e63f>`_
+Tested on `Odoo 13.0  <https://github.com/odoo/odoo/commit/1c04ab0f84de805dc6e97c4810f5034ca153a98a>`_
