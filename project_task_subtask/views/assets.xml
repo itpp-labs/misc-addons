@@ -10,7 +10,7 @@
         <xpath expr="." position="inside">
             <link
                 rel="stylesheet"
-                type="text/less"
+                type="text/css"
                 href="/project_task_subtask/static/src/css/kanban_styles.css"
             />
             <script
