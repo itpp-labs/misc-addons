@@ -7,11 +7,15 @@
             aria-label="Sort"
             class="btn btn-sm btn-primary o_pager_sort"
             type="button"
-        >Sort</button>
+        >
+            Sort
+        </button>
         <button
             aria-label="Unsort"
             class="btn btn-sm btn-default o_pager_unsort"
             type="button"
-        >Unsort</button>
+        >
+            Unsort
+        </button>
     </t>
 </template>

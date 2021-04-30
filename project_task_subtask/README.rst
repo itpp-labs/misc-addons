@@ -24,7 +24,7 @@ Features:
  * TODO
  * CANCELLED
 
-* Added new "Checklist" menu 
+* Added new "Checklist" menu
 
  * default filter: "My", "TODO"
  * optional group by: "Project", "Task", "User", "State"
@@ -42,9 +42,9 @@ Contributors
 Further information
 ===================
 
-Odoo Apps Store: https://apps.odoo.com/apps/modules/11.0/project_task_subtask/
+Odoo Apps Store: https://apps.odoo.com/apps/modules/13.0/project_task_subtask/
 
 
-Notifications on updates: `via Atom <https://github.com/it-projects-llc/misc-addons/commits/11.0/project_task_subtask.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/it-projects-llc/misc-addons/commits/11.0/project_task_subtask.atom>`_
+Notifications on updates: `via Atom <https://github.com/itpp-labs/misc-addons/commits/13.0/project_task_subtask.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/itpp-labs/misc-addons/commits/13.0/project_task_subtask.atom>`_
 
-Tested on `Odoo 11.0  <https://github.com/odoo/odoo/commit/77e7d952b4c72d58c1b8f34b57e355f5b98c88b0>`_
+Tested on `Odoo 13.0  <https://github.com/odoo/odoo/commit/1c04ab0f84de805dc6e97c4810f5034ca153a98a>`_

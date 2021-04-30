@@ -1,3 +1,13 @@
+`1.1.3`
+-------
+
+**Fix:** change the label of the field so that there is no conflict of names
+
+`1.1.2`
+-------
+
+**Fix:** Asset bundle cannot compile when less is not installed
+
 `1.1.1`
 -------
 
