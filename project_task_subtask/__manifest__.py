@@ -13,11 +13,9 @@
     "version": "13.0.1.1.2",
     "application": False,
     "author": "IT-Projects LLC, Manaev Rafael",
-    "support": "apps@itpp.dev",
-    "website": "https://itpp.dev",
+    "support": "help@itpp.dev",
+    "website": "https://twitter.com/OdooFree",
     "license": "Other OSI approved licence",  # MIT
-    "price": 69.00,
-    "currency": "EUR",
     "depends": ["base", "project"],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
