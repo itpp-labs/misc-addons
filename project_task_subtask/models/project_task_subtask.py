@@ -33,7 +33,7 @@ class ProjectTaskSubtask(models.Model):
     )
     name = fields.Char(required=True, string="Description")
     reviewer_id = fields.Many2one(
-        "res.users", "Created by", readonly=True, default=lambda self: self.env.user
+        "res.users", "Reviewer", readonly=True, default=lambda self: self.env.user
     )
     project_id = fields.Many2one(
         "project.project", related="task_id.project_id", store=True
