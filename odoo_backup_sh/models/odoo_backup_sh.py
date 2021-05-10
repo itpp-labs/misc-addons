@@ -1,6 +1,7 @@
 # Copyright 2018 Stanislav Krotov <https://it-projects.info/team/ufaks>
 # Copyright 2019 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
 # Copyright 2019 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+# Copyright 2021 Denis Mudarisov <https://github.com/trojikman>
 # License MIT (https://opensource.org/licenses/MIT).
 
 import copy
@@ -42,6 +43,10 @@ REMOTE_STORAGE_DATETIME_FORMAT = "%Y-%m-%d_%H-%M-%S"
 BACKUP_NAME_SUFFIX = ".zip"
 BACKUP_NAME_ENCRYPT_SUFFIX = BACKUP_NAME_SUFFIX + ".enc"
 S3_STORAGE = "odoo_backup_sh"
+# Replace to True if you want to control all the databases while keeping /web/database/manager page hidden
+# Warning: if you use this module in sort of saas platform with many databases, be sure that unauthorized users cannot
+# install this module in their database and get dump of any database
+FORCE_ALL_DATABASE = False
 
 
 def compute_backup_filename(database, upload_datetime, is_encrypted):
@@ -91,7 +96,9 @@ class BackupConfig(models.Model):
 
     @api.model
     def _compute_database_names(self):
-        if odoo.tools.config["list_db"]:
+        if FORCE_ALL_DATABASE:
+            return [(db, db) for db in odoo.service.db.list_dbs(force=True)]
+        elif odoo.tools.config["list_db"]:
             return [
                 (db, db) for db in odoo.service.db.list_dbs() if db != "session_store"
             ]
@@ -631,8 +638,13 @@ class BackupConfig(models.Model):
         if config_record.backup_simulation:
             dump_stream = tempfile.TemporaryFile()
         else:
-            dump_stream = odoo.service.db.dump_db(name, None, "zip")
+            if FORCE_ALL_DATABASE:
+                from unittest.mock import patch
 
+                with patch.dict(odoo.tools.config.options, {"list_db": True}):
+                    dump_stream = odoo.service.db.dump_db(name, None, "zip")
+            else:
+                dump_stream = odoo.service.db.dump_db(name, None, "zip")
         if config_record.encrypt_backups and config_record.backup_simulation is False:
             # GnuPG ignores the --output parameter with an existing file object as value
             backup_encrpyted = tempfile.NamedTemporaryFile()
