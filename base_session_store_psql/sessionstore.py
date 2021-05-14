@@ -36,6 +36,8 @@ class PostgresSessionStore(SessionStore):
 
     def get_cursor(self, create_session_store_db=True):
         db_name = config.get("session_store_db", "session_store")
+        db_encoding = config.get("db_encoding", "UTF8")
+        db_template = config.get("db_template", "template0")
         try:
             con = db_connect(db_name)
             cr = con.cursor()
@@ -46,8 +48,8 @@ class PostgresSessionStore(SessionStore):
             with closing(db_connect("postgres").cursor()) as cr:
                 cr.autocommit(True)  # avoid transaction block
                 cr.execute(
-                    """CREATE DATABASE "%s" TEMPLATE "%s" """
-                    % (db_name, config["db_template"])
+                    """CREATE DATABASE "%s" ENCODING "%s" TEMPLATE "%s" """
+                    % (db_name, db_encoding, db_template)
                 )
             return self.get_cursor(create_session_store_db=False)
 
