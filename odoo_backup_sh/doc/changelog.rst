@@ -1,3 +1,7 @@
+`1.0.3`
+
+- **Fix:** Add parameter to control all the databases while keeping /web/database/manager page hidden
+
 `1.0.2`
 -------
 

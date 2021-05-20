@@ -212,4 +212,4 @@ Further information
 Odoo Apps Store: https://apps.odoo.com/apps/modules/13.0/odoo_backup_sh/
 
 
-Tested on `Odoo 12.0 <https://github.com/odoo/odoo/commit/483b6024cd44fcc6e2b987505beb739014b51856>`_
+Tested on `Odoo 13.0 <https://github.com/odoo/odoo/commit/fafea72843e25e0fee091ca935df61edb9133f6f>`_
