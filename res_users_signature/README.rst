@@ -20,7 +20,7 @@ Contributors
 
 ===================
 
-Odoo Apps Store: https://apps.odoo.com/apps/modules/12.0/res_users_signature/
+Odoo Apps Store: https://apps.odoo.com/apps/modules/13.0/res_users_signature/
 
 
-Tested on `Odoo 12.0 <https://github.com/odoo/odoo/commit/32c2666d189047db66eb7b1392ea34b086fd341e>`_
+Tested on `Odoo 12.0 <https://github.com/odoo/odoo/commit/fccd6d13042406e9f8257eeb40ba2a95500cc101>`_

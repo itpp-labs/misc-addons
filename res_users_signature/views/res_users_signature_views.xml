@@ -72,8 +72,9 @@
         <field name="binding_model_id" ref="model_res_users_signature" />
         <field name="state">code</field>
         <field name="code">
-                self.action_update_signature(cr, uid, context['active_ids'], context=context)
-            </field>
+            self.action_update_signature(cr, uid, context['active_ids'],
+            context=context)
+        </field>
     </record>
     <record id="action_res_users_signature" model="ir.actions.act_window">
         <field name="name">Signatures</field>
