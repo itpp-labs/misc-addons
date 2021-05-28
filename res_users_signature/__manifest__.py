@@ -9,7 +9,8 @@
     "license": "Other OSI approved licence",  # MIT
     "category": "Social Network",
     "images": ["images/main.png"],
-    "website": "https://yelizariev.github.io",
+    "website": "https://twitter.com/OdooFree",
+    "support": "help@itpp.dev",
     "depends": ["base"],
     "data": [
         "views/res_users_signature_views.xml",
