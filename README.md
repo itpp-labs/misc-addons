@@ -10,6 +10,7 @@
 <br/>:heavy_check_mark: [odoo_backup_sh_google_disk](https://apps.odoo.com/apps/modules/13.0/odoo_backup_sh_google_disk/)
 <br/>:heavy_check_mark: [project_task_subtask](https://apps.odoo.com/apps/modules/13.0/project_task_subtask/)
 <br/>:heavy_check_mark: [res_partner_skype](https://apps.odoo.com/apps/modules/13.0/res_partner_skype/)
+<br/>:heavy_check_mark: [res_users_signature](https://apps.odoo.com/apps/modules/13.0/res_users_signature/)
 <br/>:heavy_check_mark: [web_debranding](https://apps.odoo.com/apps/modules/13.0/web_debranding/)
 <br/>:heavy_check_mark: [web_image_cache](https://apps.odoo.com/apps/modules/13.0/web_image_cache/)
 <br/>:heavy_check_mark: [web_theme_kit](https://apps.odoo.com/apps/modules/13.0/web_theme_kit/)
