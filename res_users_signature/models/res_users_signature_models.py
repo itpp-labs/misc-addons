@@ -250,11 +250,11 @@ class IrMailServer(models.Model):
         if attachments:
             for (fname, fcontent, mime) in attachments:
                 filename_rfc2047 = encode_header_param(fname)
-                if mime and '/' in mime:
-                    maintype, subtype = mime.split('/', 1)
+                if mime and "/" in mime:
+                    maintype, subtype = mime.split("/", 1)
                     part = MIMEBase(maintype, subtype)
                 else:
-                    part = MIMEBase('application', "octet-stream")
+                    part = MIMEBase("application", "octet-stream")
 
                 # The default RFC2231 encoding of Message.add_header() works in Thunderbird but not GMail
                 # so we fix it by using RFC2047 encoding for the filename instead.
