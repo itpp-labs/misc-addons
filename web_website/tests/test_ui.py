@@ -22,7 +22,7 @@ class TestUI(common.HttpCase):
         demo_user.access_backend_website_ids = None
 
         tour = "web_website.tour"
-        self.phantom_js(
+        self.browser_js(
             "/web",
             "odoo.__DEBUG__.services['web_tour.tour'].run('%s')" % tour,
             "odoo.__DEBUG__.services['web_tour.tour'].tours['%s'].ready" % tour,
