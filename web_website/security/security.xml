@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<!-- Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).-->
+<odoo>
+    <record model="res.groups" id="group_multi_website">
+        <field name="name">Multi Websites for Backend</field>
+        <field name="category_id" ref="base.module_category_usability" />
+    </record>
+</odoo>

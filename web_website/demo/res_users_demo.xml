@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<!-- Copyright 2018,2020 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).-->
+<odoo>
+    <!-- test_ui is assumed that the user has multi-website access -->
+    <record id="base.user_demo" model="res.users">
+        <field name="groups_id" eval="[(4,ref('web_website.group_multi_website'))]" />
+    </record>
+</odoo>

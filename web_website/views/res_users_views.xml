@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<!-- Copyright 2018,2020 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).-->
+<odoo>
+    <record id="view_users_form" model="ir.ui.view">
+        <field name="name">res.users.form</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_ids']/.." position="after">
+                <group string="Multi Websites for Backend">
+                    <field
+                        string="Accessible Websites"
+                        name="access_backend_website_ids"
+                        widget="many2many_tags"
+                    />
+                    <field
+                        string="Allowed Websites"
+                        name="backend_website_ids"
+                        widget="many2many_tags"
+                    />
+                    <field
+                        string="Default Website"
+                        name="backend_website_id"
+                        context="{'user_preference': 0}"
+                    />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
