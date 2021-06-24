@@ -1,7 +1,10 @@
 [![help@itpp.dev](https://itpp.dev/images/infinity-readme.png)](mailto:help@itpp.dev)
 # [13.0] Odoo Addons
 
+:open_file_folder: Get a **.zip** file with all needed dependencies:
+
 :heavy_check_mark: [base_attendance](https://apps.odoo.com/apps/modules/13.0/base_attendance/)
+<br/>:heavy_check_mark: [calendar_adjusted](https://apps.odoo.com/apps/modules/13.0/calendar_adjusted/)
 <br/>:heavy_check_mark: [ir_attachment_s3](https://apps.odoo.com/apps/modules/13.0/ir_attachment_s3/)
 <br/>:heavy_check_mark: [ir_attachment_url](https://apps.odoo.com/apps/modules/13.0/ir_attachment_url/)
 <br/>:heavy_check_mark: [ir_config_parameter_multi_company](https://apps.odoo.com/apps/modules/13.0/ir_config_parameter_multi_company/)
@@ -15,6 +18,10 @@
 <br/>:heavy_check_mark: [web_image_cache](https://apps.odoo.com/apps/modules/13.0/web_image_cache/)
 <br/>:heavy_check_mark: [web_theme_kit](https://apps.odoo.com/apps/modules/13.0/web_theme_kit/)
 <br/>:heavy_check_mark: [web_website](https://apps.odoo.com/apps/modules/13.0/web_website/)
+
+:star: Star this repo if you **like** it!
+
+:heart: [Sponsor us](https://patreon.com/itpp) if you **love** it!
 
 Other Addons
 ============
