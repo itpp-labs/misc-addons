@@ -71,8 +71,7 @@ class IrAttachment(models.Model):
 
         obj = bucket.Object(file_id)
         data = obj.get()
-
-        return base64.b64encode(b"".join(data["Body"]))
+        return data['Body'].read()
 
     def _file_delete(self, fname):
         if not fname.startswith(PREFIX):
