@@ -8,8 +8,6 @@
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "website": "https://itpp.dev",
     "license": "Other OSI approved licence",  # MIT
-    "price": 30.00,
-    "currency": "EUR",
     "depends": ["web"],
     "external_dependencies": {"python": [], "bin": []},
     "data": [
