@@ -1,6 +1,8 @@
 [![help@itpp.dev](https://itpp.dev/images/infinity-readme.png)](mailto:help@itpp.dev)
 # [12.0] Odoo Addons
 
+:open_file_folder: Get a **.zip** file with all needed dependencies:
+
 :heavy_check_mark: [attachment_large_object](https://apps.odoo.com/apps/modules/12.0/attachment_large_object/)
 <br/>:heavy_check_mark: [autostaging_base](https://apps.odoo.com/apps/modules/12.0/autostaging_base/)
 <br/>:heavy_check_mark: [autostaging_project_task](https://apps.odoo.com/apps/modules/12.0/autostaging_project_task/)
@@ -23,6 +25,10 @@
 <br/>:heavy_check_mark: [web_debranding](https://apps.odoo.com/apps/modules/12.0/web_debranding/)
 <br/>:heavy_check_mark: [web_theme_kit](https://apps.odoo.com/apps/modules/12.0/web_theme_kit/)
 <br/>:heavy_check_mark: [web_website](https://apps.odoo.com/apps/modules/12.0/web_website/)
+
+:star: Star this repo if you **like** it!
+
+:heart: [Sponsor us](https://patreon.com/itpp) if you **love** it!
 
 Other Addons
 ============
