@@ -1,6 +1,8 @@
 [![help@itpp.dev](https://itpp.dev/images/infinity-readme.png)](mailto:help@itpp.dev)
 # [10.0] Odoo Addons
 
+:open_file_folder: Get a **.zip** file with all needed dependencies:
+
 :heavy_check_mark: [attachment_large_object](https://apps.odoo.com/apps/modules/10.0/attachment_large_object/)
 <br/>:heavy_check_mark: [auth_signup_confirmation](https://apps.odoo.com/apps/modules/10.0/auth_signup_confirmation/)
 <br/>:heavy_check_mark: [auth_signup_confirmation_crm](https://apps.odoo.com/apps/modules/10.0/auth_signup_confirmation_crm/)
@@ -47,6 +49,10 @@
 <br/>:heavy_check_mark: [web_polymorphic_field](https://apps.odoo.com/apps/modules/10.0/web_polymorphic_field/)
 <br/>:heavy_check_mark: [web_preview](https://apps.odoo.com/apps/modules/10.0/web_preview/)
 <br/>:heavy_check_mark: [web_website](https://apps.odoo.com/apps/modules/10.0/web_website/)
+
+:star: Star this repo if you **like** it!
+
+:heart: [Sponsor us](https://patreon.com/itpp) if you **love** it!
 
 Other Addons
 ============
