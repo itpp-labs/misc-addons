@@ -1,7 +1,7 @@
 {
     "name": "Email confirmation on sign up (CRM extension)",
     "summary": "Automatically creates a lead for every new user",
-    "vesion": "11.0.1.0.0",
+    "version": "11.0.1.0.0",
     "author": "IT-Projects LLC",
     "website": "https://itpp.dev",
     "license": "Other OSI approved licence",  # MIT

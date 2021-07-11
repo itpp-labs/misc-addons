@@ -1,6 +1,6 @@
 {
     "name": "Reminders and Agenda for Job Applications",
-    "vesion": "11.0.1.0.0",
+    "version": "11.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev, Pavel Romanchenko",
     "license": "Other OSI approved licence",  # MIT
     "category": "Reminders and Agenda",
