@@ -1,7 +1,7 @@
 {
     "name": "Email confirmation on sign up",
     "summary": """New user is able to login only after confirming his/her email""",
-    "vesion": "13.0.1.0.1",
+    "version": "13.0.1.0.1",
     "author": "IT-Projects LLC",
     "website": "https://itpp.dev",
     "license": "Other OSI approved licence",  # MIT

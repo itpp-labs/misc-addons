@@ -1,6 +1,6 @@
 {
     "name": "FIX field limit in importing csv",
-    "vesion": "13.0.1.0.0",
+    "version": "13.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "license": "Other OSI approved licence",  # MIT
     "category": "Custom",

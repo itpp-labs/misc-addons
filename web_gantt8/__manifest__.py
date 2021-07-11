@@ -3,7 +3,7 @@
     "summary": """Ported view from odoo 8""",
     "category": "Hidden",
     "images": [],
-    "vesion": "13.0.1.0.1",
+    "version": "13.0.1.0.1",
     "author": "IT-Projects LLC, Pavel Romanchenko",
     "website": "https://itpp.dev",
     "license": "AGPL-3",
