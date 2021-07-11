@@ -3,7 +3,7 @@
     "summary": """Restores feature from odoo 8.0""",
     "category": "Project",
     "images": ["images/gantt_view.png"],
-    "vesion": "12.0.1.0.0",
+    "version": "12.0.1.0.0",
     "author": "IT-Projects LLC, Pavel Romanchenko",
     "website": "https://itpp.dev",
     "license": "AGPL-3",

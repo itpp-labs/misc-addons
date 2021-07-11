@@ -3,7 +3,7 @@
     "summary": """Adds the ability to create repeating wizards.""",
     "category": "Tools",
     "images": [],
-    "vesion": "12.0.1.0.0",
+    "version": "12.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "website": "https://itpp.dev",
     "license": "Other OSI approved licence",  # MIT

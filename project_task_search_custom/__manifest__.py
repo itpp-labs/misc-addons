@@ -4,7 +4,7 @@
     "author": "IT-Projects LLC, Ilmir Karamov",
     "license": "Other OSI approved licence",  # MIT
     "website": "https://itpp.dev",
-    "vesion": "12.0.1.1.0",
+    "version": "12.0.1.1.0",
     "price": 15.00,
     "currency": "EUR",
     "category": "Project",

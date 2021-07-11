@@ -6,7 +6,7 @@
     "license": "Other OSI approved licence",  # MIT
     "website": "http://it-projects.info",
     "category": "Project",
-    "vesion": "12.0.1.0.0",
+    "version": "12.0.1.0.0",
     "price": 15.00,
     "currency": "EUR",
     "images": ["images/task_order.png"],
