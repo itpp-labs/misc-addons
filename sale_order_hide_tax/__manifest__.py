@@ -4,7 +4,7 @@
     "license": "Other OSI approved licence",  # MIT
     "website": "https://twitter.com/nasyrov_ildar",
     "category": "Uncategorized",
-    "vesion": "11.0.1.0.0",
+    "version": "11.0.1.0.0",
     "depends": ["base", "sale"],
     "data": ["security/security.xml", "views/view.xml"],
     "installable": False,
