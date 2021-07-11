@@ -4,7 +4,7 @@
     No need for import holidays manually anymore""",
     "category": "Human Resources",
     "images": ["images/ics_import.png"],
-    "vesion": "12.0.1.0.0",
+    "version": "12.0.1.0.0",
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "website": "https://itpp.dev",
     "license": "Other OSI approved licence",  # MIT

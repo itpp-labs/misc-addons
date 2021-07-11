@@ -1,6 +1,6 @@
 {
     "name": "Reminders and Agenda for Opportunities",
-    "vesion": "12.0.1.0.0",
+    "version": "12.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev, Pavel Romanchenko",
     "license": "Other OSI approved licence",  # MIT
     "category": "Reminders and Agenda",

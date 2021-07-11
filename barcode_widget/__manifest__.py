@@ -1,6 +1,6 @@
 {
     "name": "Barcode Widget",
-    "vesion": "12.0.1.0.1",
+    "version": "12.0.1.0.1",
     "category": "Widget",
     "author": "The Gok Team, IT-Projects LLC",
     # Original module didn't have license information.

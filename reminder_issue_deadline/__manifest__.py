@@ -1,6 +1,6 @@
 {
     "name": "Reminders and Agenda for Issues",
-    "vesion": "12.0.1.0.0",
+    "version": "12.0.1.0.0",
     "author": "Matmoz d.o.o.",
     "license": "Other OSI approved licence",  # MIT
     "category": "Reminders and Agenda",
