@@ -5,7 +5,7 @@
     No need for import holidays manually anymore""",
     "category": "Human Resources",
     "images": ["images/ics_import.png"],
-    "vesion": "10.0.1.0.0",
+    "version": "10.0.1.0.0",
     "author": "IT-Projects LLC, Ildar Nasyrov",
     "website": "https://twitter.com/OdooFree",
     "license": "Other OSI approved licence",  # MIT

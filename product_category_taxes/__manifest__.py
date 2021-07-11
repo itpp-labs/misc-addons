@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "Product Category Taxes",
-    "vesion": "10.0.1.0.0",
+    "version": "10.0.1.0.0",
     "author": "IT-Projects LLC, Ivan Yelizariev",
     "summary": "Adding taxes into product category",
     "license": "Other OSI approved licence",  # MIT

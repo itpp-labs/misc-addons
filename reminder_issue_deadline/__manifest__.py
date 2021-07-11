@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "Reminders and Agenda for Issues",
-    "vesion": "10.0.1.0.0",
+    "version": "10.0.1.0.0",
     "author": "Matmoz d.o.o.",
     "license": "Other OSI approved licence",  # MIT
     "category": "Reminders and Agenda",

@@ -5,7 +5,7 @@
     "author": "IT-Projects LLC, Ilmir Karamov",
     "license": "Other OSI approved licence",  # MIT
     "website": "https://twitter.com/OdooFree",
-    "vesion": "10.0.1.1.0",
+    "version": "10.0.1.1.0",
     "category": "Project",
     "images": ["images/task_search.png"],
     "depends": ["project"],
