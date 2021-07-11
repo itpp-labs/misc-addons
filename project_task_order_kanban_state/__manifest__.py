@@ -7,7 +7,7 @@
     "license": "Other OSI approved licence",  # MIT
     "website": "http://it-projects.info",
     "category": "Project",
-    "vesion": "10.0.1.0.0",
+    "version": "10.0.1.0.0",
     "images": ["images/task_order.png"],
     "depends": ["project"],
     "installable": True,

@@ -2,7 +2,7 @@
 {
     "name": "Confirm SignUp by Email",
     "summary": """New user is able to login only after confirming his/her email""",
-    "vesion": "10.0.1.0.1",
+    "version": "10.0.1.0.1",
     "author": "IT-Projects LLC",
     "website": "https://twitter.com/OdooFree",
     "images": ["images/auth_signup_confirmation.jpg"],

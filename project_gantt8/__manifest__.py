@@ -4,7 +4,7 @@
     "summary": """Restores feature from odoo 8.0""",
     "category": "Project",
     "images": ["images/gantt_view.png"],
-    "vesion": "10.0.1.0.0",
+    "version": "10.0.1.0.0",
     "author": "IT-Projects LLC, Pavel Romanchenko",
     "website": "https://twitter.com/OdooFree",
     "license": "AGPL-3",

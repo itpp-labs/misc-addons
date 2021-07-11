@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "Barcode Widget",
-    "vesion": "10.0.1.0.1",
+    "version": "10.0.1.0.1",
     "category": "Widget",
     "author": "The Gok Team, IT-Projects LLC",
     # Original module didn't have license information.

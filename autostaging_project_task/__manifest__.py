@@ -8,7 +8,7 @@
     "website": "https://twitter.com/OdooFree",
     "images": ["images/a.png"],
     "category": "Project",
-    "vesion": "10.0.1.0.1",
+    "version": "10.0.1.0.1",
     "application": False,
     "depends": ["project", "autostaging_base"],
     "external_dependencies": {"python": [], "bin": []},
