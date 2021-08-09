@@ -32,7 +32,8 @@ class BackupConfig(models.Model):
     _inherit = "odoo_backup_sh.config"
 
     storage_service = fields.Selection(
-        selection_add=[(GOOGLE_DRIVE_STORAGE, "Google Drive")]
+        selection_add=[(GOOGLE_DRIVE_STORAGE, "Google Drive")],
+        ondelete={GOOGLE_DRIVE_STORAGE: "cascade"},
     )
 
     @api.model
@@ -182,7 +183,8 @@ class BackupInfo(models.Model):
     _inherit = "odoo_backup_sh.backup_info"
 
     storage_service = fields.Selection(
-        selection_add=[(GOOGLE_DRIVE_STORAGE, "Google Drive")]
+        selection_add=[(GOOGLE_DRIVE_STORAGE, "Google Drive")],
+        ondelete={GOOGLE_DRIVE_STORAGE: "cascade"},
     )
 
     def download_backup_action(self, backup=None):
