@@ -1,3 +1,8 @@
+`3.0.5`
+-------
+
+- **Fix:** convert property field type in report correctly
+
 `3.0.4`
 -------
 - **Fix:** Incorrect return data in get_multi in case of 'many2one' field, id instead of a record
