@@ -14,9 +14,9 @@
                         </div>
                         <div class="o_setting_right_pane">
                             <label string="Multi-website" for="group_multi_website" />
-                            <div
-                                class="text-muted"
-                            > Show Website Switcher in backend </div>
+                            <div class="text-muted">
+                                Show Website Switcher in backend
+                            </div>
                         </div>
                     </div>
                 </div>

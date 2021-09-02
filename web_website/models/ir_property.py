@@ -234,6 +234,11 @@ class IrProperty(models.Model):
             def clean(data):
                 return data and self.env[field.comodel_name].browse(data[1])
 
+        elif field.type == "date":
+
+            def clean(data):
+                return data[1].date() if data and data[1] else False
+
         else:
 
             def clean(data):
