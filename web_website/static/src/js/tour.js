@@ -1,6 +1,6 @@
 // Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 // License MIT (https://opensource.org/licenses/MIT).
-odoo.define("web_website.tour", function(require) {
+odoo.define("web_website.tour", function (require) {
     "use strict";
 
     var tour = require("web_tour.tour");

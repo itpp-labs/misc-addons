@@ -1,6 +1,6 @@
 // Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
 // License MIT (https://opensource.org/licenses/MIT).
-odoo.define("web_website.SwitchWebsiteMenu", function(require) {
+odoo.define("web_website.SwitchWebsiteMenu", function (require) {
     "use strict";
 
     var config = require("web.config");
@@ -16,18 +16,18 @@ odoo.define("web_website.SwitchWebsiteMenu", function(require) {
         events: {
             "click .dropdown-item[data-menu]": "_onClick",
         },
-        init: function() {
+        init: function () {
             this._super.apply(this, arguments);
             this.isMobile = config.device.isMobile;
             this._onClick = _.debounce(this._onClick, 1500, true);
         },
-        willStart: function() {
+        willStart: function () {
             if (!session.user_websites) {
                 return $.Deferred().reject();
             }
             return this._super();
         },
-        start: function() {
+        start: function () {
             var self = this;
             var all_websites_text = _t("All Websites");
             var current_website = session.user_websites.current_website;
@@ -47,7 +47,7 @@ odoo.define("web_website.SwitchWebsiteMenu", function(require) {
 
             var websites = session.user_websites.allowed_websites;
             websites.unshift(false);
-            _.each(websites, function(website) {
+            _.each(websites, function (website) {
                 var a = "";
                 if (
                     (!website && !current_website) ||
@@ -80,7 +80,7 @@ odoo.define("web_website.SwitchWebsiteMenu", function(require) {
         // --------------------------------------------------------------------------
         // Handlers
         // --------------------------------------------------------------------------
-        _onClick: function(ev) {
+        _onClick: function (ev) {
             ev.preventDefault();
             // Write method ignores undefinded
             var website_id = $(ev.currentTarget).data("website-id") || false;
@@ -88,7 +88,7 @@ odoo.define("web_website.SwitchWebsiteMenu", function(require) {
                 model: "res.users",
                 method: "write",
                 args: [[session.uid], {backend_website_id: website_id}],
-            }).then(function() {
+            }).then(function () {
                 location.reload();
             });
         },
