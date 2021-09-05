@@ -29,6 +29,7 @@ Roadmap
 
     * in list of products old image is shown (bug)
     * in product page main image is shown as main, previous main image is extra (maybe not a bug, but don't know how to remove previous main image)
+* Issues on deleting or duplicating a record with binary field: https://github.com/itpp-labs/misc-addons/issues/1129
 * Error on creating new product with an image: "This file could not be decoded as an image file. Please try with a different file"
 * S3 Condition is ignored in attachment creation
 
