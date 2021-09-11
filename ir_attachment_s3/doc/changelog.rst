@@ -1,3 +1,8 @@
+`3.0.1`
+-------
+
+- **Fix:** show images from widgets correctly
+
 `3.0.0`
 -------
 - **New:** support direct downloading chatter attachments

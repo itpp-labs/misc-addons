@@ -6,7 +6,6 @@
 # Copyright 2019-2020 Eugene Molotov <https://it-projects.info/team/em230418>
 # License MIT (https://opensource.org/licenses/MIT).
 
-import base64
 import logging
 
 from odoo import _, models
@@ -71,8 +70,7 @@ class IrAttachment(models.Model):
 
         obj = bucket.Object(file_id)
         data = obj.get()
-
-        return base64.b64encode(b"".join(data["Body"]))
+        return data["Body"].read()
 
     def _file_delete(self, fname):
         if not fname.startswith(PREFIX):
