@@ -10,7 +10,7 @@
     "application": False,
     "author": "IT-Projects LLC, Dinar Gabbasov",
     "support": "apps@itpp.dev",
-    "website": "https://apps.odoo.com/apps/modules/13.0/odoo_backup_sh_google_disk/",
+    "website": "https://apps.odoo.com/apps/modules/14.0/odoo_backup_sh_google_disk/",
     "license": "Other OSI approved licence",  # MIT
     "price": 119.00,
     "currency": "EUR",
@@ -28,5 +28,5 @@
     "post_init_hook": None,
     "uninstall_hook": None,
     "auto_install": False,
-    "installable": False,
+    "installable": True,
 }
