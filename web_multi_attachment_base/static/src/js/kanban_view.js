@@ -1,7 +1,7 @@
 /*  Copyright 2018 Dinar Gabbasov <https://it-projects.info/team/GabbasovDinar>
     Copyright 2018 Kolushov Alexandr <https://it-projects.info/team/KolushovAlexandr>
     License MIT (https://opensource.org/licenses/MIT).*/
-odoo.define("kanban_view", function(require) {
+odoo.define("kanban_view", function (require) {
     "use strict";
 
     var core = require("web.core");
@@ -13,7 +13,7 @@ odoo.define("kanban_view", function(require) {
     var FieldMultiFiles = AbstractField.extend({
         template: "FieldBinaryFileUploader",
         supportedFieldTypes: ["many2many", "one2many"],
-        init: function() {
+        init: function () {
             this._super.apply(this, arguments);
 
             if (!_.contains(this.supportedFieldTypes, this.field.type)) {
@@ -27,17 +27,17 @@ odoo.define("kanban_view", function(require) {
             this.uploadingFiles = [];
         },
 
-        destroy: function() {
+        destroy: function () {
             this._super();
             $(window).off(this.fileupload_id);
         },
 
-        _onFileLoaded: function(ev, files, rec) {
+        _onFileLoaded: function (ev, files, rec) {
             var self = this;
             this.uploadingFiles = [];
 
             var attachment_ids = this.value.res_ids;
-            _.each(files, function(file) {
+            _.each(files, function (file) {
                 if (file.error) {
                     self.do_warn(_t("Uploading Error"), file.error);
                 } else {
@@ -55,7 +55,7 @@ odoo.define("kanban_view", function(require) {
     });
 
     relational_fields.FieldOne2Many.include({
-        _renderButtons: function() {
+        _renderButtons: function () {
             var self = this;
             this._super();
             var multy_attach =
@@ -83,19 +83,19 @@ odoo.define("kanban_view", function(require) {
 
                 // Show image attachment button
                 multy_attach.parent().attr("style", "display: inline-block;");
-                multy_attach.on("change", function(event) {
-                    self.import_files(event).then(function(res) {
+                multy_attach.on("change", function (event) {
+                    self.import_files(event).then(function (res) {
                         mf_widget._onFileLoaded(event, self.updated_files, self);
                     });
                 });
             }
         },
 
-        import_files: function(event) {
+        import_files: function (event) {
             var self = this;
             this.updated_files = [];
 
-            var deferred_cycle = function(files) {
+            var deferred_cycle = function (files) {
                 var file = files.shift();
                 var done = $.Deferred();
                 var check = typeof file === "object";
@@ -106,7 +106,7 @@ odoo.define("kanban_view", function(require) {
                 var reader = new FileReader();
                 var def = $.Deferred();
                 // Read in the image file as a data URL.
-                reader.onloadend = function(theFile) {
+                reader.onloadend = function (theFile) {
                     var data = theFile.target.result;
                     file.image = data.split(",")[1];
                     file.res_id = self.drop_att.res_id;
@@ -114,7 +114,7 @@ odoo.define("kanban_view", function(require) {
                 };
                 reader.readAsDataURL(file);
 
-                def.then(function() {
+                def.then(function () {
                     var arg = {
                         name: file.name,
                         image: file.image,
@@ -124,10 +124,10 @@ odoo.define("kanban_view", function(require) {
                         model: self.drop_att.model,
                         method: "create",
                         args: [arg],
-                    }).then(function(res) {
+                    }).then(function (res) {
                         self.updated_files.push(_.extend(file, {id: res}));
                         if (files.length) {
-                            deferred_cycle(files).then(function() {
+                            deferred_cycle(files).then(function () {
                                 done.resolve();
                             });
                         } else {
