@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<!-- Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
-     License MIT (https://opensource.org/licenses/MIT). -->
-<odoo>
-    <function
-        model="ir.config_parameter"
-        name="set_init_value_for_ir_attachment_location"
-    />
-</odoo>
