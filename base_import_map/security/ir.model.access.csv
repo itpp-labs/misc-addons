@@ -1,7 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_base_import_map_map_read,access_base_import_map_map,model_base_import_map_map,,1,0,0,0
-access_base_import_map_line_read,access_base_import_map_line,model_base_import_map_line,,1,0,0,0
-access_base_import_map_map_create,access_base_import_map_map_create,model_base_import_map_map,base.group_user,1,0,1,0
-access_base_import_map_line_create,access_base_import_map_line_create,model_base_import_map_line,base.group_user,1,0,1,0
-access_base_import_map_map_full,access_base_import_map_map_full,model_base_import_map_map,base.group_system,1,1,1,1
-access_base_import_map_line_full,access_base_import_map_line_full,model_base_import_map_line,base.group_system,1,1,1,1

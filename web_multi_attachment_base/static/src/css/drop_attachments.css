@@ -1,7 +1,0 @@
-input[type="file"]#file-upload {
-    display: none;
-}
-.custom-file-upload {
-    background-color: #f4f4f4 !important;
-    cursor: pointer;
-}
