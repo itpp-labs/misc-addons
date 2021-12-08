@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_project_timelog,access_project_timelog,model_project_timelog,base.group_user,1,1,1,0
-access_project_task,access_project_task,model_project_task,base.group_user,1,1,1,0
-access_project_task_type,access_project_task_type,model_project_task_type,base.group_user,1,1,1,0
-access_res_users,access_res_users,model_res_users,base.group_user,1,1,0,0
