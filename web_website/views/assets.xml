@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<!-- Copyright 2018,2020 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+     # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).-->
+<odoo>
+    <template id="assets_backend" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script
+                type="text/javascript"
+                src="/web_website/static/lib/js/session.js"
+            />
+            <script
+                type="text/javascript"
+                src="/web_website/static/lib/js/web_client.js"
+            />
+            <script
+                type="text/javascript"
+                src="/web_website/static/lib/js/switch_website_menu.js"
+            />
+        </xpath>
+    </template>
+</odoo>
